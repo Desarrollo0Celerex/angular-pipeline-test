@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -19,7 +19,20 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@components/*": ["app/components/*"],
+      "@constants/*": ["app/constants/*"],
+      "@directives/*": ["app/directives/*"],
+      "@guards/*": ["app/guards/*"],
+      "@helpers/*": ["app/helpers/*"],
+      "@interceptors/*": ["app/interceptors/*"],
+      "@interfaces/*": ["app/interfaces/*"],
+      "@pages/*": ["app/pages/*"],
+      "@pipes/*": ["app/pipes/*"],
+      "@services/*": ["app/services/*"],
+      "@env/*": ["environments/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
