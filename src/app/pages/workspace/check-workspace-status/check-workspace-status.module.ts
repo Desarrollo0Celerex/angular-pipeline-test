@@ -1,0 +1,17 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { CheckWorkspaceStatusRoutingModule } from './check-workspace-status-routing.module';
+import { CheckWorkspaceStatusPage } from './check-workspace-status.page';
+import { CheckWorkspaceStatusService } from './check-workspace-status.service';
+
+
+@NgModule({
+  declarations: [CheckWorkspaceStatusPage],
+  imports: [
+    CommonModule,
+    CheckWorkspaceStatusRoutingModule
+  ],
+  providers: [CheckWorkspaceStatusService]
+})
+export class CheckWorkspaceStatusModule { }
