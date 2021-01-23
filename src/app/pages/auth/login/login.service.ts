@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
-export class AuthLoginService {
+import { AuthService } from '@services/auth/auth.service';
 
-    constructor() { }
+@Injectable()
+export class LoginService {
+
+    constructor(private _authService: AuthService) { }
 
     /**
      * Check if user is logged in
      * @return True if user is logged in, otherwise false
      */
     checkIsLoggedIn(): boolean {
-        // TODO: Revisar si el usuario ya esta conectado
-        return false;
+        return this._authService.checkIsLoggedIn();
     }
 
     /**
