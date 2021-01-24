@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { StorageService } from '@services/storage/storage.service';
+import { StorageService } from '@services/storage.service';
 
 const TOKEN_HEADER_KEY: string = 'Authorization';
 

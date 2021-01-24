@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { UserTokenData } from '@interfaces/user-token-data.interface';
-import { JwtService } from '@services/jwt/jwt.service';
-import { StorageService } from '@services/storage/storage.service';
+import { JwtService } from '@services/jwt.service';
+import { StorageService } from '@services/storage.service';
 
 const ROUTES = {
     users: environment.apiUrl + '/users'
