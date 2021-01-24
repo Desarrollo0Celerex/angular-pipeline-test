@@ -4,21 +4,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { HttpResponse } from '@interfaces/http-response.interface';
 
-import { IdentifierService } from './identifier.service';
+import { IdentifyUserService } from './identify-user.service';
 
 @Component({
-  selector: 'agt-identifier',
+  selector: 'agt-identifyUser',
   template: '',
   styles: [
   ]
 })
-export class IdentifierPage implements OnInit {
+export class IdentifyUserPage implements OnInit {
     private _authToken: string;
     private _redirectUrl: string;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
-        private _identifierService: IdentifierService,
+        private _identifyUserService: IdentifyUserService,
         private _router: Router
     ) {
         this._authToken = '';
@@ -26,7 +26,7 @@ export class IdentifierPage implements OnInit {
     }
 
     ngOnInit(): void {
-        if(this._identifierService.checkIsLoggedIn()) {
+        if(this._identifyUserService.checkIsLoggedIn()) {
             this._router.navigateByUrl(ROUTES_NAME.DASHBOARD);
         } else {
             this._catchParams();
@@ -46,10 +46,10 @@ export class IdentifierPage implements OnInit {
      * Identifies the user
      */
     private _identifyUser(): void {
-        this._identifierService.identifyUser(this._authToken).subscribe( (res: HttpResponse) => {
+        this._identifyUserService.identifyUser(this._authToken).subscribe( (res: HttpResponse) => {
             const userToken: string = res.data;
-            this._identifierService.startSessionInAgethos(userToken);
-            if(this._identifierService.checkHasActiveWorkspace()) {
+            this._identifyUserService.startSessionInAgethos(userToken);
+            if(this._identifyUserService.checkHasActiveWorkspace()) {
                 // TODO: iniciar sesión en firebase
                 console.log('El usuario tiene un espacio de trabajo activo y debe iniciar sesión en firebase')
             } else {

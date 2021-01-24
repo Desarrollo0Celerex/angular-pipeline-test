@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
      */
     private _redirectToAtomAccountLogin(): void {
         const atomAccountLoginUrl: string = `${environment.atomAccountUrl}/auth/identifier`;
-        const returnUrl: string = `${environment.appAgenthosUrl}/auth/identifier`;
+        const returnUrl: string = `${environment.appAgenthosUrl}/auth/identify-user`;
         let loginUrl = `${atomAccountLoginUrl}?serviceName=Agenthos&returnUrl=${returnUrl}`;
         const redirectUrl: string | null = this._loginService.getRedirectUrl();
         if(redirectUrl !== null) {

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { IdentifierPage } from './identifier.page';
+import { IdentifyUserPage } from './identify-user.page';
 
-const routes: Routes = [{ path: '', component: IdentifierPage }];
+const routes: Routes = [{ path: '', component: IdentifyUserPage }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class IdentifierRoutingModule { }
+export class IdentifyUserRoutingModule { }

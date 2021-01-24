@@ -22,11 +22,11 @@ export class WelcomePage implements OnInit {
     }
 
     ngOnInit(): void {
-        this.welcomeService.uploadUser('AID20200521NZIYH');
+        this.welcomeService.loadUser();
     }
 
     /**
-     * Navigate to create a workspace
+     * Click event to navigate to create a workspace
      */
     onClickGoToCreateWorkspace(): void {
         this.router.navigateByUrl(ROUTES_NAME.CREATE_WORKSPACE);

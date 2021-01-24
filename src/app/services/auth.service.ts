@@ -24,6 +24,15 @@ export class AuthService {
     ) { }
 
     /**
+     * Get the user id
+     * @return user id
+     */
+    get userId(): string | null {
+        const userTokenData: UserTokenData | null = this._storageService.getUserTokenData();
+        return (userTokenData !== null) ? userTokenData.userId : null;
+    }
+
+    /**
      * Check if the user has an active workspace
      * @return True, yes it has, otherwise false
      */

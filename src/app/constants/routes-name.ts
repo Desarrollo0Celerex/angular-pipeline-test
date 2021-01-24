@@ -1,6 +1,6 @@
 const AUTH_ROUTES = {
     LOGIN: 'auth/login',
-    IDENTIFIER: (authToken: string) => `auth/identifier/${authToken}`
+    IDENTIFY_USER: (authToken: string) => `auth/identify-user/${authToken}`
 }
 
 const DATA_ROUTES = {

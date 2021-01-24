@@ -10,7 +10,7 @@ const routes: Routes = [
 
     // auth
     { path: ROUTES_NAME.LOGIN, loadChildren: () => import('@pages/auth/login/login.module').then( mod => mod.LoginModule) },
-    { path: ROUTES_NAME.IDENTIFIER(':authToken'), loadChildren: () => import('@pages/auth/identifier/identifier.module').then( mod => mod.IdentifierModule) },
+    { path: ROUTES_NAME.IDENTIFY_USER(':authToken'), loadChildren: () => import('@pages/auth/identify-user/identify-user.module').then( mod => mod.IdentifyUserModule) },
 
     // data
     { path: ROUTES_NAME.DASHBOARD, loadChildren: () => import('@pages/data/dashboard/dashboard.module').then( mod => mod.DashboardModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

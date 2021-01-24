@@ -6,7 +6,7 @@ import { AuthService } from '@services/auth.service';
 import { HttpResponse } from '@interfaces/http-response.interface';
 
 @Injectable()
-export class IdentifierService {
+export class IdentifyUserService {
 
     constructor(private _authService: AuthService) { }
 
