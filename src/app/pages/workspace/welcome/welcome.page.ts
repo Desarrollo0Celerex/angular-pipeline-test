@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { WelcomeService } from './welcome.service';
+
 @Component({
   selector: 'agt-welcome',
   templateUrl: './welcome.page.html',
@@ -8,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomePage implements OnInit {
 
-  constructor() { }
+    constructor(public welcomeService: WelcomeService) { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+        this.welcomeService.uploadUser('AID20200521NZIYH');
+    }
 
 }
