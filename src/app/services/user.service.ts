@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -17,8 +17,10 @@ export class UserService {
      * Get user from API
      * @return User data
      */
-    getUser(userId: string): Observable<HttpResponse> {
+    getUser(userId: string, fields: string = ''): Observable<HttpResponse> {
+        let params: HttpParams = new HttpParams();
+        params = params.append('fields', fields);
         const route: string = ROUTES.users(userId);
-        return this._httpClient.get<HttpResponse>(route);
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 }

@@ -1,5 +1,5 @@
 <!-- AGENTHOS - MAIN VIEW -->
-<div class="page h-100">
+<div class="page h-100" *ngIf="welcomeService.user !== null">
     <div class="">
         <!-- AGENTHOS - LOGO -->
         <div class="col col-login mx-auto">
@@ -15,16 +15,15 @@
                 <div class="card ">
                     <div class="card-body text-center">
                         <!-- ATOM ACCOUNT - USER PIC -->
-                        <span class="avatar avatar-xxl brround cover-image cover-image" data-image-src="https://webkit.atombits.xyz/atombits/avatar/atombits_userpic.png"></span>
+                        <img class="avatar avatar-xxl brround cover-image" [src]="welcomeService.user.avatarUrl">
                         <!-- ATOM ACCOUNT - SHORT NAME -->
-                        <h4 class="h4 mb-0 mt-3">Dann Arenas</h4>
+                        <h4 class="h4 mb-0 mt-3">{{welcomeService.user.shortName}}</h4>
                         <p class="card-text mt-2">Bienvenido</p>
                         <p class="card-text mt-3">Crea un espacio de trabajo para comenzar a administrar tu cartera de clientes.</p>
                     </div>
                     <div class="card-footer text-center">
                         <!-- AGENTHOS - START ACTIVATION -->
-                        <a href="../workspace/agent_update.php" title="Activar Agente">
-                        <button type="button" class="btn btn-primary btn-block"><strong>COMENZAR</strong></button></a>
+                        <button type="button" class="btn btn-primary btn-block" (click)="onClickGoToCreateWorkspace()"><strong>COMENZAR</strong></button>
                     </div>
                 </div>
             </div>

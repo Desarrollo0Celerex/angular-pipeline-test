@@ -6,16 +6,16 @@ import { UserService } from '@services/user.service';
 
 @Injectable()
 export class WelcomeService {
-    user: User | {};
+    user: User | null;
 
     constructor(private _userService: UserService) {
-        this.user = {};
+        this.user = null;
     }
 
     uploadUser(userId: string): void {
-        this._userService.getUser(userId).subscribe( (res: HttpResponse) => {
+        const fields: string = 'avatarUrl,shortName';
+        this._userService.getUser(userId, fields).subscribe( (res: HttpResponse) => {
             this.user = res.data;
-            console.log('this.user: ',this.user);
         })
     }
 }
