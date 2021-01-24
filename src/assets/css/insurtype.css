@@ -1,0 +1,213 @@
+/* SEGUROS PERSONALES */
+
+.lifeInsurance{
+	background-color: #3a9de9;
+	color: #EBF5FC;
+}
+.lifeInsurancePolicy{
+	background: linear-gradient(to right, #32cafe 0, #3582ec 100%);
+}
+
+.retireInsurance{
+	background-color: #3a9de9;
+	color: #EBF5FC;
+}
+.retireInsurancePolicy{
+	background: linear-gradient(to right, #32cafe 0, #3582ec 100%);
+}
+
+.healthInsurance{
+	background-color: #3a9de9;
+	color: #EBF5FC;
+}
+.healthInsurancePolicy{
+	background: linear-gradient(to right, #32cafe 0, #3582ec 100%);
+}
+
+.accidentInsurance{
+	background-color: #3a9de9;
+	color: #EBF5FC;
+}
+.accidentInsurancePolicy{
+	background: linear-gradient(to right, #32cafe 0, #3582ec 100%);
+}
+
+.careInsurance{
+	background-color: #3a9de9;
+	color: #EBF5FC;
+}
+.careInsurancePolicy{
+	background: linear-gradient(to right, #32cafe 0, #3582ec 100%);
+}
+
+/* SEGUROS PATRIMONIALES */
+
+.carInsurance{
+	background-color: #ec1b4b;
+	color: #FDE8ED;
+}
+.carInsurancePolicy{
+	background: linear-gradient(to right, #ff6666 0, #f33540 100%);
+}
+
+.scooterInsurance{
+	background-color: #ec1b4b;
+	color: #FDE8ED;
+}
+.scooterInsurancePolicy{
+	background: linear-gradient(to right, #ff6666 0, #f33540 100%);
+}
+
+.bikeInsurance{
+	background-color: #ec1b4b;
+	color: #FDE8ED;
+}
+.bikeInsurancePolicy{
+	background: linear-gradient(to right, #ff6666 0, #f33540 100%);
+}
+
+.homeInsurance{
+	background-color: #ec1b4b;
+	color: #FDE8ED;
+}
+.homeInsurancePolicy{
+	background: linear-gradient(to right, #ff6666 0, #f33540 100%);
+}
+
+.propertyInsurance{
+	background-color: #ec1b4b;
+	color: #FDE8ED;
+}
+.propertyInsurancePolicy{
+	background: linear-gradient(to right, #ff6666 0, #f33540 100%);
+}
+
+.petInsurance{
+	background-color: #ec1b4b;
+	color: #FDE8ED;
+}
+.petInsurancePolicy{
+	background: linear-gradient(to right, #ff6666 0, #f33540 100%);
+}
+
+.objectsInsurance{
+	background-color: #ec1b4b;
+	color: #FDE8ED;
+}
+.objectsInsurancePolicy{
+	background: linear-gradient(to right, #ff6666 0, #f33540 100%);
+}
+
+.crisisInsurance{
+	background-color: #ec1b4b;
+	color: #FDE8ED;
+}
+.crisisInsurancePolicy{
+	background: linear-gradient(to right, #ff6666 0, #f33540 100%);
+}
+
+/* SEGUROS SERVICIOS */
+
+.travelInsurance{
+	background-color: #00cec9;
+	color: #E5FAF9;
+}
+.travelInsurancePolicy{
+	background: linear-gradient(to right,#E5FAF9 0,#00cec9  100%);
+}
+
+.deathInsurance{
+	background-color: #00cec9;
+	color: #E5FAF9;
+}
+.deathInsurancePolicy{
+	background: linear-gradient(to right,#E5FAF9 0,#00cec9  100%);
+}
+
+.legalInsurance{
+	background-color: #00cec9;
+	color: #E5FAF9;
+}
+.legalInsurancePolicy{
+	background: linear-gradient(to right,#E5FAF9 0,#00cec9  100%);
+}
+
+/* SEGUROS FINANCIEROS */
+
+.creditInsurance{
+	background-color: #00b894;
+	color: #E5F7F4;
+}
+.creditInsurancePolicy{
+	background: linear-gradient(to right,#E5F7F4 0,#00b894  100%);
+}
+
+.warrantyInsurance{
+	background-color: #00b894;
+	color: #E5F7F4;
+}
+.warrantyInsurancePolicy{
+	background: linear-gradient(to right,#E5F7F4 0,#00b894  100%);
+}
+
+.fianceInsurance{
+	background-color: #00b894;
+	color: #E5F7F4;
+}
+.fianceInsurancePolicy{
+	background: linear-gradient(to right,#E5F7F4 0,#00b894  100%);
+}
+
+/* SEGUROS RESPONSABILIDAD CIVIL */
+
+.civilInsurance{
+	background-color: #fdcb6e;
+	color: #FEF9F0;
+}
+.civilInsurancePolicy{
+	background: linear-gradient(to right,#FEF9F0 0,#fdcb6e  100%);
+}
+
+.technicalInsurance{
+	background-color: #fdcb6e;
+	color: #FEF9F0;
+}
+.technicalInsurancePolicy{
+	background: linear-gradient(to right,#FEF9F0 0,#fdcb6e  100%);
+}
+
+.cautionInsurance{
+	background-color: #fdcb6e;
+	color: #FEF9F0;
+}
+.cautionInsurancePolicy{
+	background: linear-gradient(to right,#FEF9F0 0,#fdcb6e  100%);
+}
+
+/* SEGUROS TRANSPORTES PESADOS */
+
+.transportInsurance{
+	background-color: #ff926b;
+	color: #FFF4F0;
+}
+.transportInsurancePolicy{
+	background: linear-gradient(to right,#FFF4F0 0,#ff926b  100%);
+}
+
+.aeroInsurance{
+	background-color: #ff926b;
+	color: #FFF4F0;
+}
+.aeroInsurancePolicy{
+	background: linear-gradient(to right,#FFF4F0 0,#ff926b  100%);
+}
+
+/* SEGUROS AGRÍCOLA Y GANADO */
+
+.farmInsurance{
+	background-color: #ce9c7b;
+	color: #FAF5F1;
+}
+.farmInsurancePolicy{
+	background: linear-gradient(to right,#FAF5F1 0,#ce9c7b  100%);
+}
