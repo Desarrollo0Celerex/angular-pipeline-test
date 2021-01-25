@@ -18,6 +18,7 @@ const routes: Routes = [
     // workspace
     { path: ROUTES_NAME.CHECK_WORKSPACE_STATUS, loadChildren: () => import('@pages/workspace/check-workspace-status/check-workspace-status.module').then( mod => mod.CheckWorkspaceStatusModule), canActivate: [UserAuthenticatedGuard] },
     { path: ROUTES_NAME.WELCOME, loadChildren: () => import('@pages/workspace/welcome/welcome.module').then( mod => mod.WelcomeModule), canActivate: [UserAuthenticatedGuard] },
+    { path: ROUTES_NAME.CREATE_WORKSPACE, loadChildren: () => import('@pages/workspace/create-workspace/create-workspace.module').then(mod => mod.CreateWorkspaceModule), canActivate: [UserAuthenticatedGuard] },
 
     // error
     { path: ROUTES_NAME.NOT_AUTHENTICATED, loadChildren: () => import('@pages/error/not-authenticated/not-authenticated.module').then( mod => mod.NotAuthenticatedModule) }

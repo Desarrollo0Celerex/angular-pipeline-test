@@ -47,7 +47,7 @@ export class StorageService {
 
     /**
      * Save the user token data
-     * @param userTokenData [description]
+     * @param userTokenData User token data
      */
     saveUserTokenData(userTokenData: UserTokenData): void {
         localStorage.removeItem(USER_DATA_KEY);

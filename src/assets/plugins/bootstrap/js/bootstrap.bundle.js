@@ -4266,7 +4266,7 @@
     boundary: '(string|element)',
     reference: '(string|element)',
     display: 'string',
-    popperConfig: '(null|object)'
+    popperConfig: '(null|object|window)'
   };
   /**
    * ------------------------------------------------------------------------
