@@ -5473,9 +5473,9 @@
     fallbackPlacement: '(string|array)',
     boundary: '(string|element)',
     sanitize: 'boolean',
-    sanitizeFn: '(null|function)',
+    sanitizeFn: '(null|function|window)',
     whiteList: 'object',
-    popperConfig: '(null|object)'
+    popperConfig: '(null|object|window)'
   };
   var AttachmentMap$1 = {
     AUTO: 'auto',

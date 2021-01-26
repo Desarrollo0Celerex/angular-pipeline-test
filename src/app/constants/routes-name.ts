@@ -1,20 +1,20 @@
 const AUTH_ROUTES = {
-    LOGIN: 'auth/login',
-    IDENTIFY_USER: (authToken: string) => `auth/identify-user/${authToken}`
+    login: 'auth/login',
+    identify_user: (authToken: string) => `auth/identify-user/${authToken}`
 }
 
 const DATA_ROUTES = {
-    DASHBOARD: 'data/dashboard'
+    dashboard: 'data/dashboard'
 }
 
 const ERROR_ROUTES = {
-    NOT_AUTHENTICATED: 'error/not-authenticated'
+    notAuthenticated: 'error/not-authenticated'
 }
 
 const WORKSPACE_ROUTES = {
-    CHECK_WORKSPACE_STATUS: 'workspace/check-status',
-    WELCOME: 'workspace/welcome',
-    CREATE_WORKSPACE: 'workspace/create-workspace'
+    checkWorkspaceStatus: 'workspace/check-status',
+    welcome: 'workspace/welcome',
+    createWorkspace: 'workspace/create-workspace'
 }
 
 export const ROUTES_NAME = {

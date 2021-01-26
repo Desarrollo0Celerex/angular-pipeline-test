@@ -22,7 +22,7 @@ export class CheckWorkspaceStatusPage implements OnInit {
         if(this._checkWorkspaceStatusService.checkHasWorkspace()) {
             // TODO: Solicitar el estatus actual del ET y evaluarlo
         } else {
-            this._router.navigateByUrl(ROUTES_NAME.WELCOME);
+            this._router.navigateByUrl(ROUTES_NAME.welcome);
         }
     }
 

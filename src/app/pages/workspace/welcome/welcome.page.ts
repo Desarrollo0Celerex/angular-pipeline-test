@@ -29,7 +29,7 @@ export class WelcomePage implements OnInit {
      * Click event to navigate to create a workspace
      */
     onClickGoToCreateWorkspace(): void {
-        this.router.navigateByUrl(ROUTES_NAME.CREATE_WORKSPACE);
+        this.router.navigateByUrl(ROUTES_NAME.createWorkspace);
     }
 
 }

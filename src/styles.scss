@@ -39,3 +39,8 @@
 .form-control.is-valid:focus, .form-control.is-invalid:focus {
 	border-color: transparent !important;
 }
+
+/* Dropdown */
+.dropdown-menu .dropdown-item {
+    cursor: pointer;
+}

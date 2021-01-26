@@ -15,7 +15,9 @@ export class UserService {
 
     /**
      * Get user from API
-     * @return User data
+     * @param  userId User Id
+     * @param  fields Fields
+     * @return        User
      */
     getUser(userId: string, fields: string = ''): Observable<HttpResponse> {
         let params: HttpParams = new HttpParams();

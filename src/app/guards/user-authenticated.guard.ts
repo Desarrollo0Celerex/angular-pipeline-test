@@ -22,7 +22,7 @@ export class UserAuthenticatedGuard implements CanActivate {
         if(this._authService.checkIsLoggedIn()) {
             return true;
         }
-        this._router.navigateByUrl(ROUTES_NAME.NOT_AUTHENTICATED);
+        this._router.navigateByUrl(ROUTES_NAME.notAuthenticated);
         return false;
     }
 

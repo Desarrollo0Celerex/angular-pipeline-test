@@ -22,7 +22,7 @@ export class WorkspaceActivatedGuard implements CanActivate {
         if(this._authService.checkHasActiveWorkspace()) {
             return true;
         } else {
-            this._router.navigateByUrl(ROUTES_NAME.CHECK_WORKSPACE_STATUS);
+            this._router.navigateByUrl(ROUTES_NAME.checkWorkspaceStatus);
             return false;
         }
     }

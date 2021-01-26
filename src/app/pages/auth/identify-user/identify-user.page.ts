@@ -27,7 +27,7 @@ export class IdentifyUserPage implements OnInit {
 
     ngOnInit(): void {
         if(this._identifyUserService.checkIsLoggedIn()) {
-            this._router.navigateByUrl(ROUTES_NAME.DASHBOARD);
+            this._router.navigateByUrl(ROUTES_NAME.dashboard);
         } else {
             this._catchParams();
             this._identifyUser();
@@ -39,7 +39,7 @@ export class IdentifyUserPage implements OnInit {
      */
     private _catchParams(): void {
         this._authToken = this._activatedRoute.snapshot.params.authToken;
-        this._redirectUrl = this._activatedRoute.snapshot.queryParams['redirectUrl'] || ROUTES_NAME.DASHBOARD;
+        this._redirectUrl = this._activatedRoute.snapshot.queryParams['redirectUrl'] || ROUTES_NAME.dashboard;
     }
 
     /**

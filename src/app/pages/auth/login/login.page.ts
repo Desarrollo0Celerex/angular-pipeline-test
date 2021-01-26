@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
 
     ngOnInit(): void {
         if(this._loginService.checkIsLoggedIn()) {
-            this._router.navigateByUrl(ROUTES_NAME.DASHBOARD);
+            this._router.navigateByUrl(ROUTES_NAME.dashboard);
         } else {
             this._redirectToAtomAccountLogin();
         }

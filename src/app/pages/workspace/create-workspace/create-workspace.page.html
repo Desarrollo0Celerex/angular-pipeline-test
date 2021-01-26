@@ -37,20 +37,7 @@
                                 <!-- AGENTHOS - AGENT PHONE -->
                                 <label class="form-label">Teléfono Principal</label>
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="dropdown">
-                                            <!-- AGENTHOS - AGENT PHONE CODE * -->
-                                            <button type="button" class="btn btn-default-light dropdown-toggle" data-toggle="dropdown">
-                                                <i class="flag flag-mx mr-1" data-toggle="tooltip" title="" data-original-title="México"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <div class="dropdown-item"><i class="flag flag-co mr-1"></i>CO +52</div>
-                                                <div class="dropdown-item"><i class="flag flag-ar mr-1"></i>AR +52</div>
-                                                <div class="dropdown-item"><i class="flag flag-es mr-1"></i>ES +52</div>
-                                                <div class="dropdown-item"><i class="flag flag-us mr-1"></i>US +52</div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <agt-dropdown-select-phone-code [phoneCodeId]="DEFAULT_PHONE_CODE" (phoneCodeIdSelected)="phoneCodeIdSelected($event)"></agt-dropdown-select-phone-code>
                                     <!-- AGENTHOS - AGENT PHONE NUMER * -->
                                     <input type="text" name="agtContactPhone" class="form-control" placeholder="Ingresa el teléfono principal">
                                 </div>
