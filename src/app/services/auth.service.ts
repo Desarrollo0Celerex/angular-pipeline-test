@@ -34,7 +34,7 @@ export class AuthService {
 
     /**
      * Check if the user has an active workspace
-     * @return True, yes it has, otherwise false
+     * @return True if it has, otherwise false
      */
     checkHasActiveWorkspace(): boolean {
         const userTokenData: UserTokenData | null = this._storageService.getUserTokenData();
@@ -43,7 +43,7 @@ export class AuthService {
 
     /**
      * Check if the user has a workspace
-     * @return True, yes it has, otherwise false
+     * @return True if it has, otherwise false
      */
     checkHasWorkspace(): boolean {
         const userTokenData: UserTokenData | null = this._storageService.getUserTokenData();

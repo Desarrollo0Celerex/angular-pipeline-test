@@ -12,72 +12,76 @@
         <div class="container-login100">
             <div class="col-md-8 col-xl-8">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Datos del Agente</h3>
-                    </div>
-                    <div class="card-body">
-                        <!-- AGENTHOS - AGENT DETAILS -->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - AGENT REAL NAME * -->
-                                    <label class="form-label">Nombre del Agente</label>
-                                    <input type="text" name="agtRealName" class="form-control is-valid state-valid" placeholder="Ingresa el nombre del agente">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - AGENT BRAND NAME * -->
-                                    <label class="form-label">Nombre Comercial</label>
-                                    <input type="text" name="agtBrandName" class="form-control is-invalid state-invalid" placeholder="Ingresa el nombre comercial">
-                                    <div class="invalid-feedback">Mensaje de error</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <!-- AGENTHOS - AGENT PHONE -->
-                                <label class="form-label">Teléfono Principal</label>
-                                <div class="input-group">
-                                    <agt-dropdown-select-phone-code [phoneCodeId]="DEFAULT_PHONE_CODE" (phoneCodeIdSelected)="phoneCodeIdSelected($event)"></agt-dropdown-select-phone-code>
-                                    <!-- AGENTHOS - AGENT PHONE NUMER * -->
-                                    <input type="text" name="agtContactPhone" class="form-control" placeholder="Ingresa el teléfono principal">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - AGENT WEBSITE -->
-                                    <label class="form-label">Sitio Web</label>
-                                    <input type="text" name="agtAgentWebSite" class="form-control" placeholder="Ingresa el sitio web">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - AGENT COUNTRY * -->
-                                    <label class="form-label">País</label>
-                                    <input type="text" name="agtAgentCountry" class="form-control" placeholder="México" disabled="">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - AGENT STATE * -->
-                                    <label class="form-label">Estado</label>
-                                    <select name="agtAgentState" class="form-control select2 custom-select">
-                                        <option value="0">Puebla</option>
-                                        <option value="1">Jalisco</option>
-                                        <option value="2">CDMX</option>
-                                        <option value="3">Tlaxcala</option>
-                                        <option value="4">...</option>
-                                    </select>
-                                    <div class="invalid-feedback">Mensaje de error</div>
-                                </div>
-                            </div>
+                    <form [formGroup]="createWorkspaceService.workspaceForm" (submit)="onSubmitCreateWorkspace()">
+                        <div class="card-header">
+                            <h3 class="card-title">Datos del Agente</h3>
                         </div>
-                        <!-- //AGENTHOS - AGENT DETAILS -->
-                    </div>
-                    <div class="card-footer text-center">
-                        <!-- AGENTHOS - START ACTIVATION -->
-                        <!-- AGENTHOS - TARGET (AGTVIEW0003) -->
-                        <button type="button" id="agtAgentCreated" class="btn btn-primary btn-block"><strong>CONTINUAR</strong></button>
-                    </div>
+                        <div class="card-body">
+                            <!-- AGENTHOS - AGENT DETAILS -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <!-- AGENTHOS - AGENT REAL NAME * -->
+                                        <label class="form-label">Nombre del Agente</label>
+                                        <input type="text" class="form-control {{getValidationClass('realName')}}" placeholder="Ingresa el nombre del agente" formControlName="realName">
+                                        <div class="invalid-feedback">{{getErrorMessage('realName')}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <!-- AGENTHOS - AGENT BRAND NAME * -->
+                                        <label class="form-label">Nombre Comercial</label>
+                                        <input type="text" class="form-control {{getValidationClass('brandName')}}" placeholder="Ingresa el nombre comercial" formControlName="brandName">
+                                        <div class="invalid-feedback">{{getErrorMessage('brandName')}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- AGENTHOS - AGENT PHONE -->
+                                    <label class="form-label">Teléfono Principal</label>
+                                    <div class="input-group">
+                                        <agt-dropdown-select-phone-code [phoneCodeId]="createWorkspaceService.f.phoneCodeId.value" (phoneCodeIdSelected)="onPhoneCodeIdSelected($event)"></agt-dropdown-select-phone-code>
+                                        <!-- AGENTHOS - AGENT PHONE NUMER * -->
+                                        <input type="text" class="form-control {{getValidationClass('phoneNumber')}}" placeholder="Ingresa el teléfono principal" formControlName="phoneNumber">
+                                        <div class="invalid-feedback">{{getErrorMessage('phoneNumber')}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <!-- AGENTHOS - AGENT WEBSITE -->
+                                        <label class="form-label">Sitio Web</label>
+                                        <input type="text" class="form-control {{getValidationClass('webSite')}}" placeholder="Ingresa el sitio web" formControlName="webSite">
+                                        <div class="invalid-feedback">{{getErrorMessage('webSite')}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <!-- AGENTHOS - AGENT COUNTRY * -->
+                                        <label class="form-label">País</label>
+                                        <select class="form-control select2 custom-select {{getValidationClass('countryId')}}" formControlName="countryId" (change)="onChangeCountryId($event)">
+                                            <option [value]="country.countryId" *ngFor="let country of createWorkspaceService.countries">{{country.name}}</option>
+                                        </select>
+                                        <div class="invalid-feedback">{{getErrorMessage('countryId')}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <!-- AGENTHOS - AGENT STATE * -->
+                                        <label class="form-label">Estado</label>
+                                        <select class="form-control select2 custom-select {{getValidationClass('stateId')}}" formControlName="stateId">
+                                            <option [value]="state.stateId" *ngFor="let state of createWorkspaceService.countryStates">{{state.name}}</option>
+                                        </select>
+                                        <div class="invalid-feedback">{{getErrorMessage('stateId')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - AGENT DETAILS -->
+                        </div>
+                        <div class="card-footer text-center">
+                            <!-- AGENTHOS - START ACTIVATION -->
+                            <!-- AGENTHOS - TARGET (AGTVIEW0003) -->
+                            <button type="submit" class="btn btn-primary btn-block"><strong>CONTINUAR</strong></button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

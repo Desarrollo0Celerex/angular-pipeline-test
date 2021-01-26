@@ -1,0 +1,66 @@
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+
+export class InputValidatorHelper {
+
+    /**
+     * Get the validation class
+     * @param  control         Control
+     * @param  isFormSubmitted Is form submitted
+     * @return                 Validation class
+     */
+    static getValidationClass(control: AbstractControl | null, isFormSubmitted: boolean): string {
+        let validationClass: string = '';
+        if(control !== null) {
+            const validators = control.validator!( {} as AbstractControl);
+            if((validators === null || (validators !== null && typeof validators.required == 'undefined') ) && control.value === '') {
+                validationClass = '';
+            } else if(control.touched || isFormSubmitted) {
+                validationClass = (control.valid) ? 'is-valid' : 'is-invalid';
+            }
+        }
+        return validationClass;
+    }
+
+    /**
+     * Get the error message
+     * @param  errors Error to evaluate
+     * @return        Error message
+     */
+    static getErrorMessage(control: AbstractControl | null): string {
+        let message: string = '';
+        if(!!control) {
+            const error: ValidationErrors | null = control.errors;
+            if(!!error) {
+                switch(true) {
+                    case (typeof error.required !== 'undefined'):
+                        message = 'Por favor complete este campo.';
+                        break;
+                    case (typeof error.minlength !== 'undefined'):
+                        message = 'Solo se permiten palabras con más de '+error.minlength.requiredLength+' caracteres.';
+                        break;
+                    case (typeof error.maxlength !== 'undefined'):
+                        message = 'Solo se permiten palabras con menos de '+error.maxlength.requiredLength+' caracteres.';
+                        break;
+                    case (typeof error.alphanumeric !== 'undefined'):
+                        message = 'Solo se permiten textos con números y letras.';
+                        break;
+                    case (typeof error.phoneNumber !== 'undefined'):
+                        message = 'Por favor ingresa un número de 10 dígitos.';
+                        break;
+                    case (typeof error.webLink !== 'undefined'):
+                        message = 'Por favor ingresa un enlace válido.';
+                        break;
+                    case (typeof error.numeric !== 'undefined'):
+                        message = 'Por favor ingresa un número válido.';
+                        break;
+                    case (typeof error.email !== 'undefined'):
+                        message = 'Por favor ingresa un correo válido.';
+                        break;
+                    default: message = '';
+                }
+            }
+        }
+        return message;
+    }
+
+}
