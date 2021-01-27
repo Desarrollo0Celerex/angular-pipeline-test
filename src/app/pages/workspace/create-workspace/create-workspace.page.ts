@@ -6,6 +6,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertsHelper } from '@helpers/alerts.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { LoadingService } from '@services/loading.service';
 
 import { CreateWorkspaceService } from './create-workspace.service';
 
@@ -25,6 +26,7 @@ export class CreateWorkspacePage implements OnInit {
 
     constructor(
         public createWorkspaceService: CreateWorkspaceService,
+        private _loadingService: LoadingService,
         private _router: Router
     ) {
         this._isFormSubmitted = false;
@@ -68,7 +70,9 @@ export class CreateWorkspacePage implements OnInit {
     onSubmitCreateWorkspace(): void {
         this._isFormSubmitted = true;
         if(this.createWorkspaceService.workspaceForm.valid) {
+            this._loadingService.show();
             this.createWorkspaceService.createWorkspace().subscribe( (res: HttpResponse) => {
+                this._loadingService.hide();
                 this.createWorkspaceService.startSessionInAgethos(res.data);
                 AlertsHelper.workspaceCreated(this._goToUploadWorkspaceAvatar, this);
             })
