@@ -14,7 +14,8 @@ const ERROR_ROUTES = {
 const WORKSPACE_ROUTES = {
     checkWorkspaceStatus: 'workspace/check-status',
     welcome: 'workspace/welcome',
-    createWorkspace: 'workspace/create-workspace'
+    createWorkspace: 'workspace/create-workspace',
+    uploadWorkspaceAvatar: 'workspace/upload-workspace-avatar'
 }
 
 export const ROUTES_NAME = {

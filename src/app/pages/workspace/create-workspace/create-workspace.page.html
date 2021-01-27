@@ -57,17 +57,16 @@
                                     <div class="form-group">
                                         <!-- AGENTHOS - AGENT COUNTRY * -->
                                         <label class="form-label">País</label>
-                                        <select class="form-control select2 custom-select {{getValidationClass('countryId')}}" formControlName="countryId" (change)="onChangeCountryId($event)">
+                                        <select [id]="selectCountriesId" class="form-control select2 custom-select" formControlName="countryId">
                                             <option [value]="country.countryId" *ngFor="let country of createWorkspaceService.countries">{{country.name}}</option>
                                         </select>
-                                        <div class="invalid-feedback">{{getErrorMessage('countryId')}}</div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <!-- AGENTHOS - AGENT STATE * -->
                                         <label class="form-label">Estado</label>
-                                        <select class="form-control select2 custom-select {{getValidationClass('stateId')}}" formControlName="stateId">
+                                        <select [id]="selectCountryStatesId" class="form-control select2 custom-select {{getValidationClass('stateId')}}" formControlName="stateId">
                                             <option [value]="state.stateId" *ngFor="let state of createWorkspaceService.countryStates">{{state.name}}</option>
                                         </select>
                                         <div class="invalid-feedback">{{getErrorMessage('stateId')}}</div>

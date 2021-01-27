@@ -1,4 +1,4 @@
-var SwalPlugin = function() {
+var SweetAlertPlugin = function() {
 
 	/**
 	 * Muestra un alert
