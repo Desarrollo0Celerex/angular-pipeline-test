@@ -75,6 +75,20 @@ export class ValidatorsHelper {
     }
 
     /**
+     * Validate a license code
+     * @param  control Control
+     * @return         Error object if validation was successful, otherwise false.
+     */
+    static licenseCode(control: AbstractControl) {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^[0-9]{16}$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {licenseCode: true} : null;
+        }
+        return null;
+    }
+
+    /**
      * Check if a control can be validated
      * @param  control Control
      * @return         True if you can, otherwise false.

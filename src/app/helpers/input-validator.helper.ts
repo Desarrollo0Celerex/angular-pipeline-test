@@ -56,6 +56,9 @@ export class InputValidatorHelper {
                     case (typeof error.email !== 'undefined'):
                         message = 'Por favor ingresa un correo válido.';
                         break;
+                    case (typeof error.licenseCode !== 'undefined'):
+                        message = 'Por favor ingresa un código de licensia válido.';
+                        break;
                     default: message = '';
                 }
             }

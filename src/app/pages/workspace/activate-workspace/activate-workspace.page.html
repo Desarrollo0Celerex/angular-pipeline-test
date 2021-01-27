@@ -1,0 +1,41 @@
+<div class="page h-100" *ngIf="activateWorkspaceService.workspace !== null">
+    <div class="">
+        <!-- AGENTHOS - LOGO -->
+        <div class="col col-login mx-auto">
+            <div class="text-center">
+                <img src="https://webkit.atombits.xyz/agenthos/logo/agenthos_dark.png" class="header-brand-img" alt="Agenthos Logo">
+            </div>
+        </div>
+        <!-- //AGENTHOS - LOGO -->
+
+        <!-- AGENTHOS - WORKSPACE ACTIVATION ACTIVATION -->
+        <div class="container-login100">
+            <div class="col-md-8 col-xl-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Datos del Agente</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <!-- AGENTHOS - AGENT LOGO -->
+                        <img class="avatar avatar-xxl brround cover-image" [src]="activateWorkspaceService.workspace.avatarUrl"/>
+                        <!-- AGENTHOS - AGENT BRAND NAME -->
+                        <h4 class="h4 mb-0 mt-3 mb-3">{{activateWorkspaceService.workspace.brandName}}</h4>
+                        <!-- AGENTHOS - AGENT REAL NAME -->
+                        <p class="card-text">{{activateWorkspaceService.workspace.realName}}</p>
+                        <!-- AGENTHOS - ATOM PASS -->
+                        <div class="col-md-12 mt-5">
+                            <button type="button" class="btn btn-secondary btn-block" (click)="onClickShowModalActivateWorkspace()"><strong>INGRESAR CÓDIGO DE LICENCIA</strong></button>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <!-- AGENTHOS - START FREE TRIAL -->
+                        <button type="button" class="btn btn-primary btn-block"><strong>INICIAR PERIODO DE PRUEBA</strong></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- AGENTHOS - WORKSPACE ACTIVATION ACTIVATION -->
+    </div>
+</div>
+
+<agt-modal-activate-workspace [modalId]="activateWorkspaceModalId"></agt-modal-activate-workspace>

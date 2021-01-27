@@ -9,6 +9,7 @@ import { AuthService } from '@services/auth.service';
 
 const ROUTES = {
     workspaces: `${environment.apiUrl}/workspaces`,
+    workspace: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}`,
     workspaceAvatar: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/avatar`
 }
 
@@ -31,6 +32,18 @@ export class WorkspaceService {
     createWorkspace(requestBody: CreateWorkspaceDataSend): Observable<HttpResponse> {
         const route: string = ROUTES.workspaces;
         return this._httpClient.post<HttpResponse>(route, requestBody);
+    }
+
+    /**
+     * Get the workspace from the API
+     * @param  fields fields
+     * @return        Workspace data
+     */
+    getWorkspace(fields: string = ''): Observable<HttpResponse> {
+        const route: string = ROUTES.workspace(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params});
     }
 
     /**

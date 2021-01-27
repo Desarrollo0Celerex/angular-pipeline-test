@@ -20,6 +20,7 @@ const routes: Routes = [
     { path: ROUTES_NAME.welcome, loadChildren: () => import('@pages/workspace/welcome/welcome.module').then( mod => mod.WelcomeModule), canActivate: [UserAuthenticatedGuard] },
     { path: ROUTES_NAME.createWorkspace, loadChildren: () => import('@pages/workspace/create-workspace/create-workspace.module').then(mod => mod.CreateWorkspaceModule), canActivate: [UserAuthenticatedGuard] },
     { path: ROUTES_NAME.uploadWorkspaceAvatar, loadChildren: () => import('@pages/workspace/upload-workspace-avatar/upload-workspace-avatar.module').then(mod => mod.UploadWorkspaceAvatarModule), canActivate: [UserAuthenticatedGuard] },
+    { path: ROUTES_NAME.activateWorkspace, loadChildren: () => import('@pages/workspace/activate-workspace/activate-workspace.module').then(mod => mod.ActivateWorkspaceModule), canActivate: [UserAuthenticatedGuard] },
 
     // error
     { path: ROUTES_NAME.notAuthenticated, loadChildren: () => import('@pages/error/not-authenticated/not-authenticated.module').then( mod => mod.NotAuthenticatedModule) }
