@@ -1,3 +1,7 @@
+/********************************/
+/******** REWRITE STYLES ********/
+/********************************/
+
 /* Select2 */
 .select2-selection__arrow b {
     border-color: #292828 transparent transparent transparent !important;
@@ -43,4 +47,14 @@
 /* Dropdown */
 .dropdown-menu .dropdown-item {
     cursor: pointer;
+}
+
+/********************************/
+/******** CUSTOM STYLES *********/
+/********************************/
+
+/** Image cropper */
+.agt-image-cropper {
+	max-height: 420px !important;
+    max-height: 360px !important;
 }

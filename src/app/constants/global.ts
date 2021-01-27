@@ -28,3 +28,5 @@ export const FREE_TEXT_LENGTH: any = {
     MIN: 3,
     MAX: 1000
 }
+
+export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];

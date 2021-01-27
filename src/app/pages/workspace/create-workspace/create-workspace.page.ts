@@ -3,7 +3,7 @@ import { AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertsHelper } from '@helpers/alerts.helper';
+import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { LoadingService } from '@services/loading.service';
@@ -74,7 +74,7 @@ export class CreateWorkspacePage implements OnInit {
             this.createWorkspaceService.createWorkspace().subscribe( (res: HttpResponse) => {
                 this._loadingService.hide();
                 this.createWorkspaceService.startSessionInAgethos(res.data);
-                AlertsHelper.workspaceCreated(this._goToUploadWorkspaceAvatar, this);
+                AlertHelper.workspaceCreated(this._goToUploadWorkspaceAvatar, this);
             })
         }
     }

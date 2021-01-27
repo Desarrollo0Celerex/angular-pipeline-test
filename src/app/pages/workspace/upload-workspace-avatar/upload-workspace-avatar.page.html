@@ -1,0 +1,58 @@
+<!-- AGENTHOS - MAIN VIEW -->
+<div class="page h-100">
+    <div class="">
+
+        <!-- AGENTHOS - AGENT LOGO -->
+        <div class="container-login100">
+            <div class="col-md-8 col-xl-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Imagen del Agente</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- AGENTHOS - LOGO UPLOAD -->
+                            <div class="col-md-12" [ngStyle]="{'display': isPreviewLoaded ? 'none' : 'block' }">
+                                <div class="form-group">
+                                    <input type="file" class="dropify" data-max-file-size="2M" (change)="onChangeImage($event)"/>
+                                </div>
+                            </div>
+                            <!-- AGENTHOS - LOGO UPLOAD -->
+
+                            <!-- RECORTAR IMAGEN -->
+                            <image-cropper
+                                *ngIf="isPreviewLoaded"
+                                class="agt-image-cropper"
+                                [imageChangedEvent]="imageChangedEvent"
+                                [maintainAspectRatio]="true"
+                                [aspectRatio]="1 / 1"
+                                format="png"
+                                (imageCropped)="onImageCropped($event)"
+                                (loadImageFailed)="onLoadImageFailed()"
+                            >
+                            </image-cropper>
+                            <!-- //RECORTAR IMAGEN -->
+
+                            <!-- AGENTHOS - SAVE IMAGE -->
+                            <div class="col-md-12 mt-3" *ngIf="isPreviewLoaded">
+                                <button type="button" class="btn btn-primary btn-block" (click)="onClickUploadImage()"><strong>GUARDAR IMAGEN</strong></button>
+                            </div>
+                            <!-- //AGENTHOS - SAVE IMAGE -->
+                        </div>
+                    </div>
+
+                        <!-- AGENTHOS - NEXT STEP -->
+                    <div class="card-footer text-center">
+                        <button type="button" class="btn btn-primary btn-block" *ngIf="!isPreviewLoaded; else cancel" (click)="onClickSkipStep()"><strong>OMITIR PASO</strong></button>
+                        <ng-template #cancel>
+                            <button type="button" class="btn btn-secondary btn-block" (click)="onClickCancel()"><strong>CANCELAR</strong></button>
+                        </ng-template>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - AGENT LOGO -->
+    </div>
+</div>
+<!-- //AGENTHOS MAIN VIEW -->

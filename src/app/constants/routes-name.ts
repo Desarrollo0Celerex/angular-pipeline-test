@@ -15,7 +15,8 @@ const WORKSPACE_ROUTES = {
     checkWorkspaceStatus: 'workspace/check-status',
     welcome: 'workspace/welcome',
     createWorkspace: 'workspace/create-workspace',
-    uploadWorkspaceAvatar: 'workspace/upload-workspace-avatar'
+    uploadWorkspaceAvatar: 'workspace/upload-workspace-avatar',
+    activateWorkspace: 'workspace/activate-workspace'
 }
 
 export const ROUTES_NAME = {
