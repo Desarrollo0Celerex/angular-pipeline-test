@@ -8,11 +8,12 @@ const DATA_ROUTES = {
 }
 
 const ERROR_ROUTES = {
+    notFound: 'error/not-found',
     notAuthenticated: 'error/not-authenticated'
 }
 
-const INVITATIONS = {
-    sendInvitatios: 'invitations/send-invitations'
+const HOME_INVITATION_ROUTES = {
+    sendInvitations: 'home/invitations/send-invitations'
 }
 
 const WORKSPACE_ROUTES = {
@@ -27,6 +28,6 @@ export const ROUTES_NAME = {
     ...AUTH_ROUTES,
     ...DATA_ROUTES,
     ...ERROR_ROUTES,
-    ...INVITATIONS,
+    ...HOME_INVITATION_ROUTES,
     ...WORKSPACE_ROUTES
 }

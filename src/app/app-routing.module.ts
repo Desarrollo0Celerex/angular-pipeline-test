@@ -15,6 +15,9 @@ const routes: Routes = [
     // data
     { path: ROUTES_NAME.dashboard, loadChildren: () => import('@pages/data/dashboard/dashboard.module').then( mod => mod.DashboardModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
+    // Home
+    { path: '', loadChildren: () => import('@pages/home/home.module').then(mod => mod.HomeModule) },
+
     // workspace
     { path: ROUTES_NAME.checkWorkspaceStatus, loadChildren: () => import('@pages/workspace/check-workspace-status/check-workspace-status.module').then( mod => mod.CheckWorkspaceStatusModule), canActivate: [UserAuthenticatedGuard] },
     { path: ROUTES_NAME.welcome, loadChildren: () => import('@pages/workspace/welcome/welcome.module').then( mod => mod.WelcomeModule), canActivate: [UserAuthenticatedGuard] },
@@ -23,7 +26,10 @@ const routes: Routes = [
     { path: ROUTES_NAME.activateWorkspace, loadChildren: () => import('@pages/workspace/activate-workspace/activate-workspace.module').then(mod => mod.ActivateWorkspaceModule), canActivate: [UserAuthenticatedGuard] },
 
     // error
-    { path: ROUTES_NAME.notAuthenticated, loadChildren: () => import('@pages/error/not-authenticated/not-authenticated.module').then( mod => mod.NotAuthenticatedModule) }
+    { path: ROUTES_NAME.notFound, loadChildren: () => import('@pages/error/not-found/not-found.module').then( mod => mod.NotFoundModule) },
+    { path: ROUTES_NAME.notAuthenticated, loadChildren: () => import('@pages/error/not-authenticated/not-authenticated.module').then( mod => mod.NotAuthenticatedModule) },
+
+    { path: '**', redirectTo: ROUTES_NAME.notFound }
 ];
 
 @NgModule({
