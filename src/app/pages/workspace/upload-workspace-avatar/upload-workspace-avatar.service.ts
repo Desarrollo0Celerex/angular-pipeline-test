@@ -16,8 +16,7 @@ export class UploadWorkspaceAvatarService {
      * @return       Empty
      */
     uploadWorkspaceAvatar(image: string | null): Observable<HttpResponse> {
-        const requestBody: Object = { image };
-        return this._workspaceService.uploadWorkspaceAvatar(requestBody);
+        return this._workspaceService.uploadWorkspaceAvatar(image);
     }
 
 }

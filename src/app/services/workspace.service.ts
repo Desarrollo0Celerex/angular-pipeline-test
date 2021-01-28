@@ -58,12 +58,23 @@ export class WorkspaceService {
     }
 
     /**
+     * Get the workspace status id from the API
+     * @return Workspace status id
+     */
+    getWorkspaceStatusId(): Observable<HttpResponse> {
+        const route: string = ROUTES.workspace(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('fields', 'workspaceStatusId');
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
      * Upload the workspace avatar in the API
      * @param  requestBody Request body
      * @return             Empty
      */
-    uploadWorkspaceAvatar(requestBody: Object): Observable<HttpResponse> {
+    uploadWorkspaceAvatar(image: string | null): Observable<HttpResponse> {
         const route: string = ROUTES.workspaceAvatar(this._workspaceId);
-        return this._httpClient.post<HttpResponse>(route, requestBody);
+        return this._httpClient.post<HttpResponse>(route, {image});
     }
 }

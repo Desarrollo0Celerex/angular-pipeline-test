@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { UserAuthenticatedGuard } from '@guards/user-authenticated.guard';
-import { WorkspaceActivatedGuard } from '@guards/workspace-activated.guard';
 
 const routes: Routes = [
     { path: '', redirectTo: ROUTES_NAME.login, pathMatch: 'full' },
@@ -11,9 +10,6 @@ const routes: Routes = [
     // auth
     { path: ROUTES_NAME.login, loadChildren: () => import('@pages/auth/login/login.module').then( mod => mod.LoginModule) },
     { path: ROUTES_NAME.identify_user(':authToken'), loadChildren: () => import('@pages/auth/identify-user/identify-user.module').then( mod => mod.IdentifyUserModule) },
-
-    // data
-    { path: ROUTES_NAME.dashboard, loadChildren: () => import('@pages/data/dashboard/dashboard.module').then( mod => mod.DashboardModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
     // Home
     { path: '', loadChildren: () => import('@pages/home/home.module').then(mod => mod.HomeModule) },

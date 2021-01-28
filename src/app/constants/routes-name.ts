@@ -3,13 +3,13 @@ const AUTH_ROUTES = {
     identify_user: (authToken: string) => `auth/identify-user/${authToken}`
 }
 
-const DATA_ROUTES = {
-    dashboard: 'data/dashboard'
-}
-
 const ERROR_ROUTES = {
     notFound: 'error/not-found',
     notAuthenticated: 'error/not-authenticated'
+}
+
+const HOME_DATA_ROUTES = {
+    dashboard: 'home/data/dashboard'
 }
 
 const HOME_INVITATION_ROUTES = {
@@ -17,7 +17,7 @@ const HOME_INVITATION_ROUTES = {
 }
 
 const WORKSPACE_ROUTES = {
-    checkWorkspaceStatus: 'workspace/check-status',
+    checkWorkspaceStatus: 'workspace/check-workspace-status',
     welcome: 'workspace/welcome',
     createWorkspace: 'workspace/create-workspace',
     uploadWorkspaceAvatar: 'workspace/upload-workspace-avatar',
@@ -26,7 +26,7 @@ const WORKSPACE_ROUTES = {
 
 export const ROUTES_NAME = {
     ...AUTH_ROUTES,
-    ...DATA_ROUTES,
+    ...HOME_DATA_ROUTES,
     ...ERROR_ROUTES,
     ...HOME_INVITATION_ROUTES,
     ...WORKSPACE_ROUTES

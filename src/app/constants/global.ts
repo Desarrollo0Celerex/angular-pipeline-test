@@ -1,9 +1,10 @@
+// Default values
 export const DEFAULT_PHONE_CODE_ID: number = 10;
 export const DEFAULT_COUNTRY_ID: number = 1;
 
+// Validations
 export const ALPHANUMERICS: string = 'a-zA-Z0-9ñÑ';
 export const PUNCTUATION_MARKS: string = 'áéíóúÁÉÍÓÚ,.:;\\-\\"()¿?¡!]*$';
-
 export const REAL_NAME_LENGTH: any = {
     MIN: 3,
     MAX: 150
@@ -29,4 +30,12 @@ export const FREE_TEXT_LENGTH: any = {
     MAX: 1000
 }
 
+// Dropify
 export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
+
+// Identifiers
+export const WORKSPACE_STATUS: any = {
+    CREATED: 1,
+    AVATAR_UPLOADED: 2,
+    COMPLETED: 3
+}
