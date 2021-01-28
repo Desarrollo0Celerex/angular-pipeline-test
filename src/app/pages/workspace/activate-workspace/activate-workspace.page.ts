@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { UserTokenData } from '@interfaces/user-token-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ActivateWorkspaceService } from './activate-workspace.service';
@@ -44,9 +45,17 @@ export class ActivateWorkspacePage implements OnInit {
     onClickStartTreal(): void {
         this._loadingService.show();
         this.activateWorkspaceService.activateWorkspace(null).subscribe(( res: HttpResponse) => {
-            this._loadingService.hide();
-            this.activateWorkspaceService.startSessionInAgenthos(res.data);
-            AlertHelper.trialStarted(this._goToSendInvitations, this);
+            const userTokenData: UserTokenData = this.activateWorkspaceService.startSessionInAgenthos(res.data);
+            // Login to firebase
+            this.activateWorkspaceService.getFirebaseToken(userTokenData.workspaceId, userTokenData.userId).subscribe( (res: HttpResponse) => {
+                this.activateWorkspaceService.startSessionInFirebase(res.data).then( () => {
+                    this._loadingService.hide();
+                    AlertHelper.trialStarted(this._goToSendInvitations, this);
+                }).catch(() => {
+                    this._loadingService.hide();
+                    this.activateWorkspaceService.logout();
+                })
+            });
         })
     }
 

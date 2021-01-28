@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 
@@ -17,8 +16,7 @@ export class HeaderComponent implements OnInit {
     ROUTES_NAME: any;
 
     constructor(
-        public headerService: HeaderService,
-        private _router: Router
+        public headerService: HeaderService
     ) {
         this.ROUTES_NAME = ROUTES_NAME;
     }
@@ -33,7 +31,6 @@ export class HeaderComponent implements OnInit {
      */
     onClickLogout(): void {
         this.headerService.logout();
-        this._router.navigateByUrl(ROUTES_NAME.notAuthenticated);
     }
 
 }

@@ -3,11 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { UserTokenData } from '@interfaces/user-token-data.interface';
+import { LoadingService } from '@services/loading.service';
 
 import { IdentifyUserService } from './identify-user.service';
 
 @Component({
-  selector: 'agt-identifyUser',
+  selector: 'agt-identify-user',
   template: '',
   styles: [
   ]
@@ -19,6 +21,7 @@ export class IdentifyUserPage implements OnInit {
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _identifyUserService: IdentifyUserService,
+        private _loadingService: LoadingService,
         private _router: Router
     ) {
         this._authToken = '';
@@ -46,14 +49,22 @@ export class IdentifyUserPage implements OnInit {
      * Identifies the user
      */
     private _identifyUser(): void {
+        this._loadingService.show();
         this._identifyUserService.identifyUser(this._authToken).subscribe( (res: HttpResponse) => {
-            const userToken: string = res.data;
-            this._identifyUserService.startSessionInAgenthos(userToken);
+            const userTokenData: UserTokenData = this._identifyUserService.startSessionInAgenthos(res.data);
+            // If the user has active workspace then login to firebase
             if(this._identifyUserService.checkHasActiveWorkspace()) {
-                // TODO: iniciar sesión en firebase
-                console.log('El usuario tiene un espacio de trabajo activo y debe iniciar sesión en firebase')
-                this._router.navigateByUrl(this._redirectUrl);
+                this._identifyUserService.getFirebaseToken(userTokenData.workspaceId, userTokenData.userId).subscribe( (res: HttpResponse) => {
+                    this._identifyUserService.startSessionInFirebase(res.data).then( () => {
+                        this._loadingService.hide();
+                        this._router.navigateByUrl(this._redirectUrl);
+                    }).catch(() => {
+                        this._loadingService.hide();
+                        this._identifyUserService.logout();
+                    })
+                });
             } else {
+                this._loadingService.hide();
                 this._router.navigateByUrl(this._redirectUrl);
             }
         })

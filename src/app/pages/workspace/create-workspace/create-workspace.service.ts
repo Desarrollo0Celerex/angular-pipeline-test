@@ -9,6 +9,7 @@ import { Country } from '@interfaces/country.interface';
 import { CreateWorkspaceDataSend } from '@interfaces/create-workspace-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { State } from '@interfaces/state.interface';
+import { UserTokenData } from '@interfaces/user-token-data.interface';
 import { AuthService } from '@services/auth.service';
 import { CountryService } from '@services/country.service';
 import { StateService } from '@services/state.service';
@@ -76,11 +77,12 @@ export class CreateWorkspaceService {
     }
 
     /**
-     * Login to agenthos
-     * @param userToken User token
+     * Login to Agenthos
+     * @param  userToken User token
+     * @return          User token data
      */
-    startSessionInAgenthos(userToken: string): void {
-        this._authService.startSessionInAgenthos(userToken);
+    startSessionInAgenthos(userToken: string): UserTokenData {
+        return this._authService.startSessionInAgenthos(userToken);
     }
 
     /**

@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { ROUTES_NAME } from '@constants/routes-name';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { UserTokenData } from '@interfaces/user-token-data.interface';
+import { FirebaseService } from '@services/firebase.service';
 import { JwtService } from '@services/jwt.service';
 import { StorageService } from '@services/storage.service';
 
@@ -18,8 +21,10 @@ const ROUTES = {
 export class AuthService {
 
     constructor(
+        private _firebaseService: FirebaseService,
         private _httpClient: HttpClient,
         private _jwtService: JwtService,
+        private _router: Router,
         private _storageService: StorageService
     ) { }
 
@@ -38,7 +43,7 @@ export class AuthService {
      */
     get workspaceId(): string {
         const userTokenData: UserTokenData | null = this._storageService.getUserTokenData();
-        return (userTokenData !== null && typeof userTokenData.workspaceId !== 'undefined') ? userTokenData.workspaceId : '';
+        return (userTokenData !== null && !!userTokenData.workspaceId ) ? userTokenData.workspaceId : '';
     }
 
     /**
@@ -82,16 +87,20 @@ export class AuthService {
      */
     logout(): void {
         this._storageService.clearStorage();
+        this._firebaseService.exitFirebase();
+        this._router.navigateByUrl(ROUTES_NAME.notAuthenticated);
     }
 
     /**
      * Login to Agenthos
-     * @param userToken User token
+     * @param  userToken User token
+     * @return           User token data
      */
-    startSessionInAgenthos(userToken: string): void {
+    startSessionInAgenthos(userToken: string): UserTokenData {
         const userTokenData: UserTokenData = this._jwtService.decodeToken(userToken);
         this._storageService.saveUserToken(userToken);
         this._storageService.saveUserTokenData(userTokenData);
+        return userTokenData;
     }
 
 }
