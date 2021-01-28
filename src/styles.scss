@@ -49,6 +49,40 @@
     cursor: pointer;
 }
 
+/*header logo*/
+@media (max-width: 575.98px){
+	.color-headerlogo .header-mobile{
+		background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_app_white.png);
+		background-repeat: no-repeat;
+        background-position: center;
+		background-size: contain;
+	}
+}
+@media (max-width: 767.98px) and (min-width: 576px){
+	.header-desktop{
+		background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
+		background-repeat: no-repeat;
+        background-position: center;
+		background-size: contain;
+	}
+}
+@media (max-width: 992px) and (min-width: 767px){
+	.header-desktop{
+		background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
+		background-repeat: no-repeat;
+        background-position: center;
+		background-size: contain;
+	}
+}
+@media (min-width: 992px){
+	.header-desktop{
+		background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
+		background-repeat: no-repeat;
+        background-position: center;
+		background-size: contain;
+	}
+}
+
 /********************************/
 /******** CUSTOM STYLES *********/
 /********************************/

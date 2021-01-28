@@ -27,9 +27,9 @@ export class AuthService {
      * Get the user id
      * @return user id
      */
-    get userId(): string | null {
+    get userId(): string {
         const userTokenData: UserTokenData | null = this._storageService.getUserTokenData();
-        return (userTokenData !== null) ? userTokenData.userId : null;
+        return (userTokenData !== null) ? userTokenData.userId : '';
     }
 
     /**
@@ -75,6 +75,13 @@ export class AuthService {
     identifyUser(authToken: string): Observable<HttpResponse> {
         const route: string = ROUTES.users;
         return this._httpClient.post<HttpResponse>(route, { authToken });
+    }
+
+    /**
+     * Logout
+     */
+    logout(): void {
+        this._storageService.clearStorage();
     }
 
     /**

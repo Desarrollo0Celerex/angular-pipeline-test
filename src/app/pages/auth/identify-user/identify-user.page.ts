@@ -52,6 +52,7 @@ export class IdentifyUserPage implements OnInit {
             if(this._identifyUserService.checkHasActiveWorkspace()) {
                 // TODO: iniciar sesión en firebase
                 console.log('El usuario tiene un espacio de trabajo activo y debe iniciar sesión en firebase')
+                this._router.navigateByUrl(this._redirectUrl);
             } else {
                 this._router.navigateByUrl(this._redirectUrl);
             }

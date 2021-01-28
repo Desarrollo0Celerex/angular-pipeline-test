@@ -1,0 +1,89 @@
+<!-- AGENTHOS HEADER -->
+<div class="header top-header hor-topheader">
+    <div id="particles-js" class="zindex1"></div>
+    <div class="container">
+        <div class="d-flex header-nav">
+            <a id="horizontal-navtoggle" class="animated-arrow hor-toggle"><span></span></a>
+            <!-- AGENTHOS LOGO -->
+            <div class="color-headerlogo">
+                <a class="header-desktop" [routerLink]="ROUTES_NAME.dashboard"></a>
+                <a class="header-mobile" [routerLink]="ROUTES_NAME.dashboard"></a>
+            </div>
+            <!-- AGENTHOS GLOBAL SEARCH -->
+            <div class="">
+                <form class="form-inline">
+                    <div class="search-element">
+                        <input type="search" class="form-control header-search" placeholder="Oye, Agenthos..." aria-label="Search" tabindex="1">
+                        <button class="btn btn-primary-color"><i class="fe fe-mic"></i></button>
+                    </div>
+                </form>
+            </div>
+            <a class="header-brand header-brand2 d-none d-lg-block  align-items-center justify-content-center" href="#">
+                <a class="header-desktop" [routerLink]="ROUTES_NAME.dashboard"></a>
+            </a>
+            <div class="d-flex order-lg-2 ml-auto header-right-icons header-search-icon">
+                <div class="dropdown  search-icon">
+                    <a href="#" data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch">
+                        <i class="fe fe-mic"></i>
+                    </a>
+                </div>
+                <div class="dropdown  header-fullscreen">
+                    <a class="nav-link icon full-screen-link nav-link-bg" id="fullscreen-button">
+                        <i class="fe fe-minimize" ></i>
+                    </a>
+                </div>
+                <div class="dropdown  notifications">
+                    <a class="nav-link icon" data-toggle="dropdown">
+                        <i class="fe fe-bell"></i>
+                        <span class="pulse bg-danger"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <a [routerLink]="" class="dropdown-item mt-2 d-flex pb-3">
+                            <div class="notifyimg bg-info">
+                                <i class="fa fa-thumbs-o-up"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Notificación Demo</h6>
+                                <div class="small text-muted">08/08/2018</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="dropdown header-user" *ngIf="!!headerService.user">
+                    <a href="#" class="nav-link icon" data-toggle="dropdown">
+                        <!-- ATOM ID - USER PICTURE -->
+                        <span><img [src]="headerService.user.avatarUrl" alt="Atom Account User Pic" class="avatar brround cover-image mb-0 ml-0"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <div class=" dropdown-header noti-title text-center border-bottom p-3">
+                            <div class="header-usertext">
+                                <!-- ATOM ID - SHORT NAME -->
+                                <h5 class="mb-1">{{headerService.user.shortName}}</h5>
+                                <!-- AGENTHOS USER ROLE -->
+                                <p class="mb-0">{{headerService.user.roleName}}</p>
+                            </div>
+                        </div>
+                        <a class="dropdown-item" [routerLink]="">
+                            <i class="mdi mdi-account-outline mr-2"></i> <span>Atom ID</span>
+                        </a>
+                        <a class="dropdown-item" [routerLink]="">
+                            <i class="mdi mdi-account-outline mr-2"></i> <span>Configuración</span>
+                        </a>
+                        <a class="dropdown-item" [routerLink]="">
+                            <i class="mdi mdi-compass-outline mr-2"></i> <span>Soporte</span>
+                        </a>
+                        <a class="dropdown-item" [routerLink]="" (click)="onClickLogout()">
+                            <i class="mdi  mdi-logout-variant mr-2"></i> <span>Salir</span>
+                        </a>
+                    </div>
+                </div><!-- SIDE-MENU -->
+                <div class="dropdown  header-fullscreen">
+                    <a class="nav-link icon sidebar-right-mobile" data-toggle="sidebar-right" data-target=".sidebar-right">
+                        <i class="fe fe-align-right" ></i>
+                    </a>
+                </div><!-- Side menu -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- HEADER END -->
