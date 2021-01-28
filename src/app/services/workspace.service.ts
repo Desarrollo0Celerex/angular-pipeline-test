@@ -10,7 +10,8 @@ import { AuthService } from '@services/auth.service';
 const ROUTES = {
     workspaces: `${environment.apiUrl}/workspaces`,
     workspace: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}`,
-    workspaceAvatar: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/avatar`
+    workspaceAvatar: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/avatar`,
+    workspaceActivation: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/activate'
 }
 
 @Injectable()
@@ -22,6 +23,16 @@ export class WorkspaceService {
         private _httpClient: HttpClient
     ) {
         this._workspaceId = this._authService.workspaceId;
+    }
+
+    /**
+     * Activate the workspace
+     * @param  code License code
+     * @return      New user token
+     */
+    activateWorkspace(code: string | null): Observable<HttpResponse> {
+        const route: string = ROUTES.workspaceActivation(this._workspaceId);
+        return this._httpClient.post<HttpResponse>(route, {code});
     }
 
     /**

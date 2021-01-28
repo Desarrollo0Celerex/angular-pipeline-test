@@ -4,12 +4,12 @@ import { Alert } from '@interfaces/alert.interface';
 
 export class AlertHelper {
 
-    static workspaceCreated(callBack: any, context: any): void {
+    static trialStarted(callBack: any, context: any): void {
         const alertData: Alert = {
-            title: 'Agente registrado',
-            text: 'Tu espacio de trabajo se ha creado con éxito.',
+            title: 'Acceso Permitido',
+            text: 'El periodo de prueba de 30 días ha sido activado.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR',
+            confirmButtonText: 'ACEPTAR',
             callBack: callBack,
             context: context
         }
@@ -27,4 +27,17 @@ export class AlertHelper {
         }
         SweetAlertPlugin.showAlert(alertData);
     }
+
+    static workspaceCreated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Agente registrado',
+            text: 'Tu espacio de trabajo se ha creado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
 }

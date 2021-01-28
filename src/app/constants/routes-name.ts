@@ -11,6 +11,10 @@ const ERROR_ROUTES = {
     notAuthenticated: 'error/not-authenticated'
 }
 
+const INVITATIONS = {
+    sendInvitatios: 'invitations/send-invitations'
+}
+
 const WORKSPACE_ROUTES = {
     checkWorkspaceStatus: 'workspace/check-status',
     welcome: 'workspace/welcome',
@@ -23,5 +27,6 @@ export const ROUTES_NAME = {
     ...AUTH_ROUTES,
     ...DATA_ROUTES,
     ...ERROR_ROUTES,
+    ...INVITATIONS,
     ...WORKSPACE_ROUTES
 }

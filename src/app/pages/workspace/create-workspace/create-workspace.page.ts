@@ -73,7 +73,7 @@ export class CreateWorkspacePage implements OnInit {
             this._loadingService.show();
             this.createWorkspaceService.createWorkspace().subscribe( (res: HttpResponse) => {
                 this._loadingService.hide();
-                this.createWorkspaceService.startSessionInAgethos(res.data);
+                this.createWorkspaceService.startSessionInAgenthos(res.data);
                 AlertHelper.workspaceCreated(this._goToUploadWorkspaceAvatar, this);
             })
         }

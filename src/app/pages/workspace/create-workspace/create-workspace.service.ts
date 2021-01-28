@@ -79,8 +79,8 @@ export class CreateWorkspaceService {
      * Login to agenthos
      * @param userToken User token
      */
-    startSessionInAgethos(userToken: string): void {
-        this._authService.startSessionInAgethos(userToken);
+    startSessionInAgenthos(userToken: string): void {
+        this._authService.startSessionInAgenthos(userToken);
     }
 
     /**

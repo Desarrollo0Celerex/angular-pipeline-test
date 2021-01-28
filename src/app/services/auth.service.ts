@@ -81,7 +81,7 @@ export class AuthService {
      * Login to Agenthos
      * @param userToken User token
      */
-    startSessionInAgethos(userToken: string): void {
+    startSessionInAgenthos(userToken: string): void {
         const userTokenData: UserTokenData = this._jwtService.decodeToken(userToken);
         this._storageService.saveUserToken(userToken);
         this._storageService.saveUserTokenData(userTokenData);

@@ -48,7 +48,7 @@ export class IdentifyUserPage implements OnInit {
     private _identifyUser(): void {
         this._identifyUserService.identifyUser(this._authToken).subscribe( (res: HttpResponse) => {
             const userToken: string = res.data;
-            this._identifyUserService.startSessionInAgethos(userToken);
+            this._identifyUserService.startSessionInAgenthos(userToken);
             if(this._identifyUserService.checkHasActiveWorkspace()) {
                 // TODO: iniciar sesión en firebase
                 console.log('El usuario tiene un espacio de trabajo activo y debe iniciar sesión en firebase')
