@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+declare var HorizontalMenuPlugin: any;
+
 @Component({
   selector: 'agt-home',
   templateUrl: './home.page.html',
@@ -8,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+        HorizontalMenuPlugin.init();
+    }
 
 }

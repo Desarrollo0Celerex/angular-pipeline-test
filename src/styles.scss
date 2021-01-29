@@ -49,6 +49,11 @@
     cursor: pointer;
 }
 
+/* Container main */
+.content-area {
+	min-height: calc(100vh - 188px);
+}
+
 /*header logo*/
 @media (max-width: 575.98px){
 	.color-headerlogo .header-mobile{
