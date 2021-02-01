@@ -1,0 +1,33 @@
+<!-- AGENTHOS - USER ROLES -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form [formGroup]="modalChangeRoleService.roleForm" (submit)="onSubmitChangeRole()">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="example-Modal3">Seleccionar Rol de Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">Asigna un Rol de Usuario</label>
+                        <select class="form-control" formControlName="roleId">
+                            <option [value]="role.roleId" *ngFor="let role of modalChangeRoleService.roles">{{role.name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Detalles del Rol:</label>
+                        <p><strong>Tiene control total sobre la cartera.</strong></p>
+                        <p>Solo asigna este permiso a usuarios de alta confianza o personal directivo.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+                    <button type="submit" class="btn btn-primary">CONFIRMAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - USER ROLES -->

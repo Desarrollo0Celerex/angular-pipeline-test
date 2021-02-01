@@ -10,6 +10,7 @@ import { AuthService } from '@services/auth.service';
 const ROUTES = {
     workspaces: `${environment.apiUrl}/workspaces`,
     workspace: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}`,
+    workspaceAvailablePlaces: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/available-places`,
     workspaceAvatar: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/avatar`,
     workspaceActivation: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/activate'
 }
@@ -55,6 +56,15 @@ export class WorkspaceService {
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
+     * Get the workspace available places
+     * @return Workspace available places
+     */
+    getWorkspaceAvailablePlaces(): Observable<HttpResponse> {
+        const route: string = ROUTES.workspaceAvailablePlaces(this._workspaceId);
+        return this._httpClient.get<HttpResponse>(route);
     }
 
     /**

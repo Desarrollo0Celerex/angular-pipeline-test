@@ -1,6 +1,7 @@
 // Default values
-export const DEFAULT_PHONE_CODE_ID: number = 10;
+export const DEFAULT_PHONE_CODE_ID: number = 1;
 export const DEFAULT_COUNTRY_ID: number = 1;
+export const DEFAULT_ROLE_ID = 1;
 
 // Validations
 export const ALPHANUMERICS: string = 'a-zA-Z0-9ñÑ';
@@ -33,9 +34,15 @@ export const FREE_TEXT_LENGTH: any = {
 // Dropify
 export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
 
-// Identifiers
+// Status
 export const WORKSPACE_STATUS: any = {
     CREATED: 1,
     AVATAR_UPLOADED: 2,
     COMPLETED: 3
+}
+export const INVITATION_STATUS: any = {
+    PENDING: 1,
+    ACCEPTED: 2,
+    REJECTED: 3,
+    DELETED: 4
 }
