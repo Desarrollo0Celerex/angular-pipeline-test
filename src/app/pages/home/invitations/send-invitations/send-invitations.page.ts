@@ -14,12 +14,12 @@ declare var ModalPlugin: any;
 export class SendInvitationsPage implements OnInit {
     changeRoleModalId: string;
     selectedRoleId: number | null;
-    selectedFormIndex: number | null;
+    selectedFormIndex: number;
 
     constructor(public sendInvitationsService: SendInvitationsService) {
         this.changeRoleModalId = 'agt-modal-change-role'
         this.selectedRoleId = null;
-        this.selectedFormIndex = null;
+        this.selectedFormIndex = 0;
     }
 
     ngOnInit(): void {
@@ -33,8 +33,8 @@ export class SendInvitationsPage implements OnInit {
      */
     getRoleName(formIndex: number): string {
         const roleId: number =  this.sendInvitationsService.invitationForms[formIndex].form.controls.roleId.value;
-        const position: number = this.sendInvitationsService.roles.findIndex( (element: Role) => element.roleId == roleId);
-        return this.sendInvitationsService.roles[position].name;
+        const selectedRole: Role | undefined = this.sendInvitationsService.roles.find( (element: Role) => element.roleId == roleId);
+        return (!!selectedRole) ? selectedRole.name : '';
     }
 
     /**
@@ -45,6 +45,14 @@ export class SendInvitationsPage implements OnInit {
         this.selectedFormIndex = formIndex;
         this.selectedRoleId =  this.sendInvitationsService.invitationForms[formIndex].form.controls.roleId.value;
         ModalPlugin.show(this.changeRoleModalId);
+    }
+
+    /**
+     * Role changed event to change de role id
+     * @param roleId Role id
+     */
+    onRoleChanged(roleId: number): void {
+        this.sendInvitationsService.invitationForms[this.selectedFormIndex].form.patchValue({roleId});
     }
 
     /**

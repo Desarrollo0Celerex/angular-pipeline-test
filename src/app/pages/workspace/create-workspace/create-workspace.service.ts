@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 
@@ -33,7 +33,11 @@ export class CreateWorkspaceService {
         this.workspaceForm = this._buildWorkspaceForm();
     }
 
-    get f() {
+    /**
+     * Get the form controls
+     * @return Form controls
+     */
+    get f(): { [key: string]: AbstractControl; } {
         return this.workspaceForm.controls;
     }
 

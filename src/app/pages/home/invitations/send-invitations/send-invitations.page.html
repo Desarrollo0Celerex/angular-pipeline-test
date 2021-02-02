@@ -148,4 +148,4 @@
 </div>
 <!-- //AGENTHOS - SENT INVITES -->
 
-<agt-modal-change-role [modalId]="changeRoleModalId" [roleId]="selectedRoleId"></agt-modal-change-role>
+<agt-modal-change-role [modalId]="changeRoleModalId" [roleId]="selectedRoleId" (roleChanged)="onRoleChanged($event)"></agt-modal-change-role>

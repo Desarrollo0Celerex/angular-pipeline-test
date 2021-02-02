@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Role } from '@interfaces/role.interface';
@@ -14,21 +14,35 @@ export class ModalChangeRoleService {
         private _formBuilder: FormBuilder,
         private _roleService: RoleService
     ){
-
-        this.roleForm = this.getRoleForm();
+        this.roleForm = this._buildRoleForm();
         this.roles = [];
     }
 
-    getRoleForm(): FormGroup {
-        return this._formBuilder.group({
-            roleId: ['', [Validators.required]]
-        });
+    /**
+     * Get the form controls
+     * @return Form controls
+     */
+    get f(): { [key: string]: AbstractControl; }  {
+        return this.roleForm.controls;
     }
 
+    /**
+     * Load the roles
+     */
     loadRoles(): void {
         this._roleService.getRoles().subscribe((res: HttpResponse) => {
             this.roles = res.data;
         })
+    }
+
+    /**
+     * Build the role form
+     * @return Role form
+     */
+    private _buildRoleForm(): FormGroup {
+        return this._formBuilder.group({
+            roleId: ['', [Validators.required]]
+        });
     }
 
 }
