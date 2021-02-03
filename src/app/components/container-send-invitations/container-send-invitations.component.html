@@ -1,0 +1,70 @@
+<!-- AGENTHOS - INVITES PANEL -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Enviar Invitaciones</h3>
+            </div>
+            <!-- AGENTHOS - AVAILABLE INVITE -->
+            <ng-container *ngFor="let invitationForm of containerSendInvitationsService.invitationForms; let formIndex = index">
+                <form class="card-body" [formGroup]="invitationForm.form" (submit)="onSubmitCreateInvitation(formIndex)">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <!-- AGENTHOS - INVITE NAME * -->
+                                <label class="form-label">Nombre de Colaborador</label>
+                                <input type="text" class="form-control {{getValidationClass('name', formIndex)}}" placeholder="Ingresa su nombre" formControlName="name">
+                                <div class="invalid-feedback">{{getErrorMessage('name', formIndex)}}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <!-- AGENTHOS - INVITE EMAIL * -->
+                                <label class="form-label">Correo Electrónico</label>
+                                <input type="text" class="form-control {{getValidationClass('email', formIndex)}}" placeholder="Ingresa su correo electrónico" formControlName="email">
+                                <div class="invalid-feedback">{{getErrorMessage('email', formIndex)}}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <!-- AGENTHOS - INVITE ROL * -->
+                                <label class="form-label">Rol Asignado</label>
+                                <button type="button" class="btn btn-radius btn-block btn-default-light" (click)="onClickChangeRole(formIndex)">
+                                    <i class="fe fe-sliders mr-2"></i>{{getRoleName(containerSendInvitationsService.invitationForms[formIndex].form.controls.roleId.value)}}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <!-- AGENTHOS - SEND INVITE -->
+                            <label class="form-label">Enviar</label>
+                            <div class="btn-list">
+                                <button type="submit" class="btn btn-icon  btn-primary" data-toggle="tooltip" data-placement="bottom" data-original-title="Enviar Invitación"><i class="fe fe-mail"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </ng-container>
+            <!-- //AGENTHOS - AVAILABLE INVITE -->
+            <!-- AGENTHOS - CHANGE PLAN -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12" *ngIf="!!containerSendInvitationsService.workspace">
+                        <p><strong>Todos los colaboradores de {{containerSendInvitationsService.workspace.brandName}} serán mucho más eficientes y productivos si los agregas a este espacio de trabajo.</strong></p>
+                        <p>Actualmente <strong>{{containerSendInvitationsService.workspace.brandName}}</strong> cuenta con <strong>{{containerSendInvitationsService.invitationForms.length}} espacio{{(containerSendInvitationsService.invitationForms.length == 1) ? '' : 's'}}</strong> disponible{{(containerSendInvitationsService.invitationForms.length == 1) ? '' : 's'}}, puedes incrementar los espacios de trabajo al mejorar tu plan.</p>
+                    </div>
+                    <div class="col-md-12">
+                        <!-- AGENTHOS - UPGRADE PLAN-->
+                        <div class="text-right mt-3">
+                            <a href="https://agenthos.com" target="_blank">
+                            <button class="btn btn-block btn-primary" name="agtUpgradePlan"><i class="fe fe-user-plus mr-2"></i><strong>SOLICITAR ESPACIOS</strong></button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - CHANGE PLAN -->
+        </div>
+    </div>
+</div>
+<!-- AGENTHOS - INVITES PANEL -->
+
+<agt-modal-change-role [modalId]="changeRoleModalId" [roleId]="selectedRoleId" (roleChanged)="onRoleChanged($event)"></agt-modal-change-role>

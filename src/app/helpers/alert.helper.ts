@@ -4,6 +4,91 @@ import { Alert } from '@interfaces/alert.interface';
 
 export class AlertHelper {
 
+    static globalError(): void {
+        const alertData: Alert = {
+            title: 'Error',
+            text: 'No fue posible realizar la solicitud.',
+            type: 'error',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static invalidAuthToken(): void {
+        const alertData: Alert = {
+            title: 'Error',
+            text: 'No fue posible autenticar al usuario.',
+            type: 'error',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static invalidFields(): void {
+        const alertData: Alert = {
+            title: 'Error',
+            text: 'Los datos enviados son invalidos.',
+            type: 'error',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static invitationDeleted(): void {
+        const alertData: Alert = {
+            title: 'Invitación Eliminada',
+            text: 'Tu invitación ha sido eliminada con éxito.',
+            type: 'success',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static invitationSent(): void {
+        const alertData: Alert = {
+            title: 'Invitación Enviada',
+            text: 'Tu invitación ha sido enviada con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static invitationSendAttemptsExceeded(): void {
+        const alertData: Alert = {
+            title: 'Límite Alcanzado',
+            text: 'Ya no puedes reenviar esta invitación.',
+            type: 'error',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static requestDeleteInvitation(callBack: any, context: any, data: any): void {
+        const alertData: Alert = {
+            title: 'Eliminar Invitación',
+            text: 'Esta invitación será eliminada de tu espacio de trabajo.',
+            type: 'warning',
+            confirmButtonText: 'CONFIRMAR',
+            showCancelButton: true,
+            cancelButtonText: 'CANCELAR',
+            callBack: callBack,
+            context: context,
+            data: data
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static sendInvitationFailed(): void {
+        const alertData: Alert = {
+            title: 'Error',
+            text: 'No fue posible enviar tu invitación. Intentalo nuevamente.',
+            type: 'error',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static trialStarted(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Acceso Permitido',

@@ -30,7 +30,8 @@ export class ModalChangeRoleService {
      * Load the roles
      */
     loadRoles(): void {
-        this._roleService.getRoles().subscribe((res: HttpResponse) => {
+        const fields: string = 'roleId,name,description,details';
+        this._roleService.getRoles(fields).subscribe((res: HttpResponse) => {
             this.roles = res.data;
         })
     }

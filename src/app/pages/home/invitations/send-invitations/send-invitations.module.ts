@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ModalChangeRoleModule } from '@components/modal-change-role/modal-change-role.module';
-import { RoleService } from '@services/role.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { ContainerSendInvitationsModule } from '@components/container-send-invitations/container-send-invitations.module';
+import { ContainerListSentInvitationsModule } from '@components/container-list-sent-invitations/container-list-sent-invitations.module';
 
 import { SendInvitationsRoutingModule } from './send-invitations-routing.module';
 import { SendInvitationsPage } from './send-invitations.page';
@@ -14,11 +12,10 @@ import { SendInvitationsService } from './send-invitations.service';
   declarations: [SendInvitationsPage],
   imports: [
     CommonModule,
-    FormsModule,
-    ModalChangeRoleModule,
-    ReactiveFormsModule,
+    ContainerListSentInvitationsModule,
+    ContainerSendInvitationsModule,
     SendInvitationsRoutingModule
   ],
-  providers: [RoleService, SendInvitationsService, WorkspaceService]
+  providers: [SendInvitationsService]
 })
 export class SendInvitationsModule { }

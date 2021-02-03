@@ -7,7 +7,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { LoadingModule } from '@components/loading/loading.module';
 import { environment } from '@env/environment';
-import { authInterceptorProvider } from '@interceptors/auth.interceptor';
+import { AUTH_INTERCEPTOR_PROVIDER } from '@interceptors/auth.interceptor';
+import { ERROR_INTERCEPTOR_PROVIDER } from '@interceptors/error.interceptor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,7 +26,7 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     LoadingModule
   ],
-  providers: [authInterceptorProvider],
+  providers: [AUTH_INTERCEPTOR_PROVIDER, ERROR_INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

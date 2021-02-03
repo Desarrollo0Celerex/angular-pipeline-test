@@ -1,0 +1,35 @@
+<!-- AGENTHOS - USER ROLES -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="example-Modal3">Enlace Directo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <!-- AGENTHOS - INVITE LINK TOKEN -->
+                        <label class="form-label">Enlace de Invitación</label>
+                        <input type="text" name="agtInviteName" class="form-control" [placeholder]="invitationLink" disabled="">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Enviar invitación por mensaje.</label>
+                        <p><strong>Esta invitación es única e intrasferible.</strong> Por seguridad solo comparte este enlace y el mensaje con la persona invitada.</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12" *ngIf="!!modalShareInvitationLinkService.workspace">
+                    <!-- AGENTHOS - SEND INVITE -->
+                    <a href="https://api.whatsapp.com/send?text=Hola, quiero compartirte esta invitación para unirte al espacio de trabajo de {{modalShareInvitationLinkService.workspace.brandName}} en Agenthos. Link: {{invitationLink}}" target="_blank">
+                        <button type="button" class="btn btn-primary btn-block"><strong>ENVIAR MENSAJE</strong></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - USER ROLES -->

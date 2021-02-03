@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { Role } from '@interfaces/role.interface';
-import { SendInvitationsService } from './send-invitations.service';
-
-declare var ModalPlugin: any;
+import { Invitation } from '@interfaces/invitation.interface';
 
 @Component({
   selector: 'agt-send-invitations',
@@ -11,65 +8,30 @@ declare var ModalPlugin: any;
   styles: [
   ]
 })
-export class SendInvitationsPage implements OnInit {
-    changeRoleModalId: string;
-    selectedRoleId: number | null;
-    selectedFormIndex: number;
+export class SendInvitationsPage {
+    canAddInvitationForm: boolean;
+    invitation: Invitation | null;
 
-    constructor(public sendInvitationsService: SendInvitationsService) {
-        this.changeRoleModalId = 'agt-modal-change-role'
-        this.selectedRoleId = null;
-        this.selectedFormIndex = 0;
-    }
-
-    ngOnInit(): void {
-        this._loadRoles();
+    constructor() {
+        this.canAddInvitationForm = false;
+        this.invitation = null;
     }
 
     /**
-     * Get the rol name
-     * @param  formIndex Form index
-     * @return           Role name
+     * Event to add a new invitation form to invitation forms
      */
-    getRoleName(formIndex: number): string {
-        const roleId: number =  this.sendInvitationsService.invitationForms[formIndex].form.controls.roleId.value;
-        const selectedRole: Role | undefined = this.sendInvitationsService.roles.find( (element: Role) => element.roleId == roleId);
-        return (!!selectedRole) ? selectedRole.name : '';
+    onInvitationDeleted(): void {
+        this.canAddInvitationForm = true;
+        setTimeout(() => {
+            this.canAddInvitationForm = false;
+        }, 0);
     }
 
     /**
-     * Click event to change the role
-     * @param formIndex Form index
+     * Event to add a new invitation to invitations sent
+     * @param invitation The new invitation
      */
-    onClickChangeRole(formIndex: number): void {
-        this.selectedFormIndex = formIndex;
-        this.selectedRoleId =  this.sendInvitationsService.invitationForms[formIndex].form.controls.roleId.value;
-        ModalPlugin.show(this.changeRoleModalId);
+    onInvitationSent(invitation: Invitation): void {
+        this.invitation = invitation;
     }
-
-    /**
-     * Role changed event to change de role id
-     * @param roleId Role id
-     */
-    onRoleChanged(roleId: number): void {
-        this.sendInvitationsService.invitationForms[this.selectedFormIndex].form.patchValue({roleId});
-    }
-
-    /**
-     * Submit event to create an invitation
-     * @param formIndex Form index
-     */
-    onSubmitCreateInvitation(formIndex: number): void {
-        console.log('Crear invitación: ', formIndex);
-    }
-
-    /**
-     * Load the roles
-     */
-    private _loadRoles(): void {
-        this.sendInvitationsService.loadRoles().subscribe(() => {
-            this.sendInvitationsService.buildInvitationForms();
-        })
-    }
-
 }
