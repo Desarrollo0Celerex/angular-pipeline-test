@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'agt-contents',
@@ -7,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class ContentsComponent implements OnInit {
+    @Input() contentType: number;
 
-  constructor() { }
+    constructor() {
+        this.contentType = 0;
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

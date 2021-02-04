@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { CONTENT_TYPES } from '@constants/global';
+
+declare var ModalPlugin: any;
 
 @Component({
   selector: 'agt-content-main-action',
@@ -7,10 +11,49 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class ContentMainActionComponent implements OnInit {
+    @Input() contentType: number;
+    selectContactTypeModalId: string;
 
-  constructor() { }
+    constructor() {
+        this.contentType = 0;
+        this.selectContactTypeModalId = 'modal-select-contact-type';
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void { }
+
+    /**
+     * Get the header title
+     * @return The header title
+     */
+    getHeaderTitle(): string {
+        let title: string = '';
+        switch(this.contentType) {
+            case CONTENT_TYPES.LEAD: title = 'Nuevo Prospecto'; break;
+        }
+        return title;
+    }
+
+    /**
+     * Get the button title
+     * @return The button title
+     */
+    getButtonTitle(): string {
+        let title: string = '';
+        switch(this.contentType) {
+            case CONTENT_TYPES.LEAD: title = 'CREAR PROSPECTO'; break;
+        }
+        return title;
+    }
+
+    /**
+     * Click event to do action
+     */
+    onClickDoAction(): void {
+        switch(this.contentType) {
+            case CONTENT_TYPES.LEAD:
+                ModalPlugin.show(this.selectContactTypeModalId);
+                break;
+        }
+    }
 
 }

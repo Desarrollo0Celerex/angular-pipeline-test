@@ -1,44 +1,13 @@
 <!-- AGENTHOS - CONTENT MAIN ACTION -->
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Nuevo Prospecto</h3>
+        <h3 class="card-title">{{getHeaderTitle()}}</h3>
     </div>
     <div class="card-body">
         <!-- AGENTHOS - CREATE CONTACT -->
-        <button type="button" name="agtNewContact" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#agtContactType"><strong>CREAR PROSPECTO</strong></button>
+        <button type="button" class="btn btn-block btn-secondary" (click)="onClickDoAction()"><strong>{{getButtonTitle()}}</strong></button>
     </div>
-    <!-- AGENTHOS - CONTACT TYPE -->
-    <div class="modal fade" id="agtContactType" tabindex="-1" role="dialog"  aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="example-Modal3">Tipo de Contacto</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <!-- AGENTHOS - PERSONAL CLIENT -->
-                            <div class="col-md-12 mt-5">
-                                <a href="../contacts/person.php">
-                                <button type="button" class="btn btn-primary btn-block"><i class="fe fe-user mr-2"></i><strong>PERSONA</strong></button></a>
-                            </div>
-                            <!-- AGENTHOS - COMPANY CLIENT -->
-                            <div class="col-md-12 mt-5">
-                                <a href="../contacts/company.php">
-                                <button type="button" class="btn btn-primary btn-block"><i class="fe fe-briefcase mr-2"></i><strong>EMPRESA</strong></button></a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- //AGENTHOS - CONTACT TYPE -->
 </div>
 <!-- //AGENTHOS - CONTENT MAIN ACTION -->
+
+<agt-modal-select-contact-type [modalId]="selectContactTypeModalId"></agt-modal-select-contact-type>

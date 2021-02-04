@@ -9,6 +9,10 @@ const ERRORS_ROUTES = {
     workspaceNotActivated: 'errors/workspace-not-activated'
 }
 
+const HOME_CONTACT_ROUTES = {
+    createContact: (contactType: number) => `home/contact/createContact/${contactType}`
+}
+
 const HOME_DATA_ROUTES = {
     dashboard: 'home/data/dashboard'
 }
@@ -35,8 +39,9 @@ const WORKSPACES_ROUTES = {
 
 export const ROUTES_NAME = {
     ...AUTH_ROUTES,
-    ...HOME_DATA_ROUTES,
     ...ERRORS_ROUTES,
+    ...HOME_CONTACT_ROUTES,
+    ...HOME_DATA_ROUTES,
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,
     ...INVITATIONS_ROUTES,

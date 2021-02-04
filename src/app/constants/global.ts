@@ -46,3 +46,16 @@ export const INVITATION_STATUS: any = {
     REJECTED: 3,
     DELETED: 4
 }
+
+// Types
+export const CONTENT_TYPES: any = {
+    LEAD: 1,
+    CLIENT: 2,
+    PAYMENT: 3,
+    SINISTER: 4
+}
+
+export const CONTACT_TYPES: any = {
+    PERSON: 1,
+    COMPANY: 2
+}
