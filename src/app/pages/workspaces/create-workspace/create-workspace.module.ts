@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone-code/dropdown-select-phone-code.module';
+import { LogoAgenthosDarkModule } from '@components/logo-agenthos-dark/logo-agenthos-dark.module';
 import { CountryService } from '@services/country.service';
 import { StateService } from '@services/state.service';
 import { WorkspaceService } from '@services/workspace.service';
@@ -19,6 +20,7 @@ import { CreateWorkspaceService } from './create-workspace.service';
     CreateWorkspaceRoutingModule,
     DropdownSelectPhoneCodeModule,
     FormsModule,
+    LogoAgenthosDarkModule,
     ReactiveFormsModule
   ],
   providers: [CountryService, CreateWorkspaceService, StateService, WorkspaceService]

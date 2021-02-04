@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { LogoAgenthosDarkModule } from '@components/logo-agenthos-dark/logo-agenthos-dark.module';
 import { ModalActivateWorkspaceModule } from '@components/modal-activate-workspace/modal-activate-workspace.module';
 import { WorkspaceService } from '@services/workspace.service';
 
@@ -14,6 +15,7 @@ import { ActivateWorkspaceService } from './activate-workspace.service';
   imports: [
     ActivateWorkspaceRoutingModule,
     CommonModule,
+    LogoAgenthosDarkModule,
     ModalActivateWorkspaceModule
   ],
   providers: [ActivateWorkspaceService, WorkspaceService]

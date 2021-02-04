@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
+import { LogoAgenthosDarkModule } from '@components/logo-agenthos-dark/logo-agenthos-dark.module';
 import { WorkspaceService } from '@services/workspace.service';
 
 import { UploadWorkspaceAvatarRoutingModule } from './upload-workspace-avatar-routing.module';
@@ -12,8 +13,9 @@ import { UploadWorkspaceAvatarService } from './upload-workspace-avatar.service'
   declarations: [UploadWorkspaceAvatarPage],
   imports: [
     CommonModule,
+    ImageCropperModule,
+    LogoAgenthosDarkModule,
     UploadWorkspaceAvatarRoutingModule,
-    ImageCropperModule
   ],
   providers: [UploadWorkspaceAvatarService, WorkspaceService]
 })

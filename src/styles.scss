@@ -54,7 +54,7 @@
 	min-height: calc(100vh - 188px);
 }
 
-/*header logo*/
+/* Header logo */
 @media (max-width: 575.98px){
 	.color-headerlogo .header-mobile{
 		background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_app_white.png);
@@ -92,8 +92,23 @@
 /******** CUSTOM STYLES *********/
 /********************************/
 
-/** Image cropper */
+/* Image cropper */
 .agt-image-cropper {
 	max-height: 420px !important;
     max-height: 360px !important;
+}
+
+/* Loading */
+.agt-loading {
+	position: fixed;
+	z-index: 50000;
+	background: white;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	overflow: hidden;
 }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { LogoAgenthosDarkModule } from '@components/logo-agenthos-dark/logo-agenthos-dark.module';
 import { UserService } from '@services/user.service';
 
 import { WelcomeRoutingModule } from './welcome-routing.module';
@@ -12,6 +13,7 @@ import { WelcomeService } from './welcome.service';
   declarations: [WelcomePage],
   imports: [
     CommonModule,
+    LogoAgenthosDarkModule,
     WelcomeRoutingModule
   ],
   providers: [UserService, WelcomeService]
