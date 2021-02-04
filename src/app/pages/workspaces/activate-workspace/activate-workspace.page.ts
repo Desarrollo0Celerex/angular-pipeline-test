@@ -64,7 +64,7 @@ export class ActivateWorkspacePage implements OnInit {
      * @param context App context
      */
     private _goToSendInvitations(context: any): void {
-        context._router.navigateByUrl(ROUTES_NAME.sendInvitations);
+        context._router.navigateByUrl(ROUTES_NAME.listInvitations);
     }
 
 }

@@ -3,12 +3,12 @@ import { Component } from '@angular/core';
 import { Invitation } from '@interfaces/invitation.interface';
 
 @Component({
-  selector: 'agt-send-invitations',
-  templateUrl: './send-invitations.page.html',
+  selector: 'agt-list-invitations',
+  templateUrl: './list-invitations.page.html',
   styles: [
   ]
 })
-export class SendInvitationsPage {
+export class ListInvitationsPage {
     canAddInvitationForm: boolean;
     invitation: Invitation | null;
 

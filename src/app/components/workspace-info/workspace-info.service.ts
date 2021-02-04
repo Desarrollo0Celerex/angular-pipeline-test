@@ -5,7 +5,7 @@ import { Workspace } from '@interfaces/workspace.interface';
 import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
-export class ContainerShowWorkspaceInfoService {
+export class WorkspaceInfoService {
     workspace: Workspace | null;
 
     constructor(private _workspaceService: WorkspaceService) {

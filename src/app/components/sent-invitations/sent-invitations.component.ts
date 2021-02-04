@@ -7,26 +7,26 @@ import { Invitation } from '@interfaces/invitation.interface';
 import { Role } from '@interfaces/role.interface';
 import { LoadingService } from '@services/loading.service';
 
-import { ContainerListSentInvitationsService } from './container-list-sent-invitations.service';
+import { SentInvitationsService } from './sent-invitations.service';
 
 declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
 declare var TooltipPlugin: any;
 
 @Component({
-  selector: 'agt-container-list-sent-invitations',
-  templateUrl: './container-list-sent-invitations.component.html',
+  selector: 'agt-sent-invitations',
+  templateUrl: './sent-invitations.component.html',
   styles: [
   ]
 })
-export class ContainerListSentInvitationsComponent implements OnInit, OnChanges {
+export class SentInvitationsComponent implements OnInit, OnChanges {
     @Input() invitation: Invitation | null;
     @Output() invitationDeleted: EventEmitter<void>;
     invitationLink: string | null;
     shareInvitationLinkModalId: string;
 
     constructor(
-        public containerListSentInvitationsService: ContainerListSentInvitationsService,
+        public containerListSentInvitationsService: SentInvitationsService,
         private _loadingService: LoadingService
     ) {
         this.invitation = null;
@@ -92,7 +92,7 @@ export class ContainerListSentInvitationsComponent implements OnInit, OnChanges 
      * @param context              App context
      * @param deleteInvitationData Data of the invitation to delete
      */
-    private _deleteInvitation(context: ContainerListSentInvitationsComponent, deleteInvitationData: DeleteInvitationData): void {
+    private _deleteInvitation(context: SentInvitationsComponent, deleteInvitationData: DeleteInvitationData): void {
         context._loadingService.show();
         context.containerListSentInvitationsService.deleteInvitation(deleteInvitationData.invitationId).subscribe( () => {
             context._loadingService.hide();

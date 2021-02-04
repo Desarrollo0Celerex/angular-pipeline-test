@@ -10,7 +10,7 @@ import { InvitationService } from '@services/invitation.service';
 import { RoleService } from '@services/role.service';
 
 @Injectable()
-export class ContainerListSentInvitationsService {
+export class SentInvitationsService {
     invitationsSent: Invitation[];
     roles: Role[];
 

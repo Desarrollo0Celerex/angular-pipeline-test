@@ -8,18 +8,18 @@ import { Invitation } from '@interfaces/invitation.interface';
 import { Role } from '@interfaces/role.interface';
 import { LoadingService } from '@services/loading.service';
 
-import { ContainerSendInvitationsService } from './container-send-invitations.service';
+import { SendInvitationsService } from './send-invitations.service';
 
 declare var ModalPlugin: any;
 declare var TooltipPlugin: any;
 
 @Component({
-  selector: 'agt-container-send-invitations',
-  templateUrl: './container-send-invitations.component.html',
+  selector: 'agt-send-invitations',
+  templateUrl: './send-invitations.component.html',
   styles: [
   ]
 })
-export class ContainerSendInvitationsComponent implements OnInit, OnChanges {
+export class SendInvitationsComponent implements OnInit, OnChanges {
     @Input() canAddInvitationForm: boolean;
     @Output() invitationSent: EventEmitter<Invitation>;
     changeRoleModalId: string;
@@ -27,7 +27,7 @@ export class ContainerSendInvitationsComponent implements OnInit, OnChanges {
     selectedFormIndex: number;
 
     constructor(
-        public containerSendInvitationsService: ContainerSendInvitationsService,
+        public containerSendInvitationsService: SendInvitationsService,
         private _loadingService: LoadingService
     ) {
         this.canAddInvitationForm = false;

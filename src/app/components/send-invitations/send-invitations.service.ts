@@ -15,7 +15,7 @@ import { RoleService } from '@services/role.service';
 import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
-export class ContainerSendInvitationsService {
+export class SendInvitationsService {
     invitationForms: InvitationForm[];
     roles: Role[];
     workspace: Workspace | null;

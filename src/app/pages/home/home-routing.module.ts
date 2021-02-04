@@ -14,8 +14,11 @@ const routes: Routes = [
             // Data routes
             { path: ROUTES_NAME.dashboard, loadChildren: () => import('@pages/home/data/dashboard/dashboard.module').then( mod => mod.DashboardModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
-            // Invitation routes
-            { path: ROUTES_NAME.sendInvitations, loadChildren: () => import('@pages/home/invitations/send-invitations/send-invitations.module').then(mod => mod.SendInvitationsModule), canActivate: [UserAuthenticatedGuard] }
+            // Invitations routes
+            { path: ROUTES_NAME.listInvitations, loadChildren: () => import('@pages/home/invitations/list-invitations/list-invitations.module').then(mod => mod.ListInvitationsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+
+            // Leads routes
+            { path: ROUTES_NAME.listLeads, loadChildren: () => import('@pages/home/leads/list-leads/list-leads.module').then(mod => mod.ListLeadsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] }
         ]
     }
 ];
