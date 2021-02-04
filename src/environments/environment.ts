@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
+    agenthosUrl: 'https://agenthos.com',
     atomAccountUrl: 'http://localhost:4201',
     appAgenthosUrl: 'http://localhost:4200',
     apiUrl: 'http://localhost:8888/atombits/agenthos/api/v1',

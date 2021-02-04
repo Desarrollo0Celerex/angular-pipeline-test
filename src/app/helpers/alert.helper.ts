@@ -44,6 +44,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static invitationRejected(): void {
+        const alertData: Alert = {
+            title: 'Invitación Rechazada',
+            text: 'Si has rechazado esta invitación por error, por favor solicita una nueva invitación.',
+            type: 'success',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static invitationSent(): void {
         const alertData: Alert = {
             title: 'Invitación Enviada',

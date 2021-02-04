@@ -15,7 +15,7 @@ export class CheckWorkspaceStatusService {
 
     /**
      * Check if the user has a workspace
-     * @return True if it has, otherwise false
+     * @return True if you have it, otherwise false
      */
     checkHasWorkspace(): boolean {
         return this._authService.checkHasWorkspace();

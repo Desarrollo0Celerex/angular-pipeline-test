@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ROUTES_NAME } from '@constants/routes-name';
+
 @Component({
   selector: 'agt-not-authenticated',
   templateUrl: './not-authenticated.page.html',
@@ -7,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class NotAuthenticatedPage implements OnInit {
+    ROUTES_NAME: any;
 
-  constructor() { }
+    constructor() {
+        this.ROUTES_NAME = ROUTES_NAME;
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

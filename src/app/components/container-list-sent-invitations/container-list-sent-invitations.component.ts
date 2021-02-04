@@ -83,7 +83,7 @@ export class ContainerListSentInvitationsComponent implements OnInit, OnChanges 
      * @param invitationId The invitation ID
      */
     onClickShareInvitation(invitationToken: string): void {
-        this.invitationLink = environment.appAgenthosUrl + '/accept-invitation/' + invitationToken;
+        this.invitationLink = `${environment.appAgenthosUrl}/invitations/accept-invitation/${invitationToken}`;
         ModalPlugin.show(this.shareInvitationLinkModalId);
     }
 

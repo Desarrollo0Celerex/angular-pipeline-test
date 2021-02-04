@@ -17,7 +17,7 @@ export class IdentifyUserService {
 
     /**
      * Check if the user has an active workspace
-     * @return True if it has, otherwise false
+     * @return True if you have it, otherwise false
      */
     checkHasActiveWorkspace(): boolean {
         return this._authService.checkHasActiveWorkspace();

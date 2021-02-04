@@ -4,8 +4,9 @@ const AUTH_ROUTES = {
 }
 
 const ERROR_ROUTES = {
-    notFound: 'error/not-found',
-    notAuthenticated: 'error/not-authenticated'
+    notFound: 'errors/not-found',
+    notAuthenticated: 'errors/not-authenticated',
+    workspaceNotActivated: 'errors/workspace-not-activated'
 }
 
 const HOME_DATA_ROUTES = {
@@ -16,12 +17,16 @@ const HOME_INVITATION_ROUTES = {
     sendInvitations: 'home/invitations/send-invitations'
 }
 
+const INVITATION_ROUTES = {
+    acceptInvitation: (invitationToken: string) => `invitations/accept-invitation/${invitationToken}`
+}
+
 const WORKSPACE_ROUTES = {
-    checkWorkspaceStatus: 'workspace/check-workspace-status',
-    welcome: 'workspace/welcome',
-    createWorkspace: 'workspace/create-workspace',
-    uploadWorkspaceAvatar: 'workspace/upload-workspace-avatar',
-    activateWorkspace: 'workspace/activate-workspace'
+    checkWorkspaceStatus: 'workspaces/check-workspace-status',
+    welcome: 'workspaces/welcome',
+    createWorkspace: 'workspaces/create-workspace',
+    uploadWorkspaceAvatar: 'workspaces/upload-workspace-avatar',
+    activateWorkspace: 'workspaces/activate-workspace'
 }
 
 export const ROUTES_NAME = {
@@ -29,5 +34,6 @@ export const ROUTES_NAME = {
     ...HOME_DATA_ROUTES,
     ...ERROR_ROUTES,
     ...HOME_INVITATION_ROUTES,
+    ...INVITATION_ROUTES,
     ...WORKSPACE_ROUTES
 }

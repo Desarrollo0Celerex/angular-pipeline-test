@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 
 import { AuthService } from '@services/auth.service';
+import { RoutingHistoryService } from '@services/routing-history.service';
 
 @Injectable()
 export class LoginService {
 
-    constructor(private _authService: AuthService) { }
+    constructor(
+        private _authService: AuthService,
+        private _routingHistoryService: RoutingHistoryService
+    ) { }
 
     /**
      * Check if user is logged in
@@ -19,8 +23,7 @@ export class LoginService {
      * Get the redirect url
      * @return Redirect url
      */
-    getRedirectUrl(): string | null {
-        // TODO: obtener la url de redireccionamiento
-        return null;
+    getRedirectUrl(): string {
+        return (this._routingHistoryService.getPreviousUrl() !== '/') ? this._routingHistoryService.getPreviousUrl() : '';
     }
 }

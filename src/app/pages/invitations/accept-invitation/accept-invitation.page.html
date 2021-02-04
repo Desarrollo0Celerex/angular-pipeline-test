@@ -1,0 +1,67 @@
+<!-- AGENTHOS MAIN VIEW -->
+<div class="page h-100" *ngIf="acceptInvitationService.invitation !== null">
+    <div class="">
+        <!-- AGENTHOS - LOGO -->
+        <div class="col col-login mx-auto">
+            <div class="text-center">
+                <img src="https://webkit.atombits.xyz/agenthos/logo/agenthos_dark.png" class="header-brand-img" alt="Agenthos Logo">
+            </div>
+        </div>
+        <!-- //AGENTHOS - LOGO -->
+        <!-- AGENTHOS - INVITE RESPONSE -->
+        <div class="container-login100">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title" [ngSwitch]="acceptInvitationService.invitation.invitationStatusId">
+                        <span *ngSwitchCase="INVITATION_STATUS.PENDING">Aceptar Invitación</span>
+                        <span *ngSwitchCase="INVITATION_STATUS.REJECTED">Invitación Rechazada</span>
+                        <span *ngSwitchCase="INVITATION_STATUS.DELETED">Invitación Eliminada</span>
+                    </h3>
+                </div>
+                <div class="card-body text-center">
+                    <!-- AGENTHOS - AGENT LOGO -->
+                    <img [src]="acceptInvitationService.invitation.workspaceAvatarUrl" class="avatar avatar-xxl brround cover-image">
+                    <!-- AGENTHOS - AGENT BRAND NAME -->
+                    <h4 class="h4 mb-0 mt-3 mb-3">{{acceptInvitationService.invitation.workspaceBrandName}}</h4>
+                    <!-- AGENTHOS - INVITE STATUS -->
+                    <p class="card-text" [ngSwitch]="acceptInvitationService.invitation.invitationStatusId">
+                        <span *ngSwitchCase="INVITATION_STATUS.PENDING">Por favor elige si deseas aceptar o rechazar la invitación para unirte al espacio de trabajo de este agente.</span>
+                        <span *ngSwitchCase="INVITATION_STATUS.REJECTED">Esta invitación ha sido rechazada, por favor solicita una nueva invitación para unirte al espacio de trabajo de este agente.</span>
+                        <span *ngSwitchCase="INVITATION_STATUS.DELETED">Esta invitación ha sido eliminada, por favor solicita una nueva invitación para unirte al espacio de trabajo de este agente.</span>
+                    </p>
+                </div>
+                <div class="card-body" *ngIf="acceptInvitationService.invitation.invitationStatusId == INVITATION_STATUS.PENDING; else exit">
+                    <!-- AGENTHOS - USER RESPONSE -->
+                    <div class="row">
+                        <!-- AGENTHOS - ACCEPT INVITATION -->
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary btn-block" (click)="onClickAcceptInvitation()"><strong>ACEPTAR INVITACIÓN</strong></button>
+                        </div>
+                        <!-- //AGENTHOS - ACCEPT INVITATION -->
+                        <!-- AGENTHOS - REJECT INVITACIÓN -->
+                        <div class="col-md-12 mt-5">
+                            <button type="button" class="btn btn-secondary btn-block" (click)="onClickRejectInvitation()"><strong>RECHAZAR INVITACIÓN</strong></button>
+                        </div>
+                        <!-- AGENTHOS - REJECT INVITACIÓN -->
+                    </div>
+                    <!-- //AGENTHOS - USER RESPONSE -->
+                </div>
+                <ng-template #exit>
+                    <div class="card-body">
+                        <!-- AGENTHOS - USER RESPONSE -->
+                        <div class="row">
+                            <!-- AGENTHOS - EXIT -->
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-primary btn-block" (click)="onClickExit()"><strong>SALIR</strong></button>
+                            </div>
+                            <!-- //AGENTHOS - EXIT -->
+                        </div>
+                        <!-- //AGENTHOS - USER RESPONSE -->
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        <!-- //AGENTHOS - INVITE RESPONSE -->
+    </div>
+</div>
+<!-- //AGENTHOS MAIN VIEW -->
