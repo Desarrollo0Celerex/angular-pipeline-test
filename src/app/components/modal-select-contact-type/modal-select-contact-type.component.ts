@@ -26,7 +26,7 @@ export class ModalSelectContactTypeComponent {
      * Click event to request create a contact
      * @param  contactType The contact type to create
      */
-    onClickCreateContact(contactType: number): void {
+    onClickCreateContact(contactType: string): void {
         ModalPlugin.hide(this.modalId);
         this._router.navigateByUrl(ROUTES_NAME.createContact(contactType));
     }

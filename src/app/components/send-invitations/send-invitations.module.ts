@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ModalChangeRoleModule } from '@components/modal-change-role/modal-change-role.module';
+import { ModalSelectRoleModule } from '@components/modal-select-role/modal-select-role.module';
 import { InvitationService } from '@services/invitation.service';
 import { RoleService } from '@services/role.service';
 import { WorkspaceService } from '@services/workspace.service';
@@ -17,7 +17,7 @@ import { SendInvitationsService } from './send-invitations.service';
   imports: [
     CommonModule,
     FormsModule,
-    ModalChangeRoleModule,
+    ModalSelectRoleModule,
     ReactiveFormsModule
   ],
   providers: [SendInvitationsService, InvitationService, RoleService, WorkspaceService]

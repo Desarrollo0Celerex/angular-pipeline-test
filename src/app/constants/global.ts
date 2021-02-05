@@ -1,7 +1,8 @@
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;
 export const DEFAULT_COUNTRY_ID: number = 1;
-export const DEFAULT_ROLE_ID = 1;
+export const DEFAULT_ROLE_ID: number = 1;
+export const DEFAULT_CONTACT_SOURCE_ID: number = 1;
 
 // Validations
 export const ALPHANUMERICS: string = 'a-zA-Z0-9ñÑ';

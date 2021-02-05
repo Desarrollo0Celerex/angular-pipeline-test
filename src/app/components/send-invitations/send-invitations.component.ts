@@ -32,7 +32,7 @@ export class SendInvitationsComponent implements OnInit, OnChanges {
     ) {
         this.canAddInvitationForm = false;
         this.invitationSent = new EventEmitter<Invitation>();
-        this.changeRoleModalId = 'agt-modal-change-role'
+        this.changeRoleModalId = 'agt-modal-select-role'
         this.selectedRoleId = null;
         this.selectedFormIndex = 0;
     }

@@ -20,8 +20,8 @@ declare var Select2Plugin: any;
   ]
 })
 export class CreateWorkspacePage implements OnInit {
-    selectCountriesId: string = 'agt-countries';
-    selectCountryStatesId: string = 'agt-country-states';
+    selectCountriesId: string;
+    selectCountryStatesId: string;
     private _isFormSubmitted: boolean;
 
     constructor(
@@ -29,21 +29,13 @@ export class CreateWorkspacePage implements OnInit {
         private _loadingService: LoadingService,
         private _router: Router
     ) {
+        this.selectCountriesId = 'agt-countries';
+        this.selectCountryStatesId = 'agt-country-states';
         this._isFormSubmitted = false;
     }
 
     ngOnInit(): void {
         this._loadCatalogs();
-    }
-
-    /**
-     * Get the validation class
-     * @param  constrolName Control name
-     * @return              Validation class
-     */
-    getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.createWorkspaceService.workspaceForm.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
     /**
@@ -54,6 +46,16 @@ export class CreateWorkspacePage implements OnInit {
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null = this.createWorkspaceService.workspaceForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
+    }
+
+    /**
+     * Get the validation class
+     * @param  constrolName Control name
+     * @return              Validation class
+     */
+    getValidationClass(constrolName: string): string {
+        const control: AbstractControl | null = this.createWorkspaceService.workspaceForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
     /**

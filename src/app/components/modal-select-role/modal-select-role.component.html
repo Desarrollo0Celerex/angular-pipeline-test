@@ -2,7 +2,7 @@
 <div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form [formGroup]="modalChangeRoleService.roleForm" (submit)="onSubmitChangeRole()">
+            <form [formGroup]="ModalSelectRoleService.roleForm" (submit)="onSubmitChangeRole()">
                 <div class="modal-header">
                     <h5 class="modal-title" id="example-Modal3">Seleccionar Rol de Usuario</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label class="form-label">Asigna un Rol de Usuario</label>
                         <select class="form-control" formControlName="roleId">
-                            <option [value]="role.roleId" *ngFor="let role of modalChangeRoleService.roles">{{role.name}}</option>
+                            <option [value]="role.roleId" *ngFor="let role of ModalSelectRoleService.roles">{{role.name}}</option>
                         </select>
                     </div>
                     <div class="form-group">

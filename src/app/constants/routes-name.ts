@@ -10,7 +10,8 @@ const ERRORS_ROUTES = {
 }
 
 const HOME_CONTACT_ROUTES = {
-    createContact: (contactType: number) => `home/contact/createContact/${contactType}`
+    createContact: (contactType: string) => `home/contact/create-contact/${contactType}`,
+    contactSummary: (contactId: string) => `home/contact/contact-summary/${contactId}`
 }
 
 const HOME_DATA_ROUTES = {

@@ -6,7 +6,7 @@ import { Role } from '@interfaces/role.interface';
 import { RoleService } from '@services/role.service';
 
 @Injectable()
-export class ModalChangeRoleService {
+export class ModalSelectRoleService {
     roles: Role[];
     roleForm: FormGroup;
 
