@@ -29,7 +29,7 @@ const routes: Routes = [
     { path: ROUTES_NAME.notAuthenticated, loadChildren: () => import('@pages/errors/not-authenticated/not-authenticated.module').then( mod => mod.NotAuthenticatedModule) },
     { path: ROUTES_NAME.workspaceNotActivated, loadChildren: () => import('@pages/errors/workspace-not-activated/workspace-not-activated.module').then( mod => mod.WorkspaceNotActivatedModule) },
 
-    { path: '**', redirectTo: ROUTES_NAME.notFound }
+    //{ path: '**', redirectTo: ROUTES_NAME.notFound }
 ];
 
 @NgModule({

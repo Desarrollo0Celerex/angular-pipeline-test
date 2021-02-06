@@ -10,8 +10,14 @@ const ERRORS_ROUTES = {
 }
 
 const HOME_CONTACT_ROUTES = {
-    createContact: (contactType: string) => `home/contact/create-contact/${contactType}`,
-    contactSummary: (contactId: string) => `home/contact/contact-summary/${contactId}`
+    createContact: (contactTypeId: string) => `home/contact/create-contact/${contactTypeId}`
+}
+
+const HOME_CONTACT_PROFILE_ROUTES = {
+    contactResume: (contactId: string) => `home/contact-profile/${contactId}/resume`,
+    contactQuotations: (contactId: string) => `home/contact-profile/${contactId}/quotations`,
+    contactPolicies: (contactId: string) => `home/contact-profile/${contactId}/policies`,
+    contactSinisters: (contactId: string) => `home/contact-profile/${contactId}/sinisters`,
 }
 
 const HOME_DATA_ROUTES = {
@@ -42,6 +48,7 @@ export const ROUTES_NAME = {
     ...AUTH_ROUTES,
     ...ERRORS_ROUTES,
     ...HOME_CONTACT_ROUTES,
+    ...HOME_CONTACT_PROFILE_ROUTES,
     ...HOME_DATA_ROUTES,
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,

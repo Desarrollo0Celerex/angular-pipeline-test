@@ -13,12 +13,16 @@ import { catchError } from 'rxjs/operators';
 import { ERROR_CODES } from '@constants/error-codes';
 import { AlertHelper } from '@helpers/alert.helper';
 import { HttpError } from '@interfaces/http-error.interface';
+import { AuthService } from '@services/auth.service';
 import { LoadingService } from '@services/loading.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-    constructor(private _loadingService: LoadingService) { }
+    constructor(
+        private _authService: AuthService,
+        private _loadingService: LoadingService
+    ) { }
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
       return next.handle(request).pipe(
@@ -47,6 +51,11 @@ export class ErrorInterceptor implements HttpInterceptor {
 
             case ERROR_CODES.invalidAuthToken:
                 AlertHelper.invalidAuthToken();
+                break;
+
+            case ERROR_CODES.invalidUserToken:
+                AlertHelper.invalidUserToken();
+                this._authService.logout();
                 break;
 
             case ERROR_CODES.invalidFields:

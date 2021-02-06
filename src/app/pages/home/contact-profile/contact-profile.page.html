@@ -1,0 +1,108 @@
+<!-- AGENTHOS - PROFILE PANEL -->
+<div class="row">
+    <!-- AGENTHOS - PROFILE CARD -->
+    <div class="col-lg-8">
+        <div class="card ">
+            <div class="card-header pt-0 pb-0 border-bottom-0">
+                <h3 class="card-title">Perfil de Contacto</h3>
+                <div class="card-options">
+                    <i class="fe fe-user mr-1 text-primary fs-30"></i>
+                </div>
+            </div>
+            <!-- AGENTHOS - PROFILE RESUME -->
+            <div class="card-body pt-0" *ngIf="!!contactProfileService.contact">
+                <div class="wideget-user">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="wideget-user-desc d-flex pt-2">
+                                <div class="wideget-user-img">
+                                    <img [src]="contactProfileService.contact.avatarUrl" width="88" alt="Agenthos Contact Pic">
+                                </div>
+                                <div class="user-wrap">
+                                    <!-- AGENTHOS - CONTACT NAME -->
+                                    <h3>{{contactProfileService.contact.contactName}}</h3>
+                                    <!-- AGENTHOS - CONTACT SOURCE --->
+                                    <h4 class="text-muted font-weight-normal mb-3">Origen: {{contactProfileService.contact.contactSourceName}}</h4>
+                                    <!-- AGENTHOS - CONTACT PHONE -->
+                                    <h4 class="text-muted font-weight-normal">Teléfono: {{contactProfileService.contact.phoneNumber | phoneNumberFormat: contactProfileService.contact.phoneCode}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - PROFILE RESUME -->
+            <!-- AGENTHOS - PROFILE MENU -->
+            <div class="card-footer pt-1 pb-1">
+                <ul class="nav nav-pills nav-pills-circle" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.contactResume(contactId)" routerLinkActive="active">
+                            <span class="nav-link-icon d-block"><i class="fe fe-activity"></i> Resumen</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.contactQuotations(contactId)" routerLinkActive="active">
+                            <span class="nav-link-icon d-block"><i class="fe fe-bookmark"></i> Cotizaciones</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.contactPolicies(contactId)" routerLinkActive="active">
+                            <span class="nav-link-icon d-block"><i class="fe fe-shield"></i> Pólizas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.contactSinisters(contactId)" routerLinkActive="active">
+                            <span class="nav-link-icon d-block"><i class="fe fe-life-buoy"></i> Siniestros</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link border p-3 m-2" [routerLink]="">
+                            <span class="nav-link-icon d-block"><i class="fe fe-smartphone"></i> Contacto</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link border p-3 m-2" [routerLink]="">
+                            <span class="nav-link-icon d-block"><i class="fe fe-download-cloud"></i> Expediente</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- //AGENTHOS - PROFILE MENU -->
+        </div>
+    </div>
+    <!-- AGENTHOS - PROFILE CARD -->
+    <!-- AGENTHOS - PROFILE WALLET -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header pt-2 pb-0 border-bottom-0">
+                <h3 class="card-title">Cartera Total</h3>
+                <div class="card-options">
+                    <i class="fe fe-credit-card mr-1 text-primary fs-30"></i>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <h2 class="mb-0 number-font">$<span class="counter">888,888.88</span> MXN</h2>
+                <div class="row mt-3 dash1">
+                    <div class="col  border-right">
+                        <h6 class="font-weight-500 number-font1 mb-0">8</h6>
+                        <span class="text-muted">Pólizas<br/>Vigentes</span>
+                    </div>
+                    <div class="col  border-right">
+                        <h6 class="font-weight-500 number-font1 mb-0">8</h6>
+                        <span class="text-muted">Siniestros<br/>Reportados</span>
+                    </div>
+                    <div class="col ">
+                        <p class="font-weight-500 number-font1 mb-0">A+</p>
+                        <span class="text-muted">Score<br/>de Cliente</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <button type="button" name="agtQuoteNew" class="btn btn-block btn-primary"><strong>COTIZAR SEGURO</strong></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - PROFILE PANEL -->
+
+<router-outlet></router-outlet>

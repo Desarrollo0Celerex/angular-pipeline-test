@@ -1,6 +1,7 @@
 export const ERROR_CODES: any = {
     internalServerError: 'InternalServerError',
     invalidAuthToken: 'InvalidAuthToken',
+    invalidUserToken: 'InvalidUserToken',
     invalidFields: 'InvalidFields',
     invitationNotFound: 'InvitationNotFound',
     invitationSendAttemptsExceeded: 'InvitationSendAttemptsExceeded',

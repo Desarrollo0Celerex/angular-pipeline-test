@@ -34,6 +34,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static invalidUserToken(): void {
+        const alertData: Alert = {
+            title: 'Lo sentimos',
+            text: 'Tu sesión ha expirado.',
+            type: 'error',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static invitationDeleted(): void {
         const alertData: Alert = {
             title: 'Invitación Eliminada',

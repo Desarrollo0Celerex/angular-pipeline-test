@@ -39,6 +39,7 @@ export class CreateContactPage implements OnInit {
 
     ngOnInit(): void {
         this._catchParams();
+        console.log('contactTypeId: ',this.contactTypeId);
         this._buildContactForm();
         this.createContactService.loadContactSources();
     }
@@ -105,7 +106,7 @@ export class CreateContactPage implements OnInit {
             this._loadingService.show();
             this.createContactService.createContact().subscribe( (res: HttpResponse) => {
                 this._loadingService.hide();
-                this._router.navigateByUrl(ROUTES_NAME.contactSummary(res.data), { state: { contactSaved: true }});
+                this._router.navigateByUrl(ROUTES_NAME.contactResume(res.data), { state: { contactSaved: true }});
             })
         }
     }
@@ -125,7 +126,7 @@ export class CreateContactPage implements OnInit {
      * Catch the params
      */
     private _catchParams(): void {
-        this.contactTypeId = this._activatedRoute.snapshot.params.contactTypeId
+        this.contactTypeId = parseInt(this._activatedRoute.snapshot.params.contactTypeId);
     }
 
 }
