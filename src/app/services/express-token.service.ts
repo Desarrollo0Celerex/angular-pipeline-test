@@ -31,4 +31,20 @@ export class ExpressTokenService {
         const route: string = routes.expressTokens(this._workspaceId, contactId);
         return this._httpClient.get<HttpResponse>(route);
     }
+
+    /**
+     * Get the express contact from the API
+     * @param  workspaceId  The contact workspace ID
+     * @param  contactId    The workspace ID
+     * @param  expressToken The express token
+     * @param  fields       The fields to get
+     * @return              The express contact data
+     */
+    public getExpressContact(workspaceId: string, contactId: string, expressToken: string, fields: string = ''): Observable<HttpResponse> {
+        const  headers = new  HttpHeaders().set("Express-Authorization", 'Bearer ' + expressToken);
+        let params: HttpParams = new HttpParams();
+        params = params.append('fields', fields);
+        const route: string = routes.expresContact(workspaceId, contactId);
+        return this._httpClient.get<HttpResponse>(route, { headers, params });
+    }
 }

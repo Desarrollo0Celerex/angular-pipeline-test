@@ -60,3 +60,9 @@ export const CONTACT_TYPES: any = {
     PERSON: 1,
     COMPANY: 2
 }
+
+export const BUTTON_TYPES: any = {
+    ICON: 1,
+    TEXT: 2,
+    INPUT: 3
+}

@@ -8,9 +8,11 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 import { ERROR_CODES } from '@constants/error-codes';
+import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { HttpError } from '@interfaces/http-error.interface';
 import { AuthService } from '@services/auth.service';
@@ -21,7 +23,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     constructor(
         private _authService: AuthService,
-        private _loadingService: LoadingService
+        private _loadingService: LoadingService,
+        private _router: Router
     ) { }
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -64,6 +67,10 @@ export class ErrorInterceptor implements HttpInterceptor {
 
             case ERROR_CODES.invitationSendAttemptsExceeded:
                 AlertHelper.invitationSendAttemptsExceeded();
+                break;
+
+            case ERROR_CODES.invalidExpressToken:
+                this._router.navigateByUrl(ROUTES_NAME.invalidExpressToken);
                 break;
         }
     }

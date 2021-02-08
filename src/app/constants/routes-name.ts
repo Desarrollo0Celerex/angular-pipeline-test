@@ -6,7 +6,12 @@ const AUTH_ROUTES = {
 const ERRORS_ROUTES = {
     notFound: 'errors/not-found',
     notAuthenticated: 'errors/not-authenticated',
-    workspaceNotActivated: 'errors/workspace-not-activated'
+    workspaceNotActivated: 'errors/workspace-not-activated',
+    invalidExpressToken: 'errors/invalid-express-token'
+}
+
+const EXPRESS_ROUTES = {
+    expressContact: (expressToken: string) => `express/express-contact/${expressToken}`
 }
 
 const HOME_CONTACT_ROUTES = {
@@ -47,6 +52,7 @@ const WORKSPACES_ROUTES = {
 export const ROUTES_NAME = {
     ...AUTH_ROUTES,
     ...ERRORS_ROUTES,
+    ...EXPRESS_ROUTES,
     ...HOME_CONTACT_ROUTES,
     ...HOME_CONTACT_PROFILE_ROUTES,
     ...HOME_DATA_ROUTES,
