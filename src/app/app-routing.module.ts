@@ -16,6 +16,7 @@ const routes: Routes = [
     { path: ROUTES_NAME.notAuthenticated, loadChildren: () => import('@pages/errors/not-authenticated/not-authenticated.module').then( mod => mod.NotAuthenticatedModule) },
     { path: ROUTES_NAME.workspaceNotActivated, loadChildren: () => import('@pages/errors/workspace-not-activated/workspace-not-activated.module').then( mod => mod.WorkspaceNotActivatedModule) },
     { path: ROUTES_NAME.invalidExpressToken, loadChildren: () => import('@pages/errors/invalid-express-token/invalid-express-token.module').then( mod => mod.InvalidExpressTokenModule) },
+    { path: ROUTES_NAME.contactNotFound, loadChildren: () => import('@pages/errors/contact-not-found/contact-not-found.module').then( mod => mod.ContactNotFoundModule) },
 
     // Express routes
     { path: ROUTES_NAME.expressContact(':expressToken'), loadChildren: () => import('@pages/express/express-contact/express-contact.module').then(mod => mod.ExpressContactModule) },

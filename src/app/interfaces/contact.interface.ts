@@ -5,5 +5,7 @@ export interface Contact {
     contactSourceName: string,
     phoneCode: string,
     phoneNumber: string,
-    email: string
+    email: string,
+    contactTypeName: string,
+    contactScoreName: string
 }

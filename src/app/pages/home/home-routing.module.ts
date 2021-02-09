@@ -19,6 +19,9 @@ const routes: Routes = [
             { path: ROUTES_NAME.createContact(':contactTypeId'), loadChildren: () => import('@pages/home/contacts/create-contact/create-contact.module').then( mod => mod.CreateContactModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: '', loadChildren: () => import('@pages/home/contact-profile/contact-profile.module').then(mod => mod.ContactProfileModule) },
 
+            // Insurances routes
+            { path: ROUTES_NAME.listInsurances(':contactId'), loadChildren: () => import('@pages/home/insurances/list-insurances/list-insurances.module').then(mod => mod.ListInsurancesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+
             // Invitations routes
             { path: ROUTES_NAME.listInvitations, loadChildren: () => import('@pages/home/invitations/list-invitations/list-invitations.module').then(mod => mod.ListInvitationsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 

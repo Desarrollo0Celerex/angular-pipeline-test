@@ -72,6 +72,10 @@ export class ErrorInterceptor implements HttpInterceptor {
             case ERROR_CODES.invalidExpressToken:
                 this._router.navigateByUrl(ROUTES_NAME.invalidExpressToken);
                 break;
+
+            case ERROR_CODES.contactNotFound:
+                this._router.navigateByUrl(ROUTES_NAME.contactNotFound);
+                break;
         }
     }
 }

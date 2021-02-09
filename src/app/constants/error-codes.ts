@@ -12,5 +12,6 @@ export const ERROR_CODES: any = {
     workspaceUserNotFound: 'WorkspaceUserNotFound',
     errorSendingInvitation: 'ErrorSendingInvitation',
     errorSendingEmail: 'ErrorSendingEmail',
-    invalidExpressToken: 'InvalidExpressToken'
+    invalidExpressToken: 'InvalidExpressToken',
+    contactNotFound: 'ContactNotFound'
 }

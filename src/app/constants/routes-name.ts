@@ -7,7 +7,8 @@ const ERRORS_ROUTES = {
     notFound: 'errors/not-found',
     notAuthenticated: 'errors/not-authenticated',
     workspaceNotActivated: 'errors/workspace-not-activated',
-    invalidExpressToken: 'errors/invalid-express-token'
+    invalidExpressToken: 'errors/invalid-express-token',
+    contactNotFound: 'error/contact-not-found'
 }
 
 const EXPRESS_ROUTES = {
@@ -27,6 +28,10 @@ const HOME_CONTACT_PROFILE_ROUTES = {
 
 const HOME_DATA_ROUTES = {
     dashboard: 'home/data/dashboard'
+}
+
+const HOME_INSURANCES_ROUTES = {
+    listInsurances: (contactId: string) => `home/insurances/list-insurances/${contactId}`
 }
 
 const HOME_INVITATIONS_ROUTES = {
@@ -56,6 +61,7 @@ export const ROUTES_NAME = {
     ...HOME_CONTACT_ROUTES,
     ...HOME_CONTACT_PROFILE_ROUTES,
     ...HOME_DATA_ROUTES,
+    ...HOME_INSURANCES_ROUTES,
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,
     ...INVITATIONS_ROUTES,

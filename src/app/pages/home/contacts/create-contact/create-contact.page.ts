@@ -39,7 +39,6 @@ export class CreateContactPage implements OnInit {
 
     ngOnInit(): void {
         this._catchParams();
-        console.log('contactTypeId: ',this.contactTypeId);
         this._buildContactForm();
         this.createContactService.loadContactSources();
     }
