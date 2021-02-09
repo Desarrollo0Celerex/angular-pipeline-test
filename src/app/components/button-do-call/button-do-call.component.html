@@ -1,0 +1,10 @@
+<ng-container [ngSwitch]="buttonType">
+    <ng-container *ngSwitchCase="BUTTON_TYPES.TEXT_WITH_ICON">
+        <a href="{{(!!phoneNumber) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
+            <button type="button" class="btn btn-block btn-teal mt-5" [disabled]="phoneNumber === null && required" (click)="onClickCheckConnection()">
+                <i class="fa fa-phone mr-2"></i>
+                <strong>LLAMAR</strong>
+            </button>
+        </a>
+    </ng-container>
+</ng-container>

@@ -1,0 +1,23 @@
+<ng-container [ngSwitch]="buttonType">
+    <ng-container *ngSwitchCase="BUTTON_TYPES.TEXT_WITH_ICON">
+        <a href="{{(!!email) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
+            <button type="button" class="btn btn-block btn-indigo mt-5" [disabled]="!(!!email) && required" (click)="onClickCheckConnection()">
+                <i class="fa fa-envelope mr-2"></i>
+                <strong>CORREO</strong>
+            </button>
+        </a>
+    </ng-container>
+    <ng-container *ngSwitchCase="BUTTON_TYPES.INPUT">
+        <label class="form-label">Correo Electrónico</label>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="{{email }}" readonly>
+            <span class="input-group-append">
+                <a href="{{(!!email) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
+                    <button type="button" class="btn btn-indigo" [disabled]="!(!!email) && required" (click)="onClickCheckConnection()">
+                        <i class="fa fa-envelope"></i>
+                    </button>
+                </a>
+            </span>
+        </div>
+    </ng-container>
+</ng-container>

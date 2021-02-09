@@ -62,7 +62,8 @@ export const CONTACT_TYPES: any = {
 }
 
 export const BUTTON_TYPES: any = {
-    ICON: 1,
-    TEXT: 2,
-    INPUT: 3
+    TEXT: 1,
+    TEXT_WITH_ICON: 2,
+    ICON: 3,
+    INPUT: 4
 }

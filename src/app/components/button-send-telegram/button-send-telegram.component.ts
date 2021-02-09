@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { BUTTON_TYPES } from '@constants/global';
 
 @Component({
-  selector: 'agt-button-whatsapp',
-  templateUrl: './button-whatsapp.component.html',
+  selector: 'agt-button-send-telegram',
+  templateUrl: './button-send-telegram.component.html',
   styles: [
   ]
 })
-export class ButtonWhatsappComponent implements OnInit {
+export class ButtonSendTelegramComponent {
     @Input() buttonType: number;
     @Input() phoneCode: string;
     @Input() phoneNumber: string;
@@ -25,9 +25,6 @@ export class ButtonWhatsappComponent implements OnInit {
         this.BUTTON_TYPES = BUTTON_TYPES;
     }
 
-    ngOnInit(): void {
-    }
-
     /**
      * Check if can navigate
      * @return True if can, otherwise false
@@ -41,7 +38,7 @@ export class ButtonWhatsappComponent implements OnInit {
      * @return The link
      */
     public getLink(): string {
-        const contactLink = 'https://wa.me/'+ this.phoneCode +'1'+ this.phoneNumber;
+        const contactLink = 'https://telegram.me/'+ this.phoneCode +'1'+ this.phoneNumber;
         return contactLink;
     }
 
@@ -53,5 +50,4 @@ export class ButtonWhatsappComponent implements OnInit {
             this.connectionFailed.emit();
         }
     }
-
 }

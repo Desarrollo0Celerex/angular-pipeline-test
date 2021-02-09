@@ -1,8 +1,5 @@
 <ng-container [ngSwitch]="buttonType">
-    <ng-container *ngSwitchCase="BUTTON_TYPES.ICON">
-        Pending
-    </ng-container>
-    <ng-container *ngSwitchCase="BUTTON_TYPES.TEXT">
+    <ng-container *ngSwitchCase="BUTTON_TYPES.TEXT_WITH_ICON">
         <a href="{{(!!phoneNumber) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
             <button type="button" class="btn btn-block btn-lime mt-5" [disabled]="!(!!phoneNumber) && required" (click)="onClickCheckConnection()">
                 <i class="fa fa-whatsapp mr-2"></i>

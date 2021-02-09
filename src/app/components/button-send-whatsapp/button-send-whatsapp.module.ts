@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { PhoneNumberFormatModule } from '@pipes/phone-number-format/phone-number-format.module';
 
-import { ButtonWhatsappComponent } from './button-whatsapp.component';
+import { ButtonSendWhatsappComponent } from './button-send-whatsapp.component';
 
 @NgModule({
-  declarations: [ButtonWhatsappComponent],
-  exports: [ButtonWhatsappComponent],
+  declarations: [ButtonSendWhatsappComponent],
+  exports: [ButtonSendWhatsappComponent],
   imports: [
     CommonModule,
     PhoneNumberFormatModule
   ]
 })
-export class ButtonWhatsappModule { }
+export class ButtonSendWhatsappModule { }

@@ -1,0 +1,8 @@
+<ng-container [ngSwitch]="buttonType">
+    <ng-container *ngSwitchCase="BUTTON_TYPES.TEXT_WITH_ICON">
+        <button type="button" class="btn btn-block btn-cyan" [vcdDownloadVCard]="vCard" *ngIf="!!vCard"><i class="fa fa-cloud-download mr-2"></i><strong>DESCARGAR</strong></button>
+    </ng-container>
+    <ng-container *ngSwitchCase="BUTTON_TYPES.TEXT">
+        <button type="button" class="btn btn-block btn-primary" [vcdDownloadVCard]="vCard" *ngIf="!!vCard"><strong>DESCARGAR CONTACTO</strong></button>
+    </ng-container>
+</ng-container>
