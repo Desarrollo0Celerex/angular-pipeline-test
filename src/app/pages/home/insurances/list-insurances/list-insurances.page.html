@@ -1,1 +1,22 @@
 <agt-card-contact [contactId]="contactId" [message]="cardContactMessage"></agt-card-contact>
+
+<!-- AGENTHOS - INSURANCE CATEGORIES -->
+<ng-container *ngFor="let insurancesByCategory of listInsurancesService.insurancesByCategories">
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">{{insurancesByCategory.name}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- AGENTHOS - INSURANCE -->
+        <div class="col-md-3 col-xl-3" *ngFor="let insurance of insurancesByCategory.insurances">
+            <agt-card-insurance [insurance]="insurance" (quoteInsurance)="onQuoteInsurance($event)"></agt-card-insurance>
+        </div>
+        <!-- //AGENTHOS - INSURANCE -->
+    </div>
+</ng-container>
+<!-- //AGENTHOS - INSURANCE CATEGORIES -->
