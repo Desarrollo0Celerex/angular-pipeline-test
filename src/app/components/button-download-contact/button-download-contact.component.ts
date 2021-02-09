@@ -1,8 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { VCard } from 'ngx-vcard';
+import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
 
 import { BUTTON_TYPES } from '@constants/global';
-import { VcardData } from '@interfaces/vcard-data.interface';
+
+import { ButtonDownloadContactService } from './button-download-contact.service'
+
+declare var ModalPlugin: any;
 
 @Component({
   selector: 'agt-button-download-contact',
@@ -12,38 +14,34 @@ import { VcardData } from '@interfaces/vcard-data.interface';
 })
 export class ButtonDownloadContactComponent implements OnChanges {
     @Input() buttonType: number;
-    @Input() vcardData: VcardData | null;
+    @Input() contactId: string;
+    @Input() expressToken: string;
+    @Input() modalId: string;
     BUTTON_TYPES: any;
-    vCard: VCard | null;
 
-    constructor() {
+    constructor(public buttonDownloadContactService: ButtonDownloadContactService) {
         this.buttonType = 0;
-        this.vcardData = null;
+        this.contactId = '';
+        this.expressToken = '';
+        this.modalId = '';
         this.BUTTON_TYPES = BUTTON_TYPES;
-        this.vCard = null;
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.vcardData.currentValue) {
-            this._generateVcard();
+        if(typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) {
+            this.buttonDownloadContactService.loadContact(changes.contactId.currentValue);
+        }
+        if(typeof changes.expressToken !== 'undefined' && !!changes.expressToken.currentValue) {
+            this.buttonDownloadContactService.loadExpressContact(changes.expressToken.currentValue);
         }
     }
 
-    private _generateVcard(): void {
-        if(!!this.vcardData) {
-            this.vCard = {
-                name: {
-                    firstNames: this.vcardData.contactName,
-                    lastNames: ''
-                },
-                email: [this.vcardData.email],
-                telephone: [this.vcardData.phoneNumber],
-                organization: 'Agenthos',
-                url: {
-                    work: 'https://agenthos.com',
-                    home: ''
-                }
-            }
+    /**
+     * Click event to hide the modal
+     */
+    onClickHideModal(): void {
+        if(!!this.modalId) {
+            ModalPlugin.hide(this.modalId);
         }
     }
 }

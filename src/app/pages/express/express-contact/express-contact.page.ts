@@ -17,6 +17,7 @@ declare var ModalPlugin: any;
 })
 export class ExpressContactPage implements OnInit {
     BUTTON_TYPES: any;
+    expressToken: string;
     incompleteContactDataModalId: string;
 
     constructor(
@@ -25,16 +26,27 @@ export class ExpressContactPage implements OnInit {
         private _router: Router
     ) {
         this.BUTTON_TYPES = BUTTON_TYPES;
+        this.expressToken = '';
         this.incompleteContactDataModalId = 'agt-incomplete-contact-data';
     }
 
     ngOnInit(): void {
-        const expressToken = this._activatedRoute.snapshot.params.expressToken;
-        this._loadExpressContact(expressToken);
+        this._catchParams();
+        this._loadExpressContact(this.expressToken);
     }
 
+    /**
+     * Event to notify if the connection failed
+     */
     onConnectionFailed(): void {
         ModalPlugin.show(this.incompleteContactDataModalId);
+    }
+
+    /**
+     * Catch the params
+     */
+    private _catchParams(): void {
+        this.expressToken = this._activatedRoute.snapshot.params.expressToken;
     }
 
     /**

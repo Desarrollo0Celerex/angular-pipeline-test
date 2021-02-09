@@ -20,11 +20,11 @@ export class ResumePage implements OnInit {
 
     ngOnInit(): void {
         this._catchParams();
-        //if(this._checkIsContactSaved()) {
+        if(this._checkIsContactSaved()) {
             setTimeout(() => {
                 ModalPlugin.show(this.contactSavedModalId);
             },0);
-        //}
+        }
     }
 
     /**

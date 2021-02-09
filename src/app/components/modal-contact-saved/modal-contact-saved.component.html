@@ -26,8 +26,7 @@
             </div>
             <div class="modal-footer">
                 <div class="col-12">
-                    <a href="../profile/vcard.vcf" target="_blank">
-                    <button type="button" name="agtContactDownload" class="btn btn-block btn-primary"><strong>DESCARGAR CONTACTO</strong></button></a>
+                    <agt-button-download-contact [buttonType]="BUTTON_TYPES.TEXT" [contactId]="contactId" [modalId]="modalId"></agt-button-download-contact>
                 </div>
             </div>
         </div>

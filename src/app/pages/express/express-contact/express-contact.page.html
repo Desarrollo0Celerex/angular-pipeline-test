@@ -18,7 +18,7 @@
 							<agt-button-send-telegram [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [phoneCode]="expressContactService.contact.phoneCode" [phoneNumber]="expressContactService.contact.phoneNumber" (connectionFailed)="onConnectionFailed()"></agt-button-send-telegram>
 							<agt-button-send-email [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [email]="expressContactService.contact.email" (connectionFailed)="onConnectionFailed()"></agt-button-send-email>
 							<div class="mt-5"></div>
-							<agt-button-download-contact [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [vcardData]="expressContactService.vcardData"></agt-button-download-contact>
+							<agt-button-download-contact [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken"></agt-button-download-contact>
 						</div>
 					</div>
 				</div>
