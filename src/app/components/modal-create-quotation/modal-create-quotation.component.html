@@ -1,0 +1,46 @@
+<!-- AGENTHOS - DESCARGAR CONTACTO -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalles de Cotización</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="modalCreateQuotationService.quotationForm" (submit)="onSubmitCreateQuotation()">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - QUOTE DESCRIPTION * -->
+                                <label class="form-label">Descripción</label>
+                                <input type="text" class="form-control {{getValidationClass('description')}}" placeholder="Ingresa la descripción del bien asegurado." formControlName="description">
+                                <div class="invalid-feedback">{{getErrorMessage('description')}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - QUOTE TYPE * -->
+                                <label class="form-label">Tipo de Seguro</label>
+                                <select [id]="selectInsuranceTypeId" class="form-control select2 custom-select {{getValidationClass('insuranceTypeId')}}" formControlName="insuranceTypeId">
+                                    <option [value]="insuranceType.insuranceTypeId" *ngFor="let insuranceType of modalCreateQuotationService.insuranceTypes">{{insuranceType.name}}</option>
+                                </select>
+                                <div class="invalid-feedback">{{getErrorMessage('insuranceTypeId')}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- AGENTHOS - CANCEL QUOTE -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+                    <!-- AGENTHOS - CREATE QUOTE -->
+                    <button type="submit" class="btn btn-primary">CONFIRMAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    <!-- //AGENTHOS - DESCARGAR CONTACTO -->

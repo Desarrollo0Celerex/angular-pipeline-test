@@ -5,6 +5,8 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 
 import { ListInsurancesService } from './list-insurances.service';
 
+declare var ModalPlugin: any;
+
 @Component({
   selector: 'agt-list-insurances',
   templateUrl: './list-insurances.page.html',
@@ -12,15 +14,19 @@ import { ListInsurancesService } from './list-insurances.service';
   ]
 })
 export class ListInsurancesPage implements OnInit {
-    contactId: string;
     cardContactMessage: string;
+    contactId: string;
+    createQuotationModalId: string;
+    selectedInsuranceId: number;
 
     constructor(
         public listInsurancesService: ListInsurancesService,
         private _activatedRoute: ActivatedRoute
     ) {
-        this.contactId = '';
         this.cardContactMessage = 'Selecciona el tipo de seguro que deseas cotizar para';
+        this.contactId = '';
+        this.createQuotationModalId = 'agt-create-quotation';
+        this.selectedInsuranceId = 0;
     }
 
     ngOnInit(): void {
@@ -31,11 +37,12 @@ export class ListInsurancesPage implements OnInit {
     }
 
     /**
-     * Event to quote an insurance
+     * Event to show modal create quotation
      * @param insuranceId The insurance ID to quote
      */
     onQuoteInsurance(insuranceId: number): void {
-        console.log('Mostrar modal para cotizar seguro: ',insuranceId);
+        this.selectedInsuranceId = insuranceId;
+        ModalPlugin.show(this.createQuotationModalId);
     }
 
     /**

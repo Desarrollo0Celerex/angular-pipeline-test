@@ -21,9 +21,9 @@ const HOME_CONTACT_ROUTES = {
 
 const HOME_CONTACT_PROFILE_ROUTES = {
     contactResume: (contactId: string) => `home/contact-profile/${contactId}/resume`,
-    contactQuotations: (contactId: string) => `home/contact-profile/${contactId}/quotations`,
-    contactPolicies: (contactId: string) => `home/contact-profile/${contactId}/policies`,
-    contactSinisters: (contactId: string) => `home/contact-profile/${contactId}/sinisters`,
+    listContactQuotations: (contactId: string) => `home/contact-profile/${contactId}/list-quotations`,
+    listContactPolicies: (contactId: string) => `home/contact-profile/${contactId}/list-policies`,
+    listContactSinisters: (contactId: string) => `home/contact-profile/${contactId}/list-sinisters`,
 }
 
 const HOME_DATA_ROUTES = {
