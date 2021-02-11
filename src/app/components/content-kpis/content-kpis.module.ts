@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
+import { LeadService } from '@services/lead.service';
+import { LeadStatusService } from '@services/lead-status.service';
 
 import { ContentKpisComponent } from './content-kpis.component';
 import { ContentKpisService } from './content-kpis.service';
@@ -8,8 +13,10 @@ import { ContentKpisService } from './content-kpis.service';
   declarations: [ContentKpisComponent],
   exports: [ContentKpisComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    PluralNameFormatModule,
+    RouterModule
   ],
-  providers: [ContentKpisService]
+  providers: [ContentKpisService, LeadService, LeadStatusService]
 })
 export class ContentKpisModule { }

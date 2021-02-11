@@ -1,92 +1,25 @@
 <!-- AGENTHOS - KPIS -->
 <div class="row">
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12" *ngFor="let kpi of contentKpisService.kpis">
         <div class="card">
             <div class="card-header pt-2 pb-0 border-bottom-0">
                 <!-- AGENTHOS - ACTIVE TAB -->
-                <h6 class="mb-0">Prospectos<br/>Nuevos</h6>
-            </div>
-            <div class="card-body d-flex">
-                <div class="">
-                    <h4 class="mb-1"><span class="number-font"><span class="counter">18</span></span></h4>
-                    <p class="mb-0 text-muted"><span class="text-green fs-13 mr-2">(33%)</span>Sobre el Total</p>
-                </div>
-                <div class="ml-auto">
-                    <div class="feature">
-                        <div class="fa-stack fa-lg fa-2x icon bg-success-gradient icon-service">
-                            <i class="mdi mdi-account-plus fa-stack-1x text-white"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-        <div class="card">
-            <div class="card-header pt-2 pb-0 border-bottom-0">
-                <h6 class="mb-0">Prospectos<br/>Recurrentes</h6>
-                <div class="card-options">
-                    <a href="recurrent.php">
-                    <button class="btn btn-sm btn-secondary"><i class="fe fe-eye mr-2"></i>VER</button></a>
+                <h6 class="mb-0">{{kpi.typeName | pluralNameFormat}}<br/>{{kpi.name | pluralNameFormat}}</h6>
+                <div class="card-options" [ngClass]="{'agt-hide': id === kpi.id}">
+                    <a [routerLink]="" [queryParams]="{'id': kpi.id }">
+                        <button class="btn btn-sm btn-secondary"><i class="fe fe-eye mr-2"></i>VER</button>
+                    </a>
                 </div>
             </div>
             <div class="card-body d-flex">
                 <div class="">
-                    <h4 class="mb-1"><span class="number-font"><span class="counter">11</span></span></h4>
-                    <p class="mb-0 text-muted"><span class="text-green fs-13 mr-2">(20%)</span>Sobre el Total</p>
+                    <h4 class="mb-1"><span class="number-font"><span class="counter">{{kpi.total}}</span></span></h4>
+                    <p class="mb-0 text-muted"><span class="text-green fs-13 mr-2">({{kpi.percentage | percent}})</span>Sobre el Total</p>
                 </div>
                 <div class="ml-auto">
                     <div class="feature">
-                        <div class="fa-stack fa-lg fa-2x icon bg-info-gradient icon-service">
-                            <i class="mdi mdi-account-check fa-stack-1x text-white"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-        <div class="card">
-            <div class="card-header pt-2 pb-0 border-bottom-0">
-                <h6 class="mb-0">Prospectos<br/>Recuperados</h6>
-                <div class="card-options">
-                    <a href="recovered.php">
-                    <button class="btn btn-sm btn-secondary"><i class="fe fe-eye mr-2"></i>VER</button></a>
-                </div>
-            </div>
-            <div class="card-body d-flex">
-                <div class="">
-                    <h4 class="mb-1"><span class="number-font"><span class="counter">21</span></span></h4>
-                    <p class="mb-0 text-muted"><span class="text-green fs-13 mr-2">(38%)</span>Sobre el Total</p>
-                </div>
-                <div class="ml-auto">
-                    <div class="feature">
-                        <div class="fa-stack fa-lg fa-2x icon bg-warning-gradient icon-service">
-                            <i class="mdi mdi-account-convert fa-stack-1x text-white"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-        <div class="card">
-            <div class="card-header pt-2 pb-0 border-bottom-0">
-                <h6 class="mb-0">Prospectos<br/>Descartados</h6>
-                <div class="card-options">
-                    <a href="disabled.php">
-                    <button class="btn btn-sm btn-secondary"><i class="fe fe-eye mr-2"></i>VER</button></a>
-                </div>
-            </div>
-            <div class="card-body d-flex">
-                <div class="">
-                    <h4 class="mb-1"><span class="number-font"><span class="counter">4</span></span></h4>
-                    <p class="mb-0 text-muted"><span class="text-green fs-13 mr-2">(7%)</span>Sobre el Total</p>
-                </div>
-                <div class="ml-auto">
-                    <div class="feature">
-                        <div class="fa-stack fa-lg fa-2x icon bg-danger-gradient icon-service">
-                            <i class="mdi mdi-account-remove fa-stack-1x text-white"></i>
+                        <div class="fa-stack fa-lg fa-2x icon bg-{{kpi.background}} icon-service">
+                            <i class="mdi {{kpi.icon}} fa-stack-1x text-white"></i>
                         </div>
                     </div>
                 </div>
