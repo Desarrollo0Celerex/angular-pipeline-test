@@ -10,14 +10,14 @@ import { JwtService } from '@services/jwt.service';
 
 @Injectable()
 export class ButtonDownloadContactService {
-    vCard: VCard | null;
+    vCard: VCard;
 
     constructor(
         private _contactService: ContactService,
         private _expressTokenService: ExpressTokenService,
         private _jwtService: JwtService
     ) {
-        this.vCard = null;
+        this.vCard = {};
     }
 
     /**
@@ -26,6 +26,7 @@ export class ButtonDownloadContactService {
      * @param expressToken The express token
      */
     loadContact(contactId: string): void {
+        this.vCard = {};
         const fields: string = 'contactName,phoneNumber,email';
         this._contactService.getContact(contactId, fields).subscribe( (res: HttpResponse) => {
             this._generateVcard(res.data);
@@ -37,6 +38,7 @@ export class ButtonDownloadContactService {
      * @param expressToken The express token
      */
     loadExpressContact(expressToken: string): void {
+        this.vCard = {};
         const fields: string = 'contactName,phoneNumber,email';
         const expressTokenData: ExpressTokenData = this._decodeExpressToken(expressToken);
         this._expressTokenService.getExpressContact(expressTokenData.workspaceId, expressTokenData.contactId, expressToken, fields).subscribe( (res: HttpResponse) => {

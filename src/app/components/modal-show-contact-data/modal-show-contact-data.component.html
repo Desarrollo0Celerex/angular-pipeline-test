@@ -30,15 +30,14 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <img src="../profile/smartcard.png" width="128px" alt="Agenthos vCard Code">
+                            <agt-qrcode-transfer-contact [contactId]="contactId"></agt-qrcode-transfer-contact>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer text-center">
                 <div class="col-12">
-                    <a href="../profile/vcard.vcf" target="_blank">
-                    <button type="button" class="btn btn-primary btn-block"><strong>DESCARGAR CONTACTO</strong></button></a>
+                    <agt-button-download-contact [buttonType]="BUTTON_TYPES.TEXT" [contactId]="contactId" [modalId]="modalId"></agt-button-download-contact>
                 </div>
             </div>
         </div>

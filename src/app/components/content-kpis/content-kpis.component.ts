@@ -34,6 +34,7 @@ export class ContentKpisComponent implements OnInit {
      * Load the kpis
      */
     private loadKpis(): void {
+        this.contentKpisService.initKpis();
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD:
                 this.contentTypeName = 'Prospectos'

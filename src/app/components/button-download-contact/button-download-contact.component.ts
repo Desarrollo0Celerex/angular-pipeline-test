@@ -18,6 +18,7 @@ export class ButtonDownloadContactComponent implements OnChanges {
     @Input() expressToken: string;
     @Input() modalId: string;
     BUTTON_TYPES: any;
+    dataLoaded: boolean;
 
     constructor(public buttonDownloadContactService: ButtonDownloadContactService) {
         this.buttonType = 0;
@@ -25,6 +26,7 @@ export class ButtonDownloadContactComponent implements OnChanges {
         this.expressToken = '';
         this.modalId = '';
         this.BUTTON_TYPES = BUTTON_TYPES;
+        this.dataLoaded = false;
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -34,6 +36,14 @@ export class ButtonDownloadContactComponent implements OnChanges {
         if(typeof changes.expressToken !== 'undefined' && !!changes.expressToken.currentValue) {
             this.buttonDownloadContactService.loadExpressContact(changes.expressToken.currentValue);
         }
+    }
+
+    /**
+     * Check if data is loaded
+     * @return True if it is, otherwise false
+     */
+    checkIfDataIsLoaded(): boolean {
+        return (Object.keys(this.buttonDownloadContactService.vCard).length === 0) ? false : true;
     }
 
     /**

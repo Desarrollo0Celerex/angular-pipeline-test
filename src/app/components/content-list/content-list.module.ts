@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CardLeadModule } from '@components/card-lead/card-lead.module';
+import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 import { LeadService } from '@services/lead.service';
 
@@ -14,6 +15,7 @@ import { ContentListService } from './content-list.service';
   imports: [
     CardLeadModule,
     CommonModule,
+    LoadingContentModule,
     ModalShowContactDataModule
   ],
   providers: [ContentListService, LeadService]

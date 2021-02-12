@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -33,7 +34,7 @@ export class LeadService {
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
         params = params.append('filter', 'leadStatusId[=]' + filter);
-        return this._httpClient.get<HttpResponse>(route, { params });
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(delay(3000));
     }
 
     /**

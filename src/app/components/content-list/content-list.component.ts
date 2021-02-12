@@ -16,13 +16,15 @@ export class ContentListComponent implements OnInit, OnChanges {
     @Input() contentType: number;
     @Input() contentSubtype: number;
     CONTENT_TYPES: any;
-    showContactDataModalId: string;
+    isLoadingContent: boolean;
     selectedContactId: string;
+    showContactDataModalId: string;
 
     constructor(public contentListService: ContentListService) {
         this.contentType = 0;
         this.contentSubtype = 0;
         this.CONTENT_TYPES = CONTENT_TYPES;
+        this.isLoadingContent = false;
         this.showContactDataModalId = 'agt-contact-data';
         this.selectedContactId = '';
     }
@@ -36,6 +38,10 @@ export class ContentListComponent implements OnInit, OnChanges {
         }
     }
 
+    /**
+     * Event to show the contact data modal
+     * @param contactId The contact ID
+     */
     onShowContactData(contactId: string): void {
         this.selectedContactId = contactId;
         ModalPlugin.show(this.showContactDataModalId);
@@ -45,9 +51,13 @@ export class ContentListComponent implements OnInit, OnChanges {
      * Load the contents according to content type
      */
     private _loadContents(): void {
+        this.contentListService.initContents();
+        this.isLoadingContent = true;
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD:
-                this.contentListService.loadLeads(this.contentSubtype)
+                this.contentListService.loadLeads(this.contentSubtype).subscribe( () => {
+                    this.isLoadingContent = false;
+                });
             break;
         }
 

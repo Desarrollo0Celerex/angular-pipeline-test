@@ -16,7 +16,14 @@ export class ContentKpisService {
         private _leadService: LeadService,
         private _leadStatusService: LeadStatusService
     ) {
-        this.kpis = [];
+        this.kpis = this._buildKpis();
+    }
+
+    /**
+     * Initialize the kpis
+     */
+    initKpis(): void {
+        this.kpis = this._buildKpis();
     }
 
     /**
@@ -25,13 +32,13 @@ export class ContentKpisService {
      */
     loadLeadKpis(): Observable<void> {
         return new Observable( observer => {
-            this.kpis = [];
             const fields: string = 'leadStatusId,name,background,icon';
             this._leadStatusService.getLeadStatus(fields).subscribe( (res: HttpResponse) => {
                 const leadStatus: LeadStatus[] = res.data;
                 this._leadService.getTotalLeads().subscribe( (res: HttpResponse) => {
                     const totalLeads: number = res.data;
                     this._getTotalLeadsByStatus(leadStatus).subscribe( (res: HttpResponse[]) => {
+                        this.kpis = [];
                         for(let index in res) {
                             const kpi: Kpi = {
                                 contentSubtype: leadStatus[index].leadStatusId,
@@ -49,6 +56,25 @@ export class ContentKpisService {
                 });
             })
         })
+    }
+
+    /**
+     * Build the kpis
+     * @return The kpis
+     */
+    private _buildKpis(): Kpi[] {
+        let kpis: Kpi[] = [];
+        for(let i=0; i<4; i++) {
+            kpis.push({
+                contentSubtype: 0,
+                name: '',
+                background: '',
+                icon: '',
+                total: 0,
+                percentage: 0
+            });
+        }
+        return kpis;
     }
 
     /**

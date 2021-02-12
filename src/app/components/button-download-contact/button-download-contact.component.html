@@ -1,10 +1,11 @@
-<ng-container *ngIf="!!buttonDownloadContactService.vCard">
-    <ng-container [ngSwitch]="buttonType">
-        <ng-container *ngSwitchCase="BUTTON_TYPES.TEXT_WITH_ICON">
-            <button type="button" class="btn btn-block btn-cyan" [vcdDownloadVCard]="buttonDownloadContactService.vCard" (click)="onClickHideModal()"><i class="fa fa-cloud-download mr-2"></i><strong>DESCARGAR</strong></button>
-        </ng-container>
-        <ng-container *ngSwitchCase="BUTTON_TYPES.TEXT">
-            <button type="button" class="btn btn-block btn-primary" [vcdDownloadVCard]="buttonDownloadContactService.vCard" (click)="onClickHideModal()"><strong>DESCARGAR CONTACTO</strong></button>
-        </ng-container>
+<ng-container [ngSwitch]="buttonType">
+    <ng-container *ngSwitchCase="BUTTON_TYPES.TEXT_WITH_ICON">
+        <button type="button" class="btn btn-block btn-cyan" [vcdDownloadVCard]="buttonDownloadContactService.vCard" [disabled]="!checkIfDataIsLoaded()" (click)="onClickHideModal()">
+            <i class="fa fa-cloud-download mr-2"></i>
+            <strong>DESCARGAR</strong>
+        </button>
+    </ng-container>
+    <ng-container *ngSwitchCase="BUTTON_TYPES.TEXT">
+        <button type="button" class="btn btn-block btn-primary" [vcdDownloadVCard]="buttonDownloadContactService.vCard" [disabled]="!checkIfDataIsLoaded()" (click)="onClickHideModal()"><strong>DESCARGAR CONTACTO</strong></button>
     </ng-container>
 </ng-container>

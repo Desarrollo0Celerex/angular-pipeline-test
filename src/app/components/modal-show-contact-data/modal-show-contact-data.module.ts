@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ButtonDownloadContactModule } from '@components/button-download-contact/button-download-contact.module';
 import { ButtonSendWhatsappModule } from '@components/button-send-whatsapp/button-send-whatsapp.module';
 import { ButtonSendEmailModule } from '@components/button-send-email/button-send-email.module';
+import { QrcodeTransferContactModule } from '@components/qrcode-transfer-contact/qrcode-transfer-contact.module';
 
 import { ModalShowContactDataComponent } from './modal-show-contact-data.component';
 
@@ -10,9 +12,11 @@ import { ModalShowContactDataComponent } from './modal-show-contact-data.compone
   declarations: [ModalShowContactDataComponent],
   exports: [ModalShowContactDataComponent],
   imports: [
+    ButtonDownloadContactModule,
     ButtonSendEmailModule,
     ButtonSendWhatsappModule,
-    CommonModule
+    CommonModule,
+    QrcodeTransferContactModule
   ]
 })
 export class ModalShowContactDataModule { }

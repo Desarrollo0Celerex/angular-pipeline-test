@@ -11,14 +11,17 @@
 <!-- //AGENTHOS - CONTENT HEADER -->
 <!-- AGENTHOS - CONTENT LIST -->
 <div class="row">
-    <!-- AGENTHOS - ITEM CARD -->
     <div class="col-md-3 col-xl-3" *ngFor="let content of contentListService.contents">
         <agt-card-lead [lead]="content" (showContactData)="onShowContactData($event)"></agt-card-lead>
     </div>
-    <!-- //AGENTHOS - ITEM CARD -->
 </div>
 <!-- //AGENTHOS - CONTENT LIST -->
 
+<agt-loading-content [isLoadingContent]="isLoadingContent"></agt-loading-content>
+
+
+<!-- AGENTHOS - CONTENT ACTIONS -->
 <ng-container *ngIf="contentType === CONTENT_TYPES.LEAD">
     <agt-modal-show-contact-data [modalId]="showContactDataModalId" [contactId]="selectedContactId"></agt-modal-show-contact-data>
 </ng-container>
+<!-- //AGENTHOS - CONTENT ACTIONS -->
