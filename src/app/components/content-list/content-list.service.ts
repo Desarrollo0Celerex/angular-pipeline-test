@@ -27,11 +27,11 @@ export class ContentListService {
      * Load the leads
      * @param contentSubtype The filter to apply
      */
-    loadLeads(contentSubtype: number): Observable<void> {
+    loadLeads(contentSubtype: number = 0, page: number = 1): Observable<void> {
         return new Observable( observer => {
             const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactScoreName';
-            this._leadService.getLeads(0, fields).subscribe( (res: HttpResponse) => {
-                this.contents = res.data.items;
+            this._leadService.getLeads(contentSubtype, page, fields).subscribe( (res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
                 observer.next();
                 observer.complete();

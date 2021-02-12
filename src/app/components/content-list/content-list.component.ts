@@ -14,17 +14,23 @@ declare var ModalPlugin: any;
 })
 export class ContentListComponent implements OnInit, OnChanges {
     @Input() contentType: number;
+    @Input() contentTypeName: string;
     @Input() contentSubtype: number;
+    @Input() contentSubtypeName: string;
     CONTENT_TYPES: any;
     isLoadingContent: boolean;
+    page: number;
     selectedContactId: string;
     showContactDataModalId: string;
 
     constructor(public contentListService: ContentListService) {
         this.contentType = 0;
+        this.contentTypeName = '';
         this.contentSubtype = 0;
+        this.contentSubtypeName = '';
         this.CONTENT_TYPES = CONTENT_TYPES;
         this.isLoadingContent = false;
+        this.page = 1;
         this.showContactDataModalId = 'agt-contact-data';
         this.selectedContactId = '';
     }
@@ -33,7 +39,8 @@ export class ContentListComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.contentSubtype.currentValue) {
+        if(typeof changes.contentSubtype !== 'undefined' && !!changes.contentSubtype.currentValue) {
+            this.contentListService.resetData();
             this._loadContents();
         }
     }
@@ -42,7 +49,8 @@ export class ContentListComponent implements OnInit, OnChanges {
      * Event to load more content
      */
     onLoadMoreContents(): void {
-        console.log('load more contents')
+        this.page++;
+        this._loadContents();
     }
 
     /**
@@ -58,11 +66,10 @@ export class ContentListComponent implements OnInit, OnChanges {
      * Load the contents according to content type
      */
     private _loadContents(): void {
-        this.contentListService.resetData();
         this.isLoadingContent = true;
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD:
-                this.contentListService.loadLeads(this.contentSubtype).subscribe( () => {
+                this.contentListService.loadLeads(0, this.page).subscribe( () => {
                     this.isLoadingContent = false;
                 });
             break;

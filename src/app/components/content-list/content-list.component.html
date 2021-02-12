@@ -3,7 +3,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Prospectos Nuevos</h3>
+                <h3 class="card-title">{{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}</h3>
             </div>
         </div>
     </div>
@@ -20,8 +20,8 @@
 <!-- //AGENTHOS - CONTENT LIST -->
 
 <agt-loading-content [isLoadingContent]="isLoadingContent"></agt-loading-content>
-<agt-content-results [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" (loadMoreContents)="onLoadMoreContents()"></agt-content-results>
-
+<agt-content-results [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentTypeName]="contentTypeName" [contentSubtypeName]="contentSubtypeName" (loadMoreContents)="onLoadMoreContents()"></agt-content-results>
+<agt-content-suggestions [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [contentTypeName]="contentTypeName"></agt-content-suggestions>
 
 <!-- AGENTHOS - CONTENT ACTIONS -->
 <ng-container *ngIf="contentType === CONTENT_TYPES.LEAD">

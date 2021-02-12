@@ -20,6 +20,16 @@ export class ContentKpisService {
     }
 
     /**
+     * Get the content subtype name
+     * @param  contentSubtype The selected content subtype
+     * @return                The content subtype name
+     */
+    getContentSubtypeName(contentSubtype: number): string {
+        const selectedKpi: Kpi | undefined = this.kpis.find( (element: Kpi) => element.contentSubtype === contentSubtype)
+        return (!!selectedKpi) ? selectedKpi.name : '';
+    }
+
+    /**
      * Initialize the kpis
      */
     initKpis(): void {

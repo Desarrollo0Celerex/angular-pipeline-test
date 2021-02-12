@@ -9,16 +9,20 @@ import { ContentResultData } from '@interfaces/content-result-data.interface';
   ]
 })
 export class ContentResultsComponent {
-    @Input() isLoadingContent: boolean;
     @Input() contentResultData: ContentResultData;
+    @Input() contentSubtypeName: string;
+    @Input() contentTypeName: string;
+    @Input() isLoadingContent: boolean;
     @Output() loadMoreContents: EventEmitter<void>;
 
     constructor() {
-        this.isLoadingContent = false;
         this.contentResultData = {
             loadedItems: 0,
             totalItems: 0
         };
+        this.contentTypeName = '';
+        this.contentSubtypeName = '';
+        this.isLoadingContent = false;
         this.loadMoreContents = new EventEmitter();
     }
 

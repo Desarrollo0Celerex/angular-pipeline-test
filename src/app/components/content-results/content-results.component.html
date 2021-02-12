@@ -4,7 +4,7 @@
             <div class="card-body">
                 <ng-container *ngIf="contentResultData.loadedItems < contentResultData.totalItems; else allResults ">
                     <ol class="breadcrumb1">
-                        <li class="breadcrumb-item1">Mostrando <strong>{{contentResultData.loadedItems}}</strong> de <strong>{{contentResultData.totalItems}}</strong> resultados.</li>
+                        <li class="breadcrumb-item1">Mostrando <strong>{{contentResultData.loadedItems}}</strong> de <strong>{{contentResultData.totalItems}}</strong> {{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}.</li>
                     </ol>
                     <div class="btn-list text-center">
                         <button class="btn btn-block btn-primary" (click)="onLoadMoreContents()"><strong>CARGAR MÁS</strong></button>
@@ -12,7 +12,7 @@
                 </ng-container>
                 <ng-template #allResults>
                     <ol class="breadcrumb1">
-                        <li class="breadcrumb-item1">Lista Completa: Se han mostrado los <strong>{{contentResultData.loadedItems}}</strong> resultados.</li>
+                        <li class="breadcrumb-item1">Lista Completa: Se han mostrado los <strong>{{contentResultData.loadedItems}}</strong> {{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}.</li>
                     </ol>
                 </ng-template>
             </div>

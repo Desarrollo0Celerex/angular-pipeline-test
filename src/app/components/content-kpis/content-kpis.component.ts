@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -13,21 +13,29 @@ declare var CounterPlugin: any;
   styles: [
   ]
 })
-export class ContentKpisComponent implements OnInit {
+export class ContentKpisComponent implements OnInit, OnChanges {
     @Input() contentType: number;
+    @Input() contentTypeName: string;
     @Input() contentSubtype: number;
+    @Output() contentSubtypeNameLoaded: EventEmitter<string>;
     ROUTES_NAME: any;
-    contentTypeName: string;
 
     constructor(public contentKpisService: ContentKpisService) {
         this.contentType = 0;
         this.contentSubtype = 0;
+        this.contentSubtypeNameLoaded = new EventEmitter<string>();
         this.ROUTES_NAME = ROUTES_NAME;
         this.contentTypeName = '';
     }
 
     ngOnInit(): void {
         this.loadKpis();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if(!!changes.contentSubtype.currentValue) {
+            this._loadContactSubtypeName();
+        }
     }
 
     /**
@@ -37,12 +45,20 @@ export class ContentKpisComponent implements OnInit {
         this.contentKpisService.initKpis();
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD:
-                this.contentTypeName = 'Prospectos'
                 this.contentKpisService.loadLeadKpis().subscribe( () => {
                     CounterPlugin.countUp();
+                    this._loadContactSubtypeName();
                 });
             break;
         }
+    }
+
+    /**
+     * Load the content subtype name
+     */
+    private _loadContactSubtypeName(): void {
+        const ContentSubtypeName: string = this.contentKpisService.getContentSubtypeName(this.contentSubtype);
+        this.contentSubtypeNameLoaded.emit(ContentSubtypeName);
     }
 
 }

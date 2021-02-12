@@ -28,11 +28,12 @@ export class LeadService {
      * @param  fields The fields to get
      * @return        The leads
      */
-    public getLeads(filter: number = 0, fields: string = ''): Observable<HttpResponse> {
+    public getLeads(filter: number = 0, page: number = 1, fields: string = ''): Observable<HttpResponse> {
         const route: string = routes.leads(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
         params = params.append('filter', 'leadStatusId[=]' + filter);
+        params = params.append('page', page+'');
         return this._httpClient.get<HttpResponse>(route, { params });
     }
 
