@@ -12,12 +12,15 @@
 <!-- AGENTHOS - CONTENT LIST -->
 <div class="row">
     <div class="col-md-3 col-xl-3" *ngFor="let content of contentListService.contents">
-        <agt-card-lead [lead]="content" (showContactData)="onShowContactData($event)"></agt-card-lead>
+        <ng-container [ngSwitch]="contentType">
+            <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD" [lead]="content" (showContactData)="onShowContactData($event)"></agt-card-lead>
+        </ng-container>
     </div>
 </div>
 <!-- //AGENTHOS - CONTENT LIST -->
 
 <agt-loading-content [isLoadingContent]="isLoadingContent"></agt-loading-content>
+<agt-content-results [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" (loadMoreContents)="onLoadMoreContents()"></agt-content-results>
 
 
 <!-- AGENTHOS - CONTENT ACTIONS -->

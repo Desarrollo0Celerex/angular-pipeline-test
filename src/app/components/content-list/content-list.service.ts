@@ -2,21 +2,25 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { LeadService } from '@services/lead.service';
 
 @Injectable()
 export class ContentListService {
     contents: any[];
+    contentResultData: ContentResultData;
 
     constructor(private _leadService: LeadService) {
-        this.contents = this.buildContents();
+        this.contents = this._initContents();
+        this.contentResultData = this._initContentResultData();
     }
 
     /**
-     * Initialize the contents
+     * Reset the contents
      */
-    initContents(): void {
-        this.contents = this.buildContents();
+    resetData(): void {
+        this.contents = this._initContents();
+        this.contentResultData = this._initContentResultData();
     }
 
     /**
@@ -27,7 +31,8 @@ export class ContentListService {
         return new Observable( observer => {
             const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactScoreName';
             this._leadService.getLeads(0, fields).subscribe( (res: HttpResponse) => {
-                this.contents = res.data.data;
+                this.contents = res.data.items;
+                this._loadContentResultData(res.data.totalItems);
                 observer.next();
                 observer.complete();
             })
@@ -35,11 +40,33 @@ export class ContentListService {
     }
 
     /**
-     * Build the contents
+     * Initialize the contents
      * @return The contents
      */
-    private buildContents(): [] {
+    private _initContents(): [] {
         return [];
+    }
+
+    /**
+     * Initialize the content result data
+     * @return The content result data
+     */
+    private _initContentResultData(): ContentResultData {
+        return {
+            loadedItems: 0,
+            totalItems: 0
+        }
+    }
+
+    /**
+     * Load the content result data
+     * @param totalItems   The total items
+     */
+    private _loadContentResultData(totalItems: number): void {
+        this.contentResultData = {
+            loadedItems: this.contents.length,
+            totalItems
+        }
     }
 
 }

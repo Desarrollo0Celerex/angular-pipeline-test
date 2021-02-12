@@ -1,0 +1,21 @@
+<div class="row mt-3">
+    <div class="col-sm-12" [hidden]="isLoadingContent">
+        <div class="card">
+            <div class="card-body">
+                <ng-container *ngIf="contentResultData.loadedItems < contentResultData.totalItems; else allResults ">
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1">Mostrando <strong>{{contentResultData.loadedItems}}</strong> de <strong>{{contentResultData.totalItems}}</strong> resultados.</li>
+                    </ol>
+                    <div class="btn-list text-center">
+                        <button class="btn btn-block btn-primary" (click)="onLoadMoreContents()"><strong>CARGAR MÁS</strong></button>
+                    </div>
+                </ng-container>
+                <ng-template #allResults>
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1">Lista Completa: Se han mostrado los <strong>{{contentResultData.loadedItems}}</strong> resultados.</li>
+                    </ol>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

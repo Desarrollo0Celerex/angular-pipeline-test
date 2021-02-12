@@ -39,6 +39,13 @@ export class ContentListComponent implements OnInit, OnChanges {
     }
 
     /**
+     * Event to load more content
+     */
+    onLoadMoreContents(): void {
+        console.log('load more contents')
+    }
+
+    /**
      * Event to show the contact data modal
      * @param contactId The contact ID
      */
@@ -51,7 +58,7 @@ export class ContentListComponent implements OnInit, OnChanges {
      * Load the contents according to content type
      */
     private _loadContents(): void {
-        this.contentListService.initContents();
+        this.contentListService.resetData();
         this.isLoadingContent = true;
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD:
