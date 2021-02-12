@@ -34,9 +34,8 @@ export class ContentKpisService {
                     this._getTotalLeadsByStatus(leadStatus).subscribe( (res: HttpResponse[]) => {
                         for(let index in res) {
                             const kpi: Kpi = {
-                                id: leadStatus[index].leadStatusId,
+                                contentSubtype: leadStatus[index].leadStatusId,
                                 name: leadStatus[index].name,
-                                typeName: 'Prospecto',
                                 background: leadStatus[index].background,
                                 icon: leadStatus[index].icon,
                                 total: res[index].data,

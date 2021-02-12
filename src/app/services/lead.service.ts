@@ -7,6 +7,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
+    leads: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/leads',
     totalLeads: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/leads/count'
 }
 
@@ -19,6 +20,20 @@ export class LeadService {
         private _authService: AuthService
     ) {
         this._workspaceId = this._authService.workspaceId;
+    }
+
+    /**
+     * Get the leads from the API
+     * @param  filter The filter to apply
+     * @param  fields The fields to get
+     * @return        The leads
+     */
+    public getLeads(filter: number = 0, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.leads(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('fields', fields);
+        params = params.append('filter', 'leadStatusId[=]' + filter);
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 
     /**

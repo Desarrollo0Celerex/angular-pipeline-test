@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PhoneNumberFormatPipe implements PipeTransform {
 
     transform(phoneNumber: string, phoneCode: string): string {
-        return (phoneNumber !== null) ? '+' + phoneCode + ' ' + phoneNumber  : '';
+        return (!!phoneNumber) ? '+' + phoneCode + ' ' + phoneNumber  : '';
     }
 
 }

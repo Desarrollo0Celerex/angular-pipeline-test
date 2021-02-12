@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { BUTTON_TYPES } from '@constants/global';
+
+import { ButtonSendEmailService } from './button-send-email.service';
 
 @Component({
   selector: 'agt-button-send-email',
@@ -8,19 +10,30 @@ import { BUTTON_TYPES } from '@constants/global';
   styles: [
   ]
 })
-export class ButtonSendEmailComponent {
+export class ButtonSendEmailComponent implements OnChanges {
     @Input() buttonType: number;
-    @Input() email: string;
+    @Input() contactId: string;
+    @Input() expressToken: string;
     @Input() required: boolean;
     @Output() connectionFailed: EventEmitter<void>;
     BUTTON_TYPES: any = BUTTON_TYPES;
 
-    constructor() {
+    constructor(public buttonSendEmailService: ButtonSendEmailService) {
         this.buttonType = 0;
-        this.email = '';
+        this.contactId = '';
+        this.expressToken = '';
         this.required = false;
         this.connectionFailed = new EventEmitter<void>();
         this.BUTTON_TYPES = BUTTON_TYPES;
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if(typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) {
+            this.buttonSendEmailService.loadContact(this.contactId);
+        }
+        if(typeof changes.expressToken !== 'undefined' && !!changes.expressToken.currentValue) {
+            this.buttonSendEmailService.loadExpressContact(this.expressToken);
+        }
     }
 
     /**
@@ -28,7 +41,7 @@ export class ButtonSendEmailComponent {
      * @return True if can, otherwise false
      */
     public checkCanNavigate(): boolean {
-        return (!!this.email) ? true : false;
+        return (!!this.buttonSendEmailService.email) ? true : false;
     }
 
     /**
@@ -36,15 +49,14 @@ export class ButtonSendEmailComponent {
      * @return The link
      */
     public getLink(): string {
-        const contactLink = 'mailto:'+ this.email;
-        return contactLink;
+        return 'mailto:'+ this.buttonSendEmailService.email;
     }
 
     /**
      * Click event to check the connection with contact link
      */
     public onClickCheckConnection(): void {
-        if(!(!!this.email)) {
+        if(!(!!this.buttonSendEmailService.email)) {
             this.connectionFailed.emit();
         }
     }

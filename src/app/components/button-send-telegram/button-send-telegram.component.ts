@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 
 import { BUTTON_TYPES } from '@constants/global';
+
+import { ButtonSendTelegramService } from './button-send-telegram.service';
 
 @Component({
   selector: 'agt-button-send-telegram',
@@ -10,19 +12,28 @@ import { BUTTON_TYPES } from '@constants/global';
 })
 export class ButtonSendTelegramComponent {
     @Input() buttonType: number;
-    @Input() phoneCode: string;
-    @Input() phoneNumber: string;
+    @Input() contactId: string;
+    @Input() expressToken: string;
     @Input() required: boolean;
     @Output() connectionFailed: EventEmitter<void>;
     BUTTON_TYPES: any = BUTTON_TYPES;
 
-    constructor() {
+    constructor(public buttonSendTelegramService: ButtonSendTelegramService) {
         this.buttonType = 0;
-        this.phoneCode = '';
-        this.phoneNumber = '';
+        this.contactId = '';
+        this.expressToken = '';
         this.required = false;
         this.connectionFailed = new EventEmitter<void>();
         this.BUTTON_TYPES = BUTTON_TYPES;
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if(typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) {
+            this.buttonSendTelegramService.loadContact(this.contactId);
+        }
+        if(typeof changes.expressToken !== 'undefined' && !!changes.expressToken.currentValue) {
+            this.buttonSendTelegramService.loadExpressContact(this.expressToken);
+        }
     }
 
     /**
@@ -30,7 +41,7 @@ export class ButtonSendTelegramComponent {
      * @return True if can, otherwise false
      */
     public checkCanNavigate(): boolean {
-        return (!!this.phoneCode && !!this.phoneNumber) ? true : false;
+        return (!!this.buttonSendTelegramService.phone.phoneCode && !!this.buttonSendTelegramService.phone.phoneNumber) ? true : false;
     }
 
     /**
@@ -38,15 +49,14 @@ export class ButtonSendTelegramComponent {
      * @return The link
      */
     public getLink(): string {
-        const contactLink = 'https://telegram.me/'+ this.phoneCode +'1'+ this.phoneNumber;
-        return contactLink;
+        return 'https://telegram.me/'+ this.buttonSendTelegramService.phone.phoneCode +'1'+ this.buttonSendTelegramService.phone.phoneNumber;
     }
 
     /**
      * Click event to check the connection with contact link
      */
     public onClickCheckConnection(): void {
-        if(!(!!this.phoneCode && !!this.phoneNumber)) {
+        if(!(!!this.buttonSendTelegramService.phone.phoneCode && !!this.buttonSendTelegramService.phone.phoneNumber)) {
             this.connectionFailed.emit();
         }
     }

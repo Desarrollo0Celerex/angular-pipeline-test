@@ -1,0 +1,47 @@
+<!-- AGENTHOS - CONTACT DATA -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Datos de Contacto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <agt-button-send-whatsapp [buttonType]="BUTTON_TYPES.INPUT" [contactId]="contactId"></agt-button-send-whatsapp>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <agt-button-send-email [buttonType]="BUTTON_TYPES.INPUT" [contactId]="contactId"></agt-button-send-email>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-8">
+                        <p class="text-justify"><strong>¿Quieres transferir el contacto?</strong></p>
+                        <p class="text-justify">
+                        Apunta con la cámara de tu Smartphone al código inteligente y los datos de contacto serán transferidos automáticamente.</p>
+                        <p class="text-justify">También puedes descargar y guardar el contacto de manera directa.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <img src="../profile/smartcard.png" width="128px" alt="Agenthos vCard Code">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="col-12">
+                    <a href="../profile/vcard.vcf" target="_blank">
+                    <button type="button" class="btn btn-primary btn-block"><strong>DESCARGAR CONTACTO</strong></button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - CONTACT DATA -->

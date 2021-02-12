@@ -1,7 +1,7 @@
 <ng-container [ngSwitch]="buttonType">
     <ng-container *ngSwitchCase="BUTTON_TYPES.TEXT_WITH_ICON">
-        <a href="{{(!!phoneNumber) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
-            <button type="button" class="btn btn-block btn-lime mt-5" [disabled]="!(!!phoneNumber) && required" (click)="onClickCheckConnection()">
+        <a href="{{(!!buttonSendWhatsappService.phone.phoneNumber) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
+            <button type="button" class="btn btn-block btn-lime mt-5" [disabled]="!(!!buttonSendWhatsappService.phone.phoneNumber) && required" (click)="onClickCheckConnection()">
                 <i class="fa fa-whatsapp mr-2"></i>
                 <strong>WHATSAPP</strong>
             </button>
@@ -10,10 +10,12 @@
     <ng-container *ngSwitchCase="BUTTON_TYPES.INPUT">
         <label class="form-label">Teléfono</label>
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="{{phoneNumber | phoneNumberFormat: phoneCode }}" readonly>
+            <input type="text" class="form-control" placeholder="{{buttonSendWhatsappService.phone.phoneNumber | phoneNumberFormat: buttonSendWhatsappService.phone.phoneCode }}" readonly>
             <span class="input-group-append">
-                <a href="{{(!!phoneNumber) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
-                    <button type="button" class="btn btn-lime" [disabled]="!(!!phoneNumber) && required" (click)="onClickCheckConnection()"><i class="fa fa-whatsapp"></i></button>
+                <a href="{{(!!buttonSendWhatsappService.phone.phoneNumber) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
+                    <button type="button" class="btn btn-lime" [disabled]="!(!!buttonSendWhatsappService.phone.phoneNumber) && required" (click)="onClickCheckConnection()">
+                        <i class="fa fa-whatsapp"></i>
+                    </button>
                 </a>
             </span>
         </div>

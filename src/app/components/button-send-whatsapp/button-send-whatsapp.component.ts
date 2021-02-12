@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { BUTTON_TYPES } from '@constants/global';
+
+import { ButtonSendWhatsappService } from './button-send-whatsapp.service';
 
 @Component({
   selector: 'agt-button-send-whatsapp',
@@ -8,21 +10,30 @@ import { BUTTON_TYPES } from '@constants/global';
   styles: [
   ]
 })
-export class ButtonSendWhatsappComponent {
+export class ButtonSendWhatsappComponent implements OnChanges {
     @Input() buttonType: number;
-    @Input() phoneCode: string;
-    @Input() phoneNumber: string;
+    @Input() contactId: string;
+    @Input() expressToken: string;
     @Input() required: boolean;
     @Output() connectionFailed: EventEmitter<void>;
     BUTTON_TYPES: any = BUTTON_TYPES;
 
-    constructor() {
+    constructor(public buttonSendWhatsappService: ButtonSendWhatsappService) {
         this.buttonType = 0;
-        this.phoneCode = '';
-        this.phoneNumber = '';
+        this.contactId = '';
+        this.expressToken = '';
         this.required = false;
         this.connectionFailed = new EventEmitter<void>();
         this.BUTTON_TYPES = BUTTON_TYPES;
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if(typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) {
+            this.buttonSendWhatsappService.loadContact(this.contactId);
+        }
+        if(typeof changes.expressToken !== 'undefined' && !!changes.expressToken.currentValue) {
+            this.buttonSendWhatsappService.loadExpressContact(this.expressToken);
+        }
     }
 
     /**
@@ -30,7 +41,7 @@ export class ButtonSendWhatsappComponent {
      * @return True if can, otherwise false
      */
     public checkCanNavigate(): boolean {
-        return (!!this.phoneCode && !!this.phoneNumber) ? true : false;
+        return (!!this.buttonSendWhatsappService.phone.phoneCode && !!this.buttonSendWhatsappService.phone.phoneNumber) ? true : false;
     }
 
     /**
@@ -38,15 +49,14 @@ export class ButtonSendWhatsappComponent {
      * @return The link
      */
     public getLink(): string {
-        const contactLink = 'https://wa.me/'+ this.phoneCode +'1'+ this.phoneNumber;
-        return contactLink;
+        return 'https://wa.me/'+ this.buttonSendWhatsappService.phone.phoneCode +'1'+ this.buttonSendWhatsappService.phone.phoneNumber;
     }
 
     /**
      * Click event to check the connection with contact link
      */
     public onClickCheckConnection(): void {
-        if(!(!!this.phoneCode && !!this.phoneNumber)) {
+        if(!(!!this.buttonSendWhatsappService.phone.phoneCode && !!this.buttonSendWhatsappService.phone.phoneNumber)) {
             this.connectionFailed.emit();
         }
     }

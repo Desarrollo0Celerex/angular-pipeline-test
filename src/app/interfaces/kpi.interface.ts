@@ -1,7 +1,6 @@
 export interface Kpi {
-    id: number,
+    contentSubtype: number,
     name: string,
-    typeName: string,
     background: string,
     icon: string,
     total: number,

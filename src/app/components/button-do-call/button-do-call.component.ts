@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 
 import { BUTTON_TYPES } from '@constants/global';
+
+import { ButtonDoCallService } from './button-do-call.service';
 
 @Component({
   selector: 'agt-button-do-call',
@@ -10,19 +12,28 @@ import { BUTTON_TYPES } from '@constants/global';
 })
 export class ButtonDoCallComponent {
     @Input() buttonType: number;
-    @Input() phoneCode: string;
-    @Input() phoneNumber: string;
+    @Input() contactId: string;
+    @Input() expressToken: string;
     @Input() required: boolean;
     @Output() connectionFailed: EventEmitter<void>;
     BUTTON_TYPES: any = BUTTON_TYPES;
 
-    constructor() {
+    constructor(public buttonDoCallService: ButtonDoCallService) {
         this.buttonType = 0;
-        this.phoneCode = '';
-        this.phoneNumber = '';
+        this.contactId = '';
+        this.expressToken = '';
         this.required = false;
         this.connectionFailed = new EventEmitter<void>();
         this.BUTTON_TYPES = BUTTON_TYPES;
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if(typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) {
+            this.buttonDoCallService.loadContact(this.contactId);
+        }
+        if(typeof changes.expressToken !== 'undefined' && !!changes.expressToken.currentValue) {
+            this.buttonDoCallService.loadExpressContact(this.expressToken);
+        }
     }
 
     /**
@@ -30,7 +41,7 @@ export class ButtonDoCallComponent {
      * @return True if can, otherwise false
      */
     public checkCanNavigate(): boolean {
-        return (!!this.phoneCode && !!this.phoneNumber) ? true : false;
+        return (!!this.buttonDoCallService.phone.phoneCode && !!this.buttonDoCallService.phone.phoneNumber) ? true : false;
     }
 
     /**
@@ -38,15 +49,14 @@ export class ButtonDoCallComponent {
      * @return The link
      */
     public getLink(): string {
-        const contactLink = 'tel:+'+ this.phoneCode +' '+ this.phoneNumber;
-        return contactLink;
+        return 'tel:+'+ this.buttonDoCallService.phone.phoneCode +' '+ this.buttonDoCallService.phone.phoneNumber;
     }
 
     /**
      * Click event to check the connection with contact link
      */
     public onClickCheckConnection(): void {
-        if(!(!!this.phoneCode && !!this.phoneNumber)) {
+        if(!(!!this.buttonDoCallService.phone.phoneCode && !!this.buttonDoCallService.phone.phoneNumber)) {
             this.connectionFailed.emit();
         }
     }

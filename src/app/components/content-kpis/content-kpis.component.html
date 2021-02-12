@@ -4,9 +4,9 @@
         <div class="card">
             <div class="card-header pt-2 pb-0 border-bottom-0">
                 <!-- AGENTHOS - ACTIVE TAB -->
-                <h6 class="mb-0">{{kpi.typeName | pluralNameFormat}}<br/>{{kpi.name | pluralNameFormat}}</h6>
-                <div class="card-options" [ngClass]="{'agt-hide': id === kpi.id}">
-                    <a [routerLink]="" [queryParams]="{'id': kpi.id }">
+                <h6 class="mb-0">{{contentTypeName}}<br/>{{kpi.name | pluralNameFormat}}</h6>
+                <div class="card-options" [ngClass]="{'agt-hide': contentSubtype === kpi.contentSubtype}">
+                    <a [routerLink]="" [queryParams]="{'contentSubtype': kpi.contentSubtype }">
                         <button class="btn btn-sm btn-secondary"><i class="fe fe-eye mr-2"></i>VER</button>
                     </a>
                 </div>
