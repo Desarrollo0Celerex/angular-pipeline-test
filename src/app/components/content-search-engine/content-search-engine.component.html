@@ -1,23 +1,27 @@
 <!-- AGENTHOS - CONTENT SEARCH ENGINE -->
+<form [formGroup]="contentSearchEngineService.searchForm" (submit)="onSubmitSearchContent()">
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Localizar {{contentTypeName}}</h3>
         </div>
         <div class="card-body">
-            <form [formGroup]="contentSearchEngineService.searchForm" (submit)="onSubmitSearchContent()">
-                <div class="form-group">
-                    <div class="row gutters-xs">
-                        <div class="col">
-                            <input type="search" class="form-control" placeholder="Buscador Inteligente" formControlName="query">
-                        </div>
-                        <span class="col-auto">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fe fe-search"></i>
-                            </button>
-                        </span>
+            <div class="form-group">
+                <div class="row gutters-xs">
+                    <div class="col">
+                        <input type="search" class="form-control" placeholder="Buscador Inteligente" formControlName="query">
                     </div>
+                    <span class="col-auto">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fe fe-search"></i>
+                        </button>
+                    </span>
                 </div>
-            </form>
+            </div>
+            <!-- AGENTHOS - SEARCH QUERY -->
+            <ol class="breadcrumb1" *ngIf="!!totalResults">
+                <li class="breadcrumb-item1">Se han encontrado <strong>{{totalResults}}</strong> resultados con <strong>{{query}}</strong>.</li>
+            </ol>
         </div>
     </div>
+</form>
 <!-- //AGENTHOS - CONTENT SEARCH ENGINE -->

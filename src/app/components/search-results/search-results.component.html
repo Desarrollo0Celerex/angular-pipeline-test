@@ -1,0 +1,9 @@
+<!-- AGENTHOS - SEARCH RESULTS -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <agt-content-search-engine [contentType]="contentType" [contentTypeName]="contentTypeName" [query]="query" [totalResults]="totalResults"></agt-content-search-engine>
+    </div>
+</div>
+
+<agt-content-list [contentType]="contentType" [contentTypeName]="contentTypeName" contentSubtypeName="Encontrado" [query]="query" (totalResultsLoaded)="onTotalResultsLoaded($event)"></agt-content-list>
+<!-- //AGENTHOS - SEARCH RESULTS -->

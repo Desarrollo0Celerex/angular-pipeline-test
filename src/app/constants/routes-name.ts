@@ -40,7 +40,7 @@ const HOME_INVITATIONS_ROUTES = {
 
 const HOME_LEADS_ROUTES = {
     listLeads: 'home/leads/list-leads',
-    leadSearchResults: 'home/leads/leadSearchResults'
+    leadSearchResults: 'home/leads/lead-search-results'
 }
 
 const INVITATIONS_ROUTES = {

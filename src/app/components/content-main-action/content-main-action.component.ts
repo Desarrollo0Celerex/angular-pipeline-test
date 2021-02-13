@@ -28,7 +28,7 @@ export class ContentMainActionComponent implements OnInit {
     getHeaderTitle(): string {
         let title: string = '';
         switch(this.contentType) {
-            case CONTENT_TYPES.LEAD: title = 'Nuevo Prospecto'; break;
+            case CONTENT_TYPES.LEAD.ID: title = 'Nuevo Prospecto'; break;
         }
         return title;
     }
@@ -40,7 +40,7 @@ export class ContentMainActionComponent implements OnInit {
     getButtonTitle(): string {
         let title: string = '';
         switch(this.contentType) {
-            case CONTENT_TYPES.LEAD: title = 'CREAR PROSPECTO'; break;
+            case CONTENT_TYPES.LEAD.ID: title = 'CREAR PROSPECTO'; break;
         }
         return title;
     }
@@ -50,7 +50,7 @@ export class ContentMainActionComponent implements OnInit {
      */
     onClickDoAction(): void {
         switch(this.contentType) {
-            case CONTENT_TYPES.LEAD:
+            case CONTENT_TYPES.LEAD.ID:
                 ModalPlugin.show(this.selectContactTypeModalId);
                 break;
         }

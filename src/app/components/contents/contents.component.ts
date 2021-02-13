@@ -11,7 +11,7 @@ import { CONTENT_TYPES } from '@constants/global';
 })
 export class ContentsComponent implements OnInit, OnDestroy {
     @Input() contentType: number;
-    contentTypeName: string;
+    @Input() contentTypeName: string;
     contentSubtype: number;
     contentSubtypeName: string;
     private subParams: any;
@@ -25,7 +25,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this._catchParams();
-        this._loadContentTypeName();
     }
 
     ngOnDestroy(): void {
@@ -47,15 +46,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
         this.subParams = this._activatedRoute.queryParams.subscribe( (params: Params) => {
             this.contentSubtype = (typeof params.contentSubtype !== 'undefined') ? parseInt(params.contentSubtype) : 1;
         })
-    }
-
-    /**
-     * Load the content type name
-     */
-    private _loadContentTypeName(): void {
-        switch(this.contentType) {
-            case CONTENT_TYPES.LEAD: this.contentTypeName = 'Prospecto'; break;
-        }
     }
 
 }

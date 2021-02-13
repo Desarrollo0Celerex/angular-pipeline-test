@@ -26,7 +26,8 @@ const routes: Routes = [
             { path: ROUTES_NAME.listInvitations, loadChildren: () => import('@pages/home/invitations/list-invitations/list-invitations.module').then(mod => mod.ListInvitationsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Leads routes
-            { path: ROUTES_NAME.listLeads, loadChildren: () => import('@pages/home/leads/list-leads/list-leads.module').then(mod => mod.ListLeadsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] }
+            { path: ROUTES_NAME.listLeads, loadChildren: () => import('@pages/home/leads/list-leads/list-leads.module').then(mod => mod.ListLeadsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.leadSearchResults, loadChildren: () => import('@pages/home/leads/lead-search-results/lead-search-results.module').then(mod => mod.LeadSearchResultsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] }
         ]
     }
 ];

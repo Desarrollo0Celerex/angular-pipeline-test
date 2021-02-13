@@ -44,7 +44,7 @@ export class ContentKpisComponent implements OnInit, OnChanges {
     private loadKpis(): void {
         this.contentKpisService.initKpis();
         switch(this.contentType) {
-            case CONTENT_TYPES.LEAD:
+            case CONTENT_TYPES.LEAD.ID:
                 this.contentKpisService.loadLeadKpis().subscribe( () => {
                     CounterPlugin.countUp();
                     this._loadContactSubtypeName();

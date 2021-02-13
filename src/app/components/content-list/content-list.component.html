@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col-md-3 col-xl-3" *ngFor="let content of contentListService.contents">
         <ng-container [ngSwitch]="contentType">
-            <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD" [lead]="content" (showContactData)="onShowContactData($event)"></agt-card-lead>
+            <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD.ID" [lead]="content" (showContactData)="onShowContactData($event)"></agt-card-lead>
         </ng-container>
     </div>
 </div>
@@ -24,7 +24,7 @@
 <agt-content-suggestions [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [contentTypeName]="contentTypeName"></agt-content-suggestions>
 
 <!-- AGENTHOS - CONTENT ACTIONS -->
-<ng-container *ngIf="contentType === CONTENT_TYPES.LEAD">
+<ng-container *ngIf="contentType === CONTENT_TYPES.LEAD.ID">
     <agt-modal-show-contact-data [modalId]="showContactDataModalId" [contactId]="selectedContactId"></agt-modal-show-contact-data>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

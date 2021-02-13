@@ -18,9 +18,9 @@ export class ContentSearchEngineService {
     /**
      * Build the search form
      */
-    buildSearchForm(): void {
+    buildSearchForm(query: string): void {
         this.searchForm = this._formBuider.group({
-            query: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX)]]
+            query: [query, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX)]]
         })
     }
 }

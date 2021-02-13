@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ImageAgenthosBotModule } from '@components/image-agenthos-bot/image-agenthos-bot.module';
+import { ImageAgenthosAssistantModule } from '@components/image-agenthos-assistant/image-agenthos-assistant.module';
 
 import { ContentSuggestionsComponent } from './content-suggestions.component';
 
@@ -10,7 +10,7 @@ import { ContentSuggestionsComponent } from './content-suggestions.component';
   exports: [ContentSuggestionsComponent],
   imports: [
     CommonModule,
-    ImageAgenthosBotModule
+    ImageAgenthosAssistantModule
   ]
 })
 export class ContentSuggestionsModule { }

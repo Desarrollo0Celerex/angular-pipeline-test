@@ -50,17 +50,27 @@ export const INVITATION_STATUS: any = {
 
 // Types
 export const CONTENT_TYPES: any = {
-    LEAD: 1,
-    CLIENT: 2,
-    PAYMENT: 3,
-    SINISTER: 4
+    LEAD: {
+        ID: 1,
+        NAME: 'Prospecto'
+    },
+    CLIENT: {
+        ID: 2,
+        NAME: 'Cliente'
+    },
+    PAYMENT: {
+        ID: 3,
+        NAME: 'Recibo'
+    },
+    SINISTER: {
+        ID: 4,
+        NAME: 'Siniestro'
+    }
 }
-
 export const CONTACT_TYPES: any = {
     PERSON: 1,
     COMPANY: 2
 }
-
 export const BUTTON_TYPES: any = {
     TEXT: 1,
     TEXT_WITH_ICON: 2,

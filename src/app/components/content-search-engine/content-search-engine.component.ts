@@ -15,6 +15,8 @@ import { ContentSearchEngineService } from './content-search-engine.service';
 export class ContentSearchEngineComponent implements OnInit {
     @Input() contentType: number;
     @Input() contentTypeName: string;
+    @Input() query: string;
+    @Input() totalResults: number;
 
     constructor(
         public contentSearchEngineService: ContentSearchEngineService,
@@ -22,10 +24,12 @@ export class ContentSearchEngineComponent implements OnInit {
     ) {
         this.contentType = 0;
         this.contentTypeName = '';
+        this.query = '';
+        this.totalResults = 0;
     }
 
     ngOnInit(): void {
-        this.contentSearchEngineService.buildSearchForm();
+        this.contentSearchEngineService.buildSearchForm(this.query);
     }
 
     /**
@@ -35,7 +39,7 @@ export class ContentSearchEngineComponent implements OnInit {
         const query: string = this.contentSearchEngineService.f.query.value.trim();
         if(this.contentSearchEngineService.searchForm.valid && !!query) {
             switch(this.contentType) {
-                case CONTENT_TYPES.LEAD:
+                case CONTENT_TYPES.LEAD.ID:
                     this._router.navigate([ROUTES_NAME.leadSearchResults], { queryParams: { query }});
                 break;
             }

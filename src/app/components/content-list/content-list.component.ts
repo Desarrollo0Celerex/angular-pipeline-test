@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { CONTENT_TYPES } from '@constants/global';
 
@@ -12,11 +12,13 @@ declare var ModalPlugin: any;
   styles: [
   ]
 })
-export class ContentListComponent implements OnInit, OnChanges {
+export class ContentListComponent implements OnChanges {
     @Input() contentType: number;
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
     @Input() contentSubtypeName: string;
+    @Input() query: string;
+    @Output() totalResultsLoaded: EventEmitter<number>;
     CONTENT_TYPES: any;
     isLoadingContent: boolean;
     page: number;
@@ -28,6 +30,8 @@ export class ContentListComponent implements OnInit, OnChanges {
         this.contentTypeName = '';
         this.contentSubtype = 0;
         this.contentSubtypeName = '';
+        this.query = '';
+        this.totalResultsLoaded = new EventEmitter<number>();
         this.CONTENT_TYPES = CONTENT_TYPES;
         this.isLoadingContent = false;
         this.page = 1;
@@ -35,11 +39,8 @@ export class ContentListComponent implements OnInit, OnChanges {
         this.selectedContactId = '';
     }
 
-    ngOnInit(): void {
-    }
-
     ngOnChanges(changes: SimpleChanges): void {
-        if(typeof changes.contentSubtype !== 'undefined' && !!changes.contentSubtype.currentValue) {
+        if((typeof changes.contentSubtype !== 'undefined' && !!changes.contentSubtype.currentValue) || (typeof changes.query !== 'undefined' && !!changes.query.currentValue)) {
             this.contentListService.resetData();
             this._loadContents();
         }
@@ -63,18 +64,31 @@ export class ContentListComponent implements OnInit, OnChanges {
     }
 
     /**
-     * Load the contents according to content type
+     * Load the contents according to content type and to action type (filter or search)
      */
     private _loadContents(): void {
         this.isLoadingContent = true;
         switch(this.contentType) {
-            case CONTENT_TYPES.LEAD:
-                this.contentListService.loadLeads(this.contentSubtype, this.page).subscribe( () => {
-                    this.isLoadingContent = false;
-                });
+            case CONTENT_TYPES.LEAD.ID:
+                if(!!this.contentSubtype) {
+                    this.contentListService.loadLeads(this.page, this.contentSubtype).subscribe( () => {
+                        this._contentLoaded();
+                    });
+                } else if(!!this.query) {
+                    this.contentListService.searchLeads(this.page, this.query).subscribe( () => {
+                        this._contentLoaded();
+                    });
+                }
             break;
         }
+    }
 
+    /**
+     * Close loading content and notify the total results when content is loaded
+     */
+    private _contentLoaded(): void {
+        this.isLoadingContent = false;
+        this.totalResultsLoaded.emit(this.contentListService.contentResultData.totalItems);
     }
 
 }
