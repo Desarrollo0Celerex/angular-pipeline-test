@@ -39,7 +39,8 @@ const HOME_INVITATIONS_ROUTES = {
 }
 
 const HOME_LEADS_ROUTES = {
-    listLeads: 'home/leads/list-leads'
+    listLeads: 'home/leads/list-leads',
+    leadSearchResults: 'home/leads/leadSearchResults'
 }
 
 const INVITATIONS_ROUTES = {

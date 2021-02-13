@@ -33,6 +33,7 @@ export class LeadService {
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
         params = params.append('filter', 'leadStatusId[=]' + filter);
+        params = params.append('sortBy', '-createdAt');
         params = params.append('page', page+'');
         return this._httpClient.get<HttpResponse>(route, { params });
     }

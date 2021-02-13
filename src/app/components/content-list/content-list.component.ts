@@ -69,7 +69,7 @@ export class ContentListComponent implements OnInit, OnChanges {
         this.isLoadingContent = true;
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD:
-                this.contentListService.loadLeads(0, this.page).subscribe( () => {
+                this.contentListService.loadLeads(this.contentSubtype, this.page).subscribe( () => {
                     this.isLoadingContent = false;
                 });
             break;
