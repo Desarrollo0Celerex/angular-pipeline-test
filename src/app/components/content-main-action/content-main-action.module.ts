@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
+import { ModalSelectQuotationStatusModule } from '@components/modal-select-quotation-status/modal-select-quotation-status.module';
 
 import { ContentMainActionComponent } from './content-main-action.component';
 
@@ -10,7 +11,8 @@ import { ContentMainActionComponent } from './content-main-action.component';
   exports: [ContentMainActionComponent],
   imports: [
     CommonModule,
-    ModalSelectContactTypeModule
+    ModalSelectContactTypeModule,
+    ModalSelectQuotationStatusModule
   ]
 })
 export class ContentMainActionModule { }

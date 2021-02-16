@@ -10,4 +10,9 @@
 </div>
 <!-- //AGENTHOS - CONTENT MAIN ACTION -->
 
-<agt-modal-select-contact-type [modalId]="selectContactTypeModalId"></agt-modal-select-contact-type>
+<ng-container *ngIf="contentType === CONTENT_TYPES.LEAD.ID">
+    <agt-modal-select-contact-type [modalId]="selectContactTypeModalId"></agt-modal-select-contact-type>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID">
+    <agt-modal-select-quotation-status [modalId]="selectQuotationTypeModalId" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-modal-select-quotation-status>
+</ng-container>

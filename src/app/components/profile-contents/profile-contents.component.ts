@@ -1,15 +1,15 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 
 @Component({
-  selector: 'agt-contents',
-  templateUrl: './contents.component.html',
+  selector: 'agt-profile-contents',
+  templateUrl: './profile-contents.component.html',
   styles: [
   ]
 })
-export class ContentsComponent implements OnInit, OnDestroy {
+export class ProfileContentsComponent implements OnInit {
     @Input() contentType: number;
     @Input() contentTypeName: string;
     contentSubtype: number;
@@ -19,7 +19,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
     constructor(private _activatedRoute: ActivatedRoute) {
         this.contentType = 0;
         this.contentTypeName = '';
-        this.contentSubtype = 0;
+        this.contentSubtype = 1;
         this.contentSubtypeName = '';
     }
 
