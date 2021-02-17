@@ -42,6 +42,7 @@ export class ModalShowQuotationDetailsService {
             insuranceName: '',
             insuranceIcon: '',
             insuranceBackground: '',
+            quotationStatusId: 0,
             quotationStatusName: '',
             quotationStatusBackground: '',
             insuranceTypeName: '',

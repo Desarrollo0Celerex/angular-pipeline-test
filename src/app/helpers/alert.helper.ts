@@ -96,6 +96,19 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static quotationAccepted(callBack: any, context: any, data: any): void {
+        const alertData: Alert = {
+            title: 'Cotización aceptada',
+            text: 'La cotización ha sido aceptada con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context,
+            data: data
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static requestDeleteInvitation(callBack: any, context: any, data: any): void {
         const alertData: Alert = {
             title: 'Eliminar Invitación',

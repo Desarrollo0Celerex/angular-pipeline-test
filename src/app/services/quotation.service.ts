@@ -24,6 +24,17 @@ export class QuotationService {
     }
 
     /**
+     * Accept the contact quotation in the API
+     * @param  contactId   The contact ID
+     * @param  quotationId The quotation ID to accept
+     * @return             The policy ID
+     */
+    acceptContactQuotation(contactId: string, quotationId: string): Observable<HttpResponse> {
+        const route: string = routes.contactQuotation(this._workspaceId, contactId, quotationId);
+        return this._httpClient.post<HttpResponse>(route, null);
+    }
+
+    /**
      * Create a quotation in the API
      * @param  contactId   The contact ID
      * @param  requestBody The quotation data

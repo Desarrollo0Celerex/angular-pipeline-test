@@ -5,6 +5,7 @@ export interface Quotation {
     insuranceName: string,
     insuranceIcon: string,
     insuranceBackground: string,
+    quotationStatusId: number,
     quotationStatusName: string,
     quotationStatusBackground: string,
     insuranceTypeName: string,

@@ -21,6 +21,7 @@ export class ContentListComponent implements OnChanges {
     @Input() query: string;
     @Output() totalResultsLoaded: EventEmitter<number>;
     CONTENT_TYPES: any;
+    acceptQuotationModalId: string;
     isLoadingContent: boolean;
     page: number;
     selectedContactId: string;
@@ -37,6 +38,7 @@ export class ContentListComponent implements OnChanges {
         this.query = '';
         this.totalResultsLoaded = new EventEmitter<number>();
         this.CONTENT_TYPES = CONTENT_TYPES;
+        this.acceptQuotationModalId = 'agt-accept-quotation';
         this.isLoadingContent = false;
         this.page = 1;
         this.selectedContactId = '';
@@ -50,6 +52,15 @@ export class ContentListComponent implements OnChanges {
             this.contentListService.resetData();
             this._loadContents();
         }
+    }
+
+    /**
+     * Event to show modal to accept the quotation
+     * @param quotationId The quotation ID to accept
+     */
+    onAcceptQuotation(quotationId: string): void {
+        this.selectedQuotationId = quotationId;
+        ModalPlugin.show(this.acceptQuotationModalId);
     }
 
     /**

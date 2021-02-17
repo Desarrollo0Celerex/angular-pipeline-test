@@ -4,15 +4,15 @@
         <!-- AGENTHOS - INSURANCE CLASS -->
         <h6 class="mb-0">{{quotation.insuranceName | uppercase}}</h6>
         <!-- AGENTHOS - QUOTE MENU -->
-        <div class="card-options">
-            <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+        <div class="card-options" *ngIf="QUOTATION_STATUS.PENDING === quotation.quotationStatusId">
+            <a href="javascript://" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                 <span class="fa fa-bars"></span>
             </a>
             <!-- AGENTHOS - ESTATUS MENU -->
             <div class="dropdown-menu dropdown-menu-right" role="menu">
-                <a class="dropdown-plus-title">Estatus</a>
-                <button type="button" name="agtQuoteAccepted" class="dropdown-item" data-toggle="modal" data-target="#agtQuotePolicy">Aceptada</button>
-                <button type="button" name="agtQuoteDenied" class="dropdown-item" data-toggle="modal" data-target="#agtQuoteReject">Rechazada</button>
+                <span class="dropdown-plus-title">Estatus</span>
+                <button type="button" class="dropdown-item" (click)="onClickAcceptQuotation()">Aceptada</button>
+                <button type="button" class="dropdown-item">Rechazada</button>
             </div>
             <!-- //AGENTHOS - ESTATUS MENU -->
         </div>
@@ -42,12 +42,12 @@
     <div class="card-footer">
         <div class="row">
             <!-- AGENTHOS - QUOTE DETAILS -->
-            <div class="col-sm-9 col-9 text-left">
+            <div class="col-sm-{{(QUOTATION_STATUS.PENDING === quotation.quotationStatusId) ? '9' : '12' }} col-{{(QUOTATION_STATUS.PENDING === quotation.quotationStatusId) ? '9' : '12' }} text-left">
                 <button type="button" class="btn btn-block btn-primary" (click)="onClickShowDetails()"><strong>VER DETALLES</strong></button>
             </div>
             <!-- AGENTHOS - QUOTE ACCEPTED -->
-            <div class="col-sm-3 col-3 text-right">
-                <button type="button" class="btn btn-icon btn-secondary"><i class="fa fa-check-square-o"></i></button>
+            <div class="col-sm-3 col-3 text-right" *ngIf="QUOTATION_STATUS.PENDING === quotation.quotationStatusId">
+                <button type="button" class="btn btn-icon btn-secondary" (click)="onClickAcceptQuotation()"><i class="fa fa-check-square-o"></i></button>
             </div>
         </div>
     </div>

@@ -48,6 +48,9 @@ export const INVITATION_STATUS: any = {
     REJECTED: 3,
     DELETED: 4
 }
+export const QUOTATION_STATUS: any = {
+    PENDING: 1
+}
 
 // Types
 export const CONTENT_TYPES: any = {

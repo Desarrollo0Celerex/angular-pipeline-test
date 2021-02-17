@@ -35,7 +35,7 @@ export class ContentListService {
      * @return                The contact quotations
      */
     loadContactQuotations(contactId: string, page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusName,quotationStatusBackground,insuranceTypeName';
+        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName';
         return new Observable( observer => {
             this._quotationService.getContactQuotations(contactId, page, fields, contentSubtype).subscribe( (res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);

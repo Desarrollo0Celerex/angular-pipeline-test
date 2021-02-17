@@ -15,8 +15,8 @@ const EXPRESS_ROUTES = {
     expressContact: (expressToken: string) => `express/express-contact/${expressToken}`
 }
 
-const HOME_CONTACT_ROUTES = {
-    createContact: (contactTypeId: string) => `home/contact/create-contact/${contactTypeId}`
+const HOME_CONTACTS_ROUTES = {
+    createContact: (contactTypeId: string) => `home/contacts/create-contact/${contactTypeId}`
 }
 
 const HOME_CONTACT_PROFILE_ROUTES = {
@@ -43,6 +43,10 @@ const HOME_LEADS_ROUTES = {
     leadSearchResults: 'home/leads/lead-search-results'
 }
 
+const HOME_POLICIES_ROUTES = {
+    uploadPolicy: (contactId: string, policyId: string) => `home/policies/upload-policy/${contactId}/${policyId}`
+}
+
 const INVITATIONS_ROUTES = {
     acceptInvitation: (invitationToken: string) => `invitations/accept-invitation/${invitationToken}`
 }
@@ -59,12 +63,13 @@ export const ROUTES_NAME = {
     ...AUTH_ROUTES,
     ...ERRORS_ROUTES,
     ...EXPRESS_ROUTES,
-    ...HOME_CONTACT_ROUTES,
+    ...HOME_CONTACTS_ROUTES,
     ...HOME_CONTACT_PROFILE_ROUTES,
     ...HOME_DATA_ROUTES,
     ...HOME_INSURANCES_ROUTES,
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,
+    ...HOME_POLICIES_ROUTES,
     ...INVITATIONS_ROUTES,
     ...WORKSPACES_ROUTES
 }
