@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -8,7 +8,8 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
-    quotations: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations',
+    contactQuotation: (workspaceId: string, contactId: string, quotationId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/' + quotationId,
+    contactQuotations: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations',
 }
 
 @Injectable()
@@ -29,7 +30,41 @@ export class QuotationService {
      * @return             The quotation ID
      */
     createQuotation(contactId: string, requestBody: CreateQuotationDataSend): Observable<HttpResponse> {
-        const route: string = routes.quotations(this._workspaceId, contactId);
+        const route: string = routes.contactQuotations(this._workspaceId, contactId);
         return this._httpClient.post<HttpResponse>(route, requestBody);
+    }
+
+    /**
+     * Get the contact quotations from the API
+     * @param  contactId The contact ID
+     * @param  page      The page number
+     * @param  fields    The fields to get
+     * @param  filter    The filter to apply
+     * @param  search    The search to do
+     * @return           The contact quotations
+     */
+    getContactQuotations(contactId: string, page: number = 1, fields: string = '', filter: number = 0, search: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactQuotations(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filter) params = params.append('filter', 'quotationStatusId[=]' + filter);
+        if(!!search) params = params.append('search', search);
+        params = params.append('sortBy', '-createdAt');
+        return this._httpClient.get<HttpResponse>(route, { params });
+    }
+
+    /**
+     * Get the contact quotation from the API
+     * @param  contactId   The contact ID
+     * @param  quotationId The quotation ID
+     * @param  fields      The fields to get
+     * @return             The quotation data
+     */
+    getContactQuotation(contactId: string, quotationId: string, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactQuotation(this._workspaceId, contactId, quotationId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 }

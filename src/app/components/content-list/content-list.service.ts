@@ -4,13 +4,17 @@ import { Observable } from 'rxjs';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { LeadService } from '@services/lead.service';
+import { QuotationService } from '@services/quotation.service';
 
 @Injectable()
 export class ContentListService {
     contents: any[];
     contentResultData: ContentResultData;
 
-    constructor(private _leadService: LeadService) {
+    constructor(
+        private _leadService: LeadService,
+        private _quotationService: QuotationService
+    ) {
         this.contents = this._initContents();
         this.contentResultData = this._initContentResultData();
     }
@@ -21,6 +25,25 @@ export class ContentListService {
     resetData(): void {
         this.contents = this._initContents();
         this.contentResultData = this._initContentResultData();
+    }
+
+    /**
+     * Load the contact quotations
+     * @param  contactId      The contact ID
+     * @param  page           The page number
+     * @param  contentSubtype The filter to apply
+     * @return                The contact quotations
+     */
+    loadContactQuotations(contactId: string, page: number, contentSubtype: number): Observable<void> {
+        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusName,quotationStatusBackground,insuranceTypeName';
+        return new Observable( observer => {
+            this._quotationService.getContactQuotations(contactId, page, fields, contentSubtype).subscribe( (res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+                observer.next();
+                observer.complete();
+            })
+        })
     }
 
     /**

@@ -22,12 +22,14 @@ export class LeadService {
         this._workspaceId = this._authService.workspaceId;
     }
 
-    /**
-     * Get the leads from the API
-     * @param  filter The filter to apply
-     * @param  fields The fields to get
-     * @return        The leads
-     */
+     /**
+      * Get the leads from the API
+      * @param  page      The page number
+      * @param  fields    The fields to get
+      * @param  filter    The filter to apply
+      * @param  search    The search to do
+      * @return           The leads
+      */
     public getLeads(page: number = 1, fields: string = '', filter: number = 0, search: string = ''): Observable<HttpResponse> {
         const route: string = routes.leads(this._workspaceId);
         let params: HttpParams = new HttpParams();

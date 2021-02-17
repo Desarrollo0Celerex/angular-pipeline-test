@@ -13,6 +13,7 @@ declare var ModalPlugin: any;
   ]
 })
 export class ContentListComponent implements OnChanges {
+    @Input() contactId: string;
     @Input() contentType: number;
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
@@ -23,9 +24,12 @@ export class ContentListComponent implements OnChanges {
     isLoadingContent: boolean;
     page: number;
     selectedContactId: string;
+    selectedQuotationId: string;
     showContactDataModalId: string;
+    showQuotationDetailsModalId: string;
 
     constructor(public contentListService: ContentListService) {
+        this.contactId = '';
         this.contentType = 0;
         this.contentTypeName = '';
         this.contentSubtype = 0;
@@ -35,8 +39,10 @@ export class ContentListComponent implements OnChanges {
         this.CONTENT_TYPES = CONTENT_TYPES;
         this.isLoadingContent = false;
         this.page = 1;
-        this.showContactDataModalId = 'agt-contact-data';
         this.selectedContactId = '';
+        this.selectedQuotationId = '';
+        this.showContactDataModalId = 'agt-contact-data';
+        this.showQuotationDetailsModalId = 'agt-quotation-details';
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -64,21 +70,58 @@ export class ContentListComponent implements OnChanges {
     }
 
     /**
-     * Load the contents according to content type and to action type (filter or search)
+     * Event to show the quotation details modal
+     * @param quotationId The selected quotation ID
+     */
+    onShowQuotationDetails(quotationId: string): void {
+        this.selectedQuotationId = quotationId;
+        ModalPlugin.show(this.showQuotationDetailsModalId);
+    }
+
+    /**
+     * Load the contents according to action type (filter or search)
      */
     private _loadContents(): void {
         this.isLoadingContent = true;
+        if(!!this.contentSubtype) {
+            this._loadContentsByFilter();
+        } else if(!!this.query) {
+            this._loadContentsBySearch();
+        }
+    }
+
+    /**
+     * Load the contents by filter
+     */
+    private _loadContentsByFilter(): void {
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD.ID:
-                if(!!this.contentSubtype) {
-                    this.contentListService.loadLeads(this.page, this.contentSubtype).subscribe( () => {
-                        this._contentLoaded();
-                    });
-                } else if(!!this.query) {
-                    this.contentListService.searchLeads(this.page, this.query).subscribe( () => {
-                        this._contentLoaded();
-                    });
-                }
+                this.contentListService.loadLeads(this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.CONTACT_QUOTATION.ID:
+                this.contentListService.loadContactQuotations(this.contactId, this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+        }
+    }
+
+    /**
+     * Load the contents by search
+     */
+    private _loadContentsBySearch(): void {
+        switch(this.contentType) {
+            case CONTENT_TYPES.LEAD.ID:
+                this.contentListService.searchLeads(this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.CONTACT_QUOTATION.ID:
+
             break;
         }
     }

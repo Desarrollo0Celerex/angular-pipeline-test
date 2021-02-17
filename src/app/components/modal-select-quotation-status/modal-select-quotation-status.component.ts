@@ -22,7 +22,7 @@ export class ModalSelectQuotationStatusComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.modalSelectQuotationTypeService.loadQuotationStatus();
+        this._loadQuotationStatus();
     }
 
     /**
@@ -32,6 +32,17 @@ export class ModalSelectQuotationStatusComponent implements OnInit {
     onClickSelectQuotationStatus(quotationStatusName: string): void {
         this.contentSubtypeNameSelected.emit(quotationStatusName);
         ModalPlugin.hide(this.modalId);
+    }
+
+    /**
+     * Load the quotation status
+     * Emit the name of the selected quotation status;
+     */
+    private _loadQuotationStatus(): void {
+        this.modalSelectQuotationTypeService.loadQuotationStatus().subscribe( () => {
+            const quotationStatusName: string = this.modalSelectQuotationTypeService.getQuotationStatusName(this.contentSubtype);
+            this.contentSubtypeNameSelected.emit(quotationStatusName);
+        });
     }
 
 }

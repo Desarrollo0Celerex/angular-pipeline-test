@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { QuotationStatus } from '@interfaces/quotation-status.interface';
@@ -13,12 +14,27 @@ export class ModalSelectQuotationStatusService {
     }
 
     /**
-     * Load the quotation status
+     * Get the quotation status name
+     * @param  contentSubtype The content subtype
+     * @return                The quotation status name
      */
-    loadQuotationStatus(): void {
+    getQuotationStatusName(contentSubtype: number): string {
+        const quotationStatus: QuotationStatus | undefined = this.quotationStatus.find( (element: QuotationStatus) => element.quotationStatusId === contentSubtype)
+        return (!!quotationStatus) ? quotationStatus.name : '';
+    }
+
+    /**
+     * Load the quotation status
+     * @return Notice of action done
+     */
+    loadQuotationStatus(): Observable<void> {
         const fields: string = 'quotationStatusId,name';
-        this.quotationStatusService.getQuotationStatus(fields).subscribe( (res: HttpResponse) => {
-            this.quotationStatus = res.data;
+        return new Observable( observer => {
+            this.quotationStatusService.getQuotationStatus(fields).subscribe( (res: HttpResponse) => {
+                this.quotationStatus = res.data;
+                observer.next();
+                observer.complete();
+            });
         });
     }
 }

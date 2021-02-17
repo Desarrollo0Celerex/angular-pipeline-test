@@ -1,0 +1,56 @@
+<!-- AGENTHOS - QUOTE DETAILS -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- AGENTHOS - POLICY NUMBER -->
+                <h5 class="modal-title">Detalles de Cotización</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - DESCRIPTION -->
+                                    <label class="form-label">Descripción</label>
+                                    <input type="text" class="form-control" [placeholder]="modalShowQuotationDetailsService.quotation.description" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - INSURACE CLASS -->
+                                    <label class="form-label">Ramo del Seguro</label>
+                                    <input type="text" class="form-control" [placeholder]="modalShowQuotationDetailsService.quotation.insuranceName" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - INSURACE TYPE -->
+                                    <label class="form-label">Tipo de Seguro</label>
+                                    <input type="text" class="form-control" [placeholder]="modalShowQuotationDetailsService.quotation.insuranceTypeName" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Fecha Cotización</label>
+                                    <input type="text" class="form-control" [placeholder]="modalShowQuotationDetailsService.quotation.createdAt | date: 'dd/MM/yyyy'" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Cotizado Por</label>
+                                    <input type="text" class="form-control" [placeholder]="modalShowQuotationDetailsService.quotation.createdByName" readonly="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - QUOTE DETAILS -->

@@ -12,6 +12,7 @@ import { DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 export class ProfileContentsComponent implements OnInit {
     @Input() contentType: number;
     @Input() contentTypeName: string;
+    contactId: string;
     contentSubtype: number;
     contentSubtypeName: string;
     private subParams: any;
@@ -19,6 +20,7 @@ export class ProfileContentsComponent implements OnInit {
     constructor(private _activatedRoute: ActivatedRoute) {
         this.contentType = 0;
         this.contentTypeName = '';
+        this.contactId = '';
         this.contentSubtype = 1;
         this.contentSubtypeName = '';
     }
@@ -46,6 +48,7 @@ export class ProfileContentsComponent implements OnInit {
         this.subParams = this._activatedRoute.queryParams.subscribe( (params: Params) => {
             this.contentSubtype = (typeof params.contentSubtype !== 'undefined') ? parseInt(params.contentSubtype) : DEFAULT_CONTENT_FILTER_ID;
         })
+        this.contactId = this._activatedRoute.snapshot.params.contactId;
     }
 
 }

@@ -6,11 +6,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PluralNameFormatPipe implements PipeTransform {
 
     transform(name: string): string {
+        let pluralName: string = '';
         if(!!name) {
-            const lastChar: string = name.substr(name.length - 1);
-            return (lastChar === 'l') ? `${name}es` : `${name}s` ;
+            switch(name) {
+                case 'Cotización':
+                    pluralName = 'Cotizaciones';
+                break;
+
+                default:
+                pluralName = name + 's';
+            }
         }
-        return '';
+        return pluralName;
     }
 
 }

@@ -6,6 +6,9 @@
             <ng-container *ngSwitchCase="CONTENT_TYPES.LEAD.ID">
                 <ng-container *ngTemplateOutlet="leadSuggestion"></ng-container>
             </ng-container>
+            <ng-container *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID">
+                <ng-container *ngTemplateOutlet="contactQuotationSuggestion"></ng-container>
+            </ng-container>
         </ng-container>
     </div>
 </div>
@@ -15,4 +18,10 @@
     <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
     <p>Intenta localizarlo con el <strong>Buscador Inteligente</strong>.</p>
+</ng-template>
+
+<ng-template #contactQuotationSuggestion>
+    <strong>¿No encuentras la {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+    <p>Intenta explorar el <strong>Historial de Cotizaciones</strong>.</p>
 </ng-template>
