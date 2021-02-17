@@ -5,7 +5,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { QuotationService } from '@services/quotation.service';
 
 @Injectable()
-export class ModalAcceptQuotationService {
+export class ModalConfirmAcceptQuotationService {
 
     constructor(private _quotationService: QuotationService) { }
 

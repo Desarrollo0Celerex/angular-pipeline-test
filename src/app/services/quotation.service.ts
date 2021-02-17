@@ -10,6 +10,8 @@ import { AuthService } from '@services/auth.service';
 const routes: any = {
     contactQuotation: (workspaceId: string, contactId: string, quotationId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/' + quotationId,
     contactQuotations: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations',
+    acceptContactQuotation: (workspaceId: string, contactId: string, quotationId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/' + quotationId + '/accept',
+    rejectContactQuotation: (workspaceId: string, contactId: string, quotationId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/' + quotationId + '/reject',
 }
 
 @Injectable()
@@ -30,8 +32,19 @@ export class QuotationService {
      * @return             The policy ID
      */
     acceptContactQuotation(contactId: string, quotationId: string): Observable<HttpResponse> {
-        const route: string = routes.contactQuotation(this._workspaceId, contactId, quotationId);
+        const route: string = routes.acceptContactQuotation(this._workspaceId, contactId, quotationId);
         return this._httpClient.post<HttpResponse>(route, null);
+    }
+
+    /**
+     * Reject the contact quotation in the API
+     * @param  contactId   The contact ID
+     * @param  quotationId The quotation ID to reject
+     * @return             Notice of action done
+     */
+    rejectContactQuotation(contactId: string, quotationId: string): Observable<void> {
+        const route: string = routes.rejectContactQuotation(this._workspaceId, contactId, quotationId);
+        return this._httpClient.post<void>(route, null);
     }
 
     /**

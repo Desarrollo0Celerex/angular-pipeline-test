@@ -6,7 +6,8 @@ import { CardQuotationModule } from '@components/card-quotation/card-quotation.m
 import { ContentSuggestionsModule } from '@components/content-suggestions/content-suggestions.module';
 import { ContentResultsModule } from '@components/content-results/content-results.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
-import { ModalAcceptQuotationModule } from '@components/modal-accept-quotation/modal-accept-quotation.module';
+import { ModalConfirmAcceptQuotationModule } from '@components/modal-confirm-accept-quotation/modal-confirm-accept-quotation.module';
+import { ModalConfirmRejectQuotationModule } from '@components/modal-confirm-reject-quotation/modal-confirm-reject-quotation.module';
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
@@ -27,7 +28,8 @@ import { ContentListService } from './content-list.service';
     ContentResultsModule,
     LoadingContentModule,
     PluralNameFormatModule,
-    ModalAcceptQuotationModule,
+    ModalConfirmAcceptQuotationModule,
+    ModalConfirmRejectQuotationModule,
     ModalShowContactDataModule,
     ModalShowQuotationDetailsModule
   ],

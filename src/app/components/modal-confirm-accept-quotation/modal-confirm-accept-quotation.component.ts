@@ -7,24 +7,24 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { UploadPolicyData } from '@interfaces/upload-policy-data.interface';
 import { LoadingService } from '@services/loading.service';
 
-import { ModalAcceptQuotationService } from './modal-accept-quotation.service';
+import { ModalConfirmAcceptQuotationService } from './modal-confirm-accept-quotation.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-accept-quotation',
-  templateUrl: './modal-accept-quotation.component.html',
+  selector: 'agt-modal-confirm-accept-quotation',
+  templateUrl: './modal-confirm-accept-quotation.component.html',
   styles: [
   ]
 })
-export class ModalAcceptQuotationComponent {
+export class ModalConfirmAcceptQuotationComponent {
     @Input() contactId: string;
     @Input() modalId: string;
     @Input() quotationId: string;
 
     constructor(
         private _loadingService: LoadingService,
-        private _modalAcceptQuotationService: ModalAcceptQuotationService,
+        private _modalAcceptQuotationService: ModalConfirmAcceptQuotationService,
         private _router: Router
     ) {
         this.contactId = '';
@@ -50,7 +50,7 @@ export class ModalAcceptQuotationComponent {
      * @param context The app context
      * @param data    The data to navigate to upload policy
      */
-    private _goToUploadPolicy(context: ModalAcceptQuotationComponent, data: UploadPolicyData): void {
+    private _goToUploadPolicy(context: ModalConfirmAcceptQuotationComponent, data: UploadPolicyData): void {
         context._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.contactId, data.policyId));
     }
 

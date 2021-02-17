@@ -24,6 +24,7 @@ export class ContentListComponent implements OnChanges {
     acceptQuotationModalId: string;
     isLoadingContent: boolean;
     page: number;
+    rejectQuotationModalId: string;
     selectedContactId: string;
     selectedQuotationId: string;
     showContactDataModalId: string;
@@ -41,6 +42,7 @@ export class ContentListComponent implements OnChanges {
         this.acceptQuotationModalId = 'agt-accept-quotation';
         this.isLoadingContent = false;
         this.page = 1;
+        this.rejectQuotationModalId = 'agt-reject-quotation';
         this.selectedContactId = '';
         this.selectedQuotationId = '';
         this.showContactDataModalId = 'agt-contact-data';
@@ -69,6 +71,15 @@ export class ContentListComponent implements OnChanges {
     onLoadMoreContents(): void {
         this.page++;
         this._loadContents();
+    }
+
+    /**
+     * Event to reject a quotation
+     * @param quotationId [description]
+     */
+    onRejectQuotation(quotationId: string): void {
+        this.selectedQuotationId = quotationId;
+        ModalPlugin.show(this.rejectQuotationModalId);
     }
 
     /**

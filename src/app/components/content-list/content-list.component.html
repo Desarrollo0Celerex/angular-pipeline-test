@@ -14,7 +14,7 @@
     <div class="col-md-3 col-xl-3" *ngFor="let content of contentListService.contents">
         <ng-container [ngSwitch]="contentType">
             <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD.ID" [lead]="content" (showContactData)="onShowContactData($event)"></agt-card-lead>
-            <agt-card-quotation *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID" [quotation]="content" (showQuotationDetails)="onShowQuotationDetails($event)" (acceptQuotation)="onAcceptQuotation($event)"></agt-card-quotation>
+            <agt-card-quotation *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID" [quotation]="content" (showQuotationDetails)="onShowQuotationDetails($event)" (acceptQuotation)="onAcceptQuotation($event)" (rejectQuotation)="onRejectQuotation($event)"></agt-card-quotation>
         </ng-container>
     </div>
 </div>
@@ -30,6 +30,7 @@
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID">
     <agt-modal-show-quotation-details [modalId]="showQuotationDetailsModalId" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-show-quotation-details>
-    <agt-modal-accept-quotation [modalId]="acceptQuotationModalId" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-accept-quotation>
+    <agt-modal-confirm-accept-quotation [modalId]="acceptQuotationModalId" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-accept-quotation>
+    <agt-modal-confirm-reject-quotation [modalId]="rejectQuotationModalId" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-reject-quotation>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->
