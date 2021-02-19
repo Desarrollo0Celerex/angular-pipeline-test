@@ -7,10 +7,20 @@ import { Contact } from '@interfaces/contact.interface';
 
 @Injectable()
 export class ContactProfileService {
-    contact: Contact | null;
+    contact: Contact;
 
     constructor(private _contactService: ContactService) {
-        this.contact = null
+        this.contact = {
+            contactId: '',
+            avatarUrl: '',
+            contactName: '',
+            contactSourceName: '',
+            phoneCode: '',
+            phoneNumber: '',
+            email: '',
+            contactTypeName: '',
+            contactScoreName: ''
+        }
     }
 
     /**

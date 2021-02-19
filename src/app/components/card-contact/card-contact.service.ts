@@ -6,10 +6,20 @@ import { ContactService } from '@services/contact.service';
 
 @Injectable()
 export class CardContactService {
-    contact: Contact | null;
+    contact: Contact;
 
     constructor(private _contactService: ContactService) {
-        this.contact = null;
+        this.contact = {
+            contactId: '',
+            avatarUrl: '',
+            contactName: '',
+            contactSourceName: '',
+            phoneCode: '',
+            phoneNumber: '',
+            email: '',
+            contactTypeName: '',
+            contactScoreName: ''
+        };
     }
 
     /**

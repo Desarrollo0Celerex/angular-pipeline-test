@@ -45,7 +45,8 @@ const HOME_LEADS_ROUTES = {
 
 const HOME_POLICIES_ROUTES = {
     uploadPolicy: (contactId: string, policyId: string) => `home/policies/upload-policy/${contactId}/${policyId}`,
-    updatePolicy: (contactId: string, policyId: string) => `home/policies/update-policy/${contactId}/${policyId}`
+    completePolicy: (contactId: string, policyId: string) => `home/policies/complete-policy/${contactId}/${policyId}`,
+    updatePolicy: (contactId: string, policyId: string) => `home/policies/update-policy/${contactId}/${policyId}`,
 }
 
 const INVITATIONS_ROUTES = {

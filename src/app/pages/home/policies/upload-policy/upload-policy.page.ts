@@ -92,7 +92,7 @@ export class UploadPolicyPage implements OnInit {
             this._loadingService.show();
             this.uploadPolicyService.uploadContactPolicy(this.contactId, this.policyId).subscribe( () => {
                 this._loadingService.hide();
-                AlertHelper.policyUploaded(this._goToUpdatePolicy, this);
+                AlertHelper.policyUploaded(this._goToCompletePolicy, this);
             });
         }
     }
@@ -106,13 +106,12 @@ export class UploadPolicyPage implements OnInit {
     }
 
     /**
-     * Navigates to update the contact policy
+     * Navigates to complete the contact policy
      * @param context The app context
      * @param data    The data to do the action
      */
-    private _goToUpdatePolicy(context: UploadPolicyPage): void {
-        console.log('route: ',ROUTES_NAME.updatePolicy(context.contactId, context.policyId));
-        context._router.navigateByUrl(ROUTES_NAME.updatePolicy(context.contactId, context.policyId));
+    private _goToCompletePolicy(context: UploadPolicyPage): void {
+        context._router.navigateByUrl(ROUTES_NAME.completePolicy(context.contactId, context.policyId));
     }
 
     /**
