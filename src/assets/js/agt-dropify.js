@@ -1,19 +1,36 @@
 var DropifyPlugin = function() {
 
-	function initDropify(fileTypes, canShowPreview) {
-		let dropifySettings = {
-			messages: {
+	function initDropify(fileType, allowedFileTypes, canShowPreview) {
+		let message, error;
+		if(fileType === 1) {
+			messages = {
 				'default': 'Selecciona una imagen de tu dispositivo.',
 				'replace': 'Selecciona otra imagen de tu dispositivo.',
-				'remove': 'Eliminar imagen.',
-				'error': 'No se pudo cargar tu imagen, intenta nuevamente.'
-			},
-			error: {
-				'fileSize': 'El tamaño del archivo es demasiado grande. (2M máximo).',
-				'fileExtension': 'El archivo no está permitido, solo se aceptan png, jpg, jpeg, gif y bmp'
-			},
+				'remove': 'Eliminar imagen',
+				'error': 'No se pudo cargar la imagen, intenta nuevamente.'
+			}
+			error = {
+				'fileSize': 'El tamaño de la imagen es demasiado grande. (2M máximo).',
+				'fileExtension': 'El tipo de imagen seleccionada no está permitido, solo se aceptan png, jpg, jpeg, gif y bmp'
+			}
+		} else if(fileType === 2) {
+			messages = {
+				'default': 'Selecciona un documento de tu dispositivo.',
+				'replace': 'Selecciona otro documento de tu dispositivo.',
+				'remove': 'Eliminar documento',
+				'error': 'No se pudo cargar el documento, intenta nuevamente.'
+			}
+			error = {
+				'fileSize': 'El tamaño del documento es demasiado grande. (2M máximo).',
+				'fileExtension': 'El tipo de documento seleccionado no está permitido, solo se aceptan pdf'
+			}
+		}
+
+		let dropifySettings = {
+			messages,
+			error,
 			errorTimeout: 5000,
-			allowedFileExtensions: fileTypes
+			allowedFileExtensions: allowedFileTypes
 		}
 
 		if(!canShowPreview) {
@@ -24,8 +41,8 @@ var DropifyPlugin = function() {
 	}
 
 	return {
-		init: function(fileTypes, canShowPreview = true) {
-			initDropify(fileTypes, canShowPreview);
+		init: function(fileType, allowedFileTypes, canShowPreview = true) {
+			initDropify(fileType, allowedFileTypes, canShowPreview);
 		}
 	}
 

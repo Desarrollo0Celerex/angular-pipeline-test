@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 
-import { IMAGE_FORMATS } from '@constants/global';
+import { FILE_TYPES, IMAGE_FORMATS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -36,7 +36,7 @@ export class UploadWorkspaceAvatarPage implements OnInit {
     }
 
     ngOnInit(): void {
-        DropifyPlugin.init(IMAGE_FORMATS, this._canShowPreview);
+        DropifyPlugin.init(FILE_TYPES.IMAGE, IMAGE_FORMATS, this._canShowPreview);
     }
 
     /**

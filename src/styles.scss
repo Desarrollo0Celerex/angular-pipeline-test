@@ -118,6 +118,20 @@
 	overflow: hidden;
 }
 
+/* Hide element */
 .agt-hide {
     display: none !important;
+}
+
+/* Custom validation class */
+.form-group.agt-is-valid {
+	border: 1px solid #4ecc48 !important;
+	border-radius: 3px !important;
+}
+.form-group.agt-is-invalid {
+	border: 1px solid #c21a1a !important;
+	border-radius: 3px !important;
+}
+.form-group.agt-is-invalid .invalid-feedback {
+    display: block;
 }

@@ -87,3 +87,7 @@ export const BUTTON_TYPES: any = {
     ICON: 3,
     INPUT: 4
 }
+export const FILE_TYPES: any = {
+    IMAGE: 1,
+    DOCUMENT: 2
+}

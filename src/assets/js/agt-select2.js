@@ -1,17 +1,26 @@
 var Select2Plugin = function() {
 
-	function init() {
+	function initSelect() {
 		$('.select2').select2({
 			minimumResultsForSearch: Infinity,
 			width: '100%'
 		});
+	}
 
-		// Select2 by showing the search
+	function initSearch(onItemSelected, context) {
 		$('.select2-show-search').select2({
 			minimumResultsForSearch: '',
 			width: '100%'
 		});
+
+		$('.select2-selection__rendered').on('DOMSubtreeModified', function() {
+			const selectedValue = $('.select2-show-search').val();
+			onItemSelected(context, selectedValue);
+		})
 	}
 
-	return { init }
+	return {
+		initSelect,
+		initSearch
+	}
 }();

@@ -47,7 +47,7 @@ export class ModalCreateQuotationComponent implements OnInit, OnChanges {
             this.modalCreateQuotationService.quotationForm.reset();
             this._isFormSubmitted = false;
             this.modalCreateQuotationService.loadInsuranceTypes(this.insuranceId).subscribe( () => {
-                Select2Plugin.init();
+                Select2Plugin.initSelect();
                 this._onChangeInsuranceType(this.selectInsuranceTypeId);
             })
         }

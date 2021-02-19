@@ -27,7 +27,11 @@ const routes: Routes = [
 
             // Leads routes
             { path: ROUTES_NAME.listLeads, loadChildren: () => import('@pages/home/leads/list-leads/list-leads.module').then(mod => mod.ListLeadsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-            { path: ROUTES_NAME.leadSearchResults, loadChildren: () => import('@pages/home/leads/lead-search-results/lead-search-results.module').then(mod => mod.LeadSearchResultsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] }
+            { path: ROUTES_NAME.leadSearchResults, loadChildren: () => import('@pages/home/leads/lead-search-results/lead-search-results.module').then(mod => mod.LeadSearchResultsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+
+            // Policies routes
+            { path: ROUTES_NAME.uploadPolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/upload-policy/upload-policy.module').then(mod => mod.UploadPolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+
         ]
     }
 ];

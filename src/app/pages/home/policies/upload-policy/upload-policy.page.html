@@ -1,0 +1,58 @@
+<agt-card-contact [contactId]="contactId" [message]="message"></agt-card-contact>
+
+<!-- AGENTHOS - NEW POLICY -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Seleccionar Archivo</h3>
+            </div>
+            <!-- AGENTHPS - NEW POLICY BODY -->
+            <form [formGroup]="uploadPolicyService.policyForm" (submit)="onSubmitUploadPolicy()">
+                <div class="card-body">
+                    <div class="row">
+                        <!-- AGENTHOS - POLICY ORIGIN -->
+                        <div class="col-md-12">
+                            <div class="form-group {{getValidationClass('policyFile')}}">
+                                <input class="form-control dropify" type="file" accept="application/pdf" data-max-file-size="2M" formControlName="policyFile" (change)="onChangePolicyFile($event)"/>
+                                <div class="invalid-feedback">{{getErrorMessage('policyFile')}}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <!-- AGENTHOS - INSURANCE COMPANY -->
+                            <div class="form-group">
+                                <label class="form-label">Compañía de Seguros</label>
+                                <select class="form-control select2-show-search {{getValidationClass('insurerId')}}" data-placeholder="Compañía Aseguradora" formControlName="insurerId">
+                                    <optgroup label="Seleccionar Compañía">
+                                        <option [value]="insurer.insurerId" *ngFor="let insurer of uploadPolicyService.insurers">{{insurer.name | uppercase}}</option>
+                                    </optgroup>
+                                </select>
+                                <div class="invalid-feedback">{{getErrorMessage('insurerId')}}</div>
+                            </div>
+                            <!-- //AGENTHOS - INSURANCE COMPANY -->
+                        </div>
+                        <!-- //AGENTHOS - POLICY ORIGIN -->
+
+                        <!-- AGENTHOS - CONFIRM POLICY -->
+                        <div class="col-md-12 mt-5">
+                            <button type="submit" class="btn btn-primary btn-block"><strong>CARGAR PÓLIZA</strong></button>
+                        </div>
+                        <!-- //AGENTHOS - CONFIRM POLICY -->
+                    </div>
+                </div>
+            </form>
+            <!-- AGENTHOS - NEW POLICY BODY -->
+            <!-- AGENTHOS - NEW POLICY FOOTER -->
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a routerLink="/{{ROUTES_NAME.contactResume(contactId)}}">
+                        <button type="button" name="agtCancelAction" class="btn btn-secondary btn-block"><strong>CANCELAR</strong></button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - NEW POLICY FOOTER -->
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - NEW POLICY -->
