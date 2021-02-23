@@ -1,0 +1,39 @@
+<!-- AGENTHOS - POLICY VIEW -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- AGENTHOS - DETAILS CARD -->
+                <h5 class="modal-title">Ver Póliza</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="text-justify"><strong>¿Quieres ver los detalles de la póliza?</strong></p>
+                        <p class="text-justify">
+                        Apunta con la cámara de tu Smartphone al código inteligente y la póliza será transferida automáticamente a tu dispositivo.</p>
+                        <p class="text-justify">También puedes ver y guardar la póliza de manera directa.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <ng-container *ngIf="!!policyUrl">
+                                <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="policyUrl"></ngx-qrcode>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="col-12">
+                    <a [href]="policyUrl" target="_blank">
+                        <button type="button" class="btn btn-primary btn-block" (click)="onClickCloseModal()"><strong>DESCARGAR PÓLIZA</strong></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - POLICY VIEW -->

@@ -8,9 +8,9 @@ import { ExpressTokenService } from '@services/express-token.service';
 
 @Injectable()
 export class QrcodeTransferContactService {
-    public contactUrl: string;
-    public correctionLevel: any;
-    public elementType: any;
+    contactUrl: string;
+    correctionLevel: any;
+    elementType: any;
 
     constructor(
         private _expressTokenService: ExpressTokenService
