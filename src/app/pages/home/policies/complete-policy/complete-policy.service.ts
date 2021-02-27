@@ -1,17 +1,109 @@
 import { Injectable } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
+import * as moment from 'moment';
 
+import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH, DEFAULT_CURRENCY_ID, DEFAULT_METHOD_ID, DEFAULT_PLAN_ID } from '@constants/global';
+import { ValidatorsHelper } from '@helpers/validators.helper';
+import { CompletePolicyDataSend } from '@interfaces/complete-policy-data-send.interface';
+import { Currency } from '@interfaces/currency.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { PaymentMethod } from '@interfaces/payment-method.interface';
+import { PaymentPlan } from '@interfaces/payment-plan.interface';
 import { Policy } from '@interfaces/policy.interface';
+import { CurrencyService } from '@services/currency.service';
+import { PaymentMethodService } from '@services/payment-method.service';
+import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
 
 @Injectable()
 export class CompletePolicyService {
+    currencies: Currency[];
+    paymentMethods: PaymentMethod[];
+    paymentPlans: PaymentPlan[];
     policy: Policy;
+    policyForm: FormGroup;
 
-    constructor(private _policyService: PolicyService) {
+    constructor(
+        private _currencyService: CurrencyService,
+        private _formBuilder: FormBuilder,
+        private _paymentMethodService: PaymentMethodService,
+        private _paymentPlanService: PaymentPlanService,
+        private _policyService: PolicyService
+    ) {
+        this.currencies = [];
+        this.paymentMethods = [];
+        this.paymentPlans = [];
         this.policy = this._buildContactPolicy();
+        this.policyForm = this._formBuilder.group({});
+    }
+
+    get f(): { [key: string]: AbstractControl; } {
+        return this.policyForm.controls;
+    }
+
+    /**
+     * Build the policy form
+     */
+    buildPolicyForm(): void {
+        this.policyForm = this._formBuilder.group({
+            coveredProperty: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+            policyNumber: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+            clientNumber: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+            emissionDate: ['', [Validators.required, ValidatorsHelper.date] ],
+            validityStartDate: ['', [Validators.required, ValidatorsHelper.date] ],
+            validityEndDate: ['', [Validators.required, ValidatorsHelper.date] ],
+            titularName: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
+            titularRfc: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+            titularPostalCode: ['', [Validators.required, ValidatorsHelper.postalCode ] ],
+            titularPhoneNumber: ['', [ValidatorsHelper.phoneNumber] ],
+            amount: ['', [Validators.required, ValidatorsHelper.amount] ],
+            currencyId: [DEFAULT_CURRENCY_ID, [Validators.required]],
+            paymentMethodId: [DEFAULT_METHOD_ID, [Validators.required]],
+            paymentPlanId: [DEFAULT_PLAN_ID, [Validators.required]],
+            bills: ['', [Validators.required, ValidatorsHelper.number]]
+        });
+    }
+
+    /**
+     * Calculate the bills
+     */
+    calculateBills(): void {
+        let bills: number = 0;
+        const validityStartDate: string = this.f.validityStartDate.value;
+        const validityEndDate: string = this.f.validityEndDate.value;
+        if(!!validityStartDate && !!validityEndDate) {
+            const paymentPlanMonths: number = this._getPaymentPlanMonths(this.f.paymentPlanId.value);
+            // If it is an one-time payment
+            if(paymentPlanMonths === 0) {
+                this.policyForm.patchValue({bills: 1});
+            } else {
+                const startDate = moment(validityStartDate, 'DD-MM-YYYY');
+                const endDate = moment(validityEndDate, 'DD/MM/YYYY');
+                // If the end date is major than the start date
+                if(endDate.isAfter(startDate)) {
+                    while(startDate.isBefore(endDate)) {
+                        bills++;
+                        startDate.add(paymentPlanMonths, 'month');
+                    }
+                    this.policyForm.patchValue({bills});
+                } else {
+                    this.policyForm.patchValue({bills: ''});
+                }
+            }
+        }
+    }
+
+    /**
+     * Complete the policy data
+     * @param  contactId The contact ID
+     * @param  policyId  The policy ID to complete
+     * @return           Notice of action done
+     */
+    completePolicy(contactId: string, policyId: string): Observable<void> {
+        const requestBody: CompletePolicyDataSend = this.policyForm.value;
+        return this._policyService.completePolicy(contactId, policyId, requestBody);
     }
 
     /**
@@ -23,12 +115,54 @@ export class CompletePolicyService {
     loadContactPolicy(contactId: string, policyId: string): Observable<void> {
         this.policy = this._buildContactPolicy();
         const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeName,insurerName,policyUrl';
-        return this._policyService.getContactPolicy(contactId, policyId).pipe(
+        return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
             }),
-            map( () => { })
+            map(() => { })
         )
+    }
+
+    /**
+     * Load the currencies
+     * @return Notice of action done
+     */
+    loadCurrencies(): Observable<void> {
+        const fields: string = 'currencyId,name';
+        return this._currencyService.getCurrencies(fields).pipe(
+            tap((res: HttpResponse) => {
+                this.currencies = res.data;
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
+     * Load the payment methods
+     * @return Notice of action done
+     */
+    loadPaymentMethods(): Observable<void> {
+        const fields: string = 'paymentMethodId,name';
+        return this._paymentMethodService.getPaymentMethods(fields).pipe(
+            tap((res: HttpResponse) => {
+                this.paymentMethods = res.data;
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
+     * Load the payment plans
+     * @return Notice of action done
+     */
+    loadPaymentPlans(): Observable<void> {
+        const fields: string = 'paymentPlanId,name,months';
+        return this._paymentPlanService.getPaymentPlans(fields).pipe(
+            tap((res: HttpResponse) => {
+                this.paymentPlans = res.data;
+            }),
+            map(() => { })
+        );
     }
 
     /**
@@ -47,5 +181,15 @@ export class CompletePolicyService {
             insurerName: '',
             policyUrl: ''
         }
+    }
+
+    /**
+     * Get the months of the payment plan
+     * @param  paymentPlanId The payment plant ID
+     * @return                The months
+     */
+    private _getPaymentPlanMonths(paymentPlanId: number): number {
+        const paymentPlan: PaymentPlan | undefined = this.paymentPlans.find( (element: PaymentPlan) => element.paymentPlanId == paymentPlanId);
+        return (!!paymentPlan) ? paymentPlan.months : 0;
     }
 }

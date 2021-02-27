@@ -8,9 +8,9 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { InsuranceTypeService } from '@services/insurance-type.service';
 import { QuotationService } from '@services/quotation.service';
 
-import { InsuranceType } from '@interfaces/insurance-type.interface';
-
 import { FREE_TEXT_LENGTH } from '@constants/global';
+import { ValidatorsHelper } from '@helpers/validators.helper';
+import { InsuranceType } from '@interfaces/insurance-type.interface';
 
 @Injectable()
 export class ModalCreateQuotationService {
@@ -35,7 +35,7 @@ export class ModalCreateQuotationService {
      */
     buildQuotationForm(): void {
         this.quotationForm = this._formBuilder.group({
-            description: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX)]],
+            description: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
             insuranceTypeId: ['', [Validators.required] ]
         })
     }

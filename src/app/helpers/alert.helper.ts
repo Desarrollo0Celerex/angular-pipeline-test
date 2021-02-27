@@ -84,10 +84,22 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static policyCompleted(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Datos Actualizados',
+            text: 'Los datos de la póliza se han guardado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static policyUploaded(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Póliza Cargada',
-            text: 'La poliza se ha actualizado en la cartera del contacto.',
+            text: 'La póliza se ha actualizado en la cartera del contacto.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,

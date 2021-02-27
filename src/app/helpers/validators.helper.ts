@@ -5,23 +5,9 @@ import { ALPHANUMERICS, PUNCTUATION_MARKS } from '@constants/global';
 export class ValidatorsHelper {
 
     /**
-     * Validate a real name
-     * @param  control Control
-     * @return         Error object if validation was successful, otherwise false.
-     */
-    static realName(control: AbstractControl) {
-        if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = new RegExp(`^[${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
-            const value = control.value;
-            return (!regex.test(value)) ? {alphanumeric: true} : null;
-        }
-        return null;
-    }
-
-    /**
      * Validate a brand name
-     * @param  control Control
-     * @return         Error object if validation was successful, otherwise false.
+     * @param  control The control to evaluate
+     * @return         Error object if validation was successful, otherwise null.
      */
     static brandName(control: AbstractControl) {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
@@ -33,51 +19,46 @@ export class ValidatorsHelper {
     }
 
     /**
-     * Validate an own name
-     * @param  control Control
-     * @return         Error object if validation was successful, otherwise false.
+     * Validate an amount
+     * @param  control The control to evaluate
+     * @return         Error object if validation was successful, otherwise null.
      */
-    static ownName(control: AbstractControl) {
+    static amount(control: AbstractControl) {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = new RegExp(`^[${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
+            const regex = /^(?=.*?\d)?(([1-9]\d{0,2}(,\d{3}){0,2})|\d{0,9})?(\.\d{1,2})?$/;
             const value = control.value;
-            return (!regex.test(value)) ? {alphanumeric: true} : null;
+            return (!regex.test(value)) ? {currency: true} : null;
         }
         return null;
     }
 
     /**
-     * Validate a phone number
-     * @param  control Control
-     * @return         Error object if validation was successful, otherwise false.
+     * Validate a short date
+     * @param  control The control to evaluate
+     * @return         Error object if validation was successful, otherwise null.
      */
-    static phoneNumber(control: AbstractControl) {
+    static date(control: AbstractControl) {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = /^[0-9]{10}$/;
+            const regex = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
             const value = control.value;
-            return (!regex.test(value)) ? {phoneNumber: true} : null;
+            return (!regex.test(value)) ? {date: true} : null;
         }
         return null;
     }
 
-    /**
-     * Validate a web link
-     * @param  control Control
-     * @return         Error object if validation was successful, otherwise false.
-     */
-    static webLink(control: AbstractControl): Object | null {
+    static freeText(control: AbstractControl) {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = /^(https:\/\/)?([\da-zñ\.-]+)\.([a-zñ\.]{2,6})([\/\w \.-]*)*\/?$/;
-            let value = control.value;
-            return (!regex.test(value)) ? {webLink: true} : null;
+            const regex = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ,.:;\-\"()¿?¡! ]{3,1000}$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {freeText: true} : null;
         }
         return null;
     }
 
     /**
      * Validate a license code
-     * @param  control Control
-     * @return         Error object if validation was successful, otherwise false.
+     * @param  control The control to evaluate
+     * @return         Error object if validation was successful, otherwise null.
      */
     static licenseCode(control: AbstractControl) {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
@@ -89,9 +70,93 @@ export class ValidatorsHelper {
     }
 
     /**
+     * Validate a number
+     * @param  control The control to evaluate
+     * @return         Error object if validation was successful, otherwise null.
+     */
+    static number(control: AbstractControl) {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^[0-9]{1,10}$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {number: true} : null;
+        }
+        return null;
+    }
+
+    /**
+     * Validate an own name
+     * @param  control The control to evaluate
+     * @return         Error object if validation was successful, otherwise null.
+     */
+    static ownName(control: AbstractControl) {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = new RegExp(`^[${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
+            const value = control.value;
+            return (!regex.test(value)) ? {alphanumeric: true} : null;
+        }
+        return null;
+    }
+
+    /**
+     * Validate a postal code
+     * @param  control The control to evaluate
+     * @return         Error object if validation was successful, otherwise null.
+     */
+    static postalCode(control: AbstractControl) {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^[0-9]{5}$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {postalCode: true} : null;
+        }
+        return null;
+    }
+
+    /**
+     * Validate a phone number
+     * @param  control The control to evaluate
+     * @return         Error object if validation was successful, otherwise null.
+     */
+    static phoneNumber(control: AbstractControl) {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^[0-9]{10}$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {phoneNumber: true} : null;
+        }
+        return null;
+    }
+
+    /**
+     * Validate a real name
+     * @param  control The control to evaluate
+     * @return         Error object if validation was successful, otherwise null.
+     */
+    static realName(control: AbstractControl) {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = new RegExp(`^[${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
+            const value = control.value;
+            return (!regex.test(value)) ? {alphanumeric: true} : null;
+        }
+        return null;
+    }
+
+    /**
+     * Validate a web link
+     * @param  control The control to evaluate
+     * @return         Error object if validation was successful, otherwise null.
+     */
+    static webLink(control: AbstractControl): Object | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^(https:\/\/)?([\da-zñ\.-]+)\.([a-zñ\.]{2,6})([\/\w \.-]*)*\/?$/;
+            let value = control.value;
+            return (!regex.test(value)) ? {webLink: true} : null;
+        }
+        return null;
+    }
+
+    /**
      * Check if a control can be validated
-     * @param  control Control
-     * @return         True if you can, otherwise false.
+     * @param  control The control to evaluate
+     * @return         True if you can, otherwise null.
      */
     private static _checkCanValidate(control: AbstractControl): boolean {
         if( Object.keys(control).length > 0) {

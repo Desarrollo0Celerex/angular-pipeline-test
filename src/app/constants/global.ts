@@ -4,6 +4,9 @@ export const DEFAULT_COUNTRY_ID: number = 1;
 export const DEFAULT_ROLE_ID: number = 1;
 export const DEFAULT_CONTACT_SOURCE_ID: number = 1;
 export const DEFAULT_CONTENT_FILTER_ID: number = 1;
+export const DEFAULT_CURRENCY_ID: number = 1;
+export const DEFAULT_METHOD_ID: number = 1;
+export const DEFAULT_PLAN_ID: number = 1;
 
 // Validations
 export const ALPHANUMERICS: string = 'a-zA-Z0-9ñÑ';

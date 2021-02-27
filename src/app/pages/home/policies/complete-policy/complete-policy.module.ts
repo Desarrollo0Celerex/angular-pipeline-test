@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CardContactModule } from '@components/card-contact/card-contact.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
+import { CurrencyService } from '@services/currency.service';
+import { PaymentMethodService } from '@services/payment-method.service';
+import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
 
 import { CompletePolicyRoutingModule } from './complete-policy-routing.module';
@@ -16,8 +20,10 @@ import { CompletePolicyService } from './complete-policy.service';
     CardContactModule,
     CommonModule,
     CompletePolicyRoutingModule,
-    ModalShowPolicyModule
+    FormsModule,
+    ModalShowPolicyModule,
+    ReactiveFormsModule
   ],
-  providers: [CompletePolicyService, PolicyService]
+  providers: [CompletePolicyService, CurrencyService, PaymentMethodService, PaymentPlanService, PolicyService]
 })
 export class CompletePolicyModule { }

@@ -59,6 +59,21 @@ export class InputValidatorHelper {
                     case (typeof error.licenseCode !== 'undefined'):
                         message = 'Por favor ingresa un código de licensia válido.';
                         break;
+                    case (typeof error.date !== 'undefined'):
+                        message = 'Por favor ingresa una fecha válida.';
+                        break;
+                    case (typeof error.postalCode !== 'undefined'):
+                        message = 'Por favor ingresa un código postal válido.';
+                        break;
+                    case (typeof error.currency !== 'undefined'):
+                        message = 'Por favor ingresa una cantidad válida.';
+                        break;
+                    case (typeof error.number !== 'undefined'):
+                        message = 'Solo se permiten números.';
+                        break;
+                    case (typeof error.freeText !== 'undefined'):
+                        message = 'Algunos caracteres no son validos.';
+                        break;
                     default: message = '';
                 }
             }
