@@ -1,13 +1,3 @@
-// Default values
-export const DEFAULT_PHONE_CODE_ID: number = 1;
-export const DEFAULT_COUNTRY_ID: number = 1;
-export const DEFAULT_ROLE_ID: number = 1;
-export const DEFAULT_CONTACT_SOURCE_ID: number = 1;
-export const DEFAULT_CONTENT_FILTER_ID: number = 1;
-export const DEFAULT_CURRENCY_ID: number = 1;
-export const DEFAULT_METHOD_ID: number = 1;
-export const DEFAULT_PLAN_ID: number = 1;
-
 // Validations
 export const ALPHANUMERICS: string = 'a-zA-Z0-9ñÑ';
 export const PUNCTUATION_MARKS: string = 'áéíóúÁÉÍÓÚ,.:;\\-\\"()¿?¡!]*$';
@@ -56,6 +46,16 @@ export const QUOTATION_STATUS: any = {
     ACCEPRED: 2,
     REJECTED: 3
 }
+export const POLICY_STATUS: any = {
+    INCOMPLETE: 1,
+    ISSUED: 2,
+    CURRENT: 3,
+    PENDING: 4,
+    SUSPENDED: 5,
+    FINISHED: 6,
+    CANCELLED: 7
+}
+export const POLICY_STATUS_ACTIVE: number = 100;
 
 // Types
 export const CONTENT_TYPES: any = {
@@ -78,6 +78,10 @@ export const CONTENT_TYPES: any = {
     CONTACT_QUOTATION: {
         ID: 5,
         NAME: 'Cotización'
+    },
+    CONTACT_POLICY: {
+        ID: 6,
+        NAME: 'Póliza'
     }
 }
 export const CONTACT_TYPES: any = {
@@ -94,3 +98,14 @@ export const FILE_TYPES: any = {
     IMAGE: 1,
     DOCUMENT: 2
 }
+
+// Default values
+export const DEFAULT_PHONE_CODE_ID: number = 1;
+export const DEFAULT_COUNTRY_ID: number = 1;
+export const DEFAULT_ROLE_ID: number = 1;
+export const DEFAULT_CONTACT_SOURCE_ID: number = 1;
+export const DEFAULT_CONTENT_FILTER_ID: number = 1;
+export const DEFAULT_CURRENCY_ID: number = 1;
+export const DEFAULT_METHOD_ID: number = 1;
+export const DEFAULT_PLAN_ID: number = 1;
+export const DEFAULT_POLICY_STATUS_ID: number = POLICY_STATUS_ACTIVE;

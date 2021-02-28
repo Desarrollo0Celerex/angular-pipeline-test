@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
         <!-- AGENTHOS - CREATE CONTACT -->
-        <button type="button" class="btn btn-block btn-secondary" (click)="onClickDoAction()"><strong>{{getButtonTitle()}}</strong></button>
+        <button type="button" class="btn btn-block btn-secondary" (click)="onClickDoAction()"><strong>{{getButtonTitle() | uppercase}}</strong></button>
     </div>
 </div>
 <!-- //AGENTHOS - CONTENT MAIN ACTION -->
@@ -14,5 +14,8 @@
     <agt-modal-select-contact-type [modalId]="selectContactTypeModalId"></agt-modal-select-contact-type>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID">
-    <agt-modal-select-quotation-status [modalId]="selectQuotationTypeModalId" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-modal-select-quotation-status>
+    <agt-modal-select-quotation-status [modalId]="selectQuotationStatusModalId" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-modal-select-quotation-status>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID">
+    <agt-modal-select-policy-status [modalId]="selectPolicyStatusModalId" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-modal-select-policy-status>
 </ng-container>

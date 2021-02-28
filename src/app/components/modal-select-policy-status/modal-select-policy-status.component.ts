@@ -1,22 +1,22 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { ModalSelectQuotationStatusService } from './modal-select-quotation-status.service';
+import { ModalSelectPolicyStatusService } from './modal-select-policy-status.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-quotation-status',
-  templateUrl: './modal-select-quotation-status.component.html',
+  selector: 'agt-modal-select-policy-status',
+  templateUrl: './modal-select-policy-status.component.html',
   styles: [
   ]
 })
-export class ModalSelectQuotationStatusComponent implements OnInit {
+export class ModalSelectPolicyStatusComponent implements OnInit {
     @Input() modalId: string;
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
     @Output() contentSubtypeNameSelected: EventEmitter<string>;
 
-    constructor(public modalSelectQuotationTypeService: ModalSelectQuotationStatusService) {
+    constructor(public modalSelectPolicyTypeService: ModalSelectPolicyStatusService) {
         this.modalId = '';
         this.contentTypeName = '';
         this.contentSubtype = 0;
@@ -24,25 +24,25 @@ export class ModalSelectQuotationStatusComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this._loadQuotationStatus();
+        this._loadPolicyStatus();
     }
 
     /**
      * Click event to select the quotation status
      * @param quotationStatusName The name of selected quotation status
      */
-    onClickSelectQuotationStatus(quotationStatusName: string): void {
+    onClickSelectPolicyStatus(quotationStatusName: string): void {
         this.contentSubtypeNameSelected.emit(quotationStatusName);
         ModalPlugin.hide(this.modalId);
     }
 
     /**
-     * Load the quotation status
+     * Load the policy status
      * Emit the name of the selected quotation status;
      */
-    private _loadQuotationStatus(): void {
-        this.modalSelectQuotationTypeService.loadQuotationStatus().subscribe( () => {
-            const quotationStatusName: string = this.modalSelectQuotationTypeService.getQuotationStatusName(this.contentSubtype);
+    private _loadPolicyStatus(): void {
+        this.modalSelectPolicyTypeService.loadPolicyStatus().subscribe( () => {
+            const quotationStatusName: string = this.modalSelectPolicyTypeService.getPolicyStatusName(this.contentSubtype);
             this.contentSubtypeNameSelected.emit(quotationStatusName);
         });
     }

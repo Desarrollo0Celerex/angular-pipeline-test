@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { CONTENT_TYPES } from '@constants/global';
 
@@ -13,7 +14,6 @@ declare var ModalPlugin: any;
   ]
 })
 export class ContentListComponent implements OnChanges {
-    @Input() contactId: string;
     @Input() contentType: number;
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
@@ -22,6 +22,7 @@ export class ContentListComponent implements OnChanges {
     @Output() totalResultsLoaded: EventEmitter<number>;
     CONTENT_TYPES: any;
     acceptQuotationModalId: string;
+    contactId: string;
     isLoadingContent: boolean;
     page: number;
     rejectQuotationModalId: string;
@@ -30,8 +31,10 @@ export class ContentListComponent implements OnChanges {
     showContactDataModalId: string;
     showQuotationDetailsModalId: string;
 
-    constructor(public contentListService: ContentListService) {
-        this.contactId = '';
+    constructor(
+        public contentListService: ContentListService,
+        private _activatedRoute: ActivatedRoute
+    ) {
         this.contentType = 0;
         this.contentTypeName = '';
         this.contentSubtype = 0;
@@ -40,6 +43,7 @@ export class ContentListComponent implements OnChanges {
         this.totalResultsLoaded = new EventEmitter<number>();
         this.CONTENT_TYPES = CONTENT_TYPES;
         this.acceptQuotationModalId = 'agt-accept-quotation';
+        this.contactId = this._getContactId();
         this.isLoadingContent = false;
         this.page = 1;
         this.rejectQuotationModalId = 'agt-reject-quotation';
@@ -101,6 +105,14 @@ export class ContentListComponent implements OnChanges {
     }
 
     /**
+     * Get the contact ID from params
+     */
+    private _getContactId(): string {
+        const contactId: string | undefined = this._activatedRoute.snapshot.params.contactId;
+        return (!!contactId) ? contactId : '';
+    }
+
+    /**
      * Load the contents according to action type (filter or search)
      */
     private _loadContents(): void {
@@ -128,6 +140,12 @@ export class ContentListComponent implements OnChanges {
                     this._contentLoaded();
                 })
             break;
+
+            case CONTENT_TYPES.CONTACT_POLICY.ID:
+                this.contentListService.loadContactPolicies(this.contactId, this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
         }
     }
 
@@ -143,6 +161,10 @@ export class ContentListComponent implements OnChanges {
             break;
 
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
+
+            break;
+
+            case CONTENT_TYPES.CONTACT_POLICT.ID:
 
             break;
         }

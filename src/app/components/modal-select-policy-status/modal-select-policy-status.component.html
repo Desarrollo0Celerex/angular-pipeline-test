@@ -9,14 +9,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <!-- ACCEPTED QUOTES -->
-                    <div class="col-md-12 mt-5" *ngFor="let quotationStatus of modalSelectQuotationTypeService.quotationStatus">
-                        <a [routerLink]="" [queryParams]="{'contentSubtype': quotationStatus.quotationStatusId }">
-                            <button type="button" class="btn btn-block {{(contentSubtype === quotationStatus.quotationStatusId) ? 'btn-secondary' : 'btn-primary'}}" (click)="onClickSelectQuotationStatus(quotationStatus.name)"><strong>{{contentTypeName | pluralNameFormat | uppercase}} {{quotationStatus.name | pluralNameFormat | uppercase}}</strong></button>
-                        </a>
+                <form>
+                    <div class="form-group">
+                        <div class="col-md-12 mt-5" *ngFor="let policyStatus of modalSelectPolicyTypeService.policyStatus">
+                            <a [routerLink]="" [queryParams]="{'contentSubtype': policyStatus.policyStatusId }">
+                                <button type="button" class="btn btn-block {{(contentSubtype === policyStatus.policyStatusId) ? 'btn-secondary' : 'btn-primary'}}" (click)="onClickSelectPolicyStatus(policyStatus.name)"><strong>{{contentTypeName | pluralNameFormat | uppercase }} {{policyStatus.name | pluralNameFormat | uppercase}}</strong></button>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
@@ -24,4 +25,4 @@
         </div>
     </div>
 </div>
-<!-- //AGENTHOS - LEAD TYPE -->
+<!-- //AGENTHOS - EXPLORE HISTORY -->

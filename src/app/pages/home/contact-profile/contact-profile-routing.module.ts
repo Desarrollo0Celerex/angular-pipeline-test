@@ -13,7 +13,8 @@ const routes: Routes = [
         ContactProfilePage,
         children: [
             { path: ROUTES_NAME.contactResume(':contactId'), loadChildren: () => import('@pages/home/contact-profile/resume/resume.module').then(mod => mod.ResumeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-            { path: ROUTES_NAME.listContactQuotations(':contactId'), loadChildren: () => import('@pages/home/contact-profile/list-quotations/list-quotations.module').then(mod => mod.ListQuotationsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] }
+            { path: ROUTES_NAME.listContactQuotations(':contactId'), loadChildren: () => import('@pages/home/contact-profile/list-quotations/list-quotations.module').then(mod => mod.ListQuotationsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.listContactPolicies(':contactId'), loadChildren: () => import('@pages/home/contact-profile/list-policies/list-policies.module').then(mod => mod.ListPoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] }
         ]
     }
 ];

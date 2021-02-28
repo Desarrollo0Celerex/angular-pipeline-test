@@ -46,6 +46,19 @@ export class ContentListService {
         })
     }
 
+    loadContactPolicies(contactId: string, page: number, contentSubtype: number): Observable<void> {
+        // TODO: Actualizar servicio
+        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName';
+        return new Observable( observer => {
+            this._quotationService.getContactQuotations(contactId, page, fields, contentSubtype).subscribe( (res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+                observer.next();
+                observer.complete();
+            })
+        })
+    }
+
     /**
      * Load the leads
      * @param  page           The page number to get

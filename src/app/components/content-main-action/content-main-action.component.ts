@@ -12,19 +12,23 @@ declare var ModalPlugin: any;
 })
 export class ContentMainActionComponent implements OnInit {
     @Input() contentType: number;
+    @Input() contentTypeName: string;
     @Input() contentSubtype: number;
     @Output() contentSubtypeNameSelected: EventEmitter<string>;
     CONTENT_TYPES: any;
     selectContactTypeModalId: string;
-    selectQuotationTypeModalId: string;
+    selectPolicyStatusModalId: string;
+    selectQuotationStatusModalId: string;
 
     constructor() {
         this.contentType = 0;
+        this.contentTypeName = '';
         this.contentSubtype = 0;
         this.contentSubtypeNameSelected = new EventEmitter<string>();
         this.CONTENT_TYPES = CONTENT_TYPES;
         this.selectContactTypeModalId = 'modal-select-contact-type';
-        this.selectQuotationTypeModalId = 'modal-select-quotation-status';
+        this.selectPolicyStatusModalId = 'modal-select-policy-status';
+        this.selectQuotationStatusModalId = 'modal-select-quotation-status';
     }
 
     ngOnInit(): void { }
@@ -36,8 +40,9 @@ export class ContentMainActionComponent implements OnInit {
     getHeaderTitle(): string {
         let title: string = '';
         switch(this.contentType) {
-            case CONTENT_TYPES.LEAD.ID: title = 'Nuevo Prospecto'; break;
-            case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'Historial Cotizaciones'; break;
+            case CONTENT_TYPES.LEAD.ID: title = 'Nuevo '+this.contentTypeName; break;
+            case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'Historial '+this.contentTypeName+'s'; break;
+            case CONTENT_TYPES.CONTACT_POLICY.ID: title = 'Historial '+this.contentTypeName+'s'; break;
         }
         return title;
     }
@@ -49,8 +54,11 @@ export class ContentMainActionComponent implements OnInit {
     getButtonTitle(): string {
         let title: string = '';
         switch(this.contentType) {
-            case CONTENT_TYPES.LEAD.ID: title = 'CREAR PROSPECTO'; break;
-            case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'EXPLORAR HISTORIAL'; break;
+            case CONTENT_TYPES.LEAD.ID: title = 'CREAR '+this.contentTypeName; break;
+            case CONTENT_TYPES.CONTACT_QUOTATION.ID:
+            case CONTENT_TYPES.CONTACT_POLICY.ID:
+                title = 'EXPLORAR HISTORIAL';
+            break;
         }
         return title;
     }
@@ -61,7 +69,8 @@ export class ContentMainActionComponent implements OnInit {
     onClickDoAction(): void {
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD.ID: ModalPlugin.show(this.selectContactTypeModalId); break;
-            case CONTENT_TYPES.CONTACT_QUOTATION.ID: ModalPlugin.show(this.selectQuotationTypeModalId); break;
+            case CONTENT_TYPES.CONTACT_QUOTATION.ID: ModalPlugin.show(this.selectQuotationStatusModalId); break;
+            case CONTENT_TYPES.CONTACT_POLICY.ID: ModalPlugin.show(this.selectPolicyStatusModalId); break;
         }
     }
 

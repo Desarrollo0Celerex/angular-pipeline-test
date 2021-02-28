@@ -17,13 +17,13 @@ export class ContentKpisComponent implements OnInit, OnChanges {
     @Input() contentType: number;
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
-    @Output() contentSubtypeNameLoaded: EventEmitter<string>;
+    @Output() contentSubtypeNameSelected: EventEmitter<string>;
     ROUTES_NAME: any;
 
     constructor(public contentKpisService: ContentKpisService) {
         this.contentType = 0;
         this.contentSubtype = 0;
-        this.contentSubtypeNameLoaded = new EventEmitter<string>();
+        this.contentSubtypeNameSelected = new EventEmitter<string>();
         this.ROUTES_NAME = ROUTES_NAME;
         this.contentTypeName = '';
     }
@@ -57,8 +57,10 @@ export class ContentKpisComponent implements OnInit, OnChanges {
      * Load the content subtype name
      */
     private _loadContactSubtypeName(): void {
-        const ContentSubtypeName: string = this.contentKpisService.getContentSubtypeName(this.contentSubtype);
-        this.contentSubtypeNameLoaded.emit(ContentSubtypeName);
+        const contentSubtypeName: string = this.contentKpisService.getContentSubtypeName(this.contentSubtype);
+        setTimeout(() => {
+            this.contentSubtypeNameSelected.emit(contentSubtypeName);
+        }, 0);
     }
 
 }
