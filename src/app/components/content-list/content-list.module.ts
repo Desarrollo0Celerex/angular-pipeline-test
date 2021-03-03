@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CardLeadModule } from '@components/card-lead/card-lead.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
+import { ContainerIncompletePoliciesModule } from '@components/container-incomplete-policies/container-incomplete-policies.module';
 import { ContentSuggestionsModule } from '@components/content-suggestions/content-suggestions.module';
 import { ContentResultsModule } from '@components/content-results/content-results.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
@@ -29,6 +30,7 @@ import { ContentListService } from './content-list.service';
     CardPolicyModule,
     CardQuotationModule,
     CommonModule,
+    ContainerIncompletePoliciesModule,
     ContentSuggestionsModule,
     ContentResultsModule,
     LoadingContentModule,

@@ -5,6 +5,7 @@ export interface PolicyPreview {
     insuranceBackground: string,
     insuranceTypeName: string,
     policyStatusName: string,
+    policyStatusDescription?: string,
     policyStatusBackground: string,
     insurerName: string
 }
