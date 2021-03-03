@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
+import { POLICY_STATUS, POLICY_STATUS_ACTIVE } from '@constants/global';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { LeadService } from '@services/lead.service';
+import { PolicyService } from '@services/policy.service';
 import { QuotationService } from '@services/quotation.service';
 
 @Injectable()
@@ -13,6 +16,7 @@ export class ContentListService {
 
     constructor(
         private _leadService: LeadService,
+        private _policyService: PolicyService,
         private _quotationService: QuotationService
     ) {
         this.contents = this._initContents();
@@ -46,17 +50,23 @@ export class ContentListService {
         })
     }
 
+    /**
+     * Load the contact policies
+     * @param  contactId      The contact IID
+     * @param  page           The page number
+     * @param  contentSubtype The content subtype
+     * @return                Notice of action done
+     */
     loadContactPolicies(contactId: string, page: number, contentSubtype: number): Observable<void> {
-        // TODO: Actualizar servicio
-        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName';
-        return new Observable( observer => {
-            this._quotationService.getContactQuotations(contactId, page, fields, contentSubtype).subscribe( (res: HttpResponse) => {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,amount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty';
+        const filters: number [] = (contentSubtype === POLICY_STATUS_ACTIVE) ? [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED] : [contentSubtype];
+        return this._policyService.getContactPolicies(contactId, page, fields, filters).pipe(
+            tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
-                observer.next();
-                observer.complete();
-            })
-        })
+            }),
+            map( () => { })
+        )
     }
 
     /**

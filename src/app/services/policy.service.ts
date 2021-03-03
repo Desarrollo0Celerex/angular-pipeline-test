@@ -8,6 +8,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
+    contactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies',
     contactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId,
     uploadContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/upload',
     completeContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/complete',
@@ -50,6 +51,26 @@ export class PolicyService {
     }
 
     /**
+     * Get the contact policies
+     * @param  contactId The contact ID
+     * @param  page      The page to get
+     * @param  fields    The fields to get
+     * @param  filter    The filter to apply
+     * @param  search    The search to do
+     * @return           The contact policies
+     */
+    getContactPolicies(contactId: string, page: number = 1, fields: string = '', filters: number[] = [], search: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactPolicies(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
+        if(!!search) params = params.append('search', search);
+        params = params.append('sortBy', '-createdAt');
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
      * Upload the contact policy in the API
      * @param  contactId   The contact ID
      * @param  policyId    The policy ID to update
@@ -59,5 +80,17 @@ export class PolicyService {
     uploadContactPolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.uploadContactPolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
+    }
+
+    /**
+     * Get the filter to apply
+     * @param  filters The filters to apply
+     * @return         The filter
+     */
+    private _getFilter(filters: number[]): string {
+        const filterIds: string[] = filters.map( (element: number) => {
+            return 'policyStatusId[=]' + element;
+        });
+        return filterIds.join(',');
     }
 }

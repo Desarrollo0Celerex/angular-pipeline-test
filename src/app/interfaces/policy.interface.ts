@@ -3,9 +3,16 @@ export interface Policy {
     insuranceName: string,
     insuranceIcon: string,
     insuranceBackground: string,
-    policyStatusName: string,
-    policyStatusBackground: string,
     insuranceTypeName: string,
+    policyStatusName: string,
+    policyStatusDescription: string,
+    policyStatusBackground: string,
     insurerName: string,
-    policyUrl: string
+    insurerImageUrl: string,
+    amount: number,
+    currencyName: string,
+    paymentPlanName: string,
+    policyNumber: string,
+    policyUrl: string,
+    coveredProperty: string
 }

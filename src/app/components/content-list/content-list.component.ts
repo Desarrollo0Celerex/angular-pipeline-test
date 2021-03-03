@@ -27,8 +27,11 @@ export class ContentListComponent implements OnChanges {
     page: number;
     rejectQuotationModalId: string;
     selectedContactId: string;
+    selectedPolicyId: string;
     selectedQuotationId: string;
     showContactDataModalId: string;
+    showPolicyDetailsModalId: string;
+    showPolicyModalId: string;
     showQuotationDetailsModalId: string;
 
     constructor(
@@ -48,9 +51,12 @@ export class ContentListComponent implements OnChanges {
         this.page = 1;
         this.rejectQuotationModalId = 'agt-reject-quotation';
         this.selectedContactId = '';
+        this.selectedPolicyId = '';
         this.selectedQuotationId = '';
         this.showContactDataModalId = 'agt-contact-data';
-        this.showQuotationDetailsModalId = 'agt-quotation-details';
+        this.showPolicyModalId = 'agt-show-policy';
+        this.showPolicyDetailsModalId = 'agt-show-policy-details';
+        this.showQuotationDetailsModalId = 'agt-show-quotation-details';
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -102,6 +108,24 @@ export class ContentListComponent implements OnChanges {
     onShowQuotationDetails(quotationId: string): void {
         this.selectedQuotationId = quotationId;
         ModalPlugin.show(this.showQuotationDetailsModalId);
+    }
+
+    /**
+     * Event to show policy
+     * @param policyId The policy ID
+     */
+    onShowPolicy(policyId: string): void {
+        this.selectedPolicyId = policyId;
+        ModalPlugin.show(this.showPolicyModalId);
+    }
+
+    /**
+     * Event to show the policy details modal
+     * @param policyId The selected policy ID
+     */
+    onShowPolicyDetails(policyId: string): void {
+        this.selectedPolicyId = policyId;
+        ModalPlugin.show(this.showPolicyDetailsModalId);
     }
 
     /**

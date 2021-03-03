@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CardLeadModule } from '@components/card-lead/card-lead.module';
+import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
 import { ContentSuggestionsModule } from '@components/content-suggestions/content-suggestions.module';
 import { ContentResultsModule } from '@components/content-results/content-results.module';
@@ -9,9 +10,12 @@ import { LoadingContentModule } from '@components/loading-content/loading-conten
 import { ModalConfirmAcceptQuotationModule } from '@components/modal-confirm-accept-quotation/modal-confirm-accept-quotation.module';
 import { ModalConfirmRejectQuotationModule } from '@components/modal-confirm-reject-quotation/modal-confirm-reject-quotation.module';
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
+import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
+import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
 import { LeadService } from '@services/lead.service';
+import { PolicyService } from '@services/policy.service';
 import { QuotationService } from '@services/quotation.service';
 
 import { ContentListComponent } from './content-list.component';
@@ -22,6 +26,7 @@ import { ContentListService } from './content-list.service';
   exports: [ContentListComponent],
   imports: [
     CardLeadModule,
+    CardPolicyModule,
     CardQuotationModule,
     CommonModule,
     ContentSuggestionsModule,
@@ -31,8 +36,10 @@ import { ContentListService } from './content-list.service';
     ModalConfirmAcceptQuotationModule,
     ModalConfirmRejectQuotationModule,
     ModalShowContactDataModule,
+    ModalShowPolicyModule,
+    ModalShowPolicyDetailsModule,
     ModalShowQuotationDetailsModule
   ],
-  providers: [ContentListService, LeadService, QuotationService]
+  providers: [ContentListService, LeadService, PolicyService, QuotationService]
 })
 export class ContentListModule { }

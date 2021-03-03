@@ -37,17 +37,6 @@ export class QuotationService {
     }
 
     /**
-     * Reject the contact quotation in the API
-     * @param  contactId   The contact ID
-     * @param  quotationId The quotation ID to reject
-     * @return             Notice of action done
-     */
-    rejectContactQuotation(contactId: string, quotationId: string): Observable<void> {
-        const route: string = routes.rejectContactQuotation(this._workspaceId, contactId, quotationId);
-        return this._httpClient.post<void>(route, null);
-    }
-
-    /**
      * Create a quotation in the API
      * @param  contactId   The contact ID
      * @param  requestBody The quotation data
@@ -56,6 +45,20 @@ export class QuotationService {
     createQuotation(contactId: string, requestBody: CreateQuotationDataSend): Observable<HttpResponse> {
         const route: string = routes.contactQuotations(this._workspaceId, contactId);
         return this._httpClient.post<HttpResponse>(route, requestBody);
+    }
+
+    /**
+     * Get the contact quotation from the API
+     * @param  contactId   The contact ID
+     * @param  quotationId The quotation ID
+     * @param  fields      The fields to get
+     * @return             The quotation data
+     */
+    getContactQuotation(contactId: string, quotationId: string, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactQuotation(this._workspaceId, contactId, quotationId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 
     /**
@@ -79,16 +82,13 @@ export class QuotationService {
     }
 
     /**
-     * Get the contact quotation from the API
+     * Reject the contact quotation in the API
      * @param  contactId   The contact ID
-     * @param  quotationId The quotation ID
-     * @param  fields      The fields to get
-     * @return             The quotation data
+     * @param  quotationId The quotation ID to reject
+     * @return             Notice of action done
      */
-    getContactQuotation(contactId: string, quotationId: string, fields: string = ''): Observable<HttpResponse> {
-        const route: string = routes.contactQuotation(this._workspaceId, contactId, quotationId);
-        let params: HttpParams = new HttpParams();
-        if(!!fields) params = params.append('fields', fields);
-        return this._httpClient.get<HttpResponse>(route, { params });
+    rejectContactQuotation(contactId: string, quotationId: string): Observable<void> {
+        const route: string = routes.rejectContactQuotation(this._workspaceId, contactId, quotationId);
+        return this._httpClient.post<void>(route, null);
     }
 }

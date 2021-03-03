@@ -1,5 +1,4 @@
 <agt-card-contact [contactId]="contactId" [message]="message"></agt-card-contact>
-
 <!-- AGENTHOS - POLICY DETAILS -->
 <form [formGroup]="completePolicyService.policyForm" (submit)="onSubmitSavePolicy()">
     <div class="row">
@@ -14,19 +13,19 @@
                 <div class="card-body d-flex">
                     <div class="card-order">
                         <h6 class="mb-2">
-                            <span class="badge badge-{{completePolicyService.policy.policyStatusBackground}}  mr-1 mb-1 mt-1">{{completePolicyService.policy.policyStatusName | uppercase}}</span>
+                            <span class="badge badge-{{completePolicyService.policyPreview.policyStatusBackground}}  mr-1 mb-1 mt-1">{{completePolicyService.policyPreview.policyStatusName | uppercase}}</span>
                         </h6>
                         <h6 class="mb-2">
-                            <span class="text-primary"><i class="fe fe-shield mr-2 fs-20"></i></span>{{completePolicyService.policy.insuranceName | uppercase}}
+                            <span class="text-primary"><i class="fe fe-shield mr-2 fs-20"></i></span>{{completePolicyService.policyPreview.insuranceName | uppercase}}
                         </h6>
                         <h6 class="mb-2">
-                            <span class="text-primary"><i class="fe fe-file-text mr-2 fs-20"></i></span>{{completePolicyService.policy.insuranceTypeName | uppercase}}
+                            <span class="text-primary"><i class="fe fe-file-text mr-2 fs-20"></i></span>{{completePolicyService.policyPreview.insuranceTypeName | uppercase}}
                         </h6>
                     </div>
                     <div class="ml-auto">
                         <!-- AGENTHOS - INSURANCE TYPE -->
-                        <span class="{{completePolicyService.policy.insuranceBackground}} icon-service">
-                            <i class="fa {{completePolicyService.policy.insuranceIcon}} fs-2"></i>
+                        <span class="{{completePolicyService.policyPreview.insuranceBackground}} icon-service">
+                            <i class="fa {{completePolicyService.policyPreview.insuranceIcon}} fs-2"></i>
                         </span>
                     </div>
                 </div>
@@ -74,7 +73,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Aseguradora</label>
-                                    <input type="text" class="form-control" placeholder="{{completePolicyService.policy.insurerName | uppercase}}" disabled="">
+                                    <input type="text" class="form-control" placeholder="{{completePolicyService.policyPreview.insurerName | uppercase}}" disabled="">
                                 </div>
                             </div>
                         </div>
@@ -266,4 +265,4 @@
 </form>
 <!-- AGENTHOS - POLICY DETAILS -->
 
-<agt-modal-show-policy [modalId]="showPolicyModalId" [policyUrl]="completePolicyService.policy.policyUrl"></agt-modal-show-policy>
+<agt-modal-show-policy [modalId]="showPolicyModalId" [contactId]="contactId" [policyId]="policyId"></agt-modal-show-policy>

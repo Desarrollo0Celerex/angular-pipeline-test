@@ -1,0 +1,83 @@
+<div class="card" *ngIf="!!policy">
+    <!-- AGENTHOS - POLICY HEADER -->
+    <div class="card-header">
+        <!-- AGENTHOS - INSURANCE COMPANY -->
+        <img [src]="policy.insurerImageUrl" width="38px">
+        <!-- AGENTHOS - POLICY MENU -->
+        <div class="card-options">
+            <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                <span class="fa fa-bars"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                <div class="dropdown-plus-title">Acciones Disponibles</div>
+                <!-- AGENTHOS - POLICY UPDATE -->
+                <button type="button" class="dropdown-item"><i class="fa fa-edit mr-2"></i>Actualizar</button>
+                <!-- AGENTHOS - POLICY ENDORSEMENT -->
+                <button type="button" class="dropdown-item"><i class="fa fa-clone mr-2"></i>Endosar</button>
+                <!-- AGENTHOS - POLICY RENEWAL -->
+                <button type="button" class="dropdown-item"><i class="fa fa-refresh mr-2"></i>Renovar</button>
+                <!-- AGENTHOS - POLICY REISSUE -->
+                <button type="button" class="dropdown-item"><i class="fa fa-retweet mr-2"></i>Reexpedir</button>
+                <div class="dropdown-divider"></div>
+                <!-- AGENTHOS - POLICY HISTORY -->
+                <button type="button" class="dropdown-item"><i class="fa fa-history mr-2"></i>Historial</button>
+                <!-- AGENTHOS - POLICY PAYMENTS -->
+                <button type="button" class="dropdown-item"><i class="fa fa-credit-card mr-2"></i>Cobranza</button>
+                <div class="dropdown-divider"></div>
+                <!-- AGENTHOS - POLICY CANCEL -->
+                <button type="button" class="dropdown-item"><i class="fa fa-exclamation-circle mr-2"></i>Cancelar</button>
+            </div>
+        </div>
+        <!-- //AGENTHOS - POLICY MENU -->
+    </div>
+    <!-- //AGENTHOS - POLICY HEADER -->
+    <!-- AGENTHOS - POLICY BODY -->
+    <div class="card-body">
+        <!-- AGENTHOS - POLICY COVER -->
+        <div class="d-flex clearfix">
+            <div class="text-left">
+                <!-- AGENTHOS - POLICY STATUS -->
+                <div class="badge badge-{{policy.policyStatusBackground}} mr-1 mb-3">{{policy.policyStatusName | uppercase}}</div>
+                <span class="col-auto align-self-center">
+                    <span class="form-help" data-toggle="popover" data-placement="top" [attr.data-content]="policy.policyStatusDescription" data-original-title="">?</span>
+                </span>
+                <!-- AGENTHOS - POLICY TYPE -->
+                <h6><span class="text-primary"><i class="fe fe-shield mr-2"></i></span>{{policy.insuranceName | uppercase}}</h6>
+                <!-- AGENTHOS - POLICY PLAN -->
+                <h6><span class="text-primary"><i class="fe fe-credit-card mr-2"></i></span>{{policy.paymentPlanName | uppercase}}</h6>
+                <!-- AGENTHOS - POLICY TYPE -->
+                <h6><span class="text-primary"><i class="fe fe-globe mr-2"></i></span>{{policy.insuranceTypeName | uppercase}}</h6>
+                <!-- AGENTHOS - POLICY NUMBER -->
+                <h6><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{policy.policyNumber}}</h6>
+            </div>
+            <div class="ml-auto">
+                <span class="{{policy.insuranceBackground}} icon-service"><i class="fa {{policy.insuranceIcon}} fs-2"></i></span>
+            </div>
+        </div>
+        <!-- //AGENTHOS - POLICY COVER -->
+        <!-- AGENTHOS - TOTAL PAY -->
+        <h6 class="mt-3">Prima Total ({{policy.currencyName | uppercase}})</h6>
+        <h6 class="number-font">$<span class="counter">{{policy.amount | currency: '' : '' : '0.2-2'}}</span></h6>
+        <h6 class="mb-1">{{policy.coveredProperty}}</h6>
+        <!-- AGENTHOS - POLICY LIVE -->
+        <div class="progress progress-sm mt-2">
+            <div class="progress-bar lifeInsurancePolicy w-70"></div>
+        </div>
+        <!-- //AGENTHOS - POLICY LIVE -->
+    </div>
+    <!-- //AGENTHOS - POLICY BODY -->
+    <!-- AGENTHOS - POLICY FOOTER -->
+    <div class="card-footer">
+        <div class="row">
+            <!-- AGENTHOS - POLICY DETAILS -->
+            <div class="col-sm-9 col-9 text-left">
+                <button type="button" class="btn btn-block btn-primary" (click)="onClickShowPolicyDetails()"><strong>VER DETALLES</strong></button>
+            </div>
+            <!-- AGENTHOS - POLICY VIEW -->
+            <div class="col-sm-3 col-3 text-right">
+                <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowPolicy()"><i class="fa fa-file-text-o"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - POLICY FOOTER -->
+</div>

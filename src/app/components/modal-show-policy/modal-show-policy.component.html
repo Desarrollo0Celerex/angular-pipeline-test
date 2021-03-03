@@ -19,8 +19,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <ng-container *ngIf="!!policyUrl">
-                                <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="policyUrl"></ngx-qrcode>
+                            <ng-container *ngIf="!!modalShowPolicyService.policyUrl">
+                                <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="modalShowPolicyService.policyUrl"></ngx-qrcode>
                             </ng-container>
                         </div>
                     </div>
@@ -28,8 +28,8 @@
             </div>
             <div class="modal-footer text-center">
                 <div class="col-12">
-                    <a [href]="policyUrl" target="_blank">
-                        <button type="button" class="btn btn-primary btn-block" (click)="onClickCloseModal()"><strong>DESCARGAR PÓLIZA</strong></button>
+                    <a [href]="modalShowPolicyService.policyUrl" target="_blank">
+                        <button type="button" class="btn btn-primary btn-block" (click)="onClickCloseModal()" [disabled]="!(!!modalShowPolicyService.policyUrl)"><strong>DESCARGAR PÓLIZA</strong></button>
                     </a>
                 </div>
             </div>

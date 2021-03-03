@@ -11,7 +11,7 @@ import { Currency } from '@interfaces/currency.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
-import { Policy } from '@interfaces/policy.interface';
+import { PolicyPreview } from '@interfaces/policy-preview.interface';
 import { CurrencyService } from '@services/currency.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
@@ -22,7 +22,7 @@ export class CompletePolicyService {
     currencies: Currency[];
     paymentMethods: PaymentMethod[];
     paymentPlans: PaymentPlan[];
-    policy: Policy;
+    policyPreview: PolicyPreview;
     policyForm: FormGroup;
 
     constructor(
@@ -35,7 +35,7 @@ export class CompletePolicyService {
         this.currencies = [];
         this.paymentMethods = [];
         this.paymentPlans = [];
-        this.policy = this._buildContactPolicy();
+        this.policyPreview = this._buildPolicyPreview();
         this.policyForm = this._formBuilder.group({});
     }
 
@@ -113,11 +113,11 @@ export class CompletePolicyService {
      * @return          Notice of action done
      */
     loadContactPolicy(contactId: string, policyId: string): Observable<void> {
-        this.policy = this._buildContactPolicy();
+        this.policyPreview = this._buildPolicyPreview();
         const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeName,insurerName,policyUrl';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
-                this.policy = res.data;
+                this.policyPreview = res.data;
             }),
             map(() => { })
         )
@@ -169,17 +169,16 @@ export class CompletePolicyService {
      * Build the contact policy
      * @return An empty contact policy
      */
-    private _buildContactPolicy(): Policy {
+    private _buildPolicyPreview(): PolicyPreview {
         return {
             policyId: '',
             insuranceName: '',
             insuranceIcon: '',
             insuranceBackground: '',
+            insuranceTypeName: '',
             policyStatusName: '',
             policyStatusBackground: '',
-            insuranceTypeName: '',
-            insurerName: '',
-            policyUrl: ''
+            insurerName: ''
         }
     }
 

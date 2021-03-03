@@ -9,6 +9,9 @@
             <ng-container *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID">
                 <ng-container *ngTemplateOutlet="contactQuotationSuggestion"></ng-container>
             </ng-container>
+            <ng-container *ngSwitchCase="CONTENT_TYPES.CONTACT_POLICY.ID">
+                <ng-container *ngTemplateOutlet="contactPolicySuggestion"></ng-container>
+            </ng-container>
         </ng-container>
     </div>
 </div>
@@ -23,5 +26,11 @@
 <ng-template #contactQuotationSuggestion>
     <strong>¿No encuentras la {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-    <p>Intenta explorar el <strong>Historial de Cotizaciones</strong>.</p>
+    <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
+</ng-template>
+
+<ng-template #contactPolicySuggestion>
+    <strong>¿No encuentras la {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+    <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
 </ng-template>

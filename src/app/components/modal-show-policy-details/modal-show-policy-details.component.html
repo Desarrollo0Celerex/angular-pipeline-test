@@ -1,0 +1,79 @@
+<!-- AGENTHOS - POLICY DETAILS -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- AGENTHOS - POLICY NUMBER -->
+                <h5 class="modal-title">{{modalShowPolicyDetailsService.policyDetails.policyNumber}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Prima Total</label>
+                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.amount | currency: '' : '$' : '0.2-2'" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Prima Pagada</label>
+                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.amountApplied | currency: '' : '$' : '0.2-2'" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Recibos Totales</label>
+                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.bills" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Fecha Emisión</label>
+                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.emissionDate | date: 'dd/MM/yyyy'" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Inicio Vigencia</label>
+                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.validityStartDate | date: 'dd/MM/yyyy'" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Fin Vigencia</label>
+                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.validityEndDate | date: 'dd/MM/yyyy'" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Siniestros</label>
+                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.totalSinisters" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Endosos</label>
+                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.totalEndorsements" readonly="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="text-center">Si lo deseas puedes ver los detalles de la póliza digital.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="col-12">
+                    <button type="button" class="btn btn-primary btn-block" (click)="onClickShowPolicy()"><strong>VER PÓLIZA</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - POLICY DETAILS -->
