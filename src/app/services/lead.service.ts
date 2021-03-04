@@ -43,12 +43,13 @@ export class LeadService {
 
     /**
      * Get the total leads from the API
-     * @return The total leads
+     * @param  filter The filter to apply
+     * @return        The total clients
      */
-    getTotalLeads(leadStatusId: number = 0): Observable<HttpResponse> {
+    getTotalLeads(filter: number = 0): Observable<HttpResponse> {
         const route: string = routes.totalLeads(this._workspaceId);
         let params: HttpParams = new HttpParams();
-        params = params.append('filter', 'leadStatusId[=]' + leadStatusId);
+        if(!!filter) params = params.append('filter', 'leadStatusId[=]' + filter);
         return this._httpClient.get<HttpResponse>(route, { params });
     }
 }

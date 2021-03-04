@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { ClientStatus } from '@interfaces/client-status.interface';
 import { LeadStatus } from '@interfaces/lead-status.interface';
+import { ClientService } from '@services/client.service';
+import { ClientStatusService } from '@services/client-status.service';
 import { LeadService } from '@services/lead.service';
 import { LeadStatusService } from '@services/lead-status.service';
 
@@ -13,6 +16,8 @@ export class ContentKpisService {
     kpis: Kpi[];
 
     constructor(
+        private _clientService: ClientService,
+        private _clientStatusService: ClientStatusService,
         private _leadService: LeadService,
         private _leadStatusService: LeadStatusService
     ) {
@@ -69,6 +74,38 @@ export class ContentKpisService {
     }
 
     /**
+     * Load the clients kpis
+     * @return Notice of action done
+     */
+    loadClientKpis(): Observable<void> {
+        return new Observable( observer => {
+            const fields: string = 'clientStatusId,name,background,icon';
+            this._clientStatusService.getClientStatus(fields).subscribe( (res: HttpResponse) => {
+                const clientStatus: ClientStatus[] = res.data;
+                this._clientService.getTotalClients().subscribe( (res: HttpResponse) => {
+                    const totalClients: number = res.data;
+                    this._getTotalClientsByStatus(clientStatus).subscribe( (res: HttpResponse[]) => {
+                        this.kpis = [];
+                        for(let index in res) {
+                            const kpi: Kpi = {
+                                contentSubtype: clientStatus[index].clientStatusId,
+                                name: clientStatus[index].name,
+                                background: clientStatus[index].background,
+                                icon: clientStatus[index].icon,
+                                total: res[index].data,
+                                percentage: res[index].data / totalClients
+                            }
+                            this.kpis.push(kpi);
+                        }
+                        observer.next();
+                        observer.complete();
+                    })
+                });
+            })
+        })
+    }
+
+    /**
      * Build the kpis
      * @return The kpis
      */
@@ -85,6 +122,19 @@ export class ContentKpisService {
             });
         }
         return kpis;
+    }
+
+    /**
+     * Get the requests to get the total clients by status
+     * @param  clientStatus The client status
+     * @return            The requests
+     */
+    private _getTotalClientsByStatus(clientStatus: ClientStatus[]): Observable<HttpResponse[]> {
+        let requests: Observable<HttpResponse>[] = [];
+        for(let status of clientStatus) {
+            requests.push(this._clientService.getTotalClients(status.clientStatusId));
+        }
+        return forkJoin(requests);
     }
 
     /**

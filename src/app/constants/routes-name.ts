@@ -15,6 +15,10 @@ const EXPRESS_ROUTES = {
     expressContact: (expressToken: string) => `express/express-contact/${expressToken}`
 }
 
+const HOME_CLIENTS_ROUTES = {
+    listClients: 'home/clients/list-clients'
+}
+
 const HOME_CONTACTS_ROUTES = {
     createContact: (contactTypeId: string) => `home/contacts/create-contact/${contactTypeId}`
 }
@@ -65,6 +69,7 @@ export const ROUTES_NAME = {
     ...AUTH_ROUTES,
     ...ERRORS_ROUTES,
     ...EXPRESS_ROUTES,
+    ...HOME_CLIENTS_ROUTES,
     ...HOME_CONTACTS_ROUTES,
     ...HOME_CONTACT_PROFILE_ROUTES,
     ...HOME_DATA_ROUTES,

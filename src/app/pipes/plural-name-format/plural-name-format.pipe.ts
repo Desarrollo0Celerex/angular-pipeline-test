@@ -9,12 +9,9 @@ export class PluralNameFormatPipe implements PipeTransform {
         let pluralName: string = '';
         if(!!name) {
             switch(name) {
-                case 'Cotización':
-                    pluralName = 'Cotizaciones';
-                break;
-
-                default:
-                pluralName = name + 's';
+                case 'Cotización': pluralName = 'Cotizaciones'; break;
+                case 'Ocasional': pluralName = 'Ocasionales'; break;
+                default: pluralName = name + 's';
             }
         }
         return pluralName;

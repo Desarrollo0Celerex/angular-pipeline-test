@@ -6,23 +6,24 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 
 const ROUTES = {
-    leadStatus: `${environment.apiUrl}/lead-status`
+    clientsStatus: `${environment.apiUrl}/client-status`
 }
 
 @Injectable()
-export class LeadStatusService {
+export class ClientStatusService {
 
     constructor(private _httpClient: HttpClient) { }
 
     /**
-     * Get the lead status from the API
+     * Get the clients status from the API
      * @param  fields The fields to get
-     * @return        The lead status
+     * @return        The clients status
      */
-    getLeadStatus(fields: string = ''): Observable<HttpResponse> {
-        const route: string = ROUTES.leadStatus;
+    getClientStatus(fields: string = ''): Observable<HttpResponse> {
+        const route: string = ROUTES.clientsStatus;
         let params: HttpParams = new HttpParams;
         if(!!fields) params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, { params });
     }
+
 }

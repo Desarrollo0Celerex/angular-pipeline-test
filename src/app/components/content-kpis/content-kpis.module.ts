@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
+import { ClientService } from '@services/client.service';
+import { ClientStatusService } from '@services/client-status.service';
 import { LeadService } from '@services/lead.service';
 import { LeadStatusService } from '@services/lead-status.service';
 
@@ -17,6 +19,6 @@ import { ContentKpisService } from './content-kpis.service';
     PluralNameFormatModule,
     RouterModule
   ],
-  providers: [ContentKpisService, LeadService, LeadStatusService]
+  providers: [ClientService, ClientStatusService, ContentKpisService, LeadService, LeadStatusService]
 })
 export class ContentKpisModule { }

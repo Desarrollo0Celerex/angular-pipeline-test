@@ -34,7 +34,7 @@ export class ContentKpisComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.contentSubtype.currentValue) {
-            this._loadContactSubtypeName();
+            this._loadContentSubtypeName();
         }
     }
 
@@ -47,8 +47,15 @@ export class ContentKpisComponent implements OnInit, OnChanges {
             case CONTENT_TYPES.LEAD.ID:
                 this.contentKpisService.loadLeadKpis().subscribe( () => {
                     CounterPlugin.countUp();
-                    this._loadContactSubtypeName();
+                    this._loadContentSubtypeName();
                 });
+            break;
+
+            case CONTENT_TYPES.CLIENT.ID:
+            this.contentKpisService.loadClientKpis().subscribe( () => {
+                CounterPlugin.countUp();
+                this._loadContentSubtypeName();
+            });
             break;
         }
     }
@@ -56,7 +63,7 @@ export class ContentKpisComponent implements OnInit, OnChanges {
     /**
      * Load the content subtype name
      */
-    private _loadContactSubtypeName(): void {
+    private _loadContentSubtypeName(): void {
         const contentSubtypeName: string = this.contentKpisService.getContentSubtypeName(this.contentSubtype);
         setTimeout(() => {
             this.contentSubtypeNameSelected.emit(contentSubtypeName);
