@@ -14,6 +14,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
     @Input() contentType: number;
     @Input() contentTypeName: string;
     canShowKpis: boolean;
+    contactId: string;
     contentSubtype: number;
     contentSubtypeName: string;
     mainActionWidth: number;
@@ -30,6 +31,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
         this.contentSubtype = 0;
         this.contentSubtypeName = '';
         this.canShowKpis = false;
+        this.contactId = '';
         this.mainActionWidth = 4;
         this.searchEngineWidth = 8;
         this.query = '';
@@ -58,17 +60,12 @@ export class ContentsComponent implements OnInit, OnDestroy {
      * Catch the params
      */
     private _catchParams(): void {
+        // Static params
+        this.contactId = (!!this._activatedRoute.snapshot.params.contactId) ? this._activatedRoute.snapshot.params.contactId : '';
+
+        // Dynamic params
         this.subParams = this._activatedRoute.queryParams.subscribe( (params: Params) => {
-            if(typeof params.contentSubtype !== 'undefined') {
-                this.contentSubtype = parseInt(params.contentSubtype);
-            } else {
-                if(this.contentType === CONTENT_TYPES.CONTACT_POLICY.ID) {
-                    this.contentSubtype = POLICY_STATUS_ACTIVE;
-                } else {
-                    this.contentSubtype = DEFAULT_CONTENT_FILTER_ID;
-                }
-            }
-            // If has a query
+            this.contentSubtype = this._getContentSubtype(params.contentSubtype);
             this.query = (typeof params.query !== 'undefined') ? params.query : '';
             if(!!this.query) {
                 this.contentSubtype = 0;
@@ -95,6 +92,25 @@ export class ContentsComponent implements OnInit, OnDestroy {
                 canShow = false;
         }
         return canShow;
+    }
+
+    /**
+     * Get the contact subtype
+     * @param  param The content subtype param
+     * @return       The content subtype
+     */
+    private _getContentSubtype(param: string): number {
+        let contentSubtype: number;
+        if(typeof param !== 'undefined') {
+            contentSubtype = parseInt(param);
+        } else {
+            if(this.contentType === CONTENT_TYPES.CONTACT_POLICY.ID) {
+                contentSubtype = POLICY_STATUS_ACTIVE;
+            } else {
+                contentSubtype = DEFAULT_CONTENT_FILTER_ID;
+            }
+        }
+        return contentSubtype;
     }
 
     /**

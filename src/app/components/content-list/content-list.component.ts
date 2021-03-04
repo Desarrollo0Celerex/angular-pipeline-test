@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import { CONTENT_TYPES } from '@constants/global';
 
@@ -14,6 +13,7 @@ declare var ModalPlugin: any;
   ]
 })
 export class ContentListComponent implements OnChanges {
+    @Input() contactId: string;
     @Input() contentType: number;
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
@@ -23,7 +23,6 @@ export class ContentListComponent implements OnChanges {
     CONTENT_TYPES: any;
     acceptQuotationModalId: string;
     canShowTotalResults: boolean;
-    contactId: string;
     isLoadingContent: boolean;
     page: number;
     rejectQuotationModalId: string;
@@ -36,10 +35,8 @@ export class ContentListComponent implements OnChanges {
     showQuotationDetailsModalId: string;
     totalResults: number;
 
-    constructor(
-        public contentListService: ContentListService,
-        private _activatedRoute: ActivatedRoute
-    ) {
+    constructor(public contentListService: ContentListService) {
+        this.contactId = '';
         this.contentType = 0;
         this.contentTypeName = '';
         this.contentSubtype = 0;
@@ -48,7 +45,6 @@ export class ContentListComponent implements OnChanges {
         this.totalResultsLoaded = new EventEmitter<number>();
         this.CONTENT_TYPES = CONTENT_TYPES;
         this.acceptQuotationModalId = 'agt-accept-quotation';
-        this.contactId = this._getContactId();
         this.canShowTotalResults = false;
         this.isLoadingContent = false;
         this.page = 1;
@@ -67,7 +63,6 @@ export class ContentListComponent implements OnChanges {
         if((typeof changes.contentSubtype !== 'undefined' && !!changes.contentSubtype.currentValue) || (typeof changes.query !== 'undefined' && !!changes.query.currentValue)) {
             this.contentListService.resetData();
             this._loadContents();
-            this.canShowTotalResults = this._checkCanShowTotalResults();
         }
     }
 
@@ -134,14 +129,6 @@ export class ContentListComponent implements OnChanges {
     }
 
     /**
-     * Get the contact ID from params
-     */
-    private _getContactId(): string {
-        const contactId: string | undefined = this._activatedRoute.snapshot.params.contactId;
-        return (!!contactId) ? contactId : '';
-    }
-
-    /**
      * Load the contents according to action type (filter or search)
      */
     private _loadContents(): void {
@@ -195,8 +182,10 @@ export class ContentListComponent implements OnChanges {
                 })
             break;
 
-            case CONTENT_TYPES.CONTACT_POLICT.ID:
-
+            case CONTENT_TYPES.CONTACT_POLICY.ID:
+                this.contentListService.searchContactPolicies(this.contactId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
             break;
         }
     }
@@ -207,7 +196,7 @@ export class ContentListComponent implements OnChanges {
      */
     private _checkCanShowTotalResults(): boolean {
         let canShow: boolean = false;
-        if(!!this.query) {
+        if((!!this.query) && (this.totalResults > 0) ) {
             switch(this.contentType) {
                 case CONTENT_TYPES.CONTACT_QUOTATION.ID:
                 case CONTENT_TYPES.CONTACT_POLICY.ID:
@@ -224,6 +213,7 @@ export class ContentListComponent implements OnChanges {
     private _contentLoaded(): void {
         this.isLoadingContent = false;
         this.totalResults = this.contentListService.contentResultData.totalItems;
+        this.canShowTotalResults = this._checkCanShowTotalResults();
         this.totalResultsLoaded.emit(this.totalResults);
     }
 

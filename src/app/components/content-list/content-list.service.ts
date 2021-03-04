@@ -88,6 +88,24 @@ export class ContentListService {
     }
 
     /**
+     * Search the contact policies
+     * @param  contactId The contact ID
+     * @param  page      The page to get
+     * @param  query     The query to search
+     * @return           Notice of action done
+     */
+    searchContactPolicies(contactId: string, page: number, query: string): Observable<void> {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,amount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty';
+        return this._policyService.getContactPolicies(contactId, page, fields, [], query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
      * Search the contact quotations
      * @param  page  The page number to get
      * @param  query The query to search

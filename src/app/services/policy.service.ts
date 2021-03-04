@@ -59,13 +59,13 @@ export class PolicyService {
      * @param  search    The search to do
      * @return           The contact policies
      */
-    getContactPolicies(contactId: string, page: number = 1, fields: string = '', filters: number[] = [], search: string = ''): Observable<HttpResponse> {
+    getContactPolicies(contactId: string, page: number = 1, fields: string = '', filters: number[] = [], query: string = ''): Observable<HttpResponse> {
         const route: string = routes.contactPolicies(this._workspaceId, contactId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
-        if(!!search) params = params.append('search', search);
+        if(!!query) params = params.append('search', 'policyNumber:' + query);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, {params});
     }

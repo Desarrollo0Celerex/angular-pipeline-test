@@ -5,7 +5,7 @@
             <h3 class="card-title">Localizar {{contentTypeName}}</h3>
         </div>
         <div class="card-body">
-            <div class="form-group mb-0">
+            <div class="form-group">
                 <div class="row gutters-xs">
                     <div class="col">
                         <input type="search" class="form-control" placeholder="Buscador Inteligente" formControlName="query">
@@ -17,7 +17,7 @@
                     </span>
                 </div>
             </div>
-            <agt-content-total-results [query]="query" [totalResults]="totalResults"></agt-content-total-results>
+            <agt-content-total-results *ngIf="!!totalResults" [query]="query" [totalResults]="totalResults"></agt-content-total-results>
         </div>
     </div>
 </form>

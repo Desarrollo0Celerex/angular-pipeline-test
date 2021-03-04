@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { ModalSelectPolicyStatusService } from './modal-select-policy-status.service';
 
@@ -10,7 +10,7 @@ declare var ModalPlugin: any;
   styles: [
   ]
 })
-export class ModalSelectPolicyStatusComponent implements OnInit {
+export class ModalSelectPolicyStatusComponent implements OnChanges, OnInit {
     @Input() modalId: string;
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
@@ -21,6 +21,12 @@ export class ModalSelectPolicyStatusComponent implements OnInit {
         this.contentTypeName = '';
         this.contentSubtype = 0;
         this.contentSubtypeNameSelected = new EventEmitter<string>();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if(typeof changes.contentSubtype !== 'undefined') {
+            this._emitContentSubtypeName();
+        }
     }
 
     ngOnInit(): void {
@@ -37,13 +43,24 @@ export class ModalSelectPolicyStatusComponent implements OnInit {
     }
 
     /**
+     * Emit the content subtype name
+     */
+    private _emitContentSubtypeName(): void {
+        if(!!this.contentSubtype) {
+            setTimeout(() => {
+                const policyStatusName: string = this.modalSelectPolicyTypeService.getPolicyStatusName(this.contentSubtype);
+                this.contentSubtypeNameSelected.emit(policyStatusName);
+            }, 0);
+        }
+    }
+
+    /**
      * Load the policy status
      * Emit the name of the selected quotation status;
      */
     private _loadPolicyStatus(): void {
         this.modalSelectPolicyTypeService.loadPolicyStatus().subscribe( () => {
-            const quotationStatusName: string = this.modalSelectPolicyTypeService.getPolicyStatusName(this.contentSubtype);
-            this.contentSubtypeNameSelected.emit(quotationStatusName);
+            this._emitContentSubtypeName();
         });
     }
 

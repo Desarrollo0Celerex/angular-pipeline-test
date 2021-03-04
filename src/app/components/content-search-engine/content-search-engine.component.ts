@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -13,6 +13,7 @@ import { ContentSearchEngineService } from './content-search-engine.service';
   ]
 })
 export class ContentSearchEngineComponent implements OnChanges {
+    @Input() contactId: string;
     @Input() contentType: number;
     @Input() contentTypeName: string;
     @Input() query: string;
@@ -20,9 +21,9 @@ export class ContentSearchEngineComponent implements OnChanges {
 
     constructor(
         public contentSearchEngineService: ContentSearchEngineService,
-        private _activatedRoute: ActivatedRoute,
         private _router: Router
     ) {
+        this.contactId = '';
         this.contentType = 0;
         this.contentTypeName = '';
         this.query = '';
@@ -47,19 +48,14 @@ export class ContentSearchEngineComponent implements OnChanges {
                     break;
 
                 case CONTENT_TYPES.CONTACT_QUOTATION.ID:
-                    const contactId: string = this._getContactId();
-                    this._router.navigate([ROUTES_NAME.listContactQuotations(contactId)], { queryParams: { query }});
+                    this._router.navigate([ROUTES_NAME.listContactQuotations(this.contactId)], { queryParams: { query }});
+                    break;
+
+                case CONTENT_TYPES.CONTACT_POLICY.ID:
+                    this._router.navigate([ROUTES_NAME.listContactPolicies(this.contactId)], { queryParams: { query }});
                     break;
             }
         }
-    }
-
-    /**
-     * Get the contact ID from params
-     */
-    private _getContactId(): string {
-        const contactId: string | undefined = this._activatedRoute.snapshot.params.contactId;
-        return (!!contactId) ? contactId : '';
     }
 
 }
