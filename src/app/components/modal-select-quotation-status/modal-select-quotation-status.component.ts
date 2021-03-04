@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { ModalSelectQuotationStatusService } from './modal-select-quotation-status.service';
 
@@ -10,7 +10,7 @@ declare var ModalPlugin: any;
   styles: [
   ]
 })
-export class ModalSelectQuotationStatusComponent implements OnInit {
+export class ModalSelectQuotationStatusComponent implements OnInit, OnChanges {
     @Input() modalId: string;
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
@@ -27,6 +27,12 @@ export class ModalSelectQuotationStatusComponent implements OnInit {
         this._loadQuotationStatus();
     }
 
+    ngOnChanges(changes: SimpleChanges): void {
+        if(typeof changes.contentSubtype !== 'undefined') {
+            this._emitContentSubtypeName();
+        }
+    }
+
     /**
      * Click event to select the quotation status
      * @param quotationStatusName The name of selected quotation status
@@ -37,13 +43,24 @@ export class ModalSelectQuotationStatusComponent implements OnInit {
     }
 
     /**
+     * Emit the content subtype name
+     */
+    private _emitContentSubtypeName(): void {
+        if(!!this.contentSubtype) {
+            setTimeout(() => {
+                const quotationStatusName: string = this.modalSelectQuotationTypeService.getQuotationStatusName(this.contentSubtype);
+                this.contentSubtypeNameSelected.emit(quotationStatusName);
+            }, 0);
+        }
+    }
+
+    /**
      * Load the quotation status
      * Emit the name of the selected quotation status;
      */
     private _loadQuotationStatus(): void {
         this.modalSelectQuotationTypeService.loadQuotationStatus().subscribe( () => {
-            const quotationStatusName: string = this.modalSelectQuotationTypeService.getQuotationStatusName(this.contentSubtype);
-            this.contentSubtypeNameSelected.emit(quotationStatusName);
+            this._emitContentSubtypeName();
         });
     }
 

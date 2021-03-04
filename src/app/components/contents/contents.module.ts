@@ -5,6 +5,8 @@ import { ContentKpisModule } from '@components/content-kpis/content-kpis.module'
 import { ContentListModule } from '@components/content-list/content-list.module';
 import { ContentMainActionModule } from '@components/content-main-action/content-main-action.module';
 import { ContentSearchEngineModule } from '@components/content-search-engine/content-search-engine.module';
+import { LabelFoundFormatModule } from '@pipes/label-found-format/label-found-format.module';
+import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-format.pipe';
 
 import { ContentsComponent } from './contents.component';
 
@@ -16,7 +18,9 @@ import { ContentsComponent } from './contents.component';
     ContentKpisModule,
     ContentListModule,
     ContentMainActionModule,
-    ContentSearchEngineModule
-  ]
+    ContentSearchEngineModule,
+    LabelFoundFormatModule
+  ],
+  providers: [LabelFoundFormatPipe]
 })
 export class ContentsModule { }

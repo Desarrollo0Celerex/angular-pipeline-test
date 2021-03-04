@@ -67,16 +67,16 @@ export class QuotationService {
      * @param  page      The page number
      * @param  fields    The fields to get
      * @param  filter    The filter to apply
-     * @param  search    The search to do
+     * @param  query     The query to do
      * @return           The contact quotations
      */
-    getContactQuotations(contactId: string, page: number = 1, fields: string = '', filter: number = 0, search: string = ''): Observable<HttpResponse> {
+    getContactQuotations(contactId: string, page: number = 1, fields: string = '', filter: number = 0, query: string = ''): Observable<HttpResponse> {
         const route: string = routes.contactQuotations(this._workspaceId, contactId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         if(!!filter) params = params.append('filter', 'quotationStatusId[=]' + filter);
-        if(!!search) params = params.append('search', search);
+        if(!!query) params = params.append('search', 'description:' + query);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, { params });
     }

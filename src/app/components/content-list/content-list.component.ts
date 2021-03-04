@@ -22,6 +22,7 @@ export class ContentListComponent implements OnChanges {
     @Output() totalResultsLoaded: EventEmitter<number>;
     CONTENT_TYPES: any;
     acceptQuotationModalId: string;
+    canShowTotalResults: boolean;
     contactId: string;
     isLoadingContent: boolean;
     page: number;
@@ -33,6 +34,7 @@ export class ContentListComponent implements OnChanges {
     showPolicyDetailsModalId: string;
     showPolicyModalId: string;
     showQuotationDetailsModalId: string;
+    totalResults: number;
 
     constructor(
         public contentListService: ContentListService,
@@ -47,6 +49,7 @@ export class ContentListComponent implements OnChanges {
         this.CONTENT_TYPES = CONTENT_TYPES;
         this.acceptQuotationModalId = 'agt-accept-quotation';
         this.contactId = this._getContactId();
+        this.canShowTotalResults = false;
         this.isLoadingContent = false;
         this.page = 1;
         this.rejectQuotationModalId = 'agt-reject-quotation';
@@ -57,12 +60,14 @@ export class ContentListComponent implements OnChanges {
         this.showPolicyModalId = 'agt-show-policy';
         this.showPolicyDetailsModalId = 'agt-show-policy-details';
         this.showQuotationDetailsModalId = 'agt-show-quotation-details';
+        this.totalResults = 0;
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         if((typeof changes.contentSubtype !== 'undefined' && !!changes.contentSubtype.currentValue) || (typeof changes.query !== 'undefined' && !!changes.query.currentValue)) {
             this.contentListService.resetData();
             this._loadContents();
+            this.canShowTotalResults = this._checkCanShowTotalResults();
         }
     }
 
@@ -185,7 +190,9 @@ export class ContentListComponent implements OnChanges {
             break;
 
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
-
+                this.contentListService.searchContactQuotations(this.contactId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
             break;
 
             case CONTENT_TYPES.CONTACT_POLICT.ID:
@@ -195,11 +202,29 @@ export class ContentListComponent implements OnChanges {
     }
 
     /**
+     * Check if can show the total results
+     * @return True if can, otherwise false
+     */
+    private _checkCanShowTotalResults(): boolean {
+        let canShow: boolean = false;
+        if(!!this.query) {
+            switch(this.contentType) {
+                case CONTENT_TYPES.CONTACT_QUOTATION.ID:
+                case CONTENT_TYPES.CONTACT_POLICY.ID:
+                    canShow = true;
+                break;
+            }
+        }
+        return canShow;
+    }
+
+    /**
      * Close loading content and notify the total results when content is loaded
      */
     private _contentLoaded(): void {
         this.isLoadingContent = false;
-        this.totalResultsLoaded.emit(this.contentListService.contentResultData.totalItems);
+        this.totalResults = this.contentListService.contentResultData.totalItems;
+        this.totalResultsLoaded.emit(this.totalResults);
     }
 
 }

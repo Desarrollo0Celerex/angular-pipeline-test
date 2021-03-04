@@ -88,6 +88,23 @@ export class ContentListService {
     }
 
     /**
+     * Search the contact quotations
+     * @param  page  The page number to get
+     * @param  query The query to search
+     * @return       Notice of action done
+     */
+    searchContactQuotations(contactId: string, page: number, query: string): Observable<void> {
+        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName';
+        return this._quotationService.getContactQuotations(contactId, page, fields, 0, query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
      * Search the leads
      * @param  page  The page number to get
      * @param  query The query to search
@@ -95,15 +112,13 @@ export class ContentListService {
      */
     searchLeads(page: number, query: string): Observable<void> {
         const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactScoreName';
-        const search: string = 'contactName:'+query;
-        return new Observable( observer => {
-            this._leadService.getLeads(page, fields, 0, search).subscribe( (res: HttpResponse) => {
+        return this._leadService.getLeads(page, fields, 0, query).pipe(
+            tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
-                observer.next();
-                observer.complete();
-            })
-        })
+            }),
+            map( () => { })
+        )
     }
 
     /**

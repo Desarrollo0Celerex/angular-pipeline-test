@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID, POLICY_STATUS_ACTIVE } from '@constants/global';
+import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-format.pipe';
 
 @Component({
   selector: 'agt-contents',
@@ -17,9 +18,13 @@ export class ContentsComponent implements OnInit, OnDestroy {
     contentSubtypeName: string;
     mainActionWidth: number;
     searchEngineWidth: number;
+    query: string;
     private subParams: any;
 
-    constructor(private _activatedRoute: ActivatedRoute) {
+    constructor(
+        private _activatedRoute: ActivatedRoute,
+        private _labelFoundFormatPipe: LabelFoundFormatPipe
+    ) {
         this.contentType = 0;
         this.contentTypeName = '';
         this.contentSubtype = 0;
@@ -27,6 +32,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
         this.canShowKpis = false;
         this.mainActionWidth = 4;
         this.searchEngineWidth = 8;
+        this.query = '';
     }
 
     ngOnInit(): void {
@@ -61,6 +67,12 @@ export class ContentsComponent implements OnInit, OnDestroy {
                 } else {
                     this.contentSubtype = DEFAULT_CONTENT_FILTER_ID;
                 }
+            }
+            // If has a query
+            this.query = (typeof params.query !== 'undefined') ? params.query : '';
+            if(!!this.query) {
+                this.contentSubtype = 0;
+                this.contentSubtypeName = this._labelFoundFormatPipe.transform(this.contentType);
             }
         })
     }

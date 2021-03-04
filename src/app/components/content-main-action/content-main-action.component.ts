@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { CONTENT_TYPES } from '@constants/global';
+import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
 
 declare var ModalPlugin: any;
 
@@ -20,7 +21,7 @@ export class ContentMainActionComponent implements OnInit {
     selectPolicyStatusModalId: string;
     selectQuotationStatusModalId: string;
 
-    constructor() {
+    constructor(private _pluralNameFormatPipe: PluralNameFormatPipe) {
         this.contentType = 0;
         this.contentTypeName = '';
         this.contentSubtype = 0;
@@ -41,8 +42,8 @@ export class ContentMainActionComponent implements OnInit {
         let title: string = '';
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD.ID: title = 'Nuevo '+this.contentTypeName; break;
-            case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'Historial '+this.contentTypeName+'s'; break;
-            case CONTENT_TYPES.CONTACT_POLICY.ID: title = 'Historial '+this.contentTypeName+'s'; break;
+            case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
+            case CONTENT_TYPES.CONTACT_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
         }
         return title;
     }

@@ -7,6 +7,9 @@
             <div class="card-header">
                 <h3 class="card-title">{{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}</h3>
             </div>
+            <div class="card-body" *ngIf="canShowTotalResults">
+                <agt-content-total-results [query]="query" [totalResults]="totalResults"></agt-content-total-results>
+            </div>
         </div>
     </div>
 </div>
