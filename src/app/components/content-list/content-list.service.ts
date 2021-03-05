@@ -5,6 +5,7 @@ import { map, tap } from 'rxjs/operators';
 import { POLICY_STATUS, POLICY_STATUS_ACTIVE } from '@constants/global';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
+import { ClientService } from '@services/client.service';
 import { LeadService } from '@services/lead.service';
 import { PolicyService } from '@services/policy.service';
 import { QuotationService } from '@services/quotation.service';
@@ -15,6 +16,7 @@ export class ContentListService {
     contentResultData: ContentResultData;
 
     constructor(
+        private _clientService: ClientService,
         private _leadService: LeadService,
         private _policyService: PolicyService,
         private _quotationService: QuotationService
@@ -24,11 +26,20 @@ export class ContentListService {
     }
 
     /**
-     * Reset the contents
+     * Load the clients
+     * @param  page           The page number to get
+     * @param  contentSubtype The filter to apply
+     * @return                Notice of action done
      */
-    resetData(): void {
-        this.contents = this._initContents();
-        this.contentResultData = this._initContentResultData();
+    loadClients(page: number, contentSubtype: number): Observable<void> {
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalWallet,totalPolicies';
+        return this._clientService.getClients(page, fields, contentSubtype).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
     }
 
     /**
@@ -40,14 +51,13 @@ export class ContentListService {
      */
     loadContactQuotations(contactId: string, page: number, contentSubtype: number): Observable<void> {
         const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName';
-        return new Observable( observer => {
-            this._quotationService.getContactQuotations(contactId, page, fields, contentSubtype).subscribe( (res: HttpResponse) => {
+        return this._quotationService.getContactQuotations(contactId, page, fields, contentSubtype).pipe(
+            tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
-                observer.next();
-                observer.complete();
-            })
-        })
+            }),
+            map(() => { })
+        );
     }
 
     /**
@@ -77,14 +87,21 @@ export class ContentListService {
      */
     loadLeads(page: number, contentSubtype: number): Observable<void> {
         const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactScoreName';
-        return new Observable( observer => {
-            this._leadService.getLeads(page, fields, contentSubtype).subscribe( (res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-                observer.next();
-                observer.complete();
-            })
-        })
+        return this._leadService.getLeads(page, fields, contentSubtype).pipe(
+            tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
+     * Reset the contents
+     */
+    resetData(): void {
+        this.contents = this._initContents();
+        this.contentResultData = this._initContentResultData();
     }
 
     /**

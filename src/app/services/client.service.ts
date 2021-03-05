@@ -23,14 +23,33 @@ export class ClientService {
     }
 
     /**
-     * Get the total clients from the API
-     * @param  filter The filter to apply
-     * @return        The total clients
+     * Get the clients from the API
+     * @param  page              The page number
+     * @param  fields            The fields to get
+     * @param  clientStatusId    The filter to apply
+     * @param  query             The search to do
+     * @return                   The clients
      */
-    getTotalClients(filter: number = 0): Observable<HttpResponse> {
+   public getClients(page: number = 1, fields: string = '', clientStatusId: number = 0, query: string = ''): Observable<HttpResponse> {
+       const route: string = routes.clients(this._workspaceId);
+       let params: HttpParams = new HttpParams();
+       params = params.append('page', page.toString());
+       if(!!fields) params = params.append('fields', fields);
+       if(!!clientStatusId) params = params.append('filter', 'clientStatusId[=]' + clientStatusId);
+       if(!!query) params = params.append('search', 'contactName:' + query);
+       params = params.append('sortBy', '-createdAt');
+       return this._httpClient.get<HttpResponse>(route, { params });
+   }
+
+    /**
+     * Get the total clients from the API
+     * @param  clientStatusId The filter to apply
+     * @return                The total clients
+     */
+    getTotalClients(clientStatusId: number = 0): Observable<HttpResponse> {
         const route: string = routes.totalClients(this._workspaceId);
         let params: HttpParams = new HttpParams();
-        if(!!filter)params = params.append('filter', 'clientStatusId[=]' + filter);
+        if(!!clientStatusId)params = params.append('filter', 'clientStatusId[=]' + clientStatusId);
         return this._httpClient.get<HttpResponse>(route, { params });
     }
 }

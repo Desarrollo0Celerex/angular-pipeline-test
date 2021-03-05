@@ -4,7 +4,10 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <ng-container [ngSwitch]="contentType">
             <ng-container *ngSwitchCase="CONTENT_TYPES.LEAD.ID">
-                <ng-container *ngTemplateOutlet="leadSuggestion"></ng-container>
+                <ng-container *ngTemplateOutlet="contactSuggestion"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="CONTENT_TYPES.CLIENT.ID">
+                <ng-container *ngTemplateOutlet="contactSuggestion"></ng-container>
             </ng-container>
             <ng-container *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID">
                 <ng-container *ngTemplateOutlet="contactQuotationSuggestion"></ng-container>
@@ -17,7 +20,7 @@
 </div>
 <!-- AGENTHOS - SMART SUGGESTION -->
 
-<ng-template #leadSuggestion>
+<ng-template #contactSuggestion>
     <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
     <p>Intenta localizarlo con el <strong>Buscador Inteligente</strong>.</p>

@@ -3,6 +3,7 @@ export interface Client {
     contactName: string,
     avatarUrl: string,
     clientStatusName: string,
+    clientStatusBackground: string,
     contactSourceName: string,
     contactScoreName: string,
     totalWallet: number,

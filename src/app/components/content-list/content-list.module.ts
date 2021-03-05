@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { CardClientModule } from '@components/card-client/card-client.module';
 import { CardLeadModule } from '@components/card-lead/card-lead.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
@@ -16,6 +17,7 @@ import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
+import { ClientService } from '@services/client.service';
 import { LeadService } from '@services/lead.service';
 import { PolicyService } from '@services/policy.service';
 import { QuotationService } from '@services/quotation.service';
@@ -27,6 +29,7 @@ import { ContentListService } from './content-list.service';
   declarations: [ContentListComponent],
   exports: [ContentListComponent],
   imports: [
+    CardClientModule,
     CardLeadModule,
     CardPolicyModule,
     CardQuotationModule,
@@ -44,6 +47,6 @@ import { ContentListService } from './content-list.service';
     ModalShowPolicyDetailsModule,
     ModalShowQuotationDetailsModule
   ],
-  providers: [ContentListService, LeadService, PolicyService, QuotationService]
+  providers: [ClientService, ContentListService, LeadService, PolicyService, QuotationService]
 })
 export class ContentListModule { }

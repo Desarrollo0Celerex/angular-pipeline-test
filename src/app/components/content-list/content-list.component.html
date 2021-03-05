@@ -19,6 +19,7 @@
     <div class="col-md-3 col-xl-3" *ngFor="let content of contentListService.contents">
         <ng-container [ngSwitch]="contentType">
             <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD.ID" [lead]="content" (showContactData)="onShowContactData($event)"></agt-card-lead>
+            <agt-card-client *ngSwitchCase="CONTENT_TYPES.CLIENT.ID" [client]="content" (showContactData)="onShowContactData($event)"></agt-card-client>
             <agt-card-quotation *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID" [quotation]="content" (showQuotationDetails)="onShowQuotationDetails($event)" (acceptQuotation)="onAcceptQuotation($event)" (rejectQuotation)="onRejectQuotation($event)"></agt-card-quotation>
             <agt-card-policy *ngSwitchCase="CONTENT_TYPES.CONTACT_POLICY.ID" [policy]="content" (showPolicyDetails)="onShowPolicyDetails($event)" (showPolicy)="onShowPolicy($event)"></agt-card-policy>
         </ng-container>
@@ -31,7 +32,7 @@
 <agt-content-suggestions [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [contentTypeName]="contentTypeName"></agt-content-suggestions>
 
 <!-- AGENTHOS - CONTENT ACTIONS -->
-<ng-container *ngIf="contentType === CONTENT_TYPES.LEAD.ID">
+<ng-container *ngIf="contentType === CONTENT_TYPES.LEAD.ID || contentType === CONTENT_TYPES.CLIENT.ID">
     <agt-modal-show-contact-data [modalId]="showContactDataModalId" [contactId]="selectedContactId"></agt-modal-show-contact-data>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID">

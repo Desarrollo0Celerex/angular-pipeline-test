@@ -24,18 +24,18 @@ export class LeadService {
 
      /**
       * Get the leads from the API
-      * @param  page      The page number
-      * @param  fields    The fields to get
-      * @param  filter    The filter to apply
-      * @param  query     The search to do
-      * @return           The leads
+      * @param  page            The page number
+      * @param  fields          The fields to get
+      * @param  leadStatusId    The filter to apply
+      * @param  query           The search to do
+      * @return                 The leads
       */
-    public getLeads(page: number = 1, fields: string = '', filter: number = 0, query: string = ''): Observable<HttpResponse> {
+    public getLeads(page: number = 1, fields: string = '', leadStatusId: number = 0, query: string = ''): Observable<HttpResponse> {
         const route: string = routes.leads(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
-        if(!!filter) params = params.append('filter', 'leadStatusId[=]' + filter);
+        if(!!leadStatusId) params = params.append('filter', 'leadStatusId[=]' + leadStatusId);
         if(!!query) params = params.append('search', 'contactName:' + query);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, { params });
@@ -43,13 +43,13 @@ export class LeadService {
 
     /**
      * Get the total leads from the API
-     * @param  filter The filter to apply
-     * @return        The total clients
+     * @param  leadStatusId The filter to apply
+     * @return              The total clients
      */
-    getTotalLeads(filter: number = 0): Observable<HttpResponse> {
+    getTotalLeads(leadStatusId: number = 0): Observable<HttpResponse> {
         const route: string = routes.totalLeads(this._workspaceId);
         let params: HttpParams = new HttpParams();
-        if(!!filter) params = params.append('filter', 'leadStatusId[=]' + filter);
+        if(!!leadStatusId) params = params.append('filter', 'leadStatusId[=]' + leadStatusId);
         return this._httpClient.get<HttpResponse>(route, { params });
     }
 }
