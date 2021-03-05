@@ -105,6 +105,23 @@ export class ContentListService {
     }
 
     /**
+     * Search the clients
+     * @param  page  The page number to get
+     * @param  query The query to search
+     * @return       Notice of action done
+     */
+    searchClients(page: number, query: string): Observable<void> {
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalWallet,totalPolicies';
+        return this._clientService.getClients(page, fields, 0, query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
      * Search the contact policies
      * @param  contactId The contact ID
      * @param  page      The page to get

@@ -182,6 +182,12 @@ export class ContentListComponent implements OnChanges {
                 });
             break;
 
+            case CONTENT_TYPES.CLIENT.ID:
+                this.contentListService.searchClients(this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
                 this.contentListService.searchContactQuotations(this.contactId, this.page, this.query).subscribe( () => {
                     this._contentLoaded();

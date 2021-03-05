@@ -17,6 +17,7 @@ const routes: Routes = [
 
             // Clients routes
             { path: ROUTES_NAME.listClients, loadChildren: () => import('@pages/home/clients/list-clients/list-clients.module').then( mod => mod.ListClientsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.clientSearchResults, loadChildren: () => import('@pages/home/clients/client-search-results/client-search-results.module').then( mod => mod.ClientSearchResultsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Contacts routes
             { path: ROUTES_NAME.createContact(':contactTypeId'), loadChildren: () => import('@pages/home/contacts/create-contact/create-contact.module').then( mod => mod.CreateContactModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

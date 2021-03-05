@@ -16,7 +16,8 @@ const EXPRESS_ROUTES = {
 }
 
 const HOME_CLIENTS_ROUTES = {
-    listClients: 'home/clients/list-clients'
+    listClients: 'home/clients/list-clients',
+    clientSearchResults: 'home/clients/client-search-results'
 }
 
 const HOME_CONTACTS_ROUTES = {
