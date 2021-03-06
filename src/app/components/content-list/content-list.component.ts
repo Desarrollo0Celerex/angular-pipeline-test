@@ -21,18 +21,19 @@ export class ContentListComponent implements OnChanges {
     @Input() query: string;
     @Output() totalResultsLoaded: EventEmitter<number>;
     CONTENT_TYPES: any;
-    acceptQuotationModalId: string;
     canShowTotalResults: boolean;
     isLoadingContent: boolean;
     page: number;
-    rejectQuotationModalId: string;
     selectedContactId: string;
     selectedPolicyId: string;
     selectedQuotationId: string;
-    showContactDataModalId: string;
-    showPolicyDetailsModalId: string;
-    showPolicyModalId: string;
-    showQuotationDetailsModalId: string;
+    modalIdAcceptQuotation: string;
+    modalIdConfirmUpdatePolicy: string;
+    modalIdRejectQuotation: string;
+    modalIdShowContactData: string;
+    modalIdShowPolicy: string;
+    modalIdShowPolicyDetails: string;
+    modalIdShowQuotationDetails: string;
     totalResults: number;
 
     constructor(public contentListService: ContentListService) {
@@ -44,18 +45,19 @@ export class ContentListComponent implements OnChanges {
         this.query = '';
         this.totalResultsLoaded = new EventEmitter<number>();
         this.CONTENT_TYPES = CONTENT_TYPES;
-        this.acceptQuotationModalId = 'agt-accept-quotation';
         this.canShowTotalResults = false;
         this.isLoadingContent = false;
         this.page = 1;
-        this.rejectQuotationModalId = 'agt-reject-quotation';
         this.selectedContactId = '';
         this.selectedPolicyId = '';
         this.selectedQuotationId = '';
-        this.showContactDataModalId = 'agt-contact-data';
-        this.showPolicyModalId = 'agt-show-policy';
-        this.showPolicyDetailsModalId = 'agt-show-policy-details';
-        this.showQuotationDetailsModalId = 'agt-show-quotation-details';
+        this.modalIdAcceptQuotation = 'agt-accept-quotation';
+        this.modalIdConfirmUpdatePolicy = 'agt-confirm-update-policy';
+        this.modalIdRejectQuotation = 'agt-reject-quotation';
+        this.modalIdShowContactData = 'agt-contact-data';
+        this.modalIdShowPolicy = 'agt-show-policy';
+        this.modalIdShowPolicyDetails = 'agt-show-policy-details';
+        this.modalIdShowQuotationDetails = 'agt-show-quotation-details';
         this.totalResults = 0;
     }
 
@@ -72,7 +74,7 @@ export class ContentListComponent implements OnChanges {
      */
     onAcceptQuotation(quotationId: string): void {
         this.selectedQuotationId = quotationId;
-        ModalPlugin.show(this.acceptQuotationModalId);
+        ModalPlugin.show(this.modalIdAcceptQuotation);
     }
 
     /**
@@ -89,7 +91,7 @@ export class ContentListComponent implements OnChanges {
      */
     onRejectQuotation(quotationId: string): void {
         this.selectedQuotationId = quotationId;
-        ModalPlugin.show(this.rejectQuotationModalId);
+        ModalPlugin.show(this.modalIdRejectQuotation);
     }
 
     /**
@@ -98,7 +100,7 @@ export class ContentListComponent implements OnChanges {
      */
     onShowContactData(contactId: string): void {
         this.selectedContactId = contactId;
-        ModalPlugin.show(this.showContactDataModalId);
+        ModalPlugin.show(this.modalIdShowContactData);
     }
 
     /**
@@ -107,7 +109,7 @@ export class ContentListComponent implements OnChanges {
      */
     onShowQuotationDetails(quotationId: string): void {
         this.selectedQuotationId = quotationId;
-        ModalPlugin.show(this.showQuotationDetailsModalId);
+        ModalPlugin.show(this.modalIdShowQuotationDetails);
     }
 
     /**
@@ -116,7 +118,7 @@ export class ContentListComponent implements OnChanges {
      */
     onShowPolicy(policyId: string): void {
         this.selectedPolicyId = policyId;
-        ModalPlugin.show(this.showPolicyModalId);
+        ModalPlugin.show(this.modalIdShowPolicy);
     }
 
     /**
@@ -125,7 +127,15 @@ export class ContentListComponent implements OnChanges {
      */
     onShowPolicyDetails(policyId: string): void {
         this.selectedPolicyId = policyId;
-        ModalPlugin.show(this.showPolicyDetailsModalId);
+        ModalPlugin.show(this.modalIdShowPolicyDetails);
+    }
+
+    /**
+     * Event to show modal to confirm update policy
+     */
+    onUpdatePolicy(policyId: string): void {
+        this.selectedPolicyId = policyId;
+        ModalPlugin.show(this.modalIdConfirmUpdatePolicy);
     }
 
     /**

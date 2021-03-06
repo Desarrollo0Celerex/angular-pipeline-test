@@ -21,7 +21,7 @@
             <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD.ID" [lead]="content" (showContactData)="onShowContactData($event)"></agt-card-lead>
             <agt-card-client *ngSwitchCase="CONTENT_TYPES.CLIENT.ID" [client]="content" (showContactData)="onShowContactData($event)"></agt-card-client>
             <agt-card-quotation *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID" [quotation]="content" (showQuotationDetails)="onShowQuotationDetails($event)" (acceptQuotation)="onAcceptQuotation($event)" (rejectQuotation)="onRejectQuotation($event)"></agt-card-quotation>
-            <agt-card-policy *ngSwitchCase="CONTENT_TYPES.CONTACT_POLICY.ID" [policy]="content" (showPolicyDetails)="onShowPolicyDetails($event)" (showPolicy)="onShowPolicy($event)"></agt-card-policy>
+            <agt-card-policy *ngSwitchCase="CONTENT_TYPES.CONTACT_POLICY.ID" [policy]="content" (showPolicyDetails)="onShowPolicyDetails($event)" (showPolicy)="onShowPolicy($event)" (updatePolicy)="onUpdatePolicy($event)"></agt-card-policy>
         </ng-container>
     </div>
 </div>
@@ -33,15 +33,16 @@
 
 <!-- AGENTHOS - CONTENT ACTIONS -->
 <ng-container *ngIf="contentType === CONTENT_TYPES.LEAD.ID || contentType === CONTENT_TYPES.CLIENT.ID">
-    <agt-modal-show-contact-data [modalId]="showContactDataModalId" [contactId]="selectedContactId"></agt-modal-show-contact-data>
+    <agt-modal-show-contact-data [modalId]="modalIdShowContactData" [contactId]="selectedContactId"></agt-modal-show-contact-data>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID">
-    <agt-modal-show-quotation-details [modalId]="showQuotationDetailsModalId" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-show-quotation-details>
-    <agt-modal-confirm-accept-quotation [modalId]="acceptQuotationModalId" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-accept-quotation>
-    <agt-modal-confirm-reject-quotation [modalId]="rejectQuotationModalId" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-reject-quotation>
+    <agt-modal-show-quotation-details [modalId]="modalIdShowQuotationDetails" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-show-quotation-details>
+    <agt-modal-confirm-accept-quotation [modalId]="modalIdAcceptQuotation" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-accept-quotation>
+    <agt-modal-confirm-reject-quotation [modalId]="modalIdRejectQuotation" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-reject-quotation>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID">
-    <agt-modal-show-policy-details [modalId]="showPolicyDetailsModalId" [contactId]="contactId" [policyId]="selectedPolicyId" (showPolicy)="onShowPolicy($event)"></agt-modal-show-policy-details>
-    <agt-modal-show-policy [modalId]="showPolicyModalId" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
+    <agt-modal-show-policy-details [modalId]="modalIdShowPolicyDetails" [contactId]="contactId" [policyId]="selectedPolicyId" (showPolicy)="onShowPolicy($event)"></agt-modal-show-policy-details>
+    <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
+    <agt-modal-confirm-update-policy [modalId]="modalIdConfirmUpdatePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-update-policy>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

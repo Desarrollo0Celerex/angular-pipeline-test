@@ -24,7 +24,7 @@ export class CompletePolicyPage implements OnInit {
     message: string;
     policyId: string;
     policyIsLoaded: boolean;
-    showPolicyModalId: string;
+    modalIdShowPolicy: string;
     emissionDateCalendarId: string;
     validityEndDateCalendarId: string;
     validityStartDateCalendarId: string;
@@ -43,7 +43,7 @@ export class CompletePolicyPage implements OnInit {
         this.message = 'Verfica los datos para la nueva póliza de';
         this.policyId = '';
         this.policyIsLoaded = false;
-        this.showPolicyModalId = 'agt-show-policy';
+        this.modalIdShowPolicy = 'agt-show-policy';
         this.validityEndDateCalendarId = 'validityEndDate';
         this.validityStartDateCalendarId = 'validityStartDate';
         this.currencySelectId = 'agt-currency';
@@ -86,7 +86,7 @@ export class CompletePolicyPage implements OnInit {
      * Click event to show modal to view the policy
      */
     onClickShowPolicy(): void {
-        ModalPlugin.show(this.showPolicyModalId);
+        ModalPlugin.show(this.modalIdShowPolicy);
     }
 
     /**

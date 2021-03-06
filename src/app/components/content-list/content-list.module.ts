@@ -12,6 +12,7 @@ import { ContentTotalResultsModule } from '@components/content-total-results/con
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalConfirmAcceptQuotationModule } from '@components/modal-confirm-accept-quotation/modal-confirm-accept-quotation.module';
 import { ModalConfirmRejectQuotationModule } from '@components/modal-confirm-reject-quotation/modal-confirm-reject-quotation.module';
+import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
@@ -42,6 +43,7 @@ import { ContentListService } from './content-list.service';
     PluralNameFormatModule,
     ModalConfirmAcceptQuotationModule,
     ModalConfirmRejectQuotationModule,
+    ModalConfirmUpdatePolicyModule,
     ModalShowContactDataModule,
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,

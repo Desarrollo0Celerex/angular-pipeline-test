@@ -14,11 +14,13 @@ export class CardPolicyComponent implements OnInit {
     @Input() policy: Policy | null;
     @Output() showPolicy: EventEmitter<string>;
     @Output() showPolicyDetails: EventEmitter<string>;
+    @Output() updatePolicy: EventEmitter<string>;
 
     constructor() {
         this.policy = null;
         this.showPolicy = new EventEmitter<string>();
         this.showPolicyDetails = new EventEmitter<string>();
+        this.updatePolicy = new EventEmitter<string>();
     }
 
     ngOnInit(): void {
@@ -37,5 +39,12 @@ export class CardPolicyComponent implements OnInit {
      */
     onClickShowPolicyDetails(): void {
         if(!!this.policy) this.showPolicyDetails.emit(this.policy.policyId);
+    }
+
+    /**
+     * Click event to update the policy
+     */
+    onClickUpdatePolicy(): void {
+        if(!!this.policy) this.updatePolicy.emit(this.policy.policyId);
     }
 }
