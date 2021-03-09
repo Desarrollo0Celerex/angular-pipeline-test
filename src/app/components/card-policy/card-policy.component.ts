@@ -12,12 +12,14 @@ declare var PopoverPlugin: any;
 })
 export class CardPolicyComponent implements OnInit {
     @Input() policy: Policy | null;
+    @Output() endorsePolicy: EventEmitter<string>;
     @Output() showPolicy: EventEmitter<string>;
     @Output() showPolicyDetails: EventEmitter<string>;
     @Output() updatePolicy: EventEmitter<string>;
 
     constructor() {
         this.policy = null;
+        this.endorsePolicy = new EventEmitter<string>();
         this.showPolicy = new EventEmitter<string>();
         this.showPolicyDetails = new EventEmitter<string>();
         this.updatePolicy = new EventEmitter<string>();
@@ -25,6 +27,13 @@ export class CardPolicyComponent implements OnInit {
 
     ngOnInit(): void {
         PopoverPlugin.init();
+    }
+
+    /**
+     * Click event to endorse the policy
+     */
+    onClickEndorsePolicy(): void {
+        if(!!this.policy) this.endorsePolicy.emit(this.policy.policyId);
     }
 
     /**
