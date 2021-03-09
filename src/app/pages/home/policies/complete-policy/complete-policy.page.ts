@@ -5,6 +5,7 @@ import { AbstractControl } from '@angular/forms';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { LoadingService } from '@services/loading.service';
 
 import { CompletePolicyService } from './complete-policy.service';
 
@@ -36,6 +37,7 @@ export class CompletePolicyPage implements OnInit {
     constructor(
         public completePolicyService: CompletePolicyService,
         private _activatedRoute: ActivatedRoute,
+        private _loadingService: LoadingService,
         private _router: Router
     ) {
         this.emissionDateCalendarId = 'emissionDate';
@@ -95,7 +97,9 @@ export class CompletePolicyPage implements OnInit {
     onSubmitSavePolicy(): void {
         this._isFormSubmitted = true;
         if(this.completePolicyService.policyForm.valid) {
+            this._loadingService.show();
             this.completePolicyService.completePolicy(this.contactId, this.policyId).subscribe( () => {
+                this._loadingService.hide();
                 AlertHelper.policyCompleted(this._goToListContactPolicies, this);
             })
         }

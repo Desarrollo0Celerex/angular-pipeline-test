@@ -5,11 +5,13 @@ import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 import { CompletePolicyDataSend } from '@interfaces/complete-policy-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { UpdateContactPolicyDataSend } from '@interfaces/update-contact-policy-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     contactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies',
     contactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId,
+    updateContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/update',
     uploadContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/upload',
     completeContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/complete',
 }
@@ -68,6 +70,18 @@ export class PolicyService {
         if(!!query) params = params.append('search', 'policyNumber:' + query);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
+     * Update the policy data in the API
+     * @param  contactId   The contact ID
+     * @param  policyId    The policy ID to update
+     * @param  requestBody The policy data
+     * @return             Notice of action done
+     */
+    updateContactPolicy(contactId: string, policyId: string, requestBody: UpdateContactPolicyDataSend): Observable<void> {
+        const route: string = routes.updateContactPolicy(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
     }
 
     /**

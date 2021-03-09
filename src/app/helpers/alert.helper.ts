@@ -108,6 +108,18 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static policyUpdated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Póliza Actualizada',
+            text: 'La póliza se ha actualizado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static quotationAccepted(callBack: any, context: any, data: any): void {
         const alertData: Alert = {
             title: 'Cotización aceptada',

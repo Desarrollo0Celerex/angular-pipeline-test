@@ -1,4 +1,5 @@
 var DatePickerPlugin = function() {
+
     function init() {
         setTimeout( () => {
             $('.fc-datepicker').datepicker({
