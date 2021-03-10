@@ -12,10 +12,16 @@ export class InputValidatorHelper {
         let validationClass: string = '';
         if(control !== null) {
             const validators = control.validator!( {} as AbstractControl);
+            // If the field is not required
             if((validators === null || (validators !== null && typeof validators.required == 'undefined') ) && control.value === '') {
                 validationClass = '';
             } else if(control.touched || isFormSubmitted) {
-                validationClass = (control.valid) ? 'is-valid' : 'is-invalid';
+                // If the field is disabled
+                if(control.status === 'DISABLED') {
+                    validationClass = '';
+                } else {
+                    validationClass = (control.valid) ? 'is-valid' : 'is-invalid';
+                }
             }
         }
         return validationClass;

@@ -1,10 +1,12 @@
 var Select2Plugin = function() {
 
 	function initSelect() {
-		$('.select2').select2({
-			minimumResultsForSearch: Infinity,
-			width: '100%'
-		});
+		setTimeout(function() {
+			$('.select2').select2({
+				minimumResultsForSearch: Infinity,
+				width: '100%'
+			});
+		}, 0);
 	}
 
 	function initSearch(onItemSelected, context) {

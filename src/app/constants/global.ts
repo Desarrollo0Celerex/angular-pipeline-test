@@ -98,6 +98,10 @@ export const FILE_TYPES: any = {
     IMAGE: 1,
     DOCUMENT: 2
 }
+export const ENDORSEMENT_TYPES: any = {
+    PAYMENT_METHOD_CHANGE: 3,
+    POLICY_REHABILITATION: 5
+}
 
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;
@@ -109,3 +113,4 @@ export const DEFAULT_CURRENCY_ID: number = 1;
 export const DEFAULT_METHOD_ID: number = 1;
 export const DEFAULT_PLAN_ID: number = 1;
 export const DEFAULT_POLICY_STATUS_ID: number = POLICY_STATUS_ACTIVE;
+export const DEFAULT_ENDORSEMENT_TYPE_ID: number = 1;

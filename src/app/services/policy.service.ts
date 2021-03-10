@@ -14,6 +14,7 @@ const routes: any = {
     updateContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/update',
     uploadContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/upload',
     completeContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/complete',
+    endorseContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorse',
 }
 
 @Injectable()
@@ -36,6 +37,18 @@ export class PolicyService {
      */
     completePolicy(contactId: string, policyId: string, requestBody: CompletePolicyDataSend): Observable<void> {
         const route: string = routes.completeContactPolicy(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
+
+    /**
+     * Endorse the policy in the API
+     * @param  contactId   The contact ID
+     * @param  policyId    The policy ID to endorse
+     * @param  requestBody The policy data
+     * @return             Notice of action done
+     */
+    endorseContactPolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.endorseContactPolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
     }
 

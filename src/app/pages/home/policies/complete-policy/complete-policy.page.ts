@@ -56,7 +56,6 @@ export class CompletePolicyPage implements OnInit {
 
     ngOnInit(): void {
         this._catchParams();
-        this._initCalendars();
         this.completePolicyService.buildPolicyForm();
         this._loadContactPolicy();
         this._loadCurrencies();

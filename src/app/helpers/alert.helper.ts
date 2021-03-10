@@ -96,6 +96,18 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static policyEndorsed(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Endoso Aplicado',
+            text: 'El endoso ha sido aplicado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static policyUploaded(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Póliza Cargada',

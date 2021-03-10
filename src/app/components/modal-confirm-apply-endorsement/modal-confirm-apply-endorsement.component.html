@@ -1,0 +1,29 @@
+<!-- AGENTHOS - ENDORSEMENT APPLY -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- AGENTHOS - DETAILS CARD -->
+                <h5 class="modal-title">Aplicar Endoso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-justify"><strong>¿Deseas aplicar los cambios?</strong></p>
+                        <p class="text-justify">
+                        Se han detectado cambios que pueden actualizar los detalles de la póliza. <strong>Por favor confirma si deseas continuar</strong>.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="col-12">
+                    <button type="button" class="btn btn-primary btn-block" (click)="onClickConfirm()"><strong>CONFIRMAR</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - ENDORSEMENT UPDATE -->
