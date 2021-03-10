@@ -311,7 +311,7 @@
 </form>
 <!-- AGENTHOS - POLICY DETAILS -->
 
-<agt-modal-upload-policy-endorsement [modalId]="modalIdUploadPolicyEndorsement" (fileSelected)="onFileSelected($event)"></agt-modal-upload-policy-endorsement>
+<agt-modal-select-file [modalId]="modalIdUploadPolicyEndorsement" [title]="modalSelectFileTitle" [description]="modalSelectFileDescription" [buttonLabel]="modalSelectFileButtonLabel" (fileSelected)="onFileSelected($event)"></agt-modal-select-file>
 <agt-modal-confirm-apply-endorsement [modalId]="modalIdConfirmApplyEndorsement" (applyEndorsement)="onApplyEndorsement()"></agt-modal-confirm-apply-endorsement>
 
 <ng-template #loadingContent>

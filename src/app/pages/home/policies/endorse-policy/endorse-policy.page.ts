@@ -27,6 +27,9 @@ export class EndorsePolicyPage implements OnInit {
     calendarIdValidityStartDate: string;
     contactId: string;
     message: string;
+    modalSelectFileTitle: string;
+    modalSelectFileDescription: string;
+    modalSelectFileButtonLabel: string;
     modalIdConfirmApplyEndorsement: string;
     modalIdUploadPolicyEndorsement: string;
     policyId: string;
@@ -48,6 +51,9 @@ export class EndorsePolicyPage implements OnInit {
         this.calendarIdValidityStartDate = 'validityStartDate';
         this.contactId = '';
         this.message = 'Captura el endoso para la póliza de';
+        this.modalSelectFileTitle = 'Cargar Endoso 123';
+        this.modalSelectFileDescription = 'Selecciona el documento con los detalles del endoso.';
+        this.modalSelectFileButtonLabel = 'Cargar endoso';
         this.modalIdConfirmApplyEndorsement = 'agt-confirm-apply-endorsement';
         this.modalIdUploadPolicyEndorsement = 'agt-upload-policy-endorsement';
         this.policyId = '';

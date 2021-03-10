@@ -6,19 +6,25 @@ declare var DropifyPlugin: any;
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-upload-policy-endorsement',
-  templateUrl: './modal-upload-policy-endorsement.component.html',
+  selector: 'agt-modal-select-file',
+  templateUrl: './modal-select-file.component.html',
   styles: [
   ]
 })
-export class ModalUploadPolicyEndorsementComponent implements OnInit {
+export class ModalSelectFileComponent implements OnInit {
+    @Input() buttonLabel: string;
+    @Input() description: string;
     @Input() modalId: string;
+    @Input() title: string;
     @Output() fileSelected: EventEmitter<File>;
     @ViewChild('buttonUploadEndorsement') buttonUploadEndorsement: ElementRef<HTMLElement> | null;
     private _allowedFileTypes: string[];
 
     constructor() {
+        this.buttonLabel = '';
+        this.description = '';
         this.modalId = '';
+        this.title = '';
         this.fileSelected = new EventEmitter<File>();
         this.buttonUploadEndorsement = null;
         this._allowedFileTypes = ['pdf'];
