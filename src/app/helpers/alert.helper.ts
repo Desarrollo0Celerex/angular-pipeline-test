@@ -84,6 +84,18 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static policyCancelled(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Póliza Cancelada',
+            text: 'La póliza ha sido cancelada con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static policyCompleted(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Datos Actualizados',

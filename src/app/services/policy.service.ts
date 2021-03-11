@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { CompletePolicyDataSend } from '@interfaces/complete-policy-data-send.interface';
@@ -15,6 +16,7 @@ const routes: any = {
     uploadContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/upload',
     completeContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/complete',
     endorseContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorse',
+    cancelContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/cancel',
 }
 
 @Injectable()
@@ -26,6 +28,18 @@ export class PolicyService {
         private _authService: AuthService
     ) {
         this._workspaceId = this._authService.workspaceId;
+    }
+
+    /**
+     * Cancel the policy in the API
+     * @param  contactId   The contact ID
+     * @param  policyId    The policy ID to complete
+     * @param  requestBody The cancellation data
+     * @return             Notice of action done
+     */
+    cancelPolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.cancelContactPolicy(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
     }
 
     /**
@@ -44,7 +58,7 @@ export class PolicyService {
      * Endorse the policy in the API
      * @param  contactId   The contact ID
      * @param  policyId    The policy ID to endorse
-     * @param  requestBody The policy data
+     * @param  requestBody The endorsement data
      * @return             Notice of action done
      */
     endorseContactPolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
@@ -62,7 +76,11 @@ export class PolicyService {
         const route: string = routes.contactPolicy(this._workspaceId, contactId, policyId);
         let params: HttpParams = new HttpParams();
         if(!!fields) params = params.append('fields', fields);
-        return this._httpClient.get<HttpResponse>(route, {params});
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map( (res: HttpResponse) => {
+                return { data: this._cleanObject(res.data) };
+            })
+        );
     }
 
     /**
@@ -119,5 +137,17 @@ export class PolicyService {
             return 'policyStatusId[=]' + element;
         });
         return filterIds.join(',');
+    }
+
+    /**
+     * Clean object
+     * @param  object Object to clean
+     * @return        Cleaned object
+     */
+    private _cleanObject(object: any): any {
+        for(let key in object) {
+            object[key] = (object[key] === null) ? '' : object[key];
+        }
+        return object;
     }
 }

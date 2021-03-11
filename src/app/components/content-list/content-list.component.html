@@ -21,7 +21,14 @@
             <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD.ID" [lead]="content" (showContactData)="onShowContactData($event)"></agt-card-lead>
             <agt-card-client *ngSwitchCase="CONTENT_TYPES.CLIENT.ID" [client]="content" (showContactData)="onShowContactData($event)"></agt-card-client>
             <agt-card-quotation *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID" [quotation]="content" (showQuotationDetails)="onShowQuotationDetails($event)" (acceptQuotation)="onAcceptQuotation($event)" (rejectQuotation)="onRejectQuotation($event)"></agt-card-quotation>
-            <agt-card-policy *ngSwitchCase="CONTENT_TYPES.CONTACT_POLICY.ID" [policy]="content" (showPolicyDetails)="onShowPolicyDetails($event)" (showPolicy)="onShowPolicy($event)" (updatePolicy)="onUpdatePolicy($event)" (endorsePolicy)="onEndorsePolicy($event)"></agt-card-policy>
+            <agt-card-policy *ngSwitchCase="CONTENT_TYPES.CONTACT_POLICY.ID"
+                [policy]="content"
+                (showPolicyDetails)="onShowPolicyDetails($event)"
+                (showPolicy)="onShowPolicy($event)"
+                (updatePolicy)="onUpdatePolicy($event)"
+                (endorsePolicy)="onEndorsePolicy($event)"
+                (cancelPolicy)="onCancelPolicy($event)"
+            ></agt-card-policy>
         </ng-container>
     </div>
 </div>
@@ -45,5 +52,6 @@
     <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
     <agt-modal-confirm-update-policy [modalId]="modalIdConfirmUpdatePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-update-policy>
     <agt-modal-confirm-endorse-policy [modalId]="modalIdConfirmEndorsePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-endorse-policy>
+    <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

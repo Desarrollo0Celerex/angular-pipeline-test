@@ -172,21 +172,21 @@ export class EndorsePolicyService {
                 endorsementNumber: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 endorsementEmissionDate: ['', [Validators.required, ValidatorsHelper.date] ],
                 endorsementTypeId: [DEFAULT_ENDORSEMENT_TYPE_ID, [Validators.required] ],
-                coveredProperty: [this.policy.coveredProperty || '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-                policyNumber: [this.policy.policyNumber || '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-                clientNumber: [this.policy.clientNumber || '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-                emissionDate: [this._getDateFormat(this.policy.emissionDate) || '', [Validators.required, ValidatorsHelper.date] ],
-                validityStartDate: [this._getDateFormat(this.policy.validityStartDate) || '', [Validators.required, ValidatorsHelper.date] ],
-                validityEndDate: [this._getDateFormat(this.policy.validityEndDate) || '', [Validators.required, ValidatorsHelper.date] ],
-                titularName: [this.policy.titularName || '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
-                titularRfc: [this.policy.titularRfc || '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-                titularPostalCode: [this.policy.titularPostalCode || '', [Validators.required, ValidatorsHelper.postalCode ] ],
-                titularPhoneNumber: [this.policy.titularPhoneNumber || '', [ValidatorsHelper.phoneNumber] ],
-                amount: [this.policy.amount || '', [ValidatorsHelper.amount] ],
+                coveredProperty: [this.policy.coveredProperty, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+                policyNumber: [this.policy.policyNumber, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+                clientNumber: [this.policy.clientNumber, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+                emissionDate: [this._getDateFormat(this.policy.emissionDate), [Validators.required, ValidatorsHelper.date] ],
+                validityStartDate: [this._getDateFormat(this.policy.validityStartDate), [Validators.required, ValidatorsHelper.date] ],
+                validityEndDate: [this._getDateFormat(this.policy.validityEndDate), [Validators.required, ValidatorsHelper.date] ],
+                titularName: [this.policy.titularName, [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
+                titularRfc: [this.policy.titularRfc, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+                titularPostalCode: [this.policy.titularPostalCode, [Validators.required, ValidatorsHelper.postalCode ] ],
+                titularPhoneNumber: [this.policy.titularPhoneNumber, [ValidatorsHelper.phoneNumber] ],
+                amount: [this.policy.amount, [ValidatorsHelper.amount] ],
                 currencyId: [this.policy.currencyId || DEFAULT_CURRENCY_ID, [Validators.required]],
                 paymentMethodId: [this.policy.paymentMethodId || DEFAULT_METHOD_ID, [Validators.required]],
                 paymentPlanId: [this.policy.paymentPlanId || DEFAULT_PLAN_ID, [Validators.required]],
-                bills: [this.policy.bills || '', [Validators.required, ValidatorsHelper.number]]
+                bills: [this.policy.bills, [Validators.required, ValidatorsHelper.number]]
             })
         }
     }

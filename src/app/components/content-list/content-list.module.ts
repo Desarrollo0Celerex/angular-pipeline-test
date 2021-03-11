@@ -14,6 +14,7 @@ import { ContentTotalResultsModule } from '@components/content-total-results/con
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 
 import { ModalConfirmAcceptQuotationModule } from '@components/modal-confirm-accept-quotation/modal-confirm-accept-quotation.module';
+import { ModalConfirmCancelPolicyModule } from '@components/modal-confirm-cancel-policy/modal-confirm-cancel-policy.module';
 import { ModalConfirmEndorsePolicyModule } from '@components/modal-confirm-endorse-policy/modal-confirm-endorse-policy.module';
 import { ModalConfirmRejectQuotationModule } from '@components/modal-confirm-reject-quotation/modal-confirm-reject-quotation.module';
 import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
@@ -48,6 +49,7 @@ import { ContentListService } from './content-list.service';
     LoadingContentModule,
     PluralNameFormatModule,
     ModalConfirmAcceptQuotationModule,
+    ModalConfirmCancelPolicyModule,
     ModalConfirmEndorsePolicyModule,
     ModalConfirmRejectQuotationModule,
     ModalConfirmUpdatePolicyModule,

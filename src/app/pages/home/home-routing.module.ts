@@ -38,6 +38,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.completePolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/complete-policy/complete-policy.module').then(mod => mod.CompletePolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.updatePolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/update-policy/update-policy.module').then(mod => mod.UpdatePolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.endorsePolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/endorse-policy/endorse-policy.module').then(mod => mod.EndorsePolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.cancelPolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/cancel-policy/cancel-policy.module').then(mod => mod.CancelPolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
         ]
     }

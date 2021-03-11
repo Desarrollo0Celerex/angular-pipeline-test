@@ -114,3 +114,4 @@ export const DEFAULT_METHOD_ID: number = 1;
 export const DEFAULT_PLAN_ID: number = 1;
 export const DEFAULT_POLICY_STATUS_ID: number = POLICY_STATUS_ACTIVE;
 export const DEFAULT_ENDORSEMENT_TYPE_ID: number = 1;
+export const DEFAULT_POLICY_CANCELLATION_REASON_ID: number = 1;

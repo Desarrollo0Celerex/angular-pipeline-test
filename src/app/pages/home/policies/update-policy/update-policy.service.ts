@@ -59,16 +59,16 @@ export class UpdatePolicyService {
     private _buildPolicyForm(): void {
         if(!!this.policy) {
             this.policyForm = this._formBuilder.group({
-                coveredProperty: [this.policy.coveredProperty || '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-                policyNumber: [this.policy.policyNumber || '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-                clientNumber: [this.policy.clientNumber || '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-                emissionDate: [this._getDateFormat(this.policy.emissionDate) || '', [Validators.required, ValidatorsHelper.date] ],
-                validityStartDate: [this._getDateFormat(this.policy.validityStartDate) || '', [Validators.required, ValidatorsHelper.date] ],
-                validityEndDate: [this._getDateFormat(this.policy.validityEndDate) || '', [Validators.required, ValidatorsHelper.date] ],
-                titularName: [this.policy.titularName || '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
-                titularRfc: [this.policy.titularRfc || '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-                titularPostalCode: [this.policy.titularPostalCode || '', [Validators.required, ValidatorsHelper.postalCode ] ],
-                titularPhoneNumber: [this.policy.titularPhoneNumber || '', [ValidatorsHelper.phoneNumber] ],
+                coveredProperty: [this.policy.coveredProperty, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+                policyNumber: [this.policy.policyNumber, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+                clientNumber: [this.policy.clientNumber, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+                emissionDate: [this._getDateFormat(this.policy.emissionDate), [Validators.required, ValidatorsHelper.date] ],
+                validityStartDate: [this._getDateFormat(this.policy.validityStartDate), [Validators.required, ValidatorsHelper.date] ],
+                validityEndDate: [this._getDateFormat(this.policy.validityEndDate), [Validators.required, ValidatorsHelper.date] ],
+                titularName: [this.policy.titularName, [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
+                titularRfc: [this.policy.titularRfc, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+                titularPostalCode: [this.policy.titularPostalCode, [Validators.required, ValidatorsHelper.postalCode ] ],
+                titularPhoneNumber: [this.policy.titularPhoneNumber, [ValidatorsHelper.phoneNumber] ],
             });
         }
     }
