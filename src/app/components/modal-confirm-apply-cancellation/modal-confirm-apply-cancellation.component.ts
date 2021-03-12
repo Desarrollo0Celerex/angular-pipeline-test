@@ -3,23 +3,17 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-action',
-  templateUrl: './modal-confirm-action.component.html',
+  selector: 'agt-modal-confirm-apply-cancellation',
+  templateUrl: './modal-confirm-apply-cancellation.component.html',
   styles: [
   ]
 })
-export class ModalConfirmActionComponent {
-    @Input() title: string;
-    @Input() description: string;
+export class ModalConfirmApplyCancellationComponent {
     @Input() modalId: string;
-    @Input() question: string;
     @Output() actionConfirmed: EventEmitter<void>;
 
     constructor() {
-        this.title = '';
-        this.description = '';
         this.modalId = '';
-        this.question = '';
         this.actionConfirmed = new EventEmitter<void>();
     }
 

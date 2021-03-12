@@ -22,8 +22,6 @@ declare var Select2Plugin: any;
 export class CancelPolicyPage implements OnInit {
     contactId: string;
     message: string;
-    modalConfirmActionTitle: string;
-    modalConfirmActionDescription: string;
     modalIdConfirmAction: string;
     modalIdSelectFile: string;
     modalIdShowPolicy: string;
@@ -42,8 +40,6 @@ export class CancelPolicyPage implements OnInit {
     ) {
         this.contactId = '';
         this.message = 'Confirma los datos para cancelar la póliza de';
-        this.modalConfirmActionTitle = 'Cancelar Póliza';
-        this.modalConfirmActionDescription = 'La póliza será cancelada de manera definitiva y esta acción no es reversible.';
         this.modalIdConfirmAction = 'agt-confirm-action';
         this.modalIdSelectFile = 'agt-select-file';
         this.modalIdShowPolicy = 'agt-show-policy';

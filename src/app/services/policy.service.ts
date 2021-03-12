@@ -128,18 +128,6 @@ export class PolicyService {
     }
 
     /**
-     * Get the filter to apply
-     * @param  filters The filters to apply
-     * @return         The filter
-     */
-    private _getFilter(filters: number[]): string {
-        const filterIds: string[] = filters.map( (element: number) => {
-            return 'policyStatusId[=]' + element;
-        });
-        return filterIds.join(',');
-    }
-
-    /**
      * Clean object
      * @param  object Object to clean
      * @return        Cleaned object
@@ -149,5 +137,17 @@ export class PolicyService {
             object[key] = (object[key] === null) ? '' : object[key];
         }
         return object;
+    }
+
+    /**
+     * Get the filter to apply
+     * @param  filters The filters to apply
+     * @return         The filter
+     */
+    private _getFilter(filters: number[]): string {
+        const filterIds: string[] = filters.map( (element: number) => {
+            return 'policyStatusId[=]' + element;
+        });
+        return filterIds.join(',');
     }
 }

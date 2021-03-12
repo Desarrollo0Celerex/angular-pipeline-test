@@ -61,7 +61,7 @@
         <h6 class="mb-1">{{policy.coveredProperty}}</h6>
         <!-- AGENTHOS - POLICY LIVE -->
         <div class="progress progress-sm mt-2">
-            <div class="progress-bar lifeInsurancePolicy w-70"></div>
+            <div class="progress-bar {{policy.insuranceBackground}}" [ngStyle]="{'width': policy.progressbar+'%'}"></div>
         </div>
         <!-- //AGENTHOS - POLICY LIVE -->
     </div>

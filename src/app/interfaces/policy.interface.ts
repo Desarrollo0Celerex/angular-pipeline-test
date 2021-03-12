@@ -14,5 +14,9 @@ export interface Policy {
     paymentPlanName: string,
     policyNumber: string,
     policyUrl: string,
-    coveredProperty: string
+    coveredProperty: string,
+    progressbar: number,
+    validityStartDate: string,
+    validityEndDate: string
+    policyStatusId: number
 }

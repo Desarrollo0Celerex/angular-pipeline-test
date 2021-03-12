@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CardContactModule } from '@components/card-contact/card-contact.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
-import { ModalConfirmActionModule } from '@components/modal-confirm-action/modal-confirm-action.module';
+import { ModalConfirmApplyCancellationModule } from '@components/modal-confirm-apply-cancellation/modal-confirm-apply-cancellation.module';
 import { ModalSelectFileModule } from '@components/modal-select-file/modal-select-file.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { PolicyService } from '@services/policy.service';
@@ -22,7 +22,7 @@ import { CancelPolicyService } from './cancel-policy.service';
     CancelPolicyRoutingModule,
     FormsModule,
     LoadingContentModule,
-    ModalConfirmActionModule,
+    ModalConfirmApplyCancellationModule,
     ModalSelectFileModule,
     ModalShowPolicyModule,
     ReactiveFormsModule
