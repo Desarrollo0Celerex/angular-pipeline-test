@@ -4,9 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { CompletePolicyDataSend } from '@interfaces/complete-policy-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { UpdateContactPolicyDataSend } from '@interfaces/update-contact-policy-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
@@ -49,7 +47,7 @@ export class PolicyService {
      * @param  requestBody The policy data
      * @return             Notice of action done
      */
-    completePolicy(contactId: string, policyId: string, requestBody: CompletePolicyDataSend): Observable<void> {
+    completePolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.completeContactPolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
     }
@@ -110,7 +108,7 @@ export class PolicyService {
      * @param  requestBody The policy data
      * @return             Notice of action done
      */
-    updateContactPolicy(contactId: string, policyId: string, requestBody: UpdateContactPolicyDataSend): Observable<void> {
+    updateContactPolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.updateContactPolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
     }

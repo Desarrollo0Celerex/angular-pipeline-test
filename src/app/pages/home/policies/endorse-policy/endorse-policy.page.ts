@@ -5,6 +5,7 @@ import { AbstractControl } from '@angular/forms';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { EndorsePolicyService } from './endorse-policy.service';
@@ -27,9 +28,7 @@ export class EndorsePolicyPage implements OnInit {
     calendarIdValidityStartDate: string;
     contactId: string;
     message: string;
-    modalSelectFileTitle: string;
-    modalSelectFileDescription: string;
-    modalSelectFileButtonLabel: string;
+    modalSelectFileData: ModalSelectFileData;
     modalIdConfirmApplyEndorsement: string;
     modalIdUploadPolicyEndorsement: string;
     policyId: string;
@@ -51,9 +50,11 @@ export class EndorsePolicyPage implements OnInit {
         this.calendarIdValidityStartDate = 'validityStartDate';
         this.contactId = '';
         this.message = 'Captura el endoso para la póliza de';
-        this.modalSelectFileTitle = 'Cargar Endoso 123';
-        this.modalSelectFileDescription = 'Selecciona el documento con los detalles del endoso.';
-        this.modalSelectFileButtonLabel = 'Cargar endoso';
+        this.modalSelectFileData = {
+            title: 'Cargar Endoso 123',
+            description: 'Selecciona el documento con los detalles del endoso.',
+            buttonLabel: 'Cargar endoso'
+        }
         this.modalIdConfirmApplyEndorsement = 'agt-confirm-apply-endorsement';
         this.modalIdUploadPolicyEndorsement = 'agt-upload-policy-endorsement';
         this.policyId = '';

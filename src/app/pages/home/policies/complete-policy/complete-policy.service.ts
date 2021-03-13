@@ -6,7 +6,6 @@ import * as moment from 'moment';
 
 import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH, DEFAULT_CURRENCY_ID, DEFAULT_METHOD_ID, DEFAULT_PLAN_ID } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
-import { CompletePolicyDataSend } from '@interfaces/complete-policy-data-send.interface';
 import { Currency } from '@interfaces/currency.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
@@ -22,7 +21,7 @@ export class CompletePolicyService {
     currencies: Currency[];
     paymentMethods: PaymentMethod[];
     paymentPlans: PaymentPlan[];
-    policyPreview: PolicyPreview;
+    policy: PolicyPreview | null;
     policyForm: FormGroup;
 
     constructor(
@@ -35,7 +34,7 @@ export class CompletePolicyService {
         this.currencies = [];
         this.paymentMethods = [];
         this.paymentPlans = [];
-        this.policyPreview = this._buildPolicyPreview();
+        this.policy = null;
         this.policyForm = this._formBuilder.group({});
     }
 
@@ -48,6 +47,7 @@ export class CompletePolicyService {
      */
     buildPolicyForm(): void {
         this.policyForm = this._formBuilder.group({
+            policyFile: [''],
             coveredProperty: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             policyNumber: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             clientNumber: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
@@ -102,7 +102,7 @@ export class CompletePolicyService {
      * @return           Notice of action done
      */
     completePolicy(contactId: string, policyId: string): Observable<void> {
-        const requestBody: CompletePolicyDataSend = this.policyForm.value;
+        const requestBody: FormData = this._getRequestBody();
         return this._policyService.completePolicy(contactId, policyId, requestBody);
     }
 
@@ -113,11 +113,11 @@ export class CompletePolicyService {
      * @return          Notice of action done
      */
     loadContactPolicy(contactId: string, policyId: string): Observable<void> {
-        this.policyPreview = this._buildPolicyPreview();
+        this.policy = null;
         const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeName,insurerName,policyUrl';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
-                this.policyPreview = res.data;
+                this.policy = res.data;
             }),
             map(() => { })
         )
@@ -166,23 +166,6 @@ export class CompletePolicyService {
     }
 
     /**
-     * Build the contact policy
-     * @return An empty contact policy
-     */
-    private _buildPolicyPreview(): PolicyPreview {
-        return {
-            policyId: '',
-            insuranceName: '',
-            insuranceIcon: '',
-            insuranceBackground: '',
-            insuranceTypeName: '',
-            policyStatusName: '',
-            policyStatusBackground: '',
-            insurerName: ''
-        }
-    }
-
-    /**
      * Get the months of the payment plan
      * @param  paymentPlanId The payment plant ID
      * @return                The months
@@ -190,5 +173,30 @@ export class CompletePolicyService {
     private _getPaymentPlanMonths(paymentPlanId: number): number {
         const paymentPlan: PaymentPlan | undefined = this.paymentPlans.find( (element: PaymentPlan) => element.paymentPlanId == paymentPlanId);
         return (!!paymentPlan) ? paymentPlan.months : 0;
+    }
+
+    /**
+     * Get the request body
+     * @return The request body
+     */
+    private _getRequestBody(): FormData {
+        const requestBody: FormData = new FormData();
+        requestBody.append('policyFile', this.f.policyFile.value);
+        requestBody.append('coveredProperty', this.f.coveredProperty.value);
+        requestBody.append('policyNumber', this.f.policyNumber.value);
+        requestBody.append('clientNumber', this.f.clientNumber.value);
+        requestBody.append('emissionDate', this.f.emissionDate.value);
+        requestBody.append('validityStartDate', this.f.validityStartDate.value);
+        requestBody.append('validityEndDate', this.f.validityEndDate.value);
+        requestBody.append('titularName', this.f.titularName.value);
+        requestBody.append('titularRfc', this.f.titularRfc.value);
+        requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
+        requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
+        requestBody.append('amount', this.f.amount.value);
+        requestBody.append('currencyId', this.f.currencyId.value);
+        requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
+        requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
+        requestBody.append('bills', this.f.bills.value);
+        return requestBody;
     }
 }

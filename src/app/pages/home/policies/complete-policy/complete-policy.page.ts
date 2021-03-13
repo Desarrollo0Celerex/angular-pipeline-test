@@ -5,6 +5,7 @@ import { AbstractControl } from '@angular/forms';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { CompletePolicyService } from './complete-policy.service';
@@ -24,8 +25,9 @@ export class CompletePolicyPage implements OnInit {
     contactId: string;
     message: string;
     policyId: string;
-    policyIsLoaded: boolean;
+    modalIdSelectFile: string;
     modalIdShowPolicy: string;
+    modalSelectFileData: ModalSelectFileData;
     emissionDateCalendarId: string;
     validityEndDateCalendarId: string;
     validityStartDateCalendarId: string;
@@ -44,8 +46,13 @@ export class CompletePolicyPage implements OnInit {
         this.contactId = '';
         this.message = 'Verfica los datos para la nueva póliza de';
         this.policyId = '';
-        this.policyIsLoaded = false;
+        this.modalIdSelectFile = 'agt-select-file';
         this.modalIdShowPolicy = 'agt-show-policy';
+        this.modalSelectFileData = {
+            title: 'Actualizar Póliza',
+            description: 'Selecciona el formato digital de la póliza.',
+            buttonLabel: 'Cargar poliza'
+        }
         this.validityEndDateCalendarId = 'validityEndDate';
         this.validityStartDateCalendarId = 'validityStartDate';
         this.currencySelectId = 'agt-currency';
@@ -56,11 +63,7 @@ export class CompletePolicyPage implements OnInit {
 
     ngOnInit(): void {
         this._catchParams();
-        this.completePolicyService.buildPolicyForm();
         this._loadContactPolicy();
-        this._loadCurrencies();
-        this._loadPaymentMethods();
-        this._loadPaymentPlans();
     }
 
     /**
@@ -84,10 +87,24 @@ export class CompletePolicyPage implements OnInit {
     }
 
     /**
+     * Click event to show modal to select policy
+     */
+    onClickSelectPolicy(): void {
+        ModalPlugin.show(this.modalIdSelectFile);
+    }
+
+    /**
      * Click event to show modal to view the policy
      */
     onClickShowPolicy(): void {
         ModalPlugin.show(this.modalIdShowPolicy);
+    }
+
+    /**
+     * Event to update the form policy file
+     */
+    onPolicySelected(policyFile: File): void {
+        this.completePolicyService.policyForm.patchValue({policyFile: policyFile});
     }
 
     /**
@@ -134,9 +151,12 @@ export class CompletePolicyPage implements OnInit {
      * Load the contact policy
      */
     private _loadContactPolicy(): void {
-        this.policyIsLoaded = false;
         this.completePolicyService.loadContactPolicy(this.contactId, this.policyId).subscribe( () => {
-            this.policyIsLoaded = true;
+            this.completePolicyService.buildPolicyForm();
+            this._initCalendars();
+            this._loadCurrencies();
+            this._loadPaymentMethods();
+            this._loadPaymentPlans();
         })
     }
 

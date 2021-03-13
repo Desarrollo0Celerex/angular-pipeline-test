@@ -5,6 +5,7 @@ import { AbstractControl } from '@angular/forms';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { UpdatePolicyService } from './update-policy.service';
@@ -25,7 +26,9 @@ export class UpdatePolicyPage implements OnInit {
     calendarIdValidityEndDate: string;
     contactId: string;
     message: string;
+    modalIdSelectFile: string;
     modalIdShowPolicy: string;
+    modalSelectFileData: ModalSelectFileData;
     policyId: string;
     private _isFormSubmitted: boolean;
 
@@ -41,7 +44,13 @@ export class UpdatePolicyPage implements OnInit {
         this.calendarIdValidityEndDate = 'validityEndDate';
         this.contactId = '';
         this.message = 'Actualiza los datos de la póliza de';
+        this.modalIdSelectFile = 'agt-select-file';
         this.modalIdShowPolicy = 'agt-show-policy';
+        this.modalSelectFileData = {
+            title: 'Actualizar Póliza',
+            description: 'Selecciona el formato digital de la póliza.',
+            buttonLabel: 'Cargar poliza'
+        }
         this.policyId = '';
         this._isFormSubmitted = false;
     }
@@ -72,10 +81,24 @@ export class UpdatePolicyPage implements OnInit {
     }
 
     /**
+     * Click event to show modal to select policy
+     */
+    onClickSelectPolicy(): void {
+        ModalPlugin.show(this.modalIdSelectFile);
+    }
+
+    /**
      * Click event to show modal to view the policy
      */
     onClickShowPolicy(): void {
         ModalPlugin.show(this.modalIdShowPolicy);
+    }
+
+    /**
+     * Event to update the form policy file
+     */
+    onPolicySelected(policyFile: File): void {
+        this.updatePolicyService.policyForm.patchValue({policyFile: policyFile});
     }
 
     /**

@@ -5,6 +5,7 @@ import { AbstractControl } from '@angular/forms';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { CancelPolicyService } from './cancel-policy.service';
@@ -25,9 +26,7 @@ export class CancelPolicyPage implements OnInit {
     modalIdConfirmAction: string;
     modalIdSelectFile: string;
     modalIdShowPolicy: string;
-    modalSelectFileTitle: string;
-    modalSelectFileDescription: string;
-    modalSelectFileButtonLabel: string;
+    modalSelectFileData: ModalSelectFileData;
     policyId: string;
     selectIdPolicyCancellationReason: string;
     private _isFormSubmitted: boolean;
@@ -43,9 +42,11 @@ export class CancelPolicyPage implements OnInit {
         this.modalIdConfirmAction = 'agt-confirm-action';
         this.modalIdSelectFile = 'agt-select-file';
         this.modalIdShowPolicy = 'agt-show-policy';
-        this.modalSelectFileTitle = 'Adjuntar Evidencia';
-        this.modalSelectFileDescription = 'Selecciona el formato digital de la evidencia de cancelación.';
-        this.modalSelectFileButtonLabel = 'Cargar evidencia';
+        this.modalSelectFileData = {
+            title: 'Adjuntar Evidencia',
+            description: 'Selecciona el formato digital de la evidencia de cancelación.',
+            buttonLabel: 'Cargar evidencia'
+        }
         this.policyId = '';
         this.selectIdPolicyCancellationReason = 'policyCancellationReasonId';
         this._isFormSubmitted = false;

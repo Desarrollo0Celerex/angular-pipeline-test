@@ -33,11 +33,9 @@
                 <div class="card-body">
                     <div class="col-sm-12">
                         <!-- AGENTHOS - VIEW POLICY (JUST IF UPLOADED) -->
-                        <button type="button" class="btn btn-block btn-primary mb-5" (click)="onClickShowPolicy()"><strong>VER PÓLIZA</strong></button>
+                        <button type="button" class="btn btn-block btn-primary mb-5" (click)="onClickShowPolicy()" *ngIf="!(!!updatePolicyService.f.policyFile.value)"><strong>VER PÓLIZA</strong></button>
                         <!-- AGENTHOS - UPDATE POLICY -->
-                        <a routerLink="/{{ROUTES_NAME.uploadPolicy(contactId, policyId)}}">
-                            <button type="button" name="agtPolicyUpdate" class="btn btn-block btn-secondary"><strong>ACTUALIZAR PÓLIZA</strong></button>
-                        </a>
+                        <button type="button" name="agtPolicyUpdate" class="btn btn-block btn-secondary" (click)="onClickSelectPolicy()"><strong>ACTUALIZAR PÓLIZA</strong></button>
                     </div>
                 </div>
             </div>
@@ -255,6 +253,7 @@
 </form>
 <!-- AGENTHOS - POLICY DETAILS -->
 
+<agt-modal-select-file [modalId]="modalIdSelectFile" [data]="modalSelectFileData" (fileSelected)="onPolicySelected($event)"></agt-modal-select-file>
 <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="contactId" [policyId]="policyId"></agt-modal-show-policy>
 
 <ng-template #loadingContent>

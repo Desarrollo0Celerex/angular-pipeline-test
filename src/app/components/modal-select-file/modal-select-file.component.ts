@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 import { FILE_TYPES } from '@constants/global';
+import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 
 declare var DropifyPlugin: any;
 declare var ModalPlugin: any;
@@ -12,21 +13,21 @@ declare var ModalPlugin: any;
   ]
 })
 export class ModalSelectFileComponent implements OnInit {
-    @Input() buttonLabel: string;
-    @Input() description: string;
     @Input() modalId: string;
-    @Input() title: string;
+    @Input() data: ModalSelectFileData;
     @Output() fileSelected: EventEmitter<File>;
-    @ViewChild('buttonUploadEndorsement') buttonUploadEndorsement: ElementRef<HTMLElement> | null;
+    @ViewChild('buttonUploadFile') buttonUploadFile: ElementRef<HTMLElement> | null;
     private _allowedFileTypes: string[];
 
     constructor() {
-        this.buttonLabel = '';
-        this.description = '';
         this.modalId = '';
-        this.title = '';
+        this.data = {
+            title: '',
+            description: '',
+            buttonLabel: ''
+        }
         this.fileSelected = new EventEmitter<File>();
-        this.buttonUploadEndorsement = null;
+        this.buttonUploadFile = null;
         this._allowedFileTypes = ['pdf'];
     }
 
@@ -38,8 +39,8 @@ export class ModalSelectFileComponent implements OnInit {
      * Click event to request upload endorsement
      */
     onClickUploadEndorsement(): void {
-        if(!!this.buttonUploadEndorsement) {
-            this.buttonUploadEndorsement.nativeElement.click();
+        if(!!this.buttonUploadFile) {
+            this.buttonUploadFile.nativeElement.click();
         }
     }
 

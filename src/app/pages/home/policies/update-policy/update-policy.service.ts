@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -8,7 +8,6 @@ import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicyComplete } from '@interfaces/policy-complete.interface';
-import { UpdateContactPolicyDataSend } from '@interfaces/update-contact-policy-data-send.interface';
 import { PolicyService } from '@services/policy.service';
 
 @Injectable()
@@ -23,6 +22,10 @@ export class UpdatePolicyService {
     ) {
         this.policy = null;
         this.policyForm = this._formBuilder.group({});
+    }
+
+    get f(): { [key: string]: AbstractControl; } {
+        return this.policyForm.controls;
     }
 
     /**
@@ -49,7 +52,7 @@ export class UpdatePolicyService {
      * @return           Notice of action done
      */
     updateContactPolicy(contactId: string, policyId: string): Observable<void> {
-        const requestBody: UpdateContactPolicyDataSend = this.policyForm.value;
+        const requestBody: FormData = this._getRequestBody();
         return this._policyService.updateContactPolicy(contactId, policyId, requestBody);
     }
 
@@ -59,6 +62,7 @@ export class UpdatePolicyService {
     private _buildPolicyForm(): void {
         if(!!this.policy) {
             this.policyForm = this._formBuilder.group({
+                policyFile: [''],
                 coveredProperty: [this.policy.coveredProperty, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 policyNumber: [this.policy.policyNumber, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 clientNumber: [this.policy.clientNumber, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
@@ -85,6 +89,26 @@ export class UpdatePolicyService {
             dateFormat = (!!formattedDate) ? formattedDate : '';
         }
         return dateFormat;
+    }
+
+    /**
+     * Get the request body
+     * @return The request body
+     */
+    private _getRequestBody(): FormData {
+        const requestBody: FormData = new FormData();
+        requestBody.append('policyFile', this.f.policyFile.value);
+        requestBody.append('coveredProperty', this.f.coveredProperty.value);
+        requestBody.append('policyNumber', this.f.policyNumber.value);
+        requestBody.append('clientNumber', this.f.clientNumber.value);
+        requestBody.append('emissionDate', this.f.emissionDate.value);
+        requestBody.append('validityStartDate', this.f.validityStartDate.value);
+        requestBody.append('validityEndDate', this.f.validityEndDate.value);
+        requestBody.append('titularName', this.f.titularName.value);
+        requestBody.append('titularRfc', this.f.titularRfc.value);
+        requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
+        requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
+        return requestBody;
     }
 
 }
