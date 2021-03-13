@@ -26,6 +26,7 @@ export class EndorsePolicyService {
     paymentMethods: PaymentMethod[];
     paymentPlans: PaymentPlan[];
     policy: PolicyComplete | null;
+    policyAux: PolicyComplete | null;
 
     constructor(
         private _currencyService: CurrencyService,
@@ -42,10 +43,48 @@ export class EndorsePolicyService {
         this.paymentMethods = [];
         this.paymentPlans = [];
         this.policy = null;
+        this.policyAux = null;
     }
 
     get f(): { [key: string]: AbstractControl } {
         return this.endorsementForm.controls;
+    }
+
+    /**
+     * Check if the policy data was updated
+     * @return True if it was updated, otherwise false
+     */
+    checkIsPolicyChanged(): boolean {
+        if(!!this.policy) {
+            const fieldsToEvaluate: string[] = [
+                "coveredProperty",
+                "policyNumber",
+                "clientNumber",
+                "titularName",
+                "titularRfc",
+                "titularPostalCode",
+                "titularPhoneNumber",
+                "emissionDate",
+                "validityStartDate",
+                "validityEndDate",
+                "amount",
+                "currencyId",
+                "paymentMethodId",
+                "paymentPlanId",
+                "bills",
+            ];
+            const policyAux: any = this.policy;
+            const endorsementFormAux: any = this.endorsementForm.value;
+            for(let field of fieldsToEvaluate) {
+                if(field === 'emissionDate' || field === 'validityStartDate' || field === 'validityEndDate') {
+                    policyAux[field] = this._getDateFormat(policyAux[field]);
+                }
+                if(policyAux[field] !== endorsementFormAux[field]) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -128,6 +167,7 @@ export class EndorsePolicyService {
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.policy = res.data;
+                this.policyAux = res.data;
                 this._buildEndorsementForm();
             }),
             map(() => {})

@@ -94,11 +94,7 @@ export class EndorsePolicyPage implements OnInit {
      * Event to apply endorsement
      */
     onApplyEndorsement(): void {
-        this._loadingService.show();
-        this.endorsePolicyService.endorseContactPolicy(this.contactId, this.policyId).subscribe( () => {
-            this._loadingService.hide();
-            AlertHelper.policyEndorsed(this._goToListContactPolicies, this);
-        })
+        this._endorseContactPolicy();
     }
 
     /**
@@ -122,8 +118,24 @@ export class EndorsePolicyPage implements OnInit {
     onSubmitSaveEndorsement(): void {
         this._isFormSubmitted = true;
         if(this.endorsePolicyService.endorsementForm.valid) {
-            ModalPlugin.show(this.modalIdConfirmApplyEndorsement);
+            const isPolicyChanged: boolean = this.endorsePolicyService.checkIsPolicyChanged();
+            if(isPolicyChanged) {
+                ModalPlugin.show(this.modalIdConfirmApplyEndorsement);
+            } else {
+                this._endorseContactPolicy();
+            }
         }
+    }
+
+    /**
+     * Endorse the contact policy
+     */
+    private _endorseContactPolicy(): void {
+        this._loadingService.show();
+        this.endorsePolicyService.endorseContactPolicy(this.contactId, this.policyId).subscribe( () => {
+            this._loadingService.hide();
+            AlertHelper.policyEndorsed(this._goToListContactPolicies, this);
+        })
     }
 
     /**
