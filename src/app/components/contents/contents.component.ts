@@ -20,7 +20,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
     mainActionWidth: number;
     searchEngineWidth: number;
     query: string;
-    private subParams: any;
+    private _subParams: any;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -45,7 +45,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        if(!!this.subParams) this.subParams.unsubscribe();
+        if(!!this._subParams) this._subParams.unsubscribe();
     }
 
     /**
@@ -64,7 +64,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
         this.contactId = (!!this._activatedRoute.snapshot.params.contactId) ? this._activatedRoute.snapshot.params.contactId : '';
 
         // Dynamic params
-        this.subParams = this._activatedRoute.queryParams.subscribe( (params: Params) => {
+        this._subParams = this._activatedRoute.queryParams.subscribe( (params: Params) => {
             this.contentSubtype = this._getContentSubtype(params.contentSubtype);
             this.query = (typeof params.query !== 'undefined') ? params.query : '';
             if(!!this.query) {

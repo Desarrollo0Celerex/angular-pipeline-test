@@ -28,6 +28,7 @@
                 (updatePolicy)="onUpdatePolicy($event)"
                 (endorsePolicy)="onEndorsePolicy($event)"
                 (cancelPolicy)="onCancelPolicy($event)"
+                (renewPolicy)="onRenewPolicy($event)"
             ></agt-card-policy>
         </ng-container>
     </div>
@@ -53,5 +54,6 @@
     <agt-modal-confirm-update-policy [modalId]="modalIdConfirmUpdatePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-update-policy>
     <agt-modal-confirm-endorse-policy [modalId]="modalIdConfirmEndorsePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-endorse-policy>
     <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
+    <agt-modal-confirm-renew-policy [modalId]="modalIdConfirmRenewPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-renew-policy>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

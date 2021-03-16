@@ -14,6 +14,7 @@ export class CardPolicyComponent implements OnInit {
     @Input() policy: Policy | null;
     @Output() cancelPolicy: EventEmitter<string>;
     @Output() endorsePolicy: EventEmitter<string>;
+    @Output() renewPolicy: EventEmitter<string>;
     @Output() showPolicy: EventEmitter<string>;
     @Output() showPolicyDetails: EventEmitter<string>;
     @Output() updatePolicy: EventEmitter<string>;
@@ -22,6 +23,7 @@ export class CardPolicyComponent implements OnInit {
         this.policy = null;
         this.cancelPolicy = new EventEmitter<string>();
         this.endorsePolicy = new EventEmitter<string>();
+        this.renewPolicy = new EventEmitter<string>();
         this.showPolicy = new EventEmitter<string>();
         this.showPolicyDetails = new EventEmitter<string>();
         this.updatePolicy = new EventEmitter<string>();
@@ -43,6 +45,13 @@ export class CardPolicyComponent implements OnInit {
      */
     onClickEndorsePolicy(): void {
         if(!!this.policy) this.endorsePolicy.emit(this.policy.policyId);
+    }
+
+    /**
+     * Click event to endorse the policy
+     */
+    onClickRenewPolicy(): void {
+        if(!!this.policy) this.renewPolicy.emit(this.policy.policyId);
     }
 
     /**

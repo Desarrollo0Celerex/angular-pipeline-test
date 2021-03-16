@@ -30,6 +30,7 @@ export class ContentListComponent implements OnChanges {
     modalIdAcceptQuotation: string;
     modalIdConfirmCancelPolicy: string;
     modalIdConfirmEndorsePolicy: string;
+    modalIdConfirmRenewPolicy: string;
     modalIdConfirmUpdatePolicy: string;
     modalIdRejectQuotation: string;
     modalIdShowContactData: string;
@@ -56,6 +57,7 @@ export class ContentListComponent implements OnChanges {
         this.modalIdAcceptQuotation = 'agt-accept-quotation';
         this.modalIdConfirmCancelPolicy = 'agt-confirm-cancel-policy';
         this.modalIdConfirmEndorsePolicy = 'agt-confirm-endorse-policy';
+        this.modalIdConfirmRenewPolicy = 'agt-confirm-renew-policy';
         this.modalIdConfirmUpdatePolicy = 'agt-confirm-update-policy';
         this.modalIdRejectQuotation = 'agt-reject-quotation';
         this.modalIdShowContactData = 'agt-contact-data';
@@ -109,11 +111,20 @@ export class ContentListComponent implements OnChanges {
 
     /**
      * Event to reject a quotation
-     * @param quotationId [description]
+     * @param quotationId The quotation ID
      */
     onRejectQuotation(quotationId: string): void {
         this.selectedQuotationId = quotationId;
         ModalPlugin.show(this.modalIdRejectQuotation);
+    }
+
+    /**
+     * Event to renew a policy
+     * @param policyId The policy ID
+     */
+    onRenewPolicy(policyId: string): void {
+        this.selectedPolicyId = policyId;
+        ModalPlugin.show(this.modalIdConfirmRenewPolicy);
     }
 
     /**

@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
@@ -15,6 +16,7 @@ const routes: any = {
     completeContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/complete',
     endorseContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorse',
     cancelContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/cancel',
+    renewContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/renew',
 }
 
 @Injectable()
@@ -99,6 +101,17 @@ export class PolicyService {
         if(!!query) params = params.append('search', 'policyNumber:' + query);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
+     * Renew the policy in the API
+     * @param  contactId   The contact ID
+     * @param  policyId    The policy ID
+     * @return             The renewed policy ID
+     */
+    renewContactPolicy(contactId: string, policyId: string, requestBody: RenewContactPolicyDataSend): Observable<HttpResponse> {
+        const route: string = routes.renewContactPolicy(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<HttpResponse>(route, requestBody);
     }
 
     /**

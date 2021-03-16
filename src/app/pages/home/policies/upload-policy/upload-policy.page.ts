@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { FILE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -19,13 +19,15 @@ declare var Select2Plugin: any;
   styles: [
   ]
 })
-export class UploadPolicyPage implements OnInit {
+export class UploadPolicyPage implements OnInit, OnDestroy {
     ROUTES_NAME: any;
     contactId: string;
+    isRenewal: boolean;
     message: string;
     policyId: string;
     private _allowedFileTypes: string[];
     private _isFormSubmitted: boolean;
+    private _subParams: any;
 
     constructor(
         public uploadPolicyService: UploadPolicyService,
@@ -35,6 +37,7 @@ export class UploadPolicyPage implements OnInit {
     ) {
         this.ROUTES_NAME = ROUTES_NAME;
         this.contactId = '';
+        this.isRenewal = false;
         this.message = 'Selecciona la póliza digital que deseas cargar para';
         this.policyId = '';
         this._allowedFileTypes = ['pdf'];
@@ -44,8 +47,12 @@ export class UploadPolicyPage implements OnInit {
     ngOnInit(): void {
         DropifyPlugin.init(FILE_TYPES.DOCUMENT, this._allowedFileTypes);
         this._catchParams();
-        this.uploadPolicyService.buildPolicyForm();
         this._loadInsurers();
+        this.uploadPolicyService.buildPolicyForm();
+    }
+
+    ngOnDestroy(): void {
+        if(!!this._subParams) this._subParams.unsubscribe();
     }
 
     /**
@@ -101,8 +108,16 @@ export class UploadPolicyPage implements OnInit {
      * Catch the params
      */
     private _catchParams(): void {
+        // Params
         this.contactId = this._activatedRoute.snapshot.params.contactId;
         this.policyId = this._activatedRoute.snapshot.params.policyId;
+        // Query params
+        this._subParams = this._activatedRoute.queryParams.subscribe( (params: Params) => {
+            this.isRenewal = (typeof params.isRenewal !== 'undefined' && params.isRenewal == 'true') ? true : false;
+            if(this.isRenewal) {
+                this.uploadPolicyService.loadPolicyInsurerId(this.contactId, this.policyId);
+            }
+        })
     }
 
     /**

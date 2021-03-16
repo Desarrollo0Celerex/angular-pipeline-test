@@ -50,6 +50,18 @@ export class UploadPolicyService {
     }
 
     /**
+     * Load the policy insurer name
+     * @param  contactId The contact ID
+     * @param  policyId  The policy ID
+     */
+    loadPolicyInsurerId(contactId: string, policyId: string): void {
+        const fields: string = 'insurerId';
+        this._policyService.getContactPolicy(contactId, policyId, fields).subscribe( (res: HttpResponse) => {
+            this.policyForm.patchValue({insurerId: res.data.insurerId});
+        });
+    }
+
+    /**
      * Upload the contact policy
      * @param  contactId The contact ID
      * @param  policyId  The policy ID

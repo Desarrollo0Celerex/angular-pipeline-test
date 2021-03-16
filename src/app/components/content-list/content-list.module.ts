@@ -17,6 +17,7 @@ import { ModalConfirmAcceptQuotationModule } from '@components/modal-confirm-acc
 import { ModalConfirmCancelPolicyModule } from '@components/modal-confirm-cancel-policy/modal-confirm-cancel-policy.module';
 import { ModalConfirmEndorsePolicyModule } from '@components/modal-confirm-endorse-policy/modal-confirm-endorse-policy.module';
 import { ModalConfirmRejectQuotationModule } from '@components/modal-confirm-reject-quotation/modal-confirm-reject-quotation.module';
+import { ModalConfirmRenewPolicyModule } from '@components/modal-confirm-renew-policy/modal-confirm-renew-policy.module';
 import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
@@ -52,6 +53,7 @@ import { ContentListService } from './content-list.service';
     ModalConfirmCancelPolicyModule,
     ModalConfirmEndorsePolicyModule,
     ModalConfirmRejectQuotationModule,
+    ModalConfirmRenewPolicyModule,
     ModalConfirmUpdatePolicyModule,
     ModalShowContactDataModule,
     ModalShowPolicyModule,
