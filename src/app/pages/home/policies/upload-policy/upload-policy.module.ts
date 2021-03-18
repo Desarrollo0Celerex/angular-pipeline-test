@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { CardContactModule } from '@components/card-contact/card-contact.module';
+import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { InsurerService } from '@services/insurer.service';
 import { PolicyService } from '@services/policy.service';
 
@@ -17,6 +18,7 @@ import { UploadPolicyService } from './upload-policy.service';
     CardContactModule,
     CommonModule,
     FormsModule,
+    LoadingContentModule,
     ReactiveFormsModule,
     RouterModule,
     UploadPolicyRoutingModule

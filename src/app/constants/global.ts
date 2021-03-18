@@ -102,6 +102,9 @@ export const ENDORSEMENT_TYPES: any = {
     PAYMENT_METHOD_CHANGE: 3,
     POLICY_REHABILITATION: 5
 }
+export const ACTION_TYPES: any = {
+    RENEW_POLICY: 1
+}
 
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;

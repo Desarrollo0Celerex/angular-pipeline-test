@@ -166,7 +166,7 @@
                                             <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
                                         </div>
                                     </div>
-                                    <input class="form-control fc-datepicker" [placeholder]="cancelPolicyService.policy.emissionDate | date: 'dd/MM/YYYY'" type="text" disabled="">
+                                    <input class="form-control fc-datepicker" [placeholder]="(!!cancelPolicyService.policy.emissionDate) ? (cancelPolicyService.policy.emissionDate | date: 'dd/MM/YYYY') : ''" type="text" disabled="">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -178,7 +178,7 @@
                                             <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
                                         </div>
                                     </div>
-                                    <input class="form-control fc-datepicker" [placeholder]="cancelPolicyService.policy.validityStartDate | date: 'dd/MM/YYYY'" type="text" disabled="">
+                                    <input class="form-control fc-datepicker" [placeholder]="(!!cancelPolicyService.policy.validityStartDate) ? (cancelPolicyService.policy.validityStartDate | date: 'dd/MM/YYYY') : ''" type="text" disabled="">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -190,7 +190,7 @@
                                             <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
                                         </div>
                                     </div>
-                                    <input class="form-control fc-datepicker" [placeholder]="cancelPolicyService.policy.validityEndDate | date: 'dd/MM/YYYY'" type="text" disabled="">
+                                    <input class="form-control fc-datepicker" [placeholder]="(!!cancelPolicyService.policy.validityEndDate) ? (cancelPolicyService.policy.validityEndDate | date: 'dd/MM/YYYY') : ''" type="text" disabled="">
                                 </div>
                             </div>
                         </div>

@@ -11,7 +11,7 @@ import { ContactService } from '@services/contact.service';
 import { ContactSourceService } from '@services/contact-source.service';
 
 @Injectable()
-export class CreateContactService {
+export class ContainerCreateContactService {
     contactForm: FormGroup;
     contactSources: ContactSource[];
 

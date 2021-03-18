@@ -7,6 +7,7 @@ export interface Policy {
     policyStatusName: string,
     policyStatusDescription: string,
     policyStatusBackground: string,
+    insurerId: number,
     insurerName: string,
     insurerImageUrl: string,
     amount: number,

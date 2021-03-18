@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CardIncompletePolicyModule } from '@components/card-incomplete-policy/card-incomplete-policy.module';
+import { ModalConfirmCancelPolicyModule } from '@components/modal-confirm-cancel-policy/modal-confirm-cancel-policy.module';
 import { PolicyService } from '@services/policy.service';
 
 import { ContainerIncompletePoliciesComponent } from './container-incomplete-policies.component';
@@ -12,7 +13,8 @@ import { ContainerIncompletePoliciesService } from './container-incomplete-polic
   exports: [ContainerIncompletePoliciesComponent],
   imports: [
     CardIncompletePolicyModule,
-    CommonModule
+    CommonModule,
+    ModalConfirmCancelPolicyModule
   ],
   providers: [ContainerIncompletePoliciesService, PolicyService]
 })

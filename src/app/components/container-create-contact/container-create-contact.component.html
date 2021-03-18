@@ -1,0 +1,92 @@
+<div class="card">
+    <form [formGroup]="containerCreateContactService.contactForm" (submit)="onSubmitCreateContact()">
+        <div class="card-header">
+            <div class="card-title">Crear Contacto</div>
+        </div>
+        <div class="card-body">
+            <!-- AGENTHOS - CONTACT INFO -->
+            <div class="row">
+                <ng-container *ngIf="contactTypeId == CONTACT_TYPES.PERSON; else companyContact">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <!-- AGENTHOS - CONTACT NAME * -->
+                            <label class="form-label">Nombre (s)</label>
+                            <input type="text" class="form-control {{getValidationClass('name')}}" placeholder="Ingresa el nombre del prospecto" formControlName="name">
+                            <div class="invalid-feedback">{{getErrorMessage('name')}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <!-- AGENTHOS - CONTACT NAME PATERNAL * -->
+                            <label class="form-label">Apellido Paterno</label>
+                            <input type="text" name="agtContactNamePaternal" class="form-control {{getValidationClass('namePaternal')}}" placeholder="Ingresa su apellido paterno" formControlName="namePaternal">
+                            <div class="invalid-feedback">{{getErrorMessage('namePaternal')}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <!-- AGENTHOS - CONTACT NAME MATERNAL * -->
+                            <label class="form-label">Apellido Materno</label>
+                            <input type="text" name="agtContactNameMaternal" class="form-control {{getValidationClass('nameMaternal')}}" placeholder="Ingresa su apellido materno" formControlName="nameMaternal">
+                            <div class="invalid-feedback">{{getErrorMessage('nameMaternal')}}</div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #companyContact>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- AGENTHOS - CONTACT NAME * -->
+                            <label class="form-label">Razón Social</label>
+                            <input type="text" class="form-control {{getValidationClass('companyName')}}" placeholder="Ingresa el nombre del prospecto" formControlName="companyName">
+                            <div class="invalid-feedback">{{getErrorMessage('companyName')}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- AGENTHOS - CONTACT NAME PATERNAL * -->
+                            <label class="form-label">Nombre Comercial</label>
+                            <input type="text" name="agtContactNamePaternal" class="form-control {{getValidationClass('brandName')}}" placeholder="Ingresa su apellido paterno" formControlName="brandName">
+                            <div class="invalid-feedback">{{getErrorMessage('brandName')}}</div>
+                        </div>
+                    </div>
+                </ng-template>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <!-- AGENTHOS - CONTACT MAIL -->
+                        <label class="form-label">Correo Electrónico</label>
+                        <input type="text" name="agtContactEmail" class="form-control {{getValidationClass('email')}}" placeholder="Ingresa su correo electrónico" formControlName="email">
+                        <div class="invalid-feedback">{{getErrorMessage('email')}}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <!-- AGENTHOS - CONTACT PHONE -->
+                    <label class="form-label">WhatsApp</label>
+                    <div class="input-group mb-3">
+                        <agt-dropdown-select-phone-code [phoneCodeId]="containerCreateContactService.f.phoneCodeId.value" (phoneCodeIdSelected)="onPhoneCodeIdSelected($event)"></agt-dropdown-select-phone-code>
+                        <!-- AGENTHOS - PHONE NUMBER -->
+                        <input type="text" name="agtContactPhoneNumber" class="form-control {{getValidationClass('phoneNumber')}}" placeholder="Ingresa su WhatsApp" formControlName="phoneNumber">
+                        <div class="invalid-feedback">{{getErrorMessage('phoneNumber')}}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <!-- AGENTHOS - CONTACT SOURCE * -->
+                        <label class="form-label">Origen del Contacto</label>
+                        <button type="button" class="btn btn-radius btn-block btn-default-light" (click)="onClickSelectContactSource()">
+                        <i class="fe fe-globe mr-2"></i>{{getContactSourceName(containerCreateContactService.f.contactSourceId.value)}}</button>
+                    </div>
+                </div>
+            </div>
+            <!-- AGENTHOS - CONTACT INFO -->
+        </div>
+        <div class="card-footer">
+            <!-- AGENTHOS - SAVE CONTACT -->
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary btn-block"><strong>GUARDAR CONTACTO</strong></button>
+            </div>
+            <!-- //AGENTHOS SAVE CONTACT -->
+        </div>
+    </form>
+</div>
+
+<agt-modal-select-contact-source [modalId]="modalIdSelectContactSource" [contactSourceId]="containerCreateContactService.f.contactSourceId.value" (contactSourceIdSelected)="onContactSourceIdSelected($event)"></agt-modal-select-contact-source>

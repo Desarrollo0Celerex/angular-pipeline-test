@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { FILE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { HttpResponse } from '@interfaces/http-response.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { UploadPolicyService } from './upload-policy.service';
@@ -22,8 +23,9 @@ declare var Select2Plugin: any;
 export class UploadPolicyPage implements OnInit, OnDestroy {
     ROUTES_NAME: any;
     contactId: string;
-    isRenewal: boolean;
+    isLoadingContent: boolean;
     message: string;
+    policy: { policyUrl: string, insurerId: number, insurerName: string };
     policyId: string;
     private _allowedFileTypes: string[];
     private _isFormSubmitted: boolean;
@@ -37,18 +39,19 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     ) {
         this.ROUTES_NAME = ROUTES_NAME;
         this.contactId = '';
-        this.isRenewal = false;
+        this.isLoadingContent = true;
         this.message = 'Selecciona la póliza digital que deseas cargar para';
+        this.policy = { policyUrl: '', insurerId: 0, insurerName: '' };
         this.policyId = '';
         this._allowedFileTypes = ['pdf'];
         this._isFormSubmitted = false;
     }
 
     ngOnInit(): void {
-        DropifyPlugin.init(FILE_TYPES.DOCUMENT, this._allowedFileTypes);
         this._catchParams();
-        this._loadInsurers();
+        DropifyPlugin.init(FILE_TYPES.DOCUMENT, this._allowedFileTypes);
         this.uploadPolicyService.buildPolicyForm();
+        this._getContactPolicy();
     }
 
     ngOnDestroy(): void {
@@ -111,11 +114,26 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
         // Params
         this.contactId = this._activatedRoute.snapshot.params.contactId;
         this.policyId = this._activatedRoute.snapshot.params.policyId;
-        // Query params
-        this._subParams = this._activatedRoute.queryParams.subscribe( (params: Params) => {
-            this.isRenewal = (typeof params.isRenewal !== 'undefined' && params.isRenewal == 'true') ? true : false;
-            if(this.isRenewal) {
-                this.uploadPolicyService.loadPolicyInsurerId(this.contactId, this.policyId);
+    }
+
+    /**
+     * Get the contact policy
+     */
+    private _getContactPolicy(): void {
+        this.uploadPolicyService.getContactPolicy(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
+            this.isLoadingContent = false;
+            this.policy = res.data;
+            // If you have already uploaded the file
+            if(!!this.policy.policyUrl) {
+                this._router.navigateByUrl(ROUTES_NAME.completePolicy(this.contactId, this.policyId));
+            }
+            else {
+                // If the policy comes from a renewal
+                if(!!this.policy.insurerId) {
+                    this.uploadPolicyService.policyForm.patchValue({insurerId: this.policy.insurerId});
+                } else {
+                    this._loadInsurers();
+                }
             }
         })
     }

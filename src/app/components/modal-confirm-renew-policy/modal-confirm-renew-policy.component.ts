@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { ACTION_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { LoadingService } from '@services/loading.service';
@@ -19,7 +20,9 @@ export class ModalConfirmRenewPolicyComponent {
     @Input() contactId: string;
     @Input() modalId: string;
     @Input() policyId: string;
+    ACTION_TYPES: any;
     ROUTES_NAME: any;
+    modalIdSelectContactType: string;
 
     constructor(
         private _loadingService: LoadingService,
@@ -29,7 +32,9 @@ export class ModalConfirmRenewPolicyComponent {
         this.contactId = '';
         this.modalId = '';
         this.policyId = '';
+        this.ACTION_TYPES = ACTION_TYPES;
         this.ROUTES_NAME = ROUTES_NAME;
+        this.modalIdSelectContactType = 'agt-select-contact-type';
     }
 
     /**
@@ -37,6 +42,7 @@ export class ModalConfirmRenewPolicyComponent {
      */
     onClickRenewPolicyToOtherClient(): void {
         ModalPlugin.hide(this.modalId);
+        ModalPlugin.show(this.modalIdSelectContactType);
     }
 
     /**

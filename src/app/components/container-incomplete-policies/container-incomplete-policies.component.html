@@ -8,7 +8,14 @@
         </div>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3" *ngFor="let incompletePolicy of containerListIncompletePoliciesService.incompletePolicies">
-         <agt-card-incomplete-policy [incompletePolicy]="incompletePolicy"></agt-card-incomplete-policy>
+         <agt-card-incomplete-policy
+             [incompletePolicy]="incompletePolicy"
+             (completePolicy)="onCompletePolicy($event)"
+             (cancelPolicy)="onCancelPolicy($event)"
+         >
+         </agt-card-incomplete-policy>
     </div>
 </div>
 <!-- //AGENTHOS - POLICY LISTING (INCOMPLETES) -->
+
+<agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>

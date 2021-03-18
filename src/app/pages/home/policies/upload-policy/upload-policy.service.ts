@@ -37,6 +37,17 @@ export class UploadPolicyService {
     }
 
     /**
+     * Get the contact policy
+     * @param  contactId The contact ID
+     * @param  policyId  The policy
+     * @return           The contact policy data
+     */
+    getContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
+        const fields: string = 'policyUrl,insurerId,insurerName';
+        return this._policyService.getContactPolicy(contactId, policyId, fields);
+    }
+
+    /**
      * Load the insurers
      * @return Notice of action done
      */
@@ -47,18 +58,6 @@ export class UploadPolicyService {
             }),
             map( () => { })
         );
-    }
-
-    /**
-     * Load the policy insurer name
-     * @param  contactId The contact ID
-     * @param  policyId  The policy ID
-     */
-    loadPolicyInsurerId(contactId: string, policyId: string): void {
-        const fields: string = 'insurerId';
-        this._policyService.getContactPolicy(contactId, policyId, fields).subscribe( (res: HttpResponse) => {
-            this.policyForm.patchValue({insurerId: res.data.insurerId});
-        });
     }
 
     /**

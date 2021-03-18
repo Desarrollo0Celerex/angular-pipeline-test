@@ -2,9 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertHelper } from '@helpers/alert.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { UploadPolicyData } from '@interfaces/upload-policy-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ModalConfirmAcceptQuotationService } from './modal-confirm-accept-quotation.service';
@@ -40,18 +38,8 @@ export class ModalConfirmAcceptQuotationComponent {
         this._loadingService.show();
         this._modalAcceptQuotationService.acceptQuotation(this.contactId, this.quotationId).subscribe( (res: HttpResponse) => {
             this._loadingService.hide();
-            const data: UploadPolicyData = { contactId: this.contactId, policyId: res.data };
-            AlertHelper.quotationAccepted(this._goToUploadPolicy, this, data)
+            this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(this.contactId, res.data));
         })
-    }
-
-    /**
-     * Navigates to upload the policy data
-     * @param context The app context
-     * @param data    The data to navigate to upload policy
-     */
-    private _goToUploadPolicy(context: ModalConfirmAcceptQuotationComponent, data: UploadPolicyData): void {
-        context._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.contactId, data.policyId));
     }
 
 }

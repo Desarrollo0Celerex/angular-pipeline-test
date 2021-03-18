@@ -10,7 +10,10 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12" *ngIf="!!description">
+							<p class="text-justify">{{description}} <strong>{{message}}</strong></p>
+						</div>
                         <!-- AGENTHOS - PERSONAL CLIENT -->
                         <div class="col-md-12 mt-5">
                             <button type="button" class="btn btn-primary btn-block" (click)="onClickCreateContact(CONTACT_TYPES.PERSON)"><i class="fe fe-user mr-2"></i><strong>PERSONA</strong></button>

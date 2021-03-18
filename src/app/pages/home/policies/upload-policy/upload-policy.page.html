@@ -1,7 +1,7 @@
 <agt-card-contact [contactId]="contactId" [message]="message"></agt-card-contact>
 
 <!-- AGENTHOS - NEW POLICY -->
-<div class="row">
+<div class="row" [hidden]="isLoadingContent">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
@@ -18,16 +18,21 @@
                                 <div class="invalid-feedback">{{getErrorMessage('policyFile')}}</div>
                             </div>
                         </div>
-                        <div class="col-md-12" *ngIf="!isRenewal">
+                        <div class="col-md-12">
                             <!-- AGENTHOS - INSURANCE COMPANY -->
                             <div class="form-group">
-                                <label class="form-label">Compañía de Seguros</label>
-                                <select class="form-control select2-show-search {{getValidationClass('insurerId')}}" data-placeholder="Compañía Aseguradora" formControlName="insurerId">
-                                    <optgroup label="Seleccionar Compañía">
-                                        <option [value]="insurer.insurerId" *ngFor="let insurer of uploadPolicyService.insurers">{{insurer.name | uppercase}}</option>
-                                    </optgroup>
-                                </select>
-                                <div class="invalid-feedback">{{getErrorMessage('insurerId')}}</div>
+                                <ng-container *ngIf="!(!!policy.insurerId); else showInsurerName">
+                                    <label class="form-label">Compañía de Seguros</label>
+                                    <select class="form-control select2-show-search {{getValidationClass('insurerId')}}" data-placeholder="Compañía Aseguradora" formControlName="insurerId">
+                                        <optgroup label="Seleccionar Compañía">
+                                            <option [value]="insurer.insurerId" *ngFor="let insurer of uploadPolicyService.insurers">{{insurer.name | uppercase}}</option>
+                                        </optgroup>
+                                    </select>
+                                    <div class="invalid-feedback">{{getErrorMessage('insurerId')}}</div>
+                                </ng-container>
+                                <ng-template #showInsurerName>
+                                    <input type="text" class="form-control" placeholder="{{policy.insurerName | uppercase}}" disabled="">
+                                </ng-template>
                             </div>
                             <!-- //AGENTHOS - INSURANCE COMPANY -->
                         </div>
@@ -56,3 +61,4 @@
     </div>
 </div>
 <!-- //AGENTHOS - NEW POLICY -->
+<agt-loading-content [isLoadingContent]="isLoadingContent"></agt-loading-content>

@@ -21,7 +21,8 @@ const HOME_CLIENTS_ROUTES = {
 }
 
 const HOME_CONTACTS_ROUTES = {
-    createContact: (contactTypeId: string) => `home/contacts/create-contact/${contactTypeId}`
+    createContact: (contactTypeId: string) => `home/contacts/create-contact/${contactTypeId}`,
+    changeContact: (contactId: string, policyId: string, contactTypeId: string, actionType: string) => `home/contacts/change-contact/${contactId}/${policyId}/${contactTypeId}/${actionType}`
 }
 
 const HOME_CONTACT_PROFILE_ROUTES = {
