@@ -9,7 +9,7 @@ export class ContentSearchEngineService {
     searchForm: FormGroup;
 
     constructor(private _formBuider: FormBuilder) {
-        this.searchForm = this._formBuider.group({});
+        this.searchForm = this.buildSearchForm();
     }
 
     get f(): { [key: string]: AbstractControl; }  {
@@ -19,9 +19,9 @@ export class ContentSearchEngineService {
     /**
      * Build the search form
      */
-    buildSearchForm(query: string): void {
-        this.searchForm = this._formBuider.group({
-            query: [query, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
+    buildSearchForm(): FormGroup {
+        return this._formBuider.group({
+            query: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
         })
     }
 }

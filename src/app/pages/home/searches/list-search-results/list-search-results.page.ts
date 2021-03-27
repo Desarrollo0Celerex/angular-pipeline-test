@@ -1,17 +1,17 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-format.pipe';
 
 @Component({
-  selector: 'agt-search-results',
-  templateUrl: './search-results.component.html',
+  selector: 'agt-list-search-results',
+  templateUrl: './list-search-results.page.html',
   styles: [
   ]
 })
-export class SearchResultsComponent implements OnInit, OnDestroy {
-    @Input() contentType: number;
-    @Input() contentTypeName: string;
+export class ListSearchResultsPage implements OnInit, OnDestroy {
+    contentType: number;
+    contentTypeName: string;
     contentSubtypeName: string;
     query: string;
     totalResults: number;
@@ -21,10 +21,10 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
         private _activatedRoute: ActivatedRoute,
         private _labelFoundFormatPipe: LabelFoundFormatPipe
     ) {
-        this.contentType = 0;
-        this.contentTypeName = '';
+        this.contentType = 2;
+        this.contentTypeName = 'Prospecto';
         this.contentSubtypeName = '';
-        this.query = '';
+        this.query = 'migu';
         this.totalResults = 0;
     }
 
@@ -49,9 +49,10 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
      */
     private catchParams(): void {
         this.subParams = this._activatedRoute.queryParams.subscribe( (params: Params) => {
+            this.contentType = parseInt(params['contentType']);
+            this.contentTypeName = params['contentTypeName'];
             this.query = params['query'];
             this.contentSubtypeName = this._labelFoundFormatPipe.transform(this.contentType);
         })
     }
-
 }

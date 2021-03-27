@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ContainerCreateContactModule } from '@components/container-create-contact/container-create-contact.module';
+import { ContentSearchEngineModule } from '@components/content-search-engine/content-search-engine.module';
 import { PolicyService } from '@services/policy.service';
 
 import { ChangeContactRoutingModule } from './change-contact-routing.module';
@@ -13,7 +14,8 @@ import { ChangeContactService } from './change-contact.service';
   imports: [
     CommonModule,
     ChangeContactRoutingModule,
-    ContainerCreateContactModule
+    ContainerCreateContactModule,
+    ContentSearchEngineModule
   ],
   providers: [ChangeContactService, PolicyService]
 })

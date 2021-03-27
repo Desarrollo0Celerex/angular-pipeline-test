@@ -1,22 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ContentSearchEngineModule } from '@components/content-search-engine/content-search-engine.module';
 import { ContentListModule } from '@components/content-list/content-list.module';
+import { ContentSearchEngineModule } from '@components/content-search-engine/content-search-engine.module';
 import { LabelFoundFormatModule } from '@pipes/label-found-format/label-found-format.module';
 import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-format.pipe';
 
-import { SearchResultsComponent } from './search-results.component';
+import { ListSearchResultsRoutingModule } from './list-search-results-routing.module';
+import { ListSearchResultsPage } from './list-search-results.page';
 
 @NgModule({
-  declarations: [SearchResultsComponent],
-  exports: [SearchResultsComponent],
+  declarations: [ListSearchResultsPage],
   imports: [
     CommonModule,
     ContentListModule,
     ContentSearchEngineModule,
-    LabelFoundFormatModule
+    LabelFoundFormatModule,
+    ListSearchResultsRoutingModule,
   ],
   providers: [LabelFoundFormatPipe]
 })
-export class SearchResultsModule { }
+export class ListSearchResultsModule { }

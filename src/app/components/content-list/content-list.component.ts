@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
-import { CONTENT_TYPES } from '@constants/global';
+import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 
 import { ContentListService } from './content-list.service';
 
@@ -12,7 +13,7 @@ declare var ModalPlugin: any;
   styles: [
   ]
 })
-export class ContentListComponent implements OnChanges {
+export class ContentListComponent implements OnChanges, OnInit {
     @Input() contactId: string;
     @Input() contentType: number;
     @Input() contentTypeName: string;
@@ -21,6 +22,7 @@ export class ContentListComponent implements OnChanges {
     @Input() query: string;
     @Output() totalResultsLoaded: EventEmitter<number>;
     CONTENT_TYPES: any;
+    actionType: number;
     canShowTotalResults: boolean;
     isLoadingContent: boolean;
     page: number;
@@ -38,8 +40,12 @@ export class ContentListComponent implements OnChanges {
     modalIdShowPolicyDetails: string;
     modalIdShowQuotationDetails: string;
     totalResults: number;
+    private subParams: any;
 
-    constructor(public contentListService: ContentListService) {
+    constructor(
+        public contentListService: ContentListService,
+        private _activatedRoute: ActivatedRoute
+    ) {
         this.contactId = '';
         this.contentType = 0;
         this.contentTypeName = '';
@@ -48,6 +54,7 @@ export class ContentListComponent implements OnChanges {
         this.query = '';
         this.totalResultsLoaded = new EventEmitter<number>();
         this.CONTENT_TYPES = CONTENT_TYPES;
+        this.actionType = 0;
         this.canShowTotalResults = false;
         this.isLoadingContent = false;
         this.page = 1;
@@ -74,6 +81,10 @@ export class ContentListComponent implements OnChanges {
         }
     }
 
+    ngOnInit(): void {
+        this._catchParams();
+    }
+
     /**
      * Event to show modal to accept the quotation
      * @param quotationId The quotation ID to accept
@@ -90,6 +101,14 @@ export class ContentListComponent implements OnChanges {
     onCancelPolicy(policyId: string): void {
         this.selectedPolicyId = policyId;
         ModalPlugin.show(this.modalIdConfirmCancelPolicy);
+    }
+
+    /**
+     * Event to catch the selected contact
+     * @param contactId The selected contact ID
+     */
+    onContactSelected(contactId: string): void {
+        this._doAction(contactId);
     }
 
     /**
@@ -172,6 +191,24 @@ export class ContentListComponent implements OnChanges {
     }
 
     /**
+     * Catch the params
+     */
+    private _catchParams(): void {
+        this.subParams = this._activatedRoute.queryParams.subscribe( (params: Params) => {
+            this.actionType = (typeof params.actionType !== 'undefined') ? parseInt(params.actionType) : 0;
+        })
+    }
+
+    private _doAction(contactId: string): void {
+        switch(this.actionType) {
+            case ACTION_TYPES.RENEW_POLICY:
+                console.log('renovar póliza a: ',contactId);
+                break;
+        }
+        console.log('this.actionType: ',this.actionType);
+    }
+
+    /**
      * Load the contents according to action type (filter or search)
      */
     private _loadContents(): void {
@@ -219,6 +256,12 @@ export class ContentListComponent implements OnChanges {
      */
     private _loadContentsBySearch(): void {
         switch(this.contentType) {
+            case CONTENT_TYPES.CONTACT.ID:
+                this.contentListService.searchContacts(this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
             case CONTENT_TYPES.LEAD.ID:
                 this.contentListService.searchLeads(this.page, this.query).subscribe( () => {
                     this._contentLoaded();

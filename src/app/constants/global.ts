@@ -59,28 +59,32 @@ export const POLICY_STATUS_ACTIVE: number = 100;
 
 // Types
 export const CONTENT_TYPES: any = {
-    LEAD: {
+    CONTACT: {
         ID: 1,
+        NAME: 'Contacto'
+    },
+    LEAD: {
+        ID: 2,
         NAME: 'Prospecto'
     },
     CLIENT: {
-        ID: 2,
+        ID: 3,
         NAME: 'Cliente'
     },
     PAYMENT: {
-        ID: 3,
+        ID: 4,
         NAME: 'Recibo'
     },
     SINISTER: {
-        ID: 4,
+        ID: 5,
         NAME: 'Siniestro'
     },
     CONTACT_QUOTATION: {
-        ID: 5,
+        ID: 6,
         NAME: 'Cotización'
     },
     CONTACT_POLICY: {
-        ID: 6,
+        ID: 7,
         NAME: 'Póliza'
     }
 }
@@ -105,6 +109,8 @@ export const ENDORSEMENT_TYPES: any = {
 export const ACTION_TYPES: any = {
     RENEW_POLICY: 1
 }
+
+// Actions
 
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;

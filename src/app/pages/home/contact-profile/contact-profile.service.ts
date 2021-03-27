@@ -19,7 +19,13 @@ export class ContactProfileService {
             phoneNumber: '',
             email: '',
             contactTypeName: '',
-            contactScoreName: ''
+            contactScoreName: '',
+            leadStatusName: '',
+            leadStatusBackground: '',
+            clientStatusName: '',
+            clientStatusBackground: '',
+            totalWallet: 0,
+            totalPolicies: 0
         }
     }
 

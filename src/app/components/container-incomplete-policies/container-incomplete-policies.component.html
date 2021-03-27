@@ -11,11 +11,11 @@
          <agt-card-incomplete-policy
              [incompletePolicy]="incompletePolicy"
              (completePolicy)="onCompletePolicy($event)"
-             (cancelPolicy)="onCancelPolicy($event)"
+             (deletePolicy)="onDeletePolicy($event)"
          >
          </agt-card-incomplete-policy>
     </div>
 </div>
 <!-- //AGENTHOS - POLICY LISTING (INCOMPLETES) -->
 
-<agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
+<agt-modal-confirm-delete-policy [modalId]="modalIdConfirmDeletePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (policyDeleted)="onPolicyDeleted($event)"></agt-modal-confirm-delete-policy>

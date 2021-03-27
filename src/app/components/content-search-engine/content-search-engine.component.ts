@@ -13,6 +13,7 @@ import { ContentSearchEngineService } from './content-search-engine.service';
   ]
 })
 export class ContentSearchEngineComponent implements OnChanges {
+    @Input() actionType: number;
     @Input() contactId: string;
     @Input() contentType: number;
     @Input() contentTypeName: string;
@@ -23,6 +24,7 @@ export class ContentSearchEngineComponent implements OnChanges {
         public contentSearchEngineService: ContentSearchEngineService,
         private _router: Router
     ) {
+        this.actionType = 0;
         this.contactId = '';
         this.contentType = 0;
         this.contentTypeName = '';
@@ -32,7 +34,7 @@ export class ContentSearchEngineComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if(typeof changes.query !== 'undefined') {
-            this.contentSearchEngineService.buildSearchForm(this.query);
+            this.contentSearchEngineService.searchForm.patchValue({query: this.query});
         }
     }
 
@@ -43,12 +45,16 @@ export class ContentSearchEngineComponent implements OnChanges {
         const query: string = this.contentSearchEngineService.f.query.value.trim();
         if(this.contentSearchEngineService.searchForm.valid && !!query) {
             switch(this.contentType) {
+                case CONTENT_TYPES.CONTACT.ID:
+                    this._router.navigate([ROUTES_NAME.listSearchResults], { queryParams: { contentType: this.contentType, contentTypeName: this.contentTypeName, query, actionType: this.actionType }});
+                    break;
+
                 case CONTENT_TYPES.LEAD.ID:
-                    this._router.navigate([ROUTES_NAME.leadSearchResults], { queryParams: { query }});
+                    this._router.navigate([ROUTES_NAME.listSearchResults], { queryParams: { contentType: this.contentType, contentTypeName: this.contentTypeName, query }});
                     break;
 
                 case CONTENT_TYPES.CLIENT.ID:
-                    this._router.navigate([ROUTES_NAME.clientSearchResults], { queryParams: { query }});
+                    this._router.navigate([ROUTES_NAME.listSearchResults], { queryParams: { contentType: this.contentType, contentTypeName: this.contentTypeName, query }});
                     break;
 
                 case CONTENT_TYPES.CONTACT_QUOTATION.ID:

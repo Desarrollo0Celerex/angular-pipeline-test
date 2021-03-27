@@ -45,4 +45,21 @@ private _workspaceId: string;
         params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, {params});
     }
+
+    /**
+     * Get the contacts from the API
+     * @param  page            The page number
+     * @param  fields          The fields to get
+     * @param  query           The search to do
+     * @return                 The leads
+     */
+   public getContacts(page: number = 1, fields: string = '', query: string = ''): Observable<HttpResponse> {
+       const route: string = routes.contacts(this._workspaceId);
+       let params: HttpParams = new HttpParams();
+       params = params.append('page', page.toString());
+       if(!!fields) params = params.append('fields', fields);
+       if(!!query) params = params.append('search', 'contactName:' + query);
+       params = params.append('sortBy', '-createdAt');
+       return this._httpClient.get<HttpResponse>(route, { params });
+   }
 }

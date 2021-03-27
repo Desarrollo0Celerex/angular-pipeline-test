@@ -1,7 +1,7 @@
 var ModalPlugin = function() {
 
     function show(modalId) {
-        $('#' + modalId).modal('show');
+        $('#' + modalId).modal({show: true, backdrop: 'static', keyboard: false});
     }
 
     function hide(modalId) {

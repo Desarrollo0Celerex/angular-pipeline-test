@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { CardContactModule } from '@components/card-contact/card-contact.module';
+import { ContainerContactDetailsModule } from '@components/container-contact-details/container-contact-details.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { InsurerService } from '@services/insurer.service';
 import { PolicyService } from '@services/policy.service';
@@ -15,7 +15,7 @@ import { UploadPolicyService } from './upload-policy.service';
 @NgModule({
   declarations: [UploadPolicyPage],
   imports: [
-    CardContactModule,
+    ContainerContactDetailsModule,
     CommonModule,
     FormsModule,
     LoadingContentModule,

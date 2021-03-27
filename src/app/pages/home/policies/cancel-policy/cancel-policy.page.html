@@ -1,4 +1,4 @@
-<agt-card-contact [contactId]="contactId" [message]="message"></agt-card-contact>
+<agt-container-contact-details [contactId]="contactId" [message]="message"></agt-container-contact-details>
 
 <form *ngIf="cancelPolicyService.policy; else loadingContent" [formGroup]="cancelPolicyService.cancellationForm" (submit)="onSubmitCancelPolicy()">
     <!-- AGENTHOS - POLICY DETAILS -->

@@ -17,6 +17,7 @@ const routes: any = {
     endorseContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorse',
     cancelContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/cancel',
     renewContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/renew',
+    deleteContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/delete',
 }
 
 @Injectable()
@@ -52,6 +53,17 @@ export class PolicyService {
     completePolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.completeContactPolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
+    }
+
+    /**
+     * Delete the contact policy in the API
+     * @param  contactId   The contact ID
+     * @param  policyId    The policy ID to delete
+     * @return             Notice of action done
+     */
+    deleteContactPolicy(contactId: string, policyId: string): Observable<void> {
+        const route: string = routes.deleteContactPolicy(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, null);
     }
 
     /**

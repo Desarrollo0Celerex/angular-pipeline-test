@@ -8,6 +8,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { ClientService } from '@services/client.service';
+import { ContactService } from '@services/contact.service';
 import { LeadService } from '@services/lead.service';
 import { PolicyService } from '@services/policy.service';
 import { QuotationService } from '@services/quotation.service';
@@ -19,6 +20,7 @@ export class ContentListService {
 
     constructor(
         private _clientService: ClientService,
+        private _contactService: ContactService,
         private _leadService: LeadService,
         private _policyService: PolicyService,
         private _quotationService: QuotationService
@@ -116,6 +118,23 @@ export class ContentListService {
     searchClients(page: number, query: string): Observable<void> {
         const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalWallet,totalPolicies';
         return this._clientService.getClients(page, fields, 0, query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
+     * Search the contacts
+     * @param  page  The page number to get
+     * @param  query The query to search
+     * @return       Notice of action done
+     */
+    searchContacts(page: number, query: string): Observable<void> {
+        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalWallet,totalPolicies';
+        return this._contactService.getContacts(page, fields, query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);

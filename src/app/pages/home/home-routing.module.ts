@@ -17,7 +17,6 @@ const routes: Routes = [
 
             // Clients routes
             { path: ROUTES_NAME.listClients, loadChildren: () => import('@pages/home/clients/list-clients/list-clients.module').then( mod => mod.ListClientsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-            { path: ROUTES_NAME.clientSearchResults, loadChildren: () => import('@pages/home/clients/client-search-results/client-search-results.module').then( mod => mod.ClientSearchResultsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Contacts routes
             { path: ROUTES_NAME.createContact(':contactTypeId'), loadChildren: () => import('@pages/home/contacts/create-contact/create-contact.module').then( mod => mod.CreateContactModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
@@ -32,7 +31,6 @@ const routes: Routes = [
 
             // Leads routes
             { path: ROUTES_NAME.listLeads, loadChildren: () => import('@pages/home/leads/list-leads/list-leads.module').then(mod => mod.ListLeadsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-            { path: ROUTES_NAME.leadSearchResults, loadChildren: () => import('@pages/home/leads/lead-search-results/lead-search-results.module').then(mod => mod.LeadSearchResultsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Policies routes
             { path: ROUTES_NAME.uploadPolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/upload-policy/upload-policy.module').then(mod => mod.UploadPolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
@@ -41,6 +39,8 @@ const routes: Routes = [
             { path: ROUTES_NAME.endorsePolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/endorse-policy/endorse-policy.module').then(mod => mod.EndorsePolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.cancelPolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/cancel-policy/cancel-policy.module').then(mod => mod.CancelPolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
+            // Searches routes
+            { path: ROUTES_NAME.listSearchResults, loadChildren: () => import('@pages/home/searches/list-search-results/list-search-results.module').then(mod => mod.ListSearchResultsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] }
         ]
     }
 ];

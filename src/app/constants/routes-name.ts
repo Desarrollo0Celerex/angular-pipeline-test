@@ -16,13 +16,13 @@ const EXPRESS_ROUTES = {
 }
 
 const HOME_CLIENTS_ROUTES = {
-    listClients: 'home/clients/list-clients',
-    clientSearchResults: 'home/clients/client-search-results'
+    listClients: 'home/clients/list-clients'
 }
 
 const HOME_CONTACTS_ROUTES = {
     createContact: (contactTypeId: string) => `home/contacts/create-contact/${contactTypeId}`,
-    changeContact: (contactId: string, policyId: string, contactTypeId: string, actionType: string) => `home/contacts/change-contact/${contactId}/${policyId}/${contactTypeId}/${actionType}`
+    changeContact: (contactId: string, policyId: string, contactTypeId: string, actionType: string) => `home/contacts/change-contact/${contactId}/${policyId}/${contactTypeId}/${actionType}`,
+    contactSearchResults: () => `home/contacts/contact-search-results`
 }
 
 const HOME_CONTACT_PROFILE_ROUTES = {
@@ -45,8 +45,7 @@ const HOME_INVITATIONS_ROUTES = {
 }
 
 const HOME_LEADS_ROUTES = {
-    listLeads: 'home/leads/list-leads',
-    leadSearchResults: 'home/leads/lead-search-results'
+    listLeads: 'home/leads/list-leads'
 }
 
 const HOME_POLICIES_ROUTES = {
@@ -59,6 +58,10 @@ const HOME_POLICIES_ROUTES = {
 
 const INVITATIONS_ROUTES = {
     acceptInvitation: (invitationToken: string) => `invitations/accept-invitation/${invitationToken}`
+}
+
+const SEARCHES_ROUTES = {
+    listSearchResults: 'home/searches/search-results'
 }
 
 const WORKSPACES_ROUTES = {
@@ -82,5 +85,6 @@ export const ROUTES_NAME = {
     ...HOME_LEADS_ROUTES,
     ...HOME_POLICIES_ROUTES,
     ...INVITATIONS_ROUTES,
+    ...SEARCHES_ROUTES,
     ...WORKSPACES_ROUTES
 }

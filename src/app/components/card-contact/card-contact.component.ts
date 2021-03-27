@@ -1,6 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { CardContactService } from './card-contact.service';
+import { ROUTES_NAME } from '@constants/routes-name';
+import { Contact } from '@interfaces/contact.interface';
 
 @Component({
   selector: 'agt-card-contact',
@@ -8,19 +9,33 @@ import { CardContactService } from './card-contact.service';
   styles: [
   ]
 })
-export class CardContactComponent implements OnChanges {
-    @Input() contactId: string;
-    @Input() message: string;
+export class CardContactComponent {
+    @Input() contact: Contact | null;
+    @Output() contactSelected: EventEmitter<string>;
+    @Output() showContactData: EventEmitter<string>;
+    ROUTES_NAME: any;
 
-    constructor(public cardContactService: CardContactService) {
-        this.contactId = '';
-        this.message = '';
+    constructor() {
+        this.contact = null;
+        this.contactSelected = new EventEmitter<string>();
+        this.showContactData = new EventEmitter<string>();
+        this.ROUTES_NAME = ROUTES_NAME;
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.contactId.currentValue) {
-            this.cardContactService.loadContact(this.contactId);
-        }
+    /**
+     * Click event to select the contact
+     * @param contactId The contact ID to select
+     */
+    onClickSelectContact(contactId: string): void {
+        this.contactSelected.emit(contactId);
+    }
+
+    /**
+     * Click event to show the contact data
+     * @param contactId The contact ID
+     */
+    onClickShowContactData(contactId: string): void {
+        this.showContactData.emit(contactId);
     }
 
 }

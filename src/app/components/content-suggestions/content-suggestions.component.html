@@ -3,11 +3,14 @@
     <div class="alert alert-avatar alert-primary alert-dismissible mt-5 mb-5">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <ng-container [ngSwitch]="contentType">
-            <ng-container *ngSwitchCase="CONTENT_TYPES.LEAD.ID">
+            <ng-container *ngSwitchCase="CONTENT_TYPES.CONTACT.ID">
                 <ng-container *ngTemplateOutlet="contactSuggestion"></ng-container>
             </ng-container>
+            <ng-container *ngSwitchCase="CONTENT_TYPES.LEAD.ID">
+                <ng-container *ngTemplateOutlet="leadSuggestion"></ng-container>
+            </ng-container>
             <ng-container *ngSwitchCase="CONTENT_TYPES.CLIENT.ID">
-                <ng-container *ngTemplateOutlet="contactSuggestion"></ng-container>
+                <ng-container *ngTemplateOutlet="leadSuggestion"></ng-container>
             </ng-container>
             <ng-container *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID">
                 <ng-container *ngTemplateOutlet="contactQuotationSuggestion"></ng-container>
@@ -21,6 +24,12 @@
 <!-- AGENTHOS - SMART SUGGESTION -->
 
 <ng-template #contactSuggestion>
+    <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+    <p>Intenta ingresando otros términos de búsqueda para lozalizar al contacto.</p>
+</ng-template>
+
+<ng-template #leadSuggestion>
     <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
     <p>Intenta localizarlo con el <strong>Buscador Inteligente</strong>.</p>

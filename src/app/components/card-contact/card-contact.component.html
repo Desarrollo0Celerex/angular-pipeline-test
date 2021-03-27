@@ -1,31 +1,41 @@
-<!-- AGENTHOS - PROFILE RESUME -->
-<div class="row">
-    <div class="col-sm-12">
-        <div class="card">
-            <!-- AGENTHOS - CARD HEADER -->
-            <div class="card-header border-bottom-0">
-                <!-- AGENTHOS - CONTACT PIC -->
-                <img class="avatar brround" [src]="cardContactService.contact.avatarUrl" width="38px">
-                <div class="card-options">
-                    <div class="badge badge-primary-gradient mr-1">{{cardContactService.contact.contactTypeName | uppercase}}</div>
-                </div>
-            </div>
-            <!-- //AGENTHOS - CARD HEADER -->
-            <!-- AGENTHOS - CARD BODY -->
-            <div class="card-body">
-                <!-- AGENTHOS - CONTACT NAME -->
-                <h3 class="h3">{{cardContactService.contact.contactName}}</h3>
-                <!-- AGENTHOS - CONTACT SOURCE -->
-                <p class="mb-3">
-                    <i class="fe fe-globe mr-1"></i>{{cardContactService.contact.contactSourceName}}
-                    <span class="float-right"><i class="fe fe-award mr-1"></i>{{cardContactService.contact.contactScoreName}}</span>
-                </p>
-                <ol class="breadcrumb1">
-                    <li class="breadcrumb-item1">{{message}} <strong>{{cardContactService.contact.contactName}}</strong>.</li>
-                </ol>
-            </div>
-            <!-- //AGENTHOS - CARD BODY -->
+<div class="card" *ngIf="!!contact">
+    <!-- AGENTHOS - CLIENT CARD HEADER -->
+    <div class="card-header">
+        <!-- AGENTHOS - CONTACT PIC -->
+        <img class="avatar brround" [src]="contact.avatarUrl" width="38px">
+        <!-- AGENTHOS - CLIENT STATUS -->
+        <div class="card-options">
+            <div class="badge badge-primary-gradient mr-1">{{(contact.clientStatusName | contactStatusName: contact.leadStatusName) | uppercase}}</div>
+            <div class="badge badge-{{!!contact.clientStatusBackground ? contact.clientStatusBackground : contact.leadStatusBackground}} mr-1" *ngIf="!!contact.clientStatusName || contact.leadStatusName">{{(!!contact.clientStatusName ? contact.clientStatusName : contact.leadStatusName) | uppercase}}</div>
         </div>
     </div>
+    <!-- //AGENTHOS - CLIENT CARD HEADER -->
+    <!-- AGENTHOS - CLIENT CARD BODY -->
+    <div class="card-body">
+        <!-- AGENTHOS - CONTACT NAME -->
+        <h4 class="h4">{{contact.contactName}}</h4>
+        <!-- AGENTHOS - CONTACT SOURCE -->
+        <p class="mb-2">
+            <i class="fe fe-globe mr-1"></i>{{contact.contactSourceName}}
+            <span class="float-right"><i class="fe fe-award mr-1"></i>{{contact.contactScoreName}}</span>
+        </p>
+        <!-- AGENTHOS - CONTACT WALLET -->
+        <p class="mb-0">
+            <i class="fe fe-credit-card mr-1"></i>{{ contact.totalWallet | currency: '': '$': '0.2-2'}} MXN
+            <span class="float-right"><i class="fe fe-file-text mr-1"></i>{{contact.totalPolicies}} P</span>
+        </p>
+    </div>
+    <!-- //AGENTHOS - CLIENT CARD BODY -->
+    <!-- AGENTHOS - CLIENT CARD FOOTER -->
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-9 col-9 text-left">
+                <button type="button" class="btn btn-block btn-primary" (click)="onClickSelectContact(contact.contactId)"><strong>SELECCIONAR</strong></button>
+            </div>
+            <div class="col-sm-3 col-3 text-right">
+                <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowContactData(contact.contactId)"><i class="fa fa-id-badge"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - CLIENT CARD FOOTER -->
 </div>
-<!-- //AGENTHOS - PROFILE RESUME -->

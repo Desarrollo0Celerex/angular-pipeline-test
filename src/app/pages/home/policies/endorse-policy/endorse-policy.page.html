@@ -1,4 +1,4 @@
-<agt-card-contact [contactId]="contactId" [message]="message"></agt-card-contact>
+<agt-container-contact-details [contactId]="contactId" [message]="message"></agt-container-contact-details>
 
 <!-- AGENTHOS - POLICY DETAILS -->
 <form *ngIf="endorsePolicyService.policy; else loadingContent" [formGroup]="endorsePolicyService.endorsementForm" (submit)="onSubmitSaveEndorsement()">

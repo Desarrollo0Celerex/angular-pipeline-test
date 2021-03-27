@@ -7,5 +7,11 @@ export interface Contact {
     phoneNumber: string,
     email: string,
     contactTypeName: string,
-    contactScoreName: string
+    contactScoreName: string,
+    leadStatusName: string,
+    leadStatusBackground: string,
+    clientStatusName: string,
+    clientStatusBackground: string,
+    totalWallet: number,
+    totalPolicies: number
 }

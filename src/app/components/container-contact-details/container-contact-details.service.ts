@@ -5,7 +5,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContactService } from '@services/contact.service';
 
 @Injectable()
-export class CardContactService {
+export class ContainerContactDetailsService {
     contact: Contact;
 
     constructor(private _contactService: ContactService) {
@@ -18,7 +18,13 @@ export class CardContactService {
             phoneNumber: '',
             email: '',
             contactTypeName: '',
-            contactScoreName: ''
+            contactScoreName: '',
+            leadStatusName: '',
+            leadStatusBackground: '',
+            clientStatusName: '',
+            clientStatusBackground: '',
+            totalWallet: 0,
+            totalPolicies: 0
         };
     }
 

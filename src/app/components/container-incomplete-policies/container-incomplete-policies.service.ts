@@ -13,6 +13,17 @@ export class ContainerIncompletePoliciesService {
     }
 
     /**
+     * Delete the policy card
+     * @param policyId The policy ID to delete
+     */
+    deletePolicyCard(policyId: string): void {
+        const policyPosition: number = this._getPolicyPosition(policyId);
+        if(policyPosition > -1) {
+            this.incompletePolicies.splice(policyPosition, 1);
+        }
+    }
+
+    /**
      * Load the incomplete policies
      * @param contactId The contact ID
      * @param page      The page number
@@ -23,5 +34,14 @@ export class ContainerIncompletePoliciesService {
         this._policyService.getContactPolicies(contactId, page, fields, filters).subscribe( (res: HttpResponse) => {
             this.incompletePolicies = res.data.items;
         })
+    }
+
+    /**
+     * Get the policy position
+     * @param  policyId The policy ID to search
+     * @return          The policy position found
+     */
+    private _getPolicyPosition(policyId: string): number {
+        return this.incompletePolicies.findIndex((value: PolicyPreview) => value.policyId == policyId)
     }
 }

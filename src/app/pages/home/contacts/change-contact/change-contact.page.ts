@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ACTION_TYPES } from '@constants/global';
+import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { LoadingService } from '@services/loading.service';
@@ -18,6 +18,8 @@ export class ChangeContactPage implements OnInit {
     actionType: number;
     contactId: string;
     contactTypeId: number;
+    contentType: number;
+    contentTypeName: string;
     policyId: string;
 
     constructor(
@@ -26,9 +28,11 @@ export class ChangeContactPage implements OnInit {
         private _loadingService: LoadingService,
         private _router: Router
     ) {
+        this.actionType = 0;
         this.contactTypeId = 0;
         this.contactId = '';
-        this.actionType = 0;
+        this.contentType = CONTENT_TYPES.CONTACT.ID;
+        this.contentTypeName = CONTENT_TYPES.CONTACT.NAME;
         this.policyId = '';
     }
 

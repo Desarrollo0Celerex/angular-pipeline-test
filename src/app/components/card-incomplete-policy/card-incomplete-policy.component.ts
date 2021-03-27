@@ -12,13 +12,13 @@ declare var PopoverPlugin: any;
 })
 export class CardIncompletePolicyComponent implements OnInit {
     @Input() incompletePolicy: PolicyPreview | null;
-    @Output() cancelPolicy: EventEmitter<string>;
     @Output() completePolicy: EventEmitter<string>;
+    @Output() deletePolicy: EventEmitter<string>;
 
     constructor() {
         this.incompletePolicy = null;
-        this.cancelPolicy = new EventEmitter<string>();
         this.completePolicy = new EventEmitter<string>();
+        this.deletePolicy = new EventEmitter<string>();
     }
 
     ngOnInit(): void {
@@ -26,20 +26,20 @@ export class CardIncompletePolicyComponent implements OnInit {
     }
 
     /**
-     * Click event to request cancel policy
-     */
-    onClickCancelPolicy(): void {
-        if(!!this.incompletePolicy) {
-            this.cancelPolicy.emit(this.incompletePolicy.policyId);
-        }
-    }
-
-    /**
-     * Click event to request complete policy
+     * Click event to request complete the policy
      */
     onClickCompletePolicy(): void {
         if(!!this.incompletePolicy) {
             this.completePolicy.emit(this.incompletePolicy.policyId);
+        }
+    }
+
+    /**
+     * Click event to request delete the policy
+     */
+    onClickDeletePolicy(): void {
+        if(!!this.incompletePolicy) {
+            this.deletePolicy.emit(this.incompletePolicy.policyId);
         }
     }
 
