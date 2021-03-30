@@ -10,9 +10,12 @@ import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-form
   ]
 })
 export class ListSearchResultsPage implements OnInit, OnDestroy {
+    actionType: number
     contentType: number;
     contentTypeName: string;
     contentSubtypeName: string;
+    originContactId: string;
+    originPolicyId: string;
     query: string;
     totalResults: number;
     private subParams: any;
@@ -21,10 +24,13 @@ export class ListSearchResultsPage implements OnInit, OnDestroy {
         private _activatedRoute: ActivatedRoute,
         private _labelFoundFormatPipe: LabelFoundFormatPipe
     ) {
-        this.contentType = 2;
-        this.contentTypeName = 'Prospecto';
+        this.actionType = 0;
+        this.contentType = 0;
+        this.contentTypeName = '';
         this.contentSubtypeName = '';
-        this.query = 'migu';
+        this.originContactId = '';
+        this.originPolicyId = '';
+        this.query = '';
         this.totalResults = 0;
     }
 
@@ -52,6 +58,9 @@ export class ListSearchResultsPage implements OnInit, OnDestroy {
             this.contentType = parseInt(params['contentType']);
             this.contentTypeName = params['contentTypeName'];
             this.query = params['query'];
+            this.actionType = (typeof params.actionType !== 'undefined') ? parseInt(params.actionType) : 0;
+            this.originContactId = (typeof params.originContactId !== 'undefined') ? params.originContactId : '';
+            this.originPolicyId = (typeof params.originPolicyId !== 'undefined') ? params.originPolicyId : '';
             this.contentSubtypeName = this._labelFoundFormatPipe.transform(this.contentType);
         })
     }

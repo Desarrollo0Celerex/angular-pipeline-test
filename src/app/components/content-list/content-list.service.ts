@@ -7,6 +7,7 @@ import { POLICY_STATUS, POLICY_STATUS_ACTIVE } from '@constants/global';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { Policy } from '@interfaces/policy.interface';
+import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
 import { LeadService } from '@services/lead.service';
@@ -107,6 +108,18 @@ export class ContentListService {
     resetData(): void {
         this.contents = this._initContents();
         this.contentResultData = this._initContentResultData();
+    }
+
+    /**
+     * Renew the policy
+     * @param  originContactId The origin contact ID
+     * @param  originPolicyId  The origin policy ID
+     * @param  contactId       The contact ID
+     * @return                 The renewed policy ID
+     */
+    renewPolicy(originContactId: string, originPolicyId: string, contactId: string): Observable<HttpResponse> {
+        const requestBody: RenewContactPolicyDataSend = { contactId }
+        return this._policyService.renewContactPolicy(originContactId, originPolicyId, requestBody);
     }
 
     /**

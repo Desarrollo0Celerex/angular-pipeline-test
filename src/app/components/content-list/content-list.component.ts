@@ -1,7 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
+import { ROUTES_NAME } from '@constants/routes-name';
+import { HttpResponse } from '@interfaces/http-response.interface';
+import { LoadingService } from '@services/loading.service';
 
 import { ContentListService } from './content-list.service';
 
@@ -13,16 +16,18 @@ declare var ModalPlugin: any;
   styles: [
   ]
 })
-export class ContentListComponent implements OnChanges, OnInit {
+export class ContentListComponent implements OnChanges, OnDestroy {
+    @Input() actionType: number;
     @Input() contactId: string;
     @Input() contentType: number;
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
     @Input() contentSubtypeName: string;
+    @Input() originContactId: string;
+    @Input() originPolicyId: string;
     @Input() query: string;
     @Output() totalResultsLoaded: EventEmitter<number>;
     CONTENT_TYPES: any;
-    actionType: number;
     canShowTotalResults: boolean;
     isLoadingContent: boolean;
     page: number;
@@ -44,7 +49,8 @@ export class ContentListComponent implements OnChanges, OnInit {
 
     constructor(
         public contentListService: ContentListService,
-        private _activatedRoute: ActivatedRoute
+        private _loadingService: LoadingService,
+        private _router: Router
     ) {
         this.contactId = '';
         this.contentType = 0;
@@ -71,6 +77,8 @@ export class ContentListComponent implements OnChanges, OnInit {
         this.modalIdShowPolicy = 'agt-show-policy';
         this.modalIdShowPolicyDetails = 'agt-show-policy-details';
         this.modalIdShowQuotationDetails = 'agt-show-quotation-details';
+        this.originContactId = '';
+        this.originPolicyId = '';
         this.totalResults = 0;
     }
 
@@ -81,8 +89,8 @@ export class ContentListComponent implements OnChanges, OnInit {
         }
     }
 
-    ngOnInit(): void {
-        this._catchParams();
+    ngOnDestroy(): void {
+        if(this.subParams) this.subParams.unsubscribe();
     }
 
     /**
@@ -108,7 +116,7 @@ export class ContentListComponent implements OnChanges, OnInit {
      * @param contactId The selected contact ID
      */
     onContactSelected(contactId: string): void {
-        this._doAction(contactId);
+        this._doActionToSelectedContact(contactId);
     }
 
     /**
@@ -191,21 +199,19 @@ export class ContentListComponent implements OnChanges, OnInit {
     }
 
     /**
-     * Catch the params
+     * Do action to contact selected
+     * @param contactId The selected contact ID
      */
-    private _catchParams(): void {
-        this.subParams = this._activatedRoute.queryParams.subscribe( (params: Params) => {
-            this.actionType = (typeof params.actionType !== 'undefined') ? parseInt(params.actionType) : 0;
-        })
-    }
-
-    private _doAction(contactId: string): void {
+    private _doActionToSelectedContact(contactId: string): void {
         switch(this.actionType) {
             case ACTION_TYPES.RENEW_POLICY:
-                console.log('renovar póliza a: ',contactId);
+                this._loadingService.show();
+                this.contentListService.renewPolicy(this.originContactId, this.originPolicyId, contactId).subscribe( (res: HttpResponse) => {
+                    this._loadingService.hide();
+                    this._router.navigate([ROUTES_NAME.uploadPolicy(contactId, res.data)], { queryParams: { isRenewal: true } });
+                });
                 break;
         }
-        console.log('this.actionType: ',this.actionType);
     }
 
     /**

@@ -5,5 +5,5 @@
     </div>
 </div>
 
-<agt-content-list *ngIf="!!contentType" [contentType]="contentType" [contentTypeName]="contentTypeName" [contentSubtypeName]="contentSubtypeName" [query]="query" (totalResultsLoaded)="onTotalResultsLoaded($event)"></agt-content-list>
+<agt-content-list *ngIf="!!contentType" [contentType]="contentType" [contentTypeName]="contentTypeName" [contentSubtypeName]="contentSubtypeName" [query]="query" [actionType]="actionType" [originContactId]="originContactId" [originPolicyId]="originPolicyId" (totalResultsLoaded)="onTotalResultsLoaded($event)"></agt-content-list>
 <!-- //AGENTHOS - SEARCH RESULTS -->

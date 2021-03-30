@@ -17,6 +17,8 @@ export class ContentSearchEngineComponent implements OnChanges {
     @Input() contactId: string;
     @Input() contentType: number;
     @Input() contentTypeName: string;
+    @Input() originContactId: string;
+    @Input() originPolicyId: string;
     @Input() query: string;
     @Input() totalResults: number;
 
@@ -28,6 +30,8 @@ export class ContentSearchEngineComponent implements OnChanges {
         this.contactId = '';
         this.contentType = 0;
         this.contentTypeName = '';
+        this.originContactId = '';
+        this.originPolicyId = '';
         this.query = '';
         this.totalResults = 0;
     }
@@ -46,7 +50,7 @@ export class ContentSearchEngineComponent implements OnChanges {
         if(this.contentSearchEngineService.searchForm.valid && !!query) {
             switch(this.contentType) {
                 case CONTENT_TYPES.CONTACT.ID:
-                    this._router.navigate([ROUTES_NAME.listSearchResults], { queryParams: { contentType: this.contentType, contentTypeName: this.contentTypeName, query, actionType: this.actionType }});
+                    this._router.navigate([ROUTES_NAME.listSearchResults], { queryParams: { contentType: this.contentType, contentTypeName: this.contentTypeName, query, actionType: this.actionType, originContactId: this.originContactId, originPolicyId: this.originPolicyId }});
                     break;
 
                 case CONTENT_TYPES.LEAD.ID:
