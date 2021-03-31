@@ -61,10 +61,11 @@ export class ContainerCreateContactService {
 
     /**
      * Create a contact
-     * @return The contact ID
+     * @param  ignoreMatches Flag to ignore the matches
+     * @return               The created contact ID
      */
-    createContact(): Observable<HttpResponse> {
-        const requestBody: CreateContactDataSend = this.contactForm.value;
+    createContact(ignoreMatches: number): Observable<HttpResponse> {
+        const requestBody: CreateContactDataSend = { ...this.contactForm.value, ignoreMatches: ignoreMatches };
         return this._contactService.createContact(requestBody);
     }
 

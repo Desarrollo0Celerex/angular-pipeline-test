@@ -12,11 +12,13 @@ declare var TooltipPlugin: any;
 })
 export class DropdownSelectPhoneCodeComponent implements OnInit {
     @Input() phoneCodeId: number;
+    @Input() isDisabled: boolean;
     @Output() phoneCodeIdSelected: EventEmitter<number>;
     selectedPhoneCodePosition: number;
 
     constructor(public dropdownSelectPhoneCodeService: DropdownSelectPhoneCodeService) {
         this.phoneCodeId = 0;
+        this.isDisabled = false;
         this.phoneCodeIdSelected = new EventEmitter<number>();
         this.selectedPhoneCodePosition = 0;
     }

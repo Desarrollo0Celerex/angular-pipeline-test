@@ -8,6 +8,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
+import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
 import { LeadService } from '@services/lead.service';
@@ -145,9 +146,9 @@ export class ContentListService {
      * @param  query The query to search
      * @return       Notice of action done
      */
-    searchContacts(page: number, query: string): Observable<void> {
+    searchContacts(page: number, query: string, specialQuery: SearchContactData | null): Observable<void> {
         const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalWallet,totalPolicies';
-        return this._contactService.getContacts(page, fields, query).pipe(
+        return this._contactService.getContacts(page, fields, query, specialQuery).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);

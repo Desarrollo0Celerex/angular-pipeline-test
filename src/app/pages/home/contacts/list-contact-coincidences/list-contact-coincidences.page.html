@@ -1,0 +1,68 @@
+<!-- AGENTHOS - SEARCH RESULTS -->
+<div class="row" *ngIf="!!contact">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Datos Ingresados</h3>
+            </div>
+            <div class="card-body">
+                <!-- AGENTHOS - CONTACT INFO -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <!-- AGENTHOS - CONTACT FULL NAME * -->
+                            <ng-container *ngIf="contactTypeId === CONTACT_TYPES.PERSON; else companyContainer">
+                                <label class="form-label">Nombre Ingresado</label>
+                                <input type="text" class="form-control" placeholder="{{contact.name+' '+contact.namePaternal+' '+contact.nameMaternal}}" readonly="">
+                            </ng-container>
+                            <ng-template #companyContainer>
+                                <label class="form-label">Razón Social Ingresada</label>
+                                <input type="text" class="form-control" placeholder="{{contact.companyName}}" readonly="">
+                            </ng-template>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <!-- AGENTHOS - CONTACT EMAIL -->
+                            <label class="form-label">Correo Ingresado</label>
+                            <input type="text" class="form-control" [placeholder]="contact.email" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- AGENTHOS - COMPANY PHONE -->
+                        <label class="form-label">Teléfono Ingresado</label>
+                        <div class="input-group mb-3">
+                            <agt-dropdown-select-phone-code *ngIf="!!contact.phoneCodeId" [phoneCodeId]="contact.phoneCodeId" [isDisabled]="true"></agt-dropdown-select-phone-code>
+                            <!-- AGENTHOS - COMPANY PHONE NUMBER -->
+                            <input type="text" class="form-control" [placeholder]="contact.phoneNumber" readonly="">
+                        </div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - CONTACT INFO -->
+                <!-- AGENTHOS - SEARCH RESULTS -->
+                <ol class="breadcrumb1">
+                    <li class="breadcrumb-item1">Se han encontrado <strong>{{this.totalResults}}</strong> coincidencias con los datos ingresados.</li>
+                </ol>
+            </div>
+            <div class="card-footer">
+                <div class="btn-list text-center">
+                    <button class="btn btn-block btn-primary" (click)="onClickSaveContact()"><strong>GUARDAR CONTACTO</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - SEARCH RESULTS -->
+
+<agt-content-list
+    [contentType]="contentType"
+    [contentTypeName]="contentTypeName"
+    [contentSubtypeName]="contentSubtypeName"
+    [specialQuery]="searchContactData"
+    [actionType]="actionType"
+    [originContactId]="originContactId"
+    [originPolicyId]="originPolicyId"
+    (totalResultsLoaded)="onTotalResultsLoaded($event)"
+></agt-content-list>
+
+<agt-modal-confirm-save-contact [modalId]="modalIdConfirmSelectContact" (saveContact)="onSaveContact()"></agt-modal-confirm-save-contact>

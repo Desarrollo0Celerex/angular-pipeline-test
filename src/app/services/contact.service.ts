@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
 import { CreateContactDataSend } from '@interfaces/create-contact-data-send.interface';
+import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
@@ -53,13 +54,30 @@ private _workspaceId: string;
      * @param  query           The search to do
      * @return                 The leads
      */
-   public getContacts(page: number = 1, fields: string = '', query: string = ''): Observable<HttpResponse> {
+   public getContacts(page: number = 1, fields: string = '', query: string = '', specialQuery: SearchContactData | null = null ): Observable<HttpResponse> {
        const route: string = routes.contacts(this._workspaceId);
        let params: HttpParams = new HttpParams();
        params = params.append('page', page.toString());
        if(!!fields) params = params.append('fields', fields);
        if(!!query) params = params.append('search', 'contactName:' + query);
+       if(!!specialQuery) params = params.append('search', this._getSpecialSearch(specialQuery));
        params = params.append('sortBy', '-createdAt');
        return this._httpClient.get<HttpResponse>(route, { params });
+   }
+
+   /**
+    * Get special search
+    * @param  specialQuery The query data
+    * @return              The special search
+    */
+   private _getSpecialSearch(specialQuery: any): string {
+       let specialSearch: string = '';
+       for(const field in specialQuery) {
+           if(!!specialQuery[field]) {
+               specialSearch += field + ':' + specialQuery[field] + ',';
+           }
+       }
+       specialSearch = specialSearch.substring(0, specialSearch.length - 1);
+       return specialSearch;
    }
 }

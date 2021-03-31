@@ -20,6 +20,7 @@ import { ModalConfirmEndorsePolicyModule } from '@components/modal-confirm-endor
 import { ModalConfirmRejectQuotationModule } from '@components/modal-confirm-reject-quotation/modal-confirm-reject-quotation.module';
 import { ModalConfirmRenewPolicyModule } from '@components/modal-confirm-renew-policy/modal-confirm-renew-policy.module';
 import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
+import { ModalSelectContactModule } from '@components/modal-select-contact/modal-select-contact.module';
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
@@ -58,6 +59,7 @@ import { ContentListService } from './content-list.service';
     ModalConfirmRejectQuotationModule,
     ModalConfirmRenewPolicyModule,
     ModalConfirmUpdatePolicyModule,
+    ModalSelectContactModule,
     ModalShowContactDataModule,
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,

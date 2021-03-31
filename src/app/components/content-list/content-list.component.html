@@ -47,6 +47,7 @@
 <!-- AGENTHOS - CONTENT ACTIONS -->
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT.ID || contentType === CONTENT_TYPES.LEAD.ID || contentType === CONTENT_TYPES.CLIENT.ID">
     <agt-modal-show-contact-data [modalId]="modalIdShowContactData" [contactId]="selectedContactId"></agt-modal-show-contact-data>
+    <agt-modal-select-contact [modalId]="modalIdSelectContact" [contactId]="selectedContactId"></agt-modal-select-contact>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID">
     <agt-modal-show-quotation-details [modalId]="modalIdShowQuotationDetails" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-show-quotation-details>

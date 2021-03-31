@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ContentListService } from './content-list.service';
@@ -26,6 +27,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() originContactId: string;
     @Input() originPolicyId: string;
     @Input() query: string;
+    @Input() specialQuery: SearchContactData | null;
     @Output() totalResultsLoaded: EventEmitter<number>;
     CONTENT_TYPES: any;
     canShowTotalResults: boolean;
@@ -40,6 +42,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmRenewPolicy: string;
     modalIdConfirmUpdatePolicy: string;
     modalIdRejectQuotation: string;
+    modalIdSelectContact: string;
     modalIdShowContactData: string;
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
@@ -58,6 +61,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.contentSubtype = 0;
         this.contentSubtypeName = '';
         this.query = '';
+        this.specialQuery = null;
         this.totalResultsLoaded = new EventEmitter<number>();
         this.CONTENT_TYPES = CONTENT_TYPES;
         this.actionType = 0;
@@ -73,6 +77,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.modalIdConfirmRenewPolicy = 'agt-confirm-renew-policy';
         this.modalIdConfirmUpdatePolicy = 'agt-confirm-update-policy';
         this.modalIdRejectQuotation = 'agt-reject-quotation';
+        this.modalIdSelectContact = 'agt-select-contact';
         this.modalIdShowContactData = 'agt-contact-data';
         this.modalIdShowPolicy = 'agt-show-policy';
         this.modalIdShowPolicyDetails = 'agt-show-policy-details';
@@ -83,7 +88,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if((typeof changes.contentSubtype !== 'undefined' && !!changes.contentSubtype.currentValue) || (typeof changes.query !== 'undefined' && !!changes.query.currentValue)) {
+        if((typeof changes.contentSubtype !== 'undefined' && !!changes.contentSubtype.currentValue) || (typeof changes.query !== 'undefined' && !!changes.query.currentValue) || (typeof changes.specialQuery !== 'undefined' && !!changes.specialQuery.currentValue)) {
             this.contentListService.resetData();
             this._loadContents();
         }
@@ -204,11 +209,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _doActionToSelectedContact(contactId: string): void {
         switch(this.actionType) {
+            case ACTION_TYPES.SELECT_CONTACT:
+                this.selectedContactId = contactId;
+                ModalPlugin.show(this.modalIdSelectContact);
+                break;
+
             case ACTION_TYPES.RENEW_POLICY:
                 this._loadingService.show();
                 this.contentListService.renewPolicy(this.originContactId, this.originPolicyId, contactId).subscribe( (res: HttpResponse) => {
                     this._loadingService.hide();
-                    this._router.navigate([ROUTES_NAME.uploadPolicy(contactId, res.data)], { queryParams: { isRenewal: true } });
+                    this._router.navigate([ROUTES_NAME.uploadPolicy(contactId, res.data)]);
                 });
                 break;
         }
@@ -222,6 +232,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         if(!!this.contentSubtype) {
             this._loadContentsByFilter();
         } else if(!!this.query) {
+            this._loadContentsBySearch();
+        } else if(!!this.specialQuery) {
             this._loadContentsBySearch();
         }
     }
@@ -263,7 +275,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     private _loadContentsBySearch(): void {
         switch(this.contentType) {
             case CONTENT_TYPES.CONTACT.ID:
-                this.contentListService.searchContacts(this.page, this.query).subscribe( () => {
+                this.contentListService.searchContacts(this.page, this.query, this.specialQuery).subscribe( () => {
                     this._contentLoaded();
                 });
             break;

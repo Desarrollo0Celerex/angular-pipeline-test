@@ -86,6 +86,9 @@ export const CONTENT_TYPES: any = {
     CONTACT_POLICY: {
         ID: 7,
         NAME: 'Póliza'
+    },
+    COINCIDENCES: {
+        NAME: 'Coincidencia'
     }
 }
 export const CONTACT_TYPES: any = {
@@ -107,10 +110,14 @@ export const ENDORSEMENT_TYPES: any = {
     POLICY_REHABILITATION: 5
 }
 export const ACTION_TYPES: any = {
-    RENEW_POLICY: 1
+    SELECT_CONTACT: 1,
+    RENEW_POLICY: 2,
 }
 
-// Actions
+export const IGNORE_MATCHES: any = {
+    YES: true,
+    NO: false
+}
 
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;

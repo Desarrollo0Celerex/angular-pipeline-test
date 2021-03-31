@@ -12,6 +12,7 @@ export class LabelFoundFormatPipe implements PipeTransform {
         switch(contentType) {
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.COINCIDENCES.ID:
                 label = 'Encontrada';
             break;
 

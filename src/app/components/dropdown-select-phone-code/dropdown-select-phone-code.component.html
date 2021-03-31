@@ -1,6 +1,6 @@
 <div class="input-group-prepend">
     <div class="dropdown" *ngIf="dropdownSelectPhoneCodeService.phoneCodes.length > 0">
-        <button type="button" class="btn btn-default-light dropdown-toggle" data-toggle="dropdown">
+        <button type="button" class="btn btn-default-light dropdown-toggle" data-toggle="dropdown" [disabled]="isDisabled">
             <i id="flag-02" class="flag mr-1 {{dropdownSelectPhoneCodeService.phoneCodes[selectedPhoneCodePosition].flag}}" data-toggle="tooltip" [attr.data-original-title]="dropdownSelectPhoneCodeService.phoneCodes[selectedPhoneCodePosition].name"></i>
         </button>
         <div class="dropdown-menu">

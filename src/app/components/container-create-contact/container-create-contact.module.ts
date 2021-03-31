@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone-code/dropdown-select-phone-code.module';
+import { ModalDuplicateContactModule } from '@components/modal-duplicate-contact/modal-duplicate-contact.module';
 import { ModalSelectContactSourceModule } from '@components/modal-select-contact-source/modal-select-contact-source.module';
 import { ContactService } from '@services/contact.service';
 import { ContactSourceService } from '@services/contact-source.service';
@@ -18,6 +19,7 @@ import { ContainerCreateContactService } from './container-create-contact.servic
     DropdownSelectPhoneCodeModule,
     FormsModule,
     ReactiveFormsModule,
+    ModalDuplicateContactModule,
     ModalSelectContactSourceModule
   ],
   providers: [ContactService, ContainerCreateContactService, ContactSourceService]

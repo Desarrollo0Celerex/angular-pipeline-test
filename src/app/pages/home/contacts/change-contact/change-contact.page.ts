@@ -68,7 +68,7 @@ export class ChangeContactPage implements OnInit {
                 this._loadingService.show();
                 this._changeContactService.renewPolicy(this.contactId, this.policyId, createdContactId).subscribe( (res: HttpResponse) => {
                     this._loadingService.hide();
-                    this._router.navigate([ROUTES_NAME.uploadPolicy(createdContactId, res.data)], { queryParams: { isRenewal: true } });
+                    this._router.navigate([ROUTES_NAME.uploadPolicy(createdContactId, res.data)]);
                 })
                 break;
         }
