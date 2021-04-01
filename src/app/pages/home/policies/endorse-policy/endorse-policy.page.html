@@ -313,6 +313,8 @@
 
 <agt-modal-select-file [modalId]="modalIdUploadPolicyEndorsement" [data]="modalSelectFileData" (fileSelected)="onFileSelected($event)"></agt-modal-select-file>
 <agt-modal-confirm-apply-endorsement [modalId]="modalIdConfirmApplyEndorsement" (applyEndorsement)="onApplyEndorsement()"></agt-modal-confirm-apply-endorsement>
+<agt-modal-confirm-amount-increase [modalId]="modalIdConfirmAmountIncrease" (increaseTypeSelected)="onIncreaseTypeSelected($event)"></agt-modal-confirm-amount-increase>
+<agt-modal-generate-receipts [modalId]="modalIdGenerateReceipts" [amount]="receiptAmount" [currencyName]="receiptCurrencyName" (generateReceipts)="onGenerateReceipts($event)"></agt-modal-generate-receipts>
 
 <ng-template #loadingContent>
     <agt-loading-content [isLoadingContent]="true"></agt-loading-content>

@@ -113,6 +113,10 @@ export const ACTION_TYPES: any = {
     SELECT_CONTACT: 1,
     RENEW_POLICY: 2,
 }
+export const AMOUNT_INCREASE_TYPES: any = {
+    IN_POLICY: 1,
+    INDEPENDENT_RECEIPTS: 2
+}
 
 export const IGNORE_MATCHES: any = {
     YES: true,

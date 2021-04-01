@@ -93,6 +93,11 @@
     z-index: 8 !important;
 }
 
+/* Calendar */
+#ui-datepicker-div {
+    z-index: 1050 !important;
+}
+
 /********************************/
 /******** CUSTOM STYLES *********/
 /********************************/
@@ -139,4 +144,10 @@
 /* Text align */
 .agt-text-left {
     text-align: left !important;
+}
+
+/* Body */
+.agt-fixed-body {
+    overflow: hidden !important;
+    height: 100% !important;
 }

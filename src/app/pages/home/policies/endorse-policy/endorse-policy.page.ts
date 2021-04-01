@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
+import { AMOUNT_INCREASE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { ReceiptsData } from '@interfaces/receipts-data.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { LoadingService } from '@services/loading.service';
 
@@ -29,9 +31,13 @@ export class EndorsePolicyPage implements OnInit {
     contactId: string;
     message: string;
     modalSelectFileData: ModalSelectFileData;
+    modalIdConfirmAmountIncrease: string;
     modalIdConfirmApplyEndorsement: string;
+    modalIdGenerateReceipts: string;
     modalIdUploadPolicyEndorsement: string;
     policyId: string;
+    receiptAmount: number;
+    receiptCurrencyName: string;
     selectIdCurrency: string;
     selectIdEndorsementType: string;
     selectIdPaymentMethod: string;
@@ -51,13 +57,17 @@ export class EndorsePolicyPage implements OnInit {
         this.contactId = '';
         this.message = 'Captura el endoso para la póliza de';
         this.modalSelectFileData = {
-            title: 'Cargar Endoso 123',
+            title: 'Cargar Endoso',
             description: 'Selecciona el documento con los detalles del endoso.',
             buttonLabel: 'Cargar endoso'
         }
+        this.modalIdConfirmAmountIncrease = 'agt-confirm-amount-increase';
         this.modalIdConfirmApplyEndorsement = 'agt-confirm-apply-endorsement';
+        this.modalIdGenerateReceipts = 'agt-generate-receipts';
         this.modalIdUploadPolicyEndorsement = 'agt-upload-policy-endorsement';
         this.policyId = '';
+        this.receiptAmount = 0;
+        this.receiptCurrencyName = '';
         this.selectIdCurrency = 'agt-currency';
         this.selectIdEndorsementType = 'agt-endorse-type';
         this.selectIdPaymentMethod = 'agt-payment-method';
@@ -94,7 +104,7 @@ export class EndorsePolicyPage implements OnInit {
      * Event to apply endorsement
      */
     onApplyEndorsement(): void {
-        this._endorseContactPolicy();
+        this.checkPolicyAmounts();
     }
 
     /**
@@ -113,6 +123,36 @@ export class EndorsePolicyPage implements OnInit {
     }
 
     /**
+     * Event to generate receipts
+     * @param data The receipts data
+     */
+    onGenerateReceipts(receiptsData: ReceiptsData): void {
+        if(!!this.endorsePolicyService.policy) {
+            this.endorsePolicyService.endorsementForm.patchValue({amount: this.endorsePolicyService.policy.amount})
+        }
+        receiptsData.amount = this.receiptAmount;
+        this._endorseContactPolicy(receiptsData);
+    }
+
+    /**
+     * Event to catch the selected increase type
+     * @param increaseType The selected increase type
+     */
+    onIncreaseTypeSelected(increaseType: number): void {
+        switch (increaseType) {
+            case AMOUNT_INCREASE_TYPES.IN_POLICY:
+                this._endorseContactPolicy();
+                break;
+
+            case AMOUNT_INCREASE_TYPES.INDEPENDENT_RECEIPTS:
+                this.receiptCurrencyName = this.endorsePolicyService.getSelectedCurrencyName();
+                ModalPlugin.show(this.modalIdGenerateReceipts);
+                ModalPlugin.setFixed();
+                break;
+        }
+    }
+
+    /**
      * Submit event to save endorsement
      */
     onSubmitSaveEndorsement(): void {
@@ -122,20 +162,23 @@ export class EndorsePolicyPage implements OnInit {
             if(isPolicyChanged) {
                 ModalPlugin.show(this.modalIdConfirmApplyEndorsement);
             } else {
-                this._endorseContactPolicy();
+                this.checkPolicyAmounts();
             }
         }
     }
 
     /**
-     * Endorse the contact policy
+     * Check the policy amouts
      */
-    private _endorseContactPolicy(): void {
-        this._loadingService.show();
-        this.endorsePolicyService.endorseContactPolicy(this.contactId, this.policyId).subscribe( () => {
-            this._loadingService.hide();
-            AlertHelper.policyEndorsed(this._goToListContactPolicies, this);
-        })
+    private checkPolicyAmounts(): void {
+        if(!!this.endorsePolicyService.policy) {
+            this.receiptAmount = parseInt(this.endorsePolicyService.f.amount.value) - parseInt(this.endorsePolicyService.policy.amount.toString())
+            if(this.receiptAmount > 0) {
+                ModalPlugin.show(this.modalIdConfirmAmountIncrease);
+            } else {
+                this._endorseContactPolicy();
+            }
+        }
     }
 
     /**
@@ -144,6 +187,17 @@ export class EndorsePolicyPage implements OnInit {
     private _catchParams(): void {
         this.contactId = this._activatedRoute.snapshot.params.contactId;
         this.policyId = this._activatedRoute.snapshot.params.policyId;
+    }
+
+    /**
+     * Endorse the contact policy
+     */
+    private _endorseContactPolicy(receiptsData: ReceiptsData | null = null): void {
+        this._loadingService.show();
+        this.endorsePolicyService.endorseContactPolicy(this.contactId, this.policyId, receiptsData).subscribe( () => {
+            this._loadingService.hide();
+            AlertHelper.policyEndorsed(this._goToListContactPolicies, this);
+        })
     }
 
     /**

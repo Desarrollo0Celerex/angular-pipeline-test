@@ -8,6 +8,7 @@ import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH, DEFAULT_CURRENCY_ID, DEFAULT_METHOD_
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Currency } from '@interfaces/currency.interface';
 import { EndorsementType } from '@interfaces/endorsement-type.interface';
+import { ReceiptsData } from '@interfaces/receipts-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
@@ -73,13 +74,13 @@ export class EndorsePolicyService {
                 "paymentPlanId",
                 "bills",
             ];
-            const policyAux: any = this.policy;
+            const policyAux: any = {...this.policy};
             const endorsementFormAux: any = this.endorsementForm.value;
             for(let field of fieldsToEvaluate) {
                 if(field === 'emissionDate' || field === 'validityStartDate' || field === 'validityEndDate') {
                     policyAux[field] = this._getDateFormat(policyAux[field]);
                 }
-                if(policyAux[field] !== endorsementFormAux[field]) {
+                if(typeof endorsementFormAux[field] !== 'undefined' && policyAux[field] !== endorsementFormAux[field]) {
                     return true;
                 }
             }
@@ -123,9 +124,18 @@ export class EndorsePolicyService {
      * @param  policyId  The policy ID
      * @return           Notice of action done
      */
-    endorseContactPolicy(contactId: string, policyId: string): Observable<void> {
-        const requestBody: FormData = this._getRequestBody();
+    endorseContactPolicy(contactId: string, policyId: string, receiptsData: ReceiptsData | null): Observable<void> {
+        const requestBody: FormData = this._getRequestBody(receiptsData);
         return this._policyService.endorseContactPolicy(contactId, policyId, requestBody);
+    }
+
+    /**
+     * Get the name of the selected currency
+     * @return The currency name
+     */
+    getSelectedCurrencyName(): string {
+        const currency: Currency | undefined = this.currencies.find( (currency: Currency) => currency.currencyId == this.f.currencyId.value);
+        return (!!currency) ? currency.name : '';
     }
 
     /**
@@ -245,7 +255,7 @@ export class EndorsePolicyService {
         return dateFormat;
     }
 
-    private _getRequestBody(): FormData {
+    private _getRequestBody(receiptsData: ReceiptsData | null): FormData {
         const requestBody: FormData = new FormData();
         requestBody.append('endorsementFile', this.f.endorsementFile.value);
         requestBody.append('endorsementNumber', this.f.endorsementNumber.value);
@@ -269,6 +279,13 @@ export class EndorsePolicyService {
         }
         if(this.f.endorsementTypeId.value != ENDORSEMENT_TYPES.POLICY_REHABILITATION) {
             requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
+        }
+        if(!!receiptsData) {
+            requestBody.append('receiptsAmount', receiptsData.amount.toString());
+            requestBody.append('receiptsPaymentMethodId', receiptsData.paymentMethodId.toString());
+            requestBody.append('receiptsPaymentPlanId', receiptsData.paymentPlanId.toString());
+            requestBody.append('receiptsBills', receiptsData.bills.toString());
+            requestBody.append('receiptsPaymentDate', receiptsData.paymentDate);
         }
         return requestBody;
     }

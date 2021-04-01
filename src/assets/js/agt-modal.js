@@ -8,8 +8,19 @@ var ModalPlugin = function() {
         $('#' + modalId).modal('hide');
     }
 
+    function setFixed() {
+        $(window).scrollTop(0);
+        $('body').addClass('agt-fixed-body');
+    }
+
+    function removeFixed() {
+        $('body').removeClass('agt-fixed-body');
+    }
+
     return {
         show,
-        hide
+        hide,
+        setFixed,
+        removeFixed
     }
 }();
