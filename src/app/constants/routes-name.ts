@@ -55,6 +55,7 @@ const HOME_POLICIES_ROUTES = {
     updatePolicy: (contactId: string, policyId: string) => `home/policies/update-policy/${contactId}/${policyId}`,
     endorsePolicy: (contactId: string, policyId: string) => `home/policies/endorse-policy/${contactId}/${policyId}`,
     cancelPolicy: (contactId: string, policyId: string) => `home/policies/cancel-policy/${contactId}/${policyId}`,
+    showHistoryPolicy: (contactId: string, policyId: string) => `home/policies/history-policy/${contactId}/${policyId}`,
 }
 
 const INVITATIONS_ROUTES = {

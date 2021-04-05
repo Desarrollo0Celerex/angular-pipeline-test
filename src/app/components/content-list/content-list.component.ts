@@ -43,6 +43,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmEndorsePolicy: string;
     modalIdConfirmReissuePolicy: string;
     modalIdConfirmRenewPolicy: string;
+    modalIdConfirmShowHistoryPolicy: string;
     modalIdConfirmUpdatePolicy: string;
     modalIdRejectQuotation: string;
     modalIdSelectContact: string;
@@ -81,6 +82,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.modalIdConfirmEndorsePolicy = 'agt-confirm-endorse-policy';
         this.modalIdConfirmReissuePolicy = 'agt-confirm-reissue-policy';
         this.modalIdConfirmRenewPolicy = 'agt-confirm-renew-policy';
+        this.modalIdConfirmShowHistoryPolicy = 'agt-confitm-show-history-policy';
         this.modalIdConfirmUpdatePolicy = 'agt-confirm-update-policy';
         this.modalIdRejectQuotation = 'agt-reject-quotation';
         this.modalIdSelectContact = 'agt-select-contact';
@@ -198,6 +200,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onShowContactData(contactId: string): void {
         this.selectedContactId = contactId;
         ModalPlugin.show(this.modalIdShowContactData);
+    }
+
+    onShowHistoryPolicy(policyId: string): void {
+        this.selectedPolicyId = policyId;
+        ModalPlugin.show(this.modalIdConfirmShowHistoryPolicy);
     }
 
     /**

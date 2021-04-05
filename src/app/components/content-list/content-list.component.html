@@ -35,6 +35,7 @@
                 (cancelPolicy)="onCancelPolicy($event)"
                 (renewPolicy)="onRenewPolicy($event)"
                 (reissuePolicy)="onReissuePolicy($event)"
+                (showHistoryPolicy)="onShowHistoryPolicy($event)"
             ></agt-card-policy>
         </ng-container>
     </div>
@@ -64,5 +65,6 @@
     <agt-modal-confirm-renew-policy [modalId]="modalIdConfirmRenewPolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-renew-policy>
     <agt-modal-confirm-reissue-policy [modalId]="modalIdConfirmReissuePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-reissue-policy>
     <agt-modal-select-contact-type [modalId]="modalIdSelectContactType" [actionType]="selectedActionType" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-select-contact-type>
+    <agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

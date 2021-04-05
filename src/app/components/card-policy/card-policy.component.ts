@@ -16,6 +16,7 @@ export class CardPolicyComponent implements OnInit {
     @Output() endorsePolicy: EventEmitter<string>;
     @Output() reissuePolicy: EventEmitter<string>;
     @Output() renewPolicy: EventEmitter<string>;
+    @Output() showHistoryPolicy: EventEmitter<string>;
     @Output() showPolicy: EventEmitter<string>;
     @Output() showPolicyDetails: EventEmitter<string>;
     @Output() updatePolicy: EventEmitter<string>;
@@ -26,6 +27,7 @@ export class CardPolicyComponent implements OnInit {
         this.endorsePolicy = new EventEmitter<string>();
         this.reissuePolicy = new EventEmitter<string>();
         this.renewPolicy = new EventEmitter<string>();
+        this.showHistoryPolicy = new EventEmitter<string>();
         this.showPolicy = new EventEmitter<string>();
         this.showPolicyDetails = new EventEmitter<string>();
         this.updatePolicy = new EventEmitter<string>();
@@ -61,6 +63,13 @@ export class CardPolicyComponent implements OnInit {
      */
     onClickRenewPolicy(): void {
         if(!!this.policy) this.renewPolicy.emit(this.policy.policyId);
+    }
+
+    /**
+     * Click event to show the history policcy
+     */
+    onClickShowHistoryPolicy(): void {
+        if(!!this.policy) this.showHistoryPolicy.emit(this.policy.policyId);
     }
 
     /**
