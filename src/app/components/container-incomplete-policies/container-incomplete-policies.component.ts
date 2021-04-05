@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { POLICY_STATUS } from '@constants/global';
@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
 export class ContainerIncompletePoliciesComponent implements OnInit {
     @Input() contactId: string;
     @Input() contentTypeName: string;
+    @Output() policyDeleted: EventEmitter<void>;
     contentSubtype: number;
     modalIdConfirmDeletePolicy: string;
     selectedPolicyId: string;
@@ -29,6 +30,7 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
     ) {
         this.contactId = '';
         this.contentTypeName = '';
+        this.policyDeleted = new EventEmitter<void>();
         this.contentSubtype = POLICY_STATUS.INCOMPLETE;
         this.modalIdConfirmDeletePolicy = 'agt-confirm-delete-policy';
         this.selectedPolicyId = '';
@@ -64,6 +66,7 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
     onPolicyDeleted(policyId: string): void {
         this.containerListIncompletePoliciesService.deletePolicyCard(policyId);
         AlertHelper.policyDeleted();
+        this.policyDeleted.emit();
     }
 
 }

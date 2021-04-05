@@ -37,6 +37,7 @@ export class ModalSelectContactTypeComponent implements OnInit {
     ngOnInit(): void {
         switch(this.actionType) {
             case ACTION_TYPES.RENEW_POLICY:
+            case ACTION_TYPES.REISSUE_POLICY:
                 this.description = 'Es necesario seleccionar al nuevo titular de la póliza.';
                 this.message = 'Por favor selecciona el tipo de contacto para continuar.';
                 break;
@@ -51,6 +52,7 @@ export class ModalSelectContactTypeComponent implements OnInit {
         ModalPlugin.hide(this.modalId);
         switch(this.actionType) {
             case ACTION_TYPES.RENEW_POLICY:
+            case ACTION_TYPES.REISSUE_POLICY:
                 this._router.navigateByUrl(ROUTES_NAME.changeContact(this.contactId, this.policyId, contactType, this.actionType.toString()));
                 break;
 

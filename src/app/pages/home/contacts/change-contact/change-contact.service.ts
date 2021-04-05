@@ -11,6 +11,18 @@ export class ChangeContactService {
     constructor(private _policyService: PolicyService) { }
 
     /**
+     * Reissue the policy
+     * @param  contactId        The contact ID
+     * @param  policyId         The policy ID
+     * @param  createdContactId The created contact ID
+     * @return                  The reissued policy ID
+     */
+    reissuePolicy(contactId: string, policyId: string, createdContactId: string): Observable<HttpResponse> {
+        const requestBody: RenewContactPolicyDataSend = { contactId: createdContactId }
+        return this._policyService.reissueContactPolicy(contactId, policyId, requestBody);
+    }
+
+    /**
      * Renew the policy
      * @param  contactId        The contact ID
      * @param  policyId         The policy ID

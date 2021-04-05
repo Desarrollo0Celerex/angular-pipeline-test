@@ -1,4 +1,4 @@
-<agt-container-incomplete-policies *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID" [contactId]="contactId" [contentTypeName]="contentTypeName"></agt-container-incomplete-policies>
+<agt-container-incomplete-policies *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID" [contactId]="contactId" [contentTypeName]="contentTypeName" (policyDeleted)="onPolicyDeleted()"></agt-container-incomplete-policies>
 
 <!-- AGENTHOS - CONTENT HEADER -->
 <div class="row mt-3">
@@ -34,6 +34,7 @@
                 (endorsePolicy)="onEndorsePolicy($event)"
                 (cancelPolicy)="onCancelPolicy($event)"
                 (renewPolicy)="onRenewPolicy($event)"
+                (reissuePolicy)="onReissuePolicy($event)"
             ></agt-card-policy>
         </ng-container>
     </div>
@@ -60,6 +61,8 @@
     <agt-modal-confirm-update-policy [modalId]="modalIdConfirmUpdatePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-update-policy>
     <agt-modal-confirm-endorse-policy [modalId]="modalIdConfirmEndorsePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-endorse-policy>
     <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
-    <agt-modal-confirm-renew-policy [modalId]="modalIdConfirmRenewPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-renew-policy>
+    <agt-modal-confirm-renew-policy [modalId]="modalIdConfirmRenewPolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-renew-policy>
+    <agt-modal-confirm-reissue-policy [modalId]="modalIdConfirmReissuePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-reissue-policy>
+    <agt-modal-select-contact-type [modalId]="modalIdSelectContactType" [actionType]="selectedActionType" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-select-contact-type>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

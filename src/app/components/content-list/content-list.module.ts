@@ -17,10 +17,12 @@ import { LoadingContentModule } from '@components/loading-content/loading-conten
 import { ModalConfirmAcceptQuotationModule } from '@components/modal-confirm-accept-quotation/modal-confirm-accept-quotation.module';
 import { ModalConfirmCancelPolicyModule } from '@components/modal-confirm-cancel-policy/modal-confirm-cancel-policy.module';
 import { ModalConfirmEndorsePolicyModule } from '@components/modal-confirm-endorse-policy/modal-confirm-endorse-policy.module';
+import { ModalConfirmReissuePolicyModule } from '@components/modal-confirm-reissue-policy/modal-confirm-reissue-policy.module';
 import { ModalConfirmRejectQuotationModule } from '@components/modal-confirm-reject-quotation/modal-confirm-reject-quotation.module';
 import { ModalConfirmRenewPolicyModule } from '@components/modal-confirm-renew-policy/modal-confirm-renew-policy.module';
 import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
 import { ModalSelectContactModule } from '@components/modal-select-contact/modal-select-contact.module';
+import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
@@ -56,10 +58,12 @@ import { ContentListService } from './content-list.service';
     ModalConfirmAcceptQuotationModule,
     ModalConfirmCancelPolicyModule,
     ModalConfirmEndorsePolicyModule,
+    ModalConfirmReissuePolicyModule,
     ModalConfirmRejectQuotationModule,
     ModalConfirmRenewPolicyModule,
     ModalConfirmUpdatePolicyModule,
     ModalSelectContactModule,
+    ModalSelectContactTypeModule,
     ModalShowContactDataModule,
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,

@@ -18,6 +18,7 @@ const routes: any = {
     cancelContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/cancel',
     renewContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/renew',
     deleteContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/delete',
+    reissueContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/reissue',
 }
 
 @Injectable()
@@ -113,6 +114,17 @@ export class PolicyService {
         if(!!query) params = params.append('search', 'policyNumber:' + query);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
+     * Reissue the policy in the API
+     * @param  contactId   The contact ID
+     * @param  policyId    The policy ID
+     * @return             The reissued policy ID
+     */
+    reissueContactPolicy(contactId: string, policyId: string, requestBody: RenewContactPolicyDataSend): Observable<HttpResponse> {
+        const route: string = routes.reissueContactPolicy(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<HttpResponse>(route, requestBody);
     }
 
     /**

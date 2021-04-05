@@ -35,4 +35,16 @@ export class ListContactCoincidencesService {
         const requestBody: RenewContactPolicyDataSend = { contactId }
         return this._policyService.renewContactPolicy(originContactId, originPolicyId, requestBody);
     }
+
+    /**
+     * Reissue the policy
+     * @param  originContactId The origin contact ID
+     * @param  originPolicyId  The origin policy ID
+     * @param  contactId       The contact ID
+     * @return                 The reissueed policy ID
+     */
+    reissuePolicy(originContactId: string, originPolicyId: string, contactId: string): Observable<HttpResponse> {
+        const requestBody: RenewContactPolicyDataSend = { contactId }
+        return this._policyService.reissueContactPolicy(originContactId, originPolicyId, requestBody);
+    }
 }

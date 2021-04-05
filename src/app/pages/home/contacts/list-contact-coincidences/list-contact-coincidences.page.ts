@@ -157,6 +157,16 @@ export class ListContactCoincidencesPage implements OnInit, OnDestroy {
                     this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(contactId, res.data));
                 });
                 break;
+
+            case ACTION_TYPES.REISSUE_POLICY:
+                this._listContactCoincidencesService.reissuePolicy(this.originContactId, this.originPolicyId, contactId).subscribe( (res: HttpResponse) => {
+                    this._loadingService.hide();
+                    this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(contactId, res.data));
+                });
+                break;
+
+            default:
+                this._loadingService.hide();
         }
     }
 

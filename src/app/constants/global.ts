@@ -112,6 +112,7 @@ export const ENDORSEMENT_TYPES: any = {
 export const ACTION_TYPES: any = {
     SELECT_CONTACT: 1,
     RENEW_POLICY: 2,
+    REISSUE_POLICY: 3
 }
 export const AMOUNT_INCREASE_TYPES: any = {
     IN_POLICY: 1,

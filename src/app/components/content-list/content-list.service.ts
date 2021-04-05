@@ -112,6 +112,18 @@ export class ContentListService {
     }
 
     /**
+     * Reissue the policy
+     * @param  originContactId The origin contact ID
+     * @param  originPolicyId  The origin policy ID
+     * @param  contactId       The contact ID
+     * @return                 The reissued policy ID
+     */
+    reissuePolicy(originContactId: string, originPolicyId: string, contactId: string): Observable<HttpResponse> {
+        const requestBody: RenewContactPolicyDataSend = { contactId }
+        return this._policyService.reissueContactPolicy(originContactId, originPolicyId, requestBody);
+    }
+
+    /**
      * Renew the policy
      * @param  originContactId The origin contact ID
      * @param  originPolicyId  The origin policy ID

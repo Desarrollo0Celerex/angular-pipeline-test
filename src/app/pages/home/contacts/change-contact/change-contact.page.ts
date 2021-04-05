@@ -71,6 +71,14 @@ export class ChangeContactPage implements OnInit {
                     this._router.navigate([ROUTES_NAME.uploadPolicy(createdContactId, res.data)]);
                 })
                 break;
+
+            case ACTION_TYPES.REISSUE_POLICY:
+                this._loadingService.show();
+                this._changeContactService.reissuePolicy(this.contactId, this.policyId, createdContactId).subscribe( (res: HttpResponse) => {
+                    this._loadingService.hide();
+                    this._router.navigate([ROUTES_NAME.uploadPolicy(createdContactId, res.data)]);
+                })
+                break;
         }
     }
 

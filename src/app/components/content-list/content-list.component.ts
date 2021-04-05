@@ -5,6 +5,7 @@ import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
+import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ContentListService } from './content-list.service';
@@ -33,16 +34,19 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     canShowTotalResults: boolean;
     isLoadingContent: boolean;
     page: number;
+    selectedActionType: number;
     selectedContactId: string;
     selectedPolicyId: string;
     selectedQuotationId: string;
     modalIdAcceptQuotation: string;
     modalIdConfirmCancelPolicy: string;
     modalIdConfirmEndorsePolicy: string;
+    modalIdConfirmReissuePolicy: string;
     modalIdConfirmRenewPolicy: string;
     modalIdConfirmUpdatePolicy: string;
     modalIdRejectQuotation: string;
     modalIdSelectContact: string;
+    modalIdSelectContactType: string;
     modalIdShowContactData: string;
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
@@ -68,16 +72,19 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.canShowTotalResults = false;
         this.isLoadingContent = false;
         this.page = 1;
+        this.selectedActionType = 0;
         this.selectedContactId = '';
         this.selectedPolicyId = '';
         this.selectedQuotationId = '';
         this.modalIdAcceptQuotation = 'agt-accept-quotation';
         this.modalIdConfirmCancelPolicy = 'agt-confirm-cancel-policy';
         this.modalIdConfirmEndorsePolicy = 'agt-confirm-endorse-policy';
+        this.modalIdConfirmReissuePolicy = 'agt-confirm-reissue-policy';
         this.modalIdConfirmRenewPolicy = 'agt-confirm-renew-policy';
         this.modalIdConfirmUpdatePolicy = 'agt-confirm-update-policy';
         this.modalIdRejectQuotation = 'agt-reject-quotation';
         this.modalIdSelectContact = 'agt-select-contact';
+        this.modalIdSelectContactType = 'agt-select-contact-type';
         this.modalIdShowContactData = 'agt-contact-data';
         this.modalIdShowPolicy = 'agt-show-policy';
         this.modalIdShowPolicyDetails = 'agt-show-policy-details';
@@ -89,8 +96,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     ngOnChanges(changes: SimpleChanges): void {
         if((typeof changes.contentSubtype !== 'undefined' && !!changes.contentSubtype.currentValue) || (typeof changes.query !== 'undefined' && !!changes.query.currentValue) || (typeof changes.specialQuery !== 'undefined' && !!changes.specialQuery.currentValue)) {
-            this.contentListService.resetData();
-            this._loadContents();
+            this._initContent();
         }
     }
 
@@ -105,6 +111,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onAcceptQuotation(quotationId: string): void {
         this.selectedQuotationId = quotationId;
         ModalPlugin.show(this.modalIdAcceptQuotation);
+    }
+
+    /**
+     * Event to catch the selected event type
+     * @param  data The data of the selected action type
+     */
+    onActionTypeSelected(data: SelectActionTypeData): void {
+        this.selectedActionType = data.actionType;
+        this.selectedPolicyId = data.policyId;
+        ModalPlugin.show(this.modalIdSelectContactType);
     }
 
     /**
@@ -139,6 +155,22 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onLoadMoreContents(): void {
         this.page++;
         this._loadContents();
+    }
+
+    /**
+     * Event to reload content when removing a policy
+     */
+    onPolicyDeleted(): void {
+        this._initContent();
+    }
+
+    /**
+     * Event to reissue the policy
+     * @param policyId [description]
+     */
+    onReissuePolicy(policyId: string): void {
+        this.selectedPolicyId = policyId;
+        ModalPlugin.show(this.modalIdConfirmReissuePolicy);
     }
 
     /**
@@ -221,7 +253,23 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                     this._router.navigate([ROUTES_NAME.uploadPolicy(contactId, res.data)]);
                 });
                 break;
+
+            case ACTION_TYPES.REISSUE_POLICY:
+                this._loadingService.show();
+                this.contentListService.reissuePolicy(this.originContactId, this.originPolicyId, contactId).subscribe( (res: HttpResponse) => {
+                    this._loadingService.hide();
+                    this._router.navigate([ROUTES_NAME.uploadPolicy(contactId, res.data)]);
+                });
+                break;
         }
+    }
+
+    /**
+     * Initialize the contents
+     */
+    private _initContent(): void {
+        this.contentListService.resetData();
+        this._loadContents();
     }
 
     /**
