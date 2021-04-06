@@ -1,0 +1,100 @@
+<!-- AGENTHOS - POLICY DETAILS -->
+<div class="row">
+    <!-- AGENTHOS - POLICY CARD -->
+    <div class="col-lg-4">
+        <agt-card-policy
+            [policy]="containerPolicyDetailsService.policy"
+            [canShowFooter]="false"
+            (showPolicyDetails)="onShowPolicyDetails($event)"
+            (showPolicy)="onShowPolicy($event)"
+            (updatePolicy)="onUpdatePolicy($event)"
+            (endorsePolicy)="onEndorsePolicy($event)"
+            (cancelPolicy)="onCancelPolicy($event)"
+            (renewPolicy)="onRenewPolicy($event)"
+            (reissuePolicy)="onReissuePolicy($event)"
+            (showHistoryPolicy)="onShowHistoryPolicy($event)"
+        ></agt-card-policy>
+    </div>
+    <!-- //AGENTHOS - POLICY CARD -->
+    <!-- AGENTHOS - POLICY SUMMARY -->
+    <div class="col-lg-8" *ngIf="!!containerPolicyDetailsService.policyComplete">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Detalles de Póliza</h3>
+                <div class="card-options">
+                    <i class="fe fe-file mr-1 text-primary fs-30"></i>
+                </div>
+            </div>
+            <!-- AGENTHOS - PROFILE RESUME -->
+            <div class="card-body pb-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Prima Total ({{containerPolicyDetailsService.policyComplete.currencyName}})</label>
+                                    <input type="text" class="form-control" [placeholder]="containerPolicyDetailsService.policyComplete.amount | currency: '': '$': '0.2-2'" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Prima Pagada ({{containerPolicyDetailsService.policyComplete.currencyName}})</label>
+                                    <input type="text" class="form-control" [placeholder]="containerPolicyDetailsService.policyComplete.amountApplied | currency: '': '$': '0.2-2'" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Recibos Totales</label>
+                                    <input type="text" class="form-control" [placeholder]="containerPolicyDetailsService.policyComplete.bills" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Fecha Emisión</label>
+                                    <input type="text" class="form-control" [placeholder]="containerPolicyDetailsService.policyComplete.emissionDate | date: 'dd/MM/yyyy'" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Inicio Vigencia</label>
+                                    <input type="text" class="form-control" [placeholder]="containerPolicyDetailsService.policyComplete.validityStartDate | date: 'dd/MM/yyyy'" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Fin Vigencia</label>
+                                    <input type="text" class="form-control" [placeholder]="containerPolicyDetailsService.policyComplete.validityEndDate | date: 'dd/MM/yyyy'" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Siniestros</label>
+                                    <input type="text" name="agtPolicySinisters" class="form-control" placeholder="0" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Endosos</label>
+                                    <input type="text" name="agtPolicyEndorsements" class="form-control" [placeholder]="containerPolicyDetailsService.policyComplete.totalEndorsements" readonly="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - PROFILE RESUME -->
+        </div>
+    </div>
+    <!-- //AGENTHOS - POLICY SUMMARY -->
+</div>
+<!-- //AGENTHOS - POLICY DETAILS -->
+
+<agt-modal-show-policy-details [modalId]="modalIdShowPolicyDetails" [contactId]="contactId" [policyId]="selectedPolicyId" (showPolicy)="onShowPolicy($event)"></agt-modal-show-policy-details>
+<agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
+<agt-modal-confirm-update-policy [modalId]="modalIdConfirmUpdatePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-update-policy>
+<agt-modal-confirm-endorse-policy [modalId]="modalIdConfirmEndorsePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-endorse-policy>
+<agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
+<agt-modal-confirm-renew-policy [modalId]="modalIdConfirmRenewPolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-renew-policy>
+<agt-modal-confirm-reissue-policy [modalId]="modalIdConfirmReissuePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-reissue-policy>
+<agt-modal-select-contact-type [modalId]="modalIdSelectContactType" [actionType]="selectedActionType" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-select-contact-type>
+<agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>

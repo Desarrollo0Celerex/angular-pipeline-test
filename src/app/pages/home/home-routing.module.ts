@@ -39,6 +39,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.updatePolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/update-policy/update-policy.module').then(mod => mod.UpdatePolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.endorsePolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/endorse-policy/endorse-policy.module').then(mod => mod.EndorsePolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.cancelPolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/cancel-policy/cancel-policy.module').then(mod => mod.CancelPolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.showHistoryPolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/show-history-policy/show-history-policy.module').then(mod => mod.ShowHistoryPolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Searches routes
             { path: ROUTES_NAME.listSearchResults, loadChildren: () => import('@pages/home/searches/list-search-results/list-search-results.module').then(mod => mod.ListSearchResultsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] }

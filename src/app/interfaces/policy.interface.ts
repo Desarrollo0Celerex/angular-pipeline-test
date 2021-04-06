@@ -16,7 +16,7 @@ export interface Policy {
     policyNumber: string,
     policyUrl: string,
     coveredProperty: string,
-    progressbar: number,
+    lifeTime: number,
     validityStartDate: string,
     validityEndDate: string
     policyStatusId: number

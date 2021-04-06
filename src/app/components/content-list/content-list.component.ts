@@ -202,6 +202,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdShowContactData);
     }
 
+    /**
+     * Event to show the history policy
+     * @param policyId The selected policy ID
+     */
     onShowHistoryPolicy(policyId: string): void {
         this.selectedPolicyId = policyId;
         ModalPlugin.show(this.modalIdConfirmShowHistoryPolicy);

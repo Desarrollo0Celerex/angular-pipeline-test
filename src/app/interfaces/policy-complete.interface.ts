@@ -25,5 +25,7 @@ export interface PolicyComplete {
     paymentMethodName: string,
     paymentPlanId: number,
     paymentPlanName: string,
-    bills: number
+    bills: number,
+    amountApplied: number,
+    totalEndorsements: number
 }

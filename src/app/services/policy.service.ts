@@ -3,10 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { POLICY_STATUS } from '@constants/global';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { Policy } from '@interfaces/policy.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
 import { AuthService } from '@services/auth.service';
+
+import * as moment from 'moment';
 
 const routes: any = {
     contactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies',
@@ -91,7 +95,8 @@ export class PolicyService {
         if(!!fields) params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map( (res: HttpResponse) => {
-                return { data: this._cleanObject(res.data) };
+                const policy: Policy = (fields.includes('lifeTime')) ? this._calculatePolicyLifeTime(res.data) : res.data;
+                return { data: this._cleanObject(policy) };
             })
         );
     }
@@ -113,7 +118,17 @@ export class PolicyService {
         if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
         if(!!query) params = params.append('search', 'policyNumber:' + query);
         params = params.append('sortBy', '-createdAt');
-        return this._httpClient.get<HttpResponse>(route, {params});
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const policies: Policy[] = res.data.items.map( (policy: Policy) => {
+                        return this._calculatePolicyLifeTime(policy);
+                    })
+                    res.data.items = policies;
+                }
+                return res;
+            })
+        )
     }
 
     /**
@@ -160,6 +175,29 @@ export class PolicyService {
     uploadContactPolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.uploadContactPolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
+    }
+
+    /**
+     * Calculate the life time of the policy
+     * @param  policy The policy to evaluate
+     * @return        The policy with their life time value
+     */
+    private _calculatePolicyLifeTime(policy: Policy): Policy {
+        let percentage: number;
+        switch(policy.policyStatusId) {
+            case POLICY_STATUS.CANCELLED:
+                percentage = 100;
+            break;
+
+            default:
+                const validityStartDate = moment(policy.validityStartDate);
+                const validityEndDate = moment(policy.validityEndDate);
+                const totalDays = validityEndDate.diff(validityStartDate, 'days');
+                const daysPassed = moment().diff(validityStartDate, 'days');
+                percentage = (daysPassed >= totalDays) ? 100 : Math.round(daysPassed * 100 / totalDays);
+        }
+        policy.lifeTime = percentage;
+        return policy;
     }
 
     /**

@@ -12,6 +12,7 @@ declare var PopoverPlugin: any;
 })
 export class CardPolicyComponent implements OnInit {
     @Input() policy: Policy | null;
+    @Input() canShowFooter: boolean;
     @Output() cancelPolicy: EventEmitter<string>;
     @Output() endorsePolicy: EventEmitter<string>;
     @Output() reissuePolicy: EventEmitter<string>;
@@ -23,6 +24,7 @@ export class CardPolicyComponent implements OnInit {
 
     constructor() {
         this.policy = null;
+        this.canShowFooter = true;
         this.cancelPolicy = new EventEmitter<string>();
         this.endorsePolicy = new EventEmitter<string>();
         this.reissuePolicy = new EventEmitter<string>();

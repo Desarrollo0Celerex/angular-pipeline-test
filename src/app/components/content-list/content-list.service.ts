@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import * as moment from 'moment';
 
 import { POLICY_STATUS, POLICY_STATUS_ACTIVE } from '@constants/global';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -74,11 +73,11 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadContactPolicies(contactId: string, page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,amount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId';
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,amount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime';
         const filters: number [] = (contentSubtype === POLICY_STATUS_ACTIVE) ? [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED] : [contentSubtype];
         return this._policyService.getContactPolicies(contactId, page, fields, filters).pipe(
             tap((res: HttpResponse) => {
-                const policies: Policy[] = this._calculatePolicyProgressBar(res.data.items);
+                const policies: Policy[] = res.data.items; //this._calculatePolicyProgressBar(res.data.items);
                 this.contents = this.contents.concat(policies);
                 this._loadContentResultData(res.data.totalItems);
             }),
@@ -177,7 +176,7 @@ export class ContentListService {
      * @return           Notice of action done
      */
     searchContactPolicies(contactId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,amount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId';
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,amount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime';
         return this._policyService.getContactPolicies(contactId, page, fields, [], query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
@@ -219,32 +218,6 @@ export class ContentListService {
             }),
             map( () => { })
         )
-    }
-
-    /**
-     * Calculate the progress bar value
-     * @param  policies The policies to evaluate
-     * @return          The policies with their progress bar value
-     */
-    private _calculatePolicyProgressBar(policies: Policy[]): Policy[] {
-        const newItems: Policy[] = policies.map( (policy: Policy) => {
-            let percentage: number;
-            switch(policy.policyStatusId) {
-                case POLICY_STATUS.CANCELLED:
-                    percentage = 100;
-                break;
-
-                default:
-                    const validityStartDate = moment(policy.validityStartDate);
-                    const validityEndDate = moment(policy.validityEndDate);
-                    const totalDays = validityEndDate.diff(validityStartDate, 'days');
-                    const daysPassed = moment().diff(validityStartDate, 'days');
-                    percentage = (daysPassed >= totalDays) ? 100 : Math.round(daysPassed * 100 / totalDays);
-            }
-            policy.progressbar = percentage;
-            return policy;
-        })
-        return newItems;
     }
 
     /**
