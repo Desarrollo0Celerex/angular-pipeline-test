@@ -63,14 +63,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12" *ngIf="!isHistoryContent">
                         <p class="text-center">Si lo deseas puedes ver los detalles de la póliza digital.</p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer text-center">
                 <div class="col-12">
-                    <button type="button" class="btn btn-primary btn-block" (click)="onClickShowPolicy()"><strong>VER PÓLIZA</strong></button>
+                    <button type="button" class="btn btn-primary btn-block" *ngIf="isHistoryContent; else noHistoryContent" (click)="onClickShowHistoryPolicy()"><strong>VER HISTORIAL</strong></button>
+                    <ng-template #noHistoryContent>
+                        <button type="button" class="btn btn-primary btn-block" (click)="onClickShowPolicy()"><strong>VER PÓLIZA</strong></button>
+                    </ng-template>
                 </div>
             </div>
         </div>

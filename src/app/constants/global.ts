@@ -89,6 +89,10 @@ export const CONTENT_TYPES: any = {
     },
     COINCIDENCES: {
         NAME: 'Coincidencia'
+    },
+    HISTORY_POLICY: {
+        ID: 9,
+        NAME: 'Historial de'
     }
 }
 export const CONTACT_TYPES: any = {
@@ -117,6 +121,16 @@ export const ACTION_TYPES: any = {
 export const AMOUNT_INCREASE_TYPES: any = {
     IN_POLICY: 1,
     INDEPENDENT_RECEIPTS: 2
+}
+export const POLICY_RECORD_TYPES: any = {
+    REGISTER: 1,
+    UPLOAD: 2,
+    CONFIRMATION: 3,
+    UPDATE: 4,
+    ENDORSEMENT: 5,
+    RENEWED: 6,
+    REISSUED: 7,
+    CANCELLED: 8,
 }
 
 export const IGNORE_MATCHES: any = {

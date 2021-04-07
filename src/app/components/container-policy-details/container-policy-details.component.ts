@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
 
@@ -12,7 +12,7 @@ declare var ModalPlugin: any;
   styles: [
   ]
 })
-export class ContainerPolicyDetailsComponent implements OnInit {
+export class ContainerPolicyDetailsComponent implements OnChanges {
     @Input() contactId: string = '';
     @Input() policyId: string = '';
     modalIdConfirmCancelPolicy: string = 'agt-confirm-cancel-policy';
@@ -22,15 +22,15 @@ export class ContainerPolicyDetailsComponent implements OnInit {
     modalIdConfirmShowHistoryPolicy: string = 'agt-confitm-show-history-policy';
     modalIdConfirmUpdatePolicy: string = 'agt-confirm-update-policy';
     modalIdSelectContactType: string = 'agt-select-contact-type';
-    modalIdShowPolicy: string = 'agt-show-policy';
-    modalIdShowPolicyDetails: string = 'agt-show-policy-details';
     selectedActionType: number = 0;
     selectedPolicyId: string = '';
 
     constructor(public containerPolicyDetailsService: ContainerPolicyDetailsService) { }
 
-    ngOnInit(): void {
-        this.containerPolicyDetailsService.loadPolicy(this.contactId, this.policyId);
+    ngOnChanges(changes: SimpleChanges): void {
+        if(!!changes.contactId.currentValue && !!changes.policyId.currentValue) {
+            this.containerPolicyDetailsService.loadPolicy(this.contactId, this.policyId);
+        }
     }
 
     /**
@@ -86,24 +86,6 @@ export class ContainerPolicyDetailsComponent implements OnInit {
     onShowHistoryPolicy(policyId: string): void {
         this.selectedPolicyId = policyId;
         ModalPlugin.show(this.modalIdConfirmShowHistoryPolicy);
-    }
-
-    /**
-     * Event to show policy
-     * @param policyId The policy ID
-     */
-    onShowPolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
-        ModalPlugin.show(this.modalIdShowPolicy);
-    }
-
-    /**
-     * Event to show the policy details modal
-     * @param policyId The selected policy ID
-     */
-    onShowPolicyDetails(policyId: string): void {
-        this.selectedPolicyId = policyId;
-        ModalPlugin.show(this.modalIdShowPolicyDetails);
     }
 
     /**

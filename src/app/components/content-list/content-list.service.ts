@@ -48,6 +48,25 @@ export class ContentListService {
     }
 
     /**
+     * Load the history policy of contact
+     * @param  contactId      The contact ID
+     * @param  policyId       The policy ID
+     * @param  page           The page number
+     * @return                Notice of action done
+     */
+    loadContactHistoryPolicy(contactId: string, policyId: string, page: number): Observable<void> {
+        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeName,endorsementNumber,insurerName,policyNumber,policyCancellationReasonName,sourceContactId';
+        return this._policyService.getContactHistoryPolicy(contactId, policyId, page, fields).pipe(
+            tap((res: HttpResponse) => {
+                const policies: Policy[] = res.data.items;
+                this.contents = this.contents.concat(policies);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
      * Load the contact quotations
      * @param  contactId      The contact ID
      * @param  page           The page number
@@ -67,7 +86,7 @@ export class ContentListService {
 
     /**
      * Load the contact policies
-     * @param  contactId      The contact IID
+     * @param  contactId      The contact ID
      * @param  page           The page number
      * @param  contentSubtype The content subtype
      * @return                Notice of action done
@@ -77,7 +96,7 @@ export class ContentListService {
         const filters: number [] = (contentSubtype === POLICY_STATUS_ACTIVE) ? [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED] : [contentSubtype];
         return this._policyService.getContactPolicies(contactId, page, fields, filters).pipe(
             tap((res: HttpResponse) => {
-                const policies: Policy[] = res.data.items; //this._calculatePolicyProgressBar(res.data.items);
+                const policies: Policy[] = res.data.items;
                 this.contents = this.contents.concat(policies);
                 this._loadContentResultData(res.data.totalItems);
             }),

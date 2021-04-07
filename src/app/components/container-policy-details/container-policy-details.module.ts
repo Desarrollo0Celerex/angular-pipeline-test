@@ -9,8 +9,6 @@ import { ModalConfirmRenewPolicyModule } from '@components/modal-confirm-renew-p
 import { ModalConfirmShowHistoryPolicyModule } from '@components/modal-confirm-show-history-policy/modal-confirm-show-history-policy.module';
 import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
-import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
-import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 
 import { PolicyService } from '@services/policy.service';
 
@@ -29,9 +27,7 @@ import { ContainerPolicyDetailsService } from './container-policy-details.servic
     ModalConfirmRenewPolicyModule,
     ModalConfirmShowHistoryPolicyModule,
     ModalConfirmUpdatePolicyModule,
-    ModalSelectContactTypeModule,
-    ModalShowPolicyModule,
-    ModalShowPolicyDetailsModule
+    ModalSelectContactTypeModule
   ],
   providers: [ContainerPolicyDetailsService, PolicyService]
 })

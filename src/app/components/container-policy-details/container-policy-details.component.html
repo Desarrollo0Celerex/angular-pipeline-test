@@ -5,8 +5,6 @@
         <agt-card-policy
             [policy]="containerPolicyDetailsService.policy"
             [canShowFooter]="false"
-            (showPolicyDetails)="onShowPolicyDetails($event)"
-            (showPolicy)="onShowPolicy($event)"
             (updatePolicy)="onUpdatePolicy($event)"
             (endorsePolicy)="onEndorsePolicy($event)"
             (cancelPolicy)="onCancelPolicy($event)"
@@ -89,8 +87,6 @@
 </div>
 <!-- //AGENTHOS - POLICY DETAILS -->
 
-<agt-modal-show-policy-details [modalId]="modalIdShowPolicyDetails" [contactId]="contactId" [policyId]="selectedPolicyId" (showPolicy)="onShowPolicy($event)"></agt-modal-show-policy-details>
-<agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
 <agt-modal-confirm-update-policy [modalId]="modalIdConfirmUpdatePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-update-policy>
 <agt-modal-confirm-endorse-policy [modalId]="modalIdConfirmEndorsePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-endorse-policy>
 <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>

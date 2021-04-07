@@ -5,6 +5,7 @@ import { CardClientModule } from '@components/card-client/card-client.module';
 import { CardContactModule } from '@components/card-contact/card-contact.module';
 import { CardLeadModule } from '@components/card-lead/card-lead.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
+import { CardPolicyRecordModule } from '@components/card-policy-record/card-policy-record.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
 
 import { ContainerIncompletePoliciesModule } from '@components/container-incomplete-policies/container-incomplete-policies.module';
@@ -48,6 +49,7 @@ import { ContentListService } from './content-list.service';
     CardContactModule,
     CardLeadModule,
     CardPolicyModule,
+    CardPolicyRecordModule,
     CardQuotationModule,
     CommonModule,
     ContainerIncompletePoliciesModule,

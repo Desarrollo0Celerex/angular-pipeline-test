@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { ROUTES_NAME } from '@constants/routes-name';
 
 import { ModalShowPolicyDetailsService } from './modal-show-policy-details.service';
 
@@ -12,19 +15,24 @@ declare var ModalPlugin: any;
 })
 export class ModalShowPolicyDetailsComponent implements OnChanges {
     @Input() contactId: string;
+    @Input() isHistoryContent: boolean;
     @Input() modalId: string;
     @Input() policyId: string;
     @Output() showPolicy: EventEmitter<string>;
 
-    constructor(public modalShowPolicyDetailsService: ModalShowPolicyDetailsService) {
+    constructor(
+        public modalShowPolicyDetailsService: ModalShowPolicyDetailsService,
+        private _router: Router
+    ) {
         this.contactId = '';
+        this.isHistoryContent = false;
         this.modalId = '';
         this.policyId = '';
         this.showPolicy = new EventEmitter<string>();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.policyId.currentValue) {
+        if(!!changes.policyId.currentValue && !!changes.contactId.currentValue) {
             this.modalShowPolicyDetailsService.resetPolicyDetails();
             this.modalShowPolicyDetailsService.loadPolicyDetails(this.contactId, this.policyId);
         }
@@ -36,6 +44,14 @@ export class ModalShowPolicyDetailsComponent implements OnChanges {
     onClickShowPolicy(): void {
         ModalPlugin.hide(this.modalId);
         this.showPolicy.emit(this.policyId);
+    }
+
+    /**
+     * Click event to navigate to the history policy
+     */
+    onClickShowHistoryPolicy(): void {
+        ModalPlugin.hide(this.modalId);
+        this._router.navigateByUrl(ROUTES_NAME.showHistoryPolicy(this.contactId, this.policyId));
     }
 
 }

@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 
 import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
 import { LoadingService } from '@services/loading.service';
@@ -27,11 +29,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() contentSubtypeName: string;
     @Input() originContactId: string;
     @Input() originPolicyId: string;
+    @Input() policyId: string;
     @Input() query: string;
     @Input() specialQuery: SearchContactData | null;
     @Output() totalResultsLoaded: EventEmitter<number>;
     CONTENT_TYPES: any;
     canShowTotalResults: boolean;
+    isHistoryContent: boolean;
     isLoadingContent: boolean;
     page: number;
     selectedActionType: number;
@@ -71,6 +75,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.CONTENT_TYPES = CONTENT_TYPES;
         this.actionType = 0;
         this.canShowTotalResults = false;
+        this.isHistoryContent = false;
         this.isLoadingContent = false;
         this.page = 1;
         this.selectedActionType = 0;
@@ -93,11 +98,25 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.modalIdShowQuotationDetails = 'agt-show-quotation-details';
         this.originContactId = '';
         this.originPolicyId = '';
+        this.policyId = '';
         this.totalResults = 0;
     }
 
+    /**
+     * Check if the content is history content
+     * @return True if it is, otherwise false;
+     */
     ngOnChanges(changes: SimpleChanges): void {
-        if((typeof changes.contentSubtype !== 'undefined' && !!changes.contentSubtype.currentValue) || (typeof changes.query !== 'undefined' && !!changes.query.currentValue) || (typeof changes.specialQuery !== 'undefined' && !!changes.specialQuery.currentValue)) {
+        if(typeof changes.contentType !== 'undefined' && !!changes.contentType.currentValue) {
+            this.isHistoryContent = UtilitiesHelper.checkIsHistoryContent(this.contentType);
+        }
+
+        if(
+            (typeof changes.contentSubtype !== 'undefined' && !!changes.contentSubtype.currentValue) ||
+            (typeof changes.query !== 'undefined' && !!changes.query.currentValue) ||
+            (typeof changes.specialQuery !== 'undefined' && !!changes.specialQuery.currentValue) ||
+            (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) && (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) && (!!this.contentSubtype || !!this.query || !!this.specialQuery)
+        ) {
             this._initContent();
         }
     }
@@ -140,6 +159,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     onContactSelected(contactId: string): void {
         this._doActionToSelectedContact(contactId);
+    }
+
+    /**
+     * Event to complete the policy data
+     * @param data The policy record data
+     */
+    onCompletePolicy(data: PolicyRecordData): void {
+        this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.contactId, data.policyId));
     }
 
     /**
@@ -226,6 +253,17 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     onShowPolicy(policyId: string): void {
         this.selectedPolicyId = policyId;
+        this.selectedContactId = this.contactId;
+        ModalPlugin.show(this.modalIdShowPolicy);
+    }
+
+    /**
+     * Event to show the policy from the record
+     * @param data The policy ID
+     */
+    onShowPolicyFromRecord(data: PolicyRecordData): void {
+        this.selectedPolicyId = data.policyId;
+        this.selectedContactId = data.contactId;
         ModalPlugin.show(this.modalIdShowPolicy);
     }
 
@@ -235,6 +273,17 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     onShowPolicyDetails(policyId: string): void {
         this.selectedPolicyId = policyId;
+        this.selectedContactId = this.contactId;
+        ModalPlugin.show(this.modalIdShowPolicyDetails);
+    }
+
+    /**
+     * Event to show the policy details from the record
+     * @param data The policy ID
+     */
+    onShowPolicyDetailsFromRecord(data: PolicyRecordData): void {
+        this.selectedPolicyId = data.policyId;
+        this.selectedContactId = data.contactId;
         ModalPlugin.show(this.modalIdShowPolicyDetails);
     }
 
@@ -280,6 +329,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _initContent(): void {
         this.contentListService.resetData();
+        this.page = 1;
         this._loadContents();
     }
 
@@ -322,6 +372,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.CONTACT_POLICY.ID:
                 this.contentListService.loadContactPolicies(this.contactId, this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.HISTORY_POLICY.ID:
+                this.contentListService.loadContactHistoryPolicy(this.contactId, this.policyId, this.page).subscribe( () => {
                     this._contentLoaded();
                 })
             break;
@@ -371,10 +427,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _checkCanShowTotalResults(): boolean {
         let canShow: boolean = false;
-        if((!!this.query) && (this.totalResults > 0) ) {
+        if(((!!this.query) || this.isHistoryContent) && (this.totalResults > 0) ) {
             switch(this.contentType) {
                 case CONTENT_TYPES.CONTACT_QUOTATION.ID:
                 case CONTENT_TYPES.CONTACT_POLICY.ID:
+                case CONTENT_TYPES.HISTORY_POLICY.ID:
                     canShow = true;
                 break;
             }

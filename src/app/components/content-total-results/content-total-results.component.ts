@@ -1,4 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+
+import { UtilitiesHelper } from '@helpers/utilities.helper';
+
+import { ContentTotalResultsService } from './content-total-results.service';
 
 @Component({
   selector: 'agt-content-total-results',
@@ -6,16 +10,40 @@ import { Component, Input, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class ContentTotalResultsComponent implements OnInit {
+export class ContentTotalResultsComponent implements OnInit, OnChanges {
+    @Input() contactId: string;
+    @Input() contentType: number;
+    @Input() policyId: string;
     @Input() query: string;
     @Input() totalResults: number;
+    isHistoryContent: boolean;
+    policyNumber: string;
 
-    constructor() {
+    constructor(public contentTotalResultsService: ContentTotalResultsService) {
+        this.contactId = '';
+        this.contentType = 0;
+        this.policyId = '';
         this.query = '';
         this.totalResults = 0;
+        this.isHistoryContent = false;
+        this.policyNumber = '';
     }
 
     ngOnInit(): void {
+
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if(typeof changes.contentType !== 'undefined' && !!changes.contentType.currentValue) {
+            this.isHistoryContent = UtilitiesHelper.checkIsHistoryContent(this.contentType);
+        }
+        if(
+            (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) &&
+            (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) &&
+            this.isHistoryContent
+        ) {
+            this.contentTotalResultsService.loadPolicyNumber(this.contactId, this.policyId);
+        }
     }
 
 }

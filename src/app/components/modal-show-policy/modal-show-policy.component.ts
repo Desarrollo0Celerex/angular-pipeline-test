@@ -29,11 +29,10 @@ export class ModalShowPolicyComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.policyId.currentValue) {
+        if(!!changes.policyId.currentValue && !!changes.contactId.currentValue) {
             this.modalShowPolicyService.resetPolicyUrl();
             this.modalShowPolicyService.loadPolicyUrl(this.contactId, this.policyId);
         }
-
     }
 
     /**

@@ -1,0 +1,33 @@
+<li *ngIf="!!policyRecord">
+    <time class="cbp_tmtime"><span>{{policyRecord.createdAt | date: 'dd/MM/yyyy'}}</span><span>{{policyRecord.createdAt | date: 'h:mm a'}}</span></time>
+    <div class="cbp_tmicon {{policyRecord.policyRecordTypeBackground}}"><i class="fa {{policyRecord.policyRecordTypeIcon}}"></i></div>
+    <div class="cbp_tmlabel">
+        <h2>{{policyRecord.policyRecordTypeName}}</h2>
+        <p class="text-sm"><strong>{{policyRecord.createdByName}}</strong> <span [innerHtml]="policyRecord.policyRecordTypeDescription"></span></p>
+        <ng-container [ngSwitch]="policyRecord.policyRecordTypeId">
+            <ng-container *ngSwitchCase="POLICY_RECORD_TYPES.ENDORSEMENT">
+                <div class="btn-list mt-3">
+                    <button type="button" class="btn btn-primary" (click)="onClickShowEndorsement()"><strong>VER ENDOSO</strong></button>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="POLICY_RECORD_TYPES.RENEWED">
+                <ng-container *ngTemplateOutlet="showActions"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="POLICY_RECORD_TYPES.REISSUED">
+                <ng-container *ngTemplateOutlet="showActions"></ng-container>
+            </ng-container>
+        </ng-container>
+    </div>
+
+    <ng-template #showActions>
+        <div class="btn-list mt-3">
+            <ng-container *ngIf="!!policyRecord.policyNumber; else completePolicy">
+                <button type="button" class="btn btn-primary" (click)="onClickShowPolicy()"><strong>VER PÓLIZA</strong></button>
+                <button type="button" class="btn btn-secondary" (click)="onClickShowPolicyDetails()"><strong>VER DETALLES</strong></button>
+            </ng-container>
+            <ng-template #completePolicy>
+                <button type="button" class="btn btn-primary" (click)="onClickCompletePolicy()"><strong>COMPLETAR PÓLIZA</strong></button>
+            </ng-template>
+        </div>
+    </ng-template>
+</li>

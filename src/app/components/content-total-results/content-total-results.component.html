@@ -1,3 +1,6 @@
 <ol class="breadcrumb1 mb-0" *ngIf="!!totalResults">
-    <li class="breadcrumb-item1">Se han encontrado <strong>{{totalResults}}</strong> resultados con <strong>{{query}}</strong>.</li>
+    <li class="breadcrumb-item1" *ngIf="isHistoryContent; else noHistoryContent">Se han detectado <strong>{{totalResults}}</strong> movimientos para la póliza <strong>{{contentTotalResultsService.policyNumber}}</strong>.</li>
+    <ng-template #noHistoryContent>
+        <li class="breadcrumb-item1">Se han encontrado <strong>{{totalResults}}</strong> resultados con <strong>{{query}}</strong>.</li>
+    </ng-template>
 </ol>

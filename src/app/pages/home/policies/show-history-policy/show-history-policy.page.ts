@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+
+import { CONTENT_TYPES } from '@constants/global';
 
 @Component({
   selector: 'agt-show-history-policy',
@@ -7,9 +9,12 @@ import { ActivatedRoute } from '@angular/router';
   styles: [
   ]
 })
-export class ShowHistoryPolicyPage implements OnInit {
+export class ShowHistoryPolicyPage implements OnInit, OnDestroy {
     contactId: string = '';
     policyId: string = '';
+    contentType: number = CONTENT_TYPES.HISTORY_POLICY.ID;
+    contentTypeName: string = CONTENT_TYPES.HISTORY_POLICY.NAME;
+    private _subParams: any;
 
     constructor(private _activatedRoute: ActivatedRoute) { }
 
@@ -17,12 +22,18 @@ export class ShowHistoryPolicyPage implements OnInit {
         this._catchParams();
     }
 
+    ngOnDestroy(): void {
+        if(this._subParams) this._subParams.unsubscribe();
+    }
+
     /**
      * Catch the params
      */
     private _catchParams(): void {
-        this.contactId = this._activatedRoute.snapshot.params.contactId;
-        this.policyId = this._activatedRoute.snapshot.params.policyId;
+        this._subParams = this._activatedRoute.params.subscribe( (params: Params) => {
+            this.contactId = params.contactId;
+            this.policyId = params.policyId;
+        })
     }
 
 }

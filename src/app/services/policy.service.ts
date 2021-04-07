@@ -23,6 +23,7 @@ const routes: any = {
     renewContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/renew',
     deleteContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/delete',
     reissueContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/reissue',
+    contactHistoryPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/history',
 }
 
 @Injectable()
@@ -129,6 +130,23 @@ export class PolicyService {
                 return res;
             })
         )
+    }
+
+    /**
+     * Get the history policy
+     * @param  contactId The contact ID
+     * @param  policyId  The policy ID
+     * @param  page      The page to get
+     * @param  fields    The fields to get
+     * @return           The history policy
+     */
+    getContactHistoryPolicy(contactId: string, policyId: string, page: number = 1, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactHistoryPolicy(this._workspaceId, contactId, policyId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        params = params.append('sortBy', 'createdAt');
+        return this._httpClient.get<HttpResponse>(route, {params});
     }
 
     /**
