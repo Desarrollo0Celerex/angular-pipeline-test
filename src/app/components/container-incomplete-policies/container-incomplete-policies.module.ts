@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CardIncompletePolicyModule } from '@components/card-incomplete-policy/card-incomplete-policy.module';
+import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { ModalConfirmDeletePolicyModule } from '@components/modal-confirm-delete-policy/modal-confirm-delete-policy.module';
 import { PolicyService } from '@services/policy.service';
 
@@ -12,7 +12,7 @@ import { ContainerIncompletePoliciesService } from './container-incomplete-polic
   declarations: [ContainerIncompletePoliciesComponent],
   exports: [ContainerIncompletePoliciesComponent],
   imports: [
-    CardIncompletePolicyModule,
+    CardPolicyModule,
     CommonModule,
     ModalConfirmDeletePolicyModule
   ],

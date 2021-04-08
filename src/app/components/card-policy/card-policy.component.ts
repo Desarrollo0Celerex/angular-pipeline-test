@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import * as moment from 'moment';
+
+import { POLICY_STATUS, POLICY_FINISHED_SLACK_DAYS } from '@constants/global';
 
 import { Policy } from '@interfaces/policy.interface';
 
@@ -13,7 +16,10 @@ declare var PopoverPlugin: any;
 export class CardPolicyComponent implements OnInit {
     @Input() policy: Policy | null;
     @Input() canShowFooter: boolean;
+    @Input() isHistoryContent: boolean;
     @Output() cancelPolicy: EventEmitter<string>;
+    @Output() completePolicy: EventEmitter<string>;
+    @Output() deletePolicy: EventEmitter<string>;
     @Output() endorsePolicy: EventEmitter<string>;
     @Output() reissuePolicy: EventEmitter<string>;
     @Output() renewPolicy: EventEmitter<string>;
@@ -21,11 +27,16 @@ export class CardPolicyComponent implements OnInit {
     @Output() showPolicy: EventEmitter<string>;
     @Output() showPolicyDetails: EventEmitter<string>;
     @Output() updatePolicy: EventEmitter<string>;
+    POLICY_STATUS: any = POLICY_STATUS;
+    isInTime: boolean = false;
 
     constructor() {
         this.policy = null;
         this.canShowFooter = true;
+        this.isHistoryContent = false;
         this.cancelPolicy = new EventEmitter<string>();
+        this.completePolicy = new EventEmitter<string>();
+        this.deletePolicy = new EventEmitter<string>();
         this.endorsePolicy = new EventEmitter<string>();
         this.reissuePolicy = new EventEmitter<string>();
         this.renewPolicy = new EventEmitter<string>();
@@ -37,6 +48,7 @@ export class CardPolicyComponent implements OnInit {
 
     ngOnInit(): void {
         PopoverPlugin.init();
+        this._checkIsInTime();
     }
 
     /**
@@ -44,6 +56,20 @@ export class CardPolicyComponent implements OnInit {
      */
     onClickCancelPolicy(): void {
         if(!!this.policy) this.cancelPolicy.emit(this.policy.policyId);
+    }
+
+    /**
+     * Click event to complete the policy
+     */
+    onClickCompletePolicy(): void {
+        if(!!this.policy) this.completePolicy.emit(this.policy.policyId);
+    }
+
+    /**
+     * Click event to delete the policy
+     */
+    onClickDeletePolicy(): void {
+        if(!!this.policy) this.deletePolicy.emit(this.policy.policyId);
     }
 
     /**
@@ -93,5 +119,15 @@ export class CardPolicyComponent implements OnInit {
      */
     onClickUpdatePolicy(): void {
         if(!!this.policy) this.updatePolicy.emit(this.policy.policyId);
+    }
+
+    /**
+     * Check if the policy is in time
+     */
+    private _checkIsInTime(): void {
+        if(!!this.policy && this.policy.policyStatusId === POLICY_STATUS.FINISHED) {
+            const validityEndDate: any = moment(this.policy.validityEndDate).add(POLICY_FINISHED_SLACK_DAYS, 'd');
+            this.isInTime = (moment().isSameOrBefore(validityEndDate, 'day')) ? true : false;
+        }
     }
 }

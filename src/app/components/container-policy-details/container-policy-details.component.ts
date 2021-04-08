@@ -1,5 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { ROUTES_NAME } from '@constants/routes-name';
+import { AlertHelper } from '@helpers/alert.helper';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
 
 import { ContainerPolicyDetailsService } from './container-policy-details.service';
@@ -16,6 +19,7 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
     @Input() contactId: string = '';
     @Input() policyId: string = '';
     modalIdConfirmCancelPolicy: string = 'agt-confirm-cancel-policy';
+    modalIdConfirmDeletePolicy: string = 'agt-confirm-delete-policy';
     modalIdConfirmEndorsePolicy: string = 'agt-confirm-endorse-policy';
     modalIdConfirmReissuePolicy: string = 'agt-confirm-reissue-policy';
     modalIdConfirmRenewPolicy: string = 'agt-confirm-renew-policy';
@@ -25,7 +29,10 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
     selectedActionType: number = 0;
     selectedPolicyId: string = '';
 
-    constructor(public containerPolicyDetailsService: ContainerPolicyDetailsService) { }
+    constructor(
+        public containerPolicyDetailsService: ContainerPolicyDetailsService,
+        private _router: Router
+    ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.contactId.currentValue && !!changes.policyId.currentValue) {
@@ -44,6 +51,23 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
     }
 
     /**
+     * Event to complete the policy data
+     * @param policyId The policy ID to complete
+     */
+    onCompletePolicy(policyId: string): void {
+        this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(this.contactId, policyId));
+    }
+
+    /**
+     * Event to show modal to confirm delete the policy
+     * @param policyId The policy ID to delete
+     */
+    onDeletePolicy(policyId: string): void {
+        this.selectedPolicyId = policyId;
+        ModalPlugin.show(this.modalIdConfirmDeletePolicy);
+    }
+
+    /**
      * Event to cancel a policy
      * @param policyId The policy ID
      */
@@ -59,6 +83,15 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
     onEndorsePolicy(policyId: string): void {
         this.selectedPolicyId = policyId;
         ModalPlugin.show(this.modalIdConfirmEndorsePolicy);
+    }
+
+    /**
+     * Event to notify that the policy has been deleted
+     * @param policyId The deleted policy ID
+     */
+    onPolicyDeleted(): void {
+        this._router.navigateByUrl(ROUTES_NAME.listContactPolicies(this.contactId));
+        AlertHelper.policyDeleted();
     }
 
     /**

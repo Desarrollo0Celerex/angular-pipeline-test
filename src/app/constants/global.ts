@@ -25,6 +25,7 @@ export const FREE_TEXT_LENGTH: any = {
     MIN: 3,
     MAX: 1000
 }
+export const POLICY_FINISHED_SLACK_DAYS: number = 30;
 
 // Dropify
 export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];

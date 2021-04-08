@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { PolicyPreview } from '@interfaces/policy-preview.interface';
+import { Policy } from '@interfaces/policy.interface';
 import { PolicyService } from '@services/policy.service';
 
 @Injectable()
 export class ContainerIncompletePoliciesService {
-    incompletePolicies: PolicyPreview[];
+    incompletePolicies: Policy[];
 
     constructor(private _policyService: PolicyService) {
         this.incompletePolicies = [];
@@ -29,7 +29,7 @@ export class ContainerIncompletePoliciesService {
      * @param page      The page number
      */
     loadIncompletePolicies(contactId: string, page: number, contentSubtype: number): void {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground';
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground';
         const filters: number [] = [contentSubtype];
         this._policyService.getContactPolicies(contactId, page, fields, filters).subscribe( (res: HttpResponse) => {
             this.incompletePolicies = res.data.items;
@@ -42,6 +42,6 @@ export class ContainerIncompletePoliciesService {
      * @return          The policy position found
      */
     private _getPolicyPosition(policyId: string): number {
-        return this.incompletePolicies.findIndex((value: PolicyPreview) => value.policyId == policyId)
+        return this.incompletePolicies.findIndex((value: Policy) => value.policyId == policyId)
     }
 }
