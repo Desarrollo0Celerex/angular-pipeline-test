@@ -98,7 +98,14 @@
                 </div>
             </div>
             <div class="card-footer text-center">
-                <button type="button" class="btn btn-block btn-primary" (click)="onClickQuoteInsurance()"><strong>COTIZAR SEGURO</strong></button>
+                <ng-container [ngSwitch]="pageType">
+                    <ng-container *ngSwitchCase="CONTACT_PROFILE_PAGE_TYPES.POLICIES.ID">
+                        <button type="button" class="btn btn-block btn-primary" (click)="onClickCreatePolicy()"><strong>CARGAR PÓLIZA</strong></button>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                        <button type="button" class="btn btn-block btn-primary" (click)="onClickCreateQuotation()"><strong>COTIZAR SEGURO</strong></button>
+                    </ng-container>
+                </ng-container>
             </div>
         </div>
     </div>

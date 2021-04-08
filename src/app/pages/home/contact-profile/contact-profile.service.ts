@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { CONTACT_PROFILE_PAGE_TYPES } from '@constants/global';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContactService } from '@services/contact.service';
 
@@ -27,6 +28,27 @@ export class ContactProfileService {
             totalWallet: 0,
             totalPolicies: 0
         }
+    }
+
+    /**
+     * Get the page type
+     * @param  pageUrl The page url
+     * @return         The page type
+     */
+    getPageType(pageUrl: string): number {
+        let pageType: number;
+            switch(true) {
+                case pageUrl.includes(CONTACT_PROFILE_PAGE_TYPES.QUOTATIONS.ROUTE):
+                    pageType = CONTACT_PROFILE_PAGE_TYPES.QUOTATIONS.ID;
+                    break;
+
+                case pageUrl.includes(CONTACT_PROFILE_PAGE_TYPES.POLICIES.ROUTE):
+                    pageType = CONTACT_PROFILE_PAGE_TYPES.POLICIES.ID;
+                    break;
+                default:
+                    pageType = 0;
+            }
+        return pageType;
     }
 
     /**

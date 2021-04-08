@@ -133,6 +133,16 @@ export const POLICY_RECORD_TYPES: any = {
     REISSUED: 7,
     CANCELLED: 8,
 }
+export const CONTACT_PROFILE_PAGE_TYPES: any = {
+    QUOTATIONS: {
+        ID: 1,
+        ROUTE: 'list-quotations'
+    },
+    POLICIES: {
+        ID: 2,
+        ROUTE: 'list-policies'
+    }
+}
 
 export const IGNORE_MATCHES: any = {
     YES: true,

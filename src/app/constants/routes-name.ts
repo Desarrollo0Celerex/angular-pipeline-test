@@ -50,12 +50,17 @@ const HOME_LEADS_ROUTES = {
 }
 
 const HOME_POLICIES_ROUTES = {
+    createPolicy: (contactId: string) => `home/policies/create-policy/${contactId}`,
     uploadPolicy: (contactId: string, policyId: string) => `home/policies/upload-policy/${contactId}/${policyId}`,
     completePolicy: (contactId: string, policyId: string) => `home/policies/complete-policy/${contactId}/${policyId}`,
     updatePolicy: (contactId: string, policyId: string) => `home/policies/update-policy/${contactId}/${policyId}`,
     endorsePolicy: (contactId: string, policyId: string) => `home/policies/endorse-policy/${contactId}/${policyId}`,
     cancelPolicy: (contactId: string, policyId: string) => `home/policies/cancel-policy/${contactId}/${policyId}`,
     showHistoryPolicy: (contactId: string, policyId: string) => `home/policies/history-policy/${contactId}/${policyId}`,
+}
+
+const HOME_QUOTATIONS_ROUTES = {
+    createQuotation: (contactId: string) => `home/quotations/createQuotation/${contactId}`,
 }
 
 const INVITATIONS_ROUTES = {
@@ -86,6 +91,7 @@ export const ROUTES_NAME = {
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,
     ...HOME_POLICIES_ROUTES,
+    ...HOME_QUOTATIONS_ROUTES,
     ...INVITATIONS_ROUTES,
     ...SEARCHES_ROUTES,
     ...WORKSPACES_ROUTES
