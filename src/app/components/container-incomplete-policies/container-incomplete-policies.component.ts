@@ -19,6 +19,7 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
     @Input() contactId: string;
     @Input() contentTypeName: string;
     @Output() policyDeleted: EventEmitter<void>;
+    @Output() showHistoryPolicy: EventEmitter<string>;
     contentSubtype: number;
     modalIdConfirmDeletePolicy: string;
     selectedPolicyId: string;
@@ -31,6 +32,7 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
         this.contactId = '';
         this.contentTypeName = '';
         this.policyDeleted = new EventEmitter<void>();
+        this.showHistoryPolicy = new EventEmitter<string>();
         this.contentSubtype = POLICY_STATUS.INCOMPLETE;
         this.modalIdConfirmDeletePolicy = 'agt-confirm-delete-policy';
         this.selectedPolicyId = '';
@@ -67,6 +69,14 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
         this.containerListIncompletePoliciesService.deletePolicyCard(policyId);
         AlertHelper.policyDeleted();
         this.policyDeleted.emit();
+    }
+
+    /**
+     * event to show the history policy
+     * @param policyId The policy ID
+     */
+    onShowHistoryPolicy(policyId: string): void {
+        this.showHistoryPolicy.emit(policyId);
     }
 
 }

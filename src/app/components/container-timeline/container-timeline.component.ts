@@ -14,7 +14,7 @@ export class ContainerTimelineComponent implements OnInit {
     @Input() contentTypeName: string = '';
     @Input() policyId: string = '';
     contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
-    contentSubtypeName: string = 'Movimiento';
+    contentSubtypeName: string = 'Registrado';
 
     constructor() { }
 

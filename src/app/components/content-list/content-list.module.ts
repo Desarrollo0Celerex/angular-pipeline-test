@@ -26,6 +26,7 @@ import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update
 import { ModalSelectContactModule } from '@components/modal-select-contact/modal-select-contact.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
+import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/modal-show-endorsement.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
@@ -69,6 +70,7 @@ import { ContentListService } from './content-list.service';
     ModalSelectContactModule,
     ModalSelectContactTypeModule,
     ModalShowContactDataModule,
+    ModalShowEndorsementModule,
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
     ModalShowQuotationDetailsModule

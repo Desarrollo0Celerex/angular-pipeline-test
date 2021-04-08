@@ -1,4 +1,4 @@
 export interface PolicyRecordData {
-    policyId: string,
-    contactId: string
+    sourceId: string,
+    sourceContactId: string
 }

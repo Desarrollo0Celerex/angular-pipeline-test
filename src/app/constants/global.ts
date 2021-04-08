@@ -92,7 +92,7 @@ export const CONTENT_TYPES: any = {
     },
     HISTORY_POLICY: {
         ID: 9,
-        NAME: 'Historial de'
+        NAME: 'Movimiento'
     }
 }
 export const CONTACT_TYPES: any = {

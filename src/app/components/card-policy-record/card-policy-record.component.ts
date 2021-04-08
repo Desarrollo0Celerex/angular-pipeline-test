@@ -13,7 +13,7 @@ import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
 export class CardPolicyRecordComponent implements OnInit {
     @Input() policyRecord: PolicyRecord | null = null;
     @Output() completePolicy: EventEmitter<PolicyRecordData> = new EventEmitter<PolicyRecordData>();
-    @Output() showEndorsement: EventEmitter<string> = new EventEmitter<string>();
+    @Output() showEndorsement: EventEmitter<PolicyRecordData> = new EventEmitter<PolicyRecordData>();
     @Output() showPolicy: EventEmitter<PolicyRecordData> = new EventEmitter<PolicyRecordData>();
     @Output() showPolicyDetails: EventEmitter<PolicyRecordData> = new EventEmitter<PolicyRecordData>();
     POLICY_RECORD_TYPES: any = POLICY_RECORD_TYPES;
@@ -30,8 +30,8 @@ export class CardPolicyRecordComponent implements OnInit {
     onClickCompletePolicy(): void {
         if(!!this.policyRecord) {
             const policyRecordData: PolicyRecordData = {
-                policyId: this.policyRecord.sourceId,
-                contactId: this.policyRecord.sourceContactId,
+                sourceId: this.policyRecord.sourceId,
+                sourceContactId: this.policyRecord.sourceContactId,
             }
             this.completePolicy.emit(policyRecordData);
         }
@@ -41,7 +41,13 @@ export class CardPolicyRecordComponent implements OnInit {
      * Click event to show the endorsement
      */
     onClickShowEndorsement(): void {
-
+        if(!!this.policyRecord) {
+            const policyRecordData: PolicyRecordData = {
+                sourceId: this.policyRecord.sourceId,
+                sourceContactId: '',
+            }
+            this.showEndorsement.emit(policyRecordData);
+        }
     }
 
     /**
@@ -50,8 +56,8 @@ export class CardPolicyRecordComponent implements OnInit {
     onClickShowPolicy(): void {
         if(!!this.policyRecord) {
             const policyRecordData: PolicyRecordData = {
-                policyId: this.policyRecord.sourceId,
-                contactId: this.policyRecord.sourceContactId,
+                sourceId: this.policyRecord.sourceId,
+                sourceContactId: this.policyRecord.sourceContactId,
             }
             this.showPolicy.emit(policyRecordData);
         }
@@ -63,8 +69,8 @@ export class CardPolicyRecordComponent implements OnInit {
     onClickShowPolicyDetails(): void {
         if(!!this.policyRecord) {
             const policyRecordData: PolicyRecordData = {
-                policyId: this.policyRecord.sourceId,
-                contactId: this.policyRecord.sourceContactId,
+                sourceId: this.policyRecord.sourceId,
+                sourceContactId: this.policyRecord.sourceContactId,
             }
             this.showPolicyDetails.emit(policyRecordData);
         }

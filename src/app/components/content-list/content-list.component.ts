@@ -40,6 +40,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     page: number;
     selectedActionType: number;
     selectedContactId: string;
+    selectedEndorsementId: string;
     selectedPolicyId: string;
     selectedQuotationId: string;
     modalIdAcceptQuotation: string;
@@ -53,6 +54,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdSelectContact: string;
     modalIdSelectContactType: string;
     modalIdShowContactData: string;
+    modalIdShowEndorsement: string;
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
     modalIdShowQuotationDetails: string;
@@ -80,6 +82,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.page = 1;
         this.selectedActionType = 0;
         this.selectedContactId = '';
+        this.selectedEndorsementId = '';
         this.selectedPolicyId = '';
         this.selectedQuotationId = '';
         this.modalIdAcceptQuotation = 'agt-accept-quotation';
@@ -93,6 +96,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.modalIdSelectContact = 'agt-select-contact';
         this.modalIdSelectContactType = 'agt-select-contact-type';
         this.modalIdShowContactData = 'agt-contact-data';
+        this.modalIdShowEndorsement = 'agt-show-endorsement';
         this.modalIdShowPolicy = 'agt-show-policy';
         this.modalIdShowPolicyDetails = 'agt-show-policy-details';
         this.modalIdShowQuotationDetails = 'agt-show-quotation-details';
@@ -166,7 +170,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * @param data The policy record data
      */
     onCompletePolicy(data: PolicyRecordData): void {
-        this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.contactId, data.policyId));
+        this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.sourceContactId, data.sourceId));
     }
 
     /**
@@ -230,6 +234,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to show endorsements
+     * @param data The policy record data
+     */
+    onShowEndorsementFromRecord(data: PolicyRecordData): void {
+        this.selectedEndorsementId = data.sourceId;
+        ModalPlugin.show(this.modalIdShowEndorsement);
+    }
+
+    /**
      * Event to show the history policy
      * @param policyId The selected policy ID
      */
@@ -259,11 +272,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     /**
      * Event to show the policy from the record
-     * @param data The policy ID
+     * @param data The policy record ID
      */
     onShowPolicyFromRecord(data: PolicyRecordData): void {
-        this.selectedPolicyId = data.policyId;
-        this.selectedContactId = data.contactId;
+        this.selectedPolicyId = data.sourceId;
+        this.selectedContactId = data.sourceContactId;
         ModalPlugin.show(this.modalIdShowPolicy);
     }
 
@@ -279,11 +292,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     /**
      * Event to show the policy details from the record
-     * @param data The policy ID
+     * @param data The policy record ID
      */
     onShowPolicyDetailsFromRecord(data: PolicyRecordData): void {
-        this.selectedPolicyId = data.policyId;
-        this.selectedContactId = data.contactId;
+        this.selectedPolicyId = data.sourceId;
+        this.selectedContactId = data.sourceContactId;
         ModalPlugin.show(this.modalIdShowPolicyDetails);
     }
 
