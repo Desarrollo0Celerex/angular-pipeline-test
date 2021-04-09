@@ -11,24 +11,19 @@ declare var PopoverPlugin: any;
   ]
 })
 export class CardInsuranceComponent implements OnInit {
-    @Input() insurance: Insurance | null;
-    @Output() quoteInsurance: EventEmitter<number>;
-
-    constructor() {
-        this.insurance = null;
-        this.quoteInsurance = new EventEmitter<number>();
-    }
+    @Input() insurance: Insurance | null = null;
+    @Output() insuranceSelected: EventEmitter<number> = new EventEmitter<number>();
 
     ngOnInit(): void {
         PopoverPlugin.init();
     }
 
     /**
-     * Click event to quote an insurance
-     * @param insuranceId The insurance ID to quote
+     * Click event to notify that insurance has been selected
+     * @param insuranceId The selected insurance ID
      */
     onClickQuoteInsurance(insuranceId: number): void {
-        this.quoteInsurance.emit(insuranceId);
+        this.insuranceSelected.emit(insuranceId);
     }
 
 }

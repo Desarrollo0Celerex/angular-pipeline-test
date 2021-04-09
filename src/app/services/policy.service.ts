@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { POLICY_STATUS } from '@constants/global';
 import { environment } from '@env/environment';
+import { CreatePolicyData } from '@interfaces/create-policy-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
@@ -59,6 +60,17 @@ export class PolicyService {
     completePolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.completeContactPolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
+    }
+
+    /**
+     * Create a policy in the API
+     * @param  contactId   The contact ID
+     * @param  requestBody The policy details
+     * @return             The created policy ID
+     */
+    createPolicy(contactId: string, requestBody: CreatePolicyData): Observable<HttpResponse> {
+        const route: string = routes.contactPolicies(this._workspaceId, contactId);
+        return this._httpClient.post<HttpResponse>(route, requestBody);
     }
 
     /**
