@@ -47,15 +47,10 @@ export class CreatePolicyPage implements OnInit {
 
     /**
      * Event to catch the selected policy details
-     * @param data The policy detaails data
+     * @param data The policy details data
      */
     onPolicydetailsSelected(data: PolicyDetailsData): void {
-        this._loadingService.show();
-        this._createPolicyService.createPolicy(this.contactId, this.selectedInsuranceId, data.insuranceTypeId).subscribe( (res: HttpResponse) => {
-            this._loadingService.hide();
-            const policyId: string = res.data;
-            this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(this.contactId, policyId));
-        })
+        this._createPolicy(data.insuranceTypeId);
     }
 
     /**
@@ -63,5 +58,18 @@ export class CreatePolicyPage implements OnInit {
      */
     private _catchParams(): void {
         this.contactId = this._activatedRoute.snapshot.params.contactId;
+    }
+
+    /**
+     * Create a policy
+     * @param insuranceTypeId The insurance type ID
+     */
+    private _createPolicy(insuranceTypeId: number): void {
+        this._loadingService.show();
+        this._createPolicyService.createPolicy(this.contactId, this.selectedInsuranceId, insuranceTypeId).subscribe( (res: HttpResponse) => {
+            this._loadingService.hide();
+            const policyId: string = res.data;
+            this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(this.contactId, policyId));
+        })
     }
 }

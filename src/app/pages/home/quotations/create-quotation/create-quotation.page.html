@@ -1,1 +1,5 @@
-<p>create-quotation works!</p>
+<agt-container-contact-details [contactId]="contactId" [message]="cardContactMessage"></agt-container-contact-details>
+
+<agt-container-list-insurances (insuranceSelected)="onInsuranceSelected($event)"></agt-container-list-insurances>
+
+<agt-modal-get-policy-details [modalId]="modalIdGetPolicyDetails" [insuranceId]="selectedInsuranceId" [actionType]="actionType" (policyDetailsSelected)="onPolicydetailsSelected($event)"></agt-modal-get-policy-details>

@@ -37,10 +37,6 @@ const HOME_DATA_ROUTES = {
     dashboard: 'home/data/dashboard'
 }
 
-const HOME_INSURANCES_ROUTES = {
-    listInsurances: (contactId: string) => `home/insurances/list-insurances/${contactId}`
-}
-
 const HOME_INVITATIONS_ROUTES = {
     listInvitations: 'home/invitations/list-invitations'
 }
@@ -87,7 +83,6 @@ export const ROUTES_NAME = {
     ...HOME_CONTACTS_ROUTES,
     ...HOME_CONTACT_PROFILE_ROUTES,
     ...HOME_DATA_ROUTES,
-    ...HOME_INSURANCES_ROUTES,
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,
     ...HOME_POLICIES_ROUTES,
