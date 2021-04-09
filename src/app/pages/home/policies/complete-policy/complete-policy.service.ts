@@ -11,6 +11,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
 import { PolicyPreview } from '@interfaces/policy-preview.interface';
+import { AtomScannService } from '@services/atom-scann.service';
 import { CurrencyService } from '@services/currency.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
@@ -25,6 +26,7 @@ export class CompletePolicyService {
     policyForm: FormGroup;
 
     constructor(
+        private _atomScannService: AtomScannService,
         private _currencyService: CurrencyService,
         private _formBuilder: FormBuilder,
         private _paymentMethodService: PaymentMethodService,
@@ -107,19 +109,27 @@ export class CompletePolicyService {
     }
 
     /**
+     * Download the policy
+     * @param  policyUrl The policy Url
+     * @return           The policy file
+     */
+    downloadPolicy(policyUrl: string): Observable<any> {
+        return this._policyService.downloadPolicy(policyUrl);
+    }
+
+    /**
      * Load the contact policy
      * @param contactId The contact ID
      * @param policyId  The policy ID
-     * @return          Notice of action done
+     * @return          The policy data
      */
-    loadContactPolicy(contactId: string, policyId: string): Observable<void> {
+    loadContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeName,insurerName,policyUrl';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
-            }),
-            map(() => { })
+            })
         )
     }
 
@@ -165,6 +175,11 @@ export class CompletePolicyService {
         );
     }
 
+    scannPolicy(policyFile: any): Observable<HttpResponse> {
+        const requestBody: FormData = this._getRequestBodyToScannPolicy(policyFile);
+        return this._atomScannService.scannPolicy(requestBody);
+    }
+
     /**
      * Get the months of the payment plan
      * @param  paymentPlanId The payment plant ID
@@ -197,6 +212,21 @@ export class CompletePolicyService {
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);
+        return requestBody;
+    }
+
+    /**
+     * Get the request body to scann policy
+     * @return The request body
+     */
+    private _getRequestBodyToScannPolicy(policyFile: any): FormData {
+        const requestBody: FormData = new FormData();
+        requestBody.append('file', policyFile);
+        if(!!this.policy) {
+            requestBody.append('insurerId', this.policy.insurerId.toString());
+            requestBody.append('insuranceId', this.policy.insuranceId.toString());
+            requestBody.append('insuranceTypeId', this.policy.insuranceTypeId.toString());
+        }
         return requestBody;
     }
 }

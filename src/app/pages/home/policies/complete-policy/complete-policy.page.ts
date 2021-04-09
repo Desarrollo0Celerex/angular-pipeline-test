@@ -5,6 +5,7 @@ import { AbstractControl } from '@angular/forms';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { HttpResponse } from '@interfaces/http-response.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { LoadingService } from '@services/loading.service';
 
@@ -129,6 +130,13 @@ export class CompletePolicyPage implements OnInit {
         this.policyId = this._activatedRoute.snapshot.params.policyId;
     }
 
+    private _downloadPolicy(policyUrl: string): void {
+        this.completePolicyService.downloadPolicy(policyUrl).subscribe( (res: any) => {
+            console.log('res: ',res);
+            this._scannPolicy(res);
+        })
+    }
+
     /**
      * Navigates to list contact policies
      * @param context The app context
@@ -151,7 +159,8 @@ export class CompletePolicyPage implements OnInit {
      * Load the contact policy
      */
     private _loadContactPolicy(): void {
-        this.completePolicyService.loadContactPolicy(this.contactId, this.policyId).subscribe( () => {
+        this.completePolicyService.loadContactPolicy(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
+            this._downloadPolicy(res.data.policyUrl);
             this.completePolicyService.buildPolicyForm();
             this._initCalendars();
             this._loadCurrencies();
@@ -226,6 +235,14 @@ export class CompletePolicyPage implements OnInit {
         $('select#'+this.paymentPlanSelectId).on('change', (element: any) => {
             this.completePolicyService.policyForm.patchValue({paymentPlanId: element.currentTarget.value});
             this.completePolicyService.calculateBills();
+        });
+    }
+
+    private _scannPolicy(policyFile: any): void {
+        console.log('inicio de scanner...');
+        this.completePolicyService.scannPolicy(policyFile).subscribe( (res: HttpResponse) => {
+            console.log('Scanner terminado...');
+            console.log('res: ',res);
         });
     }
 
