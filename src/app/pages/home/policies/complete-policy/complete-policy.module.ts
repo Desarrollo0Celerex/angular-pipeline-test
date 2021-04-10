@@ -6,6 +6,7 @@ import { ContainerContactDetailsModule } from '@components/container-contact-det
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalSelectFileModule } from '@components/modal-select-file/modal-select-file.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
+import { AtomScannService } from '@services/atom-scann.service';
 import { CurrencyService } from '@services/currency.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
@@ -28,6 +29,6 @@ import { CompletePolicyService } from './complete-policy.service';
     ModalShowPolicyModule,
     ReactiveFormsModule
   ],
-  providers: [CompletePolicyService, CurrencyService, PaymentMethodService, PaymentPlanService, PolicyService]
+  providers: [AtomScannService, CompletePolicyService, CurrencyService, PaymentMethodService, PaymentPlanService, PolicyService]
 })
 export class CompletePolicyModule { }

@@ -85,6 +85,15 @@ export class PolicyService {
     }
 
     /**
+     * Download a policy from the storage
+     * @param  policyUrl The policy url
+     * @return           The policy file
+     */
+    downloadPolicy(policyUrl: string): Observable<any> {
+        return this._httpClient.get(policyUrl, {responseType: 'blob'});
+    }
+
+    /**
      * Endorse the policy in the API
      * @param  contactId   The contact ID
      * @param  policyId    The policy ID to endorse
