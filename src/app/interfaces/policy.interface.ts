@@ -21,5 +21,13 @@ export interface Policy {
     lifeTime: number,
     validityStartDate: string,
     validityEndDate: string
-    policyStatusId: number
+    policyStatusId: number,
+    clientNumber: string,
+    emissionDate: string,
+    titularName: string,
+    titularRfc: string,
+    titularPhoneNumber: string,
+    currencyId: number,
+    paymentMethodId: number,
+    paymentPlanId: number
 }

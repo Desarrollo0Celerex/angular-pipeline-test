@@ -7,6 +7,7 @@ import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
+import { Policy } from '@interfaces/policy.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { CompletePolicyService } from './complete-policy.service';
@@ -27,6 +28,9 @@ export class CompletePolicyPage implements OnInit {
     message: string;
     policyId: string;
     modalIdSelectFile: string;
+    modalIdScanningPolicy: string;
+    modalIdScanningPolicyFailed: string;
+    modalIdScanningPolicySuccess: string;
     modalIdShowPolicy: string;
     modalSelectFileData: ModalSelectFileData;
     emissionDateCalendarId: string;
@@ -36,6 +40,7 @@ export class CompletePolicyPage implements OnInit {
     paymentMethodSelectId: string;
     paymentPlanSelectId: string;
     private _isFormSubmitted: boolean;
+    private _scannedPolicyData: Policy | null = null;
 
     constructor(
         public completePolicyService: CompletePolicyService,
@@ -48,6 +53,9 @@ export class CompletePolicyPage implements OnInit {
         this.message = 'Verfica los datos para la nueva póliza de';
         this.policyId = '';
         this.modalIdSelectFile = 'agt-select-file';
+        this.modalIdScanningPolicy = 'agt-scanning-policy';
+        this.modalIdScanningPolicyFailed = 'agt-scanning-policy-failed';
+        this.modalIdScanningPolicySuccess = 'agt-scanning-policy-success';
         this.modalIdShowPolicy = 'agt-show-policy';
         this.modalSelectFileData = {
             title: 'Actualizar Póliza',
@@ -102,10 +110,18 @@ export class CompletePolicyPage implements OnInit {
     }
 
     /**
+     * Event to load the data of the scanned policy
+     */
+    onLoadScannedPolicyData(): void {
+        this.completePolicyService.buildPolicyForm(this._scannedPolicyData);
+    }
+
+    /**
      * Event to update the form policy file
      */
     onPolicySelected(policyFile: File): void {
         this.completePolicyService.policyForm.patchValue({policyFile: policyFile});
+        this._scannPolicy(policyFile);
     }
 
     /**
@@ -132,7 +148,6 @@ export class CompletePolicyPage implements OnInit {
 
     private _downloadPolicy(policyUrl: string): void {
         this.completePolicyService.downloadPolicy(policyUrl).subscribe( (res: any) => {
-            console.log('res: ',res);
             this._scannPolicy(res);
         })
     }
@@ -239,10 +254,14 @@ export class CompletePolicyPage implements OnInit {
     }
 
     private _scannPolicy(policyFile: any): void {
-        console.log('inicio de scanner...');
+        ModalPlugin.show(this.modalIdScanningPolicy);
         this.completePolicyService.scannPolicy(policyFile).subscribe( (res: HttpResponse) => {
-            console.log('Scanner terminado...');
-            console.log('res: ',res);
+            ModalPlugin.hide(this.modalIdScanningPolicy);
+            ModalPlugin.show(this.modalIdScanningPolicySuccess);
+            this._scannedPolicyData = res.data;
+        }, () => {
+            ModalPlugin.hide(this.modalIdScanningPolicy);
+            ModalPlugin.show(this.modalIdScanningPolicyFailed);
         });
     }
 

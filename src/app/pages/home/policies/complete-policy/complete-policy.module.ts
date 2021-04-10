@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContainerContactDetailsModule } from '@components/container-contact-details/container-contact-details.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalSelectFileModule } from '@components/modal-select-file/modal-select-file.module';
+import { ModalScanningPolicyModule } from '@components/modal-scanning-policy/modal-scanning-policy.module';
+import { ModalScanningPolicySuccessModule } from '@components/modal-scanning-policy-success/modal-scanning-policy-success.module';
+import { ModalScanningPolicyFailedModule } from '@components/modal-scanning-policy-failed/modal-scanning-policy-failed.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { AtomScannService } from '@services/atom-scann.service';
 import { CurrencyService } from '@services/currency.service';
@@ -26,6 +29,9 @@ import { CompletePolicyService } from './complete-policy.service';
     FormsModule,
     LoadingContentModule,
     ModalSelectFileModule,
+    ModalScanningPolicyModule,
+    ModalScanningPolicySuccessModule,
+    ModalScanningPolicyFailedModule,
     ModalShowPolicyModule,
     ReactiveFormsModule
   ],

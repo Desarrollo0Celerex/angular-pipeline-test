@@ -268,3 +268,6 @@
 </ng-template>
 <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="contactId" [policyId]="policyId"></agt-modal-show-policy>
 <agt-modal-select-file [modalId]="modalIdSelectFile" [data]="modalSelectFileData" (fileSelected)="onPolicySelected($event)"></agt-modal-select-file>
+<agt-modal-scanning-policy [modalId]="modalIdScanningPolicy"></agt-modal-scanning-policy>
+<agt-modal-scanning-policy-success [modalId]="modalIdScanningPolicySuccess" (loadScannedPolicyData)="onLoadScannedPolicyData()"></agt-modal-scanning-policy-success>
+<agt-modal-scanning-policy-failed [modalId]="modalIdScanningPolicyFailed"></agt-modal-scanning-policy-failed>
