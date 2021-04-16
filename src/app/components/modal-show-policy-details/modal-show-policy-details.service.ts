@@ -18,7 +18,7 @@ export class ModalShowPolicyDetailsService {
      * @param policyId  The policy ID
      */
     loadPolicyDetails(contactId: string, policyId: string): void {
-        const fields: string = 'policyNumber,amount,amountApplied,bills,emissionDate,validityStartDate,validityEndDate,totalSinisters,totalEndorsements';
+        const fields: string = 'policyNumber,totalAmount,totalAmountApplied,bills,emissionDate,validityStartDate,validityEndDate,totalSinisters,totalEndorsements';
         this._policyService.getContactPolicy(contactId, policyId, fields).subscribe( (res: HttpResponse) => {
             this.policyDetails = res.data;
             // TODO: Obtener total de siniestros
@@ -42,8 +42,8 @@ export class ModalShowPolicyDetailsService {
     private _buildPolicyDetails(): PolicyDetails {
         return {
             policyNumber: '',
-            amount: '',
-            amountApplied: '',
+            totalAmount: '',
+            totalAmountApplied: '',
             bills: '',
             emissionDate: '',
             validityStartDate: '',

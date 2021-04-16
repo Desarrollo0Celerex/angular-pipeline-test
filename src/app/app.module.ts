@@ -6,6 +6,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { LoadingModule } from '@components/loading/loading.module';
+import { ScanningModule } from '@components/scanning/scanning.module';
 import { environment } from '@env/environment';
 import { AUTH_INTERCEPTOR_PROVIDER } from '@interceptors/auth.interceptor';
 import { ERROR_INTERCEPTOR_PROVIDER } from '@interceptors/error.interceptor';
@@ -25,7 +26,8 @@ import { AppComponent } from './app.component';
     AngularFireDatabaseModule,
     BrowserModule,
     HttpClientModule,
-    LoadingModule
+    LoadingModule,
+    ScanningModule
   ],
   providers: [AUTH_INTERCEPTOR_PROVIDER, ERROR_INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]

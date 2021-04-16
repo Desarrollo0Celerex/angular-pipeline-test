@@ -128,9 +128,9 @@ export class EndorsePolicyPage implements OnInit {
      */
     onGenerateReceipts(receiptsData: ReceiptsData): void {
         if(!!this.endorsePolicyService.policy) {
-            this.endorsePolicyService.endorsementForm.patchValue({amount: this.endorsePolicyService.policy.amount})
+            this.endorsePolicyService.endorsementForm.patchValue({policyAmount: this.endorsePolicyService.policy.policyAmount})
         }
-        receiptsData.amount = this.receiptAmount;
+        receiptsData.paymentAmount = this.receiptAmount;
         this._endorseContactPolicy(receiptsData);
     }
 
@@ -172,7 +172,7 @@ export class EndorsePolicyPage implements OnInit {
      */
     private checkPolicyAmounts(): void {
         if(!!this.endorsePolicyService.policy) {
-            this.receiptAmount = parseInt(this.endorsePolicyService.f.amount.value) - parseInt(this.endorsePolicyService.policy.amount.toString())
+            this.receiptAmount = parseInt(this.endorsePolicyService.f.policyAmount.value) - parseInt(this.endorsePolicyService.policy.policyAmount.toString())
             if(this.receiptAmount > 0) {
                 ModalPlugin.show(this.modalIdConfirmAmountIncrease);
             } else {

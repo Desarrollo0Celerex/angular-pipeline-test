@@ -9,6 +9,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { LoadingService } from '@services/loading.service';
+import { ScanningService } from '@services/scanning.service';
 
 import { CompletePolicyService } from './complete-policy.service';
 
@@ -46,7 +47,8 @@ export class CompletePolicyPage implements OnInit {
         public completePolicyService: CompletePolicyService,
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
-        private _router: Router
+        private _router: Router,
+        private _scanningService: ScanningService,
     ) {
         this.emissionDateCalendarId = 'emissionDate';
         this.contactId = '';
@@ -253,15 +255,21 @@ export class CompletePolicyPage implements OnInit {
         });
     }
 
+    /**
+     * Scan the policy file
+     * @param policyFile The policy file to scan
+     */
     private _scannPolicy(policyFile: any): void {
-        ModalPlugin.show(this.modalIdScanningPolicy);
+        this._scanningService.show();
         this.completePolicyService.scannPolicy(policyFile).subscribe( (res: HttpResponse) => {
-            ModalPlugin.hide(this.modalIdScanningPolicy);
+            this._scanningService.hide();
             ModalPlugin.show(this.modalIdScanningPolicySuccess);
             this._scannedPolicyData = res.data;
         }, () => {
-            ModalPlugin.hide(this.modalIdScanningPolicy);
-            ModalPlugin.show(this.modalIdScanningPolicyFailed);
+            setTimeout(() => {
+                this._scanningService.hide();
+                ModalPlugin.show(this.modalIdScanningPolicyFailed);
+            },1000);
         });
     }
 

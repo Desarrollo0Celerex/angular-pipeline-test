@@ -18,7 +18,7 @@ export interface PolicyComplete {
     emissionDate: string,
     validityStartDate: string,
     validityEndDate: string,
-    amount: number,
+    policyAmount: number,
     currencyId: number,
     currencyName: string,
     paymentMethodId: number,
@@ -26,6 +26,7 @@ export interface PolicyComplete {
     paymentPlanId: number,
     paymentPlanName: string,
     bills: number,
-    amountApplied: number,
+    totalAmount: number,
+    totalAmountApplied: number,
     totalEndorsements: number
 }

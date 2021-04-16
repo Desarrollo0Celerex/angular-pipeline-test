@@ -197,8 +197,8 @@
                                                 <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control {{getValidationClass('amount')}}" formControlName="amount">
-                                        <div class="invalid-feedback">{{getErrorMessage('amount')}}</div>
+                                        <input type="text" class="form-control {{getValidationClass('policyAmount')}}" formControlName="policyAmount">
+                                        <div class="invalid-feedback">{{getErrorMessage('policyAmount')}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -268,6 +268,5 @@
 </ng-template>
 <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="contactId" [policyId]="policyId"></agt-modal-show-policy>
 <agt-modal-select-file [modalId]="modalIdSelectFile" [data]="modalSelectFileData" (fileSelected)="onPolicySelected($event)"></agt-modal-select-file>
-<agt-modal-scanning-policy [modalId]="modalIdScanningPolicy"></agt-modal-scanning-policy>
 <agt-modal-scanning-policy-success [modalId]="modalIdScanningPolicySuccess" (loadScannedPolicyData)="onLoadScannedPolicyData()"></agt-modal-scanning-policy-success>
 <agt-modal-scanning-policy-failed [modalId]="modalIdScanningPolicyFailed"></agt-modal-scanning-policy-failed>

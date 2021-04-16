@@ -12,7 +12,7 @@ export interface Policy {
     insurerId: number,
     insurerName: string,
     insurerImageUrl: string,
-    amount: number,
+    policyAmount: number,
     currencyName: string,
     paymentPlanName: string,
     policyNumber: string,

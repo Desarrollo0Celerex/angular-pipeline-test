@@ -68,7 +68,7 @@ export class EndorsePolicyService {
                 "emissionDate",
                 "validityStartDate",
                 "validityEndDate",
-                "amount",
+                "policyAmount",
                 "currencyId",
                 "paymentMethodId",
                 "paymentPlanId",
@@ -94,7 +94,7 @@ export class EndorsePolicyService {
     disableEndorsementFormFields(): void {
         const endorsementType: number = parseInt(this.f.endorsementTypeId.value);
 
-        this.f.amount.enable();
+        this.f.policyAmount.enable();
         this.f.currencyId.enable();
         this.f.paymentMethodId.enable();
         this.f.paymentPlanId.enable();
@@ -102,14 +102,14 @@ export class EndorsePolicyService {
 
         switch(endorsementType) {
             case ENDORSEMENT_TYPES.PAYMENT_METHOD_CHANGE:
-                this.f.amount.disable();
+                this.f.policyAmount.disable();
                 this.f.currencyId.disable();
                 this.f.paymentPlanId.disable();
                 this.f.bills.disable();
                 break;
 
             case ENDORSEMENT_TYPES.POLICY_REHABILITATION:
-                this.f.amount.disable();
+                this.f.policyAmount.disable();
                 this.f.currencyId.disable();
                 this.f.paymentMethodId.disable();
                 this.f.paymentPlanId.disable();
@@ -173,7 +173,7 @@ export class EndorsePolicyService {
      * @return          Notice of action done
      */
     loadPolicy(contactId: string, policyId: string): Observable<void> {
-        const fields: string = 'policyId,policyStatusName,policyStatusBackground,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,coveredProperty,policyNumber,clientNumber,insurerName,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,amount,currencyId,paymentMethodId,paymentPlanId,bills';
+        const fields: string = 'policyId,policyStatusName,policyStatusBackground,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,coveredProperty,policyNumber,clientNumber,insurerName,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.policy = res.data;
@@ -232,7 +232,7 @@ export class EndorsePolicyService {
                 titularRfc: [this.policy.titularRfc, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 titularPostalCode: [this.policy.titularPostalCode, [ValidatorsHelper.postalCode ] ],
                 titularPhoneNumber: [this.policy.titularPhoneNumber, [ValidatorsHelper.phoneNumber] ],
-                amount: [this.policy.amount, [ValidatorsHelper.amount] ],
+                policyAmount: [this.policy.policyAmount, [ValidatorsHelper.amount] ],
                 currencyId: [this.policy.currencyId || DEFAULT_CURRENCY_ID, [Validators.required]],
                 paymentMethodId: [this.policy.paymentMethodId || DEFAULT_METHOD_ID, [Validators.required]],
                 paymentPlanId: [this.policy.paymentPlanId || DEFAULT_PLAN_ID, [Validators.required]],
@@ -272,7 +272,7 @@ export class EndorsePolicyService {
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
         requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
         if(this.f.endorsementTypeId.value != ENDORSEMENT_TYPES.POLICY_REHABILITATION && this.f.endorsementTypeId.value != ENDORSEMENT_TYPES.POLICY_REHABILITATION) {
-            requestBody.append('amount', this.f.amount.value);
+            requestBody.append('policyAmount', this.f.policyAmount.value);
             requestBody.append('currencyId', this.f.currencyId.value);
             requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
             requestBody.append('bills', this.f.bills.value);
@@ -281,7 +281,7 @@ export class EndorsePolicyService {
             requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         }
         if(!!receiptsData) {
-            requestBody.append('receiptsAmount', receiptsData.amount.toString());
+            requestBody.append('receiptsAmount', receiptsData.paymentAmount.toString());
             requestBody.append('receiptsPaymentMethodId', receiptsData.paymentMethodId.toString());
             requestBody.append('receiptsPaymentPlanId', receiptsData.paymentPlanId.toString());
             requestBody.append('receiptsBills', receiptsData.bills.toString());

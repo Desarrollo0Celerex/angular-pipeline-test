@@ -35,7 +35,7 @@ export class UpdatePolicyService {
      * @return          Notice of action done
      */
     loadPolicy(contactId: string, policyId: string): Observable<void> {
-        const fields: string = 'policyId,policyStatusName,policyStatusBackground,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,coveredProperty,policyNumber,clientNumber,insurerName,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,amount,currencyName,paymentMethodName,paymentPlanName,bills';
+        const fields: string = 'policyId,policyStatusName,policyStatusBackground,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,coveredProperty,policyNumber,clientNumber,insurerName,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodName,paymentPlanName,bills';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.policy = res.data;

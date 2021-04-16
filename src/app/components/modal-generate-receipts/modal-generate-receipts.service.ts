@@ -57,7 +57,6 @@ export class ModalGenerateReceiptsService {
 
     /**
      * Build the receipts form
-     * @param  amount The receipts amount
      */
     private _buildReceiptsForm(): FormGroup {
         return this._formBuilder.group({

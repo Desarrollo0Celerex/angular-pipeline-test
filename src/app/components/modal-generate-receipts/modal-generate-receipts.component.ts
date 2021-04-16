@@ -19,7 +19,7 @@ declare var Select2Plugin: any;
 })
 export class ModalGenerateReceiptsComponent implements OnInit {
     @Input() modalId: string;
-    @Input() amount: number;
+    @Input() paymentAmount: number;
     @Input() currencyName: string;
     @Output() generateReceipts: EventEmitter<ReceiptsData>;
     calendarIdPaymentDate: string;
@@ -29,7 +29,7 @@ export class ModalGenerateReceiptsComponent implements OnInit {
 
     constructor(public modalGenerateReceiptsService: ModalGenerateReceiptsService) {
         this.modalId = '';
-        this.amount = 0;
+        this.paymentAmount = 0;
         this.currencyName = '';
         this.generateReceipts = new EventEmitter<ReceiptsData>();
         this.calendarIdPaymentDate = 'paymentDate';

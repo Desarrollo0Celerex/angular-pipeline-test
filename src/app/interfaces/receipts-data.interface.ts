@@ -1,5 +1,5 @@
 export interface ReceiptsData {
-    amount: number,
+    paymentAmount: number,
     paymentMethodId: number,
     paymentPlanId: number,
     bills: number,
