@@ -111,8 +111,12 @@ export const FILE_TYPES: any = {
     DOCUMENT: 2
 }
 export const ENDORSEMENT_TYPES: any = {
+    COVERAGE_CHANGE: 1,
+    CONDITIONS_CHANGE: 2,
     PAYMENT_METHOD_CHANGE: 3,
-    POLICY_REHABILITATION: 5
+    PLAN_TYPE_CHANGE: 4,
+    POLICY_REHABILITATION: 5,
+    VALIDITY_EXTENSION: 6
 }
 export const ACTION_TYPES: any = {
     CREATE_QUOTATION: 1,
@@ -120,10 +124,6 @@ export const ACTION_TYPES: any = {
     SELECT_CONTACT: 3,
     RENEW_POLICY: 4,
     REISSUE_POLICY: 5
-}
-export const AMOUNT_INCREASE_TYPES: any = {
-    IN_POLICY: 1,
-    INDEPENDENT_RECEIPTS: 2
 }
 export const POLICY_RECORD_TYPES: any = {
     REGISTER: 1,
@@ -150,6 +150,10 @@ export const IGNORE_MATCHES: any = {
     YES: true,
     NO: false
 }
+export const ENDORSEMENT_PAYMENT_METHODS: any = {
+    POLICY_RECEIPTS: 1,
+    INDEPENDENT_RECEIPTS: 2
+}
 
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;
@@ -163,3 +167,9 @@ export const DEFAULT_PLAN_ID: number = 1;
 export const DEFAULT_POLICY_STATUS_ID: number = POLICY_STATUS_ACTIVE;
 export const DEFAULT_ENDORSEMENT_TYPE_ID: number = 1;
 export const DEFAULT_POLICY_CANCELLATION_REASON_ID: number = 1;
+
+
+export const AMOUNT_INCREASE_TYPES: any = {
+    IN_POLICY: 1,
+    INDEPENDENT_RECEIPTS: 2
+}

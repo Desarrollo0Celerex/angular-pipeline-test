@@ -80,6 +80,9 @@ export class InputValidatorHelper {
                     case (typeof error.freeText !== 'undefined'):
                         message = 'Algunos caracteres no son validos.';
                         break;
+                    case (typeof error.max !== 'undefined'):
+                        message = 'El monto no puede ser mayor a $'+error.max.max;
+                        break;
                     default: message = '';
                 }
             }

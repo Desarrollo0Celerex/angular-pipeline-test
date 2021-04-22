@@ -67,8 +67,6 @@ export class UpdatePolicyService {
                 policyNumber: [this.policy.policyNumber, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 clientNumber: [this.policy.clientNumber, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 emissionDate: [this._getDateFormat(this.policy.emissionDate), [Validators.required, ValidatorsHelper.date] ],
-                validityStartDate: [this._getDateFormat(this.policy.validityStartDate), [Validators.required, ValidatorsHelper.date] ],
-                validityEndDate: [this._getDateFormat(this.policy.validityEndDate), [Validators.required, ValidatorsHelper.date] ],
                 titularName: [this.policy.titularName, [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
                 titularRfc: [this.policy.titularRfc, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 titularPostalCode: [this.policy.titularPostalCode, [ValidatorsHelper.postalCode ] ],
@@ -102,8 +100,6 @@ export class UpdatePolicyService {
         requestBody.append('policyNumber', this.f.policyNumber.value);
         requestBody.append('clientNumber', this.f.clientNumber.value);
         requestBody.append('emissionDate', this.f.emissionDate.value);
-        requestBody.append('validityStartDate', this.f.validityStartDate.value);
-        requestBody.append('validityEndDate', this.f.validityEndDate.value);
         requestBody.append('titularName', this.f.titularName.value);
         requestBody.append('titularRfc', this.f.titularRfc.value);
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);

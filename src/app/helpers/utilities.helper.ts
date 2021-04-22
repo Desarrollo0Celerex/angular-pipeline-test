@@ -18,4 +18,22 @@ export class UtilitiesHelper {
         }
         return isHistoryContent;
     }
+
+    /**
+     * Get a number with only two decimals
+     * @param  quantity The quantity to format
+     * @return          The formatted quantity
+     */
+    static getQuantityWithOnlyTwoDecimals(quantity: number): number {
+        return Math.floor(quantity * 100) / 100;
+    }
+
+    /**
+     * Remove the commas from a quantity
+     * @param  quantity The quantity to format
+     * @return          The formatted quantity
+     */
+    static removeCommasFromQuantity(quantity: string): string {
+        return quantity.replace(',', '');
+    }
 }

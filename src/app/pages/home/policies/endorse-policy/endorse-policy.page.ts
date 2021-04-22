@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
-import { AMOUNT_INCREASE_TYPES } from '@constants/global';
+import { ENDORSEMENT_PAYMENT_METHODS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ReceiptsData } from '@interfaces/receipts-data.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { LoadingService } from '@services/loading.service';
@@ -15,6 +16,7 @@ import { EndorsePolicyService } from './endorse-policy.service';
 declare var $: any;
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
+declare var PopoverPlugin: any;
 declare var Select2Plugin: any;
 
 @Component({
@@ -24,21 +26,25 @@ declare var Select2Plugin: any;
   ]
 })
 export class EndorsePolicyPage implements OnInit {
-    calendarIdEmissionDate: string;
     calendarIdEndorsementEmissionDate: string;
     calendarIdValidityEndDate: string;
-    calendarIdValidityStartDate: string;
     contactId: string;
+    endorsementAmount: number;
+    fractionalReceiptAmount: number;
+    increasedAmount: number;
     message: string;
     modalSelectFileData: ModalSelectFileData;
-    modalIdConfirmAmountIncrease: string;
     modalIdConfirmApplyEndorsement: string;
+    modalIdDoCollectionAdjustment: string;
     modalIdGenerateReceipts: string;
+    modalIdSelectEndorsementPaymentMethod: string;
+    modalIdShowEndorsementSummary: string;
+    modalIdShowNoFractionalReceipt: string;
     modalIdUploadPolicyEndorsement: string;
+    newAmount: number;
+    policyAmount: number;
     policyId: string;
     receiptAmount: number;
-    receiptCurrencyName: string;
-    selectIdCurrency: string;
     selectIdEndorsementType: string;
     selectIdPaymentMethod: string;
     selectIdPaymentPlan: string;
@@ -50,25 +56,29 @@ export class EndorsePolicyPage implements OnInit {
         private _loadingService: LoadingService,
         private _router: Router
     ) {
-        this.calendarIdEmissionDate = 'emissionDate';
         this.calendarIdEndorsementEmissionDate = 'endorsementEmissionDate';
         this.calendarIdValidityEndDate = 'validityEndDate';
-        this.calendarIdValidityStartDate = 'validityStartDate';
         this.contactId = '';
+        this.endorsementAmount = 0;
+        this.increasedAmount = 0;
+        this.fractionalReceiptAmount = 0;
         this.message = 'Captura el endoso para la póliza de';
         this.modalSelectFileData = {
             title: 'Cargar Endoso',
             description: 'Selecciona el documento con los detalles del endoso.',
             buttonLabel: 'Cargar endoso'
         }
-        this.modalIdConfirmAmountIncrease = 'agt-confirm-amount-increase';
         this.modalIdConfirmApplyEndorsement = 'agt-confirm-apply-endorsement';
+        this.modalIdDoCollectionAdjustment = 'agt-do-collection-adjustment';
         this.modalIdGenerateReceipts = 'agt-generate-receipts';
+        this.modalIdSelectEndorsementPaymentMethod = 'agt-select-endorsement-payment-method';
+        this.modalIdShowEndorsementSummary = 'agt-show-endorsement-summary';
+        this.modalIdShowNoFractionalReceipt = 'agt-show-no-fractional-receipt';
         this.modalIdUploadPolicyEndorsement = 'agt-upload-policy-endorsement';
+        this.newAmount = 0;
+        this.policyAmount = 0;
         this.policyId = '';
         this.receiptAmount = 0;
-        this.receiptCurrencyName = '';
-        this.selectIdCurrency = 'agt-currency';
         this.selectIdEndorsementType = 'agt-endorse-type';
         this.selectIdPaymentMethod = 'agt-payment-method';
         this.selectIdPaymentPlan = 'agt-payment-plan';
@@ -78,6 +88,9 @@ export class EndorsePolicyPage implements OnInit {
     ngOnInit(): void {
         this._catchParams();
         this._loadPolicy();
+        setTimeout(() => {
+            PopoverPlugin.init();
+        }, 1000);
     }
 
     /**
@@ -101,10 +114,45 @@ export class EndorsePolicyPage implements OnInit {
     }
 
     /**
-     * Event to apply endorsement
+     * Event to confirm the application of policy changes
      */
-    onApplyEndorsement(): void {
-        this.checkPolicyAmounts();
+    onPolicyChangesApplicationConfirmed(): void {
+        const newAmount: string = this.endorsePolicyService.f.newAmount.value || '0';
+        this.newAmount = parseFloat(UtilitiesHelper.removeCommasFromQuantity(newAmount));
+        // If the policy has a new amount
+        if(!!this.newAmount) {
+            // If the new amount is an increase
+            if(this.newAmount > this.policyAmount) {
+                const increasedAmount: number = this.newAmount - this.policyAmount;
+                this.increasedAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(increasedAmount);
+                ModalPlugin.show(this.modalIdSelectEndorsementPaymentMethod);
+            } else {
+                // If not, then it is a decrement
+                this._applyEndorsement();
+            }
+        } else {
+            // If not, save the endorsement normally
+            this._applyEndorsement();
+        }
+    }
+
+    /**
+     * Event to apply endorsement with fractional receipt
+     * @param fractionalReceiptAmount The fractional receipt amount
+     */
+    onApplyEndorsementWithFractionalReceipt(fractionalReceiptAmount: number): void {
+        this.fractionalReceiptAmount = fractionalReceiptAmount;
+        let aux = this.newAmount - (this.policyAmount + this.fractionalReceiptAmount);
+        this.endorsementAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(aux);
+        ModalPlugin.show(this.modalIdShowEndorsementSummary);
+    }
+
+    /**
+     * Event to request confirm apply endorsement without fractional receipt
+     */
+    onApplyEndorsementWithoutFractionalReceipt(): void {
+        this.endorsementAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(this.newAmount - this.policyAmount);
+        ModalPlugin.show(this.modalIdShowNoFractionalReceipt);
     }
 
     /**
@@ -112,6 +160,13 @@ export class EndorsePolicyPage implements OnInit {
      */
     onClickUploadEndorsement(): void {
         ModalPlugin.show(this.modalIdUploadPolicyEndorsement);
+    }
+
+    /**
+     *  Event to confirm the endorsement application
+     */
+    onEndorsementApplicationConfirmed(): void {
+        this._applyEndorsement();
     }
 
     /**
@@ -135,17 +190,24 @@ export class EndorsePolicyPage implements OnInit {
     }
 
     /**
-     * Event to catch the selected increase type
-     * @param increaseType The selected increase type
+     * Event to confirm the endorsement application with fractional receipt
      */
-    onIncreaseTypeSelected(increaseType: number): void {
-        switch (increaseType) {
-            case AMOUNT_INCREASE_TYPES.IN_POLICY:
-                this._endorseContactPolicy();
+    onEndorsementApplicationWithoutFractionalReceiptConfirmed(): void {
+        this.fractionalReceiptAmount = 0;
+        this._applyEndorsement();
+    }
+
+    /**
+     * Event to catch the selected payment method to policy increase
+     * @param increaseType The selected payment method
+     */
+    onEndorsementPaymentMethodSelected(paymentMethod: number): void {
+        switch (paymentMethod) {
+            case ENDORSEMENT_PAYMENT_METHODS.POLICY_RECEIPTS:
+                ModalPlugin.show(this.modalIdDoCollectionAdjustment);
                 break;
 
-            case AMOUNT_INCREASE_TYPES.INDEPENDENT_RECEIPTS:
-                this.receiptCurrencyName = this.endorsePolicyService.getSelectedCurrencyName();
+            case ENDORSEMENT_PAYMENT_METHODS.INDEPENDENT_RECEIPTS:
                 ModalPlugin.show(this.modalIdGenerateReceipts);
                 ModalPlugin.setFixed();
                 break;
@@ -162,23 +224,21 @@ export class EndorsePolicyPage implements OnInit {
             if(isPolicyChanged) {
                 ModalPlugin.show(this.modalIdConfirmApplyEndorsement);
             } else {
-                this.checkPolicyAmounts();
+                // TODO: Mostar modal de "Ningun dato ha sido modificado".
+                console.log('Ningún cambio realizado');
             }
         }
     }
 
     /**
-     * Check the policy amouts
+     * Apply the endorsement
      */
-    private checkPolicyAmounts(): void {
-        if(!!this.endorsePolicyService.policy) {
-            this.receiptAmount = parseInt(this.endorsePolicyService.f.policyAmount.value) - parseInt(this.endorsePolicyService.policy.policyAmount.toString())
-            if(this.receiptAmount > 0) {
-                ModalPlugin.show(this.modalIdConfirmAmountIncrease);
-            } else {
-                this._endorseContactPolicy();
-            }
-        }
+    private _applyEndorsement(): void {
+        console.log('Aplicar endoso!!');
+        console.log('policyAmount: ', this.policyAmount);
+        console.log('newAmount: ', this.newAmount);
+        console.log('endorsementAmount: ', this.endorsementAmount);
+        console.log('fractionalReceiptAmount: ', this.fractionalReceiptAmount);
     }
 
     /**
@@ -213,10 +273,8 @@ export class EndorsePolicyPage implements OnInit {
      */
     private _initCalendars(): void {
         DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdEmissionDate, this._onChangeDate, this);
         DatePickerPlugin.initElement(this.calendarIdEndorsementEmissionDate, this._onChangeDate, this);
         DatePickerPlugin.initElement(this.calendarIdValidityEndDate, this._onChangeDate, this);
-        DatePickerPlugin.initElement(this.calendarIdValidityStartDate, this._onChangeDate, this);
     }
 
     /**
@@ -224,7 +282,7 @@ export class EndorsePolicyPage implements OnInit {
      */
     private _loadPolicy(): void {
         this.endorsePolicyService.loadPolicy(this.contactId, this.policyId).subscribe( () => {
-            this._loadCurrencies();
+            this.policyAmount = (!!this.endorsePolicyService.policy) ? parseFloat(this.endorsePolicyService.policy.policyAmount.toString()) : 0;
             this._loadEndorsementTypes();
             this._loadPaymentMethods();
             this._loadPaymentPlans();
@@ -234,17 +292,7 @@ export class EndorsePolicyPage implements OnInit {
     }
 
     /**
-     * Load the currencies
-     */
-    private _loadCurrencies(): void {
-        this.endorsePolicyService.loadCurrencies().subscribe( () => {
-            Select2Plugin.initSelect();
-            this._onChangeCurrencyId();
-        })
-    }
-
-    /**
-     * Load the currencies
+     * Load the endorsement types
      */
     private _loadEndorsementTypes(): void {
         this.endorsePolicyService.loadEndorsementTypes().subscribe( () => {
@@ -284,16 +332,8 @@ export class EndorsePolicyPage implements OnInit {
     }
 
     /**
-     * Event to change the currency ID value
-     */
-    private _onChangeCurrencyId(): void {
-        $('select#'+this.selectIdCurrency).on('change', (element: any) => {
-            this.endorsePolicyService.endorsementForm.patchValue({currencyId: element.currentTarget.value});
-        });
-    }
-
-    /**
-     * Event to change the currency ID value
+     * Event to change the endorsement type ID value
+     * Check if the new amount can show
      * And disable the fields of the endorsement form
      */
     private _onChangeEndorsementTypeId(): void {

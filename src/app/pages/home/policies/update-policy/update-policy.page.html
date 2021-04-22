@@ -158,8 +158,7 @@
                                             <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
                                         </div>
                                     </div>
-                                    <input [id]="calendarIdValidityStartDate" class="form-control fc-datepicker {{getValidationClass('validityStartDate')}}" type="text" formControlName="validityStartDate">
-                                    <div class="invalid-feedback">{{getErrorMessage('validityStartDate')}}</div>
+                                    <input type="text" class="form-control" placeholder="{{updatePolicyService.policy.validityStartDate | date: 'dd/MM/YYYY'}}" disabled="">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -171,8 +170,7 @@
                                             <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
                                         </div>
                                     </div>
-                                    <input [id]="calendarIdValidityEndDate" class="form-control fc-datepicker {{getValidationClass('validityEndDate')}}" type="text" formControlName="validityEndDate">
-                                    <div class="invalid-feedback">{{getErrorMessage('validityEndDate')}}</div>
+                                    <input type="text" class="form-control" placeholder="{{updatePolicyService.policy.validityEndDate | date: 'dd/MM/YYYY'}}" disabled="">
                                 </div>
                             </div>
                         </div>

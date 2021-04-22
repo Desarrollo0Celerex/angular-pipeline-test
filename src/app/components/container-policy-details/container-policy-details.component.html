@@ -40,7 +40,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Prima Pagada ({{containerPolicyDetailsService.policyComplete.currencyName}})</label>
-                                    <input type="text" class="form-control" [placeholder]="(!!containerPolicyDetailsService.policyComplete.totalAmountApplied) ? (containerPolicyDetailsService.policyComplete.totalAmountApplied | currency: '': '$': '0.2-2') : ''" readonly="">
+                                    <input type="text" class="form-control" [placeholder]="(!!containerPolicyDetailsService.policyComplete.totalAmountPaid) ? (containerPolicyDetailsService.policyComplete.totalAmountPaid | currency: '': '$': '0.2-2') : ''" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-4">

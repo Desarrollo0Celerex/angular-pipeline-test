@@ -1,7 +1,7 @@
 export interface PolicyDetails {
     policyNumber: string,
     totalAmount: string,
-    totalAmountApplied: string,
+    totalAmountPaid: number,
     bills: string,
     emissionDate: string,
     validityStartDate: string,
