@@ -11,22 +11,23 @@ declare var ModalPlugin: any;
   ]
 })
 export class ModalSelectEndorsementPaymentMethodComponent {
-    @Input() modalId: string = '';
+    @Input() currencyName: string = '';
     @Input() increasedAmount: number = 0;
+    @Input() modalId: string = '';
     @Output() endorsementPaymentMethodSelected: EventEmitter<number> = new EventEmitter<number>();
 
     /**
-     * Select the payment method: policy receipts
+     * Click event to select the payment method: policy receipts
      */
-    selectPolicyReceipts(): void {
+    onClickSelectPolicyReceipts(): void {
         ModalPlugin.hide(this.modalId);
         this.endorsementPaymentMethodSelected.emit(ENDORSEMENT_PAYMENT_METHODS.POLICY_RECEIPTS);
     }
 
     /**
-     * Select the payment method: independent receipts
+     * Click event to select the payment method: independent receipts
      */
-    selectIndependentReceipts(): void {
+    onClickSelectIndependentReceipts(): void {
         ModalPlugin.hide(this.modalId);
         this.endorsementPaymentMethodSelected.emit(ENDORSEMENT_PAYMENT_METHODS.INDEPENDENT_RECEIPTS);
     }

@@ -2,6 +2,7 @@ export interface PolicyComplete {
     policyId: string,
     policyStatusName: string,
     policyStatusBackground: string,
+    policyStatusDescription: string,
     insuranceName: string,
     insuranceIcon: string,
     insuranceBackground: string,
@@ -11,6 +12,7 @@ export interface PolicyComplete {
     policyNumber: string,
     clientNumber: string,
     insurerName: string,
+    insurerImageUrl: string,
     titularName: string,
     titularRfc: string,
     titularPostalCode: string,
@@ -28,5 +30,8 @@ export interface PolicyComplete {
     bills: number,
     totalAmount: number,
     totalAmountPaid: number,
-    totalEndorsements: number
+    totalEndorsements: number,
+    monthsPaid: number;
+    receiptsPaid: number;
+    lifeTime: number
 }

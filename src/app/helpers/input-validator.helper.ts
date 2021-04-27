@@ -83,6 +83,9 @@ export class InputValidatorHelper {
                     case (typeof error.max !== 'undefined'):
                         message = 'El monto no puede ser mayor a $'+error.max.max;
                         break;
+                    case (typeof error.dateGreaterThan !== 'undefined'):
+                        message = 'Por favor ingresa una fecha válida.';
+                        break;
                     default: message = '';
                 }
             }

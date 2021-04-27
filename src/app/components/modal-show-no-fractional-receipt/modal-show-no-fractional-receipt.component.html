@@ -1,4 +1,4 @@
-<!-- AGENTHOS - ENDORSEMENT SKIP TIKET -->
+<!-- AGENTHOS - ENDORSEMENT POLICY SKIP TIKET -->
 <div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -14,15 +14,18 @@
 					<div class="col-md-12">
 						<p class="text-justify"><strong>¿No hay un primer recibo fraccionado?</strong></p>
 						<p class="text-justify">
-						El incremento de la prima será cobrado con los recibos pendientes de la póliza sin generar un primer recibo fraccionado. <strong>Por favor confirma si deseas continuar</strong>.</p>
+						La prima actual de <strong>{{policyAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> incrementará a <strong>{{newAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong>.</p>
+						<p class="text-justify">
+						El incremento de la prima será cobrado junto con los recibos pendientes de la póliza sin generar un primer recibo fraccionado. <strong>Por favor confirma si deseas continuar</strong>.</p>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+				<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#agtEndorsementPolicyTickets" data-dismiss="modal">CANCELAR</button>
+				<!-- AGENTHOS - DATA TARGET (AGTVIEW0018) -->
 				<button type="button" class="btn btn-primary" (click)="onClickConfirm()">CONFIRMAR</button>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- AGENTHOS - //ENDORSEMENT SKIP TIKET -->
+<!-- AGENTHOS - //ENDORSEMENT POLICY SKIP TIKET -->

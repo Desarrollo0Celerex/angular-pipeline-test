@@ -3,8 +3,10 @@ import { DatePipe } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import * as moment from 'moment';
 
 import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH, DEFAULT_METHOD_ID, DEFAULT_PLAN_ID, DEFAULT_ENDORSEMENT_TYPE_ID, ENDORSEMENT_TYPES } from '@constants/global';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { EndorsementType } from '@interfaces/endorsement-type.interface';
 import { ReceiptsData } from '@interfaces/receipts-data.interface';
@@ -21,8 +23,10 @@ import { PolicyService } from '@services/policy.service';
 export class EndorsePolicyService {
     endorsementForm: FormGroup;
     endorsementTypes: EndorsementType[];
+    monthsLeftToPay: number;
     paymentMethods: PaymentMethod[];
     paymentPlans: PaymentPlan[];
+    paymentPlansAvailable: PaymentPlan[];
     policy: PolicyComplete | null;
     policyAux: PolicyComplete | null;
 
@@ -38,12 +42,58 @@ export class EndorsePolicyService {
         this.endorsementTypes = [];
         this.paymentMethods = [];
         this.paymentPlans = [];
+        this.paymentPlansAvailable = [];
         this.policy = null;
         this.policyAux = null;
+        this.monthsLeftToPay = 0;
     }
 
     get f(): { [key: string]: AbstractControl } {
         return this.endorsementForm.controls;
+    }
+
+    /**
+     * Calculate the plans of payment available
+     */
+    calculatePaymentPlansAvailable(): void {
+        if(this.policy) {
+            const startDate = moment(this.policy.validityStartDate);
+            const endDate = moment(UtilitiesHelper.getOriginalDateFormat(this.f.validityEndDate.value));
+            const totalMonths = endDate.diff(startDate, 'months');
+            this.monthsLeftToPay = totalMonths - this.policy.monthsPaid;
+            this.paymentPlansAvailable = [];
+            for(let paymentPlan of this.paymentPlans) {
+                if(paymentPlan.months < this.monthsLeftToPay) {
+                    this.paymentPlansAvailable.push(paymentPlan);
+                }
+            }
+        }
+    }
+
+    /**
+     * Calculate the new bills
+     */
+    calculateNewBills(): void {
+        if(this.policy) {
+            const selectedPaymentPlanId: number = parseInt(this.f.paymentPlanId.value);
+            const selectedPaymentPlanMonths = this._getPaymentPlanMonths(selectedPaymentPlanId);
+            const newBills = (!!selectedPaymentPlanMonths) ? Math.floor(this.monthsLeftToPay / selectedPaymentPlanMonths) : 1;
+            const newTotalBills: number = this.policy.receiptsPaid + newBills;
+            this.f.bills.setValue(newTotalBills);
+        }
+    }
+
+    /**
+     * Check if can extend the validity
+     * @return True if it can, otherwise false
+     */
+    checkCanExtendValidity(): boolean {
+        const newDate: string = UtilitiesHelper.getOriginalDateFormat(this.f.validityEndDate.value);
+        return (
+            this.f.validityEndDate.valid
+            && !!this.policy
+            && (newDate !== this.policy.validityEndDate)
+        ) ? true : false;
     }
 
     /**
@@ -74,7 +124,7 @@ export class EndorsePolicyService {
                 if((typeof endorsementFormAux[field] !== 'undefined') && (typeof policyAux[field] !== 'undefined') && (endorsementFormAux[field] !== policyAux[field])) {
                     return true;
                 }
-                if(field === 'newAmount' && endorsementFormAux[field] !== '') {
+                if(field === 'newAmount' && typeof endorsementFormAux[field] !== 'undefined' && endorsementFormAux[field] !== '') {
                     return true;
                 }
             }
@@ -96,16 +146,32 @@ export class EndorsePolicyService {
             case ENDORSEMENT_TYPES.COVERAGE_CHANGE:
             case ENDORSEMENT_TYPES.CONDITIONS_CHANGE:
             case ENDORSEMENT_TYPES.PLAN_TYPE_CHANGE:
+                // Enable fields
                 this.f.newAmount.enable();
                 this.f.paymentMethodId.enable();
                 this.f.paymentPlanId.enable();
+
+                // Reset values
+                if(!!this.policy) {
+                    this.f.validityEndDate.setValue(this._getDateFormat(this.policy.validityEndDate));
+                }
                 break;
 
             case ENDORSEMENT_TYPES.PAYMENT_METHOD_CHANGE:
+                // Enable fields
                 this.f.paymentMethodId.enable();
+
+                // Reset values
+                if(!!this.policy) {
+                    this.f.validityEndDate.setValue(this._getDateFormat(this.policy.validityEndDate));
+                    this.f.newAmount.setValue('');
+                    this.f.paymentPlanId.setValue(this.policy.paymentPlanId);
+                    this.f.bills.setValue(this.policy.bills);
+                }
                 break;
 
             case ENDORSEMENT_TYPES.VALIDITY_EXTENSION:
+                // Enable fields
                 this.f.validityEndDate.enable();
                 this.f.newAmount.enable();
                 this.f.paymentMethodId.enable();
@@ -123,6 +189,16 @@ export class EndorsePolicyService {
     endorseContactPolicy(contactId: string, policyId: string, receiptsData: ReceiptsData | null): Observable<void> {
         const requestBody: FormData = this._getRequestBody(receiptsData);
         return this._policyService.endorseContactPolicy(contactId, policyId, requestBody);
+    }
+
+    /**
+     * Get the selected paymen plan
+     * @return  the selected paymen plan
+     */
+    getSelectedPaymentPlanName(): string {
+        const paymentPlanId: number = parseInt(this.f.paymentPlanId.value);
+        const selectedPaymentPlan: PaymentPlan | undefined = this.paymentPlans.find( (element: PaymentPlan) => element.paymentPlanId == paymentPlanId);
+        return (!!selectedPaymentPlan) ? selectedPaymentPlan.name : '';
     }
 
     /**
@@ -146,11 +222,10 @@ export class EndorsePolicyService {
      * @return          Notice of action done
      */
     loadPolicy(contactId: string, policyId: string): Observable<void> {
-        const fields: string = 'policyId,policyStatusName,policyStatusBackground,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,coveredProperty,policyNumber,clientNumber,insurerName,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills';
+        const fields: string = 'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,coveredProperty,policyNumber,clientNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.policy = res.data;
-                this.policyAux = res.data;
                 this._buildEndorsementForm();
             }),
             map(() => {})
@@ -195,6 +270,7 @@ export class EndorsePolicyService {
                 endorsementNumber: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 endorsementEmissionDate: ['', [Validators.required, ValidatorsHelper.date] ],
                 endorsementTypeId: [DEFAULT_ENDORSEMENT_TYPE_ID, [Validators.required] ],
+                endorsementComments: ['', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 coveredProperty: [this.policy.coveredProperty, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 policyNumber: [this.policy.policyNumber, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 clientNumber: [this.policy.clientNumber, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
@@ -202,10 +278,11 @@ export class EndorsePolicyService {
                 titularRfc: [this.policy.titularRfc, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 titularPostalCode: [this.policy.titularPostalCode, [ValidatorsHelper.postalCode ] ],
                 titularPhoneNumber: [this.policy.titularPhoneNumber, [ValidatorsHelper.phoneNumber] ],
-                validityEndDate: [this._getDateFormat(this.policy.validityEndDate), [Validators.required, ValidatorsHelper.date] ],
-                newAmount: ['', [ValidatorsHelper.amount] ],
-                paymentMethodId: [this.policy.paymentMethodId || DEFAULT_METHOD_ID, [Validators.required]],
-                paymentPlanId: [this.policy.paymentPlanId || DEFAULT_PLAN_ID, [Validators.required]]
+                validityEndDate: [{value: this._getDateFormat(this.policy.validityEndDate) || 0, disabled: true}, [Validators.required, ValidatorsHelper.date, ValidatorsHelper.dateGreaterThan(this.policy.validityEndDate)] ],
+                newAmount: [{value: '', disabled: true}, [ValidatorsHelper.amount] ],
+                paymentMethodId: [{value: this.policy.paymentMethodId || DEFAULT_METHOD_ID, disabled: true}, [Validators.required]],
+                paymentPlanId: [{value: this.policy.paymentPlanId || DEFAULT_PLAN_ID, disabled: true}, [Validators.required]],
+                bills: [{value: this.policy.bills || 0, disabled: true}]
             })
         }
     }
@@ -218,10 +295,20 @@ export class EndorsePolicyService {
     private _getDateFormat(date: string | null): string {
         let dateFormat: string = '';
         if(!!date) {
-            const formattedDate: string | null = this._datePipe.transform(date, 'dd/MM/YYYY');
+            const formattedDate: string | null = this._datePipe.transform(date, 'dd/MM/yyyy');
             dateFormat = (!!formattedDate) ? formattedDate : '';
         }
         return dateFormat;
+    }
+
+    /**
+     * Get the months of payment plan
+     * @param  paymentPlanId The payment plan ID
+     * @return               The months
+     */
+    private _getPaymentPlanMonths(paymentPlanId: number): number {
+        const paymentPlan: PaymentPlan | undefined = this.paymentPlans.find((element: PaymentPlan) => element.paymentPlanId == paymentPlanId);
+        return (!!paymentPlan) ? paymentPlan.months : 0;
     }
 
     private _getRequestBody(receiptsData: ReceiptsData | null): FormData {
@@ -233,11 +320,11 @@ export class EndorsePolicyService {
         requestBody.append('coveredProperty', this.f.coveredProperty.value);
         requestBody.append('policyNumber', this.f.policyNumber.value);
         requestBody.append('clientNumber', this.f.clientNumber.value);
-        requestBody.append('validityEndDate', this.f.validityEndDate.value);
         requestBody.append('titularName', this.f.titularName.value);
         requestBody.append('titularRfc', this.f.titularRfc.value);
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
         requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
+        requestBody.append('validityEndDate', this.f.validityEndDate.value);
         if(this.f.endorsementTypeId.value != ENDORSEMENT_TYPES.POLICY_REHABILITATION && this.f.endorsementTypeId.value != ENDORSEMENT_TYPES.POLICY_REHABILITATION) {
             requestBody.append('newAmount', this.f.newAmount.value);
             requestBody.append('paymentPlanId', this.f.paymentPlanId.value);

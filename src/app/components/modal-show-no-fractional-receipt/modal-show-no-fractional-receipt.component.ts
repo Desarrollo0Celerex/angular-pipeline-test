@@ -9,7 +9,10 @@ declare var ModalPlugin: any;
   ]
 })
 export class ModalShowNoFractionalReceiptComponent {
+    @Input() currencyName: string = '';
     @Input() modalId: string = '';
+    @Input() newAmount: number = 0;
+    @Input() policyAmount: number = 0;
     @Output() endorsementApplicationWithoutFractionalReceiptConfirmed: EventEmitter<void> = new EventEmitter<void>();
 
     /**

@@ -1,4 +1,4 @@
-<!-- AGENTHOS - ENDORSEMENT POLICY TICKETS RESUME -->
+<!-- AGENTHOS - ENDORSEMENT POLICY SELF TICKETS (IF NO PENDING PAYMENTS) -->
 <div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -15,7 +15,7 @@
 						<p class="text-justify">
 						La prima actual de <strong>{{policyAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> incrementará a <strong>{{newAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong>.</p>
 						<p class="text-justify">
-						Existe un recibo fraccionado de <strong>{{fractionalReceiptAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> y el monto restante se cobrará junto con los recibos pendientes de la póliza. <strong>Por favor confirma si deseas continuar</strong>.</p>
+						El incremento de prima será cobrado con un recibo único de <strong>{{(newAmount - policyAmount) | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> con fecha de pago para el <strong>{{endorsementEmissionDate}}</strong>. <strong>Por favor confirma si deseas continuar</strong>.</p>
 					</div>
 				</div>
 			</div>
@@ -27,4 +27,4 @@
 		</div>
 	</div>
 </div>
-<!-- //AGENTHOS - ENDORSEMENT GENERATE TICKET -->
+<!-- //AGENTHOS - ENDORSEMENT POLICY SELF TICKETS -->

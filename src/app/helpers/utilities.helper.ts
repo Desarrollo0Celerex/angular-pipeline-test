@@ -36,4 +36,14 @@ export class UtilitiesHelper {
     static removeCommasFromQuantity(quantity: string): string {
         return quantity.replace(',', '');
     }
+
+    /**
+     * Get the original format of the date
+     * @param  date The date to format
+     * @return      The formatted date
+     */
+    static getOriginalDateFormat(date: string): string {
+        const arrDate: string[] = date.split('/');
+        return arrDate[2]+'-'+arrDate[1]+'-'+arrDate[0];
+    }
 }

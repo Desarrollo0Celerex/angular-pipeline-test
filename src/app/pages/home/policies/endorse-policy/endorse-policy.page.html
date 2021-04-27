@@ -2,31 +2,53 @@
 
 <!-- AGENTHOS - POLICY DETAILS -->
 <form *ngIf="endorsePolicyService.policy; else loadingContent" [formGroup]="endorsePolicyService.endorsementForm" (submit)="onSubmitSaveEndorsement()">
+    <!-- AGENTHOS - ENDORSEMENT CHANGES -->
     <div class="row">
+        <!-- //AGENTHOS - ENDORSEMENT RESUME -->
         <div class="col-md-4">
-            <!-- AGENTHOS - POLICY FILE -->
+            <!-- AGENTHOS - POLICY CARD -->
+            <div class="card">
+                <!-- AGENTHOS - POLICY HEADER -->
+                <div class="card-header">
+                    <!-- AGENTHOS - INSURANCE COMPANY -->
+                    <img [src]="endorsePolicyService.policy.insurerImageUrl" width="38px">
+                </div>
+                <!-- //AGENTHOS - POLICY HEADER -->
+                <!-- AGENTHOS - POLICY BODY -->
+                <div class="card-body">
+                    <!-- AGENTHOS - POLICY COVER -->
+                    <div class="d-flex clearfix">
+                        <div class="text-left">
+                            <!-- AGENTHOS - POLICY STATUS -->
+                            <div class="badge badge-{{endorsePolicyService.policy.policyStatusBackground}} mr-1 mb-3">{{endorsePolicyService.policy.policyStatusName | uppercase}}</div>
+                            <span class="col-auto align-self-center">
+                                <span class="form-help" data-toggle="popover" data-placement="top" [attr.data-content]="endorsePolicyService.policy.policyStatusDescription" data-original-title="">?</span>
+                            </span>
+                            <!-- AGENTHOS - POLICY TYPE -->
+                            <h6><span class="text-primary"><i class="fe fe-shield mr-2"></i></span>{{endorsePolicyService.policy.insuranceName | uppercase}}</h6>
+                            <!-- AGENTHOS - POLICY TYPE -->
+                            <h6><span class="text-primary"><i class="fe fe-globe mr-2"></i></span>{{endorsePolicyService.policy.insuranceTypeName | uppercase}}</h6>
+                            <!-- AGENTHOS - POLICY NUMBER -->
+                            <h6><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{endorsePolicyService.policy.policyNumber | uppercase}}</h6>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="{{endorsePolicyService.policy.insuranceBackground}} icon-service"><i class="fa {{endorsePolicyService.policy.insuranceIcon}} fs-2"></i></span>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - POLICY COVER -->
+                    <!-- AGENTHOS - POLICY LIFE -->
+                    <div class="progress progress-sm mt-2">
+                        <div class="progress-bar {{endorsePolicyService.policy.insuranceBackground}}" [ngStyle]="{'width': endorsePolicyService.policy.lifeTime+'%'}"></div>
+                    </div>
+                    <!-- //AGENTHOS - POLICY LIFE -->
+                </div>
+                <!-- //AGENTHOS - POLICY BODY -->
+            </div>
+            <!-- AGENTHOS - POLICY CARD -->
+            <!-- AGENTHOS - ENDORSEMENT FILE -->
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Carátula de Endoso</h3>
-                </div>
-                <div class="card-body d-flex">
-                    <div class="card-order">
-                        <h6 class="mb-2">
-                            <span class="badge badge-{{endorsePolicyService.policy.policyStatusBackground}}  mr-1 mb-1 mt-1">{{endorsePolicyService.policy.policyStatusName | uppercase}}</span>
-                        </h6>
-                        <h6 class="mb-2">
-                            <span class="text-primary"><i class="fe fe-shield mr-2 fs-20"></i></span>{{endorsePolicyService.policy.insuranceName | uppercase}}
-                        </h6>
-                        <h6 class="mb-2">
-                            <span class="text-primary"><i class="fe fe-file-text mr-2 fs-20"></i></span>{{endorsePolicyService.policy.insuranceTypeName | uppercase}}
-                        </h6>
-                    </div>
-                    <div class="ml-auto">
-                        <!-- AGENTHOS - INSURANCE TYPE -->
-                        <span class="{{endorsePolicyService.policy.insuranceBackground}} icon-service">
-                            <i class="fa {{endorsePolicyService.policy.insuranceIcon}} fs-2"></i>
-                        </span>
-                    </div>
                 </div>
                 <div class="card-body">
                     <div class="col-sm-12">
@@ -41,8 +63,8 @@
                     </div>
                 </div>
             </div>
-            <!-- //AGENTHOS - POLICY FILE -->
-            <!-- AGENTHOS - ENDORSEMENT RESUME -->
+            <!-- //AGENTHOS - ENDORSEMENT FILE -->
+            <!-- AGENTHOS - ENDORSEMENT DETAILS -->
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Resumen de Endoso</h3>
@@ -54,7 +76,7 @@
                                 <div class="form-group">
                                     <!-- ENDORSEMENT NUMBER * -->
                                     <label class="form-label">No. Endoso</label>
-                                    <input type="text" class="form-control {{getValidationClass('endorsementNumber')}}" placeholder="Ingresa el número de endoso" formControlName="endorsementNumber">
+                                    <input type="text" class="form-control {{getValidationClass('endorsementNumber')}}" placeholder="Este es el endoso no. {{endorsePolicyService.policy.totalEndorsements + 1}}" formControlName="endorsementNumber">
                                     <div class="invalid-feedback">{{getErrorMessage('endorsementNumber')}}</div>
                                 </div>
                                 <div class="col-md-12">
@@ -82,54 +104,24 @@
                                         <div class="invalid-feedback">{{getErrorMessage('endorsementTypeId')}}</div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- //AGENTHOS - ENDORSEMENT RESUME -->
-            <!-- AGENTHOS - POLICY RESUME -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Datos de Póliza</h3>
-                </div>
-                <div class="card-body">
-                    <div class="block-content">
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label">Bien Asegurado</label>
-                                    <input type="text" class="form-control {{getValidationClass('coveredProperty')}}" formControlName="coveredProperty">
-                                    <div class="invalid-feedback">{{getErrorMessage('coveredProperty')}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label">No. Póliza</label>
-                                    <input type="text" class="form-control {{getValidationClass('policyNumber')}}" formControlName="policyNumber">
-                                    <div class="invalid-feedback">{{getErrorMessage('policyNumber')}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label">No. Cliente</label>
-                                    <input type="text" class="form-control {{getValidationClass('clientNumber')}}" formControlName="clientNumber">
-                                    <div class="invalid-feedback">{{getErrorMessage('clientNumber')}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label">Aseguradora</label>
-                                    <input type="text" class="form-control" placeholder="{{endorsePolicyService.policy.insurerName | uppercase}}" disabled="">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <!-- AGENTHOS - ENDORSEMENT COMMENTS (140 MAX) -->
+                                        <label class="form-label">Comentarios</label>
+                                        <textarea class="form-control {{getValidationClass('endorsementComments')}}" rows="4" placeholder="Ingresa un comentario breve sobre este endoso." formControlName="endorsementComments"></textarea>
+                                        <div class="invalid-feedback">{{getErrorMessage('endorsementComments')}}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- //AGENTHOS - POLICY RESUME -->
+            <!-- //AGENTHOS - ENDORSEMENT DETAILS -->
         </div>
+        <!-- AGENTHOS - ENDORSEMENT RESUME -->
 
+        <!-- AGENTHOS - POLICY RESUME -->
         <div class="col-md-8">
             <!-- AGENTHOS - POLICY OWNER -->
             <div class="card">
@@ -176,6 +168,46 @@
                 </div>
             </div>
             <!-- //AGENTHOS - POLICY OWNER -->
+            <!-- AGENTHOS - POLICY DETAILS -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Detalles de Póliza</h3>
+                </div>
+                <div class="card-body">
+                    <div class="block-content">
+                        <div class="form-group row text-center">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Bien Asegurado</label>
+                                    <input type="text" class="form-control {{getValidationClass('coveredProperty')}}" formControlName="coveredProperty">
+                                    <div class="invalid-feedback">{{getErrorMessage('coveredProperty')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">No. Póliza</label>
+                                    <input type="text" class="form-control {{getValidationClass('policyNumber')}}" formControlName="policyNumber">
+                                    <div class="invalid-feedback">{{getErrorMessage('policyNumber')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">No. Cliente</label>
+                                    <input type="text" class="form-control {{getValidationClass('clientNumber')}}" formControlName="clientNumber">
+                                    <div class="invalid-feedback">{{getErrorMessage('clientNumber')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Aseguradora</label>
+                                    <input type="text" class="form-control" placeholder="{{endorsePolicyService.policy.insurerName | uppercase}}" disabled="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - POLICY DETAILS -->
             <!-- AGENTHOS - POLICY VALIDITY -->
             <div class="card">
                 <div class="card-header">
@@ -187,13 +219,13 @@
                             <div class="col-md-4">
                                 <!-- AGENTHOS - EMISSION DATE * -->
                                 <label class="form-label">Fecha de Emisión</label>
-                                <div class="input-group agt-text-left">
+                                <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="{{endorsePolicyService.policy.emissionDate | date: 'dd/MM/YYYY'}}" disabled="">
+                                    <input type="text" class="form-control" placeholder="{{endorsePolicyService.policy.emissionDate | date: 'dd/MM/yyyy'}}" disabled="">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -205,7 +237,7 @@
                                             <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="{{endorsePolicyService.policy.validityStartDate | date: 'dd/MM/YYYY'}}" disabled="">
+                                    <input type="text" class="form-control" placeholder="{{endorsePolicyService.policy.validityStartDate | date: 'dd/MM/yyyy'}}" disabled="">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -217,7 +249,7 @@
                                             <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control fc-datepicker {{getValidationClass('validityEndDate')}}" formControlName="validityEndDate">
+                                    <input type="text" class="form-control fc-datepicker {{getValidationClass('validityEndDate')}}" formControlName="validityEndDate" (blur)="onBlurChangeValidityEndDate()">
                                     <div class="invalid-feedback">{{getErrorMessage('validityEndDate')}}</div>
                                 </div>
                             </div>
@@ -279,7 +311,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <!-- AGENTHOS - PAYMENT METHOD * -->
+                                    <!-- AGENTHOS - PAY METHOD * -->
                                     <label class="form-label">Forma de Pago</label>
                                     <select [id]="selectIdPaymentMethod" class="form-control select2 custom-select {{getValidationClass('paymentMethodId')}}" formControlName="paymentMethodId">
                                         <option [value]="paymentMethod.paymentMethodId" *ngFor="let paymentMethod of endorsePolicyService.paymentMethods">{{paymentMethod.name | uppercase}}</option>
@@ -299,7 +331,7 @@
                                     <!-- AGENTHOS - PAY PLAN * -->
                                     <label class="form-label">Tipo de Plan</label>
                                     <select [id]="selectIdPaymentPlan" class="form-control select2 custom-select {{getValidationClass('paymentPlanId')}}" formControlName="paymentPlanId">
-                                        <option [value]="paymentPlan.paymentPlanId" *ngFor="let paymentPlan of endorsePolicyService.paymentPlans">{{paymentPlan.name | uppercase}}</option>
+                                        <option [value]="paymentPlan.paymentPlanId" *ngFor="let paymentPlan of endorsePolicyService.paymentPlansAvailable">{{paymentPlan.name | uppercase}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('paymentPlanId')}}</div>
                                 </div>
@@ -309,7 +341,7 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - PAY BILLS * -->
                                     <label class="form-label">Recibos Totales</label>
-                                    <input type="text" class="form-control" placeholder="{{endorsePolicyService.policy.bills}}" disabled="">
+                                    <input type="text" class="form-control" formControlName="bills">
                                 </div>
                             </div>
                         </div>
@@ -322,6 +354,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
+                            <!-- AGENTHOS - ENDORSEMENT TARGETS -->
+                            <!-- (IF NO INFO CHANGES: #agtEndorsementNoChanges) -->
+                            <!-- (IF JUST INFO CHANGES: #agtEndorsementChanges) -->
+                            <!-- (IF MORE PAY AMMOUNT: #agtEndorsementIncrement) -->
+                            <!-- (IF LESS PAY AMMOUNT: #agtEndorsementDecrement) -->
                             <button type="submit" class="btn btn-icon btn-block  btn-primary"><strong>APLICAR ENDOSO</strong></button>
                         </div>
                     </div>
@@ -329,17 +366,20 @@
             </div>
             <!-- //AGENTHOS - UPDATE INFO -->
         </div>
+        <!-- //AGENTHOS - POLICY RESUME -->
     </div>
+    <!-- //AGENTHOS - ENDORSEMENT CHANGES -->
 </form>
 <!-- AGENTHOS - POLICY DETAILS -->
 <agt-modal-select-file [modalId]="modalIdUploadPolicyEndorsement" [data]="modalSelectFileData" (fileSelected)="onFileSelected($event)"></agt-modal-select-file>
+<agt-modal-confirm-apply-endorsement-without-changes [modalId]="modalIdConfirmApplyEndorsementWithoutChanges" (endorsementApplicationConfirmed)="onEndorsementApplicationConfirmed()"></agt-modal-confirm-apply-endorsement-without-changes>
 <agt-modal-confirm-apply-policy-changes [modalId]="modalIdConfirmApplyEndorsement" (policyChangesApplicationConfirmed)="onPolicyChangesApplicationConfirmed()"></agt-modal-confirm-apply-policy-changes>
-<agt-modal-select-endorsement-payment-method [modalId]="modalIdSelectEndorsementPaymentMethod" [increasedAmount]="increasedAmount" (endorsementPaymentMethodSelected)="onEndorsementPaymentMethodSelected($event)"></agt-modal-select-endorsement-payment-method>
+<agt-modal-select-endorsement-payment-method [modalId]="modalIdSelectEndorsementPaymentMethod" [increasedAmount]="increasedAmount" [currencyName]="currencyName" (endorsementPaymentMethodSelected)="onEndorsementPaymentMethodSelected($event)"></agt-modal-select-endorsement-payment-method>
 <agt-modal-do-collection-adjustment [modalId]="modalIdDoCollectionAdjustment" [maxAmount]="increasedAmount" (applyEndorsementWithFractionalReceipt)="onApplyEndorsementWithFractionalReceipt($event)" (applyEndorsementWithoutFractionalReceipt)="onApplyEndorsementWithoutFractionalReceipt()"></agt-modal-do-collection-adjustment>
-<agt-modal-show-endorsement-summary [modalId]="modalIdShowEndorsementSummary" [policyAmount]="policyAmount" [newAmount]="newAmount" [fractionalReceiptAmount]="fractionalReceiptAmount" [currencyName]="(!!endorsePolicyService.policy) ? endorsePolicyService.policy.currencyName : ''" (endorsementApplicationConfirmed)="onEndorsementApplicationConfirmed()"></agt-modal-show-endorsement-summary>
-<agt-modal-show-no-fractional-receipt [modalId]="modalIdShowNoFractionalReceipt" (endorsementApplicationWithoutFractionalReceiptConfirmed)="onEndorsementApplicationWithoutFractionalReceiptConfirmed()"></agt-modal-show-no-fractional-receipt>
-<agt-modal-generate-receipts [modalId]="modalIdGenerateReceipts" [paymentAmount]="receiptAmount" (generateReceipts)="onGenerateReceipts($event)"></agt-modal-generate-receipts>
-
+<agt-modal-show-endorsement-summary [modalId]="modalIdShowEndorsementSummary" [policyAmount]="policyAmount" [newAmount]="newAmount" [fractionalReceiptAmount]="fractionalReceiptAmount" [currencyName]="currencyName" (endorsementApplicationConfirmed)="onEndorsementApplicationConfirmed()"></agt-modal-show-endorsement-summary>
+<agt-modal-show-no-fractional-receipt [modalId]="modalIdShowNoFractionalReceipt" [policyAmount]="policyAmount" [newAmount]="newAmount" [currencyName]="currencyName" (endorsementApplicationWithoutFractionalReceiptConfirmed)="onEndorsementApplicationWithoutFractionalReceiptConfirmed()"></agt-modal-show-no-fractional-receipt>
+<agt-modal-confirm-apply-endorsement-with-decrement [modalId]="modalIdConfirmApplyEndorsementWithDecrement" [policyAmount]="policyAmount" [newAmount]="newAmount" [currencyName]="currencyName" [paymentPlanName]="selectedPaymentPlanName" (endorsementApplicationConfirmed)="onEndorsementApplicationConfirmed()"></agt-modal-confirm-apply-endorsement-with-decrement>
+<agt-modal-confirm-apply-endorsement-with-single-receipt [modalId]="modalIdConfirmApplyEndorsementWithSingleReceipt" [policyAmount]="policyAmount" [newAmount]="newAmount" [currencyName]="currencyName" [endorsementEmissionDate]="selectedEndorsementEmissionDate" (endorsementApplicationWithSingleReceipitConfirmed)="onEndorsementApplicationWithSingleReceipitConfirmed()"></agt-modal-confirm-apply-endorsement-with-single-receipt>
 <ng-template #loadingContent>
     <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
 </ng-template>

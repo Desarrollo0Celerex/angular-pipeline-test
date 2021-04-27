@@ -1,15 +1,18 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, ValidationErrors , ValidatorFn } from '@angular/forms';
 
 import { ALPHANUMERICS, PUNCTUATION_MARKS } from '@constants/global';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
+
+import * as moment from 'moment';
 
 export class ValidatorsHelper {
 
     /**
      * Validate a brand name
      * @param  control The control to evaluate
-     * @return         Error object if validation was successful, otherwise null.
+     * @return         Error object if validation failed, otherwise null.
      */
-    static brandName(control: AbstractControl) {
+    static brandName(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
             const regex = new RegExp(`^[${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
             const value = control.value;
@@ -21,9 +24,9 @@ export class ValidatorsHelper {
     /**
      * Validate an amount
      * @param  control The control to evaluate
-     * @return         Error object if validation was successful, otherwise null.
+     * @return         Error object if validation failed, otherwise null.
      */
-    static amount(control: AbstractControl) {
+    static amount(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
             const regex = /^(?=.*?\d)?(([1-9]\d{0,2}(,\d{3}){0,2})|\d{0,9})?(\.\d{1,2})?$/;
             const value = control.value;
@@ -35,9 +38,9 @@ export class ValidatorsHelper {
     /**
      * Validate a short date
      * @param  control The control to evaluate
-     * @return         Error object if validation was successful, otherwise null.
+     * @return         Error object if validation failed, otherwise null.
      */
-    static date(control: AbstractControl) {
+    static date(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
             const regex = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
             const value = control.value;
@@ -46,7 +49,28 @@ export class ValidatorsHelper {
         return null;
     }
 
-    static freeText(control: AbstractControl) {
+    /**
+     * Validate a date greater than other
+     * @param  minorDate The minor date
+     * @return           The validation function
+     */
+    static dateGreaterThan(minorDate: string): ValidatorFn  {
+        return (control: AbstractControl): ValidationErrors | null => {
+            if(ValidatorsHelper._checkCanValidate(control) === true && typeof control.value !== 'undefined') {
+                const date1 = moment(minorDate);
+                const date2 = moment(UtilitiesHelper.getOriginalDateFormat(control.value));
+                return (!date2.isSameOrAfter(date1)) ? { dateGreaterThan: true } : null;
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Validate a free text
+     * @param  control The control to evaluate
+     * @return         [description]
+     */
+    static freeText(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
             const regex = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ,.:;\-\"()¿?¡! ]{3,1000}$/;
             const value = control.value;
@@ -58,9 +82,9 @@ export class ValidatorsHelper {
     /**
      * Validate a license code
      * @param  control The control to evaluate
-     * @return         Error object if validation was successful, otherwise null.
+     * @return         Error object if validation failed, otherwise null.
      */
-    static licenseCode(control: AbstractControl) {
+    static licenseCode(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
             const regex = /^[0-9]{16}$/;
             const value = control.value;
@@ -72,9 +96,9 @@ export class ValidatorsHelper {
     /**
      * Validate a number
      * @param  control The control to evaluate
-     * @return         Error object if validation was successful, otherwise null.
+     * @return         Error object if validation failed, otherwise null.
      */
-    static number(control: AbstractControl) {
+    static number(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
             const regex = /^[0-9]{1,10}$/;
             const value = control.value;
@@ -86,9 +110,9 @@ export class ValidatorsHelper {
     /**
      * Validate an own name
      * @param  control The control to evaluate
-     * @return         Error object if validation was successful, otherwise null.
+     * @return         Error object if validation failed, otherwise null.
      */
-    static ownName(control: AbstractControl) {
+    static ownName(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
             const regex = new RegExp(`^[${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
             const value = control.value;
@@ -100,9 +124,9 @@ export class ValidatorsHelper {
     /**
      * Validate a postal code
      * @param  control The control to evaluate
-     * @return         Error object if validation was successful, otherwise null.
+     * @return         Error object if validation failed, otherwise null.
      */
-    static postalCode(control: AbstractControl) {
+    static postalCode(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
             const regex = /^[0-9]{5}$/;
             const value = control.value;
@@ -114,9 +138,9 @@ export class ValidatorsHelper {
     /**
      * Validate a phone number
      * @param  control The control to evaluate
-     * @return         Error object if validation was successful, otherwise null.
+     * @return         Error object if validation failed, otherwise null.
      */
-    static phoneNumber(control: AbstractControl) {
+    static phoneNumber(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
             const regex = /^[0-9]{10}$/;
             const value = control.value;
@@ -128,9 +152,9 @@ export class ValidatorsHelper {
     /**
      * Validate a real name
      * @param  control The control to evaluate
-     * @return         Error object if validation was successful, otherwise null.
+     * @return         Error object if validation failed, otherwise null.
      */
-    static realName(control: AbstractControl) {
+    static realName(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
             const regex = new RegExp(`^[${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
             const value = control.value;
@@ -142,9 +166,9 @@ export class ValidatorsHelper {
     /**
      * Validate a web link
      * @param  control The control to evaluate
-     * @return         Error object if validation was successful, otherwise null.
+     * @return         Error object if validation failed, otherwise null.
      */
-    static webLink(control: AbstractControl): Object | null {
+    static webLink(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
             const regex = /^(https:\/\/)?([\da-zñ\.-]+)\.([a-zñ\.]{2,6})([\/\w \.-]*)*\/?$/;
             let value = control.value;

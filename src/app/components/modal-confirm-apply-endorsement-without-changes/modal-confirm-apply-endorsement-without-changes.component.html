@@ -1,9 +1,9 @@
-<!-- AGENTHOS - ENDORSEMENT POLICY TICKETS RESUME -->
+<!-- AGENTHOS - ENDORSEMENT NO INFO CHANGES (IF NO INFO CHANGES) -->
 <div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<!-- AGENTHOS - POLICY NUMBER -->
+				<!-- AGENTHOS - DETAILS CARD -->
 				<h5 class="modal-title">Resumen de Endoso</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -13,18 +13,15 @@
 				<div class="row">
 					<div class="col-md-12">
 						<p class="text-justify">
-						La prima actual de <strong>{{policyAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> incrementará a <strong>{{newAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong>.</p>
-						<p class="text-justify">
-						Existe un recibo fraccionado de <strong>{{fractionalReceiptAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> y el monto restante se cobrará junto con los recibos pendientes de la póliza. <strong>Por favor confirma si deseas continuar</strong>.</p>
+						No se han detectado cambios que actualicen los detalles de la póliza. <strong>Por favor confirma si deseas continuar</strong>.</p>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
-				<!-- AGENTHOS - DATA TARGET (AGTVIEW0018) -->
 				<button type="button" class="btn btn-primary" (click)="onClickConfirm()">CONFIRMAR</button>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- //AGENTHOS - ENDORSEMENT GENERATE TICKET -->
+<!-- //AGENTHOS - ENDORSEMENT NO INFO CHANGES -->

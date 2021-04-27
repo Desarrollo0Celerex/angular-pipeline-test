@@ -83,7 +83,7 @@ export class UpdatePolicyService {
     private _getDateFormat(date: string | null): string {
         let dateFormat: string = '';
         if(!!date) {
-            const formattedDate: string | null = this._datePipe.transform(date, 'dd/MM/YYYY');
+            const formattedDate: string | null = this._datePipe.transform(date, 'dd/MM/yyyy');
             dateFormat = (!!formattedDate) ? formattedDate : '';
         }
         return dateFormat;

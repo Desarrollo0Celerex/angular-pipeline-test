@@ -1,10 +1,10 @@
-<!-- AGENTHOS - ENDORSEMENT TICKETS (IF TOTAL AMMOUNT INCREASE) -->
+<!-- AGENTHOS - ENDORSEMENT INCREMENT (IF MORE PAY AMMOUNT) -->
 <div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<!-- AGENTHOS - DETAILS CARD -->
-				<h5 class="modal-title">Aumento de Prima</h5>
+				<h5 class="modal-title">Incremento de Prima</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -12,15 +12,16 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-12">
-						<p class="text-justify"><strong>Se ha detectado un incremento en la prima total por {{increasedAmount | currency: '': '$': '0.2-2'}}</strong></p>
+						<p class="text-justify"><strong>Se ha detectado un incremento en la prima total</strong>.</p>
 						<p class="text-justify">
-						Selecciona si deseas aplicar los pagos con los recibos de la póliza o si deseas generar recibos independientes para este endoso. <strong>Por favor selecciona la forma de pago para continuar</strong>.</p>
+						Hay un incremento de <strong>{{increasedAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> en la prima de la póliza. <strong>Por favor selecciona la forma de pago para continuar</strong>.</p>
 					</div>
 					<div class="col-md-12">
-						<button type="button" class="btn btn-primary btn-block mt-5" (click)="selectPolicyReceipts()"><strong>RECIBOS DE PÓLIZA</strong></button>
+						<button type="button" class="btn btn-primary btn-block mt-5" (click)="onClickSelectPolicyReceipts()"><strong>RECIBOS DE PÓLIZA</strong></button>
 					</div>
 					<div class="col-md-12">
-						<button type="button" class="btn btn-primary btn-block mt-5" (click)="selectIndependentReceipts()"><strong>RECIBOS INDEPENDIENTES</strong></button>
+						<!-- AGENTHOS - SELF TICKETS TARGET -->
+						<button type="button" class="btn btn-primary btn-block mt-5" (click)="onClickSelectIndependentReceipts()"><strong>RECIBOS INDEPENDIENTES</strong></button>
 					</div>
 				</div>
 			</div>
@@ -30,4 +31,4 @@
 		</div>
 	</div>
 </div>
-<!-- //AGENTHOS - ENDORSEMENT TICKETS -->
+<!-- //AGENTHOS - ENDORSEMENT INCREMENT -->
