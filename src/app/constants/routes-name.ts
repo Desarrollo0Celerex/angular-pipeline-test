@@ -45,6 +45,10 @@ const HOME_LEADS_ROUTES = {
     listLeads: 'home/leads/list-leads'
 }
 
+const HOME_PAYMENTS_ROUTES = {
+    listPayments: `home/payments/list-payments`,
+}
+
 const HOME_POLICIES_ROUTES = {
     createPolicy: (contactId: string) => `home/policies/create-policy/${contactId}`,
     uploadPolicy: (contactId: string, policyId: string) => `home/policies/upload-policy/${contactId}/${policyId}`,
@@ -56,7 +60,7 @@ const HOME_POLICIES_ROUTES = {
 }
 
 const HOME_QUOTATIONS_ROUTES = {
-    createQuotation: (contactId: string) => `home/quotations/createQuotation/${contactId}`,
+    createQuotation: (contactId: string) => `home/quotations/create-quotation/${contactId}`,
 }
 
 const INVITATIONS_ROUTES = {
@@ -85,6 +89,7 @@ export const ROUTES_NAME = {
     ...HOME_DATA_ROUTES,
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,
+    ...HOME_PAYMENTS_ROUTES,
     ...HOME_POLICIES_ROUTES,
     ...HOME_QUOTATIONS_ROUTES,
     ...INVITATIONS_ROUTES,

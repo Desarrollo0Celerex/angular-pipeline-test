@@ -4,10 +4,13 @@ import { Observable, forkJoin } from 'rxjs';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ClientStatus } from '@interfaces/client-status.interface';
 import { LeadStatus } from '@interfaces/lead-status.interface';
+import { PaymentStatus } from '@interfaces/payment-status.interface';
 import { ClientService } from '@services/client.service';
 import { ClientStatusService } from '@services/client-status.service';
 import { LeadService } from '@services/lead.service';
 import { LeadStatusService } from '@services/lead-status.service';
+import { PaymentService } from '@services/payment.service';
+import { PaymentStatusService } from '@services/payment-status.service';
 
 import { Kpi } from '@interfaces/kpi.interface';
 
@@ -19,7 +22,9 @@ export class ContentKpisService {
         private _clientService: ClientService,
         private _clientStatusService: ClientStatusService,
         private _leadService: LeadService,
-        private _leadStatusService: LeadStatusService
+        private _leadStatusService: LeadStatusService,
+        private _paymentService: PaymentService,
+        private _paymentStatusService: PaymentStatusService
     ) {
         this.kpis = this._buildKpis();
     }
@@ -106,6 +111,38 @@ export class ContentKpisService {
     }
 
     /**
+     * Load the payment kpis
+     * @return Notice of action done
+     */
+    loadPaymentKpis(): Observable<void> {
+        return new Observable( observer => {
+            const fields: string = 'paymentStatusId,name,background,icon';
+            this._paymentStatusService.getPaymentStatus(fields).subscribe( (res: HttpResponse) => {
+                const paymentStatus: PaymentStatus[] = res.data;
+                this._clientService.getTotalClients().subscribe( (res: HttpResponse) => {
+                    const totalPayments: number = res.data;
+                    this._getTotalPaymentsByStatus(paymentStatus).subscribe( (res: HttpResponse[]) => {
+                        this.kpis = [];
+                        for(let index in res) {
+                            const kpi: Kpi = {
+                                contentSubtype: paymentStatus[index].paymentStatusId,
+                                name: paymentStatus[index].name,
+                                background: paymentStatus[index].background,
+                                icon: paymentStatus[index].icon,
+                                total: res[index].data,
+                                percentage: res[index].data / totalPayments
+                            }
+                            this.kpis.push(kpi);
+                        }
+                        observer.next();
+                        observer.complete();
+                    })
+                });
+            })
+        })
+    }
+
+    /**
      * Build the kpis
      * @return The kpis
      */
@@ -146,6 +183,19 @@ export class ContentKpisService {
         let requests: Observable<HttpResponse>[] = [];
         for(let status of leadStatus) {
             requests.push(this._leadService.getTotalLeads(status.leadStatusId));
+        }
+        return forkJoin(requests);
+    }
+
+    /**
+     * Get the requests to get the total payments by status
+     * @param  leadStatus The payment status
+     * @return            The requests
+     */
+    private _getTotalPaymentsByStatus(paymentStatus: PaymentStatus[]): Observable<HttpResponse[]> {
+        let requests: Observable<HttpResponse>[] = [];
+        for(let status of paymentStatus) {
+            requests.push(this._paymentService.getTotalPayments(status.paymentStatusId));
         }
         return forkJoin(requests);
     }
