@@ -11,6 +11,7 @@ import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
 import { LeadService } from '@services/lead.service';
+import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
 import { QuotationService } from '@services/quotation.service';
 
@@ -23,6 +24,7 @@ export class ContentListService {
         private _clientService: ClientService,
         private _contactService: ContactService,
         private _leadService: LeadService,
+        private _paymentService: PaymentService,
         private _policyService: PolicyService,
         private _quotationService: QuotationService
     ) {
@@ -116,6 +118,23 @@ export class ContentListService {
             tap((res: HttpResponse) => {
                     this.contents = this.contents.concat(res.data.items);
                     this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
+     * Load the payments
+     * @param  page           The page number to get
+     * @param  contentSubtype The filter to apply
+     * @return                Notice of action done
+     */
+    loadPayments(page: number, contentSubtype: number): Observable<void> {
+        const fields: string = 'paymentId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber';
+        return this._paymentService.getPayments(page, fields, contentSubtype).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
             }),
             map(() => { })
         );

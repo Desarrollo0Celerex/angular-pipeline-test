@@ -34,8 +34,8 @@ export class PaymentService {
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         if(!!paymentStatusId) params = params.append('filter', 'paymentStatusId[=]' + paymentStatusId);
-        if(!!query) params = params.append('search', 'contactName:' + query);
-        params = params.append('sortBy', '-createdAt');
+        //if(!!query) params = params.append('search', 'contactName:' + query);
+        params = params.append('sortBy', '-paymentDate');
         return this._httpClient.get<HttpResponse>(route, { params });
     }
 

@@ -11,6 +11,7 @@ export class PluralNameFormatPipe implements PipeTransform {
             switch(name) {
                 case 'Cotización': pluralName = 'Cotizaciones'; break;
                 case 'Ocasional': pluralName = 'Ocasionales'; break;
+                case 'En Tiempo': pluralName = 'En Tiempo'; break;
                 default: pluralName = name + 's';
             }
         }

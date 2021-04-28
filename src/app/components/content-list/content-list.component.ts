@@ -35,6 +35,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Output() totalResultsLoaded: EventEmitter<number>;
     CONTENT_TYPES: any;
     canShowTotalResults: boolean;
+    cardClasses: string;
     isHistoryContent: boolean;
     isLoadingContent: boolean;
     page: number;
@@ -77,6 +78,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.CONTENT_TYPES = CONTENT_TYPES;
         this.actionType = 0;
         this.canShowTotalResults = false;
+        this.cardClasses = '';
         this.isHistoryContent = false;
         this.isLoadingContent = false;
         this.page = 1;
@@ -113,6 +115,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     ngOnChanges(changes: SimpleChanges): void {
         if(typeof changes.contentType !== 'undefined' && !!changes.contentType.currentValue) {
             this.isHistoryContent = UtilitiesHelper.checkIsHistoryContent(this.contentType);
+            this._loadCardClasses();
         }
 
         if(
@@ -347,6 +350,35 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Load the classes of the card
+     */
+    private _loadCardClasses(): void {
+        switch(this.contentType) {
+            case CONTENT_TYPES.LEAD.ID:
+            case CONTENT_TYPES.CLIENT.ID:
+                this.cardClasses = 'col-md-3 col-xl-3';
+            break;
+
+            case CONTENT_TYPES.CONTACT_QUOTATION.ID:
+            case CONTENT_TYPES.CONTACT_POLICY.ID:
+                this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-3';
+            break;
+
+            case CONTENT_TYPES.HISTORY_POLICY.ID:
+                this.cardClasses = 'col-lg-12 mt-5';
+            break;
+
+            case CONTENT_TYPES.PAYMENT.ID:
+                this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-4';
+            break;
+
+            default:
+                this.cardClasses = 'col-md-3 col-xl-3';
+            break;
+        }
+    }
+
+    /**
      * Load the contents according to action type (filter or search)
      */
     private _loadContents(): void {
@@ -393,6 +425,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this.contentListService.loadContactHistoryPolicy(this.contactId, this.policyId, this.page).subscribe( () => {
                     this._contentLoaded();
                 })
+            break;
+
+            case CONTENT_TYPES.PAYMENT.ID:
+                this.contentListService.loadPayments(this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                });
             break;
         }
     }

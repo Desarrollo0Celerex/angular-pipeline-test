@@ -18,7 +18,7 @@
 <div class="row">
     <!-- AGENTHOS - TIMELINE -->
     <ng-container *ngIf="isHistoryContent; else noHistoryContent">
-        <div class="col-lg-12 mt-5">
+        <div [class]="cardClasses">
             <ul class="cbp_tmtimeline">
                 <ng-container *ngFor="let content of contentListService.contents">
                     <ng-container [ngSwitch]="contentType">
@@ -37,7 +37,7 @@
     <!-- // AGENTHOS - TIMELINE -->
     <!-- AGENTHOS - CONTENT LIST -->
     <ng-template #noHistoryContent>
-        <div class="col-md-3 col-xl-3" *ngFor="let content of contentListService.contents">
+        <div [class]="cardClasses" *ngFor="let content of contentListService.contents">
             <ng-container [ngSwitch]="contentType">
                 <agt-card-contact *ngSwitchCase="CONTENT_TYPES.CONTACT.ID"
                     [contact]="content"
@@ -58,6 +58,7 @@
                     (reissuePolicy)="onReissuePolicy($event)"
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                 ></agt-card-policy>
+                <agt-card-payment *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID"></agt-card-payment>
             </ng-container>
         </div>
     </ng-template>
