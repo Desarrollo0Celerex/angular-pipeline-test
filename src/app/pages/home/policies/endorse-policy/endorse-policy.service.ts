@@ -9,7 +9,6 @@ import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH, DEFAULT_METHOD_ID, DEFAULT_PLAN_ID, 
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { EndorsementType } from '@interfaces/endorsement-type.interface';
-import { ReceiptsData } from '@interfaces/receipts-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
@@ -181,13 +180,15 @@ export class EndorsePolicyService {
     }
 
     /**
-     * Endorse the contact policy
-     * @param  contactId The contact ID
-     * @param  policyId  The policy ID
-     * @return           Notice of action done
+     * Endorse the policy
+     * @param  contactId                The contact ID
+     * @param  policyId                 The policy ID
+     * @param  fractionalReceiptAmount  The fractional receipt amount
+     * @param  endorsementPaymentMethod The endorsement payment method
+     * @return                          Notice of action done
      */
-    endorseContactPolicy(contactId: string, policyId: string, receiptsData: ReceiptsData | null): Observable<void> {
-        const requestBody: FormData = this._getRequestBody(receiptsData);
+    endorsePolicy(contactId: string, policyId: string, fractionalReceiptAmount: number, endorsementPaymentMethod: number): Observable<void> {
+        const requestBody: FormData = this._getRequestBody(fractionalReceiptAmount, endorsementPaymentMethod);
         return this._policyService.endorseContactPolicy(contactId, policyId, requestBody);
     }
 
@@ -311,12 +312,19 @@ export class EndorsePolicyService {
         return (!!paymentPlan) ? paymentPlan.months : 0;
     }
 
-    private _getRequestBody(receiptsData: ReceiptsData | null): FormData {
+    /**
+     * Get the request body
+     * @param  fractionalReceiptAmount  The fractional receipt amount
+     * @param  endorsementPaymentMethod The method of payment of the endorsement
+     * @return                          The request body
+     */
+    private _getRequestBody(fractionalReceiptAmount: number, endorsementPaymentMethod: number): FormData {
         const requestBody: FormData = new FormData();
         requestBody.append('endorsementFile', this.f.endorsementFile.value);
         requestBody.append('endorsementNumber', this.f.endorsementNumber.value);
         requestBody.append('endorsementEmissionDate', this.f.endorsementEmissionDate.value);
         requestBody.append('endorsementTypeId', this.f.endorsementTypeId.value);
+        requestBody.append('endorsementComments', this.f.endorsementComments.value);
         requestBody.append('coveredProperty', this.f.coveredProperty.value);
         requestBody.append('policyNumber', this.f.policyNumber.value);
         requestBody.append('clientNumber', this.f.clientNumber.value);
@@ -324,21 +332,38 @@ export class EndorsePolicyService {
         requestBody.append('titularRfc', this.f.titularRfc.value);
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
         requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
-        requestBody.append('validityEndDate', this.f.validityEndDate.value);
-        if(this.f.endorsementTypeId.value != ENDORSEMENT_TYPES.POLICY_REHABILITATION && this.f.endorsementTypeId.value != ENDORSEMENT_TYPES.POLICY_REHABILITATION) {
-            requestBody.append('newAmount', this.f.newAmount.value);
-            requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
+
+        if(!!this.policy) {
+            const validityEndDate: string = UtilitiesHelper.getOriginalDateFormat(this.f.validityEndDate.value);
+            if(this.policy.validityEndDate != validityEndDate) {
+                requestBody.append('validityEndDate', this.f.validityEndDate.value);
+            }
+
+            if(!!this.f.newAmount.value) {
+                requestBody.append('newAmount', this.f.newAmount.value);
+            }
+
+            if(this.policy.paymentMethodId != this.f.paymentMethodId.value) {
+                requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
+            }
+
+            if(this.policy.paymentPlanId != this.f.paymentPlanId.value) {
+                requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
+            }
+
+            if(this.policy.bills != this.f.bills.value) {
+                requestBody.append('bills', this.f.bills.value);
+            }
         }
-        if(this.f.endorsementTypeId.value != ENDORSEMENT_TYPES.POLICY_REHABILITATION) {
-            requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
+
+        if(!!fractionalReceiptAmount) {
+            requestBody.append('fractionalReceiptAmount', fractionalReceiptAmount.toString());
         }
-        if(!!receiptsData) {
-            requestBody.append('receiptsAmount', receiptsData.paymentAmount.toString());
-            requestBody.append('receiptsPaymentMethodId', receiptsData.paymentMethodId.toString());
-            requestBody.append('receiptsPaymentPlanId', receiptsData.paymentPlanId.toString());
-            requestBody.append('receiptsBills', receiptsData.bills.toString());
-            requestBody.append('receiptsPaymentDate', receiptsData.paymentDate);
+
+        if(!!endorsementPaymentMethod) {
+            requestBody.append('endorsementPaymentMethod', endorsementPaymentMethod.toString());
         }
+
         return requestBody;
     }
 }
