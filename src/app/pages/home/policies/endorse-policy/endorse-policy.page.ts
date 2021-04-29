@@ -8,7 +8,6 @@ import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
-import { ReceiptsData } from '@interfaces/receipts-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { EndorsePolicyService } from './endorse-policy.service';
@@ -215,18 +214,6 @@ export class EndorsePolicyPage implements OnInit {
     }
 
     /**
-     * Event to generate receipts
-     * @param data The receipts data
-     */
-    onGenerateIndependentReceipts(receiptsData: ReceiptsData): void {
-        if(!!this.endorsePolicyService.policy) {
-            this.endorsePolicyService.endorsementForm.patchValue({policyAmount: this.endorsePolicyService.policy.policyAmount})
-        }
-        receiptsData.paymentAmount = this.receiptAmount;
-        this._endorseContactPolicy(receiptsData);
-    }
-
-    /**
      * Event to confirm the endorsement application with fractional receipt
      */
     onEndorsementApplicationWithoutFractionalReceiptConfirmed(): void {
@@ -264,8 +251,11 @@ export class EndorsePolicyPage implements OnInit {
      * Apply the endorsement
      */
     private _applyEndorsement(): void {
-        console.log('fractionalReceiptAmount: ', this.fractionalReceiptAmount);
-        console.log('selectedEndorsementPaymentMethod: ', this.selectedEndorsementPaymentMethod);
+        this._loadingService.show();
+        this.endorsePolicyService.endorsePolicy(this.contactId, this.policyId, this.fractionalReceiptAmount, this.selectedEndorsementPaymentMethod).subscribe( () => {
+            this._loadingService.hide();
+            AlertHelper.policyEndorsed(this._goToListContactPolicies, this);
+        })
     }
 
     /**
@@ -274,17 +264,6 @@ export class EndorsePolicyPage implements OnInit {
     private _catchParams(): void {
         this.contactId = this._activatedRoute.snapshot.params.contactId;
         this.policyId = this._activatedRoute.snapshot.params.policyId;
-    }
-
-    /**
-     * Endorse the contact policy
-     */
-    private _endorseContactPolicy(receiptsData: ReceiptsData | null = null): void {
-        this._loadingService.show();
-        this.endorsePolicyService.endorseContactPolicy(this.contactId, this.policyId, receiptsData).subscribe( () => {
-            this._loadingService.hide();
-            AlertHelper.policyEndorsed(this._goToListContactPolicies, this);
-        })
     }
 
     /**
