@@ -1,5 +1,6 @@
 export interface Payment {
     paymentId: string,
+    contactId: string,
     insurerImageUrl: string,
     paymentSourceTypeName: string,
     paymentStatusName: string,
@@ -13,5 +14,12 @@ export interface Payment {
     paymentAmountPaid: number,
     lifeTime: number,
     insuranceName: string,
-    policyNumber: string
+    policyNumber: string,
+    paymentPlanName: string,
+    paymentPlanMonths: string,
+    validityStartDate: string,
+    validityEndDate: string,
+    pendingReceipts: number,
+    paymentDate: string,
+    isMultiyear: string
 }

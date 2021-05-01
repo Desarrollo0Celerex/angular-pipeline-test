@@ -16,6 +16,7 @@ import { ContentTotalResultsModule } from '@components/content-total-results/con
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 
+import { ModalApplyPaymentModule } from '@components/modal-apply-payment/modal-apply-payment.module';
 import { ModalConfirmAcceptQuotationModule } from '@components/modal-confirm-accept-quotation/modal-confirm-accept-quotation.module';
 import { ModalConfirmCancelPolicyModule } from '@components/modal-confirm-cancel-policy/modal-confirm-cancel-policy.module';
 import { ModalConfirmEndorsePolicyModule } from '@components/modal-confirm-endorse-policy/modal-confirm-endorse-policy.module';
@@ -62,6 +63,7 @@ import { ContentListService } from './content-list.service';
     ContentTotalResultsModule,
     LoadingContentModule,
     PluralNameFormatModule,
+    ModalApplyPaymentModule,
     ModalConfirmAcceptQuotationModule,
     ModalConfirmCancelPolicyModule,
     ModalConfirmEndorsePolicyModule,

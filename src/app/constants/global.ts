@@ -56,6 +56,9 @@ export const POLICY_STATUS: any = {
     FINISHED: 6,
     CANCELLED: 7
 }
+export const PAYMENT_STATUS: any = {
+    PAID: 5
+}
 export const POLICY_STATUS_ACTIVE: number = 100;
 
 // Types

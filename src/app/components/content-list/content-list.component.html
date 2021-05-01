@@ -58,7 +58,7 @@
                     (reissuePolicy)="onReissuePolicy($event)"
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                 ></agt-card-policy>
-                <agt-card-payment *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID"></agt-card-payment>
+                <agt-card-payment *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID" [payment]="content" (applyPayment)="onApplyPayment($event)" (showContactData)="onShowContactData($event)"></agt-card-payment>
             </ng-container>
         </div>
     </ng-template>
@@ -70,7 +70,7 @@
 <agt-content-suggestions *ngIf="!isHistoryContent" [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [contentTypeName]="contentTypeName"></agt-content-suggestions>
 
 <!-- AGENTHOS - CONTENT ACTIONS -->
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT.ID || contentType === CONTENT_TYPES.LEAD.ID || contentType === CONTENT_TYPES.CLIENT.ID">
+<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT.ID || contentType === CONTENT_TYPES.LEAD.ID || contentType === CONTENT_TYPES.CLIENT.ID || contentType === CONTENT_TYPES.PAYMENT.ID">
     <agt-modal-show-contact-data [modalId]="modalIdShowContactData" [contactId]="selectedContactId"></agt-modal-show-contact-data>
     <agt-modal-select-contact [modalId]="modalIdSelectContact" [contactId]="selectedContactId"></agt-modal-select-contact>
 </ng-container>
@@ -94,5 +94,8 @@
     <agt-modal-confirm-reissue-policy [modalId]="modalIdConfirmReissuePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-reissue-policy>
     <agt-modal-select-contact-type [modalId]="modalIdSelectContactType" [actionType]="selectedActionType" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-select-contact-type>
     <agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID">
+    <agt-modal-apply-payment [modalId]="modalIdApplyPayment" [paymentId]="selectedPaymentId" (receiptPaid)="onReceiptPaid($event)"></agt-modal-apply-payment>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

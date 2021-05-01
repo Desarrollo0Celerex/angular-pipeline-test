@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { Payment } from '@interfaces/payment.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
+    payment: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/' +paymentId,
     payments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments',
     totalPayments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/count'
 }
@@ -20,6 +23,19 @@ export class PaymentService {
         private _authService: AuthService
     ) { }
 
+    /**
+     * Get the payment from the API
+     * @param  paymentId    The payment ID to update
+     * @param  fields       The fields to get
+     * @return              The payment data
+     */
+    getPayment(paymentId: string, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.payment(this._workspaceId, paymentId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
      /**
       * Get the payments from the API
       * @param  page            The page number
@@ -28,7 +44,7 @@ export class PaymentService {
       * @param  query           The search to do
       * @return                 The payments
       */
-    public getPayments(page: number = 1, fields: string = '', paymentStatusId: number = 0, query: string = ''): Observable<HttpResponse> {
+    getPayments(page: number = 1, fields: string = '', paymentStatusId: number = 0, query: string = ''): Observable<HttpResponse> {
         const route: string = routes.payments(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
@@ -36,7 +52,17 @@ export class PaymentService {
         if(!!paymentStatusId) params = params.append('filter', 'paymentStatusId[=]' + paymentStatusId);
         //if(!!query) params = params.append('search', 'contactName:' + query);
         params = params.append('sortBy', '-paymentDate');
-        return this._httpClient.get<HttpResponse>(route, { params });
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const payments: Payment[] = res.data.items.map( (payment: Payment) => {
+                        return this._calculatePaymentLifeTime(payment);
+                    })
+                    res.data.items = payments;
+                }
+                return res;
+            })
+        )
     }
 
     /**
@@ -49,5 +75,16 @@ export class PaymentService {
         let params: HttpParams = new HttpParams();
         if(!!paymentStatusId) params = params.append('filter', 'paymentStatusId[=]' + paymentStatusId);
         return this._httpClient.get<HttpResponse>(route, { params });
+    }
+
+    /**
+     * Calculate the life time of the payment
+     * @param  payment The payment to evaluate
+     * @return        The payment with their life time value
+     */
+    private _calculatePaymentLifeTime(payment: Payment): Payment {
+        let percentage: number = Math.round(payment.paymentAmountPaid * 100 / payment.pendingAmount);
+        payment.lifeTime = percentage;
+        return payment;
     }
 }

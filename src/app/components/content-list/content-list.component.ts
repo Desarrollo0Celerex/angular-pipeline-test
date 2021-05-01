@@ -42,9 +42,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedActionType: number;
     selectedContactId: string;
     selectedEndorsementId: string;
+    selectedPaymentId: string;
     selectedPolicyId: string;
     selectedQuotationId: string;
     modalIdAcceptQuotation: string;
+    modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
     modalIdConfirmEndorsePolicy: string;
     modalIdConfirmReissuePolicy: string;
@@ -85,9 +87,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.selectedActionType = 0;
         this.selectedContactId = '';
         this.selectedEndorsementId = '';
+        this.selectedPaymentId = '';
         this.selectedPolicyId = '';
         this.selectedQuotationId = '';
         this.modalIdAcceptQuotation = 'agt-accept-quotation';
+        this.modalIdApplyPayment = 'agt-apply-payment';
         this.modalIdConfirmCancelPolicy = 'agt-confirm-cancel-policy';
         this.modalIdConfirmEndorsePolicy = 'agt-confirm-endorse-policy';
         this.modalIdConfirmReissuePolicy = 'agt-confirm-reissue-policy';
@@ -152,6 +156,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to catch the request to apply payment
+     * @param paymentId The payment ID
+     */
+    onApplyPayment(paymentId: string): void {
+        this.selectedPaymentId = paymentId;
+        ModalPlugin.show(this.modalIdApplyPayment);
+        ModalPlugin.setFixed();
+    }
+
+    /**
      * Event to cancel a policy
      * @param policyId The policy ID
      */
@@ -191,6 +205,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onLoadMoreContents(): void {
         this.page++;
         this._loadContents();
+    }
+
+    /**
+     * Event to catch the receipt paid
+     * @param receiptPaidId The receipt paid ID
+     */
+    onReceiptPaid(receiptPaidId: string): void {
+        this._initContent();
     }
 
     /**

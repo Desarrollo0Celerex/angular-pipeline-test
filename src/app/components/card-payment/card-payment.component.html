@@ -1,1 +1,78 @@
-<p>card-payment works!</p>
+<div class="card" *ngIf="payment">
+    <!-- AGENTHOS - PAYCARD HEADER -->
+    <div class="card-header">
+        <!-- AGENTHOS - INSURANCE COMPANY -->
+        <img [src]="payment.insurerImageUrl" width="38px">
+        <!-- AGENTHOS - PAYCARD MENU -->
+        <div class="card-options">
+            <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                <span class="fa fa-bars"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                <div class="dropdown-plus-title">Acciones Disponibles</div>
+                <!-- AGENTHOS - PAYMENT SKIP -->
+                <button type="button" name="agtPaymentSkip" class="dropdown-item" data-toggle="modal" data-target="#agtPaymentSkip"><i class="fa fa-calendar-times-o mr-2"></i>Omitir Pago</button>
+                <div class="dropdown-divider"></div>
+                <!-- AGENTHOS - POLICY HISTORY -->
+                <button type="button" name="agtPolicyRecord" class="dropdown-item" data-toggle="modal" data-target="#agtPolicyRecord"><i class="fa fa-history mr-2"></i>Historial</button>
+                <!-- AGENTHOS - POLICY PAYMENTS -->
+                <button type="button" name="agtPolicyPayments" class="dropdown-item" data-toggle="modal" data-target="#agtPolicyPayments"><i class="fa fa-credit-card mr-2"></i>Cobranza</button>
+                <div class="dropdown-divider"></div>
+                <!-- AGENTHOS - POLICY CANCEL -->
+                <button type="button" name="agtPolicyCancel" class="dropdown-item" data-toggle="modal" data-target="#agtPolicyCancel"><i class="fa fa-exclamation-circle mr-2"></i>Cancelar</button>
+            </div>
+        </div>
+        <!-- //AGENTHOS - PAYCARD MENU -->
+    </div>
+    <!-- //AGENTHOS - PAYCARD HEADER -->
+    <!-- AGENTHOS - PAYCARD BODY -->
+    <div class="card-body">
+        <!-- AGENTHOS - PAYCARD COVER -->
+        <div class="d-flex clearfix">
+            <div class="text-left">
+                <!-- AGENTHOS - PAYCARD SOURCE -->
+                <div class="badge badge-primary-gradient mr-1 mb-3">{{payment.paymentSourceTypeName | uppercase}}</div>
+                <!-- AGENTHOS - PAYCARD STATUS -->
+                <div class="badge badge-{{payment.paymentStatusBackground}} mr-1 mb-3">{{payment.paymentStatusName | uppercase}}</div>
+                <!-- AGENTHOS - PENDING PAY -->
+                <h6 class="mb-2">Prima Pendiente ({{payment.currencyName}})</h6>
+                <!-- AGENTHOS - PENDING PAYMENT -->
+                <h2 class="mb-1">{{payment.pendingAmount | currency: '': '$': '0.2-2'}}</h2>
+            </div>
+            <div class="ml-auto">
+                <span class="{{payment.insuranceBackground}} icon-service"><i class="fa {{payment.insuranceIcon}} fs-2"></i></span>
+            </div>
+        </div>
+        <!-- //AGENTHOS - PAYCARD COVER -->
+        <!-- AGENTHOS - PAYCARD RESUME -->
+        <h6 class="mb-1 mt-3">{{payment.coveredProperty}}</h6>
+        <div class="progress progress-sm mt-2 mb-2">
+            <!-- AGENTHOS - PAYCARD LIFE -->
+            <div class="progress-bar {{payment.insuranceBackground}}" [ngStyle]="{'width': payment.lifeTime+'%'}"></div>
+        </div>
+        <div class="row mt-4">
+            <div class="col text-left">
+                <!-- AGENTHOS - PAYCARD TYPE -->
+                <h4 class="font-weight-normal mt-2 mb-0"><span class="text-primary"><i class="fe fe-shield mr-1"></i></span>{{payment.insuranceName}}</h4>
+            </div>
+            <div class="col text-right">
+                <!-- AGENTHOS - PAYCARD POLICY -->
+                <h4 class="font-weight-normal mt-2 mb-0"><span class="text-primary"><i class="fe fe-file-text mr-1"></i></span>{{payment.policyNumber}}</h4>
+            </div>
+        </div>
+        <!-- //AGENTHOS - PAYCARD RESUME -->
+    </div>
+    <!-- //AGENTHOS - PAYCARD BODY -->
+    <!-- AGENTHOS - PAYCARD FOOTER -->
+    <div class="card-footer text-center">
+        <div class="row user-social-detail">
+            <div class="col-sm-9 col-9 text-left">
+                <button type="button" class="btn btn-block btn-primary" (click)="onClickApplyPayment()"><strong>APLICAR PAGO</strong></button>
+            </div>
+            <div class="col-sm-3 col-3 text-right">
+                <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowContactData()"><i class="fa fa-id-badge"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - PAYCARD FOOTER -->
+</div>

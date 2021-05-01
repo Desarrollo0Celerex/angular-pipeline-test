@@ -130,7 +130,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPayments(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'paymentId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber';
+        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber';
         return this._paymentService.getPayments(page, fields, contentSubtype).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
