@@ -207,6 +207,18 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static receiptPaidDeleted(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Pago Eliminado',
+            text: 'El pago ha sido eliminado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static sendInvitationFailed(): void {
         const alertData: Alert = {
             title: 'Error',

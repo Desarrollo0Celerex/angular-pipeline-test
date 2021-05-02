@@ -36,6 +36,15 @@ export class ContentListService {
     }
 
     /**
+     * Delete the receipt paid
+     * @param paymentId     The payment ID
+     * @param receiptPaidId The receipt paid ID to delete
+     */
+    deleteReceiptPaid(paymentId: string, receiptPaidId: string): Observable<void> {
+        return this._receiptPaidService.deleteReceiptPaid(paymentId,receiptPaidId);
+    }
+
+    /**
      * Load the clients
      * @param  page           The page number to get
      * @param  contentSubtype The filter to apply
@@ -150,7 +159,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPaymentHistory(paymentId: string, page: number): Observable<void> {
-        const fields: string = 'receiptPaidId,createdAt,applicationDate,receiptsAmount,receiptsNumber,createdByName,currencyName';
+        const fields: string = 'receiptPaidId,createdAt,applicationDate,receiptsAmount,receiptsNumber,createdByName,currencyName,paymentId';
         return this._receiptPaidService.getReceiptsPaid(paymentId, page, fields).pipe(
             tap((res: HttpResponse) => {
                 const receiptsPaid: ReceiptPaid[] = res.data.items;

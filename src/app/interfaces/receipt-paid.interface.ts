@@ -5,5 +5,6 @@ export interface ReceiptPaid {
     receiptsAmount: string,
     receiptsNumber: string,
     createdByName: string,
-    currencyName: string
+    currencyName: string,
+    paymentId: string
 }

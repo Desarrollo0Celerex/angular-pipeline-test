@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 
 import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
+import { AlertHelper } from '@helpers/alert.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
@@ -47,9 +49,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedPaymentId: string;
     selectedPolicyId: string;
     selectedQuotationId: string;
+    selectedReceiptPaidId: string;
     modalIdAcceptQuotation: string;
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
+    modalIdConfirmDeleteReceiptPaid: string;
     modalIdConfirmEndorsePolicy: string;
     modalIdConfirmReissuePolicy: string;
     modalIdConfirmRenewPolicy: string;
@@ -93,9 +97,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.selectedPaymentId = '';
         this.selectedPolicyId = '';
         this.selectedQuotationId = '';
+        this.selectedReceiptPaidId = '';
         this.modalIdAcceptQuotation = 'agt-accept-quotation';
         this.modalIdApplyPayment = 'agt-apply-payment';
         this.modalIdConfirmCancelPolicy = 'agt-confirm-cancel-policy';
+        this.modalIdConfirmDeleteReceiptPaid = 'agt-confirm-delete-receipt-paid';
         this.modalIdConfirmEndorsePolicy = 'agt-confirm-endorse-policy';
         this.modalIdConfirmReissuePolicy = 'agt-confirm-reissue-policy';
         this.modalIdConfirmRenewPolicy = 'agt-confirm-renew-policy';
@@ -198,6 +204,27 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     onCompletePolicy(data: PolicyRecordData): void {
         this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.sourceContactId, data.sourceId));
+    }
+
+    /**
+     * Event to show modal to confirm delete the receipt paid
+     * @param data The data to delete the recipt date
+     */
+    onDeleteReceiptPaid(data: DeleteReceiptPaidData): void {
+        this.selectedPaymentId = data.paymentId;
+        this.selectedReceiptPaidId = data.receiptPaidId;
+        ModalPlugin.show(this.modalIdConfirmDeleteReceiptPaid);
+    }
+
+    /**
+     * Event to delete the receipt paid
+     */
+    onDeleteReceiptPaidConfirmed(): void {
+        this._loadingService.show();
+        this.contentListService.deleteReceiptPaid(this.selectedPaymentId, this.selectedReceiptPaidId).subscribe(() => {
+            this._loadingService.hide();
+            AlertHelper.receiptPaidDeleted(this._reloadContent, this);
+        })
     }
 
     /**
@@ -559,6 +586,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.totalResults = this.contentListService.contentResultData.totalItems;
         this.canShowTotalResults = this._checkCanShowTotalResults();
         this.totalResultsLoaded.emit(this.totalResults);
+    }
+
+    /**
+     * Reload the content
+     * @param context The app context
+     */
+    private _reloadContent(context: ContentListComponent): void {
+        context._initContent();
     }
 
 }

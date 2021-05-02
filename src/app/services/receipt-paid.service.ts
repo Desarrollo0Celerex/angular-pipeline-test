@@ -8,7 +8,8 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
-    receiptsPaid: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/'+paymentId+'/receipts-paid'
+    receiptsPaid: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/'+paymentId+'/receipts-paid',
+    receiptPaid: (workspaceId: string, paymentId: string, receiptPaidId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/'+paymentId+'/receipts-paid/'+receiptPaidId
 }
 
 @Injectable()
@@ -28,6 +29,17 @@ export class ReceiptPaidService {
     createReceiptPaid(paymentId: string, requestBody: CreateReceiptPaidDataSend): Observable<HttpResponse> {
         const route: string = routes.receiptsPaid(this._workspaceId, paymentId);
         return this._httpClient.post<HttpResponse>(route, requestBody);
+    }
+
+    /**
+     * delete the receipt paid fron the DB
+     * @param  paymentId     The payment ID
+     * @param  receiptPaidId The receipt paid ID to delete
+     * @return               Notice of action done
+     */
+    deleteReceiptPaid(paymentId: string, receiptPaidId: string): Observable<void> {
+        const route: string = routes.receiptPaid(this._workspaceId, paymentId, receiptPaidId);
+        return this._httpClient.delete<void>(route);
     }
 
     /**

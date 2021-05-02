@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { ReceiptPaid } from '@interfaces/receipt-paid.interface'
+import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
+import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
 
 @Component({
   selector: 'agt-card-receipt-paid-record',
@@ -8,12 +9,17 @@ import { ReceiptPaid } from '@interfaces/receipt-paid.interface'
   styles: [
   ]
 })
-export class CardReceiptPaidRecordComponent implements OnInit {
+export class CardReceiptPaidRecordComponent {
     @Input() receiptPaid: ReceiptPaid | null = null;
+    @Output() deleteReceiptPaid: EventEmitter<DeleteReceiptPaidData> = new EventEmitter<DeleteReceiptPaidData>();
 
-    constructor() { }
-
-    ngOnInit(): void {
+    /**
+     * Click event to delete the receipt paid
+     */
+    onClickDeleteReceiptPaid(): void {
+        if(!!this.receiptPaid) {
+            this.deleteReceiptPaid.emit({paymentId: this.receiptPaid.paymentId, receiptPaidId: this.receiptPaid.receiptPaidId})
+        }
     }
 
 }
