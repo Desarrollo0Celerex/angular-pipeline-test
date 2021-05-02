@@ -58,7 +58,13 @@
                     (reissuePolicy)="onReissuePolicy($event)"
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                 ></agt-card-policy>
-                <agt-card-payment *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID" [payment]="content" (applyPayment)="onApplyPayment($event)" (showContactData)="onShowContactData($event)"></agt-card-payment>
+                <agt-card-payment *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID"
+                    [payment]="content"
+                    (applyPayment)="onApplyPayment($event)"
+                    (showContactData)="onShowContactData($event)"
+                    (showHistoryPolicy)="onShowHistoryPolicy($event)"
+                    (cancelPolicy)="onCancelPolicy($event)"
+                ></agt-card-payment>
             </ng-container>
         </div>
     </ng-template>
@@ -89,10 +95,13 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID">
     <agt-modal-confirm-update-policy [modalId]="modalIdConfirmUpdatePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-update-policy>
     <agt-modal-confirm-endorse-policy [modalId]="modalIdConfirmEndorsePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-endorse-policy>
-    <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
     <agt-modal-confirm-renew-policy [modalId]="modalIdConfirmRenewPolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-renew-policy>
     <agt-modal-confirm-reissue-policy [modalId]="modalIdConfirmReissuePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-reissue-policy>
     <agt-modal-select-contact-type [modalId]="modalIdSelectContactType" [actionType]="selectedActionType" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-select-contact-type>
+    <agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID || contentType === CONTENT_TYPES.PAYMENT.ID">
+    <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
     <agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID">

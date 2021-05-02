@@ -11,7 +11,9 @@ import { Payment } from '@interfaces/payment.interface';
 export class CardPaymentComponent {
     @Input() payment: Payment | null = null;
     @Output() applyPayment: EventEmitter<string> = new EventEmitter<string>();
+    @Output() cancelPolicy: EventEmitter<{ policyId: string, contactId: string }> = new EventEmitter<{ policyId: string, contactId: string }>();
     @Output() showContactData: EventEmitter<string> = new EventEmitter<string>();
+    @Output() showHistoryPolicy: EventEmitter<{ policyId: string, contactId: string }> = new EventEmitter<{ policyId: string, contactId: string }>();
 
     constructor() { }
 
@@ -25,11 +27,29 @@ export class CardPaymentComponent {
     }
 
     /**
+     * Click event to request cancel the policy
+     */
+    onClickCancelPolicy(): void {
+        if(!!this.payment) {
+            this.cancelPolicy.emit({policyId: this.payment.policyId, contactId: this.payment.contactId});
+        }
+    }
+
+    /**
      * Click event to request show the contact data
      */
     onClickShowContactData(): void {
         if(!!this.payment) {
             this.showContactData.emit(this.payment.contactId);
+        }
+    }
+
+    /**
+     * Click event to request show the history policy
+     */
+    onClickShowHistoryPolicy(): void {
+        if(!!this.payment) {
+            this.showHistoryPolicy.emit({policyId: this.payment.policyId, contactId: this.payment.contactId});
         }
     }
 

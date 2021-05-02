@@ -50,7 +50,7 @@ export class PaymentService {
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         if(!!paymentStatusId) params = params.append('filter', 'paymentStatusId[=]' + paymentStatusId);
-        //if(!!query) params = params.append('search', 'contactName:' + query);
+        if(!!query) params = params.append('search', 'policyNumber:' + query);
         params = params.append('sortBy', '-paymentDate');
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => {
@@ -83,7 +83,14 @@ export class PaymentService {
      * @return        The payment with their life time value
      */
     private _calculatePaymentLifeTime(payment: Payment): Payment {
-        let percentage: number = Math.round(payment.paymentAmountPaid * 100 / payment.pendingAmount);
+        const paymentAmountPaid: number = parseFloat(payment.paymentAmountPaid.toString());
+        const pendingAmount: number = (!!payment.pendingAmount) ? parseFloat(payment.pendingAmount.toString()) : 0;
+        let percentage: number = 0;
+        if(!(!!pendingAmount)) {
+            percentage = 100
+        } else {
+            percentage = Math.round(paymentAmountPaid * 100 / pendingAmount);
+        }
         payment.lifeTime = percentage;
         return payment;
     }

@@ -169,8 +169,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to cancel a policy
      * @param policyId The policy ID
      */
-    onCancelPolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
+    onCancelPolicy(policyId: string| { policyId: string, contactId: string }): void {
+        if(typeof policyId === 'string') {
+            this.selectedPolicyId = policyId;
+        } else {
+            this.selectedPolicyId = policyId.policyId;
+            this.contactId = policyId.contactId
+        }
         ModalPlugin.show(this.modalIdConfirmCancelPolicy);
     }
 
@@ -271,8 +276,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show the history policy
      * @param policyId The selected policy ID
      */
-    onShowHistoryPolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
+    onShowHistoryPolicy(policyId: string | { policyId: string, contactId: string }): void {
+        if(typeof policyId === 'string') {
+            this.selectedPolicyId = policyId;
+        } else {
+            this.selectedPolicyId = policyId.policyId;
+            this.contactId = policyId.contactId
+        }
         ModalPlugin.show(this.modalIdConfirmShowHistoryPolicy);
     }
 
@@ -488,6 +498,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.CONTACT_POLICY.ID:
                 this.contentListService.searchContactPolicies(this.contactId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.PAYMENT.ID:
+                this.contentListService.searchPayments(this.page, this.query).subscribe( () => {
                     this._contentLoaded();
                 })
             break;

@@ -21,5 +21,6 @@ export interface Payment {
     validityEndDate: string,
     pendingReceipts: number,
     paymentDate: string,
-    isMultiyear: string
+    isMultiyear: string,
+    policyId: string
 }

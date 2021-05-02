@@ -45,6 +45,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CLIENT.ID: title = 'Nuevo '+this.contentTypeName; break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.CONTACT_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
+            case CONTENT_TYPES.PAYMENT.ID: title = 'Actualizar Cobranza '; break;
         }
         return title;
     }
@@ -62,6 +63,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CONTACT_POLICY.ID:
                 title = 'EXPLORAR HISTORIAL';
             break;
+            case CONTENT_TYPES.PAYMENT.ID: title = 'APLICAR PAGO'; break;
         }
         return title;
     }
