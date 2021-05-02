@@ -12,6 +12,7 @@ export class ContainerTimelineComponent implements OnInit {
     @Input() contactId: string = '';
     @Input() contentType: number = 0;
     @Input() contentTypeName: string = '';
+    @Input() paymentId: string = '';
     @Input() policyId: string = '';
     contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
     contentSubtypeName: string = 'Registrado';

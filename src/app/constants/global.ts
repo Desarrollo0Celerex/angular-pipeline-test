@@ -97,6 +97,10 @@ export const CONTENT_TYPES: any = {
     HISTORY_POLICY: {
         ID: 9,
         NAME: 'Movimiento'
+    },
+    PAYMENT_HISTORY: {
+        ID: 10,
+        NAME: 'Movimiento'
     }
 }
 export const CONTACT_TYPES: any = {

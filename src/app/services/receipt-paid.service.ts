@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
@@ -29,4 +29,21 @@ export class ReceiptPaidService {
         const route: string = routes.receiptsPaid(this._workspaceId, paymentId);
         return this._httpClient.post<HttpResponse>(route, requestBody);
     }
+
+    /**
+     * Get the receipts paid
+     * @param  paymentId  The payment ID
+     * @param  page      The page to get
+     * @param  fields    The fields to get
+     * @return           The history payment
+     */
+    getReceiptsPaid(paymentId: string, page: number = 1, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.receiptsPaid(this._workspaceId, paymentId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        params = params.append('sortBy', 'createdAt');
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
 }

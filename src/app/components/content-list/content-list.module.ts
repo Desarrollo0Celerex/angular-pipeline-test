@@ -8,6 +8,7 @@ import { CardPaymentModule } from '@components/card-payment/card-payment.module'
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardPolicyRecordModule } from '@components/card-policy-record/card-policy-record.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
+import { CardReceiptPaidRecordModule } from '@components/card-receipt-paid-record/card-receipt-paid-record.module';
 
 import { ContainerIncompletePoliciesModule } from '@components/container-incomplete-policies/container-incomplete-policies.module';
 import { ContentResultsModule } from '@components/content-results/content-results.module';
@@ -24,6 +25,7 @@ import { ModalConfirmReissuePolicyModule } from '@components/modal-confirm-reiss
 import { ModalConfirmRejectQuotationModule } from '@components/modal-confirm-reject-quotation/modal-confirm-reject-quotation.module';
 import { ModalConfirmRenewPolicyModule } from '@components/modal-confirm-renew-policy/modal-confirm-renew-policy.module';
 import { ModalConfirmShowHistoryPolicyModule } from '@components/modal-confirm-show-history-policy/modal-confirm-show-history-policy.module';
+import { ModalConfirmShowPaymentHistoryModule } from '@components/modal-confirm-show-payment-history/modal-confirm-show-payment-history.module';
 import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
 import { ModalSelectContactModule } from '@components/modal-select-contact/modal-select-contact.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
@@ -41,6 +43,7 @@ import { LeadService } from '@services/lead.service';
 import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
 import { QuotationService } from '@services/quotation.service';
+import { ReceiptPaidService } from '@services/receipt-paid.service';
 
 import { ContentListComponent } from './content-list.component';
 import { ContentListService } from './content-list.service';
@@ -56,6 +59,7 @@ import { ContentListService } from './content-list.service';
     CardPolicyModule,
     CardPolicyRecordModule,
     CardQuotationModule,
+    CardReceiptPaidRecordModule,
     CommonModule,
     ContainerIncompletePoliciesModule,
     ContentResultsModule,
@@ -71,6 +75,7 @@ import { ContentListService } from './content-list.service';
     ModalConfirmRejectQuotationModule,
     ModalConfirmRenewPolicyModule,
     ModalConfirmShowHistoryPolicyModule,
+    ModalConfirmShowPaymentHistoryModule,
     ModalConfirmUpdatePolicyModule,
     ModalSelectContactModule,
     ModalSelectContactTypeModule,
@@ -80,6 +85,6 @@ import { ContentListService } from './content-list.service';
     ModalShowPolicyDetailsModule,
     ModalShowQuotationDetailsModule
   ],
-  providers: [ClientService, ContactService, ContentListService, LeadService, PaymentService, PolicyService, QuotationService]
+  providers: [ClientService, ContactService, ContentListService, LeadService, PaymentService, PolicyService, QuotationService, ReceiptPaidService]
 })
 export class ContentListModule { }

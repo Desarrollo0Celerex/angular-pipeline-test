@@ -47,6 +47,7 @@ const HOME_LEADS_ROUTES = {
 
 const HOME_PAYMENTS_ROUTES = {
     listPayments: `home/payments/list-payments`,
+    paymentHistory: (contactId: string, policyId: string, paymentId: string) => `home/payments/payment-history/${contactId}/${policyId}/${paymentId}`
 }
 
 const HOME_POLICIES_ROUTES = {

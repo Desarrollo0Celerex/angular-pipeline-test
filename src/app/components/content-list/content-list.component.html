@@ -29,6 +29,9 @@
                             (showPolicy)="onShowPolicyFromRecord($event)"
                             (showPolicyDetails)="onShowPolicyDetailsFromRecord($event)"
                         ></agt-card-policy-record>
+                        <agt-card-receipt-paid-record *ngSwitchCase="CONTENT_TYPES.PAYMENT_HISTORY.ID"
+                            [receiptPaid]="content"
+                        ></agt-card-receipt-paid-record>
                     </ng-container>
                 </ng-container>
             </ul>
@@ -64,6 +67,7 @@
                     (showContactData)="onShowContactData($event)"
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                     (cancelPolicy)="onCancelPolicy($event)"
+                    (showPaymentHistory)="onShowPaymentHistory($event)"
                 ></agt-card-payment>
             </ng-container>
         </div>
@@ -106,5 +110,6 @@
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID">
     <agt-modal-apply-payment [modalId]="modalIdApplyPayment" [paymentId]="selectedPaymentId" (receiptPaid)="onReceiptPaid($event)"></agt-modal-apply-payment>
+    <agt-modal-confirm-show-payment-history [modalId]="modalIdConfirmShowPaymentHistory" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [paymentId]="selectedPaymentId"></agt-modal-confirm-show-payment-history>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

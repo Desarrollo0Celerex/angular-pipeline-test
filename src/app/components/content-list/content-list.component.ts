@@ -8,6 +8,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
+import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ContentListService } from './content-list.service';
@@ -29,6 +30,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() contentSubtypeName: string;
     @Input() originContactId: string;
     @Input() originPolicyId: string;
+    @Input() paymentId: string;
     @Input() policyId: string;
     @Input() query: string;
     @Input() specialQuery: SearchContactData | null;
@@ -52,6 +54,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmReissuePolicy: string;
     modalIdConfirmRenewPolicy: string;
     modalIdConfirmShowHistoryPolicy: string;
+    modalIdConfirmShowPaymentHistory: string;
     modalIdConfirmUpdatePolicy: string;
     modalIdRejectQuotation: string;
     modalIdSelectContact: string;
@@ -97,6 +100,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.modalIdConfirmReissuePolicy = 'agt-confirm-reissue-policy';
         this.modalIdConfirmRenewPolicy = 'agt-confirm-renew-policy';
         this.modalIdConfirmShowHistoryPolicy = 'agt-confitm-show-history-policy';
+        this.modalIdConfirmShowPaymentHistory = 'agt-confitm-show-payment-history';
         this.modalIdConfirmUpdatePolicy = 'agt-confirm-update-policy';
         this.modalIdRejectQuotation = 'agt-reject-quotation';
         this.modalIdSelectContact = 'agt-select-contact';
@@ -108,6 +112,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.modalIdShowQuotationDetails = 'agt-show-quotation-details';
         this.originContactId = '';
         this.originPolicyId = '';
+        this.paymentId = '';
         this.policyId = '';
         this.totalResults = 0;
     }
@@ -287,6 +292,17 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to show the modal to confirm show the payment history
+     * @param data The data to show the payment history
+     */
+    onShowPaymentHistory(data : ShowPaymentHistoryData): void {
+        this.selectedContactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
+        this.selectedPaymentId = data.paymentId;
+        ModalPlugin.show(this.modalIdConfirmShowPaymentHistory);
+    }
+
+    /**
      * Event to show the quotation details modal
      * @param quotationId The selected quotation ID
      */
@@ -397,6 +413,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             break;
 
             case CONTENT_TYPES.HISTORY_POLICY.ID:
+            case CONTENT_TYPES.PAYMENT_HISTORY.ID:
                 this.cardClasses = 'col-lg-12 mt-5';
             break;
 
@@ -463,6 +480,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this.contentListService.loadPayments(this.page, this.contentSubtype).subscribe( () => {
                     this._contentLoaded();
                 });
+            break;
+
+            case CONTENT_TYPES.PAYMENT_HISTORY.ID:
+                this.contentListService.loadPaymentHistory(this.paymentId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                })
             break;
         }
     }

@@ -11,6 +11,7 @@ export class UtilitiesHelper {
         let isHistoryContent: boolean;
         switch(contentType) {
             case CONTENT_TYPES.HISTORY_POLICY.ID:
+            case CONTENT_TYPES.PAYMENT_HISTORY.ID:
                 isHistoryContent = true;
                 break;
             default:

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Payment } from '@interfaces/payment.interface';
+import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.interface';
 
 @Component({
   selector: 'agt-card-payment',
@@ -14,6 +15,7 @@ export class CardPaymentComponent {
     @Output() cancelPolicy: EventEmitter<{ policyId: string, contactId: string }> = new EventEmitter<{ policyId: string, contactId: string }>();
     @Output() showContactData: EventEmitter<string> = new EventEmitter<string>();
     @Output() showHistoryPolicy: EventEmitter<{ policyId: string, contactId: string }> = new EventEmitter<{ policyId: string, contactId: string }>();
+    @Output() showPaymentHistory: EventEmitter<ShowPaymentHistoryData> = new EventEmitter<ShowPaymentHistoryData>();
 
     constructor() { }
 
@@ -50,6 +52,15 @@ export class CardPaymentComponent {
     onClickShowHistoryPolicy(): void {
         if(!!this.payment) {
             this.showHistoryPolicy.emit({policyId: this.payment.policyId, contactId: this.payment.contactId});
+        }
+    }
+
+    /**
+     * Click event to request show the payment history
+     */
+    onClickShowPaymentHistory(): void {
+        if(!!this.payment) {
+            this.showPaymentHistory.emit({policyId: this.payment.policyId, contactId: this.payment.contactId, paymentId: this.payment.paymentId});
         }
     }
 

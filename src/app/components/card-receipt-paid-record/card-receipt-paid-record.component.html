@@ -1,0 +1,12 @@
+<li *ngIf="!!receiptPaid">
+    <time class="cbp_tmtime"><span>{{receiptPaid.createdAt | date: 'dd/MM/yyyy'}}</span><span>{{receiptPaid.createdAt | date: 'h:mm a'}}</span></time>
+    <div class="cbp_tmicon bg-primary"><i class="fa fa-credit-card"></i></div>
+    <div class="cbp_tmlabel">
+        <h2>Pago Aplicado</h2>
+        <p class="text-sm"><strong>{{receiptPaid.createdByName}}</strong> aplicó un pago para los recibos de esta póliza. Fecha Aplicación: <strong>{{receiptPaid.applicationDate | date: 'dd/MM/yyyy'}}</strong>. Monto: <strong>{{receiptPaid.receiptsAmount | currency: '': '$': '0.2-2'}} {{receiptPaid.currencyName}}</strong>. Recibos: <strong>{{receiptPaid.receiptsNumber}}</strong>.</p>
+        <div class="btn-list mt-3">
+            <button type="button" class="btn btn-primary"><strong>EDITAR PAGO</strong></button>
+            <button type="button" class="btn btn-secondary"><strong>ELIMINAR PAGO</strong></button>
+        </div>
+    </div>
+</li>

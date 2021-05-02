@@ -7,6 +7,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
+import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
@@ -14,6 +15,7 @@ import { LeadService } from '@services/lead.service';
 import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
 import { QuotationService } from '@services/quotation.service';
+import { ReceiptPaidService } from '@services/receipt-paid.service';
 
 @Injectable()
 export class ContentListService {
@@ -26,7 +28,8 @@ export class ContentListService {
         private _leadService: LeadService,
         private _paymentService: PaymentService,
         private _policyService: PolicyService,
-        private _quotationService: QuotationService
+        private _quotationService: QuotationService,
+        private _receiptPaidService: ReceiptPaidService
     ) {
         this.contents = this._initContents();
         this.contentResultData = this._initContentResultData();
@@ -138,6 +141,24 @@ export class ContentListService {
             }),
             map(() => { })
         );
+    }
+
+    /**
+     * Load the payment history
+     * @param  paymentId      The payment ID
+     * @param  page           The page number
+     * @return                Notice of action done
+     */
+    loadPaymentHistory(paymentId: string, page: number): Observable<void> {
+        const fields: string = 'receiptPaidId,createdAt,applicationDate,receiptsAmount,receiptsNumber,createdByName,currencyName';
+        return this._receiptPaidService.getReceiptsPaid(paymentId, page, fields).pipe(
+            tap((res: HttpResponse) => {
+                const receiptsPaid: ReceiptPaid[] = res.data.items;
+                this.contents = this.contents.concat(receiptsPaid);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
     }
 
     /**

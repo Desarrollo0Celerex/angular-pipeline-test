@@ -1,0 +1,41 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+
+import { CONTENT_TYPES } from '@constants/global';
+
+@Component({
+  selector: 'agt-payment-history',
+  template: '<agt-container-timeline [contactId]="contactId" [policyId]="policyId" [paymentId]="paymentId" [contentType]="CONTENT_TYPES.PAYMENT_HISTORY.ID" [contentTypeName]="CONTENT_TYPES.PAYMENT_HISTORY.NAME"></agt-container-timeline>',
+  styles: [
+  ]
+})
+export class PaymentHistoryPage implements OnInit {
+    CONTENT_TYPES: any = CONTENT_TYPES;
+    contactId: string = '';
+    policyId: string = '';
+    paymentId: string = '';
+    contentType: number = CONTENT_TYPES.HISTORY_POLICY.ID;
+    contentTypeName: string = CONTENT_TYPES.HISTORY_POLICY.NAME;
+    private _subParams: any;
+
+    constructor(private _activatedRoute: ActivatedRoute) { }
+
+    ngOnInit(): void {
+        this._catchParams();
+    }
+
+    ngOnDestroy(): void {
+        if(this._subParams) this._subParams.unsubscribe();
+    }
+
+    /**
+     * Catch the params
+     */
+    private _catchParams(): void {
+        this._subParams = this._activatedRoute.params.subscribe( (params: Params) => {
+            this.contactId = params.contactId;
+            this.paymentId = params.paymentId;
+            this.policyId = params.policyId;
+        })
+    }
+}
