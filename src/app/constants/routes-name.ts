@@ -37,6 +37,10 @@ const HOME_DATA_ROUTES = {
     dashboard: 'home/data/dashboard'
 }
 
+const HOME_ERRORS_ROUTES = {
+    accessDenied: 'home/errors/access-denied'
+}
+
 const HOME_INVITATIONS_ROUTES = {
     listInvitations: 'home/invitations/list-invitations'
 }
@@ -88,6 +92,7 @@ export const ROUTES_NAME = {
     ...HOME_CONTACTS_ROUTES,
     ...HOME_CONTACT_PROFILE_ROUTES,
     ...HOME_DATA_ROUTES,
+    ...HOME_ERRORS_ROUTES,
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,
     ...HOME_PAYMENTS_ROUTES,

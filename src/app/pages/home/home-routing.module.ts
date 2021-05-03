@@ -24,6 +24,9 @@ const routes: Routes = [
             { path: ROUTES_NAME.listContactCoincidences, loadChildren: () => import('@pages/home/contacts/list-contact-coincidences/list-contact-coincidences.module').then( mod => mod.ListContactCoincidencesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: '', loadChildren: () => import('@pages/home/contact-profile/contact-profile.module').then(mod => mod.ContactProfileModule) },
 
+            // Error routes
+            { path: ROUTES_NAME.accessDenied, loadChildren: () => import('@pages/home/errors/access-denied/access-denied.module').then(mod => mod.AccessDeniedModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+
             // Invitations routes
             { path: ROUTES_NAME.listInvitations, loadChildren: () => import('@pages/home/invitations/list-invitations/list-invitations.module').then(mod => mod.ListInvitationsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
