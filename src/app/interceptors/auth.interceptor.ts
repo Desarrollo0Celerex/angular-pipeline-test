@@ -25,7 +25,8 @@ export class AuthInterceptor implements HttpInterceptor {
      */
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         const userToken: string | null = this._storageService.getUserToken();
-        if(userToken !== null) {
+        const isRequestDownloadFile: boolean = (!!request.responseType && request.responseType === 'blob') ? true : false;
+        if((userToken !== null) && !isRequestDownloadFile) {
             request = request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, `Bearer ${userToken}`)});
         }
         return next.handle(request);
