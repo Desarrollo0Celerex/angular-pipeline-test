@@ -31,6 +31,8 @@ const HOME_CONTACT_PROFILE_ROUTES = {
     listContactQuotations: (contactId: string) => `home/contact-profile/${contactId}/list-quotations`,
     listContactPolicies: (contactId: string) => `home/contact-profile/${contactId}/list-policies`,
     listContactSinisters: (contactId: string) => `home/contact-profile/${contactId}/list-sinisters`,
+    showContactData: (contactId: string) => `home/contact-profile/${contactId}/show-contact-data`,
+    showRecord: (contactId: string) => `home/contact-profile/${contactId}/show-record`,
 }
 
 const HOME_DATA_ROUTES = {

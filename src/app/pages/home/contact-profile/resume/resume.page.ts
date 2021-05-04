@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 declare var ModalPlugin: any;
+declare var StatsPlugin: any;
 
 @Component({
   selector: 'agt-resume',
@@ -19,6 +20,7 @@ export class ResumePage implements OnInit {
     }
 
     ngOnInit(): void {
+        StatsPlugin.init();
         this._catchParams();
         if(this._checkIsContactSaved()) {
             setTimeout(() => {
