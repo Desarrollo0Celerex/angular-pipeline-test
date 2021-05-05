@@ -12,11 +12,11 @@ declare var StatsPlugin: any;
 })
 export class ResumePage implements OnInit {
     contactId: string;
-    contactSavedModalId: string;
+    modalIdContactSaved: string;
 
     constructor(private _activatedRoute: ActivatedRoute) {
         this.contactId = '';
-        this.contactSavedModalId = 'modal-contact-saved';
+        this.modalIdContactSaved = 'modal-contact-saved';
     }
 
     ngOnInit(): void {
@@ -24,7 +24,7 @@ export class ResumePage implements OnInit {
         this._catchParams();
         if(this._checkIsContactSaved()) {
             setTimeout(() => {
-                ModalPlugin.show(this.contactSavedModalId);
+                ModalPlugin.show(this.modalIdContactSaved);
             },0);
         }
     }
@@ -41,7 +41,8 @@ export class ResumePage implements OnInit {
      * @return True if it was, otherwise false
      */
     private _checkIsContactSaved(): boolean {
-        return !!history.state.contactSaved;
+        console.log('history.state: ',history.state)
+        return (!!history.state.contactSaved) ? true : false;
     }
 
 }
