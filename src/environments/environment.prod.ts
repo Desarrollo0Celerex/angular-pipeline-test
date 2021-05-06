@@ -2,7 +2,7 @@ export const environment = {
     production: true,
     agenthosUrl: 'https://agenthos.com',
     atomAccountUrl: 'https://account.atombits.xyz',
-    appAgenthosUrl: 'https://agenthos.atombits.xyz',
+    appAgenthosUrl: 'https://app.agenthos.com',
     apiUrl: 'https://api.agenthos.com/api/v1',
     atomScann: 'https://scanner.atomservice.xyz/api/v1',
     firebaseConfig: {
