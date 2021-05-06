@@ -20,6 +20,8 @@ declare var PopoverPlugin: any;
 })
 export class ModalApplyPaymentComponent implements OnChanges {
     @Input() modalId: string = '';
+    @Input() contactId: string = '';
+    @Input() policyId: string = '';
     @Input() paymentId: string = '';
     @Output() receiptPaid: EventEmitter<string> = new EventEmitter<string>();
     @Output() test: EventEmitter<void> = new EventEmitter<void>();
