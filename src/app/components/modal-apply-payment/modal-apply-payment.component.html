@@ -134,8 +134,27 @@
 </div>
 <!-- //AGENTHOS - APPLY PAYMENT -->
 
-<agt-modal-confirm-apply-payment-with-balance-outstanding [modalId]="modalIdConfirmApplyPaymentWithBalanceOutstanding" [balanceOutstanding]="modalApplyPaymentService.balanceOutstanding" [currencyName]="(!!modalApplyPaymentService.payment) ? modalApplyPaymentService.payment.currencyName : ''" (paymentApplicationCancelled)="onPaymentApplicationCancelled()" (paymentApplicationConfirmed)="onPaymentApplicationConfirmed()"></agt-modal-confirm-apply-payment-with-balance-outstanding>
-<agt-modal-confirm-apply-payment-with-balance-remaining [modalId]="modalIdConfirmApplyPaymentWithBalanceRemaining" [balanceRemaining]="modalApplyPaymentService.balanceRemaining" [currencyName]="(!!modalApplyPaymentService.payment) ? modalApplyPaymentService.payment.currencyName : ''" (paymentApplicationCancelled)="onPaymentApplicationCancelled()" (paymentApplicationConfirmed)="onPaymentApplicationConfirmed()"></agt-modal-confirm-apply-payment-with-balance-remaining>
+<agt-modal-confirm-apply-payment-with-balance-outstanding
+    [modalId]="modalIdConfirmApplyPaymentWithBalanceOutstanding"
+    [contactId]="contactId"
+    [policyId]="policyId"
+    [paymentId]="paymentId"
+    [balanceOutstanding]="modalApplyPaymentService.balanceOutstanding"
+    [currencyName]="(!!modalApplyPaymentService.payment) ? modalApplyPaymentService.payment.currencyName : ''"
+    (paymentApplicationCancelled)="onPaymentApplicationCancelled()"
+    (paymentApplicationConfirmed)="onPaymentApplicationConfirmed()"
+>
+</agt-modal-confirm-apply-payment-with-balance-outstanding>
+<agt-modal-confirm-apply-payment-with-balance-remaining
+    [modalId]="modalIdConfirmApplyPaymentWithBalanceRemaining"
+    [contactId]="contactId"
+    [policyId]="policyId"
+    [paymentId]="paymentId"
+    [balanceRemaining]="modalApplyPaymentService.balanceRemaining"
+    [currencyName]="(!!modalApplyPaymentService.payment) ? modalApplyPaymentService.payment.currencyName : ''"
+    (paymentApplicationCancelled)="onPaymentApplicationCancelled()"
+    (paymentApplicationConfirmed)="onPaymentApplicationConfirmed()">
+</agt-modal-confirm-apply-payment-with-balance-remaining>
 
 <ng-template #loading>
     <agt-loading-content [isLoadingContent]="true"></agt-loading-content>

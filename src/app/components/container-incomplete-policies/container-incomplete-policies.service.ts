@@ -29,7 +29,7 @@ export class ContainerIncompletePoliciesService {
      * @param page      The page number
      */
     loadIncompletePolicies(contactId: string, page: number, contentSubtype: number): void {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount';
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName';
         const filters: number [] = [contentSubtype];
         this._policyService.getContactPolicies(contactId, page, fields, filters).subscribe( (res: HttpResponse) => {
             this.incompletePolicies = res.data.items;

@@ -13,8 +13,7 @@
                     <div class="col-md-12">
                         <p class="text-justify">Al aplicar este pago se supera el monto de la prima total por la cantidad de {{balanceRemaining | currency: '': '$': '0.2-2'}} {{currencyName}}. <strong>Por favor confirma si deseas continuar</strong>.</p>
                         <p class="text-justify">Si lo deseas, puedes ver el historial de pagos para verificar todos los pagos aplicados al momento.</p>
-                        <a href="../policy/payments.php">
-                        <button type="button" name="agtPaymentHistory" class="btn btn-block btn-primary mt-5"><strong>VER HISTORIAL DE PAGOS</strong></button></a>
+                        <button type="button" class="btn btn-block btn-primary mt-5" (click)="onClickShowPaymentHistory()"><strong>VER HISTORIAL DE PAGOS</strong></button>
                     </div>
                 </div>
             </div>

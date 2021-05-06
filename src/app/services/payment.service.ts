@@ -85,11 +85,12 @@ export class PaymentService {
     private _calculatePaymentLifeTime(payment: Payment): Payment {
         const paymentAmountPaid: number = parseFloat(payment.paymentAmountPaid.toString());
         const pendingAmount: number = (!!payment.pendingAmount) ? parseFloat(payment.pendingAmount.toString()) : 0;
+        const paymentAmount: number = (!!payment.paymentAmount) ? parseFloat(payment.paymentAmount.toString()) : 0;
         let percentage: number = 0;
         if(!(!!pendingAmount)) {
             percentage = 100
         } else {
-            percentage = Math.round(paymentAmountPaid * 100 / pendingAmount);
+            percentage = Math.round(paymentAmountPaid * 100 / paymentAmount);
         }
         payment.lifeTime = percentage;
         return payment;

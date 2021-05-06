@@ -168,10 +168,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     /**
      * Event to catch the request to apply payment
-     * @param paymentId The payment ID
+     * @param data The payment data
      */
-    onApplyPayment(paymentId: string): void {
-        this.selectedPaymentId = paymentId;
+    onApplyPayment(data: ShowPaymentHistoryData): void {
+        this.selectedContactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
+        this.selectedPaymentId = data.paymentId;
         ModalPlugin.show(this.modalIdApplyPayment);
         ModalPlugin.setFixed();
     }
