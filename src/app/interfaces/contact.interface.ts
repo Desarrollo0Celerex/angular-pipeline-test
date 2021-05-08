@@ -13,5 +13,6 @@ export interface Contact {
     clientStatusName: string,
     clientStatusBackground: string,
     totalWallet: number,
-    totalPolicies: number
+    totalPolicies: number,
+    currencyName: string
 }

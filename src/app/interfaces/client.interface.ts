@@ -7,5 +7,6 @@ export interface Client {
     contactSourceName: string,
     contactScoreName: string,
     totalWallet: number,
-    totalPolicies: number
+    totalPolicies: number,
+    currencyName: string
 }

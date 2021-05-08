@@ -26,7 +26,8 @@ export class ContactProfileService {
             clientStatusName: '',
             clientStatusBackground: '',
             totalWallet: 0,
-            totalPolicies: 0
+            totalPolicies: 0,
+            currencyName: ''
         }
     }
 
@@ -56,7 +57,7 @@ export class ContactProfileService {
      * @param contactId The contact ID
      */
     loadContact(contactId: string): void {
-        const fields: string = 'contactId,avatarUrl,contactName,contactSourceName,phoneCode,phoneNumber';
+        const fields: string = 'contactId,avatarUrl,contactName,contactSourceName,phoneCode,phoneNumber,totalWallet,currencyName,totalPolicies,contactScoreName';
         this._contactService.getContact(contactId, fields).subscribe( (res: HttpResponse) => {
             this.contact = res.data;
         });

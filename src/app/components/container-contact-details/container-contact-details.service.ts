@@ -24,7 +24,8 @@ export class ContainerContactDetailsService {
             clientStatusName: '',
             clientStatusBackground: '',
             totalWallet: 0,
-            totalPolicies: 0
+            totalPolicies: 0,
+            currencyName: ''
         };
     }
 

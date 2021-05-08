@@ -41,7 +41,6 @@ export class ResumePage implements OnInit {
      * @return True if it was, otherwise false
      */
     private _checkIsContactSaved(): boolean {
-        console.log('history.state: ',history.state)
         return (!!history.state.contactSaved) ? true : false;
     }
 
