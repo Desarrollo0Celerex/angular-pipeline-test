@@ -12,6 +12,7 @@ const routes: any = {
     contactQuotations: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations',
     acceptContactQuotation: (workspaceId: string, contactId: string, quotationId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/' + quotationId + '/accept',
     rejectContactQuotation: (workspaceId: string, contactId: string, quotationId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/' + quotationId + '/reject',
+    totalQuotations: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/total'
 }
 
 @Injectable()
@@ -90,5 +91,18 @@ export class QuotationService {
     rejectContactQuotation(contactId: string, quotationId: string): Observable<void> {
         const route: string = routes.rejectContactQuotation(this._workspaceId, contactId, quotationId);
         return this._httpClient.post<void>(route, null);
+    }
+
+    /**
+     * Get total quotations
+     * @param  contactId   The contact ID
+     * @param  filter      The filter to apply
+     * @return             The total quotations
+     */
+    getTotalQuotations(contactId: string, filter: number = 0): Observable<HttpResponse> {
+        const route: string = routes.totalQuotations(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        if(!!filter) params = params.append('filter', 'quotationStatusId[=]' + filter);
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 }

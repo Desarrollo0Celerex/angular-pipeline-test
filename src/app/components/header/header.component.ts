@@ -33,4 +33,11 @@ export class HeaderComponent implements OnInit {
         this.headerService.logout();
     }
 
+    /**
+     * Click event to toggle sidebar
+     */
+    onClickToogleSidebar(): void {
+        console.log('Abrir sidebar!');
+    }
+
 }

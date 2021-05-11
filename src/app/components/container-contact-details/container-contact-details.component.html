@@ -1,27 +1,27 @@
 <!-- AGENTHOS - PROFILE RESUME -->
-<div class="row">
+<div class="row" *ngIf="!!containerContactDetailsService.contact">
     <div class="col-sm-12">
         <div class="card">
             <!-- AGENTHOS - CARD HEADER -->
             <div class="card-header border-bottom-0">
                 <!-- AGENTHOS - CONTACT PIC -->
-                <img class="avatar brround" [src]="cardContactService.contact.avatarUrl" width="38px">
+                <img class="avatar brround" [src]="containerContactDetailsService.contact.avatarUrl" width="38px">
                 <div class="card-options">
-                    <div class="badge badge-primary-gradient mr-1">{{cardContactService.contact.contactTypeName | uppercase}}</div>
+                    <div class="badge badge-primary-gradient mr-1">{{containerContactDetailsService.contact.contactTypeName | uppercase}}</div>
                 </div>
             </div>
             <!-- //AGENTHOS - CARD HEADER -->
             <!-- AGENTHOS - CARD BODY -->
             <div class="card-body">
                 <!-- AGENTHOS - CONTACT NAME -->
-                <h3 class="h3">{{cardContactService.contact.contactName}}</h3>
+                <h3 class="h3">{{containerContactDetailsService.contact.contactName}}</h3>
                 <!-- AGENTHOS - CONTACT SOURCE -->
                 <p class="mb-3">
-                    <i class="fe fe-globe mr-1"></i>{{cardContactService.contact.contactSourceName}}
-                    <span class="float-right"><i class="fe fe-award mr-1"></i>{{cardContactService.contact.contactScoreName}}</span>
+                    <i class="fe fe-globe mr-1"></i>{{containerContactDetailsService.contact.contactSourceName}}
+                    <span class="float-right"><i class="fe fe-award mr-1"></i>{{containerContactDetailsService.contact.contactScoreName}}</span>
                 </p>
                 <ol class="breadcrumb1">
-                    <li class="breadcrumb-item1">{{message}} <strong>{{cardContactService.contact.contactName}}</strong>.</li>
+                    <li class="breadcrumb-item1">{{message}} <strong>{{containerContactDetailsService.contact.contactName}}</strong>.</li>
                 </ol>
             </div>
             <!-- //AGENTHOS - CARD BODY -->

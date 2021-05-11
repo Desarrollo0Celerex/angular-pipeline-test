@@ -1,18 +1,406 @@
-<!-- AGENTHOS - BLOCKED PANEL -->
-<div class="row">
-    <div class="col-md-12 col-lg-12">
+<!-- AGENTHOS - CONTACT PANEL -->
+<div class="row mt-5">
+    <!-- AGENTHOS - DIRECT CONTACT -->
+    <div class="col-md-8 col-lg-8">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Acceso Denegado</h3>
+                <h3 class="card-title">Contacto Directo</h3>
             </div>
-            <!-- AGENTHOS - BLOCKED ALERT -->
             <div class="card-body">
-                <ol class="breadcrumb1">
-                    <li class="breadcrumb-item1">No tienes permisos para usar esta herramienta. Selecciona el <strong>Plan Pro</strong> o <strong>Plan Enterprise</strong> para desbloquear esta y más funciones avanzadas.</li>
-                </ol>
+                <agt-button-do-call [buttonType]="BUTTON_TYPES.ICON" [contactId]="contactId" (contactActionFailed)="onContactActionFailed()"></agt-button-do-call>
+                <agt-button-send-whatsapp [buttonType]="BUTTON_TYPES.ICON" [contactId]="contactId" (contactActionFailed)="onContactActionFailed()"></agt-button-send-whatsapp>
+                <agt-button-send-telegram [buttonType]="BUTTON_TYPES.ICON" [contactId]="contactId" (contactActionFailed)="onContactActionFailed()"></agt-button-send-telegram>
+                <agt-button-send-email [buttonType]="BUTTON_TYPES.ICON" [contactId]="contactId" (contactActionFailed)="onContactActionFailed()"></agt-button-send-email>
             </div>
-            <!-- AGENTHOS - BLOCKED ALERT -->
         </div>
     </div>
+    <!-- AGENTHOS - EXPRESS CONTACT -->
+    <div class="col-md-4 col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Transferir Contacto</h3>
+            </div>
+            <div class="card-body">
+                <!-- AGENTHOS - EXPLORE HISTORY -->
+                <button type="button" class="btn btn-block btn-secondary" (click)="onClickTransferContact()"><strong>GENERAR CÓDIGO</strong></button>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - EXPRESS CONTACT -->
 </div>
-<!-- AGENTHOS - BLOCKED PANEL -->
+<ng-container *ngIf="!!showContactDataService.contact; else loadingContent">
+    <!-- //AGENTHOS - CONTACT PANEL -->
+    <form [formGroup]="showContactDataService.contactForm" (submit)="onSubmitUpdateContact()">
+        <!-- AGENTHOS - PEOPLE PROFILE -->
+        <div class="row" *ngIf="showContactDataService.contact.contactTypeId === CONTACT_TYPES.PERSON; else company">
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Información Principal</h3>
+                        <div class="card-options">
+                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                        </div>
+                    </div>
+                    <!-- AGENTHOS - PERSONAL INFO -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT NAME * -->
+                                    <label class="form-label">Nombre (s)</label>
+                                    <input type="text" class="form-control {{getValidationClass('name')}}" formControlName="name">
+                                    <div class="invalid-feedback">{{getErrorMessage('name')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT NAME PATERNAL * -->
+                                    <label class="form-label">Apellido Paterno</label>
+                                    <input type="text" class="form-control {{getValidationClass('namePaternal')}}" formControlName="namePaternal">
+                                    <div class="invalid-feedback">{{getErrorMessage('namePaternal')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT NAME MATERNAL * -->
+                                    <label class="form-label">Apellido Materno</label>
+                                    <input type="text" class="form-control {{getValidationClass('nameMaternal')}}" formControlName="nameMaternal">
+                                    <div class="invalid-feedback">{{getErrorMessage('nameMaternal')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT GENDER * -->
+                                    <label class="form-label">Género</label>
+                                    <select [id]="selectIdGenders" class="form-control select2 custom-select {{getValidationClass('genderId')}}" formControlName="genderId" data-placeholder="Elegir Opción">
+                                        <option [value]="gender.genderId" *ngFor="let gender of showContactDataService.genders">{{gender.name}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">{{getErrorMessage('genderId')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <!-- AGENTHOS - CONTACT BIRTHDAY -->
+                                <label class="form-label">Fecha de Nacimiento</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                        </div>
+                                    </div>
+                                    <input [id]="calendarIdBirthdate" class="form-control fc-datepicker {{getValidationClass('birthdate')}}" placeholder="DD/MM/AAAA" type="text" formControlName="birthdate">
+                                    <div class="invalid-feedback">{{getErrorMessage('birthdate')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT CIVIL STATUS -->
+                                    <label class="form-label">Estado Civil</label>
+                                    <select [id]="selectIdCivilStatus" class="form-control select2 custom-select {{getValidationClass('civilStatusId')}}" formControlName="civilStatusId" data-placeholder="Elegir Opción">
+                                        <option [value]="civilStatus.civilStatusId" *ngFor="let civilStatus of showContactDataService.civilStatus">{{civilStatus.name}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">{{getErrorMessage('civilStatusId')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT OCCUPATION -->
+                                    <label class="form-label">Ocupación</label>
+                                    <select [id]="selectIdContactOccupations" class="form-control select2 custom-select {{getValidationClass('contactOccupationId')}}" data-placeholder="Elegir Opción" formControlName="contactOccupationId">
+                                        <option [value]="contactOccupation.contactOccupationId" *ngFor="let contactOccupation of showContactDataService.contactOccupations">{{contactOccupation.name}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">{{getErrorMessage('contactOccupationId')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT OFFSPRING -->
+                                    <label class="form-label">Hijos</label>
+                                    <select [id]="selectIdOffstrings" class="form-control select2 custom-select {{getValidationClass('offspringId')}}" data-placeholder="Elegir Opción" formControlName="offspringId">
+                                        <option [value]="offspring.offspringId" *ngFor="let offspring of showContactDataService.offsprings">{{offspring.name}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">{{getErrorMessage('offspringId')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT RFC -->
+                                    <label class="form-label">RFC</label>
+                                    <input type="text" class="form-control {{getValidationClass('rfc')}}" formControlName="rfc">
+                                    <div class="invalid-feedback">{{getErrorMessage('rfc')}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - PERSONAL INFO -->
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - PEOPLE PROFILE -->
+
+        <ng-template #company>
+            <!-- AGENTHOS - PEOPLE PROFILE -->
+			<div class="row">
+				<div class="col-md-12 col-lg-12">
+					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title">Información Principal</h3>
+							<div class="card-options">
+								<a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+								<a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+							</div>
+						</div>
+						<!-- AGENTHOS - COMPANY INFO -->
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<!-- AGENTHOS - CONTACT COMPANY NAME -->
+										<label class="form-label">Razón Social</label>
+										<input type="text" class="form-control {{getValidationClass('companyName')}}" formControlName="companyName">
+                                        <div class="invalid-feedback">{{getErrorMessage('companyName')}}</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<!-- AGENTHOS - CONTACT BRAND NAME -->
+										<label class="form-label">Nombre Comercial</label>
+										<input type="text" class="form-control {{getValidationClass('brandName')}}" formControlName="brandName">
+                                        <div class="invalid-feedback">{{getErrorMessage('brandName')}}</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<!-- AGENTHOS - CONTACT RFC  -->
+										<label class="form-label">RFC</label>
+										<input type="text" class="form-control {{getValidationClass('rfc')}}" formControlName="rfc">
+                                        <div class="invalid-feedback">{{getErrorMessage('rfc')}}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- //AGENTHOS - COMPANY INFO -->
+					</div>
+				</div>
+			</div>
+			<!-- //AGENTHOS - PEOPLE PROFILE -->
+        </ng-template>
+
+        <!-- AGENTHOS - CONTACT INFORMATION -->
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Información de Contacto</h3>
+                        <div class="card-options">
+                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                        </div>
+                    </div>
+                    <!-- AGENTHOS - CONTACT DETAILS -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT MAIL * -->
+                                    <label class="form-label">Correo Principal</label>
+                                    <input type="text" class="form-control {{getValidationClass('email')}}" formControlName="email">
+                                    <div class="invalid-feedback">{{getErrorMessage('email')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <!-- AGENTHOS - CONTACT PHONE -->
+                                <label class="form-label">WhatsApp</label>
+                                <div class="input-group mb-3">
+                                    <agt-dropdown-select-phone-code [phoneCodeId]="showContactDataService.f.phoneCodeId.value" (phoneCodeIdSelected)="onPhoneCodeIdSelected($event)"></agt-dropdown-select-phone-code>
+                                    <!-- AGENTHOS - CONTACT PHONE NUMBER -->
+                                    <input type="text" class="form-control {{getValidationClass('phoneNumber')}}" formControlName="phoneNumber">
+                                    <div class="invalid-feedback">{{getErrorMessage('phoneNumber')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Sitio Web</label>
+                                    <input type="text" class="form-control {{getValidationClass('website')}}" formControlName="website">
+                                    <div class="invalid-feedback">{{getErrorMessage('website')}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - CONTACT DETAILS -->
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - CONTACT INFORMATION -->
+        <!-- AGENTHOS - ALTERNATIVE CONTACT -->
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Contacto Secundario</h3>
+                        <div class="card-options">
+                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                        </div>
+                    </div>
+                    <!-- AGENTHOS - CONTACT DETAILS -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT ALT NAME -->
+                                    <label class="form-label">Nombre del Contacto</label>
+                                    <input type="text" class="form-control {{getValidationClass('secondaryContactName')}}" formControlName="secondaryContactName">
+                                    <div class="invalid-feedback">{{getErrorMessage('secondaryContactName')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT ALT RELATION -->
+                                    <label class="form-label">Relación</label>
+                                    <select [id]="selectIdSecondaryContactRelations" class="form-control select2 custom-select {{getValidationClass('secondaryContactRelationId')}}" data-placeholder="Elegir Opción" formControlName="secondaryContactRelationId">
+                                        <option [value]="contactRelation.contactRelationId" *ngFor="let contactRelation of showContactDataService.contactRelations">{{contactRelation.name}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">{{getErrorMessage('secondaryContactRelationId')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT ALT MAIL -->
+                                    <label class="form-label">Correo Secundario</label>
+                                    <input type="text" class="form-control {{getValidationClass('secondaryContactEmail')}}" formControlName="secondaryContactEmail">
+                                    <div class="invalid-feedback">{{getErrorMessage('secondaryContactEmail')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- AGENTHOS - CONTACT PHONE -->
+                                <label class="form-label">Teléfono Secundario</label>
+                                <div class="input-group mb-3">
+                                    <agt-dropdown-select-phone-code [phoneCodeId]="showContactDataService.f.secondaryContactPhoneCodeId.value" (phoneCodeIdSelected)="onSecondaryContactPhoneCodeIdSelected($event)"></agt-dropdown-select-phone-code>
+                                    <!-- AGENTHOS - CONTACT ALT PHONE NUMBER -->
+                                    <input type="text" class="form-control {{getValidationClass('secondaryContactPhoneNumber')}}" formControlName="secondaryContactPhoneNumber">
+                                    <div class="invalid-feedback">{{getErrorMessage('secondaryContactPhoneNumber')}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - ALTERNATIVE CONTACT -->
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - SECONDARY CONTACT -->
+        <!-- AGENTHOS - CONTACT ADDRESS -->
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Dirección de Contacto</h3>
+                        <div class="card-options">
+                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                        </div>
+                    </div>
+                    <!-- AGENTHOS - CONTACT DETAILS -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT ADDRESS STREET -->
+                                    <label class="form-label">Calle</label>
+                                    <input type="text" class="form-control {{getValidationClass('street')}}" formControlName="street">
+                                    <div class="invalid-feedback">{{getErrorMessage('street')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT ADDRESS NO INT -->
+                                    <label class="form-label">No. Int.</label>
+                                    <input type="text" class="form-control {{getValidationClass('interiorNumber')}}" formControlName="interiorNumber">
+                                    <div class="invalid-feedback">{{getErrorMessage('interiorNumber')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT ADDRESS NO EXT -->
+                                    <label class="form-label">No. Ext.</label>
+                                    <input type="text" class="form-control {{getValidationClass('exteriorNumber')}}" formControlName="exteriorNumber">
+                                    <div class="invalid-feedback">{{getErrorMessage('exteriorNumber')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT ADDRESS SUBURB -->
+                                    <label class="form-label">Colonia</label>
+                                    <input type="text" class="form-control {{getValidationClass('colony')}}" formControlName="colony">
+                                    <div class="invalid-feedback">{{getErrorMessage('colony')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT ADDRESS CITY -->
+                                    <label class="form-label">Ciudad</label>
+                                    <input type="text" class="form-control {{getValidationClass('city')}}" formControlName="city">
+                                    <div class="invalid-feedback">{{getErrorMessage('city')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT ADDRESS STATE -->
+                                    <label class="form-label">Estado</label>
+                                    <input type="text" class="form-control {{getValidationClass('state')}}" formControlName="state">
+                                    <div class="invalid-feedback">{{getErrorMessage('state')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT ADDRESS CP -->
+                                    <label class="form-label">Código Postal</label>
+                                    <input type="text" class="form-control {{getValidationClass('postalCode')}}" formControlName="postalCode">
+                                    <div class="invalid-feedback">{{getErrorMessage('postalCode')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT ADDRESS COUNTRY -->
+                                    <label class="form-label">País</label>
+                                    <input type="text" class="form-control {{getValidationClass('country')}}" formControlName="country">
+                                    <div class="invalid-feedback">{{getErrorMessage('country')}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - ALTERNATIVE CONTACT -->
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - CONTACT ADDRESS -->
+
+        <!-- AGENTHOS - SAVE CHANGES -->
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <!-- AGENTHOS - UPDATE INFO -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button *ngIf="canEdit; else noEdit" type="submit" class="btn btn-block btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
+                                <ng-template #noEdit>
+                                    <button type="button" class="btn btn-block btn-primary" (click)="onClickEditContact()"><strong>ACTUALIZAR DATOS</strong></button>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - UPDATE INFO -->
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - SAVE CHANGES -->
+    </form>
+</ng-container>
+
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
+</ng-template>
+
+<agt-modal-contact-saved [modalId]="modalIdTransferContact" [contactId]="contactId"></agt-modal-contact-saved>
+<agt-modal-incomplete-contact-data [modalId]="modalIdIncompleteContactData"></agt-modal-incomplete-contact-data>

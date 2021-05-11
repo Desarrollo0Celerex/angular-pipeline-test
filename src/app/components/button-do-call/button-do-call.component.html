@@ -7,4 +7,11 @@
             </button>
         </a>
     </ng-container>
+    <ng-container *ngSwitchCase="BUTTON_TYPES.ICON">
+        <a href="{{(!!this.buttonDoCallService.phone.phoneNumber) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
+            <button type="button" class="btn btn-icon btn-teal mr-5" [disabled]="this.buttonDoCallService.phone.phoneNumber === null && required" (click)="onClickCheckConnection()">
+                <i class="fa fa-phone"></i>
+            </button>
+        </a>
+    </ng-container>
 </ng-container>

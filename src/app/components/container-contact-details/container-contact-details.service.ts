@@ -6,27 +6,9 @@ import { ContactService } from '@services/contact.service';
 
 @Injectable()
 export class ContainerContactDetailsService {
-    contact: Contact;
+    contact: Contact | null = null;
 
-    constructor(private _contactService: ContactService) {
-        this.contact = {
-            contactId: '',
-            avatarUrl: '',
-            contactName: '',
-            contactSourceName: '',
-            phoneCode: '',
-            phoneNumber: '',
-            email: '',
-            contactTypeName: '',
-            contactScoreName: '',
-            leadStatusName: '',
-            leadStatusBackground: '',
-            clientStatusName: '',
-            clientStatusBackground: '',
-            totalWallet: 0,
-            totalPolicies: 0
-        };
-    }
+    constructor(private _contactService: ContactService) { }
 
     /**
      * Load the contact

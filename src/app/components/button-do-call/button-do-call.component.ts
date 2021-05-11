@@ -15,7 +15,7 @@ export class ButtonDoCallComponent {
     @Input() contactId: string;
     @Input() expressToken: string;
     @Input() required: boolean;
-    @Output() connectionFailed: EventEmitter<void>;
+    @Output() contactActionFailed: EventEmitter<void>;
     BUTTON_TYPES: any = BUTTON_TYPES;
 
     constructor(public buttonDoCallService: ButtonDoCallService) {
@@ -23,7 +23,7 @@ export class ButtonDoCallComponent {
         this.contactId = '';
         this.expressToken = '';
         this.required = false;
-        this.connectionFailed = new EventEmitter<void>();
+        this.contactActionFailed = new EventEmitter<void>();
         this.BUTTON_TYPES = BUTTON_TYPES;
     }
 
@@ -57,7 +57,7 @@ export class ButtonDoCallComponent {
      */
     public onClickCheckConnection(): void {
         if(!(!!this.buttonDoCallService.phone.phoneCode && !!this.buttonDoCallService.phone.phoneNumber)) {
-            this.connectionFailed.emit();
+            this.contactActionFailed.emit();
         }
     }
 }

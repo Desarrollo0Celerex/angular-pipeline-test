@@ -15,7 +15,7 @@ export class ButtonSendTelegramComponent {
     @Input() contactId: string;
     @Input() expressToken: string;
     @Input() required: boolean;
-    @Output() connectionFailed: EventEmitter<void>;
+    @Output() contactActionFailed: EventEmitter<void>;
     BUTTON_TYPES: any = BUTTON_TYPES;
 
     constructor(public buttonSendTelegramService: ButtonSendTelegramService) {
@@ -23,7 +23,7 @@ export class ButtonSendTelegramComponent {
         this.contactId = '';
         this.expressToken = '';
         this.required = false;
-        this.connectionFailed = new EventEmitter<void>();
+        this.contactActionFailed = new EventEmitter<void>();
         this.BUTTON_TYPES = BUTTON_TYPES;
     }
 
@@ -57,7 +57,7 @@ export class ButtonSendTelegramComponent {
      */
     public onClickCheckConnection(): void {
         if(!(!!this.buttonSendTelegramService.phone.phoneCode && !!this.buttonSendTelegramService.phone.phoneNumber)) {
-            this.connectionFailed.emit();
+            this.contactActionFailed.emit();
         }
     }
 }

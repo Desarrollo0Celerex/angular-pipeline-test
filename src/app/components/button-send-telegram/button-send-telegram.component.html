@@ -7,4 +7,11 @@
             </button>
         </a>
     </ng-container>
+    <ng-container *ngSwitchCase="BUTTON_TYPES.ICON">
+        <a href="{{(!!buttonSendTelegramService.phone.phoneNumber) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
+            <button type="button" class="btn btn-icon btn-azure mr-5" [disabled]="!(!!buttonSendTelegramService.phone.phoneNumber) && required" (click)="onClickCheckConnection()">
+                <i class="fa fa-telegram"></i>
+            </button>
+        </a>
+    </ng-container>
 </ng-container>

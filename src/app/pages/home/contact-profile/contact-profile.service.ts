@@ -8,27 +8,9 @@ import { Contact } from '@interfaces/contact.interface';
 
 @Injectable()
 export class ContactProfileService {
-    contact: Contact;
+    contact: Contact | null = null;
 
-    constructor(private _contactService: ContactService) {
-        this.contact = {
-            contactId: '',
-            avatarUrl: '',
-            contactName: '',
-            contactSourceName: '',
-            phoneCode: '',
-            phoneNumber: '',
-            email: '',
-            contactTypeName: '',
-            contactScoreName: '',
-            leadStatusName: '',
-            leadStatusBackground: '',
-            clientStatusName: '',
-            clientStatusBackground: '',
-            totalWallet: 0,
-            totalPolicies: 0
-        }
-    }
+    constructor(private _contactService: ContactService) { }
 
     /**
      * Get the page type
@@ -56,7 +38,7 @@ export class ContactProfileService {
      * @param contactId The contact ID
      */
     loadContact(contactId: string): void {
-        const fields: string = 'contactId,avatarUrl,contactName,contactSourceName,phoneCode,phoneNumber';
+        const fields: string = 'contactId,avatarUrl,contactName,contactSourceName,phoneCode,phoneNumber,totalWallet,currencyName,totalPolicies,contactScoreName';
         this._contactService.getContact(contactId, fields).subscribe( (res: HttpResponse) => {
             this.contact = res.data;
         });

@@ -44,7 +44,7 @@ export const INVITATION_STATUS: any = {
 }
 export const QUOTATION_STATUS: any = {
     PENDING: 1,
-    ACCEPRED: 2,
+    ACCEPTED: 2,
     REJECTED: 3
 }
 export const POLICY_STATUS: any = {

@@ -1,0 +1,28 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { environment } from '@env/environment';
+import { HttpResponse } from '@interfaces/http-response.interface';
+
+const ROUTES = {
+    offsprings: `${environment.apiUrl}/offsprings`
+}
+
+@Injectable()
+export class OffspringService {
+
+    constructor(private _httpClient: HttpClient) { }
+
+    /**
+     * Get the offsprings from the API
+     * @param  fields The fields to get
+     * @return        The offsprings
+     */
+    getOffsprings(fields: string = ''): Observable<HttpResponse> {
+        const route: string = ROUTES.offsprings;
+        let params: HttpParams = new HttpParams;
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, { params });
+    }
+}

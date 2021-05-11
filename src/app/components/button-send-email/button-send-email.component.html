@@ -7,17 +7,11 @@
             </button>
         </a>
     </ng-container>
-    <ng-container *ngSwitchCase="BUTTON_TYPES.INPUT">
-        <label class="form-label">Correo Electrónico</label>
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="{{buttonSendEmailService.email }}" readonly>
-            <span class="input-group-append">
-                <a href="{{(!!buttonSendEmailService.email) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
-                    <button type="button" class="btn btn-indigo" [disabled]="!(!!buttonSendEmailService.email) && required" (click)="onClickCheckConnection()">
-                        <i class="fa fa-envelope"></i>
-                    </button>
-                </a>
-            </span>
-        </div>
+    <ng-container *ngSwitchCase="BUTTON_TYPES.ICON">
+        <a href="{{(!!buttonSendEmailService.email) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
+            <button type="button" class="btn btn-icon btn-indigo mr-5" [disabled]="!(!!buttonSendEmailService.email) && required" (click)="onClickCheckConnection()">
+                <i class="fa fa-envelope"></i>
+            </button>
+        </a>
     </ng-container>
 </ng-container>

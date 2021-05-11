@@ -51,7 +51,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadClients(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalWallet,totalPolicies';
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalWallet,totalPolicies,currencyName';
         return this._clientService.getClients(page, fields, contentSubtype).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
@@ -209,7 +209,7 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchClients(page: number, query: string): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalWallet,totalPolicies';
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalWallet,totalPolicies,currencyName';
         return this._clientService.getClients(page, fields, 0, query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
@@ -226,7 +226,7 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchContacts(page: number, query: string, specialQuery: SearchContactData | null): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalWallet,totalPolicies';
+        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalWallet,totalPolicies,currencyName';
         return this._contactService.getContacts(page, fields, query, specialQuery).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);

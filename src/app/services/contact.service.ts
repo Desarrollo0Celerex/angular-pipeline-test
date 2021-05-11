@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
 import { CreateContactDataSend } from '@interfaces/create-contact-data-send.interface';
-import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { SearchContactData } from '@interfaces/search-contact-data.interface';
+import { UpdateContactDataSend } from '@interfaces/update-contact-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
@@ -29,7 +30,7 @@ private _workspaceId: string;
      * @param  requestBody Contact data to create
      * @return             The contact ID
      */
-    public createContact(requestBody: CreateContactDataSend): Observable<HttpResponse> {
+    createContact(requestBody: CreateContactDataSend): Observable<HttpResponse> {
         const route: string = routes.contacts(this._workspaceId);
         return this._httpClient.post<HttpResponse>(route, requestBody);
     }
@@ -40,7 +41,7 @@ private _workspaceId: string;
      * @param  fields    The fields to get
      * @return           The contact data
      */
-    public getContact(contactId: string, fields: string = ''): Observable<HttpResponse> {
+    getContact(contactId: string, fields: string = ''): Observable<HttpResponse> {
         const route: string = routes.contact(this._workspaceId, contactId);
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
@@ -54,7 +55,7 @@ private _workspaceId: string;
      * @param  query           The search to do
      * @return                 The leads
      */
-   public getContacts(page: number = 1, fields: string = '', query: string = '', specialQuery: SearchContactData | null = null ): Observable<HttpResponse> {
+   getContacts(page: number = 1, fields: string = '', query: string = '', specialQuery: SearchContactData | null = null ): Observable<HttpResponse> {
        const route: string = routes.contacts(this._workspaceId);
        let params: HttpParams = new HttpParams();
        params = params.append('page', page.toString());
@@ -63,6 +64,17 @@ private _workspaceId: string;
        if(!!specialQuery) params = params.append('search', this._getSpecialSearch(specialQuery));
        params = params.append('sortBy', '-createdAt');
        return this._httpClient.get<HttpResponse>(route, { params });
+   }
+
+   /**
+    * Update the contact data
+    * @param  contactId The contact ID
+    * @param  requestBody The contact data
+    * @return             Notification of action done
+    */
+   updateContact(contactId: string, requestBody: UpdateContactDataSend): Observable<void> {
+       const route: string = routes.contact(this._workspaceId, contactId);
+       return this._httpClient.put<void>(route, requestBody);
    }
 
    /**
