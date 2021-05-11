@@ -16,13 +16,13 @@
                     <div class="card-header pt-2 pb-0 border-bottom-0">
                         <h3 class="card-title">Cotizaciones<br/>Aceptadas</h3>
                         <div class="card-options">
-                            <a class="btn btn-sm btn-secondary" href="quotes_accepted.php"><i class="fe fe-maximize-2 mb-0"></i></a>
+                            <a class="btn btn-sm btn-secondary" routerLink="/{{ROUTES_NAME.listContactQuotations(contactId)}}" [queryParams]="{contentSubtype: resumeService.QUOTATION_STATUS.ACCEPTED}"><i class="fe fe-maximize-2 mb-0"></i></a>
                         </div>
                     </div>
                     <div class="card-body pt-0">
-                        <h3 class="d-inline-block mt-3 number-font"><span class="counter">0</span></h3>
+                        <h3 class="d-inline-block mt-3 number-font"><span class="counter">{{resumeService.totalQuotationsAccepted}}</span></h3>
                         <div class="progress h-2 mb-2">
-                            <div class="progress-bar bg-success w-50" role="progressbar"></div>
+                            <div class="progress-bar bg-success" [ngStyle]="{'width': ((resumeService.totalQuotations !== 0) ? (resumeService.totalQuotationsAccepted * 100 / resumeService.totalQuotations) : 0)+'%'}" role="progressbar"></div>
                         </div>
                     </div>
                 </div>
@@ -34,13 +34,13 @@
                     <div class="card-header pb-0 border-bottom-0">
                         <h3 class="card-title">Cotizaciones<br/>Pendientes</h3>
                         <div class="card-options">
-                            <a class="btn btn-sm btn-secondary" href="quotes.php"><i class="fe fe-maximize-2 mb-0"></i></a>
+                            <a class="btn btn-sm btn-secondary" routerLink="/{{ROUTES_NAME.listContactQuotations(contactId)}}" [queryParams]="{contentSubtype: resumeService.QUOTATION_STATUS.PENDING}"><i class="fe fe-maximize-2 mb-0"></i></a>
                         </div>
                     </div>
                     <div class="card-body pt-0">
-                        <h3 class="d-inline-block mt-3 number-font"><span class="counter">0</span></h3>
+                        <h3 class="d-inline-block mt-3 number-font"><span class="counter">{{resumeService.totalPendingQuotations}}</span></h3>
                         <div class="progress h-2 mb-2">
-                            <div class="progress-bar bg-warning w-50" role="progressbar"></div>
+                            <div class="progress-bar bg-warning" [ngStyle]="{'width': ((resumeService.totalQuotations !== 0) ? (resumeService.totalPendingQuotations * 100 / resumeService.totalQuotations) : 0)+'%'}" role="progressbar"></div>
                         </div>
                     </div>
                 </div>
@@ -52,13 +52,13 @@
                     <div class="card-header pb-0 border-bottom-0">
                         <h3 class="card-title">Cotizaciones<br/>Rechazadas</h3>
                         <div class="card-options">
-                            <a class="btn btn-sm btn-secondary" href="quotes_rejected.php"><i class="fe fe-maximize-2 mb-0"></i></a>
+                            <a class="btn btn-sm btn-secondary" routerLink="/{{ROUTES_NAME.listContactQuotations(contactId)}}" [queryParams]="{contentSubtype: resumeService.QUOTATION_STATUS.REJECTED}"><i class="fe fe-maximize-2 mb-0"></i></a>
                         </div>
                     </div>
                     <div class="card-body pt-0">
-                        <h3 class="d-inline-block mt-3 number-font"><span class="counter">0</span></h3>
+                        <h3 class="d-inline-block mt-3 number-font"><span class="counter">{{resumeService.totalQuotationsRejected}}</span></h3>
                         <div class="progress h-2 mb-2">
-                            <div class="progress-bar bg-danger w-50" role="progressbar"></div>
+                            <div class="progress-bar bg-danger" [ngStyle]="{'width': ((resumeService.totalQuotations !== 0) ? (resumeService.totalQuotationsRejected * 100 / resumeService.totalQuotations) : 0)+'%'}" role="progressbar"></div>
                         </div>
                     </div>
                 </div>
@@ -77,9 +77,9 @@
                 </span>
             </div>
             <div class="card-body pt-0">
-                <h3 class="d-inline-block mt-3 number-font"><span class="counter">0</span>%</h3>
+                <h3 class="d-inline-block mt-3 number-font"><span class="counter">{{resumeService.conversionRate}}</span>%</h3>
                 <div class="progress h-2 mb-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-blue-1 w-50" role="progressbar"></div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-blue-1" [ngStyle]="{'width': resumeService.conversionRate + '%'}" role="progressbar"></div>
                 </div>
             </div>
         </div>

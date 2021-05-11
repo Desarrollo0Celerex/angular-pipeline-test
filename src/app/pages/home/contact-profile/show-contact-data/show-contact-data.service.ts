@@ -162,7 +162,6 @@ export class ShowContactDataService {
         return this._contactService.getContact(contactId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.contact = res.data;
-                console.log('this.contact: ',this.contact);
             }),
             map(() => { })
         )

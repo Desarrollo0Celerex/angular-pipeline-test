@@ -24,7 +24,7 @@
                                     <!-- AGENTHOS - CONTACT SOURCE --->
                                     <h4 class="text-muted font-weight-normal mb-3">Origen: {{contactProfileService.contact.contactSourceName}}</h4>
                                     <!-- AGENTHOS - CONTACT PHONE -->
-                                    <h4 class="text-muted font-weight-normal">Teléfono: {{contactProfileService.contact.phoneNumber | phoneNumberFormat: contactProfileService.contact.phoneCode}}</h4>
+                                    <h4 class="text-muted font-weight-normal">Teléfono: {{contactProfileService.contact.phoneNumber | phoneNumberFormat: contactProfileService.contact.phoneCodeId}}</h4>
                                 </div>
                             </div>
                         </div>
@@ -56,12 +56,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.showContactData(contactId)">
+                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.showContactData(contactId)" routerLinkActive="active">
                             <span class="nav-link-icon d-block"><i class="fe fe-smartphone"></i> Contacto</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.showRecord(contactId)">
+                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.showRecord(contactId)" routerLinkActive="active">
                             <span class="nav-link-icon d-block"><i class="fe fe-download-cloud"></i> Expediente</span>
                         </a>
                     </li>
