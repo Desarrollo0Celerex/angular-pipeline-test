@@ -16,58 +16,58 @@ const EXPRESS_ROUTES = {
 }
 
 const HOME_CLIENTS_ROUTES = {
-    listClients: 'home/clients/list-clients'
+    listClients: 'workspace/clients/list-clients'
 }
 
 const HOME_CONTACTS_ROUTES = {
-    createContact: (contactTypeId: string) => `home/contacts/create-contact/${contactTypeId}`,
-    changeContact: (contactId: string, policyId: string, contactTypeId: string, actionType: string) => `home/contacts/change-contact/${contactId}/${policyId}/${contactTypeId}/${actionType}`,
-    contactSearchResults: () => `home/contacts/contact-search-results`,
-    listContactCoincidences: `home/contacts/list-contact-coincidences`
+    createContact: (contactTypeId: string) => `workspace/contacts/create-contact/${contactTypeId}`,
+    changeContact: (contactId: string, policyId: string, contactTypeId: string, actionType: string) => `workspace/contacts/change-contact/${contactId}/${policyId}/${contactTypeId}/${actionType}`,
+    contactSearchResults: () => `workspace/contacts/contact-search-results`,
+    listContactCoincidences: `workspace/contacts/list-contact-coincidences`
 }
 
 const HOME_CONTACT_PROFILE_ROUTES = {
-    contactResume: (contactId: string) => `home/contact-profile/${contactId}/resume`,
-    listContactQuotations: (contactId: string) => `home/contact-profile/${contactId}/list-quotations`,
-    listContactPolicies: (contactId: string) => `home/contact-profile/${contactId}/list-policies`,
-    listContactSinisters: (contactId: string) => `home/contact-profile/${contactId}/list-sinisters`,
-    showContactData: (contactId: string) => `home/contact-profile/${contactId}/show-contact-data`,
-    showRecord: (contactId: string) => `home/contact-profile/${contactId}/show-record`,
+    contactResume: (contactId: string) => `workspace/contact-profile/${contactId}/resume`,
+    listContactQuotations: (contactId: string) => `workspace/contact-profile/${contactId}/list-quotations`,
+    listContactPolicies: (contactId: string) => `workspace/contact-profile/${contactId}/list-policies`,
+    listContactSinisters: (contactId: string) => `workspace/contact-profile/${contactId}/list-sinisters`,
+    showContactData: (contactId: string) => `workspace/contact-profile/${contactId}/show-contact-data`,
+    showRecord: (contactId: string) => `workspace/contact-profile/${contactId}/show-record`,
 }
 
 const HOME_DATA_ROUTES = {
-    dashboard: 'home/data/dashboard'
+    dashboard: 'workspace/data/dashboard'
 }
 
 const HOME_ERRORS_ROUTES = {
-    accessDenied: 'home/errors/access-denied'
+    accessDenied: 'workspace/errors/access-denied'
 }
 
 const HOME_INVITATIONS_ROUTES = {
-    listInvitations: 'home/invitations/list-invitations'
+    listInvitations: 'workspace/invitations/list-invitations'
 }
 
 const HOME_LEADS_ROUTES = {
-    listLeads: 'home/leads/list-leads'
+    listLeads: 'workspace/leads/list-leads'
 }
 
 const HOME_PAYMENTS_ROUTES = {
-    listPayments: `home/payments/list-payments`,
-    paymentHistory: (contactId: string, policyId: string, paymentId: string) => `home/payments/payment-history/${contactId}/${policyId}/${paymentId}`
+    listPayments: `workspace/payments/list-payments`,
+    paymentHistory: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/payment-history/${contactId}/${policyId}/${paymentId}`
 }
 
 const HOME_POLICIES_ROUTES = {
-    createPolicy: (contactId: string) => `home/policies/create-policy/${contactId}`,
-    uploadPolicy: (contactId: string, policyId: string) => `home/policies/upload-policy/${contactId}/${policyId}`,
-    completePolicy: (contactId: string, policyId: string) => `home/policies/complete-policy/${contactId}/${policyId}`,
-    updatePolicy: (contactId: string, policyId: string) => `home/policies/update-policy/${contactId}/${policyId}`,
-    endorsePolicy: (contactId: string, policyId: string) => `home/policies/endorse-policy/${contactId}/${policyId}`,
-    cancelPolicy: (contactId: string, policyId: string) => `home/policies/cancel-policy/${contactId}/${policyId}`,
-    showHistoryPolicy: (contactId: string, policyId: string) => `home/policies/history-policy/${contactId}/${policyId}`,
+    createPolicy: (contactId: string) => `workspace/policies/create-policy/${contactId}`,
+    uploadPolicy: (contactId: string, policyId: string) => `workspace/policies/upload-policy/${contactId}/${policyId}`,
+    completePolicy: (contactId: string, policyId: string) => `workspace/policies/complete-policy/${contactId}/${policyId}`,
+    updatePolicy: (contactId: string, policyId: string) => `workspace/policies/update-policy/${contactId}/${policyId}`,
+    endorsePolicy: (contactId: string, policyId: string) => `workspace/policies/endorse-policy/${contactId}/${policyId}`,
+    cancelPolicy: (contactId: string, policyId: string) => `workspace/policies/cancel-policy/${contactId}/${policyId}`,
+    showHistoryPolicy: (contactId: string, policyId: string) => `workspace/policies/history-policy/${contactId}/${policyId}`,
 }
 
 const HOME_QUOTATIONS_ROUTES = {
-    createQuotation: (contactId: string) => `home/quotations/create-quotation/${contactId}`,
+    createQuotation: (contactId: string) => `workspace/quotations/create-quotation/${contactId}`,
 }
 
 const INVITATIONS_ROUTES = {
@@ -75,7 +75,7 @@ const INVITATIONS_ROUTES = {
 }
 
 const SEARCHES_ROUTES = {
-    listSearchResults: 'home/searches/search-results'
+    listSearchResults: 'workspace/searches/search-results'
 }
 
 const WORKSPACES_ROUTES = {

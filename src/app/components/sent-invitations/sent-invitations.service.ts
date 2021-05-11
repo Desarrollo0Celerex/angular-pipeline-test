@@ -55,7 +55,7 @@ export class SentInvitationsService {
         const fields: string = 'invitationId,name,email,roleId,invitationToken';
         return this._invitationService.getInvitations(fields, INVITATION_STATUS.PENDING).pipe(
             tap( (res: HttpResponse) => {
-                this.invitationsSent = res.data.data;
+                this.invitationsSent = res.data.items;
             }),
             map(() => { return; })
         );
