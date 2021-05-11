@@ -1,0 +1,30 @@
+<!-- AGENTHOS - SIDEBAR -->
+<div class="sidebar sidebar-right sidebar-animate">
+	<div class="row">
+		<!-- AGENTHOS - USER CARD -->
+		<div class="col-md-12">
+
+			<div class="card-body" *ngIf="!!sidebarService.workspace">
+				<div class="media mt-0">
+					<div class="d-flex mr-3">
+						<img class="avatar avatar-xl brround cover-image cover-image" [src]="sidebarService.workspace.avatarUrl"/>
+					</div>
+					<div class="media-body">
+						<h5>{{sidebarService.workspace.brandName}}</h5>
+						<span class="badge badge-primary">Plan Lite</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="card-body text-center">
+				<button type="button" class="btn btn-pill btn-default mt-5" (click)="onClickGoInvitations()"><strong>COLABORADORES</strong></button>
+				<a href="https://olympuz.com" target="_blank">
+				<button type="button" name="agtCommunity" class="btn btn-pill btn-default mt-5"><strong>COMUNIDAD</strong></button></a>
+				<a href="https://m.me/agenthos" target="_blank">
+				<button type="button" name="agtSupport" class="btn btn-pill btn-default mt-5"><strong>SOPORTE</strong></button></a>
+			</div>
+		</div>
+		<!-- //AGENTHOS - USER CARD -->
+	</div>
+</div>
+<!-- //AGENTHOS - SIDEBAR -->

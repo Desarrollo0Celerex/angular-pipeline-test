@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { WorkspaceInfoModule } from '@components/workspace-info/workspace-info.module';
 import { HeaderModule } from '@components/header/header.module';
 import { NavbarModule } from '@components/navbar/navbar.module';
+import { SidebarModule } from '@components/sidebar/sidebar.module';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
@@ -16,7 +17,8 @@ import { HomePage } from './home.page';
     WorkspaceInfoModule,
     HeaderModule,
     HomeRoutingModule,
-    NavbarModule
+    NavbarModule,
+    SidebarModule
   ]
 })
 export class HomeModule { }
