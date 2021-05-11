@@ -12,14 +12,14 @@ export class ContainerContactDetailsComponent implements OnChanges {
     @Input() contactId: string;
     @Input() message: string;
 
-    constructor(public cardContactService: ContainerContactDetailsService) {
+    constructor(public containerContactDetailsService: ContainerContactDetailsService) {
         this.contactId = '';
         this.message = '';
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.contactId.currentValue) {
-            this.cardContactService.loadContact(this.contactId);
+            this.containerContactDetailsService.loadContact(this.contactId);
         }
     }
 

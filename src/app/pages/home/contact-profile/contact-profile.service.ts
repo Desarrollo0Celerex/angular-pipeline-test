@@ -8,28 +8,9 @@ import { Contact } from '@interfaces/contact.interface';
 
 @Injectable()
 export class ContactProfileService {
-    contact: Contact;
+    contact: Contact | null = null;
 
-    constructor(private _contactService: ContactService) {
-        this.contact = {
-            contactId: '',
-            avatarUrl: '',
-            contactName: '',
-            contactSourceName: '',
-            phoneCode: '',
-            phoneNumber: '',
-            email: '',
-            contactTypeName: '',
-            contactScoreName: '',
-            leadStatusName: '',
-            leadStatusBackground: '',
-            clientStatusName: '',
-            clientStatusBackground: '',
-            totalWallet: 0,
-            totalPolicies: 0,
-            currencyName: ''
-        }
-    }
+    constructor(private _contactService: ContactService) { }
 
     /**
      * Get the page type

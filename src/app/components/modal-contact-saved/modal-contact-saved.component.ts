@@ -10,6 +10,7 @@ import { BUTTON_TYPES } from '@constants/global';
 })
 export class ModalContactSavedComponent {
     @Input() contactId: string;
+    @Input() isContactSaved: boolean = false;
     @Input() modalId: string;
     BUTTON_TYPES: any;
 

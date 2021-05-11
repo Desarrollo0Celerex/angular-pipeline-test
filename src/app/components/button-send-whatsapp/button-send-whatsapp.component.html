@@ -20,4 +20,11 @@
             </span>
         </div>
     </ng-container>
+    <ng-container *ngSwitchCase="BUTTON_TYPES.ICON">
+        <a href="{{(!!buttonSendWhatsappService.phone.phoneNumber) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
+            <button type="button" class="btn btn-icon btn-lime mr-5" [disabled]="!(!!buttonSendWhatsappService.phone.phoneNumber) && required" (click)="onClickCheckConnection()">
+                <i class="fa fa-whatsapp"></i>
+            </button>
+        </a>
+    </ng-container>
 </ng-container>

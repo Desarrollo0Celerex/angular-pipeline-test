@@ -4,6 +4,18 @@ import { Alert } from '@interfaces/alert.interface';
 
 export class AlertHelper {
 
+    static contactUpdated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Contacto Actualizado',
+            text: 'Los datos han sido actualizados con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static globalError(): void {
         const alertData: Alert = {
             title: 'Error',

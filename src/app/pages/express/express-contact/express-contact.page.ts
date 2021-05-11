@@ -38,7 +38,7 @@ export class ExpressContactPage implements OnInit {
     /**
      * Event to notify if the connection failed
      */
-    onConnectionFailed(): void {
+    onContactActionFailed(): void {
         ModalPlugin.show(this.incompleteContactDataModalId);
     }
 

@@ -13,10 +13,10 @@
 
 						<!-- AGENTHOS - ATOM PASS -->
 						<div class="col-md-12">
-							<agt-button-do-call [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken" (connectionFailed)="onConnectionFailed()"></agt-button-do-call>
-							<agt-button-send-whatsapp [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken" (connectionFailed)="onConnectionFailed()"></agt-button-send-whatsapp>
-							<agt-button-send-telegram [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken" (connectionFailed)="onConnectionFailed()"></agt-button-send-telegram>
-							<agt-button-send-email [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken" (connectionFailed)="onConnectionFailed()"></agt-button-send-email>
+							<agt-button-do-call [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken" (contactActionFailed)="onContactActionFailed()"></agt-button-do-call>
+							<agt-button-send-whatsapp [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken" (contactActionFailed)="onContactActionFailed()"></agt-button-send-whatsapp>
+							<agt-button-send-telegram [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken" (contactActionFailed)="onContactActionFailed()"></agt-button-send-telegram>
+							<agt-button-send-email [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken" (contactActionFailed)="onContactActionFailed()"></agt-button-send-email>
 							<div class="mt-5"></div>
 							<agt-button-download-contact [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken"></agt-button-download-contact>
 						</div>

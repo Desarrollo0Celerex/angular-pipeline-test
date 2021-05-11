@@ -15,7 +15,7 @@ export class ButtonSendEmailComponent implements OnChanges {
     @Input() contactId: string;
     @Input() expressToken: string;
     @Input() required: boolean;
-    @Output() connectionFailed: EventEmitter<void>;
+    @Output() contactActionFailed: EventEmitter<void>;
     BUTTON_TYPES: any = BUTTON_TYPES;
 
     constructor(public buttonSendEmailService: ButtonSendEmailService) {
@@ -23,7 +23,7 @@ export class ButtonSendEmailComponent implements OnChanges {
         this.contactId = '';
         this.expressToken = '';
         this.required = false;
-        this.connectionFailed = new EventEmitter<void>();
+        this.contactActionFailed = new EventEmitter<void>();
         this.BUTTON_TYPES = BUTTON_TYPES;
     }
 
@@ -57,7 +57,7 @@ export class ButtonSendEmailComponent implements OnChanges {
      */
     public onClickCheckConnection(): void {
         if(!(!!this.buttonSendEmailService.email)) {
-            this.connectionFailed.emit();
+            this.contactActionFailed.emit();
         }
     }
 }
