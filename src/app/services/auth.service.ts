@@ -56,6 +56,17 @@ export class AuthService {
     }
 
     /**
+     * Check if the user has permission to access a page
+     * @param  roles The allowed roles
+     * @return       True if the user has it, otherwise false
+     */
+    checkHasPermission(roles: number[]): boolean {
+        const userTokenData: UserTokenData | null = this._storageService.getUserTokenData();
+        const roleId: number = (!!userTokenData) ? userTokenData.roleId : 0;
+        return (roles.indexOf(roleId) !== -1) ? true : false;
+    }
+
+    /**
      * Check if the user has a workspace
      * @return True if you have it, otherwise false
      */
