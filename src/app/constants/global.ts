@@ -161,6 +161,15 @@ export const ENDORSEMENT_PAYMENT_METHODS: any = {
     POLICY_RECEIPTS: 1,
     INDEPENDENT_RECEIPTS: 2
 }
+export const ROLES: any = {
+    GLOBAL_ADMIN: 1,
+    WALLET_MANAGER: 2,
+    SALES_MANAGER: 3,
+    SINISTER_MANAGER: 4,
+    MARKETING_MANAGER: 5,
+    INSURANCE_ADVISOR: 6,
+    DATA_ANALYST: 7
+}
 
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;

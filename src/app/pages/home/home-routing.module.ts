@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { ROLES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { UserAuthenticatedGuard } from '@guards/user-authenticated.guard';
+import { UserAuthorizedGuard } from '@guards/user-authorized.guard';
 import { WorkspaceActivatedGuard } from '@guards/workspace-activated.guard';
 
 import { HomePage } from './home.page';
@@ -28,7 +30,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.accessDenied, loadChildren: () => import('@pages/home/errors/access-denied/access-denied.module').then(mod => mod.AccessDeniedModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Invitations routes
-            { path: ROUTES_NAME.listInvitations, loadChildren: () => import('@pages/home/invitations/list-invitations/list-invitations.module').then(mod => mod.ListInvitationsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.listInvitations, loadChildren: () => import('@pages/home/invitations/list-invitations/list-invitations.module').then(mod => mod.ListInvitationsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard, UserAuthorizedGuard], data: { roles: [ROLES.GLOBAL_ADMIN, ROLES.WALLET_MANAGER] } },
 
             // Leads routes
             { path: ROUTES_NAME.listLeads, loadChildren: () => import('@pages/home/leads/list-leads/list-leads.module').then(mod => mod.ListLeadsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
