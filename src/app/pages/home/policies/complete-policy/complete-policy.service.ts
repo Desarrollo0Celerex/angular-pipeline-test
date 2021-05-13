@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH, DEFAULT_CURRENCY_ID, DEFAULT_METHOD_ID, DEFAULT_PLAN_ID } from '@constants/global';
+import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Currency } from '@interfaces/currency.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
 import { Policy } from '@interfaces/policy.interface';
-import { PolicyPreview } from '@interfaces/policy-preview.interface';
 import { AtomScannService } from '@services/atom-scann.service';
 import { CurrencyService } from '@services/currency.service';
 import { PaymentMethodService } from '@services/payment-method.service';
@@ -23,12 +23,13 @@ export class CompletePolicyService {
     currencies: Currency[];
     paymentMethods: PaymentMethod[];
     paymentPlans: PaymentPlan[];
-    policy: PolicyPreview | null;
+    policy: Policy | null;
     policyForm: FormGroup;
 
     constructor(
         private _atomScannService: AtomScannService,
         private _currencyService: CurrencyService,
+        private _datePipe: DatePipe,
         private _formBuilder: FormBuilder,
         private _paymentMethodService: PaymentMethodService,
         private _paymentPlanService: PaymentPlanService,
@@ -62,9 +63,9 @@ export class CompletePolicyService {
             titularPostalCode: ['', [ValidatorsHelper.postalCode ] ],
             titularPhoneNumber: [(!!policy && !!policy.titularPhoneNumber) ? policy.titularPhoneNumber : '', [ValidatorsHelper.phoneNumber] ],
             policyAmount: [(!!policy && !!policy.policyAmount) ? policy.policyAmount : '', [Validators.required, ValidatorsHelper.amount] ],
-            currencyId: [(!!policy && !!policy.currencyId) ? policy.currencyId : DEFAULT_CURRENCY_ID, [Validators.required]],
-            paymentMethodId: [(!!policy && !!policy.paymentMethodId) ? policy.paymentMethodId : DEFAULT_METHOD_ID, [Validators.required]],
-            paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : DEFAULT_PLAN_ID, [Validators.required]],
+            currencyId: [(!!policy && !!policy.currencyId) ? policy.currencyId : '', [Validators.required]],
+            paymentMethodId: [(!!policy && !!policy.paymentMethodId) ? policy.paymentMethodId : '', [Validators.required]],
+            paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : '', [Validators.required]],
             bills: ['', [Validators.required, ValidatorsHelper.number]]
         });
     }
@@ -126,10 +127,15 @@ export class CompletePolicyService {
      */
     loadContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
+                if(!!this.policy) {
+                    this.policy.emissionDate = this._getDateFormat(this.policy.emissionDate);
+                    this.policy.validityStartDate = this._getDateFormat(this.policy.validityStartDate);
+                    this.policy.validityEndDate = this._getDateFormat(this.policy.validityEndDate);
+                }
             })
         )
     }
@@ -179,6 +185,20 @@ export class CompletePolicyService {
     scannPolicy(policyFile: any): Observable<HttpResponse> {
         const requestBody: FormData = this._getRequestBodyToScannPolicy(policyFile);
         return this._atomScannService.scannPolicy(requestBody);
+    }
+
+    /**
+     * Get the date format
+     * @param  date The date to format
+     * @return      The formatted date
+     */
+    private _getDateFormat(date: string | null): string {
+        let dateFormat: string = '';
+        if(!!date) {
+            const formattedDate: string | null = this._datePipe.transform(date, 'dd/MM/yyyy');
+            dateFormat = (!!formattedDate) ? formattedDate : '';
+        }
+        return dateFormat;
     }
 
     /**
