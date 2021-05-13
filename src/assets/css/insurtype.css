@@ -150,6 +150,14 @@
 	background: linear-gradient(to right,#E5F7F4 0,#00b894  100%);
 }
 
+.schoolarInsurance{
+	background-color: #00b894;
+	color: #E5F7F4;
+}
+.schoolarInsurancePolicy{
+	background: linear-gradient(to right,#E5F7F4 0,#00b894  100%);
+}
+
 .fianceInsurance{
 	background-color: #00b894;
 	color: #E5F7F4;
@@ -159,6 +167,13 @@
 }
 
 /* SEGUROS RESPONSABILIDAD CIVIL */
+.catastropheInsurance{
+	background-color: #fdcb6e;
+	color: #FEF9F0;
+}
+.catastropheInsurancePolicy{
+	background: linear-gradient(to right,#FEF9F0 0,#fdcb6e  100%);
+}
 
 .civilInsurance{
 	background-color: #fdcb6e;
@@ -185,6 +200,14 @@
 }
 
 /* SEGUROS TRANSPORTES PESADOS */
+
+.truckInsurance{
+	background-color: #ff926b;
+	color: #FFF4F0;
+}
+.truckInsurancePolicy{
+	background: linear-gradient(to right,#FFF4F0 0,#ff926b  100%);
+}
 
 .transportInsurance{
 	background-color: #ff926b;

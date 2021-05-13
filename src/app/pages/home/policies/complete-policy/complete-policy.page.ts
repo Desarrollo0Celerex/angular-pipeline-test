@@ -178,7 +178,7 @@ export class CompletePolicyPage implements OnInit {
     private _loadContactPolicy(): void {
         this.completePolicyService.loadContactPolicy(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
             this._downloadPolicy(res.data.policyUrl);
-            this.completePolicyService.buildPolicyForm();
+            this.completePolicyService.buildPolicyForm(res.data);
             this._initCalendars();
             this._loadCurrencies();
             this._loadPaymentMethods();

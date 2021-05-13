@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ContainerContactDetailsModule } from '@components/container-contact-details/container-contact-details.module';
@@ -32,6 +32,6 @@ import { CompletePolicyService } from './complete-policy.service';
     ModalShowPolicyModule,
     ReactiveFormsModule
   ],
-  providers: [AtomScannService, CompletePolicyService, CurrencyService, PaymentMethodService, PaymentPlanService, PolicyService]
+  providers: [AtomScannService, CompletePolicyService, CurrencyService, DatePipe, PaymentMethodService, PaymentPlanService, PolicyService]
 })
 export class CompletePolicyModule { }
