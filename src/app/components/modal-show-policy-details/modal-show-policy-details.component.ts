@@ -32,7 +32,7 @@ export class ModalShowPolicyDetailsComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if((!!changes.contactId && changes.contactId.currentValue) && (!!changes.policyId && !!changes.policyId.currentValue) ) {
+        if(((!!changes.contactId && changes.contactId.currentValue) && (!!changes.policyId && !!changes.policyId.currentValue) ) || (!!this.contactId && (!!changes.policyId && !!changes.policyId.currentValue) )) {
             this.modalShowPolicyDetailsService.resetPolicyDetails();
             this.modalShowPolicyDetailsService.loadPolicyDetails(this.contactId, this.policyId);
         }
