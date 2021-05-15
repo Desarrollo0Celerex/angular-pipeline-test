@@ -9,6 +9,7 @@ import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardPolicyRecordModule } from '@components/card-policy-record/card-policy-record.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
 import { CardReceiptPaidRecordModule } from '@components/card-receipt-paid-record/card-receipt-paid-record.module';
+import { CardSinisterModule } from '@components/card-sinister/card-sinister.module';
 
 import { ContainerIncompletePoliciesModule } from '@components/container-incomplete-policies/container-incomplete-policies.module';
 import { ContentResultsModule } from '@components/content-results/content-results.module';
@@ -45,6 +46,7 @@ import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
 import { QuotationService } from '@services/quotation.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
+import { SinisterService } from '@services/sinister.service';
 
 import { ContentListComponent } from './content-list.component';
 import { ContentListService } from './content-list.service';
@@ -61,6 +63,7 @@ import { ContentListService } from './content-list.service';
     CardPolicyRecordModule,
     CardQuotationModule,
     CardReceiptPaidRecordModule,
+    CardSinisterModule,
     CommonModule,
     ContainerIncompletePoliciesModule,
     ContentResultsModule,
@@ -87,6 +90,6 @@ import { ContentListService } from './content-list.service';
     ModalShowPolicyDetailsModule,
     ModalShowQuotationDetailsModule
   ],
-  providers: [ClientService, ContactService, ContentListService, LeadService, PaymentService, PolicyService, QuotationService, ReceiptPaidService]
+  providers: [ClientService, ContactService, ContentListService, LeadService, PaymentService, PolicyService, QuotationService, ReceiptPaidService, SinisterService]
 })
 export class ContentListModule { }

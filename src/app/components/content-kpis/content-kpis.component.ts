@@ -64,6 +64,13 @@ export class ContentKpisComponent implements OnInit, OnChanges {
                 this._loadContentSubtypeName();
             });
             break;
+
+            case CONTENT_TYPES.SINISTER.ID:
+            this.contentKpisService.loadSinisterKpis().subscribe( () => {
+                CounterPlugin.countUp();
+                this._loadContentSubtypeName();
+            });
+            break;
         }
     }
 

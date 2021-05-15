@@ -438,6 +438,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.SINISTER.ID:
                 this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-3';
             break;
 
@@ -515,6 +516,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this.contentListService.loadPaymentHistory(this.paymentId, this.page).subscribe( () => {
                     this._contentLoaded();
                 })
+            break;
+
+            case CONTENT_TYPES.SINISTER.ID:
+            this.contentListService.loadSinisters(this.page, this.contentSubtype).subscribe( () => {
+                this._contentLoaded();
+            });
             break;
         }
     }

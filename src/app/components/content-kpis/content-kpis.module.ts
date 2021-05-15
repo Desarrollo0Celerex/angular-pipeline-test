@@ -9,6 +9,8 @@ import { LeadService } from '@services/lead.service';
 import { LeadStatusService } from '@services/lead-status.service';
 import { PaymentService } from '@services/payment.service';
 import { PaymentStatusService } from '@services/payment-status.service';
+import { SinisterService } from '@services/sinister.service';
+import { SinisterStatusService } from '@services/sinister-status.service';
 
 import { ContentKpisComponent } from './content-kpis.component';
 import { ContentKpisService } from './content-kpis.service';
@@ -21,6 +23,6 @@ import { ContentKpisService } from './content-kpis.service';
     PluralNameFormatModule,
     RouterModule
   ],
-  providers: [ClientService, ClientStatusService, ContentKpisService, LeadService, LeadStatusService, PaymentService, PaymentStatusService]
+  providers: [ClientService, ClientStatusService, ContentKpisService, LeadService, LeadStatusService, PaymentService, PaymentStatusService, SinisterService, SinisterStatusService]
 })
 export class ContentKpisModule { }

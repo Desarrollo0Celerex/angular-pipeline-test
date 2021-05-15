@@ -70,6 +70,9 @@
                     (cancelPolicy)="onCancelPolicy($event)"
                     (showPaymentHistory)="onShowPaymentHistory($event)"
                 ></agt-card-payment>
+                <agt-card-sinister *ngSwitchCase="CONTENT_TYPES.SINISTER.ID"
+                    [sinister]="content"
+                ></agt-card-sinister>
             </ng-container>
         </div>
     </ng-template>

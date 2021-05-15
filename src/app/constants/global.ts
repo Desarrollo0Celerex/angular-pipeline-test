@@ -60,6 +60,13 @@ export const PAYMENT_STATUS: any = {
     PAID: 5
 }
 export const POLICY_STATUS_ACTIVE: number = 100;
+export const SINISTER_STATUS: any = {
+    RECENT: 1,
+    PENDING: 2,
+    UNFINISHED: 3,
+    CONFLICTIVE: 4,
+    FINISHED: 5
+}
 
 // Types
 export const CONTENT_TYPES: any = {

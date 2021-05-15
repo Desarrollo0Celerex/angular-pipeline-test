@@ -16,6 +16,7 @@ import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
 import { QuotationService } from '@services/quotation.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
+import { SinisterService } from '@services/sinister.service';
 
 @Injectable()
 export class ContentListService {
@@ -29,7 +30,8 @@ export class ContentListService {
         private _paymentService: PaymentService,
         private _policyService: PolicyService,
         private _quotationService: QuotationService,
-        private _receiptPaidService: ReceiptPaidService
+        private _receiptPaidService: ReceiptPaidService,
+        private _sinisterService: SinisterService
     ) {
         this.contents = this._initContents();
         this.contentResultData = this._initContentResultData();
@@ -168,6 +170,23 @@ export class ContentListService {
             }),
             map( () => { })
         )
+    }
+
+    /**
+     * Load the sinisters
+     * @param  page           The page number to get
+     * @param  contentSubtype The filter to apply
+     * @return                Notice of action done
+     */
+    loadSinisters(page: number, contentSubtype: number): Observable<void> {
+        const fields: string = 'sinisterId,sinisterNumber,invoice,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime';
+        return this._sinisterService.getSinisters(page, fields, contentSubtype).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
     }
 
     /**

@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { ListSinistersPage } from './list-sinisters.page';
+
+const routes: Routes = [{ path: '', component: ListSinistersPage }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
