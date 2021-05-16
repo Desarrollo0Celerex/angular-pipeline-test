@@ -1,0 +1,53 @@
+<!-- AGENTHOS - POLICY DUPLICATED -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pólizas Encontradas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-justify"><strong>Se ha detectado que este número le pertenece a más de una póliza.</strong> Por favor selecciona la póliza a la que deseas reportar el siniestro.</p>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <div class="list-group list-lg-group list-group-flush">
+                            <!-- AGENTHOS - POLICY FOUND -->
+                            <div class="list-group-item list-group-item-action" *ngFor="let policy of policies">
+                                <div class="media mt-0">
+                                    <div class="media-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mt-0">
+                                                <!-- AGENTHOS - POLICY STATUS -->
+                                                <div class="badge badge-{{policy.policyStatusBackground}} mr-1 mb-3">{{policy.policyStatusName | uppercase}}</div>
+                                                <!-- AGENTHOS - POLICY NUMBER -->
+                                                <h5 class="mb-3">{{policy.policyNumber}}</h5>
+                                                <!-- AGENTHOS - VALIDITY START -->
+                                                <p class="mb-1 fs-13 text-muted">Inicio de Vigencia: {{policy.validityStartDate | date: 'dd/MM/yyyy'}}</p>
+                                                <!-- AGENTHOS - VALIDITY END -->
+                                                <p class="mb-1 fs-13 text-muted">Fin de Vigencia: {{policy.validityEndDate | date: 'dd/MM/yyyy'}}</p>
+                                                <!-- AGENTHOS - TOTAL SINISTER -->
+                                                <p class="fs-13 text-muted">Prima Total: {{policy.totalAmount | currency: '': '$': '0.2-2'}} {{policy.currencyName}}</p>
+                                            </div>
+                                            <small class="ml-auto fs-16 mt-2">
+                                                <button type="button" class="btn btn-primary" (click)="onClickSelectPolicy(policy)"><i class="fe fe-check-square"></i></button>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - POLICY FOUND -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" name="agtCancelAction" class="btn btn-block btn-secondary" data-dismiss="modal"><strong>CANCELAR</strong></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - POLICY DUPLICATED -->

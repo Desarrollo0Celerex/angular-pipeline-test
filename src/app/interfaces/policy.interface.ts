@@ -29,5 +29,6 @@ export interface Policy {
     titularPhoneNumber: string,
     currencyId: number,
     paymentMethodId: number,
-    paymentPlanId: number
+    paymentPlanId: number,
+    totalAmount: number
 }

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { CONTENT_TYPES } from '@constants/global';
+import { Policy } from '@interfaces/policy.interface';
 import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
 
 declare var ModalPlugin: any;
@@ -17,6 +18,8 @@ export class ContentMainActionComponent implements OnInit {
     @Input() contentSubtype: number;
     @Output() contentSubtypeNameSelected: EventEmitter<string>;
     CONTENT_TYPES: any;
+    modalIdSearchPolicy: string = 'agt-search-policy';
+    searchPolicyMessage: string = '';
     selectContactTypeModalId: string;
     selectPolicyStatusModalId: string;
     selectQuotationStatusModalId: string;
@@ -46,6 +49,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.CONTACT_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'Actualizar Cobranza '; break;
+            case CONTENT_TYPES.SINISTER.ID: title = 'Nuevo '+this.contentTypeName; break;
         }
         return title;
     }
@@ -64,6 +68,7 @@ export class ContentMainActionComponent implements OnInit {
                 title = 'EXPLORAR HISTORIAL';
             break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'APLICAR PAGO'; break;
+            case CONTENT_TYPES.SINISTER.ID: title = 'REPORTAR '+this.contentTypeName; break;
         }
         return title;
     }
@@ -77,6 +82,10 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CLIENT.ID: ModalPlugin.show(this.selectContactTypeModalId); break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: ModalPlugin.show(this.selectQuotationStatusModalId); break;
             case CONTENT_TYPES.CONTACT_POLICY.ID: ModalPlugin.show(this.selectPolicyStatusModalId); break;
+            case CONTENT_TYPES.SINISTER.ID:
+                this.searchPolicyMessage = 'Ingresa la póliza a la que deseas reportar el siniestro.';
+                ModalPlugin.show(this.modalIdSearchPolicy);
+                break;
         }
     }
 
@@ -86,6 +95,14 @@ export class ContentMainActionComponent implements OnInit {
      */
     onContentSubtypeNameSelected(contentSubtypeName: string): void {
         this.contentSubtypeNameSelected.emit(contentSubtypeName);
+    }
+
+    /**
+     * Event to catch the found policy
+     * @param policies The found policy
+     */
+    onPolicyFound(policy: Policy): void {
+        console.log('Póliza encontrada: ', policy);
     }
 
 }

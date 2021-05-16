@@ -19,3 +19,6 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID">
     <agt-modal-select-policy-status [modalId]="selectPolicyStatusModalId" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-modal-select-policy-status>
 </ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.SINISTER.ID">
+    <agt-modal-search-policy [modalId]="modalIdSearchPolicy" [message]="searchPolicyMessage" (policyFound)="onPolicyFound($event)"></agt-modal-search-policy>
+</ng-container>
