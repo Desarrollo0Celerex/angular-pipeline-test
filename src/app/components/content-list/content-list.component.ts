@@ -6,6 +6,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
+import { Sinister } from '@interfaces/sinister.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
@@ -53,6 +54,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedPolicyId: string;
     selectedQuotationId: string;
     selectedReceiptPaidId: string;
+    selectedSinister: Sinister | null = null;
     modalIdAcceptQuotation: string;
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
@@ -71,6 +73,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
     modalIdShowQuotationDetails: string;
+    modalIdShowSinisterDetails: string = 'agt-show-sinister-details';
     totalResults: number;
     private subParams: any;
 
@@ -385,6 +388,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.selectedPolicyId = data.sourceId;
         this.selectedContactId = data.sourceContactId;
         ModalPlugin.show(this.modalIdShowPolicyDetails);
+    }
+
+    /**
+     * Event to show the sinister details
+     * @param sinister The selected sinister
+     */
+    onShowSinisterDetails(sinister: Sinister): void {
+        this.selectedSinister = sinister;
+        ModalPlugin.show(this.modalIdShowSinisterDetails);
     }
 
     /**

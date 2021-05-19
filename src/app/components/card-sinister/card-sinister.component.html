@@ -50,16 +50,10 @@
             <!-- AGENTHOS - SINISTER LIFE -->
             <div class="progress-bar carInsurancePolicy w-70"></div>
         </div>
-        <div class="row">
+        <div class="row mt-4">
             <div class="col text-left">
-                <!-- AGENTHOS - SINISTER NUMBER -->
-                <h4 class="font-weight-normal mt-2 mb-0"><strong>SINIESTRO:</strong><br>{{sinister.sinisterNumber}}</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col text-right">
-                <!-- AGENTHOS - SINISTER INVOICE -->
-                <h4 class="font-weight-normal mt-2 mb-0"><strong>FOLIO:</strong><br>{{sinister.invoice}}</h4>
+                <span class="text-muted">TIPO</span>
+                <h4 class="font-weight-normal mt-2 mb-0 number-font1"><strong>{{sinister.sinisterTypeName | uppercase}}</strong></h4>
             </div>
         </div>
         <!-- //AGENTHOS - SINISTER RESUME -->
@@ -70,7 +64,7 @@
         <div class="row">
             <!-- AGENTHOS - SINISER VIEW -->
             <div class="col-sm-9 col-9 text-left">
-                <button type="button" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button>
+                <button type="button" class="btn btn-block btn-primary" (click)="onClickShowDetails()"><strong>VER DETALLES</strong></button>
             </div>
             <!-- AGENTHOS - SINISER DETAILS -->
             <div class="col-sm-3 col-3 text-right">

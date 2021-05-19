@@ -2,6 +2,8 @@ export interface Sinister {
     sinisterId: number,
     sinisterNumber: string,
     invoice: string,
+    certificate: string,
+    sinisterDate: string,
     insurerImageUrl: string,
     sinisterStatusName: string,
     sinisterStatusBackground: string,
@@ -15,5 +17,11 @@ export interface Sinister {
     policyNumber: string,
     validityStartDate: string,
     validityEndDate: string,
-    lifeTime: number
+    lifeTime: number,
+    policyId: string,
+    contactId: string,
+    sinisterTypeName: string,
+    totalEvents: number,
+    titularName: string,
+    dateLastEvent: string
 }

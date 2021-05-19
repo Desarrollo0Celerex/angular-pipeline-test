@@ -179,7 +179,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadSinisters(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime';
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName';
         return this._sinisterService.getSinisters(page, fields, contentSubtype).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);

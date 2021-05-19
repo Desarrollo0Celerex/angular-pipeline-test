@@ -72,6 +72,7 @@
                 ></agt-card-payment>
                 <agt-card-sinister *ngSwitchCase="CONTENT_TYPES.SINISTER.ID"
                     [sinister]="content"
+                    (showSinisterDetails)="onShowSinisterDetails($event)"
                 ></agt-card-sinister>
             </ng-container>
         </div>
@@ -118,5 +119,8 @@
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT_HISTORY.ID">
     <agt-modal-confirm-delete-receipt-paid [modalId]="modalIdConfirmDeleteReceiptPaid" (deleteReceiptPaidConfimed)="onDeleteReceiptPaidConfirmed()"></agt-modal-confirm-delete-receipt-paid>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.SINISTER.ID">
+    <agt-modal-show-sinister-details [modalId]="modalIdShowSinisterDetails" [sinister]="selectedSinister"></agt-modal-show-sinister-details>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

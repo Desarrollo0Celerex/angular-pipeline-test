@@ -36,6 +36,7 @@ import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/m
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
+import { ModalShowSinisterDetailsModule } from '@components/modal-show-sinister-details/modal-show-sinister-details.module';
 
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
 
@@ -88,7 +89,8 @@ import { ContentListService } from './content-list.service';
     ModalShowEndorsementModule,
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
-    ModalShowQuotationDetailsModule
+    ModalShowQuotationDetailsModule,
+    ModalShowSinisterDetailsModule
   ],
   providers: [ClientService, ContactService, ContentListService, LeadService, PaymentService, PolicyService, QuotationService, ReceiptPaidService, SinisterService]
 })
