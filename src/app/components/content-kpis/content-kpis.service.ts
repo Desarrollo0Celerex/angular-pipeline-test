@@ -5,12 +5,15 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { ClientStatus } from '@interfaces/client-status.interface';
 import { LeadStatus } from '@interfaces/lead-status.interface';
 import { PaymentStatus } from '@interfaces/payment-status.interface';
+import { SinisterStatus } from '@interfaces/sinister-status.interface';
 import { ClientService } from '@services/client.service';
 import { ClientStatusService } from '@services/client-status.service';
 import { LeadService } from '@services/lead.service';
 import { LeadStatusService } from '@services/lead-status.service';
 import { PaymentService } from '@services/payment.service';
 import { PaymentStatusService } from '@services/payment-status.service';
+import { SinisterService } from '@services/sinister.service';
+import { SinisterStatusService } from '@services/sinister-status.service';
 
 import { Kpi } from '@interfaces/kpi.interface';
 
@@ -24,7 +27,9 @@ export class ContentKpisService {
         private _leadService: LeadService,
         private _leadStatusService: LeadStatusService,
         private _paymentService: PaymentService,
-        private _paymentStatusService: PaymentStatusService
+        private _paymentStatusService: PaymentStatusService,
+        private _sinisterService: SinisterService,
+        private _sinisterStatusService: SinisterStatusService
     ) {
         this.kpis = this._buildKpis();
     }
@@ -143,6 +148,38 @@ export class ContentKpisService {
     }
 
     /**
+     * Load the sinister kpis
+     * @return Notice of action done
+     */
+    loadSinisterKpis(): Observable<void> {
+        return new Observable( observer => {
+            const fields: string = 'sinisterStatusId,name,background,icon';
+            this._sinisterStatusService.getSinisterStatus(fields).subscribe( (res: HttpResponse) => {
+                const sinisterStatus: SinisterStatus[] = res.data;
+                this._clientService.getTotalClients().subscribe( (res: HttpResponse) => {
+                    const totalSinisters: number = res.data;
+                    this._getTotalSinistersByStatus(sinisterStatus).subscribe( (res: HttpResponse[]) => {
+                        this.kpis = [];
+                        for(let index in res) {
+                            const kpi: Kpi = {
+                                contentSubtype: sinisterStatus[index].sinisterStatusId,
+                                name: sinisterStatus[index].name,
+                                background: sinisterStatus[index].background,
+                                icon: sinisterStatus[index].icon,
+                                total: res[index].data,
+                                percentage: res[index].data / totalSinisters
+                            }
+                            this.kpis.push(kpi);
+                        }
+                        observer.next();
+                        observer.complete();
+                    })
+                });
+            })
+        })
+    }
+
+    /**
      * Build the kpis
      * @return The kpis
      */
@@ -196,6 +233,19 @@ export class ContentKpisService {
         let requests: Observable<HttpResponse>[] = [];
         for(let status of paymentStatus) {
             requests.push(this._paymentService.getTotalPayments(status.paymentStatusId));
+        }
+        return forkJoin(requests);
+    }
+
+    /**
+     * Get the requests to get the total payments by status
+     * @param  leadStatus The payment status
+     * @return            The requests
+     */
+    private _getTotalSinistersByStatus(sinisterStatus: SinisterStatus[]): Observable<HttpResponse[]> {
+        let requests: Observable<HttpResponse>[] = [];
+        for(let status of sinisterStatus) {
+            requests.push(this._sinisterService.getTotalSinisters(status.sinisterStatusId));
         }
         return forkJoin(requests);
     }

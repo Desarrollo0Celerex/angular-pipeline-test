@@ -6,6 +6,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
+import { Sinister } from '@interfaces/sinister.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
@@ -36,7 +37,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() policyId: string;
     @Input() query: string;
     @Input() specialQuery: SearchContactData | null;
+    @Input() canReloadContent: boolean = false;
     @Output() totalResultsLoaded: EventEmitter<number>;
+    @Output() contentReloaded: EventEmitter<void> = new EventEmitter<void>();
+    @Output() receiptPaid: EventEmitter<void> = new EventEmitter<void>();
     CONTENT_TYPES: any;
     canShowTotalResults: boolean;
     cardClasses: string;
@@ -50,6 +54,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedPolicyId: string;
     selectedQuotationId: string;
     selectedReceiptPaidId: string;
+    selectedSinister: Sinister | null = null;
     modalIdAcceptQuotation: string;
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
@@ -68,6 +73,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
     modalIdShowQuotationDetails: string;
+    modalIdShowSinisterDetails: string = 'agt-show-sinister-details';
     totalResults: number;
     private subParams: any;
 
@@ -137,9 +143,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             (typeof changes.contentSubtype !== 'undefined' && !!changes.contentSubtype.currentValue) ||
             (typeof changes.query !== 'undefined' && !!changes.query.currentValue) ||
             (typeof changes.specialQuery !== 'undefined' && !!changes.specialQuery.currentValue) ||
-            (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) && (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) && (!!this.contentSubtype || !!this.query || !!this.specialQuery)
+            (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) && (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) && (!!this.contentSubtype || !!this.query || !!this.specialQuery) ||
+            (typeof changes.canReloadContent !== 'undefined' && !!changes.canReloadContent.currentValue)
         ) {
             this._initContent();
+
+            setTimeout(() => {
+                this.contentReloaded.emit();
+            }, 500);
         }
     }
 
@@ -247,11 +258,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
-     * Event to catch the receipt paid
-     * @param receiptPaidId The receipt paid ID
+     * Event to notify that the receipt has been paid
      */
-    onReceiptPaid(receiptPaidId: string): void {
-        this._initContent();
+    onReceiptPaid(): void {
+        this.receiptPaid.emit();
     }
 
     /**
@@ -381,6 +391,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to show the sinister details
+     * @param sinister The selected sinister
+     */
+    onShowSinisterDetails(sinister: Sinister): void {
+        this.selectedSinister = sinister;
+        ModalPlugin.show(this.modalIdShowSinisterDetails);
+    }
+
+    /**
      * Event to show modal to confirm update policy
      */
     onUpdatePolicy(policyId: string): void {
@@ -438,6 +457,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.SINISTER.ID:
                 this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-3';
             break;
 
@@ -515,6 +535,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this.contentListService.loadPaymentHistory(this.paymentId, this.page).subscribe( () => {
                     this._contentLoaded();
                 })
+            break;
+
+            case CONTENT_TYPES.SINISTER.ID:
+            this.contentListService.loadSinisters(this.page, this.contentSubtype).subscribe( () => {
+                this._contentLoaded();
+            });
             break;
         }
     }

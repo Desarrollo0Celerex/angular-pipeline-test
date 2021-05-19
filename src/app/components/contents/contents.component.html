@@ -1,12 +1,22 @@
-<agt-content-kpis *ngIf="canShowKpis" [contentType]="contentType" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-content-kpis>
+<agt-content-kpis *ngIf="canShowKpis" [contentType]="contentType" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" [canReloadContent]="canReloadContent" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-content-kpis>
 <!-- AGENTHOS - PANEL -->
 <div class="row mt-5">
     <div class="col-md-{{searchEngineWidth}} col-lg-{{searchEngineWidth}}">
         <agt-content-search-engine [contentType]="contentType" [contentTypeName]="contentTypeName" [query]="query" [contactId]="contactId"></agt-content-search-engine>
     </div>
     <div class="col-md-{{mainActionWidth}} col-lg-{{mainActionWidth}}">
-        <agt-content-main-action [contentType]="contentType" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-content-main-action>
+        <agt-content-main-action [contentType]="contentType" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)" (sinisterCreated)="onReloadContent()"></agt-content-main-action>
     </div>
 </div>
 <!-- AGENTHOS - PANEL -->
-<agt-content-list [contentType]="contentType" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" [contentSubtypeName]="contentSubtypeName" [query]="query" [contactId]="contactId"></agt-content-list>
+<agt-content-list
+    [contentType]="contentType"
+    [contentTypeName]="contentTypeName"
+    [contentSubtype]="contentSubtype"
+    [contentSubtypeName]="contentSubtypeName"
+    [query]="query"
+    [contactId]="contactId"
+    [canReloadContent]="canReloadContent"
+    (contentReloaded)="onContentReloaded()"
+    (receiptPaid)="onReloadContent()"
+></agt-content-list>

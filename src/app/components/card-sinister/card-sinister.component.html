@@ -1,0 +1,76 @@
+<div class="card" *ngIf="!!sinister">
+    <!-- AGENTHOS - SINISTER HEADER -->
+    <div class="card-header">
+        <!-- AGENTHOS - INSURANCE COMPANY -->
+        <img [src]="sinister.insurerImageUrl" width="38px">
+        <!-- AGENTHOS - SINISTER MENU -->
+        <div class="card-options">
+            <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                <span class="fa fa-bars"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                <div class="dropdown-plus-title">Acciones Disponibles</div>
+                <!-- AGENTHOS - SINISTER UPDATE -->
+                <button type="button" class="dropdown-item"><i class="fa fa-edit mr-2"></i>Actualizar</button>
+                <!-- AGENTHOS - SINISTER FINISH -->
+                <button type="button" class="dropdown-item"><i class="fa fa-check-square-o mr-2"></i>Finalizar</button>
+                <div class="dropdown-divider"></div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - SINISTER MENU -->
+    </div>
+    <!-- //AGENTHOS - SINISTER HEADER -->
+    <!-- AGENTHOS - SINISTER BODY -->
+    <div class="card-body">
+        <!-- AGENTHOS - SINISTER COVER -->
+        <div class="d-flex clearfix">
+            <div class="text-left">
+                <!-- AGENTHOS - SINISTER STATUS -->
+                <div class="badge badge-{{sinister.sinisterStatusBackground}} mr-1 mb-3">{{sinister.sinisterStatusName | uppercase}}</div>
+                <span class="col-auto align-self-center">
+                    <span class="form-help" data-toggle="popover" data-placement="top" [attr.data-content]="sinister.sinisterStatusDescription" data-original-title="">?</span>
+                </span>
+                <!-- AGENTHOS - POLICY TYPE -->
+                <h6><span class="text-primary"><i class="fe fe-shield mr-2"></i></span>{{sinister.insuranceName | uppercase}}</h6>
+                <!-- AGENTHOS - POLICY PLAN -->
+                <h6><span class="text-primary"><i class="fe fe-credit-card mr-2"></i></span>{{sinister.paymentPlanName | uppercase}}</h6>
+                <!-- AGENTHOS - POLICY TYPE -->
+                <h6><span class="text-primary"><i class="fe fe-globe mr-2"></i></span>{{sinister.insuranceTypeName | uppercase}}</h6>
+            </div>
+            <div class="ml-auto">
+                <span class="{{sinister.insuranceBackground}} icon-service"><i class="fa {{sinister.insuranceIcon}} fs-2"></i></span>
+            </div>
+        </div>
+        <!-- //AGENTHOS - SINISTER COVER -->
+        <!-- AGENTHOS - SINISTER RESUME -->
+        <h6 class="mb-1 mt-3">{{sinister.coveredProperty}}</h6>
+        <!-- AGENTHOS - POLICY NUMBER -->
+        <h6><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{sinister.policyNumber}}</h6>
+        <div class="progress progress-sm mt-2 mb-2">
+            <!-- AGENTHOS - SINISTER LIFE -->
+            <div class="progress-bar carInsurancePolicy w-70"></div>
+        </div>
+        <div class="row mt-4">
+            <div class="col text-left">
+                <span class="text-muted">TIPO</span>
+                <h4 class="font-weight-normal mt-2 mb-0 number-font1"><strong>{{sinister.sinisterTypeName | uppercase}}</strong></h4>
+            </div>
+        </div>
+        <!-- //AGENTHOS - SINISTER RESUME -->
+    </div>
+    <!-- //AGENTHOS - SINISTER BODY -->
+    <!-- AGENTHOS - SINISTER FOOTER -->
+    <div class="card-footer">
+        <div class="row">
+            <!-- AGENTHOS - SINISER DETAILS -->
+            <div class="col-sm-9 col-9 text-left">
+                <button type="button" class="btn btn-block btn-primary" (click)="onClickShowDetails()"><strong>VER DETALLES</strong></button>
+            </div>
+            <!-- AGENTHOS - CONTACT TRANSFER -->
+            <div class="col-sm-3 col-3 text-right">
+                <button type="button" class="btn btn-icon btn-secondary" data-toggle="tooltip" data-placement="bottom" data-original-title="Ver Contacto" (click)="onClickShowContactData()"><i class="fa fa-id-badge"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - SINISTER FOOTER -->
+</div>

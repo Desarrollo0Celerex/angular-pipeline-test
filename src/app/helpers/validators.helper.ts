@@ -8,6 +8,20 @@ import * as moment from 'moment';
 export class ValidatorsHelper {
 
     /**
+     * Validate an alphanumeric
+     * @param  control The control to evaluate
+     * @return         Error object if validation failed, otherwise null.
+     */
+    static alphanumeric(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]*$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {alphanumeric: true} : null;
+        }
+        return null;
+    }
+
+    /**
      * Validate a brand name
      * @param  control The control to evaluate
      * @return         Error object if validation failed, otherwise null.

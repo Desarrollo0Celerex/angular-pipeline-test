@@ -9,6 +9,7 @@ import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardPolicyRecordModule } from '@components/card-policy-record/card-policy-record.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
 import { CardReceiptPaidRecordModule } from '@components/card-receipt-paid-record/card-receipt-paid-record.module';
+import { CardSinisterModule } from '@components/card-sinister/card-sinister.module';
 
 import { ContainerIncompletePoliciesModule } from '@components/container-incomplete-policies/container-incomplete-policies.module';
 import { ContentResultsModule } from '@components/content-results/content-results.module';
@@ -35,6 +36,7 @@ import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/m
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
+import { ModalShowSinisterDetailsModule } from '@components/modal-show-sinister-details/modal-show-sinister-details.module';
 
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
 
@@ -45,6 +47,7 @@ import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
 import { QuotationService } from '@services/quotation.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
+import { SinisterService } from '@services/sinister.service';
 
 import { ContentListComponent } from './content-list.component';
 import { ContentListService } from './content-list.service';
@@ -61,6 +64,7 @@ import { ContentListService } from './content-list.service';
     CardPolicyRecordModule,
     CardQuotationModule,
     CardReceiptPaidRecordModule,
+    CardSinisterModule,
     CommonModule,
     ContainerIncompletePoliciesModule,
     ContentResultsModule,
@@ -85,8 +89,9 @@ import { ContentListService } from './content-list.service';
     ModalShowEndorsementModule,
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
-    ModalShowQuotationDetailsModule
+    ModalShowQuotationDetailsModule,
+    ModalShowSinisterDetailsModule
   ],
-  providers: [ClientService, ContactService, ContentListService, LeadService, PaymentService, PolicyService, QuotationService, ReceiptPaidService]
+  providers: [ClientService, ContactService, ContentListService, LeadService, PaymentService, PolicyService, QuotationService, ReceiptPaidService, SinisterService]
 })
 export class ContentListModule { }
