@@ -72,6 +72,7 @@
                 ></agt-card-payment>
                 <agt-card-sinister *ngSwitchCase="CONTENT_TYPES.SINISTER.ID"
                     [sinister]="content"
+                    (showContactData)="onShowContactData($event)"
                     (showSinisterDetails)="onShowSinisterDetails($event)"
                 ></agt-card-sinister>
             </ng-container>
@@ -85,7 +86,7 @@
 <agt-content-suggestions *ngIf="!isHistoryContent" [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [contentTypeName]="contentTypeName"></agt-content-suggestions>
 
 <!-- AGENTHOS - CONTENT ACTIONS -->
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT.ID || contentType === CONTENT_TYPES.LEAD.ID || contentType === CONTENT_TYPES.CLIENT.ID || contentType === CONTENT_TYPES.PAYMENT.ID">
+<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT.ID || contentType === CONTENT_TYPES.LEAD.ID || contentType === CONTENT_TYPES.CLIENT.ID || contentType === CONTENT_TYPES.PAYMENT.ID || contentType === CONTENT_TYPES.SINISTER.ID">
     <agt-modal-show-contact-data [modalId]="modalIdShowContactData" [contactId]="selectedContactId"></agt-modal-show-contact-data>
     <agt-modal-select-contact [modalId]="modalIdSelectContact" [contactId]="selectedContactId"></agt-modal-select-contact>
 </ng-container>
