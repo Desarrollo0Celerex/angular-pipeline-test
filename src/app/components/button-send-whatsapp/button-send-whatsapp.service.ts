@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 
-import { Phone } from '@interfaces/phone.interface';
+import { Contact } from '@interfaces/contact.interface';
 import { ExpressTokenData } from '@interfaces/express-token-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { WorkspaceUser } from '@interfaces/workspace-user.interface';
 import { ContactService } from '@services/contact.service';
 import { ExpressTokenService } from '@services/express-token.service';
+import { AuthService } from '@services/auth.service';
 import { JwtService } from '@services/jwt.service';
+import { WorkspaceUserService } from '@services/workspace-user.service';
 
 @Injectable()
 export class ButtonSendWhatsappService {
-    phone: Phone;
+    contact: Contact | null = null;
+    user: WorkspaceUser | null = null;
 
     constructor(
+        private _authService: AuthService,
         private _contactService: ContactService,
         private _expressTokenService: ExpressTokenService,
-        private _jwtService: JwtService
-    ) {
-        this.phone = {
-            phoneCode: '',
-            phoneNumber: ''
-        };
-    }
+        private _jwtService: JwtService,
+        private _workspaceUserService: WorkspaceUserService
+    ) { }
 
     /**
      * Load the contact
@@ -28,10 +29,10 @@ export class ButtonSendWhatsappService {
      * @param expressToken The express token
      */
     loadContact(contactId: string): void {
-        this._initPhone();
-        const fields: string = 'phoneCode,phoneNumber';
+        this.contact = null;
+        const fields: string = 'phoneCode,phoneNumber,shortName,workspaceName';
         this._contactService.getContact(contactId, fields).subscribe( (res: HttpResponse) => {
-            this.phone = res.data;
+            this.contact = res.data;
         })
     }
 
@@ -40,12 +41,23 @@ export class ButtonSendWhatsappService {
      * @param expressToken The express token
      */
     loadExpressContact(expressToken: string): void {
-        this._initPhone();
-        const fields: string = 'phoneCode,phoneNumber';
+        this.contact = null;
+        const fields: string = 'phoneCode,phoneNumber,shortName,workspaceName';
         const expressTokenData: ExpressTokenData = this._decodeExpressToken(expressToken);
         this._expressTokenService.getExpressContact(expressTokenData.workspaceId, expressTokenData.contactId, expressToken, fields).subscribe( (res: HttpResponse) => {
-            this.phone = res.data;
+            this.contact = res.data;
         });
+    }
+
+    /**
+     * Load de user
+     */
+    loadUser(): void {
+        const userId: string = this._authService.userId;
+        const fields: string = 'shortName';
+        this._workspaceUserService.getWorkspaceUser(userId, fields).subscribe( (res: HttpResponse) => {
+            this.user = res.data;
+        })
     }
 
     /**
@@ -55,12 +67,5 @@ export class ButtonSendWhatsappService {
      */
     private _decodeExpressToken(expressToken: string): ExpressTokenData {
         return this._jwtService.decodeToken(expressToken);
-    }
-
-    private _initPhone(): void {
-        this.phone = {
-            phoneCode: '',
-            phoneNumber: ''
-        };
     }
 }
