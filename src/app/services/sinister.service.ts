@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
+import { CreateSinister } from '@interfaces/create-sinister.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { AuthService } from '@services/auth.service';
@@ -13,7 +14,8 @@ import * as moment from 'moment';
 const routes: any = {
     sinister: (workspaceId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/' +sinisterId,
     sinisters: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters',
-    totalSinisters: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/count'
+    totalSinisters: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/count',
+    policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters'
 }
 
 @Injectable()
@@ -24,6 +26,18 @@ export class SinisterService {
         private _httpClient: HttpClient,
         private _authService: AuthService
     ) { }
+
+    /**
+     * Create a sinister from the API
+     * @param  contactId   The contact ID
+     * @param  policyId    The policy ID
+     * @param  requestBody The request body
+     * @return             Notice of action done
+     */
+    createSinister(contactId: string, policyId: string, requestBody: CreateSinister): Observable<void> {
+        const route: string = routes.policySinisters(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
 
     /**
      * Get the total sinoster from the API

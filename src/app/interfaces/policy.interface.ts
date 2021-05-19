@@ -30,5 +30,6 @@ export interface Policy {
     currencyId: number,
     paymentMethodId: number,
     paymentPlanId: number,
-    totalAmount: number
+    totalAmount: number,
+    contactId: string
 }

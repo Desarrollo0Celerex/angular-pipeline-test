@@ -17,12 +17,15 @@ export class ContentMainActionComponent implements OnInit {
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
     @Output() contentSubtypeNameSelected: EventEmitter<string>;
+    @Output() sinisterCreated: EventEmitter<void> = new EventEmitter<void>();
     CONTENT_TYPES: any;
+    modalIdCreateSinister: string = 'agt-create-sinister';
     modalIdSearchPolicy: string = 'agt-search-policy';
     searchPolicyMessage: string = '';
     selectContactTypeModalId: string;
     selectPolicyStatusModalId: string;
     selectQuotationStatusModalId: string;
+    selectedPolicy: Policy | null = null;
 
     constructor(private _pluralNameFormatPipe: PluralNameFormatPipe) {
         this.contentType = 0;
@@ -102,7 +105,20 @@ export class ContentMainActionComponent implements OnInit {
      * @param policies The found policy
      */
     onPolicyFound(policy: Policy): void {
-        console.log('Póliza encontrada: ', policy);
+        this.selectedPolicy = policy;
+        switch(this.contentType) {
+            case CONTENT_TYPES.SINISTER.ID:
+                ModalPlugin.setFixed();
+                ModalPlugin.show(this.modalIdCreateSinister);
+                break;
+        }
+    }
+
+    /**
+     * Event to notify that a sinister was created
+     */
+    onSinisterCreated(): void {
+        this.sinisterCreated.emit();
     }
 
 }

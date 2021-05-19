@@ -113,7 +113,7 @@
     <agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID">
-    <agt-modal-apply-payment [modalId]="modalIdApplyPayment" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [paymentId]="selectedPaymentId" (receiptPaid)="onReceiptPaid($event)"></agt-modal-apply-payment>
+    <agt-modal-apply-payment [modalId]="modalIdApplyPayment" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [paymentId]="selectedPaymentId" (receiptPaid)="onReceiptPaid()"></agt-modal-apply-payment>
     <agt-modal-confirm-show-payment-history [modalId]="modalIdConfirmShowPaymentHistory" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [paymentId]="selectedPaymentId"></agt-modal-confirm-show-payment-history>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT_HISTORY.ID">

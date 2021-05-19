@@ -21,4 +21,5 @@
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.SINISTER.ID">
     <agt-modal-search-policy [modalId]="modalIdSearchPolicy" [message]="searchPolicyMessage" (policyFound)="onPolicyFound($event)"></agt-modal-search-policy>
+    <agt-modal-create-sinister [modalId]="modalIdCreateSinister" [policy]="selectedPolicy" (sinisterCreated)="onSinisterCreated()"></agt-modal-create-sinister>
 </ng-container>

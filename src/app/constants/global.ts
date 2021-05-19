@@ -25,6 +25,14 @@ export const FREE_TEXT_LENGTH: any = {
     MIN: 3,
     MAX: 1000
 }
+export const SHORT_ALPHANUMERIC_LENGTH: any = {
+    MIN: 1,
+    MAX: 20
+}
+export const LONG_ALPHANUMERIC_LENGTH: any = {
+    MIN: 1,
+    MAX: 50
+}
 export const POLICY_FINISHED_SLACK_DAYS: number = 30;
 
 // Dropify

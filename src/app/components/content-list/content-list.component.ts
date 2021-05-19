@@ -36,7 +36,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() policyId: string;
     @Input() query: string;
     @Input() specialQuery: SearchContactData | null;
+    @Input() canReloadContent: boolean = false;
     @Output() totalResultsLoaded: EventEmitter<number>;
+    @Output() contentReloaded: EventEmitter<void> = new EventEmitter<void>();
+    @Output() receiptPaid: EventEmitter<void> = new EventEmitter<void>();
     CONTENT_TYPES: any;
     canShowTotalResults: boolean;
     cardClasses: string;
@@ -137,9 +140,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             (typeof changes.contentSubtype !== 'undefined' && !!changes.contentSubtype.currentValue) ||
             (typeof changes.query !== 'undefined' && !!changes.query.currentValue) ||
             (typeof changes.specialQuery !== 'undefined' && !!changes.specialQuery.currentValue) ||
-            (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) && (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) && (!!this.contentSubtype || !!this.query || !!this.specialQuery)
+            (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) && (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) && (!!this.contentSubtype || !!this.query || !!this.specialQuery) ||
+            (typeof changes.canReloadContent !== 'undefined' && !!changes.canReloadContent.currentValue)
         ) {
             this._initContent();
+
+            setTimeout(() => {
+                this.contentReloaded.emit();
+            }, 500);
         }
     }
 
@@ -247,11 +255,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
-     * Event to catch the receipt paid
-     * @param receiptPaidId The receipt paid ID
+     * Event to notify that the receipt has been paid
      */
-    onReceiptPaid(receiptPaidId: string): void {
-        this._initContent();
+    onReceiptPaid(): void {
+        this.receiptPaid.emit();
     }
 
     /**
