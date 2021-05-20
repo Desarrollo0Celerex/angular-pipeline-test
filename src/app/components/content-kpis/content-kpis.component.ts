@@ -17,6 +17,7 @@ export class ContentKpisComponent implements OnInit, OnChanges {
     @Input() contentType: number;
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
+    @Input() canReloadContent: boolean = false;
     @Output() contentSubtypeNameSelected: EventEmitter<string>;
     ROUTES_NAME: any;
 
@@ -33,8 +34,11 @@ export class ContentKpisComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.contentSubtype.currentValue) {
+        if(!!changes.contentSubtype && !!changes.contentSubtype.currentValue) {
             this._loadContentSubtypeName();
+        }
+        if(!!changes.canReloadContent && !!changes.canReloadContent.currentValue) {
+            this.loadKpis();
         }
     }
 
@@ -60,6 +64,13 @@ export class ContentKpisComponent implements OnInit, OnChanges {
 
             case CONTENT_TYPES.PAYMENT.ID:
             this.contentKpisService.loadPaymentKpis().subscribe( () => {
+                CounterPlugin.countUp();
+                this._loadContentSubtypeName();
+            });
+            break;
+
+            case CONTENT_TYPES.SINISTER.ID:
+            this.contentKpisService.loadSinisterKpis().subscribe( () => {
                 CounterPlugin.countUp();
                 this._loadContentSubtypeName();
             });

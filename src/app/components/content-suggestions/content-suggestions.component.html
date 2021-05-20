@@ -21,6 +21,9 @@
             <ng-container *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID">
                 <ng-container *ngTemplateOutlet="paymentSuggestion"></ng-container>
             </ng-container>
+            <ng-container *ngSwitchCase="CONTENT_TYPES.SINISTER.ID">
+                <ng-container *ngTemplateOutlet="sinisterSuggestion"></ng-container>
+            </ng-container>
         </ng-container>
     </div>
 </div>
@@ -54,4 +57,10 @@
     <strong>¿No encuentras el {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
     <p>Intenta aplicar el pago con el <strong>Número de Póliza</strong>.</p>
+</ng-template>
+
+<ng-template #sinisterSuggestion>
+    <strong>¿No encuentras el {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+    <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
 </ng-template>

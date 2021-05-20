@@ -24,7 +24,6 @@ export class ModalApplyPaymentComponent implements OnChanges {
     @Input() policyId: string = '';
     @Input() paymentId: string = '';
     @Output() receiptPaid: EventEmitter<string> = new EventEmitter<string>();
-    @Output() test: EventEmitter<void> = new EventEmitter<void>();
     calendarIdApplicationDate: string = 'applicationDate';
     calendarIdNextPaymentDate: string = 'nextPaymentDate';
     modalIdConfirmApplyPaymentWithBalanceOutstanding: string = 'agt-confirm-apply-payment-with-balance-outstanding'

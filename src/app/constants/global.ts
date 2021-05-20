@@ -25,6 +25,14 @@ export const FREE_TEXT_LENGTH: any = {
     MIN: 3,
     MAX: 1000
 }
+export const SHORT_ALPHANUMERIC_LENGTH: any = {
+    MIN: 1,
+    MAX: 20
+}
+export const LONG_ALPHANUMERIC_LENGTH: any = {
+    MIN: 1,
+    MAX: 50
+}
 export const POLICY_FINISHED_SLACK_DAYS: number = 30;
 
 // Dropify
@@ -60,6 +68,13 @@ export const PAYMENT_STATUS: any = {
     PAID: 5
 }
 export const POLICY_STATUS_ACTIVE: number = 100;
+export const SINISTER_STATUS: any = {
+    RECENT: 1,
+    PENDING: 2,
+    UNFINISHED: 3,
+    CONFLICTIVE: 4,
+    FINISHED: 5
+}
 
 // Types
 export const CONTENT_TYPES: any = {

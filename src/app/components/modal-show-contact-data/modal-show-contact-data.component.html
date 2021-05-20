@@ -9,13 +9,19 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <!-- AGENTHOS - POLICY OWNER -->
+                        <input *ngIf="!!modalShowContactDataService.contact" type="text" class="form-control" [placeholder]="modalShowContactDataService.contact.contactName" readonly="">
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <agt-button-send-whatsapp [buttonType]="BUTTON_TYPES.INPUT" [contactId]="contactId"></agt-button-send-whatsapp>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <agt-button-send-email [buttonType]="BUTTON_TYPES.INPUT" [contactId]="contactId"></agt-button-send-email>
                         </div>

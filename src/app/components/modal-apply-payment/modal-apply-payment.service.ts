@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { CreateReceiptPaidDataSend } from '@interfaces/create-receipt-paid-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
@@ -35,7 +36,7 @@ export class ModalApplyPaymentService {
      * @note If the policy is muytiyear, this validation does not apply
      */
     checkHasBalanceRemaining(): boolean {
-        const amount: number = parseFloat(this.f.amount.value);
+        const amount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.amount.value));
         return (!!this.payment && (amount > this.payment.pendingAmount) && (this.payment.isMultiyear === '0')) ? true : false;
     }
 
@@ -44,7 +45,7 @@ export class ModalApplyPaymentService {
      * @return True if it is, otherwise false
      */
     checkHasBalanceOutstanding(): boolean {
-        const amount: number = parseFloat(this.f.amount.value);
+        const amount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.amount.value));
         const receipts: number = parseInt(this.f.receipts.value);
         return (!!this.payment && (receipts >= this.payment.pendingReceipts) && (amount < this.payment.pendingAmount )) ? true : false;
     }
@@ -76,7 +77,7 @@ export class ModalApplyPaymentService {
      * Calculate the balance outstanding
      */
     calculateBalanceOutstanding(): void {
-        const amount: number = parseFloat(this.f.amount.value);
+        const amount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.amount.value));
         if(!!this.payment) {
             this.balanceOutstanding = this.payment.pendingAmount - amount;
         }
@@ -86,7 +87,7 @@ export class ModalApplyPaymentService {
      * Calculate the balance remaining
      */
     calculateBalanceRemaining(): void {
-        const amount: number = parseFloat(this.f.amount.value);
+        const amount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.amount.value));
         if(!!this.payment) {
             this.balanceRemaining = amount - this.payment.pendingAmount;
         }
@@ -98,7 +99,7 @@ export class ModalApplyPaymentService {
      * @return           Notice of action done
      */
     loadPolicy(paymentId: string): Observable<void> {
-        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear';
+        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,titularName,bills,tickets';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap( (res: HttpResponse) => {
                 this.payment = res.data;

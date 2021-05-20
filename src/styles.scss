@@ -284,3 +284,10 @@
   .cbp_tmtimeline li:nth-child(odd) .cbp_tmlabel:after {
     border-right-color: transparent;
     border-bottom-color: #fff; } }
+
+/* QR Code */
+.qrcode {
+    img {
+        max-width: 128px !important;
+    }
+}

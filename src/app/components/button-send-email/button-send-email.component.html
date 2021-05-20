@@ -8,10 +8,11 @@
         </a>
     </ng-container>
     <ng-container *ngSwitchCase="BUTTON_TYPES.INPUT">
-        <label class="form-label">Correo</label>
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="{{buttonSendEmailService.email}}" readonly>
-            <span class="input-group-append">
+        <div class="row gutters-xs">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="{{buttonSendEmailService.email}}" readonly>
+            </div>
+            <span class="col-auto">
                 <a href="{{(!!buttonSendEmailService.email) ? getLink() : ''}}" (click)="checkCanNavigate()" target="_blank">
                     <button type="button" class="btn btn-indigo" [disabled]="!(!!buttonSendEmailService.email) && required" (click)="onClickCheckConnection()">
                         <i class="fa fa-envelope"></i>

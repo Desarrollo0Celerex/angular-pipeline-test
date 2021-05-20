@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { BUTTON_TYPES } from '@constants/global';
+
+import { ModalShowContactDataService } from './modal-show-contact-data.service';
 
 @Component({
   selector: 'agt-modal-show-contact-data',
@@ -8,18 +10,16 @@ import { BUTTON_TYPES } from '@constants/global';
   styles: [
   ]
 })
-export class ModalShowContactDataComponent implements OnInit {
-    @Input() contactId: string;
-    @Input() modalId: string;
-    BUTTON_TYPES: any;
+export class ModalShowContactDataComponent implements OnChanges {
+    @Input() contactId: string = '';
+    @Input() modalId: string = '';
+    BUTTON_TYPES: any = BUTTON_TYPES;
 
-    constructor() {
-        this.contactId = '';
-        this.modalId = '';
-        this.BUTTON_TYPES = BUTTON_TYPES;
+    constructor(public modalShowContactDataService: ModalShowContactDataService) { }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if(!!changes.contactId.currentValue) {
+            this.modalShowContactDataService.loadContact(changes.contactId.currentValue);
+        }
     }
-
-    ngOnInit(): void {
-    }
-
 }

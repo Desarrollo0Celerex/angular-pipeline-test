@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { BUTTON_TYPES } from '@constants/global';
 
@@ -10,7 +10,7 @@ import { ButtonSendWhatsappService } from './button-send-whatsapp.service';
   styles: [
   ]
 })
-export class ButtonSendWhatsappComponent implements OnChanges {
+export class ButtonSendWhatsappComponent implements OnChanges, OnInit {
     @Input() buttonType: number;
     @Input() contactId: string;
     @Input() expressToken: string;
@@ -36,12 +36,16 @@ export class ButtonSendWhatsappComponent implements OnChanges {
         }
     }
 
+    ngOnInit(): void {
+        this.buttonSendWhatsappService.loadUser();
+    }
+
     /**
      * Check if can navigate
      * @return True if can, otherwise false
      */
     public checkCanNavigate(): boolean {
-        return (!!this.buttonSendWhatsappService.phone.phoneCode && !!this.buttonSendWhatsappService.phone.phoneNumber) ? true : false;
+        return (!!this.buttonSendWhatsappService.contact && !!this.buttonSendWhatsappService.contact.phoneCode && !!this.buttonSendWhatsappService.contact.phoneNumber) ? true : false;
     }
 
     /**
@@ -49,14 +53,17 @@ export class ButtonSendWhatsappComponent implements OnChanges {
      * @return The link
      */
     public getLink(): string {
-        return 'https://wa.me/'+ this.buttonSendWhatsappService.phone.phoneCode +'1'+ this.buttonSendWhatsappService.phone.phoneNumber;
+        if(!!this.buttonSendWhatsappService.contact && !!this.buttonSendWhatsappService.user) {
+            return 'https://wa.me/'+ this.buttonSendWhatsappService.contact.phoneCode +'1'+ this.buttonSendWhatsappService.contact.phoneNumber + '?text=Hola, Te escribe '+this.buttonSendWhatsappService.user.shortName+' de '+this.buttonSendWhatsappService.contact.workspaceName+'.';
+        }
+        return '';
     }
 
     /**
      * Click event to check the connection with contact link
      */
     public onClickCheckConnection(): void {
-        if(!(!!this.buttonSendWhatsappService.phone.phoneCode && !!this.buttonSendWhatsappService.phone.phoneNumber)) {
+        if(!(!!this.buttonSendWhatsappService.contact && !!this.buttonSendWhatsappService.contact.phoneCode && !!this.buttonSendWhatsappService.contact.phoneNumber)) {
             this.contactActionFailed.emit();
         }
     }

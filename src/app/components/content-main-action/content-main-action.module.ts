@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ModalCreateSinisterModule } from '@components/modal-create-sinister/modal-create-sinister.module';
+import { ModalSearchPolicyModule } from '@components/modal-search-policy/modal-search-policy.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { ModalSelectPolicyStatusModule } from '@components/modal-select-policy-status/modal-select-policy-status.module';
 import { ModalSelectQuotationStatusModule } from '@components/modal-select-quotation-status/modal-select-quotation-status.module';
@@ -14,10 +16,12 @@ import { ContentMainActionComponent } from './content-main-action.component';
   exports: [ContentMainActionComponent],
   imports: [
     CommonModule,
-    PluralNameFormatModule,
+    ModalCreateSinisterModule,
+    ModalSearchPolicyModule,
     ModalSelectContactTypeModule,
     ModalSelectPolicyStatusModule,
-    ModalSelectQuotationStatusModule
+    ModalSelectQuotationStatusModule,
+    PluralNameFormatModule
   ],
   providers: [PluralNameFormatPipe]
 })

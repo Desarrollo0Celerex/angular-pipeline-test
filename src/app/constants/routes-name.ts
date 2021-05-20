@@ -70,6 +70,10 @@ const HOME_QUOTATIONS_ROUTES = {
     createQuotation: (contactId: string) => `workspace/quotations/create-quotation/${contactId}`,
 }
 
+const HOME_SINISTERS_ROUTES = {
+    listSinisters: `workspace/sinisters/list-sinisters`,
+}
+
 const INVITATIONS_ROUTES = {
     acceptInvitation: (invitationToken: string) => `invitations/accept-invitation/${invitationToken}`
 }
@@ -100,6 +104,7 @@ export const ROUTES_NAME = {
     ...HOME_PAYMENTS_ROUTES,
     ...HOME_POLICIES_ROUTES,
     ...HOME_QUOTATIONS_ROUTES,
+    ...HOME_SINISTERS_ROUTES,
     ...INVITATIONS_ROUTES,
     ...SEARCHES_ROUTES,
     ...WORKSPACES_ROUTES

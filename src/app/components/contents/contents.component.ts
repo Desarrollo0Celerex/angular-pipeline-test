@@ -13,6 +13,7 @@ import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-form
 export class ContentsComponent implements OnInit, OnDestroy {
     @Input() contentType: number;
     @Input() contentTypeName: string;
+    canReloadContent: boolean = false;
     canShowKpis: boolean;
     contactId: string;
     contentSubtype: number;
@@ -49,11 +50,25 @@ export class ContentsComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * Event to catch notification of reloaded content
+     */
+    onContentReloaded(): void {
+        this.canReloadContent = false;
+    }
+
+    /**
      * Event to catch the name of the selected content subtype
      * @param contentSubtypeName The name of the selected content subtype
      */
     onContentSubtypeNameSelected(contentSubtypeName: string): void {
         this.contentSubtypeName = contentSubtypeName;
+    }
+
+    /**
+     * Event to reload content
+     */
+    onReloadContent(): void {
+        this.canReloadContent = true;
     }
 
     /**

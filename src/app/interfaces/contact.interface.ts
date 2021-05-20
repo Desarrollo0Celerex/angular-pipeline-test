@@ -3,6 +3,7 @@ export interface Contact {
     avatarUrl: string,
     contactName: string,
     contactSourceName: string,
+    phoneCode: string,
     phoneCodeId: string,
     phoneNumber: string,
     email: string,
@@ -40,5 +41,7 @@ export interface Contact {
     city: string,
     state: string,
     postalCode: string,
-    country: string
+    country: string,
+    shortName: string,
+    workspaceName: string
 }

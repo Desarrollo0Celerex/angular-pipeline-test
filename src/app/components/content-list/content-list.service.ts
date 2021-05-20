@@ -16,6 +16,7 @@ import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
 import { QuotationService } from '@services/quotation.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
+import { SinisterService } from '@services/sinister.service';
 
 @Injectable()
 export class ContentListService {
@@ -29,7 +30,8 @@ export class ContentListService {
         private _paymentService: PaymentService,
         private _policyService: PolicyService,
         private _quotationService: QuotationService,
-        private _receiptPaidService: ReceiptPaidService
+        private _receiptPaidService: ReceiptPaidService,
+        private _sinisterService: SinisterService
     ) {
         this.contents = this._initContents();
         this.contentResultData = this._initContentResultData();
@@ -142,7 +144,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPayments(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId';
+        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
         return this._paymentService.getPayments(page, fields, contentSubtype).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
@@ -168,6 +170,23 @@ export class ContentListService {
             }),
             map( () => { })
         )
+    }
+
+    /**
+     * Load the sinisters
+     * @param  page           The page number to get
+     * @param  contentSubtype The filter to apply
+     * @return                Notice of action done
+     */
+    loadSinisters(page: number, contentSubtype: number): Observable<void> {
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId';
+        return this._sinisterService.getSinisters(page, fields, contentSubtype).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
     }
 
     /**
@@ -295,7 +314,7 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchPayments(page: number, query: string): Observable<void> {
-        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,contactId';
+        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
         return this._paymentService.getPayments(page, fields, 0, query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
