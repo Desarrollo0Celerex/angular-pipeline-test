@@ -69,6 +69,7 @@
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                     (cancelPolicy)="onCancelPolicy($event)"
                     (showPaymentHistory)="onShowPaymentHistory($event)"
+                    (showPolicy)="onShowPolicyFromWorkspace($event)"
                 ></agt-card-payment>
                 <agt-card-sinister *ngSwitchCase="CONTENT_TYPES.SINISTER.ID"
                     [sinister]="content"
@@ -98,7 +99,7 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
     <agt-modal-show-endorsement [modalId]="modalIdShowEndorsement" [contactId]="contactId" [policyId]="policyId" [endorsementId]="selectedEndorsementId"></agt-modal-show-endorsement>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID ">
+<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID || contentType === CONTENT_TYPES.PAYMENT.ID">
     <agt-modal-show-policy-details [modalId]="modalIdShowPolicyDetails" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [isHistoryContent]="isHistoryContent" (showPolicy)="onShowPolicy($event)"></agt-modal-show-policy-details>
     <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="selectedContactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
 </ng-container>

@@ -9,6 +9,7 @@ export interface Payment {
     pendingAmount: number,
     insuranceBackground: string,
     insuranceIcon: string,
+    insuranceTypeName: string,
     coveredProperty: string,
     paymentAmount: number,
     paymentAmountPaid: number,
@@ -22,5 +23,9 @@ export interface Payment {
     pendingReceipts: number,
     paymentDate: string,
     isMultiyear: string,
-    policyId: string
+    policyId: string,
+    bills: number,
+    tickets: number,
+    titularName: string,
+    paymentStatusId: number
 }

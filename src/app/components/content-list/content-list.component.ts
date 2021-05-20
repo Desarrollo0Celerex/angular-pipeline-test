@@ -361,6 +361,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to show policy
+     * @param data The data
+     */
+    onShowPolicyFromWorkspace(data: { policyId: string, contactId: string }): void {
+        this.selectedPolicyId = data.policyId;
+        this.selectedContactId = data.contactId;
+        ModalPlugin.show(this.modalIdShowPolicy);
+    }
+
+    /**
      * Event to show the policy from the record
      * @param data The policy record ID
      */
@@ -457,6 +467,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
                 this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-3';
             break;
@@ -464,10 +475,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.HISTORY_POLICY.ID:
             case CONTENT_TYPES.PAYMENT_HISTORY.ID:
                 this.cardClasses = 'col-lg-12 mt-5';
-            break;
-
-            case CONTENT_TYPES.PAYMENT.ID:
-                this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-4';
             break;
 
             default:

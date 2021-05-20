@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+import { PAYMENT_STATUS } from '@constants/global';
 import { Payment } from '@interfaces/payment.interface';
 import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.interface';
 
@@ -16,6 +17,8 @@ export class CardPaymentComponent {
     @Output() showContactData: EventEmitter<string> = new EventEmitter<string>();
     @Output() showHistoryPolicy: EventEmitter<{ policyId: string, contactId: string }> = new EventEmitter<{ policyId: string, contactId: string }>();
     @Output() showPaymentHistory: EventEmitter<ShowPaymentHistoryData> = new EventEmitter<ShowPaymentHistoryData>();
+    @Output() showPolicy: EventEmitter<{ policyId: string, contactId: string }> = new EventEmitter<{ policyId: string, contactId: string }>();
+    PAYMENT_STATUS: any = PAYMENT_STATUS;
 
     constructor() { }
 
@@ -61,6 +64,15 @@ export class CardPaymentComponent {
     onClickShowPaymentHistory(): void {
         if(!!this.payment) {
             this.showPaymentHistory.emit({policyId: this.payment.policyId, contactId: this.payment.contactId, paymentId: this.payment.paymentId});
+        }
+    }
+
+    /**
+     * Click event to request show the policy
+     */
+    onClickShowPolicy(): void {
+        if(!!this.payment) {
+            this.showPolicy.emit({policyId: this.payment.policyId, contactId: this.payment.contactId});
         }
     }
 

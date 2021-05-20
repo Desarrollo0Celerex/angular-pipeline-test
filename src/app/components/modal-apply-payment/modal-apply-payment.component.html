@@ -14,31 +14,38 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6">
+        						<div class="form-group">
+        							<!-- AGENTHOS - POLICY OWNER -->
+        							<label class="form-label">Titular</label>
+        							<input type="text" class="form-control" [placeholder]="modalApplyPaymentService.payment.titularName" readonly="">
+        						</div>
+        					</div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <!-- AGENTHOS - POLICY NO. -->
                                     <label class="form-label">No. Póliza</label>
                                     <input type="text" class="form-control" [placeholder]="modalApplyPaymentService.payment.policyNumber" readonly="">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - POLICY PAYPLAN -->
-                                    <label class="form-label">Plan de Pagos</label>
-                                    <input type="text" class="form-control" [placeholder]="modalApplyPaymentService.payment.paymentPlanName" readonly="">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <!-- AGENTHOS - POLICY INI. -->
                                     <label class="form-label">Inicio Vigencia</label>
                                     <input type="text" class="form-control" placeholder="{{modalApplyPaymentService.payment.validityStartDate | date: 'dd/MM/yyyy'}}" readonly="">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <!-- AGENTHOS - POLICY END. -->
                                     <label class="form-label">Fin Vigencia</label>
                                     <input type="text" class="form-control" placeholder="{{modalApplyPaymentService.payment.validityEndDate | date: 'dd/MM/yyyy'}}" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - POLICY PAYPLAN -->
+                                    <label class="form-label">Plan de Pagos</label>
+                                    <input type="text" class="form-control" [placeholder]="modalApplyPaymentService.payment.paymentPlanName" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -100,7 +107,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" *ngIf="!((modalApplyPaymentService.payment.bills - 1) === modalApplyPaymentService.payment.tickets)">
                                 <div class="form-group">
                                     <!-- AGENTHOS - NEXT PAY * -->
                                     <label class="form-label">Siguiente Pago</label>
