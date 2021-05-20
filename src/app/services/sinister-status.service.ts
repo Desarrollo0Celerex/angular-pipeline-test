@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SINISTER_STATUS } from '@constants/global';
+import { SINISTER_STATUS, SINISTER_STATUS_OPEN } from '@constants/global';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { SinisterStatus } from '@interfaces/sinister-status.interface';
@@ -32,6 +32,19 @@ export class SinisterStatusService {
                 return response;
             })
         );
+    }
+
+    /**
+     * Get the sinister status of profile from the API
+     * @param  fields The fields to get
+     * @return        The sinister status
+     */
+    getProfileSinisterStatus(): SinisterStatus[] {
+        const sinisterStatus: SinisterStatus[] = [
+            { sinisterStatusId: SINISTER_STATUS_OPEN, name: 'Abierto', background: '', icon: ''},
+            { sinisterStatusId: SINISTER_STATUS.FINISHED, name: 'Cerrado', background: '', icon: ''}
+        ];
+        return sinisterStatus;
     }
 
     /**

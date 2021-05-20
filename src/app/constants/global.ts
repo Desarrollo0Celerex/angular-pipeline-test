@@ -64,10 +64,10 @@ export const POLICY_STATUS: any = {
     FINISHED: 6,
     CANCELLED: 7
 }
+export const POLICY_STATUS_ACTIVE: number = 100;
 export const PAYMENT_STATUS: any = {
     PAID: 5
 }
-export const POLICY_STATUS_ACTIVE: number = 100;
 export const SINISTER_STATUS: any = {
     RECENT: 1,
     PENDING: 2,
@@ -75,6 +75,7 @@ export const SINISTER_STATUS: any = {
     CONFLICTIVE: 4,
     FINISHED: 5
 }
+export const SINISTER_STATUS_OPEN: number = 100;
 
 // Types
 export const CONTENT_TYPES: any = {
@@ -105,6 +106,10 @@ export const CONTENT_TYPES: any = {
     CONTACT_POLICY: {
         ID: 7,
         NAME: 'Póliza'
+    },
+    CONTACT_SINISTER: {
+        ID: 8,
+        NAME: 'Siniestro'
     },
     COINCIDENCES: {
         NAME: 'Coincidencia'

@@ -15,6 +15,7 @@ const routes: any = {
     sinister: (workspaceId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/' +sinisterId,
     sinisters: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters',
     totalSinisters: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/count',
+    contactSinisters: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/sinisters',
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters'
 }
 
@@ -37,6 +38,36 @@ export class SinisterService {
     createSinister(contactId: string, policyId: string, requestBody: CreateSinister): Observable<void> {
         const route: string = routes.policySinisters(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
+    }
+
+    /**
+     * Get the contact sinisters
+     * @param  contactId The contact ID
+     * @param  page      The page to get
+     * @param  fields    The fields to get
+     * @param  filter    The filter to apply
+     * @param  search    The search to do
+     * @return           The contact sinisters
+     */
+    getContactSinisters(contactId: string, page: number = 1, fields: string = '', filters: number[] = [], query: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactSinisters(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
+        if(!!query) params = params.append('search', 'sinisterNumber:' + query);
+        params = params.append('sortBy', '-createdAt');
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const sinisters: Sinister[] = res.data.items.map( (sinister: Sinister) => {
+                        return this._calculatePolicyLifeTime(sinister);
+                    })
+                    res.data.items = sinisters;
+                }
+                return res;
+            })
+        )
     }
 
     /**
@@ -94,5 +125,17 @@ export class SinisterService {
        percentage = (daysPassed >= totalDays) ? 100 : Math.round(daysPassed * 100 / totalDays);
        sinister.lifeTime = percentage;
        return sinister;
+   }
+
+   /**
+    * Get the filter to apply
+    * @param  filters The filters to apply
+    * @return         The filter
+    */
+   private _getFilter(filters: number[]): string {
+       const filterIds: string[] = filters.map( (element: number) => {
+           return 'sinisterStatusId[=]' + element;
+       });
+       return filterIds.join(',');
    }
 }

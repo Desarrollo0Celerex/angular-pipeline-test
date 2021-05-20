@@ -21,7 +21,7 @@
             <ng-container *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID">
                 <ng-container *ngTemplateOutlet="paymentSuggestion"></ng-container>
             </ng-container>
-            <ng-container *ngSwitchCase="CONTENT_TYPES.SINISTER.ID">
+            <ng-container *ngSwitchCase="(contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID) ? contentType : ''">
                 <ng-container *ngTemplateOutlet="sinisterSuggestion"></ng-container>
             </ng-container>
         </ng-container>

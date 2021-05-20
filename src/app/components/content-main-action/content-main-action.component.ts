@@ -21,6 +21,7 @@ export class ContentMainActionComponent implements OnInit {
     CONTENT_TYPES: any;
     modalIdCreateSinister: string = 'agt-create-sinister';
     modalIdSearchPolicy: string = 'agt-search-policy';
+    modalIdSelectSinisterStatus: string = 'agt-select-sinister-status';
     searchPolicyMessage: string = '';
     selectContactTypeModalId: string;
     selectPolicyStatusModalId: string;
@@ -53,6 +54,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CONTACT_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'Actualizar Cobranza '; break;
             case CONTENT_TYPES.SINISTER.ID: title = 'Nuevo '+this.contentTypeName; break;
+            case CONTENT_TYPES.CONTACT_SINISTER.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
         }
         return title;
     }
@@ -68,6 +70,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CLIENT.ID: title = 'CREAR '+this.contentTypeName; break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.CONTACT_SINISTER.ID:
                 title = 'EXPLORAR HISTORIAL';
             break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'APLICAR PAGO'; break;
@@ -89,6 +92,7 @@ export class ContentMainActionComponent implements OnInit {
                 this.searchPolicyMessage = 'Ingresa la póliza a la que deseas reportar el siniestro.';
                 ModalPlugin.show(this.modalIdSearchPolicy);
                 break;
+            case CONTENT_TYPES.CONTACT_SINISTER.ID: ModalPlugin.show(this.modalIdSelectSinisterStatus); break;
         }
     }
 

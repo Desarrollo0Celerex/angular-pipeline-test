@@ -549,6 +549,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this._contentLoaded();
             });
             break;
+
+            case CONTENT_TYPES.CONTACT_SINISTER.ID:
+                this.contentListService.loadContactSinisters(this.contactId, this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
         }
     }
 
