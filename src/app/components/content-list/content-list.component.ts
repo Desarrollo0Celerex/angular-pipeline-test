@@ -593,8 +593,20 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 })
             break;
 
+            case CONTENT_TYPES.CONTACT_SINISTER.ID:
+                this.contentListService.searchContactSinisters(this.contactId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
             case CONTENT_TYPES.PAYMENT.ID:
                 this.contentListService.searchPayments(this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.SINISTER.ID:
+                this.contentListService.searchSinisters(this.page, this.query).subscribe( () => {
                     this._contentLoaded();
                 })
             break;

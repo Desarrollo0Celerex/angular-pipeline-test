@@ -310,6 +310,24 @@ export class ContentListService {
     }
 
     /**
+     * Search the contact sinisters
+     * @param  contactId The contact ID
+     * @param  page      The page to get
+     * @param  query     The query to search
+     * @return           Notice of action done
+     */
+    searchContactSinisters(contactId: string, page: number, query: string): Observable<void> {
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId';
+        return this._sinisterService.getContactSinisters(contactId, page, fields, [], query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
      * Search the leads
      * @param  page  The page number to get
      * @param  query The query to search
@@ -335,6 +353,23 @@ export class ContentListService {
     searchPayments(page: number, query: string): Observable<void> {
         const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
         return this._paymentService.getPayments(page, fields, 0, query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
+     * Search the sinisters
+     * @param  page  The page number to get
+     * @param  query The query to search
+     * @return       Notice of action done
+     */
+    searchSinisters(page: number, query: string): Observable<void> {
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId';
+        return this._sinisterService.getSinisters(page, fields, 0, query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
