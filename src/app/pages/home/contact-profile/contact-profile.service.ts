@@ -27,6 +27,11 @@ export class ContactProfileService {
                 case pageUrl.includes(CONTACT_PROFILE_PAGE_TYPES.POLICIES.ROUTE):
                     pageType = CONTACT_PROFILE_PAGE_TYPES.POLICIES.ID;
                     break;
+
+                case pageUrl.includes(CONTACT_PROFILE_PAGE_TYPES.SINISTERS.ROUTE):
+                    pageType = CONTACT_PROFILE_PAGE_TYPES.SINISTERS.ID;
+                    break;
+
                 default:
                     pageType = 0;
             }

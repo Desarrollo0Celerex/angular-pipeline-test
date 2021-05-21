@@ -170,6 +170,10 @@ export const CONTACT_PROFILE_PAGE_TYPES: any = {
     POLICIES: {
         ID: 2,
         ROUTE: 'list-policies'
+    },
+    SINISTERS: {
+        ID: 3,
+        ROUTE: 'list-sinisters'
     }
 }
 
