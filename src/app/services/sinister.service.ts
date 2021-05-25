@@ -18,7 +18,8 @@ const routes: any = {
     totalSinisters: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/count',
     contactSinisters: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/sinisters',
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
-    policySinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId
+    policySinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId,
+    finalizeSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/finalize'
 }
 
 @Injectable()
@@ -39,6 +40,19 @@ export class SinisterService {
      */
     createSinister(contactId: string, policyId: string, requestBody: CreateSinister): Observable<void> {
         const route: string = routes.policySinisters(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
+
+    /**
+     * Finalize a sinister from the API
+     * @param  contactId   The contact ID
+     * @param  policyId    The policy ID
+     * @param  sinisterId  The sinister ID
+     * @param  requestBody The request body
+     * @return             Notice of action done
+     */
+    finalizeSinister(contactId: string, policyId: string, sinisterId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.finalizeSinister(this._workspaceId, contactId, policyId, sinisterId);
         return this._httpClient.post<void>(route, requestBody);
     }
 

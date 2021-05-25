@@ -15,6 +15,7 @@ declare var TooltipPlugin: any;
 })
 export class CardSinisterComponent implements OnInit {
     @Input() sinister: Sinister | null = null;
+    @Output() finalizeSinister: EventEmitter<SinisterDataSend> = new EventEmitter<SinisterDataSend>();
     @Output() showContactData: EventEmitter<string> = new EventEmitter<string>();
     @Output() showHistorySinister: EventEmitter<SinisterDataSend> = new EventEmitter<SinisterDataSend>();
     @Output() showPolicy: EventEmitter<PolicyDataSend> = new EventEmitter<PolicyDataSend>();
@@ -25,6 +26,20 @@ export class CardSinisterComponent implements OnInit {
     ngOnInit(): void {
         TooltipPlugin.init();
         PopoverPlugin.init();
+    }
+
+    /**
+     * Click event to request finalize the sinister
+     */
+    onClickFinalizeSinister(): void {
+        if(!!this.sinister) {
+            const data: SinisterDataSend = {
+                contactId: this.sinister.contactId,
+                policyId: this.sinister.policyId,
+                sinisterId: this.sinister.sinisterId
+            }
+            this.finalizeSinister.emit(data);
+        }
     }
 
     /**

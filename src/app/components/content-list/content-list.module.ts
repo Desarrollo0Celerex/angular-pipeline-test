@@ -23,6 +23,7 @@ import { ModalConfirmAcceptQuotationModule } from '@components/modal-confirm-acc
 import { ModalConfirmCancelPolicyModule } from '@components/modal-confirm-cancel-policy/modal-confirm-cancel-policy.module';
 import { ModalConfirmDeleteReceiptPaidModule } from '@components/modal-confirm-delete-receipt-paid/modal-confirm-delete-receipt-paid.module';
 import { ModalConfirmEndorsePolicyModule } from '@components/modal-confirm-endorse-policy/modal-confirm-endorse-policy.module';
+import { ModalConfirmFinalizeSinisterModule } from '@components/modal-confirm-finalize-sinister/modal-confirm-finalize-sinister.module';
 import { ModalConfirmReissuePolicyModule } from '@components/modal-confirm-reissue-policy/modal-confirm-reissue-policy.module';
 import { ModalConfirmRejectQuotationModule } from '@components/modal-confirm-reject-quotation/modal-confirm-reject-quotation.module';
 import { ModalConfirmRenewPolicyModule } from '@components/modal-confirm-renew-policy/modal-confirm-renew-policy.module';
@@ -78,6 +79,7 @@ import { ContentListService } from './content-list.service';
     ModalConfirmCancelPolicyModule,
     ModalConfirmDeleteReceiptPaidModule,
     ModalConfirmEndorsePolicyModule,
+    ModalConfirmFinalizeSinisterModule,
     ModalConfirmReissuePolicyModule,
     ModalConfirmRejectQuotationModule,
     ModalConfirmRenewPolicyModule,

@@ -26,5 +26,7 @@ export interface Sinister {
     sinisterTypeName: string,
     totalEvents: number,
     titularName: string,
-    dateLastEvent: string
+    dateLastEvent: string,
+    clientNumber: string,
+    insurerName: string
 }
