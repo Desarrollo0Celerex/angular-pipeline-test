@@ -17,6 +17,7 @@ export class ContainerManageSinisterComponent implements OnInit {
     @Input() sinisterData: SinisterDataSend | null = null;
     SINISTER_STATUS: any = SINISTER_STATUS;
     modalIdConfirmFinalizeSinister: string = 'agt-confirm-finalize-sinister';
+    modalIdConfirmReactivateSinister: string = 'agt-confirm-reactivate-sinister';
     modalIdUpdateSinister: string = 'agt-update-sinister';
 
     constructor(public containerManageSinisterService: ContainerManageSinisterService) { }
@@ -38,7 +39,7 @@ export class ContainerManageSinisterComponent implements OnInit {
      * Click event to reactivate the sinister
      */
     onClickReactivateSinister(): void {
-        console.log('Reactivar siniestro')
+        ModalPlugin.show(this.modalIdConfirmReactivateSinister);
     }
 
     /**

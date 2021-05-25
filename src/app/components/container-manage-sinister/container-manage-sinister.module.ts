@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ModalConfirmFinalizeSinisterModule } from '@components/modal-confirm-finalize-sinister/modal-confirm-finalize-sinister.module';
+import { ModalConfirmReactivateSinisterModule } from '@components/modal-confirm-reactivate-sinister/modal-confirm-reactivate-sinister.module';
 import { ModalUpdateSinisterModule } from '@components/modal-update-sinister/modal-update-sinister.module';
 import { SinisterService } from '@services/sinister.service';
 
@@ -14,6 +15,7 @@ import { ContainerManageSinisterService } from './container-manage-sinister.serv
   imports: [
     CommonModule,
     ModalConfirmFinalizeSinisterModule,
+    ModalConfirmReactivateSinisterModule,
     ModalUpdateSinisterModule
   ],
   providers: [ContainerManageSinisterService, SinisterService]

@@ -65,6 +65,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmEndorsePolicy: string;
     modalIdConfirmFinalizeSinister: string;
     modalIdConfirmReissuePolicy: string;
+    modalIdConfirmReactivateSinister: string;
     modalIdConfirmRenewPolicy: string;
     modalIdConfirmShowHistoryPolicy: string;
     modalIdConfirmShowPaymentHistory: string;
@@ -116,6 +117,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.modalIdConfirmEndorsePolicy = 'agt-confirm-endorse-policy';
         this.modalIdConfirmFinalizeSinister = 'agt-confirm-finalize-sinister';
         this.modalIdConfirmReissuePolicy = 'agt-confirm-reissue-policy';
+        this.modalIdConfirmReactivateSinister = 'agt-confirm-reactivate-sinister';
         this.modalIdConfirmRenewPolicy = 'agt-confirm-renew-policy';
         this.modalIdConfirmShowHistoryPolicy = 'agt-confitm-show-history-policy';
         this.modalIdConfirmShowPaymentHistory = 'agt-confitm-show-payment-history';
@@ -285,6 +287,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     onPolicyDeleted(): void {
         this._initContent();
+    }
+
+    /**
+     * Event to reactivate a sinister
+     * @param sinisterData The sinister data
+     */
+    onReactivateSinister(sinisterData: SinisterDataSend): void {
+        this.selectedSinisterData = sinisterData;
+        ModalPlugin.show(this.modalIdConfirmReactivateSinister);
     }
 
     /**

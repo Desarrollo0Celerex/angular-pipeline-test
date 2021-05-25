@@ -55,6 +55,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.listSinisters, loadChildren: () => import('@pages/home/sinisters/list-sinisters/list-sinisters.module').then(mod => mod.ListSinistersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.showSinisterHistory(':contactId', ':policyId', ':sinisterId'), loadChildren: () => import('@pages/home/sinisters/show-sinister-history/show-sinister-history.module').then(mod => mod.ShowSinisterHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.finalizeSinister(':contactId', ':policyId', ':sinisterId'), loadChildren: () => import('@pages/home/sinisters/finalize-sinister/finalize-sinister.module').then(mod => mod.FinalizeSinisterModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.reactivateSinister(':contactId', ':policyId', ':sinisterId'), loadChildren: () => import('@pages/home/sinisters/reactivate-sinister/reactivate-sinister.module').then(mod => mod.ReactivateSinisterModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Searches routes
             { path: ROUTES_NAME.listSearchResults, loadChildren: () => import('@pages/home/searches/list-search-results/list-search-results.module').then(mod => mod.ListSearchResultsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] }

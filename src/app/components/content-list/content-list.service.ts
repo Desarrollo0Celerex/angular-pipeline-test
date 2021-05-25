@@ -128,7 +128,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadContactSinisters(contactId: string, page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId';
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId';
         const filters: number [] = (contentSubtype === SINISTER_STATUS_OPEN) ? [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE] : [contentSubtype];
         return this._sinisterService.getContactSinisters(contactId, page, fields, filters).pipe(
             tap((res: HttpResponse) => {
@@ -198,7 +198,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadSinisters(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId';
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId';
         return this._sinisterService.getSinisters(page, fields, contentSubtype).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
@@ -317,7 +317,7 @@ export class ContentListService {
      * @return           Notice of action done
      */
     searchContactSinisters(contactId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId';
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId';
         return this._sinisterService.getContactSinisters(contactId, page, fields, [], query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
@@ -368,7 +368,7 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchSinisters(page: number, query: string): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId';
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId';
         return this._sinisterService.getSinisters(page, fields, 0, query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);

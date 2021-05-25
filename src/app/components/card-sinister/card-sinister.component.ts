@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+import { SINISTER_STATUS } from '@constants/global';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { Sinister } from '@interfaces/sinister.interface';
@@ -16,10 +17,13 @@ declare var TooltipPlugin: any;
 export class CardSinisterComponent implements OnInit {
     @Input() sinister: Sinister | null = null;
     @Output() finalizeSinister: EventEmitter<SinisterDataSend> = new EventEmitter<SinisterDataSend>();
+    @Output() reactivateSinister: EventEmitter<SinisterDataSend> = new EventEmitter<SinisterDataSend>();
     @Output() showContactData: EventEmitter<string> = new EventEmitter<string>();
+    @Output() showHistoryPolicy: EventEmitter<PolicyDataSend> = new EventEmitter<PolicyDataSend>();
     @Output() showHistorySinister: EventEmitter<SinisterDataSend> = new EventEmitter<SinisterDataSend>();
     @Output() showPolicy: EventEmitter<PolicyDataSend> = new EventEmitter<PolicyDataSend>();
     @Output() showSinisterDetails: EventEmitter<Sinister> = new EventEmitter<Sinister>();
+    SINISTER_STATUS: any = SINISTER_STATUS;
 
     constructor() { }
 
@@ -43,6 +47,20 @@ export class CardSinisterComponent implements OnInit {
     }
 
     /**
+     * Click event to request reactivate the sinister
+     */
+    onClickReactivateSinister(): void {
+        if(!!this.sinister) {
+            const data: SinisterDataSend = {
+                contactId: this.sinister.contactId,
+                policyId: this.sinister.policyId,
+                sinisterId: this.sinister.sinisterId
+            }
+            this.reactivateSinister.emit(data);
+        }
+    }
+
+    /**
      * Click event to request show the contact data
      */
     onClickShowContactData(): void {
@@ -57,6 +75,15 @@ export class CardSinisterComponent implements OnInit {
     onClickShowDetails(): void {
         if(!!this.sinister) {
             this.showSinisterDetails.emit(this.sinister);
+        }
+    }
+
+    /**
+     * Click event to request show the history policy
+     */
+    onClickShowHistoryPolicy(): void {
+        if(!!this.sinister) {
+            this.showHistoryPolicy.emit({policyId: this.sinister.policyId, contactId: this.sinister.contactId});
         }
     }
 
