@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { CreateSinister } from '@interfaces/create-sinister.interface';
+import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { AuthService } from '@services/auth.service';
@@ -16,7 +17,8 @@ const routes: any = {
     sinisters: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters',
     totalSinisters: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/count',
     contactSinisters: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/sinisters',
-    policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters'
+    policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
+    policySinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId
 }
 
 @Injectable()
@@ -71,6 +73,21 @@ export class SinisterService {
     }
 
     /**
+     * Get the policy sinister
+     * @param  contactId  The contact ID
+     * @param  policyId   The policy ID
+     * @param  sinisterId The sinister ID
+     * @param  fields     The fields to get
+     * @return            The policy sinister
+     */
+    getPolicySinister(contactId: string, policyId: string, sinisterId: string, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.policySinister(this._workspaceId, contactId, policyId, sinisterId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
      * Get the total sinoster from the API
      * @param  sinisterStatusId The filter to apply
      * @return                  The total clients
@@ -109,6 +126,17 @@ export class SinisterService {
                return res;
            })
        )
+   }
+
+   /**
+    * Update the policy sinister
+    * @param  sinisterData The sinister data
+    * @param  requestBody  The sinister data to update
+    * @return              Notification of action done
+    */
+   updatePolicySinister(sinisterData: SinisterDataSend, requestBody: CreateSinister ): Observable<void> {
+       const route: string = routes.policySinister(this._workspaceId, sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId);
+       return this._httpClient.put<void>(route, requestBody);
    }
 
    /**

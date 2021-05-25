@@ -6,12 +6,14 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
-import { Sinister } from '@interfaces/sinister.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
 import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.interface';
+import { Sinister } from '@interfaces/sinister.interface';
+import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ContentListService } from './content-list.service';
@@ -55,6 +57,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedQuotationId: string;
     selectedReceiptPaidId: string;
     selectedSinister: Sinister | null = null;
+    selectedSinisterData: SinisterDataSend | null = null;
     modalIdAcceptQuotation: string;
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
@@ -64,6 +67,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmRenewPolicy: string;
     modalIdConfirmShowHistoryPolicy: string;
     modalIdConfirmShowPaymentHistory: string;
+    modalIdConfirmShowSinisterHistory: string;
     modalIdConfirmUpdatePolicy: string;
     modalIdRejectQuotation: string;
     modalIdSelectContact: string;
@@ -113,6 +117,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.modalIdConfirmRenewPolicy = 'agt-confirm-renew-policy';
         this.modalIdConfirmShowHistoryPolicy = 'agt-confitm-show-history-policy';
         this.modalIdConfirmShowPaymentHistory = 'agt-confitm-show-payment-history';
+        this.modalIdConfirmShowSinisterHistory = 'agt-confitm-show-sinister-history';
         this.modalIdConfirmUpdatePolicy = 'agt-confirm-update-policy';
         this.modalIdRejectQuotation = 'agt-reject-quotation';
         this.modalIdSelectContact = 'agt-select-contact';
@@ -342,6 +347,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to show modal to confirm show the sinister history
+     * @param data The sinister data
+     */
+    onShowHistorySinister(data: SinisterDataSend): void {
+        this.selectedSinisterData = data;
+        ModalPlugin.show(this.modalIdConfirmShowSinisterHistory);
+    }
+
+    /**
      * Event to show the quotation details modal
      * @param quotationId The selected quotation ID
      */
@@ -362,9 +376,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     /**
      * Event to show policy
-     * @param data The data
+     * @param PolicyDataSend The policy data
      */
-    onShowPolicyFromWorkspace(data: { policyId: string, contactId: string }): void {
+    onShowPolicyFromWorkspace(data: PolicyDataSend): void {
         this.selectedPolicyId = data.policyId;
         this.selectedContactId = data.contactId;
         ModalPlugin.show(this.modalIdShowPolicy);

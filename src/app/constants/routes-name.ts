@@ -72,6 +72,7 @@ const HOME_QUOTATIONS_ROUTES = {
 
 const HOME_SINISTERS_ROUTES = {
     listSinisters: `workspace/sinisters/list-sinisters`,
+    showSinisterHistory: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/sinister-history/${contactId}/${policyId}/${sinisterId}`
 }
 
 const INVITATIONS_ROUTES = {

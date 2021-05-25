@@ -75,6 +75,8 @@
                     [sinister]="content"
                     (showContactData)="onShowContactData($event)"
                     (showSinisterDetails)="onShowSinisterDetails($event)"
+                    (showPolicy)="onShowPolicyFromWorkspace($event)"
+                    (showHistorySinister)="onShowHistorySinister($event)"
                 ></agt-card-sinister>
             </ng-container>
         </div>
@@ -99,7 +101,7 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
     <agt-modal-show-endorsement [modalId]="modalIdShowEndorsement" [contactId]="contactId" [policyId]="policyId" [endorsementId]="selectedEndorsementId"></agt-modal-show-endorsement>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID || contentType === CONTENT_TYPES.PAYMENT.ID">
+<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID || contentType === CONTENT_TYPES.PAYMENT.ID || contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
     <agt-modal-show-policy-details [modalId]="modalIdShowPolicyDetails" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [isHistoryContent]="isHistoryContent" (showPolicy)="onShowPolicy($event)"></agt-modal-show-policy-details>
     <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="selectedContactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
 </ng-container>
@@ -124,5 +126,6 @@
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
     <agt-modal-show-sinister-details [modalId]="modalIdShowSinisterDetails" [sinister]="selectedSinister"></agt-modal-show-sinister-details>
+    <agt-modal-confirm-show-sinister-history [modalId]="modalIdConfirmShowSinisterHistory" [sinisterData]="selectedSinisterData"></agt-modal-confirm-show-sinister-history>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->
