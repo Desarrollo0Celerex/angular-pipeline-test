@@ -16,6 +16,7 @@ declare var ModalPlugin: any;
 export class ContainerManageSinisterComponent implements OnInit {
     @Input() sinisterData: SinisterDataSend | null = null;
     SINISTER_STATUS: any = SINISTER_STATUS;
+    modalIdConfirmFinalizeSinister: string = 'agt-confirm-finalize-sinister';
     modalIdUpdateSinister: string = 'agt-update-sinister';
 
     constructor(public containerManageSinisterService: ContainerManageSinisterService) { }
@@ -44,6 +45,6 @@ export class ContainerManageSinisterComponent implements OnInit {
      * Click event to finalize the sinister
      */
     onClickFinalizeSinister(): void {
-        console.log('Finalizar siniestro')
+        ModalPlugin.show(this.modalIdConfirmFinalizeSinister);
     }
 }
