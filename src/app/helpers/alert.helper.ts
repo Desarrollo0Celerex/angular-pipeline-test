@@ -265,6 +265,18 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static sinisterReactivated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Siniestro Reactivado',
+            text: 'El siniestro se reactivó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static sinisterUpdated(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Siniestro Actualizado',

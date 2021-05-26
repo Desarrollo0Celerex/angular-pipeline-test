@@ -19,7 +19,8 @@ const routes: any = {
     contactSinisters: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/sinisters',
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
     policySinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId,
-    finalizeSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/finalize'
+    finalizeSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/finalize',
+    reactivateSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/reactivate'
 }
 
 @Injectable()
@@ -140,6 +141,19 @@ export class SinisterService {
                return res;
            })
        )
+   }
+
+   /**
+    * Reactivate a sinister from the API
+    * @param  contactId   The contact ID
+    * @param  policyId    The policy ID
+    * @param  sinisterId  The sinister ID
+    * @param  requestBody The request body
+    * @return             Notice of action done
+    */
+   reactivateSinister(contactId: string, policyId: string, sinisterId: string, requestBody: FormData): Observable<void> {
+       const route: string = routes.reactivateSinister(this._workspaceId, contactId, policyId, sinisterId);
+       return this._httpClient.post<void>(route, requestBody);
    }
 
    /**

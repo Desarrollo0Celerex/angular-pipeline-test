@@ -1,1 +1,155 @@
-<p>reactivate-sinister works!</p>
+<ng-container *ngIf="!!sinisterData">
+    <agt-container-contact-details [contactId]="sinisterData.contactId" [message]="contactDetailsMessage"></agt-container-contact-details>
+
+    <!-- AGENTHOS - SINISTER DETAILS -->
+    <div class="row" *ngIf="!!reactivateSinisterService.sinister">
+        <div class="col-md-4">
+            <!-- AGENTHOS - CANCELATION RESUME -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Evidencia de Reactivación</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- AGENTHOS - SINISTER EVIDENCE -->
+                            <button type="button" class="btn btn-block btn-primary" *ngIf="!!reactivateSinisterService.f.evidenceFile.value; else uploadEvidence" (click)="onClickUploadEvidence()"><strong>ACTUALIZAR EVIDENCIA</strong></button>
+                            <ng-template #uploadEvidence>
+                                <button type="button" class="btn btn-block btn-secondary" (click)="onClickUploadEvidence()"><strong>ADJUNTAR EVIDENCIA</strong></button>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - CANCELATION RESUME -->
+            <!-- AGENTHOS - POLICY RESUME -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Datos de Póliza</h3>
+                </div>
+                <div class="card-body">
+                    <div class="block-content">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Bien Asegurado</label>
+                                    <input type="text" class="form-control" [placeholder]="reactivateSinisterService.sinister.coveredProperty" disabled="">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">No. Póliza</label>
+                                    <input type="text" class="form-control" [placeholder]="reactivateSinisterService.sinister.policyNumber" disabled="">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">No. Cliente</label>
+                                    <input type="text" class="form-control" [placeholder]="reactivateSinisterService.sinister.clientNumber" disabled="">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Aseguradora</label>
+                                    <input type="text" class="form-control" [placeholder]="reactivateSinisterService.sinister.insurerName | uppercase" disabled="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - POLICY RESUME -->
+        </div>
+
+        <div class="col-md-8">
+            <form [formGroup]="reactivateSinisterService.sinisterForm" (submit)="onSubmitReactivateSinister()">
+                <!-- AGENTHOS - SINISTER REACTIVATION -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Reactivación del Siniestro</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="block-content">
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <!-- AGENTHOS - SINISTER REACTIVATION * -->
+                                        <label class="form-label">Reactivación de Siniestro</label>
+                                        <select class="form-control custom-select {{getValidationClass('sinisterReactivationId')}}" formControlName="sinisterReactivationId">
+                                            <option [value]="sinisterReactivation.sinisterReactivationId" *ngFor="let sinisterReactivation of reactivateSinisterService.sinisterReactivations">{{sinisterReactivation.name}}</option>
+                                        </select>
+                                        <div class="invalid-feedback">{{getErrorMessage('sinisterReactivationId')}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Fecha de Reactivación</label>
+                                        <input [id]="calendarIdReactivationDate" class="form-control fc-datepicker {{getValidationClass('reactivationDate')}}" type="text" formControlName="reactivationDate">
+                                        <div class="invalid-feedback">{{getErrorMessage('reactivationDate')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - SINISTER REACTIVATION -->
+                <!-- AGENTHOS - SINISTER DETAILS -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Detalles del Siniestro</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="block-content">
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <!-- AGENTHOS - SINISTER DATE -->
+                                        <label class="form-label">Fecha del Siniestro</label>
+                                        <input type="text" class="form-control" [placeholder]="reactivateSinisterService.sinister.sinisterDate | date: 'dd/MM/yyyy'" readonly="">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <!-- AGENTHOS - SINISTER NUMBER -->
+                                        <label class="form-label">No. de Siniestro</label>
+                                        <input type="text" class="form-control" [placeholder]="reactivateSinisterService.sinister.sinisterNumber" readonly="">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <!-- AGENTHOS - SINISTER INVOICE -->
+                                        <label class="form-label">No. de Folio</label>
+                                        <input type="text" class="form-control" [placeholder]="reactivateSinisterService.sinister.invoice" readonly="">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <!-- AGENTHOS - SINISTER CERTIFICATE -->
+                                        <label class="form-label">No. de Certificado</label>
+                                        <input type="text" class="form-control" [placeholder]="reactivateSinisterService.sinister.certificate" readonly="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - SINISTER DETAILS -->
+                <!-- AGENTHOS - SINISTER REACTIVATE -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- ACTION TARGET: AGTVIEW0022-1 -->
+                                <button type="submit" class="btn btn-block btn-primary"><strong>REACTIVAR SINIESTRO</strong></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - SINISTER REACTIVATE -->
+            </form>
+        </div>
+    </div>
+    <!-- AGENTHOS - SINISTER DETAILS -->
+</ng-container>
+
+<agt-modal-select-file [modalId]="modalIdUploadEvidence" [data]="modalSelectFileData" (fileSelected)="onFileSelected($event)"></agt-modal-select-file>
