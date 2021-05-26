@@ -253,6 +253,18 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static sinisterEventReported(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Evento Reportado',
+            text: 'El evento se registró con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static sinisterFinished(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Siniestro Finalizado',

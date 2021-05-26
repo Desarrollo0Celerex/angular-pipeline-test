@@ -1,0 +1,71 @@
+<!-- AGENTHOS - SINISTER EVENT NEW -->
+<div class="row mt-5">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Reportar Evento</h3>
+            </div>
+            <div class="card-body" *ngIf="!!containerReportEventService.sinister && containerReportEventService.sinister.sinisterStatusId === SINISTER_STATUS.FINISHED; else reportEvent">
+                <div class="row">
+                    <!-- AGENTHOS - -->
+                    <div class="col-md-12">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1"><strong>El siniestro se encuentra cerrado.</strong> Por favor reactiva el siniestro si deseas reportar un evento.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <ng-template #reportEvent>
+                <form [formGroup]="containerReportEventService.eventForm" (submit)="onSubmitReportEvent()">
+                    <!-- AGENTHOS - SINISTER EVENT BODY-->
+                    <div class="card-body">
+                        <!-- AGENTHOS - SINISTER EVENT DETAILS -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SINISTER EVENT REPORT * -->
+                                    <label class="form-label">Detalles del Evento</label>
+                                    <textarea class="form-control {{getValidationClass('details')}}" rows="3" placeholder="Ingresa los detalles del evento." formControlName="details"></textarea>
+                                    <div class="invalid-feedback">{{getErrorMessage('details')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SINISTER EVENT DATE * -->
+                                    <label class="form-label">Fecha del Evento</label>
+                                    <input [id]="calendarIdEventDate" class="form-control fc-datepicker {{getValidationClass('eventDate')}}" type="text" formControlName="eventDate">
+                                    <div class="invalid-feedback">{{getErrorMessage('eventDate')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SINISTER EVENT NOTIFICATION * -->
+                                    <label class="form-label">Notificar Evento</label>
+                                    <div class="form-group">
+                                        <select class="form-control custom-select {{getValidationClass('sinisterEventTypeId')}}" formControlName="sinisterEventTypeId">
+                                            <option [value]="sinisterEventType.sinisterEventTypeId" *ngFor="let sinisterEventType of containerReportEventService.sinisterEventTypes">{{sinisterEventType.name}}</option>
+                                        </select>
+                                        <div class="invalid-feedback">{{getErrorMessage('sinisterEventTypeId')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //AGENTHOS - SINISTER EVENT DETAILS -->
+                    </div>
+                    <!-- //AGENTHOS - SINISTER EVENT BODY-->
+                    <!-- AGENTHOS - SINISTER EVENT FOOTER -->
+                    <div class="card-footer">
+                        <div class="row">
+                            <!-- AGENTHOS - SINISER EVENT POST -->
+                            <div class="col-sm-12 col-12 text-left">
+                                <button type="submit" class="btn btn-block btn-primary"><strong>REPORTAR EVENTO</strong></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - SINISTER EVENT FOOTER -->
+                </form>
+            </ng-template>
+        </div>
+    </div>
+</div>
+<!-- AGENTHOS - SINISTER EVENT NEW -->

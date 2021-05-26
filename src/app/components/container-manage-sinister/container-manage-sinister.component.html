@@ -46,7 +46,7 @@
             <!-- AGENTHOS - SINISTER CONTROL FOOTER -->
             <div class="card-footer">
                 <div class="btn-list">
-                    <button type="button" class="btn btn-primary" (click)="onClickUpdateSinister()"><strong>ACTUALIZAR</strong></button>
+                    <button type="button" class="btn btn-secondary" (click)="onClickUpdateSinister()"><strong>ACTUALIZAR</strong></button>
                     <button type="button" class="btn btn-primary" *ngIf="containerManageSinisterService.sinister.sinisterStatusId === SINISTER_STATUS.FINISHED; else finalizeSinister" (click)="onClickReactivateSinister()"><strong>REACTIVAR</strong></button>
                     <ng-template #finalizeSinister>
                         <button type="button" class="btn btn-primary" (click)="onClickFinalizeSinister()"><strong>FINALIZAR</strong></button>
