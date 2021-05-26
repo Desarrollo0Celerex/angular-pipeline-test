@@ -36,6 +36,7 @@
                         <agt-card-sinister-log *ngSwitchCase="CONTENT_TYPES.SINISTER_HISTORY.ID"
                             [sinisterLog]="content"
                             (updateSinisterEvent)="onUpdateSinisterEvent($event)"
+                            (deleteSinisterEvent)="onDeleteSinisterEvent($event)"
                         ></agt-card-sinister-log>
                     </ng-container>
                 </ng-container>
@@ -138,5 +139,6 @@
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.SINISTER_HISTORY.ID">
     <agt-modal-update-sinister-event [modalId]="modalIdUpdateSinisterEvent" [sinisterEventData]="selectedSinisterEventData"></agt-modal-update-sinister-event>
+    <agt-modal-confirm-delete-sinister-event [modalId]="modalIdConfirmDeleteSinisterEvent" [sinisterEventData]="selectedSinisterEventData"></agt-modal-confirm-delete-sinister-event>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

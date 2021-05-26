@@ -13,6 +13,7 @@ import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.inte
 export class CardSinisterLogComponent implements OnInit {
     @Input() sinisterLog: SinisterLog | null = null;
     @Output() updateSinisterEvent: EventEmitter<SinisterEventDataSend> = new EventEmitter<SinisterEventDataSend>();
+    @Output() deleteSinisterEvent: EventEmitter<SinisterEventDataSend> = new EventEmitter<SinisterEventDataSend>();
     SINISTER_RECORD_TYPES: any = SINISTER_RECORD_TYPES;
 
     constructor() { }
@@ -32,6 +33,21 @@ export class CardSinisterLogComponent implements OnInit {
                 sinisterEventId: this.sinisterLog.logSourceId
             }
             this.updateSinisterEvent.emit(sinisterEventData);
+        }
+    }
+
+    /**
+     * Event to request update the sinister event
+     */
+    onClickDeleteSinisterEvent(): void {
+        if(!!this.sinisterLog) {
+            const sinisterEventData: SinisterEventDataSend = {
+                contactId: this.sinisterLog.contactId,
+                policyId: this.sinisterLog.policyId,
+                sinisterId: this.sinisterLog.sinisterId,
+                sinisterEventId: this.sinisterLog.logSourceId
+            }
+            this.deleteSinisterEvent.emit(sinisterEventData);
         }
     }
 

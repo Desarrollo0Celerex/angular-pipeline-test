@@ -23,16 +23,13 @@ export class SinisterEventService {
     ) { }
 
     /**
-     * Report a sinister event from the API
-     * @param  contactId   The contact ID
-     * @param  policyId    The policy ID
-     * @param  sinisterId  The sinister ID
-     * @param  requestBody The request body
-     * @return             Notice of action done
+     * Delete the sinister event fron the API
+     * @param  sinisterEventData The sinister event data
+     * @return                   Notice of action done
      */
-    reportSinisterEvent(contactId: string, policyId: string, sinisterId: string, requestBody: ReportEventDataSend): Observable<void> {
-        const route: string = routes.sinisterEvents(this._workspaceId, contactId, policyId, sinisterId);
-        return this._httpClient.post<void>(route, requestBody);
+    deleteSinisterEvent(sinisterEventData: SinisterEventDataSend): Observable<void> {
+        const route: string = routes.sinisterEvent(this._workspaceId, sinisterEventData.contactId, sinisterEventData.policyId, sinisterEventData.sinisterId, sinisterEventData.sinisterEventId);
+        return this._httpClient.delete<void>(route);
     }
 
     /**
@@ -46,6 +43,19 @@ export class SinisterEventService {
         let params: HttpParams = new HttpParams();
         if(!!fields) params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
+     * Report a sinister event from the API
+     * @param  contactId   The contact ID
+     * @param  policyId    The policy ID
+     * @param  sinisterId  The sinister ID
+     * @param  requestBody The request body
+     * @return             Notice of action done
+     */
+    reportSinisterEvent(contactId: string, policyId: string, sinisterId: string, requestBody: ReportEventDataSend): Observable<void> {
+        const route: string = routes.sinisterEvents(this._workspaceId, contactId, policyId, sinisterId);
+        return this._httpClient.post<void>(route, requestBody);
     }
 
     /**

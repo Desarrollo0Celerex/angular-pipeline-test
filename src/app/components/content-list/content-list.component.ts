@@ -65,6 +65,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
     modalIdConfirmDeleteReceiptPaid: string;
+    modalIdConfirmDeleteSinisterEvent: string = 'agt-confirm-delete-sinister-event';
     modalIdConfirmEndorsePolicy: string;
     modalIdConfirmFinalizeSinister: string;
     modalIdConfirmReissuePolicy: string;
@@ -252,6 +253,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             this._loadingService.hide();
             AlertHelper.receiptPaidDeleted(this._reloadContent, this);
         })
+    }
+
+    /**
+     * Event to show modal to confirm delete sinister event
+     * @param sinisterEventData The sinister event data
+     */
+    onDeleteSinisterEvent(sinisterEventData: SinisterEventDataSend): void {
+        this.selectedSinisterEventData = sinisterEventData;
+        ModalPlugin.show(this.modalIdConfirmDeleteSinisterEvent);
     }
 
     /**
