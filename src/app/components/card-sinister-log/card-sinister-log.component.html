@@ -1,0 +1,53 @@
+<ng-container *ngIf="!!sinisterLog" [ngSwitch]="sinisterLog.sinisterRecordTypeId">
+    <li *ngSwitchCase="SINISTER_RECORD_TYPES.REGISTER">
+        <time class="cbp_tmtime"><span>{{sinisterLog.createdAt | date: 'dd/MM/yyyy'}}</span><span>{{sinisterLog.createdAt | date: 'h:mm a'}}</span></time>
+        <div class="cbp_tmicon bg-primary"><i class="fa fa-circle-o"></i></div>
+        <div class="cbp_tmlabel">
+            <h2>{{sinisterLog.sinisterRecordTypeName}}</h2>
+            <p class="text-sm"><strong>{{sinisterLog.createdByName}}</strong> reportó el siniestro.</p>
+        </div>
+    </li>
+
+    <li *ngSwitchCase="SINISTER_RECORD_TYPES.UPDATE">
+        <time class="cbp_tmtime"><span>{{sinisterLog.createdAt | date: 'dd/MM/yyyy'}}</span><span>{{sinisterLog.createdAt | date: 'h:mm a'}}</span></time>
+        <div class="cbp_tmicon bg-warning"><i class="fa fa-edit"></i></div>
+        <div class="cbp_tmlabel">
+            <h2>{{sinisterLog.sinisterRecordTypeName}}</h2>
+            <p class="text-sm"><strong>{{sinisterLog.createdByName}}</strong> actualizó los detalles del siniestro.</p>
+        </div>
+    </li>
+
+    <li *ngSwitchCase="SINISTER_RECORD_TYPES.FINISHED">
+        <time class="cbp_tmtime"><span>{{sinisterLog.createdAt | date: 'dd/MM/yyyy'}}</span><span>{{sinisterLog.createdAt | date: 'h:mm a'}}</span></time>
+        <div class="cbp_tmicon bg-success"><i class="fa fa-check-square-o"></i></div>
+        <div class="cbp_tmlabel">
+            <h2>{{sinisterLog.sinisterRecordTypeName}}</h2>
+            <p class="text-sm"><strong>{{sinisterLog.createdByName}}</strong> cerró el siniestro. Resolución: <strong>{{sinisterLog.sinisterResolutionName}}</strong>. Monto: <strong>{{sinisterLog.indemnificationAmount | currency: '': '$': '0.2-2'}}</strong>. Fecha Resolución: <strong>{{sinisterLog.resolutionDate | date: 'dd/MM/yyyy'}}</strong>.</p>
+        </div>
+    </li>
+
+    <li *ngSwitchCase="SINISTER_RECORD_TYPES.REACTIVATED">
+        <time class="cbp_tmtime"><span>{{sinisterLog.createdAt | date: 'dd/MM/yyyy'}}</span><span>{{sinisterLog.createdAt | date: 'h:mm a'}}</span></time>
+        <div class="cbp_tmicon bg-info"><i class="fa fa-refresh"></i></div>
+        <div class="cbp_tmlabel">
+            <h2>{{sinisterLog.sinisterRecordTypeName}}</h2>
+            <p class="text-sm"><strong>{{sinisterLog.createdByName}}</strong> reactivó el siniestro. Motivo: <strong>{{sinisterLog.sinisterReactivationName}}</strong>. Fecha Reactivación: <strong>{{sinisterLog.reactivationDate | date: 'dd/MM/yyyy'}}</strong>.</p>
+        </div>
+    </li>
+
+    <li *ngSwitchCase="SINISTER_RECORD_TYPES.NEW_EVENT">
+        <time class="cbp_tmtime"><span>{{sinisterLog.createdAt | date: 'dd/MM/yyyy'}}</span><span>{{sinisterLog.createdAt | date: 'h:mm a'}}</span></time>
+        <div class="cbp_tmicon bg-secondary"><i class="fa fa-comments-o"></i></div>
+        <div class="cbp_tmlabel">
+            <h2>{{sinisterLog.sinisterRecordTypeName}}</h2>
+            <p class="text-sm mb-3"><strong>{{sinisterLog.createdByName}}</strong> reportó un evento para este siniestro. Fecha Evento: <strong>{{sinisterLog.eventDate | date: 'dd/MM/yyyy'}}</strong></p>
+            <ol class="breadcrumb1">
+                <li class="breadcrumb-item1">{{sinisterLog.details}}</li>
+            </ol>
+            <div class="btn-list mt-3">
+                <button type="button" class="btn btn-primary" (click)="onClickUpdateSinisterEvent()"><strong>EDITAR EVENTO</strong></button>
+                <button type="button" class="btn btn-secondary"><strong>ELIMINAR EVENTO</strong></button>
+            </div>
+        </div>
+    </li>
+</ng-container>

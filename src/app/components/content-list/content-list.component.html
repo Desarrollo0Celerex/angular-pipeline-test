@@ -33,6 +33,10 @@
                             [receiptPaid]="content"
                             (deleteReceiptPaid)="onDeleteReceiptPaid($event)"
                         ></agt-card-receipt-paid-record>
+                        <agt-card-sinister-log *ngSwitchCase="CONTENT_TYPES.SINISTER_HISTORY.ID"
+                            [sinisterLog]="content"
+                            (updateSinisterEvent)="onUpdateSinisterEvent($event)"
+                        ></agt-card-sinister-log>
                     </ng-container>
                 </ng-container>
             </ul>
@@ -131,5 +135,8 @@
     <agt-modal-confirm-show-sinister-history [modalId]="modalIdConfirmShowSinisterHistory" [sinisterData]="selectedSinisterData"></agt-modal-confirm-show-sinister-history>
     <agt-modal-confirm-finalize-sinister [modalId]="modalIdConfirmFinalizeSinister" [sinisterData]="selectedSinisterData"></agt-modal-confirm-finalize-sinister>
     <agt-modal-confirm-reactivate-sinister [modalId]="modalIdConfirmReactivateSinister" [sinisterData]="selectedSinisterData"></agt-modal-confirm-reactivate-sinister>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.SINISTER_HISTORY.ID">
+    <agt-modal-update-sinister-event [modalId]="modalIdUpdateSinisterEvent" [sinisterEventData]="selectedSinisterEventData"></agt-modal-update-sinister-event>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

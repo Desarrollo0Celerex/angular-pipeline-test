@@ -1,0 +1,56 @@
+<!-- AGENTHOS - SINISTER EVENT UPDATE -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<form [formGroup]="modalUpdateSinisterEventService.sinisterEventForm" (submit)="onSubmitUpdateSinisterEvent()">
+				<div class="modal-header">
+					<h5 class="modal-title">Editar Evento</h5>
+					<button type="button" class="close" (click)="onClickCloseModal()">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!-- AGENTHOS - SINISTER EVENT DETAILS -->
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<!-- AGENTHOS - SINISTER EVENT DATE * -->
+								<label class="form-label">Fecha del Evento</label>
+								<input [id]="calendarIdEventDate" class="form-control fc-datepicker {{getValidationClass('eventDate')}}" type="text" formControlName="eventDate">
+								<div class="invalid-feedback">{{getErrorMessage('eventDate')}}</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<!-- AGENTHOS - SINISTER EVENT NOTIFICATION * -->
+								<label class="form-label">Notificar Evento</label>
+								<div class="form-group">
+									<select class="form-control custom-select {{getValidationClass('sinisterEventTypeId')}}" formControlName="sinisterEventTypeId">
+										<option [value]="sinisterEventType.sinisterEventTypeId" *ngFor="let sinisterEventType of modalUpdateSinisterEventService.sinisterEventTypes">{{sinisterEventType.name}}</option>
+									</select>
+									<div class="invalid-feedback">{{getErrorMessage('sinisterEventTypeId')}}</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<!-- AGENTHOS - SINISTER EVENT REPORT * -->
+								<label class="form-label">Detalles del Evento</label>
+								<textarea class="form-control {{getValidationClass('details')}}" rows="3" formControlName="details"></textarea>
+								<div class="invalid-feedback">{{getErrorMessage('details')}}</div>
+							</div>
+						</div>
+					</div>
+					<!-- //AGENTHOS - SINISTER EVENT DETAILS -->
+				</div>
+				<div class="modal-footer">
+					<div class="col-12">
+						<!-- AGENTHOS - EVENT SAVE CHANGES -->
+						<button type="submit" class="btn btn-block btn-primary"><strong>EDITAR EVENTO</strong></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- //AGENTHOS - SINISTER EVENT UPDATE -->

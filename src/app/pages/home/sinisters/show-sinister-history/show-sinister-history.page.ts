@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { CONTENT_TYPES } from '@constants/global';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 
 @Component({
@@ -14,6 +15,7 @@ export class ShowSinisterHistoryPage implements OnInit {
     policyId: string = '';
     sinisterId: string = '';
     sinisterData: SinisterDataSend | null = null;
+    CONTENT_TYPES: any = CONTENT_TYPES;
 
     constructor(private _activatedRoute: ActivatedRoute) { }
 

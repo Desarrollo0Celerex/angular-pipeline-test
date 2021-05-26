@@ -10,6 +10,7 @@ import { CardPolicyRecordModule } from '@components/card-policy-record/card-poli
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
 import { CardReceiptPaidRecordModule } from '@components/card-receipt-paid-record/card-receipt-paid-record.module';
 import { CardSinisterModule } from '@components/card-sinister/card-sinister.module';
+import { CardSinisterLogModule } from '@components/card-sinister-log/card-sinister-log.module';
 
 import { ContainerIncompletePoliciesModule } from '@components/container-incomplete-policies/container-incomplete-policies.module';
 import { ContentResultsModule } from '@components/content-results/content-results.module';
@@ -40,6 +41,7 @@ import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
 import { ModalShowSinisterDetailsModule } from '@components/modal-show-sinister-details/modal-show-sinister-details.module';
+import { ModalUpdateSinisterEventModule } from '@components/modal-update-sinister-event/modal-update-sinister-event.module';
 
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
 
@@ -68,6 +70,7 @@ import { ContentListService } from './content-list.service';
     CardQuotationModule,
     CardReceiptPaidRecordModule,
     CardSinisterModule,
+    CardSinisterLogModule,
     CommonModule,
     ContainerIncompletePoliciesModule,
     ContentResultsModule,
@@ -96,7 +99,8 @@ import { ContentListService } from './content-list.service';
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
     ModalShowQuotationDetailsModule,
-    ModalShowSinisterDetailsModule
+    ModalShowSinisterDetailsModule,
+    ModalUpdateSinisterEventModule
   ],
   providers: [ClientService, ContactService, ContentListService, LeadService, PaymentService, PolicyService, QuotationService, ReceiptPaidService, SinisterService]
 })

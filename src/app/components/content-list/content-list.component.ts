@@ -14,6 +14,7 @@ import { SelectActionTypeData } from '@interfaces/select-action-type-data.interf
 import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
+import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ContentListService } from './content-list.service';
@@ -38,6 +39,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() paymentId: string;
     @Input() policyId: string;
     @Input() query: string;
+    @Input() sinisterId: string;
     @Input() specialQuery: SearchContactData | null;
     @Input() canReloadContent: boolean = false;
     @Output() totalResultsLoaded: EventEmitter<number>;
@@ -58,6 +60,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedReceiptPaidId: string;
     selectedSinister: Sinister | null = null;
     selectedSinisterData: SinisterDataSend | null = null;
+    selectedSinisterEventData: SinisterEventDataSend | null = null;
     modalIdAcceptQuotation: string;
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
@@ -80,6 +83,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowPolicyDetails: string;
     modalIdShowQuotationDetails: string;
     modalIdShowSinisterDetails: string = 'agt-show-sinister-details';
+    modalIdUpdateSinisterEvent: string = 'agt-update-sinister-event'
     totalResults: number;
     private subParams: any;
 
@@ -94,6 +98,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.contentSubtype = 0;
         this.contentSubtypeName = '';
         this.query = '';
+        this.sinisterId = '';
         this.specialQuery = null;
         this.totalResultsLoaded = new EventEmitter<number>();
         this.CONTENT_TYPES = CONTENT_TYPES;
@@ -454,6 +459,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to show modal to update the sinister event
+     * @param sinisterEventData The sinister event data
+     */
+    onUpdateSinisterEvent(sinisterEventData: SinisterEventDataSend): void {
+        this.selectedSinisterEventData = sinisterEventData;
+        ModalPlugin.show(this.modalIdUpdateSinisterEvent);
+        ModalPlugin.setFixed();
+    }
+
+    /**
      * Do action to contact selected
      * @param contactId The selected contact ID
      */
@@ -510,6 +525,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.HISTORY_POLICY.ID:
             case CONTENT_TYPES.PAYMENT_HISTORY.ID:
+            case CONTENT_TYPES.SINISTER_HISTORY.ID:
                 this.cardClasses = 'col-lg-12 mt-5';
             break;
 
@@ -588,6 +604,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
                 this.contentListService.loadContactSinisters(this.contactId, this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.SINISTER_HISTORY.ID:
+                this.contentListService.loadSinisterLogs(this.contactId, this.policyId, this.sinisterId, this.page).subscribe( () => {
                     this._contentLoaded();
                 })
             break;

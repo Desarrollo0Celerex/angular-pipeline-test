@@ -9,6 +9,7 @@ import { Policy } from '@interfaces/policy.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
 import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
+import { SinisterLog } from '@interfaces/sinister-log.interface';
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
 import { LeadService } from '@services/lead.service';
@@ -206,6 +207,24 @@ export class ContentListService {
             }),
             map(() => { })
         );
+    }
+
+    /**
+     * Load the sinister logs
+     * @param  sinisterId     The sinister ID
+     * @param  page           The page number
+     * @return                Notice of action done
+     */
+    loadSinisterLogs(contactId: string, policyId: string, sinisterId: string, page: number): Observable<void> {
+        const fields: string = 'sinisterLogId,sinisterRecordTypeId,sinisterRecordTypeName,eventDate,details,sinisterResolutionName,indemnificationAmount,resolutionDate,sinisterReactivationName,reactivationDate,createdAt,createdByName,contactId,policyId,sinisterId,logSourceId';
+        return this._sinisterService.getSinisterLogs(contactId, policyId, sinisterId, page, fields).pipe(
+            tap((res: HttpResponse) => {
+                const sinisterLogs: SinisterLog[] = res.data.items;
+                this.contents = this.contents.concat(sinisterLogs);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
     }
 
     /**

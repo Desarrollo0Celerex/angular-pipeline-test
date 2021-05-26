@@ -121,6 +121,12 @@ export const CONTENT_TYPES: any = {
     PAYMENT_HISTORY: {
         ID: 10,
         NAME: 'Movimiento'
+    },
+    SINISTER_HISTORY: {
+        ID: 11,
+        NAME: 'Movimiento',
+        CONTENT_SUBTYPE: 1,
+        CONTENT_SUBTYPE_NAME: 'Registrado'
     }
 }
 export const CONTACT_TYPES: any = {
@@ -175,6 +181,13 @@ export const CONTACT_PROFILE_PAGE_TYPES: any = {
         ID: 3,
         ROUTE: 'list-sinisters'
     }
+}
+export const SINISTER_RECORD_TYPES: any = {
+    REGISTER: 1,
+    UPDATE: 2,
+    FINISHED: 3,
+    REACTIVATED: 4,
+    NEW_EVENT: 5
 }
 
 export const IGNORE_MATCHES: any = {

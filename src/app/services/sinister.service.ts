@@ -20,7 +20,8 @@ const routes: any = {
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
     policySinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId,
     finalizeSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/finalize',
-    reactivateSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/reactivate'
+    reactivateSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/reactivate',
+    sinisterLogs: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/logs'
 }
 
 @Injectable()
@@ -99,6 +100,24 @@ export class SinisterService {
         const route: string = routes.policySinister(this._workspaceId, contactId, policyId, sinisterId);
         let params: HttpParams = new HttpParams();
         if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
+     * Get the sinister logs
+     * @param  contactId    The contact ID
+     * @param  policyId     The policy ID
+     * @param  sinisterId   The sinister ID
+     * @param  page         The page to get
+     * @param  fields       The fields to get
+     * @return              The history policy
+     */
+    getSinisterLogs(contactId: string, policyId: string, sinisterId: string, page: number = 1, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.sinisterLogs(this._workspaceId, contactId, policyId, sinisterId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        params = params.append('sortBy', 'createdAt');
         return this._httpClient.get<HttpResponse>(route, {params});
     }
 
