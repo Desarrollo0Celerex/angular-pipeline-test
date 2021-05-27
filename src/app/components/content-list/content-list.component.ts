@@ -55,6 +55,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedContactId: string;
     selectedEndorsementId: string;
     selectedPaymentId: string;
+    selectedPolicyData: PolicyDataSend | null = null;
     selectedPolicyId: string;
     selectedQuotationId: string;
     selectedReceiptPaidId: string;
@@ -73,6 +74,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmRenewPolicy: string;
     modalIdConfirmShowHistoryPolicy: string;
     modalIdConfirmShowPaymentHistory: string;
+    modalIdConfirmShowSinister: string = 'agt-confirm-show-sinister';
     modalIdConfirmShowSinisterHistory: string;
     modalIdConfirmUpdatePolicy: string;
     modalIdRejectQuotation: string;
@@ -82,6 +84,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowEndorsement: string;
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
+    modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
     modalIdShowQuotationDetails: string;
     modalIdShowSinisterDetails: string = 'agt-show-sinister-details';
     modalIdUpdateSinisterEvent: string = 'agt-update-sinister-event'
@@ -452,6 +455,24 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to show the policy sinisters
+     * @param policyData The policy data
+     */
+    onShowPolicySinisters(policyData: PolicyDataSend): void {
+        this.selectedPolicyData = policyData;
+        ModalPlugin.show(this.modalIdConfirmShowPolicySinisters);
+    }
+
+    /**
+     * Event to show modal to confirm show the sinister
+     * @param sinisterData The sinister data
+     */
+    onShowSinister(sinisterData: SinisterDataSend): void {
+        this.selectedSinisterData = sinisterData;
+        ModalPlugin.show(this.modalIdConfirmShowSinister)
+    }
+
+    /**
      * Event to show the sinister details
      * @param sinister The selected sinister
      */
@@ -536,6 +557,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.HISTORY_POLICY.ID:
             case CONTENT_TYPES.PAYMENT_HISTORY.ID:
             case CONTENT_TYPES.SINISTER_HISTORY.ID:
+            case CONTENT_TYPES.POLICY_SINISTERS.ID:
                 this.cardClasses = 'col-lg-12 mt-5';
             break;
 
@@ -620,6 +642,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.SINISTER_HISTORY.ID:
                 this.contentListService.loadSinisterLogs(this.contactId, this.policyId, this.sinisterId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.POLICY_SINISTERS.ID:
+                this.contentListService.loadPolicySinisters(this.contactId, this.policyId, this.page).subscribe( () => {
                     this._contentLoaded();
                 })
             break;

@@ -4,6 +4,8 @@ import * as moment from 'moment';
 import { POLICY_STATUS, POLICY_FINISHED_SLACK_DAYS } from '@constants/global';
 
 import { Policy } from '@interfaces/policy.interface';
+import { PaymentDataSend } from '@interfaces/payment-data-send.interface';
+import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 
 declare var PopoverPlugin: any;
 
@@ -24,8 +26,10 @@ export class CardPolicyComponent implements OnInit {
     @Output() reissuePolicy: EventEmitter<string>;
     @Output() renewPolicy: EventEmitter<string>;
     @Output() showHistoryPolicy: EventEmitter<string>;
+    @Output() showPaymentHistory: EventEmitter<PaymentDataSend> = new EventEmitter<PaymentDataSend>();
     @Output() showPolicy: EventEmitter<string>;
     @Output() showPolicyDetails: EventEmitter<string>;
+    @Output() showPolicySinisters: EventEmitter<PolicyDataSend> = new EventEmitter<PolicyDataSend>();
     @Output() updatePolicy: EventEmitter<string>;
     POLICY_STATUS: any = POLICY_STATUS;
     isInTime: boolean = false;
@@ -108,10 +112,37 @@ export class CardPolicyComponent implements OnInit {
     }
 
     /**
+     * Click event to show the payment history
+     */
+    onClickShowPaymentHistory(): void {
+        if(!!this.policy) {
+            const paymentData: PaymentDataSend = {
+                contactId: this.policy.contactId,
+                policyId: this.policy.policyId,
+                paymentId: this.policy.paymentId
+            }
+            this.showPaymentHistory.emit(paymentData);
+        }
+    }
+
+    /**
      * Click event to show the policy details
      */
     onClickShowPolicyDetails(): void {
         if(!!this.policy) this.showPolicyDetails.emit(this.policy.policyId);
+    }
+
+    /**
+     * Click event to show the policy sinisters
+     */
+    onClickShowPolicySinisters(): void {
+        if(!!this.policy) {
+            const policyData: PolicyDataSend = {
+                contactId: this.policy.contactId,
+                policyId: this.policy.policyId
+            }
+            this.showPolicySinisters.emit(policyData);
+        }
     }
 
     /**

@@ -9,6 +9,7 @@ import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardPolicyRecordModule } from '@components/card-policy-record/card-policy-record.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
 import { CardReceiptPaidRecordModule } from '@components/card-receipt-paid-record/card-receipt-paid-record.module';
+import { CardReportedSinisterModule } from '@components/card-reported-sinister/card-reported-sinister.module';
 import { CardSinisterModule } from '@components/card-sinister/card-sinister.module';
 import { CardSinisterLogModule } from '@components/card-sinister-log/card-sinister-log.module';
 
@@ -32,6 +33,8 @@ import { ModalConfirmRejectQuotationModule } from '@components/modal-confirm-rej
 import { ModalConfirmRenewPolicyModule } from '@components/modal-confirm-renew-policy/modal-confirm-renew-policy.module';
 import { ModalConfirmShowHistoryPolicyModule } from '@components/modal-confirm-show-history-policy/modal-confirm-show-history-policy.module';
 import { ModalConfirmShowPaymentHistoryModule } from '@components/modal-confirm-show-payment-history/modal-confirm-show-payment-history.module';
+import { ModalConfirmShowPolicySinistersModule } from '@components/modal-confirm-show-policy-sinisters/modal-confirm-show-policy-sinisters.module';
+import { ModalConfirmShowSinisterModule } from '@components/modal-confirm-show-sinister/modal-confirm-show-sinister.module';
 import { ModalConfirmShowSinisterHistoryModule } from '@components/modal-confirm-show-sinister-history/modal-confirm-show-sinister-history.module';
 import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
 import { ModalSelectContactModule } from '@components/modal-select-contact/modal-select-contact.module';
@@ -70,6 +73,7 @@ import { ContentListService } from './content-list.service';
     CardPolicyRecordModule,
     CardQuotationModule,
     CardReceiptPaidRecordModule,
+    CardReportedSinisterModule,
     CardSinisterModule,
     CardSinisterLogModule,
     CommonModule,
@@ -92,6 +96,8 @@ import { ContentListService } from './content-list.service';
     ModalConfirmRenewPolicyModule,
     ModalConfirmShowHistoryPolicyModule,
     ModalConfirmShowPaymentHistoryModule,
+    ModalConfirmShowPolicySinistersModule,
+    ModalConfirmShowSinisterModule,
     ModalConfirmShowSinisterHistoryModule,
     ModalConfirmUpdatePolicyModule,
     ModalSelectContactModule,

@@ -9,6 +9,7 @@ import { Policy } from '@interfaces/policy.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
 import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
+import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterLog } from '@interfaces/sinister-log.interface';
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
@@ -109,7 +110,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadContactPolicies(contactId: string, page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime';
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId,paymentId';
         const filters: number [] = (contentSubtype === POLICY_STATUS_ACTIVE) ? [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED] : [contentSubtype];
         return this._policyService.getContactPolicies(contactId, page, fields, filters).pipe(
             tap((res: HttpResponse) => {
@@ -186,6 +187,24 @@ export class ContentListService {
             tap((res: HttpResponse) => {
                 const receiptsPaid: ReceiptPaid[] = res.data.items;
                 this.contents = this.contents.concat(receiptsPaid);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
+     * Load the policy sinister
+     * @param  sinisterId     The sinister ID
+     * @param  page           The page number
+     * @return                Notice of action done
+     */
+    loadPolicySinisters(contactId: string, policyId: string, page: number): Observable<void> {
+        const fields: string = 'sinisterId,createdByName,sinisterNumber,sinisterTypeName,sinisterDate,titularName,policyNumber,invoice,certificate,dateLastEvent,totalEvents,createdAt,createdByName,policyId,contactId';
+        return this._policyService.getPolicySinisters(contactId, policyId, page, fields).pipe(
+            tap((res: HttpResponse) => {
+                const sinisters: Sinister[] = res.data.items;
+                this.contents = this.contents.concat(sinisters);
                 this._loadContentResultData(res.data.totalItems);
             }),
             map( () => { })

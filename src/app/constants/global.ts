@@ -127,6 +127,10 @@ export const CONTENT_TYPES: any = {
         NAME: 'Movimiento',
         CONTENT_SUBTYPE: 1,
         CONTENT_SUBTYPE_NAME: 'Registrado'
+    },
+    POLICY_SINISTERS: {
+        ID: 12,
+        NAME: 'Movimiento'
     }
 }
 export const CONTACT_TYPES: any = {

@@ -1,0 +1,12 @@
+<li *ngIf="!!sinister">
+    <time class="cbp_tmtime"><span>{{sinister.createdAt | date: 'dd/MM/yyyy'}}</span><span>{{sinister.createdAt | date: 'h:mm a'}}</span></time>
+    <div class="cbp_tmicon bg-primary"><i class="fa fa-life-buoy"></i></div>
+    <div class="cbp_tmlabel">
+        <h2>Siniestro Reportado</h2>
+        <p class="text-sm"><strong>{{sinister.createdByName}}</strong> reportó un siniestro. Número: <strong>{{sinister.sinisterNumber}}</strong>. Motivo: <strong>{{sinister.sinisterTypeName}}</strong>. Fecha: <strong>{{sinister.sinisterDate | date: 'dd/MM/yyyy'}}</strong>.</p>
+        <div class="btn-list mt-3">
+            <button type="button" class="btn btn-primary" (click)="onClickShowSinister()"><strong>VER SINIESTRO</strong></button>
+            <button type="button" class="btn btn-secondary" (click)="onClickShowSinisterDetails()"><strong>VER DETALLES</strong></button>
+        </div>
+    </div>
+</li>

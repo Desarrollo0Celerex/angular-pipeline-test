@@ -36,7 +36,9 @@
                             <button type="button" class="dropdown-item" (click)="onClickShowHistoryPolicy()"><i class="fa fa-history mr-2"></i>Historial</button>
                         </ng-container>
                         <!-- AGENTHOS - POLICY DELETE -->
-                        <button type="button" class="dropdown-item"><i class="fa fa-credit-card mr-2"></i>Cobranza</button>
+                        <button type="button" class="dropdown-item" (click)="onClickShowPaymentHistory()"><i class="fa fa-credit-card mr-2"></i>Cobranza</button>
+                        <!-- AGENTHOS - POLICY SINISTERS -->
+                        <button type="button" class="dropdown-item" (click)="onClickShowPolicySinisters()"><i class="fa fa-support mr-2"></i>Siniestros</button>
                     </ng-container>
                     <ng-container *ngSwitchCase="POLICY_STATUS.CANCELLED">
                         <!-- AGENTHOS - POLICY HISTORY -->
@@ -44,7 +46,9 @@
                             <button type="button" class="dropdown-item" (click)="onClickShowHistoryPolicy()"><i class="fa fa-history mr-2"></i>Historial</button>
                         </ng-container>
                         <!-- AGENTHOS - POLICY DELETE -->
-                        <button type="button" class="dropdown-item"><i class="fa fa-credit-card mr-2"></i>Cobranza</button>
+                        <button type="button" class="dropdown-item" (click)="onClickShowPaymentHistory()"><i class="fa fa-credit-card mr-2"></i>Cobranza</button>
+                        <!-- AGENTHOS - POLICY SINISTERS -->
+                        <button type="button" class="dropdown-item" (click)="onClickShowPolicySinisters()"><i class="fa fa-support mr-2"></i>Siniestros</button>
                     </ng-container>
                     <ng-container *ngSwitchDefault>
                         <!-- AGENTHOS - POLICY UPDATE -->
@@ -61,7 +65,9 @@
                             <button type="button" class="dropdown-item" (click)="onClickShowHistoryPolicy()"><i class="fa fa-history mr-2"></i>Historial</button>
                         </ng-container>
                         <!-- AGENTHOS - POLICY PAYMENTS -->
-                        <button type="button" class="dropdown-item"><i class="fa fa-credit-card mr-2"></i>Cobranza</button>
+                        <button type="button" class="dropdown-item" (click)="onClickShowPaymentHistory()"><i class="fa fa-credit-card mr-2"></i>Cobranza</button>
+                        <!-- AGENTHOS - POLICY SINISTERS -->
+                        <button type="button" class="dropdown-item" (click)="onClickShowPolicySinisters()"><i class="fa fa-support mr-2"></i>Siniestros</button>
                         <div class="dropdown-divider"></div>
                         <!-- AGENTHOS - POLICY CANCEL -->
                         <button type="button" class="dropdown-item" (click)="onClickCancelPolicy()"><i class="fa fa-exclamation-circle mr-2"></i>Cancelar</button>
