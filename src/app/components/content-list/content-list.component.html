@@ -28,6 +28,8 @@
                             (showEndorsement)="onShowEndorsementFromRecord($event)"
                             (showPolicy)="onShowPolicyFromRecord($event)"
                             (showPolicyDetails)="onShowPolicyDetailsFromRecord($event)"
+                            (showSinister)="onShowSinister($event)"
+                            (showSinisterDetails)="onShowSinisterDetails($event)"
                         ></agt-card-policy-record>
                         <agt-card-receipt-paid-record *ngSwitchCase="CONTENT_TYPES.PAYMENT_HISTORY.ID"
                             [receiptPaid]="content"
@@ -139,7 +141,7 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT_HISTORY.ID">
     <agt-modal-confirm-delete-receipt-paid [modalId]="modalIdConfirmDeleteReceiptPaid" (deleteReceiptPaidConfimed)="onDeleteReceiptPaidConfirmed()"></agt-modal-confirm-delete-receipt-paid>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID || contentType === CONTENT_TYPES.POLICY_SINISTERS.ID">
+<ng-container *ngIf="contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID || contentType === CONTENT_TYPES.POLICY_SINISTERS.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
     <agt-modal-show-sinister-details [modalId]="modalIdShowSinisterDetails" [sinister]="selectedSinister"></agt-modal-show-sinister-details>
     <agt-modal-confirm-show-sinister-history [modalId]="modalIdConfirmShowSinisterHistory" [sinisterData]="selectedSinisterData"></agt-modal-confirm-show-sinister-history>
     <agt-modal-confirm-finalize-sinister [modalId]="modalIdConfirmFinalizeSinister" [sinisterData]="selectedSinisterData"></agt-modal-confirm-finalize-sinister>
@@ -149,7 +151,7 @@
     <agt-modal-update-sinister-event [modalId]="modalIdUpdateSinisterEvent" [sinisterEventData]="selectedSinisterEventData"></agt-modal-update-sinister-event>
     <agt-modal-confirm-delete-sinister-event [modalId]="modalIdConfirmDeleteSinisterEvent" [sinisterEventData]="selectedSinisterEventData"></agt-modal-confirm-delete-sinister-event>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.POLICY_SINISTERS.ID">
+<ng-container *ngIf="contentType === CONTENT_TYPES.POLICY_SINISTERS.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
     <agt-modal-confirm-show-sinister [modalId]="modalIdConfirmShowSinister" [sinisterData]="selectedSinisterData"></agt-modal-confirm-show-sinister>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

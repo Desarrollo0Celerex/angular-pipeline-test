@@ -12,5 +12,15 @@ export interface PolicyRecord {
     insurerName: string,
     policyNumber: string,
     policyCancellationReasonName: string,
-    sourceContactId: string
+    sourceContactId: string,
+    sinisterTypeName: string,
+    sinisterNumber: string,
+    contactId: string,
+    policyId: string,
+    titularName: string,
+    invoice: string,
+    certificate: string,
+    sinisterDate: string,
+    dateLastEvent: string,
+    totalEvents: string
 }

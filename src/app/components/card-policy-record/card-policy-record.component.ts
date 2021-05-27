@@ -3,6 +3,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { POLICY_RECORD_TYPES } from '@constants/global';
 import { PolicyRecord } from '@interfaces/policy-record.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
+import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
+import { Sinister } from '@interfaces/sinister.interface';
 
 @Component({
   selector: 'agt-card-policy-record',
@@ -16,6 +18,8 @@ export class CardPolicyRecordComponent implements OnInit {
     @Output() showEndorsement: EventEmitter<PolicyRecordData> = new EventEmitter<PolicyRecordData>();
     @Output() showPolicy: EventEmitter<PolicyRecordData> = new EventEmitter<PolicyRecordData>();
     @Output() showPolicyDetails: EventEmitter<PolicyRecordData> = new EventEmitter<PolicyRecordData>();
+    @Output() showSinister: EventEmitter<SinisterDataSend> = new EventEmitter<SinisterDataSend>();
+    @Output() showSinisterDetails: EventEmitter<Sinister> = new EventEmitter<Sinister>();
     POLICY_RECORD_TYPES: any = POLICY_RECORD_TYPES;
 
     constructor() { }
@@ -76,6 +80,42 @@ export class CardPolicyRecordComponent implements OnInit {
         }
     }
 
+    /**
+     * Click event to show sinister
+     */
+    onClickShowSinister(): void {
+        if(!!this.policyRecord) {
+            const sinisterData: SinisterDataSend = {
+                contactId: this.policyRecord.contactId,
+                policyId: this.policyRecord.policyId,
+                sinisterId: this.policyRecord.sourceId
+            }
+            this.showSinister.emit(sinisterData);
+        }
+    }
+
+    /**
+     * Click event to show the sinister details
+     */
+    onClickShowSinisterDetails(): void {
+        if(!!this.policyRecord) {
+            const sinister: any = {
+                titularName: this.policyRecord.titularName,
+                policyNumber: this.policyRecord.policyNumber,
+                sinisterNumber: this.policyRecord.sinisterNumber,
+                invoice: this.policyRecord.invoice,
+                certificate: this.policyRecord.certificate,
+                sinisterDate: this.policyRecord.sinisterDate,
+                dateLastEvent: this.policyRecord.dateLastEvent,
+                totalEvents: this.policyRecord.totalEvents,
+                contactId: this.policyRecord.contactId,
+                policyId: this.policyRecord.policyId,
+                sinisterId: this.policyRecord.sourceId
+            }
+            this.showSinisterDetails.emit(sinister);
+        }
+    }
+
     private _updatePolicyRecordTypeDescription(): void {
         if(!!this.policyRecord) {
             switch(this.policyRecord.policyRecordTypeId) {
@@ -95,6 +135,11 @@ export class CardPolicyRecordComponent implements OnInit {
 
                 case POLICY_RECORD_TYPES.CANCELLED:
                     this.policyRecord.policyRecordTypeDescription = this.policyRecord.policyRecordTypeDescription.replace('[policyCancellationReasonName]', '<strong>'+this.policyRecord.policyCancellationReasonName+'</strong>');
+                    break;
+
+                case POLICY_RECORD_TYPES.SINISTER:
+                    this.policyRecord.policyRecordTypeDescription = this.policyRecord.policyRecordTypeDescription.replace('[sinisterTypeName]', '<strong>'+this.policyRecord.sinisterTypeName+'</strong>');
+                    this.policyRecord.policyRecordTypeDescription = this.policyRecord.policyRecordTypeDescription.replace('[sinisterNumber]', '<strong>'+this.policyRecord.sinisterNumber+'</strong>');
                     break;
             }
         }
