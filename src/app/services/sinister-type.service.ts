@@ -15,11 +15,6 @@ export class SinisterTypeService {
     constructor(private _httpClient: HttpClient) { }
 
     /**
-     *
-     * @param  fields The fields to get
-     * @return        The sinister types
-     */
-    /**
      * Get the sinister types from the API
      * @param  insuranceId The insurance ID
      * @param  fields      The fields to get

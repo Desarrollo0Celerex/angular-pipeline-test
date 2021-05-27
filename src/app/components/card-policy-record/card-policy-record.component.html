@@ -16,6 +16,9 @@
             <ng-container *ngSwitchCase="POLICY_RECORD_TYPES.REISSUED">
                 <ng-container *ngTemplateOutlet="showActions"></ng-container>
             </ng-container>
+            <ng-container *ngSwitchCase="POLICY_RECORD_TYPES.SINISTER">
+                <ng-container *ngTemplateOutlet="showSinisterActions"></ng-container>
+            </ng-container>
         </ng-container>
     </div>
 
@@ -28,6 +31,13 @@
             <ng-template #completePolicy>
                 <button type="button" class="btn btn-primary" (click)="onClickCompletePolicy()"><strong>COMPLETAR PÓLIZA</strong></button>
             </ng-template>
+        </div>
+    </ng-template>
+
+    <ng-template #showSinisterActions>
+        <div class="btn-list mt-3">
+            <button type="button" class="btn btn-primary" (click)="onClickShowSinister()"><strong>VER SINIESTRO</strong></button>
+            <button type="button" class="btn btn-secondary" (click)="onClickShowSinisterDetails()"><strong>VER DETALLES</strong></button>
         </div>
     </ng-template>
 </li>

@@ -64,10 +64,10 @@ export const POLICY_STATUS: any = {
     FINISHED: 6,
     CANCELLED: 7
 }
+export const POLICY_STATUS_ACTIVE: number = 100;
 export const PAYMENT_STATUS: any = {
     PAID: 5
 }
-export const POLICY_STATUS_ACTIVE: number = 100;
 export const SINISTER_STATUS: any = {
     RECENT: 1,
     PENDING: 2,
@@ -75,6 +75,7 @@ export const SINISTER_STATUS: any = {
     CONFLICTIVE: 4,
     FINISHED: 5
 }
+export const SINISTER_STATUS_OPEN: number = 100;
 
 // Types
 export const CONTENT_TYPES: any = {
@@ -106,6 +107,10 @@ export const CONTENT_TYPES: any = {
         ID: 7,
         NAME: 'Póliza'
     },
+    CONTACT_SINISTER: {
+        ID: 8,
+        NAME: 'Siniestro'
+    },
     COINCIDENCES: {
         NAME: 'Coincidencia'
     },
@@ -115,6 +120,16 @@ export const CONTENT_TYPES: any = {
     },
     PAYMENT_HISTORY: {
         ID: 10,
+        NAME: 'Movimiento'
+    },
+    SINISTER_HISTORY: {
+        ID: 11,
+        NAME: 'Movimiento',
+        CONTENT_SUBTYPE: 1,
+        CONTENT_SUBTYPE_NAME: 'Registrado'
+    },
+    POLICY_SINISTERS: {
+        ID: 12,
         NAME: 'Movimiento'
     }
 }
@@ -156,6 +171,7 @@ export const POLICY_RECORD_TYPES: any = {
     RENEWED: 6,
     REISSUED: 7,
     CANCELLED: 8,
+    SINISTER: 9
 }
 export const CONTACT_PROFILE_PAGE_TYPES: any = {
     QUOTATIONS: {
@@ -165,7 +181,18 @@ export const CONTACT_PROFILE_PAGE_TYPES: any = {
     POLICIES: {
         ID: 2,
         ROUTE: 'list-policies'
+    },
+    SINISTERS: {
+        ID: 3,
+        ROUTE: 'list-sinisters'
     }
+}
+export const SINISTER_RECORD_TYPES: any = {
+    REGISTER: 1,
+    UPDATE: 2,
+    FINISHED: 3,
+    REACTIVATED: 4,
+    NEW_EVENT: 5
 }
 
 export const IGNORE_MATCHES: any = {

@@ -64,6 +64,7 @@ const HOME_POLICIES_ROUTES = {
     endorsePolicy: (contactId: string, policyId: string) => `workspace/policies/endorse-policy/${contactId}/${policyId}`,
     cancelPolicy: (contactId: string, policyId: string) => `workspace/policies/cancel-policy/${contactId}/${policyId}`,
     showHistoryPolicy: (contactId: string, policyId: string) => `workspace/policies/history-policy/${contactId}/${policyId}`,
+    showPolicySinisters: (contactId: string, policyId: string) => `workspace/policies/policy-sinisters/${contactId}/${policyId}`
 }
 
 const HOME_QUOTATIONS_ROUTES = {
@@ -72,6 +73,9 @@ const HOME_QUOTATIONS_ROUTES = {
 
 const HOME_SINISTERS_ROUTES = {
     listSinisters: `workspace/sinisters/list-sinisters`,
+    showSinisterHistory: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/sinister-history/${contactId}/${policyId}/${sinisterId}`,
+    finalizeSinister: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/finalize-sinister/${contactId}/${policyId}/${sinisterId}`,
+    reactivateSinister: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/reactivate-sinister/${contactId}/${policyId}/${sinisterId}`
 }
 
 const INVITATIONS_ROUTES = {

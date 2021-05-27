@@ -1,0 +1,40 @@
+<!-- AGENTHOS - POLICY SEARCH -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{isNoResults ? 'Sin resultados' : 'Buscar Póliza'}}</h5>
+                <button type="button" class="close" aria-label="Close" (click)="onClickCloseModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="modalSearchContactPolicyService.searchForm" (submit)="onSubmitSearchPolicy()">
+                    <div class="form-group">
+                        <div class="row gutters-xs">
+                            <div class="col">
+                                <input type="text" class="form-control {{getValidationClass('policyNumber')}}" formControlName="policyNumber" placeholder="Número de póliza">
+                                <div class="invalid-feedback">{{getErrorMessage('policyNumber')}}</div>
+                            </div>
+                            <span class="col-auto">
+                                <button type="submit" class="btn btn-primary"><i class="fe fe-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1" *ngIf="isNoResults; else showMessage"><strong>No hay pólizas con los datos ingresados.</strong> Por favor verifica que los datos sean correctos o intenta con otro número de póliza.</li>
+                        <ng-template #showMessage>
+                            <li class="breadcrumb-item1">{{message}}</li>
+                        </ng-template>
+                    </ol>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-block btn-secondary" (click)="onClickCloseModal()"><strong>CANCELAR</strong></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - POLICY SEARCH -->
+
+<agt-modal-select-policy [modalId]="modalIdSelectPolicy" [policies]="foundPolicies" (policySelected)="onPolicySelected($event)"></agt-modal-select-policy>

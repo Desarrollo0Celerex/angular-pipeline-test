@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID, POLICY_STATUS_ACTIVE } from '@constants/global';
+import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID, POLICY_STATUS_ACTIVE, SINISTER_STATUS_OPEN } from '@constants/global';
 import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-format.pipe';
 
 @Component({
@@ -121,6 +121,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
         } else {
             if(this.contentType === CONTENT_TYPES.CONTACT_POLICY.ID) {
                 contentSubtype = POLICY_STATUS_ACTIVE;
+            } else if(this.contentType === CONTENT_TYPES.CONTACT_SINISTER.ID) {
+                contentSubtype = SINISTER_STATUS_OPEN;
             } else {
                 contentSubtype = DEFAULT_CONTENT_FILTER_ID;
             }

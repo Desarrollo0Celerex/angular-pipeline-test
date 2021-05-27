@@ -1,0 +1,68 @@
+<!-- AGENTHOS - SINISTER UPDATE -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document" *ngIf="!!modalUpdateSinisterService.sinister">
+		<div class="modal-content">
+            <form [formGroup]="modalUpdateSinisterService.sinisterForm" (submit)="onSubmitUpdateSinister()" >
+    			<div class="modal-header">
+    				<h5 class="modal-title">Actualizar Siniestro</h5>
+    				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    					<span aria-hidden="true">&times;</span>
+    				</button>
+    			</div>
+    			<div class="modal-body">
+    				<div class="row">
+    					<div class="col-md-6">
+    						<div class="form-group">
+    							<!-- AGENTHOS - SINISTER NUMBER * -->
+    							<label class="form-label">Número de Siniestro</label>
+    							<input type="text" class="form-control {{getValidationClass('sinisterNumber')}}" formControlName="sinisterNumber">
+                                <div class="invalid-feedback">{{getErrorMessage('sinisterNumber')}}</div>
+    						</div>
+    					</div>
+    					<div class="col-md-6">
+    						<div class="form-group">
+    							<!-- AGENTHOS - SINISTER INVOICE * -->
+    							<label class="form-label">Número de Folio</label>
+    							<input type="text" class="form-control {{getValidationClass('invoice')}}" formControlName="invoice">
+                                <div class="invalid-feedback">{{getErrorMessage('invoice')}}</div>
+    						</div>
+    					</div>
+    					<div class="col-md-6">
+    						<div class="form-group">
+    							<!-- AGENTHOS - SINISTER CERTIFICATE * -->
+    							<label class="form-label">Número de Certificado</label>
+    							<input type="text" class="form-control {{getValidationClass('certificate')}}" formControlName="certificate">
+                                <div class="invalid-feedback">{{getErrorMessage('certificate')}}</div>
+    						</div>
+    					</div>
+    					<div class="col-md-6">
+    						<div class="form-group">
+    							<!-- AGENTHOS - SINISTER CLASS * -->
+    							<label class="form-label">Tipo de Siniestro</label>
+    							<select class="form-control custom-select {{getValidationClass('sinisterTypeId')}}" formControlName="sinisterTypeId">
+    								<option *ngFor="let sinisterType of modalUpdateSinisterService.sinisterTypes" [value]="sinisterType.sinisterTypeId">{{sinisterType.name}}</option>
+    							</select>
+                                <div class="invalid-feedback">{{getErrorMessage('sinisterTypeId')}}</div>
+    						</div>
+    					</div>
+                        <div class="col-md-6">
+    						<div class="form-group">
+    							<!-- AGENTHOS - SINISTER DATE * -->
+    							<label class="form-label">Fecha de Siniestro</label>
+    							<input [id]="calendarIdSinisterDate" type="text" class="form-control fc-datepicker {{getValidationClass('sinisterDate')}}" formControlName="sinisterDate">
+                                <div class="invalid-feedback">{{getErrorMessage('sinisterDate')}}</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="modal-footer text-center">
+    				<div class="col-12">
+    					<!-- AGENTHOS - SINISTER SAVE CHANGES -->
+    					<button type="submit" class="btn btn-block btn-primary"><strong>ACTUALIZAR SINIESTRO</strong></button>
+    				</div>
+    			</div>
+            </form>
+		</div>
+	</div>
+</div>
+<!-- //AGENTHOS - SINISTER UPDATE -->

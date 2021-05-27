@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { CreateSinister } from '@interfaces/create-sinister.interface';
+import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { AuthService } from '@services/auth.service';
@@ -15,7 +16,12 @@ const routes: any = {
     sinister: (workspaceId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/' +sinisterId,
     sinisters: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters',
     totalSinisters: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/count',
-    policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters'
+    contactSinisters: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/sinisters',
+    policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
+    policySinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId,
+    finalizeSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/finalize',
+    reactivateSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/reactivate',
+    sinisterLogs: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/logs'
 }
 
 @Injectable()
@@ -37,6 +43,82 @@ export class SinisterService {
     createSinister(contactId: string, policyId: string, requestBody: CreateSinister): Observable<void> {
         const route: string = routes.policySinisters(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
+    }
+
+    /**
+     * Finalize a sinister from the API
+     * @param  contactId   The contact ID
+     * @param  policyId    The policy ID
+     * @param  sinisterId  The sinister ID
+     * @param  requestBody The request body
+     * @return             Notice of action done
+     */
+    finalizeSinister(contactId: string, policyId: string, sinisterId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.finalizeSinister(this._workspaceId, contactId, policyId, sinisterId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
+
+    /**
+     * Get the contact sinisters
+     * @param  contactId The contact ID
+     * @param  page      The page to get
+     * @param  fields    The fields to get
+     * @param  filter    The filter to apply
+     * @param  search    The search to do
+     * @return           The contact sinisters
+     */
+    getContactSinisters(contactId: string, page: number = 1, fields: string = '', filters: number[] = [], query: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactSinisters(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
+        if(!!query) params = params.append('search', 'sinisterNumber:' + query);
+        params = params.append('sortBy', '-createdAt');
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const sinisters: Sinister[] = res.data.items.map( (sinister: Sinister) => {
+                        return this._calculatePolicyLifeTime(sinister);
+                    })
+                    res.data.items = sinisters;
+                }
+                return res;
+            })
+        )
+    }
+
+    /**
+     * Get the policy sinister
+     * @param  contactId  The contact ID
+     * @param  policyId   The policy ID
+     * @param  sinisterId The sinister ID
+     * @param  fields     The fields to get
+     * @return            The policy sinister
+     */
+    getPolicySinister(contactId: string, policyId: string, sinisterId: string, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.policySinister(this._workspaceId, contactId, policyId, sinisterId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
+     * Get the sinister logs
+     * @param  contactId    The contact ID
+     * @param  policyId     The policy ID
+     * @param  sinisterId   The sinister ID
+     * @param  page         The page to get
+     * @param  fields       The fields to get
+     * @return              The history policy
+     */
+    getSinisterLogs(contactId: string, policyId: string, sinisterId: string, page: number = 1, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.sinisterLogs(this._workspaceId, contactId, policyId, sinisterId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        params = params.append('sortBy', 'createdAt');
+        return this._httpClient.get<HttpResponse>(route, {params});
     }
 
     /**
@@ -81,6 +163,30 @@ export class SinisterService {
    }
 
    /**
+    * Reactivate a sinister from the API
+    * @param  contactId   The contact ID
+    * @param  policyId    The policy ID
+    * @param  sinisterId  The sinister ID
+    * @param  requestBody The request body
+    * @return             Notice of action done
+    */
+   reactivateSinister(contactId: string, policyId: string, sinisterId: string, requestBody: FormData): Observable<void> {
+       const route: string = routes.reactivateSinister(this._workspaceId, contactId, policyId, sinisterId);
+       return this._httpClient.post<void>(route, requestBody);
+   }
+
+   /**
+    * Update the policy sinister
+    * @param  sinisterData The sinister data
+    * @param  requestBody  The sinister data to update
+    * @return              Notification of action done
+    */
+   updatePolicySinister(sinisterData: SinisterDataSend, requestBody: CreateSinister ): Observable<void> {
+       const route: string = routes.policySinister(this._workspaceId, sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId);
+       return this._httpClient.put<void>(route, requestBody);
+   }
+
+   /**
     * Calculate the life time of the policy
     * @param  policy The policy to evaluate
     * @return        The policy with their life time value
@@ -94,5 +200,17 @@ export class SinisterService {
        percentage = (daysPassed >= totalDays) ? 100 : Math.round(daysPassed * 100 / totalDays);
        sinister.lifeTime = percentage;
        return sinister;
+   }
+
+   /**
+    * Get the filter to apply
+    * @param  filters The filters to apply
+    * @return         The filter
+    */
+   private _getFilter(filters: number[]): string {
+       const filterIds: string[] = filters.map( (element: number) => {
+           return 'sinisterStatusId[=]' + element;
+       });
+       return filterIds.join(',');
    }
 }

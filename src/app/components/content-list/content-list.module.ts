@@ -9,7 +9,9 @@ import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardPolicyRecordModule } from '@components/card-policy-record/card-policy-record.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
 import { CardReceiptPaidRecordModule } from '@components/card-receipt-paid-record/card-receipt-paid-record.module';
+import { CardReportedSinisterModule } from '@components/card-reported-sinister/card-reported-sinister.module';
 import { CardSinisterModule } from '@components/card-sinister/card-sinister.module';
+import { CardSinisterLogModule } from '@components/card-sinister-log/card-sinister-log.module';
 
 import { ContainerIncompletePoliciesModule } from '@components/container-incomplete-policies/container-incomplete-policies.module';
 import { ContentResultsModule } from '@components/content-results/content-results.module';
@@ -22,12 +24,18 @@ import { ModalApplyPaymentModule } from '@components/modal-apply-payment/modal-a
 import { ModalConfirmAcceptQuotationModule } from '@components/modal-confirm-accept-quotation/modal-confirm-accept-quotation.module';
 import { ModalConfirmCancelPolicyModule } from '@components/modal-confirm-cancel-policy/modal-confirm-cancel-policy.module';
 import { ModalConfirmDeleteReceiptPaidModule } from '@components/modal-confirm-delete-receipt-paid/modal-confirm-delete-receipt-paid.module';
+import { ModalConfirmDeleteSinisterEventModule } from '@components/modal-confirm-delete-sinister-event/modal-confirm-delete-sinister-event.module';
 import { ModalConfirmEndorsePolicyModule } from '@components/modal-confirm-endorse-policy/modal-confirm-endorse-policy.module';
+import { ModalConfirmFinalizeSinisterModule } from '@components/modal-confirm-finalize-sinister/modal-confirm-finalize-sinister.module';
+import { ModalConfirmReactivateSinisterModule } from '@components/modal-confirm-reactivate-sinister/modal-confirm-reactivate-sinister.module';
 import { ModalConfirmReissuePolicyModule } from '@components/modal-confirm-reissue-policy/modal-confirm-reissue-policy.module';
 import { ModalConfirmRejectQuotationModule } from '@components/modal-confirm-reject-quotation/modal-confirm-reject-quotation.module';
 import { ModalConfirmRenewPolicyModule } from '@components/modal-confirm-renew-policy/modal-confirm-renew-policy.module';
 import { ModalConfirmShowHistoryPolicyModule } from '@components/modal-confirm-show-history-policy/modal-confirm-show-history-policy.module';
 import { ModalConfirmShowPaymentHistoryModule } from '@components/modal-confirm-show-payment-history/modal-confirm-show-payment-history.module';
+import { ModalConfirmShowPolicySinistersModule } from '@components/modal-confirm-show-policy-sinisters/modal-confirm-show-policy-sinisters.module';
+import { ModalConfirmShowSinisterModule } from '@components/modal-confirm-show-sinister/modal-confirm-show-sinister.module';
+import { ModalConfirmShowSinisterHistoryModule } from '@components/modal-confirm-show-sinister-history/modal-confirm-show-sinister-history.module';
 import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
 import { ModalSelectContactModule } from '@components/modal-select-contact/modal-select-contact.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
@@ -37,6 +45,7 @@ import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
 import { ModalShowSinisterDetailsModule } from '@components/modal-show-sinister-details/modal-show-sinister-details.module';
+import { ModalUpdateSinisterEventModule } from '@components/modal-update-sinister-event/modal-update-sinister-event.module';
 
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
 
@@ -64,7 +73,9 @@ import { ContentListService } from './content-list.service';
     CardPolicyRecordModule,
     CardQuotationModule,
     CardReceiptPaidRecordModule,
+    CardReportedSinisterModule,
     CardSinisterModule,
+    CardSinisterLogModule,
     CommonModule,
     ContainerIncompletePoliciesModule,
     ContentResultsModule,
@@ -76,12 +87,18 @@ import { ContentListService } from './content-list.service';
     ModalConfirmAcceptQuotationModule,
     ModalConfirmCancelPolicyModule,
     ModalConfirmDeleteReceiptPaidModule,
+    ModalConfirmDeleteSinisterEventModule,
     ModalConfirmEndorsePolicyModule,
+    ModalConfirmFinalizeSinisterModule,
+    ModalConfirmReactivateSinisterModule,
     ModalConfirmReissuePolicyModule,
     ModalConfirmRejectQuotationModule,
     ModalConfirmRenewPolicyModule,
     ModalConfirmShowHistoryPolicyModule,
     ModalConfirmShowPaymentHistoryModule,
+    ModalConfirmShowPolicySinistersModule,
+    ModalConfirmShowSinisterModule,
+    ModalConfirmShowSinisterHistoryModule,
     ModalConfirmUpdatePolicyModule,
     ModalSelectContactModule,
     ModalSelectContactTypeModule,
@@ -90,7 +107,8 @@ import { ContentListService } from './content-list.service';
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
     ModalShowQuotationDetailsModule,
-    ModalShowSinisterDetailsModule
+    ModalShowSinisterDetailsModule,
+    ModalUpdateSinisterEventModule
   ],
   providers: [ClientService, ContactService, ContentListService, LeadService, PaymentService, PolicyService, QuotationService, ReceiptPaidService, SinisterService]
 })

@@ -102,6 +102,9 @@
                     <ng-container *ngSwitchCase="CONTACT_PROFILE_PAGE_TYPES.POLICIES.ID">
                         <button type="button" class="btn btn-block btn-primary" (click)="onClickCreatePolicy()"><strong>CARGAR PÓLIZA</strong></button>
                     </ng-container>
+                    <ng-container *ngSwitchCase="CONTACT_PROFILE_PAGE_TYPES.SINISTERS.ID">
+                        <button type="button" class="btn btn-block btn-primary" (click)="onClickCreateSinister()"><strong>REPORTAR SINIESTRO</strong></button>
+                    </ng-container>
                     <ng-container *ngSwitchDefault>
                         <button type="button" class="btn btn-block btn-primary" (click)="onClickCreateQuotation()"><strong>COTIZAR SEGURO</strong></button>
                     </ng-container>
@@ -113,3 +116,7 @@
 <!-- //AGENTHOS - PROFILE PANEL -->
 
 <router-outlet></router-outlet>
+
+<agt-modal-confirm-create-sinister [modalId]="modalIdConfirmCreateSinister" (createSinisterConfirmed)="onCreateSinisterConfirmed()"></agt-modal-confirm-create-sinister>
+<agt-modal-search-contact-policy [modalId]="modalIdSearchContactPolicy" [message]="searchContactPolicyMessage" [contactId]="contactId" (policyFound)="onPolicyFound($event)"></agt-modal-search-contact-policy>
+<agt-modal-create-sinister [modalId]="modalIdCreateSinister" [policy]="selectedPolicy" (sinisterCreated)="onSinisterCreated()"></agt-modal-create-sinister>

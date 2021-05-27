@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { POLICY_STATUS, POLICY_STATUS_ACTIVE } from '@constants/global';
+import { POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN } from '@constants/global';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
 import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
+import { Sinister } from '@interfaces/sinister.interface';
+import { SinisterLog } from '@interfaces/sinister-log.interface';
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
 import { LeadService } from '@services/lead.service';
@@ -71,7 +73,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadContactHistoryPolicy(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeName,endorsementNumber,insurerName,policyNumber,policyCancellationReasonName,sourceContactId';
+        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeName,endorsementNumber,insurerName,policyNumber,policyCancellationReasonName,sourceContactId,sinisterTypeName,sinisterNumber,contactId,policyId,titularName,invoice,certificate,sinisterDate,dateLastEvent,totalEvents';
         return this._policyService.getContactHistoryPolicy(contactId, policyId, page, fields).pipe(
             tap((res: HttpResponse) => {
                 const policies: Policy[] = res.data.items;
@@ -108,12 +110,31 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadContactPolicies(contactId: string, page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime';
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId,paymentId';
         const filters: number [] = (contentSubtype === POLICY_STATUS_ACTIVE) ? [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED] : [contentSubtype];
         return this._policyService.getContactPolicies(contactId, page, fields, filters).pipe(
             tap((res: HttpResponse) => {
                 const policies: Policy[] = res.data.items;
                 this.contents = this.contents.concat(policies);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
+     * Load the contact sinisters
+     * @param  contactId      The contact ID
+     * @param  page           The page number
+     * @param  contentSubtype The content subtype
+     * @return                Notice of action done
+     */
+    loadContactSinisters(contactId: string, page: number, contentSubtype: number): Observable<void> {
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId';
+        const filters: number [] = (contentSubtype === SINISTER_STATUS_OPEN) ? [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE] : [contentSubtype];
+        return this._sinisterService.getContactSinisters(contactId, page, fields, filters).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
             }),
             map( () => { })
@@ -173,13 +194,31 @@ export class ContentListService {
     }
 
     /**
+     * Load the policy sinister
+     * @param  sinisterId     The sinister ID
+     * @param  page           The page number
+     * @return                Notice of action done
+     */
+    loadPolicySinisters(contactId: string, policyId: string, page: number): Observable<void> {
+        const fields: string = 'sinisterId,createdByName,sinisterNumber,sinisterTypeName,sinisterDate,titularName,policyNumber,invoice,certificate,dateLastEvent,totalEvents,createdAt,createdByName,policyId,contactId';
+        return this._policyService.getPolicySinisters(contactId, policyId, page, fields).pipe(
+            tap((res: HttpResponse) => {
+                const sinisters: Sinister[] = res.data.items;
+                this.contents = this.contents.concat(sinisters);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
      * Load the sinisters
      * @param  page           The page number to get
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
     loadSinisters(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId';
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId';
         return this._sinisterService.getSinisters(page, fields, contentSubtype).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
@@ -187,6 +226,24 @@ export class ContentListService {
             }),
             map(() => { })
         );
+    }
+
+    /**
+     * Load the sinister logs
+     * @param  sinisterId     The sinister ID
+     * @param  page           The page number
+     * @return                Notice of action done
+     */
+    loadSinisterLogs(contactId: string, policyId: string, sinisterId: string, page: number): Observable<void> {
+        const fields: string = 'sinisterLogId,sinisterRecordTypeId,sinisterRecordTypeName,eventDate,details,sinisterResolutionName,indemnificationAmount,resolutionDate,sinisterReactivationName,reactivationDate,createdAt,createdByName,contactId,policyId,sinisterId,logSourceId';
+        return this._sinisterService.getSinisterLogs(contactId, policyId, sinisterId, page, fields).pipe(
+            tap((res: HttpResponse) => {
+                const sinisterLogs: SinisterLog[] = res.data.items;
+                this.contents = this.contents.concat(sinisterLogs);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
     }
 
     /**
@@ -291,6 +348,24 @@ export class ContentListService {
     }
 
     /**
+     * Search the contact sinisters
+     * @param  contactId The contact ID
+     * @param  page      The page to get
+     * @param  query     The query to search
+     * @return           Notice of action done
+     */
+    searchContactSinisters(contactId: string, page: number, query: string): Observable<void> {
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId';
+        return this._sinisterService.getContactSinisters(contactId, page, fields, [], query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
      * Search the leads
      * @param  page  The page number to get
      * @param  query The query to search
@@ -316,6 +391,23 @@ export class ContentListService {
     searchPayments(page: number, query: string): Observable<void> {
         const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
         return this._paymentService.getPayments(page, fields, 0, query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
+     * Search the sinisters
+     * @param  page  The page number to get
+     * @param  query The query to search
+     * @return       Notice of action done
+     */
+    searchSinisters(page: number, query: string): Observable<void> {
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId';
+        return this._sinisterService.getSinisters(page, fields, 0, query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);

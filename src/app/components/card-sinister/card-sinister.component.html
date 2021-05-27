@@ -10,11 +10,20 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" role="menu">
                 <div class="dropdown-plus-title">Acciones Disponibles</div>
-                <!-- AGENTHOS - SINISTER UPDATE -->
-                <button type="button" class="dropdown-item"><i class="fa fa-edit mr-2"></i>Actualizar</button>
-                <!-- AGENTHOS - SINISTER FINISH -->
-                <button type="button" class="dropdown-item"><i class="fa fa-check-square-o mr-2"></i>Finalizar</button>
+                <!-- AGENTHOS - POLICY VIEW -->
+                <button type="button" class="dropdown-item" (click)="onClickShowPolicy()"><i class="fa fa-file-text-o mr-2"></i>Ver Póliza</button>
                 <div class="dropdown-divider"></div>
+                <!-- AGENTHOS - SINISTER EVENTS -->
+                <button type="button" class="dropdown-item" (click)="onClickShowHistorySinister()"><i class="fa fa-edit mr-2"></i>Eventos</button>
+                <!-- AGENTHOS - SINISTER HISTORY -->
+                <button type="button" class="dropdown-item" (click)="onClickShowHistoryPolicy()"><i class="fa fa-history mr-2"></i>Historial</button>
+                <div class="dropdown-divider"></div>
+                <!-- AGENTHOS - SINISTER REACTIVATE -->
+                <button type="button" class="dropdown-item" *ngIf="sinister.sinisterStatusId === SINISTER_STATUS.FINISHED; else finalizeSinister" (click)="onClickReactivateSinister()"><i class="fa fa-refresh mr-2"></i>Reactivar</button>
+                <ng-template #finalizeSinister>
+                    <!-- AGENTHOS - SINISTER FINISH -->
+                    <button type="button" class="dropdown-item" (click)="onClickFinalizeSinister()"><i class="fa fa-check-square-o mr-2"></i>Finalizar</button>
+                </ng-template>
             </div>
         </div>
         <!-- //AGENTHOS - SINISTER MENU -->

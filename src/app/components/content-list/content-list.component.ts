@@ -6,12 +6,15 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
-import { Sinister } from '@interfaces/sinister.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
 import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.interface';
+import { Sinister } from '@interfaces/sinister.interface';
+import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
+import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ContentListService } from './content-list.service';
@@ -36,6 +39,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() paymentId: string;
     @Input() policyId: string;
     @Input() query: string;
+    @Input() sinisterId: string;
     @Input() specialQuery: SearchContactData | null;
     @Input() canReloadContent: boolean = false;
     @Output() totalResultsLoaded: EventEmitter<number>;
@@ -51,19 +55,27 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedContactId: string;
     selectedEndorsementId: string;
     selectedPaymentId: string;
+    selectedPolicyData: PolicyDataSend | null = null;
     selectedPolicyId: string;
     selectedQuotationId: string;
     selectedReceiptPaidId: string;
     selectedSinister: Sinister | null = null;
+    selectedSinisterData: SinisterDataSend | null = null;
+    selectedSinisterEventData: SinisterEventDataSend | null = null;
     modalIdAcceptQuotation: string;
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
     modalIdConfirmDeleteReceiptPaid: string;
+    modalIdConfirmDeleteSinisterEvent: string = 'agt-confirm-delete-sinister-event';
     modalIdConfirmEndorsePolicy: string;
+    modalIdConfirmFinalizeSinister: string;
     modalIdConfirmReissuePolicy: string;
+    modalIdConfirmReactivateSinister: string;
     modalIdConfirmRenewPolicy: string;
     modalIdConfirmShowHistoryPolicy: string;
     modalIdConfirmShowPaymentHistory: string;
+    modalIdConfirmShowSinister: string = 'agt-confirm-show-sinister';
+    modalIdConfirmShowSinisterHistory: string;
     modalIdConfirmUpdatePolicy: string;
     modalIdRejectQuotation: string;
     modalIdSelectContact: string;
@@ -72,8 +84,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowEndorsement: string;
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
+    modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
     modalIdShowQuotationDetails: string;
     modalIdShowSinisterDetails: string = 'agt-show-sinister-details';
+    modalIdUpdateSinisterEvent: string = 'agt-update-sinister-event'
     totalResults: number;
     private subParams: any;
 
@@ -88,6 +102,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.contentSubtype = 0;
         this.contentSubtypeName = '';
         this.query = '';
+        this.sinisterId = '';
         this.specialQuery = null;
         this.totalResultsLoaded = new EventEmitter<number>();
         this.CONTENT_TYPES = CONTENT_TYPES;
@@ -109,10 +124,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.modalIdConfirmCancelPolicy = 'agt-confirm-cancel-policy';
         this.modalIdConfirmDeleteReceiptPaid = 'agt-confirm-delete-receipt-paid';
         this.modalIdConfirmEndorsePolicy = 'agt-confirm-endorse-policy';
+        this.modalIdConfirmFinalizeSinister = 'agt-confirm-finalize-sinister';
         this.modalIdConfirmReissuePolicy = 'agt-confirm-reissue-policy';
+        this.modalIdConfirmReactivateSinister = 'agt-confirm-reactivate-sinister';
         this.modalIdConfirmRenewPolicy = 'agt-confirm-renew-policy';
         this.modalIdConfirmShowHistoryPolicy = 'agt-confitm-show-history-policy';
         this.modalIdConfirmShowPaymentHistory = 'agt-confitm-show-payment-history';
+        this.modalIdConfirmShowSinisterHistory = 'agt-confitm-show-sinister-history';
         this.modalIdConfirmUpdatePolicy = 'agt-confirm-update-policy';
         this.modalIdRejectQuotation = 'agt-reject-quotation';
         this.modalIdSelectContact = 'agt-select-contact';
@@ -241,12 +259,30 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to show modal to confirm delete sinister event
+     * @param sinisterEventData The sinister event data
+     */
+    onDeleteSinisterEvent(sinisterEventData: SinisterEventDataSend): void {
+        this.selectedSinisterEventData = sinisterEventData;
+        ModalPlugin.show(this.modalIdConfirmDeleteSinisterEvent);
+    }
+
+    /**
      * Event to endorse a policy
      * @param policyId The policy ID
      */
     onEndorsePolicy(policyId: string): void {
         this.selectedPolicyId = policyId;
         ModalPlugin.show(this.modalIdConfirmEndorsePolicy);
+    }
+
+    /**
+     * Event to show modal to confirm finalize the sinister
+     * @param sinisterData The sinister data
+     */
+    onFinalizeSinister(sinisterData: SinisterDataSend): void {
+        this.selectedSinisterData = sinisterData;
+        ModalPlugin.show(this.modalIdConfirmFinalizeSinister);
     }
 
     /**
@@ -269,6 +305,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     onPolicyDeleted(): void {
         this._initContent();
+    }
+
+    /**
+     * Event to reactivate a sinister
+     * @param sinisterData The sinister data
+     */
+    onReactivateSinister(sinisterData: SinisterDataSend): void {
+        this.selectedSinisterData = sinisterData;
+        ModalPlugin.show(this.modalIdConfirmReactivateSinister);
     }
 
     /**
@@ -342,6 +387,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to show modal to confirm show the sinister history
+     * @param data The sinister data
+     */
+    onShowHistorySinister(data: SinisterDataSend): void {
+        this.selectedSinisterData = data;
+        ModalPlugin.show(this.modalIdConfirmShowSinisterHistory);
+    }
+
+    /**
      * Event to show the quotation details modal
      * @param quotationId The selected quotation ID
      */
@@ -362,9 +416,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     /**
      * Event to show policy
-     * @param data The data
+     * @param PolicyDataSend The policy data
      */
-    onShowPolicyFromWorkspace(data: { policyId: string, contactId: string }): void {
+    onShowPolicyFromWorkspace(data: PolicyDataSend): void {
         this.selectedPolicyId = data.policyId;
         this.selectedContactId = data.contactId;
         ModalPlugin.show(this.modalIdShowPolicy);
@@ -401,6 +455,24 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to show the policy sinisters
+     * @param policyData The policy data
+     */
+    onShowPolicySinisters(policyData: PolicyDataSend): void {
+        this.selectedPolicyData = policyData;
+        ModalPlugin.show(this.modalIdConfirmShowPolicySinisters);
+    }
+
+    /**
+     * Event to show modal to confirm show the sinister
+     * @param sinisterData The sinister data
+     */
+    onShowSinister(sinisterData: SinisterDataSend): void {
+        this.selectedSinisterData = sinisterData;
+        ModalPlugin.show(this.modalIdConfirmShowSinister)
+    }
+
+    /**
      * Event to show the sinister details
      * @param sinister The selected sinister
      */
@@ -415,6 +487,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onUpdatePolicy(policyId: string): void {
         this.selectedPolicyId = policyId;
         ModalPlugin.show(this.modalIdConfirmUpdatePolicy);
+    }
+
+    /**
+     * Event to show modal to update the sinister event
+     * @param sinisterEventData The sinister event data
+     */
+    onUpdateSinisterEvent(sinisterEventData: SinisterEventDataSend): void {
+        this.selectedSinisterEventData = sinisterEventData;
+        ModalPlugin.show(this.modalIdUpdateSinisterEvent);
+        ModalPlugin.setFixed();
     }
 
     /**
@@ -474,6 +556,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.HISTORY_POLICY.ID:
             case CONTENT_TYPES.PAYMENT_HISTORY.ID:
+            case CONTENT_TYPES.SINISTER_HISTORY.ID:
+            case CONTENT_TYPES.POLICY_SINISTERS.ID:
                 this.cardClasses = 'col-lg-12 mt-5';
             break;
 
@@ -549,6 +633,24 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this._contentLoaded();
             });
             break;
+
+            case CONTENT_TYPES.CONTACT_SINISTER.ID:
+                this.contentListService.loadContactSinisters(this.contactId, this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.SINISTER_HISTORY.ID:
+                this.contentListService.loadSinisterLogs(this.contactId, this.policyId, this.sinisterId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.POLICY_SINISTERS.ID:
+                this.contentListService.loadPolicySinisters(this.contactId, this.policyId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
         }
     }
 
@@ -587,8 +689,20 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 })
             break;
 
+            case CONTENT_TYPES.CONTACT_SINISTER.ID:
+                this.contentListService.searchContactSinisters(this.contactId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
             case CONTENT_TYPES.PAYMENT.ID:
                 this.contentListService.searchPayments(this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.SINISTER.ID:
+                this.contentListService.searchSinisters(this.page, this.query).subscribe( () => {
                     this._contentLoaded();
                 })
             break;

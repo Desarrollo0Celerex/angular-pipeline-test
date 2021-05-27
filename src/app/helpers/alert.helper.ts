@@ -253,6 +253,78 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static sinisterEventDeleted(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Evento Eliminado',
+            text: 'El evento se eliminó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static sinisterEventReported(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Evento Reportado',
+            text: 'El evento se registró con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static sinisterEventUpdated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Evento Actualizado',
+            text: 'El evento se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static sinisterFinished(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Siniestro Finalizado',
+            text: 'El siniestro se cerró con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static sinisterReactivated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Siniestro Reactivado',
+            text: 'El siniestro se reactivó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static sinisterUpdated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Siniestro Actualizado',
+            text: 'El siniestro se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static trialStarted(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Acceso Permitido',
