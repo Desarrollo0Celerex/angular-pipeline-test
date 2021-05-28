@@ -13,10 +13,8 @@ import { ScanningService } from '@services/scanning.service';
 
 import { CompletePolicyService } from './complete-policy.service';
 
-declare var $: any;
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
-declare var Select2Plugin: any;
 
 @Component({
   selector: 'agt-complete-policy',
@@ -37,9 +35,6 @@ export class CompletePolicyPage implements OnInit {
     emissionDateCalendarId: string;
     validityEndDateCalendarId: string;
     validityStartDateCalendarId: string;
-    currencySelectId: string;
-    paymentMethodSelectId: string;
-    paymentPlanSelectId: string;
     private _isFormSubmitted: boolean;
     private _scannedPolicyData: Policy | null = null;
 
@@ -66,9 +61,6 @@ export class CompletePolicyPage implements OnInit {
         }
         this.validityEndDateCalendarId = 'validityEndDate';
         this.validityStartDateCalendarId = 'validityStartDate';
-        this.currencySelectId = 'agt-currency';
-        this.paymentMethodSelectId = 'agt-payment-method';
-        this.paymentPlanSelectId = 'agt-payment-plan';
         this._isFormSubmitted = false;
     }
 
@@ -95,6 +87,13 @@ export class CompletePolicyPage implements OnInit {
     getValidationClass(constrolName: string): string {
         const control: AbstractControl | null = this.completePolicyService.policyForm.get(constrolName);
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+    }
+
+    /**
+     * Change event to calculate the bills
+     */
+    onChangeCalculateBills(): void {
+        this._calculateBills();
     }
 
     /**
@@ -138,6 +137,13 @@ export class CompletePolicyPage implements OnInit {
                 AlertHelper.policyCompleted(this._goToListContactPolicies, this);
             })
         }
+    }
+
+    /**
+     * Calculate the bills
+     */
+    private _calculateBills(): void {
+        this.completePolicyService.calculateBills();
     }
 
     /**
@@ -191,8 +197,6 @@ export class CompletePolicyPage implements OnInit {
      */
     private _loadCurrencies(): void {
         this.completePolicyService.loadCurrencies().subscribe( () => {
-            Select2Plugin.initSelect();
-            this._onChangeCurrencyId();
         })
     }
 
@@ -201,8 +205,6 @@ export class CompletePolicyPage implements OnInit {
      */
     private _loadPaymentMethods(): void {
         this.completePolicyService.loadPaymentMethods().subscribe( () => {
-            Select2Plugin.initSelect();
-            this._onChangePaymentMethodId();
         })
     }
 
@@ -211,8 +213,7 @@ export class CompletePolicyPage implements OnInit {
      */
     private _loadPaymentPlans(): void {
         this.completePolicyService.loadPaymentPlans().subscribe( () => {
-            Select2Plugin.initSelect();
-            this._onChangePaymentPlanId();
+            this._calculateBills();
         })
     }
 
@@ -225,34 +226,6 @@ export class CompletePolicyPage implements OnInit {
     private _onChangeDate(selectorId: string, changedValue: string, context: CompletePolicyPage): void {
         context.completePolicyService.policyForm.patchValue({[selectorId]: changedValue});
         context.completePolicyService.calculateBills();
-    }
-
-    /**
-     * Event to change the currency ID value
-     */
-    private _onChangeCurrencyId(): void {
-        $('select#'+this.currencySelectId).on('change', (element: any) => {
-            this.completePolicyService.policyForm.patchValue({currencyId: element.currentTarget.value});
-        });
-    }
-
-    /**
-     * Event to change the method ID value
-     */
-    private _onChangePaymentMethodId(): void {
-        $('select#'+this.paymentMethodSelectId).on('change', (element: any) => {
-            this.completePolicyService.policyForm.patchValue({paymentMethodId: element.currentTarget.value});
-        });
-    }
-
-    /**
-     * Event to change the plan ID value
-     */
-    private _onChangePaymentPlanId(): void {
-        $('select#'+this.paymentPlanSelectId).on('change', (element: any) => {
-            this.completePolicyService.policyForm.patchValue({paymentPlanId: element.currentTarget.value});
-            this.completePolicyService.calculateBills();
-        });
     }
 
     /**
