@@ -206,7 +206,7 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - PAY CURRENCY * -->
                                     <label class="form-label">Moneda</label>
-                                    <select [id]="currencySelectId" class="form-control select2 custom-select {{getValidationClass('currencyId')}}" formControlName="currencyId">
+                                    <select class="form-control custom-select {{getValidationClass('currencyId')}}" formControlName="currencyId">
                                         <option [value]="currency.currencyId" *ngFor="let currency of completePolicyService.currencies">{{currency.name}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('currencyId')}}</div>
@@ -216,7 +216,7 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - PAYMENT METHOD * -->
                                     <label class="form-label">Forma de Pago</label>
-                                    <select [id]="paymentMethodSelectId" class="form-control select2 custom-select {{getValidationClass('paymentMethodId')}}" formControlName="paymentMethodId">
+                                    <select class="form-control custom-select {{getValidationClass('paymentMethodId')}}" formControlName="paymentMethodId">
                                         <option [value]="paymentMethod.paymentMethodId" *ngFor="let paymentMethod of completePolicyService.paymentMethods">{{paymentMethod.name | uppercase}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('paymentMethodId')}}</div>
@@ -226,7 +226,7 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - PAY PLAN * -->
                                     <label class="form-label">Tipo de Plan</label>
-                                    <select [id]="paymentPlanSelectId" class="form-control select2 custom-select {{getValidationClass('paymentPlanId')}}" formControlName="paymentPlanId">
+                                    <select class="form-control custom-select {{getValidationClass('paymentPlanId')}}" formControlName="paymentPlanId" (change)="onChangeCalculateBills()">
                                         <option [value]="paymentPlan.paymentPlanId" *ngFor="let paymentPlan of completePolicyService.paymentPlans">{{paymentPlan.name | uppercase}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('paymentPlanId')}}</div>

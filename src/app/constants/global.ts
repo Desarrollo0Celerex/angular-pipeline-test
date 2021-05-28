@@ -1,5 +1,5 @@
 // Validations
-export const ALPHANUMERICS: string = 'a-zA-Z0-9ñÑ';
+export const ALPHANUMERICS: string = '&a-zA-Z0-9ñÑ';
 export const PUNCTUATION_MARKS: string = 'áéíóúÁÉÍÓÚ,.:;\\-\\"()¿?¡!]*$';
 export const REAL_NAME_LENGTH: any = {
     MIN: 3,
