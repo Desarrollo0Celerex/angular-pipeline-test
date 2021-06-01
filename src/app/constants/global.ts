@@ -148,12 +148,10 @@ export const FILE_TYPES: any = {
     DOCUMENT: 2
 }
 export const ENDORSEMENT_TYPES: any = {
-    COVERAGE_CHANGE: 3,
-    CONDITIONS_CHANGE: 4,
-    PAYMENT_METHOD_CHANGE: 5,
-    PLAN_TYPE_CHANGE: 6,
-    POLICY_REHABILITATION: 7,
-    VALIDITY_EXTENSION: 8
+    A: 1,
+    B: 2,
+    C: 3,
+    D: 4
 }
 export const ACTION_TYPES: any = {
     CREATE_QUOTATION: 1,
@@ -220,10 +218,7 @@ export const DEFAULT_ROLE_ID: number = 1;
 export const DEFAULT_CONTACT_SOURCE_ID: number = 1;
 export const DEFAULT_CONTENT_FILTER_ID: number = 1;
 export const DEFAULT_CURRENCY_ID: number = 1;
-export const DEFAULT_METHOD_ID: number = 1;
-export const DEFAULT_PLAN_ID: number = 1;
 export const DEFAULT_POLICY_STATUS_ID: number = POLICY_STATUS_ACTIVE;
-export const DEFAULT_ENDORSEMENT_TYPE_ID: number = 1;
 export const DEFAULT_POLICY_CANCELLATION_REASON_ID: number = 1;
 
 

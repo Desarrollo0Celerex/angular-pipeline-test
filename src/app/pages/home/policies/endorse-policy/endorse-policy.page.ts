@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
-import { ENDORSEMENT_PAYMENT_METHODS } from '@constants/global';
+import { ENDORSEMENT_PAYMENT_METHODS, ENDORSEMENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -271,7 +271,12 @@ export class EndorsePolicyPage implements OnInit {
      * @param context The app context
      */
     private _goToListContactPolicies(context: EndorsePolicyPage): void {
-        context._router.navigateByUrl(ROUTES_NAME.listContactPolicies(context.contactId));
+        const endorsementTypeId: number = parseInt(context.endorsePolicyService.f.endorsementTypeId.value);
+        if(endorsementTypeId === ENDORSEMENT_TYPES.C) {
+            context._router.navigateByUrl(ROUTES_NAME.cancelPolicy(context.contactId, context.policyId));
+        } else {
+            context._router.navigateByUrl(ROUTES_NAME.listContactPolicies(context.contactId));
+        }
     }
 
     /**
