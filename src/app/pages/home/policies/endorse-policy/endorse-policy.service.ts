@@ -5,7 +5,7 @@ import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 
-import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH, DEFAULT_METHOD_ID, DEFAULT_PLAN_ID, DEFAULT_ENDORSEMENT_TYPE_ID, ENDORSEMENT_TYPES } from '@constants/global';
+import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH, ENDORSEMENT_TYPES } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { EndorsementType } from '@interfaces/endorsement-type.interface';
@@ -61,9 +61,22 @@ export class EndorsePolicyService {
             const totalMonths = endDate.diff(startDate, 'months');
             this.monthsLeftToPay = totalMonths - this.policy.monthsPaid;
             this.paymentPlansAvailable = [];
-            for(let paymentPlan of this.paymentPlans) {
-                if(paymentPlan.months < this.monthsLeftToPay) {
-                    this.paymentPlansAvailable.push(paymentPlan);
+            // If the policy has all their receipts paid
+            if(this.monthsLeftToPay === 0) {
+                // Set the same payment plan
+                const paymentPlanId: number = parseInt(this.f.paymentPlanId.value);
+                for(let paymentPlan of this.paymentPlans) {
+                    if(paymentPlan.paymentPlanId === paymentPlanId) {
+                        this.paymentPlansAvailable.push(paymentPlan);
+                        break;
+                    }
+                }
+            } else {
+                // Set the payment plans available
+                for(let paymentPlan of this.paymentPlans) {
+                    if(paymentPlan.months < this.monthsLeftToPay) {
+                        this.paymentPlansAvailable.push(paymentPlan);
+                    }
                 }
             }
         }
@@ -135,46 +148,51 @@ export class EndorsePolicyService {
      * Disable the endorsement form fields
      */
     disableEndorsementFormFields(): void {
+        this._disableAllFormFields();
         const endorsementType: number = parseInt(this.f.endorsementTypeId.value);
-        this.f.validityEndDate.disable();
-        this.f.newAmount.disable();
-        this.f.paymentMethodId.disable();
-        this.f.paymentPlanId.disable();
 
         switch(endorsementType) {
-            case ENDORSEMENT_TYPES.COVERAGE_CHANGE:
-            case ENDORSEMENT_TYPES.CONDITIONS_CHANGE:
-            case ENDORSEMENT_TYPES.PLAN_TYPE_CHANGE:
-                // Enable fields
-                this.f.newAmount.enable();
-                this.f.paymentMethodId.enable();
-                this.f.paymentPlanId.enable();
-
-                // Reset values
-                if(!!this.policy) {
-                    this.f.validityEndDate.setValue(this._getDateFormat(this.policy.validityEndDate));
-                }
-                break;
-
-            case ENDORSEMENT_TYPES.PAYMENT_METHOD_CHANGE:
-                // Enable fields
-                this.f.paymentMethodId.enable();
-
-                // Reset values
-                if(!!this.policy) {
-                    this.f.validityEndDate.setValue(this._getDateFormat(this.policy.validityEndDate));
-                    this.f.newAmount.setValue('');
-                    this.f.paymentPlanId.setValue(this.policy.paymentPlanId);
-                    this.f.bills.setValue(this.policy.bills);
-                }
-                break;
-
-            case ENDORSEMENT_TYPES.VALIDITY_EXTENSION:
-                // Enable fields
+            case ENDORSEMENT_TYPES.A:
+                this.f.titularName.enable();
+                this.f.titularRfc.enable();
+                this.f.titularPostalCode.enable();
+                this.f.titularPhoneNumber.enable();
+                this.f.coveredProperty.enable();
+                this.f.policyNumber.enable();
+                this.f.clientNumber.enable();
                 this.f.validityEndDate.enable();
                 this.f.newAmount.enable();
                 this.f.paymentMethodId.enable();
                 this.f.paymentPlanId.enable();
+                break;
+
+            case ENDORSEMENT_TYPES.B:
+                this.f.titularName.enable();
+                this.f.titularRfc.enable();
+                this.f.titularPostalCode.enable();
+                this.f.titularPhoneNumber.enable();
+                this.f.coveredProperty.enable();
+                this.f.policyNumber.enable();
+                this.f.clientNumber.enable();
+                this.f.paymentMethodId.enable();
+                break;
+
+            case ENDORSEMENT_TYPES.D:
+                this.f.titularName.enable();
+                this.f.titularRfc.enable();
+                this.f.titularPostalCode.enable();
+                this.f.titularPhoneNumber.enable();
+                this.f.coveredProperty.enable();
+                this.f.policyNumber.enable();
+                this.f.clientNumber.enable();
+                this.f.validityEndDate.enable();
+                this.f.newAmount.enable();
+                this.f.paymentMethodId.enable();
+                this.f.paymentPlanId.enable();
+                break;
+
+            default:
+                this.f.coveredProperty.enable();
                 break;
         }
     }
@@ -270,7 +288,7 @@ export class EndorsePolicyService {
                 endorsementFile: ['', [Validators.required]],
                 endorsementNumber: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 endorsementEmissionDate: ['', [Validators.required, ValidatorsHelper.date] ],
-                endorsementTypeId: [DEFAULT_ENDORSEMENT_TYPE_ID, [Validators.required] ],
+                endorsementTypeId: ['', [Validators.required] ],
                 endorsementComments: ['', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 coveredProperty: [this.policy.coveredProperty, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 policyNumber: [this.policy.policyNumber, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
@@ -279,12 +297,22 @@ export class EndorsePolicyService {
                 titularRfc: [this.policy.titularRfc, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 titularPostalCode: [this.policy.titularPostalCode, [ValidatorsHelper.postalCode ] ],
                 titularPhoneNumber: [this.policy.titularPhoneNumber, [ValidatorsHelper.phoneNumber] ],
-                validityEndDate: [{value: this._getDateFormat(this.policy.validityEndDate) || 0, disabled: true}, [Validators.required, ValidatorsHelper.date, ValidatorsHelper.dateGreaterThan(this.policy.validityEndDate)] ],
-                newAmount: [{value: '', disabled: true}, [ValidatorsHelper.amount] ],
-                paymentMethodId: [{value: this.policy.paymentMethodId || DEFAULT_METHOD_ID, disabled: true}, [Validators.required]],
-                paymentPlanId: [{value: this.policy.paymentPlanId || DEFAULT_PLAN_ID, disabled: true}, [Validators.required]],
-                bills: [{value: this.policy.bills || 0, disabled: true}]
+                validityEndDate: [this._getDateFormat(this.policy.validityEndDate) || 0, [Validators.required, ValidatorsHelper.date, ValidatorsHelper.dateGreaterThan(this.policy.validityEndDate)] ],
+                newAmount: ['', [ValidatorsHelper.amount] ],
+                paymentMethodId: [this.policy.paymentMethodId || '', [Validators.required]],
+                paymentPlanId: [this.policy.paymentPlanId || '', [Validators.required]],
+                bills: [this.policy.bills || 0]
             })
+        }
+    }
+
+    private _disableAllFormFields(): void {
+        const fieldsToIgnore: string [] = ['endorsementFile', 'endorsementNumber', 'endorsementEmissionDate', 'endorsementTypeId', 'endorsementComments'];
+        const controls: { [key: string]: AbstractControl } = this.f;
+        for(const name in controls) {
+            if(!fieldsToIgnore.includes(name)) {
+                controls[name].disable();
+            }
         }
     }
 
