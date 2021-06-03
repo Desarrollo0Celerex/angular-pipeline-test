@@ -22,5 +22,7 @@ export interface PolicyRecord {
     certificate: string,
     sinisterDate: string,
     dateLastEvent: string,
-    totalEvents: string
+    totalEvents: string,
+    endorsementComments: string,
+    cancellationEvidenceUrl: string
 }

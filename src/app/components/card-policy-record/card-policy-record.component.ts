@@ -15,6 +15,7 @@ import { Sinister } from '@interfaces/sinister.interface';
 export class CardPolicyRecordComponent implements OnInit {
     @Input() policyRecord: PolicyRecord | null = null;
     @Output() completePolicy: EventEmitter<PolicyRecordData> = new EventEmitter<PolicyRecordData>();
+    @Output() showCancellationEvidence: EventEmitter<PolicyRecordData> = new EventEmitter<PolicyRecordData>();
     @Output() showEndorsement: EventEmitter<PolicyRecordData> = new EventEmitter<PolicyRecordData>();
     @Output() showPolicy: EventEmitter<PolicyRecordData> = new EventEmitter<PolicyRecordData>();
     @Output() showPolicyDetails: EventEmitter<PolicyRecordData> = new EventEmitter<PolicyRecordData>();
@@ -51,6 +52,19 @@ export class CardPolicyRecordComponent implements OnInit {
                 sourceContactId: '',
             }
             this.showEndorsement.emit(policyRecordData);
+        }
+    }
+
+    /**
+     * Click event to show the cancellation evidence
+     */
+    onClickShowCancellationEvidence(): void {
+        if(!!this.policyRecord) {
+            const policyRecordData: PolicyRecordData = {
+                sourceId: this.policyRecord.sourceId,
+                sourceContactId: '',
+            }
+            this.showCancellationEvidence.emit(policyRecordData);
         }
     }
 

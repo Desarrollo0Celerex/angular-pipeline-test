@@ -52,32 +52,32 @@ export class ShowContactDataService {
     buildPersonForm(): void {
         if(!!this.contact) {
             this.contactForm = this._formBuilder.group({
-                name: [ {value: this.contact.name || '', disabled: true}, [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                namePaternal: [ {value: this.contact.namePaternal || '', disabled: true}, [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                nameMaternal: [ {value: this.contact.nameMaternal || '', disabled: true}, [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                genderId: [ {value: this.contact.genderId || '', disabled: true}, [Validators.required]],
-                birthdate: [ {value: this._getDateFormat(this.contact.birthdate) || '', disabled: true}, [ValidatorsHelper.date]],
-                civilStatusId: [ {value: this.contact.civilStatusId || '', disabled: true}, [ValidatorsHelper.number]],
-                contactOccupationId: [ {value: this.contact.contactOccupationId || '', disabled: true}, [ValidatorsHelper.number]],
-                offspringId: [ {value: this.contact.offspringId || '', disabled: true}, [ValidatorsHelper.number]],
-                rfc: [ {value: this.contact.rfc || '', disabled: true}, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                email: [ {value: this.contact.email || '', disabled: true}, [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                phoneCodeId: [ {value: this.contact.phoneCodeId || DEFAULT_PHONE_CODE_ID, disabled: true}, [ValidatorsHelper.number]],
-                phoneNumber: [ {value: this.contact.phoneNumber || '', disabled: true}, [ValidatorsHelper.phoneNumber]],
-                website: [ {value: this.contact.website || '', disabled: true}, [Validators.minLength(WEB_LINK_LENGTH.MIN), Validators.maxLength(WEB_LINK_LENGTH.MAX), ValidatorsHelper.webLink]],
-                secondaryContactName: [ {value: this.contact.secondaryContactName || '', disabled: true}, [Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                secondaryContactRelationId: [ {value: this.contact.secondaryContactRelationId || '', disabled: true}, [ValidatorsHelper.number]],
-                secondaryContactEmail: [ {value: this.contact.secondaryContactEmail || '', disabled: true}, [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                secondaryContactPhoneCodeId: [ {value: this.contact.secondaryContactPhoneCodeId || DEFAULT_PHONE_CODE_ID, disabled: true}],
-                secondaryContactPhoneNumber: [ {value: this.contact.secondaryContactPhoneNumber || '', disabled: true}, [ValidatorsHelper.phoneNumber]],
-                street: [ {value: this.contact.street || '', disabled: true}, [Validators.minLength(FREE_TEXT_LENGTH), Validators.maxLength(FREE_TEXT_LENGTH), ValidatorsHelper.freeText]],
-                exteriorNumber: [ {value: this.contact.exteriorNumber || '', disabled: true}, [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
-                interiorNumber: [ {value: this.contact.interiorNumber || '', disabled: true}, [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
-                colony: [ {value: this.contact.colony || '', disabled: true}, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                city: [ {value: this.contact.city || '', disabled: true}, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                state: [ {value: this.contact.state || '', disabled: true}, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                postalCode: [ {value: this.contact.postalCode || '', disabled: true}, [ValidatorsHelper.postalCode]],
-                country: [ {value: this.contact.country || '', disabled: true}, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                name: [this.contact.name || '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
+                namePaternal: [this.contact.namePaternal || '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
+                nameMaternal: [this.contact.nameMaternal || '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
+                genderId: [this.contact.genderId || '', [Validators.required]],
+                birthdate: [this._getDateFormat(this.contact.birthdate) || '', [ValidatorsHelper.date]],
+                civilStatusId: [this.contact.civilStatusId || '', [ValidatorsHelper.number]],
+                contactOccupationId: [this.contact.contactOccupationId || '', [ValidatorsHelper.number]],
+                offspringId: [this.contact.offspringId || '', [ValidatorsHelper.number]],
+                rfc: [this.contact.rfc || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                email: [this.contact.email || '', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
+                phoneCodeId: [this.contact.phoneCodeId || DEFAULT_PHONE_CODE_ID, [ValidatorsHelper.number]],
+                phoneNumber: [this.contact.phoneNumber || '', [ValidatorsHelper.phoneNumber]],
+                website: [this.contact.website || '', [Validators.minLength(WEB_LINK_LENGTH.MIN), Validators.maxLength(WEB_LINK_LENGTH.MAX), ValidatorsHelper.webLink]],
+                secondaryContactName: [this.contact.secondaryContactName || '', [Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
+                secondaryContactRelationId: [this.contact.secondaryContactRelationId || '', [ValidatorsHelper.number]],
+                secondaryContactEmail: [this.contact.secondaryContactEmail || '', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
+                secondaryContactPhoneCodeId: [this.contact.secondaryContactPhoneCodeId || DEFAULT_PHONE_CODE_ID],
+                secondaryContactPhoneNumber: [this.contact.secondaryContactPhoneNumber || '', [ValidatorsHelper.phoneNumber]],
+                street: [this.contact.street || '', [Validators.minLength(FREE_TEXT_LENGTH), Validators.maxLength(FREE_TEXT_LENGTH), ValidatorsHelper.freeText]],
+                exteriorNumber: [this.contact.exteriorNumber || '', [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
+                interiorNumber: [this.contact.interiorNumber || '', [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
+                colony: [this.contact.colony || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                city: [this.contact.city || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                state: [this.contact.state || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                postalCode: [this.contact.postalCode || '', [ValidatorsHelper.postalCode]],
+                country: [this.contact.country || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
                 contactTypeId: [this.contact.contactTypeId]
             });
         }
@@ -89,53 +89,51 @@ export class ShowContactDataService {
     buildCompanyForm(): void {
         if(!!this.contact) {
             this.contactForm = this._formBuilder.group({
-                companyName: [ {value: this.contact.companyName || '', disabled: true}, [Validators.required, Validators.minLength(BRAND_NAME_LENGTH.MIN), Validators.maxLength(BRAND_NAME_LENGTH.MAX), ValidatorsHelper.brandName]],
-                brandName: [ {value: this.contact.brandName || '', disabled: true}, [Validators.required, Validators.minLength(BRAND_NAME_LENGTH.MIN), Validators.maxLength(BRAND_NAME_LENGTH.MAX), ValidatorsHelper.brandName]],
-                rfc: [ {value: this.contact.rfc || '', disabled: true}, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                email: [ {value: this.contact.email || '', disabled: true}, [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                phoneCodeId: [ {value: this.contact.phoneCodeId || DEFAULT_PHONE_CODE_ID, disabled: true}, [ValidatorsHelper.number]],
-                phoneNumber: [ {value: this.contact.phoneNumber || '', disabled: true}, [ValidatorsHelper.phoneNumber]],
-                website: [ {value: this.contact.website || '', disabled: true}, [Validators.minLength(WEB_LINK_LENGTH.MIN), Validators.maxLength(WEB_LINK_LENGTH.MAX), ValidatorsHelper.webLink]],
-                secondaryContactName: [ {value: this.contact.secondaryContactName || '', disabled: true}, [Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                secondaryContactRelationId: [ {value: this.contact.secondaryContactRelationId || '', disabled: true}, [ValidatorsHelper.number]],
-                secondaryContactEmail: [ {value: this.contact.secondaryContactEmail || '', disabled: true}, [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                secondaryContactPhoneCodeId: [ {value: this.contact.secondaryContactPhoneCodeId || DEFAULT_PHONE_CODE_ID, disabled: true}],
-                secondaryContactPhoneNumber: [ {value: this.contact.secondaryContactPhoneNumber || '', disabled: true}, [ValidatorsHelper.phoneNumber]],
-                street: [ {value: this.contact.street || '', disabled: true}, [Validators.minLength(FREE_TEXT_LENGTH), Validators.maxLength(FREE_TEXT_LENGTH), ValidatorsHelper.freeText]],
-                exteriorNumber: [ {value: this.contact.exteriorNumber || '', disabled: true}, [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.freeText]],
-                interiorNumber: [ {value: this.contact.interiorNumber || '', disabled: true}, [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.freeText]],
-                colony: [ {value: this.contact.colony || '', disabled: true}, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                city: [ {value: this.contact.city || '', disabled: true}, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                state: [ {value: this.contact.state || '', disabled: true}, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                postalCode: [ {value: this.contact.postalCode || '', disabled: true}, [ValidatorsHelper.postalCode]],
-                country: [ {value: this.contact.country || '', disabled: true}, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                companyName: [this.contact.companyName || '', [Validators.required, Validators.minLength(BRAND_NAME_LENGTH.MIN), Validators.maxLength(BRAND_NAME_LENGTH.MAX), ValidatorsHelper.brandName]],
+                brandName: [this.contact.brandName || '', [Validators.required, Validators.minLength(BRAND_NAME_LENGTH.MIN), Validators.maxLength(BRAND_NAME_LENGTH.MAX), ValidatorsHelper.brandName]],
+                rfc: [this.contact.rfc || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                email: [this.contact.email || '', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
+                phoneCodeId: [this.contact.phoneCodeId || DEFAULT_PHONE_CODE_ID, [ValidatorsHelper.number]],
+                phoneNumber: [this.contact.phoneNumber || '', [ValidatorsHelper.phoneNumber]],
+                website: [this.contact.website || '', [Validators.minLength(WEB_LINK_LENGTH.MIN), Validators.maxLength(WEB_LINK_LENGTH.MAX), ValidatorsHelper.webLink]],
+                secondaryContactName: [this.contact.secondaryContactName || '', [Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
+                secondaryContactRelationId: [this.contact.secondaryContactRelationId || '', [ValidatorsHelper.number]],
+                secondaryContactEmail: [this.contact.secondaryContactEmail || '', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
+                secondaryContactPhoneCodeId: [this.contact.secondaryContactPhoneCodeId || DEFAULT_PHONE_CODE_ID],
+                secondaryContactPhoneNumber: [this.contact.secondaryContactPhoneNumber || '', [ValidatorsHelper.phoneNumber]],
+                street: [this.contact.street || '', [Validators.minLength(FREE_TEXT_LENGTH), Validators.maxLength(FREE_TEXT_LENGTH), ValidatorsHelper.freeText]],
+                exteriorNumber: [this.contact.exteriorNumber || '', [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
+                interiorNumber: [this.contact.interiorNumber || '', [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
+                colony: [this.contact.colony || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                city: [this.contact.city || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                state: [this.contact.state || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                postalCode: [this.contact.postalCode || '', [ValidatorsHelper.postalCode]],
+                country: [this.contact.country || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
                 contactTypeId: [this.contact.contactTypeId]
             });
         }
     }
 
     /**
-     * Disabled the contact form fields
+     * Enable the form fields
      */
-    disableContactForm(): void {
-        if(!!this.contactForm) {
-            for(const field in this.contactForm.controls) {
-                this.contactForm.get(field)!.disable();
-            }
-        }
-
-    }
-
-    /**
-     * Enable the contact form fields
-     */
-    enableContactForm(): void {
+    enableFormFields(): void {
         if(!!this.contactForm) {
             for(const field in this.contactForm.controls) {
                 this.contactForm.get(field)!.enable();
             }
         }
+    }
 
+    /**
+     * Disable the form fields
+     */
+    desableFormFields(): void {
+        if(!!this.contactForm) {
+            for(const field in this.contactForm.controls) {
+                this.contactForm.controls[field].disable();
+            }
+        }
     }
 
     /**

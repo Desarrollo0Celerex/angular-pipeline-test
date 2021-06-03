@@ -39,6 +39,7 @@ import { ModalConfirmShowSinisterHistoryModule } from '@components/modal-confirm
 import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
 import { ModalSelectContactModule } from '@components/modal-select-contact/modal-select-contact.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
+import { ModalShowCancellationEvidenceModule } from '@components/modal-show-cancellation-evidence/modal-show-cancellation-evidence.module';
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/modal-show-endorsement.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
@@ -102,6 +103,7 @@ import { ContentListService } from './content-list.service';
     ModalConfirmUpdatePolicyModule,
     ModalSelectContactModule,
     ModalSelectContactTypeModule,
+    ModalShowCancellationEvidenceModule,
     ModalShowContactDataModule,
     ModalShowEndorsementModule,
     ModalShowPolicyModule,

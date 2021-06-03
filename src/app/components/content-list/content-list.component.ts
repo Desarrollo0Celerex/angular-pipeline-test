@@ -53,6 +53,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     page: number;
     selectedActionType: number;
     selectedContactId: string;
+    selectedCancelledPolicyId: string = '';
     selectedEndorsementId: string;
     selectedPaymentId: string;
     selectedPolicyData: PolicyDataSend | null = null;
@@ -80,6 +81,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdRejectQuotation: string;
     modalIdSelectContact: string;
     modalIdSelectContactType: string;
+    modalIdShowCancellationEvidence: string = 'agt-show-cancellation-evidence';
     modalIdShowContactData: string;
     modalIdShowEndorsement: string;
     modalIdShowPolicy: string;
@@ -341,6 +343,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onRenewPolicy(policyId: string): void {
         this.selectedPolicyId = policyId;
         ModalPlugin.show(this.modalIdConfirmRenewPolicy);
+    }
+
+    /**
+     * Event to show the cancellation evidence
+     * @param data The policy record data
+     */
+    onShowCancellationEvidence(data: PolicyRecordData): void {
+        this.selectedCancelledPolicyId = data.sourceId;
+        ModalPlugin.show(this.modalIdShowCancellationEvidence)
     }
 
     /**
