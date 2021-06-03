@@ -6,6 +6,9 @@
         <p class="text-sm"><strong>{{policyRecord.createdByName + ' '}}</strong> <span [innerHtml]="policyRecord.policyRecordTypeDescription"></span></p>
         <ng-container [ngSwitch]="policyRecord.policyRecordTypeId">
             <ng-container *ngSwitchCase="POLICY_RECORD_TYPES.ENDORSEMENT">
+                <ol class="breadcrumb1 mt-3">
+                    <li class="breadcrumb-item1">{{policyRecord.endorsementComments}}</li>
+                </ol>
                 <div class="btn-list mt-3">
                     <button type="button" class="btn btn-primary" (click)="onClickShowEndorsement()"><strong>VER ENDOSO</strong></button>
                 </div>
@@ -15,6 +18,16 @@
             </ng-container>
             <ng-container *ngSwitchCase="POLICY_RECORD_TYPES.REISSUED">
                 <ng-container *ngTemplateOutlet="showActions"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="POLICY_RECORD_TYPES.CANCELLED">
+                <div class="btn-list mt-3" *ngIf="!!policyRecord.cancellationEvidenceUrl; else noEvidence">
+                    <button type="button" class="btn btn-primary" (click)="onClickShowCancellationEvidence()"><strong>VER EVIDENCIA</strong></button>
+                </div>
+                <ng-template #noEvidence>
+                    <ol class="breadcrumb1 mt-3">
+                        <li class="breadcrumb-item1">Sin evidencia de cancelación.</li>
+                    </ol>
+                </ng-template>
             </ng-container>
             <ng-container *ngSwitchCase="POLICY_RECORD_TYPES.SINISTER">
                 <ng-container *ngTemplateOutlet="showSinisterActions"></ng-container>

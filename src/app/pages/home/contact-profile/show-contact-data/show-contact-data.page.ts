@@ -18,7 +18,8 @@ declare var Select2Plugin: any;
   selector: 'agt-show-contact-data',
   templateUrl: './show-contact-data.page.html',
   styles: [
-  ]
+  ],
+  providers: [ShowContactDataService]
 })
 export class ShowContactDataPage implements OnInit {
     BUTTON_TYPES: any = BUTTON_TYPES;
@@ -71,7 +72,7 @@ export class ShowContactDataPage implements OnInit {
      */
     onClickEditContact(): void {
         this.canEdit = true;
-        this.showContactDataService.enableContactForm();
+        this.showContactDataService.enableFormFields();
     }
 
     /**
@@ -131,7 +132,7 @@ export class ShowContactDataPage implements OnInit {
      */
     private _disabledContactForm(context: ShowContactDataPage): void {
         context.canEdit = false;
-        context.showContactDataService.disableContactForm();
+        context.showContactDataService.desableFormFields();
     }
 
     /**
@@ -163,6 +164,7 @@ export class ShowContactDataPage implements OnInit {
             } else {
                 this.showContactDataService.buildCompanyForm();
             }
+            this.showContactDataService.desableFormFields();
             this._loadGenders();
             this._initCalendars();
             this._loadOffsprings();

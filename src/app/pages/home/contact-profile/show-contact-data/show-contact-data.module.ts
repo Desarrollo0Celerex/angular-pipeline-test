@@ -19,7 +19,6 @@ import { OffspringService } from '@services/offspring.service';
 
 import { ShowContactDataRoutingModule } from './show-contact-data-routing.module';
 import { ShowContactDataPage } from './show-contact-data.page';
-import { ShowContactDataService } from'./show-contact-data.service'
 
 @NgModule({
   declarations: [ShowContactDataPage],
@@ -37,6 +36,6 @@ import { ShowContactDataService } from'./show-contact-data.service'
     ReactiveFormsModule,
     ShowContactDataRoutingModule
   ],
-  providers: [CivilStatusService, ContactService, ContactOccupationService, ContactRelationService, DatePipe, GendersService, OffspringService, ShowContactDataService]
+  providers: [CivilStatusService, ContactService, ContactOccupationService, ContactRelationService, DatePipe, GendersService, OffspringService]
 })
 export class ShowContactDataModule { }
