@@ -1,0 +1,54 @@
+<!-- AGENTHOS - PROFILE FILE DETAILS -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- AGENTHOS - CARD DETAILS -->
+				<h5 class="modal-title">Detalles de Archivo</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<ng-container *ngIf="!!modalShowContactFileDetailsService.contactFile">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label class="form-label">Nombre</label>
+										<input type="text" class="form-control" [placeholder]="modalShowContactFileDetailsService.contactFile.fileName" readonly="">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-label">Fecha Registro</label>
+										<input type="text" class="form-control" [placeholder]="modalShowContactFileDetailsService.contactFile.createdAt | date: 'dd/MM/yyyy'" readonly="">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-label">Última Actualización</label>
+										<input type="text" class="form-control" [placeholder]="(!!modalShowContactFileDetailsService.contactFile.updatedAt) ? (modalShowContactFileDetailsService.contactFile.updatedAt | date: 'dd/MM/yyyy') : ''" readonly="">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-label">Peso Total</label>
+										<input type="text" class="form-control" [placeholder]="modalShowContactFileDetailsService.contactFile.fileSize | fileSizeFormat" readonly="">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer text-center">
+					<div class="col-12">
+						<button type="button" class="btn btn-block btn-primary" (click)="onClickTransferFile()"><strong>VER ARCHIVO</strong></button>
+					</div>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+</div>
+<!-- //AGENTHOS - PROFILE FILE DETAILS -->

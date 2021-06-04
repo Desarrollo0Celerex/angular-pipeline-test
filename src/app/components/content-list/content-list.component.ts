@@ -6,6 +6,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
+import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
@@ -53,6 +54,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     page: number;
     selectedActionType: number;
     selectedContactId: string;
+    selectedContactFileData: ContactFileDataSend | null = null;
     selectedCancelledPolicyId: string = '';
     selectedEndorsementId: string;
     selectedPaymentId: string;
@@ -83,12 +85,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdSelectContactType: string;
     modalIdShowCancellationEvidence: string = 'agt-show-cancellation-evidence';
     modalIdShowContactData: string;
+    modalIdShowContactFileDetails: string = 'agt-show-contact-file-details';
     modalIdShowEndorsement: string;
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
     modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
     modalIdShowQuotationDetails: string;
     modalIdShowSinisterDetails: string = 'agt-show-sinister-details';
+    modalIdTransferContactFile: string = 'agt-transfer-contact-file';
     modalIdUpdateSinisterEvent: string = 'agt-update-sinister-event'
     totalResults: number;
     private subParams: any;
@@ -493,6 +497,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to transfer the contact file
+     * @param data The contact file data
+     */
+    onTransferContactFile(data: ContactFileDataSend): void {
+        this.selectedContactFileData = data;
+        ModalPlugin.show(this.modalIdTransferContactFile);
+    }
+
+    /**
      * Event to show modal to confirm update policy
      */
     onUpdatePolicy(policyId: string): void {
@@ -508,6 +521,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.selectedSinisterEventData = sinisterEventData;
         ModalPlugin.show(this.modalIdUpdateSinisterEvent);
         ModalPlugin.setFixed();
+    }
+
+    /**
+     * Show the contact file details
+     */
+    showContactFileDetails(data: ContactFileDataSend): void {
+        this.selectedContactFileData = data;
+        ModalPlugin.show(this.modalIdShowContactFileDetails);
     }
 
     /**
@@ -560,6 +581,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.CONTACT_FILE.ID:
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
                 this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-3';
@@ -659,6 +681,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.POLICY_SINISTERS.ID:
                 this.contentListService.loadPolicySinisters(this.contactId, this.policyId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.CONTACT_FILE.ID:
+                this.contentListService.loadContactFiles(this.contactId, this.page).subscribe( () => {
                     this._contentLoaded();
                 })
             break;

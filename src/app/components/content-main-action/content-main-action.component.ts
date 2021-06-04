@@ -45,7 +45,11 @@ export class ContentMainActionComponent implements OnInit {
         this.selectQuotationStatusModalId = 'modal-select-quotation-status';
     }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        if(this.contentType === CONTENT_TYPES.CONTACT_FILE.ID) {
+            this.contentSubtypeNameSelected.emit('Cargado');
+        }
+    }
 
     /**
      * Get the header title
