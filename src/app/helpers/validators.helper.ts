@@ -80,6 +80,20 @@ export class ValidatorsHelper {
     }
 
     /**
+     * Validate a file name
+     * @param  control The control to evaluate
+     * @return         Error object if validation failed, otherwise null.
+     */
+    static fileName(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = new RegExp(`^[${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
+            const value = control.value;
+            return (!regex.test(value)) ? {fileName: true} : null;
+        }
+        return null;
+    }
+
+    /**
      * Validate a free text
      * @param  control The control to evaluate
      * @return         [description]

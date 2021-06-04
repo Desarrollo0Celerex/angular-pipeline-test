@@ -32,7 +32,7 @@ const HOME_CONTACT_PROFILE_ROUTES = {
     listContactPolicies: (contactId: string) => `workspace/contact-profile/${contactId}/list-policies`,
     listContactSinisters: (contactId: string) => `workspace/contact-profile/${contactId}/list-sinisters`,
     showContactData: (contactId: string) => `workspace/contact-profile/${contactId}/show-contact-data`,
-    showRecord: (contactId: string) => `workspace/contact-profile/${contactId}/show-record`,
+    listContactFiles: (contactId: string) => `workspace/contact-profile/${contactId}/list-files`
 }
 
 const HOME_DATA_ROUTES = {
@@ -41,6 +41,10 @@ const HOME_DATA_ROUTES = {
 
 const HOME_ERRORS_ROUTES = {
     accessDenied: 'workspace/errors/access-denied'
+}
+
+const HOME_FILES_ROUTES = {
+    uploadFile: (contactId: string) => `workspace/files/upload-contact-file/${contactId}`
 }
 
 const HOME_INVITATIONS_ROUTES = {
@@ -103,6 +107,7 @@ export const ROUTES_NAME = {
     ...HOME_CONTACT_PROFILE_ROUTES,
     ...HOME_DATA_ROUTES,
     ...HOME_ERRORS_ROUTES,
+    ...HOME_FILES_ROUTES,
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,
     ...HOME_PAYMENTS_ROUTES,

@@ -33,10 +33,15 @@ export const LONG_ALPHANUMERIC_LENGTH: any = {
     MIN: 1,
     MAX: 50
 }
+export const FILE_NAME_LENGTH: any = {
+    MIN: 1,
+    MAX: 50
+}
 export const POLICY_FINISHED_SLACK_DAYS: number = 30;
 
 // Dropify
 export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
+export const DOCUMENT_FORMATS: string[] = ['pdf'];
 
 // Status
 export const WORKSPACE_STATUS: any = {
@@ -131,6 +136,10 @@ export const CONTENT_TYPES: any = {
     POLICY_SINISTERS: {
         ID: 12,
         NAME: 'Movimiento'
+    },
+    CONTACT_FILE: {
+        ID: 13,
+        NAME: 'Archivo'
     }
 }
 export const CONTACT_TYPES: any = {
@@ -145,7 +154,8 @@ export const BUTTON_TYPES: any = {
 }
 export const FILE_TYPES: any = {
     IMAGE: 1,
-    DOCUMENT: 2
+    DOCUMENT: 2,
+    MIXED: 3
 }
 export const ENDORSEMENT_TYPES: any = {
     A: 1,

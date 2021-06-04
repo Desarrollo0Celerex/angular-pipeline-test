@@ -29,6 +29,9 @@ const routes: Routes = [
             // Error routes
             { path: ROUTES_NAME.accessDenied, loadChildren: () => import('@pages/home/errors/access-denied/access-denied.module').then(mod => mod.AccessDeniedModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
+            // Files routes
+            { path: ROUTES_NAME.uploadFile(':contactId'), loadChildren: () => import('@pages/home/contact-files/upload-contact-file/upload-contact-file.module').then(mod => mod.UploadContactFileModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+
             // Invitations routes
             { path: ROUTES_NAME.listInvitations, loadChildren: () => import('@pages/home/invitations/list-invitations/list-invitations.module').then(mod => mod.ListInvitationsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard, UserAuthorizedGuard], data: { roles: [ROLES.GLOBAL_ADMIN, ROLES.WALLET_MANAGER] } },
 

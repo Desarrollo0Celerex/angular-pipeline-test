@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ShowRecordPage } from './show-record.page';
+import { ListFilesPage } from './list-files.page';
 
-const routes: Routes = [{ path: '', component: ShowRecordPage }];
+const routes: Routes = [{ path: '', component: ListFilesPage }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ShowRecordRoutingModule { }
+export class ListFilesRoutingModule { }

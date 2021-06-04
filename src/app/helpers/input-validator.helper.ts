@@ -86,6 +86,9 @@ export class InputValidatorHelper {
                     case (typeof error.dateGreaterThan !== 'undefined'):
                         message = 'Por favor ingresa una fecha válida.';
                         break;
+                    case (typeof error.fileName !== 'undefined'):
+                        message = 'Algunos caracteres no son validos.';
+                        break;
                     default: message = '';
                 }
             }
