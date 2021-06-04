@@ -79,6 +79,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmShowPaymentHistory: string;
     modalIdConfirmShowSinister: string = 'agt-confirm-show-sinister';
     modalIdConfirmShowSinisterHistory: string;
+    modalIdConfirmUpdateContactFile: string = 'agt-confirm-update-contact-file';
     modalIdConfirmUpdatePolicy: string;
     modalIdRejectQuotation: string;
     modalIdSelectContact: string;
@@ -503,6 +504,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onTransferContactFile(data: ContactFileDataSend): void {
         this.selectedContactFileData = data;
         ModalPlugin.show(this.modalIdTransferContactFile);
+    }
+
+    /**
+     * Event to show the modat to confirm update the contact file
+     */
+    onUpdateContactFile(data: ContactFileDataSend): void {
+        this.selectedContactFileData = data;
+        ModalPlugin.show(this.modalIdConfirmUpdateContactFile);
     }
 
     /**

@@ -55,6 +55,17 @@ export class ContactFileService {
     }
 
     /**
+     * Update the contact file in the API
+     * @param  contactFileData  The contact file data
+     * @param  requestBody      The file data
+     * @return                  Notice of action done
+     */
+    updateContactFile(contactFileData: ContactFileDataSend, requestBody: FormData): Observable<void> {
+        const route: string = routes.contactFile(this._workspaceId, contactFileData.contactId, contactFileData.contactFileId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
+
+    /**
      * Upload the contact file in the API
      * @param  contactId   The contact ID
      * @param  requestBody The file data

@@ -105,7 +105,7 @@ export class ContentMainActionComponent implements OnInit {
                 ModalPlugin.show(this.modalIdSearchPolicy);
                 break;
             case CONTENT_TYPES.CONTACT_SINISTER.ID: ModalPlugin.show(this.modalIdSelectSinisterStatus); break;
-            case CONTENT_TYPES.CONTACT_FILE.ID: this._router.navigateByUrl(ROUTES_NAME.uploadFile(this.contactId)); break;
+            case CONTENT_TYPES.CONTACT_FILE.ID: this._router.navigateByUrl(ROUTES_NAME.uploadContactFile(this.contactId)); break;
         }
     }
 

@@ -13,6 +13,7 @@ export class CardContactFileComponent implements OnInit {
     @Input() contactFile: ContactFile | null = null;
     @Output() onShowContactFileDetails: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
     @Output() transferContactFile: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
+    @Output() updateContactFile: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
 
     constructor() { }
 
@@ -58,6 +59,18 @@ export class CardContactFileComponent implements OnInit {
     onClickTransferFile(): void {
         if(!!this.contactFile){
             this.transferContactFile.emit({
+                contactId: this.contactFile.contactId,
+                contactFileId: this.contactFile.contactFileId
+            });
+        }
+    }
+
+    /**
+     * Click event to transfer the contact file
+     */
+    onClickUpdateFile(): void {
+        if(!!this.contactFile){
+            this.updateContactFile.emit({
                 contactId: this.contactFile.contactId,
                 contactFileId: this.contactFile.contactFileId
             });

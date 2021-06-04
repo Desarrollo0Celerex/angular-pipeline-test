@@ -43,8 +43,9 @@ const HOME_ERRORS_ROUTES = {
     accessDenied: 'workspace/errors/access-denied'
 }
 
-const HOME_FILES_ROUTES = {
-    uploadFile: (contactId: string) => `workspace/files/upload-contact-file/${contactId}`
+const HOME_CONTACT_FILES_ROUTES = {
+    uploadContactFile: (contactId: string) => `workspace/files/upload-contact-file/${contactId}`,
+    updateContactFile: (contactId: string, contactFileId: string) => `workspace/files/upload-contact-file/${contactId}/${contactFileId}`,
 }
 
 const HOME_INVITATIONS_ROUTES = {
@@ -107,7 +108,7 @@ export const ROUTES_NAME = {
     ...HOME_CONTACT_PROFILE_ROUTES,
     ...HOME_DATA_ROUTES,
     ...HOME_ERRORS_ROUTES,
-    ...HOME_FILES_ROUTES,
+    ...HOME_CONTACT_FILES_ROUTES,
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,
     ...HOME_PAYMENTS_ROUTES,
