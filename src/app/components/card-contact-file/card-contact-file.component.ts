@@ -11,6 +11,7 @@ import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interfac
 })
 export class CardContactFileComponent implements OnInit {
     @Input() contactFile: ContactFile | null = null;
+    @Output() deleteContactFile: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
     @Output() onShowContactFileDetails: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
     @Output() transferContactFile: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
     @Output() updateContactFile: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
@@ -39,6 +40,18 @@ export class CardContactFileComponent implements OnInit {
             }
         }
         return fileIcon;
+    }
+
+    /**
+     * Click event to delete contact file
+     */
+    onClickDeleteFile(): void {
+        if(!!this.contactFile){
+            this.deleteContactFile.emit({
+                contactId: this.contactFile.contactId,
+                contactFileId: this.contactFile.contactFileId
+            });
+        }
     }
 
     /**

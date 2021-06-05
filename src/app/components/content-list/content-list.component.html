@@ -101,6 +101,7 @@
                     (onShowContactFileDetails)="showContactFileDetails($event)"
                     (transferContactFile)="onTransferContactFile($event)"
                     (updateContactFile)="onUpdateContactFile($event)"
+                    (deleteContactFile)="onDeleteContactFile($event)"
                 ></agt-card-contact-file>
             </ng-container>
         </div>
@@ -166,5 +167,6 @@
     <agt-modal-show-contact-file-details [modalId]="modalIdShowContactFileDetails" [contactFileData]="selectedContactFileData" (transferContactFile)="onTransferContactFile($event)"></agt-modal-show-contact-file-details>
     <agt-modal-transfer-contact-file [modalId]="modalIdTransferContactFile" [contactFileData]="selectedContactFileData"></agt-modal-transfer-contact-file>
     <agt-modal-confirm-update-contact-file [modalId]="modalIdConfirmUpdateContactFile" [contactFileData]="selectedContactFileData"></agt-modal-confirm-update-contact-file>
+    <agt-modal-confirm-delete-contact-file [modalId]="modalIdConfirmDeleteContactFile" [contactFileData]="selectedContactFileData"></agt-modal-confirm-delete-contact-file>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

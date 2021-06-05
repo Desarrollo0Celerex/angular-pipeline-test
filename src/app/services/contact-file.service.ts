@@ -22,12 +22,20 @@ export class ContactFileService {
     ) { }
 
     /**
+     * Delete the contact file from the API
+     * @param  contactFileData  The contact field data
+     * @return                  The contact file
+     */
+    deleteContactFile(contactFileData: ContactFileDataSend): Observable<void> {
+        const route: string = routes.contactFile(this._workspaceId, contactFileData.contactId, contactFileData.contactFileId);
+        return this._httpClient.delete<void>(route);
+    }
+
+    /**
      * Get the contact file from the API
-     * @param  contactId The contact ID
-     * @param  page      The page number
-     * @param  fields    The fields to get
-     * @param  query     The query to do
-     * @return           The contact file
+     * @param  contactFileData  The contact field data
+     * @param  fields           The fields to get
+     * @return                  The contact file
      */
     getContactFile(contactFileData: ContactFileDataSend, fields: string = ''): Observable<HttpResponse> {
         const route: string = routes.contactFile(this._workspaceId, contactFileData.contactId, contactFileData.contactFileId);

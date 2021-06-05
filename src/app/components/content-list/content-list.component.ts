@@ -68,6 +68,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdAcceptQuotation: string;
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
+    modalIdConfirmDeleteContactFile: string = 'agt-confirm-delete-contact-file';
     modalIdConfirmDeleteReceiptPaid: string;
     modalIdConfirmDeleteSinisterEvent: string = 'agt-confirm-delete-sinister-event';
     modalIdConfirmEndorsePolicy: string;
@@ -242,6 +243,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     onCompletePolicy(data: PolicyRecordData): void {
         this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.sourceContactId, data.sourceId));
+    }
+
+    /**
+     * Event to show modal to confirm delete the contact file
+     * @param data The contact file data
+     */
+    onDeleteContactFile(data: ContactFileDataSend): void {
+        this.selectedContactFileData = data;
+        ModalPlugin.show(this.modalIdConfirmDeleteContactFile);
     }
 
     /**

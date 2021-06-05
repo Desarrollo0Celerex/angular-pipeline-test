@@ -28,6 +28,18 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static fileDeleted(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Archivo Eliminado',
+            text: 'El archivo se eliminó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static globalError(): void {
         const alertData: Alert = {
             title: 'Error',
