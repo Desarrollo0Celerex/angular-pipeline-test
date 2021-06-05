@@ -332,6 +332,24 @@ export class ContentListService {
     }
 
     /**
+     * Search the contact files
+     * @param  contactId The contact ID
+     * @param  page      The page to get
+     * @param  query     The query to search
+     * @return           Notice of action done
+     */
+    searchContactFiles(contactId: string, page: number, query: string): Observable<void> {
+        const fields: string = 'contactFileId,fileName,fileExtension,fileSize,fileUrl,createdAt,updatedAt,contactFileTypeName,createdByName,contactId';
+        return this._contactFileService.getContactFiles(contactId, page, fields, query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
      * Search the contact policies
      * @param  contactId The contact ID
      * @param  page      The page to get

@@ -735,6 +735,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 });
             break;
 
+            case CONTENT_TYPES.CONTACT_FILE.ID:
+                this.contentListService.searchContactFiles(this.contactId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
                 this.contentListService.searchContactQuotations(this.contactId, this.page, this.query).subscribe( () => {
                     this._contentLoaded();

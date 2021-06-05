@@ -57,7 +57,10 @@ export class ContactFileService {
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
-        if(!!query) params = params.append('search', 'fileName:' + query);
+        if(!!query) {
+            query = query.replace(/ /g, '_');
+            params = params.append('search', 'fileName:' + query);
+        }
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, { params });
     }
