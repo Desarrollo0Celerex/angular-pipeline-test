@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CONTENT_TYPES } from '@constants/global';
+import { ROUTES_NAME } from '@constants/routes-name';
 import { Policy } from '@interfaces/policy.interface';
 import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
 
@@ -13,6 +15,7 @@ declare var ModalPlugin: any;
   ]
 })
 export class ContentMainActionComponent implements OnInit {
+    @Input() contactId: string = '';
     @Input() contentType: number;
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
@@ -28,7 +31,10 @@ export class ContentMainActionComponent implements OnInit {
     selectQuotationStatusModalId: string;
     selectedPolicy: Policy | null = null;
 
-    constructor(private _pluralNameFormatPipe: PluralNameFormatPipe) {
+    constructor(
+        private _pluralNameFormatPipe: PluralNameFormatPipe,
+        private _router: Router
+    ) {
         this.contentType = 0;
         this.contentTypeName = '';
         this.contentSubtype = 0;
@@ -39,7 +45,11 @@ export class ContentMainActionComponent implements OnInit {
         this.selectQuotationStatusModalId = 'modal-select-quotation-status';
     }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        if(this.contentType === CONTENT_TYPES.CONTACT_FILE.ID) {
+            this.contentSubtypeNameSelected.emit('Cargado');
+        }
+    }
 
     /**
      * Get the header title
@@ -52,6 +62,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CLIENT.ID: title = 'Nuevo '+this.contentTypeName; break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.CONTACT_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
+            case CONTENT_TYPES.CONTACT_FILE.ID: title = 'Actualizar Expediente '; break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'Actualizar Cobranza '; break;
             case CONTENT_TYPES.SINISTER.ID: title = 'Nuevo '+this.contentTypeName; break;
             case CONTENT_TYPES.CONTACT_SINISTER.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
@@ -73,6 +84,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
                 title = 'EXPLORAR HISTORIAL';
             break;
+            case CONTENT_TYPES.CONTACT_FILE.ID: title = 'SUBIR ARCHIVO'; break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'APLICAR PAGO'; break;
             case CONTENT_TYPES.SINISTER.ID: title = 'REPORTAR '+this.contentTypeName; break;
         }
@@ -93,6 +105,7 @@ export class ContentMainActionComponent implements OnInit {
                 ModalPlugin.show(this.modalIdSearchPolicy);
                 break;
             case CONTENT_TYPES.CONTACT_SINISTER.ID: ModalPlugin.show(this.modalIdSelectSinisterStatus); break;
+            case CONTENT_TYPES.CONTACT_FILE.ID: this._router.navigateByUrl(ROUTES_NAME.uploadContactFile(this.contactId)); break;
         }
     }
 

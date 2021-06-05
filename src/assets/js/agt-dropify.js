@@ -24,6 +24,17 @@ var DropifyPlugin = function() {
 				'fileSize': 'El tamaño del documento es demasiado grande. (2M máximo).',
 				'fileExtension': 'El tipo de documento seleccionado no está permitido, solo se aceptan pdf'
 			}
+		} else if(fileType === 3) {
+			messages = {
+				'default': 'Selecciona un archivo de tu dispositivo.',
+				'replace': 'Selecciona otro archivo de tu dispositivo.',
+				'remove': 'Eliminar archivo',
+				'error': 'No se pudo cargar el archivo, intenta nuevamente.'
+			}
+			error = {
+				'fileSize': 'El tamaño del archivo es demasiado grande. (2M máximo).',
+				'fileExtension': 'El tipo de documento seleccionado no está permitido, solo se aceptan xxx'
+			}
 		}
 
 		let dropifySettings = {

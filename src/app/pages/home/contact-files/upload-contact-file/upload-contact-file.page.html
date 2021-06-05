@@ -1,0 +1,72 @@
+<agt-container-contact-details [contactId]="contactId" [message]="contactProfileMessage"></agt-container-contact-details>
+
+<form [formGroup]="uploadFileService.fileForm" (submit)="onSubmitUploadContactFile()">
+    <!-- AGENTHOS - FILE SELECT -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Seleccionar Archivo</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group {{getValidationClass('file')}}">
+                                <input class="form-control dropify" type="file" data-max-file-size="2M" formControlName="file" (change)="onChangeFile($event)"/>
+                                <div class="invalid-feedback">{{getErrorMessage('file')}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - FILE SELECT -->
+    <!-- AGENTHOS - FILE DATA -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Detalles del Archivo</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- AGENTHOS - FILE NAME * -->
+                            <div class="form-group">
+                                <label class="form-label">Nombre del Archivo</label>
+                                <input type="text" class="form-control {{getValidationClass('fileName')}}" placeholder="Ingresa el nombre del archivo" formControlName="fileName">
+                                <div class="invalid-feedback">{{getErrorMessage('fileName')}}</div>
+                            </div>
+                            <!-- AGENTHOS - FILE TYPE * -->
+                            <div class="form-group">
+                                <label class="form-label">Tipo de Archivo</label>
+                                <select class="form-control custom-select {{getValidationClass('contactFileTypeId')}}" placeholder="Elegir Opción" formControlName="contactFileTypeId">
+                                    <option [value]="contactFileType.contactFileTypeId" *ngFor="let contactFileType of uploadFileService.contactFileTypes">{{contactFileType.name}}</option>
+                                </select>
+                                <div class="invalid-feedback">{{getErrorMessage('contactFileTypeId')}}</div>
+                            </div>
+                        </div>
+                        <!-- AGENTHOS - CONFIRM FILE -->
+                        <div class="col-md-12 mt-5">
+                            <!-- AGENTHOS - TARGET (AGTVIEW0019-1) -->
+                            <button type="submit" class="btn btn-primary btn-block"><strong>CARGAR ARCHIVO</strong></button>
+                        </div>
+                        <!-- //AGENTHOS - CONFIRM FILE -->
+                    </div>
+                </div>
+                <!-- AGENTHOS - FILE UPDATE BODY -->
+                <!-- AGENTHOS - FILE UPDATE FOOTER -->
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-secondary btn-block" (click)="onClickCancel()"><strong>CANCELAR</strong></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - FILE UPDATE FOOTER -->
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - UPDATE FILE -->
+</form>

@@ -13,6 +13,7 @@ import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterLog } from '@interfaces/sinister-log.interface';
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
+import { ContactFileService } from '@services/contact-file.service';
 import { LeadService } from '@services/lead.service';
 import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
@@ -28,6 +29,7 @@ export class ContentListService {
     constructor(
         private _clientService: ClientService,
         private _contactService: ContactService,
+        private _contactFileService: ContactFileService,
         private _leadService: LeadService,
         private _paymentService: PaymentService,
         private _policyService: PolicyService,
@@ -57,6 +59,23 @@ export class ContentListService {
     loadClients(page: number, contentSubtype: number): Observable<void> {
         const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalWallet,totalPolicies,currencyName';
         return this._clientService.getClients(page, fields, contentSubtype).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
+     * Load the contact files
+     * @param  contactId      The contact ID
+     * @param  page           The page number
+     * @return                The contact quotations
+     */
+    loadContactFiles(contactId: string, page: number): Observable<void> {
+        const fields: string = 'contactFileId,fileName,fileExtension,fileSize,fileUrl,createdAt,updatedAt,contactFileTypeName,createdByName,contactId';
+        return this._contactFileService.getContactFiles(contactId, page, fields).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
@@ -304,6 +323,24 @@ export class ContentListService {
     searchContacts(page: number, query: string, specialQuery: SearchContactData | null): Observable<void> {
         const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalWallet,totalPolicies,currencyName';
         return this._contactService.getContacts(page, fields, query, specialQuery).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
+     * Search the contact files
+     * @param  contactId The contact ID
+     * @param  page      The page to get
+     * @param  query     The query to search
+     * @return           Notice of action done
+     */
+    searchContactFiles(contactId: string, page: number, query: string): Observable<void> {
+        const fields: string = 'contactFileId,fileName,fileExtension,fileSize,fileUrl,createdAt,updatedAt,contactFileTypeName,createdByName,contactId';
+        return this._contactFileService.getContactFiles(contactId, page, fields, query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);

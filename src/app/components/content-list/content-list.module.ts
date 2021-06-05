@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CardClientModule } from '@components/card-client/card-client.module';
 import { CardContactModule } from '@components/card-contact/card-contact.module';
+import { CardContactFileModule } from '@components/card-contact-file/card-contact-file.module';
 import { CardLeadModule } from '@components/card-lead/card-lead.module';
 import { CardPaymentModule } from '@components/card-payment/card-payment.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
@@ -23,6 +24,7 @@ import { LoadingContentModule } from '@components/loading-content/loading-conten
 import { ModalApplyPaymentModule } from '@components/modal-apply-payment/modal-apply-payment.module';
 import { ModalConfirmAcceptQuotationModule } from '@components/modal-confirm-accept-quotation/modal-confirm-accept-quotation.module';
 import { ModalConfirmCancelPolicyModule } from '@components/modal-confirm-cancel-policy/modal-confirm-cancel-policy.module';
+import { ModalConfirmDeleteContactFileModule } from '@components/modal-confirm-delete-contact-file/modal-confirm-delete-contact-file.module';
 import { ModalConfirmDeleteReceiptPaidModule } from '@components/modal-confirm-delete-receipt-paid/modal-confirm-delete-receipt-paid.module';
 import { ModalConfirmDeleteSinisterEventModule } from '@components/modal-confirm-delete-sinister-event/modal-confirm-delete-sinister-event.module';
 import { ModalConfirmEndorsePolicyModule } from '@components/modal-confirm-endorse-policy/modal-confirm-endorse-policy.module';
@@ -36,22 +38,26 @@ import { ModalConfirmShowPaymentHistoryModule } from '@components/modal-confirm-
 import { ModalConfirmShowPolicySinistersModule } from '@components/modal-confirm-show-policy-sinisters/modal-confirm-show-policy-sinisters.module';
 import { ModalConfirmShowSinisterModule } from '@components/modal-confirm-show-sinister/modal-confirm-show-sinister.module';
 import { ModalConfirmShowSinisterHistoryModule } from '@components/modal-confirm-show-sinister-history/modal-confirm-show-sinister-history.module';
+import { ModalConfirmUpdateContactFileModule } from '@components/modal-confirm-update-contact-file/modal-confirm-update-contact-file.module';
 import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
 import { ModalSelectContactModule } from '@components/modal-select-contact/modal-select-contact.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { ModalShowCancellationEvidenceModule } from '@components/modal-show-cancellation-evidence/modal-show-cancellation-evidence.module';
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
+import { ModalShowContactFileDetailsModule } from '@components/modal-show-contact-file-details/modal-show-contact-file-details.module';
 import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/modal-show-endorsement.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
 import { ModalShowSinisterDetailsModule } from '@components/modal-show-sinister-details/modal-show-sinister-details.module';
+import { ModalTransferContactFileModule } from '@components/modal-transfer-contact-file/modal-transfer-contact-file.module';
 import { ModalUpdateSinisterEventModule } from '@components/modal-update-sinister-event/modal-update-sinister-event.module';
 
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
 
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
+import { ContactFileService } from '@services/contact-file.service';
 import { LeadService } from '@services/lead.service';
 import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
@@ -68,6 +74,7 @@ import { ContentListService } from './content-list.service';
   imports: [
     CardClientModule,
     CardContactModule,
+    CardContactFileModule,
     CardLeadModule,
     CardPaymentModule,
     CardPolicyModule,
@@ -87,6 +94,7 @@ import { ContentListService } from './content-list.service';
     ModalApplyPaymentModule,
     ModalConfirmAcceptQuotationModule,
     ModalConfirmCancelPolicyModule,
+    ModalConfirmDeleteContactFileModule,
     ModalConfirmDeleteReceiptPaidModule,
     ModalConfirmDeleteSinisterEventModule,
     ModalConfirmEndorsePolicyModule,
@@ -100,18 +108,21 @@ import { ContentListService } from './content-list.service';
     ModalConfirmShowPolicySinistersModule,
     ModalConfirmShowSinisterModule,
     ModalConfirmShowSinisterHistoryModule,
+    ModalConfirmUpdateContactFileModule,
     ModalConfirmUpdatePolicyModule,
     ModalSelectContactModule,
     ModalSelectContactTypeModule,
     ModalShowCancellationEvidenceModule,
     ModalShowContactDataModule,
+    ModalShowContactFileDetailsModule,
     ModalShowEndorsementModule,
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
     ModalShowQuotationDetailsModule,
     ModalShowSinisterDetailsModule,
+    ModalTransferContactFileModule,
     ModalUpdateSinisterEventModule
   ],
-  providers: [ClientService, ContactService, ContentListService, LeadService, PaymentService, PolicyService, QuotationService, ReceiptPaidService, SinisterService]
+  providers: [ClientService, ContactService, ContactFileService, ContentListService, LeadService, PaymentService, PolicyService, QuotationService, ReceiptPaidService, SinisterService]
 })
 export class ContentListModule { }

@@ -96,6 +96,13 @@
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                     (reactivateSinister)="onReactivateSinister($event)"
                 ></agt-card-sinister>
+                <agt-card-contact-file *ngSwitchCase="CONTENT_TYPES.CONTACT_FILE.ID"
+                    [contactFile]="content"
+                    (onShowContactFileDetails)="showContactFileDetails($event)"
+                    (transferContactFile)="onTransferContactFile($event)"
+                    (updateContactFile)="onUpdateContactFile($event)"
+                    (deleteContactFile)="onDeleteContactFile($event)"
+                ></agt-card-contact-file>
             </ng-container>
         </div>
     </ng-template>
@@ -155,5 +162,11 @@
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY_SINISTERS.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
     <agt-modal-confirm-show-sinister [modalId]="modalIdConfirmShowSinister" [sinisterData]="selectedSinisterData"></agt-modal-confirm-show-sinister>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_FILE.ID">
+    <agt-modal-show-contact-file-details [modalId]="modalIdShowContactFileDetails" [contactFileData]="selectedContactFileData" (transferContactFile)="onTransferContactFile($event)"></agt-modal-show-contact-file-details>
+    <agt-modal-transfer-contact-file [modalId]="modalIdTransferContactFile" [contactFileData]="selectedContactFileData"></agt-modal-transfer-contact-file>
+    <agt-modal-confirm-update-contact-file [modalId]="modalIdConfirmUpdateContactFile" [contactFileData]="selectedContactFileData"></agt-modal-confirm-update-contact-file>
+    <agt-modal-confirm-delete-contact-file [modalId]="modalIdConfirmDeleteContactFile" [contactFileData]="selectedContactFileData"></agt-modal-confirm-delete-contact-file>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

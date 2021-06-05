@@ -1,0 +1,49 @@
+<div class="card" *ngIf="!!contactFile">
+    <!-- AGENTHOS - FILE HEADER -->
+    <div class="card-header">
+        <!-- AGENTHOS - FILE TYPE -->
+        <ng-container [ngSwitch]="contactFile.fileExtension">
+            <div class="badge badge-success-gradient mr-1" *ngSwitchCase="'pdf'">PDF</div>
+            <div class="badge badge-warning-gradient mr-1" *ngSwitchCase="(contactFile.fileExtension === 'png' || contactFile.fileExtension === 'jpg' || contactFile.fileExtension === 'jpeg' || contactFile.fileExtension === 'gif' || contactFile.fileExtension === 'bmp') ? contactFile.fileExtension : ''">IMAGEN</div>
+            <div class="badge badge-info-gradient mr-1" *ngSwitchDefault>ARCHIVO</div>
+        </ng-container>
+
+        <!-- AGENTHOS - FILE MENU -->
+        <div class="card-options">
+            <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                <span class="fa fa-bars"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                <div class="dropdown-plus-title">Acciones Disponibles</div>
+                <button type="button" class="dropdown-item" (click)="onClickUpdateFile()"><i class="fa fa-cloud-upload mr-2"></i>Actualizar</button>
+                <button type="button" class="dropdown-item" (click)="onClickDeleteFile()"><i class="fa fa-trash mr-2"></i>Eliminar</button>
+            </div>
+        </div>
+        <!-- //AGENTHOS - FILE MENU -->
+    </div>
+    <!-- //AGENTHOS - FILECARD HEADER -->
+    <!-- AGENTHOS - FILECARD BODY -->
+    <div class="card-body text-center">
+        <!-- AGENTHOS - FILE ICON -->
+        <i class="fa {{fileIcon}} fa-3x"></i>
+        <!-- AGENTHOS - FILE NAME -->
+        <h6 class="mt-5 mb-3">{{contactFile.fileName}}</h6>
+        <!-- AGENTHOS - FILE TYPE -->
+        <h6><span class="text-primary text-left"><i class="fe fe-folder mr-2"></i></span>{{contactFile.contactFileTypeName | uppercase}}</h6>
+    </div>
+    <!-- //AGENTHOS - FILECARD BODY -->
+    <!-- AGENTHOS - FILECARD FOOTER -->
+    <div class="card-footer">
+        <div class="row">
+            <!-- AGENTHOS - FILE DOWNLOAD -->
+            <div class="col-sm-9 col-9 text-left">
+                <button type="button" class="btn btn-block btn-primary" (click)="onClickShowDetails()"><strong>VER DETALLES</strong></button>
+            </div>
+            <!-- AGENTHOS - FILE TRANSFER -->
+            <div class="col-sm-3 col-3 text-right">
+                <button type="button" class="btn btn-icon btn-secondary" title="Transferir Archivo" (click)="onClickTransferFile()"><i class="fa fa-qrcode"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - FILECARD FOOTER -->
+</div>
