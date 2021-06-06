@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Currency } from '@interfaces/currency.interface';
+import { CreateScannerLogDataSend } from '@interfaces/create-scanner-log-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
@@ -17,6 +18,7 @@ import { CurrencyService } from '@services/currency.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
+import { ScannerLogService } from '@services/scanner-log.service';
 
 @Injectable()
 export class CompletePolicyService {
@@ -33,7 +35,8 @@ export class CompletePolicyService {
         private _formBuilder: FormBuilder,
         private _paymentMethodService: PaymentMethodService,
         private _paymentPlanService: PaymentPlanService,
-        private _policyService: PolicyService
+        private _policyService: PolicyService,
+        private _scannerLogService: ScannerLogService
     ) {
         this.currencies = [];
         this.paymentMethods = [];
@@ -60,7 +63,7 @@ export class CompletePolicyService {
             validityEndDate: [(!!policy && !!policy.validityEndDate) ? policy.validityEndDate : '', [Validators.required, ValidatorsHelper.date] ],
             titularName: [(!!policy && !!policy.titularName) ? policy.titularName : '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
             titularRfc: [(!!policy && !!policy.titularRfc) ? policy.titularRfc : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-            titularPostalCode: ['', [ValidatorsHelper.postalCode ] ],
+            titularPostalCode: [(!!policy && !!policy.titularPostalCode) ? policy.titularPostalCode : '', [ValidatorsHelper.postalCode ] ],
             titularPhoneNumber: [(!!policy && !!policy.titularPhoneNumber) ? policy.titularPhoneNumber : '', [ValidatorsHelper.phoneNumber] ],
             policyAmount: [(!!policy && !!policy.policyAmount) ? policy.policyAmount : '', [Validators.required, ValidatorsHelper.amount] ],
             currencyId: [(!!policy && !!policy.currencyId) ? policy.currencyId : '', [Validators.required]],
@@ -108,6 +111,26 @@ export class CompletePolicyService {
     completePolicy(contactId: string, policyId: string): Observable<void> {
         const requestBody: FormData = this._getRequestBody();
         return this._policyService.completePolicy(contactId, policyId, requestBody);
+    }
+
+    /**
+     * Create the scanner log
+     * @param  contactId          The contact ID
+     * @param  policyId           The policy ID
+     * @param  totalMissingFields The total missing fields
+     * @param  missingFields      The missing fields
+     * @return                    Notice of action done
+     */
+    createScannerLog(contactId: string, policyId: string, policyUrl: string, totalMissingFields: number, missingFields: string): Observable<void> {
+        const requestBody: CreateScannerLogDataSend = {
+            insurerId: !!this.policy ? this.policy.insurerId : 0,
+            insuranceId: !!this.policy ? this.policy.insuranceId : 0,
+            insuranceTypeId: !!this.policy ? this.policy.insuranceTypeId : 0,
+            totalMissingFields,
+            missingFields,
+            policyUrl
+        };
+        return this._scannerLogService.createScannerLog(contactId, policyId, requestBody);
     }
 
     /**

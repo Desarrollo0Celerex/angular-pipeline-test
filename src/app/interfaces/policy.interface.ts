@@ -26,6 +26,7 @@ export interface Policy {
     emissionDate: string,
     titularName: string,
     titularRfc: string,
+    titularPostalCode: string,
     titularPhoneNumber: string,
     currencyId: number,
     paymentMethodId: number,

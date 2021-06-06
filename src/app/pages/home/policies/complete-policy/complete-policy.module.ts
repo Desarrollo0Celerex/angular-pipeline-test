@@ -13,6 +13,7 @@ import { CurrencyService } from '@services/currency.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
+import { ScannerLogService } from '@services/scanner-log.service';
 
 import { CompletePolicyRoutingModule } from './complete-policy-routing.module';
 import { CompletePolicyPage } from './complete-policy.page';
@@ -32,6 +33,6 @@ import { CompletePolicyService } from './complete-policy.service';
     ModalShowPolicyModule,
     ReactiveFormsModule
   ],
-  providers: [AtomScannService, CompletePolicyService, CurrencyService, DatePipe, PaymentMethodService, PaymentPlanService, PolicyService]
+  providers: [AtomScannService, CompletePolicyService, CurrencyService, DatePipe, PaymentMethodService, PaymentPlanService, PolicyService, ScannerLogService]
 })
 export class CompletePolicyModule { }
