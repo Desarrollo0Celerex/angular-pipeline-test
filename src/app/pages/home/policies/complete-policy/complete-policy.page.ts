@@ -156,7 +156,7 @@ export class CompletePolicyPage implements OnInit {
 
     private _downloadPolicy(policyUrl: string): void {
         this.completePolicyService.downloadPolicy(policyUrl).subscribe( (res: any) => {
-            this._scannPolicy(res);
+            this._scannPolicy(res, policyUrl);
         })
     }
 
@@ -232,18 +232,51 @@ export class CompletePolicyPage implements OnInit {
      * Scan the policy file
      * @param policyFile The policy file to scan
      */
-    private _scannPolicy(policyFile: any): void {
+    private _scannPolicy(policyFile: any, policyUrl: string = ''): void {
         this._scanningService.show();
         this.completePolicyService.scannPolicy(policyFile).subscribe( (res: HttpResponse) => {
             this._scanningService.hide();
             ModalPlugin.show(this.modalIdScanningPolicySuccess);
             this._scannedPolicyData = res.data;
+            this._reviewPolicyData(policyUrl);
         }, () => {
+            this._reviewPolicyData(policyUrl);
             setTimeout(() => {
                 this._scanningService.hide();
                 ModalPlugin.show(this.modalIdScanningPolicyFailed);
             },1000);
         });
+    }
+
+    /**
+     * Review the policy data to see if a field is missing
+     */
+    private _reviewPolicyData(policyUrl: string): void {
+        const missingFields: string[] = this._getMissingFields();
+        const totalMissingFields: number = missingFields.length;
+        if(totalMissingFields > 0) {
+            this.completePolicyService.createScannerLog(this.contactId, this.policyId, policyUrl, totalMissingFields, missingFields.join(',')).subscribe(() => {
+            });
+        }
+    }
+
+    /**
+     * Get the missing fields
+     * @return The missing fields
+     */
+    private _getMissingFields(): string[] {
+        let missingFields: string[] = [];
+        if(!!this._scannedPolicyData) {
+            const data: any = this._scannedPolicyData;
+            for(const field in data) {
+                if(data[field] == '') {
+                    missingFields.push(field);
+                }
+            }
+        } else {
+            missingFields = ['clientNumber','coveredProperty','currencyId','emissionDate','paymentMethodId','paymentPlanId','policyAmount','policyNumber','titularName','titularPhoneNumber','titularRfc','titularPostalCode','validityStartDate','validityEndDate'];
+        }
+        return missingFields;
     }
 
 }
