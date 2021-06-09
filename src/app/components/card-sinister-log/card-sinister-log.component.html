@@ -23,6 +23,14 @@
         <div class="cbp_tmlabel">
             <h2>{{sinisterLog.sinisterRecordTypeName}}</h2>
             <p class="text-sm"><strong>{{sinisterLog.createdByName}}</strong> cerró el siniestro. Resolución: <strong>{{sinisterLog.sinisterResolutionName}}</strong>. Monto: <strong>{{sinisterLog.indemnificationAmount | currency: '': '$': '0.2-2'}}</strong>. Fecha Resolución: <strong>{{sinisterLog.resolutionDate | date: 'dd/MM/yyyy'}}</strong>.</p>
+            <div class="btn-list mt-3" *ngIf="!!sinisterLog.finishedEvidenceUrl; else noFinishedEvidence">
+                <button type="button" class="btn btn-primary" (click)="onClickShowResolutionEvidence()"><strong>VER EVIDENCIA</strong></button>
+            </div>
+            <ng-template #noFinishedEvidence>
+                <ol class="breadcrumb1 mt-3">
+                    <li class="breadcrumb-item1">Sin evidencia de resolución.</li>
+                </ol>
+            </ng-template>
         </div>
     </li>
 
@@ -32,6 +40,14 @@
         <div class="cbp_tmlabel">
             <h2>{{sinisterLog.sinisterRecordTypeName}}</h2>
             <p class="text-sm"><strong>{{sinisterLog.createdByName}}</strong> reactivó el siniestro. Motivo: <strong>{{sinisterLog.sinisterReactivationName}}</strong>. Fecha Reactivación: <strong>{{sinisterLog.reactivationDate | date: 'dd/MM/yyyy'}}</strong>.</p>
+            <div class="btn-list mt-3" *ngIf="!!sinisterLog.reactivatedEvidenceUrl; else noReactivatedEvidence">
+                <button type="button" class="btn btn-primary" (click)="onClickShowReactivationEvidence()"><strong>VER EVIDENCIA</strong></button>
+            </div>
+            <ng-template #noReactivatedEvidence>
+                <ol class="breadcrumb1 mt-3">
+                    <li class="breadcrumb-item1">Sin evidencia de resolución.</li>
+                </ol>
+            </ng-template>
         </div>
     </li>
 

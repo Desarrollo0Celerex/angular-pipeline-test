@@ -14,5 +14,7 @@ export interface SinisterLog {
     contactId: string,
     policyId: string,
     sinisterId: string,
-    logSourceId: string
+    logSourceId: string,
+    finishedEvidenceUrl: string,
+    reactivatedEvidenceUrl: string
 }

@@ -254,7 +254,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadSinisterLogs(contactId: string, policyId: string, sinisterId: string, page: number): Observable<void> {
-        const fields: string = 'sinisterLogId,sinisterRecordTypeId,sinisterRecordTypeName,eventDate,details,sinisterResolutionName,indemnificationAmount,resolutionDate,sinisterReactivationName,reactivationDate,createdAt,createdByName,contactId,policyId,sinisterId,logSourceId';
+        const fields: string = 'sinisterLogId,sinisterRecordTypeId,sinisterRecordTypeName,eventDate,details,sinisterResolutionName,indemnificationAmount,resolutionDate,sinisterReactivationName,reactivationDate,createdAt,createdByName,contactId,policyId,sinisterId,logSourceId,finishedEvidenceUrl,reactivatedEvidenceUrl';
         return this._sinisterService.getSinisterLogs(contactId, policyId, sinisterId, page, fields).pipe(
             tap((res: HttpResponse) => {
                 const sinisterLogs: SinisterLog[] = res.data.items;

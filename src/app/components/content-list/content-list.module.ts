@@ -49,6 +49,8 @@ import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/m
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
+import { ModalShowReactivationEvidenceModule } from '@components/modal-show-reactivation-evidence/modal-show-reactivation-evidence.module';
+import { ModalShowResolutionEvidenceModule } from '@components/modal-show-resolution-evidence/modal-show-resolution-evidence.module';
 import { ModalShowSinisterDetailsModule } from '@components/modal-show-sinister-details/modal-show-sinister-details.module';
 import { ModalTransferContactFileModule } from '@components/modal-transfer-contact-file/modal-transfer-contact-file.module';
 import { ModalUpdateSinisterEventModule } from '@components/modal-update-sinister-event/modal-update-sinister-event.module';
@@ -119,6 +121,8 @@ import { ContentListService } from './content-list.service';
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
     ModalShowQuotationDetailsModule,
+    ModalShowReactivationEvidenceModule,
+    ModalShowResolutionEvidenceModule,
     ModalShowSinisterDetailsModule,
     ModalTransferContactFileModule,
     ModalUpdateSinisterEventModule

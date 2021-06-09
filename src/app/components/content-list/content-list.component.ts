@@ -57,6 +57,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedContactFileData: ContactFileDataSend | null = null;
     selectedCancelledPolicyId: string = '';
     selectedEndorsementId: string;
+    selectedEvidenceUrl: string = '';
     selectedPaymentId: string;
     selectedPolicyData: PolicyDataSend | null = null;
     selectedPolicyId: string;
@@ -93,6 +94,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowPolicyDetails: string;
     modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
     modalIdShowQuotationDetails: string;
+    modalIdShowReactivationEvidence: string = 'agt-show-reactivation-evidence';
+    modalIdShowResolutionEvidence: string = 'agt-show-resolution-evidence';
     modalIdShowSinisterDetails: string = 'agt-show-sinister-details';
     modalIdTransferContactFile: string = 'agt-transfer-contact-file';
     modalIdUpdateSinisterEvent: string = 'agt-update-sinister-event'
@@ -478,6 +481,24 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.selectedPolicyId = data.sourceId;
         this.selectedContactId = data.sourceContactId;
         ModalPlugin.show(this.modalIdShowPolicyDetails);
+    }
+
+    /**
+     * Event to show the reactivation evidence
+     * @param evidenceUrl The evidence url
+     */
+    onShowReactivationEvidence(evidenceUrl: string): void {
+        this.selectedEvidenceUrl = evidenceUrl;
+        ModalPlugin.show(this.modalIdShowReactivationEvidence);
+    }
+
+    /**
+     * Event to show the reactivation evidence
+     * @param evidenceUrl The evidence url
+     */
+    onShowResolutionEvidence(evidenceUrl: string): void {
+        this.selectedEvidenceUrl = evidenceUrl;
+        ModalPlugin.show(this.modalIdShowResolutionEvidence);
     }
 
     /**
