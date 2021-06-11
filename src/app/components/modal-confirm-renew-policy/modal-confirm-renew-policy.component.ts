@@ -42,7 +42,7 @@ export class ModalConfirmRenewPolicyComponent {
         this._loadingService.show();
         this._modalConfirmRenewPolicyService.renewPolicy(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
             this._loadingService.hide();
-            this._router.navigate([ROUTES_NAME.uploadPolicy(this.contactId, res.data)]);
+            this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(this.contactId, res.data), { state: { comesFromRenewalPolicy: true} });
         })
     }
 

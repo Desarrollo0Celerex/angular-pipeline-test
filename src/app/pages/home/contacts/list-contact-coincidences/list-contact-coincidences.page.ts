@@ -154,7 +154,7 @@ export class ListContactCoincidencesPage implements OnInit, OnDestroy {
             case ACTION_TYPES.RENEW_POLICY:
                 this._listContactCoincidencesService.renewPolicy(this.originContactId, this.originPolicyId, contactId).subscribe( (res: HttpResponse) => {
                     this._loadingService.hide();
-                    this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(contactId, res.data));
+                    this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(contactId, res.data), { state: { comesFromRenewalPolicy: true} });
                 });
                 break;
 

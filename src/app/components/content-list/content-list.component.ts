@@ -586,7 +586,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this._loadingService.show();
                 this.contentListService.renewPolicy(this.originContactId, this.originPolicyId, contactId).subscribe( (res: HttpResponse) => {
                     this._loadingService.hide();
-                    this._router.navigate([ROUTES_NAME.uploadPolicy(contactId, res.data)]);
+                    this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(contactId, res.data), { state: { comesFromRenewalPolicy: true} });
                 });
                 break;
 
