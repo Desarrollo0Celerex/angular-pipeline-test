@@ -1,5 +1,15 @@
 <ng-container *ngIf="!isLoadingContent && contentResultData.loadedItems === contentResultData.totalItems && !!query">
-    <div class="text-center">
-        <button type="button" class="btn btn-block btn-primary" (click)="onClickBack()"><strong>ATRAS</strong></button>
+    <div class="col-sm-12">
+        <div class="card">
+            <!-- AGENTHOS - RETURN BUTTON -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-block btn-primary" (click)="onClickBack()"><strong>REGRESAR</strong></button>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - RETURN BUTTON -->
+        </div>
     </div>
 </ng-container>
