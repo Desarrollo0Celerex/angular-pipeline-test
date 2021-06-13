@@ -21,18 +21,13 @@
                         <div class="col-md-12">
                             <!-- AGENTHOS - INSURANCE COMPANY -->
                             <div class="form-group">
-                                <ng-container *ngIf="!(!!policy.insurerId); else showInsurerName">
-                                    <label class="form-label">Compañía de Seguros</label>
-                                    <select class="form-control select2-show-search {{getValidationClass('insurerId')}}" data-placeholder="Compañía Aseguradora" formControlName="insurerId">
-                                        <optgroup label="Seleccionar Compañía">
-                                            <option [value]="insurer.insurerId" *ngFor="let insurer of uploadPolicyService.insurers">{{insurer.name | uppercase}}</option>
-                                        </optgroup>
-                                    </select>
-                                    <div class="invalid-feedback">{{getErrorMessage('insurerId')}}</div>
-                                </ng-container>
-                                <ng-template #showInsurerName>
-                                    <input type="text" class="form-control" placeholder="{{policy.insurerName | uppercase}}" disabled="">
-                                </ng-template>
+                                <label class="form-label">Compañía de Seguros</label>
+                                <select class="form-control select2-show-search {{getValidationClass('insurerId')}}" data-placeholder="Compañía Aseguradora" formControlName="insurerId">
+                                    <optgroup label="Seleccionar Compañía">
+                                        <option [value]="insurer.insurerId" *ngFor="let insurer of uploadPolicyService.insurers">{{insurer.name | uppercase}}</option>
+                                    </optgroup>
+                                </select>
+                                <div class="invalid-feedback">{{getErrorMessage('insurerId')}}</div>
                             </div>
                             <!-- //AGENTHOS - INSURANCE COMPANY -->
                         </div>

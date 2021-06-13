@@ -28,6 +28,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     policy: { policyUrl: string, insurerId: number, insurerName: string };
     policyId: string;
     private _allowedFileTypes: string[];
+    private _comesFromRenewalPolicy: boolean = false;
     private _isFormSubmitted: boolean;
     private _subParams: any;
 
@@ -52,6 +53,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
         DropifyPlugin.init(FILE_TYPES.DOCUMENT, this._allowedFileTypes);
         this.uploadPolicyService.buildPolicyForm();
         this._getContactPolicy();
+        this._comesFromRenewalPolicy = (!!history.state && !!history.state.comesFromRenewalPolicy) ? true : false;
     }
 
     ngOnDestroy(): void {
@@ -129,11 +131,10 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
             }
             else {
                 // If the policy comes from a renewal
-                if(!!this.policy.insurerId) {
+                if(!!this._comesFromRenewalPolicy) {
                     this.uploadPolicyService.policyForm.patchValue({insurerId: this.policy.insurerId});
-                } else {
-                    this._loadInsurers();
                 }
+                this._loadInsurers();
             }
         })
     }

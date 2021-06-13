@@ -40,6 +40,8 @@
                             [sinisterLog]="content"
                             (updateSinisterEvent)="onUpdateSinisterEvent($event)"
                             (deleteSinisterEvent)="onDeleteSinisterEvent($event)"
+                            (showResolutionEvidence)="onShowResolutionEvidence($event)"
+                            (showReactivationEvidence)="onShowReactivationEvidence($event)"
                         ></agt-card-sinister-log>
                         <agt-card-reported-sinister *ngSwitchCase="CONTENT_TYPES.POLICY_SINISTERS.ID"
                             [sinister]="content"
@@ -111,6 +113,7 @@
 
 <agt-loading-content [isLoadingContent]="isLoadingContent"></agt-loading-content>
 <agt-content-results [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentTypeName]="contentTypeName" [contentSubtypeName]="contentSubtypeName" (loadMoreContents)="onLoadMoreContents()"></agt-content-results>
+<agt-content-back *ngIf="!isHistoryContent" [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [query]="query" [contactId]="contactId"></agt-content-back>
 <agt-content-suggestions *ngIf="!isHistoryContent" [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [contentTypeName]="contentTypeName"></agt-content-suggestions>
 
 <!-- AGENTHOS - CONTENT ACTIONS -->
@@ -159,6 +162,8 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.SINISTER_HISTORY.ID">
     <agt-modal-update-sinister-event [modalId]="modalIdUpdateSinisterEvent" [sinisterEventData]="selectedSinisterEventData"></agt-modal-update-sinister-event>
     <agt-modal-confirm-delete-sinister-event [modalId]="modalIdConfirmDeleteSinisterEvent" [sinisterEventData]="selectedSinisterEventData"></agt-modal-confirm-delete-sinister-event>
+    <agt-modal-show-resolution-evidence [modalId]="modalIdShowResolutionEvidence" [evidenceUrl]="selectedEvidenceUrl"></agt-modal-show-resolution-evidence>
+    <agt-modal-show-reactivation-evidence [modalId]="modalIdShowReactivationEvidence" [evidenceUrl]="selectedEvidenceUrl"></agt-modal-show-reactivation-evidence>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY_SINISTERS.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
     <agt-modal-confirm-show-sinister [modalId]="modalIdConfirmShowSinister" [sinisterData]="selectedSinisterData"></agt-modal-confirm-show-sinister>

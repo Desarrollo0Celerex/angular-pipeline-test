@@ -57,6 +57,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedContactFileData: ContactFileDataSend | null = null;
     selectedCancelledPolicyId: string = '';
     selectedEndorsementId: string;
+    selectedEvidenceUrl: string = '';
     selectedPaymentId: string;
     selectedPolicyData: PolicyDataSend | null = null;
     selectedPolicyId: string;
@@ -93,6 +94,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowPolicyDetails: string;
     modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
     modalIdShowQuotationDetails: string;
+    modalIdShowReactivationEvidence: string = 'agt-show-reactivation-evidence';
+    modalIdShowResolutionEvidence: string = 'agt-show-resolution-evidence';
     modalIdShowSinisterDetails: string = 'agt-show-sinister-details';
     modalIdTransferContactFile: string = 'agt-transfer-contact-file';
     modalIdUpdateSinisterEvent: string = 'agt-update-sinister-event'
@@ -481,6 +484,24 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to show the reactivation evidence
+     * @param evidenceUrl The evidence url
+     */
+    onShowReactivationEvidence(evidenceUrl: string): void {
+        this.selectedEvidenceUrl = evidenceUrl;
+        ModalPlugin.show(this.modalIdShowReactivationEvidence);
+    }
+
+    /**
+     * Event to show the reactivation evidence
+     * @param evidenceUrl The evidence url
+     */
+    onShowResolutionEvidence(evidenceUrl: string): void {
+        this.selectedEvidenceUrl = evidenceUrl;
+        ModalPlugin.show(this.modalIdShowResolutionEvidence);
+    }
+
+    /**
      * Event to show the policy sinisters
      * @param policyData The policy data
      */
@@ -565,7 +586,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this._loadingService.show();
                 this.contentListService.renewPolicy(this.originContactId, this.originPolicyId, contactId).subscribe( (res: HttpResponse) => {
                     this._loadingService.hide();
-                    this._router.navigate([ROUTES_NAME.uploadPolicy(contactId, res.data)]);
+                    this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(contactId, res.data), { state: { comesFromRenewalPolicy: true} });
                 });
                 break;
 

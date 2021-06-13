@@ -15,6 +15,7 @@ import { CardSinisterModule } from '@components/card-sinister/card-sinister.modu
 import { CardSinisterLogModule } from '@components/card-sinister-log/card-sinister-log.module';
 
 import { ContainerIncompletePoliciesModule } from '@components/container-incomplete-policies/container-incomplete-policies.module';
+import { ContentBackModule } from '@components/content-back/content-back.module';
 import { ContentResultsModule } from '@components/content-results/content-results.module';
 import { ContentSuggestionsModule } from '@components/content-suggestions/content-suggestions.module';
 import { ContentTotalResultsModule } from '@components/content-total-results/content-total-results.module';
@@ -49,6 +50,8 @@ import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/m
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
+import { ModalShowReactivationEvidenceModule } from '@components/modal-show-reactivation-evidence/modal-show-reactivation-evidence.module';
+import { ModalShowResolutionEvidenceModule } from '@components/modal-show-resolution-evidence/modal-show-resolution-evidence.module';
 import { ModalShowSinisterDetailsModule } from '@components/modal-show-sinister-details/modal-show-sinister-details.module';
 import { ModalTransferContactFileModule } from '@components/modal-transfer-contact-file/modal-transfer-contact-file.module';
 import { ModalUpdateSinisterEventModule } from '@components/modal-update-sinister-event/modal-update-sinister-event.module';
@@ -86,6 +89,7 @@ import { ContentListService } from './content-list.service';
     CardSinisterLogModule,
     CommonModule,
     ContainerIncompletePoliciesModule,
+    ContentBackModule,
     ContentResultsModule,
     ContentSuggestionsModule,
     ContentTotalResultsModule,
@@ -119,6 +123,8 @@ import { ContentListService } from './content-list.service';
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
     ModalShowQuotationDetailsModule,
+    ModalShowReactivationEvidenceModule,
+    ModalShowResolutionEvidenceModule,
     ModalShowSinisterDetailsModule,
     ModalTransferContactFileModule,
     ModalUpdateSinisterEventModule
