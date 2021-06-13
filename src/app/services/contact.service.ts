@@ -22,7 +22,6 @@ private _workspaceId: string;
         private _httpClient: HttpClient,
         private _authService: AuthService
     ) {
-        console.log('Servicio ContactService creado!');
         this._workspaceId = this._authService.workspaceId;
     }
 
