@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+
+import { CardWalletProjectionService } from './card-wallet-projection.service';
 
 declare var ChartPlugin: any;
 
@@ -6,15 +8,29 @@ declare var ChartPlugin: any;
   selector: 'agt-card-wallet-projection',
   templateUrl: './card-wallet-projection.component.html',
   styles: [
-  ]
+  ],
+  providers: [CardWalletProjectionService]
 })
-export class CardWalletProjectionComponent implements OnInit {
+export class CardWalletProjectionComponent implements OnChanges {
     @Input() contactId: string = '';
+    canShowChart: boolean = false;
 
-    constructor() { }
+    constructor(public cardWalletProjectionService: CardWalletProjectionService) { }
 
-    ngOnInit(): void {
-        ChartPlugin.loadWalletProjection();
+    ngOnChanges(changes: SimpleChanges): void {
+        if(!!changes.contactId && changes.contactId.currentValue) {
+            this._loadChartData(changes.contactId.currentValue);
+        }
     }
 
+    /**
+     * Load the chart data
+     * @param contactId The contact ID
+     */
+    private _loadChartData(contactId: string): void {
+        this.cardWalletProjectionService.loadChartData(contactId).subscribe(() => {
+            this.canShowChart = true;
+            ChartPlugin.loadWalletProjection(this.cardWalletProjectionService.chartData);
+        })
+    }
 }
