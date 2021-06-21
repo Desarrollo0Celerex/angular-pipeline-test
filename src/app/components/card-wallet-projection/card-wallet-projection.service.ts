@@ -6,7 +6,7 @@ import { ContactService } from '@services/contact.service';
 
 @Injectable()
 export class CardWalletProjectionService {
-    chartData: any = [['AÑO', 'PRIMA']];
+    chartData: any = [['AÑO', 'Prima Anual (MXN)']];
 
     constructor(private _contactService: ContactService) { }
 

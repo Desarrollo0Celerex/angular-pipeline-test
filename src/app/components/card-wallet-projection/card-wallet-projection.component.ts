@@ -7,8 +7,7 @@ declare var ChartPlugin: any;
 @Component({
   selector: 'agt-card-wallet-projection',
   templateUrl: './card-wallet-projection.component.html',
-  styles: [
-  ],
+  styleUrls: ['./card-wallet-projection.component.scss'],
   providers: [CardWalletProjectionService]
 })
 export class CardWalletProjectionComponent implements OnChanges {
@@ -30,7 +29,7 @@ export class CardWalletProjectionComponent implements OnChanges {
     private _loadChartData(contactId: string): void {
         this.cardWalletProjectionService.loadChartData(contactId).subscribe(() => {
             this.canShowChart = true;
-            ChartPlugin.loadWalletProjection(this.cardWalletProjectionService.chartData);
+            ChartPlugin.drawWalletProjection(this.cardWalletProjectionService.chartData);
         })
     }
 }
