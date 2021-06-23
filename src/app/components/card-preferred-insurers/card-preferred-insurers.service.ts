@@ -23,7 +23,7 @@ export class CardPreferredInsurersService {
             this._policyService.getTotalContactPolicies(contactId, filter).subscribe((res: HttpResponse) => {
                 const page: number = 1;
                 const perPage: number = res.data;
-                const fields: string = 'insurerName';
+                const fields: string = 'insurerShortName';
                 const filters: number [] = [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED];
                 this._policyService.getContactPolicies(contactId, page, fields, filters, '', perPage).subscribe((res: HttpResponse) => {
                     this._populateChartData(res.data.items);
@@ -42,10 +42,10 @@ export class CardPreferredInsurersService {
     private _populateChartData(policies: Policy[]): void {
         let preferredInsurers: any = {};
         for(const policy of policies) {
-            if(!!preferredInsurers[policy.insurerName]) {
-                preferredInsurers[policy.insurerName] += 1;
+            if(!!preferredInsurers[policy.insurerShortName]) {
+                preferredInsurers[policy.insurerShortName] += 1;
             } else {
-                preferredInsurers[policy.insurerName] = 1;
+                preferredInsurers[policy.insurerShortName] = 1;
             }
         }
         for(const index in preferredInsurers) {

@@ -59,8 +59,7 @@ var ChartPlugin = function() {
                 pieSliceTextStyle: {
                     "color": "#fbfbfb"
                 },
-                sliceVisibilityThreshold: true,
-                sliceVisibilityThreshold: 0.08,
+                sliceVisibilityThreshold: false,
                 legend: {
                     "position": "labeled",
                     "textStyle": {
@@ -105,8 +104,7 @@ var ChartPlugin = function() {
                 pieHole: 0,
                 fontSize: 12,
                 pieSliceTextStyle: {"color":"#fbfbfb"},
-                sliceVisibilityThreshold: true,
-                sliceVisibilityThreshold: 0.08,
+                sliceVisibilityThreshold: false,
                 legend: {
                     "position": "top",
                     "textStyle": {
@@ -133,9 +131,52 @@ var ChartPlugin = function() {
         }
     }
 
+    function drawGlobalBalance(chartData) {
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var data = google.visualization.arrayToDataTable(chartData);
+            var options = {
+                is3D: true,
+                pieHole: 0,
+                fontSize: 12,
+                pieSliceTextStyle: {
+                    "color": "#fbfbfb"
+                },
+                sliceVisibilityThreshold: false,
+                legend: {
+                    "position": "top",
+                    "textStyle": {
+                        "color": "#536d98",
+                        "fontSize": 12
+                    }
+                },
+                tooltip: {
+                    "textStyle": {
+                        "color": "#536d98"
+                    },
+                    "showColorCode": true
+                },
+                animation: {
+                    "duration": 2888,
+                    "easing": "inAndOut",
+                    "startup": true
+                },
+                colors:["#034ea8","#f10088"]
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('agt-global-balance'));
+            chart.draw(data, options);
+        }
+    }
+
     return {
         drawWalletProjection,
         drawActiveCoverages,
-        drawPreferredInsurers
+        drawPreferredInsurers,
+        drawGlobalBalance
     };
 }();

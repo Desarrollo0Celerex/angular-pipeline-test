@@ -9,6 +9,7 @@ import { Contact } from '@interfaces/contact.interface';
 @Injectable()
 export class ContactProfileService {
     contact: Contact | null = null;
+    totalAnnualWallet: number = 0;
 
     constructor(private _contactService: ContactService) { }
 
@@ -46,6 +47,17 @@ export class ContactProfileService {
         const fields: string = 'contactId,avatarUrl,contactName,contactSourceName,phoneCode,phoneNumber,totalAnnualWallet,currencyName,totalActivePolicies,totalOpenSinisters,contactScoreName';
         this._contactService.getContact(contactId, fields).subscribe( (res: HttpResponse) => {
             this.contact = res.data;
+        });
+    }
+
+    /**
+     * Load the total annual wallet
+     * @param contactId The contact ID
+     * @param year      The year to get
+     */
+    loadTotalAnnualWallet(contactId: string, year: number): void {
+        this._contactService.getContactAnnualWallet(contactId, year).subscribe((res: HttpResponse) => {
+            this.totalAnnualWallet = res.data.totalAnnualWallet;
         });
     }
 }
