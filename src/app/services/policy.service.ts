@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { POLICY_STATUS } from '@constants/global';
+import { DEFAULT_PER_PAGE, POLICY_STATUS } from '@constants/global';
 import { environment } from '@env/environment';
 import { CreatePolicyData } from '@interfaces/create-policy-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -26,7 +26,8 @@ const routes: any = {
     reissueContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/reissue',
     contactHistoryPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/history',
     policies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies',
-    policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters'
+    policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
+    totalContactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/count'
 }
 
 @Injectable()
@@ -132,12 +133,14 @@ export class PolicyService {
      * @param  fields    The fields to get
      * @param  filter    The filter to apply
      * @param  search    The search to do
+     * @param  perPage   The items per page
      * @return           The contact policies
      */
-    getContactPolicies(contactId: string, page: number = 1, fields: string = '', filters: number[] = [], query: string = ''): Observable<HttpResponse> {
+    getContactPolicies(contactId: string, page: number = 1, fields: string = '', filters: number[] = [], query: string = '', perPage: number = DEFAULT_PER_PAGE): Observable<HttpResponse> {
         const route: string = routes.contactPolicies(this._workspaceId, contactId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
+        params = params.append('perPage', perPage.toString());
         if(!!fields) params = params.append('fields', fields);
         if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
         if(!!query) params = params.append('search', 'policyNumber:' + query);
@@ -215,6 +218,19 @@ export class PolicyService {
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         params = params.append('sortBy', 'createdAt');
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
+     * Get the total contact policies
+     * @param  contactId The contact ID
+     * @param  filters   The filters to apply
+     * @return           The total contact policies
+     */
+    getTotalContactPolicies(contactId: string, filters: number[] = []): Observable<HttpResponse> {
+        const route: string = routes.totalContactPolicies(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
         return this._httpClient.get<HttpResponse>(route, {params});
     }
 

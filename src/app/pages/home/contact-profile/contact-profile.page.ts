@@ -3,6 +3,7 @@ import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
 
 import { CONTACT_PROFILE_PAGE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { Policy } from '@interfaces/policy.interface';
 
 import { ContactProfileService } from './contact-profile.service';
@@ -37,6 +38,7 @@ export class ContactProfilePage implements OnInit {
         this._catchPageType();
         this.pageType = this.contactProfileService.getPageType(this._router.url);
         this.contactProfileService.loadContact(this.contactId);
+        this._loadTotalAnnualWallet(this.contactId);
     }
 
     /**
@@ -109,6 +111,14 @@ export class ContactProfilePage implements OnInit {
                 this.pageType = this.contactProfileService.getPageType(event.url);
             }
         });
+    }
+
+    /**
+     * Load the total annual wallet
+     */
+    private _loadTotalAnnualWallet(contactId: string): void {
+        const year: number = UtilitiesHelper.getCurrentYear();
+        this.contactProfileService.loadTotalAnnualWallet(contactId, year);
     }
 
 }

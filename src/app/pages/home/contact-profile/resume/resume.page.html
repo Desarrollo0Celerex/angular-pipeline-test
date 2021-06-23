@@ -1,189 +1,105 @@
-<!-- AGENTHOS - QUOTES KPIS -->
+<!-- AGENTHOS - PROFILE KPIS -->
 <div class="row mt-5">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Indicador de Cotizaciones</h3>
-            </div>
-        </div>
+    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+        <agt-card-wallet-projection [contactId]="contactId"></agt-card-wallet-projection>
     </div>
-    <!-- AGENTHOS - QUOTES COUNTER -->
-    <div class="col-lg-8">
-        <div class="row row-cards">
-            <!-- AGENTHOS - QUOTES ACCEPTED -->
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div class="card">
-                    <div class="card-header pt-2 pb-0 border-bottom-0">
-                        <h3 class="card-title">Cotizaciones<br/>Aceptadas</h3>
-                        <div class="card-options">
-                            <a class="btn btn-sm btn-secondary" routerLink="/{{ROUTES_NAME.listContactQuotations(contactId)}}" [queryParams]="{contentSubtype: resumeService.QUOTATION_STATUS.ACCEPTED}"><i class="fe fe-maximize-2 mb-0"></i></a>
-                        </div>
-                    </div>
-                    <div class="card-body pt-0">
-                        <h3 class="d-inline-block mt-3 number-font"><span class="counter">{{resumeService.totalQuotationsAccepted}}</span></h3>
-                        <div class="progress h-2 mb-2">
-                            <div class="progress-bar bg-success" [ngStyle]="{'width': ((resumeService.totalQuotations !== 0) ? (resumeService.totalQuotationsAccepted * 100 / resumeService.totalQuotations) : 0)+'%'}" role="progressbar"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- //AGENTHOS - QUOTES ACCEPTED -->
-            <!-- AGENTHOS - QUOTES PENDING -->
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div class="card">
-                    <div class="card-header pb-0 border-bottom-0">
-                        <h3 class="card-title">Cotizaciones<br/>Pendientes</h3>
-                        <div class="card-options">
-                            <a class="btn btn-sm btn-secondary" routerLink="/{{ROUTES_NAME.listContactQuotations(contactId)}}" [queryParams]="{contentSubtype: resumeService.QUOTATION_STATUS.PENDING}"><i class="fe fe-maximize-2 mb-0"></i></a>
-                        </div>
-                    </div>
-                    <div class="card-body pt-0">
-                        <h3 class="d-inline-block mt-3 number-font"><span class="counter">{{resumeService.totalPendingQuotations}}</span></h3>
-                        <div class="progress h-2 mb-2">
-                            <div class="progress-bar bg-warning" [ngStyle]="{'width': ((resumeService.totalQuotations !== 0) ? (resumeService.totalPendingQuotations * 100 / resumeService.totalQuotations) : 0)+'%'}" role="progressbar"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- //AGENTHOS - QUOTES PENDING -->
-            <!-- AGENTHOS - QUOTES REJECTED -->
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div class="card">
-                    <div class="card-header pb-0 border-bottom-0">
-                        <h3 class="card-title">Cotizaciones<br/>Rechazadas</h3>
-                        <div class="card-options">
-                            <a class="btn btn-sm btn-secondary" routerLink="/{{ROUTES_NAME.listContactQuotations(contactId)}}" [queryParams]="{contentSubtype: resumeService.QUOTATION_STATUS.REJECTED}"><i class="fe fe-maximize-2 mb-0"></i></a>
-                        </div>
-                    </div>
-                    <div class="card-body pt-0">
-                        <h3 class="d-inline-block mt-3 number-font"><span class="counter">{{resumeService.totalQuotationsRejected}}</span></h3>
-                        <div class="progress h-2 mb-2">
-                            <div class="progress-bar bg-danger" [ngStyle]="{'width': ((resumeService.totalQuotations !== 0) ? (resumeService.totalQuotationsRejected * 100 / resumeService.totalQuotations) : 0)+'%'}" role="progressbar"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- //AGENTHOS - QUOTES REJECTED -->
-        </div>
+
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <agt-card-wallet-global [contactId]="contactId"></agt-card-wallet-global>
     </div>
-    <!-- //AGENTHOS - QUOTES COUNTER -->
-    <!-- AGENTHOS - QUOTES STATS -->
-    <div class="col-lg-4">
+
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <agt-card-active-coverages [contactId]="contactId"></agt-card-active-coverages>
+    </div>
+
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <agt-card-preferred-insurers [contactId]="contactId"></agt-card-preferred-insurers>
+    </div>
+
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <agt-card-global-balance [contactId]="contactId"></agt-card-global-balance>
+    </div>
+</div>
+<!-- AGENTHOS - PROFILE KPIS -->
+
+<!-- AGENTHOS - PROFILE KPIS -->
+<div class="row mt-3">
+    <!-- AGENTHOS - PROTECTION RATE -->
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="card">
-            <div class="card-header pb-0 border-bottom-0">
-                <h3 class="card-title">Rate de Conversión</h3>
-                <span class="col-auto align-self-center">
-                    <span class="form-help" data-toggle="popover" data-placement="top" data-content="Efectividad en el cierre de las cotizaciones enviadas." data-original-title="">?</span>
-                </span>
+            <div class="card-header pt-2 pb-0 border-bottom-0">
+                <h6 class="mb-0">Rate de<br>Protección</h6>
+                <div class="card-options">
+                    <i class="fe fe-help-circle fs-20 text-primary" data-toggle="popover" data-placement="left" data-content="Permite identificar la protección global de este asegurado." data-original-title=""></i>
+                </div>
             </div>
             <div class="card-body pt-0">
-                <h3 class="d-inline-block mt-3 number-font"><span class="counter">{{resumeService.conversionRate}}</span>%</h3>
-                <div class="progress h-2 mb-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-blue-1" [ngStyle]="{'width': resumeService.conversionRate + '%'}" role="progressbar"></div>
+                <h2 class="mb-2"><span class="number-font"><span class="counter">0</span> %</span></h2>
+                <p class="text-muted mb-3"><span class="text-success mr-1"><i class="fe fe-arrow-up ml-1 "></i>0%</span> Sobre el Promedio</p>
+                <div class="progress h-2 mb-0">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning w-60" role="progressbar"></div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- AGENTHOS - QUOTES STATS -->
-</div>
-<!-- //AGENTHOS - QUOTES KPIS -->
-
-<!-- AGENTHOS - POLICIES KPIS -->
-<div class="row mt-5">
-    <div class="col-12">
+    <!-- //AGENTHOS - PROTECTION RATE -->
+    <!-- AGENTHOS - CONVERTION RATE -->
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Indicador de Renovaciones</h3>
+            <div class="card-header pt-2 pb-0 border-bottom-0">
+                <h6 class="mb-0">Rate de<br>Conversión</h6>
+                <div class="card-options">
+                    <i class="fe fe-help-circle fs-20 text-primary" data-toggle="popover" data-placement="left" data-content="Permite identificar el poder de prospección con este asegurado." data-original-title=""></i>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <h2 class="mb-2"><span class="number-font"><span class="counter">0</span> %</span></h2>
+                <p class="text-muted mb-3"><span class="text-danger mr-1"><i class="fe fe-arrow-down ml-1 "></i>0%</span> Debajo del Promedio</p>
+                <div class="progress h-2 mb-0">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info w-60" role="progressbar"></div>
+                </div>
             </div>
         </div>
     </div>
-    <!-- AGENTHOS - POLICIES COUNTER -->
-    <div class="col-lg-8">
-        <div class="row row-cards">
-            <!-- AGENTHOS - POLICIES ACTIVE -->
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div class="card">
-                    <div class="card-header pb-0 border-bottom-0">
-                        <h3 class="card-title">Pólizas<br/>Activas</h3>
-                        <div class="card-options">
-                            <a class="btn btn-sm btn-secondary" href="policies.php"><i class="fe fe-maximize-2 mb-0"></i></a>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <h2 class="mb-2 mt-0 number-font"><span class="counter">0</span></h2>
-                            <div id="agtPoliciesActive" class="mt-3 mb-3"></div>
-                            <div class="chart-circle-value-3 text-success fs-20"></div>
-                            <div class="chart-circle-value-3 fs-20"><i class="fe fe-file-plus"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- //AGENTHOS - POLICIES ACTIVE -->
-            <!-- AGENTHOS - POLICIES DIED -->
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div class="card">
-                    <div class="card-header pb-0 border-bottom-0">
-                        <h3 class="card-title">Pólizas<br/>Vencidas</h3>
-                        <div class="card-options">
-                            <a class="btn btn-sm btn-secondary" href="policies_died.php"><i class="fe fe-maximize-2 mb-0"></i></a>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <h2 class="mb-2 mt-0 number-font"><span class="counter">0</span></h2>
-                            <div id="agtPoliciesDied" class="mt-3 mb-3"></div>
-                            <div class="chart-circle-value-3 text-default fs-20"></div>
-                            <div class="chart-circle-value-3 fs-20"><i class="fe fe-file"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- //AGENTHOS - POLICIES DIED -->
-            <!-- AGENTHOS - POLICIES CANCELED -->
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div class="card">
-                    <div class="card-header pb-0 border-bottom-0">
-                        <h3 class="card-title">Pólizas<br/>Canceladas</h3>
-                        <div class="card-options">
-                            <a class="btn btn-sm btn-secondary" href="policies_canceled.php"><i class="fe fe-maximize-2 mb-0"></i></a>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <h2 class="mb-2 mt-0 number-font"><span class="counter">0</span></h2>
-                            <div id="agtPoliciesCanceled" class="mt-3 mb-3"></div>
-                            <div class="chart-circle-value-3 text-danger fs-20"></div>
-                            <div class="chart-circle-value-3 fs-20"><i class="fe fe-file-minus"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- //AGENTHOS - POLICIES CANCELED -->
-        </div>
-    </div>
-    <!-- //AGENTHOS - QUOTES COUNTER -->
-    <!-- AGENTHOS - QUOTES STATS -->
-    <div class="col-lg-4">
+    <!-- //AGENTHOS - CONVERTION RATE -->
+    <!-- AGENTHOS - RETENTION RATE -->
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="card">
-            <div class="card-header pb-0 border-bottom-0">
-                <h3 class="card-title">Rate de Renovación</h3>
-                <span class="col-auto align-self-center">
-                    <span class="form-help" data-toggle="popover" data-placement="top" data-content="Efectividad en la retención y renovación de pólizas." data-original-title="">?</span>
-                </span>
+            <div class="card-header pt-2 pb-0 border-bottom-0">
+                <h6 class="mb-0">Rate de<br>Retención</h6>
+                <div class="card-options">
+                    <i class="fe fe-help-circle fs-20 text-primary" data-toggle="popover" data-placement="left" data-content="Permite identificar la retención de pólizas para este asegurado." data-original-title=""></i>
+                </div>
             </div>
-            <div class="card-body">
-                <div class="text-center">
-                    <h2 class="mb-2 mt-0 number-font"><span class="counter">0</span>%</h2>
-                    <div id="agtPoliciesRate" class="mt-3 mb-3"></div>
-                    <div class="chart-circle-value-3 text-secondary fs-20"></div>
-                    <div class="chart-circle-value-3 fs-20"><i class="fe fe-repeat"></i></div>
+            <div class="card-body pt-0">
+                <h2 class="mb-2"><span class="number-font"><span class="counter">0</span> %</span></h2>
+                <p class="text-muted mb-3"><span class="text-danger mr-1"><i class="fe fe-arrow-down ml-1 "></i>0%</span> Debajo del Promedio</p>
+                <div class="progress h-2 mb-0">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success w-60" role="progressbar"></div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- AGENTHOS - QUOTES STATS -->
-</div>
-<!-- AGENTHOS - QUOTES KPIS -->
+    <!-- //AGENTHOS - RETENTION RATE -->
+    <!-- AGENTHOS - SINISTERS RATE -->
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-header pt-2 pb-0 border-bottom-0">
+                <h6 class="mb-0">Rate de<br>Siniestros</h6>
+                <div class="card-options">
+                    <i class="fe fe-help-circle fs-20 text-primary" data-toggle="popover" data-placement="left" data-content="Permite identificar la siniestralidad total de este asegurado." data-original-title=""></i>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <h2 class="mb-2"><span class="number-font"><span class="counter">0</span> %</span></h2>
+                <p class="text-muted mb-3"><span class="text-success mr-1"><i class="fe fe-arrow-up ml-1 "></i>0%</span> Sobre el Promedio</p>
+                <div class="progress h-2 mb-0">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger w-60" role="progressbar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - SINISTERS RATE -->
 
-<agt-modal-contact-saved [modalId]="modalIdContactSaved" [contactId]="contactId" [isContactSaved]="true"></agt-modal-contact-saved>
+</div>
+<!-- //AGENTHOS - PROFILE KPIS -->
