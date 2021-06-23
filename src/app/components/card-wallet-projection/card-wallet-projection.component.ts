@@ -7,7 +7,8 @@ declare var ChartPlugin: any;
 @Component({
   selector: 'agt-card-wallet-projection',
   templateUrl: './card-wallet-projection.component.html',
-  styleUrls: ['./card-wallet-projection.component.scss'],
+  styles: [
+  ],
   providers: [CardWalletProjectionService]
 })
 export class CardWalletProjectionComponent implements OnChanges {
