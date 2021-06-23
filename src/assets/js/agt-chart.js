@@ -88,8 +88,54 @@ var ChartPlugin = function() {
         }
     }
 
+    function drawPreferredInsurers(chartData) {
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Aseguradora');
+            data.addColumn('number', 'Pólizas');
+            data.addRows(chartData);
+
+            var options = {
+                is3D: true,
+                pieHole: 0,
+                fontSize: 12,
+                pieSliceTextStyle: {"color":"#fbfbfb"},
+                sliceVisibilityThreshold: true,
+                sliceVisibilityThreshold: 0.08,
+                legend: {
+                    "position": "top",
+                    "textStyle": {
+                        "color": "#536d98",
+                        "fontSize": 12
+                    }
+                },
+                tooltip: {
+                    "textStyle": {
+                        "color": "#536d98"
+                    },
+                    "showColorCode": true
+                },
+                animation: {
+                    "duration": 2888,
+                    "easing": "inAndOut",
+                    "startup": true
+                },
+                colors:["#c73868","#fe6768","#fd8f58","#ffbe78","#ffdca8"],
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('agt-preferred-insurers'));
+            chart.draw(data, options);
+        }
+    }
+
     return {
         drawWalletProjection,
-        drawActiveCoverages
+        drawActiveCoverages,
+        drawPreferredInsurers
     };
 }();

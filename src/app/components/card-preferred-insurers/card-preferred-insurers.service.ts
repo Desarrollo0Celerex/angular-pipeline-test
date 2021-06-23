@@ -7,7 +7,7 @@ import { Policy } from '@interfaces/policy.interface';
 import { PolicyService } from '@services/policy.service';
 
 @Injectable()
-export class CardActiveCoveragesService {
+export class CardPreferredInsurersService {
     chartData: any[] = [];
 
     constructor(private _policyService: PolicyService) { }
@@ -23,7 +23,7 @@ export class CardActiveCoveragesService {
             this._policyService.getTotalContactPolicies(contactId, filter).subscribe((res: HttpResponse) => {
                 const page: number = 1;
                 const perPage: number = res.data;
-                const fields: string = 'insuranceName';
+                const fields: string = 'insurerName';
                 const filters: number [] = [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED];
                 this._policyService.getContactPolicies(contactId, page, fields, filters, '', perPage).subscribe((res: HttpResponse) => {
                     this._populateChartData(res.data.items);
@@ -40,16 +40,16 @@ export class CardActiveCoveragesService {
      * @param policies The policies to evaluate
      */
     private _populateChartData(policies: Policy[]): void {
-        let activeCoverage: any = {};
+        let preferredInsurers: any = {};
         for(const policy of policies) {
-            if(!!activeCoverage[policy.insuranceName]) {
-                activeCoverage[policy.insuranceName] += 1;
+            if(!!preferredInsurers[policy.insurerName]) {
+                preferredInsurers[policy.insurerName] += 1;
             } else {
-                activeCoverage[policy.insuranceName] = 1;
+                preferredInsurers[policy.insurerName] = 1;
             }
         }
-        for(const index in activeCoverage) {
-            this.chartData.push([index, activeCoverage[index]])
+        for(const index in preferredInsurers) {
+            this.chartData.push([index, preferredInsurers[index]])
         }
     }
 }
