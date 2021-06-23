@@ -11,7 +11,8 @@ import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     contact: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId,
-    contacts: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts'
+    contacts: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts',
+    contactAnnualWallet: (workspaceId: string, contactId: string, year: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/annual-wallet/' + year
 }
 
 @Injectable()
@@ -46,6 +47,17 @@ private _workspaceId: string;
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
+     * Get the contact annual wallet from the API
+     * @param  contactId The contact ID
+     * @param  number    The year to get
+     * @return           The contact annual wallet
+     */
+    getContactAnnualWallet(contactId: string, year: number): Observable<HttpResponse> {
+        const route: string = routes.contactAnnualWallet(this._workspaceId, contactId, year);
+        return this._httpClient.get<HttpResponse>(route);
     }
 
     /**

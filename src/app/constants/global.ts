@@ -230,6 +230,7 @@ export const DEFAULT_CONTENT_FILTER_ID: number = 1;
 export const DEFAULT_CURRENCY_ID: number = 1;
 export const DEFAULT_POLICY_STATUS_ID: number = POLICY_STATUS_ACTIVE;
 export const DEFAULT_POLICY_CANCELLATION_REASON_ID: number = 1;
+export const DEFAULT_PER_PAGE: number = 12;
 
 
 export const AMOUNT_INCREASE_TYPES: any = {

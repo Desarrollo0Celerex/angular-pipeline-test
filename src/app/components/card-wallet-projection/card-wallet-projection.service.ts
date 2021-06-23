@@ -1,0 +1,59 @@
+import { Injectable } from '@angular/core';
+import { forkJoin, Observable } from 'rxjs';
+
+import { HttpResponse } from '@interfaces/http-response.interface';
+import { ContactService } from '@services/contact.service';
+
+@Injectable()
+export class CardWalletProjectionService {
+    chartData: any = [['AÑO', 'Prima Anual (MXN)']];
+
+    constructor(private _contactService: ContactService) { }
+
+    /**
+     * Load the chart data
+     * @param contactId The contact ID
+     */
+    loadChartData(contactId: string): Observable<void> {
+        return new Observable((observer: any) => {
+            this._getContact(contactId).subscribe((res: HttpResponse) => {
+                const startYear: number = new Date(res.data.oldestActivePolicyDate).getFullYear();
+                const endYear: number = new Date(res.data.farthestActivePolicyDate).getFullYear();
+                this.getRequestToGetAnnualwallet(contactId, startYear, endYear).subscribe((res: HttpResponse[]) => {
+                    let index: number = 0;
+                    // TODO: Ajustar query para aumentar la precisión. NOTA: Tomar como ejemplo a Jaime Alberto Surita Mercado
+                    //let aux: number = 0;
+                    for(let i = startYear; i<= endYear; i++) {
+                        const year: string = i.toString();
+                        const value: number = parseFloat(parseFloat(res[index].data.totalAnnualWallet).toFixed(2));
+                        //aux += value;
+                        this.chartData.push([year, value]);
+                        index++;
+                    }
+                    //console.log('aux: ',aux);
+                    observer.next();
+                    observer.complete();
+                });
+            });
+        });
+    }
+
+    /**
+     * Get the contact
+     * @param  contactId The contactId
+     * @return           The contact
+     */
+    private _getContact(contactId: string): Observable<HttpResponse> {
+        const fields: string = 'oldestActivePolicyDate,farthestActivePolicyDate';
+        return this._contactService.getContact(contactId, fields);
+    }
+
+    private getRequestToGetAnnualwallet(contactId: string, startYear: number, endYear: number): Observable<HttpResponse[]> {
+        let requests: Observable<HttpResponse>[] = [];
+        for(let i = startYear; i<= endYear; i++) {
+            let request: Observable<HttpResponse> = this._contactService.getContactAnnualWallet(contactId, i);
+            requests.push(request);
+        }
+        return forkJoin(requests);
+    }
+}

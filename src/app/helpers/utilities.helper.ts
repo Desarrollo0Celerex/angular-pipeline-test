@@ -49,4 +49,13 @@ export class UtilitiesHelper {
         const arrDate: string[] = date.split('/');
         return arrDate[2]+'-'+arrDate[1]+'-'+arrDate[0];
     }
+
+    /**
+     * Get the current date
+     * @return The current date
+     */
+    static getCurrentYear(): number {
+        const currentDate: Date = new Date();
+        return currentDate.getFullYear();
+    }
 }

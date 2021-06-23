@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-header pt-2 pb-0 border-bottom-0">
+        <h3 class="card-title">Cartera Global</h3>
+        <div class="card-options">
+            <i class="fe fe-credit-card mr-1 text-primary fs-30"></i>
+        </div>
+    </div>
+    <div class="card-body pt-0">
+        <h2 class="mb-0 number-font">{{totalGlobalWallet | currency: '': '$': '0.2-2'}} {{currencyName | uppercase}}</h2>
+        <div class="row mt-3 dash1">
+            <div class="col  border-right">
+                <h6 class="font-weight-500 number-font1 mb-0">{{totalActivePolicies}}</h6>
+                <span class="text-muted">Pólizas<br/>Activas</span>
+            </div>
+            <div class="col  border-right">
+                <h6 class="font-weight-500 number-font1 mb-0">{{totalExpiredPolicies}}</h6>
+                <span class="text-muted">Pólizas<br/>Vencidas</span>
+            </div>
+            <div class="col ">
+                <p class="font-weight-500 number-font1 mb-0">{{totalCancelledPolicies}}</p>
+                <span class="text-muted">Pólizas<br/>Canceladas</span>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-center">
+        <button type="button" class="btn btn-block btn-primary" (click)="goToPolicies()"><strong>VER PÓLIZAS</strong></button>
+    </div>
+</div>
