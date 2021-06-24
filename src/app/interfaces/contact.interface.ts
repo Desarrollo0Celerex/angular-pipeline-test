@@ -46,6 +46,8 @@ export interface Contact {
     state: string,
     postalCode: string,
     country: string,
+    protectionRate: number,
+    workspaceProtectionRate: number,
     shortName: string,
     workspaceName: string
 }

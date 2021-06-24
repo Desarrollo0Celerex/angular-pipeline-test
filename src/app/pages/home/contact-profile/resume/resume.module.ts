@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CardActiveCoveragesModule } from '@components/card-active-coverages/card-active-coverages.module';
+import { CardContactProtectionRateModule } from '@components/card-contact-protection-rate/card-contact-protection-rate.module';
 import { CardGlobalBalanceModule } from '@components/card-global-balance/card-global-balance.module';
 import { CardPreferredInsurersModule } from '@components/card-preferred-insurers/card-preferred-insurers.module';
 import { CardWalletGlobalModule } from '@components/card-wallet-global/card-wallet-global.module';
@@ -17,6 +18,7 @@ import { ResumeService } from './resume.service';
   declarations: [ResumePage],
   imports: [
     CardActiveCoveragesModule,
+    CardContactProtectionRateModule,
     CardGlobalBalanceModule,
     CardPreferredInsurersModule,
     CardWalletGlobalModule,
