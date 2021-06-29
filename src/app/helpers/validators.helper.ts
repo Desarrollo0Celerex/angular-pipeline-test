@@ -136,6 +136,20 @@ export class ValidatorsHelper {
     }
 
     /**
+     * Validate a multitext
+     * @param  control The control to evaluate
+     * @return         [description]
+     */
+    static multitext(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^[&a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ,.:;\-\"()¿?¡!_\r\n ]{1,1000}$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {freeText: true} : null;
+        }
+        return null;
+    }
+
+    /**
      * Validate an own name
      * @param  control The control to evaluate
      * @return         Error object if validation failed, otherwise null.

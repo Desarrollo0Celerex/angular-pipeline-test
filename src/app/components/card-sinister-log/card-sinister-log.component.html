@@ -58,7 +58,7 @@
             <h2>{{sinisterLog.sinisterRecordTypeName}}</h2>
             <p class="text-sm mb-3"><strong>{{sinisterLog.createdByName}}</strong> reportó un evento para este siniestro. Fecha Evento: <strong>{{sinisterLog.eventDate | date: 'dd/MM/yyyy'}}</strong></p>
             <ol class="breadcrumb1">
-                <li class="breadcrumb-item1">{{sinisterLog.details}}</li>
+                <li class="breadcrumb-item1" [innerHTML]="details"></li>
             </ol>
             <div class="btn-list mt-3">
                 <button type="button" class="btn btn-primary" (click)="onClickUpdateSinisterEvent()"><strong>EDITAR EVENTO</strong></button>

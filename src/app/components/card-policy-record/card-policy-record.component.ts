@@ -29,6 +29,10 @@ export class CardPolicyRecordComponent implements OnInit {
         this._updatePolicyRecordTypeDescription();
     }
 
+    get endorsementComments(): string {
+        return (!!this.policyRecord && !!this.policyRecord.endorsementComments) ? this.policyRecord.endorsementComments.replace(/(?:\r\n|\r|\n)/g, '<br>'): '';
+    }
+
     /**
      * Click event to complete the policy
      */

@@ -29,7 +29,7 @@ export class EndorsePolicyPage implements OnInit {
     calendarIdValidityEndDate: string;
     contactId: string;
     currencyName: string;
-    endorsementAmount: number;
+    //endorsementAmount: number;
     fractionalReceiptAmount: number;
     increasedAmount: number;
     message: string;
@@ -65,7 +65,7 @@ export class EndorsePolicyPage implements OnInit {
         this.calendarIdValidityEndDate = 'validityEndDate';
         this.contactId = '';
         this.currencyName = '';
-        this.endorsementAmount = 0;
+        //this.endorsementAmount = 0;
         this.fractionalReceiptAmount = 0;
         this.increasedAmount = 0;
         this.message = 'Captura los detalles del endoso para la póliza de';
@@ -104,6 +104,20 @@ export class EndorsePolicyPage implements OnInit {
         }, 1000);
     }
 
+    get finalPolicyAmount(): number {
+        let finalPolicyAmount: number = 0;
+        if(this.endorsePolicyService.policy) {
+            if(!!this.endorsePolicyService.f.endorsementAmount && !!this.endorsePolicyService.f.endorsementAmount.value && !this.endorsePolicyService.f.endorsementAmount.disabled) {
+                const endorsementAmountFormatted: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.endorsePolicyService.f.endorsementAmount.value));
+                const policyAmount: number = parseFloat(this.endorsePolicyService.policy.policyAmount.toString());
+                finalPolicyAmount = (this.endorsePolicyService.f.endorsementTypeId.value == ENDORSEMENT_TYPES.A) ? policyAmount + endorsementAmountFormatted : policyAmount - endorsementAmountFormatted;
+            } else {
+                finalPolicyAmount = this.endorsePolicyService.policy.policyAmount;
+            }
+        }
+        return finalPolicyAmount;
+    }
+
     /**
      * Get the error message
      * @param  constrolName Control name
@@ -138,8 +152,14 @@ export class EndorsePolicyPage implements OnInit {
      * Event to confirm the application of policy changes
      */
     onPolicyChangesApplicationConfirmed(): void {
-        const newAmount: string = this.endorsePolicyService.f.newAmount.value || '0';
-        this.newAmount = parseFloat(UtilitiesHelper.removeCommasFromQuantity(newAmount));
+        const endorsementAmount: string = this.endorsePolicyService.f.endorsementAmount.value || '0';
+        const endorsementAmountFormatted: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(endorsementAmount));
+        if(!!endorsementAmountFormatted && !!this.endorsePolicyService.f.endorsementTypeId.value && !!this.endorsePolicyService.policy) {
+            const policyAmount: number = parseFloat(this.endorsePolicyService.policy.policyAmount.toString());
+            this.newAmount = (this.endorsePolicyService.f.endorsementTypeId.value == ENDORSEMENT_TYPES.A) ? policyAmount + endorsementAmountFormatted : policyAmount - endorsementAmountFormatted;
+        } else {
+            this.newAmount = 0;
+        }
         // If the policy has a new amount
         if(!!this.newAmount) {
             // If the new amount is an increase
@@ -171,7 +191,7 @@ export class EndorsePolicyPage implements OnInit {
      */
     onApplyEndorsementWithFractionalReceipt(fractionalReceiptAmount: number): void {
         this.fractionalReceiptAmount = fractionalReceiptAmount;
-        this.endorsementAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(this.newAmount - (this.policyAmount + this.fractionalReceiptAmount));
+        //this.endorsementAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(this.newAmount - (this.policyAmount + this.fractionalReceiptAmount));
         ModalPlugin.show(this.modalIdShowEndorsementSummary);
     }
 
@@ -179,7 +199,7 @@ export class EndorsePolicyPage implements OnInit {
      * Event to request confirm apply endorsement without fractional receipt
      */
     onApplyEndorsementWithoutFractionalReceipt(): void {
-        this.endorsementAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(this.newAmount - this.policyAmount);
+        //this.endorsementAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(this.newAmount - this.policyAmount);
         ModalPlugin.show(this.modalIdShowNoFractionalReceipt);
     }
 

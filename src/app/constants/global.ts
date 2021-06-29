@@ -25,6 +25,10 @@ export const FREE_TEXT_LENGTH: any = {
     MIN: 3,
     MAX: 1000
 }
+export const MULTITEXT_LENGTH: any = {
+    MIN: 1,
+    MAX: 1000
+}
 export const SHORT_ALPHANUMERIC_LENGTH: any = {
     MIN: 1,
     MAX: 20
