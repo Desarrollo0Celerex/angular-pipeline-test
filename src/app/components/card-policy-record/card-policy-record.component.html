@@ -6,8 +6,8 @@
         <p class="text-sm"><strong>{{policyRecord.createdByName + ' '}}</strong> <span [innerHtml]="policyRecord.policyRecordTypeDescription"></span></p>
         <ng-container [ngSwitch]="policyRecord.policyRecordTypeId">
             <ng-container *ngSwitchCase="POLICY_RECORD_TYPES.ENDORSEMENT">
-                <ol class="breadcrumb1 mt-3">
-                    <li class="breadcrumb-item1">{{policyRecord.endorsementComments}}</li>
+                <ol class="breadcrumb1 mt-3" *ngIf="!!endorsementComments">
+                    <li class="breadcrumb-item1" [innerHTML]="endorsementComments"></li>
                 </ol>
                 <div class="btn-list mt-3">
                     <button type="button" class="btn btn-primary" (click)="onClickShowEndorsement()"><strong>VER ENDOSO</strong></button>

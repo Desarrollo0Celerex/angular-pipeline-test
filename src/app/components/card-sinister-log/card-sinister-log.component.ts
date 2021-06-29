@@ -23,6 +23,10 @@ export class CardSinisterLogComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    get details(): string {
+        return (!!this.sinisterLog) ? this.sinisterLog.details.replace(/(?:\r\n|\r|\n)/g, '<br>'): '';
+    }
+
     /**
      * Event to request update the sinister event
      */

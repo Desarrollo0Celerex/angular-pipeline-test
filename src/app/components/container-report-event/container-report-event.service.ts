@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { FREE_TEXT_LENGTH } from '@constants/global';
+import { MULTITEXT_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ReportEventDataSend } from '@interfaces/report-event-data-send.interface';
@@ -63,7 +63,7 @@ export class ContainerReportEventService {
      */
     private _buildEventForm(): FormGroup {
         return this._formBuilder.group({
-            details: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+            details: ['', [Validators.required, Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]],
             eventDate: ['', [Validators.required, ValidatorsHelper.date]],
             sinisterEventTypeId: ['', [Validators.required]],
         });

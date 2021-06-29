@@ -290,7 +290,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <!-- AGENTHOS - POLICY PAY (NEW) * -->
-                                    <label class="form-label">Prima Nueva</label>
+                                    <label class="form-label">Monto del endoso</label>
                                     <div class="row gutters-sm">
                                         <div class="col">
                                             <div class="input-group">
@@ -299,8 +299,29 @@
                                                         <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
                                                     </div>
                                                 </div>
-                                                <input type="text" class="form-control {{getValidationClass('newAmount')}}" formControlName="newAmount">
-                                                <div class="invalid-feedback">{{getErrorMessage('newAmount')}}</div>
+                                                <input type="text" class="form-control {{getValidationClass('endorsementAmount')}}" formControlName="endorsementAmount">
+                                                <div class="invalid-feedback">{{getErrorMessage('endorsementAmount')}}</div>
+                                            </div>
+                                        </div>
+                                        <span class="col-auto align-self-center">
+                                            <span class="form-help" data-toggle="popover" data-placement="top" data-content="Monto del endoso." data-original-title="">?</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - POLICY PAY (ACTUAL) * -->
+                                    <label class="form-label">Prima Final</label>
+                                    <div class="row gutters-sm">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" name="agtReceiptAmmount" class="form-control" placeholder="{{finalPolicyAmount | currency: '': '': '0.2-2'}}" disabled="">
                                             </div>
                                         </div>
                                         <span class="col-auto align-self-center">
