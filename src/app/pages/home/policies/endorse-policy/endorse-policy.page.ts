@@ -34,6 +34,11 @@ export class EndorsePolicyPage implements OnInit {
     increasedAmount: number;
     message: string;
     modalSelectFileData: ModalSelectFileData;
+    modalSelectEvidenceData: ModalSelectFileData = {
+        title: 'Cargar Evidencia',
+        description: 'Selecciona el formato digital de la evidencia del endoso.',
+        buttonLabel: 'Cargar evidencia'
+    };
     modalIdConfirmApplyEndorsement: string;
     modalIdConfirmApplyEndorsementWithDecrement: string;
     modalIdConfirmApplyEndorsementWithoutChanges: string;
@@ -43,6 +48,7 @@ export class EndorsePolicyPage implements OnInit {
     modalIdShowEndorsementSummary: string;
     modalIdShowNoFractionalReceipt: string;
     modalIdUploadPolicyEndorsement: string;
+    modalIdUploadPolicyEvidence: string = 'agt-upload-policy-evidence';
     newAmount: number;
     policyAmount: number;
     policyId: string;
@@ -209,6 +215,12 @@ export class EndorsePolicyPage implements OnInit {
     onClickUploadEndorsement(): void {
         ModalPlugin.show(this.modalIdUploadPolicyEndorsement);
     }
+    /**
+     * Click event to show modal to upload the evidence
+     */
+    onClickUploadEvidence(): void {
+        ModalPlugin.show(this.modalIdUploadPolicyEvidence);
+    }
 
     /**
      *  Event to confirm the endorsement application
@@ -223,6 +235,14 @@ export class EndorsePolicyPage implements OnInit {
     onEndorsementApplicationWithSingleReceipitConfirmed(): void {
         this.selectedEndorsementPaymentMethod = ENDORSEMENT_PAYMENT_METHODS.INDEPENDENT_RECEIPTS;
         this._applyEndorsement();
+    }
+
+    /**
+     * Event to save the selected file
+     * @param file The selected file
+     */
+    onEvidenceSelected(file: File): void {
+        this.endorsePolicyService.endorsementForm.patchValue({ evidenceFile: file})
     }
 
     /**

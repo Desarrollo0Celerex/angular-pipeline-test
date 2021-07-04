@@ -51,7 +51,10 @@
                     <h3 class="card-title">Carátula de Endoso</h3>
                 </div>
                 <div class="card-body">
-                    <div class="col-sm-12">
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1">Adjunta el endoso emitido por la aseguradora en donde se detallan los cambios para la póliza: <strong>{{endorsePolicyService.policy.policyNumber}}</strong>.</li>
+                    </ol>
+                    <div class="col-sm-12 mt-3">
                         <!-- AGENTHOS - UPDATE ENDORSEMENT (JUST IF UPLOADED) -->
                         <button type="button" class="btn btn-block btn-primary" *ngIf="!!endorsePolicyService.f.endorsementFile.value; else uploadEndorse" (click)="onClickUploadEndorsement()"><strong>ACTUALIZAR ENDOSO</strong></button>
                         <!-- AGENTHOS - UPLOAD ENDORSEMENT -->
@@ -118,6 +121,27 @@
                 </div>
             </div>
             <!-- //AGENTHOS - ENDORSEMENT DETAILS -->
+
+            <!-- AGENTHOS - ENDORSEMENT EVIDENCE FILE -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Evidencia de Endoso</h3>
+                </div>
+                <div class="card-body">
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1">Adjunta el archivo de evidencia en donde el asegurado solicita los cambios a su póliza.</li>
+                    </ol>
+                    <div class="col-sm-12 mt-3">
+                        <!-- AGENTHOS - VIEW ENDORSEMENT (JUST IF UPLOADED) -->
+                        <button type="button" class="btn btn-block btn-primary" *ngIf="!!endorsePolicyService.f.evidenceFile.value; else uploadEvidence" (click)="onClickUploadEvidence()"><strong>ACTUALIZAR EVIDENCIA</strong></button>
+                        <!-- AGENTHOS - UPDATE ENDORSEMENT -->
+                        <ng-template #uploadEvidence>
+                            <button type="button" class="btn btn-block btn-secondary" (click)="onClickUploadEvidence()"><strong>CARGAR EVIDENCIA</strong></button>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - ENDORSEMENT EVIDENCE FILE -->
         </div>
         <!-- AGENTHOS - ENDORSEMENT RESUME -->
 
@@ -393,6 +417,7 @@
 </form>
 <!-- AGENTHOS - POLICY DETAILS -->
 <agt-modal-select-file [modalId]="modalIdUploadPolicyEndorsement" [data]="modalSelectFileData" (fileSelected)="onFileSelected($event)"></agt-modal-select-file>
+<agt-modal-select-file [modalId]="modalIdUploadPolicyEvidence" [data]="modalSelectEvidenceData" (fileSelected)="onEvidenceSelected($event)"></agt-modal-select-file>
 <agt-modal-confirm-apply-endorsement-without-changes [modalId]="modalIdConfirmApplyEndorsementWithoutChanges" (endorsementApplicationConfirmed)="onEndorsementApplicationConfirmed()"></agt-modal-confirm-apply-endorsement-without-changes>
 <agt-modal-confirm-apply-policy-changes [modalId]="modalIdConfirmApplyEndorsement" (policyChangesApplicationConfirmed)="onPolicyChangesApplicationConfirmed()"></agt-modal-confirm-apply-policy-changes>
 <agt-modal-select-endorsement-payment-method [modalId]="modalIdSelectEndorsementPaymentMethod" [increasedAmount]="increasedAmount" [currencyName]="currencyName" (endorsementPaymentMethodSelected)="onEndorsementPaymentMethodSelected($event)"></agt-modal-select-endorsement-payment-method>

@@ -286,6 +286,7 @@ export class EndorsePolicyService {
         if(!!this.policy) {
             this.endorsementForm = this._formBuilder.group({
                 endorsementFile: ['', [Validators.required]],
+                evidenceFile: ['', ],
                 endorsementNumber: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric] ],
                 endorsementEmissionDate: ['', [Validators.required, ValidatorsHelper.date] ],
                 endorsementTypeId: ['', [Validators.required] ],
@@ -307,7 +308,7 @@ export class EndorsePolicyService {
     }
 
     private _disableAllFormFields(): void {
-        const fieldsToIgnore: string [] = ['endorsementFile', 'endorsementNumber', 'endorsementEmissionDate', 'endorsementTypeId', 'endorsementComments'];
+        const fieldsToIgnore: string [] = ['endorsementFile', 'endorsementNumber', 'endorsementEmissionDate', 'endorsementTypeId', 'endorsementComments', 'evidenceFile'];
         const controls: { [key: string]: AbstractControl } = this.f;
         for(const name in controls) {
             if(!fieldsToIgnore.includes(name)) {
@@ -349,6 +350,7 @@ export class EndorsePolicyService {
     private _getRequestBody(fractionalReceiptAmount: number, endorsementPaymentMethod: number): FormData {
         const requestBody: FormData = new FormData();
         requestBody.append('endorsementFile', this.f.endorsementFile.value);
+        requestBody.append('evidenceFile', this.f.evidenceFile.value);
         requestBody.append('endorsementNumber', this.f.endorsementNumber.value);
         requestBody.append('endorsementEmissionDate', this.f.endorsementEmissionDate.value);
         requestBody.append('endorsementTypeId', this.f.endorsementTypeId.value);
