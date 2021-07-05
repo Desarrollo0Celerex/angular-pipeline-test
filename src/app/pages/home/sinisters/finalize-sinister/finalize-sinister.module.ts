@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ContainerContactDetailsModule } from '@components/container-contact-details/container-contact-details.module';
-import { ModalSelectFileModule } from '@components/modal-select-file/modal-select-file.module';
+import { ModalSelectEvidenceModule } from '@components/modal-select-evidence/modal-select-evidence.module';
 import { CurrencyService } from '@services/currency.service';
 import { SinisterService } from '@services/sinister.service';
 import { SinisterResolutionService } from '@services/sinister-resolution.service';
@@ -19,7 +19,7 @@ import { FinalizeSinisterService } from './finalize-sinister.service';
     ContainerContactDetailsModule,
     FinalizeSinisterRoutingModule,
     FormsModule,
-    ModalSelectFileModule,
+    ModalSelectEvidenceModule,
     ReactiveFormsModule
   ],
   providers: [CurrencyService, FinalizeSinisterService, SinisterService, SinisterResolutionService]

@@ -46,6 +46,7 @@ export const POLICY_FINISHED_SLACK_DAYS: number = 30;
 // Dropify
 export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
 export const DOCUMENT_FORMATS: string[] = ['pdf'];
+export const FILE_ALL_FORMATS: string[] = ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'mail', 'eml', 'doc', 'docx', 'txt', 'csv', 'xls', 'xlsx', 'zip', 'rar'];
 
 // Status
 export const WORKSPACE_STATUS: any = {

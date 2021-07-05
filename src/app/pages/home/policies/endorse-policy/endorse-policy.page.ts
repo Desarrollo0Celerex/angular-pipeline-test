@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
-import { ENDORSEMENT_PAYMENT_METHODS, ENDORSEMENT_TYPES } from '@constants/global';
+import { ENDORSEMENT_PAYMENT_METHODS, ENDORSEMENT_TYPES, DOCUMENT_FORMATS, FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -37,8 +37,11 @@ export class EndorsePolicyPage implements OnInit {
     modalSelectEvidenceData: ModalSelectFileData = {
         title: 'Cargar Evidencia',
         description: 'Selecciona el formato digital de la evidencia del endoso.',
-        buttonLabel: 'Cargar evidencia'
+        buttonLabel: 'Cargar evidencia',
+        formats: FILE_ALL_FORMATS,
+        fileType: FILE_TYPES.MIXED
     };
+    selectedModalSelectFileData: ModalSelectFileData | null = null;
     modalIdConfirmApplyEndorsement: string;
     modalIdConfirmApplyEndorsementWithDecrement: string;
     modalIdConfirmApplyEndorsementWithoutChanges: string;
@@ -78,7 +81,9 @@ export class EndorsePolicyPage implements OnInit {
         this.modalSelectFileData = {
             title: 'Cargar Endoso',
             description: 'Selecciona el documento con los detalles del endoso.',
-            buttonLabel: 'Cargar endoso'
+            buttonLabel: 'Cargar endoso',
+            formats: FILE_ALL_FORMATS,
+            fileType: FILE_TYPES.MIXED
         }
         this.modalIdConfirmApplyEndorsement = 'agt-confirm-apply-endorsement';
         this.modalIdConfirmApplyEndorsementWithDecrement = 'agt-confirm-apply-endorsement-with-decrement';
@@ -213,12 +218,15 @@ export class EndorsePolicyPage implements OnInit {
      * Click event to show modal to upload policy endorsement
      */
     onClickUploadEndorsement(): void {
+        this.selectedModalSelectFileData = this.modalSelectFileData;
         ModalPlugin.show(this.modalIdUploadPolicyEndorsement);
     }
+
     /**
      * Click event to show modal to upload the evidence
      */
     onClickUploadEvidence(): void {
+        this.selectedModalSelectFileData = this.modalSelectEvidenceData;
         ModalPlugin.show(this.modalIdUploadPolicyEvidence);
     }
 
@@ -234,6 +242,7 @@ export class EndorsePolicyPage implements OnInit {
      */
     onEndorsementApplicationWithSingleReceipitConfirmed(): void {
         this.selectedEndorsementPaymentMethod = ENDORSEMENT_PAYMENT_METHODS.INDEPENDENT_RECEIPTS;
+        ModalPlugin.hide(this.modalIdConfirmApplyEndorsementWithSingleReceipt);
         this._applyEndorsement();
     }
 

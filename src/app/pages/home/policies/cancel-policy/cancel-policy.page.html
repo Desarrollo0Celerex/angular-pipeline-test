@@ -272,7 +272,7 @@
 </form>
 
 <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="contactId" [policyId]="policyId"></agt-modal-show-policy>
-<agt-modal-select-file [modalId]="modalIdSelectFile" [data]="modalSelectFileData" (fileSelected)="onFileSelected($event)"></agt-modal-select-file>
+<agt-modal-select-evidence [modalId]="modalIdSelectFile" [data]="modalSelectFileData" (fileSelected)="onFileSelected($event)"></agt-modal-select-evidence>
 <agt-modal-confirm-apply-cancellation [modalId]="modalIdConfirmAction" (actionConfirmed)="onActionConfirmed()"></agt-modal-confirm-apply-cancellation>
 
 <ng-template #loadingContent>

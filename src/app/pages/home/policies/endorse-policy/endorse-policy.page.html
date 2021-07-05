@@ -416,8 +416,8 @@
     <!-- //AGENTHOS - ENDORSEMENT CHANGES -->
 </form>
 <!-- AGENTHOS - POLICY DETAILS -->
-<agt-modal-select-file [modalId]="modalIdUploadPolicyEndorsement" [data]="modalSelectFileData" (fileSelected)="onFileSelected($event)"></agt-modal-select-file>
-<agt-modal-select-file [modalId]="modalIdUploadPolicyEvidence" [data]="modalSelectEvidenceData" (fileSelected)="onEvidenceSelected($event)"></agt-modal-select-file>
+<agt-modal-select-file [modalId]="modalIdUploadPolicyEndorsement" [data]="selectedModalSelectFileData" (fileSelected)="onFileSelected($event)"></agt-modal-select-file>
+<agt-modal-select-evidence [modalId]="modalIdUploadPolicyEvidence" [data]="selectedModalSelectFileData" (fileSelected)="onEvidenceSelected($event)"></agt-modal-select-evidence>
 <agt-modal-confirm-apply-endorsement-without-changes [modalId]="modalIdConfirmApplyEndorsementWithoutChanges" (endorsementApplicationConfirmed)="onEndorsementApplicationConfirmed()"></agt-modal-confirm-apply-endorsement-without-changes>
 <agt-modal-confirm-apply-policy-changes [modalId]="modalIdConfirmApplyEndorsement" (policyChangesApplicationConfirmed)="onPolicyChangesApplicationConfirmed()"></agt-modal-confirm-apply-policy-changes>
 <agt-modal-select-endorsement-payment-method [modalId]="modalIdSelectEndorsementPaymentMethod" [increasedAmount]="increasedAmount" [currencyName]="currencyName" (endorsementPaymentMethodSelected)="onEndorsementPaymentMethodSelected($event)"></agt-modal-select-endorsement-payment-method>

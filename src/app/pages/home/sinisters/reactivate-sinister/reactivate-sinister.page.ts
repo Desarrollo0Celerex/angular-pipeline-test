@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
-import { SINISTER_STATUS_OPEN } from '@constants/global';
+import { SINISTER_STATUS_OPEN, FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -28,7 +28,9 @@ export class ReactivateSinisterPage implements OnInit {
     modalSelectFileData: ModalSelectFileData = {
         title: 'Adjuntar Evidencia',
         description: 'Selecciona el formato digital de la evidencia del siniestro.',
-        buttonLabel: 'Cargar evidencia'
+        buttonLabel: 'Cargar evidencia',
+        formats: FILE_ALL_FORMATS,
+        fileType: FILE_TYPES.MIXED
     };
     sinisterData: SinisterDataSend | null = null;
     private _isFormSubmitted: boolean = false;

@@ -1,18 +1,17 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, SimpleChanges, Output, ViewChild } from '@angular/core';
 
-import { FILE_TYPES } from '@constants/global';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 
 declare var DropifyPlugin: any;
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-file',
-  templateUrl: './modal-select-file.component.html',
+  selector: 'agt-modal-select-evidence',
+  templateUrl: './modal-select-evidence.component.html',
   styles: [
   ]
 })
-export class ModalSelectFileComponent implements OnChanges {
+export class ModalSelectEvidenceComponent implements OnChanges {
     @Input() modalId: string;
     @Input() data: ModalSelectFileData | null;
     @Output() fileSelected: EventEmitter<File>;
@@ -51,5 +50,4 @@ export class ModalSelectFileComponent implements OnChanges {
             ModalPlugin.hide(this.modalId);
         }
     }
-
 }
