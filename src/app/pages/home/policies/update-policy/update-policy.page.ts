@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
+import { DOCUMENT_FORMATS, FILE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -49,7 +50,9 @@ export class UpdatePolicyPage implements OnInit {
         this.modalSelectFileData = {
             title: 'Actualizar Póliza',
             description: 'Selecciona el formato digital de la póliza.',
-            buttonLabel: 'Cargar poliza'
+            buttonLabel: 'Cargar poliza',
+            formats: DOCUMENT_FORMATS,
+            fileType: FILE_TYPES.DOCUMENT
         }
         this.policyId = '';
         this._isFormSubmitted = false;

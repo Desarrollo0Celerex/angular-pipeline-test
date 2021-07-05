@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
+import { FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -45,7 +46,9 @@ export class CancelPolicyPage implements OnInit {
         this.modalSelectFileData = {
             title: 'Adjuntar Evidencia',
             description: 'Selecciona el formato digital de la evidencia de cancelación.',
-            buttonLabel: 'Cargar evidencia'
+            buttonLabel: 'Cargar evidencia',
+            formats: FILE_ALL_FORMATS,
+            fileType: FILE_TYPES.MIXED
         }
         this.policyId = '';
         this.selectIdPolicyCancellationReason = 'policyCancellationReasonId';

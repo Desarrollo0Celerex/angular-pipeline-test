@@ -12,6 +12,7 @@ import { ModalDoCollectionAdjustmentModule } from '@components/modal-do-collecti
 import { ModalSelectEndorsementPaymentMethodModule } from '@components/modal-select-endorsement-payment-method/modal-select-endorsement-payment-method.module';
 import { ModalShowEndorsementSummaryModule } from '@components/modal-show-endorsement-summary/modal-show-endorsement-summary.module';
 import { ModalShowNoFractionalReceiptModule } from '@components/modal-show-no-fractional-receipt/modal-show-no-fractional-receipt.module';
+import { ModalSelectEvidenceModule } from '@components/modal-select-evidence/modal-select-evidence.module';
 import { ModalSelectFileModule } from '@components/modal-select-file/modal-select-file.module';
 import { EndorsementTypeService } from '@services/endorsement-type.service';
 import { PaymentMethodService } from '@services/payment-method.service';
@@ -39,6 +40,7 @@ import { EndorsePolicyService } from './endorse-policy.service';
     ModalShowEndorsementSummaryModule,
     ModalShowNoFractionalReceiptModule,
     ModalSelectFileModule,
+    ModalSelectEvidenceModule,
     ReactiveFormsModule
   ],
   providers: [DatePipe, EndorsePolicyService, EndorsementTypeService, PaymentMethodService, PaymentPlanService, PolicyService]

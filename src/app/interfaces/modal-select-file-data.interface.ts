@@ -1,5 +1,7 @@
 export interface ModalSelectFileData {
-    title: string;
-    description: string;
-    buttonLabel: string;
+    title: string,
+    description: string,
+    buttonLabel: string,
+    formats: string[],
+    fileType: number
 }
