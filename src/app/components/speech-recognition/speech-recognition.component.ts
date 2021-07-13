@@ -27,7 +27,9 @@ export class SpeechRecognitionComponent implements OnInit {
     private _artyomCommands: any = [
         { commands: ['Muéstrame el perfil de *', 'Muestrame el perfil de *'], isSmart: true, action: this._showProfileOf },
         { commands: ['Muéstrame siniestros pendientes', 'Muéstrame los siniestros pendientes'], isSmart: false, action: this._showPendingSinisters },
-        { commands: ['Muéstrame recibos vencidos', 'Muéstrame los recibos vencidos'], isSmart: false, action: this._showOverdueReceipts }
+        { commands: ['Muéstrame recibos vencidos', 'Muéstrame los recibos vencidos'], isSmart: false, action: this._showOverdueReceipts },
+        { commands: ['Muéstrame prospectos nuevos', 'Muéstrame los prospectos nuevos'], isSmart: false, action: this._showNewLeads },
+        { commands: ['Muéstrame clientes influyentes', 'Muéstrame los clientes influyentes'], isSmart: false, action: this._showInfluentialClients }
     ];
     private _textRecognized: string = '';
 
@@ -107,6 +109,28 @@ export class SpeechRecognitionComponent implements OnInit {
             context._voiceControlService.hideModalProcessingRequest();
             context._zone.run(() => {
                 context._router.navigate([ROUTES_NAME.listPayments], { queryParams: { contentSubtype: 4 } });
+            })
+        }, 1500)
+    }
+
+    private _showNewLeads(context: SpeechRecognitionComponent): void {
+        context._hideModalTalking();
+        context._voiceControlService.showModalProcessingRequest(context._textRecognized);
+        setTimeout(() => {
+            context._voiceControlService.hideModalProcessingRequest();
+            context._zone.run(() => {
+                context._router.navigate([ROUTES_NAME.listLeads], { queryParams: { contentSubtype: 1 } });
+            })
+        }, 1500)
+    }
+
+    private _showInfluentialClients(context: SpeechRecognitionComponent): void {
+        context._hideModalTalking();
+        context._voiceControlService.showModalProcessingRequest(context._textRecognized);
+        setTimeout(() => {
+            context._voiceControlService.hideModalProcessingRequest();
+            context._zone.run(() => {
+                context._router.navigate([ROUTES_NAME.listClients], { queryParams: { contentSubtype: 3 } });
             })
         }, 1500)
     }
