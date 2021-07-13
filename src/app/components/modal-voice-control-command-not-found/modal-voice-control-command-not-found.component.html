@@ -1,0 +1,26 @@
+<!-- AGENTHOS - POLICY UPDATE -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- AGENTHOS - DETAILS CARD -->
+				<h5 class="modal-title">Petición Inválida</h5>
+                <button type="button" class="close" (click)="onClickCloseModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="text-justify"><strong>Lo lamento mucho,</strong></p>
+						<p class="text-justify">No logro comprender lo que me solicitas. <strong>Por favor utiliza otro comando o brinda datos más específicos.</strong></p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-block btn-primary" (click)="onClickRetry()"><strong>CONTINUAR</strong></button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //AGENTHOS - POLICY UPDATE -->

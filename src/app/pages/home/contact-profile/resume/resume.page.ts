@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -15,10 +15,11 @@ declare var PopoverPlugin: any;
   styles: [
   ]
 })
-export class ResumePage implements OnInit {
+export class ResumePage implements OnInit, OnDestroy {
     ROUTES_NAME: any = ROUTES_NAME;
     contactId: string;
     modalIdContactSaved: string;
+    paramsSub: any | null = null;
 
     constructor(
         public resumeService: ResumeService,
@@ -32,12 +33,15 @@ export class ResumePage implements OnInit {
         PopoverPlugin.init();
         StatsPlugin.init();
         this._catchParams();
-        this._loadTotalQuotations();
         if(this._checkIsContactSaved()) {
             setTimeout(() => {
                 ModalPlugin.show(this.modalIdContactSaved);
             },0);
         }
+    }
+
+    ngOnDestroy(): void {
+        if(this.paramsSub) this.paramsSub.unsubscribe();
     }
 
     getConversionRate(): void {
@@ -48,7 +52,10 @@ export class ResumePage implements OnInit {
      * Catch the params
      */
     private _catchParams(): void {
-        this.contactId = this._activatedRoute.snapshot.params.contactId;
+        this.paramsSub = this._activatedRoute.paramMap.subscribe((res: any) => {
+            this.contactId = res.get('contactId');
+            this._init();
+        });
     }
 
     /**
@@ -57,6 +64,10 @@ export class ResumePage implements OnInit {
      */
     private _checkIsContactSaved(): boolean {
         return (!!history.state.contactSaved) ? true : false;
+    }
+
+    private _init(): void {
+        this._loadTotalQuotations();
     }
 
     private _loadTotalQuotations(): void {

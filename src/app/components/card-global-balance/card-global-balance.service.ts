@@ -16,6 +16,7 @@ export class CardGlobalBalanceService {
      * @return           Notification of action done
      */
     loadChartData(contactId: string): Observable<void> {
+        this.chartData = [['Task', 'Balance']];
         return new Observable((observer: any) => {
             const fields: string = 'totalGlobalWallet,totalGlobalWalletPaid';
             this._contactService.getContact(contactId, fields).subscribe((res: HttpResponse) => {
