@@ -6,6 +6,9 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { LoadingModule } from '@components/loading/loading.module';
+import { ModalVoiceControlContactResultsModule } from '@components/modal-voice-control-contact-results/modal-voice-control-contact-results.module';
+import { ModalVoiceControlTalkingModule } from '@components/modal-voice-control-talking/modal-voice-control-talking.module';
+import { ModalVoiceControlProcessingRequestModule } from '@components/modal-voice-control-processing-request/modal-voice-control-processing-request.module';
 import { ScanningModule } from '@components/scanning/scanning.module';
 import { environment } from '@env/environment';
 import { AUTH_INTERCEPTOR_PROVIDER } from '@interceptors/auth.interceptor';
@@ -27,6 +30,9 @@ import { AppComponent } from './app.component';
     BrowserModule,
     HttpClientModule,
     LoadingModule,
+    ModalVoiceControlContactResultsModule,
+    ModalVoiceControlTalkingModule,
+    ModalVoiceControlProcessingRequestModule,
     ScanningModule
   ],
   providers: [AUTH_INTERCEPTOR_PROVIDER, ERROR_INTERCEPTOR_PROVIDER],

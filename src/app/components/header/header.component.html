@@ -9,15 +9,7 @@
                 <a class="header-desktop" [routerLink]="ROUTES_NAME.dashboard"></a>
                 <a class="header-mobile" [routerLink]="ROUTES_NAME.dashboard"></a>
             </div>
-            <!-- AGENTHOS GLOBAL SEARCH -->
-            <div class="">
-                <form class="form-inline">
-                    <div class="search-element">
-                        <input type="search" class="form-control header-search" placeholder="Oye, Agenthos..." aria-label="Search" tabindex="1">
-                        <button class="btn btn-primary-color"><i class="fe fe-mic"></i></button>
-                    </div>
-                </form>
-            </div>
+            <agt-speech-recognition></agt-speech-recognition>
             <a class="header-brand header-brand2 d-none d-lg-block  align-items-center justify-content-center" href="#">
                 <a class="header-desktop" [routerLink]="ROUTES_NAME.dashboard"></a>
             </a>
