@@ -35,10 +35,6 @@ export class ContactProfilePage implements OnInit {
 
     ngOnInit(): void {
         this._catchParams();
-        this._catchPageType();
-        this.pageType = this.contactProfileService.getPageType(this._router.url);
-        this.contactProfileService.loadContact(this.contactId);
-        this._loadTotalAnnualWallet(this.contactId);
     }
 
     /**
@@ -99,7 +95,15 @@ export class ContactProfilePage implements OnInit {
      * Catch the params
      */
     private _catchParams(): void {
-        this.contactId = (!!this._activatedRoute.firstChild) ? this._activatedRoute.firstChild.snapshot.params.contactId : '';
+        if(!!this._activatedRoute.firstChild) {
+            this._activatedRoute.firstChild.paramMap.subscribe((res: any) => {
+                this.contactId = res.get('contactId');
+                this.contactProfileService.loadContact(this.contactId);
+                this._catchPageType();
+                this.pageType = this.contactProfileService.getPageType(this._router.url);
+                this._loadTotalAnnualWallet(this.contactId);
+            });
+        }
     }
 
     /**

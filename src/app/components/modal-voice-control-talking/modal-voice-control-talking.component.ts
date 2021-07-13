@@ -20,6 +20,9 @@ export class ModalVoiceControlTalkingComponent {
         })
     }
 
+    /**
+     * Click event to close the modal
+     */
     onClickCloseModal(): void {
         this._voiceControlService.hideModalTalking();
         ArtyomPlugin.stopSpeechRecognition();

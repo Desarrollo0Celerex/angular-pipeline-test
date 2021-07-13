@@ -18,6 +18,7 @@ export class CardPreferredInsurersService {
      * @return           The chart data
      */
     loadChartData(contactId: string): Observable<void> {
+        this.chartData = [];
         return new Observable((observer: any) => {
             const filter: number[] = [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED];
             this._policyService.getTotalContactPolicies(contactId, filter).subscribe((res: HttpResponse) => {

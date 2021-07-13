@@ -11,7 +11,8 @@ declare var ModalPlugin: any;
 @Component({
   selector: 'agt-modal-voice-control-contact-results',
   templateUrl: './modal-voice-control-contact-results.component.html',
-  styles: [
+  styleUrls: [
+      './modal-voice-control-contact-results.component.scss'
   ]
 })
 export class ModalVoiceControlContactResultsComponent {
@@ -28,6 +29,17 @@ export class ModalVoiceControlContactResultsComponent {
         })
     }
 
+    /**
+     * Click event to close the modal
+     */
+    onClickCloseModal(): void {
+        this._voiceControlService.hideModalContactResults();
+    }
+
+    /**
+     * Click event to select a contact
+     * @param contactId [description]
+     */
     onClickSelectContact(contactId: string): void {
         this._voiceControlService.hideModalContactResults();
         this._router.navigate([ROUTES_NAME.contactResume(contactId)]);

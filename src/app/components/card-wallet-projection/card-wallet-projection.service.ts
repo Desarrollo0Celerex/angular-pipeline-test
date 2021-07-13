@@ -15,6 +15,7 @@ export class CardWalletProjectionService {
      * @param contactId The contact ID
      */
     loadChartData(contactId: string): Observable<void> {
+        this.chartData = [['AÑO', 'Prima Anual (MXN)']];
         return new Observable((observer: any) => {
             this._getContact(contactId).subscribe((res: HttpResponse) => {
                 const startYear: number = new Date(res.data.oldestActivePolicyDate).getFullYear();

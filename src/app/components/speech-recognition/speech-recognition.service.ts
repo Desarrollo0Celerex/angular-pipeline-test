@@ -16,7 +16,8 @@ export class SpeechRecognitionService {
      */
     searchContact(contactName: string): Observable<HttpResponse> {
         const page: number = 1;
+        const perPage: number = 100;
         const fields: string = 'contactId,contactName,clientStatusName,leadStatusName,clientStatusBackground,leadStatusBackground,totalGlobalWallet,currencyName,totalActivePolicies';
-        return this._contactService.getContacts(page, fields, contactName);
+        return this._contactService.getContacts(page, fields, contactName, null, perPage);
     }
 }
