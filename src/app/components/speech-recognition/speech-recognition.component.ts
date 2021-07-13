@@ -61,7 +61,7 @@ export class SpeechRecognitionComponent implements OnInit {
             this._voiceControlService.showModalTalking();
             ArtyomPlugin.startSpeechRecognition();
         } else {
-            console.log('Speech NO soportado');
+            this._voiceControlService.showModalNotSupported();
         }
     }
 
@@ -77,7 +77,9 @@ export class SpeechRecognitionComponent implements OnInit {
                 const contacts: Contact[] = res.data.items;
                 context._voiceControlService.hideModalProcessingRequest();
                 if(contacts.length === 0) {
-                    console.log('Sin resultados encontrados')
+                    context._zone.run(() => {
+                        context._voiceControlService.showModalNoResults(data);
+                    });
                 } else if(contacts.length === 1) {
                     context._zone.run(() => {
                         context._router.navigate([ROUTES_NAME.contactResume(res.data.items[0].contactId)]);
@@ -132,11 +134,12 @@ export class SpeechRecognitionComponent implements OnInit {
             context._zone.run(() => {
                 context._router.navigate([ROUTES_NAME.listClients], { queryParams: { contentSubtype: 3 } });
             })
-        }, 1500)
+        }, 1500);
     }
 
     private _commandNotFound(): void {
         console.log('Comando no detectado!');
         console.log('TEXTO RECONOCIDO: ',this._textRecognized);
+        this._voiceControlService.showModalCommandNotFound(this._textRecognized);
     }
 }
