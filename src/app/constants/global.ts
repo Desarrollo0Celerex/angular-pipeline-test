@@ -41,7 +41,7 @@ export const FILE_NAME_LENGTH: any = {
     MIN: 1,
     MAX: 50
 }
-export const POLICY_FINISHED_SLACK_DAYS: number = 30;
+export const POLICY_FINISHED_SLACK_DAYS: number = 90;
 
 // Dropify
 export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
