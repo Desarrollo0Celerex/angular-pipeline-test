@@ -287,7 +287,7 @@ export class EndorsePolicyService {
             this.endorsementForm = this._formBuilder.group({
                 endorsementFile: ['', [Validators.required]],
                 evidenceFile: ['', ],
-                endorsementNumber: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric] ],
+                endorsementNumber: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 endorsementEmissionDate: ['', [Validators.required, ValidatorsHelper.date] ],
                 endorsementTypeId: ['', [Validators.required] ],
                 endorsementComments: ['', [Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext] ],
