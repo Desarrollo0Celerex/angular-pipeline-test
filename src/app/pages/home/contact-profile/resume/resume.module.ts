@@ -8,6 +8,7 @@ import { CardGlobalBalanceModule } from '@components/card-global-balance/card-gl
 import { CardPreferredInsurersModule } from '@components/card-preferred-insurers/card-preferred-insurers.module';
 import { CardWalletGlobalModule } from '@components/card-wallet-global/card-wallet-global.module';
 import { CardWalletProjectionModule } from '@components/card-wallet-projection/card-wallet-projection.module';
+import { CardContactSinistersRateModule } from '@components/card-contact-sinisters-rate/card-contact-sinisters-rate.module';
 import { ModalContactSavedModule } from '@components/modal-contact-saved/modal-contact-saved.module';
 import { QuotationService } from '@services/quotation.service';
 
@@ -25,6 +26,7 @@ import { ResumeService } from './resume.service';
     CardPreferredInsurersModule,
     CardWalletGlobalModule,
     CardWalletProjectionModule,
+    CardContactSinistersRateModule,
     CommonModule,
     ModalContactSavedModule,
     ResumeRoutingModule

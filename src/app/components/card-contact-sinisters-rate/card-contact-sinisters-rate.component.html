@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-header pt-2 pb-0 border-bottom-0">
+        <h6 class="mb-0">Rate de<br>Siniestros</h6>
+        <div class="card-options">
+            <i class="fe fe-help-circle fs-20 text-primary" data-toggle="popover" data-placement="left" data-content="Permite identificar la siniestralidad total de este asegurado." data-original-title=""></i>
+        </div>
+    </div>
+    <div class="card-body pt-0">
+        <h2 class="mb-2"><span class="number-font"><span class="counter">{{cardContactSinistersRateService.sinistersRate.contact}}</span> %</span></h2>
+        <p class="text-muted mb-3">
+            <span class="mr-1 {{rateColor}}">
+                <i class="fe ml-1 {{rateIcon}}"></i>
+                {{differencePercentage}}
+            </span>
+            {{rateMessage}}
+        </p>
+        <div class="progress h-2 mb-0">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" [ngStyle]="{'width': cardContactSinistersRateService.sinistersRate.contact+'%'}" role="progressbar"></div>
+        </div>
+    </div>
+</div>
