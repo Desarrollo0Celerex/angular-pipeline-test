@@ -58,13 +58,18 @@ export class CompletePolicyService {
             coveredProperty: [(!!policy && !!policy.coveredProperty) ? policy.coveredProperty : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             policyNumber: [(!!policy && !!policy.policyNumber) ? policy.policyNumber : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             clientNumber: [(!!policy && !!policy.clientNumber) ? policy.clientNumber : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-            emissionDate: [(!!policy && !!policy.emissionDate) ? policy.emissionDate : '', [Validators.required, ValidatorsHelper.date] ],
-            validityStartDate: [(!!policy && !!policy.validityStartDate) ? policy.validityStartDate : '', [Validators.required, ValidatorsHelper.date] ],
-            validityEndDate: [(!!policy && !!policy.validityEndDate) ? policy.validityEndDate : '', [Validators.required, ValidatorsHelper.date] ],
             titularName: [(!!policy && !!policy.titularName) ? policy.titularName : '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
             titularRfc: [(!!policy && !!policy.titularRfc) ? policy.titularRfc : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             titularPostalCode: [(!!policy && !!policy.titularPostalCode) ? policy.titularPostalCode : '', [ValidatorsHelper.postalCode ] ],
             titularPhoneNumber: [(!!policy && !!policy.titularPhoneNumber) ? policy.titularPhoneNumber : '', [ValidatorsHelper.phoneNumber] ],
+            emissionDate: [(!!policy && !!policy.emissionDate) ? policy.emissionDate : '', [Validators.required, ValidatorsHelper.date] ],
+            validityStartDate: [(!!policy && !!policy.validityStartDate) ? policy.validityStartDate : '', [Validators.required, ValidatorsHelper.date] ],
+            validityEndDate: [(!!policy && !!policy.validityEndDate) ? policy.validityEndDate : '', [Validators.required, ValidatorsHelper.date] ],
+            netPay: [(!!policy && !!policy.netPay) ? policy.netPay : '', [Validators.required, ValidatorsHelper.amount] ],
+            taxPay: [(!!policy && !!policy.taxPay) ? policy.taxPay : '', [Validators.required, ValidatorsHelper.amount] ],
+            feePay: [(!!policy && !!policy.feePay) ? policy.feePay : '', [Validators.required, ValidatorsHelper.amount] ],
+            coverPay: [(!!policy && !!policy.coverPay) ? policy.coverPay : '', [Validators.required, ValidatorsHelper.amount] ],
+            extraPay: [(!!policy && !!policy.extraPay) ? policy.extraPay : '', [Validators.required, ValidatorsHelper.amount] ],
             policyAmount: [(!!policy && !!policy.policyAmount) ? policy.policyAmount : '', [Validators.required, ValidatorsHelper.amount] ],
             currencyId: [(!!policy && !!policy.currencyId) ? policy.currencyId : '', [Validators.required]],
             paymentMethodId: [(!!policy && !!policy.paymentMethodId) ? policy.paymentMethodId : '', [Validators.required]],
@@ -103,13 +108,22 @@ export class CompletePolicyService {
     }
 
     /**
+     * Check the policy amounts
+     * @return True if the total policy is equal to the policy amount, otherwise false
+     */
+    checkPolicyAmounts(): boolean {
+        const totalPolicy = parseFloat(this.f.netPay.value) + parseFloat(this.f.taxPay.value) + parseFloat(this.f.feePay.value) + parseFloat(this.f.coverPay.value) + parseFloat(this.f.extraPay.value);
+        return (totalPolicy == this.f.policyAmount.value) ? true : false;
+    }
+
+    /**
      * Complete the policy data
      * @param  contactId The contact ID
      * @param  policyId  The policy ID to complete
      * @return           Notice of action done
      */
-    completePolicy(contactId: string, policyId: string): Observable<void> {
-        const requestBody: FormData = this._getRequestBody();
+    completePolicy(contactId: string, policyId: string, scannedPolicyData: Policy | null): Observable<void> {
+        const requestBody: FormData = this._getRequestBody(scannedPolicyData);
         return this._policyService.completePolicy(contactId, policyId, requestBody);
     }
 
@@ -150,7 +164,7 @@ export class CompletePolicyService {
      */
     loadContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
@@ -238,7 +252,7 @@ export class CompletePolicyService {
      * Get the request body
      * @return The request body
      */
-    private _getRequestBody(): FormData {
+    private _getRequestBody(scannedPolicyData: Policy | null): FormData {
         const requestBody: FormData = new FormData();
         requestBody.append('policyFile', this.f.policyFile.value);
         requestBody.append('coveredProperty', this.f.coveredProperty.value);
@@ -251,11 +265,24 @@ export class CompletePolicyService {
         requestBody.append('titularRfc', this.f.titularRfc.value);
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
         requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
+        requestBody.append('netPay', this.f.netPay.value);
+        requestBody.append('taxPay', this.f.taxPay.value);
+        requestBody.append('feePay', this.f.feePay.value);
+        requestBody.append('coverPay', this.f.coverPay.value);
+        requestBody.append('extraPay', this.f.extraPay.value);
         requestBody.append('policyAmount', this.f.policyAmount.value);
         requestBody.append('currencyId', this.f.currencyId.value);
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);
+        if(!!scannedPolicyData) {
+            requestBody.append('coveredPropertyId', scannedPolicyData.coveredPropertyId);
+            requestBody.append('coveredPropertyAge', scannedPolicyData.coveredPropertyAge);
+            requestBody.append('coveredPropertyPlan', scannedPolicyData.coveredPropertyPlan);
+            requestBody.append('agentNumber', scannedPolicyData.agentNumber);
+            requestBody.append('titularAge', scannedPolicyData.titularAge);
+            requestBody.append('titularGenderId', scannedPolicyData.titularGenderId.toString());
+        }
         return requestBody;
     }
 

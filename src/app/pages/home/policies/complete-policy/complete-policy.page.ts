@@ -27,6 +27,7 @@ export class CompletePolicyPage implements OnInit {
     contactId: string;
     message: string;
     policyId: string;
+    modalIdPolicyAmountsDifferent: string = 'agt-policy-amounts-different'
     modalIdSelectFile: string;
     modalIdScanningPolicy: string;
     modalIdScanningPolicyFailed: string;
@@ -134,11 +135,15 @@ export class CompletePolicyPage implements OnInit {
     onSubmitSavePolicy(): void {
         this._isFormSubmitted = true;
         if(this.completePolicyService.policyForm.valid) {
-            this._loadingService.show();
-            this.completePolicyService.completePolicy(this.contactId, this.policyId).subscribe( () => {
-                this._loadingService.hide();
-                AlertHelper.policyCompleted(this._goToListContactPolicies, this);
-            })
+            if(this.completePolicyService.checkPolicyAmounts()) {
+                this._loadingService.show();
+                this.completePolicyService.completePolicy(this.contactId, this.policyId, this._scannedPolicyData).subscribe( () => {
+                    this._loadingService.hide();
+                    AlertHelper.policyCompleted(this._goToListContactPolicies, this);
+                })
+            } else {
+                ModalPlugin.show(this.modalIdPolicyAmountsDifferent);
+            }
         }
     }
 
@@ -185,6 +190,7 @@ export class CompletePolicyPage implements OnInit {
      * Load the contact policy
      */
     private _loadContactPolicy(): void {
+        this._scanningService.show();
         this.completePolicyService.loadContactPolicy(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
             this._downloadPolicy(res.data.policyUrl);
             this.completePolicyService.buildPolicyForm(res.data);
@@ -277,7 +283,7 @@ export class CompletePolicyPage implements OnInit {
                 }
             }
         } else {
-            missingFields = ['clientNumber','coveredProperty','currencyId','emissionDate','paymentMethodId','paymentPlanId','policyAmount','policyNumber','titularName','titularPhoneNumber','titularRfc','titularPostalCode','validityStartDate','validityEndDate'];
+            missingFields = ['clientNumber','coveredProperty','currencyId','emissionDate','paymentMethodId','paymentPlanId','netPay','taxPay','feePay','coverPay','extraPay','policyAmount','policyNumber','titularName','titularPhoneNumber','titularRfc','titularPostalCode','validityStartDate','validityEndDate'];
         }
         return missingFields;
     }
