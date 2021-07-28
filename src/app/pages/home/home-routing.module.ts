@@ -52,6 +52,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.cancelPolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/cancel-policy/cancel-policy.module').then(mod => mod.CancelPolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.showHistoryPolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/show-history-policy/show-history-policy.module').then(mod => mod.ShowHistoryPolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.showPolicySinisters(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/show-policy-sinisters/show-policy-sinisters.module').then(mod => mod.ShowPolicySinistersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.updateCompletePolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/update-complete-policy/update-complete-policy.module').then(mod => mod.UpdateCompletePolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Quotations routes
             { path: ROUTES_NAME.createQuotation(':contactId'), loadChildren: () => import('@pages/home/quotations/create-quotation/create-quotation.module').then(mod => mod.CreateQuotationModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

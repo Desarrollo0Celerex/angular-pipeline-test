@@ -27,7 +27,8 @@ const routes: any = {
     contactHistoryPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/history',
     policies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies',
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
-    totalContactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/count'
+    totalContactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/count',
+    updateCompletePolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/update-complete'
 }
 
 @Injectable()
@@ -254,6 +255,18 @@ export class PolicyService {
     renewContactPolicy(contactId: string, policyId: string, requestBody: RenewContactPolicyDataSend): Observable<HttpResponse> {
         const route: string = routes.renewContactPolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<HttpResponse>(route, requestBody);
+    }
+
+    /**
+     * Update the complete policy data in the API
+     * @param  contactId   The contact ID
+     * @param  policyId    The policy ID to update
+     * @param  requestBody The policy data
+     * @return             Notice of action done
+     */
+    updateCompletePolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.updateCompletePolicy(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
     }
 
     /**

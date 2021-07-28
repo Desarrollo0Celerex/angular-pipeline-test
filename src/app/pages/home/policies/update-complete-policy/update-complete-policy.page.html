@@ -1,0 +1,347 @@
+<agt-container-contact-details [contactId]="contactId" [message]="message"></agt-container-contact-details>
+
+<!-- AGENTHOS - POLICY DETAILS -->
+<form *ngIf="!!updateCompletePolicyService.policy; else loading" [formGroup]="updateCompletePolicyService.policyForm" (submit)="onSubmitSavePolicy()">
+    <div class="row">
+        <div class="col-md-4">
+            <!-- AGENTHOS - POLICY FILE -->
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">Carátula de Póliza</h6>
+                    <div class="card-options">
+                    </div>
+                </div>
+                <div class="card-body d-flex">
+                    <div class="card-order">
+                        <h6 class="mb-2">
+                            <span class="badge badge-{{updateCompletePolicyService.policy.policyStatusBackground}}  mr-1 mb-1 mt-1">{{updateCompletePolicyService.policy.policyStatusName | uppercase}}</span>
+                        </h6>
+                        <h6 class="mb-2">
+                            <span class="text-primary"><i class="fe fe-shield mr-2 fs-20"></i></span>{{updateCompletePolicyService.policy.insuranceName | uppercase}}
+                        </h6>
+                        <h6 class="mb-2">
+                            <span class="text-primary"><i class="fe fe-file-text mr-2 fs-20"></i></span>{{updateCompletePolicyService.policy.insuranceTypeName | uppercase}}
+                        </h6>
+                    </div>
+                    <div class="ml-auto">
+                        <!-- AGENTHOS - INSURANCE TYPE -->
+                        <span class="{{updateCompletePolicyService.policy.insuranceBackground}} icon-service">
+                            <i class="fa {{updateCompletePolicyService.policy.insuranceIcon}} fs-2"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col-sm-12">
+                        <!-- AGENTHOS - VIEW POLICY (JUST IF UPLOADED) -->
+                        <button type="button" class="btn btn-block btn-primary mb-5" (click)="onClickShowPolicy()" *ngIf="!(!!updateCompletePolicyService.f.policyFile.value)"><strong>VER PÓLIZA</strong></button>
+                        <!-- AGENTHOS - UPDATE POLICY -->
+                        <button type="button" class="btn btn-block btn-secondary" (click)="onClickSelectPolicy()"><strong>ACTUALIZAR PÓLIZA</strong></button>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - POLICY FILE -->
+            <!-- AGENTHOS - POLICY RESUME -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Datos de Póliza</h3>
+                </div>
+                <div class="card-body">
+                    <div class="block-content">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Bien Asegurado</label>
+                                    <input type="text" class="form-control {{getValidationClass('coveredProperty')}}" formControlName="coveredProperty">
+                                    <div class="invalid-feedback">{{getErrorMessage('coveredProperty')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">No. Póliza</label>
+                                    <input type="text" class="form-control {{getValidationClass('policyNumber')}}" formControlName="policyNumber">
+                                    <div class="invalid-feedback">{{getErrorMessage('policyNumber')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">No. Cliente</label>
+                                    <input type="text" class="form-control {{getValidationClass('clientNumber')}}" formControlName="clientNumber">
+                                    <div class="invalid-feedback">{{getErrorMessage('clientNumber')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Aseguradora</label>
+                                    <input type="text" class="form-control" placeholder="{{updateCompletePolicyService.policy.insurerName | uppercase}}" disabled="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - POLICY RESUME -->
+        </div>
+
+        <div class="col-md-8">
+            <!-- AGENTHOS - POLICY OWNER -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Titular de Póliza</h3>
+                </div>
+                <div class="card-body">
+                    <div class="block-content">
+                        <div class="form-group row text-center">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - POLICY NAME * -->
+                                    <label class="form-label">Nombre del Titular</label>
+                                    <input type="text" class="form-control {{getValidationClass('titularName')}}" formControlName="titularName">
+                                    <div class="invalid-feedback">{{getErrorMessage('titularName')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - POLICY RFC * -->
+                                    <label class="form-label">RFC</label>
+                                    <input type="text" class="form-control {{getValidationClass('titularRfc')}}" formControlName="titularRfc">
+                                    <div class="invalid-feedback">{{getErrorMessage('titularRfc')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - POLICY CP * -->
+                                    <label class="form-label">Código Postal</label>
+                                    <input type="text" class="form-control {{getValidationClass('titularPostalCode')}}" formControlName="titularPostalCode">
+                                    <div class="invalid-feedback">{{getErrorMessage('titularPostalCode')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - POLICY PHONE * -->
+                                    <label class="form-label">Teléfono</label>
+                                    <input type="text" class="form-control {{getValidationClass('titularPhoneNumber')}}" formControlName="titularPhoneNumber">
+                                    <div class="invalid-feedback">{{getErrorMessage('titularPhoneNumber')}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - POLICY OWNER -->
+            <!-- AGENTHOS - POLICY VALIDITY -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Vigencia de Póliza</h3>
+                </div>
+                <div class="card-body">
+                    <div class="block-content">
+                        <div class="form-group row text-center">
+                            <div class="col-md-4">
+                                <!-- AGENTHOS - EMISSION DATE * -->
+                                <label class="form-label">Fecha de Emisión</label>
+                                <div class="input-group agt-text-left">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                        </div>
+                                    </div>
+                                    <input [id]="calendarIdEmissionDate" class="form-control fc-datepicker {{getValidationClass('emissionDate')}}" name="agtPolicyEmission" formControlName="emissionDate" type="text">
+                                    <div class="invalid-feedback">{{getErrorMessage('emissionDate')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <!-- AGENTHOS - VALIDITY INI * -->
+                                <label class="form-label">Inicio de Vigencia</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                        </div>
+                                    </div>
+                                    <input [id]="calendarIdValidityStartDate" class="form-control fc-datepicker {{getValidationClass('validityStartDate')}}" formControlName="validityStartDate" type="text">
+                                    <div class="invalid-feedback">{{getErrorMessage('validityStartDate')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <!-- AGENTHOS - VALIDITY END * -->
+                                <label class="form-label">Fin de Vigencia</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                        </div>
+                                    </div>
+                                    <input [id]="calendarIdValidityEndDate" class="form-control fc-datepicker {{getValidationClass('validityEndDate')}}" formControlName="validityEndDate" type="text">
+                                    <div class="invalid-feedback">{{getErrorMessage('validityEndDate')}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - POLICY VALIDITY -->
+            <!-- AGENTHOS - POLICY PAYMENT -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Prima de Póliza</h3>
+                </div>
+                <div class="card-body">
+                    <div class="block-content">
+                        <div class="form-group row text-center">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - NET PAYMENT * -->
+                                    <label class="form-label">Prima Neta</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control {{getValidationClass('netPay')}}" formControlName="netPay">
+                                        <div class="invalid-feedback">{{getErrorMessage('netPay')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - FEE PAYMENT * -->
+                                    <label class="form-label">Financiamiento</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control {{getValidationClass('taxPay')}}" formControlName="taxPay">
+                                        <div class="invalid-feedback">{{getErrorMessage('taxPay')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - COVER PAYMENT * -->
+                                    <label class="form-label">Gastos Expedición</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control {{getValidationClass('feePay')}}" formControlName="feePay">
+                                        <div class="invalid-feedback">{{getErrorMessage('feePay')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - EXTRA PAYMENT -->
+                                    <label class="form-label">Otros Cargos</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control {{getValidationClass('coverPay')}}" formControlName="coverPay">
+                                        <div class="invalid-feedback">{{getErrorMessage('coverPay')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - TAX PAYMENT * -->
+                                    <label class="form-label">Impuestos</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control {{getValidationClass('extraPay')}}" formControlName="extraPay">
+                                        <div class="invalid-feedback">{{getErrorMessage('extraPay')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - TOTAL PAYMENT * -->
+                                    <label class="form-label">Prima Total</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control {{getValidationClass('policyAmount')}}" formControlName="policyAmount">
+                                        <div class="invalid-feedback">{{getErrorMessage('policyAmount')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - PAY CURRENCY * -->
+                                    <label class="form-label">Moneda</label>
+                                    <select class="form-control custom-select {{getValidationClass('currencyId')}}" formControlName="currencyId">
+                                        <option [value]="currency.currencyId" *ngFor="let currency of updateCompletePolicyService.currencies">{{currency.name}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">{{getErrorMessage('currencyId')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - PAYMENT METHOD * -->
+                                    <label class="form-label">Forma de Pago</label>
+                                    <select class="form-control custom-select {{getValidationClass('paymentMethodId')}}" formControlName="paymentMethodId">
+                                        <option [value]="paymentMethod.paymentMethodId" *ngFor="let paymentMethod of updateCompletePolicyService.paymentMethods">{{paymentMethod.name | uppercase}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">{{getErrorMessage('paymentMethodId')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - PAY PLAN * -->
+                                    <label class="form-label">Tipo de Plan</label>
+                                    <select class="form-control custom-select {{getValidationClass('paymentPlanId')}}" formControlName="paymentPlanId" (change)="onChangeCalculateBills()">
+                                        <option [value]="paymentPlan.paymentPlanId" *ngFor="let paymentPlan of updateCompletePolicyService.paymentPlans">{{paymentPlan.name | uppercase}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">{{getErrorMessage('paymentPlanId')}}</div>
+                                </div>
+                            </div>
+                            <!-- TOTAL TICKETS -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - PAY BILLS * -->
+                                    <label class="form-label">Recibos Totales</label>
+                                    <input type="text" class="form-control {{getValidationClass('bills')}}" formControlName="bills">
+                                    <div class="invalid-feedback">{{getErrorMessage('bills')}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - POLICY PAYMENT -->
+            <!-- AGENTHOS - UPDATE INFO -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- ACTION TARGET: AGTVIEW0010 -->
+                            <button type="submit" class="btn btn-icon btn-block  btn-primary"><strong>GUARDAR PÓLIZA</strong></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - UPDATE INFO -->
+        </div>
+    </div>
+</form>
+<!-- AGENTHOS - POLICY DETAILS -->
+
+<agt-modal-policy-amounts-different [modalId]="modalIdPolicyAmountsDifferent"></agt-modal-policy-amounts-different>
+<agt-modal-select-file [modalId]="modalIdSelectFile" [data]="modalSelectFileData" (fileSelected)="onPolicySelected($event)"></agt-modal-select-file>
+<agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="contactId" [policyId]="policyId"></agt-modal-show-policy>
+<ng-template #loading>
+    <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
+</ng-template>
