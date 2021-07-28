@@ -1,6 +1,7 @@
 <agt-container-contact-details [contactId]="contactId" [message]="message"></agt-container-contact-details>
+
 <!-- AGENTHOS - POLICY DETAILS -->
-<form *ngIf="!!completePolicyService.policy; else loading" [formGroup]="completePolicyService.policyForm" (submit)="onSubmitSavePolicy()">
+<form *ngIf="!!updateCompletePolicyService.policy; else loading" [formGroup]="updateCompletePolicyService.policyForm" (submit)="onSubmitSavePolicy()">
     <div class="row">
         <div class="col-md-4">
             <!-- AGENTHOS - POLICY FILE -->
@@ -13,26 +14,26 @@
                 <div class="card-body d-flex">
                     <div class="card-order">
                         <h6 class="mb-2">
-                            <span class="badge badge-{{completePolicyService.policy.policyStatusBackground}}  mr-1 mb-1 mt-1">{{completePolicyService.policy.policyStatusName | uppercase}}</span>
+                            <span class="badge badge-{{updateCompletePolicyService.policy.policyStatusBackground}}  mr-1 mb-1 mt-1">{{updateCompletePolicyService.policy.policyStatusName | uppercase}}</span>
                         </h6>
                         <h6 class="mb-2">
-                            <span class="text-primary"><i class="fe fe-shield mr-2 fs-20"></i></span>{{completePolicyService.policy.insuranceName | uppercase}}
+                            <span class="text-primary"><i class="fe fe-shield mr-2 fs-20"></i></span>{{updateCompletePolicyService.policy.insuranceName | uppercase}}
                         </h6>
                         <h6 class="mb-2">
-                            <span class="text-primary"><i class="fe fe-file-text mr-2 fs-20"></i></span>{{completePolicyService.policy.insuranceTypeName | uppercase}}
+                            <span class="text-primary"><i class="fe fe-file-text mr-2 fs-20"></i></span>{{updateCompletePolicyService.policy.insuranceTypeName | uppercase}}
                         </h6>
                     </div>
                     <div class="ml-auto">
                         <!-- AGENTHOS - INSURANCE TYPE -->
-                        <span class="{{completePolicyService.policy.insuranceBackground}} icon-service">
-                            <i class="fa {{completePolicyService.policy.insuranceIcon}} fs-2"></i>
+                        <span class="{{updateCompletePolicyService.policy.insuranceBackground}} icon-service">
+                            <i class="fa {{updateCompletePolicyService.policy.insuranceIcon}} fs-2"></i>
                         </span>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="col-sm-12">
                         <!-- AGENTHOS - VIEW POLICY (JUST IF UPLOADED) -->
-                        <button type="button" class="btn btn-block btn-primary mb-5" (click)="onClickShowPolicy()" *ngIf="!(!!completePolicyService.f.policyFile.value)"><strong>VER PÓLIZA</strong></button>
+                        <button type="button" class="btn btn-block btn-primary mb-5" (click)="onClickShowPolicy()" *ngIf="!(!!updateCompletePolicyService.f.policyFile.value)"><strong>VER PÓLIZA</strong></button>
                         <!-- AGENTHOS - UPDATE POLICY -->
                         <button type="button" class="btn btn-block btn-secondary" (click)="onClickSelectPolicy()"><strong>ACTUALIZAR PÓLIZA</strong></button>
                     </div>
@@ -71,7 +72,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Aseguradora</label>
-                                    <input type="text" class="form-control" placeholder="{{completePolicyService.policy.insurerName | uppercase}}" disabled="">
+                                    <input type="text" class="form-control" placeholder="{{updateCompletePolicyService.policy.insurerName | uppercase}}" disabled="">
                                 </div>
                             </div>
                         </div>
@@ -144,7 +145,7 @@
                                             <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
                                         </div>
                                     </div>
-                                    <input [id]="emissionDateCalendarId" class="form-control fc-datepicker {{getValidationClass('emissionDate')}}" name="agtPolicyEmission" formControlName="emissionDate" type="text">
+                                    <input [id]="calendarIdEmissionDate" class="form-control fc-datepicker {{getValidationClass('emissionDate')}}" name="agtPolicyEmission" formControlName="emissionDate" type="text">
                                     <div class="invalid-feedback">{{getErrorMessage('emissionDate')}}</div>
                                 </div>
                             </div>
@@ -157,7 +158,7 @@
                                             <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
                                         </div>
                                     </div>
-                                    <input [id]="validityStartDateCalendarId" class="form-control fc-datepicker {{getValidationClass('validityStartDate')}}" formControlName="validityStartDate" type="text">
+                                    <input [id]="calendarIdValidityStartDate" class="form-control fc-datepicker {{getValidationClass('validityStartDate')}}" formControlName="validityStartDate" type="text">
                                     <div class="invalid-feedback">{{getErrorMessage('validityStartDate')}}</div>
                                 </div>
                             </div>
@@ -170,7 +171,7 @@
                                             <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
                                         </div>
                                     </div>
-                                    <input [id]="validityEndDateCalendarId" class="form-control fc-datepicker {{getValidationClass('validityEndDate')}}" formControlName="validityEndDate" type="text">
+                                    <input [id]="calendarIdValidityEndDate" class="form-control fc-datepicker {{getValidationClass('validityEndDate')}}" formControlName="validityEndDate" type="text">
                                     <div class="invalid-feedback">{{getErrorMessage('validityEndDate')}}</div>
                                 </div>
                             </div>
@@ -282,7 +283,7 @@
                                     <!-- AGENTHOS - PAY CURRENCY * -->
                                     <label class="form-label">Moneda</label>
                                     <select class="form-control custom-select {{getValidationClass('currencyId')}}" formControlName="currencyId">
-                                        <option [value]="currency.currencyId" *ngFor="let currency of completePolicyService.currencies">{{currency.name}}</option>
+                                        <option [value]="currency.currencyId" *ngFor="let currency of updateCompletePolicyService.currencies">{{currency.name}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('currencyId')}}</div>
                                 </div>
@@ -292,7 +293,7 @@
                                     <!-- AGENTHOS - PAYMENT METHOD * -->
                                     <label class="form-label">Forma de Pago</label>
                                     <select class="form-control custom-select {{getValidationClass('paymentMethodId')}}" formControlName="paymentMethodId">
-                                        <option [value]="paymentMethod.paymentMethodId" *ngFor="let paymentMethod of completePolicyService.paymentMethods">{{paymentMethod.name | uppercase}}</option>
+                                        <option [value]="paymentMethod.paymentMethodId" *ngFor="let paymentMethod of updateCompletePolicyService.paymentMethods">{{paymentMethod.name | uppercase}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('paymentMethodId')}}</div>
                                 </div>
@@ -302,7 +303,7 @@
                                     <!-- AGENTHOS - PAY PLAN * -->
                                     <label class="form-label">Tipo de Plan</label>
                                     <select class="form-control custom-select {{getValidationClass('paymentPlanId')}}" formControlName="paymentPlanId" (change)="onChangeCalculateBills()">
-                                        <option [value]="paymentPlan.paymentPlanId" *ngFor="let paymentPlan of completePolicyService.paymentPlans">{{paymentPlan.name | uppercase}}</option>
+                                        <option [value]="paymentPlan.paymentPlanId" *ngFor="let paymentPlan of updateCompletePolicyService.paymentPlans">{{paymentPlan.name | uppercase}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('paymentPlanId')}}</div>
                                 </div>
@@ -338,11 +339,9 @@
 </form>
 <!-- AGENTHOS - POLICY DETAILS -->
 
+<agt-modal-policy-amounts-different [modalId]="modalIdPolicyAmountsDifferent"></agt-modal-policy-amounts-different>
+<agt-modal-select-file [modalId]="modalIdSelectFile" [data]="modalSelectFileData" (fileSelected)="onPolicySelected($event)"></agt-modal-select-file>
+<agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="contactId" [policyId]="policyId"></agt-modal-show-policy>
 <ng-template #loading>
     <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
 </ng-template>
-<agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="contactId" [policyId]="policyId"></agt-modal-show-policy>
-<agt-modal-select-file [modalId]="modalIdSelectFile" [data]="modalSelectFileData" (fileSelected)="onPolicySelected($event)"></agt-modal-select-file>
-<agt-modal-scanning-policy-success [modalId]="modalIdScanningPolicySuccess" (loadScannedPolicyData)="onLoadScannedPolicyData()"></agt-modal-scanning-policy-success>
-<agt-modal-scanning-policy-failed [modalId]="modalIdScanningPolicyFailed"></agt-modal-scanning-policy-failed>
-<agt-modal-policy-amounts-different [modalId]="modalIdPolicyAmountsDifferent"></agt-modal-policy-amounts-different>

@@ -1,49 +1,40 @@
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
+
 import { Currency } from '@interfaces/currency.interface';
-import { CreateScannerLogDataSend } from '@interfaces/create-scanner-log-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
 import { Policy } from '@interfaces/policy.interface';
-import { AtomScannService } from '@services/atom-scann.service';
+
 import { CurrencyService } from '@services/currency.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
-import { ScannerLogService } from '@services/scanner-log.service';
 
 @Injectable()
-export class CompletePolicyService {
-    currencies: Currency[];
-    paymentMethods: PaymentMethod[];
-    paymentPlans: PaymentPlan[];
-    policy: Policy | null;
-    policyForm: FormGroup;
+export class UpdateCompletePolicyService {
+    currencies: Currency[] = [];
+    paymentMethods: PaymentMethod[] = [];
+    paymentPlans: PaymentPlan[] = [];
+    policy: Policy | null = null;
+    policyForm: FormGroup = this._formBuilder.group({});;
 
     constructor(
-        private _atomScannService: AtomScannService,
         private _currencyService: CurrencyService,
         private _datePipe: DatePipe,
         private _formBuilder: FormBuilder,
         private _paymentMethodService: PaymentMethodService,
         private _paymentPlanService: PaymentPlanService,
-        private _policyService: PolicyService,
-        private _scannerLogService: ScannerLogService
-    ) {
-        this.currencies = [];
-        this.paymentMethods = [];
-        this.paymentPlans = [];
-        this.policy = null;
-        this.policyForm = this._formBuilder.group({});
-    }
+        private _policyService: PolicyService
+    ) { }
 
     get f(): { [key: string]: AbstractControl; } {
         return this.policyForm.controls;
@@ -112,69 +103,12 @@ export class CompletePolicyService {
      * @return True if the total policy is equal to the policy amount, otherwise false
      */
     checkPolicyAmounts(): boolean {
-        const totalPolicy = parseFloat(this.f.netPay.value) + parseFloat(this.f.taxPay.value) + parseFloat(this.f.feePay.value) + parseFloat(this.f.coverPay.value) + parseFloat(this.f.extraPay.value);
+        const totalPolicy = parseFloat(this.f.netPay.value) +
+                            parseFloat(this.f.taxPay.value) +
+                            parseFloat(this.f.feePay.value) +
+                            parseFloat(this.f.coverPay.value) +
+                            parseFloat(this.f.extraPay.value);
         return (totalPolicy == this.f.policyAmount.value) ? true : false;
-    }
-
-    /**
-     * Complete the policy data
-     * @param  contactId The contact ID
-     * @param  policyId  The policy ID to complete
-     * @return           Notice of action done
-     */
-    completePolicy(contactId: string, policyId: string, scannedPolicyData: Policy | null): Observable<void> {
-        const requestBody: FormData = this._getRequestBody(scannedPolicyData);
-        return this._policyService.completePolicy(contactId, policyId, requestBody);
-    }
-
-    /**
-     * Create the scanner log
-     * @param  contactId          The contact ID
-     * @param  policyId           The policy ID
-     * @param  totalMissingFields The total missing fields
-     * @param  missingFields      The missing fields
-     * @return                    Notice of action done
-     */
-    createScannerLog(contactId: string, policyId: string, policyUrl: string, totalMissingFields: number, missingFields: string): Observable<void> {
-        const requestBody: CreateScannerLogDataSend = {
-            insurerId: !!this.policy ? this.policy.insurerId : 0,
-            insuranceId: !!this.policy ? this.policy.insuranceId : 0,
-            insuranceTypeId: !!this.policy ? this.policy.insuranceTypeId : 0,
-            totalMissingFields,
-            missingFields,
-            policyUrl
-        };
-        return this._scannerLogService.createScannerLog(contactId, policyId, requestBody);
-    }
-
-    /**
-     * Download the policy
-     * @param  policyUrl The policy Url
-     * @return           The policy file
-     */
-    downloadPolicy(policyUrl: string): Observable<any> {
-        return this._policyService.downloadPolicy(policyUrl);
-    }
-
-    /**
-     * Load the contact policy
-     * @param contactId The contact ID
-     * @param policyId  The policy ID
-     * @return          The policy data
-     */
-    loadContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
-        this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills';
-        return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
-            tap(( res: HttpResponse) => {
-                this.policy = res.data;
-                if(!!this.policy) {
-                    this.policy.emissionDate = this._getDateFormat(this.policy.emissionDate);
-                    this.policy.validityStartDate = this._getDateFormat(this.policy.validityStartDate);
-                    this.policy.validityEndDate = this._getDateFormat(this.policy.validityEndDate);
-                }
-            })
-        )
     }
 
     /**
@@ -219,9 +153,36 @@ export class CompletePolicyService {
         );
     }
 
-    scannPolicy(policyFile: any): Observable<HttpResponse> {
-        const requestBody: FormData = this._getRequestBodyToScannPolicy(policyFile);
-        return this._atomScannService.scannPolicy(requestBody);
+    /**
+     * Load the policy data
+     * @param contactId The contact ID
+     * @param policyId  The policy ID
+     * @return          Notice of action done
+     */
+    loadPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
+        this.policy = null;
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills';
+        return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
+            tap(( res: HttpResponse) => {
+                this.policy = res.data;
+                if(!!this.policy) {
+                    this.policy.emissionDate = this._getDateFormat(this.policy.emissionDate);
+                    this.policy.validityStartDate = this._getDateFormat(this.policy.validityStartDate);
+                    this.policy.validityEndDate = this._getDateFormat(this.policy.validityEndDate);
+                }
+            })
+        )
+    }
+
+    /**
+     * Update the complete policy data
+     * @param  contactId The contact ID
+     * @param  policyId  The policy ID to update
+     * @return           Notice of action done
+     */
+    updateCompletePolicy(contactId: string, policyId: string): Observable<void> {
+        const requestBody: FormData = this._getRequestBody();
+        return this._policyService.updateCompletePolicy(contactId, policyId, requestBody);
     }
 
     /**
@@ -252,7 +213,7 @@ export class CompletePolicyService {
      * Get the request body
      * @return The request body
      */
-    private _getRequestBody(scannedPolicyData: Policy | null): FormData {
+    private _getRequestBody(): FormData {
         const requestBody: FormData = new FormData();
         requestBody.append('policyFile', this.f.policyFile.value);
         requestBody.append('coveredProperty', this.f.coveredProperty.value);
@@ -275,29 +236,6 @@ export class CompletePolicyService {
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);
-        if(!!scannedPolicyData) {
-            requestBody.append('coveredPropertyId', scannedPolicyData.coveredPropertyId);
-            requestBody.append('coveredPropertyAge', scannedPolicyData.coveredPropertyAge);
-            requestBody.append('coveredPropertyPlan', scannedPolicyData.coveredPropertyPlan);
-            requestBody.append('agentNumber', scannedPolicyData.agentNumber);
-            requestBody.append('titularAge', scannedPolicyData.titularAge);
-            requestBody.append('titularGenderId', scannedPolicyData.titularGenderId.toString());
-        }
-        return requestBody;
-    }
-
-    /**
-     * Get the request body to scann policy
-     * @return The request body
-     */
-    private _getRequestBodyToScannPolicy(policyFile: any): FormData {
-        const requestBody: FormData = new FormData();
-        requestBody.append('file', policyFile);
-        if(!!this.policy) {
-            requestBody.append('insurerId', this.policy.insurerId.toString());
-            requestBody.append('insuranceId', this.policy.insuranceId.toString());
-            requestBody.append('insuranceTypeId', this.policy.insuranceTypeId.toString());
-        }
         return requestBody;
     }
 }

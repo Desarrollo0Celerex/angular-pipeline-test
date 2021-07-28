@@ -69,7 +69,8 @@ const HOME_POLICIES_ROUTES = {
     endorsePolicy: (contactId: string, policyId: string) => `workspace/policies/endorse-policy/${contactId}/${policyId}`,
     cancelPolicy: (contactId: string, policyId: string) => `workspace/policies/cancel-policy/${contactId}/${policyId}`,
     showHistoryPolicy: (contactId: string, policyId: string) => `workspace/policies/history-policy/${contactId}/${policyId}`,
-    showPolicySinisters: (contactId: string, policyId: string) => `workspace/policies/policy-sinisters/${contactId}/${policyId}`
+    showPolicySinisters: (contactId: string, policyId: string) => `workspace/policies/policy-sinisters/${contactId}/${policyId}`,
+    updateCompletePolicy: (contactId: string, policyId: string) => `workspace/policies/update-complete-policy/${contactId}/${policyId}`,
 }
 
 const HOME_QUOTATIONS_ROUTES = {

@@ -6,35 +6,37 @@ import { ContainerContactDetailsModule } from '@components/container-contact-det
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalPolicyAmountsDifferentModule } from '@components/modal-policy-amounts-different/modal-policy-amounts-different.module';
 import { ModalSelectFileModule } from '@components/modal-select-file/modal-select-file.module';
-import { ModalScanningPolicySuccessModule } from '@components/modal-scanning-policy-success/modal-scanning-policy-success.module';
-import { ModalScanningPolicyFailedModule } from '@components/modal-scanning-policy-failed/modal-scanning-policy-failed.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
-import { AtomScannService } from '@services/atom-scann.service';
+
+import { UpdateCompletePolicyRoutingModule } from './update-complete-policy-routing.module';
+import { UpdateCompletePolicyPage } from './update-complete-policy.page';
+
 import { CurrencyService } from '@services/currency.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
-import { ScannerLogService } from '@services/scanner-log.service';
-
-import { CompletePolicyRoutingModule } from './complete-policy-routing.module';
-import { CompletePolicyPage } from './complete-policy.page';
-import { CompletePolicyService } from './complete-policy.service';
 
 @NgModule({
-  declarations: [CompletePolicyPage],
+  declarations: [
+    UpdateCompletePolicyPage
+  ],
   imports: [
-    ContainerContactDetailsModule,
     CommonModule,
-    CompletePolicyRoutingModule,
+    ContainerContactDetailsModule,
     FormsModule,
     LoadingContentModule,
     ModalPolicyAmountsDifferentModule,
     ModalSelectFileModule,
-    ModalScanningPolicySuccessModule,
-    ModalScanningPolicyFailedModule,
     ModalShowPolicyModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UpdateCompletePolicyRoutingModule
   ],
-  providers: [AtomScannService, CompletePolicyService, CurrencyService, DatePipe, PaymentMethodService, PaymentPlanService, PolicyService, ScannerLogService]
+  providers: [
+      CurrencyService,
+      DatePipe,
+      PaymentMethodService,
+      PaymentPlanService,
+      PolicyService
+  ]
 })
-export class CompletePolicyModule { }
+export class UpdateCompletePolicyModule { }
