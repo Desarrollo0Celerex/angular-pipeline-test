@@ -6,13 +6,16 @@ import { tap, map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH } from '@constants/global';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
+
 import { Currency } from '@interfaces/currency.interface';
 import { CreateScannerLogDataSend } from '@interfaces/create-scanner-log-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
 import { Policy } from '@interfaces/policy.interface';
+
 import { AtomScannService } from '@services/atom-scann.service';
 import { CurrencyService } from '@services/currency.service';
 import { PaymentMethodService } from '@services/payment-method.service';
@@ -112,8 +115,13 @@ export class CompletePolicyService {
      * @return True if the total policy is equal to the policy amount, otherwise false
      */
     checkPolicyAmounts(): boolean {
-        const totalPolicy = parseFloat(this.f.netPay.value) + parseFloat(this.f.taxPay.value) + parseFloat(this.f.feePay.value) + parseFloat(this.f.coverPay.value) + parseFloat(this.f.extraPay.value);
-        return (totalPolicy == this.f.policyAmount.value) ? true : false;
+        const totalPolicy: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value)) +
+                            parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.taxPay.value)) +
+                            parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.feePay.value)) +
+                            parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value)) +
+                            parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value));
+        const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value));
+        return (totalPolicy == policyAmount) ? true : false;
     }
 
     /**
