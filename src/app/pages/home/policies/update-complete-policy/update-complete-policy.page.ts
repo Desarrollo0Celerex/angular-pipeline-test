@@ -77,7 +77,7 @@ export class UpdateCompletePolicyPage implements OnInit {
      * Change event to calculate the bills
      */
     onChangeCalculateBills(): void {
-        this.updateCompletePolicyService.calculateBills();
+        //this.updateCompletePolicyService.calculateBills();
     }
 
     /**
@@ -166,7 +166,7 @@ export class UpdateCompletePolicyPage implements OnInit {
      */
     private _loadPaymentPlans(): void {
         this.updateCompletePolicyService.loadPaymentPlans().subscribe( () => {
-            this.updateCompletePolicyService.calculateBills();
+            //this.updateCompletePolicyService.calculateBills();
         })
     }
 
@@ -191,7 +191,7 @@ export class UpdateCompletePolicyPage implements OnInit {
      */
     private _onChangeDate(selectorId: string, changedValue: string, context: UpdateCompletePolicyPage): void {
         context.updateCompletePolicyService.policyForm.patchValue({[selectorId]: changedValue});
-        context.updateCompletePolicyService.calculateBills();
+        //context.updateCompletePolicyService.calculateBills();
     }
 
 }

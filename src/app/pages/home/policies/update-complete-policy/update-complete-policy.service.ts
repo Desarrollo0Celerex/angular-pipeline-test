@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import * as moment from 'moment';
 
 import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH } from '@constants/global';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
 import { Currency } from '@interfaces/currency.interface';
@@ -64,15 +65,15 @@ export class UpdateCompletePolicyService {
             policyAmount: [(!!policy && !!policy.policyAmount) ? policy.policyAmount : '', [Validators.required, ValidatorsHelper.amount] ],
             currencyId: [(!!policy && !!policy.currencyId) ? policy.currencyId : '', [Validators.required]],
             paymentMethodId: [(!!policy && !!policy.paymentMethodId) ? policy.paymentMethodId : '', [Validators.required]],
-            paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : '', [Validators.required]],
-            bills: ['', [Validators.required, ValidatorsHelper.number]]
+            /*paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : '', [Validators.required]],
+            bills: ['', [Validators.required, ValidatorsHelper.number]]*/
         });
     }
 
     /**
      * Calculate the bills
      */
-    calculateBills(): void {
+    /*calculateBills(): void {
         let bills: number = 0;
         const validityStartDate: string = this.f.validityStartDate.value;
         const validityEndDate: string = this.f.validityEndDate.value;
@@ -96,19 +97,20 @@ export class UpdateCompletePolicyService {
                 }
             }
         }
-    }
+    }*/
 
     /**
      * Check the policy amounts
      * @return True if the total policy is equal to the policy amount, otherwise false
      */
     checkPolicyAmounts(): boolean {
-        const totalPolicy = parseFloat(this.f.netPay.value) +
-                            parseFloat(this.f.taxPay.value) +
-                            parseFloat(this.f.feePay.value) +
-                            parseFloat(this.f.coverPay.value) +
-                            parseFloat(this.f.extraPay.value);
-        return (totalPolicy == this.f.policyAmount.value) ? true : false;
+        const totalPolicy: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value)) +
+                            parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.taxPay.value)) +
+                            parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.feePay.value)) +
+                            parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value)) +
+                            parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value));
+        const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value));
+        return (totalPolicy == policyAmount) ? true : false;
     }
 
     /**
@@ -161,7 +163,7 @@ export class UpdateCompletePolicyService {
      */
     loadPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,paymentPlanName,bills';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
@@ -234,8 +236,8 @@ export class UpdateCompletePolicyService {
         requestBody.append('policyAmount', this.f.policyAmount.value);
         requestBody.append('currencyId', this.f.currencyId.value);
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
-        requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
-        requestBody.append('bills', this.f.bills.value);
+        /*requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
+        requestBody.append('bills', this.f.bills.value);*/
         return requestBody;
     }
 }
