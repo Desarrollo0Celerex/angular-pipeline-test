@@ -26,7 +26,8 @@ export class UpdateCompletePolicyService {
     paymentMethods: PaymentMethod[] = [];
     paymentPlans: PaymentPlan[] = [];
     policy: Policy | null = null;
-    policyForm: FormGroup = this._formBuilder.group({});;
+    policyForm: FormGroup = this._formBuilder.group({});
+    private _areFractionatedPaymentAmounts: boolean = false;
 
     constructor(
         private _currencyService: CurrencyService,
@@ -104,13 +105,33 @@ export class UpdateCompletePolicyService {
      * @return True if the total policy is equal to the policy amount, otherwise false
      */
     checkPolicyAmounts(): boolean {
-        const totalPolicy: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value)) +
-                            parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.taxPay.value)) +
-                            parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.feePay.value)) +
-                            parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value)) +
-                            parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value));
+        this._areFractionatedPaymentAmounts = false;
+        let netPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value));
+        let taxPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.taxPay.value));
+        let feePay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.feePay.value));
+        let coverPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value));
+        let extraPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value));
+        let totalPolicy: number = netPay + taxPay + feePay + coverPay + extraPay;
         const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value));
-        return (totalPolicy == policyAmount) ? true : false;
+
+        if(totalPolicy == policyAmount) {
+            return true;
+        } else {
+            const paymentPlanId: number = (this.policy) ? this.policy.paymentPlanId : 0;
+            const paymentPlanMonths: number = 12 / this._getPaymentPlanMonths(paymentPlanId);
+            netPay *= paymentPlanMonths;
+            taxPay *= paymentPlanMonths;
+            feePay *= paymentPlanMonths;
+            coverPay *= paymentPlanMonths;
+            extraPay *= paymentPlanMonths;
+            totalPolicy = netPay + taxPay + feePay + coverPay + extraPay;
+
+            if((totalPolicy >= (policyAmount - 1)) && (totalPolicy <= (policyAmount + 1))) {
+                this._areFractionatedPaymentAmounts = true;
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -233,6 +254,7 @@ export class UpdateCompletePolicyService {
         requestBody.append('feePay', this.f.feePay.value);
         requestBody.append('coverPay', this.f.coverPay.value);
         requestBody.append('extraPay', this.f.extraPay.value);
+        requestBody.append('areFractionatedPaymentAmounts', (this._areFractionatedPaymentAmounts) ? '1' : '0');
         requestBody.append('policyAmount', this.f.policyAmount.value);
         requestBody.append('currencyId', this.f.currencyId.value);
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
