@@ -114,7 +114,7 @@ export class UpdateCompletePolicyService {
         let totalPolicy: number = netPay + taxPay + feePay + coverPay + extraPay;
         const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value));
 
-        if(totalPolicy == policyAmount) {
+        if((totalPolicy >= (policyAmount - 1)) && (totalPolicy <= (policyAmount + 1))) {
             return true;
         } else {
             const paymentPlanId: number = (this.policy) ? this.policy.paymentPlanId : 0;
