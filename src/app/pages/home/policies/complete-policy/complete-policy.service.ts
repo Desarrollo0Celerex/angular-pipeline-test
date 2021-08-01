@@ -125,7 +125,7 @@ export class CompletePolicyService {
         let totalPolicy: number = netPay + taxPay + feePay + coverPay + extraPay;
         const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value));
 
-        if(totalPolicy == policyAmount) {
+        if((totalPolicy >= (policyAmount - 1)) && (totalPolicy <= (policyAmount + 1))) {
             return true;
         } else {
             const paymentPlanMonths: number = 12 / this._getPaymentPlanMonths(this.f.paymentPlanId.value);

@@ -248,7 +248,7 @@ export class CompletePolicyPage implements OnInit {
             ModalPlugin.show(this.modalIdScanningPolicySuccess);
             this._scannedPolicyData = res.data;
             this._reviewPolicyData(policyUrl);
-        }, () => {
+        }, (error: any) => {
             this._reviewPolicyData(policyUrl);
             setTimeout(() => {
                 this._scanningService.hide();
