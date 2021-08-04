@@ -1,5 +1,6 @@
 export const ERROR_CODES: any = {
     internalServerError: 'InternalServerError',
+    forbiddenAccess: 'ForbiddenAccess',
     invalidAuthToken: 'InvalidAuthToken',
     invalidUserToken: 'InvalidUserToken',
     invalidFields: 'InvalidFields',

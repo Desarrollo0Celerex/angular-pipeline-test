@@ -15,8 +15,10 @@ import { ERROR_CODES } from '@constants/error-codes';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { HttpError } from '@interfaces/http-error.interface';
+
 import { AuthService } from '@services/auth.service';
 import { LoadingService } from '@services/loading.service';
+import { ScanningService } from '@services/scanning.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -24,7 +26,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     constructor(
         private _authService: AuthService,
         private _loadingService: LoadingService,
-        private _router: Router
+        private _router: Router,
+        private _scanningService: ScanningService
     ) { }
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -50,6 +53,14 @@ export class ErrorInterceptor implements HttpInterceptor {
             case ERROR_CODES.errorSendingInvitation:
             case ERROR_CODES.errorSendingEmail:
                 AlertHelper.globalError();
+                break;
+
+            case ERROR_CODES.forbiddenAccess:
+                this._loadingService.hide();
+                setTimeout(() => {
+                    this._scanningService.hide();
+                },500);
+                AlertHelper.forbiddenAccess();
                 break;
 
             case ERROR_CODES.invalidAuthToken:
