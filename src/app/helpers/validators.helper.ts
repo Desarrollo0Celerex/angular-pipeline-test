@@ -42,7 +42,7 @@ export class ValidatorsHelper {
      */
     static amount(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = /^(?=.*?\d)?(([1-9]\d{0,2}(,\d{3}){0,2})|\d{0,9})?(\.\d{1,2})?$/;
+            const regex = /^-?(([1-9]\d{0,2}(,\d{3}){0,2})|\d{0,9})?(\.\d{1,2})?$/;
             const value = control.value;
             return (!regex.test(value)) ? {currency: true} : null;
         }

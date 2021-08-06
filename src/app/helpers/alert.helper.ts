@@ -40,6 +40,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static forbiddenAccess(): void {
+        const alertData: Alert = {
+            title: 'Error',
+            text: 'Acceso denegado.',
+            type: 'error',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static globalError(): void {
         const alertData: Alert = {
             title: 'Error',
