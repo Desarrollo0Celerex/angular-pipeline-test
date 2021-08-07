@@ -130,6 +130,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static policyAlreadyExists(): void {
+        const alertData: Alert = {
+            title: 'Error al guardar póliza',
+            text: 'La póliza ya existe',
+            type: 'error',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static policyCancelled(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Póliza Cancelada',

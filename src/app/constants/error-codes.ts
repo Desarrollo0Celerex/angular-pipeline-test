@@ -15,5 +15,6 @@ export const ERROR_CODES: any = {
     errorSendingEmail: 'ErrorSendingEmail',
     invalidExpressToken: 'InvalidExpressToken',
     contactNotFound: 'ContactNotFound',
-    contactHasCoincidences: 'ContactHasCoincidences'
+    contactHasCoincidences: 'ContactHasCoincidences',
+    policyAlreadyExists: 'PolicyAlreadyExists'
 }
