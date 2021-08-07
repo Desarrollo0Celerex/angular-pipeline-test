@@ -11,11 +11,17 @@ import { ValidatorsHelper } from '@helpers/validators.helper';
 
 import { Currency } from '@interfaces/currency.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { Insurer } from '@interfaces/insurer.interface';
+import { Insurance } from '@interfaces/insurance.interface';
+import { InsuranceType } from '@interfaces/insurance-type.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
 import { Policy } from '@interfaces/policy.interface';
 
 import { CurrencyService } from '@services/currency.service';
+import { InsurerService } from '@services/insurer.service';
+import { InsuranceService } from '@services/insurance.service';
+import { InsuranceTypeService } from '@services/insurance-type.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
@@ -23,6 +29,9 @@ import { PolicyService } from '@services/policy.service';
 @Injectable()
 export class UpdateCompletePolicyService {
     currencies: Currency[] = [];
+    insurers: Insurer[] = [];
+    insurances: Insurance[] = [];
+    insuranceTypes: InsuranceType[] = [];
     paymentMethods: PaymentMethod[] = [];
     paymentPlans: PaymentPlan[] = [];
     policy: Policy | null = null;
@@ -31,6 +40,9 @@ export class UpdateCompletePolicyService {
 
     constructor(
         private _currencyService: CurrencyService,
+        private _insurerService: InsurerService,
+        private _insuranceService: InsuranceService,
+        private _insuranceTypeService: InsuranceTypeService,
         private _datePipe: DatePipe,
         private _formBuilder: FormBuilder,
         private _paymentMethodService: PaymentMethodService,
@@ -51,6 +63,9 @@ export class UpdateCompletePolicyService {
             coveredProperty: [(!!policy && !!policy.coveredProperty) ? policy.coveredProperty : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             policyNumber: [(!!policy && !!policy.policyNumber) ? policy.policyNumber : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             clientNumber: [(!!policy && !!policy.clientNumber) ? policy.clientNumber : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+            insurerId: [(!!policy && !!policy.insurerId) ? policy.insurerId : '', [Validators.required] ],
+            insuranceId: [(!!policy && !!policy.insuranceId) ? policy.insuranceId : '', [Validators.required] ],
+            insuranceTypeId: [(!!policy && !!policy.insuranceTypeId) ? policy.insuranceTypeId : '', [Validators.required] ],
             titularName: [(!!policy && !!policy.titularName) ? policy.titularName : '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
             titularRfc: [(!!policy && !!policy.titularRfc) ? policy.titularRfc : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             titularPostalCode: [(!!policy && !!policy.titularPostalCode) ? policy.titularPostalCode : '', [ValidatorsHelper.postalCode ] ],
@@ -149,6 +164,37 @@ export class UpdateCompletePolicyService {
     }
 
     /**
+     * Load the insurers
+     */
+    loadInsuers(): void {
+        const fields: string = 'insurerId,name';
+        this._insurerService.getInsurers(fields).subscribe((res: HttpResponse) => {
+            this.insurers = res.data;
+        })
+    }
+
+    /**
+     * Load the insurances
+     */
+    loadInsurances(): Observable<void> {
+        const fields: string = 'insuranceId,name';
+        return this._insuranceService.getInsurances(fields).pipe(
+            tap((res: HttpResponse) => {
+                this.insurances = res.data;
+            }),
+            map(() => { })
+        );
+    }
+
+    loadInsuranceTypes(insuranceId: number): void {
+        this.insuranceTypes = [];
+        const fields: string = 'insuranceTypeId,name';
+        this._insuranceTypeService.getInsuranceTypes(insuranceId, fields).subscribe((res: HttpResponse) => {
+            this.insuranceTypes = res.data;
+        })
+    }
+
+    /**
      * Load the payment methods
      * @return Notice of action done
      */
@@ -242,6 +288,9 @@ export class UpdateCompletePolicyService {
         requestBody.append('coveredProperty', this.f.coveredProperty.value);
         requestBody.append('policyNumber', this.f.policyNumber.value);
         requestBody.append('clientNumber', this.f.clientNumber.value);
+        requestBody.append('insurerId', this.f.insurerId.value);
+        requestBody.append('insuranceId', this.f.insuranceId.value);
+        requestBody.append('insuranceTypeId', this.f.insuranceTypeId.value);
         requestBody.append('emissionDate', this.f.emissionDate.value);
         requestBody.append('validityStartDate', this.f.validityStartDate.value);
         requestBody.append('validityEndDate', this.f.validityEndDate.value);
