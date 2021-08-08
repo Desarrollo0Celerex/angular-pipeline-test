@@ -70,6 +70,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
     modalIdConfirmDeleteContactFile: string = 'agt-confirm-delete-contact-file';
+    modalIdConfirmDeleteCompletePolicy: string = 'agt-confirm-delete-complete-policy';
     modalIdConfirmDeleteReceiptPaid: string;
     modalIdConfirmDeleteSinisterEvent: string = 'agt-confirm-delete-sinister-event';
     modalIdConfirmEndorsePolicy: string;
@@ -258,6 +259,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Event to show modal to confirm delete the policy
+     * @param policyId The policy ID to delete
+     */
+    onDeletePolicy(policyId: string): void {
+        this.selectedPolicyId = policyId;
+        console.log('this.selectedPolicyId: ',this.selectedPolicyId);
+        ModalPlugin.show(this.modalIdConfirmDeleteCompletePolicy);
+    }
+
+    /**
      * Event to show modal to confirm delete the receipt paid
      * @param data The data to delete the recipt date
      */
@@ -324,6 +335,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to reload content when removing a policy
      */
     onPolicyDeleted(): void {
+        AlertHelper.policyDeleted();
         this._initContent();
     }
 

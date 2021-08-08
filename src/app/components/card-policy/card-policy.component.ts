@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 
-import { POLICY_STATUS, POLICY_FINISHED_SLACK_DAYS } from '@constants/global';
+import { POLICY_STATUS, POLICY_FINISHED_SLACK_DAYS, CANCELLATION_REASONS } from '@constants/global';
 
 import { Policy } from '@interfaces/policy.interface';
 import { PaymentDataSend } from '@interfaces/payment-data-send.interface';
@@ -31,6 +31,7 @@ export class CardPolicyComponent implements OnInit {
     @Output() showPolicyDetails: EventEmitter<string>;
     @Output() showPolicySinisters: EventEmitter<PolicyDataSend> = new EventEmitter<PolicyDataSend>();
     @Output() updatePolicy: EventEmitter<string>;
+    CANCELLATION_REASONS: any = CANCELLATION_REASONS;
     POLICY_STATUS: any = POLICY_STATUS;
     isInTime: boolean = false;
 

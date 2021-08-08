@@ -78,6 +78,7 @@
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                     (showPaymentHistory)="onShowPaymentHistory($event)"
                     (showPolicySinisters)="onShowPolicySinisters($event)"
+                    (deletePolicy)="onDeletePolicy($event)"
                 ></agt-card-policy>
                 <agt-card-payment *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID"
                     [payment]="content"
@@ -141,6 +142,7 @@
     <agt-modal-confirm-reissue-policy [modalId]="modalIdConfirmReissuePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-reissue-policy>
     <agt-modal-select-contact-type [modalId]="modalIdSelectContactType" [actionType]="selectedActionType" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-select-contact-type>
     <agt-modal-confirm-show-policy-sinisters [modalId]="modalIdConfirmShowPolicySinisters" [policyData]="selectedPolicyData"></agt-modal-confirm-show-policy-sinisters>
+    <agt-modal-confirm-delete-policy-complete [modalId]="modalIdConfirmDeleteCompletePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (policyCompleteDeleted)="onPolicyDeleted()"></agt-modal-confirm-delete-policy-complete>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID || contentType === CONTENT_TYPES.PAYMENT.ID || contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
     <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>

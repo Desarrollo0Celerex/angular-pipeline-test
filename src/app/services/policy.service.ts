@@ -23,6 +23,7 @@ const routes: any = {
     cancelContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/cancel',
     renewContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/renew',
     deleteContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/delete',
+    deleteContactCompletePolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/delete-complete',
     reissueContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/reissue',
     contactHistoryPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/history',
     policies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies',
@@ -85,6 +86,17 @@ export class PolicyService {
      */
     deleteContactPolicy(contactId: string, policyId: string): Observable<void> {
         const route: string = routes.deleteContactPolicy(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, null);
+    }
+
+    /**
+     * Delete the contact complete policy in the API
+     * @param  contactId   The contact ID
+     * @param  policyId    The policy ID to delete
+     * @return             Notice of action done
+     */
+    deleteContactCompletePolicy(contactId: string, policyId: string): Observable<void> {
+        const route: string = routes.deleteContactCompletePolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, null);
     }
 

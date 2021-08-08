@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { POLICY_STATUS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertHelper } from '@helpers/alert.helper';
 
 import { ContainerIncompletePoliciesService } from './container-incomplete-policies.service';
 
@@ -67,7 +66,6 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
      */
     onPolicyDeleted(policyId: string): void {
         this.containerListIncompletePoliciesService.deletePolicyCard(policyId);
-        AlertHelper.policyDeleted();
         this.policyDeleted.emit();
     }
 

@@ -46,5 +46,6 @@ export interface Policy {
     totalAmount: number,
     contactId: string,
     paymentId: string,
-    bills: number
+    bills: number,
+    policyCancellationReasonId: string
 }
