@@ -12,6 +12,9 @@ import { UpdateCompletePolicyRoutingModule } from './update-complete-policy-rout
 import { UpdateCompletePolicyPage } from './update-complete-policy.page';
 
 import { CurrencyService } from '@services/currency.service';
+import { InsurerService } from '@services/insurer.service';
+import { InsuranceService } from '@services/insurance.service';
+import { InsuranceTypeService } from '@services/insurance-type.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
@@ -33,6 +36,9 @@ import { PolicyService } from '@services/policy.service';
   ],
   providers: [
       CurrencyService,
+      InsurerService,
+      InsuranceService,
+      InsuranceTypeService,
       DatePipe,
       PaymentMethodService,
       PaymentPlanService,

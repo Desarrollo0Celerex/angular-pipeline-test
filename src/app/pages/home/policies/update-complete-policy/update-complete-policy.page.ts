@@ -80,6 +80,11 @@ export class UpdateCompletePolicyPage implements OnInit {
         //this.updateCompletePolicyService.calculateBills();
     }
 
+    onChangeLoadInsuranceTypes(): void {
+        this.updateCompletePolicyService.f.insuranceTypeId.setValue(null);
+        this._loadInsuranceTypes();
+    }
+
     /**
      * Click event to show modal to select policy
      */
@@ -154,6 +159,23 @@ export class UpdateCompletePolicyPage implements OnInit {
     }
 
     /**
+     * Load the insurances
+     */
+    private _loadInsurances(): void {
+        this.updateCompletePolicyService.loadInsurances().subscribe(() => {
+            this._loadInsuranceTypes();
+        })
+    }
+
+    /**
+     * Load the insurance types
+     */
+    private _loadInsuranceTypes(): void {
+        const insuranceId: number = this.updateCompletePolicyService.f.insuranceId.value;
+        this.updateCompletePolicyService.loadInsuranceTypes(insuranceId);
+    }
+
+    /**
      * Load the payment methods
      */
     private _loadPaymentMethods(): void {
@@ -178,6 +200,8 @@ export class UpdateCompletePolicyPage implements OnInit {
             this.updateCompletePolicyService.buildPolicyForm(res.data);
             this._initCalendars();
             this._loadCurrencies();
+            this.updateCompletePolicyService.loadInsuers();
+            this._loadInsurances();
             this._loadPaymentMethods();
             this._loadPaymentPlans();
         })

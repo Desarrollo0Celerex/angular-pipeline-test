@@ -226,6 +226,10 @@ export const ROLES: any = {
     DATA_ANALYST: 7
 }
 
+export const CANCELLATION_REASONS: any = {
+    UPLOAD_ERROR: 7
+}
+
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;
 export const DEFAULT_COUNTRY_ID: number = 1;
