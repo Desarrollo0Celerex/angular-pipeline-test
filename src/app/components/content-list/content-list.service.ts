@@ -129,7 +129,6 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadContactPolicies(contactId: string, page: number, contentSubtype: number): Observable<void> {
-        console.log('paso 1');
         const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId,paymentId,policyCancellationReasonId';
         const filters: number [] = (contentSubtype === POLICY_STATUS_ACTIVE) ? [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED] : [contentSubtype];
         return this._policyService.getContactPolicies(contactId, page, fields, filters).pipe(

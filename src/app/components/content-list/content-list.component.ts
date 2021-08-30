@@ -264,7 +264,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     onDeletePolicy(policyId: string): void {
         this.selectedPolicyId = policyId;
-        console.log('this.selectedPolicyId: ',this.selectedPolicyId);
         ModalPlugin.show(this.modalIdConfirmDeleteCompletePolicy);
     }
 
