@@ -86,6 +86,12 @@ export const SINISTER_STATUS: any = {
     FINISHED: 5
 }
 export const SINISTER_STATUS_OPEN: number = 100;
+export const EXTERNAL_POLICY_STATUS: any = {
+    INCOMPLETE: 1,
+    CURRENT: 2,
+    EXPIRED: 3,
+    CANCELLED: 4
+}
 
 // Types
 export const CONTENT_TYPES: any = {

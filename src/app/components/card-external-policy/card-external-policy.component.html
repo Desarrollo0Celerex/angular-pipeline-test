@@ -1,0 +1,47 @@
+<div class="card" *ngIf="externalPolicy">
+    <div class="card-header">
+        <img [src]="externalPolicy.insurerImageUrl" width="38px">
+        <div class="card-options">
+            <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                <span class="fa fa-bars"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                <div class="dropdown-plus-title">Acciones Disponibles</div>
+                <button type="button" class="dropdown-item" (click)="_confirmUpdatePolicy()"><i class="fa fa-eye mr-2"></i>Validar</button>
+                <div class="dropdown-divider"></div>
+                <button type="button" class="dropdown-item" (click)="_showExternalPolicy()"><i class="fa fa-file-text-o mr-2"></i>Ver Póliza</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="d-flex clearfix">
+            <div class="text-left">
+                <ng-container *ngIf="!!externalPolicy.isChecked; else policyLoaded">
+                    <div class="badge badge-success-gradient mr-1 mb-3">{{externalPolicy.externalPolicyStatusName | uppercase}}</div>
+                    <span class="col-auto align-self-center">
+                        <span class="form-help" data-toggle="popover" data-placement="top" [attr.data-content]="externalPolicy.externalPolicyStatusDescription" data-original-title="">?</span>
+                    </span>
+                </ng-container>
+                <ng-template #policyLoaded>
+                    <div class="badge badge-primary-gradient mr-1 mb-3">CARGADA</div>
+                    <span class="col-auto align-self-center">
+                        <span class="form-help" data-toggle="popover" data-placement="top" data-content="Póliza externa cargada por el asegurado." data-original-title="">?</span>
+                    </span>
+                </ng-template>
+                <h6><span class="text-primary"><i class="fe fe-shield mr-2"></i></span>{{externalPolicy.insuranceName | uppercase}}</h6>
+                <h6><span class="text-primary"><i class="fe fe-credit-card mr-2">{{externalPolicy.paymentMethodName | uppercase}}</i></span></h6>
+                <h6><span class="text-primary"><i class="fe fe-globe mr-2"></i>{{externalPolicy.insuranceTypeName | uppercase}}</span></h6>
+            </div>
+            <div class="ml-auto">
+                <span class="{{externalPolicy.insuranceBackground}} icon-service"><i class="fa {{externalPolicy.insuranceIcon}} fs-2"></i></span>
+            </div>
+        </div>
+        <h6 class="mt-3">Prima Total ({{externalPolicy.currencyName}})</h6>
+        <h6 class="number-font">$<span class="counter">{{externalPolicy.policyAmount | currency: '': '': '0.2-2'}}</span></h6>
+        <h6 class="mb-2">{{externalPolicy.coveredProperty}}</h6>
+        <h6><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{externalPolicy.policyNumber}}</h6>
+        <div class="progress progress-sm mt-2">
+            <div class="progress-bar {{externalPolicy.insuranceBackground}}" [ngStyle]="{'width': externalPolicy.lifeTime+'%'}"></div>
+        </div>
+    </div>
+</div>

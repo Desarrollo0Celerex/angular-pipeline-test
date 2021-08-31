@@ -1,0 +1,20 @@
+export interface ExternalPolicy {
+    externalPolicyId: string,
+    isChecked: number,
+    policyUrl: string,
+    coveredProperty: string,
+    validityStartDate: string,
+    validityEndDate: string,
+    policyAmount: number,
+    policyNumber: string,
+    insurerImageUrl: string,
+    insuranceName: string,
+    insuranceIcon: string,
+    insuranceBackground: string,
+    paymentMethodName: string,
+    insuranceTypeName: string,
+    currencyName: string,
+    externalPolicyStatusName: string,
+    externalPolicyStatusDescription: string,
+    lifeTime: number
+}
