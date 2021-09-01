@@ -7,7 +7,14 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" role="menu">
                 <div class="dropdown-plus-title">Acciones Disponibles</div>
-                <button type="button" class="dropdown-item" (click)="_confirmUpdatePolicy()"><i class="fa fa-eye mr-2"></i>Validar</button>
+                <ng-container *ngIf="externalPolicy.externalPolicyStatusId !== externalPolicyStatusCancelled">
+                    <ng-container *ngIf="!!externalPolicy.isChecked; else updatePolicy">
+                        <button type="button" class="dropdown-item" (click)="_confirmUpdatePolicy()"><i class="fa fa-edit mr-2"></i>Actualizar</button>
+                    </ng-container>
+                    <ng-template #updatePolicy>
+                        <button type="button" class="dropdown-item" (click)="_confirmUpdatePolicy()"><i class="fa fa-eye mr-2"></i>Validar</button>
+                    </ng-template>
+                </ng-container>
                 <div class="dropdown-divider"></div>
                 <button type="button" class="dropdown-item" (click)="_showExternalPolicy()"><i class="fa fa-file-text-o mr-2"></i>Ver Póliza</button>
             </div>

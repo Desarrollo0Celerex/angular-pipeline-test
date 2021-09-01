@@ -7,11 +7,13 @@ import * as moment from 'moment';
 import { DEFAULT_PER_PAGE, EXTERNAL_POLICY_STATUS } from '@constants/global';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { UpdateExternalPolicyDataSend } from '@interfaces/update-external-policy-data-send.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     contactExternalPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/external-policies',
+    contactExternalPolicy: (workspaceId: string, contactId: string, externalPolicyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/external-policies/' + externalPolicyId,
 }
 
 @Injectable()
@@ -22,6 +24,25 @@ export class ExternalPolicyService {
         private _httpClient: HttpClient,
         private _authService: AuthService
     ) { }
+
+    /**
+     * Get the external policy
+     * @param  contactId        The contact ID
+     * @param  externalPolicyId The external policy ID
+     * @param  fields           The fields
+     * @return                  The external policy
+     */
+    getContactExternalPolicy(contactId: string, externalPolicyId: string, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactExternalPolicy(this._workspaceId, contactId, externalPolicyId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map( (res: HttpResponse) => {
+                const policy: Policy = (fields.includes('lifeTime')) ? this._calculatePolicyLifeTime(res.data) : res.data;
+                return { data: this._cleanObject(policy) };
+            })
+        );
+    }
 
     /**
      * Get the contact external policies from the API
@@ -49,6 +70,11 @@ export class ExternalPolicyService {
         )
     }
 
+    updateExternalPolicy(contactId: string, externalPolicyId: string, requestBody: UpdateExternalPolicyDataSend): Observable<void> {
+        const route: string = routes.contactExternalPolicy(this._workspaceId, contactId, externalPolicyId);
+        return this._httpClient.put<void>(route, requestBody);
+    }
+
     /**
      * Calculate the life time of the policy
      * @param  policy The policy to evaluate
@@ -70,6 +96,18 @@ export class ExternalPolicyService {
         }
         policy.lifeTime = percentage;
         return policy;
+    }
+
+    /**
+     * Clean object
+     * @param  object Object to clean
+     * @return        Cleaned object
+     */
+    private _cleanObject(object: any): any {
+        for(let key in object) {
+            object[key] = (object[key] === null) ? '' : object[key];
+        }
+        return object;
     }
 
     /**

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+import { EXTERNAL_POLICY_STATUS } from '@constants/global';
 import { ExternalPolicy } from '@interfaces/external-policy.interface';
 
 @Component({
@@ -8,20 +9,12 @@ import { ExternalPolicy } from '@interfaces/external-policy.interface';
   styles: [
   ]
 })
-export class CardExternalPolicyComponent implements OnInit {
+export class CardExternalPolicyComponent {
     @Input() externalPolicy: ExternalPolicy | null = null;
     @Output() showExternalPolicy: EventEmitter<string> = new EventEmitter<string>();
     @Output() confirmValidateExternalPolicy: EventEmitter<string> = new EventEmitter<string>();
     @Output() confirmUpdateExternalPolicy: EventEmitter<string> = new EventEmitter<string>();
-
-    constructor() { }
-
-    ngOnInit(): void {
-    }
-
-    confirmUpdatePolicy(): void {
-        console.log('Confirm update pólicy')
-    }
+    externalPolicyStatusCancelled: number = EXTERNAL_POLICY_STATUS.CANCELLED;
 
     _confirmUpdatePolicy(): void {
         if(!!this.externalPolicy) {

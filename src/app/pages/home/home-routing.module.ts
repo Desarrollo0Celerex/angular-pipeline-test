@@ -29,6 +29,9 @@ const routes: Routes = [
             // Error routes
             { path: ROUTES_NAME.accessDenied, loadChildren: () => import('@pages/home/errors/access-denied/access-denied.module').then(mod => mod.AccessDeniedModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
+            // External policies routes
+            { path: ROUTES_NAME.updateExternalPolicy(':contactId', ':externalPolicyId'), loadChildren: () => import('@pages/home/external-policies/update-external-policy/update-external-policy.module').then(mod => mod.UpdateExternalPolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+
             // Files routes
             { path: ROUTES_NAME.uploadContactFile(':contactId'), loadChildren: () => import('@pages/home/contact-files/upload-contact-file/upload-contact-file.module').then(mod => mod.UploadContactFileModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.updateContactFile(':contactId', ':contactFileId'), loadChildren: () => import('@pages/home/contact-files/update-contact-file/update-contact-file.module').then(mod => mod.UpdateContactFileModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
