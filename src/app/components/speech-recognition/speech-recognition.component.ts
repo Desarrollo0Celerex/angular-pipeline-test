@@ -138,8 +138,6 @@ export class SpeechRecognitionComponent implements OnInit {
     }
 
     private _commandNotFound(): void {
-        console.log('Comando no detectado!');
-        console.log('TEXTO RECONOCIDO: ',this._textRecognized);
         this._voiceControlService.showModalCommandNotFound(this._textRecognized);
     }
 }

@@ -48,6 +48,10 @@ const HOME_CONTACT_FILES_ROUTES = {
     updateContactFile: (contactId: string, contactFileId: string) => `workspace/files/upload-contact-file/${contactId}/${contactFileId}`,
 }
 
+const HOME_EXTERNAL_POLICIES_ROUTES = {
+    updateExternalPolicy: (contactId: string, externalPolicyId: string) => `workspace/external-policies/update-external-policy/${contactId}/${externalPolicyId}`
+}
+
 const HOME_INVITATIONS_ROUTES = {
     listInvitations: 'workspace/invitations/list-invitations'
 }
@@ -110,6 +114,7 @@ export const ROUTES_NAME = {
     ...HOME_DATA_ROUTES,
     ...HOME_ERRORS_ROUTES,
     ...HOME_CONTACT_FILES_ROUTES,
+    ...HOME_EXTERNAL_POLICIES_ROUTES,
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,
     ...HOME_PAYMENTS_ROUTES,

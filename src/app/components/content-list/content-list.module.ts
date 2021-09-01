@@ -14,6 +14,7 @@ import { CardReportedSinisterModule } from '@components/card-reported-sinister/c
 import { CardSinisterModule } from '@components/card-sinister/card-sinister.module';
 import { CardSinisterLogModule } from '@components/card-sinister-log/card-sinister-log.module';
 
+import { ContainerExternalPoliciesModule } from '@components/container-external-policies/container-external-policies.module';
 import { ContainerIncompletePoliciesModule } from '@components/container-incomplete-policies/container-incomplete-policies.module';
 import { ContentBackModule } from '@components/content-back/content-back.module';
 import { ContentResultsModule } from '@components/content-results/content-results.module';
@@ -89,6 +90,7 @@ import { ContentListService } from './content-list.service';
     CardSinisterModule,
     CardSinisterLogModule,
     CommonModule,
+    ContainerExternalPoliciesModule,
     ContainerIncompletePoliciesModule,
     ContentBackModule,
     ContentResultsModule,

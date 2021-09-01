@@ -1,3 +1,4 @@
+<agt-container-external-policies *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID" [contactId]="contactId" [policyStatusId]="contentSubtype" [policyStatusName]="contentSubtypeName"></agt-container-external-policies>
 <agt-container-incomplete-policies *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID" [contactId]="contactId" [contentTypeName]="contentTypeName" (policyDeleted)="onPolicyDeleted()" (showHistoryPolicy)="onShowHistoryPolicy($event)"></agt-container-incomplete-policies>
 
 <!-- AGENTHOS - CONTENT HEADER -->

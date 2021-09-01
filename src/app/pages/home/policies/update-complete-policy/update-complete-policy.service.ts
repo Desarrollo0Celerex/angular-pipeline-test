@@ -186,6 +186,10 @@ export class UpdateCompletePolicyService {
         );
     }
 
+    /**
+     * Load the insurance types
+     * @param insuranceId The insurance ID
+     */
     loadInsuranceTypes(insuranceId: number): void {
         this.insuranceTypes = [];
         const fields: string = 'insuranceTypeId,name';
