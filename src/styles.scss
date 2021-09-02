@@ -300,3 +300,16 @@
         max-width: 128px !important;
     }
 }
+
+/* Button active */
+.agt-button-active {
+    color: #FFF !important;
+    background: #FC427B !important;
+    border-color: #FC427B !important;
+}
+.agt-button-active:not(:disabled):not(.disabled):active:focus {
+    box-shadow: 0 0 0 2px rgb(253, 89, 27,0.9) !important;
+}
+.agt-button-active:focus {
+    box-shadow: 0 0 0 2px rgba(232, 67, 147,1.0) !important;
+}
