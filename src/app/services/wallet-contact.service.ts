@@ -10,7 +10,7 @@ import { UpdateWalletContactDataSend } from '@interfaces/update-wallet-contact-d
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
-    walletContacts: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallet-contacts',
+    walletContacts: (workspaceId: string, walletId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/' + walletId + '/wallet-contacts',
 }
 
 @Injectable()
@@ -27,8 +27,8 @@ export class WalletContactService {
      * @param  fields    The fields to get
      * @return           The wallet contacts
      */
-     getWalletContacts(fields: string = ''): Observable<WalletContact> {
-         const route: string = routes.walletContacts(this._workspaceId);
+     getWalletContacts(walletId: string, fields: string = ''): Observable<WalletContact> {
+         const route: string = routes.walletContacts(this._workspaceId, walletId);
          let params: HttpParams = new HttpParams();
          if(!!fields) params = params.append('fields', fields);
          return this._httpClient.get<HttpResponse>(route, {params}).pipe(
@@ -38,8 +38,8 @@ export class WalletContactService {
          );
      }
 
-     updateWalletContact(requestBody: UpdateWalletContactDataSend): Observable<void> {
-         const route: string = routes.walletContacts(this._workspaceId);
+     updateWalletContact(walletId: string, requestBody: UpdateWalletContactDataSend): Observable<void> {
+         const route: string = routes.walletContacts(this._workspaceId, walletId);
          return this._httpClient.put<void>(route, requestBody);
      }
 }

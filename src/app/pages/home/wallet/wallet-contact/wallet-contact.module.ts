@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone-code/dropdown-select-phone-code.module';
+import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { WalletContactService } from '@services/wallet-contact.service';
 
 import { WalletContactRoutingModule } from './wallet-contact-routing.module';
@@ -17,7 +18,8 @@ import { WalletContactPage } from './wallet-contact.page';
     WalletContactRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    DropdownSelectPhoneCodeModule
+    DropdownSelectPhoneCodeModule,
+    LoadingContentModule
   ],
   providers: [WalletContactService]
 })

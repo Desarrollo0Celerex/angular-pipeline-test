@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -16,10 +17,15 @@ import { WalletContactSService } from './wallet-contact-s.service';
 })
 export class WalletContactPage implements OnInit {
     private _isFormSubmitted: boolean = false;
+    private _walletId: string = '';
 
-    constructor(private _walletContactSService: WalletContactSService) { }
+    constructor(
+        private _activatedRoute: ActivatedRoute,
+        private _walletContactSService: WalletContactSService
+    ) { }
 
     ngOnInit(): void {
+        this._catchParams();
         this._loadWalletContacts();
     }
 
@@ -54,14 +60,18 @@ export class WalletContactPage implements OnInit {
     updateWalletContact(): void {
         this._isFormSubmitted = true;
         if(this.model.form.valid) {
-            this.model.updateWalletContact().subscribe(() => {
+            this.model.updateWalletContact(this._walletId).subscribe(() => {
                 AlertHelper.walletContactUpdated();
             })
         }
     }
 
+    private _catchParams(): void {
+        this._walletId = this._activatedRoute.snapshot.params.walletId;
+    }
+
     private _loadWalletContacts(): void {
-        this.model.loadWalletContacts().subscribe((res: WalletContact) => {
+        this.model.loadWalletContacts(this._walletId).subscribe((res: WalletContact) => {
             this.model.buildForm(res);
         })
     }

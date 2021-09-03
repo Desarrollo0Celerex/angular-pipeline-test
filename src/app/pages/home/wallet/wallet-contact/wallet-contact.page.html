@@ -5,7 +5,7 @@
             <i class="fe fe-credit-card mr-1 text-primary fs-30"></i>
         </div>
     </div>
-    <form *ngIf="model.isBuiltForm" [formGroup]="model.form" (submit)="updateWalletContact()">
+    <form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="updateWalletContact()">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
@@ -55,3 +55,7 @@
         </div>
     </form>
 </div>
+
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
+</ng-template>

@@ -26,9 +26,9 @@ export class WalletContactSService {
         return this.form.controls;
     }
 
-    loadWalletContacts(): Observable<WalletContact> {
+    loadWalletContacts(walletId: string): Observable<WalletContact> {
         const fields: string = '';
-        return this._walletContactService.getWalletContacts(fields);
+        return this._walletContactService.getWalletContacts(walletId, fields);
     }
 
     buildForm(walletContact: WalletContact): void {
@@ -47,8 +47,8 @@ export class WalletContactSService {
         this.isBuiltForm = true;
     }
 
-    updateWalletContact(): Observable<void> {
+    updateWalletContact(walletId: string): Observable<void> {
         const requestBody: UpdateWalletContactDataSend = this.form.value;
-        return this._walletContactService.updateWalletContact(requestBody);
+        return this._walletContactService.updateWalletContact(walletId, requestBody);
     }
 }
