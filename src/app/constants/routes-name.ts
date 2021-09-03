@@ -90,9 +90,10 @@ const HOME_SINISTERS_ROUTES = {
 
 
 const HOME_WALLET_ROUTES = {
-    walletResume: `workspace/wallet/resume`,
-    walletIdentity: `workspace/wallet/identity`,
-    walletContact: `workspace/wallet/contact`,
+    createWallet: `workspace/wallet/create`,
+    walletResume: (walletId: string) => `workspace/wallet/resume/${walletId}`,
+    walletIdentity: (walletId: string) => `workspace/wallet/identity/${walletId}`,
+    walletContact: (walletId: string) => `workspace/wallet/contact/${walletId}`,
 }
 
 const INVITATIONS_ROUTES = {

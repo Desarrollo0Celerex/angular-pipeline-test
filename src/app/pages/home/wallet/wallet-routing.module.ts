@@ -11,9 +11,9 @@ const routes: Routes = [{
     path: '',
     component: WalletLayout,
     children: [
-        { path: ROUTES_NAME.walletResume, loadChildren: () => import('@pages/home/wallet/wallet-resume/wallet-resume.module').then(mod => mod.WalletResumeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-        { path: ROUTES_NAME.walletIdentity, loadChildren: () => import('@pages/home/wallet/wallet-identity/wallet-identity.module').then(mod => mod.WalletIdentityModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-        { path: ROUTES_NAME.walletContact, loadChildren: () => import('@pages/home/wallet/wallet-contact/wallet-contact.module').then(mod => mod.WalletContactModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+        { path: ROUTES_NAME.walletResume(':walletId'), loadChildren: () => import('@pages/home/wallet/wallet-resume/wallet-resume.module').then(mod => mod.WalletResumeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+        { path: ROUTES_NAME.walletIdentity(':walletId'), loadChildren: () => import('@pages/home/wallet/wallet-identity/wallet-identity.module').then(mod => mod.WalletIdentityModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+        { path: ROUTES_NAME.walletContact(':walletId'), loadChildren: () => import('@pages/home/wallet/wallet-contact/wallet-contact.module').then(mod => mod.WalletContactModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
     ]
 }];
 

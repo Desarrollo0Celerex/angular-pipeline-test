@@ -1,0 +1,6 @@
+<ng-container *ngIf="isWalletIdLoaded; else loadingContent">
+    <button type="button" class="btn btn-block btn-primary" (click)="createWallet()"><strong>CREAR WALLET</strong></button>
+</ng-container>
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
+</ng-template>

@@ -67,6 +67,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.reactivateSinister(':contactId', ':policyId', ':sinisterId'), loadChildren: () => import('@pages/home/sinisters/reactivate-sinister/reactivate-sinister.module').then(mod => mod.ReactivateSinisterModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Wallet routes
+            { path: ROUTES_NAME.createWallet, loadChildren: () => import('@pages/home/wallet/create-wallet/create-wallet.module').then(mod => mod.CreateWalletModule) },
             { path: '', loadChildren: () => import('@pages/home/wallet/wallet.module').then(mod => mod.WalletModule) },
 
             // Searches routes

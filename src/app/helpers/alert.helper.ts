@@ -381,6 +381,18 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static walletCreated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Wallet creado',
+            text: 'La aplicación móvil se ha creado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static walletContactUpdated(): void {
         const alertData: Alert = {
             title: 'Datos Actualizados',

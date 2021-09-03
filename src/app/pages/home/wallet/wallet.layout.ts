@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 
@@ -8,6 +9,21 @@ import { ROUTES_NAME } from '@constants/routes-name';
   styles: [
   ]
 })
-export class WalletLayout {
+export class WalletLayout implements OnInit {
     ROUTES_NAME: any = ROUTES_NAME;
+    walletId: string = '';
+
+    constructor(private _activatedRoute: ActivatedRoute) { }
+
+    ngOnInit(): void {
+        this._catchParams();
+    }
+
+    private _catchParams(): void {
+        if(!!this._activatedRoute.firstChild) {
+            this._activatedRoute.firstChild.paramMap.subscribe((res: any) => {
+                this.walletId = res.get('walletId');
+            });
+        }
+    }
 }
