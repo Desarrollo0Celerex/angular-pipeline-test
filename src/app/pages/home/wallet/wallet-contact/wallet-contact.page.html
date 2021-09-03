@@ -1,1 +1,57 @@
-<p>wallet-contact works!</p>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Ficha de Contacto</h3>
+        <div class="card-options">
+            <i class="fe fe-credit-card mr-1 text-primary fs-30"></i>
+        </div>
+    </div>
+    <form *ngIf="model.isBuiltForm" [formGroup]="model.form" (submit)="updateWalletContact()">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label">Asesoría en Coberturas</label>
+                    <div class="input-group">
+                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.coveragesPhoneCode.value" (phoneCodeIdSelected)="phoneCodeIdSelected('coveragesPhoneCode', $event)"></agt-dropdown-select-phone-code>
+                        <input type="text" class="form-control {{getValidationClass('coveragesPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="coveragesPhoneNumber">
+                        <div class="invalid-feedback">{{getErrorMessage('coveragesPhoneNumber')}}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Cotizaciones y Renovaciones</label>
+                    <div class="input-group">
+                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.quotesPhoneCode.value" (phoneCodeIdSelected)="phoneCodeIdSelected('quotesPhoneCode', $event)"></agt-dropdown-select-phone-code>
+                        <input type="text" class="form-control {{getValidationClass('quotesPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="quotesPhoneNumber">
+                        <div class="invalid-feedback">{{getErrorMessage('quotesPhoneNumber')}}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Pagos y Cobranza</label>
+                    <div class="input-group">
+                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.paymentsPhoneCode.value" (phoneCodeIdSelected)="phoneCodeIdSelected('paymentsPhoneCode', $event)"></agt-dropdown-select-phone-code>
+                        <input type="text" class="form-control {{getValidationClass('paymentsPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="paymentsPhoneNumber">
+                        <div class="invalid-feedback">{{getErrorMessage('paymentsPhoneNumber')}}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Seguimiento a Siniestros</label>
+                    <div class="input-group">
+                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.sinistersPhoneCode.value" (phoneCodeIdSelected)="phoneCodeIdSelected('sinistersPhoneCode', $event)"></agt-dropdown-select-phone-code>
+                        <input type="text" class="form-control {{getValidationClass('sinistersPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="sinistersPhoneNumber">
+                        <div class="invalid-feedback">{{getErrorMessage('sinistersPhoneNumber')}}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Soporte a Usuarios</label>
+                    <div class="input-group">
+                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.supportPhoneCode.value" (phoneCodeIdSelected)="phoneCodeIdSelected('supportPhoneCode', $event)"></agt-dropdown-select-phone-code>
+                        <input type="text" class="form-control {{getValidationClass('supportPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="supportPhoneNumber">
+                        <div class="invalid-feedback">{{getErrorMessage('supportPhoneNumber')}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <button type="submit" class="btn btn-block btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
+        </div>
+    </form>
+</div>

@@ -381,6 +381,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static walletContactUpdated(): void {
+        const alertData: Alert = {
+            title: 'Datos Actualizados',
+            text: 'Los datos de contacto han sido actualizados con éxito.',
+            type: 'success',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static workspaceAvatarUploaded(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Imagen cargada',
