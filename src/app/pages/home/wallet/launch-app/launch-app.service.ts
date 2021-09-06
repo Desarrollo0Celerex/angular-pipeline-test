@@ -4,7 +4,7 @@ import { Wallet } from '@interfaces/wallet.interface';
 import { WalletService } from '@services/wallet.service';
 
 @Injectable()
-export class WalletResumeService {
+export class LaunchAppService {
     wallet: Wallet | null = null;
 
     constructor(private _walletService: WalletService) { }

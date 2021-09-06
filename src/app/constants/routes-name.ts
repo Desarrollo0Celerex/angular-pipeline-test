@@ -95,6 +95,7 @@ const HOME_WALLET_ROUTES = {
     walletIdentity: (walletId: string) => `workspace/wallet/identity/${walletId}`,
     walletContact: (walletId: string) => `workspace/wallet/contact/${walletId}`,
     walletColors: (walletId: string) => `workspace/wallet/colors/${walletId}`,
+    launchApp: (walletId: string) => `workspace/wallet/lounch/${walletId}`,
 }
 
 const INVITATIONS_ROUTES = {

@@ -1,0 +1,25 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Compartir App</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="text-justify"><strong>¿Deseas compartir la App?</strong></p>
+						<p class="text-justify">Se enviará un mensaje con el Link de Acceso por WhatsApp a los contactos que selecciones. <strong>Por favor confirma si deseas continuar</strong>.</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" name="agtCancelAction" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+				<a href="https://api.whatsapp.com/send?text=Hola,%20te%20invito%20a%20descargar%20el%20Wallet%20de%20Orp%20Seguros%20para%20que%20consultes%20tus%20p%C3%B3lizas%20vigentes,%20recibas%20notificaciones%20y%20reportes%20siniestros.%20Usa%20este%20link%20de%20acceso:%20{{url}}" target="_blank">
+				<button type="button" name="agtConfirmAction" class="btn btn-primary" (click)="closeModal()">CONFIRMAR</button></a>
+			</div>
+		</div>
+	</div>
+</div>
