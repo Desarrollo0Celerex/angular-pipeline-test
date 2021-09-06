@@ -8,5 +8,15 @@ export interface WalletContact {
     quotesPhoneCode: number,
     quotesPhoneNumber: string,
     sinistersPhoneCode: number,
-    sinistersPhoneNumber: string
+    sinistersPhoneNumber: string,
+    coveragesPhoneCodeWhatsapp: number,
+    coveragesPhoneNumberWhatsapp: string,
+    paymentsPhoneCodeWhatsapp: number,
+    paymentsPhoneNumberWhatsapp: string,
+    supportPhoneCodeWhatsapp: number,
+    supportPhoneNumberWhatsapp: string,
+    quotesPhoneCodeWhatsapp: number,
+    quotesPhoneNumberWhatsapp: string,
+    sinistersPhoneCodeWhatsapp: number,
+    sinistersPhoneNumberWhatsapp: string
 }

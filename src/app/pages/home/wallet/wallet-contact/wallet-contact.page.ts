@@ -5,8 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { WalletContact } from '@interfaces/wallet-contact.interface';
+import { LoadingService } from '@services/loading.service';
 
 import { WalletContactSService } from './wallet-contact-s.service';
+
+declare var ModalPlugin: any;
 
 @Component({
   selector: 'agt-wallet-contact',
@@ -16,11 +19,13 @@ import { WalletContactSService } from './wallet-contact-s.service';
   providers: [WalletContactSService]
 })
 export class WalletContactPage implements OnInit {
+    modalIdConfirmUpdateWallet: string = 'modal-confirm-update-wallet';
     private _isFormSubmitted: boolean = false;
     private _walletId: string = '';
 
     constructor(
         private _activatedRoute: ActivatedRoute,
+        private _loadingService: LoadingService,
         private _walletContactSService: WalletContactSService
     ) { }
 
@@ -57,13 +62,19 @@ export class WalletContactPage implements OnInit {
         this.model.form.patchValue({[field]: phoneCodeId});
     }
 
-    updateWalletContact(): void {
+    confirmUpdateWallet(): void {
         this._isFormSubmitted = true;
         if(this.model.form.valid) {
-            this.model.updateWalletContact(this._walletId).subscribe(() => {
-                AlertHelper.walletContactUpdated();
-            })
+            ModalPlugin.show(this.modalIdConfirmUpdateWallet);
         }
+    }
+
+    updateWallet(): void {
+        this._loadingService.show();
+        this.model.updateWalletContact(this._walletId).subscribe(() => {
+            this._loadingService.hide();
+            AlertHelper.walletUpdated();
+        })
     }
 
     private _catchParams(): void {

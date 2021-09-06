@@ -1,61 +1,269 @@
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Ficha de Contacto</h3>
-        <div class="card-options">
-            <i class="fe fe-credit-card mr-1 text-primary fs-30"></i>
+<form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="confirmUpdateWallet()">
+    <!-- AGENTHOS - APP CREATOR CONTACT CARD -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Asesorías en Coberturas</h3>
+            <div class="card-options">
+                <i class="fe fe-smartphone mr-1 text-primary fs-30"></i>
+            </div>
         </div>
-    </div>
-    <form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="updateWalletContact()">
         <div class="card-body">
+            <!-- AGENTHOS - APP CREATOR EJECTUTIVE CONTACT -->
             <div class="row">
+                <!-- AGENTHOS - APP CREATOR WHATSAPP CONTACT -->
                 <div class="col-md-6">
-                    <label class="form-label">Asesoría en Coberturas</label>
+                    <label class="form-label">Número de WhatsApp</label>
+                    <div class="input-group">
+                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.coveragesPhoneCodeWhatsapp.value" (phoneCodeIdSelected)="phoneCodeIdSelected('coveragesPhoneCodeWhatsapp', $event)"></agt-dropdown-select-phone-code>
+                        <!-- AGENTHOS - APP CONTACT NUMBER * -->
+                        <input type="text" class="form-control {{getValidationClass('coveragesPhoneNumberWhatsapp')}}" placeholder="Ingresa el número de contacto." formControlName="coveragesPhoneNumberWhatsapp">
+                        <div class="invalid-feedback">{{getErrorMessage('coveragesPhoneNumberWhatsapp')}}</div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR WHATSAPP CONTACT -->
+                <!-- AGENTHOS - APP CREATOR PHONE CONTACT -->
+                <div class="col-md-6">
+                    <label class="form-label">Número de Teléfono</label>
                     <div class="input-group">
                         <agt-dropdown-select-phone-code [phoneCodeId]="model.f.coveragesPhoneCode.value" (phoneCodeIdSelected)="phoneCodeIdSelected('coveragesPhoneCode', $event)"></agt-dropdown-select-phone-code>
-                        <input type="text" class="form-control {{getValidationClass('coveragesPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="coveragesPhoneNumber">
+                        <!-- AGENTHOS - APP CONTACT NUMBER * -->
+                        <input type="text" name="agtAgentPhoneNumber" class="form-control {{getValidationClass('coveragesPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="coveragesPhoneNumber">
                         <div class="invalid-feedback">{{getErrorMessage('coveragesPhoneNumber')}}</div>
                     </div>
                 </div>
+                <!-- //AGENTHOS - APP CREATOR PHONE CONTACT -->
+                <!-- AGENTHOS - APP CREATOR SECTION DETAILS -->
+                <div class="col-md-12 mt-3">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            Ingresa los canales de contacto para generar un enlace inmediato cuando los asegurados soliciten asesorías o ayuda con las coberturas de sus pólizas activas.
+                        </div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR SECTION DETAILS -->
+            </div>
+            <!-- //AGENTHOS - APP CREATOR NAME -->
+        </div>
+    </div>
+    <!-- //AGENTHOS - APP CREATOR CONTACT CARD -->
+
+    <!-- AGENTHOS - APP CREATOR CONTACT CARD -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Cotizaciones y Renovaciones</h3>
+            <div class="card-options">
+                <i class="fe fe-smartphone mr-1 text-primary fs-30"></i>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- AGENTHOS - APP CREATOR EJECTUTIVE CONTACT -->
+            <div class="row">
+                <!-- AGENTHOS - APP CREATOR WHATSAPP CONTACT -->
                 <div class="col-md-6">
-                    <label class="form-label">Cotizaciones y Renovaciones</label>
+                    <label class="form-label">Número de WhatsApp</label>
+                    <div class="input-group">
+                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.quotesPhoneCodeWhatsapp.value" (phoneCodeIdSelected)="phoneCodeIdSelected('quotesPhoneCodeWhatsapp', $event)"></agt-dropdown-select-phone-code>
+                        <!-- AGENTHOS - APP CONTACT NUMBER * -->
+                        <input type="text" name="agtAgentPhoneNumber" class="form-control {{getValidationClass('quotesPhoneNumberWhatsapp')}}" placeholder="Ingresa el número de contacto." formControlName="quotesPhoneNumberWhatsapp">
+                        <div class="invalid-feedback">{{getErrorMessage('quotesPhoneNumberWhatsapp')}}</div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR WHATSAPP CONTACT -->
+                <!-- AGENTHOS - APP CREATOR PHONE CONTACT -->
+                <div class="col-md-6">
+                    <label class="form-label">Número de Teléfono</label>
                     <div class="input-group">
                         <agt-dropdown-select-phone-code [phoneCodeId]="model.f.quotesPhoneCode.value" (phoneCodeIdSelected)="phoneCodeIdSelected('quotesPhoneCode', $event)"></agt-dropdown-select-phone-code>
-                        <input type="text" class="form-control {{getValidationClass('quotesPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="quotesPhoneNumber">
+                        <!-- AGENTHOS - APP CONTACT NUMBER * -->
+                        <input type="text" name="agtAgentPhoneNumber" class="form-control {{getValidationClass('quotesPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="quotesPhoneNumber">
                         <div class="invalid-feedback">{{getErrorMessage('quotesPhoneNumber')}}</div>
                     </div>
                 </div>
+                <!-- //AGENTHOS - APP CREATOR PHONE CONTACT -->
+                <!-- AGENTHOS - APP CREATOR SECTION DETAILS -->
+                <div class="col-md-12 mt-3">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            Ingresa los canales de contacto para generar un enlace inmediato cuando los asegurados soliciten cotizaciones nuevas o la renovación de sus pólizas activas.
+                        </div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR SECTION DETAILS -->
+            </div>
+            <!-- //AGENTHOS - APP CREATOR NAME -->
+        </div>
+    </div>
+    <!-- //AGENTHOS - APP CREATOR CONTACT CARD -->
+
+    <!-- AGENTHOS - APP CREATOR CONTACT CARD -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Pagos y Cobranza</h3>
+            <div class="card-options">
+                <i class="fe fe-smartphone mr-1 text-primary fs-30"></i>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- AGENTHOS - APP CREATOR EJECTUTIVE CONTACT -->
+            <div class="row">
+                <!-- AGENTHOS - APP CREATOR WHATSAPP CONTACT -->
                 <div class="col-md-6">
-                    <label class="form-label">Pagos y Cobranza</label>
+                    <label class="form-label">Número de WhatsApp</label>
+                    <div class="input-group">
+                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.paymentsPhoneCodeWhatsapp.value" (phoneCodeIdSelected)="phoneCodeIdSelected('paymentsPhoneCodeWhatsapp', $event)"></agt-dropdown-select-phone-code>
+                        <!-- AGENTHOS - APP CONTACT NUMBER * -->
+                        <input type="text" name="agtAgentPhoneNumber" class="form-control {{getValidationClass('paymentsPhoneNumberWhatsapp')}}" placeholder="Ingresa el número de contacto." formControlName="paymentsPhoneNumberWhatsapp">
+                        <div class="invalid-feedback">{{getErrorMessage('paymentsPhoneNumberWhatsapp')}}</div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR WHATSAPP CONTACT -->
+                <!-- AGENTHOS - APP CREATOR PHONE CONTACT -->
+                <div class="col-md-6">
+                    <label class="form-label">Número de Teléfono</label>
                     <div class="input-group">
                         <agt-dropdown-select-phone-code [phoneCodeId]="model.f.paymentsPhoneCode.value" (phoneCodeIdSelected)="phoneCodeIdSelected('paymentsPhoneCode', $event)"></agt-dropdown-select-phone-code>
-                        <input type="text" class="form-control {{getValidationClass('paymentsPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="paymentsPhoneNumber">
+                        <!-- AGENTHOS - APP CONTACT NUMBER * -->
+                        <input type="text" name="agtAgentPhoneNumber" class="form-control {{getValidationClass('paymentsPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="paymentsPhoneNumber">
                         <div class="invalid-feedback">{{getErrorMessage('paymentsPhoneNumber')}}</div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <label class="form-label">Seguimiento a Siniestros</label>
-                    <div class="input-group">
-                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.sinistersPhoneCode.value" (phoneCodeIdSelected)="phoneCodeIdSelected('sinistersPhoneCode', $event)"></agt-dropdown-select-phone-code>
-                        <input type="text" class="form-control {{getValidationClass('sinistersPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="sinistersPhoneNumber">
-                        <div class="invalid-feedback">{{getErrorMessage('sinistersPhoneNumber')}}</div>
+                <!-- //AGENTHOS - APP CREATOR PHONE CONTACT -->
+                <!-- AGENTHOS - APP CREATOR SECTION DETAILS -->
+                <div class="col-md-12 mt-3">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            Ingresa los canales de contacto para generar un enlace inmediato cuando los asegurados tengan dudas con los pagos de sus primas o quieran modificar planes de pago.
+                        </div>
                     </div>
                 </div>
+                <!-- //AGENTHOS - APP CREATOR SECTION DETAILS -->
+            </div>
+            <!-- //AGENTHOS - APP CREATOR NAME -->
+        </div>
+    </div>
+    <!-- //AGENTHOS - APP CREATOR CONTACT CARD -->
+
+    <!-- AGENTHOS - APP CREATOR CONTACT CARD -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Seguimiento a Siniestros</h3>
+            <div class="card-options">
+                <i class="fe fe-smartphone mr-1 text-primary fs-30"></i>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- AGENTHOS - APP CREATOR EJECTUTIVE CONTACT -->
+            <div class="row">
+                <!-- AGENTHOS - APP CREATOR WHATSAPP CONTACT -->
                 <div class="col-md-6">
-                    <label class="form-label">Soporte a Usuarios</label>
+                    <label class="form-label">Número de WhatsApp</label>
+                    <div class="input-group">
+                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.sinistersPhoneCodeWhatsapp.value" (phoneCodeIdSelected)="phoneCodeIdSelected('sinistersPhoneCodeWhatsapp', $event)"></agt-dropdown-select-phone-code>
+                        <!-- AGENTHOS - APP CONTACT NUMBER * -->
+                        <input type="text" name="agtAgentPhoneNumber" class="form-control {{getValidationClass('sinistersPhoneNumberWhatsapp')}}" placeholder="Ingresa el número de contacto." formControlName="sinistersPhoneNumberWhatsapp">
+                        <div class="invalid-feedback">{{getErrorMessage('sinistersPhoneNumberWhatsapp')}}</div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR WHATSAPP CONTACT -->
+                <!-- AGENTHOS - APP CREATOR PHONE CONTACT -->
+                <div class="col-md-6">
+                    <label class="form-label">Número de Teléfono</label>
+                    <div class="input-group">
+                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.sinistersPhoneCode.value" (phoneCodeIdSelected)="phoneCodeIdSelected('sinistersPhoneCode', $event)"></agt-dropdown-select-phone-code>
+                        <!-- AGENTHOS - APP CONTACT NUMBER * -->
+                        <input type="text" name="agtAgentPhoneNumber" class="form-control {{getValidationClass('sinistersPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="sinistersPhoneNumber">
+                        <div class="invalid-feedback">{{getErrorMessage('coveragesPhoneNumber')}}</div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR PHONE CONTACT -->
+                <!-- AGENTHOS - APP CREATOR SECTION DETAILS -->
+                <div class="col-md-12 mt-3">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            Ingresa los canales de contacto para generar un enlace inmediato cuando los asegurados soliciten apoyo con un siniestro abierto o deseen reportar un siniestro nuevo.
+                        </div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR SECTION DETAILS -->
+            </div>
+            <!-- //AGENTHOS - APP CREATOR NAME -->
+        </div>
+    </div>
+    <!-- //AGENTHOS - APP CREATOR CONTACT CARD -->
+
+    <!-- AGENTHOS - APP CREATOR CONTACT CARD -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Soporte a Usuarios</h3>
+            <div class="card-options">
+                <i class="fe fe-smartphone mr-1 text-primary fs-30"></i>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- AGENTHOS - APP CREATOR EJECTUTIVE CONTACT -->
+            <div class="row">
+                <!-- AGENTHOS - APP CREATOR WHATSAPP CONTACT -->
+                <div class="col-md-6">
+                    <label class="form-label">Número de WhatsApp</label>
+                    <div class="input-group">
+                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.supportPhoneCodeWhatsapp.value" (phoneCodeIdSelected)="phoneCodeIdSelected('supportPhoneCodeWhatsapp', $event)"></agt-dropdown-select-phone-code>
+                        <!-- AGENTHOS - APP CONTACT NUMBER * -->
+                        <input type="text" name="agtAgentPhoneNumber" class="form-control {{getValidationClass('supportPhoneNumberWhatsapp')}}" placeholder="Ingresa el número de contacto." formControlName="supportPhoneNumberWhatsapp">
+                        <div class="invalid-feedback">{{getErrorMessage('supportPhoneNumberWhatsapp')}}</div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR WHATSAPP CONTACT -->
+                <!-- AGENTHOS - APP CREATOR PHONE CONTACT -->
+                <div class="col-md-6">
+                    <label class="form-label">Número de Teléfono</label>
                     <div class="input-group">
                         <agt-dropdown-select-phone-code [phoneCodeId]="model.f.supportPhoneCode.value" (phoneCodeIdSelected)="phoneCodeIdSelected('supportPhoneCode', $event)"></agt-dropdown-select-phone-code>
-                        <input type="text" class="form-control {{getValidationClass('supportPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="supportPhoneNumber">
+                        <!-- AGENTHOS - APP CONTACT NUMBER * -->
+                        <input type="text" name="agtAgentPhoneNumber" class="form-control {{getValidationClass('supportPhoneNumber')}}" placeholder="Ingresa el número de contacto." formControlName="supportPhoneNumber">
                         <div class="invalid-feedback">{{getErrorMessage('supportPhoneNumber')}}</div>
                     </div>
                 </div>
+                <!-- //AGENTHOS - APP CREATOR PHONE CONTACT -->
+                <!-- AGENTHOS - APP CREATOR SECTION DETAILS -->
+                <div class="col-md-12 mt-3">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            Ingresa los canales de contacto para generar un enlace inmediato cuando los asegurados soliciten soporte o tengan dudas con el uso de la App.
+                        </div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR SECTION DETAILS -->
+            </div>
+            <!-- //AGENTHOS - APP CREATOR NAME -->
+        </div>
+    </div>
+    <!-- //AGENTHOS - APP CREATOR CONTACT CARD -->
+
+    <!-- AGENTHOS - APP CREATOR UPDATE -->
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-icon btn-block btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
+                </div>
             </div>
         </div>
-        <div class="card-footer text-center">
-            <button type="submit" class="btn btn-block btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
-        </div>
-    </form>
-</div>
+    </div>
+    <!-- //AGENTHOS - APP CREATOR UPDATE -->
+</form>
+
+<agt-modal-confirm-update-wallet [modalId]="modalIdConfirmUpdateWallet" (actionConfirmed)="updateWallet()"></agt-modal-confirm-update-wallet>
 
 <ng-template #loadingContent>
-    <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Asesorías en Coberturas</h3>
+            <div class="card-options">
+                <i class="fe fe-smartphone mr-1 text-primary fs-30"></i>
+            </div>
+        </div>
+        <div class="card-body">
+            <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
+        </div>
+    </div>
 </ng-template>

@@ -43,6 +43,16 @@ export class WalletContactSService {
             quotesPhoneNumber: [walletContact.quotesPhoneNumber, [Validators.required, ValidatorsHelper.phoneNumber]],
             sinistersPhoneCode: [(!!walletContact.sinistersPhoneCode) ? walletContact.sinistersPhoneCode : DEFAULT_PHONE_CODE_ID, [Validators.required]],
             sinistersPhoneNumber: [walletContact.sinistersPhoneNumber, [Validators.required, ValidatorsHelper.phoneNumber]],
+            coveragesPhoneCodeWhatsapp: [(!!walletContact.coveragesPhoneCodeWhatsapp) ? walletContact.coveragesPhoneCodeWhatsapp : DEFAULT_PHONE_CODE_ID, [Validators.required]],
+            coveragesPhoneNumberWhatsapp: [walletContact.coveragesPhoneNumberWhatsapp, [Validators.required, ValidatorsHelper.phoneNumber]],
+            paymentsPhoneCodeWhatsapp: [(!!walletContact.paymentsPhoneCodeWhatsapp) ? walletContact.paymentsPhoneCodeWhatsapp : DEFAULT_PHONE_CODE_ID, [Validators.required]],
+            paymentsPhoneNumberWhatsapp: [walletContact.paymentsPhoneNumberWhatsapp, [Validators.required, ValidatorsHelper.phoneNumber]],
+            supportPhoneCodeWhatsapp: [(!!walletContact.supportPhoneCodeWhatsapp) ? walletContact.supportPhoneCodeWhatsapp : DEFAULT_PHONE_CODE_ID, [Validators.required]],
+            supportPhoneNumberWhatsapp: [walletContact.supportPhoneNumberWhatsapp, [Validators.required, ValidatorsHelper.phoneNumber]],
+            quotesPhoneCodeWhatsapp: [(!!walletContact.quotesPhoneCodeWhatsapp) ? walletContact.quotesPhoneCodeWhatsapp : DEFAULT_PHONE_CODE_ID, [Validators.required]],
+            quotesPhoneNumberWhatsapp: [walletContact.quotesPhoneNumberWhatsapp, [Validators.required, ValidatorsHelper.phoneNumber]],
+            sinistersPhoneCodeWhatsapp: [(!!walletContact.sinistersPhoneCodeWhatsapp) ? walletContact.sinistersPhoneCodeWhatsapp : DEFAULT_PHONE_CODE_ID, [Validators.required]],
+            sinistersPhoneNumberWhatsapp: [walletContact.sinistersPhoneNumberWhatsapp, [Validators.required, ValidatorsHelper.phoneNumber]],
         });
         this.isBuiltForm = true;
     }
