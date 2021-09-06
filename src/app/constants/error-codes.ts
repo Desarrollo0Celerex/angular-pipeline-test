@@ -16,5 +16,6 @@ export const ERROR_CODES: any = {
     invalidExpressToken: 'InvalidExpressToken',
     contactNotFound: 'ContactNotFound',
     contactHasCoincidences: 'ContactHasCoincidences',
-    policyAlreadyExists: 'PolicyAlreadyExists'
+    policyAlreadyExists: 'PolicyAlreadyExists',
+    walletNotFound: 'WalletNotFound',
 }

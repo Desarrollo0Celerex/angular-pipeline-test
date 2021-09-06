@@ -1,0 +1,22 @@
+export interface WalletContact {
+    coveragesPhoneCode: number,
+    coveragesPhoneNumber: string,
+    paymentsPhoneCode: number,
+    paymentsPhoneNumber: string,
+    supportPhoneCode: number,
+    supportPhoneNumber: string,
+    quotesPhoneCode: number,
+    quotesPhoneNumber: string,
+    sinistersPhoneCode: number,
+    sinistersPhoneNumber: string,
+    coveragesPhoneCodeWhatsapp: number,
+    coveragesPhoneNumberWhatsapp: string,
+    paymentsPhoneCodeWhatsapp: number,
+    paymentsPhoneNumberWhatsapp: string,
+    supportPhoneCodeWhatsapp: number,
+    supportPhoneNumberWhatsapp: string,
+    quotesPhoneCodeWhatsapp: number,
+    quotesPhoneNumberWhatsapp: string,
+    sinistersPhoneCodeWhatsapp: number,
+    sinistersPhoneNumberWhatsapp: string
+}

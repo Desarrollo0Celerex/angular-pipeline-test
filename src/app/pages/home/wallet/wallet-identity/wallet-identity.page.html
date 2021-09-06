@@ -1,0 +1,60 @@
+<form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="confirmUpdateWallet()">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Detalles de la App</h3>
+            <div class="card-options">
+                <i class="fe fe-smartphone mr-1 text-primary fs-30"></i>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Nombre de la App</label>
+                        <input type="text" class="form-control {{getValidationClass('name')}}" placeholder="Ingresa el nombre de la app." formControlName="name">
+                        <div class="invalid-feedback">{{getErrorMessage('name')}}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">ID de la App</label>
+                        <input type="text" class="form-control {{getValidationClass('walletKey')}}" placeholder="Ingresa el identificador de la app." formControlName="walletKey">
+                        <div class="invalid-feedback">{{getErrorMessage('walletKey')}}</div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            Ingresa el nombre que se mostrará en los dispositivos de los asegurados. Debe ser conciso y no debe incluir emojis ni símbolos especiales. Sólo 15 carácteres.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-icon btn-block btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <agt-modal-confirm-update-wallet [modalId]="modalIdConfirmUpdateWallet" (actionConfirmed)="updateWallet()"></agt-modal-confirm-update-wallet>
+</form>
+
+<ng-template #loadingContent>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Detalles de la App</h3>
+            <div class="card-options">
+                <i class="fe fe-smartphone mr-1 text-primary fs-30"></i>
+            </div>
+        </div>
+        <div class="card-body">
+            <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
+        </div>
+    </div>
+</ng-template>

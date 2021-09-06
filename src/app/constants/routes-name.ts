@@ -88,6 +88,16 @@ const HOME_SINISTERS_ROUTES = {
     reactivateSinister: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/reactivate-sinister/${contactId}/${policyId}/${sinisterId}`
 }
 
+
+const HOME_WALLET_ROUTES = {
+    createWallet: `workspace/wallet/create`,
+    walletResume: (walletId: string) => `workspace/wallet/resume/${walletId}`,
+    walletIdentity: (walletId: string) => `workspace/wallet/identity/${walletId}`,
+    walletContact: (walletId: string) => `workspace/wallet/contact/${walletId}`,
+    walletColors: (walletId: string) => `workspace/wallet/colors/${walletId}`,
+    launchApp: (walletId: string) => `workspace/wallet/lounch/${walletId}`,
+}
+
 const INVITATIONS_ROUTES = {
     acceptInvitation: (invitationToken: string) => `invitations/accept-invitation/${invitationToken}`
 }
@@ -121,6 +131,7 @@ export const ROUTES_NAME = {
     ...HOME_POLICIES_ROUTES,
     ...HOME_QUOTATIONS_ROUTES,
     ...HOME_SINISTERS_ROUTES,
+    ...HOME_WALLET_ROUTES,
     ...INVITATIONS_ROUTES,
     ...SEARCHES_ROUTES,
     ...WORKSPACES_ROUTES
