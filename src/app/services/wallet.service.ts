@@ -67,4 +67,9 @@ export class WalletService {
          const route: string = routes.wallet(this._workspaceId, walletId);
          return this._httpClient.put<void>(route, requestBody);
      }
+
+     updateWalletTheme(walletId: string, requestBody: FormData): Observable<void> {
+         const route: string = routes.wallet(this._workspaceId, walletId);
+         return this._httpClient.post<void>(route, requestBody);
+     }
 }
