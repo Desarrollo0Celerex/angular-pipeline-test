@@ -1,1 +1,97 @@
-<p>wallet-resume works!</p>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Ficha de Resumen</h3>
+        <div class="card-options">
+            <i class="fe fe-smartphone mr-1 text-primary fs-30"></i>
+        </div>
+    </div>
+    <!-- AGENTHOS - APP CREATOR CONFIG -->
+    <div class="card-body" *ngIf="!!model.wallet; else loadingContent">
+        <!-- AGENTHOS - APP CREATOR COLOR -->
+        <div class="row">
+            <!-- AGENTHOS - APP CREATOR MOCKUP -->
+            <div class="col-md-6">
+                <div class="temp-wrapper">
+                  <div class="px">
+                    <div class="px__body">
+                      <div class="px__body__cut"></div>
+                      <div class="px__body__speaker"></div>
+                      <div class="px__body__sensor"></div>
+                      <div class="px__body__mute"></div>
+                      <div class="px__body__up"></div>
+                      <div class="px__body__down"></div>
+                      <div class="px__body__right"></div>
+                    </div>
+                    <div class="px__screen">
+                      <div class="px__screen__">
+                        <div class="px__screen__frame" [ngStyle]="{'background-image': model.wallet.themeId ? 'url(https://webkit.atombits.xyz/agenthos/mockups/agenthos_wallet_'+themeColors[model.wallet.themeId - 1].preview+'.png)' : ''}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - APP CREATOR MOCKUP -->
+            <!-- AGENTHOS - APP CREATOR RESUME -->
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <!-- AGENTHOS - APP CREATOR ACTUAL COLOR -->
+                    <div class="card-body">
+                        <div class="card-order">
+                            <h6 class="text-right">
+                                <!-- AGENTHOS - APP CREATOR - WALLET ICON -->
+                                <!-- (USE DEFAULT JUST IF NO APP ICON UPLOADED) -->
+                                <img class="avatar avatar-xxl bradius cover-image float-left" src="{{(!!model.wallet.iconsUrl) ? (model.wallet.iconsUrl+'96x96.png') : 'https://webkit.atombits.xyz/agenthos/app/agenthos_wallet_icon.png'}}">
+                                <!--<span class="avatar-status bg-green"></span>-->
+                                <!-- //AGENTHOS - APP CREATOR - WALLET ICON -->
+                                <!-- AGENTHOS - APP CREATOR WALLET NAME -->
+                                <strong>{{model.wallet.name}}</strong><br/>
+                            </h6>
+                            <p class="text-right">
+                                <ng-container *ngIf="!!model.wallet.walletKey">ID: {{model.wallet.walletKey}}<br/></ng-container>
+                                <!-- AGENTHOS - APP CREATOR - WALLET CREATED AT -->
+                                Publicada: {{model.wallet.createdAt | date: 'dd/MM/yyyy'}}<br/>
+                                <!-- AGENTHOS - APP CREATOR - WALLET LAST UPATE -->
+                                <ng-container *ngIf="!!model.wallet.updatedAt">Actualizada: {{model.wallet.updatedAt | date: 'dd/MM/yyyy'}}</ng-container>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - APP CREATOR ACTUAL COLOR -->
+                    <!-- AGENTHOS - APP CREATOR STATUS CARD -->
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                            <strong>1. Identidad</strong>
+                            <!-- AGENTHOS - APP CREATOR DETAILS STATUS -->
+                            <span class="badgetext badge badge-{{(!!model.wallet.name ? 'success' : 'danger')}} badge-pill">{{(!!model.wallet.name ? 'Completado' : 'Incompleto')}}</span>
+                            </li>
+                            <!-- AGENTHOS - APP CREATOR COLOR STATUS -->
+                            <li class="list-group-item">
+                            <strong>2. Colores</strong>
+                            <span class="badgetext badge badge-{{(!!model.wallet.iconsUrl ? 'success' : 'danger')}} badge-pill">{{(!!model.wallet.iconsUrl ? 'Completado' : 'Incompleto')}}</span>
+                            </li>
+                            <!-- AGENTHOS - APP CREATOR CONTACT STATUS -->
+                            <li class="list-group-item">
+                            <strong>3. Contacto</strong>
+                            <span class="badgetext badge badge-{{(!!model.wallet.coveragesPhoneNumberWhatsapp ? 'success' : 'danger')}} badge-pill">{{(!!model.wallet.coveragesPhoneNumberWhatsapp ? 'Completado' : 'Incompleto')}}</span>
+                            </li>
+                            <!-- AGENTHOS - APP CREATOR CHATBOT STATUS -->
+                            <li class="list-group-item">
+                            <strong>4. Chatbot</strong>
+                            <span class="badgetext badge badge-default badge-pill">Muy Pronto</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- //AGENTHOS - APP CREATOR STATUS CARD -->
+                </div>
+            </div>
+            <!-- //AGENTHOS - APP CREATOR RESUME -->
+        </div>
+        <!-- //AGENTHOS - APP CREATOR COLOR -->
+    </div>
+    <!-- //AGENTHOS - APP CREATOR CONFIG -->
+</div>
+
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
+</ng-template>

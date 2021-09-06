@@ -393,6 +393,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static walletUpdated(): void {
+        const alertData: Alert = {
+            title: 'App Actualizada',
+            text: 'La App se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static walletContactUpdated(): void {
         const alertData: Alert = {
             title: 'Datos Actualizados',

@@ -206,6 +206,20 @@ export class ValidatorsHelper {
     }
 
     /**
+     * Validate an alphanumeric
+     * @param  control The control to evaluate
+     * @return         Error object if validation failed, otherwise null.
+     */
+    static username(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^[a-z0-9-]*$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {alphanumeric: true} : null;
+        }
+        return null;
+    }
+
+    /**
      * Validate a web link
      * @param  control The control to evaluate
      * @return         Error object if validation failed, otherwise null.

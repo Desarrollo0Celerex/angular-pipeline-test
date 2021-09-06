@@ -7,6 +7,8 @@ import { LoadingService } from '@services/loading.service';
 
 import { CreateWalletService } from './create-wallet.service';
 
+declare var ModalPlugin: any;
+
 @Component({
   selector: 'agt-create-wallet',
   templateUrl: './create-wallet.page.html',
@@ -16,6 +18,7 @@ import { CreateWalletService } from './create-wallet.service';
 })
 export class CreateWalletPage implements OnInit {
     isWalletIdLoaded: boolean = false;
+    modalIdConfirmCreateWallet: string = 'modal-confirm-create-wallet';
     private _walletId: string = '';
 
     constructor(
@@ -32,12 +35,15 @@ export class CreateWalletPage implements OnInit {
         return this._createWalletService;
     }
 
+    confirmCreateWallet(): void {
+        ModalPlugin.show(this.modalIdConfirmCreateWallet);
+    }
+
     createWallet(): void {
         this._loadingService.show();
         this.model.createWallet().subscribe((walletId: string) => {
             this._loadingService.hide();
-            this._walletId = walletId;
-            AlertHelper.walletCreated(this._goToWalletIdentity, this);
+            this._router.navigateByUrl(ROUTES_NAME.walletIdentity(walletId));
         });
     }
 

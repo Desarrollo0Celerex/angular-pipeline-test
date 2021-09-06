@@ -5,12 +5,14 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { UpdateWalletDataSend } from '@interfaces/update-wallet-data-send.interface';
 import { Wallet } from '@interfaces/wallet.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     walletId: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallet-id',
     wallets: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets',
+    wallet: (workspaceId: string, walletId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/' + walletId,
 }
 
 @Injectable()
@@ -45,12 +47,13 @@ export class WalletService {
      }
 
     /**
-     * Get the wallet contacts
+     * Get the wallet
+     * @param  walletId  The wallet ID
      * @param  fields    The fields to get
      * @return           The wallet contacts
      */
-     getWallet(fields: string = ''): Observable<Wallet> {
-         const route: string = routes.wallets(this._workspaceId);
+     getWallet(walletId: string, fields: string = ''): Observable<Wallet> {
+         const route: string = routes.wallet(this._workspaceId, walletId);
          let params: HttpParams = new HttpParams();
          if(!!fields) params = params.append('fields', fields);
          return this._httpClient.get<HttpResponse>(route, {params}).pipe(
@@ -58,5 +61,10 @@ export class WalletService {
                  return res.data;
              })
          );
+     }
+
+     updateWallet(walletId: string, requestBody: UpdateWalletDataSend): Observable<void> {
+         const route: string = routes.wallet(this._workspaceId, walletId);
+         return this._httpClient.put<void>(route, requestBody);
      }
 }

@@ -1,5 +1,95 @@
 <ng-container *ngIf="isWalletIdLoaded; else loadingContent">
-    <button type="button" class="btn btn-block btn-primary" (click)="createWallet()"><strong>CREAR WALLET</strong></button>
+    <div class="row">
+        <!-- AGENTHOS - APP CREATOR PREVIEW -->
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">App Desactivada</h3>
+                    <div class="card-options">
+                        <i class="fe fe-settings text-primary fs-30"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="temp-wrapper">
+                      <div class="px">
+                        <div class="px__body">
+                          <div class="px__body__cut"></div>
+                          <div class="px__body__speaker"></div>
+                          <div class="px__body__sensor"></div>
+                          <div class="px__body__mute"></div>
+                          <div class="px__body__up"></div>
+                          <div class="px__body__down"></div>
+                          <div class="px__body__right"></div>
+                        </div>
+                        <div class="px__screen">
+                          <div class="px__screen__">
+                            <div class="px__screen__frame">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - APP CREATOR PREVIEW -->
+        <!-- AGENTHOS - APP CREATOR ACTIVATE -->
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Activar App</h3>
+                    <div class="card-options">
+                        <i class="fe fe-smartphone mr-1 text-primary fs-30"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    Activa la App para que los asegurados puedan consultar sus pólizas, recibir notificaciones y reportar siniestros. Te damos el poder de crear tu propia App de seguros.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xl-4">
+                            <div class="card shadow">
+                                <div class="card-body text-center">
+                                    <i class="fa fa-mobile text-primary fa-3x"></i>
+                                    <h6 class="mt-4 mb-2">Nombre</h6>
+                                    <p class="text-muted">Ingresa un nombre para publicar la App.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xl-4">
+                            <div class="card shadow">
+                                <div class="card-body text-center">
+                                    <i class="fa fa-photo text-primary fa-3x"></i>
+                                    <h6 class="mt-4 mb-2">Colores</h6>
+                                    <p class="text-muted">Personaliza los colores y diseño de la App.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xl-4">
+                            <div class="card shadow">
+                                <div class="card-body text-center">
+                                    <i class="fa fa-whatsapp text-primary fa-3x"></i>
+                                    <h6 class="mt-4 mb-2">Contacto</h6>
+                                    <p class="text-muted">Agrega canales de soporte para la App.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button type="button" class="btn btn-block btn-primary" (click)="confirmCreateWallet()"><strong>ACTIVAR APP</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <agt-modal-confirm-create-wallet [modalId]="modalIdConfirmCreateWallet" (actionConfirmed)="createWallet()"></agt-modal-confirm-create-wallet>
 </ng-container>
 <ng-template #loadingContent>
     <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
