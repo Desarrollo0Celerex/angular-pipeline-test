@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { WalletContact } from '@interfaces/wallet-contact.interface';
@@ -26,6 +27,7 @@ export class WalletContactPage implements OnInit {
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
+        private _router: Router,
         private _walletContactSService: WalletContactSService
     ) { }
 
@@ -73,7 +75,7 @@ export class WalletContactPage implements OnInit {
         this._loadingService.show();
         this.model.updateWalletContact(this._walletId).subscribe(() => {
             this._loadingService.hide();
-            AlertHelper.walletUpdated();
+            AlertHelper.walletUpdated(this._reloadPage, this);
         })
     }
 
@@ -85,6 +87,12 @@ export class WalletContactPage implements OnInit {
         this.model.loadWalletContacts(this._walletId).subscribe((res: WalletContact) => {
             this.model.buildForm(res);
         })
+    }
+
+    private _reloadPage(context: WalletContactPage): void {
+        context._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        context._router.onSameUrlNavigation = 'reload';
+        context._router.navigate(['/' + ROUTES_NAME.walletResume(context._walletId)], { relativeTo: context._activatedRoute });
     }
 
 }

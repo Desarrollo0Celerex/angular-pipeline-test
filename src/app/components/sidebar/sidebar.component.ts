@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 
@@ -12,18 +11,14 @@ import { SidebarService } from './sidebar.service';
   ]
 })
 export class SidebarComponent implements OnInit {
+    ROUTES_NAME: any = ROUTES_NAME;
 
     constructor(
-        public sidebarService: SidebarService,
-        private _router: Router
+        public sidebarService: SidebarService
     ) { }
 
     ngOnInit(): void {
         this.sidebarService.loadWorkspace();
-    }
-
-    onClickGoInvitations(): void {
-        this._router.navigateByUrl(ROUTES_NAME.listInvitations);
     }
 
 }

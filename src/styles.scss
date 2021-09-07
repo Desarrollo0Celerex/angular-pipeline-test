@@ -304,6 +304,14 @@ body {
         max-width: 128px !important;
     }
 }
+.agt-container-qr {
+    .qrcode {
+        img {
+            width: 210px !important;
+            max-width: 100% !important;
+        }
+    }
+}
 
 /* Button active */
 .agt-button-active {

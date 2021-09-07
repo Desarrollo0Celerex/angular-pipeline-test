@@ -90,7 +90,7 @@
     </div>
     <!-- //AGENTHOS - APP CREATOR ACTIVATE -->
 
-    <agt-modal-confirm-share-app [modalId]="modalIdConfirmShareApp" url="https://wallet.agenthos.com/{{model.wallet.walletKey}}"></agt-modal-confirm-share-app>
+    <agt-modal-confirm-share-app [modalId]="modalIdConfirmShareApp" [walletName]="model.wallet.name" url="https://wallet.agenthos.com/{{model.wallet.walletKey}}"></agt-modal-confirm-share-app>
 </div>
 
 <ng-template #loadingContent>

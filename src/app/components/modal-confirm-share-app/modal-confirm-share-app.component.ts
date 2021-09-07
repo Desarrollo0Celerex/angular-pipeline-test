@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
 export class ModalConfirmShareAppComponent implements OnInit {
     @Input() url: string = '';
     @Input() modalId: string = '';
+    @Input() walletName: string = '';
 
     constructor() { }
 

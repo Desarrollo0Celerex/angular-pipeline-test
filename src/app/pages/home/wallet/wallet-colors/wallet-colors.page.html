@@ -11,7 +11,7 @@
                 <div class="col-md-6">
                     <div class="card shadow">
                         <div class="card-body {{getValidationClass('icon')}}">
-                            <input type="file" class="dropify" accept="image/x-png;image/jpeg" data-height="140" (change)="selectLogo($event)"/>
+                            <input type="file" class="dropify" accept="image/x-png;image/jpeg" data-height="140" (change)="selectLogo($event)" [attr.data-default-file]="iconsUrl"/>
                         </div>
                         <div class="invalid-feedback">{{getErrorMessage('icon')}}</div>
                     </div>

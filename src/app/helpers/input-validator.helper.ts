@@ -11,7 +11,7 @@ export class InputValidatorHelper {
     static getValidationClass(control: AbstractControl | null, isFormSubmitted: boolean): string {
         let validationClass: string = '';
         if(control !== null) {
-            const validators = control.validator!( {} as AbstractControl);
+            const validators = (control.validator) ? control.validator!( {} as AbstractControl) : null;
             // If the field is not required
             if((validators === null || (validators !== null && typeof validators.required == 'undefined') ) && control.value === '') {
                 validationClass = '';

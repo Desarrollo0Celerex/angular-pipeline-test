@@ -30,8 +30,8 @@ export class WalletIdentityService {
 
     buildForm(wallet: Wallet): void {
         this.form = this._formBuilder.group({
-            name: [wallet.name, [Validators.required, Validators.minLength(3), Validators.maxLength(15), ValidatorsHelper.brandName]],
-            walletKey: [wallet.walletKey, [Validators.required, Validators.minLength(3), Validators.maxLength(15), ValidatorsHelper.username]],
+            name: [(!!wallet.name) ? wallet.name : '', [Validators.required, Validators.minLength(3), Validators.maxLength(15), ValidatorsHelper.brandName]],
+            walletKey: [{ value: (!!wallet.walletKey) ? wallet.walletKey : '', disabled: (!!wallet.walletKey) ? true : false }, [Validators.required, Validators.minLength(3), Validators.maxLength(15), ValidatorsHelper.username]],
         })
         this.isBuiltForm = true;
     }

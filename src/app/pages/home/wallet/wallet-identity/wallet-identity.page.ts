@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
+import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Wallet } from '@interfaces/wallet.interface';
@@ -74,7 +75,8 @@ export class WalletIdentityPage implements OnInit {
         this._loadingService.show();
         this.model.updateWallet(this.walletId).subscribe(() => {
             this._loadingService.hide();
-            AlertHelper.walletUpdated();
+            this.model.form.controls['walletKey'].disable();
+            AlertHelper.walletUpdated(this._reloadPage, this);
         });
     }
 
@@ -86,5 +88,11 @@ export class WalletIdentityPage implements OnInit {
         this.model.loadWallet(this.walletId).subscribe((wallet: Wallet) => {
             this.model.buildForm(wallet);
         })
+    }
+
+    private _reloadPage(context: WalletIdentityPage): void {
+        context._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        context._router.onSameUrlNavigation = 'reload';
+        context._router.navigate(['/' + ROUTES_NAME.walletResume(context.walletId)], { relativeTo: context._activatedRoute });
     }
 }

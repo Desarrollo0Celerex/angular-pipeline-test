@@ -24,7 +24,7 @@
                 </a>
                 <button type="button" name="agtAppCreatorChatbot" class="btn btn-block btn-primary mt-3" disabled=""><strong>FICHA DE CHATBOT</strong></button>
             </div>
-            <div class="card-footer text-center">
+            <div class="card-footer text-center" *ngIf="!!model.wallet && !!model.wallet.name && !!model.wallet.iconsUrl && !!model.wallet.coveragesPhoneNumberWhatsapp">
                 <a [routerLink]="ROUTES_NAME.launchApp(walletId)">
                     <button type="button" class="btn btn-block btn-success"><strong>PUBLICAR APP</strong></button>
                 </a>

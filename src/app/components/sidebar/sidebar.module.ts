@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { WorkspaceService } from '@services/workspace.service';
 
@@ -10,7 +11,8 @@ import { SidebarService } from './sidebar.service';
   declarations: [SidebarComponent],
   exports: [SidebarComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   providers: [SidebarService, WorkspaceService]
 })
