@@ -25,7 +25,7 @@ export class WalletColorsService {
 
     buildForm(wallet: Wallet): void {
         this.form = this._formBuilder.group({
-            icon: ['', [Validators.required]],
+            icon: (!!wallet.iconsUrl) ? [''] : ['', [Validators.required]],
             themeId: [(wallet.themeId) ? wallet.themeId : '1', [Validators.required]]
         })
         this.isBuiltForm = true;

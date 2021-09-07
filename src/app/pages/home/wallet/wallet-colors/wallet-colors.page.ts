@@ -35,6 +35,7 @@ export class WalletColorsPage implements OnInit {
     ];
     selectedColorName: string = '';
     modalIdConfirmUpdateWallet: string = 'modal-confirm-update-wallet';
+    iconsUrl: string = '';
     private _isFormSubmitted: boolean = false;
     private _allowedFileTypes: string[] = ['png', 'jpg', 'jpeg'];
 
@@ -102,7 +103,7 @@ export class WalletColorsPage implements OnInit {
         this._loadingService.show();
         this.model.updateWallet(this.walletId).subscribe(() => {
             this._loadingService.hide();
-            AlertHelper.walletUpdated();
+            AlertHelper.walletUpdated(this._reloadPage, this);
         });
     }
 
@@ -112,6 +113,7 @@ export class WalletColorsPage implements OnInit {
 
     private _loadWallet(): void {
         this.model.loadWallet(this.walletId).subscribe((wallet: Wallet) => {
+            this.iconsUrl = (!!wallet.iconsUrl) ? wallet.iconsUrl + '384x384.png' : '';
             this.model.buildForm(wallet);
             this.selectTheme(parseInt(this.model.f.themeId.value));
             setTimeout(() => {
@@ -134,6 +136,12 @@ export class WalletColorsPage implements OnInit {
                 selectedCheckbox.checked = true;
             }
         },0);
+    }
+
+    private _reloadPage(context: WalletColorsPage): void {
+        context._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        context._router.onSameUrlNavigation = 'reload';
+        context._router.navigate(['/' + ROUTES_NAME.walletResume(context.walletId)], { relativeTo: context._activatedRoute });
     }
 
 }
