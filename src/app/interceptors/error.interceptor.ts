@@ -68,8 +68,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 break;
 
             case ERROR_CODES.invalidUserToken:
-                AlertHelper.invalidUserToken();
-                this._authService.logout();
+                this._authService.logout(true);
                 break;
 
             case ERROR_CODES.invalidFields:

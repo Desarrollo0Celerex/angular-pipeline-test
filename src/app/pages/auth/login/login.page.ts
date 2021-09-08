@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { environment } from '@env/environment';
 import { ROUTES_NAME } from '@constants/routes-name';
 
 import { LoginService } from './login.service';
@@ -23,22 +22,8 @@ export class LoginPage implements OnInit {
         if(this._loginService.checkIsLoggedIn()) {
             this._router.navigateByUrl(ROUTES_NAME.dashboard);
         } else {
-            this._redirectToAtomAccountLogin();
+            this._loginService.goToAtomAccount();
         }
-    }
-
-    /**
-     * Redirect to Atom Account login
-     */
-    private _redirectToAtomAccountLogin(): void {
-        const atomAccountLoginUrl: string = `${environment.atomAccountUrl}/auth/identifier`;
-        const returnUrl: string = `${environment.appAgenthosUrl}/auth/identify-user`;
-        let loginUrl = `${atomAccountLoginUrl}?serviceName=Agenthos&returnUrl=${returnUrl}`;
-        const redirectUrl: string = this._loginService.getRedirectUrl();
-        if(!!redirectUrl) {
-            loginUrl += `&redirectUrl=${redirectUrl}`;
-        }
-        window.location.href = loginUrl;
     }
 
 }
