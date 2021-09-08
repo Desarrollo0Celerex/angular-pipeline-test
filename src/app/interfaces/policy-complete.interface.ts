@@ -33,5 +33,6 @@ export interface PolicyComplete {
     totalEndorsements: number,
     monthsPaid: number;
     receiptsPaid: number;
-    lifeTime: number
+    lifeTime: number,
+    totalSinisters: number
 }
