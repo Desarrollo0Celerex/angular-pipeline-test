@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 
 import { AuthService } from '@services/auth.service';
-import { RoutingHistoryService } from '@services/routing-history.service';
 
 @Injectable()
 export class LoginService {
 
     constructor(
-        private _authService: AuthService,
-        private _routingHistoryService: RoutingHistoryService
+        private _authService: AuthService
     ) { }
 
     /**
@@ -20,10 +18,9 @@ export class LoginService {
     }
 
     /**
-     * Get the redirect url
-     * @return Redirect url
+     * Go to Atom account login
      */
-    getRedirectUrl(): string {
-        return (this._routingHistoryService.getPreviousUrl() !== '/') ? this._routingHistoryService.getPreviousUrl() : '';
+    goToAtomAccount(): void {
+        this._authService.goToAtomAccount();
     }
 }

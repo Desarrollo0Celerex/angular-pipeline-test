@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { ROUTES_NAME } from '@constants/routes-name';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { UserTokenData } from '@interfaces/user-token-data.interface';
 import { FirebaseService } from '@services/firebase.service';
 import { JwtService } from '@services/jwt.service';
 import { StorageService } from '@services/storage.service';
+import { RoutingHistoryService } from '@services/routing-history.service';
 
 const ROUTES = {
     users: environment.apiUrl + '/users'
@@ -25,7 +25,8 @@ export class AuthService {
         private _httpClient: HttpClient,
         private _jwtService: JwtService,
         private _router: Router,
-        private _storageService: StorageService
+        private _storageService: StorageService,
+        private _routingHistoryService: RoutingHistoryService
     ) { }
 
     /**
@@ -93,6 +94,20 @@ export class AuthService {
     }
 
     /**
+     * Navigate to Atom Account login
+     */
+    goToAtomAccount(): void {
+        const atomAccountLoginUrl: string = `${environment.atomAccountUrl}/auth/identifier`;
+        const returnUrl: string = `${environment.appAgenthosUrl}/auth/identify-user`;
+        let loginUrl = `${atomAccountLoginUrl}?serviceName=Agenthos&returnUrl=${returnUrl}`;
+        const redirectUrl: string = this._getRedirectUrl();
+        if(!!redirectUrl) {
+            loginUrl += `&redirectUrl=${redirectUrl}`;
+        }
+        window.location.href = loginUrl;
+    }
+
+    /**
      * Identifies the user
      * @param  requestBody Request body
      * @return             Access token
@@ -105,10 +120,14 @@ export class AuthService {
     /**
      * Logout
      */
-    logout(): void {
+    logout(restartSession: boolean = false): void {
         this._storageService.clearStorage();
         this._firebaseService.exitFirebase();
-        this._router.navigateByUrl(ROUTES_NAME.notAuthenticated);
+        if(restartSession) {
+            this.goToAtomAccount();
+        } else {
+            this._goToAgenthos();
+        }
     }
 
     /**
@@ -121,6 +140,18 @@ export class AuthService {
         this._storageService.saveUserToken(userToken);
         this._storageService.saveUserTokenData(userTokenData);
         return userTokenData;
+    }
+
+    private _goToAgenthos(): void {
+        window.location.href = environment.agenthosUrl;
+    }
+
+    /**
+     * Get the redirect url
+     * @return Redirect url
+     */
+    private _getRedirectUrl(): string {
+        return (this._routingHistoryService.getPreviousUrl() !== '/') ? this._routingHistoryService.getPreviousUrl() : '';
     }
 
 }

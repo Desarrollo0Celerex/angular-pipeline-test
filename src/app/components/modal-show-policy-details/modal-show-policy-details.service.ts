@@ -21,10 +21,6 @@ export class ModalShowPolicyDetailsService {
         const fields: string = 'policyNumber,totalAmount,totalAmountPaid,bills,emissionDate,validityStartDate,validityEndDate,totalSinisters,totalEndorsements';
         this._policyService.getContactPolicy(contactId, policyId, fields).subscribe( (res: HttpResponse) => {
             this.policyDetails = res.data;
-            // TODO: Obtener total de siniestros
-            this.policyDetails.totalSinisters = '0';
-            // TODO: Obtener total de endosos
-            this.policyDetails.totalEndorsements = '0';
         })
     }
 

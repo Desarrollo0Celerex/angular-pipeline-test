@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import * as moment from 'moment';
 
 import { CreateSinister } from '@interfaces/create-sinister.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -50,11 +51,11 @@ export class ModalCreateSinisterService {
      */
     private _buildSinisterForm(): FormGroup {
         return this._formBuilder.group({
-            sinisterNumber: ['', [Validators.required, ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
-            invoice: ['', [Validators.required, ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
-            certificate: ['', [Validators.required, ValidatorsHelper.alphanumeric, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX)]],
+            sinisterNumber: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
+            invoice: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
+            certificate: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX)]],
             sinisterTypeId: ['', [Validators.required]],
-            sinisterDate: ['', [Validators.required, ValidatorsHelper.date]]
+            sinisterDate: [moment().format('DD/MM/YYYY'), [Validators.required, ValidatorsHelper.date]]
         });
     }
 }
