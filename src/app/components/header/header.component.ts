@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ROUTES_NAME } from '@constants/routes-name';
+import { environment } from '@env/environment';
 
 import { HeaderService } from './header.service';
 
 declare var ParticlesPlugin: any;
+declare var ScreenPlugin: any;
 
 @Component({
   selector: 'agt-header',
@@ -14,6 +16,7 @@ declare var ParticlesPlugin: any;
 })
 export class HeaderComponent implements OnInit {
     ROUTES_NAME: any;
+    atomAccountUrl: string = environment.atomAccountUrl;
 
     constructor(
         public headerService: HeaderService
@@ -31,6 +34,10 @@ export class HeaderComponent implements OnInit {
      */
     onClickLogout(): void {
         this.headerService.logout();
+    }
+
+    showFullScreen(): void {
+        ScreenPlugin.showFullScreen();
     }
 
 }

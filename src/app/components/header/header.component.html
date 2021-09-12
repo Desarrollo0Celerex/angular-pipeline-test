@@ -20,26 +20,9 @@
                     </a>
                 </div>
                 <div class="dropdown  header-fullscreen">
-                    <a class="nav-link icon full-screen-link nav-link-bg" id="fullscreen-button">
+                    <a [routerLink]="" class="nav-link icon full-screen-link nav-link-bg" (click)="showFullScreen()">
                         <i class="fe fe-minimize" ></i>
                     </a>
-                </div>
-                <div class="dropdown  notifications">
-                    <a class="nav-link icon" data-toggle="dropdown">
-                        <i class="fe fe-bell"></i>
-                        <span class="pulse bg-danger"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a [routerLink]="" class="dropdown-item mt-2 d-flex pb-3">
-                            <div class="notifyimg bg-info">
-                                <i class="fa fa-thumbs-o-up"></i>
-                            </div>
-                            <div>
-                                <h6 class="mb-1">Notificación Demo</h6>
-                                <div class="small text-muted">08/08/2018</div>
-                            </div>
-                        </a>
-                    </div>
                 </div>
                 <div class="dropdown header-user" *ngIf="!!headerService.user">
                     <a href="#" class="nav-link icon" data-toggle="dropdown">
@@ -55,14 +38,8 @@
                                 <p class="mb-0">{{headerService.user.roleName}}</p>
                             </div>
                         </div>
-                        <a class="dropdown-item" [routerLink]="">
-                            <i class="mdi mdi-account-outline mr-2"></i> <span>Atom ID</span>
-                        </a>
-                        <a class="dropdown-item" [routerLink]="">
-                            <i class="mdi mdi-account-outline mr-2"></i> <span>Configuración</span>
-                        </a>
-                        <a class="dropdown-item" [routerLink]="">
-                            <i class="mdi mdi-compass-outline mr-2"></i> <span>Soporte</span>
+                        <a class="dropdown-item" [href]="atomAccountUrl" target="_blank">
+                            <i class="mdi mdi-account-outline mr-2"></i> <span>Atom Account</span>
                         </a>
                         <a class="dropdown-item" [routerLink]="" (click)="onClickLogout()">
                             <i class="mdi  mdi-logout-variant mr-2"></i> <span>Salir</span>
