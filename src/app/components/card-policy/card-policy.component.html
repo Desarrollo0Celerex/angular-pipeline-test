@@ -58,10 +58,12 @@
                         <button type="button" class="dropdown-item" (click)="onClickUpdatePolicy()"><i class="fa fa-edit mr-2"></i>Actualizar</button>
                         <!-- AGENTHOS - POLICY ENDORSEMENT -->
                         <button type="button" class="dropdown-item" (click)="onClickEndorsePolicy()"><i class="fa fa-clone mr-2"></i>Endosar</button>
-                        <!-- AGENTHOS - POLICY RENEWAL -->
-                        <button type="button" class="dropdown-item" (click)="onClickRenewPolicy()"><i class="fa fa-refresh mr-2"></i>Renovar</button>
-                        <!-- AGENTHOS - POLICY REISSUE -->
-                        <button type="button" class="dropdown-item" (click)="onClickReissuePolicy()"><i class="fa fa-retweet mr-2"></i>Reexpedir</button>
+                        <ng-container *ngIf="isInTime">
+                            <!-- AGENTHOS - POLICY RENEWAL -->
+                            <button type="button" class="dropdown-item" (click)="onClickRenewPolicy()"><i class="fa fa-refresh mr-2"></i>Renovar</button>
+                            <!-- AGENTHOS - POLICY REISSUE -->
+                            <button type="button" class="dropdown-item" (click)="onClickReissuePolicy()"><i class="fa fa-retweet mr-2"></i>Reexpedir</button>
+                        </ng-container>
                         <div class="dropdown-divider"></div>
                         <!-- AGENTHOS - POLICY HISTORY -->
                         <ng-container *ngIf="!isHistoryContent">
