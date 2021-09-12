@@ -1,0 +1,21 @@
+<!-- AGENTHOS - ACTIVE USERS -->
+<div class="row mt-5">
+	<div class="col-md-12 col-lg-12">
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title">Usuarios Activos</h3>
+			</div>
+		</div>
+	</div>
+</div>
+​
+<div class="row mt-3">
+	<!-- AGENTHOS - CHANGE PLAN -->
+	<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngFor="let user of model.users; let index = index">
+		<agt-card-user [user]="user" [index]="index" (requestChangeRole)="requestChangeRole($event)"></agt-card-user>
+	</div>
+	<!-- //AGENTHOS - CHANGE PLAN -->
+</div>
+<!-- //AGENTHOS - ACTIVE USERS -->
+
+<agt-modal-select-role [modalId]="modalIdChangeRole" [roleId]="selectedRoleId" (roleChanged)="updateRole($event)"></agt-modal-select-role>

@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 
-import { POLICY_STATUS, POLICY_FINISHED_SLACK_DAYS, CANCELLATION_REASONS } from '@constants/global';
+import { POLICY_STATUS, CANCELLATION_REASONS, ROLES } from '@constants/global';
 
 import { Policy } from '@interfaces/policy.interface';
 import { PaymentDataSend } from '@interfaces/payment-data-send.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
+import { AuthService } from '@services/auth.service';
 
 declare var PopoverPlugin: any;
 
@@ -35,7 +36,7 @@ export class CardPolicyComponent implements OnInit {
     POLICY_STATUS: any = POLICY_STATUS;
     isInTime: boolean = false;
 
-    constructor() {
+    constructor(private _authService: AuthService) {
         this.policy = null;
         this.canShowFooter = true;
         this.isHistoryContent = false;
@@ -158,7 +159,18 @@ export class CardPolicyComponent implements OnInit {
      */
     private _checkIsInTime(): void {
         if(!!this.policy && this.policy.policyStatusId === POLICY_STATUS.FINISHED) {
-            const validityEndDate: any = moment(this.policy.validityEndDate).add(POLICY_FINISHED_SLACK_DAYS, 'd');
+            const roleId: number = this._authService.roleId;
+            let slackDays: number = 0;
+            switch(roleId) {
+                case ROLES.GLOBAL_ADMIN:
+                    slackDays = 180;
+                break;
+                case ROLES.WALLET_MANAGER:
+                case ROLES.INSURANCE_ADVISOR:
+                    slackDays = 40;
+                break;
+            }
+            const validityEndDate: any = moment(this.policy.validityEndDate).add(slackDays, 'd');
             this.isInTime = (moment().isSameOrBefore(validityEndDate, 'day')) ? true : false;
         }
     }

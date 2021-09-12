@@ -57,7 +57,7 @@ export class CreateWalletPage implements OnInit {
     }
 
     private _goToWalletIdentity(context: CreateWalletPage): void {
-        context._router.navigateByUrl(ROUTES_NAME.walletIdentity(context._walletId));
+        context._router.navigateByUrl(ROUTES_NAME.walletResume(context._walletId));
     }
 
 }

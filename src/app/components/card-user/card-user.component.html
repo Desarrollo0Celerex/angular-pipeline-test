@@ -1,0 +1,26 @@
+<div class="card" *ngIf="user">
+    <!-- AGENTHOS - LEAD CARD HEADER -->
+    <div class="card-header">
+        <!-- AGENTHOS - CONTACT PIC -->
+        <img class="avatar brround" [src]="user.avatarUrl" width="38px">
+    </div>
+    <!-- //AGENTHOS - LEAD CARD HEADER -->
+    <div class="card-body">
+        <!-- AGENTHOS - CONTACT NAME -->
+        <h4 class="h4">{{user.shortName}}</h4>
+        <!-- AGENTHOS - CONTACT SOURCE -->
+        <p class="mb-0 agt-h40">
+            <i class="fe fe-globe mr-1"></i>{{user.email}}
+        </p>
+    </div>
+    <!-- AGENTHOS - LEAD CARD FOOTER -->
+    <div class="card-footer">
+        <div class="form-group">
+            <!-- AGENTHOS - USER ROL * -->
+            <button type="button" class="btn btn-radius btn-block btn-default-light" (click)="changeRole()">
+                <i class="fe fe-sliders mr-2"></i>{{user.roleName}}
+            </button>
+        </div>
+    </div>
+    <!-- //AGENTHOS - LEAD CARD FOOTER -->
+</div>

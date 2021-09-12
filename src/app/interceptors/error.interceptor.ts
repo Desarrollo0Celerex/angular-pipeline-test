@@ -16,15 +16,16 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { HttpError } from '@interfaces/http-error.interface';
 
-import { AuthService } from '@services/auth.service';
 import { LoadingService } from '@services/loading.service';
 import { ScanningService } from '@services/scanning.service';
 
+declare var ModalPlugin: any;
+
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+    private _isModalShown: boolean = false;
 
     constructor(
-        private _authService: AuthService,
         private _loadingService: LoadingService,
         private _router: Router,
         private _scanningService: ScanningService
@@ -68,7 +69,10 @@ export class ErrorInterceptor implements HttpInterceptor {
                 break;
 
             case ERROR_CODES.invalidUserToken:
-                this._authService.logout(true);
+                if(!this._isModalShown) {
+                    this._isModalShown = true;
+                    ModalPlugin.show('modal-session-expired');
+                }
                 break;
 
             case ERROR_CODES.invalidFields:
