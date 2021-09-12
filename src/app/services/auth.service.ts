@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -9,10 +9,12 @@ import { UserTokenData } from '@interfaces/user-token-data.interface';
 import { FirebaseService } from '@services/firebase.service';
 import { JwtService } from '@services/jwt.service';
 import { StorageService } from '@services/storage.service';
+import { LoadingService } from '@services/loading.service';
 import { RoutingHistoryService } from '@services/routing-history.service';
 
 const ROUTES = {
-    users: environment.apiUrl + '/users'
+    users: environment.apiUrl + '/users',
+    workspaceUserToken: (workspaceId: string, userId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/users/${userId}/token`,
 }
 
 @Injectable({
@@ -24,7 +26,7 @@ export class AuthService {
         private _firebaseService: FirebaseService,
         private _httpClient: HttpClient,
         private _jwtService: JwtService,
-        private _router: Router,
+        private _loadingService: LoadingService,
         private _storageService: StorageService,
         private _routingHistoryService: RoutingHistoryService
     ) { }
@@ -94,6 +96,17 @@ export class AuthService {
     }
 
     /**
+     * Get a new token to the user
+     * @return The new token
+     */
+    getNewUserToken(): Observable<string> {
+        const route: string = ROUTES.workspaceUserToken(this.workspaceId, this.userId);
+        return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => { return res.data })
+        );
+    }
+
+    /**
      * Navigate to Atom Account login
      */
     goToAtomAccount(): void {
@@ -140,6 +153,19 @@ export class AuthService {
         this._storageService.saveUserToken(userToken);
         this._storageService.saveUserTokenData(userTokenData);
         return userTokenData;
+    }
+
+    /**
+     * Restart the user session
+     * @param userToken The new user token
+     */
+    restartSession(): void {
+        this._loadingService.show();
+        this.getNewUserToken().subscribe((newUserToken: string) => {
+            this.startSessionInAgenthos(newUserToken);
+            this._loadingService.hide();
+            location.reload();
+        });
     }
 
     private _goToAgenthos(): void {

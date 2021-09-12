@@ -381,6 +381,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static userRoleUpdated(): void {
+        const alertData: Alert = {
+            title: 'Rol Actualizado',
+            text: 'El rol del usuario se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static walletCreated(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Wallet creado',

@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { SendInvitationsModule } from '@components/send-invitations/send-invitations.module';
 import { SentInvitationsModule } from '@components/sent-invitations/sent-invitations.module';
+import { ContainerWorkspaceUsersModule } from '@components/container-workspace-users/container-workspace-users.module';
 
 import { ListInvitationsRoutingModule } from './list-invitations-routing.module';
 import { ListInvitationsPage } from './list-invitations.page';
-import { ListInvitationsService } from './list-invitations.service';
 
 @NgModule({
   declarations: [ListInvitationsPage],
@@ -14,8 +14,8 @@ import { ListInvitationsService } from './list-invitations.service';
     CommonModule,
     SentInvitationsModule,
     SendInvitationsModule,
-    ListInvitationsRoutingModule
-  ],
-  providers: [ListInvitationsService]
+    ListInvitationsRoutingModule,
+    ContainerWorkspaceUsersModule
+  ]
 })
 export class ListInvitationsModule { }
