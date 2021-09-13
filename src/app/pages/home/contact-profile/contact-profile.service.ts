@@ -47,6 +47,7 @@ export class ContactProfileService {
         const fields: string = 'contactId,avatarUrl,contactName,contactSourceName,phoneCode,phoneNumber,totalAnnualWallet,currencyName,totalActivePolicies,totalOpenSinisters,contactScoreName';
         this._contactService.getContact(contactId, fields).subscribe( (res: HttpResponse) => {
             this.contact = res.data;
+            console.log('this.contact: ',this.contact);
         });
     }
 
