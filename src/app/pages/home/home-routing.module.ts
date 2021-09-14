@@ -66,6 +66,9 @@ const routes: Routes = [
             { path: ROUTES_NAME.finalizeSinister(':contactId', ':policyId', ':sinisterId'), loadChildren: () => import('@pages/home/sinisters/finalize-sinister/finalize-sinister.module').then(mod => mod.FinalizeSinisterModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.reactivateSinister(':contactId', ':policyId', ':sinisterId'), loadChildren: () => import('@pages/home/sinisters/reactivate-sinister/reactivate-sinister.module').then(mod => mod.ReactivateSinisterModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
+            // Stats routes
+            { path: '', loadChildren: () => import('@pages/home/stats/stats.module').then(mod => mod.StatsModule) },
+
             // Wallet routes
             { path: ROUTES_NAME.createWallet, loadChildren: () => import('@pages/home/wallet/create-wallet/create-wallet.module').then(mod => mod.CreateWalletModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.launchApp(':walletId'), loadChildren: () => import('@pages/home/wallet/launch-app/launch-app.module').then(mod => mod.LaunchAppModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

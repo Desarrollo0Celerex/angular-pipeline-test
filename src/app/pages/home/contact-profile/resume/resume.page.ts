@@ -6,7 +6,6 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { ResumeService } from './resume.service';
 
 declare var ModalPlugin: any;
-declare var StatsPlugin: any;
 declare var PopoverPlugin: any;
 
 @Component({
@@ -31,7 +30,6 @@ export class ResumePage implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         PopoverPlugin.init();
-        StatsPlugin.init();
         this._catchParams();
         if(this._checkIsContactSaved()) {
             setTimeout(() => {

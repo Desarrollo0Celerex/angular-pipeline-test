@@ -1,0 +1,180 @@
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header pt-2 pb-0 border-bottom-0">
+                <h3 class="card-title">Alcance por Aseguradora</h3>
+            </div>
+            <div id="agt-stats-insurer-snapshot"></div>
+            <agt-loading-content *ngIf="!canShowInsurersStats" [isLoadingContent]="true" [height]="353"></agt-loading-content>
+        </div>
+        <div class="row mt-3">
+            <!-- AGENTHOS - DATA SUITE LEADS CHANNELS -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Canales de Adquisición</h3>
+                    </div>
+                    <!-- AGENTHOS - DATA SUITE CHART -->
+                    <div id="agtDataSuiteChannelSnapshot"></div>
+                    <div class="card-footer text-center">
+                        <a href="../stats/leads.php">
+                        <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - DATA SUITE LEADS CHANNELS -->
+            <!-- AGENTHOS - DATA SUITE LEADS DISTRIBUTION -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Distribución de Prospectos</h3>
+                    </div>
+                    <!-- AGENTHOS - DATA SUITE CHART -->
+                    <div id="agtDataSuiteLeadSnapshot"></div>
+                    <div class="card-footer text-center">
+                        <a href="../stats/leads.php">
+                        <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - DATA SUITE LEADS DISTRIBUTION -->
+        </div>
+        <!-- //AGENTHOS - DATA SUITE LEADS SNAPSHOT -->
+        <!-- AGENTHOS - DATA SUITE CLIENTS SNAPSHOT -->
+        <div class="row mt-3">
+            <!-- AGENTHOS - DATA SUITE CLIENTS TYPE -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Composición de Cartera</h3>
+                    </div>
+                    <!-- AGENTHOS - DATA SUITE CHART -->
+                    <div id="agtDataSuiteCompositionSnapshot"></div>
+                    <div class="card-footer text-center">
+                        <a href="../stats/clients.php">
+                        <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - DATA SUITE CLIENTS TYPE -->
+            <!-- AGENTHOS - DATA SUITE CLIENTS DISTRIBUTION -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Distribución de Clientes</h3>
+                    </div>
+                    <!-- AGENTHOS - DATA SUITE CHART -->
+                    <div id="agtDataSuiteClientSnapshot"></div>
+                    <div class="card-footer text-center">
+                        <a href="../stats/clients.php">
+                        <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - DATA SUITE CLIENTS DISTRIBUTION -->
+        </div>
+        <!-- //AGENTHOS - DATA SUITE CLIENTS SNAPSHOT -->
+        <!-- AGENTHOS - DATA SUITE POLICIES SNAPSHOT -->
+        <div class="row mt-3">
+            <!-- AGENTHOS - DATA SUITE POLICIES ORIGIN -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Origen de Primas</h3>
+                    </div>
+                    <!-- AGENTHOS - DATA SUITE CHART -->
+                    <div id="agtDataSuiteOriginSnapshot"></div>
+                    <div class="card-footer text-center">
+                        <a href="../stats/policies.php">
+                        <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - DATA SUITE POLICIES ORIGIN -->
+            <!-- AGENTHOS - DATA SUITE POLICIES DISTRIBUTION -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Distribución de Pólizas</h3>
+                    </div>
+                    <!-- AGENTHOS - DATA SUITE CHART -->
+                    <div id="agtDataSuitePolicySnapshot"></div>
+                    <div class="card-footer text-center">
+                        <a href="../stats/policies.php">
+                        <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - DATA SUITE POLICIES DISTRIBUTION -->
+        </div>
+        <!-- //AGENTHOS - DATA SUITE POLICIES SNAPSHOT -->
+        <!-- AGENTHOS - PAYMENTS SNAPSHOT  -->
+        <div class="row mt-3">
+            <!-- AGENTHOS - DATA SUITE PAYMENT STATUS -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Balance de Cobranza</h3>
+                    </div>
+                    <!-- AGENTHOS - DATA SUITE CHART -->
+                    <div id="agtDataSuitePaymentSnapshot"></div>
+                    <div class="card-footer text-center">
+                        <a href="../stats/payments.php">
+                        <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - DATA SUITE PAYMENT STATUS -->
+            <!-- AGENTHOS - DATA SUITE PAYMENT DISTRIBUTION -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Distribución de Recibos</h3>
+                    </div>
+                    <!-- AGENTHOS - DATA SUITE CHART -->
+                    <div id="agtDataSuiteBillSnapshot"></div>
+                    <div class="card-footer text-center">
+                        <a href="../stats/payments.php">
+                        <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - DATA SUITE PAYMENT DISTRIBUTION -->
+        </div>
+        <!-- //AGENTHOS - PAYMENTS SNAPSHOT  -->
+        <!-- AGENTHOS - SINISTERS SNAPSHOT -->
+        <div class="row mt-3">
+            <!-- AGENTHOS - DATA SUITE SINISTERS REPORTS -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Reporte de Incidentes</h3>
+                    </div>
+                    <!-- AGENTHOS - DATA SUITE CHART -->
+                    <div id="agtDataSuiteReportSnapshot"></div>
+                    <div class="card-footer text-center">
+                        <a href="../stats/sinisters.php">
+                        <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - DATA SUITE SINISTERS REPORTS -->
+            <!-- AGENTHOS - DATA SUITE SINISTERS DISTRIBUTION -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Distribución de Siniestros</h3>
+                    </div>
+                    <!-- AGENTHOS - DATA SUITE CHART -->
+                    <div id="agtDataSuiteSinisterSnapshot"></div>
+                    <div class="card-footer text-center">
+                        <a href="../stats/sinisters.php">
+                        <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - DATA SUITE SINISTERS DISTRIBUTION -->
+        </div>
+        <!-- //AGENTHOS - SINISTERS SNAPSHOT -->
+    </div>
+</div>

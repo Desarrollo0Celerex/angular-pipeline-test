@@ -1,43 +1,32 @@
 
 var StatsPlugin = function() {
 
-    function init() {
-        $('#agtPoliciesActive').circleProgress({
-            value: 0.88,
-            size: 78,
-            fill: {
-              gradient: ["#c5e8b8", "#2eb62c"]
-            },
-            emptyFill: 'rgba(89, 92, 115, 0.2)',
+    function drawInsurerSnapshot(chartData) {
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
         });
 
-        $('#agtPoliciesDied').circleProgress({
-            value: 0.88,
-            size: 78,
-            fill: {
-              gradient: ["#d3d3d3", "#686868"]
-            },
-            emptyFill: 'rgba(89, 92, 115, 0.2)',
-        });
-
-        $('#agtPoliciesCanceled').circleProgress({
-            value: 0.88,
-            size: 78,
-            fill: {
-              gradient: ["#f7695f", "#a41728"]
-            },
-            emptyFill: 'rgba(89, 92, 115, 0.2)',
-        });
-
-        $('#agtPoliciesRate').circleProgress({
-            value: 0.88,
-            size: 78,
-            fill: {
-              gradient: ["#fc427b", "#fc427b"]
-            },
-            emptyFill: 'rgba(89, 92, 115, 0.2)',
-        });
+        function drawChart(chartData) {
+            var data = google.visualization.arrayToDataTable(chartData);
+            var options = {
+                height: 353,
+                fontSize:12,
+                hAxis: {title: 'Pólizas Activas'},
+                vAxis: {title: 'Clientes'},
+                bubble: {textStyle: {fontSize: 12}},
+                crosshair:{"trigger":"both","color":"#8b0d88","opacity":0.8},
+                legend:{"position":"top","textStyle":{"color":"#536d98","fontSize":12}},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                colors:["#543888","#262258","#a13678","#ec4178","#ffa458"],
+            };
+            var chart = new google.visualization.BubbleChart(document.getElementById('agt-stats-insurer-snapshot'));
+            chart.draw(data, options);
+        }
     }
 
-    return { init }
+    return {
+        drawInsurerSnapshot
+    }
 }();

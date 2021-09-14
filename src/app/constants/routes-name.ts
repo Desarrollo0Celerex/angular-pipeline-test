@@ -88,6 +88,9 @@ const HOME_SINISTERS_ROUTES = {
     reactivateSinister: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/reactivate-sinister/${contactId}/${policyId}/${sinisterId}`
 }
 
+const HOME_STATS_ROUTES = {
+    statsSnapshot: `workspace/stats/snapshot`,
+}
 
 const HOME_WALLET_ROUTES = {
     createWallet: `workspace/wallet/create`,
@@ -131,6 +134,7 @@ export const ROUTES_NAME = {
     ...HOME_POLICIES_ROUTES,
     ...HOME_QUOTATIONS_ROUTES,
     ...HOME_SINISTERS_ROUTES,
+    ...HOME_STATS_ROUTES,
     ...HOME_WALLET_ROUTES,
     ...INVITATIONS_ROUTES,
     ...SEARCHES_ROUTES,
