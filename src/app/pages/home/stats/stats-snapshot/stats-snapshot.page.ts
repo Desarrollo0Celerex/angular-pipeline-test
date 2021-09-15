@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
 
 import { StatsSnapshotService } from './stats-snapshot.service';
@@ -17,6 +18,10 @@ export class StatsSnapshotPage implements OnInit {
 
     constructor(private _statsSnapshotService: StatsSnapshotService) { }
 
+    get canShowContactSourcesStats(): boolean {
+        return (this.model.contactSourcesStatsData.length > 1) ? true : false;
+    }
+
     get canShowInsurersStats(): boolean {
         return (this.model.insurersStatsData.length > 1) ? true : false;
     }
@@ -27,6 +32,7 @@ export class StatsSnapshotPage implements OnInit {
 
     ngOnInit(): void {
         this._loadInsurersStats();
+        this._loadContactsSourceStats();
     }
 
     /**
@@ -36,6 +42,16 @@ export class StatsSnapshotPage implements OnInit {
         this.model.getInsurersStats().subscribe((insurersStats: InsurerStat[]) => {
             this.model.loadInsurersStatsData(insurersStats);
             StatsPlugin.drawInsurerSnapshot(this.model.insurersStatsData);
+        })
+    }
+
+    /**
+     * Load the contact sources stats
+     */
+    private _loadContactsSourceStats(): void {
+        this.model.getContactSourcesStats().subscribe((contactSourcesStats: ContactSourceStat[]) => {
+            this.model.loadContactsSourceStatsData(contactSourcesStats);
+            StatsPlugin.drawContactSourcesSnapshot(this.model.contactSourcesStatsData);
         })
     }
 

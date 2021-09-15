@@ -91,6 +91,11 @@ export const EXTERNAL_POLICY_STATUS: any = {
     EXPIRED: 3,
     CANCELLED: 4
 }
+export const LEAD_STATUS: any = {
+    NEW: 1,
+    RECURRENT: 2,
+    RECOVERED: 3
+}
 
 // Types
 export const CONTENT_TYPES: any = {

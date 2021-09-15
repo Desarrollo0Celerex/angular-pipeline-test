@@ -1,18 +1,26 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
+import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { AuthService } from '@services/auth.service';
 
 const ROUTES = {
-    contactSources: `${environment.apiUrl}/contact-sources`
+    contactSources: `${environment.apiUrl}/contact-sources`,
+    contactSourcesStats: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/stats/contact-sources`
 }
 
 @Injectable()
 export class ContactSourceService {
+    private _workspaceId: string = this._authService.workspaceId;
 
-    constructor(private _httpClient: HttpClient) { }
+    constructor(
+        private _authService: AuthService,
+        private _httpClient: HttpClient
+    ) { }
 
     /**
      * Get the contact sources from the API
@@ -24,5 +32,19 @@ export class ContactSourceService {
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
+     * Get the contact sources stats from the API
+     * @param  filters The filters to apply
+     * @return         The contact sources stats
+     */
+    getContactSourcesStats(filters: string = ''): Observable<ContactSourceStat[]> {
+        const route: string = ROUTES.contactSourcesStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => { return res.data })
+        );
     }
 }

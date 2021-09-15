@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { InsurerService } from '@services/insurer.service';
+import { ContactSourceService } from '@services/contact-source.service';
 
 import { StatsSnapshotRoutingModule } from './stats-snapshot-routing.module';
 import { StatsSnapshotPage } from './stats-snapshot.page';
@@ -17,7 +18,8 @@ import { StatsSnapshotPage } from './stats-snapshot.page';
     StatsSnapshotRoutingModule
   ],
   providers: [
-      InsurerService
+      InsurerService,
+      ContactSourceService
   ]
 })
 export class StatsSnapshotModule { }

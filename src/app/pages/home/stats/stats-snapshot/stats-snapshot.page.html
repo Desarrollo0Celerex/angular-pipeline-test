@@ -5,7 +5,7 @@
                 <h3 class="card-title">Alcance por Aseguradora</h3>
             </div>
             <div id="agt-stats-insurer-snapshot"></div>
-            <agt-loading-content *ngIf="!canShowInsurersStats" [isLoadingContent]="true" [height]="353"></agt-loading-content>
+            <agt-loading-content [isLoadingContent]="!canShowInsurersStats" [height]="353"></agt-loading-content>
         </div>
         <div class="row mt-3">
             <!-- AGENTHOS - DATA SUITE LEADS CHANNELS -->
@@ -15,7 +15,8 @@
                         <h3 class="card-title">Canales de Adquisición</h3>
                     </div>
                     <!-- AGENTHOS - DATA SUITE CHART -->
-                    <div id="agtDataSuiteChannelSnapshot"></div>
+                    <div id="agt-stats-contact-sources-snapshot"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowContactSourcesStats" [height]="200"></agt-loading-content>
                     <div class="card-footer text-center">
                         <a href="../stats/leads.php">
                         <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
