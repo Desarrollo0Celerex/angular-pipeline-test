@@ -1,7 +1,7 @@
 
 var StatsPlugin = function() {
 
-    function drawInsurerSnapshot(chartData) {
+    function drawChartInsurers(chartData) {
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(function() {
             drawChart(chartData);
@@ -26,7 +26,7 @@ var StatsPlugin = function() {
         }
     }
 
-    function drawContactSourcesSnapshot(chartData) {
+    function drawChartContactSources(chartData) {
         google.charts.load('current', {packages: ['corechart', 'bar']});
         google.charts.setOnLoadCallback(function() {
             drawChart(chartData);
@@ -50,8 +50,34 @@ var StatsPlugin = function() {
         }
     }
 
+    function drawChartLeadStatus(chartData) {
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var data = google.visualization.arrayToDataTable(chartData);
+            var options = {
+                is3D:true,
+                pieHole:0,
+                fontSize:12,
+                pieSliceTextStyle:{"color":"#fbfbfb"},
+                sliceVisibilityThreshold:true,
+                sliceVisibilityThreshold: .08,
+                legend:{"position":"labeled","textStyle":{"color":"#536d98","fontSize":12}},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                colors:["#543888","#262258","#a13678","#ec4178","#ffa458"],
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('agt-lead-status-stats'));
+            chart.draw(data, options);
+        }
+    }
+
     return {
-        drawInsurerSnapshot,
-        drawContactSourcesSnapshot
+        drawChartInsurers,
+        drawChartContactSources,
+        drawChartLeadStatus
     }
 }();

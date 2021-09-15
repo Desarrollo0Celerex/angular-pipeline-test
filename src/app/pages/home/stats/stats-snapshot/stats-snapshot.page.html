@@ -31,7 +31,8 @@
                         <h3 class="card-title">Distribución de Prospectos</h3>
                     </div>
                     <!-- AGENTHOS - DATA SUITE CHART -->
-                    <div id="agtDataSuiteLeadSnapshot"></div>
+                    <div id="agt-lead-status-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowLeadStatusStats" [height]="200"></agt-loading-content>
                     <div class="card-footer text-center">
                         <a href="../stats/leads.php">
                         <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>

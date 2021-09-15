@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
+import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 
 import { StatsSnapshotService } from './stats-snapshot.service';
 
@@ -26,6 +27,10 @@ export class StatsSnapshotPage implements OnInit {
         return (this.model.insurersStatsData.length > 1) ? true : false;
     }
 
+    get canShowLeadStatusStats(): boolean {
+        return (this.model.leadStatusStatsData.length > 1) ? true : false;
+    }
+
     get model(): StatsSnapshotService {
         return this._statsSnapshotService;
     }
@@ -33,6 +38,7 @@ export class StatsSnapshotPage implements OnInit {
     ngOnInit(): void {
         this._loadInsurersStats();
         this._loadContactsSourceStats();
+        this._loadLeadStatusStats();
     }
 
     /**
@@ -41,7 +47,7 @@ export class StatsSnapshotPage implements OnInit {
     private _loadInsurersStats(): void {
         this.model.getInsurersStats().subscribe((insurersStats: InsurerStat[]) => {
             this.model.loadInsurersStatsData(insurersStats);
-            StatsPlugin.drawInsurerSnapshot(this.model.insurersStatsData);
+            StatsPlugin.drawChartInsurers(this.model.insurersStatsData);
         })
     }
 
@@ -50,8 +56,18 @@ export class StatsSnapshotPage implements OnInit {
      */
     private _loadContactsSourceStats(): void {
         this.model.getContactSourcesStats().subscribe((contactSourcesStats: ContactSourceStat[]) => {
-            this.model.loadContactsSourceStatsData(contactSourcesStats);
-            StatsPlugin.drawContactSourcesSnapshot(this.model.contactSourcesStatsData);
+            this.model.loadContactSourcesStatsData(contactSourcesStats);
+            StatsPlugin.drawChartContactSources(this.model.contactSourcesStatsData);
+        })
+    }
+
+    /**
+     * Load the lead status stats
+     */
+    private _loadLeadStatusStats(): void {
+        this.model.getLeadStatusStats().subscribe((leadStatusStats: LeadStatusStat[]) => {
+            this.model.loadLeadStatusStatsData(leadStatusStats);
+            StatsPlugin.drawChartLeadStatus(this.model.leadStatusStatsData);
         })
     }
 

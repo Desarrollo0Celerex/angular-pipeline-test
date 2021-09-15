@@ -6,18 +6,22 @@ import { UtilitiesHelper } from '@helpers/utilities.helper';
 
 import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
+import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 
 import { InsurerService } from '@services/insurer.service';
 import { ContactSourceService } from '@services/contact-source.service';
+import { LeadStatusService } from '@services/lead-status.service';
 
 @Injectable()
 export class StatsSnapshotService {
     insurersStatsData: any[] = [['ID', 'Pólizas Activas', 'Clientes', 'Clasificación', 'Prima Total']];
     contactSourcesStatsData: any[] = [['Canal', 'Prospectos', { role: 'style' }]];
+    leadStatusStatsData: any[] = [['Ramos', 'Pólizas']];
 
     constructor(
         private _contactSourceService: ContactSourceService,
-        private _insurerService: InsurerService
+        private _insurerService: InsurerService,
+        private _leadStatusService: LeadStatusService,
     ) { }
 
     /**
@@ -38,10 +42,19 @@ export class StatsSnapshotService {
     }
 
     /**
+     * Get the lead status stats
+     * @return The lead status stats
+     */
+    getLeadStatusStats(): Observable<LeadStatusStat[]> {
+        const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED]);
+        return this._leadStatusService.getLeadStatusStats(filters);
+    }
+
+    /**
      * Load the contact source stats data
      * @param contactSourcesStats The contact sources stats
      */
-    loadContactsSourceStatsData(contactSourcesStats: ContactSourceStat[]): void {
+    loadContactSourcesStatsData(contactSourcesStats: ContactSourceStat[]): void {
         for (let contactSourceStats of contactSourcesStats) {
             let data: any[] = [
                 contactSourceStats.name,
@@ -66,6 +79,20 @@ export class StatsSnapshotService {
                 UtilitiesHelper.getQuantityWithOnlyTwoDecimals(insurerStats.totalAmount)
             ];
             this.insurersStatsData.push(insurerData);
+        }
+    }
+
+    /**
+     * Load the lead status stats data
+     * @param insurersStats The lead status stats
+     */
+    loadLeadStatusStatsData(leadStatusStats: LeadStatusStat[]): void {
+        for (let insurerStats of leadStatusStats) {
+            let data: any[] = [
+                insurerStats.name + 's',
+                insurerStats.totalLeads
+            ];
+            this.leadStatusStatsData.push(data);
         }
     }
 }
