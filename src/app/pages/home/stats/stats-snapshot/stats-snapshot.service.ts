@@ -1,28 +1,41 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { LEAD_STATUS } from '@constants/global';
+import { LEAD_STATUS, CLIENT_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 
 import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
+import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
 import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 
 import { InsurerService } from '@services/insurer.service';
 import { ContactSourceService } from '@services/contact-source.service';
 import { LeadStatusService } from '@services/lead-status.service';
+import { ContactTypeService } from '@services/contact-type.service';
 
 @Injectable()
 export class StatsSnapshotService {
     insurersStatsData: any[] = [['ID', 'Pólizas Activas', 'Clientes', 'Clasificación', 'Prima Total']];
     contactSourcesStatsData: any[] = [['Canal', 'Prospectos', { role: 'style' }]];
     leadStatusStatsData: any[] = [['Ramos', 'Pólizas']];
+    activeClientsStatsData: any[] = [['Tipo', 'Total']];
 
     constructor(
         private _contactSourceService: ContactSourceService,
         private _insurerService: InsurerService,
         private _leadStatusService: LeadStatusService,
+        private _contactTypeService: ContactTypeService,
     ) { }
+
+    /**
+     * Get the active clients stats
+     * @return The active clients
+     */
+    getActiveClientsStats(): Observable<ContactTypeStat[]> {
+        const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL]);
+        return this._contactTypeService.getContactTypesStats(filters);
+    }
 
     /**
      * Get the contact sources stats
@@ -48,6 +61,20 @@ export class StatsSnapshotService {
     getLeadStatusStats(): Observable<LeadStatusStat[]> {
         const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED]);
         return this._leadStatusService.getLeadStatusStats(filters);
+    }
+
+    /**
+     * Load the active clients stats data
+     * @param ContactTypeStat The active clients stats
+     */
+    loadActiveClientsStatsData(activeClientsStats: ContactTypeStat[]): void {
+        for (let contactSourceStats of activeClientsStats) {
+            let data: any[] = [
+                contactSourceStats.name,
+                contactSourceStats.totalContacts,
+            ];
+            this.activeClientsStatsData.push(data);
+        }
     }
 
     /**

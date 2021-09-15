@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
+import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
 import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 
@@ -18,6 +19,10 @@ declare var StatsPlugin: any;
 export class StatsSnapshotPage implements OnInit {
 
     constructor(private _statsSnapshotService: StatsSnapshotService) { }
+
+    get canShowActiveClientsStats(): boolean {
+        return (this.model.activeClientsStatsData.length > 1) ? true : false;
+    }
 
     get canShowContactSourcesStats(): boolean {
         return (this.model.contactSourcesStatsData.length > 1) ? true : false;
@@ -39,6 +44,17 @@ export class StatsSnapshotPage implements OnInit {
         this._loadInsurersStats();
         this._loadContactsSourceStats();
         this._loadLeadStatusStats();
+        this._loadActiveClientsStats();
+    }
+
+    /**
+     * Load the contact sources stats
+     */
+    private _loadActiveClientsStats(): void {
+        this.model.getActiveClientsStats().subscribe((activeClientsStats: ContactTypeStat[]) => {
+            this.model.loadActiveClientsStatsData(activeClientsStats);
+            StatsPlugin.drawChartActiveClients(this.model.activeClientsStatsData);
+        })
     }
 
     /**

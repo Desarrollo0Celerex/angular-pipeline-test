@@ -75,9 +75,39 @@ var StatsPlugin = function() {
         }
     }
 
+    function drawChartActiveClients(chartData) {
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var data = google.visualization.arrayToDataTable(chartData);
+            var options = {
+                is3D:false,
+                pieHole:0.4,
+                fontSize:12,
+                pieSliceTextStyle:{"color":"#fbfbfb"},
+                sliceVisibilityThreshold:true,
+                sliceVisibilityThreshold: 0.0001,
+                legend:{"position":"left","textStyle":{"color":"#536d98","fontSize":12}},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                colors:["#210048","#6a3c78","#4b0088","#ffbe78","#ffdca8"],
+
+                slices: {
+                1: {offset: 0.2},
+                },
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('agt-active-clients-stats'));
+            chart.draw(data, options);
+        }
+    }
+
     return {
         drawChartInsurers,
         drawChartContactSources,
-        drawChartLeadStatus
+        drawChartLeadStatus,
+        drawChartActiveClients
     }
 }();

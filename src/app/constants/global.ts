@@ -96,6 +96,11 @@ export const LEAD_STATUS: any = {
     RECURRENT: 2,
     RECOVERED: 3
 }
+export const CLIENT_STATUS: any = {
+    OCCASIONAL: 1,
+    FREQUENT: 2,
+    INFLUENTIAL: 3
+}
 
 // Types
 export const CONTENT_TYPES: any = {
