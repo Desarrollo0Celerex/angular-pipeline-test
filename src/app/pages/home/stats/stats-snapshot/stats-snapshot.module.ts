@@ -11,6 +11,7 @@ import { LeadStatusService } from '@services/lead-status.service';
 import { ClientStatusService } from '@services/client-status.service';
 import { PolicySourceService } from '@services/policy-source.service';
 import { PolicyStatusService } from '@services/policy-status.service';
+import { PaymentService } from '@services/payment.service';
 import { PaymentStatusService } from '@services/payment-status.service';
 
 import { StatsSnapshotRoutingModule } from './stats-snapshot-routing.module';
@@ -34,6 +35,7 @@ import { StatsSnapshotPage } from './stats-snapshot.page';
       ClientStatusService,
       PolicySourceService,
       PolicyStatusService,
+      PaymentService,
       PaymentStatusService
   ]
 })

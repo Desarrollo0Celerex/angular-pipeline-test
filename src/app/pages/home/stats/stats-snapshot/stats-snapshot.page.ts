@@ -7,6 +7,7 @@ import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicySourceStat } from '@interfaces/policy-source-stat.interface';
 import { PolicyStatusStat } from '@interfaces/policy-status-stat.interface';
+import { PaymentStat } from '@interfaces/payment-stat.interface';
 import { PaymentStatusStat } from '@interfaces/payment-status-stat.interface';
 
 import { StatsSnapshotService } from './stats-snapshot.service';
@@ -52,6 +53,10 @@ export class StatsSnapshotPage implements OnInit {
         return (this.model.policyStatusStatsData.length > 1) ? true : false;
     }
 
+    get canShowPaymentsStats(): boolean {
+        return (this.model.paymentsStatsData.length > 1) ? true : false;
+    }
+
     get canShowPaymentStatusStats(): boolean {
         return (this.model.paymentStatusStatsData.length > 1) ? true : false;
     }
@@ -68,6 +73,7 @@ export class StatsSnapshotPage implements OnInit {
         this._loadClientStatusStats();
         this._loadPolicySourcesStats();
         this._loadPolicyStatusStats();
+        this._loadPaymentsStats();
         this._loadPaymentStatusStats();
     }
 
@@ -138,6 +144,16 @@ export class StatsSnapshotPage implements OnInit {
         this.model.getPolicyStatusStats().subscribe((policyStatusStats: PolicyStatusStat[]) => {
             this.model.loadPolicyStatusStatsData(policyStatusStats);
             StatsPlugin.drawChartPolicyStatus(this.model.policyStatusStatsData);
+        })
+    }
+
+    /**
+     * Load the payments stats
+     */
+    private _loadPaymentsStats(): void {
+        this.model.getPaymentsStats().subscribe((paymentsStats: PaymentStat[]) => {
+            this.model.loadPaymentsStatsData(paymentsStats);
+            StatsPlugin.drawChartPayments(this.model.paymentsStatsData);
         })
     }
 

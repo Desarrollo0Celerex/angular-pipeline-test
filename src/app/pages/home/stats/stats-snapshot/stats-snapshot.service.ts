@@ -12,6 +12,7 @@ import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicySourceStat } from '@interfaces/policy-source-stat.interface';
 import { PolicyStatusStat } from '@interfaces/policy-status-stat.interface';
+import { PaymentStat } from '@interfaces/payment-stat.interface';
 import { PaymentStatusStat } from '@interfaces/payment-status-stat.interface';
 
 import { InsurerService } from '@services/insurer.service';
@@ -21,6 +22,7 @@ import { ContactTypeService } from '@services/contact-type.service';
 import { ClientStatusService } from '@services/client-status.service';
 import { PolicySourceService } from '@services/policy-source.service';
 import { PolicyStatusService } from '@services/policy-status.service';
+import { PaymentService } from '@services/payment.service';
 import { PaymentStatusService } from '@services/payment-status.service';
 
 @Injectable()
@@ -33,6 +35,7 @@ export class StatsSnapshotService {
     policySourcesStatsData: any[] = [['Ramos', 'Pólizas']];
     policyStatusStatsData: any[] = [['Pólizas', 'Estatus', { role: "style" }]];
     paymentStatusStatsData: any[] = [['Recibos', 'Estatus', { role: "style" }]];
+    paymentsStatsData: any[] = [['Tipo', 'Total']];
 
     constructor(
         private _pluralNameFormatPipe: PluralNameFormatPipe,
@@ -43,6 +46,7 @@ export class StatsSnapshotService {
         private _clientStatusService: ClientStatusService,
         private _policySourceService: PolicySourceService,
         private _policyStatusService: PolicyStatusService,
+        private _paymentService: PaymentService,
         private _paymentStatusService: PaymentStatusService,
     ) { }
 
@@ -106,6 +110,14 @@ export class StatsSnapshotService {
     getPolicyStatusStats(): Observable<PolicyStatusStat[]> {
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED]);
         return this._policyStatusService.getPolicyStatusStats(filters);
+    }
+
+    /**
+     * Get the payments stats
+     * @return The payments stats
+     */
+    getPaymentsStats(): Observable<PaymentStat[]> {
+        return this._paymentService.getPaymentsStats();
     }
 
     /**
@@ -205,8 +217,8 @@ export class StatsSnapshotService {
     }
 
     /**
-     * Load the policy sources stats data
-     * @param insurersStats The policy sources stats
+     * Load the policy status stats data
+     * @param insurersStats The policy status stats
      */
     loadPolicyStatusStatsData(policyStatusStats: PolicyStatusStat[]): void {
         const colors: string[] = ['#ec4178', '#262258', '#a13678', '#543888'];
@@ -218,6 +230,20 @@ export class StatsSnapshotService {
                 'fill-color: '+colors[index]+'; opacity: 0.8'
             ];
             this.policyStatusStatsData.push(data);
+        }
+    }
+
+    /**
+     * Load the payments stats data
+     * @param insurersStats The payments stats
+     */
+    loadPaymentsStatsData(paymentsStats: PaymentStat[]): void {
+        for (let paymentStat of paymentsStats) {
+            let data: any[] = [
+                paymentStat.name,
+                paymentStat.totalReceipts,
+            ];
+            this.paymentsStatsData.push(data);
         }
     }
 
