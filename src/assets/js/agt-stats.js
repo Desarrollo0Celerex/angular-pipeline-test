@@ -238,6 +238,33 @@ var StatsPlugin = function() {
         }
     }
 
+    function drawChartSinisters(chartData) {
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var data = google.visualization.arrayToDataTable(chartData);
+            var options = {
+                is3D:false,
+                pieHole:0,
+                fontSize:12,
+                pieSliceTextStyle:{"color":"#fbfbfb"},
+                sliceVisibilityThreshold:true,
+                sliceVisibilityThreshold: 0.0001,
+                legend:{"position":"left","textStyle":{"color":"#536d98","fontSize":12}},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                colors:["#ec4178","#262258","#a13678","#543888","#ffa458"],
+                slices: {1: {offset: 0.2} },
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('agt-sinisters-stats'));
+            chart.draw(data, options);
+        }
+    }
+
     return {
         drawChartInsurers,
         drawChartContactSources,
@@ -247,6 +274,7 @@ var StatsPlugin = function() {
         drawChartPolicySources,
         drawChartPolicyStatus,
         drawChartPayments,
-        drawChartPaymentStatus
+        drawChartPaymentStatus,
+        drawChartSinisters
     }
 }();

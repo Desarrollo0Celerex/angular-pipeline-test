@@ -159,7 +159,8 @@
                         <h3 class="card-title">Reporte de Incidentes</h3>
                     </div>
                     <!-- AGENTHOS - DATA SUITE CHART -->
-                    <div id="agtDataSuiteReportSnapshot"></div>
+                    <div id="agt-sinisters-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowSinistersStats" [height]="200"></agt-loading-content>
                     <div class="card-footer text-center">
                         <a href="../stats/sinisters.php">
                         <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>

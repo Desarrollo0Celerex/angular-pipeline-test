@@ -9,6 +9,7 @@ import { PolicySourceStat } from '@interfaces/policy-source-stat.interface';
 import { PolicyStatusStat } from '@interfaces/policy-status-stat.interface';
 import { PaymentStat } from '@interfaces/payment-stat.interface';
 import { PaymentStatusStat } from '@interfaces/payment-status-stat.interface';
+import { SinisterStat } from '@interfaces/sinister-stat.interface';
 
 import { StatsSnapshotService } from './stats-snapshot.service';
 
@@ -61,6 +62,10 @@ export class StatsSnapshotPage implements OnInit {
         return (this.model.paymentStatusStatsData.length > 1) ? true : false;
     }
 
+    get canShowSinistersStats(): boolean {
+        return (this.model.sinistersStatsData.length > 1) ? true : false;
+    }
+
     get model(): StatsSnapshotService {
         return this._statsSnapshotService;
     }
@@ -75,6 +80,7 @@ export class StatsSnapshotPage implements OnInit {
         this._loadPolicyStatusStats();
         this._loadPaymentsStats();
         this._loadPaymentStatusStats();
+        this._loadSinistersStats();
     }
 
     /**
@@ -164,6 +170,16 @@ export class StatsSnapshotPage implements OnInit {
         this.model.getPaymentStatusStats().subscribe((paymentStatusStats: PaymentStatusStat[]) => {
             this.model.loadPaymentStatusStatsData(paymentStatusStats);
             StatsPlugin.drawChartPaymentStatus(this.model.paymentStatusStatsData);
+        })
+    }
+
+    /**
+     * Load the sinisters stats
+     */
+    private _loadSinistersStats(): void {
+        this.model.getSinistersStats().subscribe((sinistersStats: SinisterStat[]) => {
+            this.model.loadSinistersStatsData(sinistersStats);
+            StatsPlugin.drawChartSinisters(this.model.sinistersStatsData);
         })
     }
 

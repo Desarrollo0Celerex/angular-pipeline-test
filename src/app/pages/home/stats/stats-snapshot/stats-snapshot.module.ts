@@ -13,6 +13,7 @@ import { PolicySourceService } from '@services/policy-source.service';
 import { PolicyStatusService } from '@services/policy-status.service';
 import { PaymentService } from '@services/payment.service';
 import { PaymentStatusService } from '@services/payment-status.service';
+import { SinisterService } from '@services/sinister.service';
 
 import { StatsSnapshotRoutingModule } from './stats-snapshot-routing.module';
 import { StatsSnapshotPage } from './stats-snapshot.page';
@@ -36,7 +37,8 @@ import { StatsSnapshotPage } from './stats-snapshot.page';
       PolicySourceService,
       PolicyStatusService,
       PaymentService,
-      PaymentStatusService
+      PaymentStatusService,
+      SinisterService
   ]
 })
 export class StatsSnapshotModule { }
