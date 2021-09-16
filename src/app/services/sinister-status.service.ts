@@ -7,15 +7,21 @@ import { SINISTER_STATUS, SINISTER_STATUS_OPEN } from '@constants/global';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { SinisterStatus } from '@interfaces/sinister-status.interface';
+import { AuthService } from '@services/auth.service';
 
 const ROUTES = {
-    sinisterStatus: `${environment.apiUrl}/sinister-status`
+    sinisterStatus: `${environment.apiUrl}/sinister-status`,
+    sinisterStatusStats: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/stats/sinister-status`,
 }
 
 @Injectable()
 export class SinisterStatusService {
+    private _workspaceId: string = this._authService.workspaceId;
 
-    constructor(private _httpClient: HttpClient) { }
+    constructor(
+        private _authService: AuthService,
+        private _httpClient: HttpClient
+    ) { }
 
     /**
      * Get the sinister status from the API
@@ -45,6 +51,20 @@ export class SinisterStatusService {
             { sinisterStatusId: SINISTER_STATUS.FINISHED, name: 'Cerrado', background: '', icon: ''}
         ];
         return sinisterStatus;
+    }
+
+    /**
+     * Get the sinister status stats
+     * @param  filters The filters to apply
+     * @return         The sinister status stats
+     */
+    getSinisterStatusStats(filters: string = ''): Observable<any[]> {
+        const route: string = ROUTES.sinisterStatusStats(this._workspaceId);
+        let params: HttpParams = new HttpParams;
+        if(!!filters) params = params.append('filter', filters);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 
     /**

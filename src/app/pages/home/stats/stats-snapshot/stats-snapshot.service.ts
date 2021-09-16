@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { LEAD_STATUS, CLIENT_STATUS, POLICY_SOURCES, POLICY_STATUS, PAYMENT_STATUS } from '@constants/global';
+import { LEAD_STATUS, CLIENT_STATUS, POLICY_SOURCES, POLICY_STATUS, PAYMENT_STATUS, SINISTER_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
 
@@ -26,6 +26,7 @@ import { PolicyStatusService } from '@services/policy-status.service';
 import { PaymentService } from '@services/payment.service';
 import { PaymentStatusService } from '@services/payment-status.service';
 import { SinisterService } from '@services/sinister.service';
+import { SinisterStatusService } from '@services/sinister-status.service';
 
 @Injectable()
 export class StatsSnapshotService {
@@ -39,6 +40,7 @@ export class StatsSnapshotService {
     paymentStatusStatsData: any[] = [['Recibos', 'Estatus', { role: "style" }]];
     paymentsStatsData: any[] = [['Tipo', 'Total']];
     sinistersStatsData: any[] = [['Tipo', 'Total']];
+    sinisterStatusStatsData: any[] = [['Origen', 'Personas', 'Empresas']];
 
     constructor(
         private _pluralNameFormatPipe: PluralNameFormatPipe,
@@ -52,6 +54,7 @@ export class StatsSnapshotService {
         private _paymentService: PaymentService,
         private _paymentStatusService: PaymentStatusService,
         private _sinisterService: SinisterService,
+        private _sinisterStatusService: SinisterStatusService,
     ) { }
 
     /**
@@ -132,12 +135,22 @@ export class StatsSnapshotService {
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE]);
         return this._paymentStatusService.getPaymentStatusStats(filters);
     }
+
     /**
      * Get the sinisters stats
      * @return The sinisters stats
      */
     getSinistersStats(): Observable<SinisterStat[]> {
         return this._sinisterService.getSinistersStats();
+    }
+
+    /**
+     * Get the sinister status stats
+     * @return The sinister status stats
+     */
+    getSinisterStatusStats(): Observable<SinisterStat[]> {
+        const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE]);
+        return this._sinisterStatusService.getSinisterStatusStats(filters);
     }
 
     /**
@@ -286,6 +299,21 @@ export class StatsSnapshotService {
                 sinisterStat.totalSinisters
             ];
             this.sinistersStatsData.push(data);
+        }
+    }
+
+    /**
+     * Load the sinister status stats data
+     * @param insurersStats The sinister status stats
+     */
+    loadSinisterStatusStatsData(sinisterStatusStats: any[]): void {
+        for (let sinisterStatusStat of sinisterStatusStats) {
+            let data: any[] = [];
+            for (let key in sinisterStatusStat) {
+                const value = (parseInt(key) === 0) ? this._pluralNameFormatPipe.transform(sinisterStatusStat[key]) : sinisterStatusStat[key];
+                data.push(value)
+            }
+            this.sinisterStatusStatsData.push(data);
         }
     }
 

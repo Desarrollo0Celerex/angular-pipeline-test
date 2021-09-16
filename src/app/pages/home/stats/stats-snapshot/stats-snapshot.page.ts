@@ -66,6 +66,10 @@ export class StatsSnapshotPage implements OnInit {
         return (this.model.sinistersStatsData.length > 1) ? true : false;
     }
 
+    get canShowSinisterStatusStats(): boolean {
+        return (this.model.sinisterStatusStatsData.length > 1) ? true : false;
+    }
+
     get model(): StatsSnapshotService {
         return this._statsSnapshotService;
     }
@@ -81,6 +85,7 @@ export class StatsSnapshotPage implements OnInit {
         this._loadPaymentsStats();
         this._loadPaymentStatusStats();
         this._loadSinistersStats();
+        this._loadSinisterStatusStats();
     }
 
     /**
@@ -180,6 +185,16 @@ export class StatsSnapshotPage implements OnInit {
         this.model.getSinistersStats().subscribe((sinistersStats: SinisterStat[]) => {
             this.model.loadSinistersStatsData(sinistersStats);
             StatsPlugin.drawChartSinisters(this.model.sinistersStatsData);
+        })
+    }
+
+    /**
+     * Load the sinister status stats
+     */
+    private _loadSinisterStatusStats(): void {
+        this.model.getSinisterStatusStats().subscribe((sinisterStatusStats: any[]) => {
+            this.model.loadSinisterStatusStatsData(sinisterStatusStats);
+            StatsPlugin.drawChartSinisterStatus(this.model.sinisterStatusStatsData);
         })
     }
 
