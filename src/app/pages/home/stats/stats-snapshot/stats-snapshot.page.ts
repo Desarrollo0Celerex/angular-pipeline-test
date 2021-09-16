@@ -46,6 +46,10 @@ export class StatsSnapshotPage implements OnInit {
         return (this.model.policySourcesStatsData.length > 1) ? true : false;
     }
 
+    get canShowPolicyStatusStats(): boolean {
+        return (this.model.policyStatusStatsData.length > 1) ? true : false;
+    }
+
     get model(): StatsSnapshotService {
         return this._statsSnapshotService;
     }
@@ -57,6 +61,7 @@ export class StatsSnapshotPage implements OnInit {
         this._loadActiveClientsStats();
         this._loadClientStatusStats();
         this._loadPolicySourcesStats();
+        this._loadPolicyStatusStats();
     }
 
     /**
@@ -116,6 +121,16 @@ export class StatsSnapshotPage implements OnInit {
         this.model.getPolicySourcesStats().subscribe((policySourcesStats: PolicySourceStat[]) => {
             this.model.loadPolicySourcesStatsData(policySourcesStats);
             StatsPlugin.drawChartPolicySources(this.model.policySourcesStatsData);
+        })
+    }
+
+    /**
+     * Load the policy status stats
+     */
+    private _loadPolicyStatusStats(): void {
+        this.model.getPolicyStatusStats().subscribe((policyStatusStats: PolicySourceStat[]) => {
+            this.model.loadPolicyStatusStatsData(policyStatusStats);
+            StatsPlugin.drawChartPolicyStatus(this.model.policyStatusStatsData);
         })
     }
 

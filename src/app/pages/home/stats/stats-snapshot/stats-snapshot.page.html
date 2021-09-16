@@ -103,7 +103,8 @@
                         <h3 class="card-title">Distribución de Pólizas</h3>
                     </div>
                     <!-- AGENTHOS - DATA SUITE CHART -->
-                    <div id="agtDataSuitePolicySnapshot"></div>
+                    <div id="agt-policy-status-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowPolicyStatusStats" [height]="200"></agt-loading-content>
                     <div class="card-footer text-center">
                         <a href="../stats/policies.php">
                         <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>

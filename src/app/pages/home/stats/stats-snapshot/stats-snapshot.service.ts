@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { LEAD_STATUS, CLIENT_STATUS, POLICY_SOURCES } from '@constants/global';
+import { LEAD_STATUS, CLIENT_STATUS, POLICY_SOURCES, POLICY_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 
 import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
@@ -10,6 +10,7 @@ import { InsurerStat } from '@interfaces/insurer-stat.interface';
 import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicySourceStat } from '@interfaces/policy-source-stat.interface';
+import { PolicyStatusStat } from '@interfaces/policy-status-stat.interface';
 
 import { InsurerService } from '@services/insurer.service';
 import { ContactSourceService } from '@services/contact-source.service';
@@ -17,6 +18,7 @@ import { LeadStatusService } from '@services/lead-status.service';
 import { ContactTypeService } from '@services/contact-type.service';
 import { ClientStatusService } from '@services/client-status.service';
 import { PolicySourceService } from '@services/policy-source.service';
+import { PolicyStatusService } from '@services/policy-status.service';
 
 @Injectable()
 export class StatsSnapshotService {
@@ -26,6 +28,7 @@ export class StatsSnapshotService {
     activeClientsStatsData: any[] = [['Tipo', 'Total']];
     clientStatusStatsData: any[] = [['Estatus', 'Ocasionales', 'Frecuentes', 'Influyentes']];
     policySourcesStatsData: any[] = [['Ramos', 'Pólizas']];
+    policyStatusStatsData: any[] = [['Pólizas', 'Estatus', { role: "style" }]];
 
     constructor(
         private _contactSourceService: ContactSourceService,
@@ -34,6 +37,7 @@ export class StatsSnapshotService {
         private _contactTypeService: ContactTypeService,
         private _clientStatusService: ClientStatusService,
         private _policySourceService: PolicySourceService,
+        private _policyStatusService: PolicyStatusService,
     ) { }
 
     /**
@@ -87,6 +91,15 @@ export class StatsSnapshotService {
     getPolicySourcesStats(): Observable<PolicySourceStat[]> {
         const filters: string = UtilitiesHelper.generateHttpFilter('policySourceId', [POLICY_SOURCES.NEW, POLICY_SOURCES.RENEWAL, POLICY_SOURCES.REISSUE]);
         return this._policySourceService.getPolicySourcesStats(filters);
+    }
+
+    /**
+     * Get the policy status stats
+     * @return The policy status stats
+     */
+    getPolicyStatusStats(): Observable<PolicySourceStat[]> {
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED]);
+        return this._policyStatusService.getPolicyStatusStats(filters);
     }
 
     /**
@@ -175,6 +188,23 @@ export class StatsSnapshotService {
                 policySourceStats.totalPolicies
             ];
             this.policySourcesStatsData.push(data);
+        }
+    }
+
+    /**
+     * Load the policy sources stats data
+     * @param insurersStats The policy sources stats
+     */
+    loadPolicyStatusStatsData(policyStatusStats: PolicyStatusStat[]): void {
+        const colors: string[] = ['#ec4178', '#262258', '#a13678', '#543888'];
+        for (let index in policyStatusStats) {
+            const policyStatus: PolicyStatusStat = policyStatusStats[index];
+            let data: any[] = [
+                policyStatus.name + 's',
+                policyStatus.totalPolicies,
+                'fill-color: '+colors[index]+'; opacity: 0.8'
+            ];
+            this.policyStatusStatsData.push(data);
         }
     }
 

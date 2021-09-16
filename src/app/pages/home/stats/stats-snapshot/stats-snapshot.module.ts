@@ -8,6 +8,7 @@ import { ContactTypeService } from '@services/contact-type.service';
 import { LeadStatusService } from '@services/lead-status.service';
 import { ClientStatusService } from '@services/client-status.service';
 import { PolicySourceService } from '@services/policy-source.service';
+import { PolicyStatusService } from '@services/policy-status.service';
 
 import { StatsSnapshotRoutingModule } from './stats-snapshot-routing.module';
 import { StatsSnapshotPage } from './stats-snapshot.page';
@@ -27,7 +28,8 @@ import { StatsSnapshotPage } from './stats-snapshot.page';
       ContactTypeService,
       LeadStatusService,
       ClientStatusService,
-      PolicySourceService
+      PolicySourceService,
+      PolicyStatusService
   ]
 })
 export class StatsSnapshotModule { }
