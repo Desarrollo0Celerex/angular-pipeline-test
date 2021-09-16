@@ -5,6 +5,7 @@ import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
 import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { PolicySourceStat } from '@interfaces/policy-source-stat.interface';
 
 import { StatsSnapshotService } from './stats-snapshot.service';
 
@@ -41,6 +42,10 @@ export class StatsSnapshotPage implements OnInit {
         return (this.model.clientStatusStatsData.length > 1) ? true : false;
     }
 
+    get canShowPolicySourcesStats(): boolean {
+        return (this.model.policySourcesStatsData.length > 1) ? true : false;
+    }
+
     get model(): StatsSnapshotService {
         return this._statsSnapshotService;
     }
@@ -51,6 +56,7 @@ export class StatsSnapshotPage implements OnInit {
         this._loadLeadStatusStats();
         this._loadActiveClientsStats();
         this._loadClientStatusStats();
+        this._loadPolicySourcesStats();
     }
 
     /**
@@ -100,6 +106,16 @@ export class StatsSnapshotPage implements OnInit {
         this.model.getClientStatusStats().subscribe((res: HttpResponse) => {
             this.model.loadClientStatusStatsData(res.data);
             StatsPlugin.drawChartClientStatus(this.model.clientStatusStatsData);
+        })
+    }
+
+    /**
+     * Load the policy sources stats
+     */
+    private _loadPolicySourcesStats(): void {
+        this.model.getPolicySourcesStats().subscribe((policySourcesStats: PolicySourceStat[]) => {
+            this.model.loadPolicySourcesStatsData(policySourcesStats);
+            StatsPlugin.drawChartPolicySources(this.model.policySourcesStatsData);
         })
     }
 

@@ -128,11 +128,40 @@ var StatsPlugin = function() {
         }
     }
 
+    function drawChartPolicySources(chartData) {
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var data = google.visualization.arrayToDataTable(chartData);
+            var options = {
+                is3D:false,
+                pieHole:0.2,
+                fontSize:12,
+                pieSliceTextStyle:{"color":"#fbfbfb"},
+                sliceVisibilityThreshold:true,
+                sliceVisibilityThreshold: .08,
+                legend:{"position":"left","textStyle":{"color":"#536d98","fontSize":12}},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                colors:["#ec4178","#a13678","#543888","#262258","#ffdca8"],
+                bar: { groupWidth: '80%' },
+                slices: { 0: {offset: 0.2} }
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('agt-policy-sources-stats'));
+            chart.draw(data, options);
+        }
+    }
+
     return {
         drawChartInsurers,
         drawChartContactSources,
         drawChartLeadStatus,
         drawChartActiveClients,
-        drawChartClientStatus
+        drawChartClientStatus,
+        drawChartPolicySources
     }
 }();

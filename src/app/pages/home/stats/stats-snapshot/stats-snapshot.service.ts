@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { LEAD_STATUS, CLIENT_STATUS } from '@constants/global';
+import { LEAD_STATUS, CLIENT_STATUS, POLICY_SOURCES } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 
 import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
@@ -9,12 +9,14 @@ import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
 import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { PolicySourceStat } from '@interfaces/policy-source-stat.interface';
 
 import { InsurerService } from '@services/insurer.service';
 import { ContactSourceService } from '@services/contact-source.service';
 import { LeadStatusService } from '@services/lead-status.service';
 import { ContactTypeService } from '@services/contact-type.service';
 import { ClientStatusService } from '@services/client-status.service';
+import { PolicySourceService } from '@services/policy-source.service';
 
 @Injectable()
 export class StatsSnapshotService {
@@ -23,6 +25,7 @@ export class StatsSnapshotService {
     leadStatusStatsData: any[] = [['Ramos', 'Pólizas']];
     activeClientsStatsData: any[] = [['Tipo', 'Total']];
     clientStatusStatsData: any[] = [['Estatus', 'Ocasionales', 'Frecuentes', 'Influyentes']];
+    policySourcesStatsData: any[] = [['Ramos', 'Pólizas']];
 
     constructor(
         private _contactSourceService: ContactSourceService,
@@ -30,6 +33,7 @@ export class StatsSnapshotService {
         private _leadStatusService: LeadStatusService,
         private _contactTypeService: ContactTypeService,
         private _clientStatusService: ClientStatusService,
+        private _policySourceService: PolicySourceService,
     ) { }
 
     /**
@@ -74,6 +78,15 @@ export class StatsSnapshotService {
     getClientStatusStats(): Observable<HttpResponse> {
         const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL]);
         return this._clientStatusService.getClientStatusStats(filters);
+    }
+
+    /**
+     * Get the policy sources stats
+     * @return The policy sources stats
+     */
+    getPolicySourcesStats(): Observable<PolicySourceStat[]> {
+        const filters: string = UtilitiesHelper.generateHttpFilter('policySourceId', [POLICY_SOURCES.NEW, POLICY_SOURCES.RENEWAL, POLICY_SOURCES.REISSUE]);
+        return this._policySourceService.getPolicySourcesStats(filters);
     }
 
     /**
@@ -144,4 +157,25 @@ export class StatsSnapshotService {
         this.clientStatusStatsData.push(data[0]);
         this.clientStatusStatsData.push(data[1]);
     }
+
+    /**
+     * Load the policy sources stats data
+     * @param insurersStats The policy sources stats
+     */
+    loadPolicySourcesStatsData(policySourcesStats: PolicySourceStat[]): void {
+        for (let policySourceStats of policySourcesStats) {
+            let name: string = '';
+            switch(policySourceStats.name) {
+                case 'Nueva': name = 'Nuevas'; break;
+                case 'Renovación': name = 'Renovaciones'; break;
+                case 'Reexpedición': name = 'Reexpediciones'; break;
+            }
+            let data: any[] = [
+                name,
+                policySourceStats.totalPolicies
+            ];
+            this.policySourcesStatsData.push(data);
+        }
+    }
+
 }

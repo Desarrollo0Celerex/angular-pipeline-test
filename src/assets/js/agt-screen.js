@@ -1,7 +1,6 @@
 var ScreenPlugin = function() {
 
     function showFullScreen()  {
-        console.log('Paso 1');
         if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
 			if (document.documentElement.requestFullScreen) {
 				document.documentElement.requestFullScreen();

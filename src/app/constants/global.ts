@@ -101,6 +101,11 @@ export const CLIENT_STATUS: any = {
     FREQUENT: 2,
     INFLUENTIAL: 3
 }
+export const POLICY_SOURCES: any = {
+    NEW: 1,
+    RENEWAL: 2,
+    REISSUE: 3
+}
 
 // Types
 export const CONTENT_TYPES: any = {

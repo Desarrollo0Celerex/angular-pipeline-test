@@ -87,7 +87,8 @@
                         <h3 class="card-title">Origen de Primas</h3>
                     </div>
                     <!-- AGENTHOS - DATA SUITE CHART -->
-                    <div id="agtDataSuiteOriginSnapshot"></div>
+                    <div id="agt-policy-sources-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowPolicySourcesStats" [height]="200"></agt-loading-content>
                     <div class="card-footer text-center">
                         <a href="../stats/policies.php">
                         <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
