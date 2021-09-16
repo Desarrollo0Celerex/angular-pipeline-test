@@ -186,6 +186,31 @@ var StatsPlugin = function() {
         }
     }
 
+    function drawChartPaymentStatus(chartData) {
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var data = google.visualization.arrayToDataTable(chartData);
+            var options = {
+                chartArea: {width: '50%'},
+                hAxis: {minValue: 0},
+                fontSize:12,
+                bubble: {textStyle: {fontSize: 12}},
+                crosshair:{"trigger":"both","color":"#8b0d88","opacity":0.8},
+                legend:{"position":"top","textStyle":{"color":"#536d98","fontSize":12}},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                colors:["#543888","#262258","#a13678","#ec4178","#ffa458"],
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('agt-payment-status-stats'));
+            chart.draw(data, options);
+        }
+    }
+
     return {
         drawChartInsurers,
         drawChartContactSources,
@@ -193,6 +218,7 @@ var StatsPlugin = function() {
         drawChartActiveClients,
         drawChartClientStatus,
         drawChartPolicySources,
-        drawChartPolicyStatus
+        drawChartPolicyStatus,
+        drawChartPaymentStatus
     }
 }();

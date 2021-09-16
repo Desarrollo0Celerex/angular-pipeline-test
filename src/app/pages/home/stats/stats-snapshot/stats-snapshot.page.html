@@ -138,7 +138,8 @@
                         <h3 class="card-title">Distribución de Recibos</h3>
                     </div>
                     <!-- AGENTHOS - DATA SUITE CHART -->
-                    <div id="agtDataSuiteBillSnapshot"></div>
+                    <div id="agt-payment-status-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowPaymentStatusStats" [height]="200"></agt-loading-content>
                     <div class="card-footer text-center">
                         <a href="../stats/payments.php">
                         <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>

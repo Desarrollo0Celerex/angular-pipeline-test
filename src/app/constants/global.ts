@@ -75,6 +75,10 @@ export const POLICY_STATUS: any = {
 }
 export const POLICY_STATUS_ACTIVE: number = 100;
 export const PAYMENT_STATUS: any = {
+    INTIME: 1,
+    PENDING: 2,
+    LATE: 3,
+    OVERDUE: 4,
     PAID: 5
 }
 export const SINISTER_STATUS: any = {

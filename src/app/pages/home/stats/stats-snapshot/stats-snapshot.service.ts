@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { LEAD_STATUS, CLIENT_STATUS, POLICY_SOURCES, POLICY_STATUS } from '@constants/global';
+import { LEAD_STATUS, CLIENT_STATUS, POLICY_SOURCES, POLICY_STATUS, PAYMENT_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
 
 import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
 import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
@@ -11,6 +12,7 @@ import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicySourceStat } from '@interfaces/policy-source-stat.interface';
 import { PolicyStatusStat } from '@interfaces/policy-status-stat.interface';
+import { PaymentStatusStat } from '@interfaces/payment-status-stat.interface';
 
 import { InsurerService } from '@services/insurer.service';
 import { ContactSourceService } from '@services/contact-source.service';
@@ -19,6 +21,7 @@ import { ContactTypeService } from '@services/contact-type.service';
 import { ClientStatusService } from '@services/client-status.service';
 import { PolicySourceService } from '@services/policy-source.service';
 import { PolicyStatusService } from '@services/policy-status.service';
+import { PaymentStatusService } from '@services/payment-status.service';
 
 @Injectable()
 export class StatsSnapshotService {
@@ -29,8 +32,10 @@ export class StatsSnapshotService {
     clientStatusStatsData: any[] = [['Estatus', 'Ocasionales', 'Frecuentes', 'Influyentes']];
     policySourcesStatsData: any[] = [['Ramos', 'Pólizas']];
     policyStatusStatsData: any[] = [['Pólizas', 'Estatus', { role: "style" }]];
+    paymentStatusStatsData: any[] = [['Recibos', 'Estatus', { role: "style" }]];
 
     constructor(
+        private _pluralNameFormatPipe: PluralNameFormatPipe,
         private _contactSourceService: ContactSourceService,
         private _insurerService: InsurerService,
         private _leadStatusService: LeadStatusService,
@@ -38,6 +43,7 @@ export class StatsSnapshotService {
         private _clientStatusService: ClientStatusService,
         private _policySourceService: PolicySourceService,
         private _policyStatusService: PolicyStatusService,
+        private _paymentStatusService: PaymentStatusService,
     ) { }
 
     /**
@@ -97,38 +103,18 @@ export class StatsSnapshotService {
      * Get the policy status stats
      * @return The policy status stats
      */
-    getPolicyStatusStats(): Observable<PolicySourceStat[]> {
+    getPolicyStatusStats(): Observable<PolicyStatusStat[]> {
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED]);
         return this._policyStatusService.getPolicyStatusStats(filters);
     }
 
     /**
-     * Load the active clients stats data
-     * @param ContactTypeStat The active clients stats
+     * Get the payment status stats
+     * @return The payment status stats
      */
-    loadActiveClientsStatsData(activeClientsStats: ContactTypeStat[]): void {
-        for (let contactSourceStats of activeClientsStats) {
-            let data: any[] = [
-                contactSourceStats.name,
-                contactSourceStats.totalContacts,
-            ];
-            this.activeClientsStatsData.push(data);
-        }
-    }
-
-    /**
-     * Load the contact source stats data
-     * @param contactSourcesStats The contact sources stats
-     */
-    loadContactSourcesStatsData(contactSourcesStats: ContactSourceStat[]): void {
-        for (let contactSourceStats of contactSourcesStats) {
-            let data: any[] = [
-                contactSourceStats.name,
-                contactSourceStats.totalContacts,
-                'fill-color: #262258; opacity: 0.8'
-            ];
-            this.contactSourcesStatsData.push(data);
-        }
+    getPaymentStatusStats(): Observable<PaymentStatusStat[]> {
+        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE]);
+        return this._paymentStatusService.getPaymentStatusStats(filters);
     }
 
     /**
@@ -149,16 +135,47 @@ export class StatsSnapshotService {
     }
 
     /**
+     * Load the contact source stats data
+     * @param contactSourcesStats The contact sources stats
+     */
+    loadContactSourcesStatsData(contactSourcesStats: ContactSourceStat[]): void {
+        for (let index in contactSourcesStats) {
+            const contactSourceStats: ContactSourceStat = contactSourcesStats[index]
+            const color: string = ((parseInt(index) % 2) === 0) ? '#543888' : '#262258';
+            let data: any[] = [
+                contactSourceStats.name,
+                contactSourceStats.totalContacts,
+                'fill-color: '+color+'; opacity: 0.8'
+            ];
+            this.contactSourcesStatsData.push(data);
+        }
+    }
+
+    /**
      * Load the lead status stats data
      * @param insurersStats The lead status stats
      */
     loadLeadStatusStatsData(leadStatusStats: LeadStatusStat[]): void {
         for (let insurerStats of leadStatusStats) {
             let data: any[] = [
-                insurerStats.name + 's',
+                this._pluralNameFormatPipe.transform(insurerStats.name),
                 insurerStats.totalLeads
             ];
             this.leadStatusStatsData.push(data);
+        }
+    }
+
+    /**
+     * Load the active clients stats data
+     * @param ContactTypeStat The active clients stats
+     */
+    loadActiveClientsStatsData(activeClientsStats: ContactTypeStat[]): void {
+        for (let contactSourceStats of activeClientsStats) {
+            let data: any[] = [
+                this._pluralNameFormatPipe.transform(contactSourceStats.name),
+                contactSourceStats.totalContacts,
+            ];
+            this.activeClientsStatsData.push(data);
         }
     }
 
@@ -167,6 +184,8 @@ export class StatsSnapshotService {
      * @param insurersStats The lead status stats
      */
     loadClientStatusStatsData(data: any): void {
+        data[0][0] = this._pluralNameFormatPipe.transform(data[0][0]);
+        data[1][0] = this._pluralNameFormatPipe.transform(data[1][0]);
         this.clientStatusStatsData.push(data[0]);
         this.clientStatusStatsData.push(data[1]);
     }
@@ -177,14 +196,8 @@ export class StatsSnapshotService {
      */
     loadPolicySourcesStatsData(policySourcesStats: PolicySourceStat[]): void {
         for (let policySourceStats of policySourcesStats) {
-            let name: string = '';
-            switch(policySourceStats.name) {
-                case 'Nueva': name = 'Nuevas'; break;
-                case 'Renovación': name = 'Renovaciones'; break;
-                case 'Reexpedición': name = 'Reexpediciones'; break;
-            }
             let data: any[] = [
-                name,
+                this._pluralNameFormatPipe.transform(policySourceStats.name),
                 policySourceStats.totalPolicies
             ];
             this.policySourcesStatsData.push(data);
@@ -200,11 +213,28 @@ export class StatsSnapshotService {
         for (let index in policyStatusStats) {
             const policyStatus: PolicyStatusStat = policyStatusStats[index];
             let data: any[] = [
-                policyStatus.name + 's',
+                this._pluralNameFormatPipe.transform(policyStatus.name),
                 policyStatus.totalPolicies,
                 'fill-color: '+colors[index]+'; opacity: 0.8'
             ];
             this.policyStatusStatsData.push(data);
+        }
+    }
+
+    /**
+     * Load the payment sources stats data
+     * @param insurersStats The payment sources stats
+     */
+    loadPaymentStatusStatsData(paymentStatusStats: PaymentStatusStat[]): void {
+        for (let index in paymentStatusStats) {
+            const paymentStatus: PaymentStatusStat = paymentStatusStats[index];
+            const color: string = ((parseInt(index) % 2) === 0) ? '#543888' : '#262258';
+            let data: any[] = [
+                this._pluralNameFormatPipe.transform(paymentStatus.name),
+                paymentStatus.totalPayments,
+                'fill-color: '+color+'; opacity: 0.8'
+            ];
+            this.paymentStatusStatsData.push(data);
         }
     }
 

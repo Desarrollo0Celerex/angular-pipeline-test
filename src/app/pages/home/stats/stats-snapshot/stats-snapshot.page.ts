@@ -6,6 +6,8 @@ import { InsurerStat } from '@interfaces/insurer-stat.interface';
 import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicySourceStat } from '@interfaces/policy-source-stat.interface';
+import { PolicyStatusStat } from '@interfaces/policy-status-stat.interface';
+import { PaymentStatusStat } from '@interfaces/payment-status-stat.interface';
 
 import { StatsSnapshotService } from './stats-snapshot.service';
 
@@ -50,6 +52,10 @@ export class StatsSnapshotPage implements OnInit {
         return (this.model.policyStatusStatsData.length > 1) ? true : false;
     }
 
+    get canShowPaymentStatusStats(): boolean {
+        return (this.model.paymentStatusStatsData.length > 1) ? true : false;
+    }
+
     get model(): StatsSnapshotService {
         return this._statsSnapshotService;
     }
@@ -62,6 +68,7 @@ export class StatsSnapshotPage implements OnInit {
         this._loadClientStatusStats();
         this._loadPolicySourcesStats();
         this._loadPolicyStatusStats();
+        this._loadPaymentStatusStats();
     }
 
     /**
@@ -128,9 +135,19 @@ export class StatsSnapshotPage implements OnInit {
      * Load the policy status stats
      */
     private _loadPolicyStatusStats(): void {
-        this.model.getPolicyStatusStats().subscribe((policyStatusStats: PolicySourceStat[]) => {
+        this.model.getPolicyStatusStats().subscribe((policyStatusStats: PolicyStatusStat[]) => {
             this.model.loadPolicyStatusStatsData(policyStatusStats);
             StatsPlugin.drawChartPolicyStatus(this.model.policyStatusStatsData);
+        })
+    }
+
+    /**
+     * Load the payment status stats
+     */
+    private _loadPaymentStatusStats(): void {
+        this.model.getPaymentStatusStats().subscribe((paymentStatusStats: PaymentStatusStat[]) => {
+            this.model.loadPaymentStatusStatsData(paymentStatusStats);
+            StatsPlugin.drawChartPaymentStatus(this.model.paymentStatusStatsData);
         })
     }
 
