@@ -67,7 +67,8 @@
                         <h3 class="card-title">Distribución de Clientes</h3>
                     </div>
                     <!-- AGENTHOS - DATA SUITE CHART -->
-                    <div id="agtDataSuiteClientSnapshot"></div>
+                    <div id="agt-client-status-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowClientStatusStats" [height]="200"></agt-loading-content>
                     <div class="card-footer text-center">
                         <a href="../stats/clients.php">
                         <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>

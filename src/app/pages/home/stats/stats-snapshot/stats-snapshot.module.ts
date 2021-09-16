@@ -6,6 +6,7 @@ import { InsurerService } from '@services/insurer.service';
 import { ContactSourceService } from '@services/contact-source.service';
 import { ContactTypeService } from '@services/contact-type.service';
 import { LeadStatusService } from '@services/lead-status.service';
+import { ClientStatusService } from '@services/client-status.service';
 
 import { StatsSnapshotRoutingModule } from './stats-snapshot-routing.module';
 import { StatsSnapshotPage } from './stats-snapshot.page';
@@ -23,7 +24,8 @@ import { StatsSnapshotPage } from './stats-snapshot.page';
       InsurerService,
       ContactSourceService,
       ContactTypeService,
-      LeadStatusService
+      LeadStatusService,
+      ClientStatusService
   ]
 })
 export class StatsSnapshotModule { }

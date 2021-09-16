@@ -4,6 +4,7 @@ import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
 import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
 import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
+import { HttpResponse } from '@interfaces/http-response.interface';
 
 import { StatsSnapshotService } from './stats-snapshot.service';
 
@@ -36,6 +37,10 @@ export class StatsSnapshotPage implements OnInit {
         return (this.model.leadStatusStatsData.length > 1) ? true : false;
     }
 
+    get canShowClientStatusStats(): boolean {
+        return (this.model.clientStatusStatsData.length > 1) ? true : false;
+    }
+
     get model(): StatsSnapshotService {
         return this._statsSnapshotService;
     }
@@ -45,6 +50,7 @@ export class StatsSnapshotPage implements OnInit {
         this._loadContactsSourceStats();
         this._loadLeadStatusStats();
         this._loadActiveClientsStats();
+        this._loadClientStatusStats();
     }
 
     /**
@@ -84,6 +90,16 @@ export class StatsSnapshotPage implements OnInit {
         this.model.getLeadStatusStats().subscribe((leadStatusStats: LeadStatusStat[]) => {
             this.model.loadLeadStatusStatsData(leadStatusStats);
             StatsPlugin.drawChartLeadStatus(this.model.leadStatusStatsData);
+        })
+    }
+
+    /**
+     * Load the client status stats
+     */
+    private _loadClientStatusStats(): void {
+        this.model.getClientStatusStats().subscribe((res: HttpResponse) => {
+            this.model.loadClientStatusStatsData(res.data);
+            StatsPlugin.drawChartClientStatus(this.model.clientStatusStatsData);
         })
     }
 
