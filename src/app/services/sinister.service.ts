@@ -135,6 +135,15 @@ export class SinisterService {
         return this._httpClient.get<HttpResponse>(route, { params });
     }
 
+    getTotalWorkspaceSinisters(filters: string = ''): Observable<number> {
+        const route: string = routes.totalSinisters(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
     /**
      * Get the sinisters from the API
      * @param  page            The page number

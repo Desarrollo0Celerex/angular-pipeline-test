@@ -4,14 +4,14 @@
             <div class="card-header pt-2 pb-0 border-bottom-0">
                 <h6 class="mb-0">Prospectos<br/>Activos</h6>
                 <div class="card-options">
-                    <a href="frequent.php">
+                    <a [routerLink]="">
                     <button class="btn btn-sm btn-secondary"><i class="fe fe-eye mr-2"></i>VER</button></a>
                 </div>
             </div>
             <div class="card-body d-flex">
                 <div class="">
-                    <h4 class="mb-1"><span class="number-font"><span class="counter">8,888</span></span></h4>
-                    <p class="mb-0 text-muted"><span class="text-green fs-13 mr-2">(888)</span>Este Mes</p>
+                    <h4 class="mb-1"><span class="number-font"><span class="counter">{{model.totalActiveLeads | number: '1.0-0'}}</span></span></h4>
+                    <p class="mb-0 text-muted"><span class="text-green fs-13 mr-2">(0)</span>Este Mes</p>
                 </div>
                 <div class="ml-auto">
                     <div class="feature">
@@ -30,14 +30,14 @@
             <div class="card-header pt-2 pb-0 border-bottom-0">
                 <h6 class="mb-0">Clientes<br/>Activos</h6>
                 <div class="card-options">
-                    <a href="frequent.php">
+                    <a [routerLink]="">
                     <button class="btn btn-sm btn-secondary"><i class="fe fe-eye mr-2"></i>VER</button></a>
                 </div>
             </div>
             <div class="card-body d-flex">
                 <div class="">
-                    <h4 class="mb-1"><span class="number-font"><span class="counter">8,888</span></span></h4>
-                    <p class="mb-0 text-muted"><span class="text-green fs-13 mr-2">(888)</span>Este Mes</p>
+                    <h4 class="mb-1"><span class="number-font"><span class="counter">{{model.totalActiveClients | number: '1.0-0'}}</span></span></h4>
+                    <p class="mb-0 text-muted"><span class="text-green fs-13 mr-2">(0)</span>Este Mes</p>
                 </div>
                 <div class="ml-auto">
                     <div class="feature">
@@ -56,14 +56,14 @@
             <div class="card-header pt-2 pb-0 border-bottom-0">
                 <h6 class="mb-0">Pólizas<br/>Activas</h6>
                 <div class="card-options">
-                    <a href="frequent.php">
+                    <a [routerLink]="">
                     <button class="btn btn-sm btn-secondary"><i class="fe fe-eye mr-2"></i>VER</button></a>
                 </div>
             </div>
             <div class="card-body d-flex">
                 <div class="">
-                    <h4 class="mb-1"><span class="number-font"><span class="counter">888</span></span></h4>
-                    <p class="mb-0 text-muted"><span class="text-green fs-13 mr-2">(888)</span>Este Mes</p>
+                    <h4 class="mb-1"><span class="number-font"><span class="counter">{{model.totalActivePolicies | number: '1.0-0'}}</span></span></h4>
+                    <p class="mb-0 text-muted"><span class="text-green fs-13 mr-2">({{model.latestTotalActivePolicies | number : '1.0-0'}})</span>Este Mes</p>
                 </div>
                 <div class="ml-auto">
                     <div class="feature">
@@ -82,14 +82,14 @@
             <div class="card-header pt-2 pb-0 border-bottom-0">
                 <h6 class="mb-0">Siniestros<br/>Activos</h6>
                 <div class="card-options">
-                    <a href="frequent.php">
+                    <a [routerLink]="">
                     <button class="btn btn-sm btn-secondary"><i class="fe fe-eye mr-2"></i>VER</button></a>
                 </div>
             </div>
             <div class="card-body d-flex">
                 <div class="">
-                    <h4 class="mb-1"><span class="number-font"><span class="counter">888</span></span></h4>
-                    <p class="mb-0 text-muted"><span class="text-green fs-13 mr-2">(888)</span>Este Mes</p>
+                    <h4 class="mb-1"><span class="number-font"><span class="counter">{{model.totalActiveSinisters | number: '1.0-0'}}</span></span></h4>
+                    <p class="mb-0 text-muted"><span class="text-green fs-13 mr-2">({{model.latestTotalActiveSinisters | number: '1.0-0'}})</span>Este Mes</p>
                 </div>
                 <div class="ml-auto">
                     <div class="feature">

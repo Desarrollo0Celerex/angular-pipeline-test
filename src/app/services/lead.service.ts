@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -51,5 +52,14 @@ export class LeadService {
         let params: HttpParams = new HttpParams();
         if(!!leadStatusId) params = params.append('filter', 'leadStatusId[=]' + leadStatusId);
         return this._httpClient.get<HttpResponse>(route, { params });
+    }
+
+    getTotalLeadsAux(filters: string = ''): Observable<number> {
+        const route: string = routes.totalLeads(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 }

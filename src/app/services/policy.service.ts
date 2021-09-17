@@ -29,7 +29,8 @@ const routes: any = {
     policies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies',
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
     totalContactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/count',
-    updateCompletePolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/update-complete'
+    updateCompletePolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/update-complete',
+    totalWorkspacePolicies: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/count'
 }
 
 @Injectable()
@@ -303,6 +304,15 @@ export class PolicyService {
     uploadContactPolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.uploadContactPolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
+    }
+
+    getTotalWorkspacePolicies(filters: string = ''): Observable<number> {
+        const route: string = routes.totalWorkspacePolicies(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 
     /**
