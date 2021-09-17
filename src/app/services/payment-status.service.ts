@@ -7,14 +7,22 @@ import { PAYMENT_STATUS } from '@constants/global';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PaymentStatus } from '@interfaces/payment-status.interface';
+import { PaymentStatusStat } from '@interfaces/payment-status-stat.interface';
+import { AuthService } from '@services/auth.service';
 
 const ROUTES = {
-    paymentStatus: `${environment.apiUrl}/payment-status`
+    paymentStatus: `${environment.apiUrl}/payment-status`,
+    paymentStatusStats: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/stats/payment-status`,
 }
 
 @Injectable()
 export class PaymentStatusService {
-    constructor(private _httpClient: HttpClient) { }
+    private _workspaceId: string = this._authService.workspaceId;
+
+    constructor(
+        private _authService: AuthService,
+        private _httpClient: HttpClient
+    ) { }
 
     /**
      * Get the payment status from the API
@@ -40,5 +48,19 @@ export class PaymentStatusService {
      */
     private _removePaidPaymentStatus(paymentStatus: PaymentStatus[]): PaymentStatus[] {
         return paymentStatus.filter((element: PaymentStatus) => element.paymentStatusId !== PAYMENT_STATUS.PAID);
+    }
+
+    /**
+     * Get the payment status stats
+     * @param  filters The filters to apply
+     * @return         The payment status stats
+     */
+    getPaymentStatusStats(filters: string = ''): Observable<PaymentStatusStat[]> {
+        const route: string = ROUTES.paymentStatusStats(this._workspaceId);
+        let params: HttpParams = new HttpParams;
+        if(!!filters) params = params.append('filter', filters);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 }

@@ -1,0 +1,31 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<form [formGroup]="model.form" (submit)="createPartner()">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Crear Socio Comercial</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<!-- AGENTHOS - PARTNER NAME * -->
+						<input type="text" class="form-control {{getValidationClass('name')}}" placeholder="Ingresa el nombre del socio comercial" formControlName="name">
+						<div class="invalid-feedback">{{getErrorMessage('name')}}</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<label class="form-label">Socio Comercial:</label>
+							<p class="text-justify">Aliado estratégico que genera venta de seguros bajo esquema de comisión. <strong>Por favor ingresa el nombre del socio comercial para continuar.</strong></p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+					<button type="submit" class="btn btn-primary">CONFIRMAR</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

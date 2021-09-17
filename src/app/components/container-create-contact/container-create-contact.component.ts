@@ -9,6 +9,7 @@ import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { ContactSource } from '@interfaces/contact-source.interface';
 import { HttpError } from '@interfaces/http-error.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ContainerCreateContactService } from './container-create-contact.service';
@@ -94,10 +95,10 @@ export class ContainerCreateContactComponent implements OnInit {
 
     /**
      * Event to update the contact source ID
-     * @param contactSourceId The contact source ID to update
      */
-    onContactSourceIdSelected(contactSourceId: number): void {
-        this.containerCreateContactService.contactForm.patchValue({contactSourceId});
+    onContactSourceIdSelected(data: SelectContactSourceData): void {
+        this.containerCreateContactService.contactForm.patchValue({contactSourceId: data.contactSourceId});
+        this.containerCreateContactService.contactForm.patchValue({contactSourceTypeId: data.contactSourceTypeId});
     }
 
     /**

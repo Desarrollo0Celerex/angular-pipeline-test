@@ -26,6 +26,10 @@ const HOME_CONTACTS_ROUTES = {
     listContactCoincidences: `workspace/contacts/list-contact-coincidences`
 }
 
+const HOME_PARTNER_ROUTES = {
+    listPartners: `workspace/partners/list-partners`
+}
+
 const HOME_CONTACT_PROFILE_ROUTES = {
     contactResume: (contactId: string) => `workspace/contact-profile/${contactId}/resume`,
     listContactQuotations: (contactId: string) => `workspace/contact-profile/${contactId}/list-quotations`,
@@ -88,6 +92,9 @@ const HOME_SINISTERS_ROUTES = {
     reactivateSinister: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/reactivate-sinister/${contactId}/${policyId}/${sinisterId}`
 }
 
+const HOME_STATS_ROUTES = {
+    statsSnapshot: `workspace/stats/snapshot`,
+}
 
 const HOME_WALLET_ROUTES = {
     createWallet: `workspace/wallet/create`,
@@ -127,10 +134,12 @@ export const ROUTES_NAME = {
     ...HOME_EXTERNAL_POLICIES_ROUTES,
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,
+    ...HOME_PARTNER_ROUTES,
     ...HOME_PAYMENTS_ROUTES,
     ...HOME_POLICIES_ROUTES,
     ...HOME_QUOTATIONS_ROUTES,
     ...HOME_SINISTERS_ROUTES,
+    ...HOME_STATS_ROUTES,
     ...HOME_WALLET_ROUTES,
     ...INVITATIONS_ROUTES,
     ...SEARCHES_ROUTES,

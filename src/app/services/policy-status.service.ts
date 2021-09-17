@@ -1,21 +1,28 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { POLICY_STATUS, POLICY_STATUS_ACTIVE } from '@constants/global';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicyStatus } from '@interfaces/policy-status.interface';
+import { PolicyStatusStat } from '@interfaces/policy-status-stat.interface';
+import { AuthService } from '@services/auth.service';
 
 const ROUTES = {
-    policyStatus: `${environment.apiUrl}/policy-status`
+    policyStatus: `${environment.apiUrl}/policy-status`,
+    policyStatusStats: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/stats/policy-status`,
 }
 
 @Injectable()
 export class PolicyStatusService {
+    private _workspaceId: string = this._authService.workspaceId;
 
-    constructor(private _httpClient: HttpClient) { }
+    constructor(
+        private _authService: AuthService,
+        private _httpClient: HttpClient
+    ) { }
 
     /**
      * Get the policy status from the API
@@ -49,6 +56,20 @@ export class PolicyStatusService {
                     data: policyStatus
                 }
             })
+        );
+    }
+
+    /**
+     * Get the policy status stats
+     * @param  filters The filters to apply
+     * @return         The policy status stats
+     */
+    getPolicyStatusStats(filters: string = ''): Observable<PolicyStatusStat[]> {
+        const route: string = ROUTES.policyStatusStats(this._workspaceId);
+        let params: HttpParams = new HttpParams;
+        if(!!filters) params = params.append('filter', filters);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
         );
     }
 }

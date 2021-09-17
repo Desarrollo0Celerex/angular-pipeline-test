@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -51,5 +52,14 @@ export class ClientService {
         let params: HttpParams = new HttpParams();
         if(!!clientStatusId)params = params.append('filter', 'clientStatusId[=]' + clientStatusId);
         return this._httpClient.get<HttpResponse>(route, { params });
+    }
+
+    getTotalClientsAux(filters: string = ''): Observable<number> {
+        const route: string = routes.totalClients(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters)params = params.append('filter', filters);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 }

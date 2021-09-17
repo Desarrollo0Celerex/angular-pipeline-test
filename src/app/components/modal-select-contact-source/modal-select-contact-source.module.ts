@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ContactSourceService } from '@services/contact-source.service';
+import { ContactSourceTypeService } from '@services/contact-source-type.service';
 
 import { ModalSelectContactSourceComponent } from './modal-select-contact-source.component';
-import { ModalSelectContactSourceService } from './modal-select-contact-source.service';
 
 @NgModule({
   declarations: [ModalSelectContactSourceComponent],
@@ -15,6 +15,9 @@ import { ModalSelectContactSourceService } from './modal-select-contact-source.s
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [ContactSourceService, ModalSelectContactSourceService]
+  providers: [
+      ContactSourceService,
+      ContactSourceTypeService
+  ]
 })
 export class ModalSelectContactSourceModule { }

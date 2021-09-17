@@ -6,14 +6,14 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
+import { PaymentStat } from '@interfaces/payment-stat.interface';
 import { AuthService } from '@services/auth.service';
-
-import * as moment from 'moment';
 
 const routes: any = {
     payment: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/' +paymentId,
     payments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments',
-    totalPayments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/count'
+    totalPayments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/count',
+    paymentsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/payments'
 }
 
 @Injectable()
@@ -96,5 +96,16 @@ export class PaymentService {
         }
         payment.lifeTime = percentage;
         return payment;
+    }
+
+    /**
+     * Get the payments stats
+     * @return  The payments stats
+     */
+    getPaymentsStats(): Observable<PaymentStat[]> {
+        const route: string = routes.paymentsStats(this._workspaceId);
+        return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 }

@@ -75,6 +75,10 @@ export const POLICY_STATUS: any = {
 }
 export const POLICY_STATUS_ACTIVE: number = 100;
 export const PAYMENT_STATUS: any = {
+    INTIME: 1,
+    PENDING: 2,
+    LATE: 3,
+    OVERDUE: 4,
     PAID: 5
 }
 export const SINISTER_STATUS: any = {
@@ -90,6 +94,21 @@ export const EXTERNAL_POLICY_STATUS: any = {
     CURRENT: 2,
     EXPIRED: 3,
     CANCELLED: 4
+}
+export const LEAD_STATUS: any = {
+    NEW: 1,
+    RECURRENT: 2,
+    RECOVERED: 3
+}
+export const CLIENT_STATUS: any = {
+    OCCASIONAL: 1,
+    FREQUENT: 2,
+    INFLUENTIAL: 3
+}
+export const POLICY_SOURCES: any = {
+    NEW: 1,
+    RENEWAL: 2,
+    REISSUE: 3
 }
 
 // Types

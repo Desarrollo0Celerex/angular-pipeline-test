@@ -42,6 +42,9 @@ const routes: Routes = [
             // Leads routes
             { path: ROUTES_NAME.listLeads, loadChildren: () => import('@pages/home/leads/list-leads/list-leads.module').then(mod => mod.ListLeadsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
+            // Partners routes
+            { path: ROUTES_NAME.listPartners, loadChildren: () => import('@pages/home/partners/list-partners/list-partners.module').then(mod => mod.ListPartnersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+
             // Payments routes
             { path: ROUTES_NAME.listPayments, loadChildren: () => import('@pages/home/payments/list-payments/list-payments.module').then(mod => mod.ListPaymentsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.paymentHistory(':contactId', ':policyId', ':paymentId'), loadChildren: () => import('@pages/home/payments/payment-history/payment-history.module').then(mod => mod.PaymentHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
@@ -65,6 +68,9 @@ const routes: Routes = [
             { path: ROUTES_NAME.showSinisterHistory(':contactId', ':policyId', ':sinisterId'), loadChildren: () => import('@pages/home/sinisters/show-sinister-history/show-sinister-history.module').then(mod => mod.ShowSinisterHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.finalizeSinister(':contactId', ':policyId', ':sinisterId'), loadChildren: () => import('@pages/home/sinisters/finalize-sinister/finalize-sinister.module').then(mod => mod.FinalizeSinisterModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.reactivateSinister(':contactId', ':policyId', ':sinisterId'), loadChildren: () => import('@pages/home/sinisters/reactivate-sinister/reactivate-sinister.module').then(mod => mod.ReactivateSinisterModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+
+            // Stats routes
+            { path: '', loadChildren: () => import('@pages/home/stats/stats.module').then(mod => mod.StatsModule) },
 
             // Wallet routes
             { path: ROUTES_NAME.createWallet, loadChildren: () => import('@pages/home/wallet/create-wallet/create-wallet.module').then(mod => mod.CreateWalletModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

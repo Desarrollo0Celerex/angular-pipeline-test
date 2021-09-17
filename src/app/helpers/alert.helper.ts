@@ -130,6 +130,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static partnerCreated(): void {
+        const alertData: Alert = {
+            title: 'Socio creado',
+            text: 'El socio ha sido creado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static policyAlreadyExists(): void {
         const alertData: Alert = {
             title: 'Error al guardar póliza',

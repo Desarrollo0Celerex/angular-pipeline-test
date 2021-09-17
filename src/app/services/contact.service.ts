@@ -17,7 +17,7 @@ const routes: any = {
 
 @Injectable()
 export class ContactService {
-private _workspaceId: string;
+    private _workspaceId: string;
 
     constructor(
         private _httpClient: HttpClient,
