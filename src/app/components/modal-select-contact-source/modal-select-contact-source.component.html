@@ -2,23 +2,29 @@
 <div class="modal fade" [id]="modalId" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form [formGroup]="modalSelectContactSourceService.contactSourceForm" (submit)="onSubmitSelectContactSource()">
+            <form [formGroup]="model.contactSourceForm" (submit)="onSubmitSelectContactSource()">
                 <div class="modal-header">
-                    <h5 class="modal-title">Seleccionar Origen de Prospecto</h5>
+                    <h5 class="modal-title">Origen del Contacto</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="form-label">Asigna un Origen de Prospecto</label>
-                        <select name="agtContactSource" class="form-control" formControlName="contactSourceId">
-                            <option [value]="contactSource.contactSourceId" *ngFor="let contactSource of modalSelectContactSourceService.contactSources">{{contactSource.name}}</option>
+                        <select class="form-control {{getValidationClass('contactSourceId')}}" formControlName="contactSourceId" (change)="loadContactSourceTypes($event)">
+                            <option [value]="contactSource.contactSourceId" *ngFor="let contactSource of model.contactSources">{{contactSource.name}}</option>
                         </select>
+                        <div class="invalid-feedback">{{getErrorMessage('contactSourceId')}}</div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Origen de Prospecto:</label>
-                        <p>Indica el canal de captación de este nuevo prospecto. Al seleccionarlo te permitirá gestionar mejor tus canales de atracción.</p>
+                        <select class="form-control {{getValidationClass('contactSourceTypeId')}}" formControlName="contactSourceTypeId">
+                            <option [value]="contactSourceType.contactSourceTypeId" *ngFor="let contactSourceType of model.contactSourceTypes">{{contactSourceType.name}}</option>
+                        </select>
+                        <div class="invalid-feedback">{{getErrorMessage('contactSourceTypeId')}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Origen del Contacto:</label>
+						<p class="text-justify">Permite identificar el canal de adquisición de este nuevo contacto. <strong>Por favor selecciona el canal apropiado para continuar.</strong></p>
                     </div>
                 </div>
                 <div class="modal-footer">

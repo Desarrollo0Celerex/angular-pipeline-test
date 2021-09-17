@@ -90,4 +90,4 @@
 </div>
 
 <agt-modal-duplicate-contact [modalId]="modaIdDuplicateContact" (viewMatches)="onViewMatches()" (saveContact)="onSaveContact()"></agt-modal-duplicate-contact>
-<agt-modal-select-contact-source [modalId]="modalIdSelectContactSource" [contactSourceId]="containerCreateContactService.f.contactSourceId.value" (contactSourceIdSelected)="onContactSourceIdSelected($event)"></agt-modal-select-contact-source>
+<agt-modal-select-contact-source [modalId]="modalIdSelectContactSource" [contactSourceId]="containerCreateContactService.f.contactSourceId.value" [contactSourceTypeId]="containerCreateContactService.f.contactSourceTypeId.value"  (contactSourceIdSelected)="onContactSourceIdSelected($event)"></agt-modal-select-contact-source>

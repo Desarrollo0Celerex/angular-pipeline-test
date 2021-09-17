@@ -40,6 +40,7 @@ export class ContainerCreateContactService {
             phoneCodeId: [DEFAULT_PHONE_CODE_ID],
             phoneNumber: ['', [ValidatorsHelper.phoneNumber]],
             contactSourceId: [DEFAULT_CONTACT_SOURCE_ID, [Validators.required]],
+            contactSourceTypeId: ['1', [Validators.required]],
             contactTypeId: [CONTACT_TYPES.PERSON, [Validators.required]]
         })
     }
@@ -55,6 +56,7 @@ export class ContainerCreateContactService {
             phoneCodeId: [DEFAULT_PHONE_CODE_ID],
             phoneNumber: ['', [ValidatorsHelper.phoneNumber]],
             contactSourceId: [DEFAULT_CONTACT_SOURCE_ID, [Validators.required]],
+            contactSourceTypeId: ['1', [Validators.required]],
             contactTypeId: [CONTACT_TYPES.COMPANY, [Validators.required]]
         })
     }
