@@ -42,6 +42,9 @@ const routes: Routes = [
             // Leads routes
             { path: ROUTES_NAME.listLeads, loadChildren: () => import('@pages/home/leads/list-leads/list-leads.module').then(mod => mod.ListLeadsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
+            // Partners routes
+            { path: ROUTES_NAME.listPartners, loadChildren: () => import('@pages/home/partners/list-partners/list-partners.module').then(mod => mod.ListPartnersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+
             // Payments routes
             { path: ROUTES_NAME.listPayments, loadChildren: () => import('@pages/home/payments/list-payments/list-payments.module').then(mod => mod.ListPaymentsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.paymentHistory(':contactId', ':policyId', ':paymentId'), loadChildren: () => import('@pages/home/payments/payment-history/payment-history.module').then(mod => mod.PaymentHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
