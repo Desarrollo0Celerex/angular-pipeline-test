@@ -1,0 +1,53 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Seleccionar Periodo</h3>
+    </div>
+    <form [formGroup]="model.form" (submit)="selectPeriod()">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="form-label">Periodo Inicial</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                            </div>
+                        </div>
+                        <input [id]="calendarIdStartDate" type="text" class="form-control fc-datepicker {{getValidationClass('startDate')}}" placeholder="MM/DD/YYYY" formControlName="startDate">
+                        <div class="invalid-feedback">{{getErrorMessage('startDate')}}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Periodo Final</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                            </div>
+                        </div>
+                        <input [id]="calendarIdEndDate" type="text" class="form-control fc-datepicker {{getValidationClass('endDate')}}" placeholder="MM/DD/YYYY" formControlName="endDate">
+                        <div class="invalid-feedback">{{getErrorMessage('endDate')}}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Periodo Comparación</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-toggle-on tx-16 lh-0 op-6"></i>
+                            </div>
+                        </div>
+                        <select class="form-control {{getValidationClass('periodId')}}" formControlName="periodId">
+                            <option value="1">Año Anterior</option>
+                            <option value="2">Mes Anterior</option>
+                        </select>
+                        <div class="invalid-feedback">{{getErrorMessage('periodId')}}</div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-5">
+                    <button type="submit" class="btn btn-icon btn-block btn-secondary"><strong>FILTRAR PERIODO</strong></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

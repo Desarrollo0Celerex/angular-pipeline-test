@@ -1,0 +1,105 @@
+<!-- AGENTHOS - DATA SUITE FILTERS  -->
+<div class="row mt-5">
+	<!-- AGENTHOS - DATA SUITE STATS -->
+	<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+		<agt-container-select-stats-period (statsPeriodSelected)="loadContent($event)"></agt-container-select-stats-period>
+	</div>
+	<!-- //AGENTHOS - DATA SUITE STATS -->
+	<!-- AGENTHOS - DATA SUITE REPORT -->
+	<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title">Generar Reporte</h3>
+			</div>
+			<!-- AGENTHOS - DATA SUITE REPORT GENERATOR -->
+			<div class="card-body">
+				<ol class="breadcrumb1 mt-2">
+					<li class="breadcrumb-item1">Genera un reporte inmediato de los <strong>Prospectos Activos</strong>.</li>
+				</ol>
+				<button type="button" class="btn btn-block btn-primary mt-5"><strong>DESCARGAR REPORTE</strong></button>
+			</div>
+			<!-- //AGENTHOS - DATA SUITE REPORT GENERATOR -->
+		</div>
+	</div>
+	<!-- //AGENTHOS - DATA SUITE REPORT -->
+</div>
+<!-- //AGENTHOS - DATA SUITE FILTERS  -->
+
+<!-- AGENTHOS - DATA SUITE CONSOLE -->
+<div class="row mt-3">
+	<!-- AGENTHOS - DATA SUITE MENU -->
+	<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+		<agt-menu-stats></agt-menu-stats>
+	</div>
+	<!-- //AGENTHOS - DATA SUITE MENU -->
+	<!-- AGENTHOS - DATA SUITE STATS -->
+	<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+		<div class="row">
+			<!-- AGENTHOS - DATA SUITE LEADS QUOTES -->
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+				<div class="card">
+					<div class="card-header pt-2 pb-0 border-bottom-0">
+						<h3 class="card-title">Cotizaciones Generadas</h3>
+					</div>
+					<!-- AGENTHOS - DATA SUITE CHART -->
+					<div id="agtDataSuiteLeadQuotes"></div>
+				</div>
+			</div>
+			<!-- //AGENTHOS - DATA SUITE LEADS QUOTES -->
+			<!-- AGENTHOS - DATA SUITE LEADS CHANNELS -->
+			<div class="col-xl-9 col-lg-9 col-md-6 col-sm-12">
+				<div class="card">
+					<div class="card-header pt-2 pb-0 border-bottom-0">
+						<h3 class="card-title">Canales de Adquisición</h3>
+					</div>
+					<!-- AGENTHOS - DATA SUITE CHART -->
+					<div id="agtDataSuiteLeadChannels"></div>
+				</div>
+			</div>
+			<!-- //AGENTHOS - DATA SUITE LEADS CHANNELS -->
+			<!-- AGENTHOS - DATA SUITE LEADS INSIGHTS -->
+			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+				<div class="card">
+					<div class="card-header pt-2 pb-0 border-bottom-0">
+						<h3 class="card-title">Insights</h3>
+						<div class="card-options">
+							<i class="fe fe-trending-up mr-1 text-primary fs-30"></i>
+						</div>
+					</div>
+					<div class="card-body text-center">
+						<ol class="breadcrumb1">
+							<li class="breadcrumb-item1">Conoce el desempeño de los <strong>Canales de Adquisición</strong>.</li>
+						</ol>
+						<a href="../funnel">
+						<button type="button" name="agtFunnelSnapshot" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
+					</div>
+				</div>
+			</div>
+			<!-- //AGENTHOS - DATA SUITE LEADS INSIGHTS -->
+			<!-- AGENTHOS - DATA SUITE LEADS BEST CHANNELS -->
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+				<div class="card">
+					<div class="card-header pt-2 pb-0 border-bottom-0">
+						<h3 class="card-title">Canales con Mayor Conversión</h3>
+					</div>
+					<!-- AGENTHOS - DATA SUITE CHART -->
+					<div id="agtDataSuiteLeadBestChannels"></div>
+				</div>
+			</div>
+			<!-- //AGENTHOS - DATA SUITE LEADS BEST CHANNELS -->
+			<!-- AGENTHOS - DATA SUITE LEADS WORST CHANNELS -->
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+				<div class="card">
+					<div class="card-header pt-2 pb-0 border-bottom-0">
+						<h3 class="card-title">Canales con Menor Conversión</h3>
+					</div>
+					<!-- AGENTHOS - DATA SUITE CHART -->
+					<div id="agtDataSuiteLeadWorstChannels"></div>
+				</div>
+			</div>
+			<!-- //AGENTHOS - DATA SUITE LEADS WORST CHANNELS -->
+		</div>
+	</div>
+	<!-- //AGENTHOS - DATA SUITE STATS -->
+</div>
+<!-- //AGENTHOS - DATA SUITE CONSOLE -->

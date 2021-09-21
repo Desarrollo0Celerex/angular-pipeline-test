@@ -11,7 +11,8 @@ const routes: Routes = [{
     path: '',
     component: StatsLayout,
     children: [
-        { path: ROUTES_NAME.statsSnapshot, loadChildren: () => import('@pages/home/stats/stats-snapshot/stats-snapshot.module').then(mod => mod.StatsSnapshotModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] }
+        { path: ROUTES_NAME.statsSnapshot, loadChildren: () => import('@pages/home/stats/stats-snapshot/stats-snapshot.module').then(mod => mod.StatsSnapshotModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+        { path: ROUTES_NAME.statsLeads, loadChildren: () => import('@pages/home/stats/stats-leads/stats-leads.module').then(mod => mod.StatsLeadsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
     ]
 }];
 
