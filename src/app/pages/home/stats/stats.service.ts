@@ -47,11 +47,11 @@ export class StatsService {
     }
 
     loadLatestTotalActivePolicies(): void {
-        const endDate: string = moment().format('DD/MM/YYYY');
-        const startDate: string = moment().subtract(1, 'months').format('DD/MM/YYYY')
-        let filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED])
-        filters += ',' + UtilitiesHelper.generateHttpFilterByRange(startDate, endDate);
-        this._policyService.getTotalWorkspacePolicies(filters).subscribe((totalPolicies: number) => {
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED]);
+        const rangeField: string = 'emissionDate';
+        const rangeStart: string = moment().subtract(1, 'months').format('DD/MM/YYYY');
+        const rangeEnd: string = moment().format('DD/MM/YYYY');
+        this._policyService.getTotalWorkspacePolicies(filters, rangeField, rangeStart, rangeEnd).subscribe((totalPolicies: number) => {
             this.latestTotalActivePolicies = totalPolicies;
         })
     }
@@ -64,11 +64,11 @@ export class StatsService {
     }
 
     loadLatestTotalActiveSinisters(): void {
-        const endDate: string = moment().format('DD/MM/YYYY');
-        const startDate: string = moment().subtract(1, 'months').format('DD/MM/YYYY')
-        let filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE])
-        filters += ',' + UtilitiesHelper.generateHttpFilterByRange(startDate, endDate);
-        this._sinisterService.getTotalWorkspaceSinisters(filters).subscribe((totalSinisters: number) => {
+        const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE])
+        const rangeField: string = 'sinisterDate';
+        const rangeStart: string = moment().subtract(1, 'months').format('DD/MM/YYYY');
+        const rangeEnd: string = moment().format('DD/MM/YYYY');
+        this._sinisterService.getTotalWorkspaceSinisters(filters, rangeField, rangeStart, rangeEnd).subscribe((totalSinisters: number) => {
             this.latestTotalActiveSinisters = totalSinisters;
         })
     }
