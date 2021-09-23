@@ -119,6 +119,7 @@ export class CompletePolicyPage implements OnInit {
      */
     onLoadScannedPolicyData(): void {
         this.completePolicyService.buildPolicyForm(this._scannedPolicyData);
+        this._calculateBills();
     }
 
     /**
@@ -247,6 +248,7 @@ export class CompletePolicyPage implements OnInit {
             this._scanningService.hide();
             ModalPlugin.show(this.modalIdScanningPolicySuccess);
             this._scannedPolicyData = res.data;
+
             this._reviewPolicyData(policyUrl);
         }, (error: any) => {
             this._reviewPolicyData(policyUrl);
