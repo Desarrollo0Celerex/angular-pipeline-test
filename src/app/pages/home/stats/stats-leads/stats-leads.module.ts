@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
+import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { MenuStatsModule } from '@components/menu-stats/menu-stats.module';
+import { QuotationService } from '@services/quotation.service';
 
 import { StatsLeadsRoutingModule } from './stats-leads-routing.module';
 import { StatsLeadsPage } from './stats-leads.page';
@@ -16,7 +18,9 @@ import { StatsLeadsPage } from './stats-leads.page';
     CommonModule,
     StatsLeadsRoutingModule,
     MenuStatsModule,
-    ContainerSelectStatsPeriodModule
-  ]
+    ContainerSelectStatsPeriodModule,
+    LoadingContentModule
+  ],
+  providers: [QuotationService]
 })
 export class StatsLeadsModule { }

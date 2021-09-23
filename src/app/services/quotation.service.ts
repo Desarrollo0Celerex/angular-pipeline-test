@@ -1,10 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { CreateQuotationDataSend } from '@interfaces/create-quotation-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { QuotationStat } from '@interfaces/quotation-stat.interfaces';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
@@ -12,7 +14,8 @@ const routes: any = {
     contactQuotations: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations',
     acceptContactQuotation: (workspaceId: string, contactId: string, quotationId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/' + quotationId + '/accept',
     rejectContactQuotation: (workspaceId: string, contactId: string, quotationId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/' + quotationId + '/reject',
-    totalQuotations: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/total'
+    totalQuotations: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/total',
+    quotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/quotations'
 }
 
 @Injectable()
@@ -104,5 +107,16 @@ export class QuotationService {
         let params: HttpParams = new HttpParams();
         if(!!filter) params = params.append('filter', 'quotationStatusId[=]' + filter);
         return this._httpClient.get<HttpResponse>(route, { params });
+    }
+
+    getQuotationsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<QuotationStat[]> {
+        const route: string = routes.quotationsStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 }

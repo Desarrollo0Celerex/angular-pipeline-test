@@ -254,6 +254,11 @@ export const CANCELLATION_REASONS: any = {
     UPLOAD_ERROR: 7
 }
 
+export const PERIODS: any = {
+    LAST_YEAR: 1,
+    LAST_MONTH: 2
+}
+
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;
 export const DEFAULT_COUNTRY_ID: number = 1;
