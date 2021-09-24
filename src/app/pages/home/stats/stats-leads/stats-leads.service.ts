@@ -37,7 +37,7 @@ export class StatsLeadsService {
             let title: string = '';
             for(let i=0; i<totalResponses; i++) {
                 if(typeof quotationsStats[i][index] != 'undefined') {
-                    title += quotationsStats[i][index].date + ' vs ';
+                    title += `(${quotationsStats[i][index].rangeStart} - ${quotationsStats[i][index].rangeEnd}) vs `;
                 }
             }
             title = title.substring(0, title.length - 4);

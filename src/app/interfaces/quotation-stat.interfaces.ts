@@ -1,4 +1,5 @@
 export interface QuotationStat {
-    date: string,
+    rangeStart: string,
+    rangeEnd: string,
     totalQuotations: number
 }
