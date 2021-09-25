@@ -172,6 +172,18 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static policyDeletedByCaptureError(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Póliza Eliminada',
+            text: 'La póliza se ha eliminado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static policyCompleted(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Datos Actualizados',

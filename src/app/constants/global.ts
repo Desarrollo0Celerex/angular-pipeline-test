@@ -251,7 +251,7 @@ export const ROLES: any = {
 }
 
 export const CANCELLATION_REASONS: any = {
-    UPLOAD_ERROR: 7
+    CAPTURE_ERROR: 7
 }
 
 // Default values

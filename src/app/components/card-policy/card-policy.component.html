@@ -49,7 +49,7 @@
                         <button type="button" class="dropdown-item" (click)="onClickShowPaymentHistory()"><i class="fa fa-credit-card mr-2"></i>Cobranza</button>
                         <!-- AGENTHOS - POLICY SINISTERS -->
                         <button type="button" class="dropdown-item" (click)="onClickShowPolicySinisters()"><i class="fa fa-support mr-2"></i>Siniestros</button>
-                        <ng-container *ngIf="policy.policyCancellationReasonId === CANCELLATION_REASONS.UPLOAD_ERROR">
+                        <ng-container *ngIf="policy.policyCancellationReasonId === CANCELLATION_REASONS.CAPTURE_ERROR">
                             <button type="button" class="dropdown-item" (click)="onClickDeletePolicy()"><i class="fa fa-trash mr-2"></i>Eliminar</button>
                         </ng-container>
                     </ng-container>

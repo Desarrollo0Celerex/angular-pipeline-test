@@ -274,6 +274,7 @@
 <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="contactId" [policyId]="policyId"></agt-modal-show-policy>
 <agt-modal-select-evidence [modalId]="modalIdSelectFile" [data]="modalSelectFileData" (fileSelected)="onFileSelected($event)"></agt-modal-select-evidence>
 <agt-modal-confirm-apply-cancellation [modalId]="modalIdConfirmAction" (actionConfirmed)="onActionConfirmed()"></agt-modal-confirm-apply-cancellation>
+<agt-modal-confirm-delete-policy-by-capture-error [modalId]="modalIdConfirmDeletePolicyByCaptureError" (actionConfirmed)="deletePolicy()"></agt-modal-confirm-delete-policy-by-capture-error>
 
 <ng-template #loadingContent>
     <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
