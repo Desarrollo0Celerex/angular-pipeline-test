@@ -50,6 +50,10 @@ export class CancelPolicyService {
         return this._policyService.cancelPolicy(contactId, policyId, requestBody);
     }
 
+    deletePolicy(contactId: string, policyId: string): Observable<void> {
+        return this._policyService.deleteContactCompletePolicy(contactId, policyId);
+    }
+
     /**
      * Load the policy data
      * @param contactId The contact ID

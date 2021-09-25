@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
-import { FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
+import { CANCELLATION_REASONS, FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -25,6 +25,7 @@ export class CancelPolicyPage implements OnInit {
     contactId: string;
     message: string;
     modalIdConfirmAction: string;
+    modalIdConfirmDeletePolicyByCaptureError: string = 'agt-modal-confirm-delete-policy-by-capture-error';
     modalIdSelectFile: string;
     modalIdShowPolicy: string;
     modalSelectFileData: ModalSelectFileData;
@@ -92,6 +93,14 @@ export class CancelPolicyPage implements OnInit {
         })
     }
 
+    deletePolicy(): void {
+        this._loadingService.show();
+        this.cancelPolicyService.deletePolicy(this.contactId, this.policyId).subscribe( () => {
+            this._loadingService.hide();
+            AlertHelper.policyDeletedByCaptureError(this._goToListContactPolicies, this);
+        })
+    }
+
     /**
      * Click event to show modal and select the file
      */
@@ -120,7 +129,8 @@ export class CancelPolicyPage implements OnInit {
     onSubmitCancelPolicy(): void {
         this._isFormSubmitted = true;
         if(this.cancelPolicyService.cancellationForm.valid) {
-            ModalPlugin.show(this.modalIdConfirmAction);
+            const modalId: string = (this.cancelPolicyService.f.policyCancellationReasonId.value == CANCELLATION_REASONS.CAPTURE_ERROR) ? this.modalIdConfirmDeletePolicyByCaptureError : this.modalIdConfirmAction;
+            ModalPlugin.show(modalId);
         }
     }
 
