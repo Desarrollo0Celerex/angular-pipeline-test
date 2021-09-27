@@ -27,8 +27,32 @@ var StatsLeadsPlugin = function() {
         document.getElementById('agt-stats-leads-quotations').innerHTML = '';
     }
 
+    function drawChartContactSources(chartData) {
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var data = google.visualization.arrayToDataTable(chartData);
+            var options = {
+                chartArea: {width: '60%'},
+                legend:{"position":"top","textStyle":{"color":"#536d98","fontSize":12}},
+                colors: ['#ec4178', '#6c5ce8'],
+            };
+            var chart = new google.visualization.BarChart(document.getElementById('agt-stats-leads-contact-sources'));
+            chart.draw(data, options);
+        }
+    }
+
+    function removeChartContactSources() {
+        document.getElementById('agt-stats-leads-contact-sources').innerHTML = '';
+    }
+
     return {
         drawChartQuotations,
         removeChartQuotations,
+        drawChartContactSources,
+        removeChartContactSources,
     }
 }();

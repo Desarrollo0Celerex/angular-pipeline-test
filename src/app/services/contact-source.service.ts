@@ -10,7 +10,8 @@ import { AuthService } from '@services/auth.service';
 
 const ROUTES = {
     contactSources: `${environment.apiUrl}/contact-sources`,
-    contactSourcesStats: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/stats/contact-sources`
+    contactSourcesStats: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/stats/contact-sources`,
+    contactSourcesStatsLeads: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/stats/contact-sources/leads`
 }
 
 @Injectable()
@@ -43,6 +44,22 @@ export class ContactSourceService {
         const route: string = ROUTES.contactSourcesStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => { return res.data })
+        );
+    }
+
+    /**
+     * Get the contact sources stats of leads from the API
+     * @param  filters The filters to apply
+     * @return         The contact sources stats
+     */
+    getContactSourcesStatsLeads(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<ContactSourceStat[]> {
+        const route: string = ROUTES.contactSourcesStatsLeads(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => { return res.data })
         );

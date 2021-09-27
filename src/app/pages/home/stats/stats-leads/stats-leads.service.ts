@@ -3,15 +3,36 @@ import { forkJoin, Observable } from 'rxjs';
 import * as moment from 'moment';
 
 import { PERIODS } from '@constants/global';
+import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
 import { QuotationStat } from '@interfaces/quotation-stat.interfaces';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
+import { ContactSourceService } from '@services/contact-source.service';
 import { QuotationService } from '@services/quotation.service';
 
 @Injectable()
 export class StatsLeadsService {
     quotationsStatsData: any[] = [];
+    contactSourcesStatsData: any[] = [];
 
-    constructor(private _quotationService: QuotationService) { }
+    constructor(
+        private _contactSourceService: ContactSourceService,
+        private _quotationService: QuotationService
+    ) { }
+
+    getContactSourcesStats(statsPeriodData: StatsPeriodData): Observable<ContactSourceStat[][]> {
+        this.contactSourcesStatsData = [['Canal', 'Periodo Seleccionado', 'Periodo Comparación']];
+        const rangeField: string = 'leadConversionDate';
+        const periodSelectedRangeStart: string = statsPeriodData.startDate;
+        const periodSelectedRangeEnd: string = statsPeriodData.endDate;
+        const startDateAux: any = moment(statsPeriodData.startDate, 'DD/MM/YYYY');
+        const endDateAux: any = moment(statsPeriodData.endDate, 'DD/MM/YYYY');
+        const periodComparisonRangeStart: string = ((statsPeriodData.periodId == PERIODS.LAST_YEAR) ? startDateAux.subtract(1, 'years') : startDateAux.subtract(1, 'months')).format('DD/MM/YYYY');
+        const periodComparisonRangeEnd: string = ((statsPeriodData.periodId == PERIODS.LAST_YEAR) ?  endDateAux.subtract(1, 'years') : endDateAux.subtract(1, 'months')).format('DD/MM/YYYY');
+        let requests: Observable<ContactSourceStat[]>[] = [];
+        requests.push(this._contactSourceService.getContactSourcesStatsLeads(rangeField, periodSelectedRangeStart, periodSelectedRangeEnd));
+        requests.push(this._contactSourceService.getContactSourcesStatsLeads(rangeField, periodComparisonRangeStart, periodComparisonRangeEnd));
+        return forkJoin(requests);
+    }
 
     getQuotationsStats(statsPeriodData: StatsPeriodData): Observable<QuotationStat[][]> {
         this.quotationsStatsData = [['Cotizaciones', 'Periodo Seleccionado', 'Periodo Comparación']];
@@ -48,6 +69,17 @@ export class StatsLeadsService {
                 } else {
                     this.quotationsStatsData[parseInt(index) + 1].push(0);
                 }
+            }
+        }
+    }
+
+    loadContactSourcesStatsData(contactSourcesStats: ContactSourceStat[][]): void {
+        for (let contactSourceStats of contactSourcesStats[0]) {
+                this.contactSourcesStatsData.push([contactSourceStats.name]);
+        }
+        for (let index in contactSourcesStats[0]) {
+            for (let contactSourceStats of contactSourcesStats) {
+                this.contactSourcesStatsData[parseInt(index) + 1].push(contactSourceStats[index].totalContacts);
             }
         }
     }
