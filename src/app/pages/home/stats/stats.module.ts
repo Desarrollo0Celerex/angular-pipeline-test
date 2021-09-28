@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { CardContentKpiModule } from '@components/card-content-kpi/card-content-kpi.module';
 import { LeadService } from '@services/lead.service';
 import { ClientService } from '@services/client.service';
+import { PaymentService } from '@services/payment.service';
 import { SinisterService } from '@services/sinister.service';
 
 import { StatsRoutingModule } from './stats-routing.module';
@@ -24,7 +25,8 @@ import { StatsLayout } from './stats.layout';
   providers: [
       LeadService,
       ClientService,
-      SinisterService
+      SinisterService,
+      PaymentService
   ]
 })
 export class StatsModule { }

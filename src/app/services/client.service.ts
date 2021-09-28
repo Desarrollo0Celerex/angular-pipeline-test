@@ -47,17 +47,13 @@ export class ClientService {
      * @param  clientStatusId The filter to apply
      * @return                The total clients
      */
-    getTotalClients(clientStatusId: number = 0): Observable<HttpResponse> {
+    getTotalClients(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
         const route: string = routes.totalClients(this._workspaceId);
         let params: HttpParams = new HttpParams();
-        if(!!clientStatusId)params = params.append('filter', 'clientStatusId[=]' + clientStatusId);
-        return this._httpClient.get<HttpResponse>(route, { params });
-    }
-
-    getTotalClientsAux(filters: string = ''): Observable<number> {
-        const route: string = routes.totalClients(this._workspaceId);
-        let params: HttpParams = new HttpParams();
-        if(!!filters)params = params.append('filter', filters);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );

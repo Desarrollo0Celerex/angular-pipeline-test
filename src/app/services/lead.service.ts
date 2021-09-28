@@ -47,17 +47,13 @@ export class LeadService {
      * @param  leadStatusId The filter to apply
      * @return              The total clients
      */
-    getTotalLeads(leadStatusId: number = 0): Observable<HttpResponse> {
-        const route: string = routes.totalLeads(this._workspaceId);
-        let params: HttpParams = new HttpParams();
-        if(!!leadStatusId) params = params.append('filter', 'leadStatusId[=]' + leadStatusId);
-        return this._httpClient.get<HttpResponse>(route, { params });
-    }
-
-    getTotalLeadsAux(filters: string = ''): Observable<number> {
+    getTotalLeads(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
         const route: string = routes.totalLeads(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );

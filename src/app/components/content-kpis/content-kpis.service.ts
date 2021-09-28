@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ClientStatus } from '@interfaces/client-status.interface';
 import { LeadStatus } from '@interfaces/lead-status.interface';
@@ -60,9 +61,9 @@ export class ContentKpisService {
             const fields: string = 'leadStatusId,name,background,icon';
             this._leadStatusService.getLeadStatus(fields).subscribe( (res: HttpResponse) => {
                 const leadStatus: LeadStatus[] = res.data;
-                this._leadService.getTotalLeads().subscribe( (res: HttpResponse) => {
-                    const totalLeads: number = res.data;
-                    this._getTotalLeadsByStatus(leadStatus).subscribe( (res: HttpResponse[]) => {
+                this._leadService.getTotalLeads().subscribe( (res: number) => {
+                    const totalLeads: number = res;
+                    this._getTotalLeadsByStatus(leadStatus).subscribe( (res: number[]) => {
                         this.kpis = [];
                         for(let index in res) {
                             const kpi: Kpi = {
@@ -70,8 +71,8 @@ export class ContentKpisService {
                                 name: leadStatus[index].name,
                                 background: leadStatus[index].background,
                                 icon: leadStatus[index].icon,
-                                total: res[index].data,
-                                percentage: res[index].data / totalLeads
+                                total: res[index],
+                                percentage: res[index] / totalLeads
                             }
                             this.kpis.push(kpi);
                         }
@@ -92,9 +93,9 @@ export class ContentKpisService {
             const fields: string = 'clientStatusId,name,background,icon';
             this._clientStatusService.getClientStatus(fields).subscribe( (res: HttpResponse) => {
                 const clientStatus: ClientStatus[] = res.data;
-                this._clientService.getTotalClients().subscribe( (res: HttpResponse) => {
-                    const totalClients: number = res.data;
-                    this._getTotalClientsByStatus(clientStatus).subscribe( (res: HttpResponse[]) => {
+                this._clientService.getTotalClients().subscribe( (res: number) => {
+                    const totalClients: number = res;
+                    this._getTotalClientsByStatus(clientStatus).subscribe( (res: number[]) => {
                         this.kpis = [];
                         for(let index in res) {
                             const kpi: Kpi = {
@@ -102,8 +103,8 @@ export class ContentKpisService {
                                 name: clientStatus[index].name,
                                 background: clientStatus[index].background,
                                 icon: clientStatus[index].icon,
-                                total: res[index].data,
-                                percentage: res[index].data / totalClients
+                                total: res[index],
+                                percentage: res[index] / totalClients
                             }
                             this.kpis.push(kpi);
                         }
@@ -124,9 +125,9 @@ export class ContentKpisService {
             const fields: string = 'paymentStatusId,name,background,icon';
             this._paymentStatusService.getPaymentStatus(fields).subscribe( (res: HttpResponse) => {
                 const paymentStatus: PaymentStatus[] = res.data;
-                this._clientService.getTotalClients().subscribe( (res: HttpResponse) => {
-                    const totalPayments: number = res.data;
-                    this._getTotalPaymentsByStatus(paymentStatus).subscribe( (res: HttpResponse[]) => {
+                this._paymentService.getTotalPayments().subscribe( (res: number) => {
+                    const totalPayments: number = res;
+                    this._getTotalPaymentsByStatus(paymentStatus).subscribe( (res: number[]) => {
                         this.kpis = [];
                         for(let index in res) {
                             const kpi: Kpi = {
@@ -134,8 +135,8 @@ export class ContentKpisService {
                                 name: paymentStatus[index].name,
                                 background: paymentStatus[index].background,
                                 icon: paymentStatus[index].icon,
-                                total: res[index].data,
-                                percentage: res[index].data / totalPayments
+                                total: res[index],
+                                percentage: res[index] / totalPayments
                             }
                             this.kpis.push(kpi);
                         }
@@ -156,7 +157,7 @@ export class ContentKpisService {
             const fields: string = 'sinisterStatusId,name,background,icon';
             this._sinisterStatusService.getSinisterStatus(fields).subscribe( (res: HttpResponse) => {
                 const sinisterStatus: SinisterStatus[] = res.data;
-                this._clientService.getTotalClients().subscribe( (res: HttpResponse) => {
+                this._sinisterService.getTotalSinisters().subscribe( (res: HttpResponse) => {
                     const totalSinisters: number = res.data;
                     this._getTotalSinistersByStatus(sinisterStatus).subscribe( (res: HttpResponse[]) => {
                         this.kpis = [];
@@ -203,10 +204,11 @@ export class ContentKpisService {
      * @param  clientStatus The client status
      * @return            The requests
      */
-    private _getTotalClientsByStatus(clientStatus: ClientStatus[]): Observable<HttpResponse[]> {
-        let requests: Observable<HttpResponse>[] = [];
+    private _getTotalClientsByStatus(clientStatus: ClientStatus[]): Observable<number[]> {
+        let requests: Observable<number>[] = [];
         for(let status of clientStatus) {
-            requests.push(this._clientService.getTotalClients(status.clientStatusId));
+            const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [status.clientStatusId])
+            requests.push(this._clientService.getTotalClients(filters));
         }
         return forkJoin(requests);
     }
@@ -216,10 +218,11 @@ export class ContentKpisService {
      * @param  leadStatus The lead status
      * @return            The requests
      */
-    private _getTotalLeadsByStatus(leadStatus: LeadStatus[]): Observable<HttpResponse[]> {
-        let requests: Observable<HttpResponse>[] = [];
+    private _getTotalLeadsByStatus(leadStatus: LeadStatus[]): Observable<number[]> {
+        let requests: Observable<number>[] = [];
         for(let status of leadStatus) {
-            requests.push(this._leadService.getTotalLeads(status.leadStatusId));
+            const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [status.leadStatusId])
+            requests.push(this._leadService.getTotalLeads(filters));
         }
         return forkJoin(requests);
     }
@@ -229,10 +232,11 @@ export class ContentKpisService {
      * @param  leadStatus The payment status
      * @return            The requests
      */
-    private _getTotalPaymentsByStatus(paymentStatus: PaymentStatus[]): Observable<HttpResponse[]> {
-        let requests: Observable<HttpResponse>[] = [];
+    private _getTotalPaymentsByStatus(paymentStatus: PaymentStatus[]): Observable<number[]> {
+        let requests: Observable<number>[] = [];
         for(let status of paymentStatus) {
-            requests.push(this._paymentService.getTotalPayments(status.paymentStatusId));
+            const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [status.paymentStatusId]);
+            requests.push(this._paymentService.getTotalPayments(filters));
         }
         return forkJoin(requests);
     }

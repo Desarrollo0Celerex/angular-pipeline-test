@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 
 import { ROUTES_NAME } from '@constants/routes-name';
-import { LEAD_STATUS, CLIENT_STATUS, SINISTER_STATUS } from '@constants/global';
+import { LEAD_STATUS, CLIENT_STATUS, PAYMENT_STATUS, SINISTER_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ContentKpi } from '@interfaces/content-kpi.interface';
 import { LeadService } from '@services/lead.service';
 import { ClientService } from '@services/client.service';
+import { PaymentService } from '@services/payment.service';
 import { SinisterService } from '@services/sinister.service';
 
 import * as moment from 'moment';
@@ -58,20 +59,30 @@ export class StatsService {
     constructor(
         private _leadService: LeadService,
         private _clientService: ClientService,
+        private _paymentService: PaymentService,
         private _sinisterService: SinisterService,
     ) { }
 
     loadTotalActiveLeads(): void {
         const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED])
-        this._leadService.getTotalLeadsAux(filters).subscribe((totalLeads: number) => {
+        this._leadService.getTotalLeads(filters).subscribe((totalLeads: number) => {
             this.contentKpis[0].value = totalLeads.toString();
         })
     }
 
     loadTotalActiveClients(): void {
         const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL])
-        this._clientService.getTotalClientsAux(filters).subscribe((totalClients: number) => {
+        this._clientService.getTotalClients(filters).subscribe((totalClients: number) => {
             this.contentKpis[1].value = totalClients.toString();
+        })
+    }
+
+    loadTotalActivePayments(): void {
+        console.log('Paso 1')
+        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE])
+        this._paymentService.getTotalPayments(filters).subscribe((totalPayments: number) => {
+            console.log('Paso 2: ',totalPayments)
+            this.contentKpis[2].value = totalPayments.toString();
         })
     }
 
@@ -79,6 +90,36 @@ export class StatsService {
         const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE])
         this._sinisterService.getTotalWorkspaceSinisters(filters).subscribe((totalSinisters: number) => {
             this.contentKpis[3].value = totalSinisters.toString();
+        })
+    }
+
+    loadLatestTotalActiveLeads(): void {
+        const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED])
+        const rangeField: string = 'leadConversionDate';
+        const rangeStart: string = moment().subtract(1, 'months').format('DD/MM/YYYY');
+        const rangeEnd: string = moment().format('DD/MM/YYYY');
+        this._leadService.getTotalLeads(filters, rangeField, rangeStart, rangeEnd).subscribe((totalLeads: number) => {
+            this.contentKpis[0].subValue = totalLeads.toString();
+        })
+    }
+
+    loadLatestTotalActiveClients(): void {
+        const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL])
+        const rangeField: string = 'clientConversionDate';
+        const rangeStart: string = moment().subtract(1, 'months').format('DD/MM/YYYY');
+        const rangeEnd: string = moment().format('DD/MM/YYYY');
+        this._clientService.getTotalClients(filters, rangeField, rangeStart, rangeEnd).subscribe((totalClients: number) => {
+            this.contentKpis[1].subValue = totalClients.toString();
+        })
+    }
+
+    loadLatestTotalActivePayments(): void {
+        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE])
+        const rangeField: string = 'paymentDate';
+        const rangeStart: string = moment().subtract(1, 'months').format('DD/MM/YYYY');
+        const rangeEnd: string = moment().format('DD/MM/YYYY');
+        this._paymentService.getTotalPayments(filters, rangeField, rangeStart, rangeEnd).subscribe((totalPayments: number) => {
+            this.contentKpis[2].subValue = totalPayments.toString();
         })
     }
 
