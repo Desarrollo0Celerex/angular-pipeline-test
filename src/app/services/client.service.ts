@@ -27,16 +27,16 @@ export class ClientService {
      * Get the clients from the API
      * @param  page              The page number
      * @param  fields            The fields to get
-     * @param  clientStatusId    The filter to apply
+     * @param  filters           The filter to apply
      * @param  query             The search to do
      * @return                   The clients
      */
-   public getClients(page: number = 1, fields: string = '', clientStatusId: number = 0, query: string = ''): Observable<HttpResponse> {
+   public getClients(page: number = 1, fields: string = '', filters: string = '', query: string = ''): Observable<HttpResponse> {
        const route: string = routes.clients(this._workspaceId);
        let params: HttpParams = new HttpParams();
        params = params.append('page', page.toString());
        if(!!fields) params = params.append('fields', fields);
-       if(!!clientStatusId) params = params.append('filter', 'clientStatusId[=]' + clientStatusId);
+       if(!!filters) params = params.append('filter', filters);
        if(!!query) params = params.append('search', 'contactName:' + query);
        params = params.append('sortBy', '-createdAt');
        return this._httpClient.get<HttpResponse>(route, { params });

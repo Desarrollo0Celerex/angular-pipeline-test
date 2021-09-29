@@ -98,12 +98,14 @@ export const EXTERNAL_POLICY_STATUS: any = {
 export const LEAD_STATUS: any = {
     NEW: 1,
     RECURRENT: 2,
-    RECOVERED: 3
+    RECOVERED: 3,
+    DISCARDED: 4
 }
 export const CLIENT_STATUS: any = {
     OCCASIONAL: 1,
     FREQUENT: 2,
-    INFLUENTIAL: 3
+    INFLUENTIAL: 3,
+    LOST: 4
 }
 export const POLICY_SOURCES: any = {
     NEW: 1,

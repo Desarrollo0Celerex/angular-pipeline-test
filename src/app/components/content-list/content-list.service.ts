@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN } from '@constants/global';
+import { CLIENT_STATUS, LEAD_STATUS, POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN } from '@constants/global';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { Policy } from '@interfaces/policy.interface';
@@ -58,7 +59,8 @@ export class ContentListService {
      */
     loadClients(page: number, contentSubtype: number): Observable<void> {
         const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
-        return this._clientService.getClients(page, fields, contentSubtype).pipe(
+        const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [contentSubtype]);
+        return this._clientService.getClients(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
@@ -168,7 +170,8 @@ export class ContentListService {
      */
     loadLeads(page: number, contentSubtype: number): Observable<void> {
         const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactScoreName';
-        return this._leadService.getLeads(page, fields, contentSubtype).pipe(
+        const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [contentSubtype])
+        return this._leadService.getLeads(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
                     this.contents = this.contents.concat(res.data.items);
                     this._loadContentResultData(res.data.totalItems);
@@ -305,7 +308,8 @@ export class ContentListService {
      */
     searchClients(page: number, query: string): Observable<void> {
         const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
-        return this._clientService.getClients(page, fields, 0, query).pipe(
+        const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL, CLIENT_STATUS.LOST])
+        return this._clientService.getClients(page, fields, filters, query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
@@ -410,7 +414,8 @@ export class ContentListService {
      */
     searchLeads(page: number, query: string): Observable<void> {
         const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactScoreName';
-        return this._leadService.getLeads(page, fields, 0, query).pipe(
+        const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED, LEAD_STATUS.DISCARDED])
+        return this._leadService.getLeads(page, fields, filters, query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);

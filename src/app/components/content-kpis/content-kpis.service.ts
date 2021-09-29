@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 
+import { CLIENT_STATUS, LEAD_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ClientStatus } from '@interfaces/client-status.interface';
@@ -61,7 +62,8 @@ export class ContentKpisService {
             const fields: string = 'leadStatusId,name,background,icon';
             this._leadStatusService.getLeadStatus(fields).subscribe( (res: HttpResponse) => {
                 const leadStatus: LeadStatus[] = res.data;
-                this._leadService.getTotalLeads().subscribe( (res: number) => {
+                const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED, LEAD_STATUS.DISCARDED])
+                this._leadService.getTotalLeads(filters).subscribe( (res: number) => {
                     const totalLeads: number = res;
                     this._getTotalLeadsByStatus(leadStatus).subscribe( (res: number[]) => {
                         this.kpis = [];
@@ -93,7 +95,8 @@ export class ContentKpisService {
             const fields: string = 'clientStatusId,name,background,icon';
             this._clientStatusService.getClientStatus(fields).subscribe( (res: HttpResponse) => {
                 const clientStatus: ClientStatus[] = res.data;
-                this._clientService.getTotalClients().subscribe( (res: number) => {
+                const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL, CLIENT_STATUS.LOST])
+                this._clientService.getTotalClients(filters).subscribe( (res: number) => {
                     const totalClients: number = res;
                     this._getTotalClientsByStatus(clientStatus).subscribe( (res: number[]) => {
                         this.kpis = [];

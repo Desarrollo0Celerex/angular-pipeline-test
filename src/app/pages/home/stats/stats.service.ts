@@ -78,10 +78,8 @@ export class StatsService {
     }
 
     loadTotalActivePayments(): void {
-        console.log('Paso 1')
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE])
         this._paymentService.getTotalPayments(filters).subscribe((totalPayments: number) => {
-            console.log('Paso 2: ',totalPayments)
             this.contentKpis[2].value = totalPayments.toString();
         })
     }

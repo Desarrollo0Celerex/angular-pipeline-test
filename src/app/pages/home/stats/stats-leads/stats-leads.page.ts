@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
+import { LeadGeneratedStat } from '@interfaces/lead-generated-stat.interface';
 import { QuotationStat } from '@interfaces/quotation-stat.interfaces';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
@@ -23,6 +24,10 @@ export class StatsLeadsPage implements OnInit {
 
     }
 
+    get canShowLeadsGeneratedStats(): boolean {
+        return (this.model.leadsGeneratedStatsData.length > 1) ? true : false;
+    }
+
     get canShowQuotationsStats(): boolean {
         return (this.model.quotationsStatsData.length > 1) ? true : false;
     }
@@ -36,10 +41,19 @@ export class StatsLeadsPage implements OnInit {
     }
 
     loadContent(statsPeriodData: StatsPeriodData): void {
+        StatsLeadsPlugin.removeChartLeadsGenerated();
         StatsLeadsPlugin.removeChartQuotations();
         StatsLeadsPlugin.removeChartContactSources();
+        this._loadLeadsGeneratedStats(statsPeriodData);
         this._loadQuotationsStats(statsPeriodData);
         this._loadContactSourcesStats(statsPeriodData);
+    }
+
+    private _loadLeadsGeneratedStats(statsPeriodData: StatsPeriodData): void {
+        this.model.getLeadsGeneratedStats(statsPeriodData).subscribe((leadsGeneratedStats: LeadGeneratedStat[][]) => {
+            this.model.loadLeadsGeneratedStatsData(leadsGeneratedStats);
+            StatsLeadsPlugin.drawChartLeadsGenerated(this.model.leadsGeneratedStatsData);
+        });
     }
 
     private _loadQuotationsStats(statsPeriodData: StatsPeriodData): void {
