@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { LeadGeneratedStat } from '@interfaces/lead-generated-stat.interface';
+import { RangeStat } from '@interfaces/range-stat.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
@@ -61,7 +61,7 @@ export class LeadService {
         );
     }
 
-    getLeadsGeneratedStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<LeadGeneratedStat[]> {
+    getLeadsGeneratedStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
         const route: string = routes.leadsGeneratedStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);

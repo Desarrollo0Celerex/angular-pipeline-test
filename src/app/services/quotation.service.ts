@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { CreateQuotationDataSend } from '@interfaces/create-quotation-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { QuotationStat } from '@interfaces/quotation-stat.interfaces';
+import { RangeStat } from '@interfaces/range-stat.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
@@ -109,7 +109,7 @@ export class QuotationService {
         return this._httpClient.get<HttpResponse>(route, { params });
     }
 
-    getQuotationsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<QuotationStat[]> {
+    getQuotationsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
         const route: string = routes.quotationsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);

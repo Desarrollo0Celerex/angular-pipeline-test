@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
-import { LeadGeneratedStat } from '@interfaces/lead-generated-stat.interface';
-import { QuotationStat } from '@interfaces/quotation-stat.interfaces';
+import { RangeStat } from '@interfaces/range-stat.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
 import { StatsLeadsService } from './stats-leads.service';
@@ -25,15 +24,15 @@ export class StatsLeadsPage implements OnInit {
     }
 
     get canShowLeadsGeneratedStats(): boolean {
-        return (this.model.leadsGeneratedStatsData.length > 1) ? true : false;
-    }
-
-    get canShowQuotationsStats(): boolean {
-        return (this.model.quotationsStatsData.length > 1) ? true : false;
+        return (this.model.leadsGeneratedStatsData.length > 0) ? true : false;
     }
 
     get canShowContactSourcesStats(): boolean {
         return (this.model.contactSourcesStatsData.length > 1) ? true : false;
+    }
+
+    get canShowQuotationsStats(): boolean {
+        return (this.model.quotationsStatsData.length > 0) ? true : false;
     }
 
     get model(): StatsLeadsService {
@@ -41,30 +40,39 @@ export class StatsLeadsPage implements OnInit {
     }
 
     loadContent(statsPeriodData: StatsPeriodData): void {
+        this.model.generatePeriods(statsPeriodData);
+        this._initContents();
+        this._loadContents();
+    }
+
+    private _initContents(): void {
         StatsLeadsPlugin.removeChartLeadsGenerated();
         StatsLeadsPlugin.removeChartQuotations();
         StatsLeadsPlugin.removeChartContactSources();
-        this._loadLeadsGeneratedStats(statsPeriodData);
-        this._loadQuotationsStats(statsPeriodData);
-        this._loadContactSourcesStats(statsPeriodData);
     }
 
-    private _loadLeadsGeneratedStats(statsPeriodData: StatsPeriodData): void {
-        this.model.getLeadsGeneratedStats(statsPeriodData).subscribe((leadsGeneratedStats: LeadGeneratedStat[][]) => {
+    private _loadContents(): void {
+        this._loadLeadsGeneratedStats();
+        this._loadQuotationsStats();
+        this._loadContactSourcesStats();
+    }
+
+    private _loadLeadsGeneratedStats(): void {
+        this.model.getLeadsGeneratedStats().subscribe((leadsGeneratedStats: RangeStat[][]) => {
             this.model.loadLeadsGeneratedStatsData(leadsGeneratedStats);
             StatsLeadsPlugin.drawChartLeadsGenerated(this.model.leadsGeneratedStatsData);
         });
     }
 
-    private _loadQuotationsStats(statsPeriodData: StatsPeriodData): void {
-        this.model.getQuotationsStats(statsPeriodData).subscribe((quotationsStats: QuotationStat[][]) => {
+    private _loadQuotationsStats(): void {
+        this.model.getQuotationsStats().subscribe((quotationsStats: RangeStat[][]) => {
             this.model.loadQuotationsStatsData(quotationsStats);
             StatsLeadsPlugin.drawChartQuotations(this.model.quotationsStatsData);
         });
     }
 
-    private _loadContactSourcesStats(statsPeriodData: StatsPeriodData): void {
-        this.model.getContactSourcesStats(statsPeriodData).subscribe((contactSourcesStats: ContactSourceStat[][]) => {
+    private _loadContactSourcesStats(): void {
+        this.model.getContactSourcesStats().subscribe((contactSourcesStats: ContactSourceStat[][]) => {
             this.model.loadContactSourcesStatsData(contactSourcesStats);
             StatsLeadsPlugin.drawChartContactSources(this.model.contactSourcesStatsData);
         });
