@@ -1,14 +1,17 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
+
 import { AlertHelper } from '@helpers/alert.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
+
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
+import { PolicyLog } from '@interfaces/policy-log.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
@@ -16,6 +19,7 @@ import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.in
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
+
 import { LoadingService } from '@services/loading.service';
 
 import { ContentListService } from './content-list.service';
@@ -46,6 +50,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Output() totalResultsLoaded: EventEmitter<number>;
     @Output() contentReloaded: EventEmitter<void> = new EventEmitter<void>();
     @Output() receiptPaid: EventEmitter<void> = new EventEmitter<void>();
+    @ViewChild('containerIncompletePolicies') containerIncompletePolicies: any;
     CONTENT_TYPES: any;
     canShowTotalResults: boolean;
     cardClasses: string;
@@ -61,6 +66,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedPaymentId: string;
     selectedPolicyData: PolicyDataSend | null = null;
     selectedPolicyId: string;
+    selectedPolicyIdToDelete: string = '';
     selectedQuotationId: string;
     selectedReceiptPaidId: string;
     selectedSinister: Sinister | null = null;
@@ -72,6 +78,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmDeleteContactFile: string = 'agt-confirm-delete-contact-file';
     modalIdConfirmDeleteCompletePolicy: string = 'agt-confirm-delete-complete-policy';
     modalIdConfirmDeleteReceiptPaid: string;
+    modalIdConfirmDeleteRenewedPolicy: string = 'agt-confirm-delete-renewed-policy';
     modalIdConfirmDeleteSinisterEvent: string = 'agt-confirm-delete-sinister-event';
     modalIdConfirmEndorsePolicy: string;
     modalIdConfirmFinalizeSinister: string;
@@ -186,6 +193,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     ngOnDestroy(): void {
         if(this.subParams) this.subParams.unsubscribe();
+    }
+
+    deleteRenewedPolicy(): void {
+        this._loadingService.show();
+        this.contentListService.deletePolicy(this.contactId, this.selectedPolicyIdToDelete).subscribe(() => {
+            this._loadingService.hide();
+            ModalPlugin.show(this.modalIdConfirmRenewPolicy);
+            this.containerIncompletePolicies.deletePolicyCard(this.selectedPolicyIdToDelete);
+            this.contentListService.deletePolicyCard(this.selectedPolicyIdToDelete);
+        });
     }
 
     /**
@@ -371,7 +388,17 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     onRenewPolicy(policyId: string): void {
         this.selectedPolicyId = policyId;
-        ModalPlugin.show(this.modalIdConfirmRenewPolicy);
+        this._loadingService.show();
+        this.contentListService.getPolicyLogs(this.contactId, policyId).subscribe((policyLogs: PolicyLog[]) => {
+            this._loadingService.hide();
+            // Check if the policy has already been renewed
+            if(policyLogs.length > 0) {
+                this.selectedPolicyIdToDelete = policyLogs[0].sourceId;
+                ModalPlugin.show(this.modalIdConfirmDeleteRenewedPolicy);
+            } else {
+                ModalPlugin.show(this.modalIdConfirmRenewPolicy);
+            }
+        })
     }
 
     /**

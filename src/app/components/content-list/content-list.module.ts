@@ -29,6 +29,7 @@ import { ModalConfirmCancelPolicyModule } from '@components/modal-confirm-cancel
 import { ModalConfirmDeleteContactFileModule } from '@components/modal-confirm-delete-contact-file/modal-confirm-delete-contact-file.module';
 import { ModalConfirmDeletePolicyCompleteModule } from '@components/modal-confirm-delete-policy-complete/modal-confirm-delete-policy-complete.module';
 import { ModalConfirmDeleteReceiptPaidModule } from '@components/modal-confirm-delete-receipt-paid/modal-confirm-delete-receipt-paid.module';
+import { ModalConfirmDeleteRenewedPolicyModule } from '@components/modal-confirm-delete-renewed-policy/modal-confirm-delete-renewed-policy.module';
 import { ModalConfirmDeleteSinisterEventModule } from '@components/modal-confirm-delete-sinister-event/modal-confirm-delete-sinister-event.module';
 import { ModalConfirmEndorsePolicyModule } from '@components/modal-confirm-endorse-policy/modal-confirm-endorse-policy.module';
 import { ModalConfirmFinalizeSinisterModule } from '@components/modal-confirm-finalize-sinister/modal-confirm-finalize-sinister.module';
@@ -66,6 +67,7 @@ import { ContactFileService } from '@services/contact-file.service';
 import { LeadService } from '@services/lead.service';
 import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
+import { PolicyLogService } from '@services/policy-log.service';
 import { QuotationService } from '@services/quotation.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
 import { SinisterService } from '@services/sinister.service';
@@ -104,6 +106,7 @@ import { ContentListService } from './content-list.service';
     ModalConfirmDeleteContactFileModule,
     ModalConfirmDeletePolicyCompleteModule,
     ModalConfirmDeleteReceiptPaidModule,
+    ModalConfirmDeleteRenewedPolicyModule,
     ModalConfirmDeleteSinisterEventModule,
     ModalConfirmEndorsePolicyModule,
     ModalConfirmFinalizeSinisterModule,
@@ -133,6 +136,18 @@ import { ContentListService } from './content-list.service';
     ModalTransferContactFileModule,
     ModalUpdateSinisterEventModule
   ],
-  providers: [ClientService, ContactService, ContactFileService, ContentListService, LeadService, PaymentService, PolicyService, QuotationService, ReceiptPaidService, SinisterService]
+  providers: [
+      ClientService,
+      ContactService,
+      ContactFileService,
+      ContentListService,
+      LeadService,
+      PaymentService,
+      PolicyService,
+      PolicyLogService,
+      QuotationService,
+      ReceiptPaidService,
+      SinisterService
+  ]
 })
 export class ContentListModule { }
