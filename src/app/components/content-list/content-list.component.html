@@ -1,5 +1,5 @@
 <agt-container-external-policies *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID" [contactId]="contactId" [policyStatusId]="contentSubtype" [policyStatusName]="contentSubtypeName"></agt-container-external-policies>
-<agt-container-incomplete-policies *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID" [contactId]="contactId" [contentTypeName]="contentTypeName" (policyDeleted)="onPolicyDeleted()" (showHistoryPolicy)="onShowHistoryPolicy($event)"></agt-container-incomplete-policies>
+<agt-container-incomplete-policies #containerIncompletePolicies *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID" [contactId]="contactId" [contentTypeName]="contentTypeName" (policyDeleted)="onPolicyDeleted()" (showHistoryPolicy)="onShowHistoryPolicy($event)"></agt-container-incomplete-policies>
 
 <!-- AGENTHOS - CONTENT HEADER -->
 <div class="row mt-3">
@@ -144,6 +144,7 @@
     <agt-modal-select-contact-type [modalId]="modalIdSelectContactType" [actionType]="selectedActionType" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-select-contact-type>
     <agt-modal-confirm-show-policy-sinisters [modalId]="modalIdConfirmShowPolicySinisters" [policyData]="selectedPolicyData"></agt-modal-confirm-show-policy-sinisters>
     <agt-modal-confirm-delete-policy-complete [modalId]="modalIdConfirmDeleteCompletePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (policyCompleteDeleted)="onPolicyDeleted()"></agt-modal-confirm-delete-policy-complete>
+    <agt-modal-confirm-delete-renewed-policy [modalId]="modalIdConfirmDeleteRenewedPolicy" (actionConfirmed)="deleteRenewedPolicy()"></agt-modal-confirm-delete-renewed-policy>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID || contentType === CONTENT_TYPES.PAYMENT.ID || contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
     <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>

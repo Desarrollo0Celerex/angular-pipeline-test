@@ -2,21 +2,26 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN } from '@constants/global';
+import { POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN } from '@constants/global';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
+
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { Policy } from '@interfaces/policy.interface';
+import { PolicyLog } from '@interfaces/policy-log.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
 import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterLog } from '@interfaces/sinister-log.interface';
+
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
 import { LeadService } from '@services/lead.service';
 import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
+import { PolicyLogService } from '@services/policy-log.service';
 import { QuotationService } from '@services/quotation.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
 import { SinisterService } from '@services/sinister.service';
@@ -33,12 +38,28 @@ export class ContentListService {
         private _leadService: LeadService,
         private _paymentService: PaymentService,
         private _policyService: PolicyService,
+        private _policyLogService: PolicyLogService,
         private _quotationService: QuotationService,
         private _receiptPaidService: ReceiptPaidService,
         private _sinisterService: SinisterService
     ) {
         this.contents = this._initContents();
         this.contentResultData = this._initContentResultData();
+    }
+
+    deletePolicy(contactId: string, policyId: string): Observable<void> {
+        return this._policyService.deleteContactPolicy(contactId, policyId);
+    }
+
+    /**
+     * Delete the policy card
+     * @param policyId The policy ID to delete
+     */
+    deletePolicyCard(policyId: string): void {
+        const policyPosition: number = this._getPolicyPosition(policyId);
+        if(policyPosition > -1) {
+            this.contents.splice(policyPosition, 1);
+        }
     }
 
     /**
@@ -48,6 +69,12 @@ export class ContentListService {
      */
     deleteReceiptPaid(paymentId: string, receiptPaidId: string): Observable<void> {
         return this._receiptPaidService.deleteReceiptPaid(paymentId,receiptPaidId);
+    }
+
+    getPolicyLogs(contactId: string, policyId: string): Observable<PolicyLog[]> {
+        const fields: string = 'sourceId';
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyRecordTypeId', [POLICY_RECORD_TYPES.RENEWED]);
+        return this._policyLogService.getPolicyLogs(contactId, policyId, fields, filters);
     }
 
     /**
@@ -451,6 +478,15 @@ export class ContentListService {
             }),
             map( () => { })
         )
+    }
+
+    /**
+     * Get the policy position
+     * @param  policyId The policy ID to search
+     * @return          The policy position found
+     */
+    private _getPolicyPosition(policyId: string): number {
+        return this.contents.findIndex((value: Policy) => value.policyId == policyId)
     }
 
     /**

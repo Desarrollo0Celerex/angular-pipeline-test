@@ -43,6 +43,10 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
         this.containerListIncompletePoliciesService.loadIncompletePolicies(this.contactId, page, this.contentSubtype);
     }
 
+    deletePolicyCard(policyId: string): void {
+        this.containerListIncompletePoliciesService.deletePolicyCard(policyId);
+    }
+
     /**
      * Event to complete the policy data
      * @param policyId The policy ID to complete
