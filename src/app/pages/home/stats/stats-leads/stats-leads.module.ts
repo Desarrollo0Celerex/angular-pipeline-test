@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { CardKpiOneModule } from '@components/card-kpi-one/card-kpi-one.module';
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { MenuStatsModule } from '@components/menu-stats/menu-stats.module';
@@ -21,7 +22,8 @@ import { StatsLeadsPage } from './stats-leads.page';
     StatsLeadsRoutingModule,
     MenuStatsModule,
     ContainerSelectStatsPeriodModule,
-    LoadingContentModule
+    LoadingContentModule,
+    CardKpiOneModule
   ],
   providers: [
       ContactSourceService,

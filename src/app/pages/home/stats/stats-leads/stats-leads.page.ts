@@ -64,17 +64,18 @@ export class StatsLeadsPage implements OnInit {
         });
     }
 
-    private _loadQuotationsStats(): void {
-        this.model.getQuotationsStats().subscribe((quotationsStats: RangeStat[][]) => {
-            this.model.loadQuotationsStatsData(quotationsStats);
-            StatsLeadsPlugin.drawChartQuotations(this.model.quotationsStatsData);
-        });
-    }
-
     private _loadContactSourcesStats(): void {
         this.model.getContactSourcesStats().subscribe((contactSourcesStats: ContactSourceStat[][]) => {
             this.model.loadContactSourcesStatsData(contactSourcesStats);
             StatsLeadsPlugin.drawChartContactSources(this.model.contactSourcesStatsData);
+            this.model.loadActiveChannelsData(contactSourcesStats);
+        });
+    }
+
+    private _loadQuotationsStats(): void {
+        this.model.getQuotationsStats().subscribe((quotationsStats: RangeStat[][]) => {
+            this.model.loadQuotationsStatsData(quotationsStats);
+            StatsLeadsPlugin.drawChartQuotations(this.model.quotationsStatsData);
         });
     }
 

@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { PERIODS } from '@constants/global';
 import { ChartHelper } from '@helpers/chart.helper';
 import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
+import { KpiOne } from '@interfaces/kpi-one.interface';
 import { RangeStat } from '@interfaces/range-stat.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 import { ContactSourceService } from '@services/contact-source.service';
@@ -20,6 +21,49 @@ export class StatsLeadsService {
     quotationsStatsData: any[] = [];
     leadsGeneratedStatsData: any[] = [];
     contactSourcesStatsData: any[] = [];
+    channelKpis: KpiOne[] = [
+        {
+            contentName: 'Canales',
+            subcontentName: 'Activos',
+            description: 'Permite identificar el número de canales activos.',
+            totalContents: 0,
+            selectedValue: 0,
+            selectedRange: '',
+            comparedValue: 0,
+            comparedRange: ''
+        },
+        {
+            contentName: 'Socios',
+            subcontentName: 'Activos',
+            description: 'Permite identificar el número de socios comerciales activos.',
+            totalContents: 0,
+            selectedValue: 0,
+            selectedRange: '',
+            comparedValue: 0,
+            comparedRange: ''
+        },
+        {
+            contentName: 'Prospectos',
+            subcontentName: 'Generados',
+            description: 'Permite identificar el número de prospectos generados.',
+            totalContents: 0,
+            selectedValue: 0,
+            selectedRange: '',
+            comparedValue: 0,
+            comparedRange: ''
+        },
+        {
+            contentName: 'Promedio',
+            subcontentName: 'Diario',
+            description: 'Permite identificar el promedio de prospectos generados al día.',
+            totalContents: 0,
+            selectedValue: 0,
+            selectedRange: '',
+            comparedValue: 0,
+            comparedRange: ''
+        },
+    ];
+    private _ACTIVE_CHANNELS: number = 0;
 
     constructor(
         private _contactSourceService: ContactSourceService,
@@ -79,10 +123,34 @@ export class StatsLeadsService {
         }
     }
 
+    loadActiveChannelsData(stats: ContactSourceStat[][]): void {
+        // Selected content
+        let totalActiveChannels: number = 0;
+        let acquisitionChannels: ContactSourceStat[] = stats[0];
+        this.channelKpis[this._ACTIVE_CHANNELS].totalContents = acquisitionChannels.length;
+        for (let acquisitionChannel of acquisitionChannels) {
+            if(acquisitionChannel.totalContacts > 0) {
+                totalActiveChannels++;
+            }
+        }
+        this.channelKpis[this._ACTIVE_CHANNELS].selectedValue = totalActiveChannels;
+        this.channelKpis[this._ACTIVE_CHANNELS].selectedRange = this.selectedPeriodRangeStart + ' - ' + this.selectedPeriodRangeEnd;
+
+        // Compared content
+        totalActiveChannels = 0;
+        acquisitionChannels = stats[1];
+        for (let acquisitionChannel of acquisitionChannels) {
+            if(acquisitionChannel.totalContacts > 0) {
+                totalActiveChannels++;
+            }
+        }
+        this.channelKpis[this._ACTIVE_CHANNELS].comparedValue = totalActiveChannels;
+        this.channelKpis[this._ACTIVE_CHANNELS].comparedRange = this.comparedPeriodRangeStart + ' - ' + this.comparedPeriodRangeEnd;
+    }
+
     loadQuotationsStatsData(quotationsStats: RangeStat[][]): void {
         const headerData: any[] = [['Cotizaciones', 'Periodo Seleccionado', 'Periodo Comparación']];
         this.quotationsStatsData = ChartHelper.generateChartDataByRanges(quotationsStats, headerData);
     }
-
 
 }
