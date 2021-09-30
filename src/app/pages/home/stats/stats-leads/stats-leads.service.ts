@@ -16,6 +16,10 @@ import { QuotationService } from '@services/quotation.service';
 
 const SELECTED_PERIOD: number = 0;
 const COMPARED_PERIOD: number = 1;
+const ACTIVE_CHANNELS: number = 0;
+const ACTIVE_PARTNERS: number = 1;
+const TOTAL_GENERATED_LEADS: number = 2;
+const DAILY_AVERAGE: number = 3;
 
 @Injectable()
 export class StatsLeadsService {
@@ -68,8 +72,6 @@ export class StatsLeadsService {
             comparedRange: ''
         },
     ];
-    private _ACTIVE_CHANNELS: number = 0;
-    private _ACTIVE_PARTNERS: number = 1;
 
     constructor(
         private _contactSourceService: ContactSourceService,
@@ -85,6 +87,7 @@ export class StatsLeadsService {
         const endDateAux: any = moment(statsPeriodData.endDate, 'DD/MM/YYYY');
         this.comparedPeriodRangeStart = ((statsPeriodData.periodId == PERIODS.LAST_YEAR) ? startDateAux.subtract(1, 'years') : startDateAux.subtract(1, 'months')).format('DD/MM/YYYY');
         this.comparedPeriodRangeEnd = ((statsPeriodData.periodId == PERIODS.LAST_YEAR) ?  endDateAux.subtract(1, 'years') : endDateAux.subtract(1, 'months')).format('DD/MM/YYYY');
+        this._loadRangeDates();
     }
 
     getLeadsGeneratedStats(): Observable<RangeStat[][]> {
@@ -111,6 +114,14 @@ export class StatsLeadsService {
         let requests: Observable<Stat[]>[] = [];
         requests.push(this._contactSourceTypeService.getContactSourceTypesStats(contactSourceId, rangeField, this.selectedPeriodRangeStart, this.selectedPeriodRangeEnd));
         requests.push(this._contactSourceTypeService.getContactSourceTypesStats(contactSourceId, rangeField, this.comparedPeriodRangeStart, this.comparedPeriodRangeEnd));
+        return forkJoin(requests);
+    }
+
+    getTotalGeneratedLeads(): Observable<number[]> {
+        const rangeField: string = 'leadConversionDate';
+        let requests: Observable<number>[] = [];
+        requests.push(this._leadService.getTotalLeads('', rangeField, this.selectedPeriodRangeStart, this.selectedPeriodRangeEnd));
+        requests.push(this._leadService.getTotalLeads('', rangeField, this.comparedPeriodRangeStart, this.comparedPeriodRangeEnd));
         return forkJoin(requests);
     }
 
@@ -143,14 +154,13 @@ export class StatsLeadsService {
         // Selected content
         let totalActiveChannels: number = 0;
         let acquisitionChannels: ContactSourceStat[] = stats[SELECTED_PERIOD];
-        this.channelKpis[this._ACTIVE_CHANNELS].totalContents = acquisitionChannels.length;
+        this.channelKpis[ACTIVE_CHANNELS].totalContents = acquisitionChannels.length;
         for (let acquisitionChannel of acquisitionChannels) {
             if(acquisitionChannel.totalContacts > 0) {
                 totalActiveChannels++;
             }
         }
-        this.channelKpis[this._ACTIVE_CHANNELS].selectedValue = totalActiveChannels;
-        this.channelKpis[this._ACTIVE_CHANNELS].selectedRange = this.selectedPeriodRangeStart + ' - ' + this.selectedPeriodRangeEnd;
+        this.channelKpis[ACTIVE_CHANNELS].selectedValue = totalActiveChannels;
 
         // Compared content
         totalActiveChannels = 0;
@@ -160,22 +170,20 @@ export class StatsLeadsService {
                 totalActiveChannels++;
             }
         }
-        this.channelKpis[this._ACTIVE_CHANNELS].comparedValue = totalActiveChannels;
-        this.channelKpis[this._ACTIVE_CHANNELS].comparedRange = this.comparedPeriodRangeStart + ' - ' + this.comparedPeriodRangeEnd;
+        this.channelKpis[ACTIVE_CHANNELS].comparedValue = totalActiveChannels;
     }
 
     loadActivePartnersData(stats: Stat[][]): void {
         // Selected content
         let totalActivePartners: number = 0;
         let partnerStats: Stat[] = stats[SELECTED_PERIOD];
-        this.channelKpis[this._ACTIVE_PARTNERS].totalContents = partnerStats.length;
+        this.channelKpis[ACTIVE_PARTNERS].totalContents = partnerStats.length;
         for (let partnerStat of partnerStats) {
             if(partnerStat.value > 0) {
                 totalActivePartners++;
             }
         }
-        this.channelKpis[this._ACTIVE_PARTNERS].selectedValue = totalActivePartners;
-        this.channelKpis[this._ACTIVE_PARTNERS].selectedRange = this.selectedPeriodRangeStart + ' - ' + this.selectedPeriodRangeEnd;
+        this.channelKpis[ACTIVE_PARTNERS].selectedValue = totalActivePartners;
 
         // Compared content
         totalActivePartners = 0;
@@ -185,13 +193,35 @@ export class StatsLeadsService {
                 totalActivePartners++;
             }
         }
-        this.channelKpis[this._ACTIVE_PARTNERS].comparedValue = totalActivePartners;
-        this.channelKpis[this._ACTIVE_PARTNERS].comparedRange = this.comparedPeriodRangeStart + ' - ' + this.comparedPeriodRangeEnd;
+        this.channelKpis[ACTIVE_PARTNERS].comparedValue = totalActivePartners;
+    }
+
+    loadTotalGeneratedLeads(data: number[]): void {
+        this.channelKpis[TOTAL_GENERATED_LEADS].selectedValue = data[SELECTED_PERIOD];
+        this.channelKpis[TOTAL_GENERATED_LEADS].comparedValue = data[COMPARED_PERIOD];
+    }
+
+    loadDailyAverage(data: number[]): void {
+        const selectedStartDate: any = moment(this.selectedPeriodRangeStart, 'DD/MM/YYYY');
+        const selectedEndDate: any = moment(this.selectedPeriodRangeEnd, 'DD/MM/YYYY');
+        const selectedDays: number = selectedEndDate.diff(selectedStartDate, 'days') + 1;
+        const comparedStartDate: any = moment(this.comparedPeriodRangeStart, 'DD/MM/YYYY');
+        const comparedEndDate: any = moment(this.comparedPeriodRangeEnd, 'DD/MM/YYYY');
+        const comparedDays: number = comparedEndDate.diff(comparedStartDate, 'days') + 1;
+        this.channelKpis[DAILY_AVERAGE].selectedValue = data[SELECTED_PERIOD] / selectedDays;
+        this.channelKpis[DAILY_AVERAGE].comparedValue = data[COMPARED_PERIOD] / comparedDays;
     }
 
     loadQuotationsStatsData(quotationsStats: RangeStat[][]): void {
         const headerData: any[] = [['Cotizaciones', 'Periodo Seleccionado', 'Periodo Comparación']];
         this.quotationsStatsData = ChartHelper.generateChartDataByRanges(quotationsStats, headerData);
+    }
+
+    private _loadRangeDates(): void {
+        for (let index in this.channelKpis) {
+            this.channelKpis[index].selectedRange = this.selectedPeriodRangeStart + ' - ' + this.selectedPeriodRangeEnd;
+            this.channelKpis[index].comparedRange = this.comparedPeriodRangeStart + ' - ' + this.comparedPeriodRangeEnd;
+        }
     }
 
 }

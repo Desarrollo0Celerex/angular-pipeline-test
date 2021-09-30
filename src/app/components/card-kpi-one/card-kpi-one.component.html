@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="card-body">
-        <h3 class="font-weight-500 number-font1 mb-1">{{kpi.selectedValue | number: '1.0-0'}}
+        <h3 class="font-weight-500 number-font1 mb-1">{{kpi.selectedValue | number: '1.0-1'}}
         <small class="{{kpiIconColor}} mb-0 number-font1"><i class="fe {{kpiIcon}}"></i></small></h3>
         <div class="progress progress-md h-2 mt-2 mb-1">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" [ngStyle]="{'width': selectedPercentage + '%'}"></div>
@@ -15,7 +15,7 @@
         <p class="text-muted">{{kpi.selectedRange}}</p>
     </div>
     <div class="card-body">
-        <h3 class="font-weight-500 number-font1 mb-1">{{kpi.comparedValue | number: '1.0-0'}}</h3>
+        <h3 class="font-weight-500 number-font1 mb-1">{{kpi.comparedValue | number: '1.0-1'}}</h3>
         <div class="progress progress-md h-2 mt-2 mb-1">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" [ngStyle]="{'width': comparedPercentage + '%'}"></div>
         </div>

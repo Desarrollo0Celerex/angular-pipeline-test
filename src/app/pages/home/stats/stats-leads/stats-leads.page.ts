@@ -56,6 +56,7 @@ export class StatsLeadsPage implements OnInit {
         this._loadLeadsGeneratedStats();
         this._loadContactSourcesStats();
         this._loadActivePartners();
+        this._loadTotalGeneratedLeads();
         this._loadQuotationsStats();
     }
 
@@ -77,8 +78,13 @@ export class StatsLeadsPage implements OnInit {
     private _loadActivePartners(): void {
         this.model.getPartners().subscribe((stats: Stat[][]) => {
             this.model.loadActivePartnersData(stats);
-            /*StatsLeadsPlugin.drawChartContactSources(this.model.statsData);
-            this.model.loadActiveChannelsData(stats);*/
+        });
+    }
+
+    private _loadTotalGeneratedLeads(): void {
+        this.model.getTotalGeneratedLeads().subscribe((res: number[]) => {
+            this.model.loadTotalGeneratedLeads(res);
+            this.model.loadDailyAverage(res);
         });
     }
 
