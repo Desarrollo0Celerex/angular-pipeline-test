@@ -6,6 +6,7 @@ import { ContainerSelectStatsPeriodModule } from '@components/container-select-s
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { MenuStatsModule } from '@components/menu-stats/menu-stats.module';
 import { ContactSourceService } from '@services/contact-source.service';
+import { ContactSourceTypeService } from '@services/contact-source-type.service';
 import { LeadService } from '@services/lead.service';
 import { QuotationService } from '@services/quotation.service';
 
@@ -27,6 +28,7 @@ import { StatsLeadsPage } from './stats-leads.page';
   ],
   providers: [
       ContactSourceService,
+      ContactSourceTypeService,
       LeadService,
       QuotationService
   ]

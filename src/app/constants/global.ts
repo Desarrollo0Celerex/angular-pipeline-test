@@ -233,6 +233,9 @@ export const SINISTER_RECORD_TYPES: any = {
     REACTIVATED: 4,
     NEW_EVENT: 5
 }
+export const CONTACT_SOURCE_TYPES: any = {
+    PARTNERS: 4
+}
 
 export const IGNORE_MATCHES: any = {
     YES: true,

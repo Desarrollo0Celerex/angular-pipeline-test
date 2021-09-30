@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
 import { RangeStat } from '@interfaces/range-stat.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
+import { Stat } from '@interfaces/stat.interface';
 
 import { StatsLeadsService } from './stats-leads.service';
 
@@ -53,8 +54,9 @@ export class StatsLeadsPage implements OnInit {
 
     private _loadContents(): void {
         this._loadLeadsGeneratedStats();
-        this._loadQuotationsStats();
         this._loadContactSourcesStats();
+        this._loadActivePartners();
+        this._loadQuotationsStats();
     }
 
     private _loadLeadsGeneratedStats(): void {
@@ -69,6 +71,14 @@ export class StatsLeadsPage implements OnInit {
             this.model.loadContactSourcesStatsData(contactSourcesStats);
             StatsLeadsPlugin.drawChartContactSources(this.model.contactSourcesStatsData);
             this.model.loadActiveChannelsData(contactSourcesStats);
+        });
+    }
+
+    private _loadActivePartners(): void {
+        this.model.getPartners().subscribe((stats: Stat[][]) => {
+            this.model.loadActivePartnersData(stats);
+            /*StatsLeadsPlugin.drawChartContactSources(this.model.statsData);
+            this.model.loadActiveChannelsData(stats);*/
         });
     }
 
