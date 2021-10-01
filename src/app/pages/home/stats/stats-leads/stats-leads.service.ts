@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import * as moment from 'moment';
 
-import { PERIODS, CONTACT_SOURCE_TYPES } from '@constants/global';
+import { PERIODS, CONTACT_SOURCE_TYPES, QUOTATION_STATUS } from '@constants/global';
 import { ChartHelper } from '@helpers/chart.helper';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
 import { KpiOne } from '@interfaces/kpi-one.interface';
 import { RangeStat } from '@interfaces/range-stat.interface';
@@ -30,6 +31,7 @@ export class StatsLeadsService {
     quotationsStatsData: any[] = [];
     leadsGeneratedStatsData: any[] = [];
     contactSourcesStatsData: any[] = [];
+    contactSourcesQuotationsStatsData: any[] = [];
     channelKpis: KpiOne[] = [
         {
             contentName: 'Canales',
@@ -100,7 +102,7 @@ export class StatsLeadsService {
     }
 
     getContactSourcesStats(): Observable<ContactSourceStat[][]> {
-        this.contactSourcesStatsData = [['Canal', 'Periodo Seleccionado', 'Periodo Comparación']];
+        this.contactSourcesStatsData = [];
         const rangeField: string = 'leadConversionDate';
         let requests: Observable<ContactSourceStat[]>[] = [];
         requests.push(this._contactSourceService.getContactSourcesStats('', rangeField, this.selectedPeriodRangeStart, this.selectedPeriodRangeEnd));
@@ -125,12 +127,27 @@ export class StatsLeadsService {
         return forkJoin(requests);
     }
 
+    getAllGeneratedLeads(): Observable<number> {
+        const filters: string = 'leadConversionDate[!=]null';
+        return this._leadService.getTotalLeads(filters);
+    }
+
     getQuotationsStats(): Observable<RangeStat[][]> {
         this.quotationsStatsData = [];
         const rangeField: string = 'createdAt';
         let requests: Observable<RangeStat[]>[] = [];
         requests.push(this._quotationService.getQuotationsStats(rangeField, this.selectedPeriodRangeStart, this.selectedPeriodRangeEnd));
         requests.push(this._quotationService.getQuotationsStats(rangeField, this.comparedPeriodRangeStart, this.comparedPeriodRangeEnd));
+        return forkJoin(requests);
+    }
+
+    getContactSourcesQuotationsStats(): Observable<Stat[][]> {
+        this.contactSourcesQuotationsStatsData = [];
+        const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.ACCEPTED]);
+        const rangeField: string = 'closedAt';
+        let requests: Observable<Stat[]>[] = [];
+        requests.push(this._quotationService.getContactSourcesQuotationsStats(filters, rangeField, this.selectedPeriodRangeStart, this.selectedPeriodRangeEnd));
+        requests.push(this._quotationService.getContactSourcesQuotationsStats(filters, rangeField, this.comparedPeriodRangeStart, this.comparedPeriodRangeEnd));
         return forkJoin(requests);
     }
 
@@ -145,9 +162,10 @@ export class StatsLeadsService {
         }
         for (let index in contactSourcesStats[0]) {
             for (let contactSourceStats of contactSourcesStats) {
-                this.contactSourcesStatsData[parseInt(index) + 1].push(contactSourceStats[index].totalContacts);
+                this.contactSourcesStatsData[parseInt(index)].push(contactSourceStats[index].totalContacts);
             }
         }
+        this.contactSourcesStatsData.unshift(['Canal', 'Periodo Seleccionado', 'Periodo Comparación']);
     }
 
     loadActiveChannelsData(stats: ContactSourceStat[][]): void {
@@ -212,9 +230,28 @@ export class StatsLeadsService {
         this.channelKpis[DAILY_AVERAGE].comparedValue = data[COMPARED_PERIOD] / comparedDays;
     }
 
+    loadAllGeneratedLeads(totalLeads: number): void {
+        this.channelKpis[TOTAL_GENERATED_LEADS].totalContents = totalLeads;
+        this.channelKpis[DAILY_AVERAGE].totalContents = totalLeads;
+    }
+
     loadQuotationsStatsData(quotationsStats: RangeStat[][]): void {
         const headerData: any[] = [['Cotizaciones', 'Periodo Seleccionado', 'Periodo Comparación']];
         this.quotationsStatsData = ChartHelper.generateChartDataByRanges(quotationsStats, headerData);
+    }
+
+    loadContactSourcesQuotationsStatsData(contactSourcesQuotationsStats: Stat[][]): void {
+        let data: any[] = [];
+        for (let contactSourceStats of contactSourcesQuotationsStats[0]) {
+                data.push([contactSourceStats.name]);
+        }
+        for (let index in contactSourcesQuotationsStats[0]) {
+            for (let contactSourceStats of contactSourcesQuotationsStats) {
+                data[parseInt(index)].push(contactSourceStats[index].value);
+            }
+        }
+        this.contactSourcesQuotationsStatsData = this._calculateTop3(data);
+        this.contactSourcesQuotationsStatsData.unshift(['Canales', 'Periodo Seleccionado', 'Periodo Comparación']);
     }
 
     private _loadRangeDates(): void {
@@ -222,6 +259,13 @@ export class StatsLeadsService {
             this.channelKpis[index].selectedRange = this.selectedPeriodRangeStart + ' - ' + this.selectedPeriodRangeEnd;
             this.channelKpis[index].comparedRange = this.comparedPeriodRangeStart + ' - ' + this.comparedPeriodRangeEnd;
         }
+    }
+
+    private _calculateTop3(data: any[]): any[] {
+        data.sort((a, b) => {
+            return b[1] - a[1];
+        });
+        return data.slice(0, 3);
     }
 
 }

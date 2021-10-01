@@ -29,11 +29,15 @@ export class StatsLeadsPage implements OnInit {
     }
 
     get canShowContactSourcesStats(): boolean {
-        return (this.model.contactSourcesStatsData.length > 1) ? true : false;
+        return (this.model.contactSourcesStatsData.length > 0) ? true : false;
     }
 
     get canShowQuotationsStats(): boolean {
         return (this.model.quotationsStatsData.length > 0) ? true : false;
+    }
+
+    get canShowContactSourcesQuotationsStats(): boolean {
+        return (this.model.contactSourcesQuotationsStatsData.length > 0) ? true : false;
     }
 
     get model(): StatsLeadsService {
@@ -50,6 +54,7 @@ export class StatsLeadsPage implements OnInit {
         StatsLeadsPlugin.removeChartLeadsGenerated();
         StatsLeadsPlugin.removeChartQuotations();
         StatsLeadsPlugin.removeChartContactSources();
+        StatsLeadsPlugin.removeChartContactSourcesQuotations();
     }
 
     private _loadContents(): void {
@@ -57,6 +62,8 @@ export class StatsLeadsPage implements OnInit {
         this._loadContactSourcesStats();
         this._loadActivePartners();
         this._loadTotalGeneratedLeads();
+        this._loadAllGeneratedLeads();
+        this._loadContactSourcesQuotationsStats();
         this._loadQuotationsStats();
     }
 
@@ -85,6 +92,19 @@ export class StatsLeadsPage implements OnInit {
         this.model.getTotalGeneratedLeads().subscribe((res: number[]) => {
             this.model.loadTotalGeneratedLeads(res);
             this.model.loadDailyAverage(res);
+        });
+    }
+
+    private _loadAllGeneratedLeads(): void {
+        this.model.getAllGeneratedLeads().subscribe((res: number) => {
+            this.model.loadAllGeneratedLeads(res);
+        })
+    }
+
+    private _loadContactSourcesQuotationsStats(): void {
+        this.model.getContactSourcesQuotationsStats().subscribe((res: Stat[][]) => {
+            this.model.loadContactSourcesQuotationsStatsData(res);
+            StatsLeadsPlugin.drawChartContactSourcesQuotations(this.model.contactSourcesQuotationsStatsData);
         });
     }
 
