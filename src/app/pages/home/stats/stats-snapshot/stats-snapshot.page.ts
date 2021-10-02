@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
+import { Stat } from '@interfaces/stat.interface';
 import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
 import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
@@ -112,7 +112,7 @@ export class StatsSnapshotPage implements OnInit {
      * Load the contact sources stats
      */
     private _loadContactsSourceStats(): void {
-        this.model.getContactSourcesStats().subscribe((contactSourcesStats: ContactSourceStat[]) => {
+        this.model.getContactSourcesStats().subscribe((contactSourcesStats: Stat[]) => {
             this.model.loadContactSourcesStatsData(contactSourcesStats);
             StatsPlugin.drawChartContactSources(this.model.contactSourcesStatsData);
         })

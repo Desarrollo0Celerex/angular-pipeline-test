@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CardKpiOneModule } from '@components/card-kpi-one/card-kpi-one.module';
+import { ChartGeneratedLeadsModule } from '@components/chart-generated-leads/chart-generated-leads.module';
+import { ChartGeneratedQuotesModule } from '@components/chart-generated-quotes/chart-generated-quotes.module';
+import { ChartLeadAcquisitionChannelsModule } from '@components/chart-lead-acquisition-channels/chart-lead-acquisition-channels.module';
+import { ChartLeadChannelsWithHigherConversionModule } from '@components/chart-lead-channels-with-higher-conversion/chart-lead-channels-with-higher-conversion.module';
+import { ContainerLeadChannelsKpisModule } from '@components/container-lead-channels-kpis/container-lead-channels-kpis.module';
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
-import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { MenuStatsModule } from '@components/menu-stats/menu-stats.module';
-import { ContactSourceService } from '@services/contact-source.service';
-import { ContactSourceTypeService } from '@services/contact-source-type.service';
-import { LeadService } from '@services/lead.service';
-import { QuotationService } from '@services/quotation.service';
 
 import { StatsLeadsRoutingModule } from './stats-leads-routing.module';
 import { StatsLeadsPage } from './stats-leads.page';
-
 
 @NgModule({
   declarations: [
@@ -23,14 +21,11 @@ import { StatsLeadsPage } from './stats-leads.page';
     StatsLeadsRoutingModule,
     MenuStatsModule,
     ContainerSelectStatsPeriodModule,
-    LoadingContentModule,
-    CardKpiOneModule
-  ],
-  providers: [
-      ContactSourceService,
-      ContactSourceTypeService,
-      LeadService,
-      QuotationService
+    ChartGeneratedLeadsModule,
+    ChartGeneratedQuotesModule,
+    ChartLeadAcquisitionChannelsModule,
+    ChartLeadChannelsWithHigherConversionModule,
+    ContainerLeadChannelsKpisModule
   ]
 })
 export class StatsLeadsModule { }

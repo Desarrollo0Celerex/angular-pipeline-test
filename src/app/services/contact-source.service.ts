@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
+import { Stat } from '@interfaces/stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
@@ -39,7 +39,7 @@ export class ContactSourceService {
      * @param  filters The filters to apply
      * @return         The contact sources stats
      */
-    getContactSourcesStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<ContactSourceStat[]> {
+    getContactSourcesStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<Stat[]> {
         const route: string = ROUTES.contactSourcesStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
