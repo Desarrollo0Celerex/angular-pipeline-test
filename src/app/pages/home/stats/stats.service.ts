@@ -37,7 +37,7 @@ export class StatsService {
         {
             contentName: 'Recibos',
             subcontentName: 'Activos',
-            link: ROUTES_NAME.listLeads,
+            link: ROUTES_NAME.listPayments,
             value: '0',
             subValue: '0',
             subValueLabel: 'Este Mes',
@@ -47,7 +47,7 @@ export class StatsService {
         {
             contentName: 'Siniestros',
             subcontentName: 'Activos',
-            link: ROUTES_NAME.listLeads,
+            link: ROUTES_NAME.listSinisters,
             value: '0',
             subValue: '0',
             subValueLabel: 'Este Mes',

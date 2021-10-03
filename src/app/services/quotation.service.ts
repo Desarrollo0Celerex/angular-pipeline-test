@@ -8,6 +8,7 @@ import { CreateQuotationDataSend } from '@interfaces/create-quotation-data-send.
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { RangeStat } from '@interfaces/range-stat.interface';
 import { Stat } from '@interfaces/stat.interface';
+import { PartnerQuotationStat } from '@interfaces/partner-quotation-stat.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
@@ -18,7 +19,8 @@ const routes: any = {
     totalQuotations: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/total',
     totalWorkspaceQuotations: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/quotations/count',
     quotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/quotations',
-    contactSourcesQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/contact-sources/quotations'
+    contactSourcesQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/contact-sources/quotations',
+    partnersQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/partners/quotations'
 }
 
 @Injectable()
@@ -139,6 +141,17 @@ export class QuotationService {
         const route: string = routes.contactSourcesQuotationsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getPartnersQuotationsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<PartnerQuotationStat[]> {
+        const route: string = routes.partnersQuotationsStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ROUTES_NAME } from '@constants/routes-name';
 import { Stat } from '@interfaces/stat.interface';
 import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
@@ -23,6 +24,7 @@ declare var StatsPlugin: any;
   providers: [StatsSnapshotService]
 })
 export class StatsSnapshotPage implements OnInit {
+    ROUTES_NAME: any = ROUTES_NAME;
 
     constructor(private _statsSnapshotService: StatsSnapshotService) { }
 
