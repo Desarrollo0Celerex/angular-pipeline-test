@@ -5,7 +5,7 @@ import { LEAD_STATUS, CLIENT_STATUS, POLICY_SOURCES, POLICY_STATUS, PAYMENT_STAT
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
 
-import { ContactSourceStat } from '@interfaces/contact-source-stat.interface';
+import { Stat } from '@interfaces/stat.interface';
 import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
 import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
@@ -70,7 +70,7 @@ export class StatsSnapshotService {
      * Get the contact sources stats
      * @return The contact sources
      */
-    getContactSourcesStats(): Observable<ContactSourceStat[]> {
+    getContactSourcesStats(): Observable<Stat[]> {
         const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED]);
         return this._contactSourceService.getContactSourcesStats(filters);
     }
@@ -174,13 +174,13 @@ export class StatsSnapshotService {
      * Load the contact source stats data
      * @param contactSourcesStats The contact sources stats
      */
-    loadContactSourcesStatsData(contactSourcesStats: ContactSourceStat[]): void {
+    loadContactSourcesStatsData(contactSourcesStats: Stat[]): void {
         for (let index in contactSourcesStats) {
-            const contactSourceStats: ContactSourceStat = contactSourcesStats[index]
+            const contactSourceStats: Stat = contactSourcesStats[index]
             const color: string = ((parseInt(index) % 2) === 0) ? '#543888' : '#262258';
             let data: any[] = [
                 contactSourceStats.name,
-                contactSourceStats.totalContacts,
+                contactSourceStats.value,
                 'fill-color: '+color+'; opacity: 0.8'
             ];
             this.contactSourcesStatsData.push(data);

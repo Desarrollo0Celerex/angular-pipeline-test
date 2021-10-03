@@ -1,0 +1,25 @@
+<div class="card" *ngIf="!!kpi">
+    <div class="card-header">
+        <h6 class="mb-0">{{kpi.contentName}}<br>{{kpi.subcontentName}}</h6>
+        <div class="card-options">
+            <i class="fe fe-help-circle fs-20 text-primary" data-toggle="popover" data-placement="left" [attr.data-content]="kpi.description" data-original-title=""></i>
+        </div>
+    </div>
+    <div class="card-body">
+        <h3 class="font-weight-500 number-font1 mb-1">{{kpi.selectedValue | number: '1.0-1'}}{{(!!kpi.isPercentage) ? '%' : ''}}
+        <small class="{{kpiIconColor}} mb-0 number-font1"><i class="fe {{kpiIcon}}"></i></small></h3>
+        <div class="progress progress-md h-2 mt-2 mb-1">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" [ngStyle]="{'width': selectedPercentage + '%'}"></div>
+        </div>
+        <p class="text-muted mb-0"><strong>Periodo Seleccionado</strong></p>
+        <p class="text-muted">{{kpi.selectedRange}}</p>
+    </div>
+    <div class="card-body">
+        <h3 class="font-weight-500 number-font1 mb-1">{{kpi.comparedValue | number: '1.0-1'}}{{(!!kpi.isPercentage) ? '%' : ''}}</h3>
+        <div class="progress progress-md h-2 mt-2 mb-1">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" [ngStyle]="{'width': comparedPercentage + '%'}"></div>
+        </div>
+        <p class="text-muted mb-0"><strong>Periodo Comparación</strong></p>
+        <p class="text-muted">{{kpi.comparedRange}}</p>
+    </div>
+</div>

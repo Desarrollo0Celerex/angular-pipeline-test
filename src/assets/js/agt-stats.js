@@ -35,7 +35,7 @@ var StatsPlugin = function() {
         function drawChart(chartData) {
             var data = google.visualization.arrayToDataTable(chartData);
             var options = {
-                chartArea: {width: '50%'},
+                chartArea: {width: '40%'},
                 hAxis: {minValue: 0},
                 fontSize:12,
                 bubble: {textStyle: {fontSize: 12}},
@@ -64,7 +64,7 @@ var StatsPlugin = function() {
                 fontSize:12,
                 pieSliceTextStyle:{"color":"#fbfbfb"},
                 sliceVisibilityThreshold:true,
-                sliceVisibilityThreshold: .08,
+                sliceVisibilityThreshold: 0.0001,
                 legend:{"position":"labeled","textStyle":{"color":"#536d98","fontSize":12}},
                 tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
                 animation:{"duration":2888,"easing":"inAndOut","startup":true},
@@ -142,7 +142,7 @@ var StatsPlugin = function() {
                 fontSize:12,
                 pieSliceTextStyle:{"color":"#fbfbfb"},
                 sliceVisibilityThreshold:true,
-                sliceVisibilityThreshold: .08,
+                sliceVisibilityThreshold: 0.0001,
                 legend:{"position":"left","textStyle":{"color":"#536d98","fontSize":12}},
                 tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
                 animation:{"duration":2888,"easing":"inAndOut","startup":true},

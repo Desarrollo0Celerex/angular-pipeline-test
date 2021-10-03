@@ -18,10 +18,12 @@ export class StatsLayout implements OnInit {
 
     ngOnInit(): void {
         this.model.loadTotalActiveLeads();
+        this.model.loadLatestTotalActiveLeads();
         this.model.loadTotalActiveClients();
-        this.model.loadTotalActivePolicies();
+        this.model.loadLatestTotalActiveClients();
+        this.model.loadTotalActivePayments();
+        this.model.loadLatestTotalActivePayments();
         this.model.loadTotalActiveSinisters();
-        this.model.loadLatestTotalActivePolicies();
         this.model.loadLatestTotalActiveSinisters();
     }
 

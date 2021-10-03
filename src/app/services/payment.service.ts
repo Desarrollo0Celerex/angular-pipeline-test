@@ -72,11 +72,16 @@ export class PaymentService {
      * @param  paymentStatusId The filter to apply
      * @return              The total clients
      */
-    getTotalPayments(paymentStatusId: number = 0): Observable<HttpResponse> {
+    getTotalPayments(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
         const route: string = routes.totalPayments(this._workspaceId);
         let params: HttpParams = new HttpParams();
-        if(!!paymentStatusId) params = params.append('filter', 'paymentStatusId[=]' + paymentStatusId);
-        return this._httpClient.get<HttpResponse>(route, { params });
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 
     /**

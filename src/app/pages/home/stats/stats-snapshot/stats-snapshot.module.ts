@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
+import { MenuStatsModule } from '@components/menu-stats/menu-stats.module';
 import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
 
 import { InsurerService } from '@services/insurer.service';
@@ -26,7 +27,8 @@ import { StatsSnapshotPage } from './stats-snapshot.page';
   imports: [
     CommonModule,
     LoadingContentModule,
-    StatsSnapshotRoutingModule
+    StatsSnapshotRoutingModule,
+    MenuStatsModule
   ],
   providers: [
       PluralNameFormatPipe,

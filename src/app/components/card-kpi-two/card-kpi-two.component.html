@@ -1,0 +1,50 @@
+<div class="card" *ngIf="!!kpi">
+    <div class="card-header">
+        <h3 class="card-title">{{kpi.contentName}}</h3>
+    </div>
+    <div class="card-body">
+        <div class="row dash1">
+            <div class="col border-right">
+                <h3 class="font-weight-500 number-font1 mb-0">{{kpi.selectedTotalGeneratedQuotations | number: '1.0-0'}}
+                <small class="{{kpiIconColorOne}} mb-0 number-font1"><i class="fe {{kpiIconOne}}"></i></small></h3>
+                <span class="text-muted">Cotizaciones<br/>Generadas</span>
+            </div>
+            <div class="col border-right">
+                <h3 class="font-weight-500 number-font1 mb-0">{{kpi.selectedTotalAcceptedQuotations | number: '1.0-0'}}
+                <small class="{{kpiIconColorTwo}} mb-0 number-font1"><i class="fe {{kpiIconTwo}}"></i></small></h3>
+                <span class="text-muted">Cotizaciones<br/>Aceptadas</span>
+            </div>
+            <div class="col">
+                <h3 class="font-weight-500 number-font1 mb-0">{{selectedPercentage}}%
+                <small class="{{kpiIconColorThree}} mb-0 number-font1"><i class="fe {{kpiIconThree}}"></i></small></h3>
+                <span class="text-muted">Rate de<br/>Conversión</span>
+            </div>
+        </div>
+        <div class="progress progress-md h-2 mt-2 mb-1">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" [ngStyle]="{'width': selectedPercentage + '%'}"></div>
+        </div>
+        <p class="text-muted mb-0"><strong>Periodo Seleccionado</strong></p>
+        <p class="text-muted">{{kpi.selectedRange}}</p>
+    </div>
+    <div class="card-body">
+        <div class="row dash1">
+            <div class="col border-right">
+                <h3 class="font-weight-500 number-font1 mb-0">{{kpi.comparedTotalGeneratedQuotations | number: '1.0-0'}}</h3>
+                <span class="text-muted">Cotizaciones<br/>Generadas</span>
+            </div>
+            <div class="col border-right">
+                <h3 class="font-weight-500 number-font1 mb-0">{{kpi.comparedTotalAcceptedQuotations | number: '1.0-0'}}</h3>
+                <span class="text-muted">Cotizaciones<br/>Aceptadas</span>
+            </div>
+            <div class="col">
+                <h3 class="font-weight-500 number-font1 mb-0">{{comparedPercentage}}%</h3>
+                <span class="text-muted">Rate de<br/>Conversión</span>
+            </div>
+        </div>
+        <div class="progress progress-md h-2 mt-2 mb-1">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" [ngStyle]="{'width': comparedPercentage + '%'}"></div>
+        </div>
+        <p class="text-muted mb-0"><strong>Periodo Comparación</strong></p>
+        <p class="text-muted">{{kpi.comparedRange}}</p>
+    </div>
+</div>
