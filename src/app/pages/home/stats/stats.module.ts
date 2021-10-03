@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { CardContentKpiModule } from '@components/card-content-kpi/card-content-kpi.module';
 import { LeadService } from '@services/lead.service';
 import { ClientService } from '@services/client.service';
-import { PolicyService } from '@services/policy.service';
+import { PaymentService } from '@services/payment.service';
 import { SinisterService } from '@services/sinister.service';
 
 import { StatsRoutingModule } from './stats-routing.module';
@@ -18,13 +19,14 @@ import { StatsLayout } from './stats.layout';
   imports: [
     CommonModule,
     StatsRoutingModule,
-    RouterModule
+    RouterModule,
+    CardContentKpiModule
   ],
   providers: [
       LeadService,
       ClientService,
-      PolicyService,
-      SinisterService
+      SinisterService,
+      PaymentService
   ]
 })
 export class StatsModule { }

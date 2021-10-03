@@ -94,6 +94,7 @@ const HOME_SINISTERS_ROUTES = {
 
 const HOME_STATS_ROUTES = {
     statsSnapshot: `workspace/stats/snapshot`,
+    statsLeads: `workspace/stats/leads`,
 }
 
 const HOME_WALLET_ROUTES = {

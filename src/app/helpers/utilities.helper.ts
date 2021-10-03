@@ -71,14 +71,4 @@ export class UtilitiesHelper {
         });
         return filterIds.join(',');
     }
-
-    /**
-     * Generate a http filter with date range
-     * @param  startDate The start date
-     * @param  endDate   The end date
-     * @return           The http filter
-     */
-    static generateHttpFilterByRange(startDate: string, endDate: string): string {
-        return `startDate[=]${startDate},endDate[=]${endDate}`;
-    }
 }

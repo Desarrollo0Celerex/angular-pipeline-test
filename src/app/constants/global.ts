@@ -98,12 +98,14 @@ export const EXTERNAL_POLICY_STATUS: any = {
 export const LEAD_STATUS: any = {
     NEW: 1,
     RECURRENT: 2,
-    RECOVERED: 3
+    RECOVERED: 3,
+    DISCARDED: 4
 }
 export const CLIENT_STATUS: any = {
     OCCASIONAL: 1,
     FREQUENT: 2,
-    INFLUENTIAL: 3
+    INFLUENTIAL: 3,
+    LOST: 4
 }
 export const POLICY_SOURCES: any = {
     NEW: 1,
@@ -231,6 +233,9 @@ export const SINISTER_RECORD_TYPES: any = {
     REACTIVATED: 4,
     NEW_EVENT: 5
 }
+export const CONTACT_SOURCE_TYPES: any = {
+    PARTNERS: 4
+}
 
 export const IGNORE_MATCHES: any = {
     YES: true,
@@ -253,6 +258,15 @@ export const ROLES: any = {
 export const CANCELLATION_REASONS: any = {
     CAPTURE_ERROR: 7
 }
+export const PERIODS: any = {
+    LAST_YEAR: 1,
+    LAST_MONTH: 2
+}
+
+export const PERIOD_STATUS: any = {
+    SELECTED: 0,
+    COMPARED: 1
+};
 
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;
