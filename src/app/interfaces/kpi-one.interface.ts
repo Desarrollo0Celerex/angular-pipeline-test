@@ -6,5 +6,6 @@ export interface KpiOne {
     selectedValue: number,
     selectedRange: string,
     comparedValue: number,
-    comparedRange: string
+    comparedRange: string,
+    isPercentage?: boolean
 }

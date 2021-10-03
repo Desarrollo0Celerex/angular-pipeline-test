@@ -18,6 +18,7 @@ export class ContainerLeadChannelsKpisComponent implements OnChanges, OnInit {
     constructor(private _containerLeadChannelsKpisService: ContainerLeadChannelsKpisService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
+        this.model.loadRangeDates(changes.range.currentValue)
         this._loadContactSourcesStats(changes.range.currentValue);
         this._loadActivePartners(changes.range.currentValue);
         this._loadTotalGeneratedLeads(changes.range.currentValue);

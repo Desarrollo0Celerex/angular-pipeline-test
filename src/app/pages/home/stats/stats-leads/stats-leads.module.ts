@@ -6,6 +6,7 @@ import { ChartGeneratedQuotesModule } from '@components/chart-generated-quotes/c
 import { ChartLeadAcquisitionChannelsModule } from '@components/chart-lead-acquisition-channels/chart-lead-acquisition-channels.module';
 import { ChartLeadChannelsWithHigherConversionModule } from '@components/chart-lead-channels-with-higher-conversion/chart-lead-channels-with-higher-conversion.module';
 import { ContainerLeadChannelsKpisModule } from '@components/container-lead-channels-kpis/container-lead-channels-kpis.module';
+import { ContainerLeadConversionKpisModule } from '@components/container-lead-conversion-kpis/container-lead-conversion-kpis.module';
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
 import { MenuStatsModule } from '@components/menu-stats/menu-stats.module';
 
@@ -25,7 +26,8 @@ import { StatsLeadsPage } from './stats-leads.page';
     ChartGeneratedQuotesModule,
     ChartLeadAcquisitionChannelsModule,
     ChartLeadChannelsWithHigherConversionModule,
-    ContainerLeadChannelsKpisModule
+    ContainerLeadChannelsKpisModule,
+    ContainerLeadConversionKpisModule
   ]
 })
 export class StatsLeadsModule { }

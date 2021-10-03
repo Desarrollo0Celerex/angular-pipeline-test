@@ -16,6 +16,7 @@ const routes: any = {
     acceptContactQuotation: (workspaceId: string, contactId: string, quotationId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/' + quotationId + '/accept',
     rejectContactQuotation: (workspaceId: string, contactId: string, quotationId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/' + quotationId + '/reject',
     totalQuotations: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/total',
+    totalWorkspaceQuotations: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/quotations/count',
     quotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/quotations',
     contactSourcesQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/contact-sources/quotations'
 }
@@ -109,6 +110,18 @@ export class QuotationService {
         let params: HttpParams = new HttpParams();
         if(!!filter) params = params.append('filter', 'quotationStatusId[=]' + filter);
         return this._httpClient.get<HttpResponse>(route, { params });
+    }
+
+    getTotalWorkspaceQuotations(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
+        const route: string = routes.totalWorkspaceQuotations(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => { return res.data })
+        );
     }
 
     getQuotationsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {

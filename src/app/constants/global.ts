@@ -258,11 +258,15 @@ export const ROLES: any = {
 export const CANCELLATION_REASONS: any = {
     UPLOAD_ERROR: 7
 }
-
 export const PERIODS: any = {
     LAST_YEAR: 1,
     LAST_MONTH: 2
 }
+
+export const PERIOD_STATUS: any = {
+    SELECTED: 0,
+    COMPARED: 1
+};
 
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;

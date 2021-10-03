@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import * as moment from 'moment';
 
-import { CONTACT_SOURCE_TYPES } from '@constants/global';
+import { CONTACT_SOURCE_TYPES, PERIOD_STATUS } from '@constants/global';
 import { KpiOne } from '@interfaces/kpi-one.interface';
 import { RangeData } from '@interfaces/range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
@@ -11,8 +11,6 @@ import { ContactSourceService } from '@services/contact-source.service';
 import { ContactSourceTypeService } from '@services/contact-source-type.service';
 import { LeadService } from '@services/lead.service';
 
-const SELECTED_PERIOD: number = 0;
-const COMPARED_PERIOD: number = 1;
 const ACTIVE_CHANNELS: number = 0;
 const ACTIVE_PARTNERS: number = 1;
 const TOTAL_GENERATED_LEADS: number = 2;
@@ -103,7 +101,7 @@ export class ContainerLeadChannelsKpisService {
     loadActiveChannelsData(stats: Stat[][]): void {
         // Selected content
         let totalActiveChannels: number = 0;
-        let acquisitionChannels: Stat[] = stats[SELECTED_PERIOD];
+        let acquisitionChannels: Stat[] = stats[PERIOD_STATUS.SELECTED];
         this.channelKpis[ACTIVE_CHANNELS].totalContents = acquisitionChannels.length;
         for (let acquisitionChannel of acquisitionChannels) {
             if(acquisitionChannel.value > 0) {
@@ -114,7 +112,7 @@ export class ContainerLeadChannelsKpisService {
 
         // Compared content
         totalActiveChannels = 0;
-        acquisitionChannels = stats[COMPARED_PERIOD];
+        acquisitionChannels = stats[PERIOD_STATUS.COMPARED];
         for (let acquisitionChannel of acquisitionChannels) {
             if(acquisitionChannel.value > 0) {
                 totalActiveChannels++;
@@ -126,7 +124,7 @@ export class ContainerLeadChannelsKpisService {
     loadActivePartnersData(stats: Stat[][]): void {
         // Selected content
         let totalActivePartners: number = 0;
-        let partnerStats: Stat[] = stats[SELECTED_PERIOD];
+        let partnerStats: Stat[] = stats[PERIOD_STATUS.SELECTED];
         this.channelKpis[ACTIVE_PARTNERS].totalContents = partnerStats.length;
         for (let partnerStat of partnerStats) {
             if(partnerStat.value > 0) {
@@ -137,7 +135,7 @@ export class ContainerLeadChannelsKpisService {
 
         // Compared content
         totalActivePartners = 0;
-        partnerStats = stats[COMPARED_PERIOD];
+        partnerStats = stats[PERIOD_STATUS.COMPARED];
         for (let partnerStat of partnerStats) {
             if(partnerStat.value > 0) {
                 totalActivePartners++;
@@ -147,8 +145,8 @@ export class ContainerLeadChannelsKpisService {
     }
 
     loadTotalGeneratedLeads(data: number[]): void {
-        this.channelKpis[TOTAL_GENERATED_LEADS].selectedValue = data[SELECTED_PERIOD];
-        this.channelKpis[TOTAL_GENERATED_LEADS].comparedValue = data[COMPARED_PERIOD];
+        this.channelKpis[TOTAL_GENERATED_LEADS].selectedValue = data[PERIOD_STATUS.SELECTED];
+        this.channelKpis[TOTAL_GENERATED_LEADS].comparedValue = data[PERIOD_STATUS.COMPARED];
     }
 
     loadDailyAverage(data: number[], range: RangeData): void {
@@ -158,8 +156,8 @@ export class ContainerLeadChannelsKpisService {
         const comparedStartDate: any = moment(range.comparedRangeStart, 'DD/MM/YYYY');
         const comparedEndDate: any = moment(range.comparedRangeEnd, 'DD/MM/YYYY');
         const comparedDays: number = comparedEndDate.diff(comparedStartDate, 'days') + 1;
-        this.channelKpis[DAILY_AVERAGE].selectedValue = data[SELECTED_PERIOD] / selectedDays;
-        this.channelKpis[DAILY_AVERAGE].comparedValue = data[COMPARED_PERIOD] / comparedDays;
+        this.channelKpis[DAILY_AVERAGE].selectedValue = data[PERIOD_STATUS.SELECTED] / selectedDays;
+        this.channelKpis[DAILY_AVERAGE].comparedValue = data[PERIOD_STATUS.COMPARED] / comparedDays;
     }
 
     loadAllGeneratedLeads(totalLeads: number): void {
