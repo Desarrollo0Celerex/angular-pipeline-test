@@ -23,7 +23,8 @@ declare var DropifyPlugin: any;
 export class UploadContactFilePage implements OnInit {
     contactId: string = '';
     contactProfileMessage: string = 'Selecciona el archivo que deseas cargar en el expediente de';
-    private _allowedFileTypes: string[] = ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'mail', 'eml', 'doc', 'docx', 'txt', 'csv', 'xls', 'xlsx', 'zip', 'rar'];
+    maxFileSize: string = '6M';
+    private _allowedFileTypes: string[] = ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'mail', 'eml', 'doc', 'docx', 'txt', 'csv', 'xls', 'xlsx', 'zip', 'rar', 'sql'];
     private _isFormSubmitted: boolean = false;
 
     constructor(
@@ -35,7 +36,7 @@ export class UploadContactFilePage implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        DropifyPlugin.init(FILE_TYPES.MIXED, this._allowedFileTypes);
+        DropifyPlugin.init(FILE_TYPES.MIXED, this._allowedFileTypes, true, this.maxFileSize);
         this._catchParams();
         this.uploadFileService.loadContactFileTypes();
         this.uploadFileService.buildForm();

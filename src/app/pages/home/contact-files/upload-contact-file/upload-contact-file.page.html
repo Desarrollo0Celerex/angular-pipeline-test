@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group {{getValidationClass('file')}}">
-                                <input class="form-control dropify" type="file" data-max-file-size="2M" formControlName="file" (change)="onChangeFile($event)"/>
+                                <input class="form-control dropify" type="file" data-max-file-size="6M" formControlName="file" (change)="onChangeFile($event)"/>
                                 <div class="invalid-feedback">{{getErrorMessage('file')}}</div>
                             </div>
                         </div>
