@@ -8,7 +8,7 @@ import { ContainerLeadPartnerKpisService } from './container-lead-partner-kpis.s
 @Component({
   selector: 'agt-container-lead-partner-kpis',
   templateUrl: './container-lead-partner-kpis.component.html',
-  styles: [`:host{ width: 100% }`
+  styles: [
   ],
   providers: [ContainerLeadPartnerKpisService]
 })

@@ -18,7 +18,7 @@ declare var DatePickerPlugin: any;
 })
 export class ContainerSelectStatsPeriodComponent implements OnInit {
     @Input() statsPeriodData: StatsPeriodData = {
-        startDate: moment().startOf('month').format('DD/MM/YYYY'),
+        startDate: (moment().subtract(1, 'months')).add(1, 'days').format('DD/MM/YYYY'),
         endDate: moment().format('DD/MM/YYYY'),
         periodId: 1
     }

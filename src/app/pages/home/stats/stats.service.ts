@@ -94,7 +94,7 @@ export class StatsService {
     loadLatestTotalActiveLeads(): void {
         const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED])
         const rangeField: string = 'leadConversionDate';
-        const rangeStart: string = moment().subtract(1, 'months').format('DD/MM/YYYY');
+        const rangeStart: string = (moment().subtract(1, 'months')).add(1, 'days').format('DD/MM/YYYY');
         const rangeEnd: string = moment().format('DD/MM/YYYY');
         this._leadService.getTotalLeads(filters, rangeField, rangeStart, rangeEnd).subscribe((totalLeads: number) => {
             this.contentKpis[0].subValue = totalLeads.toString();

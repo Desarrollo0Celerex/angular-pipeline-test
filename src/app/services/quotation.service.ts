@@ -20,7 +20,8 @@ const routes: any = {
     totalWorkspaceQuotations: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/quotations/count',
     quotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/quotations',
     contactSourcesQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/contact-sources/quotations',
-    partnersQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/partners/quotations'
+    partnersQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/partners/quotations',
+    usersQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/users/quotations'
 }
 
 @Injectable()
@@ -151,6 +152,17 @@ export class QuotationService {
 
     getPartnersQuotationsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<PartnerQuotationStat[]> {
         const route: string = routes.partnersQuotationsStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getUsersQuotationsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<PartnerQuotationStat[]> {
+        const route: string = routes.usersQuotationsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
