@@ -11,17 +11,18 @@
 				<ol class="breadcrumb1 mt-2">
 					<li class="breadcrumb-item1">Genera un reporte inmediato de los <strong>Prospectos Activos</strong>.</li>
 				</ol>
-				<button type="button" class="btn btn-block btn-primary mt-5" disabled><strong>DESCARGAR REPORTE</strong></button>
+				<button type="button" class="btn btn-block btn-primary mt-5"><strong>DESCARGAR REPORTE</strong></button>
 			</div>
 		</div>
 	</div>
 </div>
+
 <div class="row mt-3">
 	<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
 		<agt-menu-stats></agt-menu-stats>
 	</div>
 	<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
-		<div class="row">
+		<div class="row mb-3">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 				<agt-chart-generated-leads [range]="model.range"></agt-chart-generated-leads>
 			</div>
@@ -38,15 +39,16 @@
 					</div>
 					<div class="card-body text-center">
 						<ol class="breadcrumb1">
-							<li class="breadcrumb-item1">Conoce el desempeño de los <strong>Canales de Adquisición</strong>.</li>
+							<li class="breadcrumb-item1">Conoce el desempeño de los <strong>Canales de Atracción</strong>.</li>
 						</ol>
-						<a [routerLink]="">
-							<button type="button" class="btn btn-block btn-primary" disabled><strong>VER DETALLES</strong></button>
-						</a>
+						<a href="../channels">
+						<button type="button" name="agtChannelSnapshot" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
 					</div>
 				</div>
 			</div>
-			<agt-container-lead-channels-kpis [range]="model.range"></agt-container-lead-channels-kpis>
+		</div>
+		<agt-container-lead-channels-kpis [range]="model.range"></agt-container-lead-channels-kpis>
+		<div class="row mb-3">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 				<agt-chart-generated-quotes [range]="model.range"></agt-chart-generated-quotes>
 			</div>
@@ -65,17 +67,14 @@
 						<ol class="breadcrumb1">
 							<li class="breadcrumb-item1">Conoce el desempeño del <strong>Funnel de Conversión</strong>.</li>
 						</ol>
-						<a [routerLink]="">
-							<button type="button" class="btn btn-block btn-primary" disabled><strong>VER DETALLES</strong></button>
-						</a>
+						<a href="../funnel">
+						<button type="button" name="agtFunnelSnapshot" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button></a>
 					</div>
 				</div>
 			</div>
-			<agt-container-lead-conversion-kpis [range]="model.range"></agt-container-lead-conversion-kpis>
-			<agt-container-lead-partner-kpis [range]="model.range"></agt-container-lead-partner-kpis>
-			<agt-container-lead-users-kpis [range]="model.range"></agt-container-lead-users-kpis>
 		</div>
+		<agt-container-lead-conversion-kpis [range]="model.range"></agt-container-lead-conversion-kpis>
+		<agt-container-lead-partner-kpis [range]="model.range"></agt-container-lead-partner-kpis>
+		<agt-container-lead-users-kpis [range]="model.range"></agt-container-lead-users-kpis>
 	</div>
-	<!-- //AGENTHOS - DATA SUITE STATS -->
 </div>
-<!-- //AGENTHOS - DATA SUITE CONSOLE -->
