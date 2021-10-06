@@ -21,7 +21,7 @@
     <ng-container *ngIf="isHistoryContent; else noHistoryContent">
         <div [class]="cardClasses">
             <ul class="cbp_tmtimeline">
-                <ng-container *ngFor="let content of contentListService.contents">
+                <ng-container *ngFor="let content of contentListService.contents; let index = index">
                     <ng-container [ngSwitch]="contentType">
                         <agt-card-policy-record *ngSwitchCase="CONTENT_TYPES.HISTORY_POLICY.ID"
                             [policyRecord]="content"
@@ -35,7 +35,9 @@
                         ></agt-card-policy-record>
                         <agt-card-receipt-paid-record *ngSwitchCase="CONTENT_TYPES.PAYMENT_HISTORY.ID"
                             [receiptPaid]="content"
+                            [index]="index"
                             (deleteReceiptPaid)="onDeleteReceiptPaid($event)"
+                            (updateReceiptPaid)="updateReceiptPaid($event)"
                         ></agt-card-receipt-paid-record>
                         <agt-card-sinister-log *ngSwitchCase="CONTENT_TYPES.SINISTER_HISTORY.ID"
                             [sinisterLog]="content"
@@ -156,6 +158,7 @@
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT_HISTORY.ID">
     <agt-modal-confirm-delete-receipt-paid [modalId]="modalIdConfirmDeleteReceiptPaid" (deleteReceiptPaidConfimed)="onDeleteReceiptPaidConfirmed()"></agt-modal-confirm-delete-receipt-paid>
+    <agt-modal-update-receipt-paid [modalId]="modalIdUpdateReceiptPaid" [receiptPaidId]="selectedReceiptPaidId"></agt-modal-update-receipt-paid>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID || contentType === CONTENT_TYPES.POLICY_SINISTERS.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
     <agt-modal-show-sinister-details [modalId]="modalIdShowSinisterDetails" [sinister]="selectedSinister"></agt-modal-show-sinister-details>

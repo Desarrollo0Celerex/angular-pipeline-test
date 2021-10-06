@@ -73,7 +73,6 @@ export class ModalApplyPaymentComponent implements OnChanges {
      */
     onPaymentApplicationCancelled(): void {
         ModalPlugin.show(this.modalId);
-        ModalPlugin.setFixed();
     }
 
     /**
@@ -121,7 +120,6 @@ export class ModalApplyPaymentComponent implements OnChanges {
      */
     private _closeModal(): void {
         ModalPlugin.hide(this.modalId);
-        ModalPlugin.removeFixed();
     }
 
     /**

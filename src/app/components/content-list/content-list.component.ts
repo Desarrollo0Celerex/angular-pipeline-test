@@ -106,7 +106,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowResolutionEvidence: string = 'agt-show-resolution-evidence';
     modalIdShowSinisterDetails: string = 'agt-show-sinister-details';
     modalIdTransferContactFile: string = 'agt-transfer-contact-file';
-    modalIdUpdateSinisterEvent: string = 'agt-update-sinister-event'
+    modalIdUpdateReceiptPaid: string = 'agt-update-receipt-paid';
+    modalIdUpdateSinisterEvent: string = 'agt-update-sinister-event';
     totalResults: number;
     private subParams: any;
 
@@ -233,7 +234,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.selectedPolicyId = data.policyId;
         this.selectedPaymentId = data.paymentId;
         ModalPlugin.show(this.modalIdApplyPayment);
-        ModalPlugin.setFixed();
     }
 
     /**
@@ -598,7 +598,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onUpdateSinisterEvent(sinisterEventData: SinisterEventDataSend): void {
         this.selectedSinisterEventData = sinisterEventData;
         ModalPlugin.show(this.modalIdUpdateSinisterEvent);
-        ModalPlugin.setFixed();
     }
 
     /**
@@ -607,6 +606,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     showContactFileDetails(data: ContactFileDataSend): void {
         this.selectedContactFileData = data;
         ModalPlugin.show(this.modalIdShowContactFileDetails);
+    }
+
+    updateReceiptPaid(receiptPaidId: string): void {
+        this.selectedReceiptPaidId = receiptPaidId;
+        ModalPlugin.show(this.modalIdUpdateReceiptPaid);
     }
 
     /**

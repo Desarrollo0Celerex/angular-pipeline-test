@@ -92,7 +92,6 @@ export class ModalUpdateSinisterEventComponent implements OnChanges, OnInit {
      */
     private _closeModal(): void {
         ModalPlugin.hide(this.modalId);
-        ModalPlugin.removeFixed();
     }
 
     /**

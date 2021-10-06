@@ -57,6 +57,7 @@ import { ModalShowReactivationEvidenceModule } from '@components/modal-show-reac
 import { ModalShowResolutionEvidenceModule } from '@components/modal-show-resolution-evidence/modal-show-resolution-evidence.module';
 import { ModalShowSinisterDetailsModule } from '@components/modal-show-sinister-details/modal-show-sinister-details.module';
 import { ModalTransferContactFileModule } from '@components/modal-transfer-contact-file/modal-transfer-contact-file.module';
+import { ModalUpdateReceiptPaidModule } from '@components/modal-update-receipt-paid/modal-update-receipt-paid.module';
 import { ModalUpdateSinisterEventModule } from '@components/modal-update-sinister-event/modal-update-sinister-event.module';
 
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
@@ -134,6 +135,7 @@ import { ContentListService } from './content-list.service';
     ModalShowResolutionEvidenceModule,
     ModalShowSinisterDetailsModule,
     ModalTransferContactFileModule,
+    ModalUpdateReceiptPaidModule,
     ModalUpdateSinisterEventModule
   ],
   providers: [

@@ -125,7 +125,6 @@ export class ContentMainActionComponent implements OnInit {
         this.selectedPolicy = policy;
         switch(this.contentType) {
             case CONTENT_TYPES.SINISTER.ID:
-                ModalPlugin.setFixed();
                 ModalPlugin.show(this.modalIdCreateSinister);
                 break;
         }

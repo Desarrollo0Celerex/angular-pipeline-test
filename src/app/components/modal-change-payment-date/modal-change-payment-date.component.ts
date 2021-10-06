@@ -41,6 +41,10 @@ export class ModalChangePaymentDateComponent implements OnChanges {
         return this._modalChangePaymentDateService;
     }
 
+    closeModal(): void {
+        ModalPlugin.hide(this.modalId);
+    }
+
     /**
      * Get the error message
      * @param  constrolName Control name
@@ -65,7 +69,7 @@ export class ModalChangePaymentDateComponent implements OnChanges {
         this._isFormSubmitted = true;
         if(this.model.form.valid) {
             this._loadingService.show();
-            ModalPlugin.hide(this.modalId);
+            this.closeModal();
             this.model.updatePaymentDate(this.paymentId).subscribe(() => {
                 this._loadingService.hide();
                 this.paymenDateUpdated.emit(moment(this.model.f.paymentDate.value, 'DD/MM/YYYY').format('YYYY-MM-DD'));

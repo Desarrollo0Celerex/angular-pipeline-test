@@ -6,5 +6,9 @@ export interface ReceiptPaid {
     receiptsNumber: string,
     createdByName: string,
     currencyName: string,
-    paymentId: string
+    paymentId: string,
+    policyNumber: string,
+    paymentPlanName: string,
+    validityStartDate: string,
+    validityEndDate: string
 }

@@ -71,7 +71,6 @@ export class ContactProfilePage implements OnInit {
      */
     onPolicyFound(policy: Policy): void {
         this.selectedPolicy = policy;
-        ModalPlugin.setFixed();
         ModalPlugin.show(this.modalIdCreateSinister);
     }
 

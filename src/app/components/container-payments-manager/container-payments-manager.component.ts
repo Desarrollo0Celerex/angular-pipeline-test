@@ -46,7 +46,6 @@ export class ContainerPaymentsManagerComponent implements OnInit {
 
     showModalToChangePaymentDate(): void {
         if(!!this.model.payment) {
-            ModalPlugin.setFixed();
             ModalPlugin.show(this.modalIdChangePaymentDate);
         }
     }
@@ -84,7 +83,6 @@ export class ContainerPaymentsManagerComponent implements OnInit {
     }
 
     updatePaymentDate(paymentDate: string): void {
-        ModalPlugin.removeFixed();
         if(!!this.model.payment) {
             this.model.payment.paymentDate = paymentDate;
         }
