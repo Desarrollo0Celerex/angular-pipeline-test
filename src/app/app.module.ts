@@ -45,7 +45,10 @@ import { AppComponent } from './app.component';
     ModalSessionExpiredModule,
     ScanningModule
   ],
-  providers: [AUTH_INTERCEPTOR_PROVIDER, ERROR_INTERCEPTOR_PROVIDER],
+  providers: [
+      AUTH_INTERCEPTOR_PROVIDER,
+      ERROR_INTERCEPTOR_PROVIDER
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

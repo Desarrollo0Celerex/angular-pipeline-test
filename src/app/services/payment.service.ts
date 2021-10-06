@@ -7,10 +7,12 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { PaymentStat } from '@interfaces/payment-stat.interface';
+import { UpdatePaymentDateDataSend } from '@interfaces/update-payment-date-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     payment: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/' +paymentId,
+    paymentDate: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/' + paymentId + '/payment-date',
     payments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments',
     totalPayments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/count',
     paymentsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/payments'
@@ -68,6 +70,17 @@ export class PaymentService {
     }
 
     /**
+     * Get the payments stats
+     * @return  The payments stats
+     */
+    getPaymentsStats(): Observable<PaymentStat[]> {
+        const route: string = routes.paymentsStats(this._workspaceId);
+        return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    /**
      * Get the total payments from the API
      * @param  paymentStatusId The filter to apply
      * @return              The total clients
@@ -82,6 +95,11 @@ export class PaymentService {
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );
+    }
+
+    updatePaymentDate(paymentId: string, requestBody: UpdatePaymentDateDataSend): Observable<void> {
+        const route: string = routes.paymentDate(this._workspaceId, paymentId);
+        return this._httpClient.put<void>(route, requestBody);
     }
 
     /**
@@ -101,16 +119,5 @@ export class PaymentService {
         }
         payment.lifeTime = percentage;
         return payment;
-    }
-
-    /**
-     * Get the payments stats
-     * @return  The payments stats
-     */
-    getPaymentsStats(): Observable<PaymentStat[]> {
-        const route: string = routes.paymentsStats(this._workspaceId);
-        return this._httpClient.get<HttpResponse>(route).pipe(
-            map((res: HttpResponse) => res.data )
-        );
     }
 }

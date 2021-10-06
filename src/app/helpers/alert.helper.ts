@@ -140,6 +140,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static paymentDateUpdated(): void {
+        const alertData: Alert = {
+            title: 'Recibo Actualizado',
+            text: 'El recibo se ha actualizado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static policyAlreadyExists(): void {
         const alertData: Alert = {
             title: 'Error al guardar póliza',

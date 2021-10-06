@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
+import { DEFAULT_CONTENT_FILTER_ID, CONTENT_TYPES } from '@constants/global';
 
 @Component({
   selector: 'agt-container-timeline',
@@ -14,6 +14,7 @@ export class ContainerTimelineComponent implements OnInit {
     @Input() contentTypeName: string = '';
     @Input() paymentId: string = '';
     @Input() policyId: string = '';
+    CONTENT_TYPES: any = CONTENT_TYPES;
     contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
     contentSubtypeName: string = 'Registrado';
 
