@@ -140,10 +140,30 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static paymentsActivated(): void {
+        const alertData: Alert = {
+            title: 'Cobranza Activada',
+            text: 'La cobranza se ha reactivado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static paymentDateUpdated(): void {
         const alertData: Alert = {
             title: 'Recibo Actualizado',
             text: 'El recibo se ha actualizado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static paymentsSuspended(): void {
+        const alertData: Alert = {
+            title: 'Cobranza Suspendida',
+            text: 'La cobranza se ha suspendido con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR'
         }

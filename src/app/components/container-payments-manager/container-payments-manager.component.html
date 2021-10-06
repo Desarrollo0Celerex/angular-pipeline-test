@@ -15,8 +15,8 @@
     					<button type="button" class="btn btn-secondary" (click)="showPolicy()"><strong>VER PÓLIZA</strong></button>
                         <ng-container *ngIf="!!model.payment.paymentDate">
                             <button type="button" class="btn btn-primary" (click)="showModalToChangePaymentDate()"><strong>CAMBIAR FECHA</strong></button>
-                            <button type="button" class="btn btn-primary"><strong>SUSPENDER PAGOS</strong></button>
-        					<button type="button" class="btn btn-primary"><strong>ACTIVAR PAGOS</strong></button>
+                            <button type="button" class="btn btn-primary" *ngIf="model.payment.policyStatusId == POLICY_STATUS.CURRENT" (click)="confirmSuspendPayments()"><strong>SUSPENDER PAGOS</strong></button>
+        					<button type="button" class="btn btn-primary" *ngIf="model.payment.policyStatusId == POLICY_STATUS.SUSPENDED" (click)="confirmActivatePayments()"><strong>ACTIVAR PAGOS</strong></button>
                         </ng-container>
                     </div>
     			</div>
@@ -37,4 +37,6 @@
 <ng-container *ngIf="!!model.payment">
     <agt-modal-show-policy-file [modalId]="modalIdShowPolicyFile" [policyUrl]="model.payment.policyUrl"></agt-modal-show-policy-file>
     <agt-modal-change-payment-date [modalId]="modalIdChangePaymentDate" [paymentId]="paymentId" (paymenDateUpdated)="updatePaymentDate($event)"></agt-modal-change-payment-date>
+	<agt-modal-confirm-suspend-payments [modalId]="modalIdConfirmSuspendPayments" (actionConfirmed)="suspendPayments()"></agt-modal-confirm-suspend-payments>
+	<agt-modal-confirm-activate-payments [modalId]="modalIdConfirmActivatePayments" (actionConfirmed)="activatePayments()"></agt-modal-confirm-activate-payments>
 </ng-container>

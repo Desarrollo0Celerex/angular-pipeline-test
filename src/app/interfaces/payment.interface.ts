@@ -28,5 +28,6 @@ export interface Payment {
     tickets: number,
     titularName: string,
     paymentStatusId: number,
-    policyUrl: string
+    policyUrl: string,
+    policyStatusId: number
 }

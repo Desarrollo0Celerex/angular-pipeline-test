@@ -9,6 +9,7 @@ import { CreatePolicyData } from '@interfaces/create-policy-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
+import { UpdatePolicyStatusDataSend } from '@interfaces/update-policy-status-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
 import * as moment from 'moment';
@@ -30,6 +31,7 @@ const routes: any = {
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
     totalContactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/count',
     updateCompletePolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/update-complete',
+    updatePolicyStatus: (workspaceId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/' + policyId + '/policy-status',
     totalWorkspacePolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/count'
 }
 
@@ -304,6 +306,11 @@ export class PolicyService {
     uploadContactPolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.uploadContactPolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
+    }
+
+    updatePolicyStatus(policyId: string, requestBody: UpdatePolicyStatusDataSend): Observable<void> {
+        const route: string = routes.updatePolicyStatus(this._workspaceId, policyId);
+        return this._httpClient.put<void>(route, requestBody);
     }
 
     getTotalWorkspacePolicies(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
