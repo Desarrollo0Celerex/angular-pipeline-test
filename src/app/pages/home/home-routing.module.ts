@@ -41,6 +41,7 @@ const routes: Routes = [
 
             // Leads routes
             { path: ROUTES_NAME.listLeads, loadChildren: () => import('@pages/home/leads/list-leads/list-leads.module').then(mod => mod.ListLeadsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: '', loadChildren: () => import('@pages/home/leads/leads.module').then(mod => mod.LeadsModule) },
 
             // Partners routes
             { path: ROUTES_NAME.listPartners, loadChildren: () => import('@pages/home/partners/list-partners/list-partners.module').then(mod => mod.ListPartnersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

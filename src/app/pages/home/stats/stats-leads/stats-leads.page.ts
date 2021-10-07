@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { ROUTES_NAME } from '@constants/routes-name';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
 import { StatsLeadsService } from './stats-leads.service';
@@ -12,6 +13,7 @@ import { StatsLeadsService } from './stats-leads.service';
   providers: [StatsLeadsService]
 })
 export class StatsLeadsPage {
+    ROUTES_NAME: any = ROUTES_NAME;
 
     constructor(private _statsLeadsService: StatsLeadsService) { }
 

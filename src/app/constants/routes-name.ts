@@ -61,7 +61,8 @@ const HOME_INVITATIONS_ROUTES = {
 }
 
 const HOME_LEADS_ROUTES = {
-    listLeads: 'workspace/leads/list-leads'
+    listLeads: 'workspace/leads/list-leads',
+    channels: 'workspace/leads/channels',
 }
 
 const HOME_PAYMENTS_ROUTES = {
