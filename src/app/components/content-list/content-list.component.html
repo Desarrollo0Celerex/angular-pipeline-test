@@ -158,7 +158,7 @@
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT_HISTORY.ID">
     <agt-modal-confirm-delete-receipt-paid [modalId]="modalIdConfirmDeleteReceiptPaid" (deleteReceiptPaidConfimed)="onDeleteReceiptPaidConfirmed()"></agt-modal-confirm-delete-receipt-paid>
-    <agt-modal-update-receipt-paid [modalId]="modalIdUpdateReceiptPaid" [receiptPaidId]="selectedReceiptPaidId"></agt-modal-update-receipt-paid>
+    <agt-modal-update-receipt-paid [modalId]="modalIdUpdateReceiptPaid" [receiptPaidId]="selectedReceiptPaidId" (receiptPaidUpdated)="reloadReceiptPaid($event)"></agt-modal-update-receipt-paid>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID || contentType === CONTENT_TYPES.POLICY_SINISTERS.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
     <agt-modal-show-sinister-details [modalId]="modalIdShowSinisterDetails" [sinister]="selectedSinister"></agt-modal-show-sinister-details>

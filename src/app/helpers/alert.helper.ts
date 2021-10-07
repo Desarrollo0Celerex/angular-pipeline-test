@@ -327,6 +327,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static receiptPaidUpdated(): void {
+        const alertData: Alert = {
+            title: 'Pago Actualizado',
+            text: 'El pago ha sido actualizado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static sendInvitationFailed(): void {
         const alertData: Alert = {
             title: 'Error',

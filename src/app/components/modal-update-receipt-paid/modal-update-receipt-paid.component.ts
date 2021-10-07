@@ -1,11 +1,17 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
+import { ERROR_CODES } from '@constants/error-codes';
+import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { HttpError } from '@interfaces/http-error.interface';
+import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
+import { LoadingService } from '@services/loading.service';
 
 import { ModalUpdateReceiptPaidService } from './modal-update-receipt-paid.service';
 
 declare var DatePickerPlugin: any;
+declare var ModalPlugin: any;
 
 @Component({
   selector: 'agt-modal-update-receipt-paid',
@@ -17,10 +23,14 @@ declare var DatePickerPlugin: any;
 export class ModalUpdateReceiptPaidComponent implements OnChanges {
     @Input() modalId: string = '';
     @Input() receiptPaidId: string = '';
+    @Output() receiptPaidUpdated: EventEmitter<UpdateReceiptPaidDataSend> = new EventEmitter<UpdateReceiptPaidDataSend>();
     calendarIdApplicationDate: string = 'applicationDate';
     private _isFormSubmitted: boolean = false;
 
-    constructor(private _modalUpdateReceiptPaidService: ModalUpdateReceiptPaidService) { }
+    constructor(
+        private _modalUpdateReceiptPaidService: ModalUpdateReceiptPaidService,
+        private _loadingService: LoadingService
+    ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.receiptPaidId && !!changes.receiptPaidId.currentValue) {
@@ -55,7 +65,30 @@ export class ModalUpdateReceiptPaidComponent implements OnChanges {
     updateReceipPaid(): void {
         this._isFormSubmitted = true;
         if(this.model.form.valid) {
-            console.log('Guardar pago');
+            this._loadingService.show();
+            this.model.updateReceipPaid(this.receiptPaidId).subscribe(() => {
+                ModalPlugin.hide(this.modalId);
+                this.receiptPaidUpdated.emit(this.model.form.value);
+                setTimeout(() => {
+                    this._loadingService.hide();
+                    AlertHelper.receiptPaidUpdated();
+                },500);
+            }, (error: HttpError) => {
+                switch(error.error) {
+                    case ERROR_CODES.receiptsAmountExceeded:
+                        console.log('Error por exceso de monto')
+                    break;
+                    case ERROR_CODES.receiptsNumberExceeded:
+                        console.log('Error por exceso de recibos')
+                    break;
+                    case ERROR_CODES.pendingAmount:
+                        console.log('Error por que aun queda monto pendiente')
+                    break;
+                    case ERROR_CODES.pendingReceipts:
+                        console.log('Error por que aun quedan recibos pendientes')
+                    break;
+                }
+            })
         }
     }
 
@@ -71,10 +104,7 @@ export class ModalUpdateReceiptPaidComponent implements OnChanges {
         this.model.isBuiltForm = false;
         this.model.loadReceiptPaid(receiptPaidId).subscribe(() => {
             this.model.buildForm();
-            //setTimeout(() => {
-                this._initCalendars();
-                /*console.log('calendar inicializado!!');
-            }, 5000)*/
+            this._initCalendars();
         });
     }
 

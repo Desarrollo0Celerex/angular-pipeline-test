@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -19,6 +20,7 @@ import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.in
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
+import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
 
 import { LoadingService } from '@services/loading.service';
 
@@ -598,6 +600,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onUpdateSinisterEvent(sinisterEventData: SinisterEventDataSend): void {
         this.selectedSinisterEventData = sinisterEventData;
         ModalPlugin.show(this.modalIdUpdateSinisterEvent);
+    }
+
+    reloadReceiptPaid(data: UpdateReceiptPaidDataSend): void {
+        const index: number = this.contentListService.getContentPosition(this.selectedReceiptPaidId, 'receiptPaidId');
+        this.contentListService.contents[index].receiptsAmount = data.receiptsAmount;
+        this.contentListService.contents[index].receiptsNumber = data.receiptsNumber;
+        this.contentListService.contents[index].applicationDate = moment(data.applicationDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
     }
 
     /**

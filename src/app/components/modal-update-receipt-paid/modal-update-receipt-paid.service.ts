@@ -6,6 +6,7 @@ import * as moment from 'moment';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
+import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
 
 import { ReceiptPaidService } from '@services/receipt-paid.service';
 
@@ -39,5 +40,10 @@ export class ModalUpdateReceiptPaidService {
             });
             this.isBuiltForm = true;
         }
+    }
+
+    updateReceipPaid(receiptPaidId: string): Observable<void> {
+        const requestBody: UpdateReceiptPaidDataSend = this.form.value;
+        return this._receiptPaidService.updateReceiptPaid(receiptPaidId, requestBody);
     }
 }

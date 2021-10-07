@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 import { CreateReceiptPaidDataSend } from '@interfaces/create-receipt-paid-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
+import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
@@ -68,6 +69,11 @@ export class ReceiptPaidService {
         if(!!fields) params = params.append('fields', fields);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    updateReceiptPaid(receiptPaidId: string, requestBody: UpdateReceiptPaidDataSend): Observable<void> {
+        const route: string = routes.receiptPaidAux(this._workspaceId, receiptPaidId);
+        return this._httpClient.put<void>(route, requestBody);
     }
 
 }

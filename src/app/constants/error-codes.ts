@@ -18,4 +18,8 @@ export const ERROR_CODES: any = {
     contactHasCoincidences: 'ContactHasCoincidences',
     policyAlreadyExists: 'PolicyAlreadyExists',
     walletNotFound: 'WalletNotFound',
+    receiptsAmountExceeded: 'ReceiptsAmountExceeded',
+    receiptsNumberExceeded: 'ReceiptsNumberExceeded',
+    pendingReceipts: 'PendingReceipts',
+    pendingAmount: 'PendingAmount',
 }

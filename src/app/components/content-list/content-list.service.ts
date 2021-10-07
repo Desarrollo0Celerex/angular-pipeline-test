@@ -70,6 +70,15 @@ export class ContentListService {
         return this._receiptPaidService.deleteReceiptPaid(paymentId,receiptPaidId);
     }
 
+    /**
+     * Get the content position
+     * @param  contentId The content ID to search
+     * @return           The content position found
+     */
+    getContentPosition(contentId: string, fieldName: string): number {
+        return this.contents.findIndex((value: any) => value[fieldName] == contentId)
+    }
+
     getPolicyLogs(contactId: string, policyId: string): Observable<PolicyLog[]> {
         const fields: string = 'sourceId';
         const filters: string = UtilitiesHelper.generateHttpFilter('policyRecordTypeId', [POLICY_RECORD_TYPES.RENEWED]);
