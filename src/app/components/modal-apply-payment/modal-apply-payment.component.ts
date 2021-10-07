@@ -16,7 +16,8 @@ declare var PopoverPlugin: any;
   selector: 'agt-modal-apply-payment',
   templateUrl: './modal-apply-payment.component.html',
   styles: [
-  ]
+  ],
+  providers: [ModalApplyPaymentService]
 })
 export class ModalApplyPaymentComponent implements OnChanges {
     @Input() modalId: string = '';
@@ -37,7 +38,7 @@ export class ModalApplyPaymentComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.paymentId && !!changes.paymentId.currentValue) {
-            this._loadPolicy();
+            this._loadPayment();
         }
     }
 
@@ -132,10 +133,10 @@ export class ModalApplyPaymentComponent implements OnChanges {
     }
 
     /**
-     * Load the policy data
+     * Load the payment data
      */
-    private _loadPolicy(): void {
-        this.modalApplyPaymentService.loadPolicy(this.paymentId).subscribe(() => {
+    private _loadPayment(): void {
+        this.modalApplyPaymentService.loadPayment(this.paymentId).subscribe(() => {
             PopoverPlugin.init();
             this._initCalendars();
             this.modalApplyPaymentService.buildPaymentForm();

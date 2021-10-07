@@ -9,7 +9,6 @@ import { PaymentService } from '@services/payment.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
 
 import { ModalApplyPaymentComponent } from './modal-apply-payment.component';
-import { ModalApplyPaymentService } from './modal-apply-payment.service';
 
 @NgModule({
   declarations: [ModalApplyPaymentComponent],
@@ -22,6 +21,6 @@ import { ModalApplyPaymentService } from './modal-apply-payment.service';
     ModalConfirmApplyPaymentWithBalanceRemainingModule,
     ReactiveFormsModule
   ],
-  providers: [CurrencyPipe, ModalApplyPaymentService, PaymentService, ReceiptPaidService]
+  providers: [CurrencyPipe, PaymentService, ReceiptPaidService]
 })
 export class ModalApplyPaymentModule { }

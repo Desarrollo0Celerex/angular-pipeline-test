@@ -58,7 +58,7 @@ export class ModalApplyPaymentService {
             this.paymentForm = this._formBuilder.group({
                 amount: [this._calculateAmount(), [Validators.required]],
                 receipts: [1, [Validators.required]],
-                applicationDate: [moment().format('DD/MM/YYYY'), Validators.required],
+                applicationDate: [moment(this.payment.paymentDate).format('DD/MM/YYYY'), Validators.required],
                 nextPaymentDate: [this._calculateNextPatmentDate(), [Validators.required]]
             });
         }
@@ -98,8 +98,8 @@ export class ModalApplyPaymentService {
      * @param  paymentId The payment ID
      * @return           Notice of action done
      */
-    loadPolicy(paymentId: string): Observable<void> {
-        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,titularName,bills,tickets';
+    loadPayment(paymentId: string): Observable<void> {
+        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,titularName,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap( (res: HttpResponse) => {
                 this.payment = res.data;
@@ -115,7 +115,15 @@ export class ModalApplyPaymentService {
     private _calculateAmount(): string {
         let amount: string = '';
         if(!!this.payment) {
-            amount = this._currencyPipe.transform(this.payment.pendingAmount / this.payment.pendingReceipts, '', '', '0.2-2') || '';
+            let receiptsAmount: number;
+            // If it is the first receipt to pay
+            if(this.payment.tickets === 0) {
+                receiptsAmount = (parseFloat(this.payment.netPay.toString()) / this.payment.pendingReceipts) + parseFloat(this.payment.taxPay.toString()) + parseFloat(this.payment.feePay.toString()) + parseFloat(this.payment.coverPay.toString()) + parseFloat(this.payment.extraPay.toString());
+            } else {
+                receiptsAmount = this.payment.pendingAmount / this.payment.pendingReceipts;
+            }
+            console.log('receiptsAmount: ',receiptsAmount);
+            amount = this._currencyPipe.transform(receiptsAmount, '', '', '0.2-2') || '';
         }
         return  amount;
     }

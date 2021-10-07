@@ -29,5 +29,10 @@ export interface Payment {
     titularName: string,
     paymentStatusId: number,
     policyUrl: string,
-    policyStatusId: number
+    policyStatusId: number,
+    netPay: number,
+    taxPay: number,
+    feePay: number,
+    coverPay: number,
+    extraPay: number
 }
