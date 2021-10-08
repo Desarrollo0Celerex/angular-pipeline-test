@@ -1,0 +1,25 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Recibos Pendientes</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="text-justify">Se ha detectado que se cubre el total de la prima de la pólza pero quedan pendientes <strong>{{missingReceipts}}</strong> {{(missingReceipts === 1) ? 'recibo' : 'recibos'}}. <strong>Por favor verifica que todos los recibos sean aplicados para continuar</strong>.</p>
+                        <p class="text-justify">Si lo deseas, puedes ver el historial de pagos para verificar todos los pagos aplicados al momento.</p>
+						<button type="button" class="btn btn-block btn-primary mt-5" (click)="goToPaymentHistory()"><strong>VER HISTORIAL DE PAGOS</strong></button>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+				<button type="button" class="btn btn-primary" (click)="confirmAction()">VERIFICAR</button>
+			</div>
+		</div>
+	</div>
+</div>

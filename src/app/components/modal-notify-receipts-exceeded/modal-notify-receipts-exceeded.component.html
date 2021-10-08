@@ -1,0 +1,22 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Recibos Excedidos</h5>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="text-justify">Se ha detectado que el pago a aplicar se excede por <strong>{{receiptsExceeded}}</strong> {{(receiptsExceeded === 1) ? 'Recibo' : 'Recibos'}}. <strong>Por favor verifica que no haya excedente de recibos para continuar</strong>.</p>
+						<p class="text-justify">Si lo deseas, puedes ver el historial de pagos para verificar todos los pagos aplicados al momento.</p>
+						<button type="button" class="btn btn-block btn-primary mt-5" (click)="goToPaymentHistory()"><strong>VER HISTORIAL DE PAGOS</strong></button>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+				<button type="button" class="btn btn-primary" (click)="confirmAction()">VERIFICAR</button>
+			</div>
+		</div>
+	</div>
+</div>

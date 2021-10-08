@@ -268,6 +268,8 @@ export const PERIOD_STATUS: any = {
     COMPARED: 1
 };
 
+export const SLACK_UNITS: number = 10;
+
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;
 export const DEFAULT_COUNTRY_ID: number = 1;

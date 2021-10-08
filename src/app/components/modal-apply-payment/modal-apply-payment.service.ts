@@ -14,8 +14,6 @@ import { ReceiptPaidService } from '@services/receipt-paid.service';
 
 @Injectable()
 export class ModalApplyPaymentService {
-    balanceOutstanding: number = 0;
-    balanceRemaining: number = 0;
     payment: Payment | null = null;
     paymentForm: FormGroup = this._formBuilder.group({});
 
@@ -28,26 +26,6 @@ export class ModalApplyPaymentService {
 
     get f(): { [key: string]: AbstractControl } {
         return this.paymentForm.controls;
-    }
-
-    /**
-     * Check if the finish paying has a remaining balance
-     * @return True if it is, otherwise false
-     * @note If the policy is muytiyear, this validation does not apply
-     */
-    checkHasBalanceRemaining(): boolean {
-        const amount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.amount.value));
-        return (!!this.payment && (amount > this.payment.pendingAmount) && (this.payment.isMultiyear === '0')) ? true : false;
-    }
-
-    /**
-     * Check if the finish paying has a outstanding balance
-     * @return True if it is, otherwise false
-     */
-    checkHasBalanceOutstanding(): boolean {
-        const amount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.amount.value));
-        const receipts: number = parseInt(this.f.receipts.value);
-        return (!!this.payment && (receipts >= this.payment.pendingReceipts) && (amount < this.payment.pendingAmount )) ? true : false;
     }
 
     /**
@@ -68,29 +46,9 @@ export class ModalApplyPaymentService {
      * Create a receipt paid
      * @return Notice of action done
      */
-    createReceiptPaid(paymentId: string): Observable<HttpResponse> {
+    createReceiptPaid(contactId: string, policyId: string, paymentId: string): Observable<void> {
         const requestBody: CreateReceiptPaidDataSend = this.paymentForm.value;
-        return this._receiptPaidService.createReceiptPaid(paymentId, requestBody);
-    }
-
-    /**
-     * Calculate the balance outstanding
-     */
-    calculateBalanceOutstanding(): void {
-        const amount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.amount.value));
-        if(!!this.payment) {
-            this.balanceOutstanding = this.payment.pendingAmount - amount;
-        }
-    }
-
-    /**
-     * Calculate the balance remaining
-     */
-    calculateBalanceRemaining(): void {
-        const amount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.amount.value));
-        if(!!this.payment) {
-            this.balanceRemaining = amount - this.payment.pendingAmount;
-        }
+        return this._receiptPaidService.createReceiptPaid(contactId, policyId, paymentId, requestBody);
     }
 
     /**
@@ -99,6 +57,7 @@ export class ModalApplyPaymentService {
      * @return           Notice of action done
      */
     loadPayment(paymentId: string): Observable<void> {
+        this.payment = null;
         const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,titularName,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap( (res: HttpResponse) => {
@@ -122,7 +81,6 @@ export class ModalApplyPaymentService {
             } else {
                 receiptsAmount = this.payment.pendingAmount / this.payment.pendingReceipts;
             }
-            console.log('receiptsAmount: ',receiptsAmount);
             amount = this._currencyPipe.transform(receiptsAmount, '', '', '0.2-2') || '';
         }
         return  amount;

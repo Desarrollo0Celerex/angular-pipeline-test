@@ -12,6 +12,7 @@ import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     receiptsPaid: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/'+paymentId+'/receipts-paid',
+    receiptsPaidAux: (workspaceId: string, contactId: string, policyId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/payments/'+paymentId+'/receipts-paid',
     receiptPaid: (workspaceId: string, paymentId: string, receiptPaidId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/'+paymentId+'/receipts-paid/'+receiptPaidId,
     receiptPaidAux: (workspaceId: string, receiptPaidId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid/'+receiptPaidId
 }
@@ -30,9 +31,9 @@ export class ReceiptPaidService {
      * @param  requestBody The request body
      * @return             Notice of actiion done
      */
-    createReceiptPaid(paymentId: string, requestBody: CreateReceiptPaidDataSend): Observable<HttpResponse> {
-        const route: string = routes.receiptsPaid(this._workspaceId, paymentId);
-        return this._httpClient.post<HttpResponse>(route, requestBody);
+    createReceiptPaid(contactId: string, policyId: string, paymentId: string, requestBody: CreateReceiptPaidDataSend): Observable<void> {
+        const route: string = routes.receiptsPaidAux(this._workspaceId, contactId, policyId, paymentId);
+        return this._httpClient.post<void>(route, requestBody);
     }
 
     /**

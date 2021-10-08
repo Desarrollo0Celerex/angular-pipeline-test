@@ -302,15 +302,14 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
-    static receiptPaid(callBack: any, context: any, data: any): void {
+    static receiptPaid(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Pago aplicado',
             text: 'El recibo ha sido pagado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context,
-            data: data
+            context: context
         }
         SweetAlertPlugin.showAlert(alertData);
     }

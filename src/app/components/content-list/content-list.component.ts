@@ -617,6 +617,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdShowContactFileDetails);
     }
 
+    showModalApplyPayment(): void {
+        ModalPlugin.show(this.modalIdApplyPayment);
+    }
+
     updateReceiptPaid(receiptPaidId: string): void {
         this.selectedReceiptPaidId = receiptPaidId;
         ModalPlugin.show(this.modalIdUpdateReceiptPaid);
