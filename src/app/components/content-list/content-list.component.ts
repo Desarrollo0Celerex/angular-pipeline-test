@@ -11,6 +11,7 @@ import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { Payment } from '@interfaces/payment.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
@@ -196,6 +197,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     ngOnDestroy(): void {
         if(this.subParams) this.subParams.unsubscribe();
+    }
+
+    applyPayment(payment: Payment): void {
+        this.selectedContactId = payment.contactId;
+        this.selectedPolicyId = payment.policyId;
+        this.selectedPaymentId = payment.paymentId;
+        ModalPlugin.show(this.modalIdApplyPayment);
     }
 
     deleteRenewedPolicy(): void {

@@ -1,7 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID, POLICY_STATUS_ACTIVE, SINISTER_STATUS_OPEN } from '@constants/global';
+import { Payment } from '@interfaces/payment.interface';
 import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-format.pipe';
 
 @Component({
@@ -13,6 +14,7 @@ import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-form
 export class ContentsComponent implements OnInit, OnDestroy {
     @Input() contentType: number;
     @Input() contentTypeName: string;
+    @ViewChild('contentList') contentList: any;
     canReloadContent: boolean = false;
     canShowKpis: boolean;
     contactId: string;
@@ -69,6 +71,10 @@ export class ContentsComponent implements OnInit, OnDestroy {
      */
     onReloadContent(): void {
         this.canReloadContent = true;
+    }
+
+    applyPayment(payment: Payment): void {
+        this.contentList.applyPayment(payment);
     }
 
     /**

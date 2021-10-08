@@ -5,11 +5,20 @@
         <agt-content-search-engine [contentType]="contentType" [contentTypeName]="contentTypeName" [query]="query" [contactId]="contactId"></agt-content-search-engine>
     </div>
     <div class="col-md-{{mainActionWidth}} col-lg-{{mainActionWidth}}">
-        <agt-content-main-action [contentType]="contentType" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" [contactId]="contactId" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)" (sinisterCreated)="onReloadContent()"></agt-content-main-action>
+        <agt-content-main-action
+            [contentType]="contentType"
+            [contentTypeName]="contentTypeName"
+            [contentSubtype]="contentSubtype"
+            [contactId]="contactId"
+            (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"
+            (sinisterCreated)="onReloadContent()"
+            (paymentSelected)="applyPayment($event)">
+        </agt-content-main-action>
     </div>
 </div>
 <!-- AGENTHOS - PANEL -->
 <agt-content-list
+    #contentList
     [contentType]="contentType"
     [contentTypeName]="contentTypeName"
     [contentSubtype]="contentSubtype"

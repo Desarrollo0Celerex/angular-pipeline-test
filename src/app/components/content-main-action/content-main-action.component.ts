@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { Policy } from '@interfaces/policy.interface';
+import { Payment } from '@interfaces/payment.interface';
 import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
 
 declare var ModalPlugin: any;
@@ -21,8 +22,10 @@ export class ContentMainActionComponent implements OnInit {
     @Input() contentSubtype: number;
     @Output() contentSubtypeNameSelected: EventEmitter<string>;
     @Output() sinisterCreated: EventEmitter<void> = new EventEmitter<void>();
+    @Output() paymentSelected: EventEmitter<Payment> = new EventEmitter<Payment>();
     CONTENT_TYPES: any;
     modalIdCreateSinister: string = 'agt-create-sinister';
+    modalIdSearchPayment: string = 'agt-search-payment';
     modalIdSearchPolicy: string = 'agt-search-policy';
     modalIdSelectSinisterStatus: string = 'agt-select-sinister-status';
     searchPolicyMessage: string = '';
@@ -49,6 +52,10 @@ export class ContentMainActionComponent implements OnInit {
         if(this.contentType === CONTENT_TYPES.CONTACT_FILE.ID) {
             this.contentSubtypeNameSelected.emit('Cargado');
         }
+    }
+
+    applyPayment(payment: Payment): void {
+        this.paymentSelected.emit(payment);
     }
 
     /**
@@ -100,6 +107,9 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CLIENT.ID: ModalPlugin.show(this.selectContactTypeModalId); break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: ModalPlugin.show(this.selectQuotationStatusModalId); break;
             case CONTENT_TYPES.CONTACT_POLICY.ID: ModalPlugin.show(this.selectPolicyStatusModalId); break;
+            case CONTENT_TYPES.PAYMENT.ID:
+                ModalPlugin.show(this.modalIdSearchPayment);
+                break;
             case CONTENT_TYPES.SINISTER.ID:
                 this.searchPolicyMessage = 'Ingresa la póliza a la que deseas reportar el siniestro.';
                 ModalPlugin.show(this.modalIdSearchPolicy);
