@@ -14,8 +14,6 @@ import { ReceiptPaidService } from '@services/receipt-paid.service';
 
 @Injectable()
 export class ModalApplyPaymentService {
-    balanceOutstanding: number = 0;
-    balanceRemaining: number = 0;
     payment: Payment | null = null;
     paymentForm: FormGroup = this._formBuilder.group({});
 
@@ -31,26 +29,6 @@ export class ModalApplyPaymentService {
     }
 
     /**
-     * Check if the finish paying has a remaining balance
-     * @return True if it is, otherwise false
-     * @note If the policy is muytiyear, this validation does not apply
-     */
-    checkHasBalanceRemaining(): boolean {
-        const amount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.amount.value));
-        return (!!this.payment && (amount > this.payment.pendingAmount) && (this.payment.isMultiyear === '0')) ? true : false;
-    }
-
-    /**
-     * Check if the finish paying has a outstanding balance
-     * @return True if it is, otherwise false
-     */
-    checkHasBalanceOutstanding(): boolean {
-        const amount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.amount.value));
-        const receipts: number = parseInt(this.f.receipts.value);
-        return (!!this.payment && (receipts >= this.payment.pendingReceipts) && (amount < this.payment.pendingAmount )) ? true : false;
-    }
-
-    /**
      * Build the payment form
      */
     buildPaymentForm(): void {
@@ -58,7 +36,7 @@ export class ModalApplyPaymentService {
             this.paymentForm = this._formBuilder.group({
                 amount: [this._calculateAmount(), [Validators.required]],
                 receipts: [1, [Validators.required]],
-                applicationDate: [moment().format('DD/MM/YYYY'), Validators.required],
+                applicationDate: [moment(this.payment.paymentDate).format('DD/MM/YYYY'), Validators.required],
                 nextPaymentDate: [this._calculateNextPatmentDate(), [Validators.required]]
             });
         }
@@ -68,29 +46,9 @@ export class ModalApplyPaymentService {
      * Create a receipt paid
      * @return Notice of action done
      */
-    createReceiptPaid(paymentId: string): Observable<HttpResponse> {
+    createReceiptPaid(contactId: string, policyId: string, paymentId: string): Observable<void> {
         const requestBody: CreateReceiptPaidDataSend = this.paymentForm.value;
-        return this._receiptPaidService.createReceiptPaid(paymentId, requestBody);
-    }
-
-    /**
-     * Calculate the balance outstanding
-     */
-    calculateBalanceOutstanding(): void {
-        const amount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.amount.value));
-        if(!!this.payment) {
-            this.balanceOutstanding = this.payment.pendingAmount - amount;
-        }
-    }
-
-    /**
-     * Calculate the balance remaining
-     */
-    calculateBalanceRemaining(): void {
-        const amount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.amount.value));
-        if(!!this.payment) {
-            this.balanceRemaining = amount - this.payment.pendingAmount;
-        }
+        return this._receiptPaidService.createReceiptPaid(contactId, policyId, paymentId, requestBody);
     }
 
     /**
@@ -98,8 +56,9 @@ export class ModalApplyPaymentService {
      * @param  paymentId The payment ID
      * @return           Notice of action done
      */
-    loadPolicy(paymentId: string): Observable<void> {
-        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,titularName,bills,tickets';
+    loadPayment(paymentId: string): Observable<void> {
+        this.payment = null;
+        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,titularName,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap( (res: HttpResponse) => {
                 this.payment = res.data;
@@ -115,7 +74,14 @@ export class ModalApplyPaymentService {
     private _calculateAmount(): string {
         let amount: string = '';
         if(!!this.payment) {
-            amount = this._currencyPipe.transform(this.payment.pendingAmount / this.payment.pendingReceipts, '', '', '0.2-2') || '';
+            let receiptsAmount: number;
+            // If it is the first receipt to pay
+            if(this.payment.tickets === 0) {
+                receiptsAmount = (parseFloat(this.payment.netPay.toString()) / this.payment.pendingReceipts) + parseFloat(this.payment.taxPay.toString()) + parseFloat(this.payment.feePay.toString()) + parseFloat(this.payment.coverPay.toString()) + parseFloat(this.payment.extraPay.toString());
+            } else {
+                receiptsAmount = this.payment.pendingAmount / this.payment.pendingReceipts;
+            }
+            amount = this._currencyPipe.transform(receiptsAmount, '', '', '0.2-2') || '';
         }
         return  amount;
     }

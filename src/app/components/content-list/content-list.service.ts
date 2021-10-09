@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import * as moment from 'moment';
 
-import { CLIENT_STATUS, LEAD_STATUS, POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN } from '@constants/global';
+import { CLIENT_STATUS, LEAD_STATUS, POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN, DEFAULT_PER_PAGE } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
+import { Payment } from '@interfaces/payment.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
@@ -29,6 +31,7 @@ import { SinisterService } from '@services/sinister.service';
 export class ContentListService {
     contents: any[];
     contentResultData: ContentResultData;
+    nextPaymentDate: string = '';
 
     constructor(
         private _clientService: ClientService,
@@ -68,6 +71,15 @@ export class ContentListService {
      */
     deleteReceiptPaid(paymentId: string, receiptPaidId: string): Observable<void> {
         return this._receiptPaidService.deleteReceiptPaid(paymentId,receiptPaidId);
+    }
+
+    /**
+     * Get the content position
+     * @param  contentId The content ID to search
+     * @return           The content position found
+     */
+    getContentPosition(contentId: string, fieldName: string): number {
+        return this.contents.findIndex((value: any) => value[fieldName] == contentId)
     }
 
     getPolicyLogs(contactId: string, policyId: string): Observable<PolicyLog[]> {
@@ -235,6 +247,38 @@ export class ContentListService {
                 const receiptsPaid: ReceiptPaid[] = res.data.items;
                 this.contents = this.contents.concat(receiptsPaid);
                 this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
+     * Load the pending recceipts
+     * @param  paymentId      The payment ID
+     * @param  page           The page number
+     * @return                Notice of action done
+     */
+    loadPendingReceipts(paymentId: string, page: number): Observable<void> {
+        const fields: string = 'pendingReceipts,paymentPlanMonths,paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
+        const perPage: number = DEFAULT_PER_PAGE;
+        return this._paymentService.getPayment(paymentId, fields).pipe(
+            tap((res: HttpResponse) => {
+                const payment: Payment = res.data;
+                if(page === 1) this.nextPaymentDate = payment.paymentDate;
+                let items: number = 0;
+                const start: number = payment.tickets + ((page - 1) * DEFAULT_PER_PAGE);
+                for(let i = start; i<payment.bills; i++) {
+                    items++;
+                    const paymentAux: Payment = {...payment};
+                    paymentAux.tickets = i;
+                    paymentAux.paymentDate = this.nextPaymentDate;
+                    this.contents.push(paymentAux);
+                    this.nextPaymentDate = moment(this.nextPaymentDate).add(payment.paymentPlanMonths, 'months').format('YYYY-MM-DD');
+                    if(items === perPage) {
+                        break;
+                    }
+                }
+                this._loadContentResultData(res.data.pendingReceipts);
             }),
             map( () => { })
         )

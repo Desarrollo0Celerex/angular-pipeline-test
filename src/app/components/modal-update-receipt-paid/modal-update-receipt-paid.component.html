@@ -1,0 +1,71 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- AGENTHOS - POLICY NUMBER -->
+				<h5 class="modal-title">Editar Pago</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form *ngIf="model.isBuiltForm && model.receiptPaid; else loadingContent" [formGroup]="model.form" (submit)="updateReceipPaid()">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="form-label">No. Póliza</label>
+								<input type="text" class="form-control" [placeholder]="model.receiptPaid.policyNumber" readonly="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="form-label">Plan de Pagos</label>
+								<input type="text" class="form-control" [placeholder]="model.receiptPaid.paymentPlanName" readonly="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="form-label">Inicio Vigencia</label>
+								<input type="text" class="form-control" [placeholder]="model.receiptPaid.validityStartDate | date: 'dd/MM/yyyy'" readonly="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="form-label">Fin Vigencia</label>
+								<input type="text" class="form-control" [placeholder]="model.receiptPaid.validityEndDate | date: 'dd/MM/yyyy'" readonly="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="form-label">Monto Pagado ({{model.receiptPaid.currencyName}})</label>
+								<input type="text" class="form-control {{getValidationClass('receiptsAmount')}}" formControlName="receiptsAmount">
+								<div class="invalid-feedback">{{getErrorMessage('receiptsAmount')}}</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="form-label">Recibos Pagados</label>
+								<input type="text" class="form-control {{getValidationClass('receiptsNumber')}}" formControlName="receiptsNumber">
+								<div class="invalid-feedback">{{getErrorMessage('receiptsNumber')}}</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="form-label">Fecha Aplicación</label>
+								<input [id]="calendarIdApplicationDate" class="form-control fc-datepicker {{getValidationClass('applicationDate')}}" type="text" formControlName="applicationDate">
+								<div class="invalid-feedback">{{getErrorMessage('applicationDate')}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-block btn-primary"><strong>APLICAR PAGO</strong></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<ng-template #loadingContent>
+	<agt-loading-content [isLoadingContent]="true" [height]="459"></agt-loading-content>
+</ng-template>

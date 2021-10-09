@@ -6,6 +6,7 @@ import { CardContactModule } from '@components/card-contact/card-contact.module'
 import { CardContactFileModule } from '@components/card-contact-file/card-contact-file.module';
 import { CardLeadModule } from '@components/card-lead/card-lead.module';
 import { CardPaymentModule } from '@components/card-payment/card-payment.module';
+import { CardPendingReceiptModule } from '@components/card-pending-receipt/card-pending-receipt.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardPolicyRecordModule } from '@components/card-policy-record/card-policy-record.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
@@ -57,6 +58,7 @@ import { ModalShowReactivationEvidenceModule } from '@components/modal-show-reac
 import { ModalShowResolutionEvidenceModule } from '@components/modal-show-resolution-evidence/modal-show-resolution-evidence.module';
 import { ModalShowSinisterDetailsModule } from '@components/modal-show-sinister-details/modal-show-sinister-details.module';
 import { ModalTransferContactFileModule } from '@components/modal-transfer-contact-file/modal-transfer-contact-file.module';
+import { ModalUpdateReceiptPaidModule } from '@components/modal-update-receipt-paid/modal-update-receipt-paid.module';
 import { ModalUpdateSinisterEventModule } from '@components/modal-update-sinister-event/modal-update-sinister-event.module';
 
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
@@ -84,6 +86,7 @@ import { ContentListService } from './content-list.service';
     CardContactFileModule,
     CardLeadModule,
     CardPaymentModule,
+    CardPendingReceiptModule,
     CardPolicyModule,
     CardPolicyRecordModule,
     CardQuotationModule,
@@ -134,6 +137,7 @@ import { ContentListService } from './content-list.service';
     ModalShowResolutionEvidenceModule,
     ModalShowSinisterDetailsModule,
     ModalTransferContactFileModule,
+    ModalUpdateReceiptPaidModule,
     ModalUpdateSinisterEventModule
   ],
   providers: [

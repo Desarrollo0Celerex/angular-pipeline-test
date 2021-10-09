@@ -61,12 +61,14 @@ const HOME_INVITATIONS_ROUTES = {
 }
 
 const HOME_LEADS_ROUTES = {
-    listLeads: 'workspace/leads/list-leads'
+    listLeads: 'workspace/leads/list-leads',
+    channels: 'workspace/leads/channels',
 }
 
 const HOME_PAYMENTS_ROUTES = {
     listPayments: `workspace/payments/list-payments`,
-    paymentHistory: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/payment-history/${contactId}/${policyId}/${paymentId}`
+    paymentHistory: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/payment-history/${contactId}/${policyId}/${paymentId}`,
+    pendingReceipts: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/pending-receipts/${contactId}/${policyId}/${paymentId}`
 }
 
 const HOME_POLICIES_ROUTES = {

@@ -1,0 +1,63 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- AGENTHOS - POLICY NUMBER -->
+				<h5 class="modal-title">Cambiar Fecha</h5>
+				<button type="button" class="close" aria-label="Close" (click)="closeModal()">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+            <form *ngIf="!!model.payment && model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="updatePaymentDate()">
+    			<div class="modal-body">
+    				<div class="row">
+    					<div class="col-md-6">
+    						<div class="form-group">
+    							<label class="form-label">No. Póliza</label>
+    							<input type="text" class="form-control" [placeholder]="model.payment.policyNumber" readonly="">
+    						</div>
+    					</div>
+    					<div class="col-md-6">
+    						<div class="form-group">
+    							<label class="form-label">Plan de Pagos</label>
+    							<input type="text" class="form-control" [placeholder]="model.payment.paymentPlanName" readonly="">
+    						</div>
+    					</div>
+    					<div class="col-md-6">
+    						<div class="form-group">
+    							<label class="form-label">Inicio Vigencia</label>
+    							<input type="text" class="form-control" [placeholder]="model.payment.validityStartDate | date: 'dd/MM/yyyy'" readonly="">
+    						</div>
+    					</div>
+    					<div class="col-md-6">
+    						<div class="form-group">
+    							<label class="form-label">Fin Vigencia</label>
+    							<input type="text" class="form-control" [placeholder]="model.payment.validityEndDate | date: 'dd/MM/yyyy'" readonly="">
+    						</div>
+    					</div>
+    					<div class="col-md-6">
+    						<div class="form-group">
+    							<label class="form-label">Monto Pagado (MXN)</label>
+    							<input type="text" class="form-control" [placeholder]="model.payment.paymentAmountPaid | number: '1.0-2'" readonly="">
+    						</div>
+    					</div>
+    					<div class="col-md-6">
+    						<div class="form-group">
+    							<label class="form-label">Siguiente Cobro</label>
+    							<input [id]="calendarIdPaymentDate" class="form-control fc-datepicker {{getValidationClass('paymentDate')}}" type="text" formControlName="paymentDate">
+                                <div class="invalid-feedback">{{getErrorMessage('paymentDate')}}</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="modal-footer">
+    				<button type="submit" class="btn btn-block btn-primary"><strong>APLICAR CAMBIO</strong></button>
+    			</div>
+            </form>
+		</div>
+	</div>
+</div>
+
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true" [height]="372"></agt-loading-content>
+</ng-template>

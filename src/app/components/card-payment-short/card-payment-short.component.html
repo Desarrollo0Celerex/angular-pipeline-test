@@ -1,0 +1,25 @@
+<div class="media mt-0" *ngIf="!!payment">
+    <div class="media-body">
+        <div class="d-flex align-items-center">
+            <div class="mt-0">
+                <div class="badge badge-primary-gradient mr-1 mb-3">{{payment.paymentSourceTypeName | uppercase}}</div>
+                <div class="badge badge-{{payment.paymentStatusBackground}} mr-1 mb-3">{{payment.paymentStatusName | uppercase}}</div>
+                <h6 class="mb-2">Prima Pendiente ({{payment.currencyName}})</h6>
+                <h2 class="mb-1">${{payment.pendingAmount}}</h2>
+
+                <div class="row mt-4">
+                    <div class="col text-left">
+                        <h4 class="font-weight-normal mt-2 mb-0"><span class="text-primary"><i class="fe fe-shield mr-1"></i></span>{{payment.insuranceName | uppercase}}</h4>
+                    </div>
+                    <div class="col text-right">
+                        <h4 class="font-weight-normal mt-2 mb-0"><span class="text-primary"><i class="fe fe-file-text mr-1"></i></span>{{payment.policyNumber}}</h4>
+                    </div>
+                </div>
+            </div>
+            <h1></h1>
+            <small class="ml-auto fs-16 mt-2" *ngIf="payment.paymentStatusId !== PAYMENT_STATUS.PAID">
+                <button type="button" class="btn btn-primary" (click)="selectPayment(payment)"><i class="fe fe-check-square"></i></button>
+            </small>
+        </div>
+    </div>
+</div>

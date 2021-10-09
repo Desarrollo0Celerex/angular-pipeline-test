@@ -11,7 +11,9 @@ import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
 })
 export class CardReceiptPaidRecordComponent {
     @Input() receiptPaid: ReceiptPaid | null = null;
+    @Input() index: number | null = null;
     @Output() deleteReceiptPaid: EventEmitter<DeleteReceiptPaidData> = new EventEmitter<DeleteReceiptPaidData>();
+    @Output() updateReceiptPaid: EventEmitter<string> = new EventEmitter<string>();
 
     /**
      * Click event to delete the receipt paid
@@ -19,6 +21,12 @@ export class CardReceiptPaidRecordComponent {
     onClickDeleteReceiptPaid(): void {
         if(!!this.receiptPaid) {
             this.deleteReceiptPaid.emit({paymentId: this.receiptPaid.paymentId, receiptPaidId: this.receiptPaid.receiptPaidId})
+        }
+    }
+
+    requestUpdateReceiptPaid(): void {
+        if(!!this.receiptPaid) {
+            this.updateReceiptPaid.emit(this.receiptPaid.receiptPaidId);
         }
     }
 

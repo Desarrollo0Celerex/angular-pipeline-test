@@ -1,0 +1,21 @@
+<agt-container-policy-details
+    [contactId]="contactId"
+    [policyId]="policyId">
+</agt-container-policy-details>
+
+<agt-container-payments-manager
+    [contactId]="contactId"
+    [policyId]="policyId"
+    [paymentId]="paymentId"
+    [canShowPendingReceipts]="false">
+</agt-container-payments-manager>
+
+<agt-content-list
+    [contentType]="CONTENT_TYPES.PENDING_RECEIPS.ID"
+    [contentTypeName]="CONTENT_TYPES.PENDING_RECEIPS.NAME"
+    [contactId]="contactId"
+    [policyId]="policyId"
+    [paymentId]="paymentId"
+    [contentSubtype]="DEFAULT_CONTENT_FILTER_ID"
+    contentSubtypeName="Pendiente">
+</agt-content-list>

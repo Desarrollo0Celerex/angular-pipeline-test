@@ -140,6 +140,36 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static paymentsActivated(): void {
+        const alertData: Alert = {
+            title: 'Cobranza Activada',
+            text: 'La cobranza se ha reactivado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static paymentDateUpdated(): void {
+        const alertData: Alert = {
+            title: 'Recibo Actualizado',
+            text: 'El recibo se ha actualizado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static paymentsSuspended(): void {
+        const alertData: Alert = {
+            title: 'Cobranza Suspendida',
+            text: 'La cobranza se ha suspendido con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static policyAlreadyExists(): void {
         const alertData: Alert = {
             title: 'Error al guardar póliza',
@@ -272,15 +302,14 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
-    static receiptPaid(callBack: any, context: any, data: any): void {
+    static receiptPaid(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Pago aplicado',
             text: 'El recibo ha sido pagado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context,
-            data: data
+            context: context
         }
         SweetAlertPlugin.showAlert(alertData);
     }
@@ -293,6 +322,16 @@ export class AlertHelper {
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
             context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static receiptPaidUpdated(): void {
+        const alertData: Alert = {
+            title: 'Pago Actualizado',
+            text: 'El pago ha sido actualizado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
         }
         SweetAlertPlugin.showAlert(alertData);
     }

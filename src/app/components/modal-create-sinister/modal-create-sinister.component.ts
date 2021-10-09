@@ -62,7 +62,6 @@ export class ModalCreateSinisterComponent implements OnChanges {
     onClickCloseModal(): void {
         this._resetSinisterForm();
         ModalPlugin.hide(this.modalId);
-        ModalPlugin.removeFixed();
     }
 
     /**
@@ -72,7 +71,6 @@ export class ModalCreateSinisterComponent implements OnChanges {
         this._isFormSubmitted = true;
         if(this.modalCreateSinisterService.sinisterForm.valid && !!this.policy) {
             ModalPlugin.hide(this.modalId);
-            ModalPlugin.removeFixed();
             this._loadingService.show();
             this.modalCreateSinisterService.createSinister(this.policy.contactId, this.policy.policyId).subscribe( () => {
                 this._resetSinisterForm();

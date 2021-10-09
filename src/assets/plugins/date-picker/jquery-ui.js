@@ -7927,10 +7927,11 @@ $.extend( Datepicker.prototype, {
 		}
 
 		isFixed = false;
-		$( input ).parents().each( function() {
+		// Fixed: Mostrar dinamicamente y no fijo el calendar en los modal
+		/*$( input ).parents().each( function() {
 			isFixed |= $( this ).css( "position" ) === "fixed";
 			return !isFixed;
-		} );
+		} );*/
 
 		offset = { left: $.datepicker._pos[ 0 ], top: $.datepicker._pos[ 1 ] };
 		$.datepicker._pos = null;

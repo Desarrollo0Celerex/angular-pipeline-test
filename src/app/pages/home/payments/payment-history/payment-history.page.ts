@@ -14,8 +14,6 @@ export class PaymentHistoryPage implements OnInit {
     contactId: string = '';
     policyId: string = '';
     paymentId: string = '';
-    contentType: number = CONTENT_TYPES.HISTORY_POLICY.ID;
-    contentTypeName: string = CONTENT_TYPES.HISTORY_POLICY.NAME;
     private _subParams: any;
 
     constructor(private _activatedRoute: ActivatedRoute) { }

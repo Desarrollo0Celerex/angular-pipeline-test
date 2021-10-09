@@ -171,6 +171,10 @@ export const CONTENT_TYPES: any = {
     CONTACT_FILE: {
         ID: 13,
         NAME: 'Archivo'
+    },
+    PENDING_RECEIPS: {
+        ID: 14,
+        NAME: 'Recibo'
     }
 }
 export const CONTACT_TYPES: any = {
@@ -267,6 +271,8 @@ export const PERIOD_STATUS: any = {
     SELECTED: 0,
     COMPARED: 1
 };
+
+export const SLACK_UNITS: number = 10;
 
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;

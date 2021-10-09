@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -10,6 +11,7 @@ import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { Payment } from '@interfaces/payment.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
@@ -19,6 +21,7 @@ import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.in
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
+import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
 
 import { LoadingService } from '@services/loading.service';
 
@@ -106,7 +109,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowResolutionEvidence: string = 'agt-show-resolution-evidence';
     modalIdShowSinisterDetails: string = 'agt-show-sinister-details';
     modalIdTransferContactFile: string = 'agt-transfer-contact-file';
-    modalIdUpdateSinisterEvent: string = 'agt-update-sinister-event'
+    modalIdUpdateReceiptPaid: string = 'agt-update-receipt-paid';
+    modalIdUpdateSinisterEvent: string = 'agt-update-sinister-event';
     totalResults: number;
     private subParams: any;
 
@@ -195,6 +199,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         if(this.subParams) this.subParams.unsubscribe();
     }
 
+    applyPayment(payment: Payment): void {
+        this.selectedContactId = payment.contactId;
+        this.selectedPolicyId = payment.policyId;
+        this.selectedPaymentId = payment.paymentId;
+        ModalPlugin.show(this.modalIdApplyPayment);
+    }
+
     deleteRenewedPolicy(): void {
         this._loadingService.show();
         this.contentListService.deletePolicy(this.contactId, this.selectedPolicyIdToDelete).subscribe(() => {
@@ -233,7 +244,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.selectedPolicyId = data.policyId;
         this.selectedPaymentId = data.paymentId;
         ModalPlugin.show(this.modalIdApplyPayment);
-        ModalPlugin.setFixed();
     }
 
     /**
@@ -598,7 +608,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onUpdateSinisterEvent(sinisterEventData: SinisterEventDataSend): void {
         this.selectedSinisterEventData = sinisterEventData;
         ModalPlugin.show(this.modalIdUpdateSinisterEvent);
-        ModalPlugin.setFixed();
+    }
+
+    reloadReceiptPaid(data: UpdateReceiptPaidDataSend): void {
+        const index: number = this.contentListService.getContentPosition(this.selectedReceiptPaidId, 'receiptPaidId');
+        this.contentListService.contents[index].receiptsAmount = data.receiptsAmount;
+        this.contentListService.contents[index].receiptsNumber = data.receiptsNumber;
+        this.contentListService.contents[index].applicationDate = moment(data.applicationDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
     }
 
     /**
@@ -607,6 +623,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     showContactFileDetails(data: ContactFileDataSend): void {
         this.selectedContactFileData = data;
         ModalPlugin.show(this.modalIdShowContactFileDetails);
+    }
+
+    showModalApplyPayment(): void {
+        ModalPlugin.show(this.modalIdApplyPayment);
+    }
+
+    updateReceiptPaid(receiptPaidId: string): void {
+        this.selectedReceiptPaidId = receiptPaidId;
+        ModalPlugin.show(this.modalIdUpdateReceiptPaid);
     }
 
     /**
@@ -765,6 +790,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.CONTACT_FILE.ID:
                 this.contentListService.loadContactFiles(this.contactId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.PENDING_RECEIPS.ID:
+                this.contentListService.loadPendingReceipts(this.paymentId, this.page).subscribe( () => {
                     this._contentLoaded();
                 })
             break;
