@@ -17,7 +17,11 @@
                             <button type="button" class="btn btn-primary" (click)="showModalToChangePaymentDate()"><strong>CAMBIAR FECHA</strong></button>
                             <button type="button" class="btn btn-primary" *ngIf="model.payment.policyStatusId == POLICY_STATUS.CURRENT" (click)="confirmSuspendPayments()"><strong>SUSPENDER PAGOS</strong></button>
         					<button type="button" class="btn btn-primary" *ngIf="model.payment.policyStatusId == POLICY_STATUS.SUSPENDED" (click)="confirmActivatePayments()"><strong>ACTIVAR PAGOS</strong></button>
-                        </ng-container>
+        					<button type="button" class="btn btn-primary" *ngIf="canShowPendingReceipts; else paymenHistory" (click)="goToPendingReceipts()"><strong>RECIBOS PENDIENTES</strong></button>
+        					<ng-template #paymenHistory>
+								<button type="button" class="btn btn-primary" (click)="goToPaymentHistory()"><strong>PAGOS APLICADOS</strong></button>
+							</ng-template>
+						</ng-container>
                     </div>
     			</div>
             </ng-container>

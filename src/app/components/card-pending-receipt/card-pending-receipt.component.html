@@ -1,0 +1,43 @@
+<div class="card" *ngIf="!!pendingReceipt">
+	<div class="card-header">
+		<img [src]="pendingReceipt.insurerImageUrl" width="38px">
+	</div>
+	<!-- //AGENTHOS - PAYCARD HEADER -->
+	<!-- AGENTHOS - PAYCARD BODY -->
+	<div class="card-body">
+		<!-- AGENTHOS - PAYCARD COVER -->
+		<div class="d-flex clearfix">
+			<div class="text-left">
+				<!-- AGENTHOS - PAYCARD SOURCE -->
+				<div class="badge badge-primary-gradient mr-1 mb-3">{{pendingReceipt.paymentSourceTypeName | uppercase}}</div>
+				<!-- AGENTHOS - PAYCARD STATUS -->
+				<div class="badge badge-{{pendingReceipt.paymentStatusBackground}} mr-1 mb-3">{{pendingReceipt.paymentStatusName | uppercase}}</div>
+				<!-- AGENTHOS - POLICY TYPE -->
+				<h6><span class="text-primary"><i class="fe fe-shield mr-2"></i></span>{{pendingReceipt.insuranceName | uppercase}}</h6>
+				<!-- AGENTHOS - POLICY PLAN -->
+				<h6><span class="text-primary"><i class="fe fe-credit-card mr-2"></i></span>{{pendingReceipt.paymentPlanName | uppercase}}</h6>
+				<!-- AGENTHOS - POLICY TYPE -->
+				<h6><span class="text-primary"><i class="fe fe-globe mr-2"></i></span>{{pendingReceipt.insuranceTypeName | uppercase}}</h6>
+			</div>
+			<div class="ml-auto">
+				<span class="{{pendingReceipt.insuranceBackground}} icon-service"><i class="fa {{pendingReceipt.insuranceIcon}} fs-2"></i></span>
+			</div>
+		</div>
+		<h6 class="mt-3 mb-2">{{pendingReceipt.coveredProperty}}</h6>
+		<h6><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{pendingReceipt.policyNumber}}</h6>
+		<div class="progress progress-sm mt-2 mb-2">
+			<!-- AGENTHOS - PAYCARD LIFE -->
+			<div class="progress-bar {{pendingReceipt.insuranceBackground}}" [ngStyle]="{'width': pendingReceipt.lifeTime+'%'}"></div>
+		</div>
+		<div class="row mt-4">
+			<div class="col text-left">
+				<span class="text-muted">RECIBO</span>
+				<h4 class="font-weight-normal mt-2 mb-0 number-font1"><strong>{{pendingReceipt.tickets + 1}} de {{pendingReceipt.bills}}</strong></h4>
+			</div>
+			<div class="col text-right">
+				<span class="text-muted">FECHA</span>
+				<h4 class="font-weight-normal mt-2 mb-0 number-font2"><strong>{{pendingReceipt.paymentDate | date: 'dd/MM/yyyy'}}</strong></h4>
+			</div>
+		</div>
+	</div>
+</div>

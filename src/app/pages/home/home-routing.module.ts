@@ -49,6 +49,7 @@ const routes: Routes = [
             // Payments routes
             { path: ROUTES_NAME.listPayments, loadChildren: () => import('@pages/home/payments/list-payments/list-payments.module').then(mod => mod.ListPaymentsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.paymentHistory(':contactId', ':policyId', ':paymentId'), loadChildren: () => import('@pages/home/payments/payment-history/payment-history.module').then(mod => mod.PaymentHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.pendingReceipts(':contactId', ':policyId', ':paymentId'), loadChildren: () => import('@pages/home/payments/pending-receipts/pending-receipts.module').then(mod => mod.PendingReceiptsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Policies routes
             { path: ROUTES_NAME.createPolicy(':contactId'), loadChildren: () => import('@pages/home/policies/create-policy/create-policy.module').then(mod => mod.CreatePolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

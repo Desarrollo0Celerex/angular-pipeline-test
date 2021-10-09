@@ -793,6 +793,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                     this._contentLoaded();
                 })
             break;
+
+            case CONTENT_TYPES.PENDING_RECEIPS.ID:
+                this.contentListService.loadPendingReceipts(this.paymentId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
         }
     }
 

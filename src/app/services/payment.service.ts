@@ -37,7 +37,14 @@ export class PaymentService {
         const route: string = routes.payment(this._workspaceId, paymentId);
         let params: HttpParams = new HttpParams();
         if(!!fields) params = params.append('fields', fields);
-        return this._httpClient.get<HttpResponse>(route, {params});
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    res.data = this._calculatePaymentLifeTime(res.data);
+                }
+                return res;
+            })
+        );
     }
 
      /**

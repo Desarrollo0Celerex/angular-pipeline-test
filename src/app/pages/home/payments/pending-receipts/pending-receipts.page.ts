@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { CONTENT_TYPES } from '@constants/global';
+import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 
 @Component({
-  selector: 'agt-payment-history',
-  template: '<agt-container-timeline [contactId]="contactId" [policyId]="policyId" [paymentId]="paymentId" [contentType]="CONTENT_TYPES.PAYMENT_HISTORY.ID" [contentTypeName]="CONTENT_TYPES.PAYMENT_HISTORY.NAME"></agt-container-timeline>',
+  selector: 'agt-pending-receipts',
+  templateUrl: './pending-receipts.page.html',
   styles: [
   ]
 })
-export class PaymentHistoryPage implements OnInit {
+export class PendingReceiptsPage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
+    DEFAULT_CONTENT_FILTER_ID: number = DEFAULT_CONTENT_FILTER_ID;
     contactId: string = '';
     policyId: string = '';
     paymentId: string = '';
@@ -36,4 +37,5 @@ export class PaymentHistoryPage implements OnInit {
             this.policyId = params.policyId;
         })
     }
+
 }

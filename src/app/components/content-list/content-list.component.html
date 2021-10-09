@@ -92,6 +92,9 @@
                     (showPaymentHistory)="onShowPaymentHistory($event)"
                     (showPolicy)="onShowPolicyFromWorkspace($event)"
                 ></agt-card-payment>
+                <agt-card-pending-receipt *ngSwitchCase="CONTENT_TYPES.PENDING_RECEIPS.ID"
+                    [pendingReceipt]="content"
+                ></agt-card-pending-receipt>
                 <agt-card-sinister *ngSwitchCase="(contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID) ? contentType : ''"
                     [sinister]="content"
                     (showContactData)="onShowContactData($event)"

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { POLICY_STATUS } from '@constants/global';
+import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { LoadingService } from '@services/loading.service';
 
@@ -16,7 +18,10 @@ declare var ModalPlugin: any;
   providers: [ContainerPaymentsManagerService]
 })
 export class ContainerPaymentsManagerComponent implements OnInit {
+    @Input() contactId: string = '';
+    @Input() policyId: string = '';
     @Input() paymentId: string = '';
+    @Input() canShowPendingReceipts: boolean = true;
     POLICY_STATUS: any = POLICY_STATUS;
     modalIdChangePaymentDate: string = 'agt-modal-change-payment-date';
     modalIdShowPolicyFile: string = 'agt-modal-show-policy-file';
@@ -25,7 +30,8 @@ export class ContainerPaymentsManagerComponent implements OnInit {
 
     constructor(
         private _containerPaymentsManagerService: ContainerPaymentsManagerService,
-        private _loadingService: LoadingService
+        private _loadingService: LoadingService,
+        private _router: Router
     ) { }
 
     ngOnInit(): void {
@@ -42,6 +48,14 @@ export class ContainerPaymentsManagerComponent implements OnInit {
 
     confirmActivatePayments(): void {
         ModalPlugin.show(this.modalIdConfirmActivatePayments);
+    }
+
+    goToPaymentHistory(): void {
+        this._router.navigateByUrl(ROUTES_NAME.paymentHistory(this.contactId, this.policyId, this.paymentId));
+    }
+
+    goToPendingReceipts(): void {
+        this._router.navigateByUrl(ROUTES_NAME.pendingReceipts(this.contactId, this.policyId, this.paymentId));
     }
 
     showModalToChangePaymentDate(): void {

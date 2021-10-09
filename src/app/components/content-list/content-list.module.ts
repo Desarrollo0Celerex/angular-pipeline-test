@@ -6,6 +6,7 @@ import { CardContactModule } from '@components/card-contact/card-contact.module'
 import { CardContactFileModule } from '@components/card-contact-file/card-contact-file.module';
 import { CardLeadModule } from '@components/card-lead/card-lead.module';
 import { CardPaymentModule } from '@components/card-payment/card-payment.module';
+import { CardPendingReceiptModule } from '@components/card-pending-receipt/card-pending-receipt.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardPolicyRecordModule } from '@components/card-policy-record/card-policy-record.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
@@ -85,6 +86,7 @@ import { ContentListService } from './content-list.service';
     CardContactFileModule,
     CardLeadModule,
     CardPaymentModule,
+    CardPendingReceiptModule,
     CardPolicyModule,
     CardPolicyRecordModule,
     CardQuotationModule,
