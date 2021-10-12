@@ -172,7 +172,7 @@ export const CONTENT_TYPES: any = {
         ID: 13,
         NAME: 'Archivo'
     },
-    PENDING_RECEIPS: {
+    PENDING_RECEIP: {
         ID: 14,
         NAME: 'Recibo'
     }

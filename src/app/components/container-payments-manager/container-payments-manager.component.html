@@ -40,7 +40,7 @@
 </ng-template>
 <ng-container *ngIf="!!model.payment">
     <agt-modal-show-policy-file [modalId]="modalIdShowPolicyFile" [policyUrl]="model.payment.policyUrl"></agt-modal-show-policy-file>
-    <agt-modal-change-payment-date [modalId]="modalIdChangePaymentDate" [paymentId]="paymentId" (paymenDateUpdated)="updatePaymentDate($event)"></agt-modal-change-payment-date>
+    <agt-modal-change-payment-date [modalId]="modalIdChangePaymentDate" [paymentId]="paymentId" (paymenDateUpdated)="reloadPage()"></agt-modal-change-payment-date>
 	<agt-modal-confirm-suspend-payments [modalId]="modalIdConfirmSuspendPayments" (actionConfirmed)="suspendPayments()"></agt-modal-confirm-suspend-payments>
 	<agt-modal-confirm-activate-payments [modalId]="modalIdConfirmActivatePayments" (actionConfirmed)="activatePayments()"></agt-modal-confirm-activate-payments>
 </ng-container>

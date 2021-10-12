@@ -25,6 +25,7 @@ export class ModalUpdateReceiptPaidComponent implements OnChanges {
     @Input() receiptPaidId: string = '';
     @Output() receiptPaidUpdated: EventEmitter<UpdateReceiptPaidDataSend> = new EventEmitter<UpdateReceiptPaidDataSend>();
     calendarIdApplicationDate: string = 'applicationDate';
+    modalIdErrorUpdatingPaidReceipt: string = 'agt-error-updating-paid-receipt';
     private _isFormSubmitted: boolean = false;
 
     constructor(
@@ -76,16 +77,11 @@ export class ModalUpdateReceiptPaidComponent implements OnChanges {
             }, (error: HttpError) => {
                 switch(error.error) {
                     case ERROR_CODES.receiptsAmountExceeded:
-                        console.log('Error por exceso de monto')
-                    break;
                     case ERROR_CODES.receiptsNumberExceeded:
-                        console.log('Error por exceso de recibos')
-                    break;
                     case ERROR_CODES.pendingAmount:
-                        console.log('Error por que aun queda monto pendiente')
-                    break;
                     case ERROR_CODES.pendingReceipts:
-                        console.log('Error por que aun quedan recibos pendientes')
+                        ModalPlugin.hide(this.modalId);
+                        ModalPlugin.show(this.modalIdErrorUpdatingPaidReceipt);
                     break;
                 }
             })

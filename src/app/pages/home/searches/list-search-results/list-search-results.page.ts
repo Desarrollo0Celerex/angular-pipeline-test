@@ -18,6 +18,7 @@ export class ListSearchResultsPage implements OnInit, OnDestroy {
     originPolicyId: string;
     query: string;
     totalResults: number;
+    canReloadContent: boolean = false;
     private subParams: any;
 
     constructor(
@@ -48,6 +49,14 @@ export class ListSearchResultsPage implements OnInit, OnDestroy {
      */
     onTotalResultsLoaded(totalResults: number): void {
         this.totalResults = totalResults;
+    }
+
+    onReloadContent(): void {
+        this.canReloadContent = true;
+    }
+
+    onContentReloaded(): void {
+        this.canReloadContent = false;
     }
 
     /**

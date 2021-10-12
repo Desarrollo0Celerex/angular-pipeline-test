@@ -57,7 +57,6 @@ export class ModalApplyPaymentService {
      * @return           Notice of action done
      */
     loadPayment(paymentId: string): Observable<void> {
-        this.payment = null;
         const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,titularName,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap( (res: HttpResponse) => {

@@ -22,7 +22,7 @@ declare var ModalPlugin: any;
 export class ModalChangePaymentDateComponent implements OnChanges {
     @Input() modalId: string = '';
     @Input() paymentId: string = '';
-    @Output() paymenDateUpdated: EventEmitter<string> = new EventEmitter<string>();
+    @Output() paymenDateUpdated: EventEmitter<void> = new EventEmitter<void>();
     calendarIdPaymentDate: string = 'paymentDate';
     private _isFormSubmitted: boolean = false;
 
@@ -72,7 +72,7 @@ export class ModalChangePaymentDateComponent implements OnChanges {
             this.closeModal();
             this.model.updatePaymentDate(this.paymentId).subscribe(() => {
                 this._loadingService.hide();
-                this.paymenDateUpdated.emit(moment(this.model.f.paymentDate.value, 'DD/MM/YYYY').format('YYYY-MM-DD'));
+                this.paymenDateUpdated.emit();
                 AlertHelper.paymentDateUpdated();
             });
         }
