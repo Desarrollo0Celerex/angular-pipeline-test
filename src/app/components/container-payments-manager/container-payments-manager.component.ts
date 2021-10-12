@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { POLICY_STATUS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -29,6 +29,7 @@ export class ContainerPaymentsManagerComponent implements OnInit {
     modalIdConfirmActivatePayments: string = 'agt-modal-confirm-activate-payments';
 
     constructor(
+        private _activatedRoute: ActivatedRoute,
         private _containerPaymentsManagerService: ContainerPaymentsManagerService,
         private _loadingService: LoadingService,
         private _router: Router
@@ -96,9 +97,9 @@ export class ContainerPaymentsManagerComponent implements OnInit {
         }
     }
 
-    updatePaymentDate(paymentDate: string): void {
-        if(!!this.model.payment) {
-            this.model.payment.paymentDate = paymentDate;
-        }
+    reloadPage(): void {
+        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this._router.onSameUrlNavigation = 'reload';
+        this._router.navigate(['/' + this._router.url], { relativeTo: this._activatedRoute });
     }
 }

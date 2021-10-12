@@ -59,7 +59,7 @@
     <!-- // AGENTHOS - TIMELINE -->
     <!-- AGENTHOS - CONTENT LIST -->
     <ng-template #noHistoryContent>
-        <div [class]="cardClasses" *ngFor="let content of contentListService.contents">
+        <div [class]="cardClasses" *ngFor="let content of contentListService.contents; let index = index">
             <ng-container [ngSwitch]="contentType">
                 <agt-card-contact *ngSwitchCase="CONTENT_TYPES.CONTACT.ID"
                     [contact]="content"
@@ -92,8 +92,12 @@
                     (showPaymentHistory)="onShowPaymentHistory($event)"
                     (showPolicy)="onShowPolicyFromWorkspace($event)"
                 ></agt-card-payment>
-                <agt-card-pending-receipt *ngSwitchCase="CONTENT_TYPES.PENDING_RECEIPS.ID"
+                <agt-card-pending-receipt
+                    *ngSwitchCase="CONTENT_TYPES.PENDING_RECEIP.ID"
                     [pendingReceipt]="content"
+                    [index]="index"
+                    (applyPayment)="onApplyPayment($event)"
+                    (showContactData)="onShowContactData($event)"
                 ></agt-card-pending-receipt>
                 <agt-card-sinister *ngSwitchCase="(contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID) ? contentType : ''"
                     [sinister]="content"
@@ -124,7 +128,14 @@
 <agt-content-suggestions *ngIf="!isHistoryContent" [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [contentTypeName]="contentTypeName"></agt-content-suggestions>
 
 <!-- AGENTHOS - CONTENT ACTIONS -->
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT.ID || contentType === CONTENT_TYPES.LEAD.ID || contentType === CONTENT_TYPES.CLIENT.ID || contentType === CONTENT_TYPES.PAYMENT.ID || contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
+<ng-container
+    *ngIf="contentType === CONTENT_TYPES.CONTACT.ID ||
+    contentType === CONTENT_TYPES.LEAD.ID ||
+    contentType === CONTENT_TYPES.CLIENT.ID ||
+    contentType === CONTENT_TYPES.PAYMENT.ID ||
+    contentType === CONTENT_TYPES.SINISTER.ID ||
+    contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
+    contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
     <agt-modal-show-contact-data [modalId]="modalIdShowContactData" [contactId]="selectedContactId"></agt-modal-show-contact-data>
     <agt-modal-select-contact [modalId]="modalIdSelectContact" [contactId]="selectedContactId"></agt-modal-select-contact>
 </ng-container>
@@ -155,14 +166,19 @@
     <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
     <agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID || contentType === CONTENT_TYPES.CONTACT_POLICY.ID">
+<ng-container
+    *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID ||
+    contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
     <agt-modal-apply-payment
         [modalId]="modalIdApplyPayment"
         [contactId]="selectedContactId"
         [policyId]="selectedPolicyId"
         [paymentId]="selectedPaymentId"
+        [canReloadApplyPayment]="canReloadApplyPayment"
         (receiptPaid)="onReceiptPaid()"
         (showModalAgain)="showModalApplyPayment()"
+        (applyPaymentReloaded)="applyPaymentReloaded()"
     ></agt-modal-apply-payment>
     <agt-modal-confirm-show-payment-history [modalId]="modalIdConfirmShowPaymentHistory" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [paymentId]="selectedPaymentId"></agt-modal-confirm-show-payment-history>
 </ng-container>

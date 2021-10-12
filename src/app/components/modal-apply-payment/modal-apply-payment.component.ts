@@ -25,8 +25,10 @@ export class ModalApplyPaymentComponent implements OnChanges {
     @Input() contactId: string = '';
     @Input() policyId: string = '';
     @Input() paymentId: string = '';
+    @Input() canReloadApplyPayment: boolean = false;
     @Output() receiptPaid: EventEmitter<void> = new EventEmitter<void>();
     @Output() showModalAgain: EventEmitter<void> = new EventEmitter<void>();
+    @Output() applyPaymentReloaded: EventEmitter<void> = new EventEmitter<void>();
     calendarIdApplicationDate: string = 'applicationDate';
     calendarIdNextPaymentDate: string = 'nextPaymentDate';
     modalIdConfirmApplyPaymentWithBalanceOutstanding: string = 'agt-confirm-apply-payment-with-balance-outstanding'
@@ -49,10 +51,20 @@ export class ModalApplyPaymentComponent implements OnChanges {
     ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.paymentId && !!changes.paymentId.currentValue) {
+        if(
+            (!!changes.paymentId && !!changes.paymentId.currentValue) ||
+            (
+                (!!changes.canReloadApplyPayment && !!changes.canReloadApplyPayment) &&
+                !!this.paymentId
+            )
+        ) {
             this._canIgnoreAmountExceeded = false;
             this._canIgnoreMissingAmount = false;
             this._loadPayment();
+
+            setTimeout(() => {
+                this.applyPaymentReloaded.emit();
+            }, 500);
         }
     }
 
@@ -161,6 +173,7 @@ export class ModalApplyPaymentComponent implements OnChanges {
         this.model.createReceiptPaid(this.contactId, this.policyId,this.paymentId).subscribe( () => {
             this._loadingService.hide();
             AlertHelper.receiptPaid(this._notifyReceiptPaid, this);
+            this.model.payment = null;
         });
     }
 

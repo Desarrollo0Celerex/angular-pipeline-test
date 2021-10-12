@@ -40,4 +40,14 @@
 			</div>
 		</div>
 	</div>
+	<div class="card-footer text-center">
+		<div class="row user-social-detail">
+			<div class="col-lg-9 col-sm-9 col-9">
+				<button type="button" class="btn btn-block btn-primary" (click)="requestApplyPayment()" [disabled]="index !== 0"><strong>APLICAR PAGO</strong></button>
+			</div>
+			<div class="col-sm-3 col-3 text-right">
+				<button type="button" class="btn btn-icon btn-secondary" (click) ="requestShowContactData()"><i class="fa fa-id-badge"></i></button>
+			</div>
+		</div>
+	</div>
 </div>

@@ -5,5 +5,18 @@
     </div>
 </div>
 
-<agt-content-list *ngIf="!!contentType" [contentType]="contentType" [contentTypeName]="contentTypeName" [contentSubtypeName]="contentSubtypeName" [query]="query" [actionType]="actionType" [originContactId]="originContactId" [originPolicyId]="originPolicyId" (totalResultsLoaded)="onTotalResultsLoaded($event)"></agt-content-list>
+<agt-content-list
+    *ngIf="!!contentType"
+    [contentType]="contentType"
+    [contentTypeName]="contentTypeName"
+    [contentSubtypeName]="contentSubtypeName"
+    [query]="query"
+    [actionType]="actionType"
+    [originContactId]="originContactId"
+    [originPolicyId]="originPolicyId"
+    (totalResultsLoaded)="onTotalResultsLoaded($event)"
+    [canReloadContent]="canReloadContent"
+    (contentReloaded)="onContentReloaded()"
+    (receiptPaid)="onReloadContent()"
+    ></agt-content-list>
 <!-- //AGENTHOS - SEARCH RESULTS -->

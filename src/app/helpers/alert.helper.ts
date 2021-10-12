@@ -314,14 +314,15 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
-    static receiptPaidDeleted(callBack: any, context: any): void {
+    static receiptPaidDeleted(callBack: any, context: any, data: any): void {
         const alertData: Alert = {
             title: 'Pago Eliminado',
             text: 'El pago ha sido eliminado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
+            context: context,
+            data: data
         }
         SweetAlertPlugin.showAlert(alertData);
     }

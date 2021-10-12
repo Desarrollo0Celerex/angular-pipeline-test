@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 
 import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
@@ -55,6 +55,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Output() receiptPaid: EventEmitter<void> = new EventEmitter<void>();
     @ViewChild('containerIncompletePolicies') containerIncompletePolicies: any;
     CONTENT_TYPES: any;
+    canReloadApplyPayment: boolean = false;
     canShowTotalResults: boolean;
     cardClasses: string;
     isHistoryContent: boolean;
@@ -116,6 +117,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     constructor(
         public contentListService: ContentListService,
+        private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
     ) {
@@ -243,6 +245,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.selectedContactId = data.contactId;
         this.selectedPolicyId = data.policyId;
         this.selectedPaymentId = data.paymentId;
+        this.canReloadApplyPayment = true;
         ModalPlugin.show(this.modalIdApplyPayment);
     }
 
@@ -311,7 +314,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this._loadingService.show();
         this.contentListService.deleteReceiptPaid(this.selectedPaymentId, this.selectedReceiptPaidId).subscribe(() => {
             this._loadingService.hide();
-            AlertHelper.receiptPaidDeleted(this._reloadContent, this);
+            const pageUrl = ROUTES_NAME.paymentHistory(this.contactId, this.policyId, this.paymentId)
+            AlertHelper.receiptPaidDeleted(this._reloadPageAux, this, pageUrl);
         })
     }
 
@@ -354,7 +358,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to notify that the receipt has been paid
      */
     onReceiptPaid(): void {
-        this.receiptPaid.emit();
+        switch(this.contentType) {
+            case CONTENT_TYPES.PENDING_RECEIP.ID:
+                const pageUrl: string = ROUTES_NAME.pendingReceipts(this.selectedContactId, this.selectedPolicyId, this.selectedPaymentId);
+                this._reloadPage(pageUrl);
+            break;
+
+            default:
+                this.receiptPaid.emit();
+        }
     }
 
     /**
@@ -634,6 +646,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdUpdateReceiptPaid);
     }
 
+    applyPaymentReloaded(): void {
+        this.canReloadApplyPayment = false;
+    }
+
     /**
      * Do action to contact selected
      * @param contactId The selected contact ID
@@ -794,7 +810,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 })
             break;
 
-            case CONTENT_TYPES.PENDING_RECEIPS.ID:
+            case CONTENT_TYPES.PENDING_RECEIP.ID:
                 this.contentListService.loadPendingReceipts(this.paymentId, this.page).subscribe( () => {
                     this._contentLoaded();
                 })
@@ -897,6 +913,18 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _reloadContent(context: ContentListComponent): void {
         context._initContent();
+    }
+
+    private _reloadPage(pageUrl: string): void {
+        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this._router.onSameUrlNavigation = 'reload';
+        this._router.navigate(['/' + pageUrl], { relativeTo: this._activatedRoute });
+    }
+
+    private _reloadPageAux(context: ContentListComponent, pageUrl: string): void {
+        context._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        context._router.onSameUrlNavigation = 'reload';
+        context._router.navigate(['/' + pageUrl], { relativeTo: context._activatedRoute });
     }
 
 }
