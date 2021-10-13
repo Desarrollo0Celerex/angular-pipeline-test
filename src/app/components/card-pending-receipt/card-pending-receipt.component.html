@@ -11,7 +11,7 @@
 				<!-- AGENTHOS - PAYCARD SOURCE -->
 				<div class="badge badge-primary-gradient mr-1 mb-3">{{pendingReceipt.paymentSourceTypeName | uppercase}}</div>
 				<!-- AGENTHOS - PAYCARD STATUS -->
-				<div class="badge badge-{{pendingReceipt.paymentStatusBackground}} mr-1 mb-3">{{pendingReceipt.paymentStatusName | uppercase}}</div>
+				<div *ngIf="index === 0" class="badge badge-{{pendingReceipt.paymentStatusBackground}} mr-1 mb-3">{{pendingReceipt.paymentStatusName | uppercase}}</div>
 				<!-- AGENTHOS - POLICY TYPE -->
 				<h6><span class="text-primary"><i class="fe fe-shield mr-2"></i></span>{{pendingReceipt.insuranceName | uppercase}}</h6>
 				<!-- AGENTHOS - POLICY PLAN -->
