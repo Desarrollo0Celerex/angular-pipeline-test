@@ -5,6 +5,7 @@ import { CardClientModule } from '@components/card-client/card-client.module';
 import { CardContactModule } from '@components/card-contact/card-contact.module';
 import { CardContactFileModule } from '@components/card-contact-file/card-contact-file.module';
 import { CardLeadModule } from '@components/card-lead/card-lead.module';
+import { CardPartnerModule } from '@components/card-partner/card-partner.module';
 import { CardPaymentModule } from '@components/card-payment/card-payment.module';
 import { CardPendingReceiptModule } from '@components/card-pending-receipt/card-pending-receipt.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
@@ -51,6 +52,7 @@ import { ModalShowCancellationEvidenceModule } from '@components/modal-show-canc
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 import { ModalShowContactFileDetailsModule } from '@components/modal-show-contact-file-details/modal-show-contact-file-details.module';
 import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/modal-show-endorsement.module';
+import { ModalShowPartnerDetailsModule } from '@components/modal-show-partner-details/modal-show-partner-details.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
@@ -67,6 +69,7 @@ import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
 import { LeadService } from '@services/lead.service';
+import { PartnerService } from '@services/partner.service';
 import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
 import { PolicyLogService } from '@services/policy-log.service';
@@ -85,6 +88,7 @@ import { ContentListService } from './content-list.service';
     CardContactModule,
     CardContactFileModule,
     CardLeadModule,
+    CardPartnerModule,
     CardPaymentModule,
     CardPendingReceiptModule,
     CardPolicyModule,
@@ -130,6 +134,7 @@ import { ContentListService } from './content-list.service';
     ModalShowContactDataModule,
     ModalShowContactFileDetailsModule,
     ModalShowEndorsementModule,
+    ModalShowPartnerDetailsModule,
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
     ModalShowQuotationDetailsModule,
@@ -146,6 +151,7 @@ import { ContentListService } from './content-list.service';
       ContactFileService,
       ContentListService,
       LeadService,
+      PartnerService,
       PaymentService,
       PolicyService,
       PolicyLogService,

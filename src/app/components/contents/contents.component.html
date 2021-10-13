@@ -1,8 +1,20 @@
-<agt-content-kpis *ngIf="canShowKpis" [contentType]="contentType" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" [canReloadContent]="canReloadContent" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-content-kpis>
+<agt-content-kpis
+    *ngIf="canShowKpis"
+    [contentType]="contentType"
+    [contentTypeName]="contentTypeName"
+    [contentSubtype]="contentSubtype"
+    [canReloadContent]="canReloadContent"
+    (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)">
+</agt-content-kpis>
 <!-- AGENTHOS - PANEL -->
 <div class="row mt-5">
     <div class="col-md-{{searchEngineWidth}} col-lg-{{searchEngineWidth}}">
-        <agt-content-search-engine [contentType]="contentType" [contentTypeName]="contentTypeName" [query]="query" [contactId]="contactId"></agt-content-search-engine>
+        <agt-content-search-engine
+            [contentType]="contentType"
+            [contentTypeName]="contentTypeName"
+            [query]="query"
+            [contactId]="contactId">
+        </agt-content-search-engine>
     </div>
     <div class="col-md-{{mainActionWidth}} col-lg-{{mainActionWidth}}">
         <agt-content-main-action

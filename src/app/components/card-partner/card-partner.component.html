@@ -1,0 +1,40 @@
+<div class="card" *ngIf="!!partner">
+    <!-- AGENTHOS - PARTNER CARD HEADER -->
+    <div class="card-header">
+        <!-- AGENTHOS - CONTACT PIC -->
+        <img class="avatar brround" src="https://webkit.atombits.xyz/agenthos/app/agenthos_company_userpic.png" width="38px">
+        <!-- AGENTHOS - PARTNER STATUS -->
+        <div class="card-options">
+            <div class="badge badge-{{partner.partnerStatusBackground}} mr-1">{{partner.partnerStatusName | uppercase}}</div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - PARTNER CARD HEADER -->
+    <!-- AGENTHOS - PARTNER CARD BODY -->
+    <div class="card-body">
+        <!-- AGENTHOS - CONTACT NAME -->
+        <h4 class="h4">{{partner.name}}</h4>
+        <!-- AGENTHOS - CONTACT SOURCE -->
+        <p class="mb-2">
+            <i class="fe fe-globe mr-1"></i>{{partner.totalClients}} Clientes
+            <span class="float-right"><i class="fe fe-award mr-1"></i>A+</span>
+        </p>
+        <!-- AGENTHOS - CONTACT WALLET -->
+        <p class="mb-0">
+            <i class="fe fe-credit-card mr-1"></i>{{partner.wallet | currency: '': '$': '0.2-2'}} {{partner.currencyName}}
+            <span class="float-right"><i class="fe fe-file-text mr-1"></i>{{partner.totalPolicies}} P</span>
+        </p>
+    </div>
+    <!-- //AGENTHOS - PARTNER CARD BODY -->
+    <!-- AGENTHOS - PARTNER CARD FOOTER -->
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-9 col-9 text-left">
+                <button type="button" class="btn btn-block btn-primary" disabled><strong>VER SOCIO</strong></button>
+            </div>
+            <div class="col-sm-3 col-3 text-right">
+                <button type="button" class="btn btn-icon btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Ver Detalles" (click)="requestShowDetails()"><i class="fa fa-area-chart"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - PARTNER CARD FOOTER -->
+</div>

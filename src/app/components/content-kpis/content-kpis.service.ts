@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 
-import { CLIENT_STATUS, LEAD_STATUS } from '@constants/global';
+import { CLIENT_STATUS, LEAD_STATUS, PARTNER_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ClientStatus } from '@interfaces/client-status.interface';
 import { LeadStatus } from '@interfaces/lead-status.interface';
+import { PartnerStatus } from '@interfaces/partner-status.interface';
 import { PaymentStatus } from '@interfaces/payment-status.interface';
 import { SinisterStatus } from '@interfaces/sinister-status.interface';
 import { ClientService } from '@services/client.service';
 import { ClientStatusService } from '@services/client-status.service';
 import { LeadService } from '@services/lead.service';
 import { LeadStatusService } from '@services/lead-status.service';
+import { PartnerService } from '@services/partner.service';
+import { PartnerStatusService } from '@services/partner-status.service';
 import { PaymentService } from '@services/payment.service';
 import { PaymentStatusService } from '@services/payment-status.service';
 import { SinisterService } from '@services/sinister.service';
@@ -28,6 +31,8 @@ export class ContentKpisService {
         private _clientStatusService: ClientStatusService,
         private _leadService: LeadService,
         private _leadStatusService: LeadStatusService,
+        private _partnerService: PartnerService,
+        private _partnerStatusService: PartnerStatusService,
         private _paymentService: PaymentService,
         private _paymentStatusService: PaymentStatusService,
         private _sinisterService: SinisterService,
@@ -108,6 +113,39 @@ export class ContentKpisService {
                                 icon: clientStatus[index].icon,
                                 total: res[index],
                                 percentage: res[index] / totalClients
+                            }
+                            this.kpis.push(kpi);
+                        }
+                        observer.next();
+                        observer.complete();
+                    })
+                });
+            })
+        })
+    }
+
+    /**
+     * Load the partner kpis
+     * @return Notice of action done
+     */
+    loadPartnerKpis(): Observable<void> {
+        return new Observable( observer => {
+            const fields: string = 'partnerStatusId,name,background,icon';
+            this._partnerStatusService.getPartnerStatus(fields).subscribe( (res: HttpResponse) => {
+                const partnerStatus: PartnerStatus[] = res.data;
+                const filters: string = UtilitiesHelper.generateHttpFilter('partnerStatusId', [PARTNER_STATUS.OCCASIONAL, PARTNER_STATUS.FREQUENT, PARTNER_STATUS.INFLUENTIAL, PARTNER_STATUS.INACTIVE])
+                this._partnerService.getTotalPartners(filters).subscribe( (res: number) => {
+                    const totalPartners: number = res;
+                    this._getTotalPartnersByStatus(partnerStatus).subscribe( (res: number[]) => {
+                        this.kpis = [];
+                        for(let index in res) {
+                            const kpi: Kpi = {
+                                contentSubtype: partnerStatus[index].partnerStatusId,
+                                name: partnerStatus[index].name,
+                                background: partnerStatus[index].background,
+                                icon: partnerStatus[index].icon,
+                                total: res[index],
+                                percentage: res[index] / totalPartners
                             }
                             this.kpis.push(kpi);
                         }
@@ -226,6 +264,20 @@ export class ContentKpisService {
         for(let status of leadStatus) {
             const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [status.leadStatusId])
             requests.push(this._leadService.getTotalLeads(filters));
+        }
+        return forkJoin(requests);
+    }
+
+    /**
+     * Get the requests to get the total partners by status
+     * @param  partnerStatus The partner status
+     * @return            The requests
+     */
+    private _getTotalPartnersByStatus(partnerStatus: PartnerStatus[]): Observable<number[]> {
+        let requests: Observable<number>[] = [];
+        for(let status of partnerStatus) {
+            const filters: string = UtilitiesHelper.generateHttpFilter('partnerStatusId', [status.partnerStatusId])
+            requests.push(this._partnerService.getTotalPartners(filters));
         }
         return forkJoin(requests);
     }

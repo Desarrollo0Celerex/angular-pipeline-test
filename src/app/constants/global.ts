@@ -107,6 +107,12 @@ export const CLIENT_STATUS: any = {
     INFLUENTIAL: 3,
     LOST: 4
 }
+export const PARTNER_STATUS: any = {
+    OCCASIONAL: 1,
+    FREQUENT: 2,
+    INFLUENTIAL: 3,
+    INACTIVE: 4
+}
 export const POLICY_SOURCES: any = {
     NEW: 1,
     RENEWAL: 2,
@@ -175,6 +181,10 @@ export const CONTENT_TYPES: any = {
     PENDING_RECEIP: {
         ID: 14,
         NAME: 'Recibo'
+    },
+    PARTNER: {
+        ID: 15,
+        NAME: 'Socio'
     }
 }
 export const CONTACT_TYPES: any = {

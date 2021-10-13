@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-declare var ModalPlugin: any;
+import { CONTENT_TYPES } from '@constants/global';
 
 @Component({
   selector: 'agt-list-partners',
-  templateUrl: './list-partners.page.html',
+  template: '<agt-contents [contentType]="CONTENT_TYPES.PARTNER.ID" [contentTypeName]="CONTENT_TYPES.PARTNER.NAME"></agt-contents>',
   styles: [
   ]
 })
-export class ListPartnersPage implements OnInit {
-    modalIdCreatePartner: string = 'modal-create-partner';
+export class ListPartnersPage {
+    CONTENT_TYPES: any;
+
+    constructor() {
+        this.CONTENT_TYPES =  CONTENT_TYPES;
+    }
+    /*modalIdCreatePartner: string = 'modal-create-partner';
 
     constructor() { }
 
@@ -18,6 +23,6 @@ export class ListPartnersPage implements OnInit {
 
     showModalToCretePartner(): void {
         ModalPlugin.show(this.modalIdCreatePartner);
-    }
+    }*/
 
 }
