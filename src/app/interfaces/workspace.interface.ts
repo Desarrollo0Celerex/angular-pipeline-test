@@ -3,5 +3,6 @@ export interface Workspace {
     realName: string,
     brandName: string,
     avatarUrl: string,
-    isActiveWorkspace: boolean
+    isActiveWorkspace: boolean,
+    countryId: number
 }

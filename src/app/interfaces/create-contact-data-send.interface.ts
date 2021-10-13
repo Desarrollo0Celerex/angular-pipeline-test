@@ -8,6 +8,9 @@ export interface CreateContactDataSend {
     phoneCodeId?: number,
     phoneNumber?: string,
     contactSourceId: number,
+    contactSourceTypeId: number,
+    countryId: number,
+    stateId: number,
     contactTypeId: number,
     ignoreMatches: boolean
 }

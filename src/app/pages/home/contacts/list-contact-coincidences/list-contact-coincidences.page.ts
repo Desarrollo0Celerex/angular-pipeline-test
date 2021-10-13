@@ -87,6 +87,9 @@ export class ListContactCoincidencesPage implements OnInit, OnDestroy {
                 phoneCodeId: (!!this.contact.phoneCodeId) ? this.contact.phoneCodeId : 0,
                 phoneNumber: (!!this.contact.phoneNumber) ? this.contact.phoneNumber : '',
                 contactSourceId: (!!this.contact.contactSourceId) ? this.contact.contactSourceId : 0,
+                contactSourceTypeId: (!!this.contact.contactSourceTypeId) ? this.contact.contactSourceTypeId : 0,
+                countryId: (!!this.contact.countryId) ? this.contact.countryId : 0,
+                stateId: (!!this.contact.stateId) ? this.contact.stateId : 0,
                 contactTypeId: this.contactTypeId,
                 ignoreMatches: true
             }
@@ -112,6 +115,11 @@ export class ListContactCoincidencesPage implements OnInit, OnDestroy {
         this.contact = history.state.contact || null;
         if(!!this.contact) {
             this.contact.phoneCodeId = (!!this.contact.phoneNumber) ? this.contact.phoneCodeId : 0;
+            this.contact.name = (!!this.contact.name) ? this.contact.name.trim() : '';
+            this.contact.namePaternal = (!!this.contact.namePaternal) ? this.contact.namePaternal.trim() : '';
+            this.contact.nameMaternal = (!!this.contact.nameMaternal) ? this.contact.nameMaternal.trim() : '';
+            this.contact.companyName = (!!this.contact.companyName) ? this.contact.companyName.trim() : '';
+            this.contact.brandName = (!!this.contact.brandName) ? this.contact.brandName.trim() : '';
         }
     }
 
@@ -133,7 +141,7 @@ export class ListContactCoincidencesPage implements OnInit, OnDestroy {
     private _createSpecialQuery(): void {
         if(!!this.contact) {
             this.searchContactData = {
-                contactName: (this.contactTypeId === CONTACT_TYPES.PERSON) ? this.contact.name+' '+this.contact.namePaternal+' '+this.contact.nameMaternal: this.contact.companyName,
+                contactName: (this.contactTypeId === CONTACT_TYPES.PERSON) ? (this.contact.name+' '+this.contact.namePaternal+' '+this.contact.nameMaternal).trim() : this.contact.companyName,
                 email: this.contact.email || '',
                 phoneNumber: this.contact.phoneNumber || ''
             }

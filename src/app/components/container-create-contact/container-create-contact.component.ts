@@ -34,8 +34,8 @@ export class ContainerCreateContactComponent implements OnInit {
     private _isFormSubmitted: boolean;
 
     constructor(
-        public containerCreateContactService: ContainerCreateContactService,
         private _activatedRoute: ActivatedRoute,
+        private _containerCreateContactService: ContainerCreateContactService,
         private _loadingService: LoadingService,
         private _router: Router
     ) {
@@ -53,7 +53,12 @@ export class ContainerCreateContactComponent implements OnInit {
     ngOnInit(): void {
         this._catchParams();
         this._buildContactForm();
-        this.containerCreateContactService.loadContactSources();
+        this.model.loadContactSources();
+        this.model.loadCountries();
+    }
+
+    get model(): ContainerCreateContactService {
+        return this._containerCreateContactService;
     }
 
     /**
@@ -62,7 +67,7 @@ export class ContainerCreateContactComponent implements OnInit {
      * @return                 The contact source name
      */
     getContactSourceName(contactSourceId: number): string {
-        const contactSource: ContactSource | undefined = this.containerCreateContactService.contactSources.find( (element: ContactSource) => element.contactSourceId == contactSourceId);
+        const contactSource: ContactSource | undefined = this.model.contactSources.find( (element: ContactSource) => element.contactSourceId == contactSourceId);
         return (!!contactSource) ? contactSource.name : '';
     }
 
@@ -72,7 +77,7 @@ export class ContainerCreateContactComponent implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.containerCreateContactService.contactForm.get(constrolName);
+        const control: AbstractControl | null = this.model.contactForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -82,8 +87,13 @@ export class ContainerCreateContactComponent implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.containerCreateContactService.contactForm.get(constrolName);
+        const control: AbstractControl | null = this.model.contactForm.get(constrolName);
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+    }
+
+    loadCountryStates(): void {
+        this.model.f.stateId.setValue(null);
+        this.model.loadCountryStates(this.model.f.countryId.value);
     }
 
     /**
@@ -97,8 +107,8 @@ export class ContainerCreateContactComponent implements OnInit {
      * Event to update the contact source ID
      */
     onContactSourceIdSelected(data: SelectContactSourceData): void {
-        this.containerCreateContactService.contactForm.patchValue({contactSourceId: data.contactSourceId});
-        this.containerCreateContactService.contactForm.patchValue({contactSourceTypeId: data.contactSourceTypeId});
+        this.model.contactForm.patchValue({contactSourceId: data.contactSourceId});
+        this.model.contactForm.patchValue({contactSourceTypeId: data.contactSourceTypeId});
     }
 
     /**
@@ -106,7 +116,7 @@ export class ContainerCreateContactComponent implements OnInit {
      * @param phoneCodeId The phone code ID selected
      */
     onPhoneCodeIdSelected(phoneCodeId: number): void {
-        this.containerCreateContactService.contactForm.patchValue({phoneCodeId});
+        this.model.contactForm.patchValue({phoneCodeId});
     }
 
     /**
@@ -114,7 +124,7 @@ export class ContainerCreateContactComponent implements OnInit {
      */
     onSaveContact(): void {
         this._loadingService.show();
-        this.containerCreateContactService.createContact(IGNORE_MATCHES.YES).subscribe( (res: HttpResponse) => {
+        this.model.createContact(IGNORE_MATCHES.YES).subscribe( (res: HttpResponse) => {
             this._loadingService.hide();
             this.contactCreated.emit(res.data);
         });
@@ -125,9 +135,9 @@ export class ContainerCreateContactComponent implements OnInit {
      */
     onSubmitCreateContact(): void {
         this._isFormSubmitted = true;
-        if(this.containerCreateContactService.contactForm.valid) {
+        if(this.model.contactForm.valid) {
             this._loadingService.show();
-            this.containerCreateContactService.createContact(IGNORE_MATCHES.NO).subscribe( (res: HttpResponse) => {
+            this.model.createContact(IGNORE_MATCHES.NO).subscribe( (res: HttpResponse) => {
                 this._loadingService.hide();
                 this.contactCreated.emit(res.data);
             },
@@ -148,7 +158,7 @@ export class ContainerCreateContactComponent implements OnInit {
         this._router.navigate(
             [ROUTES_NAME.listContactCoincidences],
             {
-                state: { contact: this.containerCreateContactService.contactForm.value },
+                state: { contact: this.model.contactForm.value },
                 queryParams: {
                     contactTypeId: this.contactTypeId,
                     actionType: this.actionType,
@@ -164,10 +174,11 @@ export class ContainerCreateContactComponent implements OnInit {
      */
     private _buildContactForm(): void {
         if(this.contactTypeId === CONTACT_TYPES.PERSON) {
-             this.containerCreateContactService.buildPersonContactForm();
+             this.model.buildPersonContactForm();
         } else {
-            this.containerCreateContactService.buildCompanyContactForm();
+            this.model.buildCompanyContactForm();
         }
+        this.model.loadWorkspaceCountry();
     }
 
     /**

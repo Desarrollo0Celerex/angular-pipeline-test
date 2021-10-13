@@ -1,11 +1,37 @@
 <div class="card">
-    <form [formGroup]="containerCreateContactService.contactForm" (submit)="onSubmitCreateContact()">
+    <form [formGroup]="model.contactForm" (submit)="onSubmitCreateContact()">
         <div class="card-header">
             <div class="card-title">Crear Contacto</div>
         </div>
         <div class="card-body">
             <!-- AGENTHOS - CONTACT INFO -->
             <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">País del Contacto</label>
+                        <select class="form-control custom-select" formControlName="countryId" (change)="loadCountryStates()">
+                            <option [value]="country.countryId" *ngFor="let country of model.countries">{{country.name}}</option>
+                        </select>
+                        <div class="invalid-feedback">{{getErrorMessage('countryId')}}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Ubicación del Contacto</label>
+                        <select class="form-control custom-select {{getValidationClass('stateId')}}" formControlName="stateId">
+                            <option [value]="state.stateId" *ngFor="let state of model.states">{{state.name}}</option>
+                        </select>
+                        <div class="invalid-feedback">{{getErrorMessage('stateId')}}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <!-- AGENTHOS - CONTACT SOURCE * -->
+                        <label class="form-label">Origen del Contacto</label>
+                        <button type="button" class="btn btn-radius btn-block btn-default-light" (click)="onClickSelectContactSource()">
+                        <i class="fe fe-globe mr-2"></i>{{getContactSourceName(model.f.contactSourceId.value)}}</button>
+                    </div>
+                </div>
                 <ng-container *ngIf="contactTypeId == CONTACT_TYPES.PERSON; else companyContact">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -62,18 +88,10 @@
                     <!-- AGENTHOS - CONTACT PHONE -->
                     <label class="form-label">WhatsApp</label>
                     <div class="input-group mb-3">
-                        <agt-dropdown-select-phone-code [phoneCodeId]="containerCreateContactService.f.phoneCodeId.value" (phoneCodeIdSelected)="onPhoneCodeIdSelected($event)"></agt-dropdown-select-phone-code>
+                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.phoneCodeId.value" (phoneCodeIdSelected)="onPhoneCodeIdSelected($event)"></agt-dropdown-select-phone-code>
                         <!-- AGENTHOS - PHONE NUMBER -->
                         <input type="text" name="agtContactPhoneNumber" class="form-control {{getValidationClass('phoneNumber')}}" placeholder="Ingresa su WhatsApp" formControlName="phoneNumber">
                         <div class="invalid-feedback">{{getErrorMessage('phoneNumber')}}</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <!-- AGENTHOS - CONTACT SOURCE * -->
-                        <label class="form-label">Origen del Contacto</label>
-                        <button type="button" class="btn btn-radius btn-block btn-default-light" (click)="onClickSelectContactSource()">
-                        <i class="fe fe-globe mr-2"></i>{{getContactSourceName(containerCreateContactService.f.contactSourceId.value)}}</button>
                     </div>
                 </div>
             </div>
@@ -90,4 +108,4 @@
 </div>
 
 <agt-modal-duplicate-contact [modalId]="modaIdDuplicateContact" (viewMatches)="onViewMatches()" (saveContact)="onSaveContact()"></agt-modal-duplicate-contact>
-<agt-modal-select-contact-source [modalId]="modalIdSelectContactSource" [contactSourceId]="containerCreateContactService.f.contactSourceId.value" [contactSourceTypeId]="containerCreateContactService.f.contactSourceTypeId.value"  (contactSourceIdSelected)="onContactSourceIdSelected($event)"></agt-modal-select-contact-source>
+<agt-modal-select-contact-source [modalId]="modalIdSelectContactSource" [contactSourceId]="model.f.contactSourceId.value" [contactSourceTypeId]="model.f.contactSourceTypeId.value"  (contactSourceIdSelected)="onContactSourceIdSelected($event)"></agt-modal-select-contact-source>

@@ -7,18 +7,28 @@ import { ValidatorsHelper } from '@helpers/validators.helper';
 import { CreateContactDataSend } from '@interfaces/create-contact-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContactSource } from '@interfaces/contact-source.interface';
+import { Country } from '@interfaces/country.interface';
+import { State } from '@interfaces/state.interface';
 import { ContactService } from '@services/contact.service';
 import { ContactSourceService } from '@services/contact-source.service';
+import { CountryService } from '@services/country.service';
+import { StateService } from '@services/state.service';
+import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
 export class ContainerCreateContactService {
     contactForm: FormGroup;
     contactSources: ContactSource[];
+    countries: Country[] = [];
+    states: State[] = [];
 
     constructor(
         private _contactService: ContactService,
         private _contactSourceService: ContactSourceService,
-        private _formBuilder: FormBuilder
+        private _countryService: CountryService,
+        private _formBuilder: FormBuilder,
+        private _stateService: StateService,
+        private _workspaceService: WorkspaceService
     ) {
         this.contactForm = this._formBuilder.group({});
         this.contactSources = [];
@@ -33,14 +43,16 @@ export class ContainerCreateContactService {
      */
     buildPersonContactForm(): void {
         this.contactForm = this._formBuilder.group({
+            countryId: ['', [Validators.required]],
+            stateId: ['', [Validators.required]],
+            contactSourceId: [DEFAULT_CONTACT_SOURCE_ID, [Validators.required]],
+            contactSourceTypeId: ['1', [Validators.required]],
             name: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
             namePaternal: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-            nameMaternal: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
+            nameMaternal: ['', [Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
             email: ['', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
             phoneCodeId: [DEFAULT_PHONE_CODE_ID],
             phoneNumber: ['', [ValidatorsHelper.phoneNumber]],
-            contactSourceId: [DEFAULT_CONTACT_SOURCE_ID, [Validators.required]],
-            contactSourceTypeId: ['1', [Validators.required]],
             contactTypeId: [CONTACT_TYPES.PERSON, [Validators.required]]
         })
     }
@@ -50,13 +62,15 @@ export class ContainerCreateContactService {
      */
     buildCompanyContactForm(): void {
         this.contactForm = this._formBuilder.group({
+            countryId: ['', [Validators.required]],
+            stateId: ['', [Validators.required]],
+            contactSourceId: [DEFAULT_CONTACT_SOURCE_ID, [Validators.required]],
+            contactSourceTypeId: ['1', [Validators.required]],
             companyName: ['', [Validators.required, Validators.minLength(BRAND_NAME_LENGTH.MIN), Validators.maxLength(BRAND_NAME_LENGTH.MAX), ValidatorsHelper.brandName]],
             brandName: ['', [Validators.required, Validators.minLength(BRAND_NAME_LENGTH.MIN), Validators.maxLength(BRAND_NAME_LENGTH.MAX), ValidatorsHelper.brandName]],
             email: ['', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
             phoneCodeId: [DEFAULT_PHONE_CODE_ID],
             phoneNumber: ['', [ValidatorsHelper.phoneNumber]],
-            contactSourceId: [DEFAULT_CONTACT_SOURCE_ID, [Validators.required]],
-            contactSourceTypeId: ['1', [Validators.required]],
             contactTypeId: [CONTACT_TYPES.COMPANY, [Validators.required]]
         })
     }
@@ -78,6 +92,29 @@ export class ContainerCreateContactService {
         const fields: string = 'contactSourceId,name';
         this._contactSourceService.getContactSources(fields).subscribe( (res: HttpResponse) => {
             this.contactSources = res.data;
+        })
+    }
+
+    loadCountries(): void {
+        const fields: string = 'countryId,name';
+        this._countryService.getCountries(fields).subscribe((res: HttpResponse) => {
+            this.countries = res.data;
+        })
+    }
+
+    loadCountryStates(countryId: number): void {
+        const fields: string = 'stateId,name';
+        this._stateService.getCountryStates(countryId, fields).subscribe((res: HttpResponse) => {
+            this.states = res.data;
+        })
+    }
+
+    loadWorkspaceCountry(): void {
+        const fields: string = 'countryId';
+        this._workspaceService.getWorkspace(fields).subscribe((res: HttpResponse) => {
+            const countryId: number = res.data.countryId;
+            this.contactForm.patchValue({countryId });
+            this.loadCountryStates(countryId);
         })
     }
 }
