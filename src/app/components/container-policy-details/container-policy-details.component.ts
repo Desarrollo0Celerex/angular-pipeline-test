@@ -35,7 +35,7 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
     ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.contactId.currentValue && !!changes.policyId.currentValue) {
+        if((!!changes.contactId && !!changes.contactId.currentValue) || (!!changes.policyId && !!changes.policyId.currentValue)) {
             this.containerPolicyDetailsService.loadPolicy(this.contactId, this.policyId);
         }
     }

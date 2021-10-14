@@ -190,7 +190,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             (typeof changes.query !== 'undefined' && !!changes.query.currentValue) ||
             (typeof changes.specialQuery !== 'undefined' && !!changes.specialQuery.currentValue) ||
             (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) && (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) && (!!this.contentSubtype || !!this.query || !!this.specialQuery) ||
-            (typeof changes.canReloadContent !== 'undefined' && !!changes.canReloadContent.currentValue)
+            (typeof changes.canReloadContent !== 'undefined' && !!changes.canReloadContent.currentValue) ||
+            (!!changes.policyId && !!changes.policyId.currentValue)
         ) {
             this._initContent();
 
