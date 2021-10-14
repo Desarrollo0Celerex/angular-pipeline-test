@@ -93,9 +93,9 @@ export class CancelPolicyPage implements OnInit {
         })
     }
 
-    deletePolicy(): void {
+    deleteActivePolicy(): void {
         this._loadingService.show();
-        this.cancelPolicyService.deletePolicy(this.contactId, this.policyId).subscribe( () => {
+        this.cancelPolicyService.deleteActivePolicy(this.contactId, this.policyId).subscribe( () => {
             this._loadingService.hide();
             AlertHelper.policyDeletedByCaptureError(this._goToListContactPolicies, this);
         })

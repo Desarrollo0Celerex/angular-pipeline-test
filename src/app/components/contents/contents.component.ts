@@ -106,6 +106,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
+            case CONTENT_TYPES.PARTNER.ID:
                 canShow = true;
             break;
 
@@ -147,6 +148,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
+            case CONTENT_TYPES.PARTNER.ID:
                 width = 3;
             break;
 
@@ -167,6 +169,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
+            case CONTENT_TYPES.PARTNER.ID:
                 width = 9;
             break;
 

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { CLIENT_STATUS, LEAD_STATUS, POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN, DEFAULT_PER_PAGE } from '@constants/global';
+import { CLIENT_STATUS, LEAD_STATUS, PARTNER_STATUS, POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN, DEFAULT_PER_PAGE } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
@@ -20,6 +20,7 @@ import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
 import { LeadService } from '@services/lead.service';
+import { PartnerService } from '@services/partner.service';
 import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
 import { PolicyLogService } from '@services/policy-log.service';
@@ -38,6 +39,7 @@ export class ContentListService {
         private _contactService: ContactService,
         private _contactFileService: ContactFileService,
         private _leadService: LeadService,
+        private _partnerService: PartnerService,
         private _paymentService: PaymentService,
         private _policyService: PolicyService,
         private _policyLogService: PolicyLogService,
@@ -49,8 +51,8 @@ export class ContentListService {
         this.contentResultData = this._initContentResultData();
     }
 
-    deletePolicy(contactId: string, policyId: string): Observable<void> {
-        return this._policyService.deleteContactPolicy(contactId, policyId);
+    deleteRenewedPolicy(contactId: string, policyId: string): Observable<void> {
+        return this._policyService.deleteActivePolicy(contactId, policyId);
     }
 
     /**
@@ -209,6 +211,24 @@ export class ContentListService {
         const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactScoreName';
         const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [contentSubtype])
         return this._leadService.getLeads(page, fields, filters).pipe(
+            tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
+     * Load the leads
+     * @param  page           The page number to get
+     * @param  contentSubtype The filter to apply
+     * @return                Notice of action done
+     */
+    loadPartners(page: number, contentSubtype: number): Observable<void> {
+        const fields: string = 'partnerId,name,createdAt,partnerStatusName,partnerStatusBackground,totalClients,totalPolicies,wallet,walletPaid,currencyName';
+        const filters: string = UtilitiesHelper.generateHttpFilter('partnerStatusId', [contentSubtype])
+        return this._partnerService.getPartners(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
                     this.contents = this.contents.concat(res.data.items);
                     this._loadContentResultData(res.data.totalItems);
@@ -485,6 +505,24 @@ export class ContentListService {
         const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactScoreName';
         const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED, LEAD_STATUS.DISCARDED])
         return this._leadService.getLeads(page, fields, filters, query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
+     * Search the partners
+     * @param  page  The page number to get
+     * @param  query The query to search
+     * @return       Notice of action done
+     */
+    searchPartners(page: number, query: string): Observable<void> {
+        const fields: string = 'partnerId,name,createdAt,partnerStatusName,partnerStatusBackground,totalClients,totalPolicies,wallet,walletPaid,currencyName';
+        const filters: string = UtilitiesHelper.generateHttpFilter('partnerStatusId', [PARTNER_STATUS.OCCASIONAL, PARTNER_STATUS.FREQUENT, PARTNER_STATUS.INFLUENTIAL, PARTNER_STATUS.INACTIVE])
+        return this._partnerService.getPartners(page, fields, filters, query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);

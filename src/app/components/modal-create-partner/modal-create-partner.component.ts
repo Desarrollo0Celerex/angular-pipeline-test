@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { ActivatedRoute, Router} from '@angular/router';
 
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -18,14 +19,18 @@ declare var ModalPlugin: any;
 })
 export class ModalCreatePartnerComponent implements OnInit {
     @Input() modalId: string = '';
+    private _contentSubtype: string = '';
     private _isFormSubmitted: boolean = false;
 
     constructor(
+        private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
-        private _modalCreatePartnerService: ModalCreatePartnerService
+        private _modalCreatePartnerService: ModalCreatePartnerService,
+        private _router: Router
     ) { }
 
     ngOnInit(): void {
+        this._catchQueryParams();
     }
 
     get model(): ModalCreatePartnerService {
@@ -56,11 +61,29 @@ export class ModalCreatePartnerComponent implements OnInit {
         this._isFormSubmitted = true;
         if(this.model.form.valid) {
             this._loadingService.show();
+            ModalPlugin.hide(this.modalId);
             this.model.createPartner().subscribe(() => {
-                ModalPlugin.hide(this.modalId);
+                this._reloadPage();
                 this._loadingService.hide();
                 AlertHelper.partnerCreated();
             })
+        }
+    }
+
+    private _catchQueryParams(): void {
+        this._activatedRoute.queryParams.subscribe(params => {
+            this._contentSubtype = params.contentSubtype || '';
+        })
+    }
+
+    private _reloadPage(): void {
+        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this._router.onSameUrlNavigation = 'reload';
+        const url: string = this._router.url.split('?')[0] ;
+        if(!!this._contentSubtype) {
+            this._router.navigate([url], { relativeTo: this._activatedRoute, queryParams: { contentSubtype: this._contentSubtype } } );
+        } else {
+            this._router.navigate([url], { relativeTo: this._activatedRoute } );
         }
     }
 

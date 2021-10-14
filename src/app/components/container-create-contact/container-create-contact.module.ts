@@ -7,6 +7,9 @@ import { ModalDuplicateContactModule } from '@components/modal-duplicate-contact
 import { ModalSelectContactSourceModule } from '@components/modal-select-contact-source/modal-select-contact-source.module';
 import { ContactService } from '@services/contact.service';
 import { ContactSourceService } from '@services/contact-source.service';
+import { CountryService } from '@services/country.service';
+import { StateService } from '@services/state.service';
+import { WorkspaceService } from '@services/workspace.service';
 
 import { ContainerCreateContactComponent } from './container-create-contact.component';
 import { ContainerCreateContactService } from './container-create-contact.service';
@@ -22,6 +25,13 @@ import { ContainerCreateContactService } from './container-create-contact.servic
     ModalDuplicateContactModule,
     ModalSelectContactSourceModule
   ],
-  providers: [ContactService, ContainerCreateContactService, ContactSourceService]
+  providers: [
+      ContactService,
+      ContainerCreateContactService,
+      ContactSourceService,
+      CountryService,
+      StateService,
+      WorkspaceService
+  ]
 })
 export class ContainerCreateContactModule { }

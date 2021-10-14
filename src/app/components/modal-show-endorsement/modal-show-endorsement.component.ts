@@ -22,7 +22,7 @@ export class ModalShowEndorsementComponent implements OnChanges {
     constructor(public modalShowEndorsementService: ModalShowEndorsementService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.endorsementId.currentValue) {
+        if(!!changes.endorsementId && !!changes.endorsementId.currentValue) {
             this.modalShowEndorsementService.resetEndorsementUrl();
             this.modalShowEndorsementService.loadEndorsementUrl(this.contactId, this.policyId, this.endorsementId);
         }

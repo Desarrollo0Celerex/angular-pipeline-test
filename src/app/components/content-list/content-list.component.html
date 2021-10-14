@@ -83,6 +83,10 @@
                     (showPolicySinisters)="onShowPolicySinisters($event)"
                     (deletePolicy)="onDeletePolicy($event)"
                 ></agt-card-policy>
+                <agt-card-partner *ngSwitchCase="CONTENT_TYPES.PARTNER.ID"
+                    [partner]="content"
+                    (showDetails)="showPartnerDetails($event)"
+                ></agt-card-partner>
                 <agt-card-payment *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID"
                     [payment]="content"
                     (applyPayment)="onApplyPayment($event)"
@@ -181,6 +185,9 @@
         (applyPaymentReloaded)="applyPaymentReloaded()"
     ></agt-modal-apply-payment>
     <agt-modal-confirm-show-payment-history [modalId]="modalIdConfirmShowPaymentHistory" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [paymentId]="selectedPaymentId"></agt-modal-confirm-show-payment-history>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.PARTNER.ID">
+    <agt-modal-show-partner-details [modalId]="modalIdShowPartnerDetails" [partner]="selectedPartner"></agt-modal-show-partner-details>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT_HISTORY.ID">
     <agt-modal-confirm-delete-receipt-paid [modalId]="modalIdConfirmDeleteReceiptPaid" (deleteReceiptPaidConfimed)="onDeleteReceiptPaidConfirmed()"></agt-modal-confirm-delete-receipt-paid>

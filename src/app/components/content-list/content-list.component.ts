@@ -11,6 +11,7 @@ import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { Partner } from '@interfaces/partner.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
@@ -67,6 +68,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedCancelledPolicyId: string = '';
     selectedEndorsementId: string;
     selectedEvidenceUrl: string = '';
+    selectedPartner: Partner | null = null;
     selectedPaymentId: string;
     selectedPolicyData: PolicyDataSend | null = null;
     selectedPolicyId: string;
@@ -105,6 +107,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
     modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
+    modalIdShowPartnerDetails: string = 'agt-show-partner-details';
     modalIdShowQuotationDetails: string;
     modalIdShowReactivationEvidence: string = 'agt-show-reactivation-evidence';
     modalIdShowResolutionEvidence: string = 'agt-show-resolution-evidence';
@@ -187,7 +190,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             (typeof changes.query !== 'undefined' && !!changes.query.currentValue) ||
             (typeof changes.specialQuery !== 'undefined' && !!changes.specialQuery.currentValue) ||
             (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) && (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) && (!!this.contentSubtype || !!this.query || !!this.specialQuery) ||
-            (typeof changes.canReloadContent !== 'undefined' && !!changes.canReloadContent.currentValue)
+            (typeof changes.canReloadContent !== 'undefined' && !!changes.canReloadContent.currentValue) ||
+            (!!changes.policyId && !!changes.policyId.currentValue)
         ) {
             this._initContent();
 
@@ -210,7 +214,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     deleteRenewedPolicy(): void {
         this._loadingService.show();
-        this.contentListService.deletePolicy(this.contactId, this.selectedPolicyIdToDelete).subscribe(() => {
+        this.contentListService.deleteRenewedPolicy(this.contactId, this.selectedPolicyIdToDelete).subscribe(() => {
             this._loadingService.hide();
             ModalPlugin.show(this.modalIdConfirmRenewPolicy);
             this.containerIncompletePolicies.deletePolicyCard(this.selectedPolicyIdToDelete);
@@ -641,6 +645,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdApplyPayment);
     }
 
+    showPartnerDetails(partner: Partner): void {
+        this.selectedPartner = partner;
+        ModalPlugin.show(this.modalIdShowPartnerDetails);
+    }
+
     updateReceiptPaid(receiptPaidId: string): void {
         this.selectedReceiptPaidId = receiptPaidId;
         ModalPlugin.show(this.modalIdUpdateReceiptPaid);
@@ -695,6 +704,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CLIENT.ID:
+            case CONTENT_TYPES.PARTNER.ID:
                 this.cardClasses = 'col-md-3 col-xl-3';
             break;
 
@@ -766,6 +776,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this.contentListService.loadContactHistoryPolicy(this.contactId, this.policyId, this.page).subscribe( () => {
                     this._contentLoaded();
                 })
+            break;
+
+            case CONTENT_TYPES.PARTNER.ID:
+                this.contentListService.loadPartners(this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                });
             break;
 
             case CONTENT_TYPES.PAYMENT.ID:
@@ -861,6 +877,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
                 this.contentListService.searchContactSinisters(this.contactId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.PARTNER.ID:
+                console.log('this.query: ',this.query);
+                this.contentListService.searchPartners(this.page, this.query).subscribe( () => {
                     this._contentLoaded();
                 })
             break;

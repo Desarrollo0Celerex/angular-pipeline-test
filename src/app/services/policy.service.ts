@@ -23,8 +23,8 @@ const routes: any = {
     endorseContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorse',
     cancelContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/cancel',
     renewContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/renew',
-    deleteContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/delete',
-    deleteContactCompletePolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/delete-complete',
+    deleteIncompletePolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/incomplete',
+    deleteActivePolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/active',
     reissueContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/reissue',
     contactHistoryPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/history',
     policies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies',
@@ -87,9 +87,9 @@ export class PolicyService {
      * @param  policyId    The policy ID to delete
      * @return             Notice of action done
      */
-    deleteContactPolicy(contactId: string, policyId: string): Observable<void> {
-        const route: string = routes.deleteContactPolicy(this._workspaceId, contactId, policyId);
-        return this._httpClient.post<void>(route, null);
+    deleteIncompletePolicy(contactId: string, policyId: string): Observable<void> {
+        const route: string = routes.deleteIncompletePolicy(this._workspaceId, contactId, policyId);
+        return this._httpClient.delete<void>(route);
     }
 
     /**
@@ -98,9 +98,9 @@ export class PolicyService {
      * @param  policyId    The policy ID to delete
      * @return             Notice of action done
      */
-    deleteContactCompletePolicy(contactId: string, policyId: string): Observable<void> {
-        const route: string = routes.deleteContactCompletePolicy(this._workspaceId, contactId, policyId);
-        return this._httpClient.post<void>(route, null);
+    deleteActivePolicy(contactId: string, policyId: string): Observable<void> {
+        const route: string = routes.deleteActivePolicy(this._workspaceId, contactId, policyId);
+        return this._httpClient.delete<void>(route);
     }
 
     /**

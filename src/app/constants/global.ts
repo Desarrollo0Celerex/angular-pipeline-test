@@ -107,6 +107,12 @@ export const CLIENT_STATUS: any = {
     INFLUENTIAL: 3,
     LOST: 4
 }
+export const PARTNER_STATUS: any = {
+    OCCASIONAL: 1,
+    FREQUENT: 2,
+    INFLUENTIAL: 3,
+    INACTIVE: 4
+}
 export const POLICY_SOURCES: any = {
     NEW: 1,
     RENEWAL: 2,
@@ -175,6 +181,10 @@ export const CONTENT_TYPES: any = {
     PENDING_RECEIP: {
         ID: 14,
         NAME: 'Recibo'
+    },
+    PARTNER: {
+        ID: 15,
+        NAME: 'Socio'
     }
 }
 export const CONTACT_TYPES: any = {
@@ -214,7 +224,8 @@ export const POLICY_RECORD_TYPES: any = {
     RENEWED: 6,
     REISSUED: 7,
     CANCELLED: 8,
-    SINISTER: 9
+    SINISTER: 9,
+    RENOVATED: 10
 }
 export const CONTACT_PROFILE_PAGE_TYPES: any = {
     QUOTATIONS: {

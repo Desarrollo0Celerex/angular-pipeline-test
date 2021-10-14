@@ -14,7 +14,7 @@ export class ModalConfirmDeletePolicyService {
      * @param  policyId  The policy ID to delete
      * @return           Notice of action done
      */
-    deleteContactPolicy(contactId: string, policyId: string): Observable<void> {
-        return this._policyService.deleteContactPolicy(contactId, policyId);
+    deleteIncompletePolicy(contactId: string, policyId: string): Observable<void> {
+        return this._policyService.deleteIncompletePolicy(contactId, policyId);
     }
 }
