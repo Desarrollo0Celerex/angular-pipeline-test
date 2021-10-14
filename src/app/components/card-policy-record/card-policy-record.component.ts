@@ -144,6 +144,7 @@ export class CardPolicyRecordComponent implements OnInit {
 
                 case POLICY_RECORD_TYPES.RENEWED:
                 case POLICY_RECORD_TYPES.REISSUED:
+                case POLICY_RECORD_TYPES.RENOVATED:
                     let insurerName: string = (!!this.policyRecord.insurerName) ? this.policyRecord.insurerName : 'INDEFINIDO';
                     insurerName = insurerName;
                     this.policyRecord.policyRecordTypeDescription = this.policyRecord.policyRecordTypeDescription.replace('[insurerName]', '<strong>'+insurerName+'</strong>');
