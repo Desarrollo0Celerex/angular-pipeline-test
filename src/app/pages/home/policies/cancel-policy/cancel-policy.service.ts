@@ -50,8 +50,8 @@ export class CancelPolicyService {
         return this._policyService.cancelPolicy(contactId, policyId, requestBody);
     }
 
-    deletePolicy(contactId: string, policyId: string): Observable<void> {
-        return this._policyService.deleteContactCompletePolicy(contactId, policyId);
+    deleteActivePolicy(contactId: string, policyId: string): Observable<void> {
+        return this._policyService.deleteActivePolicy(contactId, policyId);
     }
 
     /**

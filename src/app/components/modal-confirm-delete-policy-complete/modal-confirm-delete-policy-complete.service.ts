@@ -9,12 +9,12 @@ export class ModalConfirmDeletePolicyCompleteService {
     constructor(private _policyService: PolicyService) { }
 
     /**
-     * Delete the contact policy
+     * Delete the active policy
      * @param  contactId The contact ID
      * @param  policyId  The policy ID to delete
      * @return           Notice of action done
      */
-    deleteContactPolicy(contactId: string, policyId: string): Observable<void> {
-        return this._policyService.deleteContactCompletePolicy(contactId, policyId);
+    deleteActivePolicy(contactId: string, policyId: string): Observable<void> {
+        return this._policyService.deleteActivePolicy(contactId, policyId);
     }
 }

@@ -34,7 +34,7 @@ export class ModalConfirmDeletePolicyComponent {
     onClickConfirmDeletePolicy(): void {
         ModalPlugin.hide(this.modalId);
         this._loadingService.show();
-        this._modalConfirmDeletePolicyService.deleteContactPolicy(this.contactId, this.policyId).subscribe( () => {
+        this._modalConfirmDeletePolicyService.deleteIncompletePolicy(this.contactId, this.policyId).subscribe( () => {
             this._loadingService.hide();
             this.policyDeleted.emit(this.policyId);
         });

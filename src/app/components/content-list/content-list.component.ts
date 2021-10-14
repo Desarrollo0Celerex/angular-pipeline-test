@@ -213,7 +213,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     deleteRenewedPolicy(): void {
         this._loadingService.show();
-        this.contentListService.deletePolicy(this.contactId, this.selectedPolicyIdToDelete).subscribe(() => {
+        this.contentListService.deleteRenewedPolicy(this.contactId, this.selectedPolicyIdToDelete).subscribe(() => {
             this._loadingService.hide();
             ModalPlugin.show(this.modalIdConfirmRenewPolicy);
             this.containerIncompletePolicies.deletePolicyCard(this.selectedPolicyIdToDelete);

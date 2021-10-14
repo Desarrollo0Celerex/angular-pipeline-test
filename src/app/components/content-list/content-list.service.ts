@@ -51,8 +51,8 @@ export class ContentListService {
         this.contentResultData = this._initContentResultData();
     }
 
-    deletePolicy(contactId: string, policyId: string): Observable<void> {
-        return this._policyService.deleteContactPolicy(contactId, policyId);
+    deleteRenewedPolicy(contactId: string, policyId: string): Observable<void> {
+        return this._policyService.deleteActivePolicy(contactId, policyId);
     }
 
     /**
