@@ -73,7 +73,7 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - CONTACT GENDER * -->
                                     <label class="form-label">Género</label>
-                                    <select [id]="selectIdGenders" class="form-control select2 custom-select {{getValidationClass('genderId')}}" formControlName="genderId" data-placeholder="Elegir Opción">
+                                    <select class="form-control custom-select {{getValidationClass('genderId')}}" formControlName="genderId" data-placeholder="Elegir Opción">
                                         <option [value]="gender.genderId" *ngFor="let gender of showContactDataService.genders">{{gender.name}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('genderId')}}</div>
@@ -96,7 +96,7 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - CONTACT CIVIL STATUS -->
                                     <label class="form-label">Estado Civil</label>
-                                    <select [id]="selectIdCivilStatus" class="form-control select2 custom-select {{getValidationClass('civilStatusId')}}" formControlName="civilStatusId" data-placeholder="Elegir Opción">
+                                    <select class="form-control custom-select {{getValidationClass('civilStatusId')}}" formControlName="civilStatusId" data-placeholder="Elegir Opción">
                                         <option [value]="civilStatus.civilStatusId" *ngFor="let civilStatus of showContactDataService.civilStatus">{{civilStatus.name}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('civilStatusId')}}</div>
@@ -106,7 +106,7 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - CONTACT OCCUPATION -->
                                     <label class="form-label">Ocupación</label>
-                                    <select [id]="selectIdContactOccupations" class="form-control select2 custom-select {{getValidationClass('contactOccupationId')}}" data-placeholder="Elegir Opción" formControlName="contactOccupationId">
+                                    <select class="form-control custom-select {{getValidationClass('contactOccupationId')}}" data-placeholder="Elegir Opción" formControlName="contactOccupationId">
                                         <option [value]="contactOccupation.contactOccupationId" *ngFor="let contactOccupation of showContactDataService.contactOccupations">{{contactOccupation.name}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('contactOccupationId')}}</div>
@@ -116,7 +116,7 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - CONTACT OFFSPRING -->
                                     <label class="form-label">Hijos</label>
-                                    <select [id]="selectIdOffstrings" class="form-control select2 custom-select {{getValidationClass('offspringId')}}" data-placeholder="Elegir Opción" formControlName="offspringId">
+                                    <select class="form-control custom-select {{getValidationClass('offspringId')}}" data-placeholder="Elegir Opción" formControlName="offspringId">
                                         <option [value]="offspring.offspringId" *ngFor="let offspring of showContactDataService.offsprings">{{offspring.name}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('offspringId')}}</div>
@@ -258,7 +258,7 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - CONTACT ALT RELATION -->
                                     <label class="form-label">Relación</label>
-                                    <select [id]="selectIdSecondaryContactRelations" class="form-control select2 custom-select {{getValidationClass('secondaryContactRelationId')}}" data-placeholder="Elegir Opción" formControlName="secondaryContactRelationId">
+                                    <select class="form-control custom-select {{getValidationClass('secondaryContactRelationId')}}" data-placeholder="Elegir Opción" formControlName="secondaryContactRelationId">
                                         <option [value]="contactRelation.contactRelationId" *ngFor="let contactRelation of showContactDataService.contactRelations">{{contactRelation.name}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('secondaryContactRelationId')}}</div>
@@ -347,8 +347,10 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - CONTACT ADDRESS STATE -->
                                     <label class="form-label">Estado</label>
-                                    <input type="text" class="form-control {{getValidationClass('state')}}" formControlName="state">
-                                    <div class="invalid-feedback">{{getErrorMessage('state')}}</div>
+                                    <select class="form-control custom-select {{getValidationClass('stateId')}}" data-placeholder="Elegir Opción" formControlName="stateId">
+                                        <option [value]="state.stateId" *ngFor="let state of showContactDataService.states">{{state.name}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">{{getErrorMessage('stateId')}}</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -363,8 +365,10 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - CONTACT ADDRESS COUNTRY -->
                                     <label class="form-label">País</label>
-                                    <input type="text" class="form-control {{getValidationClass('country')}}" formControlName="country">
-                                    <div class="invalid-feedback">{{getErrorMessage('country')}}</div>
+                                    <select class="form-control custom-select" formControlName="countryId" (change)="loadCountryStates()">
+                                        <option [value]="country.countryId" *ngFor="let country of showContactDataService.countries">{{country.name}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">{{getErrorMessage('countryId')}}</div>
                                 </div>
                             </div>
                         </div>

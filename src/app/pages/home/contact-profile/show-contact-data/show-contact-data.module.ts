@@ -16,6 +16,8 @@ import { ContactOccupationService } from '@services/contact-occupation.service';
 import { ContactRelationService } from '@services/contact-relation.service';
 import { GendersService } from '@services/genders.service';
 import { OffspringService } from '@services/offspring.service';
+import { CountryService } from '@services/country.service';
+import { StateService } from '@services/state.service';
 
 import { ShowContactDataRoutingModule } from './show-contact-data-routing.module';
 import { ShowContactDataPage } from './show-contact-data.page';
@@ -36,6 +38,16 @@ import { ShowContactDataPage } from './show-contact-data.page';
     ReactiveFormsModule,
     ShowContactDataRoutingModule
   ],
-  providers: [CivilStatusService, ContactService, ContactOccupationService, ContactRelationService, DatePipe, GendersService, OffspringService]
+  providers: [
+      CivilStatusService,
+      ContactService,
+      ContactOccupationService,
+      ContactRelationService,
+      DatePipe,
+      GendersService,
+      OffspringService,
+      CountryService,
+      StateService,
+  ]
 })
 export class ShowContactDataModule { }
