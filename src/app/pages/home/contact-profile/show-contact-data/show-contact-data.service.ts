@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 import { BRAND_NAME_LENGTH, DEFAULT_PHONE_CODE_ID, EMAIL_LENGTH, FREE_TEXT_LENGTH, OWN_NAME_LENGTH, WEB_LINK_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
+
 import { CivilStatus } from '@interfaces/civil-status.interface';
 import { Contact } from '@interfaces/contact.interface';
 import { ContactOccupation } from '@interfaces/contact-occupation.interface';
@@ -14,12 +15,17 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { Gender } from '@interfaces/gender.interface';
 import { Offspring } from '@interfaces/offspring.interface';
 import { UpdateContactDataSend } from '@interfaces/update-contact-data-send.interface';
+import { Country } from '@interfaces/country.interface';
+import { State } from '@interfaces/state.interface';
+
 import { CivilStatusService } from '@services/civil-status.service';
 import { ContactService } from '@services/contact.service';
 import { ContactOccupationService } from '@services/contact-occupation.service';
 import { ContactRelationService } from '@services/contact-relation.service';
 import { GendersService } from '@services/genders.service';
 import { OffspringService } from '@services/offspring.service';
+import { CountryService } from '@services/country.service';
+import { StateService } from '@services/state.service';
 
 @Injectable()
 export class ShowContactDataService {
@@ -30,6 +36,8 @@ export class ShowContactDataService {
     contactRelations: ContactRelation[] = [];
     genders: Gender[] = [];
     offsprings: Offspring[] = [];
+    countries: Country[] = [];
+    states: State[] = [];
 
     constructor(
         private _civilStatusService: CivilStatusService,
@@ -39,7 +47,9 @@ export class ShowContactDataService {
         private _datePipe: DatePipe,
         private _formBuilder: FormBuilder,
         private _gendersService: GendersService,
-        private _offspringService: OffspringService
+        private _offspringService: OffspringService,
+        private _countryService: CountryService,
+        private _stateService: StateService
     ) { }
 
     get f() {
@@ -75,9 +85,9 @@ export class ShowContactDataService {
                 interiorNumber: [this.contact.interiorNumber || '', [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
                 colony: [this.contact.colony || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
                 city: [this.contact.city || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                state: [this.contact.state || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                stateId: [this.contact.stateId || '', [Validators.required]],
                 postalCode: [this.contact.postalCode || '', [ValidatorsHelper.postalCode]],
-                country: [this.contact.country || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                countryId: [this.contact.countryId || '', [Validators.required]],
                 contactTypeId: [this.contact.contactTypeId]
             });
         }
@@ -106,9 +116,9 @@ export class ShowContactDataService {
                 interiorNumber: [this.contact.interiorNumber || '', [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
                 colony: [this.contact.colony || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
                 city: [this.contact.city || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                state: [this.contact.state || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                stateId: [this.contact.stateId || '', [Validators.required]],
                 postalCode: [this.contact.postalCode || '', [ValidatorsHelper.postalCode]],
-                country: [this.contact.country || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                countryId: [this.contact.countryId || '', [Validators.required]],
                 contactTypeId: [this.contact.contactTypeId]
             });
         }
@@ -140,14 +150,11 @@ export class ShowContactDataService {
      * Load the civil status
      * @return           Notice of action done
      */
-    loadCivilStatus(): Observable<void> {
+    loadCivilStatus(): void {
         const fields: string = 'civilStatusId,name';
-        return this._civilStatusService.getCivilStatus(fields).pipe(
-            tap((res: HttpResponse) => {
-                this.civilStatus = res.data;
-            }),
-            map(() => { })
-        )
+        this._civilStatusService.getCivilStatus(fields).subscribe((res: HttpResponse) => {
+            this.civilStatus = res.data;
+        });
     }
 
     /**
@@ -156,69 +163,72 @@ export class ShowContactDataService {
      * @return           Notice of action done
      */
     loadContact(contactId: string): Observable<void> {
-        const fields: string = 'name,namePaternal,nameMaternal,genderId,birthdate,civilStatusId,contactOccupationId,offspringId,companyName,brandName,rfc,website,secondaryContactName,secondaryContactRelationId,secondaryContactPhoneCodeId,secondaryContactPhoneNumber,secondaryContactEmail,street,exteriorNumber,interiorNumber,colony,city,state,postalCode,country,phoneCodeId,phoneNumber,email,contactTypeId';
+        const fields: string = 'name,namePaternal,nameMaternal,genderId,birthdate,civilStatusId,contactOccupationId,offspringId,companyName,brandName,rfc,website,secondaryContactName,secondaryContactRelationId,secondaryContactPhoneCodeId,secondaryContactPhoneNumber,secondaryContactEmail,street,exteriorNumber,interiorNumber,colony,city,stateId,postalCode,countryId,phoneCodeId,phoneNumber,email,contactTypeId';
         return this._contactService.getContact(contactId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.contact = res.data;
+                this.loadCountryStates(res.data.countryId);
             }),
             map(() => { })
-        )
+        );
     }
 
     /**
      * Load the cantact occupations
      * @return           Notice of action done
      */
-    loadContactOccupations(): Observable<void> {
+    loadContactOccupations(): void {
         const fields: string = 'contactOccupationId,name';
-        return this._contactOccupationService.getContactOccupations(fields).pipe(
-            tap((res: HttpResponse) => {
-                this.contactOccupations = res.data;
-            }),
-            map(() => { })
-        )
+        this._contactOccupationService.getContactOccupations(fields).subscribe((res: HttpResponse) => {
+            this.contactOccupations = res.data;
+        });
     }
 
     /**
      * Load the cantact occupations
      * @return Notice of action done
      */
-    loadContactRelations(): Observable<void> {
+    loadContactRelations(): void {
         const fields: string = 'contactRelationId,name';
-        return this._contactRelationService.getContactRelations(fields).pipe(
-            tap((res: HttpResponse) => {
-                this.contactRelations = res.data;
-            }),
-            map(() => { })
-        )
+        this._contactRelationService.getContactRelations(fields).subscribe((res: HttpResponse) => {
+            this.contactRelations = res.data;
+        });
+    }
+
+    loadCountries(): void {
+        const fields: string = 'countryId,name';
+        this._countryService.getCountries(fields).subscribe((res: HttpResponse) => {
+            this.countries = res.data;
+        })
+    }
+
+    loadCountryStates(countryId: number): void {
+        const fields: string = 'stateId,name';
+        this._stateService.getCountryStates(countryId, fields).subscribe((res: HttpResponse) => {
+            this.states = res.data;
+        })
     }
 
     /**
      * Load the genders
      * @return  Notice of action done
      */
-    loadGenders(): Observable<void> {
+    loadGenders(): void {
         const fields: string = 'genderId,name';
-        return this._gendersService.getGenders(fields).pipe(
-            tap((res: HttpResponse) => {
-                this.genders = res.data;
-            }),
-            map(() => { })
-        )
+        this._gendersService.getGenders(fields).subscribe((res: HttpResponse) => {
+            this.genders = res.data;
+        });
     }
 
     /**
      * Load the offsprings
      * @return  Notice of action done
      */
-    loadOffsprings(): Observable<void> {
+    loadOffsprings(): void {
         const fields: string = 'offspringId,name';
-        return this._offspringService.getOffsprings(fields).pipe(
-            tap( (res: HttpResponse) => {
-                this.offsprings = res.data;
-            }),
-            map(() => { })
-        );
+        this._offspringService.getOffsprings(fields).subscribe((res: HttpResponse) => {
+            this.offsprings = res.data;
+        });
     }
 
     /**

@@ -9,10 +9,8 @@ import { LoadingService } from '@services/loading.service';
 
 import { ShowContactDataService } from './show-contact-data.service';
 
-declare var $: any;
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
-declare var Select2Plugin: any;
 
 @Component({
   selector: 'agt-show-contact-data',
@@ -29,11 +27,6 @@ export class ShowContactDataPage implements OnInit {
     contactId: string = '';
     modalIdIncompleteContactData: string = 'agt-incomplete-contact-data';
     modalIdTransferContact: string = 'agt-transfer-contact';
-    selectIdContactOccupations: string = 'agt-contact-occupations';
-    selectIdSecondaryContactRelations: string = 'agt-secondary-contact-relations';
-    selectIdCivilStatus: string = 'agt-civil-status';
-    selectIdGenders: string = 'agt-genders';
-    selectIdOffstrings: string = 'agt-offsprings';
     private _isFormSubmitted: boolean = false;
 
     constructor(
@@ -65,6 +58,11 @@ export class ShowContactDataPage implements OnInit {
     getValidationClass(constrolName: string): string {
         const control: AbstractControl | null = this.showContactDataService.contactForm.get(constrolName);
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+    }
+
+    loadCountryStates(): void {
+        this.showContactDataService.f.stateId.setValue(null);
+        this.showContactDataService.loadCountryStates(this.showContactDataService.f.countryId.value);
     }
 
     /**
@@ -144,16 +142,6 @@ export class ShowContactDataPage implements OnInit {
     }
 
     /**
-     * Load the civil status
-     */
-    private _loadCivilStatus(): void {
-        this.showContactDataService.loadCivilStatus().subscribe(() => {
-            Select2Plugin.initSelect();
-            this._onChangeCivilId();
-        })
-    }
-
-    /**
      * Load the contact data
      * Build the contact form
      */
@@ -164,53 +152,14 @@ export class ShowContactDataPage implements OnInit {
             } else {
                 this.showContactDataService.buildCompanyForm();
             }
-            this.showContactDataService.desableFormFields();
-            this._loadGenders();
             this._initCalendars();
-            this._loadOffsprings();
-            this._loadCivilStatus();
-            this._loadContactRelations();
-            this._loadContactOccupations();
-        })
-    }
-
-    /**
-     * Load the genders
-     */
-    private _loadContactOccupations(): void {
-        this.showContactDataService.loadContactOccupations().subscribe(() => {
-            Select2Plugin.initSelect();
-            this._onChangeContactOccupationId();
-        })
-    }
-
-    /**
-     * Load the genders
-     */
-    private _loadContactRelations(): void {
-        this.showContactDataService.loadContactRelations().subscribe(() => {
-            Select2Plugin.initSelect();
-            this._onChangeSecondaryContactRelationId();
-        })
-    }
-
-    /**
-     * Load the genders
-     */
-    private _loadGenders(): void {
-        this.showContactDataService.loadGenders().subscribe(() => {
-            Select2Plugin.initSelect();
-            this._onChangeGenderId();
-        })
-    }
-
-    /**
-     * Load the offsprings
-     */
-    private _loadOffsprings(): void {
-        this.showContactDataService.loadOffsprings().subscribe(() => {
-            Select2Plugin.initSelect();
-            this._onChangeOffspringId();
+            this.showContactDataService.desableFormFields();
+            this.showContactDataService.loadGenders()
+            this.showContactDataService.loadOffsprings();
+            this.showContactDataService.loadCivilStatus();
+            this.showContactDataService.loadContactRelations();
+            this.showContactDataService.loadContactOccupations();
+            this.showContactDataService.loadCountries();
         })
     }
 
@@ -222,51 +171,6 @@ export class ShowContactDataPage implements OnInit {
      */
     private _onChangeDate(selectorId: string, changedValue: string, context: ShowContactDataPage): void {
         context.showContactDataService.contactForm.patchValue({[selectorId]: changedValue});
-    }
-
-    /**
-     * Event to change the gender ID value
-     */
-    private _onChangeCivilId(): void {
-        $('select#'+this.selectIdCivilStatus).on('change', (element: any) => {
-            this.showContactDataService.contactForm.patchValue({civilStatusId: element.currentTarget.value});
-        });
-    }
-
-    /**
-     * Event to change the gender ID value
-     */
-    private _onChangeContactOccupationId(): void {
-        $('select#'+this.selectIdContactOccupations).on('change', (element: any) => {
-            this.showContactDataService.contactForm.patchValue({contactOccupationId: element.currentTarget.value});
-        });
-    }
-
-    /**
-     * Event to change the gender ID value
-     */
-    private _onChangeSecondaryContactRelationId(): void {
-        $('select#'+this.selectIdSecondaryContactRelations).on('change', (element: any) => {
-            this.showContactDataService.contactForm.patchValue({secondaryContactRelationId: element.currentTarget.value});
-        });
-    }
-
-    /**
-     * Event to change the gender ID value
-     */
-    private _onChangeGenderId(): void {
-        $('select#'+this.selectIdGenders).on('change', (element: any) => {
-            this.showContactDataService.contactForm.patchValue({genderId: element.currentTarget.value});
-        });
-    }
-
-    /**
-     * Event to change the offspring ID value
-     */
-    private _onChangeOffspringId(): void {
-        $('select#'+this.selectIdOffstrings).on('change', (element: any) => {
-            this.showContactDataService.contactForm.patchValue({offspringId: element.currentTarget.value});
-        });
     }
 
 }
