@@ -26,6 +26,8 @@ export class UpdateContactFilePage implements OnInit {
     contactProfileMessage: string = 'Selecciona el archivo que deseas cargar en el expediente de';
     private _allowedFileTypes: string[] = ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'mail', 'eml', 'doc', 'docx', 'txt', 'csv', 'xls', 'xlsx', 'zip', 'rar'];
     private _isFormSubmitted: boolean = false;
+    private _canShowPreview: boolean = true;
+    private _maxFileSize: string = '6M';
 
     constructor(
         public updateContactFileService: UpdateContactFileService,
@@ -37,7 +39,7 @@ export class UpdateContactFilePage implements OnInit {
 
     ngOnInit(): void {
         this._catchParams();
-        DropifyPlugin.init(FILE_TYPES.MIXED, this._allowedFileTypes);
+        DropifyPlugin.init(FILE_TYPES.MIXED, this._allowedFileTypes, this._canShowPreview, this._maxFileSize);
         this.updateContactFileService.buildForm();
         this.updateContactFileService.loadContactFileTypes();
         if(!!this.contactFileData) {
