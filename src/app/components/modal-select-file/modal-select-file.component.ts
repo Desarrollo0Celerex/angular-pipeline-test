@@ -17,6 +17,8 @@ export class ModalSelectFileComponent implements OnChanges {
     @Input() data: ModalSelectFileData | null;
     @Output() fileSelected: EventEmitter<File>;
     @ViewChild('buttonUploadFile') buttonUploadFile: ElementRef<HTMLElement> | null;
+    private _canShowPreview: boolean = true;
+    private _maxFileSize: string = '6M';
 
     constructor() {
         this.modalId = '';
@@ -27,7 +29,7 @@ export class ModalSelectFileComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.data.currentValue) {
-            DropifyPlugin.init(changes.data.currentValue.fileType, changes.data.currentValue.formats);
+            DropifyPlugin.init(changes.data.currentValue.fileType, changes.data.currentValue.formats, this._canShowPreview, this._maxFileSize);
         }
     }
 

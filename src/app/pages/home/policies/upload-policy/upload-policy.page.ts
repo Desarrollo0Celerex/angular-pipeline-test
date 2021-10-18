@@ -31,6 +31,8 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     private _comesFromRenewalPolicy: boolean = false;
     private _isFormSubmitted: boolean;
     private _subParams: any;
+    private _canShowPreview: boolean = true;
+    private _maxFileSize: string = '6M';
 
     constructor(
         public uploadPolicyService: UploadPolicyService,
@@ -50,7 +52,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this._catchParams();
-        DropifyPlugin.init(FILE_TYPES.DOCUMENT, this._allowedFileTypes);
+        DropifyPlugin.init(FILE_TYPES.DOCUMENT, this._allowedFileTypes, this._canShowPreview, this._maxFileSize);
         this.uploadPolicyService.buildPolicyForm();
         this._getContactPolicy();
         this._comesFromRenewalPolicy = (!!history.state && !!history.state.comesFromRenewalPolicy) ? true : false;
