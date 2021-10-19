@@ -1,4 +1,8 @@
 import { CONTENT_TYPES } from '@constants/global';
+import { PERIODS } from '@constants/global';
+import { RangeData } from '@interfaces/range-data.interface';
+import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
+import * as moment from 'moment';
 
 export class UtilitiesHelper {
 
@@ -70,5 +74,19 @@ export class UtilitiesHelper {
             return filterName + '[=]' + element;
         });
         return filterIds.join(',');
+    }
+
+    static generateRange(statsPeriodData: StatsPeriodData): RangeData {
+        const startDateAux: any = moment(statsPeriodData.startDate, 'DD/MM/YYYY');
+        const endDateAux: any = moment(statsPeriodData.endDate, 'DD/MM/YYYY');
+        const comparedPeriodRangeStart: string = ((statsPeriodData.periodId == PERIODS.LAST_YEAR) ? startDateAux.subtract(1, 'years') : startDateAux.subtract(1, 'months')).format('DD/MM/YYYY');
+        const comparedPeriodRangeEnd: string = ((statsPeriodData.periodId == PERIODS.LAST_YEAR) ?  endDateAux.subtract(1, 'years') : endDateAux.subtract(1, 'months')).format('DD/MM/YYYY');
+        const range: RangeData = {
+            selectedRangeStart: statsPeriodData.startDate,
+            selectedRangeEnd: statsPeriodData.endDate,
+            comparedRangeStart: comparedPeriodRangeStart,
+            comparedRangeEnd: comparedPeriodRangeEnd
+        }
+        return range;
     }
 }

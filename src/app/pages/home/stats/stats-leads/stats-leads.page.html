@@ -24,10 +24,10 @@
 	<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
 		<div class="row mb-3">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-				<agt-chart-generated-leads [range]="model.range"></agt-chart-generated-leads>
+				<agt-chart-generated-leads [range]="range"></agt-chart-generated-leads>
 			</div>
 			<div class="col-xl-9 col-lg-9 col-md-6 col-sm-12">
-				<agt-chart-lead-acquisition-channels [range]="model.range"></agt-chart-lead-acquisition-channels>
+				<agt-chart-lead-acquisition-channels [range]="range"></agt-chart-lead-acquisition-channels>
 			</div>
 			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
 				<div class="card">
@@ -48,13 +48,13 @@
 				</div>
 			</div>
 		</div>
-		<agt-container-lead-channels-kpis [range]="model.range"></agt-container-lead-channels-kpis>
+		<agt-container-lead-channels-kpis [range]="range"></agt-container-lead-channels-kpis>
 		<div class="row mb-3">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-				<agt-chart-generated-quotes [range]="model.range"></agt-chart-generated-quotes>
+				<agt-chart-generated-quotes [range]="range"></agt-chart-generated-quotes>
 			</div>
 			<div class="col-xl-9 col-lg-9 col-md-6 col-sm-12">
-				<agt-chart-lead-channels-with-higher-conversion [range]="model.range"></agt-chart-lead-channels-with-higher-conversion>
+				<agt-chart-lead-channels-with-higher-conversion [range]="range"></agt-chart-lead-channels-with-higher-conversion>
 			</div>
 			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
 				<div class="card">
@@ -74,8 +74,8 @@
 				</div>
 			</div>
 		</div>
-		<agt-container-lead-conversion-kpis [range]="model.range"></agt-container-lead-conversion-kpis>
-		<agt-container-lead-partner-kpis [range]="model.range"></agt-container-lead-partner-kpis>
-		<agt-container-lead-users-kpis [range]="model.range"></agt-container-lead-users-kpis>
+		<agt-container-lead-conversion-kpis [range]="range"></agt-container-lead-conversion-kpis>
+		<agt-container-lead-users-kpis [range]="range"></agt-container-lead-users-kpis>
+		<agt-container-lead-partner-kpis [range]="range"></agt-container-lead-partner-kpis>
 	</div>
 </div>

@@ -5,11 +5,13 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { RangeStat } from '@interfaces/range-stat.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     clients: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/clients',
-    totalClients: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/clients/count'
+    totalClients: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/clients/count',
+    clientsGeneratedStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/clients/clients-generated'
 }
 
 @Injectable()
@@ -51,6 +53,17 @@ export class ClientService {
         const route: string = routes.totalClients(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getClientsGeneratedStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+        const route: string = routes.clientsGeneratedStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);

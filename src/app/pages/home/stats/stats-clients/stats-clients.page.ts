@@ -6,12 +6,12 @@ import { RangeData } from '@interfaces/range-data.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
 @Component({
-  selector: 'agt-stats-leads',
-  templateUrl: './stats-leads.page.html',
+  selector: 'agt-stats-clients',
+  templateUrl: './stats-clients.page.html',
   styles: [
   ]
 })
-export class StatsLeadsPage {
+export class StatsClientsPage {
     ROUTES_NAME: any = ROUTES_NAME;
     range: RangeData | null = null;
 
