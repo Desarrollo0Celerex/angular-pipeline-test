@@ -89,4 +89,11 @@ export class UtilitiesHelper {
         }
         return range;
     }
+
+    static getRangeDays(startDate: string, endDate: string): number {
+        const startDateAux: any = moment(startDate, 'DD/MM/YYYY');
+        const endDateAux: any = moment(endDate, 'DD/MM/YYYY');
+        const days: number = endDateAux.diff(startDateAux, 'days') + 1;
+        return days;
+    }
 }

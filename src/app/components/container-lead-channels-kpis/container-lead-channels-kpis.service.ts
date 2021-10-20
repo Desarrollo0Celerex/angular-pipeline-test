@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
-import * as moment from 'moment';
 
 import { CONTACT_SOURCE_TYPES, PERIOD_STATUS } from '@constants/global';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { KpiOne } from '@interfaces/kpi-one.interface';
 import { RangeData } from '@interfaces/range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
@@ -150,12 +150,8 @@ export class ContainerLeadChannelsKpisService {
     }
 
     loadDailyAverage(data: number[], range: RangeData): void {
-        const selectedStartDate: any = moment(range.selectedRangeStart, 'DD/MM/YYYY');
-        const selectedEndDate: any = moment(range.selectedRangeEnd, 'DD/MM/YYYY');
-        const selectedDays: number = selectedEndDate.diff(selectedStartDate, 'days') + 1;
-        const comparedStartDate: any = moment(range.comparedRangeStart, 'DD/MM/YYYY');
-        const comparedEndDate: any = moment(range.comparedRangeEnd, 'DD/MM/YYYY');
-        const comparedDays: number = comparedEndDate.diff(comparedStartDate, 'days') + 1;
+        const selectedDays: number = UtilitiesHelper.getRangeDays(range.selectedRangeStart, range.selectedRangeEnd);
+        const comparedDays: number = UtilitiesHelper.getRangeDays(range.comparedRangeStart, range.comparedRangeEnd);
         this.channelKpis[DAILY_AVERAGE].selectedValue = data[PERIOD_STATUS.SELECTED] / selectedDays;
         this.channelKpis[DAILY_AVERAGE].comparedValue = data[PERIOD_STATUS.COMPARED] / comparedDays;
     }

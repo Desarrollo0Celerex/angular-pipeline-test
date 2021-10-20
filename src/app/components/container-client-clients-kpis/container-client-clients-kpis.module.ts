@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CardKpiOneModule } from '@components/card-kpi-one/card-kpi-one.module';
+import { ClientService } from '@services/client.service';
 import { InsuranceService } from '@services/insurance.service';
+import { InsurerService } from '@services/insurer.service';
 
 import { ContainerClientClientsKpisComponent } from './container-client-clients-kpis.component';
 
@@ -18,7 +20,9 @@ import { ContainerClientClientsKpisComponent } from './container-client-clients-
     CardKpiOneModule
   ],
   providers: [
-      InsuranceService
+      ClientService,
+      InsuranceService,
+      InsurerService
   ]
 })
 export class ContainerClientClientsKpisModule { }

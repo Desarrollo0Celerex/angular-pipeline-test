@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
-import * as moment from 'moment';
 
-import { CONTACT_SOURCE_TYPES, PERIOD_STATUS } from '@constants/global';
+import { PERIOD_STATUS } from '@constants/global';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { KpiOne } from '@interfaces/kpi-one.interface';
 import { RangeData } from '@interfaces/range-data.interface';
-import { Stat } from '@interfaces/stat.interface';
 
-import { ContactSourceService } from '@services/contact-source.service';
-import { ContactSourceTypeService } from '@services/contact-source-type.service';
+import { ClientService } from '@services/client.service';
 import { InsuranceService } from '@services/insurance.service';
+import { InsurerService } from '@services/insurer.service';
 
-const ACTIVE_ISURANCES: number = 0;
+const ACTIVE_INSURANCES: number = 0;
 const ACTIVE_INSURERS: number = 1;
 const TOTAL_GENERATED_CLIENTS: number = 2;
 const DAILY_AVERAGE: number = 3;
@@ -61,7 +60,11 @@ export class ContainerClientClientsKpisService {
         },
     ];
 
-    constructor(private _insuranceService: InsuranceService) { }
+    constructor(
+        private _clientService: ClientService,
+        private _insuranceService: InsuranceService,
+        private _insurerService: InsurerService
+    ) { }
 
     getTotalWorkspaceActiveInsurances(): Observable<number> {
         return this._insuranceService.getTotalActiveInsurances();
@@ -75,13 +78,64 @@ export class ContainerClientClientsKpisService {
         return forkJoin(requests);
     }
 
-    loadActiveInsurances(totalActiveInsurances: number[]) {
-        this.kpis[ACTIVE_ISURANCES].selectedValue = totalActiveInsurances[PERIOD_STATUS.SELECTED];
-        this.kpis[ACTIVE_ISURANCES].comparedValue = totalActiveInsurances[PERIOD_STATUS.COMPARED];
+    getTotalWorkspaceActiveInsurers(): Observable<number> {
+        return this._insurerService.getTotalActiveInsurers();
     }
 
-    loadTotalActiveInsurances(totalWorkspaceActiveInsurances: number): void {
-        this.kpis[ACTIVE_ISURANCES].totalContents = totalWorkspaceActiveInsurances;
+    getTotalActiveInsurers(range: RangeData): Observable<number[]> {
+        const rangeField: string = 'validityStartDate';
+        let requests: Observable<number>[] = [];
+        requests.push(this._insurerService.getTotalActiveInsurers(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
+        requests.push(this._insurerService.getTotalActiveInsurers(rangeField, range.comparedRangeStart, range.comparedRangeEnd));
+        return forkJoin(requests);
+    }
+
+    getTotalWorkspaceGeneratedClients(): Observable<number> {
+        const filters: string = 'clientConversionDate[!=]null';
+        return this._clientService.getTotalClients(filters);
+    }
+
+    getTotalGeneratedClients(range: RangeData): Observable<number[]> {
+        const rangeField: string = 'clientConversionDate';
+        let requests: Observable<number>[] = [];
+        requests.push(this._clientService.getTotalClients('', rangeField, range.selectedRangeStart, range.selectedRangeEnd));
+        requests.push(this._clientService.getTotalClients('', rangeField, range.comparedRangeStart, range.comparedRangeEnd));
+        return forkJoin(requests);
+    }
+
+    loadTotalActiveInsurances(totals: number[]) {
+        this.kpis[ACTIVE_INSURANCES].selectedValue = totals[PERIOD_STATUS.SELECTED];
+        this.kpis[ACTIVE_INSURANCES].comparedValue = totals[PERIOD_STATUS.COMPARED];
+    }
+
+    loadTotalWorkspaceActiveInsurances(total: number): void {
+        this.kpis[ACTIVE_INSURANCES].totalContents = total;
+    }
+
+    loadTotalActiveInsurers(totals: number[]) {
+        this.kpis[ACTIVE_INSURERS].selectedValue = totals[PERIOD_STATUS.SELECTED];
+        this.kpis[ACTIVE_INSURERS].comparedValue = totals[PERIOD_STATUS.COMPARED];
+    }
+
+    loadTotalWorkspaceActiveInsurers(total: number): void {
+        this.kpis[ACTIVE_INSURERS].totalContents = total;
+    }
+
+    loadTotalGeneratedClients(totals: number[]): void {
+        this.kpis[TOTAL_GENERATED_CLIENTS].selectedValue = totals[PERIOD_STATUS.SELECTED];
+        this.kpis[TOTAL_GENERATED_CLIENTS].comparedValue = totals[PERIOD_STATUS.COMPARED];
+    }
+
+    loadTotalWorkspaceGeneratedClients(total: number): void {
+        this.kpis[TOTAL_GENERATED_CLIENTS].totalContents = total;
+        this.kpis[DAILY_AVERAGE].totalContents = total;
+    }
+
+    loadDailyAverage(data: number[], range: RangeData): void {
+        const selectedDays: number = UtilitiesHelper.getRangeDays(range.selectedRangeStart, range.selectedRangeEnd);
+        const comparedDays: number = UtilitiesHelper.getRangeDays(range.comparedRangeStart, range.comparedRangeEnd);
+        this.kpis[DAILY_AVERAGE].selectedValue = data[PERIOD_STATUS.SELECTED] / selectedDays;
+        this.kpis[DAILY_AVERAGE].comparedValue = data[PERIOD_STATUS.COMPARED] / comparedDays;
     }
 
     loadRangeDates(range: RangeData): void {
