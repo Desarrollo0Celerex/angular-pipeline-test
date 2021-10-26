@@ -163,7 +163,7 @@ export class CardPolicyComponent implements OnInit {
             let slackDays: number = 0;
             switch(roleId) {
                 case ROLES.GLOBAL_ADMIN:
-                    slackDays = 180;
+                    slackDays = 300;
                 break;
                 case ROLES.WALLET_MANAGER:
                 case ROLES.INSURANCE_ADVISOR:
