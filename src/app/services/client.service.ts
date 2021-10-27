@@ -11,7 +11,7 @@ import { AuthService } from '@services/auth.service';
 const routes: any = {
     clients: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/clients',
     totalClients: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/clients/count',
-    clientsGeneratedStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/clients/clients-generated'
+    clientsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/clients'
 }
 
 @Injectable()
@@ -62,7 +62,7 @@ export class ClientService {
     }
 
     getClientsGeneratedStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
-        const route: string = routes.clientsGeneratedStats(this._workspaceId);
+        const route: string = routes.clientsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
