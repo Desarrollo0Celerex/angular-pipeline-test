@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ChartGeneratedClientsModule } from '@components/chart-generated-clients/chart-generated-clients.module';
+import { ChartLostClientsModule } from '@components/chart-lost-clients/chart-lost-clients.module';
 import { ContainerClientClientsKpisModule } from '@components/container-client-clients-kpis/container-client-clients-kpis.module';
 import { ContainerClientRetentionKpisModule } from '@components/container-client-retention-kpis/container-client-retention-kpis.module';
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
@@ -21,7 +22,8 @@ import { StatsClientsPage } from './stats-clients.page';
     MenuStatsModule,
     ChartGeneratedClientsModule,
     ContainerClientClientsKpisModule,
-    ContainerClientRetentionKpisModule
+    ContainerClientRetentionKpisModule,
+    ChartLostClientsModule
   ]
 })
 export class StatsClientsModule { }
