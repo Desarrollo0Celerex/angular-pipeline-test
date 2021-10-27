@@ -1,0 +1,71 @@
+<div class="row mt-5">
+	<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+		<agt-container-select-stats-period (statsPeriodSelected)="loadContent($event)"></agt-container-select-stats-period>
+	</div>
+	<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title">Generar Reporte</h3>
+			</div>
+			<div class="card-body">
+				<ol class="breadcrumb1 mt-2">
+					<li class="breadcrumb-item1">Genera un reporte inmediato de los <strong>Clientes Activos</strong>.</li>
+				</ol>
+				<button type="button" class="btn btn-block btn-primary mt-5"><strong>DESCARGAR REPORTE</strong></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row mt-3">
+	<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+		<agt-menu-stats></agt-menu-stats>
+	</div>
+	<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+		<div class="row mb-3">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+				<agt-chart-generated-clients [range]="range"></agt-chart-generated-clients>
+            </div>
+        </div>
+		<agt-container-client-clients-kpis [range]="range"></agt-container-client-clients-kpis>
+		<div class="row mb-3">
+			<!-- AGENTHOS - DATA SUITE GROUP TYPES -->
+			<div class="col-xl-9 col-lg-9 col-md-6 col-sm-12">
+				<div class="card">
+					<div class="card-header pt-2 pb-0 border-bottom-0">
+						<h3 class="card-title">Grupos de Clientes</h3>
+					</div>
+					<!-- AGENTHOS - DATA SUITE CHART -->
+					<div id="agtDataSuiteClientGroups" [ngStyle]="{'height': '200px'}"></div>
+				</div>
+			</div>
+			<!-- //AGENTHOS - DATA SUITE GROUP TYPES -->
+			<!-- AGENTHOS - DATA SUITE CLIENTS INSIGHTS -->
+			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+				<div class="card">
+					<div class="card-header pt-2 pb-0 border-bottom-0">
+						<h3 class="card-title">Insights</h3>
+						<div class="card-options">
+							<i class="fe fe-trending-up mr-1 text-primary fs-30"></i>
+						</div>
+					</div>
+					<div class="card-body text-center">
+						<ol class="breadcrumb1">
+							<li class="breadcrumb-item1">Conoce el comportamiento de los <strong>Grupos de Clientes</strong>.</li>
+						</ol>
+						<a [routerLink]="">
+							<button type="button" class="btn btn-block btn-primary" disabled><strong>VER DETALLES</strong></button>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- //AGENTHOS - DATA SUITE CLIENTS INSIGHTS -->
+		</div>
+		<agt-container-client-retention-kpis [range]="range"></agt-container-client-retention-kpis>
+		<div class="row mb-3">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+				<agt-chart-lost-clients [range]="range"></agt-chart-lost-clients>
+            </div>
+        </div>
+	</div>
+</div>
