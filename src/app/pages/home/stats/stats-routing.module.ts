@@ -13,6 +13,7 @@ const routes: Routes = [{
     children: [
         { path: ROUTES_NAME.statsSnapshot, loadChildren: () => import('@pages/home/stats/stats-snapshot/stats-snapshot.module').then(mod => mod.StatsSnapshotModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
         { path: ROUTES_NAME.statsLeads, loadChildren: () => import('@pages/home/stats/stats-leads/stats-leads.module').then(mod => mod.StatsLeadsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+        { path: ROUTES_NAME.statsClients, loadChildren: () => import('@pages/home/stats/stats-clients/stats-clients.module').then(mod => mod.StatsClientsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
     ]
 }];
 
