@@ -18,7 +18,7 @@ export class ModalSelectFileComponent implements OnChanges {
     @Output() fileSelected: EventEmitter<File>;
     @ViewChild('buttonUploadFile') buttonUploadFile: ElementRef<HTMLElement> | null;
     private _canShowPreview: boolean = true;
-    private _maxFileSize: string = '6M';
+    private _maxFileSize: string = '2M';
 
     constructor() {
         this.modalId = '';

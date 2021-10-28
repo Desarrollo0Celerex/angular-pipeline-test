@@ -32,7 +32,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     private _isFormSubmitted: boolean;
     private _subParams: any;
     private _canShowPreview: boolean = true;
-    private _maxFileSize: string = '6M';
+    private _maxFileSize: string = '2M';
 
     constructor(
         public uploadPolicyService: UploadPolicyService,
