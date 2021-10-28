@@ -14,7 +14,7 @@
                         <!-- AGENTHOS - POLICY ORIGIN -->
                         <div class="col-md-12">
                             <div class="form-group {{getValidationClass('policyFile')}}">
-                                <input class="form-control dropify" type="file" accept="application/pdf" data-max-file-size="6M" formControlName="policyFile" (change)="onChangePolicyFile($event)"/>
+                                <input class="form-control dropify" type="file" accept="application/pdf" data-max-file-size="2M" formControlName="policyFile" (change)="onChangePolicyFile($event)"/>
                                 <div class="invalid-feedback">{{getErrorMessage('policyFile')}}</div>
                             </div>
                         </div>
