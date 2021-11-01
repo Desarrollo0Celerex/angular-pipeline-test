@@ -1,0 +1,33 @@
+<div class="row mt-5">
+    <div class="col-lg-12">
+        <div class="card">
+            <!-- AGENTHOS - POLICY CONTROL HEADER -->
+            <div class="card-header">
+                <h3 class="card-title">Gestión de Póliza</h3>
+            </div>
+            <!-- //AGENTHOS - POLICY CONTROL HEADER -->
+            <!-- AGENTHOS - POLICY CONTROL BODY -->
+            <div class="card-body">
+                <div class="btn-list">
+                    <!-- AGENTHOS - POLICY VIEW -->
+                    <button type="button" class="btn btn-secondary" (click)="showPolicy()" [disabled]="model.policy == null"><strong>VER PÓLIZA</strong></button>
+                    <!-- AGENTHOS - POLICY ENDORSEMENTS -->
+                    <button type="button" class="btn btn-primary" (click)="requestShowPolicyEndorsements()" [disabled]="model.policy == null"><strong>VER ENDOSOS</strong></button>
+                    <!-- AGENTHOS - POLICY PAYMENTS -->
+                    <button type="button" class="btn btn-primary" [disabled]="model.policy == null"><strong>VER PAGOS</strong></button>
+                    <!-- AGENTHOS - POLICY SINISTERS -->
+                    <button type="button" class="btn btn-primary" [disabled]="model.policy == null"><strong>VER SINIESTROS</strong></button>
+                    <!-- AGENTHOS - POLICY RENEWALS -->
+                    <button type="button" class="btn btn-primary" [disabled]="model.policy == null"><strong>VER ENLACES</strong></button>
+                </div>
+            </div>
+            <!-- //AGENTHOS - POLICY CONTROL BODY -->
+        </div>
+    </div>
+</div>
+
+<ng-container *ngIf="!!model.policy">
+    <agt-modal-show-policy-file [modalId]="modalIdShowPolicyFile" [policyUrl]="model.policy.policyUrl"></agt-modal-show-policy-file>
+</ng-container>
+
+<agt-modal-confirm-show-policy-endorsements [modalId]="modalIdConfirmShowPolicyEndorsements" (actionConfirmed)="goToPolicyEndorsements()"></agt-modal-confirm-show-policy-endorsements>

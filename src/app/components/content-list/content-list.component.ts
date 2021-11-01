@@ -720,6 +720,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.PAYMENT_HISTORY.ID:
             case CONTENT_TYPES.SINISTER_HISTORY.ID:
             case CONTENT_TYPES.POLICY_SINISTERS.ID:
+            case CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID:
                 this.cardClasses = 'col-lg-12 mt-5';
             break;
 
@@ -828,6 +829,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.PENDING_RECEIP.ID:
                 this.contentListService.loadPendingReceipts(this.paymentId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID:
+                this.contentListService.loadPolicyEndorsements(this.contactId, this.policyId, this.page).subscribe( () => {
                     this._contentLoaded();
                 })
             break;

@@ -185,6 +185,10 @@ export const CONTENT_TYPES: any = {
     PARTNER: {
         ID: 15,
         NAME: 'Socio'
+    },
+    POLICY_ENDORSEMENTS_HISTORY: {
+        ID: 16,
+        NAME: 'Movimiento'
     }
 }
 export const CONTACT_TYPES: any = {

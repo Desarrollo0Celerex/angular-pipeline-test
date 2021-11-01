@@ -19,6 +19,7 @@ import { SinisterLog } from '@interfaces/sinister-log.interface';
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
+import { EndorsementService } from '@services/endorsement.service';
 import { LeadService } from '@services/lead.service';
 import { PartnerService } from '@services/partner.service';
 import { PaymentService } from '@services/payment.service';
@@ -38,6 +39,7 @@ export class ContentListService {
         private _clientService: ClientService,
         private _contactService: ContactService,
         private _contactFileService: ContactFileService,
+        private _endorsementService: EndorsementService,
         private _leadService: LeadService,
         private _partnerService: PartnerService,
         private _paymentService: PaymentService,
@@ -299,6 +301,25 @@ export class ContentListService {
                     }
                 }
                 this._loadContentResultData(res.data.pendingReceipts);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
+     * Load the history policy of contact
+     * @param  contactId      The contact ID
+     * @param  policyId       The policy ID
+     * @param  page           The page number
+     * @return                Notice of action done
+     */
+    loadPolicyEndorsements(contactId: string, policyId: string, page: number): Observable<void> {
+        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeName,endorsementNumber,contactId,policyId,titularName,endorsementComments';
+        return this._endorsementService.getPolicyEndorsements(contactId, policyId, page, fields).pipe(
+            tap((res: HttpResponse) => {
+                const policies: Policy[] = res.data.items;
+                this.contents = this.contents.concat(policies);
+                this._loadContentResultData(res.data.totalItems);
             }),
             map( () => { })
         )

@@ -83,6 +83,10 @@ const HOME_POLICIES_ROUTES = {
     updateCompletePolicy: (contactId: string, policyId: string) => `workspace/policies/update-complete-policy/${contactId}/${policyId}`,
 }
 
+const HOME_POLICY_ENDORSEMENTS_ROUTES = {
+    policyEndorsementsHistory: (contactId: string, policyId: string) => `workspace/policies/endorsements/history/${contactId}/${policyId}`,
+}
+
 const HOME_QUOTATIONS_ROUTES = {
     createQuotation: (contactId: string) => `workspace/quotations/create-quotation/${contactId}`,
 }
@@ -141,6 +145,7 @@ export const ROUTES_NAME = {
     ...HOME_PARTNER_ROUTES,
     ...HOME_PAYMENTS_ROUTES,
     ...HOME_POLICIES_ROUTES,
+    ...HOME_POLICY_ENDORSEMENTS_ROUTES,
     ...HOME_QUOTATIONS_ROUTES,
     ...HOME_SINISTERS_ROUTES,
     ...HOME_STATS_ROUTES,

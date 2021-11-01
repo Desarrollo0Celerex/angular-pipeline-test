@@ -68,6 +68,7 @@ import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-fo
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
+import { EndorsementService } from '@services/endorsement.service';
 import { LeadService } from '@services/lead.service';
 import { PartnerService } from '@services/partner.service';
 import { PaymentService } from '@services/payment.service';
@@ -150,6 +151,7 @@ import { ContentListService } from './content-list.service';
       ContactService,
       ContactFileService,
       ContentListService,
+      EndorsementService,
       LeadService,
       PartnerService,
       PaymentService,

@@ -62,6 +62,9 @@ const routes: Routes = [
             { path: ROUTES_NAME.showPolicySinisters(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/show-policy-sinisters/show-policy-sinisters.module').then(mod => mod.ShowPolicySinistersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.updateCompletePolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/update-complete-policy/update-complete-policy.module').then(mod => mod.UpdateCompletePolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
+            // Policy endorsements routes
+            { path: ROUTES_NAME.policyEndorsementsHistory(':contactId', ':policyId'), loadChildren: () => import('@pages/home/endorsements/policy-endorsements-history/policy-endorsements-history.module').then(mod => mod.PolicyEndorsementsHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+
             // Quotations routes
             { path: ROUTES_NAME.createQuotation(':contactId'), loadChildren: () => import('@pages/home/quotations/create-quotation/create-quotation.module').then(mod => mod.CreateQuotationModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
