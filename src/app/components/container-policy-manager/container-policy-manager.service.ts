@@ -11,7 +11,7 @@ export class ContainerPolicyManagerService {
     constructor(private _policyService: PolicyService) { }
 
     loadPolicy(contactId: string, policyId: string): void {
-        const fields: string = 'policyUrl';
+        const fields: string = 'policyUrl,paymentId';
         this._policyService.getContactPolicy(contactId, policyId, fields).subscribe((res: HttpResponse) => {
             this.policy = res.data;
         })

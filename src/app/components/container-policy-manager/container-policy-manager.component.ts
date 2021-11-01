@@ -2,6 +2,8 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
+import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
+
 import { ContainerPolicyManagerService } from './container-policy-manager.service';
 
 declare var ModalPlugin: any;
@@ -16,8 +18,11 @@ declare var ModalPlugin: any;
 export class ContainerPolicyManagerComponent implements OnChanges {
     @Input() contactId: string = '';
     @Input() policyId: string = '';
+    policyData: PolicyDataSend | null = null;
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
     modalIdConfirmShowPolicyEndorsements: string = 'modal-confirm-show-policy-endorsements';
+    modalIdConfirmShowPolicyPayments: string = 'modal-confirm-show-policy-payments';
+    modalIdConfirmShowPolicySinisters: string = 'modal-confirm-show-policy-sinisters';
 
     constructor(
         private _router: Router,
@@ -25,6 +30,10 @@ export class ContainerPolicyManagerComponent implements OnChanges {
     ) { }
 
     ngOnChanges(): void {
+        this.policyData = {
+            contactId: this.contactId,
+            policyId: this.policyId
+        }
         this.model.loadPolicy(this.contactId, this.policyId);
     }
 
@@ -38,6 +47,14 @@ export class ContainerPolicyManagerComponent implements OnChanges {
 
     requestShowPolicyEndorsements(): void {
         ModalPlugin.show(this.modalIdConfirmShowPolicyEndorsements);
+    }
+
+    requestShowPolicyPayments(): void {
+        ModalPlugin.show(this.modalIdConfirmShowPolicyPayments);
+    }
+
+    requestShowPolicySinisters(): void {
+        ModalPlugin.show(this.modalIdConfirmShowPolicySinisters);
     }
 
     goToPolicyEndorsements(): void {
