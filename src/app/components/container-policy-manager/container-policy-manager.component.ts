@@ -23,6 +23,7 @@ export class ContainerPolicyManagerComponent implements OnChanges {
     modalIdConfirmShowPolicyEndorsements: string = 'modal-confirm-show-policy-endorsements';
     modalIdConfirmShowPolicyPayments: string = 'modal-confirm-show-policy-payments';
     modalIdConfirmShowPolicySinisters: string = 'modal-confirm-show-policy-sinisters';
+    modalIdConfirmShowPolicyTracker: string = 'modal-confirm-show-policy-tracker';
 
     constructor(
         private _router: Router,
@@ -55,6 +56,9 @@ export class ContainerPolicyManagerComponent implements OnChanges {
 
     requestShowPolicySinisters(): void {
         ModalPlugin.show(this.modalIdConfirmShowPolicySinisters);
+    }
+    requestShowPolicyTracker(): void {
+        ModalPlugin.show(this.modalIdConfirmShowPolicyTracker);
     }
 
     goToPolicyEndorsements(): void {

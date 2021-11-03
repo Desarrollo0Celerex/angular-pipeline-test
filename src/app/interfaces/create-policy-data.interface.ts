@@ -1,4 +1,5 @@
 export interface CreatePolicyData {
     insuranceId: number,
-    insuranceTypeId: number
+    insuranceTypeId: number,
+    tracker?: string
 }

@@ -1,4 +1,4 @@
-<ng-container *ngIf="contentType !== CONTENT_TYPES.PENDING_RECEIP.ID">
+<ng-container *ngIf="contentType !== CONTENT_TYPES.PENDING_RECEIP.ID && contentType !== CONTENT_TYPES.POLICY_TRACKER.ID">
     <div class="col-sm-12 col-md-12" *ngIf="!isLoadingContent && contentResultData.loadedItems === contentResultData.totalItems">
         <div class="alert alert-avatar alert-primary alert-dismissible mt-5 mb-5">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

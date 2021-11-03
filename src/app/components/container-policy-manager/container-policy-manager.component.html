@@ -18,7 +18,7 @@
                     <!-- AGENTHOS - POLICY SINISTERS -->
                     <button type="button" class="btn btn-primary" (click)="requestShowPolicySinisters()"><strong>VER SINIESTROS</strong></button>
                     <!-- AGENTHOS - POLICY RENEWALS -->
-                    <button type="button" class="btn btn-primary" [disabled]="model.policy == null"><strong>VER ENLACES</strong></button>
+                    <button type="button" class="btn btn-primary" (click)="requestShowPolicyTracker()"><strong>VER ENLACES</strong></button>
                 </div>
             </div>
             <!-- //AGENTHOS - POLICY CONTROL BODY -->
@@ -33,3 +33,4 @@
 
 <agt-modal-confirm-show-policy-endorsements [modalId]="modalIdConfirmShowPolicyEndorsements" (actionConfirmed)="goToPolicyEndorsements()"></agt-modal-confirm-show-policy-endorsements>
 <agt-modal-confirm-show-policy-sinisters [modalId]="modalIdConfirmShowPolicySinisters" [policyData]="policyData"></agt-modal-confirm-show-policy-sinisters>
+<agt-modal-confirm-show-policy-tracker [modalId]="modalIdConfirmShowPolicyTracker" [contactId]="contactId" [policyId]="policyId"></agt-modal-confirm-show-policy-tracker>

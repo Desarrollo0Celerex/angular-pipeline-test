@@ -73,6 +73,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedPolicyData: PolicyDataSend | null = null;
     selectedPolicyId: string;
     selectedPolicyIdToDelete: string = '';
+    selectedPolicyPos: number = 0;
     selectedQuotationId: string;
     selectedReceiptPaidId: string;
     selectedSinister: Sinister | null = null;
@@ -713,6 +714,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.CONTACT_FILE.ID:
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
+            case CONTENT_TYPES.POLICY_TRACKER.ID:
                 this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-3';
             break;
 
@@ -836,6 +838,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID:
                 this.contentListService.loadPolicyEndorsements(this.contactId, this.policyId, this.page).subscribe( () => {
                     this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.POLICY_TRACKER.ID:
+                this.contentListService.loadPolicyTracker(this.contactId, this.policyId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                    this.selectedPolicyPos = this.contentListService.getPolicyTrackerPos(this.policyId);
                 })
             break;
         }

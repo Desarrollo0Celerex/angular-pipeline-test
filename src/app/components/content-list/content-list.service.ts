@@ -326,6 +326,34 @@ export class ContentListService {
     }
 
     /**
+     * Load the policy tracker
+     * @param  contactId      The contact ID
+     * @param  policyId       The policy ID
+     * @param  page           The page number
+     * @return                Notice of action done
+     */
+    loadPolicyTracker(contactId: string, policyId: string, page: number): Observable<void> {
+        const fields: string = 'policyId,insurerImageUrl,currencyName,policyAmount,policyNumber,validityStartDate,validityEndDate,policyStatusBackground,policyStatusName,policyStatusDescription';
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED, POLICY_STATUS.CANCELLED]);
+        return this._policyService.getPolicyTracker(contactId, policyId, page, fields, filters).pipe(
+            tap((res: HttpResponse) => {
+                const policies: Policy[] = res.data.items;
+                this.contents = this.contents.concat(policies);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    getPolicyTrackerPos(policyId: string): number {
+        let policyPosition: number = this._getPolicyPosition(policyId);
+        if(policyPosition < 0) {
+            policyPosition = this.contentResultData.totalItems;
+        }
+        return policyPosition;
+    }
+
+    /**
      * Load the policy sinister
      * @param  sinisterId     The sinister ID
      * @param  page           The page number

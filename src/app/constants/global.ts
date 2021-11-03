@@ -189,6 +189,10 @@ export const CONTENT_TYPES: any = {
     POLICY_ENDORSEMENTS_HISTORY: {
         ID: 16,
         NAME: 'Movimiento'
+    },
+    POLICY_TRACKER: {
+        ID: 17,
+        NAME: 'Póliza'
     }
 }
 export const CONTACT_TYPES: any = {

@@ -10,6 +10,7 @@ import { CardPaymentModule } from '@components/card-payment/card-payment.module'
 import { CardPendingReceiptModule } from '@components/card-pending-receipt/card-pending-receipt.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardPolicyRecordModule } from '@components/card-policy-record/card-policy-record.module';
+import { CardPolicyTrackerModule } from '@components/card-policy-tracker/card-policy-tracker.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
 import { CardReceiptPaidRecordModule } from '@components/card-receipt-paid-record/card-receipt-paid-record.module';
 import { CardReportedSinisterModule } from '@components/card-reported-sinister/card-reported-sinister.module';
@@ -94,6 +95,7 @@ import { ContentListService } from './content-list.service';
     CardPendingReceiptModule,
     CardPolicyModule,
     CardPolicyRecordModule,
+    CardPolicyTrackerModule,
     CardQuotationModule,
     CardReceiptPaidRecordModule,
     CardReportedSinisterModule,

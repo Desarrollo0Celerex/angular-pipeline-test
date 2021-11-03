@@ -124,6 +124,13 @@
                     (updateContactFile)="onUpdateContactFile($event)"
                     (deleteContactFile)="onDeleteContactFile($event)"
                 ></agt-card-contact-file>
+                <agt-card-policy-tracker *ngSwitchCase="CONTENT_TYPES.POLICY_TRACKER.ID"
+                    [policy]="content"
+                    [selectedPolicyPos]="selectedPolicyPos"
+                    [policyPos]="index"
+                    (showPolicyDetails)="onShowPolicyDetails($event)"
+                    (showPolicy)="onShowPolicy($event)"
+                ></agt-card-policy-tracker>
             </ng-container>
         </div>
     </ng-template>
@@ -159,7 +166,13 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID">
     <agt-modal-show-endorsement [modalId]="modalIdShowEndorsement" [contactId]="contactId" [policyId]="policyId" [endorsementId]="selectedEndorsementId"></agt-modal-show-endorsement>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID || contentType === CONTENT_TYPES.PAYMENT.ID || contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
+<ng-container
+    *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
+    contentType === CONTENT_TYPES.PAYMENT.ID ||
+    contentType === CONTENT_TYPES.SINISTER.ID ||
+    contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
+    contentType === CONTENT_TYPES.POLICY_TRACKER.ID">
     <agt-modal-show-policy-details [modalId]="modalIdShowPolicyDetails" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [isHistoryContent]="isHistoryContent" (showPolicy)="onShowPolicy($event)"></agt-modal-show-policy-details>
     <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="selectedContactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
 </ng-container>
