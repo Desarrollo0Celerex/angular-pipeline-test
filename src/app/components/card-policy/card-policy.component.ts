@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 
-import { POLICY_STATUS, CANCELLATION_REASONS, ROLES } from '@constants/global';
+import { POLICY_STATUS, CANCELLATION_REASONS, ROLES, SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY } from '@constants/global';
 
 import { Policy } from '@interfaces/policy.interface';
 import { PaymentDataSend } from '@interfaces/payment-data-send.interface';
@@ -163,11 +163,11 @@ export class CardPolicyComponent implements OnInit {
             let slackDays: number = 0;
             switch(roleId) {
                 case ROLES.GLOBAL_ADMIN:
-                    slackDays = 300;
+                    slackDays = SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY.GLOBAL_ADMIN;
                 break;
                 case ROLES.WALLET_MANAGER:
                 case ROLES.INSURANCE_ADVISOR:
-                    slackDays = 40;
+                    slackDays = SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY.OTHERS;
                 break;
             }
             const validityEndDate: any = moment(this.policy.validityEndDate).add(slackDays, 'd');

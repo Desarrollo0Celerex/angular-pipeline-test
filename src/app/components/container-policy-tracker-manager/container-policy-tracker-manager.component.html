@@ -1,0 +1,35 @@
+<!-- AGENTHOS - ENDORSEMENTS CONTROL -->
+<div class="row mt-5">
+    <div class="col-lg-12">
+        <div class="card">
+            <!-- AGENTHOS - ENDORSEMENTS CONTROL HEADER -->
+            <div class="card-header">
+                <h3 class="card-title">Gestión de Enlaces</h3>
+            </div>
+            <!-- AGENTHOS - ENDORSEMENTS CONTROL HEADER -->
+            <!-- AGENTHOS - ENDORSEMENTS CONTROL BODY -->
+            <div class="card-body">
+                <div class="btn-list mt-3">
+                    <!-- AGENTHOS - POLICY VIEW -->
+                    <button type="button" class="btn btn-secondary" (click)="showPolicy()" [disabled]="model.policy == null"><strong>VER PÓLIZA</strong></button>
+                    <!-- AGENTHOS - POLICY ENDORSEMENT -->
+                    <button type="button" class="btn btn-primary" (click)="confirmLinkPolicy()"><strong>ENLAZAR PÓLIZA</strong></button>
+                </div>
+            </div>
+            <!-- //AGENTHOS - ENDORSEMENTS CONTROL BODY -->
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - ENDORSEMENTS CONTROL -->
+
+<ng-container *ngIf="!!model.policy">
+    <agt-modal-show-policy-file [modalId]="modalIdShowPolicyFile" [policyUrl]="model.policy.policyUrl"></agt-modal-show-policy-file>
+    <agt-modal-confirm-link-policy
+        [modalId]="modalIdConfirmLinkPolicy"
+        [contactId]="contactId"
+        [insuranceId]="model.policy.insuranceId"
+        [insuranceTypeId]="model.policy.insuranceTypeId"
+        [tracker]="model.policy.tracker"
+        >
+    </agt-modal-confirm-link-policy>
+</ng-container>

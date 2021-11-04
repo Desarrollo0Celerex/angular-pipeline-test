@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH } from '@constants/global';
+import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH, POLICY_SOURCES, ROLES, SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY, SLACK_DAYS_TO_LOAD_A_EXPIRED_POLICY } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
@@ -16,6 +16,7 @@ import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
 import { Policy } from '@interfaces/policy.interface';
 
+import { AuthService } from '@services/auth.service';
 import { AtomScannService } from '@services/atom-scann.service';
 import { CurrencyService } from '@services/currency.service';
 import { PaymentMethodService } from '@services/payment-method.service';
@@ -33,6 +34,7 @@ export class CompletePolicyService {
     private _areFractionatedPaymentAmounts: boolean = false;
 
     constructor(
+        private _authService: AuthService,
         private _atomScannService: AtomScannService,
         private _currencyService: CurrencyService,
         private _datePipe: DatePipe,
@@ -57,6 +59,7 @@ export class CompletePolicyService {
      * Build the policy form
      */
     buildPolicyForm(policy: Policy | null = null): void {
+        const canDisableBills: boolean = (!!this.policy && !!this.policy.policySourceId && this.policy.policySourceId == POLICY_SOURCES.HISTORY) ? true : false;
         this.policyForm = this._formBuilder.group({
             policyFile: [''],
             coveredProperty: [(!!policy && !!policy.coveredProperty) ? policy.coveredProperty : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
@@ -78,7 +81,7 @@ export class CompletePolicyService {
             currencyId: [(!!policy && !!policy.currencyId) ? policy.currencyId : '', [Validators.required]],
             paymentMethodId: [(!!policy && !!policy.paymentMethodId) ? policy.paymentMethodId : '', [Validators.required]],
             paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : '', [Validators.required]],
-            bills: ['', [Validators.required, ValidatorsHelper.number]]
+            bills: [{value: '', disabled: canDisableBills}, [Validators.required, ValidatorsHelper.number]]
         });
     }
 
@@ -109,6 +112,32 @@ export class CompletePolicyService {
                 }
             }
         }
+    }
+
+    checkIsNewPolicy(): boolean {
+        return (!!this.policy && !!this.policy.policySourceId && this.policy.policySourceId == POLICY_SOURCES.NEW) ? true : false;
+    }
+
+    checkIsHistoryPolicy(): boolean {
+        return (!!this.policy && !!this.policy.policySourceId && this.policy.policySourceId == POLICY_SOURCES.HISTORY) ? true : false;
+    }
+
+    checkIsValidHistoryPolicy(): boolean {
+        if(!!this.policy && !!this.policy.maxValidityEndDate) {
+            return moment(this.f.validityEndDate.value, 'DD/MM/YYYY').isSameOrBefore(this.policy.maxValidityEndDate);
+        }
+        return false;
+    }
+
+    checkIsExpiredPolicy(): boolean {
+        return moment(this.f.validityEndDate.value, 'DD/MM/YYYY').isBefore(moment().format('YYYY/MM/DD'))
+    }
+
+    checkIsValidExpiredPolicy(): boolean {
+        const slackDaysToRenewOrReissuePolicy: number = (this._authService.roleId == ROLES.GLOBAL_ADMIN) ? SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY.GLOBAL_ADMIN : SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY.OTHERS;
+        const slackDaysToLoadExpiredPolicy: number = slackDaysToRenewOrReissuePolicy - SLACK_DAYS_TO_LOAD_A_EXPIRED_POLICY;
+        const minValidityEndDate: any = moment().subtract(slackDaysToLoadExpiredPolicy, 'days');
+        return moment(this.f.validityEndDate.value, 'DD/MM/YYYY').isSameOrAfter(minValidityEndDate.format('YYYY/MM/DD')) ? true : false;
     }
 
     /**
@@ -192,7 +221,7 @@ export class CompletePolicyService {
      */
     loadContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;

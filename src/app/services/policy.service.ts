@@ -32,7 +32,8 @@ const routes: any = {
     totalContactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/count',
     updateCompletePolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/update-complete',
     updatePolicyStatus: (workspaceId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/' + policyId + '/policy-status',
-    totalWorkspacePolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/count'
+    totalWorkspacePolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/count',
+    policyTracker: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/tracker',
 }
 
 @Injectable()
@@ -234,6 +235,24 @@ export class PolicyService {
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         params = params.append('sortBy', 'createdAt');
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    /**
+     * Get the history policy
+     * @param  contactId The contact ID
+     * @param  policyId  The policy ID
+     * @param  page      The page to get
+     * @param  fields    The fields to get
+     * @return           The history policy
+     */
+    getPolicyTracker(contactId: string, policyId: string, page: number = 1, fields: string = '', filters: string = ''): Observable<HttpResponse> {
+        const route: string = routes.policyTracker(this._workspaceId, contactId, policyId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        params = params.append('sortBy', 'validityStartDate');
         return this._httpClient.get<HttpResponse>(route, {params});
     }
 

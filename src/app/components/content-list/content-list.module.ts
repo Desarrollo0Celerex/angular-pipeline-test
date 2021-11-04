@@ -10,6 +10,7 @@ import { CardPaymentModule } from '@components/card-payment/card-payment.module'
 import { CardPendingReceiptModule } from '@components/card-pending-receipt/card-pending-receipt.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardPolicyRecordModule } from '@components/card-policy-record/card-policy-record.module';
+import { CardPolicyTrackerModule } from '@components/card-policy-tracker/card-policy-tracker.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
 import { CardReceiptPaidRecordModule } from '@components/card-receipt-paid-record/card-receipt-paid-record.module';
 import { CardReportedSinisterModule } from '@components/card-reported-sinister/card-reported-sinister.module';
@@ -68,6 +69,7 @@ import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-fo
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
+import { EndorsementService } from '@services/endorsement.service';
 import { LeadService } from '@services/lead.service';
 import { PartnerService } from '@services/partner.service';
 import { PaymentService } from '@services/payment.service';
@@ -93,6 +95,7 @@ import { ContentListService } from './content-list.service';
     CardPendingReceiptModule,
     CardPolicyModule,
     CardPolicyRecordModule,
+    CardPolicyTrackerModule,
     CardQuotationModule,
     CardReceiptPaidRecordModule,
     CardReportedSinisterModule,
@@ -150,6 +153,7 @@ import { ContentListService } from './content-list.service';
       ContactService,
       ContactFileService,
       ContentListService,
+      EndorsementService,
       LeadService,
       PartnerService,
       PaymentService,

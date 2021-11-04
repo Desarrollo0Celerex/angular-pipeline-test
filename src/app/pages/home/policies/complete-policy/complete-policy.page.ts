@@ -27,7 +27,9 @@ export class CompletePolicyPage implements OnInit {
     contactId: string;
     message: string;
     policyId: string;
-    modalIdPolicyAmountsDifferent: string = 'agt-policy-amounts-different'
+    modalIdInvalidExpiredPolicy: string = 'agt-invalid-expired-policy';
+    modalIdInvalidHistoryPolicy: string = 'agt-invalid-history-policy';
+    modalIdPolicyAmountsDifferent: string = 'agt-policy-amounts-different';
     modalIdSelectFile: string;
     modalIdScanningPolicy: string;
     modalIdScanningPolicyFailed: string;
@@ -135,17 +137,40 @@ export class CompletePolicyPage implements OnInit {
      */
     onSubmitSavePolicy(): void {
         this._isFormSubmitted = true;
-        if(this.completePolicyService.policyForm.valid) {
-            if(this.completePolicyService.checkPolicyAmounts()) {
-                this._loadingService.show();
-                this.completePolicyService.completePolicy(this.contactId, this.policyId, this._scannedPolicyData).subscribe( () => {
-                    this._loadingService.hide();
-                    AlertHelper.policyCompleted(this._goToListContactPolicies, this);
-                })
-            } else {
-                ModalPlugin.show(this.modalIdPolicyAmountsDifferent);
+        if(!this.completePolicyService.policyForm.valid) {
+            return;
+        }
+        // Check the policy amounts
+        if(!this.completePolicyService.checkPolicyAmounts()) {
+            ModalPlugin.show(this.modalIdPolicyAmountsDifferent);
+            return;
+        }
+        // Check if it is a new policy
+        if(this.completePolicyService.checkIsNewPolicy()) {
+            // Check if it is a expired policy
+            if(this.completePolicyService.checkIsExpiredPolicy()) {
+                // Check if it is a valid expired policy
+                if(!this.completePolicyService.checkIsValidExpiredPolicy()) {
+                    ModalPlugin.show(this.modalIdInvalidExpiredPolicy);
+                    return;
+                }
+            }
+        } else {
+            // Check if the policy is a history policy
+            if(this.completePolicyService.checkIsHistoryPolicy()) {
+                // Check if it is a valid history policy
+                if(!this.completePolicyService.checkIsValidHistoryPolicy()) {
+                    ModalPlugin.show(this.modalIdInvalidHistoryPolicy);
+                    return;
+                }
             }
         }
+        // Complete the policy
+        this._loadingService.show();
+        this.completePolicyService.completePolicy(this.contactId, this.policyId, this._scannedPolicyData).subscribe( () => {
+            this._loadingService.hide();
+            AlertHelper.policyCompleted(this._goToListContactPolicies, this);
+        });
     }
 
     /**

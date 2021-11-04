@@ -1,0 +1,51 @@
+<div class="card" *ngIf="!!policy">
+    <!-- AGENTHOS - POLICY HEADER -->
+    <div class="card-header">
+        <!-- AGENTHOS - INSURANCE COMPANY -->
+        <img [src]="policy.insurerImageUrl" width="38px">
+        <!-- AGENTHOS - POLICY MENU -->
+        <div class="card-options">
+            <div class="badge badge-primary-gradient" *ngIf="policyPos < selectedPolicyPos">ANTERIOR</div>
+            <div class="badge badge-success-gradient" *ngIf="policyPos === selectedPolicyPos">SELECCIONADA</div>
+            <div class="badge badge-primary-gradient" *ngIf="policyPos > selectedPolicyPos">POSTERIOR</div>
+        </div>
+        <!-- //AGENTHOS - POLICY MENU -->
+    </div>
+    <!-- //AGENTHOS - POLICY HEADER -->
+    <!-- AGENTHOS - POLICY BODY -->
+    <div class="card-body">
+        <!-- AGENTHOS - POLICY TOTAL PAY -->
+        <h6 class="mt-0">Prima Total ({{policy.currencyName}})</h6>
+        <h6 class="number-font">{{policy.policyAmount | currency: '': '$': '0.2-2'}}</h6>
+        <!-- AGENTHOS - POLICY NUMBER -->
+        <p class="mb-1"><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{policy.policyNumber}}</p>
+        <!-- AGENTHOS - POLICY RANGE -->
+        <p class="mb-3"><span class="text-primary"><i class="fe fe-calendar mr-2"></i></span>{{policy.validityStartDate | date: 'yyyy'}} - {{policy.validityEndDate | date: 'yyyy'}}</p>
+        <!-- AGENTHOS - POLICY STATUS -->
+        <div class="badge badge-{{policy.policyStatusBackground}} mr-1 mb-0">{{policy.policyStatusName | uppercase}}</div>
+        <span class="col-auto align-self-center">
+            <span class="form-help" data-toggle="popover" data-placement="top" [attr.data-content]="policy.policyStatusDescription" data-original-title="">?</span>
+        </span>
+    </div>
+    <!-- //AGENTHOS - POLICY BODY -->
+    <!-- AGENTHOS - POLICY FOOTER -->
+    <div class="card-footer">
+        <div class="row">
+            <!-- AGENTHOS - POLICY VIEW -->
+            <div class="col-sm-12 col-12 text-center" *ngIf="policyPos === selectedPolicyPos; else showActions">
+                <button type="button" class="btn btn-block btn-secondary" (click)="onClickShowPolicy()"><strong>VER PÓLIZA</strong></button>
+            </div>
+            <ng-template #showActions>
+                <!-- AGENTHOS - POLICY DETAILS -->
+                <div class="col-sm-9 col-9 text-left">
+                    <button type="button" class="btn btn-block btn-primary" (click)="onClickShowPolicyDetails()"><strong>VER DETALLES</strong></button>
+                </div>
+                <!-- AGENTHOS - POLICY VIEW -->
+                <div class="col-sm-3 col-3 text-right">
+                    <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowPolicy()"><i class="fa fa-file-text-o"></i></button>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <!-- //AGENTHOS - POLICY FOOTER -->
+</div>

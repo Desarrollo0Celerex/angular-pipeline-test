@@ -81,6 +81,11 @@ const HOME_POLICIES_ROUTES = {
     showHistoryPolicy: (contactId: string, policyId: string) => `workspace/policies/history-policy/${contactId}/${policyId}`,
     showPolicySinisters: (contactId: string, policyId: string) => `workspace/policies/policy-sinisters/${contactId}/${policyId}`,
     updateCompletePolicy: (contactId: string, policyId: string) => `workspace/policies/update-complete-policy/${contactId}/${policyId}`,
+    policyTracker: (contactId: string, policyId: string) => `workspace/policies/policy-tracker/${contactId}/${policyId}`,
+}
+
+const HOME_POLICY_ENDORSEMENTS_ROUTES = {
+    policyEndorsementsHistory: (contactId: string, policyId: string) => `workspace/policies/endorsements/history/${contactId}/${policyId}`,
 }
 
 const HOME_QUOTATIONS_ROUTES = {
@@ -141,6 +146,7 @@ export const ROUTES_NAME = {
     ...HOME_PARTNER_ROUTES,
     ...HOME_PAYMENTS_ROUTES,
     ...HOME_POLICIES_ROUTES,
+    ...HOME_POLICY_ENDORSEMENTS_ROUTES,
     ...HOME_QUOTATIONS_ROUTES,
     ...HOME_SINISTERS_ROUTES,
     ...HOME_STATS_ROUTES,

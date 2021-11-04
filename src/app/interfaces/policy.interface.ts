@@ -47,5 +47,8 @@ export interface Policy {
     contactId: string,
     paymentId: string,
     bills: number,
-    policyCancellationReasonId: string
+    policyCancellationReasonId: string,
+    maxValidityEndDate: string,
+    tracker: string,
+    policySourceId: number
 }
