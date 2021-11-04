@@ -49,5 +49,6 @@ export interface Policy {
     bills: number,
     policyCancellationReasonId: string,
     maxValidityEndDate: string,
-    tracker: string
+    tracker: string,
+    policySourceId: number
 }

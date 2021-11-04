@@ -116,7 +116,8 @@ export const PARTNER_STATUS: any = {
 export const POLICY_SOURCES: any = {
     NEW: 1,
     RENEWAL: 2,
-    REISSUE: 3
+    REISSUE: 3,
+    HISTORY: 4
 }
 
 // Types
@@ -292,6 +293,11 @@ export const PERIOD_STATUS: any = {
 };
 
 export const SLACK_UNITS: number = 10;
+export const SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY: any = {
+    GLOBAL_ADMIN: 180,
+    OTHERS: 40
+}
+export const SLACK_DAYS_TO_LOAD_A_EXPIRED_POLICY: number = 30;
 
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;
