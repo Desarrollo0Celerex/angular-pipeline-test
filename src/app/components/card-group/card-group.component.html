@@ -1,0 +1,43 @@
+<div class="card" *ngIf="!!group">
+    <!-- AGENTHOS - GROUP CARD HEADER -->
+    <div class="card-header">
+        <!-- AGENTHOS - CONTACT PIC -->
+        <img class="avatar brround" src="https://webkit.atombits.xyz/agenthos/app/agenthos_company_userpic.png" width="38px">
+        <!-- AGENTHOS - GROUP STATUS -->
+        <div class="card-options">
+            <div class="badge badge-{{group.groupStatusBackground}} mr-1">{{group.groupStatusName}}</div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - GROUP CARD HEADER -->
+    <!-- AGENTHOS - GROUP CARD BODY -->
+    <div class="card-body">
+        <!-- AGENTHOS - CONTACT NAME -->
+        <h4 class="h4">{{group.name}}</h4>
+        <!-- AGENTHOS - CONTACT SOURCE -->
+        <p class="mb-2">
+            <i class="fe fe-globe mr-1"></i>0 Miembros
+            <span class="float-right"><i class="fe fe-award mr-1"></i>A+</span>
+        </p>
+        <!-- AGENTHOS - CONTACT WALLET -->
+        <p class="mb-0">
+            <i class="fe fe-credit-card mr-1"></i>$0 MXN
+            <span class="float-right"><i class="fe fe-file-text mr-1"></i>0 P</span>
+        </p>
+    </div>
+    <!-- //AGENTHOS - GROUP CARD BODY -->
+    <!-- AGENTHOS - GROUP CARD FOOTER -->
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-9 col-9 text-left">
+                <!-- AGENTHOS - GROUP RESUME -->
+                <a href="../groups/resume.php">
+                <button type="button" name="agtGroupResume" class="btn btn-block btn-primary"><strong>VER GRUPO</strong></button></a>
+            </div>
+            <div class="col-sm-3 col-3 text-right">
+                <!-- AGENTHOS - GROUP DETAILS -->
+                <button type="button" name="agtGroupDetails" class="btn btn-icon btn-secondary" data-toggle="modal" data-target="#agtGroupDetails" data-toggle="tooltip" data-placement="bottom" title="Ver Detalles"><i class="fa fa-area-chart"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - GROUP CARD FOOTER -->
+</div>

@@ -21,6 +21,9 @@
                 <ng-container *ngSwitchCase="CONTENT_TYPES.CONTACT_FILE.ID">
                     <ng-container *ngTemplateOutlet="contactFileSuggestion"></ng-container>
                 </ng-container>
+                <ng-container *ngSwitchCase="CONTENT_TYPES.GROUP.ID">
+                    <ng-container *ngTemplateOutlet="groupSuggestion"></ng-container>
+                </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.PARTNER.ID">
                     <ng-container *ngTemplateOutlet="partnerSuggestion"></ng-container>
                 </ng-container>
@@ -61,6 +64,12 @@
 
 <ng-template #contactFileSuggestion>
     <strong>¿No encuentras el {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+    <p>Intenta localizarlo con el <strong>Buscador Inteligente</strong>.</p>
+</ng-template>
+
+<ng-template #groupSuggestion>
+    <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
     <p>Intenta localizarlo con el <strong>Buscador Inteligente</strong>.</p>
 </ng-template>

@@ -20,6 +20,7 @@ import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
 import { EndorsementService } from '@services/endorsement.service';
+import { GroupService } from '@services/group.service';
 import { LeadService } from '@services/lead.service';
 import { PartnerService } from '@services/partner.service';
 import { PaymentService } from '@services/payment.service';
@@ -40,6 +41,7 @@ export class ContentListService {
         private _contactService: ContactService,
         private _contactFileService: ContactFileService,
         private _endorsementService: EndorsementService,
+        private _groupService: GroupService,
         private _leadService: LeadService,
         private _partnerService: PartnerService,
         private _paymentService: PaymentService,
@@ -201,6 +203,24 @@ export class ContentListService {
             }),
             map( () => { })
         )
+    }
+
+    /**
+     * Load the groups
+     * @param  page           The page number to get
+     * @param  contentSubtype The filter to apply
+     * @return                Notice of action done
+     */
+    loadGroups(page: number, contentSubtype: number): Observable<void> {
+        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground';
+        const filters: string = UtilitiesHelper.generateHttpFilter('groupStatusId', [contentSubtype])
+        return this._groupService.getGroups(page, fields, filters).pipe(
+            tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
     }
 
     /**

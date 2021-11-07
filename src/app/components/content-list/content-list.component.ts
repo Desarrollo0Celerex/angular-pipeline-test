@@ -705,6 +705,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CLIENT.ID:
+            case CONTENT_TYPES.GROUP.ID:
             case CONTENT_TYPES.PARTNER.ID:
                 this.cardClasses = 'col-md-3 col-xl-3';
             break;
@@ -773,6 +774,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this.contentListService.loadContactPolicies(this.contactId, this.page, this.contentSubtype).subscribe( () => {
                     this._contentLoaded();
                 })
+            break;
+
+            case CONTENT_TYPES.GROUP.ID:
+                this.contentListService.loadGroups(this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                });
             break;
 
             case CONTENT_TYPES.HISTORY_POLICY.ID:
