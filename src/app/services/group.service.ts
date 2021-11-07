@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
+import { CreateGroupDataSend } from '@interfaces/create-group-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
@@ -21,6 +22,16 @@ export class GroupService {
         private _authService: AuthService
     ) {
         this._workspaceId = this._authService.workspaceId;
+    }
+
+    /**
+     * Create the group in the API
+     * @param  requestBody Group data to create
+     * @return             Notification of action done
+     */
+    createGroup(requestBody: CreateGroupDataSend): Observable<void> {
+        const route: string = routes.groups(this._workspaceId);
+        return this._httpClient.post<void>(route, requestBody);
     }
 
      /**

@@ -19,6 +19,9 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID">
     <agt-modal-select-policy-status [modalId]="selectPolicyStatusModalId" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-modal-select-policy-status>
 </ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.GROUP.ID">
+    <agt-modal-create-group [modalId]="modalIdCreateGroup"></agt-modal-create-group>
+</ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PARTNER.ID">
     <agt-modal-create-partner [modalId]="modalIdCreatePartner"></agt-modal-create-partner>
 </ng-container>
