@@ -119,6 +119,12 @@ export const POLICY_SOURCES: any = {
     REISSUE: 3,
     HISTORY: 4
 }
+export const GROUP_STATUS: any = {
+    COPORATE: 1,
+    FAMILY: 2,
+    MIXED: 3,
+    INCOMPLETE: 4
+}
 
 // Types
 export const CONTENT_TYPES: any = {
@@ -194,7 +200,11 @@ export const CONTENT_TYPES: any = {
     POLICY_TRACKER: {
         ID: 17,
         NAME: 'Póliza'
-    }
+    },
+    GROUP: {
+        ID: 18,
+        NAME: 'Grupo'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

@@ -107,6 +107,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
             case CONTENT_TYPES.PARTNER.ID:
+            case CONTENT_TYPES.GROUP.ID:
                 canShow = true;
             break;
 

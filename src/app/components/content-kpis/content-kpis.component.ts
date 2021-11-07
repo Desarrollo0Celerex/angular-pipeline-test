@@ -82,6 +82,13 @@ export class ContentKpisComponent implements OnInit, OnChanges {
                 this._loadContentSubtypeName();
             });
             break;
+
+            case CONTENT_TYPES.GROUP.ID:
+            this.contentKpisService.loadGroupKpis().subscribe( () => {
+                CounterPlugin.countUp();
+                this._loadContentSubtypeName();
+            });
+            break;
         }
     }
 
