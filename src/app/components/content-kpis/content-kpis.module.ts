@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
 import { ClientService } from '@services/client.service';
 import { ClientStatusService } from '@services/client-status.service';
+import { GroupService } from '@services/group.service';
+import { GroupStatusService } from '@services/group-status.service';
 import { LeadService } from '@services/lead.service';
 import { LeadStatusService } from '@services/lead-status.service';
 import { PartnerService } from '@services/partner.service';
@@ -28,6 +30,8 @@ import { ContentKpisService } from './content-kpis.service';
   providers: [
       ClientService,
       ClientStatusService,
+      GroupService,
+      GroupStatusService,
       ContentKpisService,
       LeadService,
       LeadStatusService,

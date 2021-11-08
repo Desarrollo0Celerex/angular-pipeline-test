@@ -1,0 +1,35 @@
+<!-- AGENTHOS - GROUPS CREATE NEW -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<form [formGroup]="model.form" (submit)="createGroup()">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Crear Grupo</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<!-- AGENTHOS - PARTNER NAME * -->
+						<input type="text" class="form-control {{getValidationClass('name')}}" placeholder="Ingresa el nombre del grupo" formControlName="name">
+						<div class="invalid-feedback">{{getErrorMessage('name')}}</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<label class="form-label">Grupo de Clientes:</label>
+							<p class="text-justify">Perfil conformado por diversos clientes activos. <strong>Por favor ingresa el nombre del grupo para continuar</strong>.</p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+					<!-- AGENTHOS - IF COINCIDENCES TARGET (agtGroupCoincidences) -->
+					<!-- AGENTHOS - IF NO COINCIDENCES TARGET (agtGroupConfirmation) -->
+					<button type="submit" class="btn btn-primary">CONFIRMAR</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- //AGENTHOS - GROUPS CREATE NEW -->

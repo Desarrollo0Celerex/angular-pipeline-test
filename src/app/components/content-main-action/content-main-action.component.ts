@@ -24,6 +24,7 @@ export class ContentMainActionComponent implements OnInit {
     @Output() sinisterCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() paymentSelected: EventEmitter<Payment> = new EventEmitter<Payment>();
     CONTENT_TYPES: any;
+    modalIdCreateGroup: string = 'agt-create-group';
     modalIdCreatePartner: string = 'agt-create-partner';
     modalIdCreateSinister: string = 'agt-create-sinister';
     modalIdSearchPayment: string = 'agt-search-payment';
@@ -71,6 +72,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.CONTACT_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.CONTACT_FILE.ID: title = 'Actualizar Expediente'; break;
+            case CONTENT_TYPES.GROUP.ID: title = 'Nuevo ' + this.contentTypeName; break;
             case CONTENT_TYPES.PARTNER.ID: title = 'Nuevo Socio'; break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'Actualizar Cobranza'; break;
             case CONTENT_TYPES.SINISTER.ID: title = 'Nuevo '+this.contentTypeName; break;
@@ -94,6 +96,7 @@ export class ContentMainActionComponent implements OnInit {
                 title = 'EXPLORAR HISTORIAL';
             break;
             case CONTENT_TYPES.CONTACT_FILE.ID: title = 'SUBIR ARCHIVO'; break;
+            case CONTENT_TYPES.GROUP.ID: title = 'CREAR '+this.contentTypeName; break;
             case CONTENT_TYPES.PARTNER.ID: title = 'CREAR SOCIO'; break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'APLICAR PAGO'; break;
             case CONTENT_TYPES.SINISTER.ID: title = 'REPORTAR '+this.contentTypeName; break;
@@ -110,6 +113,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CLIENT.ID: ModalPlugin.show(this.selectContactTypeModalId); break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: ModalPlugin.show(this.selectQuotationStatusModalId); break;
             case CONTENT_TYPES.CONTACT_POLICY.ID: ModalPlugin.show(this.selectPolicyStatusModalId); break;
+            case CONTENT_TYPES.GROUP.ID: ModalPlugin.show(this.modalIdCreateGroup); break;
             case CONTENT_TYPES.PARTNER.ID: ModalPlugin.show(this.modalIdCreatePartner); break;
             case CONTENT_TYPES.PAYMENT.ID: ModalPlugin.show(this.modalIdSearchPayment); break;
             case CONTENT_TYPES.SINISTER.ID:

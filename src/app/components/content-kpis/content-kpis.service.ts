@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 
-import { CLIENT_STATUS, LEAD_STATUS, PARTNER_STATUS } from '@constants/global';
+import { CLIENT_STATUS, GROUP_STATUS, LEAD_STATUS, PARTNER_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ClientStatus } from '@interfaces/client-status.interface';
+import { GroupStatus } from '@interfaces/group-status.interface';
 import { LeadStatus } from '@interfaces/lead-status.interface';
 import { PartnerStatus } from '@interfaces/partner-status.interface';
 import { PaymentStatus } from '@interfaces/payment-status.interface';
 import { SinisterStatus } from '@interfaces/sinister-status.interface';
+
 import { ClientService } from '@services/client.service';
 import { ClientStatusService } from '@services/client-status.service';
+import { GroupService } from '@services/group.service';
+import { GroupStatusService } from '@services/group-status.service';
 import { LeadService } from '@services/lead.service';
 import { LeadStatusService } from '@services/lead-status.service';
 import { PartnerService } from '@services/partner.service';
@@ -29,6 +33,8 @@ export class ContentKpisService {
     constructor(
         private _clientService: ClientService,
         private _clientStatusService: ClientStatusService,
+        private _groupService: GroupService,
+        private _groupStatusService: GroupStatusService,
         private _leadService: LeadService,
         private _leadStatusService: LeadStatusService,
         private _partnerService: PartnerService,
@@ -59,6 +65,39 @@ export class ContentKpisService {
     }
 
     /**
+     * Load the group kpis
+     * @return Notice of action done
+     */
+    loadGroupKpis(): Observable<void> {
+        return new Observable( observer => {
+            const fields: string = 'groupStatusId,name,background,icon';
+            this._groupStatusService.getGroupStatus(fields).subscribe( (res: HttpResponse) => {
+                const groupStatus: GroupStatus[] = res.data;
+                const filters: string = UtilitiesHelper.generateHttpFilter('groupStatusId', [GROUP_STATUS.COPORATE, GROUP_STATUS.FAMILY, GROUP_STATUS.MIXED, GROUP_STATUS.INCOMPLETE])
+                this._groupService.getTotalGroups(filters).subscribe( (res: number) => {
+                    const totalGroups: number = res;
+                    this._getTotalGroupsByStatus(groupStatus).subscribe( (res: number[]) => {
+                        this.kpis = [];
+                        for(let index in res) {
+                            const kpi: Kpi = {
+                                contentSubtype: groupStatus[index].groupStatusId,
+                                name: groupStatus[index].name,
+                                background: groupStatus[index].background,
+                                icon: groupStatus[index].icon,
+                                total: res[index],
+                                percentage: (totalGroups > 0) ? res[index] / totalGroups : 0
+                            }
+                            this.kpis.push(kpi);
+                        }
+                        observer.next();
+                        observer.complete();
+                    })
+                });
+            })
+        })
+    }
+
+    /**
      * Load the lead kpis
      * @return Notice of action done
      */
@@ -79,7 +118,7 @@ export class ContentKpisService {
                                 background: leadStatus[index].background,
                                 icon: leadStatus[index].icon,
                                 total: res[index],
-                                percentage: res[index] / totalLeads
+                                percentage: (totalLeads > 0) ? res[index] / totalLeads : 0
                             }
                             this.kpis.push(kpi);
                         }
@@ -112,7 +151,7 @@ export class ContentKpisService {
                                 background: clientStatus[index].background,
                                 icon: clientStatus[index].icon,
                                 total: res[index],
-                                percentage: res[index] / totalClients
+                                percentage: (totalClients > 0 ) ? res[index] / totalClients : 0
                             }
                             this.kpis.push(kpi);
                         }
@@ -145,7 +184,7 @@ export class ContentKpisService {
                                 background: partnerStatus[index].background,
                                 icon: partnerStatus[index].icon,
                                 total: res[index],
-                                percentage: res[index] / totalPartners
+                                percentage: (totalPartners > 0) ? res[index] / totalPartners : 0
                             }
                             this.kpis.push(kpi);
                         }
@@ -177,7 +216,7 @@ export class ContentKpisService {
                                 background: paymentStatus[index].background,
                                 icon: paymentStatus[index].icon,
                                 total: res[index],
-                                percentage: res[index] / totalPayments
+                                percentage: (totalPayments > 0) ? res[index] / totalPayments : 0
                             }
                             this.kpis.push(kpi);
                         }
@@ -209,7 +248,7 @@ export class ContentKpisService {
                                 background: sinisterStatus[index].background,
                                 icon: sinisterStatus[index].icon,
                                 total: res[index].data,
-                                percentage: res[index].data / totalSinisters
+                                percentage: (totalSinisters > 0) ? res[index].data / totalSinisters : 0
                             }
                             this.kpis.push(kpi);
                         }
@@ -250,6 +289,20 @@ export class ContentKpisService {
         for(let status of clientStatus) {
             const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [status.clientStatusId])
             requests.push(this._clientService.getTotalClients(filters));
+        }
+        return forkJoin(requests);
+    }
+
+    /**
+     * Get the requests to get the total groups by status
+     * @param  groupStatus The group status
+     * @return            The requests
+     */
+    private _getTotalGroupsByStatus(groupStatus: GroupStatus[]): Observable<number[]> {
+        let requests: Observable<number>[] = [];
+        for(let status of groupStatus) {
+            const filters: string = UtilitiesHelper.generateHttpFilter('groupStatusId', [status.groupStatusId])
+            requests.push(this._groupService.getTotalGroups(filters));
         }
         return forkJoin(requests);
     }

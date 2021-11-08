@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ModalCreateGroupModule } from '@components/modal-create-group/modal-create-group.module';
 import { ModalCreatePartnerModule } from '@components/modal-create-partner/modal-create-partner.module';
 import { ModalCreateSinisterModule } from '@components/modal-create-sinister/modal-create-sinister.module';
 import { ModalSearchPaymentModule } from '@components/modal-search-payment/modal-search-payment.module';
@@ -19,6 +20,7 @@ import { ContentMainActionComponent } from './content-main-action.component';
   exports: [ContentMainActionComponent],
   imports: [
     CommonModule,
+    ModalCreateGroupModule,
     ModalCreatePartnerModule,
     ModalCreateSinisterModule,
     ModalSearchPaymentModule,

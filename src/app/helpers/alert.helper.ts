@@ -60,6 +60,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static groupCreated(): void {
+        const alertData: Alert = {
+            title: 'Grupo creado',
+            text: 'El grupo ha sido creado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static invalidAuthToken(): void {
         const alertData: Alert = {
             title: 'Error',
