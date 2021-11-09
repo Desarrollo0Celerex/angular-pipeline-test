@@ -10,6 +10,7 @@ import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     groups: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups',
+    group: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId,
     totalGroups: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/count'
 }
 
@@ -34,6 +35,20 @@ export class GroupService {
         return this._httpClient.post<void>(route, requestBody);
     }
 
+     /**
+      * Get the groups from the API
+      * @param  page            The page number
+      * @param  fields          The fields to get
+      * @param  groupStatusId    The filter to apply
+      * @param  query           The search to do
+      * @return                 The groups
+      */
+    getGroup(groupId: string, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.group(this._workspaceId, groupId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, { params });
+    }
      /**
       * Get the groups from the API
       * @param  page            The page number

@@ -5,7 +5,7 @@
         <img class="avatar brround" src="https://webkit.atombits.xyz/agenthos/app/agenthos_company_userpic.png" width="38px">
         <!-- AGENTHOS - GROUP STATUS -->
         <div class="card-options">
-            <div class="badge badge-{{group.groupStatusBackground}} mr-1">{{group.groupStatusName}}</div>
+            <div class="badge badge-{{group.groupStatusBackground}} mr-1">{{group.groupStatusName | uppercase}}</div>
         </div>
     </div>
     <!-- //AGENTHOS - GROUP CARD HEADER -->
@@ -30,8 +30,7 @@
         <div class="row">
             <div class="col-sm-9 col-9 text-left">
                 <!-- AGENTHOS - GROUP RESUME -->
-                <a href="../groups/resume.php">
-                <button type="button" name="agtGroupResume" class="btn btn-block btn-primary"><strong>VER GRUPO</strong></button></a>
+                <button type="button" class="btn btn-block btn-primary" (click)="goToGroupResume()"><strong>VER GRUPO</strong></button>
             </div>
             <div class="col-sm-3 col-3 text-right">
                 <!-- AGENTHOS - GROUP DETAILS -->
