@@ -10,11 +10,18 @@ import { GroupMemberService } from '@services/group-member.service';
 @Injectable()
 export class GroupProfileService {
     group: Group | null = null;
+    groupMembers: string[] = [];
+    isLoadedGroupMembers: boolean = false;
 
     constructor(
         private _groupService: GroupService,
         private _groupMemberService: GroupMemberService,
     ) { }
+
+    addGroupMember(groupId: string, contactId: string): Observable<void> {
+        const requestBody: AddGroupMemberDataSend = { contactId };
+        return this._groupMemberService.addGroupMember(groupId, requestBody);
+    }
 
     loadGroup(groupId: string): void {
         const fields: string = '';
@@ -23,8 +30,15 @@ export class GroupProfileService {
         })
     }
 
-    addGroupMember(groupId: string, contactId: string): Observable<void> {
-        const requestBody: AddGroupMemberDataSend = { contactId };
-        return this._groupMemberService.addGroupMember(groupId, requestBody);
+    loadGroupMembers(groupId: string): void {
+        const fields: string = 'contactId';
+        const page: number = 1;
+        const perPage: number = 100;
+        this._groupMemberService.getGroupMembers(groupId, fields, page, perPage).subscribe((res: HttpResponse) => {
+            for (let member of res.data.items) {
+                this.groupMembers.push(member.contactId);
+            }
+            this.isLoadedGroupMembers = true;
+        })
     }
 }

@@ -96,7 +96,7 @@
                 <!-- AGENTHOS - TARGET IF FOUND (#agtGroupContactAdd) -->
                 <!-- AGENTHOS - TARGET IF DUPLICATED (#agtGroupContactSearchResults) -->
                 <!-- AGENTHOS - TARGET IF NOT FOUND (#agtGroupContactSearchNotFound) -->
-                <button type="button" class="btn btn-block btn-primary" [disabled]="!(!!model.group)" (click)="showModalToSeachClient()"><strong>AGREGAR MIEMBRO</strong></button>
+                <button type="button" class="btn btn-block btn-primary" [disabled]="!model.isLoadedGroupMembers" (click)="showModalToSeachClient()"><strong>AGREGAR MIEMBRO</strong></button>
             </div>
         </div>
     </div>
@@ -105,4 +105,8 @@
 
 <router-outlet></router-outlet>
 
-<agt-modal-search-client [modalId]="modalIdSearchClient" (clientFound)="addClient($event)"></agt-modal-search-client>
+<agt-modal-search-client
+    [modalId]="modalIdSearchClient"
+    [groupMembers]="model.groupMembers"
+    (clientFound)="addClient($event)">
+</agt-modal-search-client>

@@ -19,8 +19,10 @@ declare var ModalPlugin: any;
 })
 export class ModalSearchClientComponent implements OnInit {
     @Input() modalId: string = '';
+    @Input() groupMembers: string[] = [];
     @Output() clientFound: EventEmitter<Client> = new EventEmitter<Client>();
     foundClients: Client[] = [];
+    clientIsAlreadyMember: boolean = false;
     isNoResults: boolean = false;
     modalIdSelectClient: string = 'agt-select-client';
     modalIdConfirmAddClient: string = 'agt-confirm-add-client';
@@ -79,18 +81,22 @@ export class ModalSearchClientComponent implements OnInit {
                     this.isNoResults = true;
                     this._resetSearchForm(this.model.f.name.value);
                 } else {
-                    this.isNoResults = false;
-                    ModalPlugin.hide(this.modalId);
-                    this._resetSearchForm();
-                    // If the client was found
-                    if(totalFoundClients === 1) {
-                        this.showModalToConfirmAddClient(res.data.items[0]);
-                        //this.clientFound.emit(res.data.items[0]);
-                    }
-                    // If there are multiple clients
-                    else {
-                        this.foundClients = res.data.items;
-                        ModalPlugin.show(this.modalIdSelectClient);
+                    // If the client was found and already member
+                    if(totalFoundClients === 1 && this._checkClientAlreadyMember(res.data.items[0].contactId)) {
+                        this.clientIsAlreadyMember = true;
+                    } else {
+                        this.isNoResults = false;
+                        ModalPlugin.hide(this.modalId);
+                        this._resetSearchForm();
+                        // If the client was found
+                        if(totalFoundClients === 1) {
+                            this.showModalToConfirmAddClient(res.data.items[0]);
+                        }
+                        // If there are multiple clients
+                        else {
+                            this.foundClients = res.data.items;
+                            ModalPlugin.show(this.modalIdSelectClient);
+                        }
                     }
                 }
                 setTimeout(() => {
@@ -111,10 +117,15 @@ export class ModalSearchClientComponent implements OnInit {
         }
     }
 
+    private _checkClientAlreadyMember(contactId: string): boolean {
+        return this.groupMembers.includes(contactId) ? true : false;
+    }
+
     /**
      * Reset the search form
      */
     private _resetSearchForm(name: string = ''): void {
+        this.clientIsAlreadyMember = false;
         this._isFormSubmitted = false;
         this.model.form.reset({name});
     }

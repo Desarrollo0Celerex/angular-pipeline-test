@@ -46,11 +46,12 @@ export class GroupProfileLayout implements OnInit, OnDestroy {
     }
 
     addClient(client: Client): void {
-        this._loadingService.show();
+        console.log('Agregar cliente: ',client);
+        /*this._loadingService.show();
         this.model.addGroupMember(this.groupId, client.contactId).subscribe(() => {
             this._loadingService.hide();
             AlertHelper.groupMemberAdded();
-        })
+        })*/
     }
 
     /**
@@ -61,6 +62,7 @@ export class GroupProfileLayout implements OnInit, OnDestroy {
             this._subParams = this._activatedRoute.firstChild.paramMap.subscribe((res: any) => {
                 this.groupId = res.get('groupId');
                 this.model.loadGroup(this.groupId);
+                this.model.loadGroupMembers(this.groupId);
             });
         }
     }

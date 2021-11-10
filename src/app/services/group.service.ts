@@ -49,7 +49,8 @@ export class GroupService {
         if(!!fields) params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, { params });
     }
-     /**
+
+    /**
       * Get the groups from the API
       * @param  page            The page number
       * @param  fields          The fields to get

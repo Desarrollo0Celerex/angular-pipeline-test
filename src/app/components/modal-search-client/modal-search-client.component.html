@@ -22,12 +22,19 @@
 							</span>
 						</div>
 					</div>
-					<ol class="breadcrumb1" *ngIf="!isNoResults; else noResults">
-						<li class="breadcrumb-item1">Ingresa el nombre del cliente que deseas agregar a este grupo.</li>
-					</ol>
-					<ng-template #noResults>
+					<ng-container *ngIf="!clientIsAlreadyMember; else clientIsAlreadyMemberMessage">
+						<ol class="breadcrumb1" *ngIf="!isNoResults; else noResults">
+							<li class="breadcrumb-item1">Ingresa el nombre del cliente que deseas agregar a este grupo.</li>
+						</ol>
+						<ng-template #noResults>
+							<ol class="breadcrumb1">
+								<li class="breadcrumb-item1">No hay clientes que coincidan con los datos ingresados. <strong>Por favor verifica que los datos sean correctos para continuar</strong>.</li>
+							</ol>
+						</ng-template>
+					</ng-container>
+					<ng-template #clientIsAlreadyMemberMessage>
 						<ol class="breadcrumb1">
-							<li class="breadcrumb-item1">No hay clientes que coincidan con los datos ingresados. <strong>Por favor verifica que los datos sean correctos para continuar</strong>.</li>
+							<li class="breadcrumb-item1">El cliente ya es miembro de este grupo. <strong>Por favor ingresa el nombre de otro cliente para continuar</strong>.</li>
 						</ol>
 					</ng-template>
 				</form>
@@ -40,5 +47,10 @@
 </div>
 <!-- //AGENTHOS - GROUPS CONTACT SEARCH -->
 
-<agt-modal-select-client [modalId]="modalIdSelectClient" [clients]="foundClients" (clientSelected)="showModalToConfirmAddClient($event)"></agt-modal-select-client>
+<agt-modal-select-client
+	[modalId]="modalIdSelectClient"
+	[groupMembers]="groupMembers"
+	[clients]="foundClients"
+	(clientSelected)="showModalToConfirmAddClient($event)">
+</agt-modal-select-client>
 <agt-modal-confirm-add-member [modalId]="modalIdConfirmAddClient" (actionConfirmed)="selectClient()"></agt-modal-confirm-add-member>

@@ -12,8 +12,13 @@ declare var ModalPlugin: any;
 })
 export class ModalSelectClientComponent {
     @Input() modalId: string = '';
+    @Input() groupMembers: string[] = [];
     @Input() clients: Client[] = [];
     @Output() clientSelected: EventEmitter<Client> = new EventEmitter<Client>();
+
+    canAddMember(contactId: string): boolean {
+        return this.groupMembers.includes(contactId) ? false : true;
+    }
 
     selectClient(client: Client): void {
         ModalPlugin.hide(this.modalId);
