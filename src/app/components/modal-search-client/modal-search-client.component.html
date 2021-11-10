@@ -1,0 +1,44 @@
+<!-- AGENTHOS - GROUPS MEMBER SEARCH -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">{{isNoResults ? 'Sin resultados' : 'Buscar Cliente'}}</h5>
+				<button type="button" class="close" aria-label="Close" (click)="closeModal()">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="model.form" (submit)="searchClient()">
+					<div class="form-group">
+						<div class="row gutters-xs">
+							<div class="col">
+								<!-- AGENTHOS - CONTACT NAME -->
+								<input type="text" class="form-control {{getValidationClass('name')}}" placeholder="Ingresa el nombre del cliente" formControlName="name">
+								<div class="invalid-feedback">{{getErrorMessage('name')}}</div>
+							</div>
+							<span class="col-auto">
+								<button type="submit" class="btn btn-primary"><i class="fe fe-search"></i></button>
+							</span>
+						</div>
+					</div>
+					<ol class="breadcrumb1" *ngIf="!isNoResults; else noResults">
+						<li class="breadcrumb-item1">Ingresa el nombre del cliente que deseas agregar a este grupo.</li>
+					</ol>
+					<ng-template #noResults>
+						<ol class="breadcrumb1">
+							<li class="breadcrumb-item1">No hay clientes que coincidan con los datos ingresados. <strong>Por favor verifica que los datos sean correctos para continuar</strong>.</li>
+						</ol>
+					</ng-template>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-block btn-secondary" (click)="closeModal()"><strong>CANCELAR</strong></button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //AGENTHOS - GROUPS CONTACT SEARCH -->
+
+<agt-modal-select-client [modalId]="modalIdSelectClient" [clients]="foundClients" (clientSelected)="showModalToConfirmAddClient($event)"></agt-modal-select-client>
+<agt-modal-confirm-add-member [modalId]="modalIdConfirmAddClient" (actionConfirmed)="selectClient()"></agt-modal-confirm-add-member>

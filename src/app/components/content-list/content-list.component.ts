@@ -905,7 +905,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             break;
 
             case CONTENT_TYPES.PARTNER.ID:
-                console.log('this.query: ',this.query);
                 this.contentListService.searchPartners(this.page, this.query).subscribe( () => {
                     this._contentLoaded();
                 })

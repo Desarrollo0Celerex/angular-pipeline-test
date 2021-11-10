@@ -11,9 +11,7 @@ declare var ModalPlugin: any;
 @Component({
   selector: 'agt-modal-voice-control-contact-results',
   templateUrl: './modal-voice-control-contact-results.component.html',
-  styleUrls: [
-      './modal-voice-control-contact-results.component.scss'
-  ]
+  styles: []
 })
 export class ModalVoiceControlContactResultsComponent {
     modalId: string = 'agt-voice-control-contact-results';

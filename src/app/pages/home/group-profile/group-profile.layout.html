@@ -83,7 +83,7 @@
                         <span class="text-muted">Siniestros<br/>Abiertos</span>
                     </div>
                     <div class="col">
-                        <p class="font-weight-500 number-font1 mb-0"></p>
+                        <p class="font-weight-500 number-font1 mb-0">A+</p>
                         <span class="text-muted">Score<br/>de Grupo</span>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                 <!-- AGENTHOS - TARGET IF FOUND (#agtGroupContactAdd) -->
                 <!-- AGENTHOS - TARGET IF DUPLICATED (#agtGroupContactSearchResults) -->
                 <!-- AGENTHOS - TARGET IF NOT FOUND (#agtGroupContactSearchNotFound) -->
-                <button type="button" class="btn btn-block btn-primary" [disabled]="!(!!model.group)"><strong>AGREGAR MIEMBRO</strong></button>
+                <button type="button" class="btn btn-block btn-primary" [disabled]="!(!!model.group)" (click)="showModalToSeachClient()"><strong>AGREGAR MIEMBRO</strong></button>
             </div>
         </div>
     </div>
@@ -104,3 +104,5 @@
 <!-- //AGENTHOS - GROUP PANEL -->
 
 <router-outlet></router-outlet>
+
+<agt-modal-search-client [modalId]="modalIdSearchClient" (clientFound)="addClient($event)"></agt-modal-search-client>

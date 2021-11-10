@@ -316,7 +316,14 @@
     box-shadow: 0 0 0 2px rgba(232, 67, 147,1.0) !important;
 }
 
-// Heights
+/* Heights */
 .agt-h40 {
     height: 40px !important;
+}
+
+/* Scrolls */
+.agt-scroll {
+    height: 100%;
+    max-height: 400px;
+    overflow: auto;
 }

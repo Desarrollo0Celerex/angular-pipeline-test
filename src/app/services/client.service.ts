@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { DEFAULT_PER_PAGE } from '@constants/global';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { RangeStat } from '@interfaces/range-stat.interface';
@@ -33,10 +34,11 @@ export class ClientService {
      * @param  query             The search to do
      * @return                   The clients
      */
-   public getClients(page: number = 1, fields: string = '', filters: string = '', query: string = ''): Observable<HttpResponse> {
+   public getClients(page: number = 1, fields: string = '', filters: string = '', query: string = '', perPage: number = DEFAULT_PER_PAGE): Observable<HttpResponse> {
        const route: string = routes.clients(this._workspaceId);
        let params: HttpParams = new HttpParams();
        params = params.append('page', page.toString());
+       params = params.append('perPage', perPage.toString());
        if(!!fields) params = params.append('fields', fields);
        if(!!filters) params = params.append('filter', filters);
        if(!!query) params = params.append('search', 'contactName:' + query);

@@ -1,0 +1,43 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- AGENTHOS - DETAILS CARD -->
+				<h5 class="modal-title">Resultados Obtenidos</h5>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="text-justify"><strong>Se han detectado {{clients.length}} clientes que coinciden con el nombre.</strong> Por favor selecciona al contacto correcto.</p>
+					</div>
+					<div class="col-md-12 mt-3 agt-scroll">
+						<div class="list-group list-lg-group list-group-flush">
+							<!-- AGENTHOS - CONTACT FOUND -->
+							<div class="list-group-item list-group-item-action" *ngFor="let client of clients">
+								<div class="media mt-0">
+									<div class="media-body">
+										<div class="d-flex align-items-center">
+											<div class="mt-0">
+												<!-- AGENTHOS - CONTACT STATUS -->
+												<div class="badge badge-{{client.clientStatusBackground}} mr-1 mb-3">{{client.clientStatusName | uppercase}}</div>
+												<!-- AGENTHOS - CONTACT NAME -->
+												<h5 class="mb-3">{{client.contactName}}</h5>
+												<p class="mb-1 fs-13 text-muted">Cartera Global: {{client.totalGlobalWallet | currency: '': '$': '0.2-2'}}</p>
+												<!-- AGENTHOS - TOTAL SINISTER -->
+												<p class="fs-13 text-muted">Pólizas Activas: {{client.totalActivePolicies}}</p>
+											</div>
+											<small class="ml-auto fs-16 mt-2">
+												<button type="button" class="btn btn-primary" (click)="selectClient(client)"><i class="fe fe-check-square"></i></button>
+											</small>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- //AGENTHOS - CONTACT FOUND -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
