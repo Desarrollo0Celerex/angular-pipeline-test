@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ContentListModule } from '@components/content-list/content-list.module';
+
 import { ResumeRoutingModule } from './resume-routing.module';
 import { ResumePage } from './resume.page';
 
@@ -11,7 +13,8 @@ import { ResumePage } from './resume.page';
   ],
   imports: [
     CommonModule,
-    ResumeRoutingModule
+    ResumeRoutingModule,
+    ContentListModule
   ]
 })
 export class ResumeModule { }

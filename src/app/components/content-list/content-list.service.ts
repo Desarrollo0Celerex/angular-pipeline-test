@@ -21,6 +21,7 @@ import { ContactService } from '@services/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
 import { EndorsementService } from '@services/endorsement.service';
 import { GroupService } from '@services/group.service';
+import { GroupMemberService } from '@services/group-member.service';
 import { LeadService } from '@services/lead.service';
 import { PartnerService } from '@services/partner.service';
 import { PaymentService } from '@services/payment.service';
@@ -42,6 +43,7 @@ export class ContentListService {
         private _contactFileService: ContactFileService,
         private _endorsementService: EndorsementService,
         private _groupService: GroupService,
+        private _groupMemberService: GroupMemberService,
         private _leadService: LeadService,
         private _partnerService: PartnerService,
         private _paymentService: PaymentService,
@@ -218,6 +220,23 @@ export class ContentListService {
             tap((res: HttpResponse) => {
                     this.contents = this.contents.concat(res.data.items);
                     this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
+     * Load the groups
+     * @param  page           The page number to get
+     * @param  contentSubtype The filter to apply
+     * @return                Notice of action done
+     */
+    loadGroupMembers(groupId: string, page: number): Observable<void> {
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        return this._groupMemberService.getGroupMembers(groupId, fields, page).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
             }),
             map(() => { })
         );

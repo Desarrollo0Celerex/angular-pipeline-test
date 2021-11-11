@@ -70,10 +70,27 @@
                     (showContactData)="onShowContactData($event)"
                     (contactSelected)="onContactSelected($event)"
                 ></agt-card-contact>
-                <agt-card-group *ngSwitchCase="CONTENT_TYPES.GROUP.ID" [group]="content"></agt-card-group>
-                <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD.ID" [lead]="content" (showContactData)="onShowContactData($event)"></agt-card-lead>
-                <agt-card-client *ngSwitchCase="CONTENT_TYPES.CLIENT.ID" [client]="content" (showContactData)="onShowContactData($event)"></agt-card-client>
-                <agt-card-quotation *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID" [quotation]="content" (showQuotationDetails)="onShowQuotationDetails($event)" (acceptQuotation)="onAcceptQuotation($event)" (rejectQuotation)="onRejectQuotation($event)"></agt-card-quotation>
+                <agt-card-group *ngSwitchCase="CONTENT_TYPES.GROUP.ID"
+                    [group]="content">
+                </agt-card-group>
+                <agt-card-group-member *ngSwitchCase="CONTENT_TYPES.GROUP_MEMBER.ID"
+                    [client]="content"
+                    (deleteGroupMemberRequested)="confirmDeleteGroupMember($event)">
+                </agt-card-group-member>
+                <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD.ID"
+                    [lead]="content"
+                    (showContactData)="onShowContactData($event)">
+                </agt-card-lead>
+                <agt-card-client *ngSwitchCase="CONTENT_TYPES.CLIENT.ID"
+                    [client]="content"
+                    (showContactData)="onShowContactData($event)">
+                </agt-card-client>
+                <agt-card-quotation *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID"
+                    [quotation]="content"
+                    (showQuotationDetails)="onShowQuotationDetails($event)"
+                    (acceptQuotation)="onAcceptQuotation($event)"
+                    (rejectQuotation)="onRejectQuotation($event)">
+                </agt-card-quotation>
                 <agt-card-policy *ngSwitchCase="CONTENT_TYPES.CONTACT_POLICY.ID"
                     [policy]="content"
                     (showPolicyDetails)="onShowPolicyDetails($event)"

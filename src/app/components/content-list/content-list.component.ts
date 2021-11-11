@@ -47,6 +47,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() originPolicyId: string;
     @Input() paymentId: string;
     @Input() policyId: string;
+    @Input() groupId: string = '';
     @Input() query: string;
     @Input() sinisterId: string;
     @Input() specialQuery: SearchContactData | null;
@@ -192,7 +193,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             (typeof changes.specialQuery !== 'undefined' && !!changes.specialQuery.currentValue) ||
             (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) && (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) && (!!this.contentSubtype || !!this.query || !!this.specialQuery) ||
             (typeof changes.canReloadContent !== 'undefined' && !!changes.canReloadContent.currentValue) ||
-            (!!changes.policyId && !!changes.policyId.currentValue)
+            (!!changes.policyId && !!changes.policyId.currentValue) ||
+            (!!changes.groupId && !!changes.groupId.currentValue)
         ) {
             this._initContent();
 
@@ -211,6 +213,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.selectedPolicyId = payment.policyId;
         this.selectedPaymentId = payment.paymentId;
         ModalPlugin.show(this.modalIdApplyPayment);
+    }
+
+    confirmDeleteGroupMember(contactId: string): void {
+        this.selectedContactId = contactId;
+        console.log('Eliminar: ',this.selectedContactId);
     }
 
     deleteRenewedPolicy(): void {
@@ -706,6 +713,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.GROUP.ID:
+            case CONTENT_TYPES.GROUP_MEMBER.ID:
             case CONTENT_TYPES.PARTNER.ID:
                 this.cardClasses = 'col-md-3 col-xl-3';
             break;
@@ -778,6 +786,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.GROUP.ID:
                 this.contentListService.loadGroups(this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.GROUP_MEMBER.ID:
+                this.contentListService.loadGroupMembers(this.groupId, this.page).subscribe( () => {
                     this._contentLoaded();
                 });
             break;

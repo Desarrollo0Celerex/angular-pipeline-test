@@ -5,6 +5,7 @@ import { CardClientModule } from '@components/card-client/card-client.module';
 import { CardContactModule } from '@components/card-contact/card-contact.module';
 import { CardContactFileModule } from '@components/card-contact-file/card-contact-file.module';
 import { CardGroupModule } from '@components/card-group/card-group.module';
+import { CardGroupMemberModule } from '@components/card-group-member/card-group-member.module';
 import { CardLeadModule } from '@components/card-lead/card-lead.module';
 import { CardPartnerModule } from '@components/card-partner/card-partner.module';
 import { CardPaymentModule } from '@components/card-payment/card-payment.module';
@@ -72,6 +73,7 @@ import { ContactService } from '@services/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
 import { EndorsementService } from '@services/endorsement.service';
 import { GroupService } from '@services/group.service';
+import { GroupMemberService } from '@services/group-member.service';
 import { LeadService } from '@services/lead.service';
 import { PartnerService } from '@services/partner.service';
 import { PaymentService } from '@services/payment.service';
@@ -92,6 +94,7 @@ import { ContentListService } from './content-list.service';
     CardContactModule,
     CardContactFileModule,
     CardGroupModule,
+    CardGroupMemberModule,
     CardLeadModule,
     CardPartnerModule,
     CardPaymentModule,
@@ -158,6 +161,7 @@ import { ContentListService } from './content-list.service';
       ContentListService,
       EndorsementService,
       GroupService,
+      GroupMemberService,
       LeadService,
       PartnerService,
       PaymentService,

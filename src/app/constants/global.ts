@@ -205,6 +205,10 @@ export const CONTENT_TYPES: any = {
         ID: 18,
         NAME: 'Grupo'
     },
+    GROUP_MEMBER: {
+        ID: 19,
+        NAME: 'Miembro'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,
