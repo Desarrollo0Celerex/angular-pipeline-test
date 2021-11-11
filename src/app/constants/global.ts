@@ -209,6 +209,10 @@ export const CONTENT_TYPES: any = {
         ID: 19,
         NAME: 'Miembro'
     },
+    GROUP_POLICY: {
+        ID: 20,
+        NAME: 'Póliza'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

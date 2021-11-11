@@ -255,6 +255,26 @@ export class ContentListService {
     }
 
     /**
+     * Load the group policies
+     * @param  groupId      The group ID
+     * @param  page           The page number
+     * @param  contentSubtype The content subtype
+     * @return                Notice of action done
+     */
+    loadGroupPolicies(groupId: string, page: number, contentSubtype: number): Observable<void> {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,groupId,paymentId,policyCancellationReasonId,contactId';
+        const filters: number [] = (contentSubtype === POLICY_STATUS_ACTIVE) ? [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED] : [contentSubtype];
+        return this._policyService.getGroupPolicies(groupId, page, fields, filters).pipe(
+            tap((res: HttpResponse) => {
+                const policies: Policy[] = res.data.items;
+                this.contents = this.contents.concat(policies);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
      * Load the leads
      * @param  page           The page number to get
      * @param  contentSubtype The filter to apply

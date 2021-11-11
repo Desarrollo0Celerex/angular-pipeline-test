@@ -10,6 +10,7 @@ import { UtilitiesHelper } from '@helpers/utilities.helper';
 
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
+import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Partner } from '@interfaces/partner.interface';
 import { Payment } from '@interfaces/payment.interface';
@@ -277,12 +278,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to cancel a policy
      * @param policyId The policy ID
      */
-    onCancelPolicy(policyId: string| { policyId: string, contactId: string }): void {
-        if(typeof policyId === 'string') {
-            this.selectedPolicyId = policyId;
+    onCancelPolicy(data: string| ContactPolicyData): void {
+        if(typeof data === 'string') {
+            this.selectedPolicyId = data;
         } else {
-            this.selectedPolicyId = policyId.policyId;
-            this.contactId = policyId.contactId
+            this.selectedPolicyId = data.policyId;
+            this.contactId = data.contactId
         }
         ModalPlugin.show(this.modalIdConfirmCancelPolicy);
     }
@@ -299,7 +300,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to complete the policy data
      * @param data The policy record data
      */
-    onCompletePolicy(data: PolicyRecordData): void {
+    onCompletePolicyRecord(data: PolicyRecordData): void {
         this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.sourceContactId, data.sourceId));
     }
 
@@ -316,8 +317,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show modal to confirm delete the policy
      * @param policyId The policy ID to delete
      */
-    onDeletePolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
+    onDeletePolicy(data: ContactPolicyData): void {
+        this.contactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmDeleteCompletePolicy);
     }
 
@@ -356,8 +358,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to endorse a policy
      * @param policyId The policy ID
      */
-    onEndorsePolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
+    onEndorsePolicy(data: ContactPolicyData): void {
+        this.contactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmEndorsePolicy);
     }
 
@@ -414,8 +417,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to reissue the policy
      * @param policyId [description]
      */
-    onReissuePolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
+    onReissuePolicy(data: ContactPolicyData): void {
+        this.contactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmReissuePolicy);
     }
 
@@ -432,10 +436,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to renew a policy
      * @param policyId The policy ID
      */
-    onRenewPolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
+    onRenewPolicy(data: ContactPolicyData): void {
+        this.contactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
         this._loadingService.show();
-        this.contentListService.getPolicyLogs(this.contactId, policyId).subscribe((policyLogs: PolicyLog[]) => {
+        this.contentListService.getPolicyLogs(this.contactId, this.selectedPolicyId).subscribe((policyLogs: PolicyLog[]) => {
             this._loadingService.hide();
             // Check if the policy has already been renewed
             if(policyLogs.length > 0) {
@@ -478,12 +483,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show the history policy
      * @param policyId The selected policy ID
      */
-    onShowHistoryPolicy(policyId: string | { policyId: string, contactId: string }): void {
-        if(typeof policyId === 'string') {
-            this.selectedPolicyId = policyId;
+    onShowHistoryPolicy(data: string | ContactPolicyData): void {
+        if(typeof data === 'string') {
+            this.selectedPolicyId = data;
         } else {
-            this.selectedPolicyId = policyId.policyId;
-            this.contactId = policyId.contactId
+            this.selectedPolicyId = data.policyId;
+            this.contactId = data.contactId
         }
         ModalPlugin.show(this.modalIdConfirmShowHistoryPolicy);
     }
@@ -521,9 +526,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show policy
      * @param policyId The policy ID
      */
-    onShowPolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
-        this.selectedContactId = this.contactId;
+    onShowPolicy(data: string | ContactPolicyData): void {
+        if(typeof data === 'string') {
+            this.selectedPolicyId = data;
+            this.selectedContactId = this.contactId;
+        } else {
+            this.selectedContactId = data.contactId;
+            this.selectedPolicyId = data.policyId;
+        }
         ModalPlugin.show(this.modalIdShowPolicy);
     }
 
@@ -551,9 +561,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show the policy details modal
      * @param policyId The selected policy ID
      */
-    onShowPolicyDetails(policyId: string): void {
-        this.selectedPolicyId = policyId;
-        this.selectedContactId = this.contactId;
+    onShowPolicyDetails(data: ContactPolicyData): void {
+        this.selectedPolicyId = data.policyId;
+        this.selectedContactId = data.contactId;
         ModalPlugin.show(this.modalIdShowPolicyDetails);
     }
 
@@ -564,6 +574,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onShowPolicyDetailsFromRecord(data: PolicyRecordData): void {
         this.selectedPolicyId = data.sourceId;
         this.selectedContactId = data.sourceContactId;
+        ModalPlugin.show(this.modalIdShowPolicyDetails);
+    }
+
+    /**
+     * Event to show the policy details from the record
+     * @param data The policy record ID
+     */
+    onShowPolicyDetailsTracker(policyId: string): void {
+        this.selectedPolicyId = policyId;
+        this.selectedContactId = this.contactId;
         ModalPlugin.show(this.modalIdShowPolicyDetails);
     }
 
@@ -632,8 +652,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     /**
      * Event to show modal to confirm update policy
      */
-    onUpdatePolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
+    onUpdatePolicy(data: ContactPolicyData): void {
+        this.contactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmUpdatePolicy);
     }
 
@@ -726,13 +747,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.GROUP.ID:
             case CONTENT_TYPES.GROUP_MEMBER.ID:
+            case CONTENT_TYPES.GROUP_POLICY.ID:
             case CONTENT_TYPES.PARTNER.ID:
-                this.cardClasses = 'col-md-3 col-xl-3';
+                this.cardClasses = 'col-xl-3 col-lg-4 col-md-6 col-sm-12';
             break;
 
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.CONTACT_POLICY.ID:
             case CONTENT_TYPES.CONTACT_FILE.ID:
+            case CONTENT_TYPES.GROUP_POLICY.ID:
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
             case CONTENT_TYPES.POLICY_TRACKER.ID:
@@ -804,6 +827,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.GROUP_MEMBER.ID:
                 this.contentListService.loadGroupMembers(this.groupId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.GROUP_POLICY.ID:
+                this.contentListService.loadGroupPolicies(this.groupId, this.page, this.contentSubtype).subscribe( () => {
                     this._contentLoaded();
                 });
             break;

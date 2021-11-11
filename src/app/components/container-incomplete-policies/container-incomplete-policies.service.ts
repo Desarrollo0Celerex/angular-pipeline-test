@@ -28,10 +28,23 @@ export class ContainerIncompletePoliciesService {
      * @param contactId The contact ID
      * @param page      The page number
      */
-    loadIncompletePolicies(contactId: string, page: number, contentSubtype: number): void {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName';
+    loadContactIncompletePolicies(contactId: string, page: number, contentSubtype: number): void {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId';
         const filters: number [] = [contentSubtype];
         this._policyService.getContactPolicies(contactId, page, fields, filters).subscribe( (res: HttpResponse) => {
+            this.incompletePolicies = res.data.items;
+        })
+    }
+
+    /**
+     * Load the incomplete policies
+     * @param contactId The contact ID
+     * @param page      The page number
+     */
+    loadGroupIncompletePolicies(groupId: string, page: number, contentSubtype: number): void {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId';
+        const filters: number [] = [contentSubtype];
+        this._policyService.getGroupPolicies(groupId, page, fields, filters).subscribe( (res: HttpResponse) => {
             this.incompletePolicies = res.data.items;
         })
     }

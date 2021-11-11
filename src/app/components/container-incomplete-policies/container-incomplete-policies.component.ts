@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { POLICY_STATUS } from '@constants/global';
+import { CONTENT_TYPES, POLICY_STATUS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
+import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 
 import { ContainerIncompletePoliciesService } from './container-incomplete-policies.service';
 
@@ -15,10 +16,12 @@ declare var ModalPlugin: any;
   ]
 })
 export class ContainerIncompletePoliciesComponent implements OnInit {
-    @Input() contactId: string;
+    @Input() contentType: number = 0;
     @Input() contentTypeName: string;
+    @Input() contactId: string;
+    @Input() groupId: string = '';
     @Output() policyDeleted: EventEmitter<void>;
-    @Output() showHistoryPolicy: EventEmitter<string>;
+    @Output() showHistoryPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();;
     contentSubtype: number;
     modalIdConfirmDeletePolicy: string;
     selectedPolicyId: string;
@@ -31,7 +34,6 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
         this.contactId = '';
         this.contentTypeName = '';
         this.policyDeleted = new EventEmitter<void>();
-        this.showHistoryPolicy = new EventEmitter<string>();
         this.contentSubtype = POLICY_STATUS.INCOMPLETE;
         this.modalIdConfirmDeletePolicy = 'agt-confirm-delete-policy';
         this.selectedPolicyId = '';
@@ -40,7 +42,16 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
 
     ngOnInit(): void {
         const page: number = 1;
-        this.containerListIncompletePoliciesService.loadIncompletePolicies(this.contactId, page, this.contentSubtype);
+        switch(this.contentType) {
+            case CONTENT_TYPES.CONTACT_POLICY.ID:
+                this.containerListIncompletePoliciesService.loadContactIncompletePolicies(this.contactId, page, this.contentSubtype);
+            break;
+
+            case CONTENT_TYPES.GROUP_POLICY.ID:
+                this.containerListIncompletePoliciesService.loadGroupIncompletePolicies(this.groupId, page, this.contentSubtype);
+            break;
+        }
+
     }
 
     deletePolicyCard(policyId: string): void {
@@ -51,16 +62,17 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
      * Event to complete the policy data
      * @param policyId The policy ID to complete
      */
-    onCompletePolicy(policyId: string): void {
-        this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(this.contactId, policyId));
+    onCompletePolicy(data: ContactPolicyData): void {
+        this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.contactId, data.policyId));
     }
 
     /**
      * Event to show modal to confirm delete the policy
      * @param policyId The policy ID to delete
      */
-    onDeletePolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
+    onDeletePolicy(data: ContactPolicyData): void {
+        this.contactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmDeletePolicy);
     }
 
@@ -77,8 +89,8 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
      * event to show the history policy
      * @param policyId The policy ID
      */
-    onShowHistoryPolicy(policyId: string): void {
-        this.showHistoryPolicy.emit(policyId);
+    onShowHistoryPolicy(data: ContactPolicyData): void {
+        this.showHistoryPolicy.emit(data);
     }
 
 }
