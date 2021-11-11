@@ -80,6 +80,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static groupMemberDeleted(): void {
+        const alertData: Alert = {
+            title: 'Cliente Eliminado',
+            text: 'El cliente se eliminó del grupo con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static invalidAuthToken(): void {
         const alertData: Alert = {
             title: 'Error',

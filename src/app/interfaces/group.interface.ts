@@ -4,5 +4,6 @@ export interface Group {
     avatarUrl: string,
     createdAt: string,
     groupStatusName: string,
-    groupStatusBackground: string
+    groupStatusBackground: string,
+    totalMembers: number
 }

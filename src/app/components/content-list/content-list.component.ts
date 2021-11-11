@@ -85,6 +85,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmCancelPolicy: string;
     modalIdConfirmDeleteContactFile: string = 'agt-confirm-delete-contact-file';
     modalIdConfirmDeleteCompletePolicy: string = 'agt-confirm-delete-complete-policy';
+    modalIdConfirmDeleteGroupMember: string = 'agt-confirm-delete-group-member';
     modalIdConfirmDeleteReceiptPaid: string;
     modalIdConfirmDeleteRenewedPolicy: string = 'agt-confirm-delete-renewed-policy';
     modalIdConfirmDeleteSinisterEvent: string = 'agt-confirm-delete-sinister-event';
@@ -217,7 +218,18 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     confirmDeleteGroupMember(contactId: string): void {
         this.selectedContactId = contactId;
-        console.log('Eliminar: ',this.selectedContactId);
+        ModalPlugin.show(this.modalIdConfirmDeleteGroupMember)
+    }
+
+    deleteGroupMember(): void {
+        this._loadingService.show();
+        this.contentListService.deleteGroupMember(this.groupId, this.selectedContactId).subscribe(() => {
+            this._loadingService.hide();
+            AlertHelper.groupMemberDeleted();
+            this.contentListService.deleteGroupMemberCard(this.selectedContactId);
+            const url: string = this._router.url.split('?')[0] ;
+            this._reloadPage(url);
+        })
     }
 
     deleteRenewedPolicy(): void {

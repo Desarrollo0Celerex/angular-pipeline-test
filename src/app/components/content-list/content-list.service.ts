@@ -5,6 +5,7 @@ import * as moment from 'moment';
 
 import { CLIENT_STATUS, LEAD_STATUS, PARTNER_STATUS, POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN, DEFAULT_PER_PAGE } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { Contact } from '@interfaces/contact.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { Payment } from '@interfaces/payment.interface';
@@ -55,6 +56,17 @@ export class ContentListService {
     ) {
         this.contents = this._initContents();
         this.contentResultData = this._initContentResultData();
+    }
+
+    deleteGroupMember(groupId: string, contactId: string): Observable<void> {
+        return this._groupMemberService.deleteGroupMember(groupId, contactId);
+    }
+
+    deleteGroupMemberCard(contactId: string): void {
+        const contactPosition: number = this._getContactPosition(contactId);
+        if(contactPosition > -1) {
+            this.contents.splice(contactPosition, 1);
+        }
     }
 
     deleteRenewedPolicy(contactId: string, policyId: string): Observable<void> {
@@ -214,7 +226,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadGroups(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground';
+        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground,totalMembers';
         const filters: string = UtilitiesHelper.generateHttpFilter('groupStatusId', [contentSubtype])
         return this._groupService.getGroups(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
@@ -651,6 +663,10 @@ export class ContentListService {
             }),
             map( () => { })
         )
+    }
+
+    private _getContactPosition(contactId: string): number {
+        return this.contents.findIndex((value: Contact) => value.contactId == contactId)
     }
 
     /**

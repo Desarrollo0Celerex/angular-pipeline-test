@@ -9,6 +9,7 @@ import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     groupMembers: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/members',
+    groupMember: (workspaceId: string, groupId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/members/' + contactId,
 }
 
 @Injectable()
@@ -48,5 +49,14 @@ export class GroupMemberService {
         if(!!fields) params = params.append('fields', fields);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, { params });
+    }
+
+    /**
+     * Delete the group member in the API
+     * @return  Notification of action done
+     */
+    deleteGroupMember(groupId: string, contactId: string): Observable<void> {
+        const route: string = routes.groupMember(this._workspaceId, groupId, contactId);
+        return this._httpClient.delete<void>(route);
     }
 }

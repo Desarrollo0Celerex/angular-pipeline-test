@@ -224,6 +224,9 @@
     ></agt-modal-apply-payment>
     <agt-modal-confirm-show-payment-history [modalId]="modalIdConfirmShowPaymentHistory" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [paymentId]="selectedPaymentId"></agt-modal-confirm-show-payment-history>
 </ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.GROUP_MEMBER.ID">
+    <agt-modal-confirm-delete-group-member [modalId]="modalIdConfirmDeleteGroupMember" (actionConfirmed)="deleteGroupMember()"></agt-modal-confirm-delete-group-member>
+</ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PARTNER.ID">
     <agt-modal-show-partner-details [modalId]="modalIdShowPartnerDetails" [partner]="selectedPartner"></agt-modal-show-partner-details>
 </ng-container>

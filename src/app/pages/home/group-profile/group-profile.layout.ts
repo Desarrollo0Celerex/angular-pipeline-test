@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
@@ -27,6 +27,7 @@ export class GroupProfileLayout implements OnInit, OnDestroy {
         private _activatedRoute: ActivatedRoute,
         private _groupProfileService: GroupProfileService,
         private _loadingService: LoadingService,
+        private _router: Router
     ) { }
 
     ngOnInit(): void {
@@ -46,12 +47,12 @@ export class GroupProfileLayout implements OnInit, OnDestroy {
     }
 
     addClient(client: Client): void {
-        console.log('Agregar cliente: ',client);
-        /*this._loadingService.show();
+        this._loadingService.show();
         this.model.addGroupMember(this.groupId, client.contactId).subscribe(() => {
             this._loadingService.hide();
             AlertHelper.groupMemberAdded();
-        })*/
+            this._reloadPage();
+        })
     }
 
     /**
@@ -65,6 +66,16 @@ export class GroupProfileLayout implements OnInit, OnDestroy {
                 this.model.loadGroupMembers(this.groupId);
             });
         }
+    }
+
+    /**
+     * Reload the page
+     */
+    private _reloadPage(): void {
+        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this._router.onSameUrlNavigation = 'reload';
+        const url: string = this._router.url.split('?')[0] ;
+        this._router.navigate([url], { relativeTo: this._activatedRoute } );
     }
 
 }

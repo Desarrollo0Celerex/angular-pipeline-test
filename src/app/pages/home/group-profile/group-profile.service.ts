@@ -24,7 +24,7 @@ export class GroupProfileService {
     }
 
     loadGroup(groupId: string): void {
-        const fields: string = '';
+        const fields: string = 'avatarUrl,name,totalMembers,createdAt';
         this._groupService.getGroup(groupId, fields).subscribe((res: HttpResponse) => {
             this.group = res.data;
         })
