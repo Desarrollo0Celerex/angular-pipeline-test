@@ -86,7 +86,8 @@
                     (contactSelected)="onContactSelected($event)"
                 ></agt-card-contact>
                 <agt-card-group *ngSwitchCase="CONTENT_TYPES.GROUP.ID"
-                    [group]="content">
+                    [group]="content"
+                    (showGroupDetails)="showGroupDetails($event)">
                 </agt-card-group>
                 <agt-card-group-member *ngSwitchCase="CONTENT_TYPES.GROUP_MEMBER.ID"
                     [client]="content"
@@ -307,5 +308,8 @@
     <agt-modal-transfer-contact-file [modalId]="modalIdTransferContactFile" [contactFileData]="selectedContactFileData"></agt-modal-transfer-contact-file>
     <agt-modal-confirm-update-contact-file [modalId]="modalIdConfirmUpdateContactFile" [contactFileData]="selectedContactFileData"></agt-modal-confirm-update-contact-file>
     <agt-modal-confirm-delete-contact-file [modalId]="modalIdConfirmDeleteContactFile" [contactFileData]="selectedContactFileData"></agt-modal-confirm-delete-contact-file>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.GROUP.ID">
+    <agt-modal-show-group-details [modalId]="modalIdShowGroupDetails" [group]="selectedGroup"></agt-modal-show-group-details>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

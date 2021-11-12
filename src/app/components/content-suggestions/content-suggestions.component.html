@@ -27,14 +27,11 @@
                 <ng-container *ngSwitchCase="CONTENT_TYPES.GROUP_MEMBER.ID">
                     <ng-container *ngTemplateOutlet="groupMemberSuggestion"></ng-container>
                 </ng-container>
-                <ng-container *ngSwitchCase="CONTENT_TYPES.GROUP_SINISTER.ID">
-                    <ng-container *ngTemplateOutlet="groupSinisterSuggestion"></ng-container>
-                </ng-container>
-                <ng-container *ngSwitchCase="CONTENT_TYPES.GROUP_MEMBER.ID">
-                    <ng-container *ngTemplateOutlet="groupMemberSuggestion"></ng-container>
-                </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.GROUP_POLICY.ID">
                     <ng-container *ngTemplateOutlet="groupPolicySuggestion"></ng-container>
+                </ng-container>
+                <ng-container *ngSwitchCase="CONTENT_TYPES.GROUP_SINISTER.ID">
+                    <ng-container *ngTemplateOutlet="groupSinisterSuggestion"></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.PARTNER.ID">
                     <ng-container *ngTemplateOutlet="partnerSuggestion"></ng-container>

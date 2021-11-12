@@ -5,5 +5,9 @@ export interface Group {
     createdAt: string,
     groupStatusName: string,
     groupStatusBackground: string,
-    totalMembers: number
+    totalMembers: number,
+    totalGlobalWallet: number,
+    totalGlobalWalletPaid: number,
+    currencyName: string,
+    totalActivePolicies: number
 }

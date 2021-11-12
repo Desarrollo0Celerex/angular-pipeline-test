@@ -56,6 +56,7 @@ import { ModalShowCancellationEvidenceModule } from '@components/modal-show-canc
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 import { ModalShowContactFileDetailsModule } from '@components/modal-show-contact-file-details/modal-show-contact-file-details.module';
 import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/modal-show-endorsement.module';
+import { ModalShowGroupDetailsModule } from '@components/modal-show-group-details/modal-show-group-details.module';
 import { ModalShowPartnerDetailsModule } from '@components/modal-show-partner-details/modal-show-partner-details.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
@@ -145,6 +146,7 @@ import { ContentListService } from './content-list.service';
     ModalShowContactDataModule,
     ModalShowContactFileDetailsModule,
     ModalShowEndorsementModule,
+    ModalShowGroupDetailsModule,
     ModalShowPartnerDetailsModule,
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,

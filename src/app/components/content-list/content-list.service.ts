@@ -226,7 +226,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadGroups(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground,totalMembers';
+        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground,totalMembers,totalGlobalWallet,totalGlobalWalletPaid,currencyName,totalActivePolicies,createdAt';
         const filters: string = UtilitiesHelper.generateHttpFilter('groupStatusId', [contentSubtype])
         return this._groupService.getGroups(page, fields, filters).pipe(
             tap((res: HttpResponse) => {

@@ -12,6 +12,7 @@ import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.inte
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
 import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { Group } from '@interfaces/group.interface';
 import { Partner } from '@interfaces/partner.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
@@ -70,6 +71,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedCancelledPolicyId: string = '';
     selectedEndorsementId: string;
     selectedEvidenceUrl: string = '';
+    selectedGroup: Group | null = null;
     selectedPartner: Partner | null = null;
     selectedPaymentId: string;
     selectedPolicyData: PolicyDataSend | null = null;
@@ -108,6 +110,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowContactData: string;
     modalIdShowContactFileDetails: string = 'agt-show-contact-file-details';
     modalIdShowEndorsement: string;
+    modalIdShowGroupDetails: string = 'agt-show-group-details';
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
     modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
@@ -680,6 +683,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     showContactFileDetails(data: ContactFileDataSend): void {
         this.selectedContactFileData = data;
         ModalPlugin.show(this.modalIdShowContactFileDetails);
+    }
+
+    showGroupDetails(group: Group): void {
+        this.selectedGroup = group;
+        ModalPlugin.show(this.modalIdShowGroupDetails);
     }
 
     showModalApplyPayment(): void {

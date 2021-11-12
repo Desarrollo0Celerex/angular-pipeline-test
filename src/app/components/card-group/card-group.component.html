@@ -20,8 +20,8 @@
         </p>
         <!-- AGENTHOS - CONTACT WALLET -->
         <p class="mb-0">
-            <i class="fe fe-credit-card mr-1"></i>$0 MXN
-            <span class="float-right"><i class="fe fe-file-text mr-1"></i>0 P</span>
+            <i class="fe fe-credit-card mr-1"></i>{{group.totalGlobalWallet | currency: '': '$': '0.2-2'}} {{group.currencyName}}
+            <span class="float-right"><i class="fe fe-file-text mr-1"></i>{{group.totalActivePolicies}} P</span>
         </p>
     </div>
     <!-- //AGENTHOS - GROUP CARD BODY -->
@@ -34,7 +34,7 @@
             </div>
             <div class="col-sm-3 col-3 text-right">
                 <!-- AGENTHOS - GROUP DETAILS -->
-                <button type="button" name="agtGroupDetails" class="btn btn-icon btn-secondary" data-toggle="modal" data-target="#agtGroupDetails" data-toggle="tooltip" data-placement="bottom" title="Ver Detalles"><i class="fa fa-area-chart"></i></button>
+                <button type="button" class="btn btn-icon btn-secondary" (click)="requestShowPolicyDetails()"><i class="fa fa-area-chart"></i></button>
             </div>
         </div>
     </div>
