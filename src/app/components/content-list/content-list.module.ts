@@ -5,6 +5,7 @@ import { CardClientModule } from '@components/card-client/card-client.module';
 import { CardContactModule } from '@components/card-contact/card-contact.module';
 import { CardContactFileModule } from '@components/card-contact-file/card-contact-file.module';
 import { CardGroupModule } from '@components/card-group/card-group.module';
+import { CardGroupMemberModule } from '@components/card-group-member/card-group-member.module';
 import { CardLeadModule } from '@components/card-lead/card-lead.module';
 import { CardPartnerModule } from '@components/card-partner/card-partner.module';
 import { CardPaymentModule } from '@components/card-payment/card-payment.module';
@@ -31,6 +32,7 @@ import { ModalApplyPaymentModule } from '@components/modal-apply-payment/modal-a
 import { ModalConfirmAcceptQuotationModule } from '@components/modal-confirm-accept-quotation/modal-confirm-accept-quotation.module';
 import { ModalConfirmCancelPolicyModule } from '@components/modal-confirm-cancel-policy/modal-confirm-cancel-policy.module';
 import { ModalConfirmDeleteContactFileModule } from '@components/modal-confirm-delete-contact-file/modal-confirm-delete-contact-file.module';
+import { ModalConfirmDeleteGroupMemberModule } from '@components/modal-confirm-delete-group-member/modal-confirm-delete-group-member.module';
 import { ModalConfirmDeletePolicyCompleteModule } from '@components/modal-confirm-delete-policy-complete/modal-confirm-delete-policy-complete.module';
 import { ModalConfirmDeleteReceiptPaidModule } from '@components/modal-confirm-delete-receipt-paid/modal-confirm-delete-receipt-paid.module';
 import { ModalConfirmDeleteRenewedPolicyModule } from '@components/modal-confirm-delete-renewed-policy/modal-confirm-delete-renewed-policy.module';
@@ -54,6 +56,7 @@ import { ModalShowCancellationEvidenceModule } from '@components/modal-show-canc
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 import { ModalShowContactFileDetailsModule } from '@components/modal-show-contact-file-details/modal-show-contact-file-details.module';
 import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/modal-show-endorsement.module';
+import { ModalShowGroupDetailsModule } from '@components/modal-show-group-details/modal-show-group-details.module';
 import { ModalShowPartnerDetailsModule } from '@components/modal-show-partner-details/modal-show-partner-details.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
@@ -72,6 +75,7 @@ import { ContactService } from '@services/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
 import { EndorsementService } from '@services/endorsement.service';
 import { GroupService } from '@services/group.service';
+import { GroupMemberService } from '@services/group-member.service';
 import { LeadService } from '@services/lead.service';
 import { PartnerService } from '@services/partner.service';
 import { PaymentService } from '@services/payment.service';
@@ -92,6 +96,7 @@ import { ContentListService } from './content-list.service';
     CardContactModule,
     CardContactFileModule,
     CardGroupModule,
+    CardGroupMemberModule,
     CardLeadModule,
     CardPartnerModule,
     CardPaymentModule,
@@ -117,6 +122,7 @@ import { ContentListService } from './content-list.service';
     ModalConfirmAcceptQuotationModule,
     ModalConfirmCancelPolicyModule,
     ModalConfirmDeleteContactFileModule,
+    ModalConfirmDeleteGroupMemberModule,
     ModalConfirmDeletePolicyCompleteModule,
     ModalConfirmDeleteReceiptPaidModule,
     ModalConfirmDeleteRenewedPolicyModule,
@@ -140,6 +146,7 @@ import { ContentListService } from './content-list.service';
     ModalShowContactDataModule,
     ModalShowContactFileDetailsModule,
     ModalShowEndorsementModule,
+    ModalShowGroupDetailsModule,
     ModalShowPartnerDetailsModule,
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
@@ -158,6 +165,7 @@ import { ContentListService } from './content-list.service';
       ContentListService,
       EndorsementService,
       GroupService,
+      GroupMemberService,
       LeadService,
       PartnerService,
       PaymentService,

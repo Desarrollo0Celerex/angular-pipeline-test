@@ -13,7 +13,8 @@
             [contentType]="contentType"
             [contentTypeName]="contentTypeName"
             [query]="query"
-            [contactId]="contactId">
+            [contactId]="contactId"
+            [groupId]="groupId">
         </agt-content-search-engine>
     </div>
     <div class="col-md-{{mainActionWidth}} col-lg-{{mainActionWidth}}">
@@ -37,6 +38,7 @@
     [contentSubtypeName]="contentSubtypeName"
     [query]="query"
     [contactId]="contactId"
+    [groupId]="groupId"
     [canReloadContent]="canReloadContent"
     (contentReloaded)="onContentReloaded()"
     (receiptPaid)="onReloadContent()"

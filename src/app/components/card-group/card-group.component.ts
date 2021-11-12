@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { ROUTES_NAME } from '@constants/routes-name';
 import { Group } from '@interfaces/group.interface';
 
 @Component({
@@ -10,4 +12,19 @@ import { Group } from '@interfaces/group.interface';
 })
 export class CardGroupComponent {
     @Input() group: Group | null = null;
+    @Output() showGroupDetails: EventEmitter<Group> = new EventEmitter<Group>();
+
+    constructor(private _router: Router) { }
+
+    goToGroupResume(): void {
+        if(!!this.group) {
+            this._router.navigateByUrl(ROUTES_NAME.groupResume(this.group.groupId));
+        }
+    }
+
+    requestShowPolicyDetails(): void {
+        if(!!this.group) {
+            this.showGroupDetails.emit(this.group);
+        }
+    }
 }

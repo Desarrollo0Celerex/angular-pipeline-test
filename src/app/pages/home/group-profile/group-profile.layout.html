@@ -1,0 +1,112 @@
+<!-- AGENTHOS - GROUP PANEL -->
+<div class="row">
+    <!-- AGENTHOS - GROUP CARD -->
+    <div class="col-lg-8">
+        <div class="card ">
+            <div class="card-header pt-0 pb-0 border-bottom-0">
+                <h3 class="card-title">Perfil de Grupo</h3>
+                <div class="card-options">
+                    <i class="fe fe-user mr-1 text-primary fs-30"></i>
+                </div>
+            </div>
+            <!-- AGENTHOS - GROUP RESUME -->
+            <div class="card-body pt-0" *ngIf="!!model.group; else groupEmpty">
+                <div class="wideget-user">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="wideget-user-desc d-flex pt-2">
+                                <div class="wideget-user-img">
+                                    <img class="" [src]="model.group.avatarUrl" width="88" alt="Agenthos Group Pic">
+                                </div>
+                                <div class="user-wrap">
+                                    <!-- AGENTHOS - GROUP NAME -->
+                                    <h3>{{model.group.name}}</h3>
+                                    <!-- AGENTHOS - GROUP SOURCE --->
+                                    <h4 class="text-muted font-weight-normal mb-3">Miembros: {{model.group.totalMembers}}</h4>
+                                    <!-- AGENTHOS - GROUP PHONE -->
+                                    <h4 class="text-muted font-weight-normal">Creado: {{model.group.createdAt | date: 'dd/MM/yyyy'}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #groupEmpty>
+                <agt-loading-content [isLoadingContent]="true" [height]="130"></agt-loading-content>
+            </ng-template>
+            <!-- //AGENTHOS - GROUP RESUME -->
+            <!-- AGENTHOS - GROUP MENU -->
+            <div class="card-footer pt-1 pb-1">
+                <ul class="nav nav-pills nav-pills-circle" role="tablist">
+                    <li class="nav-item">
+                        <!-- AGENTHOS - GROUP RESUME -->
+                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.groupResume(groupId)" routerLinkActive="active">
+                            <span class="nav-link-icon d-block"><i class="fe fe-activity"></i> Resumen</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- AGENTHOS - GROUP POLICIES -->
+                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.groupPolicies(groupId)" routerLinkActive="active">
+                            <span class="nav-link-icon d-block"><i class="fe fe-shield"></i> Pólizas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- AGENTHOS - GROUP SINISTERS -->
+                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.groupSinisters(groupId)" routerLinkActive="active">
+                            <span class="nav-link-icon d-block"><i class="fe fe-life-buoy"></i> Siniestros</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- //AGENTHOS - GROUP MENU -->
+        </div>
+    </div>
+    <!-- AGENTHOS - GROUP CARD -->
+    <!-- AGENTHOS - GROUP WALLET -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header pt-2 pb-0 border-bottom-0">
+                <h3 class="card-title">Prima Anual</h3>
+                <div class="card-options">
+                    <i class="fe fe-credit-card mr-1 text-primary fs-30"></i>
+                </div>
+            </div>
+            <div class="card-body pt-0" *ngIf="!!model.group; else walletEmpty">
+                <h2 class="mb-0 number-font">$0.00</h2>
+                <div class="row mt-3 dash1">
+                    <div class="col border-right">
+                        <h6 class="font-weight-500 number-font1 mb-0">0</h6>
+                        <span class="text-muted">Pólizas<br/>Activas</span>
+                    </div>
+                    <div class="col border-right">
+                        <h6 class="font-weight-500 number-font1 mb-0">0</h6>
+                        <span class="text-muted">Siniestros<br/>Abiertos</span>
+                    </div>
+                    <div class="col">
+                        <p class="font-weight-500 number-font1 mb-0">A+</p>
+                        <span class="text-muted">Score<br/>de Grupo</span>
+                    </div>
+                </div>
+            </div>
+            <ng-template #walletEmpty>
+                <agt-loading-content [isLoadingContent]="true" [height]="130"></agt-loading-content>
+            </ng-template>
+            <div class="card-footer text-center">
+                <!-- AGENTHOS - GROUPS ADD MEMBER -->
+                <!-- AGENTHOS - TARGET IF FOUND (#agtGroupContactAdd) -->
+                <!-- AGENTHOS - TARGET IF DUPLICATED (#agtGroupContactSearchResults) -->
+                <!-- AGENTHOS - TARGET IF NOT FOUND (#agtGroupContactSearchNotFound) -->
+                <button type="button" class="btn btn-block btn-primary" [disabled]="!model.isLoadedGroupMembers" (click)="showModalToSeachClient()"><strong>AGREGAR MIEMBRO</strong></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - GROUP PANEL -->
+
+<router-outlet></router-outlet>
+
+<agt-modal-search-client
+    [modalId]="modalIdSearchClient"
+    [groupMembers]="model.groupMembers"
+    (clientFound)="addClient($event)">
+</agt-modal-search-client>

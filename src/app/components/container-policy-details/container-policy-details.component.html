@@ -13,6 +13,8 @@
             (cancelPolicy)="onCancelPolicy($event)"
             (renewPolicy)="onRenewPolicy($event)"
             (reissuePolicy)="onReissuePolicy($event)"
+            (showPaymentHistory)="onShowPaymentHistory($event)"
+            (showPolicySinisters)="onShowPolicySinisters($event)"
             (showHistoryPolicy)="onShowHistoryPolicy($event)"
         ></agt-card-policy>
     </div>
@@ -98,3 +100,6 @@
 <agt-modal-confirm-reissue-policy [modalId]="modalIdConfirmReissuePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-reissue-policy>
 <agt-modal-select-contact-type [modalId]="modalIdSelectContactType" [actionType]="selectedActionType" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-select-contact-type>
 <agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
+<agt-modal-confirm-delete-renewed-policy [modalId]="modalIdConfirmDeleteRenewedPolicy" (actionConfirmed)="deleteRenewedPolicy()"></agt-modal-confirm-delete-renewed-policy>
+<agt-modal-confirm-show-payment-history [modalId]="modalIdConfirmShowPaymentHistory" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [paymentId]="selectedPaymentId"></agt-modal-confirm-show-payment-history>
+<agt-modal-confirm-show-policy-sinisters [modalId]="modalIdConfirmShowPolicySinisters" [policyData]="selectedPolicyData"></agt-modal-confirm-show-policy-sinisters>

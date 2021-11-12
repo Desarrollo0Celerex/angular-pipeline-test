@@ -26,8 +26,9 @@ const HOME_CONTACTS_ROUTES = {
     listContactCoincidences: `workspace/contacts/list-contact-coincidences`
 }
 
-const HOME_PARTNER_ROUTES = {
-    listPartners: `workspace/partners/list-partners`
+const HOME_CONTACT_FILES_ROUTES = {
+    uploadContactFile: (contactId: string) => `workspace/files/upload-contact-file/${contactId}`,
+    updateContactFile: (contactId: string, contactFileId: string) => `workspace/files/upload-contact-file/${contactId}/${contactFileId}`,
 }
 
 const HOME_CONTACT_PROFILE_ROUTES = {
@@ -47,17 +48,18 @@ const HOME_ERRORS_ROUTES = {
     accessDenied: 'workspace/errors/access-denied'
 }
 
-const HOME_CONTACT_FILES_ROUTES = {
-    uploadContactFile: (contactId: string) => `workspace/files/upload-contact-file/${contactId}`,
-    updateContactFile: (contactId: string, contactFileId: string) => `workspace/files/upload-contact-file/${contactId}/${contactFileId}`,
-}
-
 const HOME_EXTERNAL_POLICIES_ROUTES = {
     updateExternalPolicy: (contactId: string, externalPolicyId: string) => `workspace/external-policies/update-external-policy/${contactId}/${externalPolicyId}`
 }
 
 const HOME_GROUPS_ROUTES = {
     listGroups: 'workspace/groups/list-groups',
+}
+
+const HOME_GROUP_PROFILE_ROUTES = {
+    groupResume: (groupId: string) => `workspace/group-profile/${groupId}/resume`,
+    groupPolicies: (groupId: string) => `workspace/group-profile/${groupId}/policies`,
+    groupSinisters: (groupId: string) => `workspace/group-profile/${groupId}/sinisters`,
 }
 
 const HOME_INVITATIONS_ROUTES = {
@@ -67,6 +69,10 @@ const HOME_INVITATIONS_ROUTES = {
 const HOME_LEADS_ROUTES = {
     listLeads: 'workspace/leads/list-leads',
     channels: 'workspace/leads/channels',
+}
+
+const HOME_PARTNER_ROUTES = {
+    listPartners: `workspace/partners/list-partners`
 }
 
 const HOME_PAYMENTS_ROUTES = {
@@ -146,6 +152,7 @@ export const ROUTES_NAME = {
     ...HOME_CONTACT_FILES_ROUTES,
     ...HOME_EXTERNAL_POLICIES_ROUTES,
     ...HOME_GROUPS_ROUTES,
+    ...HOME_GROUP_PROFILE_ROUTES,
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,
     ...HOME_PARTNER_ROUTES,

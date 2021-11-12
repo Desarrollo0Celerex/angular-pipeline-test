@@ -5,6 +5,7 @@ import * as moment from 'moment';
 
 import { CLIENT_STATUS, LEAD_STATUS, PARTNER_STATUS, POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN, DEFAULT_PER_PAGE } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { Contact } from '@interfaces/contact.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { Payment } from '@interfaces/payment.interface';
@@ -21,6 +22,7 @@ import { ContactService } from '@services/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
 import { EndorsementService } from '@services/endorsement.service';
 import { GroupService } from '@services/group.service';
+import { GroupMemberService } from '@services/group-member.service';
 import { LeadService } from '@services/lead.service';
 import { PartnerService } from '@services/partner.service';
 import { PaymentService } from '@services/payment.service';
@@ -42,6 +44,7 @@ export class ContentListService {
         private _contactFileService: ContactFileService,
         private _endorsementService: EndorsementService,
         private _groupService: GroupService,
+        private _groupMemberService: GroupMemberService,
         private _leadService: LeadService,
         private _partnerService: PartnerService,
         private _paymentService: PaymentService,
@@ -53,6 +56,17 @@ export class ContentListService {
     ) {
         this.contents = this._initContents();
         this.contentResultData = this._initContentResultData();
+    }
+
+    deleteGroupMember(groupId: string, contactId: string): Observable<void> {
+        return this._groupMemberService.deleteGroupMember(groupId, contactId);
+    }
+
+    deleteGroupMemberCard(contactId: string): void {
+        const contactPosition: number = this._getContactPosition(contactId);
+        if(contactPosition > -1) {
+            this.contents.splice(contactPosition, 1);
+        }
     }
 
     deleteRenewedPolicy(contactId: string, policyId: string): Observable<void> {
@@ -212,7 +226,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadGroups(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground';
+        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground,totalMembers,totalGlobalWallet,totalGlobalWalletPaid,currencyName,totalActivePolicies,createdAt';
         const filters: string = UtilitiesHelper.generateHttpFilter('groupStatusId', [contentSubtype])
         return this._groupService.getGroups(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
@@ -221,6 +235,62 @@ export class ContentListService {
             }),
             map(() => { })
         );
+    }
+
+    /**
+     * Load the groups
+     * @param  page           The page number to get
+     * @param  contentSubtype The filter to apply
+     * @return                Notice of action done
+     */
+    loadGroupMembers(groupId: string, page: number): Observable<void> {
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        return this._groupMemberService.getGroupMembers(groupId, fields, page).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
+     * Load the group policies
+     * @param  groupId      The group ID
+     * @param  page           The page number
+     * @param  contentSubtype The content subtype
+     * @return                Notice of action done
+     */
+    loadGroupPolicies(groupId: string, page: number, contentSubtype: number): Observable<void> {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,groupId,paymentId,policyCancellationReasonId,contactId';
+        const filters: number [] = (contentSubtype === POLICY_STATUS_ACTIVE) ? [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED] : [contentSubtype];
+        return this._policyService.getGroupPolicies(groupId, page, fields, filters).pipe(
+            tap((res: HttpResponse) => {
+                const policies: Policy[] = res.data.items;
+                this.contents = this.contents.concat(policies);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
+     * Load the group policies
+     * @param  groupId      The group ID
+     * @param  page           The page number
+     * @param  contentSubtype The content subtype
+     * @return                Notice of action done
+     */
+    loadGroupSinisters(groupId: string, page: number, contentSubtype: number): Observable<void> {
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId';
+        const filters: number [] = (contentSubtype === SINISTER_STATUS_OPEN) ? [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE] : [contentSubtype];
+        return this._sinisterService.getGroupSinisters(groupId, page, fields, filters).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
     }
 
     /**
@@ -519,7 +589,7 @@ export class ContentListService {
      * @return           Notice of action done
      */
     searchContactPolicies(contactId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime';
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId';
         return this._policyService.getContactPolicies(contactId, page, fields, [], query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
@@ -556,6 +626,59 @@ export class ContentListService {
     searchContactSinisters(contactId: string, page: number, query: string): Observable<void> {
         const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId';
         return this._sinisterService.getContactSinisters(contactId, page, fields, [], query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
+     * Search groups
+     * @param  page      The page number to get
+     * @param  query     The query to apply
+     * @return           Notice of action done
+     */
+    searchGroups(page: number, query: string): Observable<void> {
+        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground,totalMembers,totalGlobalWallet,totalGlobalWalletPaid,currencyName,totalActivePolicies,createdAt';
+        return this._groupService.getGroups(page, fields, '', query).pipe(
+            tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
+     * Search the group policies
+     * @param  groupId The group ID
+     * @param  page      The page to get
+     * @param  query     The query to search
+     * @return           Notice of action done
+     */
+    searchGroupPolicies(groupId: string, page: number, query: string): Observable<void> {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId';
+        return this._policyService.getGroupPolicies(groupId, page, fields, [], query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
+     * Search the group policies
+     * @param  groupId The group ID
+     * @param  page      The page to get
+     * @param  query     The query to search
+     * @return           Notice of action done
+     */
+    searchGroupSinisters(groupId: string, page: number, query: string): Observable<void> {
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId';
+        return this._sinisterService.getGroupSinisters(groupId, page, fields, [], query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
@@ -632,6 +755,10 @@ export class ContentListService {
             }),
             map( () => { })
         )
+    }
+
+    private _getContactPosition(contactId: string): number {
+        return this.contents.findIndex((value: Contact) => value.contactId == contactId)
     }
 
     /**

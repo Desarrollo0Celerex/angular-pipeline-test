@@ -10,6 +10,7 @@ import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     groups: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups',
+    group: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId,
     totalGroups: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/count'
 }
 
@@ -42,13 +43,28 @@ export class GroupService {
       * @param  query           The search to do
       * @return                 The groups
       */
+    getGroup(groupId: string, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.group(this._workspaceId, groupId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, { params });
+    }
+
+    /**
+      * Get the groups from the API
+      * @param  page            The page number
+      * @param  fields          The fields to get
+      * @param  groupStatusId    The filter to apply
+      * @param  query           The search to do
+      * @return                 The groups
+      */
     getGroups(page: number = 1, fields: string = '', filters: string = '', query: string = ''): Observable<HttpResponse> {
         const route: string = routes.groups(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         if(!!filters) params = params.append('filter', filters);
-        if(!!query) params = params.append('search', 'contactName:' + query);
+        if(!!query) params = params.append('search', 'name:' + query);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, { params });
     }

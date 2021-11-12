@@ -1,5 +1,20 @@
-<agt-container-external-policies *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID" [contactId]="contactId" [policyStatusId]="contentSubtype" [policyStatusName]="contentSubtypeName"></agt-container-external-policies>
-<agt-container-incomplete-policies #containerIncompletePolicies *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID" [contactId]="contactId" [contentTypeName]="contentTypeName" (policyDeleted)="onPolicyDeleted()" (showHistoryPolicy)="onShowHistoryPolicy($event)"></agt-container-incomplete-policies>
+<agt-container-external-policies
+    *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID"
+    [contactId]="contactId"
+    [policyStatusId]="contentSubtype"
+    [policyStatusName]="contentSubtypeName">
+</agt-container-external-policies>
+<agt-container-incomplete-policies
+    #containerIncompletePolicies
+    *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    contentType === CONTENT_TYPES.GROUP_POLICY.ID"
+    [contentType]="contentType"
+    [contentTypeName]="contentTypeName"
+    [contactId]="contactId"
+    [groupId]="groupId"
+    (policyDeleted)="onPolicyDeleted()"
+    (showHistoryPolicy)="onShowHistoryPolicy($event)">
+</agt-container-incomplete-policies>
 
 <!-- AGENTHOS - CONTENT HEADER -->
 <div class="row mt-3">
@@ -25,7 +40,7 @@
                     <ng-container [ngSwitch]="contentType">
                         <agt-card-policy-record *ngSwitchCase="CONTENT_TYPES.HISTORY_POLICY.ID"
                             [policyRecord]="content"
-                            (completePolicy)="onCompletePolicy($event)"
+                            (completePolicy)="onCompletePolicyRecord($event)"
                             (showEndorsement)="onShowEndorsementFromRecord($event)"
                             (showCancellationEvidence)="onShowCancellationEvidence($event)"
                             (showPolicy)="onShowPolicyFromRecord($event)"
@@ -70,10 +85,42 @@
                     (showContactData)="onShowContactData($event)"
                     (contactSelected)="onContactSelected($event)"
                 ></agt-card-contact>
-                <agt-card-group *ngSwitchCase="CONTENT_TYPES.GROUP.ID" [group]="content"></agt-card-group>
-                <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD.ID" [lead]="content" (showContactData)="onShowContactData($event)"></agt-card-lead>
-                <agt-card-client *ngSwitchCase="CONTENT_TYPES.CLIENT.ID" [client]="content" (showContactData)="onShowContactData($event)"></agt-card-client>
-                <agt-card-quotation *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID" [quotation]="content" (showQuotationDetails)="onShowQuotationDetails($event)" (acceptQuotation)="onAcceptQuotation($event)" (rejectQuotation)="onRejectQuotation($event)"></agt-card-quotation>
+                <agt-card-group *ngSwitchCase="CONTENT_TYPES.GROUP.ID"
+                    [group]="content"
+                    (showGroupDetails)="showGroupDetails($event)">
+                </agt-card-group>
+                <agt-card-group-member *ngSwitchCase="CONTENT_TYPES.GROUP_MEMBER.ID"
+                    [client]="content"
+                    (deleteGroupMemberRequested)="confirmDeleteGroupMember($event)">
+                </agt-card-group-member>
+                <agt-card-policy *ngSwitchCase="CONTENT_TYPES.GROUP_POLICY.ID"
+                    [policy]="content"
+                    (showPolicyDetails)="onShowPolicyDetails($event)"
+                    (showPolicy)="onShowPolicy($event)"
+                    (updatePolicy)="onUpdatePolicy($event)"
+                    (endorsePolicy)="onEndorsePolicy($event)"
+                    (cancelPolicy)="onCancelPolicy($event)"
+                    (renewPolicy)="onRenewPolicy($event)"
+                    (reissuePolicy)="onReissuePolicy($event)"
+                    (showHistoryPolicy)="onShowHistoryPolicy($event)"
+                    (showPaymentHistory)="onShowPaymentHistory($event)"
+                    (showPolicySinisters)="onShowPolicySinisters($event)"
+                    (deletePolicy)="onDeletePolicy($event)"
+                ></agt-card-policy>
+                <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD.ID"
+                    [lead]="content"
+                    (showContactData)="onShowContactData($event)">
+                </agt-card-lead>
+                <agt-card-client *ngSwitchCase="CONTENT_TYPES.CLIENT.ID"
+                    [client]="content"
+                    (showContactData)="onShowContactData($event)">
+                </agt-card-client>
+                <agt-card-quotation *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID"
+                    [quotation]="content"
+                    (showQuotationDetails)="onShowQuotationDetails($event)"
+                    (acceptQuotation)="onAcceptQuotation($event)"
+                    (rejectQuotation)="onRejectQuotation($event)">
+                </agt-card-quotation>
                 <agt-card-policy *ngSwitchCase="CONTENT_TYPES.CONTACT_POLICY.ID"
                     [policy]="content"
                     (showPolicyDetails)="onShowPolicyDetails($event)"
@@ -108,7 +155,7 @@
                     (applyPayment)="onApplyPayment($event)"
                     (showContactData)="onShowContactData($event)"
                 ></agt-card-pending-receipt>
-                <agt-card-sinister *ngSwitchCase="(contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID) ? contentType : ''"
+                <agt-card-sinister *ngSwitchCase="(contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID || contentType === CONTENT_TYPES.GROUP_SINISTER.ID) ? contentType : ''"
                     [sinister]="content"
                     (showContactData)="onShowContactData($event)"
                     (showSinisterDetails)="onShowSinisterDetails($event)"
@@ -129,7 +176,7 @@
                     [policy]="content"
                     [selectedPolicyPos]="selectedPolicyPos"
                     [policyPos]="index"
-                    (showPolicyDetails)="onShowPolicyDetails($event)"
+                    (showPolicyDetails)="onShowPolicyDetailsTracker($event)"
                     (showPolicy)="onShowPolicy($event)"
                 ></agt-card-policy-tracker>
             </ng-container>
@@ -140,7 +187,16 @@
 
 <agt-loading-content [isLoadingContent]="isLoadingContent"></agt-loading-content>
 <agt-content-results [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentTypeName]="contentTypeName" [contentSubtypeName]="contentSubtypeName" (loadMoreContents)="onLoadMoreContents()"></agt-content-results>
-<agt-content-back *ngIf="!isHistoryContent" [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [query]="query" [contactId]="contactId"></agt-content-back>
+<agt-content-back
+    *ngIf="!isHistoryContent"
+    [isLoadingContent]="isLoadingContent"
+    [contentResultData]="contentListService.contentResultData"
+    [contentType]="contentType"
+    [query]="query"
+    [contactId]="contactId"
+    [groupId]="groupId"
+    >
+</agt-content-back>
 <agt-content-suggestions *ngIf="!isHistoryContent" [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [contentTypeName]="contentTypeName"></agt-content-suggestions>
 
 <!-- AGENTHOS - CONTENT ACTIONS -->
@@ -151,6 +207,7 @@
     contentType === CONTENT_TYPES.PAYMENT.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
+    contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
     <agt-modal-show-contact-data [modalId]="modalIdShowContactData" [contactId]="selectedContactId"></agt-modal-show-contact-data>
     <agt-modal-select-contact [modalId]="modalIdSelectContact" [contactId]="selectedContactId"></agt-modal-select-contact>
@@ -169,6 +226,8 @@
 </ng-container>
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+    contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
@@ -177,7 +236,8 @@
     <agt-modal-show-policy-details [modalId]="modalIdShowPolicyDetails" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [isHistoryContent]="isHistoryContent" (showPolicy)="onShowPolicy($event)"></agt-modal-show-policy-details>
     <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="selectedContactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID">
+<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    contentType === CONTENT_TYPES.GROUP_POLICY.ID">
     <agt-modal-confirm-update-policy [modalId]="modalIdConfirmUpdatePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-update-policy>
     <agt-modal-confirm-endorse-policy [modalId]="modalIdConfirmEndorsePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-endorse-policy>
     <agt-modal-confirm-renew-policy [modalId]="modalIdConfirmRenewPolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-renew-policy>
@@ -187,13 +247,19 @@
     <agt-modal-confirm-delete-policy-complete [modalId]="modalIdConfirmDeleteCompletePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (policyCompleteDeleted)="onPolicyDeleted()"></agt-modal-confirm-delete-policy-complete>
     <agt-modal-confirm-delete-renewed-policy [modalId]="modalIdConfirmDeleteRenewedPolicy" (actionConfirmed)="deleteRenewedPolicy()"></agt-modal-confirm-delete-renewed-policy>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID || contentType === CONTENT_TYPES.PAYMENT.ID || contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
+<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+    contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
+    contentType === CONTENT_TYPES.PAYMENT.ID ||
+    contentType === CONTENT_TYPES.SINISTER.ID ||
+    contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
     <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
     <agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
 </ng-container>
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID ||
     contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
     <agt-modal-apply-payment
         [modalId]="modalIdApplyPayment"
@@ -207,6 +273,9 @@
     ></agt-modal-apply-payment>
     <agt-modal-confirm-show-payment-history [modalId]="modalIdConfirmShowPaymentHistory" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [paymentId]="selectedPaymentId"></agt-modal-confirm-show-payment-history>
 </ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.GROUP_MEMBER.ID">
+    <agt-modal-confirm-delete-group-member [modalId]="modalIdConfirmDeleteGroupMember" (actionConfirmed)="deleteGroupMember()"></agt-modal-confirm-delete-group-member>
+</ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PARTNER.ID">
     <agt-modal-show-partner-details [modalId]="modalIdShowPartnerDetails" [partner]="selectedPartner"></agt-modal-show-partner-details>
 </ng-container>
@@ -214,7 +283,12 @@
     <agt-modal-confirm-delete-receipt-paid [modalId]="modalIdConfirmDeleteReceiptPaid" (deleteReceiptPaidConfimed)="onDeleteReceiptPaidConfirmed()"></agt-modal-confirm-delete-receipt-paid>
     <agt-modal-update-receipt-paid [modalId]="modalIdUpdateReceiptPaid" [receiptPaidId]="selectedReceiptPaidId" (receiptPaidUpdated)="reloadReceiptPaid($event)"></agt-modal-update-receipt-paid>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID || contentType === CONTENT_TYPES.POLICY_SINISTERS.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
+<ng-container
+    *ngIf="contentType === CONTENT_TYPES.SINISTER.ID ||
+    contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
+    contentType === CONTENT_TYPES.POLICY_SINISTERS.ID ||
+    contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
+    contentType === CONTENT_TYPES.GROUP_SINISTER.ID">
     <agt-modal-show-sinister-details [modalId]="modalIdShowSinisterDetails" [sinister]="selectedSinister"></agt-modal-show-sinister-details>
     <agt-modal-confirm-show-sinister-history [modalId]="modalIdConfirmShowSinisterHistory" [sinisterData]="selectedSinisterData"></agt-modal-confirm-show-sinister-history>
     <agt-modal-confirm-finalize-sinister [modalId]="modalIdConfirmFinalizeSinister" [sinisterData]="selectedSinisterData"></agt-modal-confirm-finalize-sinister>
@@ -234,5 +308,8 @@
     <agt-modal-transfer-contact-file [modalId]="modalIdTransferContactFile" [contactFileData]="selectedContactFileData"></agt-modal-transfer-contact-file>
     <agt-modal-confirm-update-contact-file [modalId]="modalIdConfirmUpdateContactFile" [contactFileData]="selectedContactFileData"></agt-modal-confirm-update-contact-file>
     <agt-modal-confirm-delete-contact-file [modalId]="modalIdConfirmDeleteContactFile" [contactFileData]="selectedContactFileData"></agt-modal-confirm-delete-contact-file>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.GROUP.ID">
+    <agt-modal-show-group-details [modalId]="modalIdShowGroupDetails" [group]="selectedGroup"></agt-modal-show-group-details>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

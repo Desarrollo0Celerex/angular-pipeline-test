@@ -10,7 +10,9 @@ import { UtilitiesHelper } from '@helpers/utilities.helper';
 
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
+import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { Group } from '@interfaces/group.interface';
 import { Partner } from '@interfaces/partner.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
@@ -47,6 +49,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() originPolicyId: string;
     @Input() paymentId: string;
     @Input() policyId: string;
+    @Input() groupId: string = '';
     @Input() query: string;
     @Input() sinisterId: string;
     @Input() specialQuery: SearchContactData | null;
@@ -68,6 +71,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedCancelledPolicyId: string = '';
     selectedEndorsementId: string;
     selectedEvidenceUrl: string = '';
+    selectedGroup: Group | null = null;
     selectedPartner: Partner | null = null;
     selectedPaymentId: string;
     selectedPolicyData: PolicyDataSend | null = null;
@@ -84,6 +88,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmCancelPolicy: string;
     modalIdConfirmDeleteContactFile: string = 'agt-confirm-delete-contact-file';
     modalIdConfirmDeleteCompletePolicy: string = 'agt-confirm-delete-complete-policy';
+    modalIdConfirmDeleteGroupMember: string = 'agt-confirm-delete-group-member';
     modalIdConfirmDeleteReceiptPaid: string;
     modalIdConfirmDeleteRenewedPolicy: string = 'agt-confirm-delete-renewed-policy';
     modalIdConfirmDeleteSinisterEvent: string = 'agt-confirm-delete-sinister-event';
@@ -105,6 +110,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowContactData: string;
     modalIdShowContactFileDetails: string = 'agt-show-contact-file-details';
     modalIdShowEndorsement: string;
+    modalIdShowGroupDetails: string = 'agt-show-group-details';
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
     modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
@@ -192,7 +198,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             (typeof changes.specialQuery !== 'undefined' && !!changes.specialQuery.currentValue) ||
             (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) && (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) && (!!this.contentSubtype || !!this.query || !!this.specialQuery) ||
             (typeof changes.canReloadContent !== 'undefined' && !!changes.canReloadContent.currentValue) ||
-            (!!changes.policyId && !!changes.policyId.currentValue)
+            (!!changes.policyId && !!changes.policyId.currentValue) ||
+            (!!changes.groupId && !!changes.groupId.currentValue)
         ) {
             this._initContent();
 
@@ -211,6 +218,22 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.selectedPolicyId = payment.policyId;
         this.selectedPaymentId = payment.paymentId;
         ModalPlugin.show(this.modalIdApplyPayment);
+    }
+
+    confirmDeleteGroupMember(contactId: string): void {
+        this.selectedContactId = contactId;
+        ModalPlugin.show(this.modalIdConfirmDeleteGroupMember)
+    }
+
+    deleteGroupMember(): void {
+        this._loadingService.show();
+        this.contentListService.deleteGroupMember(this.groupId, this.selectedContactId).subscribe(() => {
+            this._loadingService.hide();
+            AlertHelper.groupMemberDeleted();
+            this.contentListService.deleteGroupMemberCard(this.selectedContactId);
+            const url: string = this._router.url.split('?')[0] ;
+            this._reloadPage(url);
+        })
     }
 
     deleteRenewedPolicy(): void {
@@ -258,12 +281,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to cancel a policy
      * @param policyId The policy ID
      */
-    onCancelPolicy(policyId: string| { policyId: string, contactId: string }): void {
-        if(typeof policyId === 'string') {
-            this.selectedPolicyId = policyId;
+    onCancelPolicy(data: string| ContactPolicyData): void {
+        if(typeof data === 'string') {
+            this.selectedPolicyId = data;
         } else {
-            this.selectedPolicyId = policyId.policyId;
-            this.contactId = policyId.contactId
+            this.selectedPolicyId = data.policyId;
+            this.contactId = data.contactId
         }
         ModalPlugin.show(this.modalIdConfirmCancelPolicy);
     }
@@ -280,7 +303,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to complete the policy data
      * @param data The policy record data
      */
-    onCompletePolicy(data: PolicyRecordData): void {
+    onCompletePolicyRecord(data: PolicyRecordData): void {
         this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.sourceContactId, data.sourceId));
     }
 
@@ -297,8 +320,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show modal to confirm delete the policy
      * @param policyId The policy ID to delete
      */
-    onDeletePolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
+    onDeletePolicy(data: ContactPolicyData): void {
+        this.contactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmDeleteCompletePolicy);
     }
 
@@ -337,8 +361,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to endorse a policy
      * @param policyId The policy ID
      */
-    onEndorsePolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
+    onEndorsePolicy(data: ContactPolicyData): void {
+        this.contactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmEndorsePolicy);
     }
 
@@ -395,8 +420,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to reissue the policy
      * @param policyId [description]
      */
-    onReissuePolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
+    onReissuePolicy(data: ContactPolicyData): void {
+        this.contactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmReissuePolicy);
     }
 
@@ -413,10 +439,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to renew a policy
      * @param policyId The policy ID
      */
-    onRenewPolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
+    onRenewPolicy(data: ContactPolicyData): void {
+        this.contactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
         this._loadingService.show();
-        this.contentListService.getPolicyLogs(this.contactId, policyId).subscribe((policyLogs: PolicyLog[]) => {
+        this.contentListService.getPolicyLogs(this.contactId, this.selectedPolicyId).subscribe((policyLogs: PolicyLog[]) => {
             this._loadingService.hide();
             // Check if the policy has already been renewed
             if(policyLogs.length > 0) {
@@ -459,12 +486,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show the history policy
      * @param policyId The selected policy ID
      */
-    onShowHistoryPolicy(policyId: string | { policyId: string, contactId: string }): void {
-        if(typeof policyId === 'string') {
-            this.selectedPolicyId = policyId;
+    onShowHistoryPolicy(data: string | ContactPolicyData): void {
+        if(typeof data === 'string') {
+            this.selectedPolicyId = data;
         } else {
-            this.selectedPolicyId = policyId.policyId;
-            this.contactId = policyId.contactId
+            this.selectedPolicyId = data.policyId;
+            this.contactId = data.contactId
         }
         ModalPlugin.show(this.modalIdConfirmShowHistoryPolicy);
     }
@@ -502,9 +529,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show policy
      * @param policyId The policy ID
      */
-    onShowPolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
-        this.selectedContactId = this.contactId;
+    onShowPolicy(data: string | ContactPolicyData): void {
+        if(typeof data === 'string') {
+            this.selectedPolicyId = data;
+            this.selectedContactId = this.contactId;
+        } else {
+            this.selectedContactId = data.contactId;
+            this.selectedPolicyId = data.policyId;
+        }
         ModalPlugin.show(this.modalIdShowPolicy);
     }
 
@@ -532,9 +564,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show the policy details modal
      * @param policyId The selected policy ID
      */
-    onShowPolicyDetails(policyId: string): void {
-        this.selectedPolicyId = policyId;
-        this.selectedContactId = this.contactId;
+    onShowPolicyDetails(data: ContactPolicyData): void {
+        this.selectedPolicyId = data.policyId;
+        this.selectedContactId = data.contactId;
         ModalPlugin.show(this.modalIdShowPolicyDetails);
     }
 
@@ -545,6 +577,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onShowPolicyDetailsFromRecord(data: PolicyRecordData): void {
         this.selectedPolicyId = data.sourceId;
         this.selectedContactId = data.sourceContactId;
+        ModalPlugin.show(this.modalIdShowPolicyDetails);
+    }
+
+    /**
+     * Event to show the policy details from the record
+     * @param data The policy record ID
+     */
+    onShowPolicyDetailsTracker(policyId: string): void {
+        this.selectedPolicyId = policyId;
+        this.selectedContactId = this.contactId;
         ModalPlugin.show(this.modalIdShowPolicyDetails);
     }
 
@@ -613,8 +655,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     /**
      * Event to show modal to confirm update policy
      */
-    onUpdatePolicy(policyId: string): void {
-        this.selectedPolicyId = policyId;
+    onUpdatePolicy(data: ContactPolicyData): void {
+        this.contactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmUpdatePolicy);
     }
 
@@ -640,6 +683,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     showContactFileDetails(data: ContactFileDataSend): void {
         this.selectedContactFileData = data;
         ModalPlugin.show(this.modalIdShowContactFileDetails);
+    }
+
+    showGroupDetails(group: Group): void {
+        this.selectedGroup = group;
+        ModalPlugin.show(this.modalIdShowGroupDetails);
     }
 
     showModalApplyPayment(): void {
@@ -704,14 +752,17 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     private _loadCardClasses(): void {
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD.ID:
-            case CONTENT_TYPES.CLIENT.ID:
-            case CONTENT_TYPES.GROUP.ID:
-            case CONTENT_TYPES.PARTNER.ID:
-                this.cardClasses = 'col-md-3 col-xl-3';
-            break;
-
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.CLIENT.ID:
+            case CONTENT_TYPES.GROUP.ID:
+            case CONTENT_TYPES.GROUP_MEMBER.ID:
+            case CONTENT_TYPES.GROUP_POLICY.ID:
+            case CONTENT_TYPES.GROUP_SINISTER.ID:
+            case CONTENT_TYPES.PARTNER.ID:
+                this.cardClasses = 'col-xl-3 col-lg-4 col-md-6 col-sm-12';
+            break;
+
             case CONTENT_TYPES.CONTACT_FILE.ID:
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
@@ -778,6 +829,24 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.GROUP.ID:
                 this.contentListService.loadGroups(this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.GROUP_MEMBER.ID:
+                this.contentListService.loadGroupMembers(this.groupId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.GROUP_POLICY.ID:
+                this.contentListService.loadGroupPolicies(this.groupId, this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.GROUP_SINISTER.ID:
+                this.contentListService.loadGroupSinisters(this.groupId, this.page, this.contentSubtype).subscribe( () => {
                     this._contentLoaded();
                 });
             break;
@@ -904,8 +973,25 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 })
             break;
 
+            case CONTENT_TYPES.GROUP.ID:
+                this.contentListService.searchGroups(this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.GROUP_POLICY.ID:
+                this.contentListService.searchGroupPolicies(this.groupId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.GROUP_SINISTER.ID:
+                this.contentListService.searchGroupSinisters(this.groupId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
             case CONTENT_TYPES.PARTNER.ID:
-                console.log('this.query: ',this.query);
                 this.contentListService.searchPartners(this.page, this.query).subscribe( () => {
                     this._contentLoaded();
                 })
@@ -935,6 +1021,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             switch(this.contentType) {
                 case CONTENT_TYPES.CONTACT_QUOTATION.ID:
                 case CONTENT_TYPES.CONTACT_POLICY.ID:
+                case CONTENT_TYPES.GROUP_POLICY.ID:
                 case CONTENT_TYPES.HISTORY_POLICY.ID:
                     canShow = true;
                 break;
