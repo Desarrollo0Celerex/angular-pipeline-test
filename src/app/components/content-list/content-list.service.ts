@@ -635,6 +635,23 @@ export class ContentListService {
     }
 
     /**
+     * Search groups
+     * @param  page      The page number to get
+     * @param  query     The query to apply
+     * @return           Notice of action done
+     */
+    searchGroups(page: number, query: string): Observable<void> {
+        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground,totalMembers,totalGlobalWallet,totalGlobalWalletPaid,currencyName,totalActivePolicies,createdAt';
+        return this._groupService.getGroups(page, fields, '', query).pipe(
+            tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
      * Search the group policies
      * @param  groupId The group ID
      * @param  page      The page to get

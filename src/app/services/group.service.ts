@@ -64,7 +64,7 @@ export class GroupService {
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         if(!!filters) params = params.append('filter', filters);
-        if(!!query) params = params.append('search', 'contactName:' + query);
+        if(!!query) params = params.append('search', 'name:' + query);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, { params });
     }

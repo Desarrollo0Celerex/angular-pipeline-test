@@ -78,6 +78,10 @@ export class ContentSearchEngineComponent implements OnChanges {
                     this._router.navigate([ROUTES_NAME.listContactSinisters(this.contactId)], { queryParams: { query }});
                     break;
 
+                case CONTENT_TYPES.GROUP.ID:
+                    this._router.navigate([ROUTES_NAME.listSearchResults], { queryParams: { contentType: this.contentType, contentTypeName: this.contentTypeName, query }});
+                    break;
+
                 case CONTENT_TYPES.GROUP_POLICY.ID:
                     this._router.navigate([ROUTES_NAME.groupPolicies(this.groupId)], { queryParams: { contentType: this.contentType, contentTypeName: this.contentTypeName, query }});
                     break;
