@@ -30,6 +30,7 @@ export class ContentMainActionComponent implements OnInit {
     modalIdSearchPayment: string = 'agt-search-payment';
     modalIdSearchPolicy: string = 'agt-search-policy';
     modalIdSelectSinisterStatus: string = 'agt-select-sinister-status';
+    modalIdPartnerHasCoincidences: string = 'agt-partner-has-coincidences';
     searchPolicyMessage: string = '';
     selectContactTypeModalId: string;
     selectPolicyStatusModalId: string;
@@ -128,7 +129,7 @@ export class ContentMainActionComponent implements OnInit {
                 ModalPlugin.show(this.modalIdSearchPolicy);
             break;
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
-            case CONTENT_TYPES.GROUP_SINISTER.ID: 
+            case CONTENT_TYPES.GROUP_SINISTER.ID:
                 ModalPlugin.show(this.modalIdSelectSinisterStatus);
             break;
             case CONTENT_TYPES.CONTACT_FILE.ID: this._router.navigateByUrl(ROUTES_NAME.uploadContactFile(this.contactId)); break;
@@ -161,6 +162,10 @@ export class ContentMainActionComponent implements OnInit {
      */
     onSinisterCreated(): void {
         this.sinisterCreated.emit();
+    }
+
+    showModalPartnerHasCoincidences(): void {
+        ModalPlugin.show(this.modalIdPartnerHasCoincidences);
     }
 
 }

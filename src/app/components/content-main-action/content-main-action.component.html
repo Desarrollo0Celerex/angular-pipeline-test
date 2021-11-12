@@ -23,7 +23,11 @@
     <agt-modal-create-group [modalId]="modalIdCreateGroup"></agt-modal-create-group>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PARTNER.ID">
-    <agt-modal-create-partner [modalId]="modalIdCreatePartner"></agt-modal-create-partner>
+    <agt-modal-create-partner
+        [modalId]="modalIdCreatePartner"
+        (hasCoincidences)="showModalPartnerHasCoincidences()">
+    </agt-modal-create-partner>
+    <agt-modal-duplicate-partner [modalId]="modalIdPartnerHasCoincidences"></agt-modal-duplicate-partner>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID">
     <agt-modal-search-payment

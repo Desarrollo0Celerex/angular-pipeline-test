@@ -22,4 +22,5 @@ export const ERROR_CODES: any = {
     receiptsNumberExceeded: 'ReceiptsNumberExceeded',
     pendingReceipts: 'PendingReceipts',
     pendingAmount: 'PendingAmount',
+    partnerHasCoincidences: 'PartnerHasCoincidences',
 }
