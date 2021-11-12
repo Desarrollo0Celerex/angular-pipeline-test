@@ -13,6 +13,7 @@ import { ContentResultData } from '@interfaces/content-result-data.interface';
 })
 export class ContentBackComponent {
     @Input() contactId: string = '';
+    @Input() groupId: string = '';
     @Input() contentResultData: ContentResultData = {
         loadedItems: 0,
         totalItems: 0
@@ -55,6 +56,10 @@ export class ContentBackComponent {
 
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
                 route = ROUTES_NAME.listContactSinisters(this.contactId);
+                break;
+
+            case CONTENT_TYPES.GROUP_POLICY.ID:
+                route = ROUTES_NAME.groupPolicies(this.groupId);
                 break;
 
             case CONTENT_TYPES.CONTACT_FILE.ID:

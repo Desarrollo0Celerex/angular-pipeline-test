@@ -186,7 +186,16 @@
 
 <agt-loading-content [isLoadingContent]="isLoadingContent"></agt-loading-content>
 <agt-content-results [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentTypeName]="contentTypeName" [contentSubtypeName]="contentSubtypeName" (loadMoreContents)="onLoadMoreContents()"></agt-content-results>
-<agt-content-back *ngIf="!isHistoryContent" [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [query]="query" [contactId]="contactId"></agt-content-back>
+<agt-content-back
+    *ngIf="!isHistoryContent"
+    [isLoadingContent]="isLoadingContent"
+    [contentResultData]="contentListService.contentResultData"
+    [contentType]="contentType"
+    [query]="query"
+    [contactId]="contactId"
+    [groupId]="groupId"
+    >
+</agt-content-back>
 <agt-content-suggestions *ngIf="!isHistoryContent" [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [contentTypeName]="contentTypeName"></agt-content-suggestions>
 
 <!-- AGENTHOS - CONTENT ACTIONS -->

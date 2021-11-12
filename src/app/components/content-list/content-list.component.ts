@@ -959,6 +959,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 })
             break;
 
+            case CONTENT_TYPES.GROUP_POLICY.ID:
+                this.contentListService.searchGroupPolicies(this.groupId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
             case CONTENT_TYPES.PARTNER.ID:
                 this.contentListService.searchPartners(this.page, this.query).subscribe( () => {
                     this._contentLoaded();
@@ -989,6 +995,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             switch(this.contentType) {
                 case CONTENT_TYPES.CONTACT_QUOTATION.ID:
                 case CONTENT_TYPES.CONTACT_POLICY.ID:
+                case CONTENT_TYPES.GROUP_POLICY.ID:
                 case CONTENT_TYPES.HISTORY_POLICY.ID:
                     canShow = true;
                 break;
