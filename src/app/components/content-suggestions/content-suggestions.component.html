@@ -27,6 +27,9 @@
                 <ng-container *ngSwitchCase="CONTENT_TYPES.GROUP_MEMBER.ID">
                     <ng-container *ngTemplateOutlet="groupMemberSuggestion"></ng-container>
                 </ng-container>
+                <ng-container *ngSwitchCase="CONTENT_TYPES.GROUP_SINISTER.ID">
+                    <ng-container *ngTemplateOutlet="groupSinisterSuggestion"></ng-container>
+                </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.GROUP_MEMBER.ID">
                     <ng-container *ngTemplateOutlet="groupMemberSuggestion"></ng-container>
                 </ng-container>
@@ -91,6 +94,12 @@
 
 <ng-template #groupPolicySuggestion>
     <strong>¿No encuentras la {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+    <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
+</ng-template>
+
+<ng-template #groupSinisterSuggestion>
+    <strong>¿No encuentras el {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
     <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
 </ng-template>

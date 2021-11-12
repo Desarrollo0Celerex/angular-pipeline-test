@@ -35,6 +35,8 @@
     <agt-modal-search-policy [modalId]="modalIdSearchPolicy" [message]="searchPolicyMessage" (policyFound)="onPolicyFound($event)"></agt-modal-search-policy>
     <agt-modal-create-sinister [modalId]="modalIdCreateSinister" [policy]="selectedPolicy" (sinisterCreated)="onSinisterCreated()"></agt-modal-create-sinister>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
+<ng-container
+    *ngIf="contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
+    contentType === CONTENT_TYPES.GROUP_SINISTER.ID">
     <agt-modal-select-sinister-status [modalId]="modalIdSelectSinisterStatus" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-modal-select-sinister-status>
 </ng-container>

@@ -213,6 +213,10 @@ export const CONTENT_TYPES: any = {
         ID: 20,
         NAME: 'Póliza'
     },
+    GROUP_SINISTER: {
+        ID: 21,
+        NAME: 'Siniestro'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

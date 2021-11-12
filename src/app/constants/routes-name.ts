@@ -59,6 +59,7 @@ const HOME_GROUPS_ROUTES = {
 const HOME_GROUP_PROFILE_ROUTES = {
     groupResume: (groupId: string) => `workspace/group-profile/${groupId}/resume`,
     groupPolicies: (groupId: string) => `workspace/group-profile/${groupId}/policies`,
+    groupSinisters: (groupId: string) => `workspace/group-profile/${groupId}/sinisters`,
 }
 
 const HOME_INVITATIONS_ROUTES = {
