@@ -30,6 +30,7 @@ export class ContentMainActionComponent implements OnInit {
     modalIdSearchPayment: string = 'agt-search-payment';
     modalIdSearchPolicy: string = 'agt-search-policy';
     modalIdSelectSinisterStatus: string = 'agt-select-sinister-status';
+    modalIdGroupHasCoincidences: string = 'agt-group-has-coincidences';
     modalIdPartnerHasCoincidences: string = 'agt-partner-has-coincidences';
     searchPolicyMessage: string = '';
     selectContactTypeModalId: string;
@@ -162,6 +163,10 @@ export class ContentMainActionComponent implements OnInit {
      */
     onSinisterCreated(): void {
         this.sinisterCreated.emit();
+    }
+
+    showModalGroupHasCoincidences(): void {
+        ModalPlugin.show(this.modalIdGroupHasCoincidences);
     }
 
     showModalPartnerHasCoincidences(): void {

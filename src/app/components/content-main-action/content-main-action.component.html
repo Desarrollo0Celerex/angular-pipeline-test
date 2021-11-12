@@ -20,7 +20,11 @@
     <agt-modal-select-policy-status [modalId]="selectPolicyStatusModalId" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-modal-select-policy-status>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.GROUP.ID">
-    <agt-modal-create-group [modalId]="modalIdCreateGroup"></agt-modal-create-group>
+    <agt-modal-create-group
+        [modalId]="modalIdCreateGroup"
+        (hasCoincidences)="showModalGroupHasCoincidences()">
+    </agt-modal-create-group>
+    <agt-modal-duplicate-group [modalId]="modalIdGroupHasCoincidences"></agt-modal-duplicate-group>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PARTNER.ID">
     <agt-modal-create-partner
