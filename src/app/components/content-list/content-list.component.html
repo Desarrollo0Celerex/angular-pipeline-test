@@ -1,6 +1,9 @@
 <agt-container-external-policies
-    *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID"
+    *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    contentType === CONTENT_TYPES.GROUP_POLICY.ID"
+    [contentType]="contentType"
     [contactId]="contactId"
+    [groupId]="groupId"
     [policyStatusId]="contentSubtype"
     [policyStatusName]="contentSubtypeName">
 </agt-container-external-policies>

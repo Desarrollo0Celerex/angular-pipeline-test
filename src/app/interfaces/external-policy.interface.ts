@@ -34,5 +34,6 @@ export interface ExternalPolicy {
     extraPay: number,
     currencyId: number,
     paymentPlanId: number,
-    paymentMethodId: number
+    paymentMethodId: number,
+    contactId: string
 }
