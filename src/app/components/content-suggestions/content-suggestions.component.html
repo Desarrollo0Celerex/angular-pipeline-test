@@ -102,9 +102,16 @@
 </ng-template>
 
 <ng-template #partnerSuggestion>
-    <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
-    <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-    <p>Intenta localizarlo con el <strong>Buscador Inteligente</strong>.</p>
+    <ng-container *ngIf="contentSubtype === CONTENT_TYPES.COINCIDENCES.ID; else searchPartner">
+        <strong>¿Las coincidencias son falsas?</strong> <hr class="message-inner-separator">
+        <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+        <p>Si has comprobado que no existe duplicidad de información, puedes crear el socio y continuar.</p>
+    </ng-container>
+    <ng-template #searchPartner>
+        <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+        <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+        <p>Intenta localizarlo con el <strong>Buscador Inteligente</strong>.</p>
+    </ng-template>
 </ng-template>
 
 <ng-template #paymentSuggestion>

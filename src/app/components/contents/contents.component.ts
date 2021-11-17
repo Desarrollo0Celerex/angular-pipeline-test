@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID, POLICY_STATUS_ACTIVE, SINISTER_STATUS_OPEN } from '@constants/global';
 import { Payment } from '@interfaces/payment.interface';
@@ -24,11 +24,13 @@ export class ContentsComponent implements OnInit, OnDestroy {
     mainActionWidth: number;
     searchEngineWidth: number;
     query: string;
+    private _contentSubtype: string = '';
     private _subParams: any;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
-        private _labelFoundFormatPipe: LabelFoundFormatPipe
+        private _labelFoundFormatPipe: LabelFoundFormatPipe,
+        private _router: Router
     ) {
         this.contentType = 0;
         this.contentTypeName = '';
@@ -43,6 +45,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this._catchParams();
+        this._catchQueryParams();
         this.canShowKpis = this._checkCanShowKpis();
         this.mainActionWidth = this._getMainActionWidth();
         this.searchEngineWidth = this._getSearchEngineWidth();
@@ -76,6 +79,17 @@ export class ContentsComponent implements OnInit, OnDestroy {
 
     applyPayment(payment: Payment): void {
         this.contentList.applyPayment(payment);
+    }
+
+    reloadPage(): void {
+        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this._router.onSameUrlNavigation = 'reload';
+        const url: string = this._router.url.split('?')[0] ;
+        if(!!this._contentSubtype) {
+            this._router.navigate([url], { relativeTo: this._activatedRoute, queryParams: { contentSubtype: this._contentSubtype } } );
+        } else {
+            this._router.navigate([url], { relativeTo: this._activatedRoute } );
+        }
     }
 
     /**
@@ -180,6 +194,12 @@ export class ContentsComponent implements OnInit, OnDestroy {
                 width = 8;
         }
         return width;
+    }
+
+    private _catchQueryParams(): void {
+        this._activatedRoute.queryParams.subscribe(params => {
+            this._contentSubtype = params.contentSubtype || '';
+        })
     }
 
 }

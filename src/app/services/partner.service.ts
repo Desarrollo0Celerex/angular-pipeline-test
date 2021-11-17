@@ -10,6 +10,7 @@ import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     partners: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners',
+    partnerCoincidences: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/coincidences',
     totalPartners: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/count',
 }
 
@@ -21,6 +22,11 @@ export class PartnerService {
         private _httpClient: HttpClient,
         private _authService: AuthService
     ) { }
+
+    checkHasCoincidences(name: string): Observable<HttpResponse> {
+        const route: string = routes.partnerCoincidences(this._workspaceId);
+        return this._httpClient.post<HttpResponse>(route, { name });
+    }
 
     /**
      * Create the partner in the API

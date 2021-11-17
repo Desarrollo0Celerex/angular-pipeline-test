@@ -49,6 +49,7 @@ const routes: Routes = [
 
             // Partners routes
             { path: ROUTES_NAME.listPartners, loadChildren: () => import('@pages/home/partners/list-partners/list-partners.module').then(mod => mod.ListPartnersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.partnerCoincidences, loadChildren: () => import('@pages/home/partners/partner-coincidences/partner-coincidences.module').then(mod => mod.PartnerCoincidencesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Payments routes
             { path: ROUTES_NAME.listPayments, loadChildren: () => import('@pages/home/payments/list-payments/list-payments.module').then(mod => mod.ListPaymentsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

@@ -62,6 +62,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     canReloadApplyPayment: boolean = false;
     canShowTotalResults: boolean;
     cardClasses: string;
+    isCoincidence: boolean = false;
     isHistoryContent: boolean;
     isLoadingContent: boolean;
     page: number;
@@ -743,6 +744,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     private _initContent(): void {
         this.contentListService.resetData();
         this.page = 1;
+        this.isCoincidence = (this.contentSubtype == CONTENT_TYPES.COINCIDENCES.ID)
         this._loadContents();
     }
 
@@ -789,7 +791,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _loadContents(): void {
         this.isLoadingContent = true;
-        if(!!this.contentSubtype) {
+        if(!!this.contentSubtype && !(!!this.query)) {
             this._loadContentsByFilter();
         } else if(!!this.query) {
             this._loadContentsBySearch();

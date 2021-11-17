@@ -72,7 +72,8 @@ const HOME_LEADS_ROUTES = {
 }
 
 const HOME_PARTNER_ROUTES = {
-    listPartners: `workspace/partners/list-partners`
+    listPartners: `workspace/partners/list-partners`,
+    partnerCoincidences: `workspace/partners/coincidences`,
 }
 
 const HOME_PAYMENTS_ROUTES = {

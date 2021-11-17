@@ -140,6 +140,7 @@
                 ></agt-card-policy>
                 <agt-card-partner *ngSwitchCase="CONTENT_TYPES.PARTNER.ID"
                     [partner]="content"
+                    [isCoincidence]="isCoincidence"
                     (showDetails)="showPartnerDetails($event)"
                 ></agt-card-partner>
                 <agt-card-payment *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID"
@@ -200,7 +201,14 @@
     [groupId]="groupId"
     >
 </agt-content-back>
-<agt-content-suggestions *ngIf="!isHistoryContent" [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [contentTypeName]="contentTypeName"></agt-content-suggestions>
+<agt-content-suggestions
+    *ngIf="!isHistoryContent"
+    [isLoadingContent]="isLoadingContent"
+    [contentResultData]="contentListService.contentResultData"
+    [contentType]="contentType"
+    [contentTypeName]="contentTypeName"
+    [contentSubtype]="contentSubtype">
+</agt-content-suggestions>
 
 <!-- AGENTHOS - CONTENT ACTIONS -->
 <ng-container

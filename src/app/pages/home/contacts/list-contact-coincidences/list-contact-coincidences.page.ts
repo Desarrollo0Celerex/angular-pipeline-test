@@ -6,7 +6,6 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { CreateContactDataSend } from '@interfaces/create-contact-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
-import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-format.pipe';
 import { LoadingService } from '@services/loading.service';
 
 import { ListContactCoincidencesService } from './list-contact-coincidences.service';
@@ -25,8 +24,9 @@ export class ListContactCoincidencesPage implements OnInit, OnDestroy {
     contactTypeId: number;
     contentType: number;
     contentTypeName: string;
+    contentSubtype: number;
     contentSubtypeName: string;
-    modalIdConfirmSelectContact: string;
+    modalIdConfirmSaveContact: string;
     originContactId: string;
     originPolicyId: string;
     searchContactData: SearchContactData | null;
@@ -36,7 +36,6 @@ export class ListContactCoincidencesPage implements OnInit, OnDestroy {
 
     constructor(
         private _activatedRoute: ActivatedRoute,
-        private _labelFoundFormatPipe: LabelFoundFormatPipe,
         private _listContactCoincidencesService: ListContactCoincidencesService,
         private _loadingService: LoadingService,
         private _router: Router
@@ -46,8 +45,9 @@ export class ListContactCoincidencesPage implements OnInit, OnDestroy {
         this.contactTypeId = CONTACT_TYPES.PERSON;
         this.contentType = CONTENT_TYPES.CONTACT.ID;
         this.contentTypeName = CONTENT_TYPES.COINCIDENCES.NAME;
-        this.contentSubtypeName = this._labelFoundFormatPipe.transform(this.contentType);
-        this.modalIdConfirmSelectContact = 'agt-confirm-select-contact';
+        this.contentSubtype = CONTENT_TYPES.COINCIDENCES.ID;
+        this.contentSubtypeName = 'Encontrada';
+        this.modalIdConfirmSaveContact = 'agt-confirm-save-contact';
         this.originContactId = '';
         this.originPolicyId = '';
         this.searchContactData = null;
@@ -69,7 +69,7 @@ export class ListContactCoincidencesPage implements OnInit, OnDestroy {
      * Click event to show modal to confirm save the contact
      */
     onClickSaveContact(): void {
-        ModalPlugin.show(this.modalIdConfirmSelectContact);
+        ModalPlugin.show(this.modalIdConfirmSaveContact);
     }
 
     /**

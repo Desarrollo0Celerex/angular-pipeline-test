@@ -25,7 +25,8 @@
             [contactId]="contactId"
             (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"
             (sinisterCreated)="onReloadContent()"
-            (paymentSelected)="applyPayment($event)">
+            (paymentSelected)="applyPayment($event)"
+            (partnerCreated)="reloadPage()">
         </agt-content-main-action>
     </div>
 </div>

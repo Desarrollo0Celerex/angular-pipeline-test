@@ -29,9 +29,18 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.PARTNER.ID">
     <agt-modal-create-partner
         [modalId]="modalIdCreatePartner"
-        (hasCoincidences)="showModalPartnerHasCoincidences()">
+        (hasCoincidences)="showModalPartnerHasCoincidences($event)"
+        (canCreatePartner)="showModalConfirmCreatePartner($event)">
     </agt-modal-create-partner>
-    <agt-modal-duplicate-partner [modalId]="modalIdPartnerHasCoincidences"></agt-modal-duplicate-partner>
+    <agt-modal-duplicate-partner
+        [modalId]="modalIdPartnerHasCoincidences"
+        [partnerName]="selectedName">
+    </agt-modal-duplicate-partner>
+    <agt-modal-confirm-create-partner
+        [modalId]="modalIdConfirmCreatePartner"
+        [partnerName]="selectedName"
+        (partnerCreated)="notifyPartnerCreated()">
+    </agt-modal-confirm-create-partner>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID">
     <agt-modal-search-payment

@@ -22,8 +22,10 @@ export class ContentMainActionComponent implements OnInit {
     @Input() contentSubtype: number;
     @Output() contentSubtypeNameSelected: EventEmitter<string>;
     @Output() sinisterCreated: EventEmitter<void> = new EventEmitter<void>();
+    @Output() partnerCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() paymentSelected: EventEmitter<Payment> = new EventEmitter<Payment>();
     CONTENT_TYPES: any;
+    modalIdConfirmCreatePartner: string = 'agt-confirm-create-partner';
     modalIdCreateGroup: string = 'agt-create-group';
     modalIdCreatePartner: string = 'agt-create-partner';
     modalIdCreateSinister: string = 'agt-create-sinister';
@@ -37,6 +39,7 @@ export class ContentMainActionComponent implements OnInit {
     selectPolicyStatusModalId: string;
     selectQuotationStatusModalId: string;
     selectedPolicy: Policy | null = null;
+    selectedName: string = '';
 
     constructor(
         private _pluralNameFormatPipe: PluralNameFormatPipe,
@@ -169,8 +172,18 @@ export class ContentMainActionComponent implements OnInit {
         ModalPlugin.show(this.modalIdGroupHasCoincidences);
     }
 
-    showModalPartnerHasCoincidences(): void {
+    showModalPartnerHasCoincidences(name: string): void {
+        this.selectedName = name;
         ModalPlugin.show(this.modalIdPartnerHasCoincidences);
+    }
+
+    showModalConfirmCreatePartner(name: string): void {
+        this.selectedName = name;
+        ModalPlugin.show(this.modalIdConfirmCreatePartner);
+    }
+
+    notifyPartnerCreated(): void {
+        this.partnerCreated.emit();
     }
 
 }

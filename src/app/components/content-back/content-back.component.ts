@@ -74,6 +74,10 @@ export class ContentBackComponent {
                 route = ROUTES_NAME.listContactFiles(this.contactId);
                 break;
 
+            case CONTENT_TYPES.PARTNER.ID:
+                route = ROUTES_NAME.listPartners;
+                break;
+
             default:
                 route = '';
                 break;

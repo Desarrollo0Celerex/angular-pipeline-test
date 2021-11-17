@@ -160,9 +160,6 @@ export const CONTENT_TYPES: any = {
         ID: 8,
         NAME: 'Siniestro'
     },
-    COINCIDENCES: {
-        NAME: 'Coincidencia'
-    },
     HISTORY_POLICY: {
         ID: 9,
         NAME: 'Movimiento'
@@ -216,6 +213,10 @@ export const CONTENT_TYPES: any = {
     GROUP_SINISTER: {
         ID: 21,
         NAME: 'Siniestro'
+    },
+    COINCIDENCES: {
+        ID: 22,
+        NAME: 'Coincidencia'
     },
 }
 export const CONTACT_TYPES: any = {

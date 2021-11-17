@@ -13,6 +13,7 @@ export class ContentSuggestionsComponent {
     @Input() contentResultData: ContentResultData;
     @Input() contentType: number;
     @Input() contentTypeName: string;
+    @Input() contentSubtype: number = 0;
     @Input() isLoadingContent: boolean;
     CONTENT_TYPES: any;
 
