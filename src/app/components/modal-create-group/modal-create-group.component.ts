@@ -1,11 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { ActivatedRoute, Router} from '@angular/router';
 
-import { ERROR_CODES } from '@constants/error-codes';
-import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { HttpError } from '@interfaces/http-error.interface';
+import { HttpResponse } from '@interfaces/http-response.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ModalCreateGroupService } from './modal-create-group.service';
@@ -21,19 +18,17 @@ declare var ModalPlugin: any;
 })
 export class ModalCreateGroupComponent implements OnInit {
     @Input() modalId: string = '';
-    @Output() hasCoincidences: EventEmitter<void> = new EventEmitter<void>();
-    private _contentSubtype: string = '';
+    @Output() hasCoincidences: EventEmitter<string> = new EventEmitter<string>();
+    @Output() canCreateGroup: EventEmitter<string> = new EventEmitter<string>();
     private _isFormSubmitted: boolean = false;
 
     constructor(
-        private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
-        private _modalCreateGroupService: ModalCreateGroupService,
-        private _router: Router
+        private _modalCreateGroupService: ModalCreateGroupService
     ) { }
 
     ngOnInit(): void {
-        this._catchQueryParams();
+        //this._catchQueryParams();
     }
 
     get model(): ModalCreateGroupService {
@@ -60,7 +55,37 @@ export class ModalCreateGroupComponent implements OnInit {
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
-    createGroup(): void {
+    checkHasCoincidences(): void {
+        this._isFormSubmitted = true;
+        if(this.model.form.valid) {
+            this._loadingService.show();
+            ModalPlugin.hide(this.modalId);
+            this.model.checkHasCoincidences().subscribe((res: HttpResponse) => {
+                this._loadingService.hide();
+                if(res.data == true) {
+                    this.hasCoincidences.emit(this.model.f.name.value);
+                } else {
+                    this.canCreateGroup.emit(this.model.f.name.value);
+                }
+                this._resetForm();
+            });
+        }
+    }
+
+    closeModal(): void {
+        ModalPlugin.hide(this.modalId);
+        this._resetForm();
+    }
+
+    /**
+     * Reset the form
+     */
+    private _resetForm(): void {
+        this._isFormSubmitted = false;
+        this.model.form.reset();
+    }
+
+    /*createGroup(): void {
         this._isFormSubmitted = true;
         if(this.model.form.valid) {
             this._loadingService.show();
@@ -95,6 +120,6 @@ export class ModalCreateGroupComponent implements OnInit {
         } else {
             this._router.navigate([url], { relativeTo: this._activatedRoute } );
         }
-    }
+    }*/
 
 }

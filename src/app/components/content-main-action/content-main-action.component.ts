@@ -21,11 +21,13 @@ export class ContentMainActionComponent implements OnInit {
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
     @Output() contentSubtypeNameSelected: EventEmitter<string>;
+    @Output() groupCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() sinisterCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() partnerCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() paymentSelected: EventEmitter<Payment> = new EventEmitter<Payment>();
     CONTENT_TYPES: any;
     modalIdConfirmCreatePartner: string = 'agt-confirm-create-partner';
+    modalIdConfirmCreateGroup: string = 'agt-confirm-create-group';
     modalIdCreateGroup: string = 'agt-create-group';
     modalIdCreatePartner: string = 'agt-create-partner';
     modalIdCreateSinister: string = 'agt-create-sinister';
@@ -168,8 +170,18 @@ export class ContentMainActionComponent implements OnInit {
         this.sinisterCreated.emit();
     }
 
-    showModalGroupHasCoincidences(): void {
+    showModalGroupHasCoincidences(name: string): void {
+        this.selectedName = name;
         ModalPlugin.show(this.modalIdGroupHasCoincidences);
+    }
+
+    showModalConfirmCreateGroup(name: string): void {
+        this.selectedName = name;
+        ModalPlugin.show(this.modalIdConfirmCreateGroup);
+    }
+
+    notifyGroupCreated(): void {
+        this.groupCreated.emit();
     }
 
     showModalPartnerHasCoincidences(name: string): void {

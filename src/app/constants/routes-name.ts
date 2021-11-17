@@ -54,6 +54,7 @@ const HOME_EXTERNAL_POLICIES_ROUTES = {
 
 const HOME_GROUPS_ROUTES = {
     listGroups: 'workspace/groups/list-groups',
+    groupCoincidences: 'workspace/groups/coincidences',
 }
 
 const HOME_GROUP_PROFILE_ROUTES = {

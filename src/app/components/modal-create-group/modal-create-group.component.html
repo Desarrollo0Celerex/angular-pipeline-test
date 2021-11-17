@@ -1,11 +1,11 @@
 <!-- AGENTHOS - GROUPS CREATE NEW -->
 <div class="modal fade" [id]="modalId" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
-		<form [formGroup]="model.form" (submit)="createGroup()">
+		<form [formGroup]="model.form" (submit)="checkHasCoincidences()">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Crear Grupo</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<button type="button" class="close" aria-label="Close" (click)="closeModal()">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
@@ -23,7 +23,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+					<button type="button" class="btn btn-secondary" (click)="closeModal()">CANCELAR</button>
 					<!-- AGENTHOS - IF COINCIDENCES TARGET (agtGroupCoincidences) -->
 					<!-- AGENTHOS - IF NO COINCIDENCES TARGET (agtGroupConfirmation) -->
 					<button type="submit" class="btn btn-primary">CONFIRMAR</button>

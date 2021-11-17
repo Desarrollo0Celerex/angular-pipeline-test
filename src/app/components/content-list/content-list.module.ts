@@ -43,6 +43,7 @@ import { ModalConfirmReactivateSinisterModule } from '@components/modal-confirm-
 import { ModalConfirmReissuePolicyModule } from '@components/modal-confirm-reissue-policy/modal-confirm-reissue-policy.module';
 import { ModalConfirmRejectQuotationModule } from '@components/modal-confirm-reject-quotation/modal-confirm-reject-quotation.module';
 import { ModalConfirmRenewPolicyModule } from '@components/modal-confirm-renew-policy/modal-confirm-renew-policy.module';
+import { ModalConfirmSelectGroupModule } from '@components/modal-confirm-select-group/modal-confirm-select-group.module';
 import { ModalConfirmShowHistoryPolicyModule } from '@components/modal-confirm-show-history-policy/modal-confirm-show-history-policy.module';
 import { ModalConfirmShowPaymentHistoryModule } from '@components/modal-confirm-show-payment-history/modal-confirm-show-payment-history.module';
 import { ModalConfirmShowPolicySinistersModule } from '@components/modal-confirm-show-policy-sinisters/modal-confirm-show-policy-sinisters.module';
@@ -132,6 +133,7 @@ import { ContentListService } from './content-list.service';
     ModalConfirmReactivateSinisterModule,
     ModalConfirmReissuePolicyModule,
     ModalConfirmRejectQuotationModule,
+    ModalConfirmSelectGroupModule,
     ModalConfirmRenewPolicyModule,
     ModalConfirmShowHistoryPolicyModule,
     ModalConfirmShowPaymentHistoryModule,

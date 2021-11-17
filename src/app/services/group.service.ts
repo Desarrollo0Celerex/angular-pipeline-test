@@ -11,7 +11,8 @@ import { AuthService } from '@services/auth.service';
 const routes: any = {
     groups: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups',
     group: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId,
-    totalGroups: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/count'
+    totalGroups: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/count',
+    groupCoincidences: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/coincidences'
 }
 
 @Injectable()
@@ -23,6 +24,11 @@ export class GroupService {
         private _authService: AuthService
     ) {
         this._workspaceId = this._authService.workspaceId;
+    }
+
+    checkHasCoincidences(name: string): Observable<HttpResponse> {
+        const route: string = routes.groupCoincidences(this._workspaceId);
+        return this._httpClient.post<HttpResponse>(route, { name });
     }
 
     /**

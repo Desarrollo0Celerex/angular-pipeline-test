@@ -6,19 +6,20 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-duplicate-group',
-  templateUrl: './modal-duplicate-group.component.html',
+  selector: 'agt-modal-confirm-select-group',
+  templateUrl: './modal-confirm-select-group.component.html',
   styles: [
   ]
 })
-export class ModalDuplicateGroupComponent {
+export class ModalConfirmSelectGroupComponent {
     @Input() modalId: string = '';
-    @Input() groupName: string = '';
+    @Input() groupId: string = '';
 
     constructor(private _router: Router) { }
 
-    goToGroupCoincidences(): void {
+    goToGroupResume(): void {
         ModalPlugin.hide(this.modalId);
-        this._router.navigate([ROUTES_NAME.groupCoincidences], { queryParams: { groupName: this.groupName } } );
+        this._router.navigateByUrl(ROUTES_NAME.groupResume(this.groupId));
     }
+
 }

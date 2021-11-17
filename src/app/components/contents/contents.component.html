@@ -24,9 +24,10 @@
             [contentSubtype]="contentSubtype"
             [contactId]="contactId"
             (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"
+            (groupCreated)="reloadIncompleteGroupsPage()"
             (sinisterCreated)="onReloadContent()"
             (paymentSelected)="applyPayment($event)"
-            (partnerCreated)="reloadPage()">
+            (partnerCreated)="reloadInactivePartnerPage()">
         </agt-content-main-action>
     </div>
 </div>

@@ -90,6 +90,8 @@
                 ></agt-card-contact>
                 <agt-card-group *ngSwitchCase="CONTENT_TYPES.GROUP.ID"
                     [group]="content"
+                    [isCoincidence]="isCoincidence"
+                    (groupSelected)="showModalToConfirmSelectGroup($event)"
                     (showGroupDetails)="showGroupDetails($event)">
                 </agt-card-group>
                 <agt-card-group-member *ngSwitchCase="CONTENT_TYPES.GROUP_MEMBER.ID"
@@ -322,5 +324,6 @@
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.GROUP.ID">
     <agt-modal-show-group-details [modalId]="modalIdShowGroupDetails" [group]="selectedGroup"></agt-modal-show-group-details>
+    <agt-modal-confirm-select-group [modalId]="modalIdConfirmSelectGroup" [groupId]="selectedGroupId"></agt-modal-confirm-select-group>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

@@ -73,6 +73,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedEndorsementId: string;
     selectedEvidenceUrl: string = '';
     selectedGroup: Group | null = null;
+    selectedGroupId: string = '';
     selectedPartner: Partner | null = null;
     selectedPaymentId: string;
     selectedPolicyData: PolicyDataSend | null = null;
@@ -98,6 +99,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmReissuePolicy: string;
     modalIdConfirmReactivateSinister: string;
     modalIdConfirmRenewPolicy: string;
+    modalIdConfirmSelectGroup: string = 'agt-confirm-select-group';
     modalIdConfirmShowHistoryPolicy: string;
     modalIdConfirmShowPaymentHistory: string;
     modalIdConfirmShowSinister: string = 'agt-confirm-show-sinister';
@@ -693,6 +695,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     showModalApplyPayment(): void {
         ModalPlugin.show(this.modalIdApplyPayment);
+    }
+
+    showModalToConfirmSelectGroup(groupId: string): void {
+        this.selectedGroupId = groupId;
+        ModalPlugin.show(this.modalIdConfirmSelectGroup);
     }
 
     showPartnerDetails(partner: Partner): void {

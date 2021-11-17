@@ -1,0 +1,52 @@
+<!-- AGENTHOS - SEARCH RESULTS -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Datos Ingresados</h3>
+            </div>
+            <div class="card-body">
+                <!-- AGENTHOS - PARTNER INFO -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <!-- AGENTHOS - PARTNER NAME * -->
+                            <label class="form-label">Nombre Ingresado</label>
+                            <input type="text" class="form-control" [placeholder]="groupName" readonly="">
+                        </div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - PARTNER INFO -->
+                <!-- AGENTHOS - SEARCH RESULTS -->
+                <ol class="breadcrumb1">
+                    <li class="breadcrumb-item1">Se han encontrado <strong>{{totalResults}}</strong> coincidencias con los datos ingresados.</li>
+                </ol>
+                <!-- //AGENTHOS - SEARCH RESULTS -->
+            </div>
+            <div class="card-footer">
+                <div class="btn-list text-center">
+                    <!-- AGENTHOS - PARTNER CONFIRMATION -->
+                    <button type="button" class="btn btn-block btn-primary" (click)="showModalToConfirmCreateGroup()"><strong>CREAR SOCIO</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - SEARCH RESULTS -->
+
+
+<agt-content-list
+    [contentType]="contentType"
+    [contentTypeName]="contentTypeName"
+    [contentSubtype]="contentSubtype"
+    [contentSubtypeName]="contentSubtypeName"
+    [query]="groupName"
+    (totalResultsLoaded)="loadTotalResults($event)"
+></agt-content-list>
+
+<agt-modal-confirm-create-group
+    [modalId]="modalIdConfirmCreateGroup"
+    [groupName]="groupName"
+    [ignoreMatches]="true"
+    (groupCreated)="goToIncompleteGroups()">
+</agt-modal-confirm-create-group>

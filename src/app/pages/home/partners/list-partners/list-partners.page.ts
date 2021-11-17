@@ -9,20 +9,5 @@ import { CONTENT_TYPES } from '@constants/global';
   ]
 })
 export class ListPartnersPage {
-    CONTENT_TYPES: any;
-
-    constructor() {
-        this.CONTENT_TYPES =  CONTENT_TYPES;
-    }
-    /*modalIdCreatePartner: string = 'modal-create-partner';
-
-    constructor() { }
-
-    ngOnInit(): void {
-    }
-
-    showModalToCretePartner(): void {
-        ModalPlugin.show(this.modalIdCreatePartner);
-    }*/
-
+    CONTENT_TYPES: any = CONTENT_TYPES;
 }

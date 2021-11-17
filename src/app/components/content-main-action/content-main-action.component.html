@@ -22,9 +22,18 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.GROUP.ID">
     <agt-modal-create-group
         [modalId]="modalIdCreateGroup"
-        (hasCoincidences)="showModalGroupHasCoincidences()">
+        (hasCoincidences)="showModalGroupHasCoincidences($event)"
+        (canCreateGroup)="showModalConfirmCreateGroup($event)">
     </agt-modal-create-group>
-    <agt-modal-duplicate-group [modalId]="modalIdGroupHasCoincidences"></agt-modal-duplicate-group>
+    <agt-modal-duplicate-group
+        [modalId]="modalIdGroupHasCoincidences"
+        [groupName]="selectedName">
+    </agt-modal-duplicate-group>
+    <agt-modal-confirm-create-group
+        [modalId]="modalIdConfirmCreateGroup"
+        [groupName]="selectedName"
+        (groupCreated)="notifyGroupCreated()">
+    </agt-modal-confirm-create-group>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PARTNER.ID">
     <agt-modal-create-partner
