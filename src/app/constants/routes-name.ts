@@ -80,7 +80,8 @@ const HOME_PARTNER_ROUTES = {
 const HOME_PAYMENTS_ROUTES = {
     listPayments: `workspace/payments/list-payments`,
     paymentHistory: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/payment-history/${contactId}/${policyId}/${paymentId}`,
-    pendingReceipts: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/pending-receipts/${contactId}/${policyId}/${paymentId}`
+    pendingReceipts: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/pending-receipts/${contactId}/${policyId}/${paymentId}`,
+    paymentCalendar: `workspace/payments/calendar`
 }
 
 const HOME_POLICIES_ROUTES = {
