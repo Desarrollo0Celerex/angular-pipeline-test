@@ -218,6 +218,10 @@ export const CONTENT_TYPES: any = {
         ID: 22,
         NAME: 'Coincidencia'
     },
+    PAYMENT_CALENDAR: {
+        ID: 23,
+        NAME: 'Pago'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

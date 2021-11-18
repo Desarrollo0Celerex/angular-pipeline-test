@@ -337,7 +337,26 @@ export class ContentListService {
      */
     loadPayments(page: number, contentSubtype: number): Observable<void> {
         const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
-        return this._paymentService.getPayments(page, fields, contentSubtype).pipe(
+        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [contentSubtype]);
+        return this._paymentService.getPayments(page, fields, filters).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
+     * Load the payments
+     * @param  page           The page number to get
+     * @param  contentSubtype The filter to apply
+     * @return                Notice of action done
+     */
+    loadCalendarPayments(page: number, specialFilter: number | string): Observable<void> {
+        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
+        const filters: string = UtilitiesHelper.generateHttpFilter('paymentDate', [specialFilter]);
+        return this._paymentService.getPayments(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
@@ -731,7 +750,8 @@ export class ContentListService {
      */
     searchPayments(page: number, query: string): Observable<void> {
         const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
-        return this._paymentService.getPayments(page, fields, 0, query).pipe(
+        query = 'policyNumber:' + query;
+        return this._paymentService.getPayments(page, fields, '', query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);

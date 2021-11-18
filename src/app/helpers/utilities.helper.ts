@@ -70,8 +70,8 @@ export class UtilitiesHelper {
      * @param  filters    The filters to apply
      * @return            The HTTP Filter
      */
-    static generateHttpFilter(filterName: string, filters: number[]) {
-        const filterIds: string[] = filters.map( (element: number) => {
+    static generateHttpFilter(filterName: string, filters: number[] | (number | string)[]) {
+        const filterIds: string[] = filters.map( (element: number | string) => {
             return filterName + '[=]' + element;
         });
         return filterIds.join(',');

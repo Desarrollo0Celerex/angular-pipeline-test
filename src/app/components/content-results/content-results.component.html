@@ -22,5 +22,12 @@
 </ng-template>
 
 <ng-template #noResults>
-    <li class="breadcrumb-item1">No se han encontrado resultados</li>
+    <ng-container [ngSwitch]="contentType">
+        <ng-container *ngSwitchCase="CONTENT_TYPES.PAYMENT_CALENDAR.ID">
+            <li class="breadcrumb-item1">No se encontraron recibos pendientes en el día seleccionado. <strong>Selecciona otro día para ver la cobranza pendiente</strong>.</li>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+            <li class="breadcrumb-item1">No se han encontrado resultados</li>
+        </ng-container>
+    </ng-container>
 </ng-template>

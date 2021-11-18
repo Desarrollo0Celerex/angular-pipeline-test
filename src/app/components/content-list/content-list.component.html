@@ -20,7 +20,7 @@
 </agt-container-incomplete-policies>
 
 <!-- AGENTHOS - CONTENT HEADER -->
-<div class="row mt-3">
+<div *ngIf="contentType !== CONTENT_TYPES.PAYMENT_CALENDAR.ID" class="row mt-3">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -145,7 +145,7 @@
                     [isCoincidence]="isCoincidence"
                     (showDetails)="showPartnerDetails($event)"
                 ></agt-card-partner>
-                <agt-card-payment *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID"
+                <agt-card-payment *ngSwitchCase="(contentType === CONTENT_TYPES.PAYMENT.ID || contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID) ? contentType : ''"
                     [payment]="content"
                     (applyPayment)="onApplyPayment($event)"
                     (showContactData)="onShowContactData($event)"
@@ -192,7 +192,14 @@
 </div>
 
 <agt-loading-content [isLoadingContent]="isLoadingContent"></agt-loading-content>
-<agt-content-results [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentTypeName]="contentTypeName" [contentSubtypeName]="contentSubtypeName" (loadMoreContents)="onLoadMoreContents()"></agt-content-results>
+<agt-content-results
+    [contentType]="contentType"
+    [isLoadingContent]="isLoadingContent"
+    [contentResultData]="contentListService.contentResultData"
+    [contentTypeName]="contentTypeName"
+    [contentSubtypeName]="contentSubtypeName"
+    (loadMoreContents)="onLoadMoreContents()">
+</agt-content-results>
 <agt-content-back
     *ngIf="!isHistoryContent"
     [isLoadingContent]="isLoadingContent"
@@ -218,6 +225,7 @@
     contentType === CONTENT_TYPES.LEAD.ID ||
     contentType === CONTENT_TYPES.CLIENT.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
+    contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
@@ -243,6 +251,7 @@
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
+    contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
     contentType === CONTENT_TYPES.POLICY_TRACKER.ID">
@@ -264,6 +273,7 @@
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
+    contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
     <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
@@ -271,6 +281,7 @@
 </ng-container>
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID ||
+    contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.PENDING_RECEIP.ID">

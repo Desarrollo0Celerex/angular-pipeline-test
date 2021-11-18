@@ -53,6 +53,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() query: string;
     @Input() sinisterId: string;
     @Input() specialQuery: SearchContactData | null;
+    @Input() specialFilter: number | string = 0;
     @Input() canReloadContent: boolean = false;
     @Output() totalResultsLoaded: EventEmitter<number>;
     @Output() contentReloaded: EventEmitter<void> = new EventEmitter<void>();
@@ -202,7 +203,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) && (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) && (!!this.contentSubtype || !!this.query || !!this.specialQuery) ||
             (typeof changes.canReloadContent !== 'undefined' && !!changes.canReloadContent.currentValue) ||
             (!!changes.policyId && !!changes.policyId.currentValue) ||
-            (!!changes.groupId && !!changes.groupId.currentValue)
+            (!!changes.groupId && !!changes.groupId.currentValue) ||
+            (!!changes.specialFilter && !!changes.specialFilter.currentValue)
         ) {
             this._initContent();
 
@@ -787,6 +789,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this.cardClasses = 'col-lg-12 mt-5';
             break;
 
+            case CONTENT_TYPES.PAYMENT_CALENDAR.ID:
+                this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-4';
+            break;
+
             default:
                 this.cardClasses = 'col-md-3 col-xl-3';
             break;
@@ -804,6 +810,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             this._loadContentsBySearch();
         } else if(!!this.specialQuery) {
             this._loadContentsBySearch();
+        } else if(!!this.specialFilter) {
+            this._loadContentsBySpecialFilter();
         }
     }
 
@@ -931,6 +939,19 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                     this._contentLoaded();
                     this.selectedPolicyPos = this.contentListService.getPolicyTrackerPos(this.policyId);
                 })
+            break;
+        }
+    }
+
+    /**
+     * Load the contents by filter
+     */
+    private _loadContentsBySpecialFilter(): void {
+        switch(this.contentType) {
+            case CONTENT_TYPES.PAYMENT_CALENDAR.ID:
+                this.contentListService.loadCalendarPayments(this.page, this.specialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
             break;
         }
     }
