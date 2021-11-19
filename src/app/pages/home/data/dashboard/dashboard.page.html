@@ -47,11 +47,12 @@
                     <div class="card-body text-center">
                         <i class="fa fa-signal text-danger fa-3x"></i>
                         <h6 class="mt-4 mb-2">Últimas Cancelaciones</h6>
-                        <h2 class="number-font"><span class="counter">888</span></h2>
+                        <h2 class="number-font"><span class="counter">0</span></h2>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="../clients/cancelations.php">
-                        <button type="button" name="agtRenovationView" class="btn btn-block btn-secondary"><strong>VER CANCELACIONES</strong></button></a>
+                        <a routerLink="/{{ROUTES_NAME.lastCancelledPolicies}}">
+                            <button type="button" class="btn btn-block btn-secondary"><strong>VER CANCELACIONES</strong></button>
+                        </a>
                     </div>
                 </div>
             </div>

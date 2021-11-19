@@ -29,7 +29,7 @@ export class DashboardService {
         const rangeField: string = 'validityEndDate';
         const rangeStart: string = moment().subtract(60, 'days').format('DD/MM/YYYY');
         const rangeEnd: string = moment().add(30, 'days').format('DD/MM/YYYY');
-        this._quotationService.getTotalWorkspaceQuotations('', rangeField, rangeStart, rangeEnd).subscribe((res: number) => {
+        this._policyService.getTotalWorkspacePolicies('', rangeField, rangeStart, rangeEnd).subscribe((res: number) => {
             this.totalLastPoliciesToRenew = res;
         })
     }

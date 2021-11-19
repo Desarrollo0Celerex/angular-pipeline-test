@@ -26,6 +26,7 @@ const routes: Routes = [
             // Data routes
             { path: ROUTES_NAME.dashboard, loadChildren: () => import('@pages/home/data/dashboard/dashboard.module').then( mod => mod.DashboardModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.lastPoliciesToRenew, loadChildren: () => import('@pages/home/data/last-policies-to-renew/last-policies-to-renew.module').then( mod => mod.LastPoliciesToRenewModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.lastCancelledPolicies, loadChildren: () => import('@pages/home/data/last-cancelled-policies/last-cancelled-policies.module').then( mod => mod.LastCancelledPoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Error routes
             { path: ROUTES_NAME.accessDenied, loadChildren: () => import('@pages/home/errors/access-denied/access-denied.module').then(mod => mod.AccessDeniedModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
