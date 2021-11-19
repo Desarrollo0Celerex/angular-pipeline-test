@@ -10,6 +10,7 @@ import { Partner } from '@interfaces/partner.interface';
 })
 export class CardPartnerComponent {
     @Input() partner: Partner | null = null;
+    @Input() isCoincidence: boolean = false;
     @Output() showDetails: EventEmitter<Partner> = new EventEmitter<Partner>();
 
     requestShowDetails(): void {

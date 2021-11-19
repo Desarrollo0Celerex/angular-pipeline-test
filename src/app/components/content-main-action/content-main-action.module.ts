@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ModalConfirmCreateGroupModule } from '@components/modal-confirm-create-group/modal-confirm-create-group.module';
+import { ModalConfirmCreatePartnerModule } from '@components/modal-confirm-create-partner/modal-confirm-create-partner.module';
 import { ModalCreateGroupModule } from '@components/modal-create-group/modal-create-group.module';
 import { ModalCreatePartnerModule } from '@components/modal-create-partner/modal-create-partner.module';
 import { ModalCreateSinisterModule } from '@components/modal-create-sinister/modal-create-sinister.module';
@@ -22,6 +24,8 @@ import { ContentMainActionComponent } from './content-main-action.component';
   exports: [ContentMainActionComponent],
   imports: [
     CommonModule,
+    ModalConfirmCreateGroupModule,
+    ModalConfirmCreatePartnerModule,
     ModalCreateGroupModule,
     ModalCreatePartnerModule,
     ModalCreateSinisterModule,

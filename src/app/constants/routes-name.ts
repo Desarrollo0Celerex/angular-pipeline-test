@@ -41,7 +41,9 @@ const HOME_CONTACT_PROFILE_ROUTES = {
 }
 
 const HOME_DATA_ROUTES = {
-    dashboard: 'workspace/data/dashboard'
+    dashboard: 'workspace/data/dashboard',
+    lastPoliciesToRenew: 'workspace/data/last-policies-to-renew',
+    lastCancelledPolicies: 'workspace/data/last-cancelled-policies',
 }
 
 const HOME_ERRORS_ROUTES = {
@@ -54,6 +56,7 @@ const HOME_EXTERNAL_POLICIES_ROUTES = {
 
 const HOME_GROUPS_ROUTES = {
     listGroups: 'workspace/groups/list-groups',
+    groupCoincidences: 'workspace/groups/coincidences',
 }
 
 const HOME_GROUP_PROFILE_ROUTES = {
@@ -72,13 +75,15 @@ const HOME_LEADS_ROUTES = {
 }
 
 const HOME_PARTNER_ROUTES = {
-    listPartners: `workspace/partners/list-partners`
+    listPartners: `workspace/partners/list-partners`,
+    partnerCoincidences: `workspace/partners/coincidences`,
 }
 
 const HOME_PAYMENTS_ROUTES = {
     listPayments: `workspace/payments/list-payments`,
     paymentHistory: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/payment-history/${contactId}/${policyId}/${paymentId}`,
-    pendingReceipts: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/pending-receipts/${contactId}/${policyId}/${paymentId}`
+    pendingReceipts: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/pending-receipts/${contactId}/${policyId}/${paymentId}`,
+    paymentCalendar: `workspace/payments/calendar`
 }
 
 const HOME_POLICIES_ROUTES = {

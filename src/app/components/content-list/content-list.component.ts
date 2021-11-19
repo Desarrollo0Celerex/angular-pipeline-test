@@ -51,8 +51,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() policyId: string;
     @Input() groupId: string = '';
     @Input() query: string;
+    @Input() rangeField: string = '';
+    @Input() rangeStart: string = '';
+    @Input() rangeEnd: string = '';
     @Input() sinisterId: string;
     @Input() specialQuery: SearchContactData | null;
+    @Input() specialFilter: number | string = 0;
     @Input() canReloadContent: boolean = false;
     @Output() totalResultsLoaded: EventEmitter<number>;
     @Output() contentReloaded: EventEmitter<void> = new EventEmitter<void>();
@@ -62,6 +66,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     canReloadApplyPayment: boolean = false;
     canShowTotalResults: boolean;
     cardClasses: string;
+    isCoincidence: boolean = false;
     isHistoryContent: boolean;
     isLoadingContent: boolean;
     page: number;
@@ -72,6 +77,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedEndorsementId: string;
     selectedEvidenceUrl: string = '';
     selectedGroup: Group | null = null;
+    selectedGroupId: string = '';
     selectedPartner: Partner | null = null;
     selectedPaymentId: string;
     selectedPolicyData: PolicyDataSend | null = null;
@@ -97,6 +103,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmReissuePolicy: string;
     modalIdConfirmReactivateSinister: string;
     modalIdConfirmRenewPolicy: string;
+    modalIdConfirmSelectGroup: string = 'agt-confirm-select-group';
     modalIdConfirmShowHistoryPolicy: string;
     modalIdConfirmShowPaymentHistory: string;
     modalIdConfirmShowSinister: string = 'agt-confirm-show-sinister';
@@ -199,7 +206,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) && (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) && (!!this.contentSubtype || !!this.query || !!this.specialQuery) ||
             (typeof changes.canReloadContent !== 'undefined' && !!changes.canReloadContent.currentValue) ||
             (!!changes.policyId && !!changes.policyId.currentValue) ||
-            (!!changes.groupId && !!changes.groupId.currentValue)
+            (!!changes.groupId && !!changes.groupId.currentValue) ||
+            (!!changes.specialFilter && !!changes.specialFilter.currentValue) ||
+            (!!changes.rangeField && !!changes.rangeField.currentValue) ||
+            (!!changes.rangeStart && !!changes.rangeStart.currentValue) ||
+            (!!changes.rangeEnd && !!changes.rangeEnd.currentValue)
         ) {
             this._initContent();
 
@@ -694,6 +705,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdApplyPayment);
     }
 
+    showModalToConfirmSelectGroup(groupId: string): void {
+        this.selectedGroupId = groupId;
+        ModalPlugin.show(this.modalIdConfirmSelectGroup);
+    }
+
     showPartnerDetails(partner: Partner): void {
         this.selectedPartner = partner;
         ModalPlugin.show(this.modalIdShowPartnerDetails);
@@ -743,6 +759,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     private _initContent(): void {
         this.contentListService.resetData();
         this.page = 1;
+        this.isCoincidence = (this.contentSubtype == CONTENT_TYPES.COINCIDENCES.ID)
         this._loadContents();
     }
 
@@ -753,7 +770,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.GROUP.ID:
             case CONTENT_TYPES.GROUP_MEMBER.ID:
@@ -778,6 +795,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this.cardClasses = 'col-lg-12 mt-5';
             break;
 
+            case CONTENT_TYPES.PAYMENT_CALENDAR.ID:
+                this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-4';
+            break;
+
             default:
                 this.cardClasses = 'col-md-3 col-xl-3';
             break;
@@ -789,12 +810,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _loadContents(): void {
         this.isLoadingContent = true;
-        if(!!this.contentSubtype) {
+        if(!!this.contentSubtype && !(!!this.query)) {
             this._loadContentsByFilter();
         } else if(!!this.query) {
             this._loadContentsBySearch();
         } else if(!!this.specialQuery) {
             this._loadContentsBySearch();
+        } else if(!!this.specialFilter) {
+            this._loadContentsBySpecialFilter();
+        } else if(!!this.rangeField && !!this.rangeStart && !!this.rangeEnd) {
+            this._loadContentsByRange();
         }
     }
 
@@ -821,7 +846,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 })
             break;
 
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
                 this.contentListService.loadContactPolicies(this.contactId, this.page, this.contentSubtype).subscribe( () => {
                     this._contentLoaded();
                 })
@@ -927,6 +952,33 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Load the contents by range
+     */
+    private _loadContentsByRange(): void {
+        switch(this.contentType) {
+            case CONTENT_TYPES.POLICY_TO_RENEW.ID:
+                const sortBy: string = 'validityEndDate';
+                this.contentListService.loadPolicies(this.page, this.rangeField, this.rangeStart, this.rangeEnd, sortBy).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+        }
+    }
+
+    /**
+     * Load the contents by filter
+     */
+    private _loadContentsBySpecialFilter(): void {
+        switch(this.contentType) {
+            case CONTENT_TYPES.PAYMENT_CALENDAR.ID:
+                this.contentListService.loadCalendarPayments(this.page, this.specialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+        }
+    }
+
+    /**
      * Load the contents by search
      */
     private _loadContentsBySearch(): void {
@@ -961,7 +1013,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 })
             break;
 
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
                 this.contentListService.searchContactPolicies(this.contactId, this.page, this.query).subscribe( () => {
                     this._contentLoaded();
                 })
@@ -1020,7 +1072,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         if(((!!this.query) || this.isHistoryContent) && (this.totalResults > 0) ) {
             switch(this.contentType) {
                 case CONTENT_TYPES.CONTACT_QUOTATION.ID:
-                case CONTENT_TYPES.CONTACT_POLICY.ID:
+                case CONTENT_TYPES.POLICY.ID:
                 case CONTENT_TYPES.GROUP_POLICY.ID:
                 case CONTENT_TYPES.HISTORY_POLICY.ID:
                     canShow = true;

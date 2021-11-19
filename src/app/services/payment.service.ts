@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { PaymentStat } from '@interfaces/payment-stat.interface';
+import { TotalPaymentsAmountData } from '@interfaces/total-payments-amount-data.interface';
 import { UpdatePaymentDateDataSend } from '@interfaces/update-payment-date-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
@@ -15,6 +16,7 @@ const routes: any = {
     paymentDate: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/' + paymentId + '/payment-date',
     payments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments',
     totalPayments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/count',
+    totalPaymentsAmount: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/total-amount',
     paymentsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/payments'
 }
 
@@ -55,13 +57,13 @@ export class PaymentService {
       * @param  query           The search to do
       * @return                 The payments
       */
-    getPayments(page: number = 1, fields: string = '', paymentStatusId: number = 0, query: string = ''): Observable<HttpResponse> {
+    getPayments(page: number = 1, fields: string = '', filters: string = '', query: string = ''): Observable<HttpResponse> {
         const route: string = routes.payments(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
-        if(!!paymentStatusId) params = params.append('filter', 'paymentStatusId[=]' + paymentStatusId);
-        if(!!query) params = params.append('search', 'policyNumber:' + query);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!query) params = params.append('search', query);
         params = params.append('sortBy', '-paymentDate');
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => {
@@ -96,6 +98,22 @@ export class PaymentService {
         const route: string = routes.totalPayments(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    /**
+     * Get the total payments amount from the API
+     * @param  paymentStatusId The filter to apply
+     * @return              The total payments amount
+     */
+    getTotalPaymentsAmount(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<TotalPaymentsAmountData> {
+        const route: string = routes.totalPaymentsAmount(this._workspaceId);
+        let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);

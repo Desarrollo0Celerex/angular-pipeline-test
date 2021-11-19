@@ -1,12 +1,15 @@
 <agt-container-external-policies
-    *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID"
+    *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.GROUP_POLICY.ID"
+    [contentType]="contentType"
     [contactId]="contactId"
+    [groupId]="groupId"
     [policyStatusId]="contentSubtype"
     [policyStatusName]="contentSubtypeName">
 </agt-container-external-policies>
 <agt-container-incomplete-policies
     #containerIncompletePolicies
-    *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID"
     [contentType]="contentType"
     [contentTypeName]="contentTypeName"
@@ -17,14 +20,20 @@
 </agt-container-incomplete-policies>
 
 <!-- AGENTHOS - CONTENT HEADER -->
-<div class="row mt-3">
+<div *ngIf="contentType !== CONTENT_TYPES.PAYMENT_CALENDAR.ID" class="row mt-3">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">{{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}</h3>
             </div>
             <div class="card-body" *ngIf="canShowTotalResults">
-                <agt-content-total-results [contentType]="contentType" [query]="query" [totalResults]="totalResults" [contactId]="contactId" [policyId]="policyId"></agt-content-total-results>
+                <agt-content-total-results
+                    [contentType]="contentType"
+                    [query]="query"
+                    [totalResults]="totalResults"
+                    [contactId]="contactId"
+                    [policyId]="policyId">
+                </agt-content-total-results>
             </div>
         </div>
     </div>
@@ -87,6 +96,8 @@
                 ></agt-card-contact>
                 <agt-card-group *ngSwitchCase="CONTENT_TYPES.GROUP.ID"
                     [group]="content"
+                    [isCoincidence]="isCoincidence"
+                    (groupSelected)="showModalToConfirmSelectGroup($event)"
                     (showGroupDetails)="showGroupDetails($event)">
                 </agt-card-group>
                 <agt-card-group-member *ngSwitchCase="CONTENT_TYPES.GROUP_MEMBER.ID"
@@ -121,7 +132,7 @@
                     (acceptQuotation)="onAcceptQuotation($event)"
                     (rejectQuotation)="onRejectQuotation($event)">
                 </agt-card-quotation>
-                <agt-card-policy *ngSwitchCase="CONTENT_TYPES.CONTACT_POLICY.ID"
+                <agt-card-policy *ngSwitchCase="(contentType === CONTENT_TYPES.POLICY.ID || contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID) ? contentType : ''"
                     [policy]="content"
                     (showPolicyDetails)="onShowPolicyDetails($event)"
                     (showPolicy)="onShowPolicy($event)"
@@ -137,9 +148,10 @@
                 ></agt-card-policy>
                 <agt-card-partner *ngSwitchCase="CONTENT_TYPES.PARTNER.ID"
                     [partner]="content"
+                    [isCoincidence]="isCoincidence"
                     (showDetails)="showPartnerDetails($event)"
                 ></agt-card-partner>
-                <agt-card-payment *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID"
+                <agt-card-payment *ngSwitchCase="(contentType === CONTENT_TYPES.PAYMENT.ID || contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID) ? contentType : ''"
                     [payment]="content"
                     (applyPayment)="onApplyPayment($event)"
                     (showContactData)="onShowContactData($event)"
@@ -186,7 +198,14 @@
 </div>
 
 <agt-loading-content [isLoadingContent]="isLoadingContent"></agt-loading-content>
-<agt-content-results [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentTypeName]="contentTypeName" [contentSubtypeName]="contentSubtypeName" (loadMoreContents)="onLoadMoreContents()"></agt-content-results>
+<agt-content-results
+    [contentType]="contentType"
+    [isLoadingContent]="isLoadingContent"
+    [contentResultData]="contentListService.contentResultData"
+    [contentTypeName]="contentTypeName"
+    [contentSubtypeName]="contentSubtypeName"
+    (loadMoreContents)="onLoadMoreContents()">
+</agt-content-results>
 <agt-content-back
     *ngIf="!isHistoryContent"
     [isLoadingContent]="isLoadingContent"
@@ -197,7 +216,14 @@
     [groupId]="groupId"
     >
 </agt-content-back>
-<agt-content-suggestions *ngIf="!isHistoryContent" [isLoadingContent]="isLoadingContent" [contentResultData]="contentListService.contentResultData" [contentType]="contentType" [contentTypeName]="contentTypeName"></agt-content-suggestions>
+<agt-content-suggestions
+    *ngIf="!isHistoryContent"
+    [isLoadingContent]="isLoadingContent"
+    [contentResultData]="contentListService.contentResultData"
+    [contentType]="contentType"
+    [contentTypeName]="contentTypeName"
+    [contentSubtype]="contentSubtype">
+</agt-content-suggestions>
 
 <!-- AGENTHOS - CONTENT ACTIONS -->
 <ng-container
@@ -205,6 +231,7 @@
     contentType === CONTENT_TYPES.LEAD.ID ||
     contentType === CONTENT_TYPES.CLIENT.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
+    contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
@@ -225,18 +252,21 @@
     <agt-modal-show-endorsement [modalId]="modalIdShowEndorsement" [contactId]="contactId" [policyId]="policyId" [endorsementId]="selectedEndorsementId"></agt-modal-show-endorsement>
 </ng-container>
 <ng-container
-    *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
+    contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
     contentType === CONTENT_TYPES.POLICY_TRACKER.ID">
     <agt-modal-show-policy-details [modalId]="modalIdShowPolicyDetails" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [isHistoryContent]="isHistoryContent" (showPolicy)="onShowPolicy($event)"></agt-modal-show-policy-details>
     <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="selectedContactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+<ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID">
     <agt-modal-confirm-update-policy [modalId]="modalIdConfirmUpdatePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-update-policy>
     <agt-modal-confirm-endorse-policy [modalId]="modalIdConfirmEndorsePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-endorse-policy>
@@ -247,10 +277,12 @@
     <agt-modal-confirm-delete-policy-complete [modalId]="modalIdConfirmDeleteCompletePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (policyCompleteDeleted)="onPolicyDeleted()"></agt-modal-confirm-delete-policy-complete>
     <agt-modal-confirm-delete-renewed-policy [modalId]="modalIdConfirmDeleteRenewedPolicy" (actionConfirmed)="deleteRenewedPolicy()"></agt-modal-confirm-delete-renewed-policy>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+<ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
+    contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
     <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
@@ -258,7 +290,9 @@
 </ng-container>
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID ||
-    contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
+    contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
     <agt-modal-apply-payment
@@ -311,5 +345,6 @@
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.GROUP.ID">
     <agt-modal-show-group-details [modalId]="modalIdShowGroupDetails" [group]="selectedGroup"></agt-modal-show-group-details>
+    <agt-modal-confirm-select-group [modalId]="modalIdConfirmSelectGroup" [groupId]="selectedGroupId"></agt-modal-confirm-select-group>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

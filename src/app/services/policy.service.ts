@@ -233,14 +233,17 @@ export class PolicyService {
      * @param  search    The search to do
      * @return           The policies
      */
-    getPolicies(page: number = 1, fields: string = '', filters: number[] = [], query: string = ''): Observable<HttpResponse> {
+    getPolicies(page: number = 1, fields: string = '', filters: number[] = [], query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
         const route: string = routes.policies(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
         if(!!query) params = params.append('search', 'policyNumber:' + query);
-        params = params.append('sortBy', '-createdAt');
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        params = params.append('sortBy', sortBy);
         return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map((res: HttpResponse) => {
                 if(fields.includes('lifeTime')) {
@@ -300,6 +303,18 @@ export class PolicyService {
         let params: HttpParams = new HttpParams();
         if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    getTotalWorkspacePolicies(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
+        const route: string = routes.totalWorkspacePolicies(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 
     /**
@@ -363,18 +378,6 @@ export class PolicyService {
     updatePolicyStatus(policyId: string, requestBody: UpdatePolicyStatusDataSend): Observable<void> {
         const route: string = routes.updatePolicyStatus(this._workspaceId, policyId);
         return this._httpClient.put<void>(route, requestBody);
-    }
-
-    getTotalWorkspacePolicies(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
-        const route: string = routes.totalWorkspacePolicies(this._workspaceId);
-        let params: HttpParams = new HttpParams();
-        if(!!filters) params = params.append('filter', filters);
-        if(!!rangeField) params = params.append('rangeField', rangeField);
-        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
-        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
-        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
-            map((res: HttpResponse) => res.data )
-        );
     }
 
     /**

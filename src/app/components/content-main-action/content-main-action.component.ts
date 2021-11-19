@@ -21,9 +21,13 @@ export class ContentMainActionComponent implements OnInit {
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
     @Output() contentSubtypeNameSelected: EventEmitter<string>;
+    @Output() groupCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() sinisterCreated: EventEmitter<void> = new EventEmitter<void>();
+    @Output() partnerCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() paymentSelected: EventEmitter<Payment> = new EventEmitter<Payment>();
     CONTENT_TYPES: any;
+    modalIdConfirmCreatePartner: string = 'agt-confirm-create-partner';
+    modalIdConfirmCreateGroup: string = 'agt-confirm-create-group';
     modalIdCreateGroup: string = 'agt-create-group';
     modalIdCreatePartner: string = 'agt-create-partner';
     modalIdCreateSinister: string = 'agt-create-sinister';
@@ -37,6 +41,7 @@ export class ContentMainActionComponent implements OnInit {
     selectPolicyStatusModalId: string;
     selectQuotationStatusModalId: string;
     selectedPolicy: Policy | null = null;
+    selectedName: string = '';
 
     constructor(
         private _pluralNameFormatPipe: PluralNameFormatPipe,
@@ -72,7 +77,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.LEAD.ID: title = 'Nuevo '+this.contentTypeName; break;
             case CONTENT_TYPES.CLIENT.ID: title = 'Nuevo '+this.contentTypeName; break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
-            case CONTENT_TYPES.CONTACT_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
+            case CONTENT_TYPES.POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.CONTACT_FILE.ID: title = 'Actualizar Expediente'; break;
             case CONTENT_TYPES.GROUP.ID: title = 'Nuevo ' + this.contentTypeName; break;
             case CONTENT_TYPES.GROUP_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
@@ -95,7 +100,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.LEAD.ID: title = 'CREAR '+this.contentTypeName; break;
             case CONTENT_TYPES.CLIENT.ID: title = 'CREAR '+this.contentTypeName; break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
             case CONTENT_TYPES.GROUP_POLICY.ID:
             case CONTENT_TYPES.GROUP_SINISTER.ID:
@@ -118,7 +123,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.LEAD.ID: ModalPlugin.show(this.selectContactTypeModalId); break;
             case CONTENT_TYPES.CLIENT.ID: ModalPlugin.show(this.selectContactTypeModalId); break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: ModalPlugin.show(this.selectQuotationStatusModalId); break;
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
             case CONTENT_TYPES.GROUP_POLICY.ID:
                 ModalPlugin.show(this.selectPolicyStatusModalId);
             break;
@@ -165,12 +170,32 @@ export class ContentMainActionComponent implements OnInit {
         this.sinisterCreated.emit();
     }
 
-    showModalGroupHasCoincidences(): void {
+    showModalGroupHasCoincidences(name: string): void {
+        this.selectedName = name;
         ModalPlugin.show(this.modalIdGroupHasCoincidences);
     }
 
-    showModalPartnerHasCoincidences(): void {
+    showModalConfirmCreateGroup(name: string): void {
+        this.selectedName = name;
+        ModalPlugin.show(this.modalIdConfirmCreateGroup);
+    }
+
+    notifyGroupCreated(): void {
+        this.groupCreated.emit();
+    }
+
+    showModalPartnerHasCoincidences(name: string): void {
+        this.selectedName = name;
         ModalPlugin.show(this.modalIdPartnerHasCoincidences);
+    }
+
+    showModalConfirmCreatePartner(name: string): void {
+        this.selectedName = name;
+        ModalPlugin.show(this.modalIdConfirmCreatePartner);
+    }
+
+    notifyPartnerCreated(): void {
+        this.partnerCreated.emit();
     }
 
 }

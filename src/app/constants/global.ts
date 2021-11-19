@@ -152,16 +152,13 @@ export const CONTENT_TYPES: any = {
         ID: 6,
         NAME: 'Cotización'
     },
-    CONTACT_POLICY: {
+    POLICY: {
         ID: 7,
         NAME: 'Póliza'
     },
     CONTACT_SINISTER: {
         ID: 8,
         NAME: 'Siniestro'
-    },
-    COINCIDENCES: {
-        NAME: 'Coincidencia'
     },
     HISTORY_POLICY: {
         ID: 9,
@@ -216,6 +213,18 @@ export const CONTENT_TYPES: any = {
     GROUP_SINISTER: {
         ID: 21,
         NAME: 'Siniestro'
+    },
+    COINCIDENCES: {
+        ID: 22,
+        NAME: 'Coincidencia'
+    },
+    PAYMENT_CALENDAR: {
+        ID: 23,
+        NAME: 'Pago'
+    },
+    POLICY_TO_RENEW: {
+        ID: 24,
+        NAME: 'Próxima'
     },
 }
 export const CONTACT_TYPES: any = {

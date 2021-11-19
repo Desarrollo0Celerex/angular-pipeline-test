@@ -1,1 +1,71 @@
-<p>dashboard works!</p>
+<agt-container-global-kpis></agt-container-global-kpis>
+
+<!-- AGENTHOS - DASHBOARD PANEL -->
+<div class="row">
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fa fa-line-chart text-primary fa-3x"></i>
+                        <h6 class="mt-4 mb-2">Cotizaciones Pendientes</h6>
+                        <h2 class="number-font"><span class="counter">{{model.totalPendingQuotations}}</span></h2>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button type="button" class="btn btn-block btn-secondary" (click)="showModalToSelectContactType()"><strong>COTIZAR SEGURO</strong></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fa fa-money text-info fa-3x"></i>
+                        <h6 class="mt-4 mb-2">Pólizas Vigentes</h6>
+                        <h2 class="number-font"><span class="counter">{{model.totalCurrentPolicies}}</span></h2>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button type="button" class="btn btn-block btn-secondary" (click)="showModalToSelectContactType()"><strong>CARGAR PÓLIZA</strong></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fa fa-dollar text-success fa-3x"></i>
+                        <h6 class="mt-4 mb-2">Próximas Renovaciones</h6>
+                        <h2 class="number-font"><span class="counter">{{model.totalLastPoliciesToRenew}}</span></h2>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a routerLink="/{{ROUTES_NAME.lastPoliciesToRenew}}">
+                            <button type="button" class="btn btn-block btn-secondary"><strong>VER RENOVACIONES</strong></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fa fa-signal text-danger fa-3x"></i>
+                        <h6 class="mt-4 mb-2">Últimas Cancelaciones</h6>
+                        <h2 class="number-font"><span class="counter">0</span></h2>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a routerLink="/{{ROUTES_NAME.lastCancelledPolicies}}">
+                            <button type="button" class="btn btn-block btn-secondary"><strong>VER CANCELACIONES</strong></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+        <div class="card overflow-hidden">
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - DASHBOARD PANEL -->
+
+<agt-modal-select-contact-type [modalId]="modalIdSelectContactType"></agt-modal-select-contact-type>

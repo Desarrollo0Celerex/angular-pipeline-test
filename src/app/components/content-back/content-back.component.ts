@@ -50,7 +50,7 @@ export class ContentBackComponent {
                 route = ROUTES_NAME.listContactQuotations(this.contactId);
                 break;
 
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
                 route = ROUTES_NAME.listContactPolicies(this.contactId);
                 break;
 
@@ -72,6 +72,10 @@ export class ContentBackComponent {
 
             case CONTENT_TYPES.CONTACT_FILE.ID:
                 route = ROUTES_NAME.listContactFiles(this.contactId);
+                break;
+
+            case CONTENT_TYPES.PARTNER.ID:
+                route = ROUTES_NAME.listPartners;
                 break;
 
             default:

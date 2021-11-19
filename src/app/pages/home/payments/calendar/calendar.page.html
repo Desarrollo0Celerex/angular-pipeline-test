@@ -1,0 +1,55 @@
+<agt-content-kpis
+    [contentType]="CONTENT_TYPES.PAYMENT.ID"
+    [contentTypeName]="CONTENT_TYPES.PAYMENT.NAME"
+    [canReloadContent]="canReloadContent"
+    [pageUrl]="pageUrl">
+</agt-content-kpis>
+
+<!-- AGENTHOS - CALENDAR PANEL -->
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Calendario de Cobranza</h3>
+            </div>
+        </div>
+    </div>
+    <!-- AGENTHOS - CALENDAR DAY PICKER -->
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <!-- AGENTHOS - CALENDAR CARD -->
+        <div class="card">
+            <mat-calendar [selected]="paymentDate" (selectedChange)="loadPayments($event)"></mat-calendar>
+        </div>
+        <!-- //AGENTHOS - CALENDAR CARD -->
+        <!-- AGENTHOS - CALENDAR RESUME CARD -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Cobranza del Día</h3>
+            </div>
+            <div class="card-body">
+                <div class="card-widget">
+                    <h2 class="text-right">
+                        <i class="icon-size mdi mdi-poll-box float-left text-success"></i>
+                        <span *ngIf="!!model.totalPaymentsAmount" class="number-font">{{model.totalPaymentsAmount.totalPaymentsAmount | currency: '': '$': '0.2-2'}}<br/>{{model.totalPaymentsAmount.currencyName}}</span>
+                    </h2>
+                    <p>Mes:<span *ngIf="!!model.totalPaymentsAmountByMonth" class="float-right">{{model.totalPaymentsAmountByMonth.totalPaymentsAmount | currency: '': '$': '0.2-2'}} {{model.totalPaymentsAmountByMonth.currencyName}}</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - CALENDAR RESUME CARD -->
+    </div>
+    <!-- //AGENTHOS - CALENDAR DAY PICKER -->
+    <!-- AGENTHOS - CALENDAR PAYMENTS RESULTS -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <agt-content-list
+            [contentType]="CONTENT_TYPES.PAYMENT_CALENDAR.ID"
+            [contentTypeName]="CONTENT_TYPES.PAYMENT_CALENDAR.NAME"
+            [specialFilter]="paymentDate"
+            [canReloadContent]="canReloadContent"
+            (contentReloaded)="contentReloaded()"
+            (receiptPaid)="reloadContent()"
+        ></agt-content-list>
+    </div>
+    <!-- AGENTHOS - CALENDAR PAYMENTS RESULTS -->
+</div>
+<!-- //AGENTHOS - CALENDAR PANEL -->

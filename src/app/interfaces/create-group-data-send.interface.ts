@@ -1,3 +1,4 @@
 export interface CreateGroupDataSend {
-    name: string
+    name: string,
+    ignoreMatches: boolean
 }

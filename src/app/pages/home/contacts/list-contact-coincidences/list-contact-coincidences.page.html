@@ -57,6 +57,7 @@
 <agt-content-list
     [contentType]="contentType"
     [contentTypeName]="contentTypeName"
+    [contentSubtype]="contentSubtype"
     [contentSubtypeName]="contentSubtypeName"
     [specialQuery]="searchContactData"
     [actionType]="actionType"
@@ -65,4 +66,4 @@
     (totalResultsLoaded)="onTotalResultsLoaded($event)"
 ></agt-content-list>
 
-<agt-modal-confirm-save-contact [modalId]="modalIdConfirmSelectContact" (saveContact)="onSaveContact()"></agt-modal-confirm-save-contact>
+<agt-modal-confirm-save-contact [modalId]="modalIdConfirmSaveContact" (saveContact)="onSaveContact()"></agt-modal-confirm-save-contact>

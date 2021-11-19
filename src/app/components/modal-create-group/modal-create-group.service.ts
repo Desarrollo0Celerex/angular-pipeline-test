@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { OWN_NAME_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
-import { CreateGroupDataSend } from '@interfaces/create-group-data-send.interface';
+import { HttpResponse } from '@interfaces/http-response.interface';
 import { GroupService } from '@services/group.service';
 
 @Injectable()
@@ -20,9 +20,8 @@ export class ModalCreateGroupService {
         return this.form.controls;
     }
 
-    createGroup(): Observable<void> {
-        const requestBody: CreateGroupDataSend = { name: this.f.name.value };
-        return this._groupService.createGroup(requestBody)
+    checkHasCoincidences(): Observable<HttpResponse> {
+        return this._groupService.checkHasCoincidences(this.f.name.value);
     }
 
     private _buildForm(): FormGroup {

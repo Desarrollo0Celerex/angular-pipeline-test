@@ -1,7 +1,14 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID, POLICY_STATUS_ACTIVE, SINISTER_STATUS_OPEN } from '@constants/global';
+import {
+    CONTENT_TYPES,
+    DEFAULT_CONTENT_FILTER_ID,
+    POLICY_STATUS_ACTIVE,
+    SINISTER_STATUS_OPEN,
+    GROUP_STATUS,
+    PARTNER_STATUS
+} from '@constants/global';
 import { Payment } from '@interfaces/payment.interface';
 import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-format.pipe';
 
@@ -28,7 +35,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
 
     constructor(
         private _activatedRoute: ActivatedRoute,
-        private _labelFoundFormatPipe: LabelFoundFormatPipe
+        private _labelFoundFormatPipe: LabelFoundFormatPipe,
+        private _router: Router
     ) {
         this.contentType = 0;
         this.contentTypeName = '';
@@ -76,6 +84,16 @@ export class ContentsComponent implements OnInit, OnDestroy {
 
     applyPayment(payment: Payment): void {
         this.contentList.applyPayment(payment);
+    }
+
+    reloadIncompleteGroupsPage(): void {
+        this.contentSubtype = GROUP_STATUS.INCOMPLETE;
+        this._reloadPage();
+    }
+
+    reloadInactivePartnerPage(): void {
+        this.contentSubtype = PARTNER_STATUS.INACTIVE;
+        this._reloadPage();
     }
 
     /**
@@ -129,7 +147,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
         if(typeof param !== 'undefined') {
             contentSubtype = parseInt(param);
         } else {
-            if(this.contentType === CONTENT_TYPES.CONTACT_POLICY.ID || this.contentType === CONTENT_TYPES.GROUP_POLICY.ID) {
+            if(this.contentType === CONTENT_TYPES.POLICY.ID || this.contentType === CONTENT_TYPES.GROUP_POLICY.ID) {
                 contentSubtype = POLICY_STATUS_ACTIVE;
             } else if(this.contentType === CONTENT_TYPES.CONTACT_SINISTER.ID || this.contentType === CONTENT_TYPES.GROUP_SINISTER.ID) {
                 contentSubtype = SINISTER_STATUS_OPEN;
@@ -180,6 +198,17 @@ export class ContentsComponent implements OnInit, OnDestroy {
                 width = 8;
         }
         return width;
+    }
+
+    private _reloadPage(): void {
+        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this._router.onSameUrlNavigation = 'reload';
+        const url: string = this._router.url.split('?')[0] ;
+        if(!!this.contentSubtype) {
+            this._router.navigate([url], { relativeTo: this._activatedRoute, queryParams: { contentSubtype: this.contentSubtype } } );
+        } else {
+            this._router.navigate([url], { relativeTo: this._activatedRoute } );
+        }
     }
 
 }

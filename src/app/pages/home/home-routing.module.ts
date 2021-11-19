@@ -14,9 +14,6 @@ const routes: Routes = [
         path: '',
         component: HomePage,
         children: [
-            // Data routes
-            { path: ROUTES_NAME.dashboard, loadChildren: () => import('@pages/home/data/dashboard/dashboard.module').then( mod => mod.DashboardModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-
             // Clients routes
             { path: ROUTES_NAME.listClients, loadChildren: () => import('@pages/home/clients/list-clients/list-clients.module').then( mod => mod.ListClientsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
@@ -26,6 +23,11 @@ const routes: Routes = [
             { path: ROUTES_NAME.listContactCoincidences, loadChildren: () => import('@pages/home/contacts/list-contact-coincidences/list-contact-coincidences.module').then( mod => mod.ListContactCoincidencesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: '', loadChildren: () => import('@pages/home/contact-profile/contact-profile.module').then(mod => mod.ContactProfileModule) },
 
+            // Data routes
+            { path: ROUTES_NAME.dashboard, loadChildren: () => import('@pages/home/data/dashboard/dashboard.module').then( mod => mod.DashboardModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.lastPoliciesToRenew, loadChildren: () => import('@pages/home/data/last-policies-to-renew/last-policies-to-renew.module').then( mod => mod.LastPoliciesToRenewModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.lastCancelledPolicies, loadChildren: () => import('@pages/home/data/last-cancelled-policies/last-cancelled-policies.module').then( mod => mod.LastCancelledPoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+
             // Error routes
             { path: ROUTES_NAME.accessDenied, loadChildren: () => import('@pages/home/errors/access-denied/access-denied.module').then(mod => mod.AccessDeniedModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
@@ -34,6 +36,7 @@ const routes: Routes = [
 
             // Groups routes
             { path: ROUTES_NAME.listGroups, loadChildren: () => import('@pages/home/groups/list-groups/list-groups.module').then(mod => mod.ListGroupsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.groupCoincidences, loadChildren: () => import('@pages/home/groups/group-coincidences/group-coincidences.module').then(mod => mod.GroupCoincidencesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: '', loadChildren: () => import('@pages/home/group-profile/group-profile.module').then(mod => mod.GroupProfileModule) },
 
             // Files routes
@@ -49,11 +52,13 @@ const routes: Routes = [
 
             // Partners routes
             { path: ROUTES_NAME.listPartners, loadChildren: () => import('@pages/home/partners/list-partners/list-partners.module').then(mod => mod.ListPartnersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.partnerCoincidences, loadChildren: () => import('@pages/home/partners/partner-coincidences/partner-coincidences.module').then(mod => mod.PartnerCoincidencesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Payments routes
             { path: ROUTES_NAME.listPayments, loadChildren: () => import('@pages/home/payments/list-payments/list-payments.module').then(mod => mod.ListPaymentsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.paymentHistory(':contactId', ':policyId', ':paymentId'), loadChildren: () => import('@pages/home/payments/payment-history/payment-history.module').then(mod => mod.PaymentHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.pendingReceipts(':contactId', ':policyId', ':paymentId'), loadChildren: () => import('@pages/home/payments/pending-receipts/pending-receipts.module').then(mod => mod.PendingReceiptsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.paymentCalendar, loadChildren: () => import('@pages/home/payments/calendar/calendar.module').then(mod => mod.CalendarModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Policies routes
             { path: ROUTES_NAME.createPolicy(':contactId'), loadChildren: () => import('@pages/home/policies/create-policy/create-policy.module').then(mod => mod.CreatePolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

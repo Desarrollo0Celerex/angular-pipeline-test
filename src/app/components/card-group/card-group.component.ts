@@ -12,7 +12,9 @@ import { Group } from '@interfaces/group.interface';
 })
 export class CardGroupComponent {
     @Input() group: Group | null = null;
+    @Input() isCoincidence: boolean = false;
     @Output() showGroupDetails: EventEmitter<Group> = new EventEmitter<Group>();
+    @Output() groupSelected: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(private _router: Router) { }
 
@@ -25,6 +27,12 @@ export class CardGroupComponent {
     requestShowPolicyDetails(): void {
         if(!!this.group) {
             this.showGroupDetails.emit(this.group);
+        }
+    }
+
+    selectGroup(): void {
+        if(!!this.group) {
+            this.groupSelected.emit(this.group.groupId);
         }
     }
 }

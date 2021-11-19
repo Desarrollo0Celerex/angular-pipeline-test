@@ -16,22 +16,40 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID">
     <agt-modal-select-quotation-status [modalId]="selectQuotationStatusModalId" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-modal-select-quotation-status>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID || contentType === CONTENT_TYPES.GROUP_POLICY.ID">
+<ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID || contentType === CONTENT_TYPES.GROUP_POLICY.ID">
     <agt-modal-select-policy-status [modalId]="selectPolicyStatusModalId" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-modal-select-policy-status>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.GROUP.ID">
     <agt-modal-create-group
         [modalId]="modalIdCreateGroup"
-        (hasCoincidences)="showModalGroupHasCoincidences()">
+        (hasCoincidences)="showModalGroupHasCoincidences($event)"
+        (canCreateGroup)="showModalConfirmCreateGroup($event)">
     </agt-modal-create-group>
-    <agt-modal-duplicate-group [modalId]="modalIdGroupHasCoincidences"></agt-modal-duplicate-group>
+    <agt-modal-duplicate-group
+        [modalId]="modalIdGroupHasCoincidences"
+        [groupName]="selectedName">
+    </agt-modal-duplicate-group>
+    <agt-modal-confirm-create-group
+        [modalId]="modalIdConfirmCreateGroup"
+        [groupName]="selectedName"
+        (groupCreated)="notifyGroupCreated()">
+    </agt-modal-confirm-create-group>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PARTNER.ID">
     <agt-modal-create-partner
         [modalId]="modalIdCreatePartner"
-        (hasCoincidences)="showModalPartnerHasCoincidences()">
+        (hasCoincidences)="showModalPartnerHasCoincidences($event)"
+        (canCreatePartner)="showModalConfirmCreatePartner($event)">
     </agt-modal-create-partner>
-    <agt-modal-duplicate-partner [modalId]="modalIdPartnerHasCoincidences"></agt-modal-duplicate-partner>
+    <agt-modal-duplicate-partner
+        [modalId]="modalIdPartnerHasCoincidences"
+        [partnerName]="selectedName">
+    </agt-modal-duplicate-partner>
+    <agt-modal-confirm-create-partner
+        [modalId]="modalIdConfirmCreatePartner"
+        [partnerName]="selectedName"
+        (partnerCreated)="notifyPartnerCreated()">
+    </agt-modal-confirm-create-partner>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID">
     <agt-modal-search-payment

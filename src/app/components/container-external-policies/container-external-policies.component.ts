@@ -1,7 +1,9 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
+import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 
 import { ContainerExternalPoliciesService } from './container-external-policies.service';
 
@@ -15,12 +17,15 @@ declare var ModalPlugin: any;
   providers: [ContainerExternalPoliciesService]
 })
 export class ContainerExternalPoliciesComponent implements OnChanges, OnInit {
+    @Input() contentType: number = 0;
     @Input() contactId: string = '';
+    @Input() groupId: string = '';
     @Input() policyStatusId: number = 0;
     @Input() policyStatusName: string = '';
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
     modalIdConfirmValidateExternalPolicy: string = 'modal-confirm-validate-external-policy';
     modalIdConfirmUpdateExternalPolicy: string = 'modal-confirm-update-external-policy';
+    selectedContactId: string = '';
     selectedExternalPolicyId: string = '';
     selectedExternalPolicyUrl: string = '';
 
@@ -30,10 +35,17 @@ export class ContainerExternalPoliciesComponent implements OnChanges, OnInit {
     ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(
+        /*if(
             (!!changes.contactId && !!changes.contactId.currentValue && !!changes.policyStatusId && !!changes.policyStatusId.currentValue) ||
             (!!changes.contactId && !!changes.contactId.currentValue) ||
             (!!changes.policyStatusId && !!changes.policyStatusId.currentValue)
+        ) {
+            this._loadExternalPolicies();
+        }*/
+        if(
+            (!!changes.contactId && !!changes.contactId.currentValue) ||
+            (!!changes.policyStatusId && !!changes.policyStatusId.currentValue) ||
+            (!!changes.groupId && !!changes.groupId.currentValue)
         ) {
             this._loadExternalPolicies();
         }
@@ -42,18 +54,20 @@ export class ContainerExternalPoliciesComponent implements OnChanges, OnInit {
     ngOnInit(): void {
     }
 
-    _confirmUpdateExternalPolicy(externalPolicyId: string): void {
-        this.selectedExternalPolicyId = externalPolicyId;
+    _confirmUpdateExternalPolicy(data: ContactPolicyData): void {
+        this.selectedContactId = data.contactId;
+        this.selectedExternalPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmUpdateExternalPolicy);
     }
 
-    _confirmValidateExternalPolicy(externalPolicyId: string): void {
-        this.selectedExternalPolicyId = externalPolicyId;
+    _confirmValidateExternalPolicy(data: ContactPolicyData): void {
+        this.selectedContactId = data.contactId;
+        this.selectedExternalPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmValidateExternalPolicy);
     }
 
     goToUpdateExternalPolicy(): void {
-        this._router.navigateByUrl(ROUTES_NAME.updateExternalPolicy(this.contactId, this.selectedExternalPolicyId));
+        this._router.navigateByUrl(ROUTES_NAME.updateExternalPolicy(this.selectedContactId, this.selectedExternalPolicyId));
     }
 
     _showExternalPolicy(policyUrl: string): void {
@@ -62,8 +76,18 @@ export class ContainerExternalPoliciesComponent implements OnChanges, OnInit {
     }
 
     private _loadExternalPolicies(): void {
-        if(!!this.contactId && !!this.policyStatusId) {
-            this.containerExternalPoliciesService.loadExternalPolicies(this.contactId, this.policyStatusId);
+        switch(this.contentType) {
+            case CONTENT_TYPES.POLICY.ID:
+                if(!!this.contactId && !!this.policyStatusId) {
+                    this.containerExternalPoliciesService.loadContactExternalPolicies(this.contactId, this.policyStatusId);
+                }
+            break;
+
+            case CONTENT_TYPES.GROUP_POLICY.ID:
+                if(!!this.groupId && !!this.policyStatusId) {
+                    this.containerExternalPoliciesService.loadGroupExternalPolicies(this.groupId, this.policyStatusId);
+                }
+            break;
         }
     }
 

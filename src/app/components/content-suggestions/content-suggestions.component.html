@@ -1,4 +1,8 @@
-<ng-container *ngIf="contentType !== CONTENT_TYPES.PENDING_RECEIP.ID && contentType !== CONTENT_TYPES.POLICY_TRACKER.ID">
+<ng-container
+    *ngIf="contentType !== CONTENT_TYPES.PENDING_RECEIP.ID &&
+        contentType !== CONTENT_TYPES.POLICY_TRACKER.ID &&
+        contentType !== CONTENT_TYPES.POLICY_TO_RENEW.ID &&
+        contentType !== CONTENT_TYPES.PAYMENT_CALENDAR.ID">
     <div class="col-sm-12 col-md-12" *ngIf="!isLoadingContent && contentResultData.loadedItems === contentResultData.totalItems">
         <div class="alert alert-avatar alert-primary alert-dismissible mt-5 mb-5">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -15,7 +19,7 @@
                 <ng-container *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID">
                     <ng-container *ngTemplateOutlet="contactQuotationSuggestion"></ng-container>
                 </ng-container>
-                <ng-container *ngSwitchCase="CONTENT_TYPES.CONTACT_POLICY.ID">
+                <ng-container *ngSwitchCase="CONTENT_TYPES.POLICY.ID">
                     <ng-container *ngTemplateOutlet="contactPolicySuggestion"></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.CONTACT_FILE.ID">
@@ -102,9 +106,16 @@
 </ng-template>
 
 <ng-template #partnerSuggestion>
-    <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
-    <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-    <p>Intenta localizarlo con el <strong>Buscador Inteligente</strong>.</p>
+    <ng-container *ngIf="contentSubtype === CONTENT_TYPES.COINCIDENCES.ID; else searchPartner">
+        <strong>¿Las coincidencias son falsas?</strong> <hr class="message-inner-separator">
+        <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+        <p>Si has comprobado que no existe duplicidad de información, puedes crear el socio y continuar.</p>
+    </ng-container>
+    <ng-template #searchPartner>
+        <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+        <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+        <p>Intenta localizarlo con el <strong>Buscador Inteligente</strong>.</p>
+    </ng-template>
 </ng-template>
 
 <ng-template #paymentSuggestion>

@@ -1,3 +1,4 @@
 export interface CreatePartnerDataSend {
-    name: string
+    name: string,
+    ignoreMatches: boolean
 }

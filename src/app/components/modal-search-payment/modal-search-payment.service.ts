@@ -28,8 +28,8 @@ export class ModalSearchPaymentService {
     searchPayment(): Observable<HttpResponse> {
         const page: number = 1;
         const fields: string = 'paymentSourceTypeName,paymentStatusId,paymentStatusBackground,paymentStatusName,currencyName,pendingAmount,insuranceName,policyNumber,paymentId,policyId,contactId';
-        const query: string = this.f.policyNumber.value.trim();
-        return this._paymentService.getPayments(page, fields, 0, query);
+        const query: string = 'policyNumber:' + this.f.policyNumber.value.trim();
+        return this._paymentService.getPayments(page, fields, '', query);
     }
 
     /**

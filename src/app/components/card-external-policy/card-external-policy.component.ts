@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { EXTERNAL_POLICY_STATUS } from '@constants/global';
+import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 import { ExternalPolicy } from '@interfaces/external-policy.interface';
 
 @Component({
@@ -12,16 +13,22 @@ import { ExternalPolicy } from '@interfaces/external-policy.interface';
 export class CardExternalPolicyComponent {
     @Input() externalPolicy: ExternalPolicy | null = null;
     @Output() showExternalPolicy: EventEmitter<string> = new EventEmitter<string>();
-    @Output() confirmValidateExternalPolicy: EventEmitter<string> = new EventEmitter<string>();
-    @Output() confirmUpdateExternalPolicy: EventEmitter<string> = new EventEmitter<string>();
+    @Output() confirmValidateExternalPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
+    @Output() confirmUpdateExternalPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     externalPolicyStatusCancelled: number = EXTERNAL_POLICY_STATUS.CANCELLED;
 
     _confirmUpdatePolicy(): void {
         if(!!this.externalPolicy) {
             if(!!this.externalPolicy.isChecked) {
-                this.confirmUpdateExternalPolicy.emit(this.externalPolicy.externalPolicyId);
+                this.confirmUpdateExternalPolicy.emit({
+                    contactId: this.externalPolicy.contactId,
+                    policyId: this.externalPolicy.externalPolicyId
+                });
             } else {
-                this.confirmValidateExternalPolicy.emit(this.externalPolicy.externalPolicyId);
+                this.confirmValidateExternalPolicy.emit({
+                    contactId: this.externalPolicy.contactId,
+                    policyId: this.externalPolicy.externalPolicyId
+                });
             }
         }
     }

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { OWN_NAME_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
-import { CreatePartnerDataSend } from '@interfaces/create-partner-data-send.interface';
+import { HttpResponse } from '@interfaces/http-response.interface';
 import { PartnerService } from '@services/partner.service';
 
 @Injectable()
@@ -20,9 +20,8 @@ export class ModalCreatePartnerService {
         return this.form.controls;
     }
 
-    createPartner(): Observable<void> {
-        const requestBody: CreatePartnerDataSend = { name: this.f.name.value };
-        return this._partnerService.createPartner(requestBody)
+    checkHasCoincidences(): Observable<HttpResponse> {
+        return this._partnerService.checkHasCoincidences(this.f.name.value);
     }
 
     private _buildForm(): FormGroup {

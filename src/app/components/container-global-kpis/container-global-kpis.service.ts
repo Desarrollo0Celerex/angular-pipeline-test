@@ -12,12 +12,12 @@ import { SinisterService } from '@services/sinister.service';
 import * as moment from 'moment';
 
 @Injectable()
-export class StatsService {
+export class ContainerGlobalKpisService {
     contentKpis: ContentKpi[] = [
         {
             contentName: 'Prospectos',
             subcontentName: 'Activos',
-            link: ROUTES_NAME.listLeads,
+            link: '/' + ROUTES_NAME.listLeads,
             value: '0',
             subValue: '0',
             subValueLabel: 'Este Mes',
@@ -27,7 +27,7 @@ export class StatsService {
         {
             contentName: 'Clientes',
             subcontentName: 'Activos',
-            link: ROUTES_NAME.listClients,
+            link: '/' + ROUTES_NAME.listClients,
             value: '0',
             subValue: '0',
             subValueLabel: 'Este Mes',
@@ -37,7 +37,7 @@ export class StatsService {
         {
             contentName: 'Recibos',
             subcontentName: 'Activos',
-            link: ROUTES_NAME.listPayments,
+            link: '/' + ROUTES_NAME.listPayments,
             value: '0',
             subValue: '0',
             subValueLabel: 'Este Mes',
@@ -47,7 +47,7 @@ export class StatsService {
         {
             contentName: 'Siniestros',
             subcontentName: 'Activos',
-            link: ROUTES_NAME.listSinisters,
+            link: '/' + ROUTES_NAME.listSinisters,
             value: '0',
             subValue: '0',
             subValueLabel: 'Este Mes',

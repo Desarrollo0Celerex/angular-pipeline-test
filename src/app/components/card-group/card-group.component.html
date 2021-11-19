@@ -30,7 +30,10 @@
         <div class="row">
             <div class="col-sm-9 col-9 text-left">
                 <!-- AGENTHOS - GROUP RESUME -->
-                <button type="button" class="btn btn-block btn-primary" (click)="goToGroupResume()"><strong>VER GRUPO</strong></button>
+                <button *ngIf="isCoincidence; else showGroup" type="button" class="btn btn-block btn-primary" (click)="selectGroup()"><strong>SELECCIONAR</strong></button>
+                <ng-template #showGroup>
+                    <button type="button" class="btn btn-block btn-primary" (click)="goToGroupResume()"><strong>VER GRUPO</strong></button>
+                </ng-template>
             </div>
             <div class="col-sm-3 col-3 text-right">
                 <!-- AGENTHOS - GROUP DETAILS -->

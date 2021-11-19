@@ -4,7 +4,7 @@ import { CONTENT_TYPES } from '@constants/global';
 
 @Component({
   selector: 'agt-list-policies',
-  template: '<agt-contents [contentType]="CONTENT_TYPES.CONTACT_POLICY.ID" [contentTypeName]="CONTENT_TYPES.CONTACT_POLICY.NAME"></agt-contents>',
+  template: '<agt-contents [contentType]="CONTENT_TYPES.POLICY.ID" [contentTypeName]="CONTENT_TYPES.POLICY.NAME"></agt-contents>',
   styles: [
   ]
 })
