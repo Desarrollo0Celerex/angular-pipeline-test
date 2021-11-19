@@ -50,7 +50,7 @@ export class ContentBackComponent {
                 route = ROUTES_NAME.listContactQuotations(this.contactId);
                 break;
 
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
                 route = ROUTES_NAME.listContactPolicies(this.contactId);
                 break;
 

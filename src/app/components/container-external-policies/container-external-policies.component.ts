@@ -77,7 +77,7 @@ export class ContainerExternalPoliciesComponent implements OnChanges, OnInit {
 
     private _loadExternalPolicies(): void {
         switch(this.contentType) {
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
                 if(!!this.contactId && !!this.policyStatusId) {
                     this.containerExternalPoliciesService.loadContactExternalPolicies(this.contactId, this.policyStatusId);
                 }

@@ -12,7 +12,7 @@ import { SinisterService } from '@services/sinister.service';
 import * as moment from 'moment';
 
 @Injectable()
-export class StatsService {
+export class ContainerGlobalKpisService {
     contentKpis: ContentKpi[] = [
         {
             contentName: 'Prospectos',

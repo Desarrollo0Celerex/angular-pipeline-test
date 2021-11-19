@@ -51,6 +51,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() policyId: string;
     @Input() groupId: string = '';
     @Input() query: string;
+    @Input() rangeField: string = '';
+    @Input() rangeStart: string = '';
+    @Input() rangeEnd: string = '';
     @Input() sinisterId: string;
     @Input() specialQuery: SearchContactData | null;
     @Input() specialFilter: number | string = 0;
@@ -204,7 +207,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             (typeof changes.canReloadContent !== 'undefined' && !!changes.canReloadContent.currentValue) ||
             (!!changes.policyId && !!changes.policyId.currentValue) ||
             (!!changes.groupId && !!changes.groupId.currentValue) ||
-            (!!changes.specialFilter && !!changes.specialFilter.currentValue)
+            (!!changes.specialFilter && !!changes.specialFilter.currentValue) ||
+            (!!changes.rangeField && !!changes.rangeField.currentValue) ||
+            (!!changes.rangeStart && !!changes.rangeStart.currentValue) ||
+            (!!changes.rangeEnd && !!changes.rangeEnd.currentValue)
         ) {
             this._initContent();
 
@@ -764,7 +770,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         switch(this.contentType) {
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.GROUP.ID:
             case CONTENT_TYPES.GROUP_MEMBER.ID:
@@ -812,6 +818,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             this._loadContentsBySearch();
         } else if(!!this.specialFilter) {
             this._loadContentsBySpecialFilter();
+        } else if(!!this.rangeField && !!this.rangeStart && !!this.rangeEnd) {
+            this._loadContentsByRange();
         }
     }
 
@@ -838,7 +846,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 })
             break;
 
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
                 this.contentListService.loadContactPolicies(this.contactId, this.page, this.contentSubtype).subscribe( () => {
                     this._contentLoaded();
                 })
@@ -944,6 +952,20 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * Load the contents by range
+     */
+    private _loadContentsByRange(): void {
+        switch(this.contentType) {
+            case CONTENT_TYPES.POLICY_TO_RENEW.ID:
+                const sortBy: string = 'validityEndDate';
+                this.contentListService.loadPolicies(this.page, this.rangeField, this.rangeStart, this.rangeEnd, sortBy).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+        }
+    }
+
+    /**
      * Load the contents by filter
      */
     private _loadContentsBySpecialFilter(): void {
@@ -991,7 +1013,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 })
             break;
 
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
                 this.contentListService.searchContactPolicies(this.contactId, this.page, this.query).subscribe( () => {
                     this._contentLoaded();
                 })
@@ -1050,7 +1072,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         if(((!!this.query) || this.isHistoryContent) && (this.totalResults > 0) ) {
             switch(this.contentType) {
                 case CONTENT_TYPES.CONTACT_QUOTATION.ID:
-                case CONTENT_TYPES.CONTACT_POLICY.ID:
+                case CONTENT_TYPES.POLICY.ID:
                 case CONTENT_TYPES.GROUP_POLICY.ID:
                 case CONTENT_TYPES.HISTORY_POLICY.ID:
                     canShow = true;

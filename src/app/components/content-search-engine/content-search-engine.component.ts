@@ -66,7 +66,7 @@ export class ContentSearchEngineComponent implements OnChanges {
                     this._router.navigate([ROUTES_NAME.listContactQuotations(this.contactId)], { queryParams: { query }});
                     break;
 
-                case CONTENT_TYPES.CONTACT_POLICY.ID:
+                case CONTENT_TYPES.POLICY.ID:
                     this._router.navigate([ROUTES_NAME.listContactPolicies(this.contactId)], { queryParams: { query }});
                     break;
 

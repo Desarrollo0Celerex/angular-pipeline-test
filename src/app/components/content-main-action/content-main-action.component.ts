@@ -77,7 +77,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.LEAD.ID: title = 'Nuevo '+this.contentTypeName; break;
             case CONTENT_TYPES.CLIENT.ID: title = 'Nuevo '+this.contentTypeName; break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
-            case CONTENT_TYPES.CONTACT_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
+            case CONTENT_TYPES.POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.CONTACT_FILE.ID: title = 'Actualizar Expediente'; break;
             case CONTENT_TYPES.GROUP.ID: title = 'Nuevo ' + this.contentTypeName; break;
             case CONTENT_TYPES.GROUP_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
@@ -100,7 +100,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.LEAD.ID: title = 'CREAR '+this.contentTypeName; break;
             case CONTENT_TYPES.CLIENT.ID: title = 'CREAR '+this.contentTypeName; break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
             case CONTENT_TYPES.GROUP_POLICY.ID:
             case CONTENT_TYPES.GROUP_SINISTER.ID:
@@ -123,7 +123,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.LEAD.ID: ModalPlugin.show(this.selectContactTypeModalId); break;
             case CONTENT_TYPES.CLIENT.ID: ModalPlugin.show(this.selectContactTypeModalId); break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: ModalPlugin.show(this.selectQuotationStatusModalId); break;
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
             case CONTENT_TYPES.GROUP_POLICY.ID:
                 ModalPlugin.show(this.selectPolicyStatusModalId);
             break;

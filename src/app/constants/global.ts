@@ -152,7 +152,7 @@ export const CONTENT_TYPES: any = {
         ID: 6,
         NAME: 'Cotización'
     },
-    CONTACT_POLICY: {
+    POLICY: {
         ID: 7,
         NAME: 'Póliza'
     },
@@ -221,6 +221,10 @@ export const CONTENT_TYPES: any = {
     PAYMENT_CALENDAR: {
         ID: 23,
         NAME: 'Pago'
+    },
+    POLICY_TO_RENEW: {
+        ID: 24,
+        NAME: 'Próxima'
     },
 }
 export const CONTACT_TYPES: any = {

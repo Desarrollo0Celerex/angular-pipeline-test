@@ -1,5 +1,5 @@
 <agt-container-external-policies
-    *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID"
     [contentType]="contentType"
     [contactId]="contactId"
@@ -9,7 +9,7 @@
 </agt-container-external-policies>
 <agt-container-incomplete-policies
     #containerIncompletePolicies
-    *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID"
     [contentType]="contentType"
     [contentTypeName]="contentTypeName"
@@ -27,7 +27,13 @@
                 <h3 class="card-title">{{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}</h3>
             </div>
             <div class="card-body" *ngIf="canShowTotalResults">
-                <agt-content-total-results [contentType]="contentType" [query]="query" [totalResults]="totalResults" [contactId]="contactId" [policyId]="policyId"></agt-content-total-results>
+                <agt-content-total-results
+                    [contentType]="contentType"
+                    [query]="query"
+                    [totalResults]="totalResults"
+                    [contactId]="contactId"
+                    [policyId]="policyId">
+                </agt-content-total-results>
             </div>
         </div>
     </div>
@@ -126,7 +132,7 @@
                     (acceptQuotation)="onAcceptQuotation($event)"
                     (rejectQuotation)="onRejectQuotation($event)">
                 </agt-card-quotation>
-                <agt-card-policy *ngSwitchCase="CONTENT_TYPES.CONTACT_POLICY.ID"
+                <agt-card-policy *ngSwitchCase="(contentType === CONTENT_TYPES.POLICY.ID || contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID) ? contentType : ''"
                     [policy]="content"
                     (showPolicyDetails)="onShowPolicyDetails($event)"
                     (showPolicy)="onShowPolicy($event)"
@@ -246,7 +252,8 @@
     <agt-modal-show-endorsement [modalId]="modalIdShowEndorsement" [contactId]="contactId" [policyId]="policyId" [endorsementId]="selectedEndorsementId"></agt-modal-show-endorsement>
 </ng-container>
 <ng-container
-    *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
@@ -258,7 +265,8 @@
     <agt-modal-show-policy-details [modalId]="modalIdShowPolicyDetails" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [isHistoryContent]="isHistoryContent" (showPolicy)="onShowPolicy($event)"></agt-modal-show-policy-details>
     <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="selectedContactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+<ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID">
     <agt-modal-confirm-update-policy [modalId]="modalIdConfirmUpdatePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-update-policy>
     <agt-modal-confirm-endorse-policy [modalId]="modalIdConfirmEndorsePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-endorse-policy>
@@ -269,7 +277,8 @@
     <agt-modal-confirm-delete-policy-complete [modalId]="modalIdConfirmDeleteCompletePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (policyCompleteDeleted)="onPolicyDeleted()"></agt-modal-confirm-delete-policy-complete>
     <agt-modal-confirm-delete-renewed-policy [modalId]="modalIdConfirmDeleteRenewedPolicy" (actionConfirmed)="deleteRenewedPolicy()"></agt-modal-confirm-delete-renewed-policy>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+<ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
@@ -282,7 +291,8 @@
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID ||
     contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
-    contentType === CONTENT_TYPES.CONTACT_POLICY.ID ||
+    contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
     <agt-modal-apply-payment

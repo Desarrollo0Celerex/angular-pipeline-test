@@ -348,6 +348,23 @@ export class ContentListService {
     }
 
     /**
+     * Load the policies
+     * @param  page           The page number to get
+     * @param  contentSubtype The filter to apply
+     * @return                Notice of action done
+     */
+    loadPolicies(page: number, rangeField: string, rangeStart: string, rangeEnd: string, sortBy: string): Observable<void> {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId,paymentId,policyCancellationReasonId';
+        return this._policyService.getPolicies(page, fields, [], '', sortBy, rangeField, rangeStart, rangeEnd).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
      * Load the payments
      * @param  page           The page number to get
      * @param  contentSubtype The filter to apply

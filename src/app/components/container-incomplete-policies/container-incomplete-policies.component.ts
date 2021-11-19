@@ -43,7 +43,7 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
     ngOnInit(): void {
         const page: number = 1;
         switch(this.contentType) {
-            case CONTENT_TYPES.CONTACT_POLICY.ID:
+            case CONTENT_TYPES.POLICY.ID:
                 this.containerListIncompletePoliciesService.loadContactIncompletePolicies(this.contactId, page, this.contentSubtype);
             break;
 

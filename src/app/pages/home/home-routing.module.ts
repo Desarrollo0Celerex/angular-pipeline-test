@@ -14,9 +14,6 @@ const routes: Routes = [
         path: '',
         component: HomePage,
         children: [
-            // Data routes
-            { path: ROUTES_NAME.dashboard, loadChildren: () => import('@pages/home/data/dashboard/dashboard.module').then( mod => mod.DashboardModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-
             // Clients routes
             { path: ROUTES_NAME.listClients, loadChildren: () => import('@pages/home/clients/list-clients/list-clients.module').then( mod => mod.ListClientsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
@@ -25,6 +22,10 @@ const routes: Routes = [
             { path: ROUTES_NAME.changeContact(':contactId', ':policyId', ':contactTypeId', ':actionType'), loadChildren: () => import('@pages/home/contacts/change-contact/change-contact.module').then( mod => mod.ChangeContactModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.listContactCoincidences, loadChildren: () => import('@pages/home/contacts/list-contact-coincidences/list-contact-coincidences.module').then( mod => mod.ListContactCoincidencesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: '', loadChildren: () => import('@pages/home/contact-profile/contact-profile.module').then(mod => mod.ContactProfileModule) },
+
+            // Data routes
+            { path: ROUTES_NAME.dashboard, loadChildren: () => import('@pages/home/data/dashboard/dashboard.module').then( mod => mod.DashboardModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.lastPoliciesToRenew, loadChildren: () => import('@pages/home/data/last-policies-to-renew/last-policies-to-renew.module').then( mod => mod.LastPoliciesToRenewModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Error routes
             { path: ROUTES_NAME.accessDenied, loadChildren: () => import('@pages/home/errors/access-denied/access-denied.module').then(mod => mod.AccessDeniedModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

@@ -26,6 +26,9 @@
         <ng-container *ngSwitchCase="CONTENT_TYPES.PAYMENT_CALENDAR.ID">
             <li class="breadcrumb-item1">No se encontraron recibos pendientes en el día seleccionado. <strong>Selecciona otro día para ver la cobranza pendiente</strong>.</li>
         </ng-container>
+        <ng-container *ngSwitchCase="CONTENT_TYPES.POLICY_TO_RENEW.ID">
+            <li class="breadcrumb-item1">No se encontraron pólizas a renovar en este periodo. <strong>Tus pólizas se encuentran al corriente</strong>.</li>
+        </ng-container>
         <ng-container *ngSwitchDefault>
             <li class="breadcrumb-item1">No se han encontrado resultados</li>
         </ng-container>

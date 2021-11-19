@@ -16,7 +16,7 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID">
     <agt-modal-select-quotation-status [modalId]="selectQuotationStatusModalId" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-modal-select-quotation-status>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_POLICY.ID || contentType === CONTENT_TYPES.GROUP_POLICY.ID">
+<ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID || contentType === CONTENT_TYPES.GROUP_POLICY.ID">
     <agt-modal-select-policy-status [modalId]="selectPolicyStatusModalId" [contentTypeName]="contentTypeName" [contentSubtype]="contentSubtype" (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)"></agt-modal-select-policy-status>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.GROUP.ID">

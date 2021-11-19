@@ -147,7 +147,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
         if(typeof param !== 'undefined') {
             contentSubtype = parseInt(param);
         } else {
-            if(this.contentType === CONTENT_TYPES.CONTACT_POLICY.ID || this.contentType === CONTENT_TYPES.GROUP_POLICY.ID) {
+            if(this.contentType === CONTENT_TYPES.POLICY.ID || this.contentType === CONTENT_TYPES.GROUP_POLICY.ID) {
                 contentSubtype = POLICY_STATUS_ACTIVE;
             } else if(this.contentType === CONTENT_TYPES.CONTACT_SINISTER.ID || this.contentType === CONTENT_TYPES.GROUP_SINISTER.ID) {
                 contentSubtype = SINISTER_STATUS_OPEN;
