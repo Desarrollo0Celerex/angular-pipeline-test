@@ -35,6 +35,8 @@ const routes: any = {
     totalWorkspacePolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/count',
     policyTracker: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/tracker',
     groupPolicies: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/policies',
+    workspacePoliciesToRenew: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/to-renew',
+    totalWorkspacePoliciesToRenew: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/to-renew/count',
 }
 
 @Injectable()
@@ -275,6 +277,39 @@ export class PolicyService {
     }
 
     /**
+     * Get the policies to renew
+     * @param  page      The page to get
+     * @param  fields    The fields to get
+     * @param  filter    The filter to apply
+     * @param  search    The search to do
+     * @return           The policies
+     */
+    getPoliciesToRenew(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
+        const route: string = routes.workspacePoliciesToRenew(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!query) params = params.append('search', 'policyNumber:' + query);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const policies: Policy[] = res.data.items.map( (policy: Policy) => {
+                        return this._calculatePolicyLifeTime(policy);
+                    })
+                    res.data.items = policies;
+                }
+                return res;
+            })
+        )
+    }
+
+
+    /**
      * Get the history policy
      * @param  contactId The contact ID
      * @param  policyId  The policy ID
@@ -307,6 +342,18 @@ export class PolicyService {
 
     getTotalWorkspacePolicies(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
         const route: string = routes.totalWorkspacePolicies(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getTotalWorkspacePoliciesToRenew(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
+        const route: string = routes.totalWorkspacePoliciesToRenew(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
         if(!!rangeField) params = params.append('rangeField', rangeField);

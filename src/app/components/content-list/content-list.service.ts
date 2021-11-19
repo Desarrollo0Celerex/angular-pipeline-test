@@ -353,9 +353,10 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadPolicies(page: number, rangeField: string, rangeStart: string, rangeEnd: string, sortBy: string): Observable<void> {
+    loadPoliciesToRenew(page: number, rangeField: string, rangeStart: string, rangeEnd: string, sortBy: string): Observable<void> {
         const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId,paymentId,policyCancellationReasonId';
-        return this._policyService.getPolicies(page, fields, [], '', sortBy, rangeField, rangeStart, rangeEnd).pipe(
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
+        return this._policyService.getPoliciesToRenew(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);

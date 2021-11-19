@@ -26,10 +26,11 @@ export class DashboardService {
     }
 
     loadTotalLastPoliciesToRenew(): void {
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
         const rangeField: string = 'validityEndDate';
         const rangeStart: string = moment().subtract(60, 'days').format('DD/MM/YYYY');
         const rangeEnd: string = moment().add(30, 'days').format('DD/MM/YYYY');
-        this._policyService.getTotalWorkspacePolicies('', rangeField, rangeStart, rangeEnd).subscribe((res: number) => {
+        this._policyService.getTotalWorkspacePoliciesToRenew(filters, rangeField, rangeStart, rangeEnd).subscribe((res: number) => {
             this.totalLastPoliciesToRenew = res;
         })
     }

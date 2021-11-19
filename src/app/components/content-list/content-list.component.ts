@@ -958,7 +958,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         switch(this.contentType) {
             case CONTENT_TYPES.POLICY_TO_RENEW.ID:
                 const sortBy: string = 'validityEndDate';
-                this.contentListService.loadPolicies(this.page, this.rangeField, this.rangeStart, this.rangeEnd, sortBy).subscribe( () => {
+                this.contentListService.loadPoliciesToRenew(this.page, this.rangeField, this.rangeStart, this.rangeEnd, sortBy).subscribe( () => {
                     this._contentLoaded();
                 });
             break;
