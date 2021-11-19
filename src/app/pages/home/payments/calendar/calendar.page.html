@@ -1,6 +1,8 @@
 <agt-content-kpis
     [contentType]="CONTENT_TYPES.PAYMENT.ID"
-    [contentTypeName]="CONTENT_TYPES.PAYMENT.NAME">
+    [contentTypeName]="CONTENT_TYPES.PAYMENT.NAME"
+    [canReloadContent]="canReloadContent"
+    [pageUrl]="pageUrl">
 </agt-content-kpis>
 
 <!-- AGENTHOS - CALENDAR PANEL -->
@@ -16,7 +18,7 @@
     <div class="col-lg-3 col-md-12 col-sm-12">
         <!-- AGENTHOS - CALENDAR CARD -->
         <div class="card">
-            <mat-calendar (selectedChange)="loadPayments($event)"></mat-calendar>
+            <mat-calendar [selected]="paymentDate" (selectedChange)="loadPayments($event)"></mat-calendar>
         </div>
         <!-- //AGENTHOS - CALENDAR CARD -->
         <!-- AGENTHOS - CALENDAR RESUME CARD -->
@@ -43,6 +45,9 @@
             [contentType]="CONTENT_TYPES.PAYMENT_CALENDAR.ID"
             [contentTypeName]="CONTENT_TYPES.PAYMENT_CALENDAR.NAME"
             [specialFilter]="paymentDate"
+            [canReloadContent]="canReloadContent"
+            (contentReloaded)="contentReloaded()"
+            (receiptPaid)="reloadContent()"
         ></agt-content-list>
     </div>
     <!-- AGENTHOS - CALENDAR PAYMENTS RESULTS -->

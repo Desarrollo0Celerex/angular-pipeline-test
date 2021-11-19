@@ -96,17 +96,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
         this._reloadPage();
     }
 
-    private _reloadPage(): void {
-        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this._router.onSameUrlNavigation = 'reload';
-        const url: string = this._router.url.split('?')[0] ;
-        if(!!this.contentSubtype) {
-            this._router.navigate([url], { relativeTo: this._activatedRoute, queryParams: { contentSubtype: this.contentSubtype } } );
-        } else {
-            this._router.navigate([url], { relativeTo: this._activatedRoute } );
-        }
-    }
-
     /**
      * Catch the params
      */
@@ -209,6 +198,17 @@ export class ContentsComponent implements OnInit, OnDestroy {
                 width = 8;
         }
         return width;
+    }
+
+    private _reloadPage(): void {
+        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this._router.onSameUrlNavigation = 'reload';
+        const url: string = this._router.url.split('?')[0] ;
+        if(!!this.contentSubtype) {
+            this._router.navigate([url], { relativeTo: this._activatedRoute, queryParams: { contentSubtype: this.contentSubtype } } );
+        } else {
+            this._router.navigate([url], { relativeTo: this._activatedRoute } );
+        }
     }
 
 }

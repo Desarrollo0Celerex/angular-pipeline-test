@@ -18,6 +18,7 @@ export class ContentKpisComponent implements OnInit, OnChanges {
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
     @Input() canReloadContent: boolean = false;
+    @Input() pageUrl: string = '';
     @Output() contentSubtypeNameSelected: EventEmitter<string>;
     ROUTES_NAME: any;
 

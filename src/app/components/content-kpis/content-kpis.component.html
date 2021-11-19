@@ -6,7 +6,7 @@
                 <!-- AGENTHOS - ACTIVE TAB -->
                 <h6 class="mb-0">{{contentTypeName | pluralNameFormat}}<br/>{{kpi.name | pluralNameFormat}}</h6>
                 <div class="card-options" [ngClass]="{'agt-hide': contentSubtype === kpi.contentSubtype}">
-                    <a [routerLink]="" [queryParams]="{'contentSubtype': kpi.contentSubtype }">
+                    <a routerLink="{{(!!pageUrl) ? pageUrl : '.'}}" [queryParams]="{'contentSubtype': kpi.contentSubtype }">
                         <button class="btn btn-sm btn-secondary"><i class="fe fe-eye mr-2"></i>VER</button>
                     </a>
                 </div>
