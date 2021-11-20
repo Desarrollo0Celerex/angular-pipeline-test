@@ -23,6 +23,7 @@ export class DashboardPage implements OnInit {
         this.model.loadTotalPendingQuotations();
         this.model.loadTotalCurrentPolicies();
         this.model.loadTotalLastPoliciesToRenew();
+        this.model.loadTotalLastCancelledPolicies();
     }
 
     get model(): DashboardService {

@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Observable } from 'rxjs';
 
 import { POLICY_STATUS } from '@constants/global';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { PolicyService } from '@services/policy.service';
 
 import { FREE_TEXT_LENGTH } from '@constants/global';
@@ -29,7 +30,7 @@ export class ModalSearchPolicyService {
     searchPolicy(): Observable<HttpResponse> {
         const page: number = 1;
         const fields: string = 'policyId,contactId,policyStatusName,policyStatusBackground,policyNumber,validityStartDate,validityEndDate,totalAmount,currencyName,insuranceId';
-        const filters: number [] = [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED, POLICY_STATUS.CANCELLED];
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED, POLICY_STATUS.CANCELLED])
         const query: string = this.f.policyNumber.value.trim();
         return this._policyService.getPolicies(page, fields, filters, query);
     }

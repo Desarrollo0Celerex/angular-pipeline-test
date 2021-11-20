@@ -29,6 +29,9 @@
         <ng-container *ngSwitchCase="CONTENT_TYPES.POLICY_TO_RENEW.ID">
             <li class="breadcrumb-item1">No se encontraron pólizas a renovar en este periodo. <strong>Tus pólizas se encuentran al corriente</strong>.</li>
         </ng-container>
+        <ng-container *ngSwitchCase="CONTENT_TYPES.LAST_CANCELLED_POLICY.ID">
+            <li class="breadcrumb-item1">No se encontraron pólizas canceladas en este periodo. <strong>Todas tus pólizas se encuentran vigentes</strong>.</li>
+        </ng-container>
         <ng-container *ngSwitchDefault>
             <li class="breadcrumb-item1">No se han encontrado resultados</li>
         </ng-container>
