@@ -235,12 +235,12 @@ export class PolicyService {
      * @param  search    The search to do
      * @return           The policies
      */
-    getPolicies(page: number = 1, fields: string = '', filters: number[] = [], query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
+    getPolicies(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
         const route: string = routes.policies(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
-        if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
+        if(!!filters) params = params.append('filter', filters);
         if(!!query) params = params.append('search', 'policyNumber:' + query);
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);

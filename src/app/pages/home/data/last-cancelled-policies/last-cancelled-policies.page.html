@@ -4,4 +4,11 @@
     [pageUrl]="pageUrl">
 </agt-content-kpis>
 
-<p>last-cancelled-policies works!</p>
+<agt-content-list
+    [contentType]="CONTENT_TYPES.LAST_CANCELLED_POLICY.ID"
+    [contentTypeName]="CONTENT_TYPES.LAST_CANCELLED_POLICY.NAME"
+    contentSubtypeName="Cancelación"
+    [rangeField]="rangeField"
+    [rangeStart]="rangeStart"
+    [rangeEnd]="rangeEnd">
+</agt-content-list>

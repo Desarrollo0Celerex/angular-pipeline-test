@@ -226,6 +226,10 @@ export const CONTENT_TYPES: any = {
         ID: 24,
         NAME: 'Próxima'
     },
+    LAST_CANCELLED_POLICY: {
+        ID: 25,
+        NAME: 'Última'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

@@ -10,6 +10,7 @@ import * as moment from 'moment';
 @Injectable()
 export class DashboardService {
     totalCurrentPolicies: number = 0;
+    totalLastCancelledPolicies: number = 0;
     totalLastPoliciesToRenew: number = 0;
     totalPendingQuotations: number = 0;
 
@@ -22,6 +23,16 @@ export class DashboardService {
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.CURRENT])
         this._policyService.getTotalWorkspacePolicies(filters).subscribe((res: number) => {
             this.totalCurrentPolicies = res;
+        })
+    }
+
+    loadTotalLastCancelledPolicies(): void {
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.CANCELLED])
+        const rangeField: string = 'updatedAt';
+        const rangeStart: string = moment().subtract(90, 'days').format('DD/MM/YYYY');
+        const rangeEnd: string = moment().format('DD/MM/YYYY');
+        this._policyService.getTotalWorkspacePolicies(filters, rangeField, rangeStart, rangeEnd).subscribe((res: number) => {
+            this.totalLastCancelledPolicies = res;
         })
     }
 
