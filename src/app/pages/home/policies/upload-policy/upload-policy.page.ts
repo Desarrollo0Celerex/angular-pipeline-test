@@ -25,7 +25,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     contactId: string;
     isLoadingContent: boolean;
     message: string;
-    policy: { policyUrl: string, insurerId: number, insurerName: string };
+    policy: { policyUrl: string, insurerId: number, insurerName: string, workspaceCountryId: number };
     policyId: string;
     private _allowedFileTypes: string[];
     private _comesFromRenewalPolicy: boolean = false;
@@ -44,7 +44,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
         this.contactId = '';
         this.isLoadingContent = true;
         this.message = 'Selecciona la póliza digital que deseas cargar para';
-        this.policy = { policyUrl: '', insurerId: 0, insurerName: '' };
+        this.policy = { policyUrl: '', insurerId: 0, insurerName: '', workspaceCountryId: 0 };
         this.policyId = '';
         this._allowedFileTypes = ['pdf'];
         this._isFormSubmitted = false;
@@ -136,7 +136,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
                 if(!!this._comesFromRenewalPolicy) {
                     this.uploadPolicyService.policyForm.patchValue({insurerId: this.policy.insurerId});
                 }
-                this._loadInsurers();
+                this._loadCountryInsurers(this.policy.workspaceCountryId);
             }
         })
     }
@@ -153,8 +153,8 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     /**
      * Load the insurers
      */
-    private _loadInsurers(): void {
-        this.uploadPolicyService.loadInsurers().subscribe( () => {
+    private _loadCountryInsurers(countryId: number): void {
+        this.uploadPolicyService.loadCountryInsurers(countryId).subscribe( () => {
             Select2Plugin.initSearch(this._onItemSelected, this);
         });
     }

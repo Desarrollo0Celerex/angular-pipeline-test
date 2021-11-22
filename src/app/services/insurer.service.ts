@@ -11,7 +11,8 @@ import { AuthService } from '@services/auth.service';
 const routes = {
     insurers: environment.apiUrl + '/insurers',
     insurersStats: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/stats/insurers`,
-    activeInsurers: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/insurers/active`
+    activeInsurers: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/insurers/active`,
+    countryInsurers: (countryId: number) => `${environment.apiUrl}/countries/${countryId}/insurers`
 }
 
 @Injectable()
@@ -22,6 +23,18 @@ export class InsurerService {
         private _authService: AuthService,
         private _httpClient: HttpClient
     ) { }
+
+    /**
+     * Get the insurers from the API
+     * @param  fields              The fields to get
+     * @return                     The insurers
+     */
+    getCountryInsurers(countryId: number, fields: string = ''): Observable<HttpResponse> {
+        const route = routes.countryInsurers(countryId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
 
     /**
      * Get the insurers from the API

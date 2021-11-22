@@ -50,5 +50,6 @@ export interface Policy {
     policyCancellationReasonId: string,
     maxValidityEndDate: string,
     tracker: string,
-    policySourceId: number
+    policySourceId: number,
+    workspaceCountryId: number
 }
