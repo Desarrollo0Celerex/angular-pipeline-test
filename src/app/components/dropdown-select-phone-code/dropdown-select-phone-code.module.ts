@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PhoneCodeService } from '@services/phone-code.service';
+import { CountryService } from '@services/country.service';
 
 import { DropdownSelectPhoneCodeComponent } from './dropdown-select-phone-code.component';
 import { DropdownSelectPhoneCodeService } from './dropdown-select-phone-code.service';
@@ -12,6 +12,9 @@ import { DropdownSelectPhoneCodeService } from './dropdown-select-phone-code.ser
   imports: [
     CommonModule
   ],
-  providers: [DropdownSelectPhoneCodeService, PhoneCodeService]
+  providers: [
+      DropdownSelectPhoneCodeService,
+      CountryService
+  ]
 })
 export class DropdownSelectPhoneCodeModule { }

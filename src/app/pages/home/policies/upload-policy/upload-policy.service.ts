@@ -43,7 +43,7 @@ export class UploadPolicyService {
      * @return           The contact policy data
      */
     getContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
-        const fields: string = 'policyUrl,insurerId,insurerName';
+        const fields: string = 'policyUrl,insurerId,insurerName,workspaceCountryId';
         return this._policyService.getContactPolicy(contactId, policyId, fields);
     }
 
@@ -53,6 +53,19 @@ export class UploadPolicyService {
      */
     loadInsurers(): Observable<void> {
         return this._insurerService.getInsurers().pipe(
+            tap((res: HttpResponse) => {
+                this.insurers = res.data;
+            }),
+            map( () => { })
+        );
+    }
+
+    /**
+     * Load the insurers
+     * @return Notice of action done
+     */
+    loadCountryInsurers(countryId: number): Observable<void> {
+        return this._insurerService.getCountryInsurers(countryId).pipe(
             tap((res: HttpResponse) => {
                 this.insurers = res.data;
             }),

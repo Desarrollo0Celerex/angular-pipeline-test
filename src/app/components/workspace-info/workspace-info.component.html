@@ -1,15 +1,15 @@
 <!-- AGENTHOS TOP VIEW -->
-<div class="page-header" *ngIf="!!WorkspaceInfoService.workspace">
+<div class="page-header" *ngIf="!!model.workspace">
 	<div class="media mb-3">
 		<!-- AGENTHOS - AGENTE LOGO -->
-		<img class="avatar-lg rounded-circle mr-3" [src]="WorkspaceInfoService.workspace.avatarUrl" alt="Orp Seguros">
+		<img class="avatar-lg rounded-circle mr-3" [src]="model.workspace.avatarUrl" alt="Orp Seguros">
 		<div class="media-body">
 			<div class="d-flex align-items-center">
 				<div class="mt-1">
 					<!-- AGENTHOS - AGENTE NOMBRE -->
-					<h5 class="mb-0">{{WorkspaceInfoService.workspace.brandName}}</h5>
+					<h5 class="mb-0">{{model.workspace.brandName}}</h5>
 					<!-- AGENTHOS - ID AGENTE -->
-					<p class="mb-0 fs-13 text-muted">ID: {{WorkspaceInfoService.workspace.workspaceId}}</p>
+					<p class="mb-0 fs-13 text-muted">ID: {{(!!model.user) ? model.user.shortName : ''}}</p>
 				</div>
 			</div>
 		</div>

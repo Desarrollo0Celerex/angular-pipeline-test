@@ -4,13 +4,13 @@ import { tap } from 'rxjs/operators';
 
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PhoneCode } from '@interfaces/phone-code.interface';
-import { PhoneCodeService } from '@services/phone-code.service';
+import { CountryService } from '@services/country.service';
 
 @Injectable()
 export class DropdownSelectPhoneCodeService {
     phoneCodes: PhoneCode[];
 
-    constructor(private _phoneCodeService: PhoneCodeService) {
+    constructor(private _countryService: CountryService) {
         this.phoneCodes = [];
     }
 
@@ -19,7 +19,8 @@ export class DropdownSelectPhoneCodeService {
      * @return Phone codes
      */
     loadPhoneCodes(): Observable<HttpResponse> {
-        return this._phoneCodeService.getPhoneCodes().pipe(
+        const fields: string = 'name,abbreviation,flag,code';
+        return this._countryService.getCountries(fields).pipe(
             tap( (res:HttpResponse) => {
                 this.phoneCodes = res.data;
             })

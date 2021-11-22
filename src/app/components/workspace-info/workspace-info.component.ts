@@ -13,12 +13,17 @@ import { WorkspaceInfoService } from './workspace-info.service';
 export class WorkspaceInfoComponent implements OnInit {
     ROUTES_NAME: any;
 
-    constructor(public WorkspaceInfoService: WorkspaceInfoService) {
+    constructor(private _workspaceInfoService: WorkspaceInfoService) {
         this.ROUTES_NAME = ROUTES_NAME;
     }
 
     ngOnInit(): void {
-        this.WorkspaceInfoService.loadWorkspace();
+        this.model.loadWorkspace();
+        this.model.loadWorkspaceUser();
+    }
+
+    get model(): WorkspaceInfoService {
+        return this._workspaceInfoService;
     }
 
 }
