@@ -115,7 +115,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadClients(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
         const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [contentSubtype]);
         return this._clientService.getClients(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
@@ -244,7 +244,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadGroupMembers(groupId: string, page: number): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
         return this._groupMemberService.getGroupMembers(groupId, fields, page).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
@@ -300,7 +300,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadLeads(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactScoreName';
+        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName';
         const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [contentSubtype])
         return this._leadService.getLeads(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
@@ -592,7 +592,7 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchClients(page: number, query: string): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
         const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL, CLIENT_STATUS.LOST])
         return this._clientService.getClients(page, fields, filters, query).pipe(
             tap((res: HttpResponse) => {
@@ -610,7 +610,7 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchContacts(page: number, query: string, specialQuery: SearchContactData | null): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
         return this._contactService.getContacts(page, fields, query, specialQuery).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);

@@ -5,6 +5,7 @@ export interface Client {
     clientStatusName: string,
     clientStatusBackground: string,
     contactSourceName: string,
+    contactSourceTypeName: string,
     contactScoreName: string,
     totalGlobalWallet: number,
     totalActivePolicies: number,

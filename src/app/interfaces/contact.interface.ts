@@ -3,6 +3,7 @@ export interface Contact {
     avatarUrl: string,
     contactName: string,
     contactSourceName: string,
+    contactSourceTypeName: string,
     phoneCode: string,
     phoneCodeId: string,
     phoneNumber: string,
