@@ -29,9 +29,9 @@
     <div class="card-footer">
         <div class="row">
             <div class="col-sm-9 col-9 text-left">
-                <button *ngIf="isCoincidence; else showPartner" type="button" class="btn btn-block btn-primary" disabled><strong>SELECCIONAR</strong></button>
+                <button *ngIf="isCoincidence; else showPartner" type="button" class="btn btn-block btn-primary" (click)="selectPartner()"><strong>SELECCIONAR</strong></button>
                 <ng-template #showPartner>
-                    <button type="button" class="btn btn-block btn-primary" disabled><strong>VER SOCIO</strong></button>
+                    <button type="button" class="btn btn-block btn-primary" (click)="goToPartnerResume()"><strong>VER SOCIO</strong></button>
                 </ng-template>
             </div>
             <div class="col-sm-3 col-3 text-right">

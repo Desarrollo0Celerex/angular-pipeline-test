@@ -10,7 +10,7 @@ export const BRAND_NAME_LENGTH: any = {
     MAX: 150
 }
 export const OWN_NAME_LENGTH: any = {
-    MIN: 3,
+    MIN: 2,
     MAX: 75
 }
 export const WEB_LINK_LENGTH: any = {
