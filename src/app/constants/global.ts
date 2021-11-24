@@ -234,6 +234,10 @@ export const CONTENT_TYPES: any = {
         ID: 26,
         NAME: 'Cliente'
     },
+    PARTNER_POLICY: {
+        ID: 27,
+        NAME: 'Póliza'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

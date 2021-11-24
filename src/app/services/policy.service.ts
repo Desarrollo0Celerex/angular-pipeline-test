@@ -35,6 +35,7 @@ const routes: any = {
     totalWorkspacePolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/count',
     policyTracker: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/tracker',
     groupPolicies: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/policies',
+    partnerPolicies: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/policies',
     workspacePoliciesToRenew: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/to-renew',
     totalWorkspacePoliciesToRenew: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/to-renew/count',
 }
@@ -207,6 +208,38 @@ export class PolicyService {
      */
     getGroupPolicies(groupId: string, page: number = 1, fields: string = '', filters: number[] = [], query: string = '', perPage: number = DEFAULT_PER_PAGE): Observable<HttpResponse> {
         const route: string = routes.groupPolicies(this._workspaceId, groupId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        params = params.append('perPage', perPage.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
+        if(!!query) params = params.append('search', 'policyNumber:' + query);
+        params = params.append('sortBy', '-createdAt');
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const policies: Policy[] = res.data.items.map( (policy: Policy) => {
+                        return this._calculatePolicyLifeTime(policy);
+                    })
+                    res.data.items = policies;
+                }
+                return res;
+            })
+        )
+    }
+
+    /**
+     * Get the contact policies
+     * @param  contactId The contact ID
+     * @param  page      The page to get
+     * @param  fields    The fields to get
+     * @param  filter    The filter to apply
+     * @param  search    The search to do
+     * @param  perPage   The items per page
+     * @return           The contact policies
+     */
+    getPartnerPolicies(partnerId: string, page: number = 1, fields: string = '', filters: number[] = [], query: string = '', perPage: number = DEFAULT_PER_PAGE): Observable<HttpResponse> {
+        const route: string = routes.partnerPolicies(this._workspaceId, partnerId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         params = params.append('perPage', perPage.toString());

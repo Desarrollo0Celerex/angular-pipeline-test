@@ -1,20 +1,24 @@
 <agt-container-external-policies
     *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_POLICY.ID"
+    contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+    contentType === CONTENT_TYPES.PARTNER_POLICY.ID"
     [contentType]="contentType"
     [contactId]="contactId"
     [groupId]="groupId"
+    [partnerId]="partnerId"
     [policyStatusId]="contentSubtype"
     [policyStatusName]="contentSubtypeName">
 </agt-container-external-policies>
 <agt-container-incomplete-policies
     #containerIncompletePolicies
     *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_POLICY.ID"
+    contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+    contentType === CONTENT_TYPES.PARTNER_POLICY.ID"
     [contentType]="contentType"
     [contentTypeName]="contentTypeName"
     [contactId]="contactId"
     [groupId]="groupId"
+    [partnerId]="partnerId"
     (policyDeleted)="onPolicyDeleted()"
     (showHistoryPolicy)="onShowHistoryPolicy($event)">
 </agt-container-incomplete-policies>
@@ -104,20 +108,6 @@
                     [client]="content"
                     (deleteGroupMemberRequested)="confirmDeleteGroupMember($event)">
                 </agt-card-group-member>
-                <agt-card-policy *ngSwitchCase="CONTENT_TYPES.GROUP_POLICY.ID"
-                    [policy]="content"
-                    (showPolicyDetails)="onShowPolicyDetails($event)"
-                    (showPolicy)="onShowPolicy($event)"
-                    (updatePolicy)="onUpdatePolicy($event)"
-                    (endorsePolicy)="onEndorsePolicy($event)"
-                    (cancelPolicy)="onCancelPolicy($event)"
-                    (renewPolicy)="onRenewPolicy($event)"
-                    (reissuePolicy)="onReissuePolicy($event)"
-                    (showHistoryPolicy)="onShowHistoryPolicy($event)"
-                    (showPaymentHistory)="onShowPaymentHistory($event)"
-                    (showPolicySinisters)="onShowPolicySinisters($event)"
-                    (deletePolicy)="onDeletePolicy($event)"
-                ></agt-card-policy>
                 <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD.ID"
                     [lead]="content"
                     (showContactData)="onShowContactData($event)">
@@ -132,7 +122,14 @@
                     (acceptQuotation)="onAcceptQuotation($event)"
                     (rejectQuotation)="onRejectQuotation($event)">
                 </agt-card-quotation>
-                <agt-card-policy *ngSwitchCase="(contentType === CONTENT_TYPES.POLICY.ID || contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID || contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID) ? contentType : ''"
+                <agt-card-policy
+                    *ngSwitchCase="(
+                        contentType === CONTENT_TYPES.POLICY.ID ||
+                        contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
+                        contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
+                        contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+                        contentType === CONTENT_TYPES.PARTNER_POLICY.ID
+                    ) ? contentType : ''"
                     [policy]="content"
                     (showPolicyDetails)="onShowPolicyDetails($event)"
                     (showPolicy)="onShowPolicy($event)"
@@ -259,6 +256,7 @@
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
+    contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
     contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
@@ -270,7 +268,8 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_POLICY.ID">
+    contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+    contentType === CONTENT_TYPES.PARTNER_POLICY.ID">
     <agt-modal-confirm-update-policy [modalId]="modalIdConfirmUpdatePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-update-policy>
     <agt-modal-confirm-endorse-policy [modalId]="modalIdConfirmEndorsePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-endorse-policy>
     <agt-modal-confirm-renew-policy [modalId]="modalIdConfirmRenewPolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-renew-policy>
@@ -285,6 +284,7 @@
     contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
+    contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
     contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
@@ -299,6 +299,7 @@
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+    contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
     contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
     <agt-modal-apply-payment
         [modalId]="modalIdApplyPayment"

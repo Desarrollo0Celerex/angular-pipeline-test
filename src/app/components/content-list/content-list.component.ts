@@ -776,10 +776,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.GROUP.ID:
             case CONTENT_TYPES.GROUP_MEMBER.ID:
-            case CONTENT_TYPES.PARTNER_CLIENT.ID:
             case CONTENT_TYPES.GROUP_POLICY.ID:
             case CONTENT_TYPES.GROUP_SINISTER.ID:
             case CONTENT_TYPES.PARTNER.ID:
+            case CONTENT_TYPES.PARTNER_CLIENT.ID:
+            case CONTENT_TYPES.PARTNER_POLICY.ID:
                 this.cardClasses = 'col-xl-3 col-lg-4 col-md-6 col-sm-12';
             break;
 
@@ -869,6 +870,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.PARTNER_CLIENT.ID:
                 this.contentListService.loadPartnerClients(this.partnerId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.PARTNER_POLICY.ID:
+                this.contentListService.loadPartnerPolicies(this.partnerId, this.page, this.contentSubtype).subscribe( () => {
                     this._contentLoaded();
                 });
             break;
@@ -1063,6 +1070,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 })
             break;
 
+            case CONTENT_TYPES.PARTNER_POLICY.ID:
+                this.contentListService.searchPartnerPolicies(this.partnerId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
             case CONTENT_TYPES.PAYMENT.ID:
                 this.contentListService.searchPayments(this.page, this.query).subscribe( () => {
                     this._contentLoaded();
@@ -1088,6 +1101,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.CONTACT_QUOTATION.ID:
                 case CONTENT_TYPES.POLICY.ID:
                 case CONTENT_TYPES.GROUP_POLICY.ID:
+                case CONTENT_TYPES.PARTNER_POLICY.ID:
                 case CONTENT_TYPES.HISTORY_POLICY.ID:
                     canShow = true;
                 break;

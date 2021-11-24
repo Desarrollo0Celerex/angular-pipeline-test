@@ -11,7 +11,8 @@ const routes: Routes = [{
     path: '',
     component: PartnerProfileLayout,
     children: [
-        { path: ROUTES_NAME.partnerResume(':partnerId'), loadChildren: () => import('@pages/home/partner-profile/resume/resume.module').then(mod => mod.ResumeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] }
+        { path: ROUTES_NAME.partnerResume(':partnerId'), loadChildren: () => import('@pages/home/partner-profile/resume/resume.module').then(mod => mod.ResumeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+        { path: ROUTES_NAME.partnerPolicies(':partnerId'), loadChildren: () => import('@pages/home/partner-profile/policies/policies.module').then(mod => mod.PoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
     ]
 }];
 

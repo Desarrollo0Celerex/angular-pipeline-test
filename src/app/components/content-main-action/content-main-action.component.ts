@@ -83,6 +83,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.GROUP_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.GROUP_SINISTER.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.PARTNER.ID: title = 'Nuevo Socio'; break;
+            case CONTENT_TYPES.PARTNER_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'Actualizar Cobranza'; break;
             case CONTENT_TYPES.SINISTER.ID: title = 'Nuevo '+this.contentTypeName; break;
             case CONTENT_TYPES.CONTACT_SINISTER.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
@@ -104,6 +105,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
             case CONTENT_TYPES.GROUP_POLICY.ID:
             case CONTENT_TYPES.GROUP_SINISTER.ID:
+            case CONTENT_TYPES.PARTNER_POLICY.ID:
                 title = 'EXPLORAR HISTORIAL';
             break;
             case CONTENT_TYPES.CONTACT_FILE.ID: title = 'SUBIR ARCHIVO'; break;
@@ -125,6 +127,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: ModalPlugin.show(this.selectQuotationStatusModalId); break;
             case CONTENT_TYPES.POLICY.ID:
             case CONTENT_TYPES.GROUP_POLICY.ID:
+            case CONTENT_TYPES.PARTNER_POLICY.ID:
                 ModalPlugin.show(this.selectPolicyStatusModalId);
             break;
             case CONTENT_TYPES.GROUP.ID: ModalPlugin.show(this.modalIdCreateGroup); break;

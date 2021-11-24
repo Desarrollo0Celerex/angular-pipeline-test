@@ -29,6 +29,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
     contentSubtype: number;
     contentSubtypeName: string;
     mainActionWidth: number;
+    partnerId: string = '';
     searchEngineWidth: number;
     query: string;
     private _subParams: any;
@@ -103,6 +104,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
         // Static params
         this.contactId = (!!this._activatedRoute.snapshot.params.contactId) ? this._activatedRoute.snapshot.params.contactId : '';
         this.groupId = (!!this._activatedRoute.snapshot.params.groupId) ? this._activatedRoute.snapshot.params.groupId : '';
+        this.partnerId = (!!this._activatedRoute.snapshot.params.partnerId) ? this._activatedRoute.snapshot.params.partnerId : '';
 
         // Dynamic params
         this._subParams = this._activatedRoute.queryParams.subscribe( (params: Params) => {
@@ -147,7 +149,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
         if(typeof param !== 'undefined') {
             contentSubtype = parseInt(param);
         } else {
-            if(this.contentType === CONTENT_TYPES.POLICY.ID || this.contentType === CONTENT_TYPES.GROUP_POLICY.ID) {
+            if(this.contentType === CONTENT_TYPES.POLICY.ID || this.contentType === CONTENT_TYPES.GROUP_POLICY.ID || this.contentType === CONTENT_TYPES.PARTNER_POLICY.ID) {
                 contentSubtype = POLICY_STATUS_ACTIVE;
             } else if(this.contentType === CONTENT_TYPES.CONTACT_SINISTER.ID || this.contentType === CONTENT_TYPES.GROUP_SINISTER.ID) {
                 contentSubtype = SINISTER_STATUS_OPEN;

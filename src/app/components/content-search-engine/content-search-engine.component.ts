@@ -16,6 +16,7 @@ export class ContentSearchEngineComponent implements OnChanges {
     @Input() actionType: number;
     @Input() contactId: string;
     @Input() groupId: string = '';
+    @Input() partnerId: string = '';
     @Input() contentType: number;
     @Input() contentTypeName: string;
     @Input() originContactId: string;
@@ -92,6 +93,10 @@ export class ContentSearchEngineComponent implements OnChanges {
 
                 case CONTENT_TYPES.PARTNER.ID:
                     this._router.navigate([ROUTES_NAME.listSearchResults], { queryParams: { contentType: this.contentType, contentTypeName: this.contentTypeName, query }});
+                    break;
+
+                case CONTENT_TYPES.PARTNER_POLICY.ID:
+                    this._router.navigate([ROUTES_NAME.partnerPolicies(this.partnerId)], { queryParams: { contentType: this.contentType, contentTypeName: this.contentTypeName, query }});
                     break;
 
                 case CONTENT_TYPES.PAYMENT.ID:

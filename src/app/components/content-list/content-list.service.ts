@@ -347,6 +347,26 @@ export class ContentListService {
     }
 
     /**
+     * Load the partner policies
+     * @param  partnerId      The partner ID
+     * @param  page           The page number
+     * @param  contentSubtype The content subtype
+     * @return                Notice of action done
+     */
+    loadPartnerPolicies(partnerId: string, page: number, contentSubtype: number): Observable<void> {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,partnerId,paymentId,policyCancellationReasonId,contactId';
+        const filters: number [] = (contentSubtype === POLICY_STATUS_ACTIVE) ? [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED] : [contentSubtype];
+        return this._policyService.getPartnerPolicies(partnerId, page, fields, filters).pipe(
+            tap((res: HttpResponse) => {
+                const policies: Policy[] = res.data.items;
+                this.contents = this.contents.concat(policies);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
      * Load the payments
      * @param  page           The page number to get
      * @param  contentSubtype The filter to apply
@@ -789,6 +809,25 @@ export class ContentListService {
         const fields: string = 'partnerId,name,createdAt,partnerStatusName,partnerStatusBackground,totalClients,totalPolicies,wallet,walletPaid,currencyName';
         const filters: string = UtilitiesHelper.generateHttpFilter('partnerStatusId', [PARTNER_STATUS.OCCASIONAL, PARTNER_STATUS.FREQUENT, PARTNER_STATUS.INFLUENTIAL, PARTNER_STATUS.INACTIVE])
         return this._partnerService.getPartners(page, fields, filters, query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+
+    /**
+     * Search the partner policies
+     * @param  partnerId The partner ID
+     * @param  page      The page to get
+     * @param  query     The query to search
+     * @return           Notice of action done
+     */
+    searchPartnerPolicies(partnerId: string, page: number, query: string): Observable<void> {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,partnerId,paymentId,policyCancellationReasonId,contactId';
+        return this._policyService.getPartnerPolicies(partnerId, page, fields, [], query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);

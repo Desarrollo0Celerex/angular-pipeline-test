@@ -20,6 +20,7 @@ export class ContainerExternalPoliciesComponent implements OnChanges, OnInit {
     @Input() contentType: number = 0;
     @Input() contactId: string = '';
     @Input() groupId: string = '';
+    @Input() partnerId: string = '';
     @Input() policyStatusId: number = 0;
     @Input() policyStatusName: string = '';
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
@@ -86,6 +87,12 @@ export class ContainerExternalPoliciesComponent implements OnChanges, OnInit {
             case CONTENT_TYPES.GROUP_POLICY.ID:
                 if(!!this.groupId && !!this.policyStatusId) {
                     this.containerExternalPoliciesService.loadGroupExternalPolicies(this.groupId, this.policyStatusId);
+                }
+            break;
+
+            case CONTENT_TYPES.PARTNER_POLICY.ID:
+                if(!!this.partnerId && !!this.policyStatusId) {
+                    this.containerExternalPoliciesService.loadPartnerExternalPolicies(this.partnerId, this.policyStatusId);
                 }
             break;
         }

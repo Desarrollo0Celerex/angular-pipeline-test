@@ -20,11 +20,18 @@ export class ContainerExternalPoliciesService {
         })
     }
 
-
     loadGroupExternalPolicies(groupId: string, policyStatusId: number): void {
         const externalPolicyStatusId: number[] = this._getExternalPolicyStatusId(policyStatusId);
         const fields: string = 'externalPolicyId,isChecked,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyAmount,policyNumber,insurerImageUrl,insuranceName,insuranceIcon,insuranceBackground,paymentMethodName,insuranceTypeName,currencyName,externalPolicyStatusId,externalPolicyStatusName,externalPolicyStatusDescription,lifeTime,contactId';
         this._externalPolicyService.getGroupExternalPolicies(groupId, fields, externalPolicyStatusId).subscribe((res: HttpResponse) => {
+            this.externalPolicies = res.data.items;
+        })
+    }
+
+    loadPartnerExternalPolicies(partnerId: string, policyStatusId: number): void {
+        const externalPolicyStatusId: number[] = this._getExternalPolicyStatusId(policyStatusId);
+        const fields: string = 'externalPolicyId,isChecked,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyAmount,policyNumber,insurerImageUrl,insuranceName,insuranceIcon,insuranceBackground,paymentMethodName,insuranceTypeName,currencyName,externalPolicyStatusId,externalPolicyStatusName,externalPolicyStatusDescription,lifeTime,contactId';
+        this._externalPolicyService.getPartnerExternalPolicies(partnerId, fields, externalPolicyStatusId).subscribe((res: HttpResponse) => {
             this.externalPolicies = res.data.items;
         })
     }
