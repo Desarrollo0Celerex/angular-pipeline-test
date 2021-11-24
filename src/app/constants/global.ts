@@ -230,6 +230,10 @@ export const CONTENT_TYPES: any = {
         ID: 25,
         NAME: 'Última'
     },
+    PARTNER_CLIENT: {
+        ID: 26,
+        NAME: 'Cliente'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

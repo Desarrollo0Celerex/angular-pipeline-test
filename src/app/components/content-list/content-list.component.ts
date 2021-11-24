@@ -50,6 +50,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() paymentId: string;
     @Input() policyId: string;
     @Input() groupId: string = '';
+    @Input() partnerId: string = '';
     @Input() query: string;
     @Input() rangeField: string = '';
     @Input() rangeStart: string = '';
@@ -210,7 +211,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             (!!changes.specialFilter && !!changes.specialFilter.currentValue) ||
             (!!changes.rangeField && !!changes.rangeField.currentValue) ||
             (!!changes.rangeStart && !!changes.rangeStart.currentValue) ||
-            (!!changes.rangeEnd && !!changes.rangeEnd.currentValue)
+            (!!changes.rangeEnd && !!changes.rangeEnd.currentValue) ||
+            (!!changes.partnerId && !!changes.partnerId.currentValue)
         ) {
             this._initContent();
 
@@ -774,6 +776,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.GROUP.ID:
             case CONTENT_TYPES.GROUP_MEMBER.ID:
+            case CONTENT_TYPES.PARTNER_CLIENT.ID:
             case CONTENT_TYPES.GROUP_POLICY.ID:
             case CONTENT_TYPES.GROUP_SINISTER.ID:
             case CONTENT_TYPES.PARTNER.ID:
@@ -860,6 +863,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.GROUP_MEMBER.ID:
                 this.contentListService.loadGroupMembers(this.groupId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.PARTNER_CLIENT.ID:
+                this.contentListService.loadPartnerClients(this.partnerId, this.page).subscribe( () => {
                     this._contentLoaded();
                 });
             break;

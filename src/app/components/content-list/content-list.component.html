@@ -122,7 +122,7 @@
                     [lead]="content"
                     (showContactData)="onShowContactData($event)">
                 </agt-card-lead>
-                <agt-card-client *ngSwitchCase="CONTENT_TYPES.CLIENT.ID"
+                <agt-card-client *ngSwitchCase="(contentType === CONTENT_TYPES.CLIENT.ID || contentType === CONTENT_TYPES.PARTNER_CLIENT.ID) ? contentType : ''"
                     [client]="content"
                     (showContactData)="onShowContactData($event)">
                 </agt-card-client>
@@ -230,6 +230,7 @@
     *ngIf="contentType === CONTENT_TYPES.CONTACT.ID ||
     contentType === CONTENT_TYPES.LEAD.ID ||
     contentType === CONTENT_TYPES.CLIENT.ID ||
+    contentType === CONTENT_TYPES.PARTNER_CLIENT.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
     contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||

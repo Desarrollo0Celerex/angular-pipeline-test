@@ -330,6 +330,23 @@ export class ContentListService {
     }
 
     /**
+     * Load the partners
+     * @param  page           The page number to get
+     * @param  contentSubtype The filter to apply
+     * @return                Notice of action done
+     */
+    loadPartnerClients(partnerId: string, page: number): Observable<void> {
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        return this._partnerService.getPartnerClients(partnerId, fields, page).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
      * Load the payments
      * @param  page           The page number to get
      * @param  contentSubtype The filter to apply

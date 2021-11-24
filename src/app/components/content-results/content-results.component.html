@@ -17,7 +17,7 @@
 
 <ng-template #allResults>
     <ol class="breadcrumb1">
-        <li class="breadcrumb-item1" *ngIf="contentResultData.loadedItems > 0; else noResults">Lista Completa: Se han mostrado los <strong>{{contentResultData.loadedItems}}</strong> {{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}.</li>
+        <li class="breadcrumb-item1" *ngIf="contentResultData.loadedItems > 0; else noResults"><strong>Lista Completa:</strong> Se han mostrado los <strong>{{contentResultData.loadedItems}}</strong> {{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}.</li>
     </ol>
 </ng-template>
 
@@ -33,7 +33,7 @@
             <li class="breadcrumb-item1">No se encontraron pólizas canceladas en este periodo. <strong>Todas tus pólizas se encuentran vigentes</strong>.</li>
         </ng-container>
         <ng-container *ngSwitchDefault>
-            <li class="breadcrumb-item1">No se han encontrado resultados</li>
+            <li class="breadcrumb-item1"><strong>Sin Resultados:</strong> Se han mostrado <strong>{{contentResultData.loadedItems}}</strong> {{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}.</li>
         </ng-container>
     </ng-container>
 </ng-template>
