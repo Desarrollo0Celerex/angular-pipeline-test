@@ -19,7 +19,7 @@ export class DropdownSelectPhoneCodeService {
      * @return Phone codes
      */
     loadPhoneCodes(): Observable<HttpResponse> {
-        const fields: string = 'name,abbreviation,flag,code';
+        const fields: string = 'countryId,name,abbreviation,flag,code';
         return this._countryService.getCountries(fields).pipe(
             tap( (res:HttpResponse) => {
                 this.phoneCodes = res.data;
@@ -29,11 +29,11 @@ export class DropdownSelectPhoneCodeService {
 
     /**
      * Get the selected phone code position
-     * @param  phoneCodeId Phone code id
+     * @param  countryId   Phone code id
      * @return             Phone code position
      */
-    getSelectedPhoneCodePosition(phoneCodeId: number): number {
-        const position: number = this.phoneCodes.findIndex( (element: PhoneCode) => element.phoneCodeId === phoneCodeId);
+    getSelectedPhoneCodePosition(countryId: number): number {
+        const position: number = this.phoneCodes.findIndex( (element: PhoneCode) => element.countryId === countryId);
         return (position !== -1) ? position : 0;
     }
 }
