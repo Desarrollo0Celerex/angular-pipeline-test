@@ -1,5 +1,5 @@
 export interface PhoneCode {
-    phoneCodeId: number,
+    countryId: number,
     name: string,
     abbreviation: string,
     flag: string,

@@ -33,7 +33,7 @@ export class DropdownSelectPhoneCodeComponent implements OnInit {
      */
     onClickSelectPhoneCode(selectedPhoneCodePosition: number): void {
         this.selectedPhoneCodePosition = selectedPhoneCodePosition;
-        const selectedPhoneCodeId: number = this.dropdownSelectPhoneCodeService.phoneCodes[selectedPhoneCodePosition].phoneCodeId;
+        const selectedPhoneCodeId: number = this.dropdownSelectPhoneCodeService.phoneCodes[selectedPhoneCodePosition].countryId;
         this.phoneCodeIdSelected.emit(selectedPhoneCodeId);
     }
 
