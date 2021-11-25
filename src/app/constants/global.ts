@@ -238,6 +238,10 @@ export const CONTENT_TYPES: any = {
         ID: 27,
         NAME: 'Póliza'
     },
+    PARTNER_SINISTER: {
+        ID: 28,
+        NAME: 'Siniestro'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

@@ -781,6 +781,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.PARTNER.ID:
             case CONTENT_TYPES.PARTNER_CLIENT.ID:
             case CONTENT_TYPES.PARTNER_POLICY.ID:
+            case CONTENT_TYPES.PARTNER_SINISTER.ID:
                 this.cardClasses = 'col-xl-3 col-lg-4 col-md-6 col-sm-12';
             break;
 
@@ -868,18 +869,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 });
             break;
 
-            case CONTENT_TYPES.PARTNER_CLIENT.ID:
-                this.contentListService.loadPartnerClients(this.partnerId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
-
-            case CONTENT_TYPES.PARTNER_POLICY.ID:
-                this.contentListService.loadPartnerPolicies(this.partnerId, this.page, this.contentSubtype).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
-
             case CONTENT_TYPES.GROUP_POLICY.ID:
                 this.contentListService.loadGroupPolicies(this.groupId, this.page, this.contentSubtype).subscribe( () => {
                     this._contentLoaded();
@@ -900,6 +889,24 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.PARTNER.ID:
                 this.contentListService.loadPartners(this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.PARTNER_CLIENT.ID:
+                this.contentListService.loadPartnerClients(this.partnerId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.PARTNER_POLICY.ID:
+                this.contentListService.loadPartnerPolicies(this.partnerId, this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.PARTNER_SINISTER.ID:
+                this.contentListService.loadPartnerSinisters(this.partnerId, this.page, this.contentSubtype).subscribe( () => {
                     this._contentLoaded();
                 });
             break;
@@ -1072,6 +1079,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.PARTNER_POLICY.ID:
                 this.contentListService.searchPartnerPolicies(this.partnerId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.PARTNER_SINISTER.ID:
+                this.contentListService.searchPartnerSinisters(this.partnerId, this.page, this.query).subscribe( () => {
                     this._contentLoaded();
                 })
             break;

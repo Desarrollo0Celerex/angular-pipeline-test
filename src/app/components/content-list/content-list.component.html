@@ -164,7 +164,13 @@
                     (applyPayment)="onApplyPayment($event)"
                     (showContactData)="onShowContactData($event)"
                 ></agt-card-pending-receipt>
-                <agt-card-sinister *ngSwitchCase="(contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID || contentType === CONTENT_TYPES.GROUP_SINISTER.ID) ? contentType : ''"
+                <agt-card-sinister
+                    *ngSwitchCase="(
+                        contentType === CONTENT_TYPES.SINISTER.ID ||
+                        contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
+                        contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
+                        contentType === CONTENT_TYPES.PARTNER_SINISTER.ID
+                    ) ? contentType : ''"
                     [sinister]="content"
                     (showContactData)="onShowContactData($event)"
                     (showSinisterDetails)="onShowSinisterDetails($event)"
@@ -233,6 +239,7 @@
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
+    contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
     contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
     <agt-modal-show-contact-data [modalId]="modalIdShowContactData" [contactId]="selectedContactId"></agt-modal-show-contact-data>
     <agt-modal-select-contact [modalId]="modalIdSelectContact" [contactId]="selectedContactId"></agt-modal-select-contact>
@@ -255,6 +262,7 @@
     contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
+    contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
     contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
     contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
@@ -285,6 +293,7 @@
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
+    contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
     contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
@@ -328,7 +337,8 @@
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
     contentType === CONTENT_TYPES.POLICY_SINISTERS.ID ||
     contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_SINISTER.ID">
+    contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
+    contentType === CONTENT_TYPES.PARTNER_SINISTER.ID">
     <agt-modal-show-sinister-details [modalId]="modalIdShowSinisterDetails" [sinister]="selectedSinister"></agt-modal-show-sinister-details>
     <agt-modal-confirm-show-sinister-history [modalId]="modalIdConfirmShowSinisterHistory" [sinisterData]="selectedSinisterData"></agt-modal-confirm-show-sinister-history>
     <agt-modal-confirm-finalize-sinister [modalId]="modalIdConfirmFinalizeSinister" [sinisterData]="selectedSinisterData"></agt-modal-confirm-finalize-sinister>

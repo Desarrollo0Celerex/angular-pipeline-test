@@ -47,6 +47,9 @@
                 <ng-container *ngSwitchCase="CONTENT_TYPES.PARTNER_CLIENT.ID">
                     <ng-container *ngTemplateOutlet="partnerClientSuggestion"></ng-container>
                 </ng-container>
+                <ng-container *ngSwitchCase="CONTENT_TYPES.PARTNER_SINISTER.ID">
+                    <ng-container *ngTemplateOutlet="partnerSinisterSuggestion"></ng-container>
+                </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID">
                     <ng-container *ngTemplateOutlet="paymentSuggestion"></ng-container>
                 </ng-container>
@@ -133,6 +136,12 @@
 
 <ng-template #partnerPolicySuggestion>
     <strong>¿No encuentras la {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+    <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
+</ng-template>
+
+<ng-template #partnerSinisterSuggestion>
+    <strong>¿No encuentras el {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
     <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
 </ng-template>

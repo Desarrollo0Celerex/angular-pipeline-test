@@ -84,6 +84,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.GROUP_SINISTER.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.PARTNER.ID: title = 'Nuevo Socio'; break;
             case CONTENT_TYPES.PARTNER_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
+            case CONTENT_TYPES.PARTNER_SINISTER.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'Actualizar Cobranza'; break;
             case CONTENT_TYPES.SINISTER.ID: title = 'Nuevo '+this.contentTypeName; break;
             case CONTENT_TYPES.CONTACT_SINISTER.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
@@ -106,6 +107,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.GROUP_POLICY.ID:
             case CONTENT_TYPES.GROUP_SINISTER.ID:
             case CONTENT_TYPES.PARTNER_POLICY.ID:
+            case CONTENT_TYPES.PARTNER_SINISTER.ID:
                 title = 'EXPLORAR HISTORIAL';
             break;
             case CONTENT_TYPES.CONTACT_FILE.ID: title = 'SUBIR ARCHIVO'; break;
@@ -139,6 +141,7 @@ export class ContentMainActionComponent implements OnInit {
             break;
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
             case CONTENT_TYPES.GROUP_SINISTER.ID:
+            case CONTENT_TYPES.PARTNER_SINISTER.ID:
                 ModalPlugin.show(this.modalIdSelectSinisterStatus);
             break;
             case CONTENT_TYPES.CONTACT_FILE.ID: this._router.navigateByUrl(ROUTES_NAME.uploadContactFile(this.contactId)); break;

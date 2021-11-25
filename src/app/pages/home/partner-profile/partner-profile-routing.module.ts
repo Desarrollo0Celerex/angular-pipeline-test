@@ -13,6 +13,7 @@ const routes: Routes = [{
     children: [
         { path: ROUTES_NAME.partnerResume(':partnerId'), loadChildren: () => import('@pages/home/partner-profile/resume/resume.module').then(mod => mod.ResumeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
         { path: ROUTES_NAME.partnerPolicies(':partnerId'), loadChildren: () => import('@pages/home/partner-profile/policies/policies.module').then(mod => mod.PoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+        { path: ROUTES_NAME.partnerSinisters(':partnerId'), loadChildren: () => import('@pages/home/partner-profile/sinisters/sinisters.module').then(mod => mod.SinistersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
     ]
 }];
 

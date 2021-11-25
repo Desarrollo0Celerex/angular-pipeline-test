@@ -67,7 +67,8 @@
 </ng-container>
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
-    contentType === CONTENT_TYPES.GROUP_SINISTER.ID">
+    contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
+    contentType === CONTENT_TYPES.PARTNER_SINISTER.ID">
     <agt-modal-select-sinister-status
         [modalId]="modalIdSelectSinisterStatus"
         [contentTypeName]="contentTypeName"

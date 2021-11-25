@@ -149,9 +149,17 @@ export class ContentsComponent implements OnInit, OnDestroy {
         if(typeof param !== 'undefined') {
             contentSubtype = parseInt(param);
         } else {
-            if(this.contentType === CONTENT_TYPES.POLICY.ID || this.contentType === CONTENT_TYPES.GROUP_POLICY.ID || this.contentType === CONTENT_TYPES.PARTNER_POLICY.ID) {
+            if(
+                    this.contentType === CONTENT_TYPES.POLICY.ID ||
+                    this.contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+                    this.contentType === CONTENT_TYPES.PARTNER_POLICY.ID
+                ) {
                 contentSubtype = POLICY_STATUS_ACTIVE;
-            } else if(this.contentType === CONTENT_TYPES.CONTACT_SINISTER.ID || this.contentType === CONTENT_TYPES.GROUP_SINISTER.ID) {
+            } else if(
+                    this.contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
+                    this.contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
+                    this.contentType === CONTENT_TYPES.PARTNER_SINISTER.ID
+                ) {
                 contentSubtype = SINISTER_STATUS_OPEN;
             } else {
                 contentSubtype = DEFAULT_CONTENT_FILTER_ID;

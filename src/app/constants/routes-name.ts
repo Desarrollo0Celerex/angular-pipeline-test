@@ -82,6 +82,7 @@ const HOME_PARTNER_ROUTES = {
 const HOME_PARTNER_PROFILE_ROUTES = {
     partnerResume: (partnerId: string) => `workspace/partner-profile/${partnerId}/resume`,
     partnerPolicies: (partnerId: string) => `workspace/partner-profile/${partnerId}/policies`,
+    partnerSinisters: (partnerId: string) => `workspace/partner-profile/${partnerId}/sinisters`,
 }
 
 const HOME_PAYMENTS_ROUTES = {
