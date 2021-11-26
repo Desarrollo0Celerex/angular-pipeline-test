@@ -18,8 +18,8 @@ export class AlertHelper {
 
     static contactSourceUpdated(): void {
         const alertData: Alert = {
-            title: 'Origen del contacto Actualizado',
-            text: 'El origen del contacto ha sido actualizado con éxito.',
+            title: 'Canal Actualizado',
+            text: 'El canal ha sido actualizado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR'
         }
