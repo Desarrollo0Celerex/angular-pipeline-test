@@ -8,8 +8,8 @@ import { ButtonSendTelegramModule } from '@components/button-send-telegram/butto
 import { ButtonSendWhatsappModule } from '@components/button-send-whatsapp/button-send-whatsapp.module';
 import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone-code/dropdown-select-phone-code.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
-import { ModalContactSavedModule } from '@components/modal-contact-saved/modal-contact-saved.module';
 import { ModalIncompleteContactDataModule } from '@components/modal-incomplete-contact-data/modal-incomplete-contact-data.module';
+import { ModalSelectContactSourceModule } from '@components/modal-select-contact-source/modal-select-contact-source.module';
 import { CivilStatusService } from '@services/civil-status.service';
 import { ContactService } from '@services/contact.service';
 import { ContactOccupationService } from '@services/contact-occupation.service';
@@ -33,8 +33,8 @@ import { ShowContactDataPage } from './show-contact-data.page';
     DropdownSelectPhoneCodeModule,
     FormsModule,
     LoadingContentModule,
-    ModalContactSavedModule,
     ModalIncompleteContactDataModule,
+    ModalSelectContactSourceModule,
     ReactiveFormsModule,
     ShowContactDataRoutingModule
   ],

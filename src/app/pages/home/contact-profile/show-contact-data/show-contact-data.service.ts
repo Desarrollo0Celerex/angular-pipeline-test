@@ -4,13 +4,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 
-import { BRAND_NAME_LENGTH, DEFAULT_PHONE_CODE_ID, EMAIL_LENGTH, FREE_TEXT_LENGTH, OWN_NAME_LENGTH, WEB_LINK_LENGTH } from '@constants/global';
+import { BRAND_NAME_LENGTH, DEFAULT_PHONE_CODE_ID, EMAIL_LENGTH, FREE_TEXT_LENGTH, OWN_NAME_LENGTH, WEB_LINK_LENGTH, CONTACT_SOURCE_TYPES } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
 import { CivilStatus } from '@interfaces/civil-status.interface';
 import { Contact } from '@interfaces/contact.interface';
 import { ContactOccupation } from '@interfaces/contact-occupation.interface';
 import { ContactRelation } from '@interfaces/contact-relation.interface';
+import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Gender } from '@interfaces/gender.interface';
 import { Offspring } from '@interfaces/offspring.interface';
@@ -163,9 +164,10 @@ export class ShowContactDataService {
      * @return           Notice of action done
      */
     loadContact(contactId: string): Observable<void> {
-        const fields: string = 'name,namePaternal,nameMaternal,genderId,birthdate,civilStatusId,contactOccupationId,offspringId,companyName,brandName,rfc,website,secondaryContactName,secondaryContactRelationId,secondaryContactPhoneCodeId,secondaryContactPhoneNumber,secondaryContactEmail,street,exteriorNumber,interiorNumber,colony,city,stateId,postalCode,countryId,phoneCodeId,phoneNumber,email,contactTypeId';
+        const fields: string = 'name,namePaternal,nameMaternal,genderId,birthdate,civilStatusId,contactOccupationId,offspringId,companyName,brandName,rfc,website,secondaryContactName,secondaryContactRelationId,secondaryContactPhoneCodeId,secondaryContactPhoneNumber,secondaryContactEmail,street,exteriorNumber,interiorNumber,colony,city,stateId,postalCode,countryId,phoneCodeId,phoneNumber,email,contactTypeId,contactSourceId,contactSourceTypeId,partnerId';
         return this._contactService.getContact(contactId, fields).pipe(
             tap((res: HttpResponse) => {
+                res.data.contactSourceTypeId = (res.data.contactSourceId == CONTACT_SOURCE_TYPES.PARTNERS) ? res.data.partnerId : res.data.contactSourceTypeId;
                 this.contact = res.data;
                 this.loadCountryStates(res.data.countryId);
             }),
@@ -239,6 +241,15 @@ export class ShowContactDataService {
     updateContact(contactId: string): Observable<void> {
         const requestBody: UpdateContactDataSend = {...this.contactForm.value};
         return this._contactService.updateContact(contactId, requestBody);
+    }
+
+    /**
+     * Update the contact source data
+     * @param  contactId    The contact ID
+     * @return              Notification of action done
+     */
+    updateContactSource(contactId: string, data: SelectContactSourceData): Observable<void> {
+        return this._contactService.updateContactSource(contactId, data);
     }
 
     /**
