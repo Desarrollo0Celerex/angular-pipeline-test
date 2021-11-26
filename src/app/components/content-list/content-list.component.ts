@@ -815,7 +815,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _loadContents(): void {
         this.isLoadingContent = true;
-        if(!!this.contentSubtype && !(!!this.query)) {
+        if(!!this.contentSubtype && !(!!this.query) && !(!!this.specialQuery)) {
             this._loadContentsByFilter();
         } else if(!!this.query) {
             this._loadContentsBySearch();
