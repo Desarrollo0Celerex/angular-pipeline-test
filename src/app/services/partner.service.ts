@@ -10,6 +10,8 @@ import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     partners: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners',
+    partner: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId,
+    partnerClients: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/clients',
     partnerCoincidences: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/coincidences',
     totalPartners: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/count',
 }
@@ -37,6 +39,29 @@ export class PartnerService {
         const route: string = routes.partners(this._workspaceId);
         return this._httpClient.post<void>(route, requestBody);
     }
+
+    /**
+     * Get the partners from the API
+     * @param  page            The page number
+     * @param  fields          The fields to get
+     * @return                 The partners
+     */
+   getPartner(partnerId: string, fields: string = ''): Observable<HttpResponse> {
+       const route: string = routes.partner(this._workspaceId, partnerId);
+       let params: HttpParams = new HttpParams();
+       if(!!fields) params = params.append('fields', fields);
+       return this._httpClient.get<HttpResponse>(route, { params });
+   }
+
+   getPartnerClients(partnerId: string, fields: string = '', page: number = 1, perPage: number = 12): Observable<HttpResponse> {
+       const route: string = routes.partnerClients(this._workspaceId, partnerId);
+       let params: HttpParams = new HttpParams();
+       params = params.append('page', page.toString());
+       params = params.append('perPage', perPage.toString());
+       if(!!fields) params = params.append('fields', fields);
+       params = params.append('sortBy', '-createdAt');
+       return this._httpClient.get<HttpResponse>(route, { params });
+   }
 
     /**
      * Get the partners from the API

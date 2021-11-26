@@ -16,6 +16,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static contactSourceUpdated(): void {
+        const alertData: Alert = {
+            title: 'Canal Actualizado',
+            text: 'El canal ha sido actualizado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static fileUpdated(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Archivo Actualizado',

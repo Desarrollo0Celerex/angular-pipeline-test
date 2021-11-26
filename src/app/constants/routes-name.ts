@@ -79,6 +79,12 @@ const HOME_PARTNER_ROUTES = {
     partnerCoincidences: `workspace/partners/coincidences`,
 }
 
+const HOME_PARTNER_PROFILE_ROUTES = {
+    partnerResume: (partnerId: string) => `workspace/partner-profile/${partnerId}/resume`,
+    partnerPolicies: (partnerId: string) => `workspace/partner-profile/${partnerId}/policies`,
+    partnerSinisters: (partnerId: string) => `workspace/partner-profile/${partnerId}/sinisters`,
+}
+
 const HOME_PAYMENTS_ROUTES = {
     listPayments: `workspace/payments/list-payments`,
     paymentHistory: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/payment-history/${contactId}/${policyId}/${paymentId}`,
@@ -161,6 +167,7 @@ export const ROUTES_NAME = {
     ...HOME_INVITATIONS_ROUTES,
     ...HOME_LEADS_ROUTES,
     ...HOME_PARTNER_ROUTES,
+    ...HOME_PARTNER_PROFILE_ROUTES,
     ...HOME_PAYMENTS_ROUTES,
     ...HOME_POLICIES_ROUTES,
     ...HOME_POLICY_ENDORSEMENTS_ROUTES,

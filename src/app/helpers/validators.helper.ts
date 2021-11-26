@@ -198,7 +198,7 @@ export class ValidatorsHelper {
      */
     static phoneNumber(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = /^[0-9]{10}$/;
+            const regex = /^[0-9]{8,10}$/;
             const value = control.value;
             return (!regex.test(value)) ? {phoneNumber: true} : null;
         }

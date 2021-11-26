@@ -20,6 +20,7 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
     @Input() contentTypeName: string;
     @Input() contactId: string;
     @Input() groupId: string = '';
+    @Input() partnerId: string = '';
     @Output() policyDeleted: EventEmitter<void>;
     @Output() showHistoryPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();;
     contentSubtype: number;
@@ -49,6 +50,10 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
 
             case CONTENT_TYPES.GROUP_POLICY.ID:
                 this.containerListIncompletePoliciesService.loadGroupIncompletePolicies(this.groupId, page, this.contentSubtype);
+            break;
+
+            case CONTENT_TYPES.PARTNER_POLICY.ID:
+                this.containerListIncompletePoliciesService.loadPartnerIncompletePolicies(this.partnerId, page, this.contentSubtype);
             break;
         }
 

@@ -5,6 +5,7 @@ import { AbstractControl } from '@angular/forms';
 import { BUTTON_TYPES, CONTACT_TYPES } from '@constants/global';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ShowContactDataService } from './show-contact-data.service';
@@ -26,7 +27,7 @@ export class ShowContactDataPage implements OnInit {
     canEdit: boolean = false;
     contactId: string = '';
     modalIdIncompleteContactData: string = 'agt-incomplete-contact-data';
-    modalIdTransferContact: string = 'agt-transfer-contact';
+    modalIdSelectContactSource: string = 'agt-select-contact-source';
     private _isFormSubmitted: boolean = false;
 
     constructor(
@@ -74,13 +75,6 @@ export class ShowContactDataPage implements OnInit {
     }
 
     /**
-     * Click event to transfer contact
-     */
-    onClickTransferContact(): void {
-        ModalPlugin.show(this.modalIdTransferContact);
-    }
-
-    /**
      * Event to catch the action failed
      */
     onContactActionFailed(): void {
@@ -115,6 +109,21 @@ export class ShowContactDataPage implements OnInit {
                 AlertHelper.contactUpdated(this._disabledContactForm, this);
             })
         }
+    }
+
+    /**
+     * Click event to transfer contact
+     */
+    selectContactSource(): void {
+        ModalPlugin.show(this.modalIdSelectContactSource);
+    }
+
+    updateContactSource(data: SelectContactSourceData): void {
+        this._loadingService.show();
+        this.showContactDataService.updateContactSource(this.contactId, data).subscribe(() => {
+            this._loadingService.hide();
+            AlertHelper.contactSourceUpdated();
+        });
     }
 
     /**
