@@ -1,0 +1,101 @@
+<!-- AGENTHOS - PARTNER PANEL -->
+<div class="row">
+    <!-- AGENTHOS - PARTNER CARD -->
+    <div class="col-lg-8">
+        <div class="card ">
+            <div class="card-header pt-0 pb-0 border-bottom-0">
+                <h3 class="card-title">Perfil de Socio</h3>
+                <div class="card-options">
+                    <i class="fe fe-user mr-1 text-primary fs-30"></i>
+                </div>
+            </div>
+            <!-- AGENTHOS - PARTNER RESUME -->
+            <div *ngIf="!!model.partner; else partnerEmpty" class="card-body pt-0">
+                <div class="wideget-user">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="wideget-user-desc d-flex pt-2">
+                                <div class="wideget-user-img">
+                                    <img class="" src="https://webkit.atombits.xyz/agenthos/app/agenthos_company_userpic.png" width="88" alt="Agenthos PARTNER Pic">
+                                </div>
+                                <div class="user-wrap">
+                                    <!-- AGENTHOS - PARTNER NAME -->
+                                    <h3>{{model.partner.name}}</h3>
+                                    <!-- AGENTHOS - PARTNER ACTIVE CLIENTS --->
+                                    <h4 class="text-muted font-weight-normal mb-3">Clientes: {{model.partner.totalClients}}</h4>
+                                    <!-- AGENTHOS - PARTNER REGISTER DATE -->
+                                    <h4 class="text-muted font-weight-normal">Registro: {{model.partner.createdAt | date: 'dd/MM/yyyy'}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #partnerEmpty>
+                <agt-loading-content [isLoadingContent]="true" [height]="130"></agt-loading-content>
+            </ng-template>
+            <!-- //AGENTHOS - PARTNER RESUME -->
+            <!-- AGENTHOS - PARTNER MENU -->
+            <div class="card-footer pt-1 pb-1">
+                <ul class="nav nav-pills nav-pills-circle" role="tablist">
+                    <li class="nav-item">
+                        <!-- AGENTHOS - GROUP RESUME -->
+                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.partnerResume(partnerId)" routerLinkActive="active">
+                            <span class="nav-link-icon d-block"><i class="fe fe-activity"></i> Resumen</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- AGENTHOS - GROUP POLICIES -->
+                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.partnerPolicies(partnerId)" routerLinkActive="active">
+                            <span class="nav-link-icon d-block"><i class="fe fe-shield"></i> Pólizas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- AGENTHOS - GROUP SINISTERS -->
+                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.partnerSinisters(partnerId)" routerLinkActive="active">
+                            <span class="nav-link-icon d-block"><i class="fe fe-life-buoy"></i> Siniestros</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- //AGENTHOS - PARTNER MENU -->
+        </div>
+    </div>
+    <!-- AGENTHOS - PARTNER CARD -->
+    <!-- AGENTHOS - PARTNER WALLET -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header pt-2 pb-0 border-bottom-0">
+                <h3 class="card-title">Prima Anual</h3>
+                <div class="card-options">
+                    <i class="fe fe-credit-card mr-1 text-primary fs-30"></i>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <h2 class="mb-0 number-font">$<span class="counter">0</span> MXN</h2>
+                <div class="row mt-3 dash1">
+                    <div class="col  border-right">
+                        <h6 class="font-weight-500 number-font1 mb-0">0</h6>
+                        <span class="text-muted">Pólizas<br/>Activas</span>
+                    </div>
+                    <div class="col  border-right">
+                        <h6 class="font-weight-500 number-font1 mb-0">0</h6>
+                        <span class="text-muted">Siniestros<br/>Abiertos</span>
+                    </div>
+                    <div class="col ">
+                        <p class="font-weight-500 number-font1 mb-0">A+</p>
+                        <span class="text-muted">Score<br/>de Socio</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <button type="button" class="btn btn-block btn-primary" (click)="showModalToSelectContactTypeId()"><strong>AGREGAR CLIENTE</strong></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - PARTNER PANEL -->
+
+<router-outlet></router-outlet>
+
+<agt-modal-select-contact-type [modalId]="modalIdSelectContactType"></agt-modal-select-contact-type>

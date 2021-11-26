@@ -6,11 +6,13 @@ import { environment } from '@env/environment';
 import { CreateContactDataSend } from '@interfaces/create-contact-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
+import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
 import { UpdateContactDataSend } from '@interfaces/update-contact-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     contact: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId,
+    contactSource: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/contact-source',
     contacts: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts',
     contactAnnualWallet: (workspaceId: string, contactId: string, year: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/annual-wallet/' + year
 }
@@ -87,6 +89,17 @@ export class ContactService {
     */
    updateContact(contactId: string, requestBody: UpdateContactDataSend): Observable<void> {
        const route: string = routes.contact(this._workspaceId, contactId);
+       return this._httpClient.put<void>(route, requestBody);
+   }
+
+   /**
+    * Update the contact source data
+    * @param  contactId The contact ID
+    * @param  requestBody The contact data
+    * @return             Notification of action done
+    */
+   updateContactSource(contactId: string, requestBody: SelectContactSourceData): Observable<void> {
+       const route: string = routes.contactSource(this._workspaceId, contactId);
        return this._httpClient.put<void>(route, requestBody);
    }
 

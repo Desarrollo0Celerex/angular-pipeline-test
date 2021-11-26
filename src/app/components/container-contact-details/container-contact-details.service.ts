@@ -15,7 +15,7 @@ export class ContainerContactDetailsService {
      * @param contactId The contact ID
      */
     loadContact(contactId: string): void {
-        const fields: string = 'avatarUrl,contactName,contactSourceName,contactTypeName,contactScoreName';
+        const fields: string = 'avatarUrl,contactName,contactSourceName,contactSourceTypeName,contactTypeName,contactScoreName';
         this._contactService.getContact(contactId, fields).subscribe( (res: HttpResponse) => {
             this.contact = res.data;
         })

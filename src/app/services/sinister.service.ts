@@ -19,6 +19,7 @@ const routes: any = {
     totalSinisters: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/count',
     contactSinisters: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/sinisters',
     groupSinisters: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/sinisters',
+    partnerSinisters: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/sinisters',
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
     policySinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId,
     finalizeSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/finalize',
@@ -102,6 +103,36 @@ export class SinisterService {
      */
     getGroupSinisters(groupId: string, page: number = 1, fields: string = '', filters: number[] = [], query: string = ''): Observable<HttpResponse> {
         const route: string = routes.groupSinisters(this._workspaceId, groupId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
+        if(!!query) params = params.append('search', 'sinisterNumber:' + query);
+        params = params.append('sortBy', '-createdAt');
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const sinisters: Sinister[] = res.data.items.map( (sinister: Sinister) => {
+                        return this._calculatePolicyLifeTime(sinister);
+                    })
+                    res.data.items = sinisters;
+                }
+                return res;
+            })
+        )
+    }
+
+    /**
+     * Get the partner sinisters
+     * @param  partnerId The partner ID
+     * @param  page      The page to get
+     * @param  fields    The fields to get
+     * @param  filter    The filter to apply
+     * @param  search    The search to do
+     * @return           The partner sinisters
+     */
+    getPartnerSinisters(partnerId: string, page: number = 1, fields: string = '', filters: number[] = [], query: string = ''): Observable<HttpResponse> {
+        const route: string = routes.partnerSinisters(this._workspaceId, partnerId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);

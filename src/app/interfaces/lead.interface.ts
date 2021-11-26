@@ -5,5 +5,6 @@ export interface Lead {
     leadStatusName: string,
     leadStatusBackground: string,
     contactSourceName: string,
+    contactSourceTypeName: string,
     contactScoreName: string
 }
