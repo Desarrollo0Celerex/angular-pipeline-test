@@ -5,6 +5,8 @@ import { ROUTES_NAME } from '@constants/routes-name';
 
 import { WelcomeService } from './welcome.service';
 
+declare var ModalPlugin: any;
+
 @Component({
   selector: 'agt-welcome',
   templateUrl: './welcome.page.html',
@@ -13,6 +15,7 @@ import { WelcomeService } from './welcome.service';
 })
 export class WelcomePage implements OnInit {
     ROUTES_NAME: any;
+    modalIdConfirmCreateWorkspace: string = 'agt-confirm-create-workspace';
 
     constructor(
         public welcomeService: WelcomeService,
@@ -25,11 +28,8 @@ export class WelcomePage implements OnInit {
         this.welcomeService.loadUser();
     }
 
-    /**
-     * Click event to navigate to create a workspace
-     */
-    onClickGoToCreateWorkspace(): void {
-        this.router.navigateByUrl(ROUTES_NAME.createWorkspace);
+    showModalToConfirmCreateWorkspace(): void {
+        ModalPlugin.show(this.modalIdConfirmCreateWorkspace);
     }
 
 }

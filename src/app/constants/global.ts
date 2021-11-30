@@ -50,8 +50,7 @@ export const FILE_ALL_FORMATS: string[] = ['pdf', 'png', 'jpg', 'jpeg', 'gif', '
 // Status
 export const WORKSPACE_STATUS: any = {
     CREATED: 1,
-    AVATAR_UPLOADED: 2,
-    COMPLETED: 3
+    COMPLETED: 2
 }
 export const INVITATION_STATUS: any = {
     PENDING: 1,

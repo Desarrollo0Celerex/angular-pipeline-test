@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-footer text-center">
                         <!-- AGENTHOS - START ACTIVATION -->
-                        <button type="button" class="btn btn-primary btn-block" (click)="onClickGoToCreateWorkspace()"><strong>COMENZAR</strong></button>
+                        <button type="button" class="btn btn-primary btn-block" (click)="showModalToConfirmCreateWorkspace()"><strong>COMENZAR</strong></button>
                     </div>
                 </div>
             </div>
@@ -25,3 +25,5 @@
     </div>
 </div>
 <!-- //AGENTHOS - MAIN VIEW -->
+
+<agt-modal-confirm-create-workspace [modalId]="modalIdConfirmCreateWorkspace"></agt-modal-confirm-create-workspace>

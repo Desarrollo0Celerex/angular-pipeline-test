@@ -1,0 +1,26 @@
+<!-- AGENTHOS - WORKSPACE NEW -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Importante</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="text-justify"><strong>Si tu organización ya cuenta con Agenthos, solicita una invitación al administrador y recibe tu link mágico de activación</strong>.</p>
+						<p class="text-justify">Si continúas, se creará un nuevo espacio de trabajo. <strong>Por favor confirma si deseas continuar</strong>.</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" name="agtCancelAction" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+				<button type="button" name="agtConfirmAction" class="btn btn-primary" (click)="goToCreateWorkspace()">CONFIRMAR</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //AGENTHOS - WORKSPACE NEW -->

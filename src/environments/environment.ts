@@ -4,7 +4,7 @@ export const environment = {
     atomAccountUrl: 'http://localhost:4201',
     appAgenthosUrl: 'http://localhost:4200',
     apiUrl: 'http://localhost:8888/atombits/agenthos/api/v1',
-    atomScann: 'http://localhost:8888/atombits/atom-scann/api/v1',
+    atomScann: 'http://localhost:8888/atombits/atom-scanner/api/v1',
     firebaseConfig: {
         apiKey: "AIzaSyCT6zwYtSCrpr5iXe3x4TcwCGcMUO12GzA",
         authDomain: "atom-account-30384.firebaseapp.com",

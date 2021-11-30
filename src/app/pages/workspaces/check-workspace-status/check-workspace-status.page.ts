@@ -35,8 +35,7 @@ export class CheckWorkspaceStatusPage implements OnInit {
         this._checkWorkspaceStatusService.getWorkspaceStatusId().subscribe( (res: HttpResponse) => {
             const workspaceStatusId: number = res.data.workspaceStatusId;
             switch(workspaceStatusId) {
-                case WORKSPACE_STATUS.CREATED: this._router.navigateByUrl(ROUTES_NAME.uploadWorkspaceAvatar); break;
-                case WORKSPACE_STATUS.AVATAR_UPLOADED: this._router.navigateByUrl(ROUTES_NAME.activateWorkspace); break;
+                case WORKSPACE_STATUS.CREATED: this._router.navigateByUrl(ROUTES_NAME.activateWorkspace); break;
                 case WORKSPACE_STATUS.COMPLETED: this._router.navigateByUrl(ROUTES_NAME.dashboard); break;
             }
         })
