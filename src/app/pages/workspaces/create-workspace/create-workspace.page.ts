@@ -58,6 +58,11 @@ export class CreateWorkspacePage implements OnInit {
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
+    loadCountryStates(): void {
+        this.createWorkspaceService.f.stateId.setValue(null);
+        this.createWorkspaceService.loadCountryStates(this.createWorkspaceService.f.countryId.value);
+    }
+
     /**
      * Phone code id selected event to update the phone code id
      * @param phoneCodeId Phone code id
@@ -76,7 +81,7 @@ export class CreateWorkspacePage implements OnInit {
             this.createWorkspaceService.createWorkspace().subscribe( (res: HttpResponse) => {
                 this._loadingService.hide();
                 this.createWorkspaceService.startSessionInAgenthos(res.data);
-                AlertHelper.workspaceCreated(this._goToUploadWorkspaceAvatar, this);
+                AlertHelper.workspaceCreated(this._goToActivateWorkspace, this);
             })
         }
     }
@@ -85,8 +90,8 @@ export class CreateWorkspacePage implements OnInit {
      * Navigates to upload workspace avatar
      * @param context Context
      */
-    private _goToUploadWorkspaceAvatar(context: any): void {
-        context._router.navigateByUrl(ROUTES_NAME.uploadWorkspaceAvatar);
+    private _goToActivateWorkspace(context: any): void {
+        context._router.navigateByUrl(ROUTES_NAME.activateWorkspace);
     }
 
     /**

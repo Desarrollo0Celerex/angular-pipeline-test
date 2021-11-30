@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Observable } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 
-import { DEFAULT_PHONE_CODE_ID, DEFAULT_COUNTRY_ID, REAL_NAME_LENGTH, BRAND_NAME_LENGTH, WEB_LINK_LENGTH } from '@constants/global';
+import { DEFAULT_PHONE_CODE_ID, DEFAULT_COUNTRY_ID, REAL_NAME_LENGTH, BRAND_NAME_LENGTH, EMAIL_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Country } from '@interfaces/country.interface';
 import { CreateWorkspaceDataSend } from '@interfaces/create-workspace-data-send.interface';
@@ -99,8 +99,8 @@ export class CreateWorkspaceService {
             brandName: ['', [Validators.required, Validators.minLength(BRAND_NAME_LENGTH.MIN), Validators.maxLength(BRAND_NAME_LENGTH.MAX), ValidatorsHelper.brandName]],
             phoneCodeId: [DEFAULT_PHONE_CODE_ID],
             phoneNumber: ['', [Validators.required, ValidatorsHelper.phoneNumber]],
-            webSite: ['', [Validators.required, Validators.minLength(WEB_LINK_LENGTH.MIN), Validators.maxLength(WEB_LINK_LENGTH.MAX), ValidatorsHelper.webLink]],
-            countryId: [{value: DEFAULT_COUNTRY_ID, disabled: true}],
+            email: ['', [Validators.required, Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
+            countryId: [DEFAULT_COUNTRY_ID, [Validators.required]],
             stateId: ['', [Validators.required]]
         });
     }
