@@ -158,15 +158,19 @@ export class StatsSnapshotService {
      * @param insurersStats The insurers stats
      */
     loadInsurersStatsData(insurersStats: InsurerStat[]): void {
-        for (let insurerStats of insurersStats) {
-            let insurerData: any[] = [
-                insurerStats.shorName,
-                insurerStats.totalPolicies,
-                insurerStats.totalClients,
-                insurerStats.category,
-                UtilitiesHelper.getQuantityWithOnlyTwoDecimals(insurerStats.totalAmount)
-            ];
-            this.insurersStatsData.push(insurerData);
+        if(insurersStats.length > 0) {
+            for (let insurerStats of insurersStats) {
+                let insurerData: any[] = [
+                    insurerStats.shorName,
+                    insurerStats.totalPolicies,
+                    insurerStats.totalClients,
+                    insurerStats.category,
+                    UtilitiesHelper.getQuantityWithOnlyTwoDecimals(insurerStats.totalAmount)
+                ];
+                this.insurersStatsData.push(insurerData);
+            }
+        } else {
+            this.insurersStatsData.push(['', 0, 0, '', 0]);
         }
     }
 
