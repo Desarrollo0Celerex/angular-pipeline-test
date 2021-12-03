@@ -5,6 +5,8 @@ import { RangeStat } from '@interfaces/range-stat.interface';
 
 import { ChartPoliciesService } from './chart-policies.service';
 
+declare var StatsPoliciesPlugin: any;
+
 @Component({
   selector: 'agt-chart-policies',
   templateUrl: './chart-policies.component.html',
@@ -18,12 +20,23 @@ export class ChartPoliciesComponent implements OnChanges {
     constructor(private _chartPoliciesService: ChartPoliciesService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        //StatsClientsPlugin.removeChartLostClients();
-        //this._loadLostClientsStats(changes.range.currentValue);
+        StatsPoliciesPlugin.removeChartPolicies();
+        this._loadPoliciesStats(changes.range.currentValue);
     }
 
     get model(): ChartPoliciesService {
         return this._chartPoliciesService;
+    }
+
+    get canShowPoliciesStats(): boolean {
+        return (this.model.policiesStatsData.length > 0) ? true : false;
+    }
+
+    private _loadPoliciesStats(range: RangeData): void {
+        this.model.getPoliciesStats(range).subscribe((policiesStats: RangeStat[][]) => {
+            this.model.loadPoliciesStatsData(policiesStats);
+            StatsPoliciesPlugin.drawChartPolicies(this.model.policiesStatsData);
+        });
     }
 
 }

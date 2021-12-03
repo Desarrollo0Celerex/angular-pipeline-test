@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LoadingContentModule } from '@components/loading-content/loading-content.module';
+import { PolicyService } from '@services/policy.service';
 
 import { ChartPoliciesComponent } from './chart-policies.component';
 
@@ -11,7 +13,11 @@ import { ChartPoliciesComponent } from './chart-policies.component';
       ChartPoliciesComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    LoadingContentModule
+  ],
+  providers: [
+      PolicyService
   ]
 })
 export class ChartPoliciesModule { }

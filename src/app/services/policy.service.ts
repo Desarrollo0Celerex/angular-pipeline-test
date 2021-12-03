@@ -8,6 +8,7 @@ import { environment } from '@env/environment';
 import { CreatePolicyData } from '@interfaces/create-policy-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Policy } from '@interfaces/policy.interface';
+import { RangeStat } from '@interfaces/range-stat.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
 import { UpdatePolicyStatusDataSend } from '@interfaces/update-policy-status-data-send.interface';
 import { AuthService } from '@services/auth.service';
@@ -38,6 +39,7 @@ const routes: any = {
     partnerPolicies: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/policies',
     workspacePoliciesToRenew: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/to-renew',
     totalWorkspacePoliciesToRenew: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/to-renew/count',
+    policiesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies',
 }
 
 @Injectable()
@@ -290,6 +292,17 @@ export class PolicyService {
                 return res;
             })
         )
+    }
+
+    getPoliciesStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+        const route: string = routes.policiesStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 
     /**
