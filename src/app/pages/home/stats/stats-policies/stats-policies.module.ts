@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ChartPoliciesModule } from '@components/chart-policies/chart-policies.module';
+import { ChartPoliciesInsurancesModule } from '@components/chart-policies-insurances/chart-policies-insurances.module';
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
 import { MenuStatsModule } from '@components/menu-stats/menu-stats.module';
 
@@ -15,6 +16,7 @@ import { StatsPoliciesPage } from './stats-policies.page';
   ],
   imports: [
     ChartPoliciesModule,
+    ChartPoliciesInsurancesModule,
     CommonModule,
     ContainerSelectStatsPeriodModule,
     MenuStatsModule,
