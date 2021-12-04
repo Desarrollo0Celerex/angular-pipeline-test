@@ -37,4 +37,21 @@ export class StatsPoliciesPage {
         }
 
     }
+
+    goToCancelledPolicies(): void {
+        if(!!this.range) {
+            this._router.navigateByUrl(
+                ROUTES_NAME.lastCancelledPolicies,
+                {
+                    state: {
+                        periodData: {
+                            startDate: this.range.selectedRangeStart,
+                            endDate: this.range.selectedRangeEnd
+                        }
+                    }
+                }
+            );
+        }
+
+    }
 }

@@ -37,7 +37,8 @@
 </div>
 <!-- //AGENTHOS - LISTING FILTERS  -->
 
-<agt-content-list *ngIf="!!statsPeriodData"
+<agt-content-list
+    *ngIf="!!statsPeriodData"
     [contentType]="CONTENT_TYPES.POLICY_TO_RENEW.ID"
     [contentTypeName]="CONTENT_TYPES.POLICY_TO_RENEW.NAME"
     contentSubtypeName="Renovación"
