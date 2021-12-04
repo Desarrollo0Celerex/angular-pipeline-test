@@ -5,7 +5,7 @@
     <form [formGroup]="model.form" (submit)="selectPeriod()">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-{{(canShowComparisonPeriod ? '4' : '6')}}">
                     <label class="form-label">Periodo Inicial</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -17,7 +17,7 @@
                         <div class="invalid-feedback">{{getErrorMessage('startDate')}}</div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-{{(canShowComparisonPeriod ? '4' : '6')}}">
                     <label class="form-label">Periodo Final</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -29,7 +29,7 @@
                         <div class="invalid-feedback">{{getErrorMessage('endDate')}}</div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="canShowComparisonPeriod">
                     <label class="form-label">Periodo Comparación</label>
                     <div class="input-group">
                         <div class="input-group-prepend">

@@ -17,11 +17,8 @@ declare var DatePickerPlugin: any;
   providers: [ContainerSelectStatsPeriodService]
 })
 export class ContainerSelectStatsPeriodComponent implements OnInit {
-    @Input() statsPeriodData: StatsPeriodData = {
-        startDate: (moment().subtract(1, 'months')).add(1, 'days').format('DD/MM/YYYY'),
-        endDate: moment().format('DD/MM/YYYY'),
-        periodId: 1
-    }
+    @Input() statsPeriodData: StatsPeriodData | null = null;
+    @Input() canShowComparisonPeriod: boolean = true;
     @Output() statsPeriodSelected: EventEmitter<StatsPeriodData> = new EventEmitter<StatsPeriodData>();
     calendarIdStartDate: string = 'startDate';
     calendarIdEndDate: string = 'endDate';
@@ -30,7 +27,18 @@ export class ContainerSelectStatsPeriodComponent implements OnInit {
     constructor(private _containerSelectStatsPeriodService: ContainerSelectStatsPeriodService) { }
 
     ngOnInit(): void {
-        this.model.buildForm(this.statsPeriodData);
+        // If there is no period data
+        if(this.statsPeriodData === null) {
+            // Set default data
+            this.statsPeriodData = {
+                startDate: (moment().subtract(1, 'months')).add(1, 'days').format('DD/MM/YYYY'),
+                endDate: moment().format('DD/MM/YYYY'),
+                periodId: 1
+            };
+        }
+        if(this.statsPeriodData) {
+            this.model.buildForm(this.statsPeriodData);
+        }
         this._initCalendars();
         this.selectPeriod();
     }
