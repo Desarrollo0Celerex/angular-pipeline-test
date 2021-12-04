@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ChartCancelledPoliciesModule } from '@components/chart-cancelled-policies/chart-cancelled-policies.module';
 import { ChartPendingRenovationsModule } from '@components/chart-pending-renovations/chart-pending-renovations.module';
 import { ChartPoliciesModule } from '@components/chart-policies/chart-policies.module';
 import { ChartPoliciesInsurancesModule } from '@components/chart-policies-insurances/chart-policies-insurances.module';
@@ -17,6 +18,7 @@ import { StatsPoliciesPage } from './stats-policies.page';
     StatsPoliciesPage
   ],
   imports: [
+    ChartCancelledPoliciesModule,
     ChartPendingRenovationsModule,
     ChartPoliciesModule,
     ChartPoliciesInsurancesModule,

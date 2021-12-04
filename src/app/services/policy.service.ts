@@ -43,6 +43,7 @@ const routes: any = {
     policiesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies',
     insurancesPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/insurances/policies',
     policiesRenewsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/renews',
+    cancelledPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/cancelled',
 }
 
 @Injectable()
@@ -132,6 +133,18 @@ export class PolicyService {
     endorseContactPolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.endorseContactPolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
+    }
+
+    getCancelledPoliciesStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+        const route: string = routes.cancelledPoliciesStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 
     /**
