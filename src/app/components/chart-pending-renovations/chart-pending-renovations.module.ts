@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { PolicyService } from '@services/policy.service';
 
-import { ChartPoliciesComponent } from './chart-policies.component';
+import { ChartPendingRenovationsComponent } from './chart-pending-renovations.component';
 
 @NgModule({
   declarations: [
-    ChartPoliciesComponent
+    ChartPendingRenovationsComponent
   ],
   exports: [
-      ChartPoliciesComponent
+      ChartPendingRenovationsComponent
   ],
   imports: [
     CommonModule,
@@ -21,4 +21,4 @@ import { ChartPoliciesComponent } from './chart-policies.component';
       PolicyService
   ]
 })
-export class ChartPoliciesModule { }
+export class ChartPendingRenovationsModule { }
