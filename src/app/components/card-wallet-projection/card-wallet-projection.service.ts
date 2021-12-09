@@ -6,7 +6,7 @@ import { ContactService } from '@services/contact.service';
 
 @Injectable()
 export class CardWalletProjectionService {
-    chartData: any = [['AÑO', 'Prima Anual (MXN)']];
+    chartData: any = [['AÑO', 'Prima Anual']];
 
     constructor(private _contactService: ContactService) { }
 
@@ -15,7 +15,7 @@ export class CardWalletProjectionService {
      * @param contactId The contact ID
      */
     loadChartData(contactId: string): Observable<void> {
-        this.chartData = [['AÑO', 'Prima Anual (MXN)']];
+        this.chartData = [['AÑO', 'Prima Anual']];
         return new Observable((observer: any) => {
             this._getContact(contactId).subscribe((res: HttpResponse) => {
                 const startYear: number = new Date(res.data.oldestActivePolicyDate).getFullYear();
@@ -27,6 +27,7 @@ export class CardWalletProjectionService {
                     for(let i = startYear; i<= endYear; i++) {
                         const year: string = i.toString();
                         const value: number = parseFloat(parseFloat(res[index].data.totalAnnualWallet).toFixed(2));
+                        this.chartData[0][1] = 'Prima Anual ('+res[index].data.currencyName+')';
                         //aux += value;
                         this.chartData.push([year, value]);
                         index++;

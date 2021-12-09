@@ -159,6 +159,7 @@ export class StatsSnapshotService {
      */
     loadInsurersStatsData(insurersStats: InsurerStat[]): void {
         if(insurersStats.length > 0) {
+            let currencyName = '';
             for (let insurerStats of insurersStats) {
                 let insurerData: any[] = [
                     insurerStats.shorName,
@@ -168,7 +169,9 @@ export class StatsSnapshotService {
                     UtilitiesHelper.getQuantityWithOnlyTwoDecimals(insurerStats.totalAmount)
                 ];
                 this.insurersStatsData.push(insurerData);
+                currencyName = insurerStats.currencyName;
             }
+            this.insurersStatsData[0][4] = 'Prima Total ('+currencyName+')';
         } else {
             this.insurersStatsData.push(['', 0, 0, '', 0]);
         }

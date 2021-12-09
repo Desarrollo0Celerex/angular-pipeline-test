@@ -37,7 +37,7 @@
     					</div>
     					<div class="col-md-6">
     						<div class="form-group">
-    							<label class="form-label">Monto Pagado (MXN)</label>
+    							<label class="form-label">Monto Pagado ({{model.payment.currencyName}})</label>
     							<input type="text" class="form-control" [placeholder]="model.payment.paymentAmountPaid | number: '1.0-2'" readonly="">
     						</div>
     					</div>

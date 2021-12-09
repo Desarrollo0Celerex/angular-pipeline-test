@@ -3,5 +3,6 @@ export interface InsurerStat {
     totalPolicies: number,
     totalAmount: number,
     totalClients: number,
-    category: string
+    category: string,
+    currencyName: string
 }

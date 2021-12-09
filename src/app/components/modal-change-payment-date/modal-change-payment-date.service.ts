@@ -34,7 +34,7 @@ export class ModalChangePaymentDateService {
     }
 
     loadPayment(paymentId: string): Observable<Payment> {
-        const fields: string = 'policyNumber,paymentPlanName,validityStartDate,validityEndDate,paymentAmountPaid,paymentDate';
+        const fields: string = 'policyNumber,paymentPlanName,validityStartDate,validityEndDate,paymentAmountPaid,paymentDate,currencyName';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.payment = res.data;

@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { CreateReceiptPaidDataSend } from '@interfaces/create-receipt-paid-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';

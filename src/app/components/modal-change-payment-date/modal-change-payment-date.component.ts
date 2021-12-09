@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, SimpleChanges, Output } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import * as moment from 'moment';
 
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
