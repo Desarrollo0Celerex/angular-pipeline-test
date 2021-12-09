@@ -44,7 +44,7 @@ export class ContactProfileService {
      * @param contactId The contact ID
      */
     loadContact(contactId: string): void {
-        const fields: string = 'contactId,avatarUrl,contactName,contactSourceName,contactSourceTypeName,phoneCode,phoneNumber,totalAnnualWallet,currencyName,totalActivePolicies,totalOpenSinisters,contactScoreName';
+        const fields: string = 'contactId,avatarUrl,contactName,contactSourceName,contactSourceTypeName,phoneCode,phoneNumber,currencyName,totalActivePolicies,totalOpenSinisters,contactScoreName';
         this._contactService.getContact(contactId, fields).subscribe( (res: HttpResponse) => {
             this.contact = res.data;
         });
