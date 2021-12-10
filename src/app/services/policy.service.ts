@@ -41,6 +41,7 @@ const routes: any = {
     workspacePoliciesRenews: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renews',
     totalWorkspacePoliciesToRenew: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renews/count',
     policiesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies',
+    downloadPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/download',
     insurancesPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/insurances/policies',
     policiesRenewsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/renews',
     cancelledPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/cancelled',
@@ -121,6 +122,12 @@ export class PolicyService {
      */
     downloadPolicy(policyUrl: string): Observable<any> {
         return this._httpClient.get(policyUrl, {responseType: 'blob'});
+    }
+
+    downloadPoliciesStatsPdf() {
+        const route: string = routes.downloadPoliciesStats(this._workspaceId);
+        const fileParams: any = { observe: 'response', responseType: 'arraybuffer' };
+        return this._httpClient.get(route, fileParams).toPromise();
     }
 
     /**
