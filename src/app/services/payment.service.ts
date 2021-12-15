@@ -8,6 +8,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { PaymentStat } from '@interfaces/payment-stat.interface';
 import { RangeStat } from '@interfaces/range-stat.interface';
+import { Stat } from '@interfaces/stat.interface';
 import { TotalPaymentsAmountData } from '@interfaces/total-payments-amount-data.interface';
 import { UpdatePaymentDateDataSend } from '@interfaces/update-payment-date-data-send.interface';
 import { AuthService } from '@services/auth.service';
@@ -20,6 +21,7 @@ const routes: any = {
     totalPaymentsAmount: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/total-amount',
     paymentsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/payments',
     collectionStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/collection',
+    insurancesPaymentsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/insurances/payments',
 }
 
 @Injectable()
@@ -30,6 +32,18 @@ export class PaymentService {
         private _httpClient: HttpClient,
         private _authService: AuthService
     ) { }
+
+    getInsurancesPaymentsStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<Stat[]> {
+        const route: string = routes.insurancesPaymentsStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
 
     /**
      * Get the payment from the API
