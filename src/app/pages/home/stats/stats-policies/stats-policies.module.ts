@@ -8,6 +8,7 @@ import { ChartPoliciesInsurancesModule } from '@components/chart-policies-insura
 import { ContainerIssuedPoliciesKpisModule } from '@components/container-issued-policies-kpis/container-issued-policies-kpis.module';
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
 import { MenuStatsModule } from '@components/menu-stats/menu-stats.module';
+import { PolicyService } from '@services/policy.service';
 
 import { StatsPoliciesRoutingModule } from './stats-policies-routing.module';
 import { StatsPoliciesPage } from './stats-policies.page';
@@ -27,6 +28,9 @@ import { StatsPoliciesPage } from './stats-policies.page';
     ContainerSelectStatsPeriodModule,
     MenuStatsModule,
     StatsPoliciesRoutingModule
+  ],
+  providers: [
+      PolicyService
   ]
 })
 export class StatsPoliciesModule { }
