@@ -8,7 +8,7 @@ export class StatsPoliciesService {
 
     constructor(private _policyService: PolicyService) { }
 
-    downloadPoliciesStatsPdf(): Promise<void> {
+    /*downloadPoliciesStatsPdf(): Promise<void> {
         return new Promise((resolve, reject) => {
             this._policyService.downloadPoliciesStatsPdf().then((response: any) => {
               const filename = response.headers.get('content-disposition').split(';')[1].split('filename')[1].split('=')[1].split('"')[1].trim();
@@ -17,5 +17,5 @@ export class StatsPoliciesService {
                   resolve();
             });
         });
-    }
+    }*/
 }

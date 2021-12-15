@@ -33,12 +33,12 @@ export class StatsPoliciesPage {
         this.range = UtilitiesHelper.generateRange(statsPeriodData);
     }
 
-    downloadReport(): void {
+    /*downloadReport(): void {
         this._loadingService.show();
         this.model.downloadPoliciesStatsPdf().then(() => {
             this._loadingService.hide();
         });
-    }
+    }*/
 
     goToPoliciesToRenew(): void {
         if(!!this.range) {

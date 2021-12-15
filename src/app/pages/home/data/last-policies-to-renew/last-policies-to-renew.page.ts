@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
+import { LoadingService } from '@services/loading.service';
+
+import { LastPoliciesToRenewService } from './last-policies-to-renew.service';
 
 import * as moment from 'moment';
 
@@ -10,7 +13,8 @@ import * as moment from 'moment';
   selector: 'agt-last-policies-to-renew',
   templateUrl: './last-policies-to-renew.page.html',
   styles: [
-  ]
+  ],
+  providers: [LastPoliciesToRenewService]
 })
 export class LastPoliciesToRenewPage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
@@ -18,8 +22,26 @@ export class LastPoliciesToRenewPage implements OnInit {
     rangeField: string = 'validityEndDate';
     statsPeriodData: StatsPeriodData | null = null;
 
+    constructor(
+        private _lastPoliciesToRenewService: LastPoliciesToRenewService,
+        private _loadingService: LoadingService
+    ) { }
+
     ngOnInit(): void {
         this._catchPeriodData();
+    }
+
+    get model(): LastPoliciesToRenewService {
+        return this._lastPoliciesToRenewService;
+    }
+
+    downloadRenewalsReport(): void {
+        if(!!this.statsPeriodData) {
+            this._loadingService.show();
+            this.model.downloadRenewalsReport(this.rangeField, this.statsPeriodData.startDate, this.statsPeriodData.endDate).then(() => {
+                this._loadingService.hide();
+            });
+        }
     }
 
     loadContent(statsPeriodData: StatsPeriodData): void {
