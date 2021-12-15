@@ -125,6 +125,7 @@ const HOME_STATS_ROUTES = {
     statsLeads: `workspace/stats/leads`,
     statsClients: `workspace/stats/clients`,
     statsPolicies: `workspace/stats/policies`,
+    statsCollection: `workspace/stats/collection`,
 }
 
 const HOME_WALLET_ROUTES = {
