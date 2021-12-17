@@ -986,7 +986,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             break;
 
             case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
-                this.contentListService.loadLastCancelledPolicies(this.page, this.rangeField, this.rangeStart, this.rangeEnd).subscribe( () => {
+                this.contentListService.loadCancelledPolicies(this.page, this.rangeField, this.rangeStart, this.rangeEnd).subscribe( () => {
                     this._contentLoaded();
                 });
             break;

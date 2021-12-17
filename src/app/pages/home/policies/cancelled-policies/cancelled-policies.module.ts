@@ -4,24 +4,21 @@ import { CommonModule } from '@angular/common';
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
 import { ContentKpisModule } from '@components/content-kpis/content-kpis.module';
 import { ContentListModule } from '@components/content-list/content-list.module';
-import { PolicyService } from '@services/policy.service';
 
-import { LastPoliciesToRenewRoutingModule } from './last-policies-to-renew-routing.module';
-import { LastPoliciesToRenewPage } from './last-policies-to-renew.page';
+import { CancelledPoliciesRoutingModule } from './cancelled-policies-routing.module';
+import { CancelledPoliciesPage } from './cancelled-policies.page';
+
 
 @NgModule({
   declarations: [
-    LastPoliciesToRenewPage
+    CancelledPoliciesPage
   ],
   imports: [
     CommonModule,
     ContainerSelectStatsPeriodModule,
-    ContentKpisModule,
     ContentListModule,
-    LastPoliciesToRenewRoutingModule
-  ],
-  providers: [
-      PolicyService
+    ContentKpisModule,
+    CancelledPoliciesRoutingModule
   ]
 })
-export class LastPoliciesToRenewModule { }
+export class CancelledPoliciesModule { }

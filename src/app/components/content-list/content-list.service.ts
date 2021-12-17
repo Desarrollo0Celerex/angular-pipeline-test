@@ -428,7 +428,7 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadLastCancelledPolicies(page: number, rangeField: string, rangeStart: string, rangeEnd: string): Observable<void> {
+    loadCancelledPolicies(page: number, rangeField: string, rangeStart: string, rangeEnd: string): Observable<void> {
         const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId,paymentId,policyCancellationReasonId';
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.CANCELLED])
         const sortBy: string = '-updatedAt';

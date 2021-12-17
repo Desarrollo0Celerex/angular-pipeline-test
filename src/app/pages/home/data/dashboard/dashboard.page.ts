@@ -22,8 +22,8 @@ export class DashboardPage implements OnInit {
     ngOnInit(): void {
         this.model.loadTotalPendingQuotations();
         this.model.loadTotalCurrentPolicies();
-        this.model.loadTotalLastPoliciesToRenew();
-        this.model.loadTotalLastCancelledPolicies();
+        this.model.loadTotalRenewals();
+        this.model.loadTotalCancelledPolicies();
     }
 
     get model(): DashboardService {

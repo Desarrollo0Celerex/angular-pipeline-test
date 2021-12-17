@@ -17,8 +17,8 @@ export class ContainerPaymentsKpisService {
     channelKpis: KpiOne[] = [
         {
             contentName: 'Recibos',
-            subcontentName: 'En Tiempo',
-            description: 'Permite identificar el número de canales activos.',
+            subcontentName: 'En Tránsito',
+            description: 'Permite identificar el número de recibos próximos a cobrarse.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',
@@ -27,8 +27,8 @@ export class ContainerPaymentsKpisService {
         },
         {
             contentName: 'Recibos',
-            subcontentName: 'Pendientes',
-            description: 'Permite identificar el número de socios comerciales activos.',
+            subcontentName: 'En Tiempo',
+            description: 'Permite identificar el número de recibos en tiempo de cobrarse.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',
@@ -38,7 +38,7 @@ export class ContainerPaymentsKpisService {
         {
             contentName: 'Recibos',
             subcontentName: 'Atrasados',
-            description: 'Permite identificar el número de prospectos generados.',
+            description: 'Permite identificar el número de recibos con pago atrasado.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',
@@ -48,7 +48,7 @@ export class ContainerPaymentsKpisService {
         {
             contentName: 'Recibos',
             subcontentName: 'Vencidos',
-            description: 'Permite identificar el promedio de prospectos generados al día.',
+            description: 'Permite identificar el número de recibos con pago vencido.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',

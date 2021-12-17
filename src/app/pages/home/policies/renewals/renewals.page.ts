@@ -3,23 +3,45 @@ import { Component, OnInit } from '@angular/core';
 import { CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
+import { LoadingService } from '@services/loading.service';
+
+import { RenewalsService } from './renewals.service';
 
 import * as moment from 'moment';
 
 @Component({
-  selector: 'agt-last-cancelled-policies',
-  templateUrl: './last-cancelled-policies.page.html',
+  selector: 'agt-renewals',
+  templateUrl: './renewals.page.html',
   styles: [
-  ]
+  ],
+  providers: [RenewalsService]
 })
-export class LastCancelledPoliciesPage implements OnInit {
+export class RenewalsPage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
     pageUrl: string = '/' + ROUTES_NAME.listClients;
-    rangeField: string = 'updatedAt';
+    rangeField: string = 'validityEndDate';
     statsPeriodData: StatsPeriodData | null = null;
+
+    constructor(
+        private _renewalsService: RenewalsService,
+        private _loadingService: LoadingService
+    ) { }
 
     ngOnInit(): void {
         this._catchPeriodData();
+    }
+
+    get model(): RenewalsService {
+        return this._renewalsService;
+    }
+
+    downloadRenewalsReport(): void {
+        if(!!this.statsPeriodData) {
+            this._loadingService.show();
+            this.model.downloadRenewalsReport(this.rangeField, this.statsPeriodData.startDate, this.statsPeriodData.endDate).then(() => {
+                this._loadingService.hide();
+            });
+        }
     }
 
     loadContent(statsPeriodData: StatsPeriodData): void {
@@ -37,8 +59,8 @@ export class LastCancelledPoliciesPage implements OnInit {
         } else {
             // Else, set default data.
             this.statsPeriodData = {
-                startDate: moment().subtract(90, 'days').format('DD/MM/YYYY'),
-                endDate: moment().format('DD/MM/YYYY'),
+                startDate: moment().subtract(60, 'days').format('DD/MM/YYYY'),
+                endDate: moment().add(30, 'days').format('DD/MM/YYYY'),
                 periodId: 0
             }
         }

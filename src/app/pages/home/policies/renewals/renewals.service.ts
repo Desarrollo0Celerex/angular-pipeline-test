@@ -6,7 +6,7 @@ import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { PolicyService } from '@services/policy.service';
 
 @Injectable()
-export class LastPoliciesToRenewService {
+export class RenewalsService {
 
     constructor(private _policyService: PolicyService) { }
 

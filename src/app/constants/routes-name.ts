@@ -42,8 +42,8 @@ const HOME_CONTACT_PROFILE_ROUTES = {
 
 const HOME_DATA_ROUTES = {
     dashboard: 'workspace/data/dashboard',
-    lastPoliciesToRenew: 'workspace/data/last-policies-to-renew',
-    lastCancelledPolicies: 'workspace/data/last-cancelled-policies',
+    renewals: 'workspace/policies/renewals',
+    cancelledPolicies: 'workspace/policies/cancelled',
 }
 
 const HOME_ERRORS_ROUTES = {
