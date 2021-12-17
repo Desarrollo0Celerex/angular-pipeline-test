@@ -170,7 +170,7 @@ export class ContentListService {
      * @return                The contact quotations
      */
     loadContactQuotations(contactId: string, page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName';
+        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
         return this._quotationService.getContactQuotations(contactId, page, fields, contentSubtype).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
@@ -575,6 +575,24 @@ export class ContentListService {
     }
 
     /**
+     * Load the quotations by range
+     * @param  page           The page number to get
+     * @param  contentSubtype The filter to apply
+     * @return                Notice of action done
+     */
+    loadQuotationsByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string): Observable<void> {
+        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+        const sortBy: string = '-createdAt';
+        return this._quotationService.getQuotations(page, fields, '', '', sortBy, rangeField, rangeStart, rangeEnd).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
      * Load the sinisters
      * @param  page           The page number to get
      * @param  contentSubtype The filter to apply
@@ -719,7 +737,7 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchContactQuotations(contactId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName';
+        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
         return this._quotationService.getContactQuotations(contactId, page, fields, 0, query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);

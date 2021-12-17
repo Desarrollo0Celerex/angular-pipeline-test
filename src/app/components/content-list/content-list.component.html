@@ -116,7 +116,8 @@
                     [client]="content"
                     (showContactData)="onShowContactData($event)">
                 </agt-card-client>
-                <agt-card-quotation *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID"
+                <agt-card-quotation
+                    *ngSwitchCase="(contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID || contentType === CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID) ? contentType : ''"
                     [quotation]="content"
                     (showQuotationDetails)="onShowQuotationDetails($event)"
                     (acceptQuotation)="onAcceptQuotation($event)"
@@ -244,10 +245,10 @@
     <agt-modal-show-contact-data [modalId]="modalIdShowContactData" [contactId]="selectedContactId"></agt-modal-show-contact-data>
     <agt-modal-select-contact [modalId]="modalIdSelectContact" [contactId]="selectedContactId"></agt-modal-select-contact>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID">
-    <agt-modal-show-quotation-details [modalId]="modalIdShowQuotationDetails" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-show-quotation-details>
-    <agt-modal-confirm-accept-quotation [modalId]="modalIdAcceptQuotation" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-accept-quotation>
-    <agt-modal-confirm-reject-quotation [modalId]="modalIdRejectQuotation" [contactId]="contactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-reject-quotation>
+<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID || contentType === CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID">
+    <agt-modal-show-quotation-details [modalId]="modalIdShowQuotationDetails" [contactId]="selectedContactId" [quotationId]="selectedQuotationId"></agt-modal-show-quotation-details>
+    <agt-modal-confirm-accept-quotation [modalId]="modalIdAcceptQuotation" [contactId]="selectedContactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-accept-quotation>
+    <agt-modal-confirm-reject-quotation [modalId]="modalIdRejectQuotation" [contactId]="selectedContactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-reject-quotation>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
     <agt-modal-show-endorsement [modalId]="modalIdShowEndorsement" [contactId]="contactId" [policyId]="policyId" [endorsementId]="selectedEndorsementId"></agt-modal-show-endorsement>

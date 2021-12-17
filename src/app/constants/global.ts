@@ -241,6 +241,10 @@ export const CONTENT_TYPES: any = {
         ID: 28,
         NAME: 'Siniestro'
     },
+    QUOTATIONS_BY_RANGE: {
+        ID: 29,
+        NAME: 'Cotización'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

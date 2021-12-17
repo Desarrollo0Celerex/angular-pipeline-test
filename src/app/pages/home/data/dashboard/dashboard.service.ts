@@ -12,11 +12,10 @@ export class DashboardService {
     totalCurrentPolicies: number = 0;
     totalCancelledPolicies: number = 0;
     totalRenewals: number = 0;
-    totalPendingQuotations: number = 0;
+
 
     constructor(
         private _policyService: PolicyService,
-        private _quotationService: QuotationService
     ) { }
 
     loadTotalCurrentPolicies(): void {
@@ -46,10 +45,5 @@ export class DashboardService {
         })
     }
 
-    loadTotalPendingQuotations(): void {
-        const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.PENDING])
-        this._quotationService.getTotalWorkspaceQuotations(filters).subscribe((res: number) => {
-            this.totalPendingQuotations = res;
-        })
-    }
+
 }

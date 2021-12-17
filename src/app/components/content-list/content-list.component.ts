@@ -11,6 +11,7 @@ import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
 import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
+import { ContactQuotation } from '@interfaces/contact-quotation.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Group } from '@interfaces/group.interface';
 import { Partner } from '@interfaces/partner.interface';
@@ -263,8 +264,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show modal to accept the quotation
      * @param quotationId The quotation ID to accept
      */
-    onAcceptQuotation(quotationId: string): void {
-        this.selectedQuotationId = quotationId;
+    onAcceptQuotation(data: ContactQuotation): void {
+        this.selectedContactId = data.contactId;
+        this.selectedQuotationId = data.quotationId;
         ModalPlugin.show(this.modalIdAcceptQuotation);
     }
 
@@ -443,8 +445,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to reject a quotation
      * @param quotationId The quotation ID
      */
-    onRejectQuotation(quotationId: string): void {
-        this.selectedQuotationId = quotationId;
+    onRejectQuotation(data: ContactQuotation): void {
+        this.selectedContactId = data.contactId;
+        this.selectedQuotationId = data.quotationId;
         ModalPlugin.show(this.modalIdRejectQuotation);
     }
 
@@ -533,8 +536,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show the quotation details modal
      * @param quotationId The selected quotation ID
      */
-    onShowQuotationDetails(quotationId: string): void {
-        this.selectedQuotationId = quotationId;
+    onShowQuotationDetails(data: ContactQuotation): void {
+        this.selectedContactId = data.contactId;
+        this.selectedQuotationId = data.quotationId;
         ModalPlugin.show(this.modalIdShowQuotationDetails);
     }
 
@@ -987,6 +991,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
                 this.contentListService.loadCancelledPolicies(this.page, this.rangeField, this.rangeStart, this.rangeEnd).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID:
+                this.contentListService.loadQuotationsByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd).subscribe( () => {
                     this._contentLoaded();
                 });
             break;

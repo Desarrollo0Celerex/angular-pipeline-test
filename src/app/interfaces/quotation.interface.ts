@@ -9,5 +9,6 @@ export interface Quotation {
     quotationStatusName: string,
     quotationStatusBackground: string,
     insuranceTypeName: string,
-    createdByName: string
+    createdByName: string,
+    contactId: string
 }

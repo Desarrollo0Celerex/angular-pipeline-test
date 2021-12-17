@@ -78,6 +78,7 @@ const routes: Routes = [
 
             // Quotations routes
             { path: ROUTES_NAME.createQuotation(':contactId'), loadChildren: () => import('@pages/home/quotations/create-quotation/create-quotation.module').then(mod => mod.CreateQuotationModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.listQuotationsByRange, loadChildren: () => import('@pages/home/quotations/list-quotations-by-range/list-quotations-by-range.module').then(mod => mod.ListQuotationsByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Sinisters routes
             { path: ROUTES_NAME.listSinisters, loadChildren: () => import('@pages/home/sinisters/list-sinisters/list-sinisters.module').then(mod => mod.ListSinistersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

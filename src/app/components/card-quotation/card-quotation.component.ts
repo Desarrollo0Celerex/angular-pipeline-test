@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { QUOTATION_STATUS } from '@constants/global';
+import { ContactQuotation } from '@interfaces/contact-quotation.interface';
 import { Quotation } from '@interfaces/quotation.interface';
 
 @Component({
@@ -11,16 +12,16 @@ import { Quotation } from '@interfaces/quotation.interface';
 })
 export class CardQuotationComponent {
     @Input() quotation: Quotation | null;
-    @Output() showQuotationDetails: EventEmitter<string>;
-    @Output() acceptQuotation: EventEmitter<string>;
-    @Output() rejectQuotation: EventEmitter<string>;
+    @Output() showQuotationDetails: EventEmitter<ContactQuotation>;
+    @Output() acceptQuotation: EventEmitter<ContactQuotation>;
+    @Output() rejectQuotation: EventEmitter<ContactQuotation>;
     QUOTATION_STATUS: any;
 
     constructor() {
         this.quotation = null;
-        this.showQuotationDetails = new EventEmitter<string>();
-        this.acceptQuotation = new EventEmitter<string>();
-        this.rejectQuotation = new EventEmitter<string>();
+        this.showQuotationDetails = new EventEmitter<ContactQuotation>();
+        this.acceptQuotation = new EventEmitter<ContactQuotation>();
+        this.rejectQuotation = new EventEmitter<ContactQuotation>();
         this.QUOTATION_STATUS = QUOTATION_STATUS;
     }
 
@@ -29,7 +30,10 @@ export class CardQuotationComponent {
      */
     onClickAcceptQuotation(): void {
         if(!!this.quotation) {
-            this.acceptQuotation.emit(this.quotation.quotationId);
+            this.acceptQuotation.emit({
+                contactId: this.quotation.contactId,
+                quotationId: this.quotation.quotationId
+            });
         }
     }
 
@@ -38,7 +42,10 @@ export class CardQuotationComponent {
      */
     onClickRejectQuotation(): void {
         if(!!this.quotation) {
-            this.rejectQuotation.emit(this.quotation.quotationId);
+            this.rejectQuotation.emit({
+                contactId: this.quotation.contactId,
+                quotationId: this.quotation.quotationId
+            });
         }
     }
 
@@ -47,7 +54,10 @@ export class CardQuotationComponent {
      */
     onClickShowDetails(): void {
         if(!!this.quotation) {
-            this.showQuotationDetails.emit(this.quotation.quotationId);
+            this.showQuotationDetails.emit({
+                contactId: this.quotation.contactId,
+                quotationId: this.quotation.quotationId
+            });
         }
     }
 
