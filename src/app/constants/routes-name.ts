@@ -103,6 +103,7 @@ const HOME_POLICIES_ROUTES = {
     showPolicySinisters: (contactId: string, policyId: string) => `workspace/policies/policy-sinisters/${contactId}/${policyId}`,
     updateCompletePolicy: (contactId: string, policyId: string) => `workspace/policies/update-complete-policy/${contactId}/${policyId}`,
     policyTracker: (contactId: string, policyId: string) => `workspace/policies/policy-tracker/${contactId}/${policyId}`,
+    listActivePoliciesByRange: `workspace/policies/list-active-policies-by-range`,
 }
 
 const HOME_POLICY_ENDORSEMENTS_ROUTES = {

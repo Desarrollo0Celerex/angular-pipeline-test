@@ -245,6 +245,10 @@ export const CONTENT_TYPES: any = {
         ID: 29,
         NAME: 'Cotización'
     },
+    ACTIVE_POLICIES_BY_RANGE: {
+        ID: 30,
+        NAME: 'Póliza'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

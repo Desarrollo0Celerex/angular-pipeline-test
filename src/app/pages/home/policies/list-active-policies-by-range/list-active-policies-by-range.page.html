@@ -1,0 +1,48 @@
+<agt-content-kpis
+    [contentType]="CONTENT_TYPES.CLIENT.ID"
+    [contentTypeName]="CONTENT_TYPES.CLIENT.NAME"
+    [pageUrl]="pageUrl">
+</agt-content-kpis>
+
+<!-- AGENTHOS - LISTING FILTERS  -->
+<div class="row mt-5">
+    <!-- AGENTHOS - DATA SUITE STATS -->
+    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+        <!-- AGENTHOS - PERIOD FILTERS -->
+        <agt-container-select-stats-period
+            [statsPeriodData]="statsPeriodData"
+            [canShowComparisonPeriod]="false"
+            (statsPeriodSelected)="loadContent($event)">
+        </agt-container-select-stats-period>
+        <!-- //AGENTHOS - PERIOD FILTERS -->
+    </div>
+    <!-- //AGENTHOS - DATA SUITE STATS -->
+    <!-- AGENTHOS - DATA SUITE REPORT -->
+    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Generar Reporte</h3>
+            </div>
+            <!-- AGENTHOS - DATA SUITE REPORT GENERATOR -->
+            <div class="card-body">
+                <ol class="breadcrumb1 mt-2">
+                    <li class="breadcrumb-item1">Genera un reporte de <strong>Pólizas Vigentes</strong>.</li>
+                </ol>
+                <button type="button" class="btn btn-block btn-primary mt-5" disabled><strong>DESCARGAR REPORTE</strong></button>
+            </div>
+            <!-- //AGENTHOS - DATA SUITE REPORT GENERATOR -->
+        </div>
+    </div>
+    <!-- //AGENTHOS - DATA SUITE REPORT -->
+</div>
+<!-- //AGENTHOS - LISTING FILTERS  -->
+
+<agt-content-list
+    *ngIf="!!statsPeriodData"
+    [contentType]="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID"
+    [contentTypeName]="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.NAME"
+    contentSubtypeName="Vigentes"
+    [rangeField]="rangeField"
+    [rangeStart]="statsPeriodData.startDate"
+    [rangeEnd]="statsPeriodData.endDate">
+</agt-content-list>

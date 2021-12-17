@@ -1,4 +1,7 @@
-import { Component, EventEmitter, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { ROUTES_NAME } from '@constants/routes-name';
 
 import { CardKpiActivePoliciesService } from './card-kpi-active-policies.service';
 
@@ -12,7 +15,10 @@ import { CardKpiActivePoliciesService } from './card-kpi-active-policies.service
 export class CardKpiActivePoliciesComponent implements OnInit {
     @Output() uploadPolicyRequested: EventEmitter<void> = new EventEmitter<void>();
 
-    constructor(private _cardKpiActivePoliciesService: CardKpiActivePoliciesService) { }
+    constructor(
+        private _cardKpiActivePoliciesService: CardKpiActivePoliciesService,
+        private _router: Router
+    ) { }
 
     ngOnInit(): void {
         this.model.loadTotalActivePolicies();
@@ -24,6 +30,10 @@ export class CardKpiActivePoliciesComponent implements OnInit {
 
     uploadPolicy(): void {
         this.uploadPolicyRequested.emit();
+    }
+
+    goToListActivePoliciesByRange(): void {
+        this._router.navigateByUrl(ROUTES_NAME.listActivePoliciesByRange)
     }
 
 }
