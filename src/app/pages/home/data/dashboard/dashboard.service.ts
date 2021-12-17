@@ -1,29 +1,19 @@
 import { Injectable } from '@angular/core';
 
-import { POLICY_STATUS, QUOTATION_STATUS } from '@constants/global';
+import { POLICY_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
-import { QuotationService } from '@services/quotation.service';
 import { PolicyService } from '@services/policy.service';
 
 import * as moment from 'moment';
 
 @Injectable()
 export class DashboardService {
-    totalCurrentPolicies: number = 0;
     totalCancelledPolicies: number = 0;
     totalRenewals: number = 0;
-
 
     constructor(
         private _policyService: PolicyService,
     ) { }
-
-    loadTotalCurrentPolicies(): void {
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.CURRENT])
-        this._policyService.getTotalWorkspacePolicies(filters).subscribe((res: number) => {
-            this.totalCurrentPolicies = res;
-        })
-    }
 
     loadTotalCancelledPolicies(): void {
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.CANCELLED])
