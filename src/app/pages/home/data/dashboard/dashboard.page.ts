@@ -20,7 +20,6 @@ export class DashboardPage implements OnInit {
     constructor(private _dashboardService: DashboardService) { }
 
     ngOnInit(): void {
-        this.model.loadTotalRenewals();
         this.model.loadTotalCancelledPolicies();
     }
 
