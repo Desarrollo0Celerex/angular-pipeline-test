@@ -24,4 +24,20 @@ export class StatsCollectionPage {
     goToPaymentsCalendar(): void {
         this._router.navigateByUrl(ROUTES_NAME.paymentCalendar);
     }
+
+    goToListPendingPaymentsByRange(): void {
+        if(!!this.range) {
+            this._router.navigateByUrl(
+                ROUTES_NAME.listPendingPaymentsByRange,
+                {
+                    state: {
+                        periodData: {
+                            startDate: this.range.selectedRangeStart,
+                            endDate: this.range.selectedRangeEnd
+                        }
+                    }
+                }
+            );
+        }
+    }
 }

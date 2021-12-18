@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { ROUTES_NAME } from '@constants/routes-name';
 
 import { CardKpiTotalPendingPaymentsService } from './card-kpi-total-pending-payments.service';
 
@@ -11,7 +14,10 @@ import { CardKpiTotalPendingPaymentsService } from './card-kpi-total-pending-pay
 })
 export class CardKpiTotalPendingPaymentsComponent implements OnInit {
 
-    constructor(private _cardKpiTotalPendingPaymentsService: CardKpiTotalPendingPaymentsService) { }
+    constructor(
+        private _cardKpiTotalPendingPaymentsService: CardKpiTotalPendingPaymentsService,
+        private _router: Router
+    ) { }
 
     ngOnInit(): void {
         this.model.loadTotalPendingReceipts();
@@ -22,7 +28,7 @@ export class CardKpiTotalPendingPaymentsComponent implements OnInit {
     }
 
     goToListPendingPaymentsByRange(): void {
-        
+        this._router.navigateByUrl(ROUTES_NAME.listPendingPaymentsByRange);
     }
 
 }

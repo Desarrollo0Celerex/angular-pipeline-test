@@ -73,14 +73,17 @@ export class PaymentService {
       * @param  query           The search to do
       * @return                 The payments
       */
-    getPayments(page: number = 1, fields: string = '', filters: string = '', query: string = ''): Observable<HttpResponse> {
+    getPayments(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
         const route: string = routes.payments(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         if(!!filters) params = params.append('filter', filters);
-        if(!!query) params = params.append('search', query);
-        params = params.append('sortBy', '-paymentDate');
+        if(!!query) params = params.append('search', query);if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        params = params.append('sortBy', sortBy);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => {
                 if(fields.includes('lifeTime')) {

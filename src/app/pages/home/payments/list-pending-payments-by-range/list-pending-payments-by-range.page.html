@@ -1,6 +1,6 @@
 <agt-content-kpis
-    [contentType]="CONTENT_TYPES.CLIENT.ID"
-    [contentTypeName]="CONTENT_TYPES.CLIENT.NAME"
+    [contentType]="CONTENT_TYPES.PAYMENT.ID"
+    [contentTypeName]="CONTENT_TYPES.PAYMENT.NAME"
     [pageUrl]="pageUrl">
 </agt-content-kpis>
 
@@ -26,7 +26,7 @@
             <!-- AGENTHOS - DATA SUITE REPORT GENERATOR -->
             <div class="card-body">
                 <ol class="breadcrumb1 mt-2">
-                    <li class="breadcrumb-item1">Genera un reporte de <strong>Pólizas Vigentes</strong>.</li>
+                    <li class="breadcrumb-item1">Genera un reporte inmediato de los <strong>Recibos Pendientes</strong>.</li>
                 </ol>
                 <button type="button" class="btn btn-block btn-primary mt-5" disabled><strong>DESCARGAR REPORTE</strong></button>
             </div>
@@ -39,9 +39,9 @@
 
 <agt-content-list
     *ngIf="!!statsPeriodData"
-    [contentType]="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID"
-    [contentTypeName]="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.NAME"
-    contentSubtypeName="Vigente"
+    [contentType]="CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID"
+    [contentTypeName]="CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.NAME"
+    contentSubtypeName="Pendiente"
     [rangeField]="rangeField"
     [rangeStart]="statsPeriodData.startDate"
     [rangeEnd]="statsPeriodData.endDate">
