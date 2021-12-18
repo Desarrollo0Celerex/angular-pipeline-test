@@ -4,8 +4,9 @@ import { CommonModule } from '@angular/common';
 import { CardKpiTotalActiveClientsModule } from '@components/card-kpi-total-active-clients/card-kpi-total-active-clients.module';
 import { CardKpiTotalLeadsModule } from '@components/card-kpi-total-leads/card-kpi-total-leads.module';
 import { CardKpiTotalActivePoliciesModule } from '@components/card-kpi-total-active-policies/card-kpi-total-active-policies.module';
-import { CardKpiTotalQuotesModule } from '@components/card-kpi-total-quotes/card-kpi-total-quotes.module';
 import { CardKpiTotalLastRenewalsModule } from '@components/card-kpi-total-last-renewals/card-kpi-total-last-renewals.module';
+import { CardKpiTotalPendingPaymentsModule } from '@components/card-kpi-total-pending-payments/card-kpi-total-pending-payments.module';
+import { CardKpiTotalQuotesModule } from '@components/card-kpi-total-quotes/card-kpi-total-quotes.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { PolicyService } from '@services/policy.service';
 
@@ -18,8 +19,9 @@ import { DashboardPage } from './dashboard.page';
     CardKpiTotalActiveClientsModule,
     CardKpiTotalLeadsModule,
     CardKpiTotalActivePoliciesModule,
-    CardKpiTotalQuotesModule,
+    CardKpiTotalPendingPaymentsModule,
     CardKpiTotalLastRenewalsModule,
+    CardKpiTotalQuotesModule,
     CommonModule,
     DashboardRoutingModule,
     ModalSelectContactTypeModule
