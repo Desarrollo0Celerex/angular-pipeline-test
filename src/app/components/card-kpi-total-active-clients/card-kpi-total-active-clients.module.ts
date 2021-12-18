@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { ClientService } from '@services/client.service';
 
-import { CardKpiActiveClientsComponent } from './card-kpi-active-clients.component';
+import { CardKpiTotalActiveClientsComponent } from './card-kpi-total-active-clients.component';
 
 @NgModule({
   declarations: [
-    CardKpiActiveClientsComponent
+    CardKpiTotalActiveClientsComponent
   ],
   exports: [
-      CardKpiActiveClientsComponent
+      CardKpiTotalActiveClientsComponent
   ],
   imports: [
     CommonModule
@@ -19,4 +19,4 @@ import { CardKpiActiveClientsComponent } from './card-kpi-active-clients.compone
       ClientService
   ]
 })
-export class CardKpiActiveClientsModule { }
+export class CardKpiTotalActiveClientsModule { }

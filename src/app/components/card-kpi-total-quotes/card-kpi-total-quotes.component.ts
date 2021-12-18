@@ -3,20 +3,20 @@ import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 
-import { CardKpiQuotesService } from './card-kpi-quotes.service'
+import { CardKpiTotalQuotesService } from './card-kpi-total-quotes.service'
 
 @Component({
-  selector: 'agt-card-kpi-quotes',
-  templateUrl: './card-kpi-quotes.component.html',
+  selector: 'agt-card-kpi-total-quotes',
+  templateUrl: './card-kpi-total-quotes.component.html',
   styles: [
   ],
-  providers: [CardKpiQuotesService]
+  providers: [CardKpiTotalQuotesService]
 })
-export class CardKpiQuotesComponent implements OnInit {
+export class CardKpiTotalQuotesComponent implements OnInit {
     @Output() quoteInsuranceRequested: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(
-        private _cardQuotesKpiService: CardKpiQuotesService,
+        private _cardQuotesKpiService: CardKpiTotalQuotesService,
         private _router: Router
     ) { }
 
@@ -24,7 +24,7 @@ export class CardKpiQuotesComponent implements OnInit {
         this.model.loadTotalQuotations();
     }
 
-    get model(): CardKpiQuotesService {
+    get model(): CardKpiTotalQuotesService {
         return this._cardQuotesKpiService;
     }
 

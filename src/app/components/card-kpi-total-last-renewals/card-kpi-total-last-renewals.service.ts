@@ -7,7 +7,7 @@ import { PolicyService } from '@services/policy.service';
 import * as moment from 'moment';
 
 @Injectable()
-export class CardKpiRenewalsService {
+export class CardKpiTotalLastRenewalsService {
     totalRenewals: number = 0;
 
     constructor(private _policyService: PolicyService) { }

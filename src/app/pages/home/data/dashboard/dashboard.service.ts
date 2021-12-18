@@ -24,8 +24,4 @@ export class DashboardService {
             this.totalCancelledPolicies = res;
         })
     }
-
-
-
-
 }

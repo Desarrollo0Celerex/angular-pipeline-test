@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CardKpiActivePoliciesComponent } from './card-kpi-active-policies.component';
+import { CardKpiTotalActivePoliciesComponent } from './card-kpi-total-active-policies.component';
 
 import { PolicyService } from '@services/policy.service';
 
 @NgModule({
   declarations: [
-    CardKpiActivePoliciesComponent
+    CardKpiTotalActivePoliciesComponent
   ],
   exports: [
-      CardKpiActivePoliciesComponent
+      CardKpiTotalActivePoliciesComponent
   ],
   imports: [
     CommonModule
@@ -19,4 +19,4 @@ import { PolicyService } from '@services/policy.service';
       PolicyService
   ]
 })
-export class CardKpiActivePoliciesModule { }
+export class CardKpiTotalActivePoliciesModule { }

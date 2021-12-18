@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { QuotationService } from '@services/quotation.service';
 
 @Injectable()
-export class CardKpiQuotesService {
+export class CardKpiTotalQuotesService {
     totalQuotations: number = 0;
 
     constructor(private _quotationService: QuotationService) { }

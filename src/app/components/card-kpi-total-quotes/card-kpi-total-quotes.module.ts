@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { QuotationService } from '@services/quotation.service';
 
-import { CardKpiQuotesComponent } from './card-kpi-quotes.component';
+import { CardKpiTotalQuotesComponent } from './card-kpi-total-quotes.component';
 
 @NgModule({
   declarations: [
-    CardKpiQuotesComponent
+    CardKpiTotalQuotesComponent
   ],
   exports: [
-      CardKpiQuotesComponent
+      CardKpiTotalQuotesComponent
   ],
   imports: [
     CommonModule
@@ -19,4 +19,4 @@ import { CardKpiQuotesComponent } from './card-kpi-quotes.component';
       QuotationService
   ]
 })
-export class CardKpiQuotesModule { }
+export class CardKpiTotalQuotesModule { }

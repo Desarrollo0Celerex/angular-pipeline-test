@@ -3,29 +3,29 @@ import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 
-import { CardKpiActiveLeadsService } from './card-kpi-active-leads.service';
+import { CardKpiTotalLeadsService } from './card-kpi-total-leads.service';
 
 @Component({
-  selector: 'agt-card-kpi-active-leads',
-  templateUrl: './card-kpi-active-leads.component.html',
+  selector: 'agt-card-kpi-total-leads',
+  templateUrl: './card-kpi-total-leads.component.html',
   styles: [
   ],
   providers: [
-      CardKpiActiveLeadsService
+      CardKpiTotalLeadsService
   ]
 })
-export class CardKpiActiveLeadsComponent implements OnInit {
+export class CardKpiTotalLeadsComponent implements OnInit {
 
     constructor(
-        private _cardKpiActiveLeadsService: CardKpiActiveLeadsService,
+        private _cardKpiActiveLeadsService: CardKpiTotalLeadsService,
         private _router: Router
     ) { }
 
     ngOnInit(): void {
-        this.model.loadTotalActiveLeads();
+        this.model.loadTotalLeads();
     }
 
-    get model(): CardKpiActiveLeadsService {
+    get model(): CardKpiTotalLeadsService {
         return this._cardKpiActiveLeadsService;
     }
 

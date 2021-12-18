@@ -5,7 +5,7 @@ import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ClientService } from '@services/client.service';
 
 @Injectable()
-export class CardKpiActiveClientsService {
+export class CardKpiTotalActiveClientsService {
     totalActiveClients: number = 0;
 
     constructor(private _clientService: ClientService) { }

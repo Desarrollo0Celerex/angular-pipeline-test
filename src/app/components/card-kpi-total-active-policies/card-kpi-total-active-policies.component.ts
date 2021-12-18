@@ -3,20 +3,20 @@ import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 
-import { CardKpiActivePoliciesService } from './card-kpi-active-policies.service';
+import { CardKpiTotalActivePoliciesService } from './card-kpi-total-active-policies.service';
 
 @Component({
-  selector: 'agt-card-kpi-active-policies',
-  templateUrl: './card-kpi-active-policies.component.html',
+  selector: 'agt-card-kpi-total-active-policies',
+  templateUrl: './card-kpi-total-active-policies.component.html',
   styles: [
   ],
-  providers: [CardKpiActivePoliciesService]
+  providers: [CardKpiTotalActivePoliciesService]
 })
-export class CardKpiActivePoliciesComponent implements OnInit {
+export class CardKpiTotalActivePoliciesComponent implements OnInit {
     @Output() uploadPolicyRequested: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(
-        private _cardKpiActivePoliciesService: CardKpiActivePoliciesService,
+        private _cardKpiActivePoliciesService: CardKpiTotalActivePoliciesService,
         private _router: Router
     ) { }
 
@@ -24,7 +24,7 @@ export class CardKpiActivePoliciesComponent implements OnInit {
         this.model.loadTotalActivePolicies();
     }
 
-    get model(): CardKpiActivePoliciesService {
+    get model(): CardKpiTotalActivePoliciesService {
         return this._cardKpiActivePoliciesService;
     }
 

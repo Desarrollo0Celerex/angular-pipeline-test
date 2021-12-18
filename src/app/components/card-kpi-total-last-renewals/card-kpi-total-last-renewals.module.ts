@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { PolicyService } from '@services/policy.service';
 
-import { CardKpiRenewalsComponent } from './card-kpi-renewals.component';
+import { CardKpiTotalLastRenewalsComponent } from './card-kpi-total-last-renewals.component';
 
 @NgModule({
   declarations: [
-    CardKpiRenewalsComponent
+    CardKpiTotalLastRenewalsComponent
   ],
   exports: [
-      CardKpiRenewalsComponent
+      CardKpiTotalLastRenewalsComponent
   ],
   imports: [
     CommonModule
@@ -19,4 +19,4 @@ import { CardKpiRenewalsComponent } from './card-kpi-renewals.component';
       PolicyService
   ]
 })
-export class CardKpiRenewalsModule { }
+export class CardKpiTotalLastRenewalsModule { }

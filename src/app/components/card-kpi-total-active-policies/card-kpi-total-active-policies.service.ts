@@ -6,7 +6,7 @@ import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { PolicyService } from '@services/policy.service';
 
 @Injectable()
-export class CardKpiActivePoliciesService {
+export class CardKpiTotalActivePoliciesService {
     totalActivePolicies: number = 0;
 
     constructor(private _policyService: PolicyService) { }

@@ -3,19 +3,19 @@ import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 
-import { CardKpiActiveClientsService } from './card-kpi-active-clients.service';
+import { CardKpiTotalActiveClientsService } from './card-kpi-total-active-clients.service';
 
 @Component({
-  selector: 'agt-card-kpi-active-clients',
-  templateUrl: './card-kpi-active-clients.component.html',
+  selector: 'agt-card-kpi-total-active-clients',
+  templateUrl: './card-kpi-total-active-clients.component.html',
   styles: [
   ],
-  providers: [CardKpiActiveClientsService]
+  providers: [CardKpiTotalActiveClientsService]
 })
-export class CardKpiActiveClientsComponent implements OnInit {
+export class CardKpiTotalActiveClientsComponent implements OnInit {
 
     constructor(
-        private _cardKpiActiveclientsService: CardKpiActiveClientsService,
+        private _cardKpiActiveclientsService: CardKpiTotalActiveClientsService,
         private _router: Router
     ) { }
 
@@ -23,7 +23,7 @@ export class CardKpiActiveClientsComponent implements OnInit {
         this.model.loadTotalActiveClients();
     }
 
-    get model(): CardKpiActiveClientsService {
+    get model(): CardKpiTotalActiveClientsService {
         return this._cardKpiActiveclientsService;
     }
 

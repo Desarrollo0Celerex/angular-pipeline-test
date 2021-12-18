@@ -3,19 +3,19 @@ import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 
-import { CardKpiRenewalsService } from './card-kpi-renewals.service';
+import { CardKpiTotalLastRenewalsService } from './card-kpi-total-last-renewals.service';
 
 @Component({
-  selector: 'agt-card-kpi-renewals',
-  templateUrl: './card-kpi-renewals.component.html',
+  selector: 'agt-card-kpi-total-last-renewals',
+  templateUrl: './card-kpi-total-last-renewals.component.html',
   styles: [
   ],
-  providers: [CardKpiRenewalsService]
+  providers: [CardKpiTotalLastRenewalsService]
 })
-export class CardKpiRenewalsComponent implements OnInit {
+export class CardKpiTotalLastRenewalsComponent implements OnInit {
 
     constructor(
-        private _cardKpiRenewalsService: CardKpiRenewalsService,
+        private _cardKpiRenewalsService: CardKpiTotalLastRenewalsService,
         private _router: Router
     ) { }
 
@@ -23,7 +23,7 @@ export class CardKpiRenewalsComponent implements OnInit {
         this.model.loadTotalRenewals();
     }
 
-    get model(): CardKpiRenewalsService {
+    get model(): CardKpiTotalLastRenewalsService {
         return this._cardKpiRenewalsService;
     }
 
