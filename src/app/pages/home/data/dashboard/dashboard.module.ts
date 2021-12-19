@@ -9,6 +9,7 @@ import { CardKpiTotalLastRenewalsModule } from '@components/card-kpi-total-last-
 import { CardKpiTotalOpenSinistersModule } from '@components/card-kpi-total-open-sinisters/card-kpi-total-open-sinisters.module';
 import { CardKpiTotalPendingPaymentsModule } from '@components/card-kpi-total-pending-payments/card-kpi-total-pending-payments.module';
 import { CardKpiTotalQuotesModule } from '@components/card-kpi-total-quotes/card-kpi-total-quotes.module';
+import { ContainerLastContactsModule } from '@components/container-last-contacts/container-last-contacts.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { PolicyService } from '@services/policy.service';
 
@@ -28,6 +29,7 @@ import { DashboardPage } from './dashboard.page';
     CardKpiTotalQuotesModule,
     CommonModule,
     DashboardRoutingModule,
+    ContainerLastContactsModule,
     ModalSelectContactTypeModule
   ],
   providers: [

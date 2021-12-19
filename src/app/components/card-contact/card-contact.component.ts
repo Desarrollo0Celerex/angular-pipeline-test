@@ -11,6 +11,7 @@ import { Contact } from '@interfaces/contact.interface';
 })
 export class CardContactComponent {
     @Input() contact: Contact | null;
+    @Input() buttonLabel: string = 'SELECCIIONAR';
     @Output() contactSelected: EventEmitter<string>;
     @Output() showContactData: EventEmitter<string>;
     ROUTES_NAME: any;

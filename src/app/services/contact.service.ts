@@ -69,7 +69,7 @@ export class ContactService {
      * @param  query           The search to do
      * @return                 The leads
      */
-   getContacts(page: number = 1, fields: string = '', query: string = '', specialQuery: SearchContactData | null = null, perPage: number = 12 ): Observable<HttpResponse> {
+   getContacts(page: number = 1, fields: string = '', query: string = '', specialQuery: SearchContactData | null = null, perPage: number = 12, sortBy: string = '-createdAt'): Observable<HttpResponse> {
        const route: string = routes.contacts(this._workspaceId);
        let params: HttpParams = new HttpParams();
        params = params.append('page', page.toString());
@@ -77,7 +77,7 @@ export class ContactService {
        if(!!fields) params = params.append('fields', fields);
        if(!!query) params = params.append('search', 'contactName:' + query);
        if(!!specialQuery) params = params.append('search', this._getSpecialSearch(specialQuery));
-       params = params.append('sortBy', '-createdAt');
+       params = params.append('sortBy', sortBy);
        return this._httpClient.get<HttpResponse>(route, { params });
    }
 
