@@ -28,7 +28,17 @@ export class CardKpiTotalLastRenewalsComponent implements OnInit {
     }
 
     goToListRenewalsByRange(): void {
-        this._router.navigateByUrl(ROUTES_NAME.renewals);
+        this._router.navigateByUrl(
+            ROUTES_NAME.renewals,
+            {
+                state: {
+                    periodData: {
+                        startDate: this.model.rangeStart,
+                        endDate: this.model.rangeEnd
+                    }
+                }
+            }
+        );
     }
 
 }

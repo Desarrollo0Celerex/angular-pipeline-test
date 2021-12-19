@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CardKpiTotalActiveClientsModule } from '@components/card-kpi-total-active-clients/card-kpi-total-active-clients.module';
 import { CardKpiTotalLeadsModule } from '@components/card-kpi-total-leads/card-kpi-total-leads.module';
 import { CardKpiTotalActivePoliciesModule } from '@components/card-kpi-total-active-policies/card-kpi-total-active-policies.module';
+import { CardKpiTotalLastCancelledPoliciesModule } from '@components/card-kpi-total-last-cancelled-policies/card-kpi-total-last-cancelled-policies.module';
 import { CardKpiTotalLastRenewalsModule } from '@components/card-kpi-total-last-renewals/card-kpi-total-last-renewals.module';
 import { CardKpiTotalOpenSinistersModule } from '@components/card-kpi-total-open-sinisters/card-kpi-total-open-sinisters.module';
 import { CardKpiTotalPendingPaymentsModule } from '@components/card-kpi-total-pending-payments/card-kpi-total-pending-payments.module';
@@ -20,6 +21,7 @@ import { DashboardPage } from './dashboard.page';
     CardKpiTotalActiveClientsModule,
     CardKpiTotalLeadsModule,
     CardKpiTotalActivePoliciesModule,
+    CardKpiTotalLastCancelledPoliciesModule,
     CardKpiTotalOpenSinistersModule,
     CardKpiTotalPendingPaymentsModule,
     CardKpiTotalLastRenewalsModule,

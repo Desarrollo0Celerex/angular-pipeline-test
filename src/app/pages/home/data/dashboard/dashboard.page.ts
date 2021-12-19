@@ -1,8 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
-import { ROUTES_NAME } from '@constants/routes-name';
-
-import { DashboardService } from './dashboard.service';
+import { Component } from '@angular/core';
 
 declare var ModalPlugin: any;
 
@@ -10,25 +6,12 @@ declare var ModalPlugin: any;
   selector: 'agt-dashboard',
   templateUrl: './dashboard.page.html',
   styles: [
-  ],
-  providers: [DashboardService]
+  ]
 })
-export class DashboardPage implements OnInit {
-    ROUTES_NAME: any = ROUTES_NAME;
+export class DashboardPage {
     modalIdSelectContactType: string = 'agt-select-contact-type';
-
-    constructor(private _dashboardService: DashboardService) { }
-
-    ngOnInit(): void {
-        this.model.loadTotalCancelledPolicies();
-    }
-
-    get model(): DashboardService {
-        return this._dashboardService;
-    }
 
     showModalToSelectContactType(): void {
         ModalPlugin.show(this.modalIdSelectContactType);
     }
-
 }
