@@ -86,7 +86,7 @@ export class ContainerGlobalKpisService {
 
     loadTotalActiveSinisters(): void {
         const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE])
-        this._sinisterService.getTotalWorkspaceSinisters(filters).subscribe((totalSinisters: number) => {
+        this._sinisterService.getTotalSinisters(filters).subscribe((totalSinisters: number) => {
             this.contentKpis[3].value = totalSinisters.toString();
         })
     }
@@ -126,7 +126,7 @@ export class ContainerGlobalKpisService {
         const rangeField: string = 'sinisterDate';
         const rangeStart: string = moment().subtract(1, 'months').format('DD/MM/YYYY');
         const rangeEnd: string = moment().format('DD/MM/YYYY');
-        this._sinisterService.getTotalWorkspaceSinisters(filters, rangeField, rangeStart, rangeEnd).subscribe((totalSinisters: number) => {
+        this._sinisterService.getTotalSinisters(filters, rangeField, rangeStart, rangeEnd).subscribe((totalSinisters: number) => {
             this.contentKpis[3].subValue = totalSinisters.toString();
         })
     }
