@@ -43,7 +43,7 @@ export class StatsPoliciesPage {
     goToPoliciesToRenew(): void {
         if(!!this.range) {
             this._router.navigateByUrl(
-                ROUTES_NAME.lastPoliciesToRenew,
+                ROUTES_NAME.renewals,
                 {
                     state: {
                         periodData: {
@@ -60,7 +60,7 @@ export class StatsPoliciesPage {
     goToCancelledPolicies(): void {
         if(!!this.range) {
             this._router.navigateByUrl(
-                ROUTES_NAME.lastCancelledPolicies,
+                ROUTES_NAME.cancelledPolicies,
                 {
                     state: {
                         periodData: {

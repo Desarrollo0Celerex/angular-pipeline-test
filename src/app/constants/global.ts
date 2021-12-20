@@ -241,6 +241,18 @@ export const CONTENT_TYPES: any = {
         ID: 28,
         NAME: 'Siniestro'
     },
+    QUOTATIONS_BY_RANGE: {
+        ID: 29,
+        NAME: 'Cotización'
+    },
+    ACTIVE_POLICIES_BY_RANGE: {
+        ID: 30,
+        NAME: 'Póliza'
+    },
+    PENDING_PAYMENTS_BY_RANGE: {
+        ID: 31,
+        NAME: 'Recibo'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

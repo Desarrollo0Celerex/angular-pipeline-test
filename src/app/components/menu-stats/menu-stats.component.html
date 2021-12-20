@@ -15,8 +15,9 @@
         </a>
         <!-- //AGENTHOS - DATA SUITE POLICIES -->
         <!-- AGENTHOS - DATA SUITE PAYMENTS -->
-        <a [routerLink]="">
-        <button type="button" name="agtAppCreatorContact" class="btn btn-block btn-primary mt-3" disabled><strong>COBRANZA</strong></button></a>
+        <a routerLink="/{{ROUTES_NAME.statsCollection}}">
+            <button type="button" class="btn btn-block btn-primary mt-3" routerLinkActive="btn-secondary"><strong>COBRANZA</strong></button>
+        </a>
         <!-- //AGENTHOS - DATA SUITE PAYMENTS -->
         <!-- AGENTHOS - DATA SUITE SINISTERS -->
         <a [routerLink]="">
@@ -25,7 +26,7 @@
     </div>
     <div class="card-footer text-center">
         <a routerLink="/{{ROUTES_NAME.statsSnapshot}}">
-            <button type="button" class="btn btn-block btn-info" routerLinkActive="btn-secondary"><strong>SNAPSHOT</strong></button>
+            <button type="button" class="btn btn-block btn-primary" routerLinkActive="btn-secondary"><strong>SNAPSHOT</strong></button>
         </a>
     </div>
 </div>

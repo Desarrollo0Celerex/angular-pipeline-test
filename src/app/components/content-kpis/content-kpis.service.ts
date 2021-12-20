@@ -237,9 +237,9 @@ export class ContentKpisService {
             const fields: string = 'sinisterStatusId,name,background,icon';
             this._sinisterStatusService.getSinisterStatus(fields).subscribe( (res: HttpResponse) => {
                 const sinisterStatus: SinisterStatus[] = res.data;
-                this._sinisterService.getTotalSinisters().subscribe( (res: HttpResponse) => {
-                    const totalSinisters: number = res.data;
-                    this._getTotalSinistersByStatus(sinisterStatus).subscribe( (res: HttpResponse[]) => {
+                this._sinisterService.getTotalSinisters().subscribe( (res: number) => {
+                    const totalSinisters: number = res;
+                    this._getTotalSinistersByStatus(sinisterStatus).subscribe( (res: number[]) => {
                         this.kpis = [];
                         for(let index in res) {
                             const kpi: Kpi = {
@@ -247,8 +247,8 @@ export class ContentKpisService {
                                 name: sinisterStatus[index].name,
                                 background: sinisterStatus[index].background,
                                 icon: sinisterStatus[index].icon,
-                                total: res[index].data,
-                                percentage: (totalSinisters > 0) ? res[index].data / totalSinisters : 0
+                                total: res[index],
+                                percentage: (totalSinisters > 0) ? res[index] / totalSinisters : 0
                             }
                             this.kpis.push(kpi);
                         }
@@ -354,10 +354,11 @@ export class ContentKpisService {
      * @param  leadStatus The payment status
      * @return            The requests
      */
-    private _getTotalSinistersByStatus(sinisterStatus: SinisterStatus[]): Observable<HttpResponse[]> {
-        let requests: Observable<HttpResponse>[] = [];
+    private _getTotalSinistersByStatus(sinisterStatus: SinisterStatus[]): Observable<number[]> {
+        let requests: Observable<number>[] = [];
         for(let status of sinisterStatus) {
-            requests.push(this._sinisterService.getTotalSinisters(status.sinisterStatusId));
+            const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [status.sinisterStatusId]);
+            requests.push(this._sinisterService.getTotalSinisters(filters));
         }
         return forkJoin(requests);
     }

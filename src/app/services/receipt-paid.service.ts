@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { CreateReceiptPaidDataSend } from '@interfaces/create-receipt-paid-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { RangeStat } from '@interfaces/range-stat.interface';
 import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
 import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
 import { AuthService } from '@services/auth.service';
@@ -14,7 +15,8 @@ const routes: any = {
     receiptsPaid: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/'+paymentId+'/receipts-paid',
     receiptsPaidAux: (workspaceId: string, contactId: string, policyId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/payments/'+paymentId+'/receipts-paid',
     receiptPaid: (workspaceId: string, paymentId: string, receiptPaidId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/'+paymentId+'/receipts-paid/'+receiptPaidId,
-    receiptPaidAux: (workspaceId: string, receiptPaidId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid/'+receiptPaidId
+    receiptPaidAux: (workspaceId: string, receiptPaidId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid/'+receiptPaidId,
+    appliedPaymentsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/receipts-paid'
 }
 
 @Injectable()
@@ -70,6 +72,17 @@ export class ReceiptPaidService {
         if(!!fields) params = params.append('fields', fields);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    getAppliedPaymentsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+        const route: string = routes.appliedPaymentsStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 
     updateReceiptPaid(receiptPaidId: string, requestBody: UpdateReceiptPaidDataSend): Observable<void> {

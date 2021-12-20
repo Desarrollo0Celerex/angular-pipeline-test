@@ -1,0 +1,11 @@
+<div class="card">
+    <div class="card-body text-center">
+        <i class="fa fa-line-chart text-primary fa-3x"></i>
+        <h6 class="mt-4 mb-2">Cotizaciones Presentadas</h6>
+        <h2 class="number-font"><span class="counter">{{model.totalQuotations}}</span></h2>
+    </div>
+    <div class="card-footer text-center">
+        <button type="button" class="btn btn-block btn-secondary" (click)="quoteInsurance()"><strong>COTIZAR SEGURO</strong></button>
+        <button type="button" class="btn btn-block btn-primary mt-3" (click)="goToListQuotationsByRange()"><strong>VER COTIZACIONES</strong></button>
+    </div>
+</div>

@@ -25,8 +25,6 @@ const routes: Routes = [
 
             // Data routes
             { path: ROUTES_NAME.dashboard, loadChildren: () => import('@pages/home/data/dashboard/dashboard.module').then( mod => mod.DashboardModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-            { path: ROUTES_NAME.lastPoliciesToRenew, loadChildren: () => import('@pages/home/data/last-policies-to-renew/last-policies-to-renew.module').then( mod => mod.LastPoliciesToRenewModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-            { path: ROUTES_NAME.lastCancelledPolicies, loadChildren: () => import('@pages/home/data/last-cancelled-policies/last-cancelled-policies.module').then( mod => mod.LastCancelledPoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Error routes
             { path: ROUTES_NAME.accessDenied, loadChildren: () => import('@pages/home/errors/access-denied/access-denied.module').then(mod => mod.AccessDeniedModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
@@ -60,6 +58,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.paymentHistory(':contactId', ':policyId', ':paymentId'), loadChildren: () => import('@pages/home/payments/payment-history/payment-history.module').then(mod => mod.PaymentHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.pendingReceipts(':contactId', ':policyId', ':paymentId'), loadChildren: () => import('@pages/home/payments/pending-receipts/pending-receipts.module').then(mod => mod.PendingReceiptsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.paymentCalendar, loadChildren: () => import('@pages/home/payments/calendar/calendar.module').then(mod => mod.CalendarModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.listPendingPaymentsByRange, loadChildren: () => import('@pages/home/payments/list-pending-payments-by-range/list-pending-payments-by-range.module').then(mod => mod.ListPendingPaymentsByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Policies routes
             { path: ROUTES_NAME.createPolicy(':contactId'), loadChildren: () => import('@pages/home/policies/create-policy/create-policy.module').then(mod => mod.CreatePolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
@@ -72,12 +71,16 @@ const routes: Routes = [
             { path: ROUTES_NAME.showPolicySinisters(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/show-policy-sinisters/show-policy-sinisters.module').then(mod => mod.ShowPolicySinistersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.updateCompletePolicy(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/update-complete-policy/update-complete-policy.module').then(mod => mod.UpdateCompletePolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.policyTracker(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/policy-tracker/policy-tracker.module').then(mod => mod.PolicyTrackerModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.renewals, loadChildren: () => import('@pages/home/policies/renewals/renewals.module').then( mod => mod.RenewalsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.cancelledPolicies, loadChildren: () => import('@pages/home/policies/cancelled-policies/cancelled-policies.module').then( mod => mod.CancelledPoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.listActivePoliciesByRange, loadChildren: () => import('@pages/home/policies/list-active-policies-by-range/list-active-policies-by-range.module').then( mod => mod.ListActivePoliciesByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Policy endorsements routes
             { path: ROUTES_NAME.policyEndorsementsHistory(':contactId', ':policyId'), loadChildren: () => import('@pages/home/endorsements/policy-endorsements-history/policy-endorsements-history.module').then(mod => mod.PolicyEndorsementsHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Quotations routes
             { path: ROUTES_NAME.createQuotation(':contactId'), loadChildren: () => import('@pages/home/quotations/create-quotation/create-quotation.module').then(mod => mod.CreateQuotationModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.listQuotationsByRange, loadChildren: () => import('@pages/home/quotations/list-quotations-by-range/list-quotations-by-range.module').then(mod => mod.ListQuotationsByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Sinisters routes
             { path: ROUTES_NAME.listSinisters, loadChildren: () => import('@pages/home/sinisters/list-sinisters/list-sinisters.module').then(mod => mod.ListSinistersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

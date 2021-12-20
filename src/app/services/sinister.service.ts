@@ -185,19 +185,7 @@ export class SinisterService {
         return this._httpClient.get<HttpResponse>(route, {params});
     }
 
-    /**
-     * Get the total sinoster from the API
-     * @param  sinisterStatusId The filter to apply
-     * @return                  The total clients
-     */
-    getTotalSinisters(sinisterStatusId: number = 0): Observable<HttpResponse> {
-        const route: string = routes.totalSinisters(this._workspaceId);
-        let params: HttpParams = new HttpParams();
-        if(!!sinisterStatusId) params = params.append('filter', 'sinisterStatusId[=]' + sinisterStatusId);
-        return this._httpClient.get<HttpResponse>(route, { params });
-    }
-
-    getTotalWorkspaceSinisters(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
+    getTotalSinisters(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
         const route: string = routes.totalSinisters(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);

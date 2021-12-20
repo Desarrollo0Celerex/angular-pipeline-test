@@ -1,0 +1,10 @@
+<div class="card">
+    <div class="card-body text-center">
+        <i class="fa fa-credit-card text-info fa-3x"></i>
+        <h6 class="mt-4 mb-2">Recibos Pendientes</h6>
+        <h2 class="number-font"><span class="counter">{{model.totalPendingReceipts}}</span></h2>
+    </div>
+    <div class="card-footer text-center">
+        <button type="button" class="btn btn-block btn-secondary" (click)="goToListPendingPaymentsByRange()"><strong>GESTIONAR RECIBOS</strong></button>
+    </div>
+</div>

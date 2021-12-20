@@ -42,8 +42,8 @@ const HOME_CONTACT_PROFILE_ROUTES = {
 
 const HOME_DATA_ROUTES = {
     dashboard: 'workspace/data/dashboard',
-    lastPoliciesToRenew: 'workspace/data/last-policies-to-renew',
-    lastCancelledPolicies: 'workspace/data/last-cancelled-policies',
+    renewals: 'workspace/policies/renewals',
+    cancelledPolicies: 'workspace/policies/cancelled',
 }
 
 const HOME_ERRORS_ROUTES = {
@@ -89,7 +89,8 @@ const HOME_PAYMENTS_ROUTES = {
     listPayments: `workspace/payments/list-payments`,
     paymentHistory: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/payment-history/${contactId}/${policyId}/${paymentId}`,
     pendingReceipts: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/pending-receipts/${contactId}/${policyId}/${paymentId}`,
-    paymentCalendar: `workspace/payments/calendar`
+    paymentCalendar: `workspace/payments/calendar`,
+    listPendingPaymentsByRange: `workspace/payments/list-pending-payments-by-range`
 }
 
 const HOME_POLICIES_ROUTES = {
@@ -103,6 +104,7 @@ const HOME_POLICIES_ROUTES = {
     showPolicySinisters: (contactId: string, policyId: string) => `workspace/policies/policy-sinisters/${contactId}/${policyId}`,
     updateCompletePolicy: (contactId: string, policyId: string) => `workspace/policies/update-complete-policy/${contactId}/${policyId}`,
     policyTracker: (contactId: string, policyId: string) => `workspace/policies/policy-tracker/${contactId}/${policyId}`,
+    listActivePoliciesByRange: `workspace/policies/list-active-policies-by-range`,
 }
 
 const HOME_POLICY_ENDORSEMENTS_ROUTES = {
@@ -111,6 +113,7 @@ const HOME_POLICY_ENDORSEMENTS_ROUTES = {
 
 const HOME_QUOTATIONS_ROUTES = {
     createQuotation: (contactId: string) => `workspace/quotations/create-quotation/${contactId}`,
+    listQuotationsByRange: `workspace/quotations/list-quotations-by-range`,
 }
 
 const HOME_SINISTERS_ROUTES = {
@@ -125,6 +128,7 @@ const HOME_STATS_ROUTES = {
     statsLeads: `workspace/stats/leads`,
     statsClients: `workspace/stats/clients`,
     statsPolicies: `workspace/stats/policies`,
+    statsCollection: `workspace/stats/collection`,
 }
 
 const HOME_WALLET_ROUTES = {

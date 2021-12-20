@@ -46,7 +46,8 @@ export class ModalShowQuotationDetailsService {
             quotationStatusName: '',
             quotationStatusBackground: '',
             insuranceTypeName: '',
-            createdByName: ''
+            createdByName: '',
+            contactId: ''
         }
     }
 }
