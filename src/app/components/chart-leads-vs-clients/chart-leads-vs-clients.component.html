@@ -5,7 +5,8 @@
         <h3 class="card-title">Prospectos vs Clientes</h3>
     </div>
     <!-- //AGENTHOS - CHART HEADER -->
-    <div [ngStyle]="{'height': '116px'}"></div>
+    <div id="agt-stats-dashboard-leads-vs-clients"></div>
+    <agt-loading-content [isLoadingContent]="!canShowLeadsVsClientsStats" [height]="116"></agt-loading-content>
     <!-- AGENTHOS - CHART FOOTER -->
     <div class="card-footer text-center">
         <button type="button" class="btn btn-block btn-primary" disabled><strong>VER FUNNEL</strong></button>
