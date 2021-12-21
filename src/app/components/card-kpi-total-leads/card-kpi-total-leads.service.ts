@@ -9,7 +9,7 @@ export class CardKpiTotalLeadsService {
     constructor(private _leadService: LeadService) { }
 
     loadTotalLeads(): void {
-        const filters: string = "leadConversionDate[!=]null";
+        const filters: string = "leadConversionDate[<>]null";
         this._leadService.getTotalLeads(filters).subscribe((res: number) => {
             this.totalActiveLeads = res;
         })

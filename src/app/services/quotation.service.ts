@@ -19,6 +19,7 @@ const routes: any = {
     totalQuotations: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/quotations/total',
     totalWorkspaceQuotations: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/quotations/count',
     quotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/quotations',
+    totalQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/quotations/count',
     contactSourcesQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/contact-sources/quotations',
     partnersQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/partners/quotations',
     usersQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/users/quotations',
@@ -153,6 +154,17 @@ export class QuotationService {
 
     getQuotationsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
         const route: string = routes.quotationsStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getTotalQuotationsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+        const route: string = routes.totalQuotationsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
