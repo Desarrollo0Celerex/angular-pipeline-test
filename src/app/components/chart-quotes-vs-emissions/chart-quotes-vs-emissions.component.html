@@ -5,7 +5,8 @@
         <h3 class="card-title">Cotizaciones Vs Emisiones</h3>
     </div>
     <!-- //AGENTHOS - CHART HEADER -->
-    <div id="agtDashboardQuotesVsEmissions" [ngStyle]="{'height': '154px'}"></div>
+    <div id="agt-stats-dashboard-quotes-vs-emissions"></div>
+    <agt-loading-content [isLoadingContent]="!canShowStats" [height]="154"></agt-loading-content>
     <!-- AGENTHOS - CHART FOOTER -->
     <div class="card-footer text-center">
         <button type="button" class="btn btn-block btn-primary" (click)="goToPoliciesStats()"><strong>VER ESTADÍSTICAS</strong></button>

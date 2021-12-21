@@ -22,7 +22,7 @@ export class CardKpiTotalLastCancelledPoliciesComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.cardKpiTotalLastCancelledPoliciesService.loadTotalCancelledPolicies();
+        this.cardKpiTotalLastCancelledPoliciesService.loadTotalLastCancelledPolicies();
     }
 
     goToListCancelledPoliciesByRange(): void {

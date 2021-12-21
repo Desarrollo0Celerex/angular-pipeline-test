@@ -14,7 +14,7 @@ export class CardKpiTotalLastCancelledPoliciesService {
 
     constructor(private _policyService: PolicyService) { }
 
-    loadTotalCancelledPolicies(): void {
+    loadTotalLastCancelledPolicies(): void {
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.CANCELLED])
         const rangeField: string = 'updatedAt';
         this._policyService.getTotalWorkspacePolicies(filters, rangeField, this.rangeStart, this.rangeEnd).subscribe((res: number) => {
