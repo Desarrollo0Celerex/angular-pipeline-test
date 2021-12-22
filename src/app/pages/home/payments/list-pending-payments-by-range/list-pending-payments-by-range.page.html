@@ -19,19 +19,7 @@
     <!-- //AGENTHOS - DATA SUITE STATS -->
     <!-- AGENTHOS - DATA SUITE REPORT -->
     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Generar Reporte</h3>
-            </div>
-            <!-- AGENTHOS - DATA SUITE REPORT GENERATOR -->
-            <div class="card-body">
-                <ol class="breadcrumb1 mt-2">
-                    <li class="breadcrumb-item1">Genera un reporte inmediato de los <strong>Recibos Pendientes</strong>.</li>
-                </ol>
-                <button type="button" class="btn btn-block btn-primary mt-5" disabled><strong>DESCARGAR REPORTE</strong></button>
-            </div>
-            <!-- //AGENTHOS - DATA SUITE REPORT GENERATOR -->
-        </div>
+        <agt-card-download-pending-receipts [statsPeriodData]="statsPeriodData"></agt-card-download-pending-receipts>
     </div>
     <!-- //AGENTHOS - DATA SUITE REPORT -->
 </div>

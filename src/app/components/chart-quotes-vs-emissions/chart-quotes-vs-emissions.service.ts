@@ -24,13 +24,13 @@ export class ChartQuotesVsEmissionsService {
         let requests: Observable<RangeStat[]>[] = [];
         const rangeFieldEmissions: string = 'emissionDate';
         const rangeFieldQuotes: string = 'createdAt';
-        requests.push(this._policyService.getTotalPoliciesStats(rangeFieldEmissions, this.rangeStart, this.rangeEnd));
         requests.push(this._quotationService.getTotalQuotationsStats(rangeFieldQuotes, this.rangeStart, this.rangeEnd));
+        requests.push(this._policyService.getTotalPoliciesStats(rangeFieldEmissions, this.rangeStart, this.rangeEnd));
         return forkJoin(requests);
     }
 
     loadStatsData(stats: RangeStat[][]): void {
-        const headerData: any[] = [['', 'Emisiones', 'Cancelaciones']];
+        const headerData: any[] = [['', 'Cotizaciones', 'Emisiones']];
         this.statsData = ChartHelper.generateChartDataByRanges(stats, headerData, false);
     }
 }

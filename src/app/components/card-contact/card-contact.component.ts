@@ -11,9 +11,11 @@ import { Contact } from '@interfaces/contact.interface';
 })
 export class CardContactComponent {
     @Input() contact: Contact | null;
-    @Input() buttonLabel: string = 'SELECCIIONAR';
+    @Input() buttonLabel: string = 'SELECCIONAR';
+    @Input() canDeleteContact: boolean = false;
     @Output() contactSelected: EventEmitter<string>;
     @Output() showContactData: EventEmitter<string>;
+    @Output() deleteContactRequested: EventEmitter<string> = new EventEmitter<string>();
     ROUTES_NAME: any;
 
     constructor() {
@@ -21,6 +23,10 @@ export class CardContactComponent {
         this.contactSelected = new EventEmitter<string>();
         this.showContactData = new EventEmitter<string>();
         this.ROUTES_NAME = ROUTES_NAME;
+    }
+
+    get canShowDeleteContactButton(): boolean {
+        return (!!this.contact && !(!!this.contact.clientStatusName) && !(!!this.contact.leadStatusName) && !!this.canDeleteContact) ? true : false;
     }
 
     /**
@@ -37,6 +43,12 @@ export class CardContactComponent {
      */
     onClickShowContactData(contactId: string): void {
         this.showContactData.emit(contactId);
+    }
+
+    requestDeleteContact(): void {
+        if(!!this.contact) {
+            this.deleteContactRequested.emit(this.contact.contactId);
+        }
     }
 
 }

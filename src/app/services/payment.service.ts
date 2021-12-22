@@ -17,6 +17,7 @@ const routes: any = {
     payment: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/' +paymentId,
     paymentDate: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/' + paymentId + '/payment-date',
     payments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments',
+    paymentsReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/report',
     totalPayments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/count',
     totalPaymentsAmount: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/total-amount',
     paymentsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/payments',
@@ -32,6 +33,24 @@ export class PaymentService {
         private _httpClient: HttpClient,
         private _authService: AuthService
     ) { }
+
+    downloadPaymentsReport(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt') {
+        const route: string = routes.paymentsReport(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
+    }
 
     getInsurancesPaymentsStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<Stat[]> {
         const route: string = routes.insurancesPaymentsStats(this._workspaceId);

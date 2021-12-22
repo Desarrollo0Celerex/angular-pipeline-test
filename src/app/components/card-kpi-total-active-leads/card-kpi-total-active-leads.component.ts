@@ -3,21 +3,21 @@ import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 
-import { CardKpiTotalLeadsService } from './card-kpi-total-leads.service';
+import { CardKpiTotalActiveLeadsService } from './card-kpi-total-active-leads.service';
 
 @Component({
-  selector: 'agt-card-kpi-total-leads',
-  templateUrl: './card-kpi-total-leads.component.html',
+  selector: 'agt-card-kpi-total-active-leads',
+  templateUrl: './card-kpi-total-active-leads.component.html',
   styles: [
   ],
   providers: [
-      CardKpiTotalLeadsService
+      CardKpiTotalActiveLeadsService
   ]
 })
-export class CardKpiTotalLeadsComponent implements OnInit {
+export class CardKpiTotalActiveLeadsComponent implements OnInit {
 
     constructor(
-        private _cardKpiActiveLeadsService: CardKpiTotalLeadsService,
+        private _cardKpiActiveLeadsService: CardKpiTotalActiveLeadsService,
         private _router: Router
     ) { }
 
@@ -25,7 +25,7 @@ export class CardKpiTotalLeadsComponent implements OnInit {
         this.model.loadTotalLeads();
     }
 
-    get model(): CardKpiTotalLeadsService {
+    get model(): CardKpiTotalActiveLeadsService {
         return this._cardKpiActiveLeadsService;
     }
 
