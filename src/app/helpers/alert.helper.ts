@@ -4,6 +4,16 @@ import { Alert } from '@interfaces/alert.interface';
 
 export class AlertHelper {
 
+    static contactDeleted(): void {
+        const alertData: Alert = {
+            title: 'Contacto Eliminado',
+            text: 'El contacto se eliminó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static contactUpdated(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Contacto Actualizado',

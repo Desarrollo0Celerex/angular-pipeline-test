@@ -33,7 +33,10 @@
                 <button type="button" class="btn btn-block btn-primary" (click)="onClickSelectContact(contact.contactId)"><strong>{{buttonLabel}}</strong></button>
             </div>
             <div class="col-sm-3 col-3 text-right">
-                <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowContactData(contact.contactId)"><i class="fa fa-id-badge"></i></button>
+                <button *ngIf="canShowDeleteContactButton; else showContact" type="button" class="btn btn-icon btn-secondary" (click)="requestDeleteContact()"><i class="fe fe-trash-2"></i></button>
+                <ng-template #showContact>
+                    <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowContactData(contact.contactId)"><i class="fa fa-id-badge"></i></button>
+                </ng-template>
             </div>
         </div>
     </div>

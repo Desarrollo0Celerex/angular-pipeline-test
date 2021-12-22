@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { Contact } from '@interfaces/contact.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -9,6 +10,10 @@ export class ContainerLastContactsService {
     lastContacts: Contact[] = [];
 
     constructor(private _contactService: ContactService) { }
+
+    deleteContact(contactId: string): Observable<void> {
+        return this._contactService.deleteContact(contactId);
+    }
 
     loadLastContacts(): void {
         const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';

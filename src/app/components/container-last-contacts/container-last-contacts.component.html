@@ -1,5 +1,5 @@
 <!-- AGENTHOS - LAST CONTACTS PANEL -->
-<div class="row mt-3">
+<div class="row mt-3" *ngIf="containerLastContactsService.lastContacts.length > 0">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -12,8 +12,10 @@
         <agt-card-contact
             [contact]="contact"
             buttonLabel="VER PERFIL"
+            [canDeleteContact]="true"
             (contactSelected)="goToContactProfile($event)"
             (showContactData)="showContactDataModal($event)"
+            (deleteContactRequested)="showModalToConfirmDeleteContact($event)"
         ></agt-card-contact>
     </div>
     <!-- //AGENTHOS - CLIENT CARD -->
@@ -23,3 +25,9 @@
     [modalId]="modalIdShowContactData"
     [contactId]="selectedContactId"
 ></agt-modal-show-contact-data>
+
+
+<agt-modal-confirm-delete-contact
+    [modalId]="modalIdConfirmDeleteContact"
+    (actionConfirmed)="deleteContact()">
+</agt-modal-confirm-delete-contact>

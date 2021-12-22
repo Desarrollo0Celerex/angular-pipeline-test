@@ -38,6 +38,11 @@ export class ContactService {
         return this._httpClient.post<HttpResponse>(route, requestBody);
     }
 
+    deleteContact(contactId: string): Observable<void> {
+        const route: string = routes.contact(this._workspaceId, contactId);
+        return this._httpClient.delete<void>(route);
+    }
+
     /**
      * Get a contact from the API
      * @param  contactId The contact ID
