@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CardKpiTotalActiveClientsModule } from '@components/card-kpi-total-active-clients/card-kpi-total-active-clients.module';
-import { CardKpiTotalLeadsModule } from '@components/card-kpi-total-leads/card-kpi-total-leads.module';
+import { CardKpiTotalActiveLeadsModule } from '@components/card-kpi-total-active-leads/card-kpi-total-active-leads.module';
 import { CardKpiTotalActivePoliciesModule } from '@components/card-kpi-total-active-policies/card-kpi-total-active-policies.module';
 import { CardKpiTotalLastCancelledPoliciesModule } from '@components/card-kpi-total-last-cancelled-policies/card-kpi-total-last-cancelled-policies.module';
 import { CardKpiTotalLastRenewalsModule } from '@components/card-kpi-total-last-renewals/card-kpi-total-last-renewals.module';
@@ -22,7 +22,7 @@ import { DashboardPage } from './dashboard.page';
   declarations: [DashboardPage],
   imports: [
     CardKpiTotalActiveClientsModule,
-    CardKpiTotalLeadsModule,
+    CardKpiTotalActiveLeadsModule,
     CardKpiTotalActivePoliciesModule,
     CardKpiTotalLastCancelledPoliciesModule,
     CardKpiTotalOpenSinistersModule,
