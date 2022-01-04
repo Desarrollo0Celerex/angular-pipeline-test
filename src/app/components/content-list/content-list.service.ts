@@ -58,6 +58,10 @@ export class ContentListService {
         this.contentResultData = this._initContentResultData();
     }
 
+    deleteContact(contactId: string): Observable<void> {
+        return this._contactService.deleteContact(contactId);
+    }
+
     deleteGroupMember(groupId: string, contactId: string): Observable<void> {
         return this._groupMemberService.deleteGroupMember(groupId, contactId);
     }
@@ -249,6 +253,22 @@ export class ContentListService {
         const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId';
         const filters: number [] = (contentSubtype === SINISTER_STATUS_OPEN) ? [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE] : [contentSubtype];
         return this._sinisterService.getContactSinisters(contactId, page, fields, filters).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    /**
+     * Load the contacts
+     * @param  page           The page number
+     * @return                Notice of action done
+     */
+    loadContacts(page: number): Observable<void> {
+        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        return this._contactService.getContacts(page, fields).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);

@@ -97,6 +97,7 @@
                     [contact]="content"
                     (showContactData)="onShowContactData($event)"
                     (contactSelected)="onContactSelected($event)"
+                    (deleteContactRequested)="showModalToConfirmDeleteContact($event)"
                 ></agt-card-contact>
                 <agt-card-group *ngSwitchCase="CONTENT_TYPES.GROUP.ID"
                     [group]="content"
@@ -395,5 +396,11 @@
         [policyId]="selectedPolicyId"
         (policyDeleted)="onPolicyDeleted()">
     </agt-modal-confirm-delete-policy>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT.ID">
+    <agt-modal-confirm-delete-contact
+        [modalId]="modalIdConfirmDeleteContact"
+        (actionConfirmed)="deleteContact()">
+    </agt-modal-confirm-delete-contact>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

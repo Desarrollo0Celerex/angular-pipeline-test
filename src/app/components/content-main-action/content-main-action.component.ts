@@ -80,8 +80,11 @@ export class ContentMainActionComponent implements OnInit {
     getHeaderTitle(): string {
         let title: string = '';
         switch(this.contentType) {
-            case CONTENT_TYPES.LEAD.ID: title = 'Nuevo '+this.contentTypeName; break;
-            case CONTENT_TYPES.CLIENT.ID: title = 'Nuevo '+this.contentTypeName; break;
+            case CONTENT_TYPES.CONTACT.ID:
+            case CONTENT_TYPES.LEAD.ID:
+            case CONTENT_TYPES.CLIENT.ID: 
+                title = 'Nuevo '+this.contentTypeName;
+            break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.CONTACT_FILE.ID: title = 'Actualizar Expediente'; break;
@@ -106,8 +109,11 @@ export class ContentMainActionComponent implements OnInit {
     getButtonTitle(): string {
         let title: string = '';
         switch(this.contentType) {
-            case CONTENT_TYPES.LEAD.ID: title = 'CREAR '+this.contentTypeName; break;
-            case CONTENT_TYPES.CLIENT.ID: title = 'CREAR '+this.contentTypeName; break;
+            case CONTENT_TYPES.CONTACT.ID:
+            case CONTENT_TYPES.LEAD.ID:
+            case CONTENT_TYPES.CLIENT.ID:
+                title = 'CREAR '+this.contentTypeName;
+            break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.POLICY.ID:
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
@@ -132,6 +138,7 @@ export class ContentMainActionComponent implements OnInit {
      */
     onClickDoAction(): void {
         switch(this.contentType) {
+            case CONTENT_TYPES.CONTACT.ID:
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:

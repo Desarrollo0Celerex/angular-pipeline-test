@@ -19,6 +19,18 @@
         ></agt-card-contact>
     </div>
     <!-- //AGENTHOS - CLIENT CARD -->
+    <!-- AGENTHOS - SHOW MORE -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <!-- AGENTHOS - LOAD MORE (ONLY IF PENDING ITEMS) -->
+                <div class="btn-list text-center">
+                    <button type="button" class="btn btn-block btn-primary" (click)="goToListContacts()"><strong>MOSTRAR TODOS</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - SHOW MORE -->
 </div>
 <!-- //AGENTHOS - LAST CONTACTS PANEL -->
 <agt-modal-show-contact-data

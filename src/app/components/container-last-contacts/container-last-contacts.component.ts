@@ -46,6 +46,10 @@ export class ContainerLastContactsComponent implements OnInit {
         this._router.navigateByUrl(ROUTES_NAME.contactResume(contactId));
     }
 
+    goToListContacts(): void {
+        this._router.navigateByUrl(ROUTES_NAME.listContacts);
+    }
+
     showContactDataModal(contactId: string): void {
         this.selectedContactId = contactId;
         ModalPlugin.show(this.modalIdShowContactData);

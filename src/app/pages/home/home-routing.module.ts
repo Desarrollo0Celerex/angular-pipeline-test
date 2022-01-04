@@ -21,6 +21,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.createContact(':contactTypeId'), loadChildren: () => import('@pages/home/contacts/create-contact/create-contact.module').then( mod => mod.CreateContactModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.changeContact(':contactId', ':policyId', ':contactTypeId', ':actionType'), loadChildren: () => import('@pages/home/contacts/change-contact/change-contact.module').then( mod => mod.ChangeContactModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.listContactCoincidences, loadChildren: () => import('@pages/home/contacts/list-contact-coincidences/list-contact-coincidences.module').then( mod => mod.ListContactCoincidencesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.listContacts, loadChildren: () => import('@pages/home/contacts/list-contacts/list-contacts.module').then( mod => mod.ListContactsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: '', loadChildren: () => import('@pages/home/contact-profile/contact-profile.module').then(mod => mod.ContactProfileModule) },
 
             // Data routes

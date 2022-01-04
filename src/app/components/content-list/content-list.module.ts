@@ -31,6 +31,7 @@ import { LoadingContentModule } from '@components/loading-content/loading-conten
 import { ModalApplyPaymentModule } from '@components/modal-apply-payment/modal-apply-payment.module';
 import { ModalConfirmAcceptQuotationModule } from '@components/modal-confirm-accept-quotation/modal-confirm-accept-quotation.module';
 import { ModalConfirmCancelPolicyModule } from '@components/modal-confirm-cancel-policy/modal-confirm-cancel-policy.module';
+import { ModalConfirmDeleteContactModule } from '@components/modal-confirm-delete-contact/modal-confirm-delete-contact.module';
 import { ModalConfirmDeleteContactFileModule } from '@components/modal-confirm-delete-contact-file/modal-confirm-delete-contact-file.module';
 import { ModalConfirmDeleteGroupMemberModule } from '@components/modal-confirm-delete-group-member/modal-confirm-delete-group-member.module';
 import { ModalConfirmDeletePolicyModule } from '@components/modal-confirm-delete-policy/modal-confirm-delete-policy.module';
@@ -123,6 +124,7 @@ import { ContentListService } from './content-list.service';
     ModalApplyPaymentModule,
     ModalConfirmAcceptQuotationModule,
     ModalConfirmCancelPolicyModule,
+    ModalConfirmDeleteContactModule,
     ModalConfirmDeleteContactFileModule,
     ModalConfirmDeleteGroupMemberModule,
     ModalConfirmDeletePolicyModule,

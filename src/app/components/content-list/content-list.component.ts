@@ -94,6 +94,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdAcceptQuotation: string;
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
+    modalIdConfirmDeleteContact: string = 'agt-confirm-delete-contact';
     modalIdConfirmDeleteContactFile: string = 'agt-confirm-delete-contact-file';
     modalIdConfirmDeleteCompletePolicy: string = 'agt-confirm-delete-complete-policy';
     modalIdConfirmDeleteGroupMember: string = 'agt-confirm-delete-group-member';
@@ -238,6 +239,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     confirmDeleteGroupMember(contactId: string): void {
         this.selectedContactId = contactId;
         ModalPlugin.show(this.modalIdConfirmDeleteGroupMember)
+    }
+
+    deleteContact(): void {
+        this._loadingService.show();
+        this.contentListService.deleteContact(this.selectedContactId).subscribe(() => {
+            this._loadingService.hide();
+            AlertHelper.contactDeleted();
+            const url: string = this._router.url.split('?')[0] ;
+            this._reloadPage(url);
+        })
     }
 
     deleteGroupMember(): void {
@@ -726,6 +737,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdApplyPayment);
     }
 
+    showModalToConfirmDeleteContact(contactId: string): void {
+        this.selectedContactId = contactId;
+        ModalPlugin.show(this.modalIdConfirmDeleteContact);
+    }
+
     showModalToConfirmSelectGroup(groupId: string): void {
         this.selectedGroupId = groupId;
         ModalPlugin.show(this.modalIdConfirmSelectGroup);
@@ -789,6 +805,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _loadCardClasses(): void {
         switch(this.contentType) {
+            case CONTENT_TYPES.CONTACT.ID:
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.POLICY.ID:
@@ -853,6 +870,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _loadContentsByFilter(): void {
         switch(this.contentType) {
+            case CONTENT_TYPES.CONTACT.ID:
+                this.contentListService.loadContacts(this.page).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
             case CONTENT_TYPES.LEAD.ID:
                 this.contentListService.loadLeads(this.page, this.contentSubtype).subscribe( () => {
                     this._contentLoaded();
