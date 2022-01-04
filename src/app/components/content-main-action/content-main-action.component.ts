@@ -58,8 +58,14 @@ export class ContentMainActionComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if(this.contentType === CONTENT_TYPES.CONTACT_FILE.ID) {
-            this.contentSubtypeNameSelected.emit('Cargado');
+        switch(this.contentType) {
+            case CONTENT_TYPES.CONTACT_FILE.ID:
+                this.contentSubtypeNameSelected.emit('Cargado');
+            break;
+
+            case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:
+                this.contentSubtypeNameSelected.emit('Incompleta');
+            break;
         }
     }
 
@@ -88,6 +94,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.PAYMENT.ID: title = 'Actualizar Cobranza'; break;
             case CONTENT_TYPES.SINISTER.ID: title = 'Nuevo '+this.contentTypeName; break;
             case CONTENT_TYPES.CONTACT_SINISTER.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
+            case CONTENT_TYPES.INCOMPLETE_POLICIES.ID: title = 'Nueva ' + this.contentTypeName; break;
         }
         return title;
     }
@@ -115,6 +122,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.PARTNER.ID: title = 'CREAR SOCIO'; break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'APLICAR PAGO'; break;
             case CONTENT_TYPES.SINISTER.ID: title = 'REPORTAR '+this.contentTypeName; break;
+            case CONTENT_TYPES.INCOMPLETE_POLICIES.ID: title = 'CARGAR '+this.contentTypeName; break;
         }
         return title;
     }
@@ -124,8 +132,11 @@ export class ContentMainActionComponent implements OnInit {
      */
     onClickDoAction(): void {
         switch(this.contentType) {
-            case CONTENT_TYPES.LEAD.ID: ModalPlugin.show(this.selectContactTypeModalId); break;
-            case CONTENT_TYPES.CLIENT.ID: ModalPlugin.show(this.selectContactTypeModalId); break;
+            case CONTENT_TYPES.LEAD.ID:
+            case CONTENT_TYPES.CLIENT.ID:
+            case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:
+                ModalPlugin.show(this.selectContactTypeModalId);
+            break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: ModalPlugin.show(this.selectQuotationStatusModalId); break;
             case CONTENT_TYPES.POLICY.ID:
             case CONTENT_TYPES.GROUP_POLICY.ID:

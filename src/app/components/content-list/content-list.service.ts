@@ -128,6 +128,25 @@ export class ContentListService {
     }
 
     /**
+     * Load the active policies by range
+     * @param  page           The page number to get
+     * @param  contentSubtype The filter to apply
+     * @return                Notice of action done
+     */
+    loadIncompletePolicies(page: number): Observable<void> {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId';
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.INCOMPLETE]);
+        const sortBy: string = '-createdAt';
+        return this._policyService.getPolicies(page, fields, filters, '', sortBy).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    /**
      * Load the clients
      * @param  page           The page number to get
      * @param  contentSubtype The filter to apply

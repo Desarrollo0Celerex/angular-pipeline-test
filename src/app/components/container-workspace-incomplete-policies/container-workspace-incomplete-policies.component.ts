@@ -33,7 +33,7 @@ export class ContainerWorkspaceIncompletePoliciesComponent implements OnInit {
     }
 
     goToListIncompletePolicies(): void {
-        this._router.navigateByUrl(ROUTES_NAME.listIncompletePoliccies);
+        this._router.navigateByUrl(ROUTES_NAME.listIncompletePolicies);
     }
 
     /**

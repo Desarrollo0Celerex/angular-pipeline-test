@@ -105,7 +105,7 @@ const HOME_POLICIES_ROUTES = {
     updateCompletePolicy: (contactId: string, policyId: string) => `workspace/policies/update-complete-policy/${contactId}/${policyId}`,
     policyTracker: (contactId: string, policyId: string) => `workspace/policies/policy-tracker/${contactId}/${policyId}`,
     listActivePoliciesByRange: `workspace/policies/list-active-policies-by-range`,
-    listIncompletePoliccies: `workspace/policies/list-incomplete-policies`,
+    listIncompletePolicies: `workspace/policies/list-incomplete-policies`,
 }
 
 const HOME_POLICY_ENDORSEMENTS_ROUTES = {

@@ -31,6 +31,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
     mainActionWidth: number;
     partnerId: string = '';
     searchEngineWidth: number;
+    searchEngineContentType: number = 0;
+    searchEngineContentTypeName: string = '';
     query: string;
     private _subParams: any;
 
@@ -55,6 +57,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
         this.canShowKpis = this._checkCanShowKpis();
         this.mainActionWidth = this._getMainActionWidth();
         this.searchEngineWidth = this._getSearchEngineWidth();
+        this.searchEngineContentType = (this.contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID) ? CONTENT_TYPES.CLIENT.ID : this.contentType;
+        this.searchEngineContentTypeName = (this.contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID) ? CONTENT_TYPES.CLIENT.NAME : this.contentTypeName;
     }
 
     ngOnDestroy(): void {

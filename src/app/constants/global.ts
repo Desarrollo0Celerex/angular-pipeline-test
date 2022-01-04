@@ -253,6 +253,10 @@ export const CONTENT_TYPES: any = {
         ID: 31,
         NAME: 'Recibo'
     },
+    INCOMPLETE_POLICIES: {
+        ID: 32,
+        NAME: 'Póliza'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,
