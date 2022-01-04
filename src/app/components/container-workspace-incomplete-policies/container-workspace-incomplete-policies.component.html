@@ -1,0 +1,50 @@
+<!-- AGENTHOS - INCOMPLETE POLICIES -->
+<!-- (JUST IF INCOMPLETE POLICIES DETECTED) -->
+<div class="row mt-3" *ngIf="model.policies.length > 0">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Pólizas Incompletas</h3>
+            </div>
+        </div>
+    </div>
+    <!-- AGENTHOS - POLICY CARD -->
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngFor="let policy of model.policies">
+        <agt-card-policy
+            [policy]="policy"
+            [canShowFooter]="false"
+            (completePolicy)="onCompletePolicy($event)"
+            (deletePolicy)="onDeletePolicy($event)"
+            (showHistoryPolicy)="onShowHistoryPolicy($event)"
+        >
+        </agt-card-policy>
+    </div>
+    <!-- AGENTHOS - POLICY CARD -->
+
+    <!-- AGENTHOS - SHOW MORE -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <!-- AGENTHOS - LOAD MORE (ONLY IF PENDING ITEMS) -->
+                <div class="btn-list text-center">
+                    <button type="button" class="btn btn-block btn-primary" (click)="goToListIncompletePolicies()"><strong>MOSTRAR TODAS</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - SHOW MORE -->
+</div>
+<!-- AGENTHOS - INCOMPLETE POLICIES -->
+
+<agt-modal-confirm-delete-policy
+    [modalId]="modalIdConfirmDeletePolicy"
+    [contactId]="selectedContactId"
+    [policyId]="selectedPolicyId"
+    (policyDeleted)="onPolicyDeleted()">
+</agt-modal-confirm-delete-policy>
+
+<agt-modal-confirm-show-history-policy
+    [modalId]="modalIdConfirmShowHistoryPolicy"
+    [contactId]="selectedContactId"
+    [policyId]="selectedPolicyId">
+</agt-modal-confirm-show-history-policy>

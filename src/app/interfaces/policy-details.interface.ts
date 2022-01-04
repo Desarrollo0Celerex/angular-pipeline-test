@@ -7,5 +7,7 @@ export interface PolicyDetails {
     validityStartDate: string,
     validityEndDate: string,
     totalSinisters: string,
-    totalEndorsements: string
+    totalEndorsements: string,
+    titularName: string,
+    insurerName: string
 }
