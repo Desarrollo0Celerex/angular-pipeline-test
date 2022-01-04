@@ -253,6 +253,10 @@ export const CONTENT_TYPES: any = {
         ID: 31,
         NAME: 'Recibo'
     },
+    INCOMPLETE_POLICIES: {
+        ID: 32,
+        NAME: 'Póliza'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,
@@ -352,7 +356,7 @@ export const PERIOD_STATUS: any = {
 
 export const SLACK_UNITS: number = 10;
 export const SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY: any = {
-    GLOBAL_ADMIN: 180,
+    GLOBAL_ADMIN: 600,
     OTHERS: 40
 }
 export const SLACK_DAYS_TO_LOAD_A_EXPIRED_POLICY: number = 30;

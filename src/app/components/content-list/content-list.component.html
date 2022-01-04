@@ -97,6 +97,7 @@
                     [contact]="content"
                     (showContactData)="onShowContactData($event)"
                     (contactSelected)="onContactSelected($event)"
+                    (deleteContactRequested)="showModalToConfirmDeleteContact($event)"
                 ></agt-card-contact>
                 <agt-card-group *ngSwitchCase="CONTENT_TYPES.GROUP.ID"
                     [group]="content"
@@ -145,6 +146,15 @@
                     (showPolicySinisters)="onShowPolicySinisters($event)"
                     (deletePolicy)="onDeletePolicy($event)"
                 ></agt-card-policy>
+                <agt-card-policy
+                    *ngSwitchCase="CONTENT_TYPES.INCOMPLETE_POLICIES.ID"
+                    [policy]="content"
+                    [canShowFooter]="false"
+                    (completePolicy)="onCompletePolicy($event)"
+                    (deletePolicy)="confirmDeleteIncompletePolicy($event)"
+                    (showHistoryPolicy)="onShowHistoryPolicy($event)"
+                >
+                </agt-card-policy>
                 <agt-card-partner *ngSwitchCase="CONTENT_TYPES.PARTNER.ID"
                     [partner]="content"
                     [isCoincidence]="isCoincidence"
@@ -310,6 +320,7 @@
     contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
+    contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
     <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
     <agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
@@ -377,5 +388,19 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.GROUP.ID">
     <agt-modal-show-group-details [modalId]="modalIdShowGroupDetails" [group]="selectedGroup"></agt-modal-show-group-details>
     <agt-modal-confirm-select-group [modalId]="modalIdConfirmSelectGroup" [groupId]="selectedGroupId"></agt-modal-confirm-select-group>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID">
+    <agt-modal-confirm-delete-policy
+        [modalId]="modalIdConfirmDeleteIncompletePolicy"
+        [contactId]="contactId"
+        [policyId]="selectedPolicyId"
+        (policyDeleted)="onPolicyDeleted()">
+    </agt-modal-confirm-delete-policy>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT.ID">
+    <agt-modal-confirm-delete-contact
+        [modalId]="modalIdConfirmDeleteContact"
+        (actionConfirmed)="deleteContact()">
+    </agt-modal-confirm-delete-contact>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

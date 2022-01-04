@@ -94,9 +94,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdAcceptQuotation: string;
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
+    modalIdConfirmDeleteContact: string = 'agt-confirm-delete-contact';
     modalIdConfirmDeleteContactFile: string = 'agt-confirm-delete-contact-file';
     modalIdConfirmDeleteCompletePolicy: string = 'agt-confirm-delete-complete-policy';
     modalIdConfirmDeleteGroupMember: string = 'agt-confirm-delete-group-member';
+    modalIdConfirmDeleteIncompletePolicy: string = 'agt-confirm-delete-incomplete-policy';
     modalIdConfirmDeleteReceiptPaid: string;
     modalIdConfirmDeleteRenewedPolicy: string = 'agt-confirm-delete-renewed-policy';
     modalIdConfirmDeleteSinisterEvent: string = 'agt-confirm-delete-sinister-event';
@@ -239,6 +241,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdConfirmDeleteGroupMember)
     }
 
+    deleteContact(): void {
+        this._loadingService.show();
+        this.contentListService.deleteContact(this.selectedContactId).subscribe(() => {
+            this._loadingService.hide();
+            AlertHelper.contactDeleted();
+            const url: string = this._router.url.split('?')[0] ;
+            this._reloadPage(url);
+        })
+    }
+
     deleteGroupMember(): void {
         this._loadingService.show();
         this.contentListService.deleteGroupMember(this.groupId, this.selectedContactId).subscribe(() => {
@@ -318,6 +330,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to complete the policy data
      * @param data The policy record data
      */
+     onCompletePolicy(data: ContactPolicyData): void {
+         this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.contactId, data.policyId));
+     }
+
+    /**
+     * Event to complete the policy data
+     * @param data The policy record data
+     */
     onCompletePolicyRecord(data: PolicyRecordData): void {
         this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.sourceContactId, data.sourceId));
     }
@@ -339,6 +359,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.contactId = data.contactId;
         this.selectedPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmDeleteCompletePolicy);
+    }
+
+    confirmDeleteIncompletePolicy(data: ContactPolicyData): void {
+        this.contactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
+        ModalPlugin.show(this.modalIdConfirmDeleteIncompletePolicy);
     }
 
     /**
@@ -711,6 +737,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdApplyPayment);
     }
 
+    showModalToConfirmDeleteContact(contactId: string): void {
+        this.selectedContactId = contactId;
+        ModalPlugin.show(this.modalIdConfirmDeleteContact);
+    }
+
     showModalToConfirmSelectGroup(groupId: string): void {
         this.selectedGroupId = groupId;
         ModalPlugin.show(this.modalIdConfirmSelectGroup);
@@ -774,6 +805,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _loadCardClasses(): void {
         switch(this.contentType) {
+            case CONTENT_TYPES.CONTACT.ID:
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.POLICY.ID:
@@ -786,6 +818,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.PARTNER_CLIENT.ID:
             case CONTENT_TYPES.PARTNER_POLICY.ID:
             case CONTENT_TYPES.PARTNER_SINISTER.ID:
+            case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:
                 this.cardClasses = 'col-xl-3 col-lg-4 col-md-6 col-sm-12';
             break;
 
@@ -837,6 +870,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _loadContentsByFilter(): void {
         switch(this.contentType) {
+            case CONTENT_TYPES.CONTACT.ID:
+                this.contentListService.loadContacts(this.page).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
             case CONTENT_TYPES.LEAD.ID:
                 this.contentListService.loadLeads(this.page, this.contentSubtype).subscribe( () => {
                     this._contentLoaded();
@@ -973,6 +1012,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this.contentListService.loadPolicyTracker(this.contactId, this.policyId, this.page).subscribe( () => {
                     this._contentLoaded();
                     this.selectedPolicyPos = this.contentListService.getPolicyTrackerPos(this.policyId);
+                })
+            break;
+
+            case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:
+                this.contentListService.loadIncompletePolicies(this.page).subscribe( () => {
+                    this._contentLoaded();
                 })
             break;
         }

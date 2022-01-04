@@ -10,7 +10,13 @@
 </div>
 <!-- //AGENTHOS - CONTENT MAIN ACTION -->
 
-<ng-container *ngIf="contentType === CONTENT_TYPES.LEAD.ID || contentType === CONTENT_TYPES.CLIENT.ID">
+<ng-container
+    *ngIf="
+        contentType === CONTENT_TYPES.CONTACT.ID ||
+        contentType === CONTENT_TYPES.LEAD.ID ||
+        contentType === CONTENT_TYPES.CLIENT.ID ||
+        contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID
+        ">
     <agt-modal-select-contact-type [modalId]="selectContactTypeModalId"></agt-modal-select-contact-type>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID">

@@ -23,7 +23,8 @@ const HOME_CONTACTS_ROUTES = {
     createContact: (contactTypeId: string) => `workspace/contacts/create-contact/${contactTypeId}`,
     changeContact: (contactId: string, policyId: string, contactTypeId: string, actionType: string) => `workspace/contacts/change-contact/${contactId}/${policyId}/${contactTypeId}/${actionType}`,
     contactSearchResults: () => `workspace/contacts/contact-search-results`,
-    listContactCoincidences: `workspace/contacts/list-contact-coincidences`
+    listContactCoincidences: `workspace/contacts/list-contact-coincidences`,
+    listContacts: `workspace/contacts/list-contacts`
 }
 
 const HOME_CONTACT_FILES_ROUTES = {
@@ -105,6 +106,7 @@ const HOME_POLICIES_ROUTES = {
     updateCompletePolicy: (contactId: string, policyId: string) => `workspace/policies/update-complete-policy/${contactId}/${policyId}`,
     policyTracker: (contactId: string, policyId: string) => `workspace/policies/policy-tracker/${contactId}/${policyId}`,
     listActivePoliciesByRange: `workspace/policies/list-active-policies-by-range`,
+    listIncompletePolicies: `workspace/policies/list-incomplete-policies`,
 }
 
 const HOME_POLICY_ENDORSEMENTS_ROUTES = {

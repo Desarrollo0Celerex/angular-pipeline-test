@@ -12,6 +12,7 @@ import { CardKpiTotalQuotesModule } from '@components/card-kpi-total-quotes/card
 import { ChartLeadsVsClientsModule } from '@components/chart-leads-vs-clients/chart-leads-vs-clients.module';
 import { ChartQuotesVsEmissionsModule } from '@components/chart-quotes-vs-emissions/chart-quotes-vs-emissions.module';
 import { ContainerLastContactsModule } from '@components/container-last-contacts/container-last-contacts.module';
+import { ContainerWorkspaceIncompletePoliciesModule } from '@components/container-workspace-incomplete-policies/container-workspace-incomplete-policies.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { PolicyService } from '@services/policy.service';
 
@@ -33,6 +34,7 @@ import { DashboardPage } from './dashboard.page';
     ChartLeadsVsClientsModule,
     ChartQuotesVsEmissionsModule,
     ContainerLastContactsModule,
+    ContainerWorkspaceIncompletePoliciesModule,
     DashboardRoutingModule,
     ModalSelectContactTypeModule
   ],

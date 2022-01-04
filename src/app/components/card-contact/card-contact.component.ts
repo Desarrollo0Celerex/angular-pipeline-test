@@ -12,7 +12,7 @@ import { Contact } from '@interfaces/contact.interface';
 export class CardContactComponent {
     @Input() contact: Contact | null;
     @Input() buttonLabel: string = 'SELECCIONAR';
-    @Input() canDeleteContact: boolean = false;
+    @Input() canDeleteContact: boolean = true;
     @Output() contactSelected: EventEmitter<string>;
     @Output() showContactData: EventEmitter<string>;
     @Output() deleteContactRequested: EventEmitter<string> = new EventEmitter<string>();
