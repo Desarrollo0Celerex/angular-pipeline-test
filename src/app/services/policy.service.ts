@@ -40,6 +40,7 @@ const routes: any = {
     partnerPolicies: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/policies',
     workspacePoliciesRenews: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renews',
     renewalsReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renews/report',
+    policiesReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/report',
     totalWorkspacePoliciesToRenew: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renews/count',
     policiesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies',
     totalPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/count',
@@ -114,6 +115,24 @@ export class PolicyService {
     deleteActivePolicy(contactId: string, policyId: string): Observable<void> {
         const route: string = routes.deleteActivePolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.delete<void>(route);
+    }
+
+    downloadPoliciesReport(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt') {
+        const route: string = routes.policiesReport(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
     }
 
     /**
