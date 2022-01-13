@@ -224,14 +224,11 @@ export class EndorsePolicyService {
      * Load the policy endorsement types
      * @return Notice of action done
      */
-    loadEndorsementTypes(): Observable<void> {
+    loadEndorsementTypes(): void {
         const fields: string = 'endorsementTypeId,name';
-        return this._endorsementTypeService.getEndorsementTypes(fields).pipe(
-            tap( (res: HttpResponse) => {
-                this.endorsementTypes = res.data;
-            }),
-            map( () => { })
-        );
+        this._endorsementTypeService.getEndorsementTypes(fields).subscribe((res: HttpResponse) => {
+            this.endorsementTypes = res.data;
+        })
     }
 
     /**
@@ -255,14 +252,11 @@ export class EndorsePolicyService {
      * Load the payment methods
      * @return Notice of action done
      */
-    loadPaymentMethods(): Observable<void> {
+    loadPaymentMethods(): void {
         const fields: string = 'paymentMethodId,name';
-        return this._paymentMethodService.getPaymentMethods(fields).pipe(
-            tap((res: HttpResponse) => {
-                this.paymentMethods = res.data;
-            }),
-            map(() => { })
-        );
+        this._paymentMethodService.getPaymentMethods(fields).subscribe((res: HttpResponse) => {
+            this.paymentMethods = res.data;
+        });
     }
 
     /**

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
-import { ENDORSEMENT_PAYMENT_METHODS, ENDORSEMENT_TYPES, DOCUMENT_FORMATS, FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
+import { ENDORSEMENT_PAYMENT_METHODS, ENDORSEMENT_TYPES, FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -16,13 +16,13 @@ declare var $: any;
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
-declare var Select2Plugin: any;
 
 @Component({
   selector: 'agt-endorse-policy',
   templateUrl: './endorse-policy.page.html',
   styles: [
-  ]
+  ],
+  providers: [EndorsePolicyService]
 })
 export class EndorsePolicyPage implements OnInit {
     calendarIdEndorsementEmissionDate: string;
@@ -59,9 +59,6 @@ export class EndorsePolicyPage implements OnInit {
     selectedPaymentPlanName: string;
     selectedEndorsementEmissionDate: string;
     selectedEndorsementPaymentMethod: number;
-    selectIdEndorsementType: string;
-    selectIdPaymentMethod: string;
-    selectIdPaymentPlan: string;
     private _isFormSubmitted: boolean;
 
     constructor(
@@ -101,9 +98,6 @@ export class EndorsePolicyPage implements OnInit {
         this.selectedEndorsementEmissionDate = '';
         this.selectedEndorsementPaymentMethod = 0;
         this.selectedPaymentPlanName = '';
-        this.selectIdEndorsementType = 'agt-endorse-type';
-        this.selectIdPaymentMethod = 'agt-payment-method';
-        this.selectIdPaymentPlan = 'agt-payment-plan';
         this._isFormSubmitted = false;
     }
 
@@ -127,6 +121,10 @@ export class EndorsePolicyPage implements OnInit {
             }
         }
         return finalPolicyAmount;
+    }
+
+    endorsementTypeIdChanged(): void {
+        this.endorsePolicyService.disableEndorsementFormFields();
     }
 
     /**
@@ -296,6 +294,11 @@ export class EndorsePolicyPage implements OnInit {
         }
     }
 
+    paymentPlanIdChanged(): void {
+        this.selectedPaymentPlanName = this.endorsePolicyService.getSelectedPaymentPlanName();
+        this.endorsePolicyService.calculateNewBills();
+    }
+
     /**
      * Apply the endorsement
      */
@@ -344,32 +347,12 @@ export class EndorsePolicyPage implements OnInit {
         this.endorsePolicyService.loadPolicy(this.contactId, this.policyId).subscribe( () => {
             this.policyAmount = (!!this.endorsePolicyService.policy) ? parseFloat(this.endorsePolicyService.policy.policyAmount.toString()) : 0;
             this.currencyName = (!!this.endorsePolicyService.policy) ? this.endorsePolicyService.policy.currencyName : '';
-            this._loadEndorsementTypes();
-            this._loadPaymentMethods();
+            this.endorsePolicyService.loadEndorsementTypes()
+            this.endorsePolicyService.loadPaymentMethods();
             this._loadPaymentPlans();
             this._initCalendars();
             this.endorsePolicyService.disableEndorsementFormFields();
         });
-    }
-
-    /**
-     * Load the endorsement types
-     */
-    private _loadEndorsementTypes(): void {
-        this.endorsePolicyService.loadEndorsementTypes().subscribe( () => {
-            Select2Plugin.initSelect();
-            this._onChangeEndorsementTypeId();
-        })
-    }
-
-    /**
-     * Load the payment methods
-     */
-    private _loadPaymentMethods(): void {
-        this.endorsePolicyService.loadPaymentMethods().subscribe( () => {
-            Select2Plugin.initSelect();
-            this._onChangePaymentMethodId();
-        })
     }
 
     /**
@@ -379,8 +362,6 @@ export class EndorsePolicyPage implements OnInit {
         this.endorsePolicyService.loadPaymentPlans().subscribe( () => {
             this.selectedPaymentPlanName = this.endorsePolicyService.getSelectedPaymentPlanName();
             this.endorsePolicyService.calculatePaymentPlansAvailable();
-            Select2Plugin.initSelect();
-            this._onChangePaymentPlanId();
         })
     }
 
@@ -392,38 +373,6 @@ export class EndorsePolicyPage implements OnInit {
      */
     private _onChangeDate(selectorId: string, changedValue: string, context: EndorsePolicyPage): void {
         context.endorsePolicyService.endorsementForm.patchValue({[selectorId]: changedValue});
-    }
-
-    /**
-     * Event to change the endorsement type ID value
-     * Check if the new amount can show
-     * And disable the fields of the endorsement form
-     */
-    private _onChangeEndorsementTypeId(): void {
-        $('select#'+this.selectIdEndorsementType).on('change', (element: any) => {
-            this.endorsePolicyService.endorsementForm.patchValue({endorsementTypeId: element.currentTarget.value});
-            this.endorsePolicyService.disableEndorsementFormFields();
-        });
-    }
-
-    /**
-     * Event to change the method ID value
-     */
-    private _onChangePaymentMethodId(): void {
-        $('select#'+this.selectIdPaymentMethod).on('change', (element: any) => {
-            this.endorsePolicyService.endorsementForm.patchValue({paymentMethodId: element.currentTarget.value});
-        });
-    }
-
-    /**
-     * Event to change the plan ID value
-     */
-    private _onChangePaymentPlanId(): void {
-        $('select#'+this.selectIdPaymentPlan).on('change', (element: any) => {
-            this.endorsePolicyService.endorsementForm.patchValue({paymentPlanId: element.currentTarget.value});
-            this.selectedPaymentPlanName = this.endorsePolicyService.getSelectedPaymentPlanName();
-            this.endorsePolicyService.calculateNewBills();
-        });
     }
 
 }

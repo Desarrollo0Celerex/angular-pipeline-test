@@ -21,7 +21,6 @@ import { PolicyService } from '@services/policy.service';
 
 import { EndorsePolicyRoutingModule } from './endorse-policy-routing.module';
 import { EndorsePolicyPage } from './endorse-policy.page';
-import { EndorsePolicyService } from './endorse-policy.service';
 
 @NgModule({
   declarations: [EndorsePolicyPage],
@@ -43,6 +42,6 @@ import { EndorsePolicyService } from './endorse-policy.service';
     ModalSelectEvidenceModule,
     ReactiveFormsModule
   ],
-  providers: [DatePipe, EndorsePolicyService, EndorsementTypeService, PaymentMethodService, PaymentPlanService, PolicyService]
+  providers: [DatePipe, EndorsementTypeService, PaymentMethodService, PaymentPlanService, PolicyService]
 })
 export class EndorsePolicyModule { }

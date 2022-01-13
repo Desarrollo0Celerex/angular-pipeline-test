@@ -101,7 +101,7 @@
                                     <div class="form-group">
                                         <!-- ENDORSEMENT TYPE * -->
                                         <label class="form-label">Tipo de Endoso</label>
-                                        <select [id]="selectIdEndorsementType" class="form-control select2 custom-select {{getValidationClass('endorsementTypeId')}}" formControlName="endorsementTypeId">
+                                        <select class="form-control custom-select {{getValidationClass('endorsementTypeId')}}" formControlName="endorsementTypeId" (change)="endorsementTypeIdChanged()">
                                             <option [value]="endorsementType.endorsementTypeId" *ngFor="let endorsementType of endorsePolicyService.endorsementTypes">{{endorsementType.name}}</option>
                                         </select>
                                         <div class="invalid-feedback">{{getErrorMessage('endorsementTypeId')}}</div>
@@ -358,7 +358,7 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - PAY METHOD * -->
                                     <label class="form-label">Forma de Pago</label>
-                                    <select [id]="selectIdPaymentMethod" class="form-control select2 custom-select {{getValidationClass('paymentMethodId')}}" formControlName="paymentMethodId">
+                                    <select class="form-control custom-select {{getValidationClass('paymentMethodId')}}" formControlName="paymentMethodId">
                                         <option [value]="paymentMethod.paymentMethodId" *ngFor="let paymentMethod of endorsePolicyService.paymentMethods">{{paymentMethod.name | uppercase}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('paymentMethodId')}}</div>
@@ -375,7 +375,7 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - PAY PLAN * -->
                                     <label class="form-label">Tipo de Plan</label>
-                                    <select [id]="selectIdPaymentPlan" class="form-control select2 custom-select {{getValidationClass('paymentPlanId')}}" formControlName="paymentPlanId">
+                                    <select class="form-control custom-select {{getValidationClass('paymentPlanId')}}" formControlName="paymentPlanId" (change)="paymentPlanIdChanged()">
                                         <option [value]="paymentPlan.paymentPlanId" *ngFor="let paymentPlan of endorsePolicyService.paymentPlansAvailable">{{paymentPlan.name | uppercase}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('paymentPlanId')}}</div>
