@@ -10,13 +10,10 @@ declare var ModalPlugin: any;
 })
 export class ModalConfirmApplyEndorsementWithoutChangesComponent {
     @Input() modalId: string = '';
-    @Output() endorsementApplicationConfirmed: EventEmitter<void> = new EventEmitter<void>();
+    @Output() actionConfirmed: EventEmitter<void> = new EventEmitter<void>();
 
-    /**
-     * Click event to confirm the enorsement application without changes
-     */
-    onClickConfirm(): void {
+    confirmAction(): void {
         ModalPlugin.hide(this.modalId);
-        this.endorsementApplicationConfirmed.emit();
+        this.actionConfirmed.emit();
     }
 }
