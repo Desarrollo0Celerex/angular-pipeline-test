@@ -214,14 +214,14 @@ export class CompletePolicyService {
     }
 
     /**
-     * Load the contact policy
+     * get the contact policy
      * @param contactId The contact ID
      * @param policyId  The policy ID
      * @return          The policy data
      */
-    loadContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
+    getContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
@@ -232,6 +232,34 @@ export class CompletePolicyService {
                 }
             })
         )
+    }
+
+    /**
+     * get the base policy of the contact
+     * @param contactId The contact ID
+     * @param policyId  The policy ID
+     * @return          The policy data
+     */
+    getContactBasePolicy(contactId: string, policyId: string): Observable<HttpResponse> {
+        const fields: string = 'coveredProperty,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber';
+        return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
+            map(( res: HttpResponse) => {
+                    res.data.emissionDate = moment(res.data.emissionDate, 'YYYY-MM-DD').add(1, 'years').format('DD/MM/YYYY');
+                    res.data.validityStartDate = moment(res.data.validityStartDate, 'YYYY-MM-DD').add(1, 'years').format('DD/MM/YYYY');
+                    res.data.validityEndDate = moment(res.data.validityEndDate, 'YYYY-MM-DD').add(1, 'years').format('DD/MM/YYYY');
+                    res.data.policyNumber = this._calculateNewPolicyNumber(res.data.policyNumber);
+                return res;
+            })
+        )
+    }
+
+    private _calculateNewPolicyNumber(policyNumber: string): string {
+        const lastChart: number =  parseInt(policyNumber.substring(policyNumber.length - 1));
+        if(Number.isInteger(lastChart)) {
+            const newPolicyNumber: string = policyNumber.substring(0, policyNumber.length - 1) + (lastChart + 1);
+            return newPolicyNumber;
+        }
+        return policyNumber;
     }
 
     /**

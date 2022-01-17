@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ContainerContactDetailsModule } from '@components/container-contact-details/container-contact-details.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
+import { ModalBasePolicyDataLoadedModule } from '@components/modal-base-policy-data-loaded/modal-base-policy-data-loaded.module';
 import { ModalInvalidExpiredPolicyModule } from '@components/modal-invalid-expired-policy/modal-invalid-expired-policy.module';
 import { ModalInvalidHistoryPolicyModule } from '@components/modal-invalid-history-policy/modal-invalid-history-policy.module';
 import { ModalPolicyAmountsDifferentModule } from '@components/modal-policy-amounts-different/modal-policy-amounts-different.module';
@@ -30,6 +31,7 @@ import { CompletePolicyService } from './complete-policy.service';
     CompletePolicyRoutingModule,
     FormsModule,
     LoadingContentModule,
+    ModalBasePolicyDataLoadedModule,
     ModalInvalidExpiredPolicyModule,
     ModalInvalidHistoryPolicyModule,
     ModalPolicyAmountsDifferentModule,
