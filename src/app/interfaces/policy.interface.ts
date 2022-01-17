@@ -51,5 +51,7 @@ export interface Policy {
     maxValidityEndDate: string,
     tracker: string,
     policySourceId: number,
-    workspaceCountryId: number
+    workspaceCountryId: number,
+    basePolicyId: string,
+    baseContactId: string
 }

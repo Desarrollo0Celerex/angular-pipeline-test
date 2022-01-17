@@ -24,4 +24,5 @@ export const ERROR_CODES: any = {
     pendingAmount: 'PendingAmount',
     partnerHasCoincidences: 'PartnerHasCoincidences',
     groupHasCoincidences: 'GroupHasCoincidences',
+    scanFileError: 'ScanFileError',
 }

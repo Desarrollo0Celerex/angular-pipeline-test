@@ -28,7 +28,7 @@
                 <ol class="breadcrumb1 mt-2">
                     <li class="breadcrumb-item1">Genera un reporte de <strong>Pólizas Vigentes</strong>.</li>
                 </ol>
-                <button type="button" class="btn btn-block btn-primary mt-5" disabled><strong>DESCARGAR REPORTE</strong></button>
+                <button type="button" class="btn btn-block btn-primary mt-5" (click)="downloadActivePoliciesReport()"><strong>DESCARGAR REPORTE</strong></button>
             </div>
             <!-- //AGENTHOS - DATA SUITE REPORT GENERATOR -->
         </div>
@@ -41,7 +41,7 @@
     *ngIf="!!statsPeriodData"
     [contentType]="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID"
     [contentTypeName]="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.NAME"
-    contentSubtypeName="Vigente"
+    contentSubtypeName="Activa"
     [rangeField]="rangeField"
     [rangeStart]="statsPeriodData.startDate"
     [rangeEnd]="statsPeriodData.endDate">

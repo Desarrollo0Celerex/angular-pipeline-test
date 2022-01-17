@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
-import { DOCUMENT_FORMATS, FILE_TYPES } from '@constants/global';
+import { ERROR_CODES } from '@constants/error-codes';
+import { DOCUMENT_FORMATS, FILE_TYPES, POLICY_SOURCES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { HttpError } from '@interfaces/http-error.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { Policy } from '@interfaces/policy.interface';
@@ -27,6 +29,7 @@ export class CompletePolicyPage implements OnInit {
     contactId: string;
     message: string;
     policyId: string;
+    modalIdBasePoliciDataLoaded: string = 'agt-base-policy-data-loaded';
     modalIdInvalidExpiredPolicy: string = 'agt-invalid-expired-policy';
     modalIdInvalidHistoryPolicy: string = 'agt-invalid-history-policy';
     modalIdPolicyAmountsDifferent: string = 'agt-policy-amounts-different';
@@ -217,7 +220,7 @@ export class CompletePolicyPage implements OnInit {
      */
     private _loadContactPolicy(): void {
         this._scanningService.show();
-        this.completePolicyService.loadContactPolicy(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
+        this.completePolicyService.getContactPolicy(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
             this._downloadPolicy(res.data.policyUrl);
             this.completePolicyService.buildPolicyForm(res.data);
             this._initCalendars();
@@ -273,15 +276,38 @@ export class CompletePolicyPage implements OnInit {
             this._scanningService.hide();
             ModalPlugin.show(this.modalIdScanningPolicySuccess);
             this._scannedPolicyData = res.data;
-
             this._reviewPolicyData(policyUrl);
-        }, (error: any) => {
-            this._reviewPolicyData(policyUrl);
-            setTimeout(() => {
-                this._scanningService.hide();
-                ModalPlugin.show(this.modalIdScanningPolicyFailed);
-            },1000);
+        }, (error: HttpError) => {
+            this._handleScanError(error, policyUrl);
         });
+    }
+
+    private _handleScanError(error: HttpError, policyUrl: string): void {
+        this._reviewPolicyData(policyUrl);
+        switch(error.error) {
+            case ERROR_CODES.scanFileError:
+                if(!!this.completePolicyService.policy && (this.completePolicyService.policy.policySourceId === POLICY_SOURCES.RENEWAL || this.completePolicyService.policy.policySourceId === POLICY_SOURCES.REISSUE) ) {
+                    this.completePolicyService.getContactBasePolicy(this.completePolicyService.policy.baseContactId, this.completePolicyService.policy.basePolicyId).subscribe((res: HttpResponse) => {
+                        this.completePolicyService.buildPolicyForm(res.data);
+                        setTimeout(() => {
+                            this._scanningService.hide();
+                            ModalPlugin.show(this.modalIdBasePoliciDataLoaded);
+                        }, 1000);
+                    })
+                } else {
+                    setTimeout(() => {
+                        this._scanningService.hide();
+                        ModalPlugin.show(this.modalIdScanningPolicyFailed);
+                    }, 1000);
+                }
+            break;
+
+            default:
+                setTimeout(() => {
+                    this._scanningService.hide();
+                    ModalPlugin.show(this.modalIdScanningPolicyFailed);
+                }, 1000);
+        }
     }
 
     /**
