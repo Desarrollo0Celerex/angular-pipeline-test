@@ -47,7 +47,8 @@ const routes: any = {
     insurancesPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/insurances/policies',
     policiesRenewsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/renews',
     cancelledPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/cancelled',
-    endorsePolicyWithoutChanges: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/without-changes',
+    endorsePolicyWithCancellation: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-cancellation',
+    endorsePolicyWithChanges: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-changes',
 }
 
 @Injectable()
@@ -175,8 +176,13 @@ export class PolicyService {
         return this._httpClient.post<void>(route, requestBody);
     }
 
-    endorsePolicyWithoutChanges(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
-        const route: string = routes.endorsePolicyWithoutChanges(this._workspaceId, contactId, policyId);
+    endorsePolicyWithCancellation(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.endorsePolicyWithCancellation(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
+
+    endorsePolicyWithChanges(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.endorsePolicyWithChanges(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
     }
 

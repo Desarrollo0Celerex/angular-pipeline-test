@@ -431,15 +431,19 @@
 ></agt-modal-select-evidence>
 <agt-modal-confirm-apply-endorsement-without-changes
     [modalId]="modalIdConfirmApplyEndorsementWithoutChanges"
-    (actionConfirmed)="applyEndorsementWithoutChanges()"
+    (actionConfirmed)="applyEndorsement()"
 ></agt-modal-confirm-apply-endorsement-without-changes>
+<agt-modal-confirm-apply-endorsement
+    [modalId]="modalIdConfirmApplyEndorsement"
+    (actionConfirmed)="applyEndorsement()"
+></agt-modal-confirm-apply-endorsement>
+
 
 <!-------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------->
 
 
-<agt-modal-confirm-apply-policy-changes [modalId]="modalIdConfirmApplyEndorsement" (policyChangesApplicationConfirmed)="onPolicyChangesApplicationConfirmed()"></agt-modal-confirm-apply-policy-changes>
 <agt-modal-select-endorsement-payment-method [modalId]="modalIdSelectEndorsementPaymentMethod" [increasedAmount]="increasedAmount" [currencyName]="currencyName" (endorsementPaymentMethodSelected)="onEndorsementPaymentMethodSelected($event)"></agt-modal-select-endorsement-payment-method>
 <agt-modal-do-collection-adjustment [modalId]="modalIdDoCollectionAdjustment" [maxAmount]="increasedAmount" (applyEndorsementWithFractionalReceipt)="onApplyEndorsementWithFractionalReceipt($event)" (applyEndorsementWithoutFractionalReceipt)="onApplyEndorsementWithoutFractionalReceipt()"></agt-modal-do-collection-adjustment>
 <agt-modal-show-endorsement-summary [modalId]="modalIdShowEndorsementSummary" [policyAmount]="policyAmount" [newAmount]="newAmount" [fractionalReceiptAmount]="fractionalReceiptAmount" [currencyName]="currencyName" (endorsementApplicationConfirmed)="onEndorsementApplicationConfirmed()"></agt-modal-show-endorsement-summary>

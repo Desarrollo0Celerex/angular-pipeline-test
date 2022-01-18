@@ -7,7 +7,7 @@ import { LoadingContentModule } from '@components/loading-content/loading-conten
 import { ModalConfirmApplyEndorsementWithDecrementModule } from '@components/modal-confirm-apply-endorsement-with-decrement/modal-confirm-apply-endorsement-with-decrement.module';
 import { ModalConfirmApplyEndorsementWithoutChangesModule } from '@components/modal-confirm-apply-endorsement-without-changes/modal-confirm-apply-endorsement-without-changes.module';
 import { ModalConfirmApplyEndorsementWithSingleReceiptModule } from '@components/modal-confirm-apply-endorsement-with-single-receipt/modal-confirm-apply-endorsement-with-single-receipt.module';
-import { ModalConfirmApplyPolicyChangesModule } from '@components/modal-confirm-apply-policy-changes/modal-confirm-apply-policy-changes.module';
+import { ModalConfirmApplyEndorsementModule } from '@components/modal-confirm-apply-endorsement/modal-confirm-apply-endorsement.module';
 import { ModalDoCollectionAdjustmentModule } from '@components/modal-do-collection-adjustment/modal-do-collection-adjustment.module';
 import { ModalSelectEndorsementPaymentMethodModule } from '@components/modal-select-endorsement-payment-method/modal-select-endorsement-payment-method.module';
 import { ModalShowEndorsementSummaryModule } from '@components/modal-show-endorsement-summary/modal-show-endorsement-summary.module';
@@ -30,7 +30,7 @@ import { EndorsePolicyPage } from './endorse-policy.page';
     EndorsePolicyRoutingModule,
     FormsModule,
     LoadingContentModule,
-    ModalConfirmApplyPolicyChangesModule,
+    ModalConfirmApplyEndorsementModule,
     ModalConfirmApplyEndorsementWithDecrementModule,
     ModalConfirmApplyEndorsementWithoutChangesModule,
     ModalConfirmApplyEndorsementWithSingleReceiptModule,
