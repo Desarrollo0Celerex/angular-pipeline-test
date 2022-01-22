@@ -5,13 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContainerContactDetailsModule } from '@components/container-contact-details/container-contact-details.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalConfirmApplyEndorsementWithDecrementModule } from '@components/modal-confirm-apply-endorsement-with-decrement/modal-confirm-apply-endorsement-with-decrement.module';
+import { modalConfirmApplyEndorsementWithIncrementModule } from '@components/modal-confirm-apply-endorsement-with-increment/modal-confirm-apply-endorsement-with-increment.module';
 import { ModalConfirmApplyEndorsementWithoutChangesModule } from '@components/modal-confirm-apply-endorsement-without-changes/modal-confirm-apply-endorsement-without-changes.module';
-import { ModalConfirmApplyEndorsementWithSingleReceiptModule } from '@components/modal-confirm-apply-endorsement-with-single-receipt/modal-confirm-apply-endorsement-with-single-receipt.module';
 import { ModalConfirmApplyEndorsementModule } from '@components/modal-confirm-apply-endorsement/modal-confirm-apply-endorsement.module';
-import { ModalDoCollectionAdjustmentModule } from '@components/modal-do-collection-adjustment/modal-do-collection-adjustment.module';
+import { modalConfirmApplyFractionalReceiptModule } from '@components/modal-confirm-apply-fractional-receipt/modal-confirm-apply-fractional-receipt.module';
 import { ModalSelectEndorsementPaymentMethodModule } from '@components/modal-select-endorsement-payment-method/modal-select-endorsement-payment-method.module';
-import { ModalShowEndorsementSummaryModule } from '@components/modal-show-endorsement-summary/modal-show-endorsement-summary.module';
-import { ModalShowNoFractionalReceiptModule } from '@components/modal-show-no-fractional-receipt/modal-show-no-fractional-receipt.module';
 import { ModalSelectEvidenceModule } from '@components/modal-select-evidence/modal-select-evidence.module';
 import { ModalSelectFileModule } from '@components/modal-select-file/modal-select-file.module';
 import { EndorsementTypeService } from '@services/endorsement-type.service';
@@ -33,11 +31,9 @@ import { EndorsePolicyPage } from './endorse-policy.page';
     ModalConfirmApplyEndorsementModule,
     ModalConfirmApplyEndorsementWithDecrementModule,
     ModalConfirmApplyEndorsementWithoutChangesModule,
-    ModalConfirmApplyEndorsementWithSingleReceiptModule,
-    ModalDoCollectionAdjustmentModule,
+    modalConfirmApplyFractionalReceiptModule,
     ModalSelectEndorsementPaymentMethodModule,
-    ModalShowEndorsementSummaryModule,
-    ModalShowNoFractionalReceiptModule,
+    modalConfirmApplyEndorsementWithIncrementModule,
     ModalSelectFileModule,
     ModalSelectEvidenceModule,
     ReactiveFormsModule

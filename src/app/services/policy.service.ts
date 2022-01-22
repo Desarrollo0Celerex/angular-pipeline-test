@@ -49,6 +49,7 @@ const routes: any = {
     cancelledPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/cancelled',
     endorsePolicyWithCancellation: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-cancellation',
     endorsePolicyWithChanges: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-changes',
+    endorsePolicyWithIncrement: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-increment',
 }
 
 @Injectable()
@@ -183,6 +184,11 @@ export class PolicyService {
 
     endorsePolicyWithChanges(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.endorsePolicyWithChanges(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
+
+    endorsePolicyWithIncrement(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.endorsePolicyWithIncrement(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
     }
 

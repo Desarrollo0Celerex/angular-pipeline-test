@@ -96,19 +96,6 @@ export class EndorsePolicyService {
     }
 
     /**
-     * Check if can extend the validity
-     * @return True if it can, otherwise false
-     */
-    checkCanExtendValidity(): boolean {
-        const newDate: string = UtilitiesHelper.getOriginalDateFormat(this.f.validityEndDate.value);
-        return (
-            this.f.validityEndDate.valid
-            && !!this.policy
-            && (newDate !== this.policy.validityEndDate)
-        ) ? true : false;
-    }
-
-    /**
      * Check if the policy data was changed
      * @return True if it was changed, otherwise false
      */
@@ -215,9 +202,14 @@ export class EndorsePolicyService {
         return this._policyService.endorsePolicyWithCancellation(contactId, policyId, requestBody);
     }
 
-    _applyEndorsementWithChanges(contactId: string, policyId: string): Observable<void> {
+    endorsePolicyWithChanges(contactId: string, policyId: string): Observable<void> {
         const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithChanges();
         return this._policyService.endorsePolicyWithChanges(contactId, policyId, requestBody);
+    }
+
+    endorsePolicyWithIncrement(contactId: string, policyId: string, fractionalReceiptAmount: number, endorsementPaymentMethod: number): Observable<void> {
+        const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithIncrement(fractionalReceiptAmount, endorsementPaymentMethod);
+        return this._policyService.endorsePolicyWithIncrement(contactId, policyId, requestBody);
     }
 
     /**
@@ -434,4 +426,31 @@ export class EndorsePolicyService {
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         return requestBody;
     }
+
+    private _getRequestBodyToEndorsePolicyWithIncrement(fractionalReceiptAmount: number, endorsementPaymentMethod: number): FormData {
+        const requestBody: FormData = new FormData();
+        requestBody.append('endorsementFile', this.f.endorsementFile.value);
+        requestBody.append('evidenceFile', this.f.evidenceFile.value);
+        requestBody.append('endorsementNumber', this.f.endorsementNumber.value);
+        requestBody.append('endorsementEmissionDate', this.f.endorsementEmissionDate.value);
+        requestBody.append('endorsementTypeId', this.f.endorsementTypeId.value);
+        requestBody.append('endorsementComments', this.f.endorsementComments.value);
+        requestBody.append('titularName', this.f.titularName.value);
+        requestBody.append('titularRfc', this.f.titularRfc.value);
+        requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
+        requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
+        requestBody.append('coveredProperty', this.f.coveredProperty.value);
+        requestBody.append('policyNumber', this.f.policyNumber.value);
+        requestBody.append('clientNumber', this.f.clientNumber.value);
+        requestBody.append('validityEndDate', this.f.validityEndDate.value);
+        requestBody.append('endorsementAmount', this.f.endorsementAmount.value);
+        requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
+        requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
+        requestBody.append('bills', this.f.bills.value);
+        requestBody.append('fractionalReceiptAmount', fractionalReceiptAmount.toString());
+        requestBody.append('endorsementPaymentMethod', endorsementPaymentMethod.toString());
+
+        return requestBody;
+    }
+
 }

@@ -4,7 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
 @Injectable()
-export class ModalDoCollectionAdjustmentService {
+export class modalConfirmApplyFractionalReceiptService {
     form: FormGroup = this._formBuilder.group({
         fractionalReceiptAmount: ['',[Validators.required, ValidatorsHelper.amount]]
     });
