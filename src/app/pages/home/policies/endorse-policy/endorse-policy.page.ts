@@ -129,7 +129,6 @@ export class EndorsePolicyPage implements OnInit {
 
             case ENDORSEMENT_TYPES.D:
                 const policyPendingAmount: number = this.model.policy!.paymentAmount - this.model.policy!.paymentAmountPaid;
-                console.log('policyPendingAmount: ',policyPendingAmount);
                 if(this._hasPendingReceipts() && policyPendingAmount > this.endorsementAmount) {
                     this._showModalToConfirmApplyEndorsementWithDecrement();
                 } else {
@@ -238,13 +237,12 @@ export class EndorsePolicyPage implements OnInit {
     }
 
     private _applyEndorsementWithDecrement(): void {
-        console.log('Aplicar endoso con decremento.')
-        /*this._loadingService.show();
-        this.model.endorsePolicyWithIncrement(this.contactId, this.policyId, this.capturedFractionalReceiptAmount, this.selectedEndorsementPaymentMethod).subscribe( () => {
+        this._loadingService.show();
+        this.model.endorsePolicyWithDecrement(this.contactId, this.policyId).subscribe( () => {
             this._loadingService.hide();
             AlertHelper.policyEndorsed();
             this._goToListContactPolicies();
-        });*/
+        });
     }
 
     private _applyEndorsementWithIncrement(): void {
@@ -307,7 +305,6 @@ export class EndorsePolicyPage implements OnInit {
     }
 
     private _showModalNotifyEndorsementCannotBeApplied(): void {
-        console.log('Paso 1');
         ModalPlugin.show(this.modalIdNotifyEndorsementCannotBeApplied);
     }
 

@@ -207,6 +207,11 @@ export class EndorsePolicyService {
         return this._policyService.endorsePolicyWithChanges(contactId, policyId, requestBody);
     }
 
+    endorsePolicyWithDecrement(contactId: string, policyId: string): Observable<void> {
+        const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithDecrement();
+        return this._policyService.endorsePolicyWithDecrement(contactId, policyId, requestBody);
+    }
+
     endorsePolicyWithIncrement(contactId: string, policyId: string, fractionalReceiptAmount: number, endorsementPaymentMethod: number): Observable<void> {
         const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithIncrement(fractionalReceiptAmount, endorsementPaymentMethod);
         return this._policyService.endorsePolicyWithIncrement(contactId, policyId, requestBody);
@@ -424,6 +429,30 @@ export class EndorsePolicyService {
         requestBody.append('policyNumber', this.f.policyNumber.value);
         requestBody.append('clientNumber', this.f.clientNumber.value);
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
+        return requestBody;
+    }
+
+    private _getRequestBodyToEndorsePolicyWithDecrement(): FormData {
+        const requestBody: FormData = new FormData();
+        requestBody.append('endorsementFile', this.f.endorsementFile.value);
+        requestBody.append('evidenceFile', this.f.evidenceFile.value);
+        requestBody.append('endorsementNumber', this.f.endorsementNumber.value);
+        requestBody.append('endorsementEmissionDate', this.f.endorsementEmissionDate.value);
+        requestBody.append('endorsementTypeId', this.f.endorsementTypeId.value);
+        requestBody.append('endorsementComments', this.f.endorsementComments.value);
+        requestBody.append('titularName', this.f.titularName.value);
+        requestBody.append('titularRfc', this.f.titularRfc.value);
+        requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
+        requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
+        requestBody.append('coveredProperty', this.f.coveredProperty.value);
+        requestBody.append('policyNumber', this.f.policyNumber.value);
+        requestBody.append('clientNumber', this.f.clientNumber.value);
+        requestBody.append('validityEndDate', this.f.validityEndDate.value);
+        requestBody.append('endorsementAmount', this.f.endorsementAmount.value);
+        requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
+        requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
+        requestBody.append('bills', this.f.bills.value);
+
         return requestBody;
     }
 
