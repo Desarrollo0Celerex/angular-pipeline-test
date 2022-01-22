@@ -34,5 +34,7 @@ export interface PolicyComplete {
     monthsPaid: number;
     receiptsPaid: number;
     lifeTime: number,
-    totalSinisters: number
+    totalSinisters: number,
+    paymentAmount: number,
+    paymentAmountPaid: number,
 }

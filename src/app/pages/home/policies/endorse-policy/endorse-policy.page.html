@@ -459,21 +459,17 @@
     [endorsementEmissionDate]="selectedEndorsementEmissionDate"
     (actionConfirmed)="applyEndorsementWithIncrement()"
 ></agt-modal-confirm-apply-endorsement-with-increment>
-
-
-<!-------------------------------------------------------------------------------->
-<!-------------------------------------------------------------------------------->
-<!-------------------------------------------------------------------------------->
-
-
-<!--<agt-modal-confirm-apply-endorsement-with-decrement
+<agt-modal-notify-endorsement-cannot-be-applied
+    [modalId]="modalIdNotifyEndorsementCannotBeApplied"
+></agt-modal-notify-endorsement-cannot-be-applied>
+<agt-modal-confirm-apply-endorsement-with-decrement
     [modalId]="modalIdConfirmApplyEndorsementWithDecrement"
     [policyAmount]="policyAmount"
-    [newAmount]="newAmount"
+    [endorsementAmount]="endorsementAmount"
     [currencyName]="currencyName"
     [paymentPlanName]="selectedPaymentPlanName"
-    (endorsementApplicationConfirmed)="onEndorsementApplicationConfirmed()"
-></agt-modal-confirm-apply-endorsement-with-decrement>-->
+    (actionConfirmed)="applyEndorsementWithDecrement()"
+></agt-modal-confirm-apply-endorsement-with-decrement>
 
 <ng-template #loadingContent>
     <agt-loading-content [isLoadingContent]="true"></agt-loading-content>

@@ -36,13 +36,10 @@ export class EndorsePolicyPage implements OnInit {
     modalIdConfirmApplyFractionalReceipt: string = 'agt-confirm-apply-fractional-receipt';
     selectedEndorsementPaymentMethod: number = 0;
     selectedEndorsementEmissionDate: string = '';
-
-
-
     modalIdConfirmApplyEndorsementWithDecrement: string = 'agt-confirm-apply-endorsement-with-decrement';
-    modalIdSelectEndorsementPaymentMethod: string;
+    modalIdNotifyEndorsementCannotBeApplied: string = 'agt-notify-endorsement-cannot-be-applied';
+    modalIdSelectEndorsementPaymentMethod: string = 'agt-select-endorsement-payment-method';;
     modalIdShowEndorsementSummary: string;
-    //modalIdShowNoFractionalReceipt: string;
     modalIdUploadPolicyEndorsement: string;
     modalIdUploadPolicyEvidence: string = 'agt-upload-policy-evidence';
     newAmount: number;
@@ -88,9 +85,7 @@ export class EndorsePolicyPage implements OnInit {
         private _loadingService: LoadingService,
         private _router: Router
     ) {
-        this.modalIdSelectEndorsementPaymentMethod = 'agt-select-endorsement-payment-method';
         this.modalIdShowEndorsementSummary = 'agt-show-endorsement-summary';
-        //this.modalIdShowNoFractionalReceipt = 'agt-show-no-fractional-receipt';
         this.modalIdUploadPolicyEndorsement = 'agt-upload-policy-endorsement';
         this.newAmount = 0;
         this.policyAmount = 0;
@@ -110,13 +105,11 @@ export class EndorsePolicyPage implements OnInit {
 
     applyEndorsement(): void {
         const selectedEndorsementTypeId: number = parseInt(this.model.f.endorsementTypeId.value);
+        this.endorsementAmount = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.endorsementAmount.value));
+
         switch(selectedEndorsementTypeId) {
             case ENDORSEMENT_TYPES.A:
-                const receiptsPaid: number = (!!this.model.policy) ? this.model.policy.receiptsPaid : 0;
-                const receiptsToPay: number = parseInt(this.model.f.bills.value);
-                this.endorsementAmount = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.endorsementAmount.value));
-                // If the policy has more than one payment pending:
-                if( receiptsToPay > receiptsPaid) {
+                if(this._hasPendingReceipts()) {
                     this._showModalToSelectEndorsementPaymentMethod();
                 } else {
                     this.selectedEndorsementEmissionDate = this.model.f.endorsementEmissionDate.value;
@@ -135,7 +128,13 @@ export class EndorsePolicyPage implements OnInit {
             break;
 
             case ENDORSEMENT_TYPES.D:
-                console.log('Aplicar endoso con decremento')
+                const policyPendingAmount: number = this.model.policy!.paymentAmount - this.model.policy!.paymentAmountPaid;
+                console.log('policyPendingAmount: ',policyPendingAmount);
+                if(this._hasPendingReceipts() && policyPendingAmount > this.endorsementAmount) {
+                    this._showModalToConfirmApplyEndorsementWithDecrement();
+                } else {
+                    this._showModalNotifyEndorsementCannotBeApplied();
+                }
             break;
         }
     }
@@ -143,6 +142,10 @@ export class EndorsePolicyPage implements OnInit {
     applyEndorsementWithFractionalReceipt(fractionalReceiptAmount: number): void {
         this.capturedFractionalReceiptAmount = fractionalReceiptAmount;
         this._showModalToConfirmApplyEndorsementWithIncrement();
+    }
+
+    applyEndorsementWithDecrement(): void {
+        this._applyEndorsementWithDecrement();
     }
 
     applyEndorsementWithIncrement(): void {
@@ -234,12 +237,22 @@ export class EndorsePolicyPage implements OnInit {
         });
     }
 
+    private _applyEndorsementWithDecrement(): void {
+        console.log('Aplicar endoso con decremento.')
+        /*this._loadingService.show();
+        this.model.endorsePolicyWithIncrement(this.contactId, this.policyId, this.capturedFractionalReceiptAmount, this.selectedEndorsementPaymentMethod).subscribe( () => {
+            this._loadingService.hide();
+            AlertHelper.policyEndorsed();
+            this._goToListContactPolicies();
+        });*/
+    }
+
     private _applyEndorsementWithIncrement(): void {
         this._loadingService.show();
         this.model.endorsePolicyWithIncrement(this.contactId, this.policyId, this.capturedFractionalReceiptAmount, this.selectedEndorsementPaymentMethod).subscribe( () => {
             this._loadingService.hide();
             AlertHelper.policyEndorsed();
-            //this._goToListContactPolicies();
+            this._goToListContactPolicies();
         });
     }
 
@@ -256,6 +269,12 @@ export class EndorsePolicyPage implements OnInit {
     private _goToListContactPolicies(): void {
         const url: string = ROUTES_NAME.listContactPolicies(this.contactId);
         this._router.navigateByUrl(url);
+    }
+
+    private _hasPendingReceipts(): boolean {
+        const receiptsPaid: number = (!!this.model.policy) ? this.model.policy.receiptsPaid : 0;
+        const receiptsToPay: number = parseInt(this.model.f.bills.value);
+        return (receiptsToPay > receiptsPaid) ? true : false;
     }
 
     private _initCalendars(): void {
@@ -287,8 +306,17 @@ export class EndorsePolicyPage implements OnInit {
         context.model.form.patchValue({[selectorId]: changedValue});
     }
 
+    private _showModalNotifyEndorsementCannotBeApplied(): void {
+        console.log('Paso 1');
+        ModalPlugin.show(this.modalIdNotifyEndorsementCannotBeApplied);
+    }
+
     private _showModalToConfirmApplyEndorsement(): void {
         ModalPlugin.show(this.modalIdConfirmApplyEndorsement);
+    }
+
+    private _showModalToConfirmApplyEndorsementWithDecrement(): void {
+        ModalPlugin.show(this.modalIdConfirmApplyEndorsementWithDecrement);
     }
 
     private _showModalToConfirmApplyEndorsementWithIncrement(): void {

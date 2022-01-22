@@ -11,16 +11,13 @@ declare var ModalPlugin: any;
 export class ModalConfirmApplyEndorsementWithDecrementComponent {
     @Input() modalId: string = '';
     @Input() policyAmount: number = 0;
-    @Input() newAmount: number = 0;
+    @Input() endorsementAmount: number = 0;
     @Input() currencyName: string = '';
     @Input() paymentPlanName: string = '';
-    @Output() endorsementApplicationConfirmed: EventEmitter<void> = new EventEmitter<void>();
+    @Output() actionConfirmed: EventEmitter<void> = new EventEmitter<void>();
 
-    /**
-     * Click event to confirm apply endorsement with decrement
-     */
-    onClickConfirm(): void {
+    confirmAction(): void {
         ModalPlugin.hide(this.modalId);
-        this.endorsementApplicationConfirmed.emit();
+        this.actionConfirmed.emit();
     }
 }

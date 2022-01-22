@@ -240,7 +240,7 @@ export class EndorsePolicyService {
      * @return          Notice of action done
      */
     loadPolicy(contactId: string, policyId: string): Observable<void> {
-        const fields: string = 'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,coveredProperty,policyNumber,clientNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements';
+        const fields: string = 'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,coveredProperty,policyNumber,clientNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements,paymentAmount,paymentAmountPaid';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.policy = res.data;

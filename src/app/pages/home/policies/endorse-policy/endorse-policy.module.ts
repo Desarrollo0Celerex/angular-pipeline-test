@@ -9,6 +9,7 @@ import { modalConfirmApplyEndorsementWithIncrementModule } from '@components/mod
 import { ModalConfirmApplyEndorsementWithoutChangesModule } from '@components/modal-confirm-apply-endorsement-without-changes/modal-confirm-apply-endorsement-without-changes.module';
 import { ModalConfirmApplyEndorsementModule } from '@components/modal-confirm-apply-endorsement/modal-confirm-apply-endorsement.module';
 import { modalConfirmApplyFractionalReceiptModule } from '@components/modal-confirm-apply-fractional-receipt/modal-confirm-apply-fractional-receipt.module';
+import { ModalNotifyEndorsementCannotBeAppliedModule } from '@components/modal-notify-endorsement-cannot-be-applied/modal-notify-endorsement-cannot-be-applied.module';
 import { ModalSelectEndorsementPaymentMethodModule } from '@components/modal-select-endorsement-payment-method/modal-select-endorsement-payment-method.module';
 import { ModalSelectEvidenceModule } from '@components/modal-select-evidence/modal-select-evidence.module';
 import { ModalSelectFileModule } from '@components/modal-select-file/modal-select-file.module';
@@ -32,6 +33,7 @@ import { EndorsePolicyPage } from './endorse-policy.page';
     ModalConfirmApplyEndorsementWithDecrementModule,
     ModalConfirmApplyEndorsementWithoutChangesModule,
     modalConfirmApplyFractionalReceiptModule,
+    ModalNotifyEndorsementCannotBeAppliedModule,
     ModalSelectEndorsementPaymentMethodModule,
     modalConfirmApplyEndorsementWithIncrementModule,
     ModalSelectFileModule,
