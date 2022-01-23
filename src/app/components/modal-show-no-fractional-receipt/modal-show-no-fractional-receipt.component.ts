@@ -11,16 +11,13 @@ declare var ModalPlugin: any;
 export class ModalShowNoFractionalReceiptComponent {
     @Input() currencyName: string = '';
     @Input() modalId: string = '';
-    @Input() newAmount: number = 0;
+    @Input() endorsementAmount: number = 0;
     @Input() policyAmount: number = 0;
-    @Output() endorsementApplicationWithoutFractionalReceiptConfirmed: EventEmitter<void> = new EventEmitter<void>();
+    @Output() actionConfirmed: EventEmitter<void> = new EventEmitter<void>();
 
-    /**
-     * Click event to confirm apply endorsement without fractional receipt
-     */
-    onClickConfirm(): void {
+    confirmAction(): void {
         ModalPlugin.hide(this.modalId);
-        this.endorsementApplicationWithoutFractionalReceiptConfirmed.emit();
+        this.actionConfirmed.emit();
     }
 
 }

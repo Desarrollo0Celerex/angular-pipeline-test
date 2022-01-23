@@ -14,7 +14,7 @@
 					<div class="col-md-12">
 						<p class="text-justify"><strong>¿No hay un primer recibo fraccionado?</strong></p>
 						<p class="text-justify">
-						La prima actual de <strong>{{policyAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> incrementará a <strong>{{newAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong>.</p>
+						La prima actual de <strong>{{policyAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> incrementará a <strong>{{policyAmount + endorsementAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong>.</p>
 						<p class="text-justify">
 						El incremento de la prima será cobrado junto con los recibos pendientes de la póliza sin generar un primer recibo fraccionado. <strong>Por favor confirma si deseas continuar</strong>.</p>
 					</div>
@@ -23,7 +23,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#agtEndorsementPolicyTickets" data-dismiss="modal">CANCELAR</button>
 				<!-- AGENTHOS - DATA TARGET (AGTVIEW0018) -->
-				<button type="button" class="btn btn-primary" (click)="onClickConfirm()">CONFIRMAR</button>
+				<button type="button" class="btn btn-primary" (click)="confirmAction()">CONFIRMAR</button>
 			</div>
 		</div>
 	</div>

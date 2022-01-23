@@ -1,7 +1,7 @@
 <!-- AGENTHOS - ENDORSEMENT POLICY TICKETS -->
 <div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
 	<div class="modal-dialog" role="document">
-        <form [formGroup]="modalDoCollectionAdjustmentService.form" (submit)="onSubmitApplyEndorsementWithFractionalReceipt()">
+        <form [formGroup]="model.form" (submit)="applyEndorsementWithFractionalReceipt()">
     		<div class="modal-content">
     			<div class="modal-header">
     				<!-- AGENTHOS - POLICY NUMBER -->
@@ -40,7 +40,7 @@
     				</div>
     			</div>
     			<div class="modal-footer">
-                    <button type="button" class="btn btn-block btn-secondary" (click)="onClickApplyEndorsementWithoutFractionalReceipt()"><strong>SIN RECIBO FRACCIONADO</strong></button>
+                    <button type="button" class="btn btn-block btn-secondary" (click)="cancelAction()"><strong>SIN RECIBO FRACCIONADO</strong></button>
     			</div>
     		</div>
         </form>

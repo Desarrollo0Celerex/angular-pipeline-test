@@ -14,14 +14,14 @@
 					<div class="col-md-12">
 						<p class="text-justify"><strong>Se ha detectado un incremento en la prima total</strong>.</p>
 						<p class="text-justify">
-						Hay un incremento de <strong>{{increasedAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> en la prima de la póliza. <strong>Por favor selecciona la forma de pago para continuar</strong>.</p>
+						Hay un incremento de <strong>{{endorsementAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> en la prima de la póliza. <strong>Por favor selecciona la forma de pago para continuar</strong>.</p>
 					</div>
 					<div class="col-md-12">
-						<button type="button" class="btn btn-primary btn-block mt-5" (click)="onClickSelectPolicyReceipts()"><strong>RECIBOS DE PÓLIZA</strong></button>
+						<button type="button" class="btn btn-primary btn-block mt-5" (click)="selectMethod(ENDORSEMENT_PAYMENT_METHODS.POLICY_RECEIPTS)"><strong>RECIBOS DE PÓLIZA</strong></button>
 					</div>
 					<div class="col-md-12">
 						<!-- AGENTHOS - SELF TICKETS TARGET -->
-						<button type="button" class="btn btn-primary btn-block mt-5" (click)="onClickSelectIndependentReceipts()"><strong>RECIBOS INDEPENDIENTES</strong></button>
+						<button type="button" class="btn btn-primary btn-block mt-5" (click)="selectMethod(ENDORSEMENT_PAYMENT_METHODS.INDEPENDENT_RECEIPTS)"><strong>RECIBOS INDEPENDIENTES</strong></button>
 					</div>
 				</div>
 			</div>
