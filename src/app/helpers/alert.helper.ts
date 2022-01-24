@@ -276,14 +276,12 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
-    static policyEndorsed(callBack: any, context: any): void {
+    static policyEndorsed(): void {
         const alertData: Alert = {
             title: 'Endoso Aplicado',
             text: 'El endoso ha sido aplicado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR',
-            callBack: callBack,
-            context: context
+            confirmButtonText: 'CONTINUAR'
         }
         SweetAlertPlugin.showAlert(alertData);
     }

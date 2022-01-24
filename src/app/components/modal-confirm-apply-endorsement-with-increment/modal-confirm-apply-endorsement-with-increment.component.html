@@ -1,0 +1,69 @@
+<!-- AGENTHOS - ENDORSEMENT POLICY TICKETS RESUME -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- AGENTHOS - POLICY NUMBER -->
+				<h5 class="modal-title">Resumen de Endoso</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="text-justify">
+							La prima actual de <strong>{{policyAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> incrementará a <strong>{{policyAmount + endorsementAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong>.
+						</p>
+						<ng-container [ngSwitch]="selectedEndorsementPaymentMethod">
+
+							<ng-container *ngSwitchCase="ENDORSEMENT_PAYMENT_METHODS.POLICY_RECEIPTS">
+								<ng-container *ngTemplateOutlet="policyReceipts"></ng-container>
+							</ng-container>
+
+							<ng-container *ngSwitchCase="ENDORSEMENT_PAYMENT_METHODS.INDEPENDENT_RECEIPTS">
+								<ng-container *ngTemplateOutlet="independentReceipts"></ng-container>
+							</ng-container>
+
+							<ng-container *ngSwitchCase="ENDORSEMENT_PAYMENT_METHODS.SINGLE_RECEIPT">
+								<ng-container *ngTemplateOutlet="singleReceipt"></ng-container>
+							</ng-container>
+
+						</ng-container>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+				<button type="button" class="btn btn-primary" (click)="confirmAction()">CONFIRMAR</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //AGENTHOS - ENDORSEMENT GENERATE TICKET -->
+
+<ng-template #policyReceipts>
+	<p class="text-justify" *ngIf="!!capturedFractionalReceiptAmount; else noFractionalReceiptAmountPolicyReceipts">
+		Existe un recibo fraccionado de <strong>{{capturedFractionalReceiptAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> y el monto restante se cobrará junto con los recibos pendientes de la póliza. <strong>Por favor confirma si deseas continuar</strong>.
+	</p>
+	<ng-template #noFractionalReceiptAmountPolicyReceipts>
+		<p class="text-justify">
+			El incremento de la prima será cobrado junto con los recibos pendientes de la póliza sin generar un primer recibo fraccionado. <strong>Por favor confirma si deseas continuar</strong>.
+		</p>
+	</ng-template>
+</ng-template>
+
+<ng-template #independentReceipts>
+	<p class="text-justify" *ngIf="!!capturedFractionalReceiptAmount; else noFractionalReceiptAmountIndependentReceipts">
+		Existe un recibo fraccionado de <strong>{{capturedFractionalReceiptAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> y el monto restante se cobrará junto con los recibos independientes de la póliza. <strong>Por favor confirma si deseas continuar</strong>.
+	</p>
+	<ng-template #noFractionalReceiptAmountIndependentReceipts>
+		<p class="text-justify">
+			El incremento de la prima será cobrado junto con los recibos independientes de la póliza sin generar un primer recibo fraccionado. <strong>Por favor confirma si deseas continuar</strong>.
+		</p>
+	</ng-template>
+</ng-template>
+
+<ng-template #singleReceipt>
+	<p class="text-justify">El incremento de prima será cobrado con un recibo único de <strong>{{endorsementAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> con fecha de pago para el <strong>{{endorsementEmissionDate}}</strong>. <strong>Por favor confirma si deseas continuar</strong>.</p>
+</ng-template>

@@ -47,6 +47,10 @@ const routes: any = {
     insurancesPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/insurances/policies',
     policiesRenewsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/renews',
     cancelledPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/cancelled',
+    endorsePolicyWithCancellation: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-cancellation',
+    endorsePolicyWithChanges: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-changes',
+    endorsePolicyWithDecrement: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-decrement',
+    endorsePolicyWithIncrement: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-increment',
 }
 
 @Injectable()
@@ -171,6 +175,26 @@ export class PolicyService {
      */
     endorseContactPolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.endorseContactPolicy(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
+
+    endorsePolicyWithCancellation(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.endorsePolicyWithCancellation(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
+
+    endorsePolicyWithChanges(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.endorsePolicyWithChanges(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
+
+    endorsePolicyWithDecrement(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.endorsePolicyWithDecrement(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
+
+    endorsePolicyWithIncrement(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.endorsePolicyWithIncrement(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
     }
 

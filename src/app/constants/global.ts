@@ -329,7 +329,8 @@ export const IGNORE_MATCHES: any = {
 }
 export const ENDORSEMENT_PAYMENT_METHODS: any = {
     POLICY_RECEIPTS: 1,
-    INDEPENDENT_RECEIPTS: 2
+    INDEPENDENT_RECEIPTS: 2,
+    SINGLE_RECEIPT: 3
 }
 export const ROLES: any = {
     GLOBAL_ADMIN: 1,
@@ -371,9 +372,3 @@ export const DEFAULT_CURRENCY_ID: number = 1;
 export const DEFAULT_POLICY_STATUS_ID: number = POLICY_STATUS_ACTIVE;
 export const DEFAULT_POLICY_CANCELLATION_REASON_ID: number = 1;
 export const DEFAULT_PER_PAGE: number = 12;
-
-
-export const AMOUNT_INCREASE_TYPES: any = {
-    IN_POLICY: 1,
-    INDEPENDENT_RECEIPTS: 2
-}
