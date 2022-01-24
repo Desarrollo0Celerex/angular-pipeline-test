@@ -38,10 +38,10 @@ const routes: any = {
     policyTracker: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/tracker',
     groupPolicies: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/policies',
     partnerPolicies: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/policies',
-    workspacePoliciesRenews: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renews',
-    renewalsReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renews/report',
+    workspacePendingRenewals: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending',
+    workspacePendingRenewalsReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending/report',
+    totalWorkspacePendingRenewals: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending/count',
     policiesReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/report',
-    totalWorkspacePoliciesToRenew: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renews/count',
     policiesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies',
     totalPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/count',
     insurancesPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/insurances/policies',
@@ -148,8 +148,8 @@ export class PolicyService {
         return this._httpClient.get(policyUrl, {responseType: 'blob'});
     }
 
-    downloadRenewalsReport(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt') {
-        const route: string = routes.renewalsReport(this._workspaceId);
+    downloadReportPendingRenewals(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt') {
+        const route: string = routes.workspacePendingRenewalsReport(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
         if(!!rangeField) params = params.append('rangeField', rangeField);
@@ -446,7 +446,7 @@ export class PolicyService {
      * @return           The policies
      */
     getPoliciesToRenew(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
-        const route: string = routes.workspacePoliciesRenews(this._workspaceId);
+        const route: string = routes.workspacePendingRenewals(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
@@ -514,7 +514,7 @@ export class PolicyService {
     }
 
     getTotalWorkspacePoliciesToRenew(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
-        const route: string = routes.totalWorkspacePoliciesToRenew(this._workspaceId);
+        const route: string = routes.totalWorkspacePendingRenewals(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
         if(!!rangeField) params = params.append('rangeField', rangeField);
