@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { PaymentService } from '@services/payment.service';
 
-import { CardDownloadPendingReceiptsComponent } from './card-download-pending-receipts.component';
+import { CardReportPendingReceiptsComponent } from './card-report-pending-receipts.component';
 
 @NgModule({
   declarations: [
-    CardDownloadPendingReceiptsComponent
+    CardReportPendingReceiptsComponent
   ],
   exports: [
-      CardDownloadPendingReceiptsComponent
+      CardReportPendingReceiptsComponent
   ],
   imports: [
     CommonModule
@@ -19,4 +19,4 @@ import { CardDownloadPendingReceiptsComponent } from './card-download-pending-re
       PaymentService
   ]
 })
-export class CardDownloadPendingReceiptsModule { }
+export class CardReportPendingReceiptsModule { }
