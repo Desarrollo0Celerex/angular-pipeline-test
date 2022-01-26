@@ -3,9 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
-import { LoadingService } from '@services/loading.service';
-
-import { ListActivePoliciesByRangeService } from './list-active-policies-by-range.service';
 
 import * as moment from 'moment';
 
@@ -13,8 +10,7 @@ import * as moment from 'moment';
   selector: 'agt-list-active-policies-by-range',
   templateUrl: './list-active-policies-by-range.page.html',
   styles: [
-  ],
-  providers: [ListActivePoliciesByRangeService]
+  ]
 })
 export class ListActivePoliciesByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
@@ -22,22 +18,8 @@ export class ListActivePoliciesByRangePage implements OnInit {
     rangeField: string = 'validityEndDate';
     statsPeriodData: StatsPeriodData | null = null;
 
-    constructor(
-        private _model: ListActivePoliciesByRangeService,
-        private _loadingService: LoadingService
-    ) { }
-
     ngOnInit(): void {
         this._catchPeriodData();
-    }
-
-    downloadActivePoliciesReport(): void {
-        if(!!this.statsPeriodData) {
-            this._loadingService.show();
-            this._model.downloadActivePoliciesReport(this.rangeField, this.statsPeriodData.startDate, this.statsPeriodData.endDate).then(() => {
-                this._loadingService.hide();
-            });
-        }
     }
 
     loadContent(statsPeriodData: StatsPeriodData): void {
