@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { DEFAULT_PER_PAGE } from '@constants/global';
 import { environment } from '@env/environment';
+import { CoverageStat } from '@interfaces/coverage-stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { RangeStat } from '@interfaces/range-stat.interface';
 import { AuthService } from '@services/auth.service';
@@ -12,7 +13,8 @@ import { AuthService } from '@services/auth.service';
 const routes: any = {
     clients: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/clients',
     totalClients: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/clients/count',
-    clientsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/clients'
+    clientsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/clients',
+    coveragesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/coverages'
 }
 
 @Injectable()
@@ -44,6 +46,13 @@ export class ClientService {
        if(!!query) params = params.append('search', 'contactName:' + query);
        params = params.append('sortBy', '-createdAt');
        return this._httpClient.get<HttpResponse>(route, { params });
+   }
+
+   getCoveragesStats(): Observable<CoverageStat[]> {
+       const route: string = routes.coveragesStats(this._workspaceId);
+       return this._httpClient.get<HttpResponse>(route).pipe(
+           map((res: HttpResponse) => { return res.data })
+       );
    }
 
     /**

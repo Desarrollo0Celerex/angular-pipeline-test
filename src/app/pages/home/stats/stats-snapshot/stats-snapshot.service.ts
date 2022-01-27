@@ -7,6 +7,7 @@ import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-form
 
 import { Stat } from '@interfaces/stat.interface';
 import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
+import { CoverageStat } from '@interfaces/coverage-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
 import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -17,6 +18,7 @@ import { PaymentStatusStat } from '@interfaces/payment-status-stat.interface';
 import { SinisterStat } from '@interfaces/sinister-stat.interface';
 
 import { InsurerService } from '@services/insurer.service';
+import { ClientService } from '@services/client.service';
 import { ContactSourceService } from '@services/contact-source.service';
 import { LeadStatusService } from '@services/lead-status.service';
 import { ContactTypeService } from '@services/contact-type.service';
@@ -30,11 +32,12 @@ import { SinisterStatusService } from '@services/sinister-status.service';
 
 @Injectable()
 export class StatsSnapshotService {
-    insurersStatsData: any[] = [['ID', 'Pólizas Activas', 'Clientes', 'Clasificación', 'Prima Total']];
-    contactSourcesStatsData: any[] = [['Canal', 'Prospectos', { role: 'style' }]];
-    leadStatusStatsData: any[] = [['Ramos', 'Pólizas']];
     activeClientsStatsData: any[] = [['Tipo', 'Total']];
     clientStatusStatsData: any[] = [['Estatus', 'Ocasionales', 'Frecuentes', 'Influyentes']];
+    contactSourcesStatsData: any[] = [['Canal', 'Prospectos', { role: 'style' }]];
+    coveragesStatsData: any[] = [['Estado', 'Clientes', 'Pólizas']];
+    insurersStatsData: any[] = [['ID', 'Pólizas Activas', 'Clientes', 'Clasificación', 'Prima Total']];
+    leadStatusStatsData: any[] = [['Ramos', 'Pólizas']];
     policySourcesStatsData: any[] = [['Ramos', 'Pólizas']];
     policyStatusStatsData: any[] = [['Pólizas', 'Estatus', { role: "style" }]];
     paymentStatusStatsData: any[] = [['Recibos', 'Estatus', { role: "style" }]];
@@ -43,12 +46,13 @@ export class StatsSnapshotService {
     sinisterStatusStatsData: any[] = [['Origen', 'Personas', 'Empresas']];
 
     constructor(
-        private _pluralNameFormatPipe: PluralNameFormatPipe,
+        private _clientService: ClientService,
         private _contactSourceService: ContactSourceService,
         private _insurerService: InsurerService,
         private _leadStatusService: LeadStatusService,
         private _contactTypeService: ContactTypeService,
         private _clientStatusService: ClientStatusService,
+        private _pluralNameFormatPipe: PluralNameFormatPipe,
         private _policySourceService: PolicySourceService,
         private _policyStatusService: PolicyStatusService,
         private _paymentService: PaymentService,
@@ -73,6 +77,10 @@ export class StatsSnapshotService {
     getContactSourcesStats(): Observable<Stat[]> {
         const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED]);
         return this._contactSourceService.getContactSourcesStats(filters);
+    }
+
+    getCoveragesStats(): Observable<CoverageStat[]> {
+        return this._clientService.getCoveragesStats();
     }
 
     /**
@@ -231,6 +239,17 @@ export class StatsSnapshotService {
         data[1][0] = this._pluralNameFormatPipe.transform(data[1][0]);
         this.clientStatusStatsData.push(data[0]);
         this.clientStatusStatsData.push(data[1]);
+    }
+
+    loadCoveragesStatsData(coveragesStats: CoverageStat[]): void {
+        for (let coverageStats of coveragesStats) {
+            let data: any[] = [
+                coverageStats.name,
+                coverageStats.totalActiveClients,
+                coverageStats.totalActivePolicies
+            ];
+            this.coveragesStatsData.push(data);
+        }
     }
 
     /**

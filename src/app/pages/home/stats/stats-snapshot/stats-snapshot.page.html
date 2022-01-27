@@ -7,159 +7,179 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Mapa de Cobertura</h3>
+                        <!--<div class="card-options">
+                            <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                                <span class="fa fa-bars"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <div class="dropdown-plus-title">Filtrar Mapa</div>
+                                <button type="button" name="agtMapFilter" class="dropdown-item"><i class="fa fa-map-marker mr-2"></i>Clientes Activos</button>
+                                <button type="button" name="agtMapFilter" class="dropdown-item"><i class="fa fa-map-marker mr-2"></i>Clientes Perdidos</button>
+                            </div>
+                        </div>-->
+                    </div>
+                    <!-- AGENTHOS - DATA SUITE CHART -->
+                    <div id="agt-stats-coverages-snapshot"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowCoveragesStats" [height]="353"></agt-loading-content>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
                         <h3 class="card-title">Alcance por Aseguradora</h3>
                     </div>
                     <div id="agt-stats-insurer-snapshot"></div>
                     <agt-loading-content [isLoadingContent]="!canShowInsurersStats" [height]="353"></agt-loading-content>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card">
-                            <div class="card-header pt-2 pb-0 border-bottom-0">
-                                <h3 class="card-title">Canales de Adquisición</h3>
-                            </div>
-                            <div id="agt-stats-contact-sources-snapshot"></div>
-                            <agt-loading-content [isLoadingContent]="!canShowContactSourcesStats" [height]="200"></agt-loading-content>
-                            <div class="card-footer text-center">
-                                <a routerLink="/{{ROUTES_NAME.statsLeads}}">
-                                    <button type="button" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button>
-                                </a>
-                            </div>
-                        </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Canales de Adquisición</h3>
                     </div>
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card">
-                            <div class="card-header pt-2 pb-0 border-bottom-0">
-                                <h3 class="card-title">Distribución de Prospectos</h3>
-                            </div>
-                            <div id="agt-lead-status-stats"></div>
-                            <agt-loading-content [isLoadingContent]="!canShowLeadStatusStats" [height]="200"></agt-loading-content>
-                            <div class="card-footer text-center">
-                                <a routerLink="/{{ROUTES_NAME.statsLeads}}">
-                                    <button type="button" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button>
-                                </a>
-                            </div>
-                        </div>
+                    <div id="agt-stats-contact-sources-snapshot"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowContactSourcesStats" [height]="200"></agt-loading-content>
+                    <div class="card-footer text-center">
+                        <a routerLink="/{{ROUTES_NAME.statsLeads}}">
+                            <button type="button" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button>
+                        </a>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card">
-                            <div class="card-header pt-2 pb-0 border-bottom-0">
-                                <h3 class="card-title">Composición de Cartera</h3>
-                            </div>
-                            <div id="agt-active-clients-stats"></div>
-                            <agt-loading-content [isLoadingContent]="!canShowActiveClientsStats" [height]="200"></agt-loading-content>
-                            <div class="card-footer text-center">
-                                <a [routerLink]="">
-                                    <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary" disabled><strong>VER DETALLES</strong></button>
-                                </a>
-                            </div>
-                        </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Distribución de Prospectos</h3>
                     </div>
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card">
-                            <div class="card-header pt-2 pb-0 border-bottom-0">
-                                <h3 class="card-title">Distribución de Clientes</h3>
-                            </div>
-                            <div id="agt-client-status-stats"></div>
-                            <agt-loading-content [isLoadingContent]="!canShowClientStatusStats" [height]="200"></agt-loading-content>
-                            <div class="card-footer text-center">
-                                <a [routerLink]="">
-                                    <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary" disabled><strong>VER DETALLES</strong></button>
-                                </a>
-                            </div>
-                        </div>
+                    <div id="agt-lead-status-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowLeadStatusStats" [height]="200"></agt-loading-content>
+                    <div class="card-footer text-center">
+                        <a routerLink="/{{ROUTES_NAME.statsLeads}}">
+                            <button type="button" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button>
+                        </a>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card">
-                            <div class="card-header pt-2 pb-0 border-bottom-0">
-                                <h3 class="card-title">Origen de Primas</h3>
-                            </div>
-                            <div id="agt-policy-sources-stats"></div>
-                            <agt-loading-content [isLoadingContent]="!canShowPolicySourcesStats" [height]="200"></agt-loading-content>
-                            <div class="card-footer text-center">
-                                <a [routerLink]="">
-                                    <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary" disabled><strong>VER DETALLES</strong></button>
-                                </a>
-                            </div>
-                        </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Composición de Cartera</h3>
                     </div>
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card">
-                            <div class="card-header pt-2 pb-0 border-bottom-0">
-                                <h3 class="card-title">Distribución de Pólizas</h3>
-                            </div>
-                            <div id="agt-policy-status-stats"></div>
-                            <agt-loading-content [isLoadingContent]="!canShowPolicyStatusStats" [height]="200"></agt-loading-content>
-                            <div class="card-footer text-center">
-                                <a [routerLink]="">
-                                    <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary" disabled><strong>VER DETALLES</strong></button>
-                                </a>
-                            </div>
-                        </div>
+                    <div id="agt-active-clients-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowActiveClientsStats" [height]="200"></agt-loading-content>
+                    <div class="card-footer text-center">
+                        <a routerLink="/{{ROUTES_NAME.statsClients}}">
+                            <button type="button" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button>
+                        </a>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card">
-                            <div class="card-header pt-2 pb-0 border-bottom-0">
-                                <h3 class="card-title">Balance de Cobranza</h3>
-                            </div>
-                            <div id="agt-payments-stats"></div>
-                            <agt-loading-content [isLoadingContent]="!canShowPaymentsStats" [height]="200"></agt-loading-content>
-                            <div class="card-footer text-center">
-                                <a [routerLink]="">
-                                    <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary" disabled><strong>VER DETALLES</strong></button>
-                                </a>
-                            </div>
-                        </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Distribución de Clientes</h3>
                     </div>
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card">
-                            <div class="card-header pt-2 pb-0 border-bottom-0">
-                                <h3 class="card-title">Distribución de Recibos</h3>
-                            </div>
-                            <div id="agt-payment-status-stats"></div>
-                            <agt-loading-content [isLoadingContent]="!canShowPaymentStatusStats" [height]="200"></agt-loading-content>
-                            <div class="card-footer text-center">
-                                <a [routerLink]="">
-                                    <button type="button" class="btn btn-block btn-primary" disabled><strong>VER DETALLES</strong></button>
-                                </a>
-                            </div>
-                        </div>
+                    <div id="agt-client-status-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowClientStatusStats" [height]="200"></agt-loading-content>
+                    <div class="card-footer text-center">
+                        <a routerLink="/{{ROUTES_NAME.statsClients}}">
+                            <button type="button" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button>
+                        </a>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card">
-                            <div class="card-header pt-2 pb-0 border-bottom-0">
-                                <h3 class="card-title">Reporte de Incidentes</h3>
-                            </div>
-                            <div id="agt-sinisters-stats"></div>
-                            <agt-loading-content [isLoadingContent]="!canShowSinistersStats" [height]="200"></agt-loading-content>
-                            <div class="card-footer text-center">
-                                <a [routerLink]="">
-                                    <button type="button" name="agtDataSuiteDetails" class="btn btn-block btn-primary" disabled><strong>VER DETALLES</strong></button>
-                                </a>
-                            </div>
-                        </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Origen de Primas</h3>
                     </div>
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card">
-                            <div class="card-header pt-2 pb-0 border-bottom-0">
-                                <h3 class="card-title">Distribución de Siniestros</h3>
-                            </div>
-                            <div id="agt-sinister-status-stats"></div>
-                            <agt-loading-content [isLoadingContent]="!canShowSinisterStatusStats" [height]="200"></agt-loading-content>
-                            <div class="card-footer text-center">
-                                <a [routerLink]="">
-                                    <button type="button" class="btn btn-block btn-primary" disabled><strong>VER DETALLES</strong></button>
-                                </a>
-                            </div>
-                        </div>
+                    <div id="agt-policy-sources-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowPolicySourcesStats" [height]="200"></agt-loading-content>
+                    <div class="card-footer text-center">
+                        <a routerLink="/{{ROUTES_NAME.statsPolicies}}">
+                            <button type="button" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Distribución de Pólizas</h3>
+                    </div>
+                    <div id="agt-policy-status-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowPolicyStatusStats" [height]="200"></agt-loading-content>
+                    <div class="card-footer text-center">
+                        <a routerLink="/{{ROUTES_NAME.statsPolicies}}">
+                            <button type="button" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Balance de Cobranza</h3>
+                    </div>
+                    <div id="agt-payments-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowPaymentsStats" [height]="200"></agt-loading-content>
+                    <div class="card-footer text-center">
+                        <a routerLink="/{{ROUTES_NAME.statsCollection}}">
+                            <button type="button" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Distribución de Recibos</h3>
+                    </div>
+                    <div id="agt-payment-status-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowPaymentStatusStats" [height]="200"></agt-loading-content>
+                    <div class="card-footer text-center">
+                        <a routerLink="/{{ROUTES_NAME.statsCollection}}">
+                            <button type="button" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Reporte de Incidentes</h3>
+                    </div>
+                    <div id="agt-sinisters-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowSinistersStats" [height]="200"></agt-loading-content>
+                    <div class="card-footer text-center">
+                        <a routerLink=".">
+                            <button type="button" class="btn btn-block btn-primary" disabled><strong>MUY PRONTO</strong></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header pt-2 pb-0 border-bottom-0">
+                        <h3 class="card-title">Distribución de Siniestros</h3>
+                    </div>
+                    <div id="agt-sinister-status-stats"></div>
+                    <agt-loading-content [isLoadingContent]="!canShowSinisterStatusStats" [height]="200"></agt-loading-content>
+                    <div class="card-footer text-center">
+                        <a routerLink=".">
+                            <button type="button" class="btn btn-block btn-primary" disabled><strong>MUY PRONTO</strong></button>
+                        </a>
                     </div>
                 </div>
             </div>
