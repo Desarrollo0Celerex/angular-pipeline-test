@@ -223,7 +223,7 @@ export const CONTENT_TYPES: any = {
     },
     POLICY_TO_RENEW: {
         ID: 24,
-        NAME: 'Próxima'
+        NAME: 'Renovación'
     },
     LAST_CANCELLED_POLICY: {
         ID: 25,

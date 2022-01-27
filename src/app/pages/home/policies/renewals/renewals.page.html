@@ -22,11 +22,18 @@
     </div>
 </div>
 
+<agt-container-charts-pending-renewals
+    *ngIf="!!statsPeriodData"
+    [rangeField]="rangeField"
+    [rangeStart]="statsPeriodData.startDate"
+    [rangeEnd]="statsPeriodData.endDate"
+></agt-container-charts-pending-renewals>
+
 <agt-content-list
     *ngIf="!!statsPeriodData"
     [contentType]="CONTENT_TYPES.POLICY_TO_RENEW.ID"
     [contentTypeName]="CONTENT_TYPES.POLICY_TO_RENEW.NAME"
-    contentSubtypeName="Renovación"
+    contentSubtypeName="Pendiente"
     [rangeField]="rangeField"
     [rangeStart]="statsPeriodData.startDate"
     [rangeEnd]="statsPeriodData.endDate">
