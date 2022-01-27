@@ -323,7 +323,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * @param contactId The selected contact ID
      */
     onContactSelected(contactId: string): void {
-        this._doActionToSelectedContact(contactId);
+        if(!!this.actionType) {
+            this._doActionToSelectedContact(contactId);
+        } else {
+            this._router.navigateByUrl(ROUTES_NAME.contactResume(contactId));
+        }
     }
 
     /**

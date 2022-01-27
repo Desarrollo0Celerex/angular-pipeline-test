@@ -40,6 +40,7 @@ const routes: any = {
     partnerPolicies: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/policies',
     workspacePendingRenewals: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending',
     workspacePendingRenewalsReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending/report',
+    workspacePendingRenewalStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending/stats',
     totalWorkspacePendingRenewals: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending/count',
     policiesReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/reports',
     policiesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies',
@@ -367,6 +368,19 @@ export class PolicyService {
                 return res;
             })
         )
+    }
+
+    getPendingRenewalStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt') {
+        const route: string = routes.workspacePendingRenewalStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 
     getPendingRenovationsStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
