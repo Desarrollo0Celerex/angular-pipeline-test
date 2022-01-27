@@ -19,19 +19,11 @@
     <!-- //AGENTHOS - DATA SUITE STATS -->
     <!-- AGENTHOS - DATA SUITE REPORT -->
     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Generar Reporte</h3>
-            </div>
-            <!-- AGENTHOS - DATA SUITE REPORT GENERATOR -->
-            <div class="card-body">
-                <ol class="breadcrumb1 mt-2">
-                    <li class="breadcrumb-item1">Genera un reporte de <strong>Pólizas Vigentes</strong>.</li>
-                </ol>
-                <button type="button" class="btn btn-block btn-primary mt-5" (click)="downloadActivePoliciesReport()"><strong>DESCARGAR REPORTE</strong></button>
-            </div>
-            <!-- //AGENTHOS - DATA SUITE REPORT GENERATOR -->
-        </div>
+        <agt-card-report-active-policies
+            *ngIf="!!statsPeriodData"
+            [rangeStart]="statsPeriodData.startDate"
+            [rangeEnd]="statsPeriodData.endDate"
+        ></agt-card-report-active-policies>
     </div>
     <!-- //AGENTHOS - DATA SUITE REPORT -->
 </div>

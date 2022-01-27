@@ -1,6 +1,33 @@
 
 var StatsPlugin = function() {
 
+    function drawChartCoverages(chartData) {
+        google.charts.load('current', {
+           'packages': ['geochart'],
+           'mapsApiKey': 'AIzaSyDpclEqcDp6PC8tuaA3acg4z92zJ2wHaFA'
+        });
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var data = google.visualization.arrayToDataTable(chartData);
+            var options = {
+                region: 'MX',
+                height: 353,
+                fontSize:12,
+                bubble: {textStyle: {fontSize: 12}},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                displayMode: 'markers',
+                colorAxis: {colors:["#6c5ce8", "#ec4178"],}
+             };
+
+            var chart = new google.visualization.GeoChart(document.getElementById('agt-stats-coverages-snapshot'));
+            chart.draw(data, options);
+        }
+    }
+
     function drawChartInsurers(chartData) {
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(function() {
@@ -291,6 +318,7 @@ var StatsPlugin = function() {
     }
 
     return {
+        drawChartCoverages,
         drawChartInsurers,
         drawChartContactSources,
         drawChartLeadStatus,

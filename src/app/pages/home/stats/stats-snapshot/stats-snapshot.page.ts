@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { Stat } from '@interfaces/stat.interface';
 import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
+import { CoverageStat } from '@interfaces/coverage-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
 import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -48,6 +49,10 @@ export class StatsSnapshotPage implements OnInit {
         return (this.model.clientStatusStatsData.length > 1) ? true : false;
     }
 
+    get canShowCoveragesStats(): boolean {
+        return (this.model.coveragesStatsData.length > 1) ? true : false;
+    }
+
     get canShowPolicySourcesStats(): boolean {
         return (this.model.policySourcesStatsData.length > 1) ? true : false;
     }
@@ -77,6 +82,7 @@ export class StatsSnapshotPage implements OnInit {
     }
 
     ngOnInit(): void {
+        this._loadCoveragesStats();
         this._loadInsurersStats();
         this._loadContactsSourceStats();
         this._loadLeadStatusStats();
@@ -97,6 +103,13 @@ export class StatsSnapshotPage implements OnInit {
         this.model.getActiveClientsStats().subscribe((activeClientsStats: ContactTypeStat[]) => {
             this.model.loadActiveClientsStatsData(activeClientsStats);
             StatsPlugin.drawChartActiveClients(this.model.activeClientsStatsData);
+        })
+    }
+
+    private _loadCoveragesStats(): void {
+        this.model.getCoveragesStats().subscribe((coveragesStats: CoverageStat[]) => {
+            this.model.loadCoveragesStatsData(coveragesStats);
+            StatsPlugin.drawChartCoverages(this.model.coveragesStatsData);
         })
     }
 
