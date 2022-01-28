@@ -3,18 +3,18 @@ import { CommonModule } from '@angular/common';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 
-import { ChartClientsComponent } from './chart-clients.component';
+import { ChartContactTypesComponent } from './chart-contact-types.component';
 
 @NgModule({
   declarations: [
-    ChartClientsComponent
+    ChartContactTypesComponent
   ],
   exports: [
-      ChartClientsComponent
+      ChartContactTypesComponent
   ],
   imports: [
     CommonModule,
     LoadingContentModule
   ]
 })
-export class ChartClientsModule { }
+export class ChartContactTypesModule { }

@@ -6,14 +6,14 @@ import { ChartInsurersModule } from '@components/chart-insurers/chart-insurers.m
 import { ChartContactTypesModule } from '@components/chart-contact-types/chart-contact-types.module';
 import { PolicyService } from '@services/policy.service';
 
-import { ContainerChartsPendingRenewalsComponent } from './container-charts-pending-renewals.component';
+import { ContainerChartsActivePoliciesComponent } from './container-charts-active-policies.component';
 
 @NgModule({
   declarations: [
-    ContainerChartsPendingRenewalsComponent
+    ContainerChartsActivePoliciesComponent
   ],
   exports: [
-      ContainerChartsPendingRenewalsComponent
+      ContainerChartsActivePoliciesComponent
   ],
   imports: [
     CommonModule,
@@ -25,4 +25,4 @@ import { ContainerChartsPendingRenewalsComponent } from './container-charts-pend
       PolicyService
   ]
 })
-export class ContainerChartsPendingRenewalsModule { }
+export class ContainerChartsActivePoliciesModule { }

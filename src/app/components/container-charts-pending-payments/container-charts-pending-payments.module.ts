@@ -4,16 +4,16 @@ import { CommonModule } from '@angular/common';
 import { ChartInsurancesModule } from '@components/chart-insurances/chart-insurances.module';
 import { ChartInsurersModule } from '@components/chart-insurers/chart-insurers.module';
 import { ChartContactTypesModule } from '@components/chart-contact-types/chart-contact-types.module';
-import { PolicyService } from '@services/policy.service';
+import { PaymentService } from '@services/payment.service';
 
-import { ContainerChartsPendingRenewalsComponent } from './container-charts-pending-renewals.component';
+import { ContainerChartsPendingPaymentsComponent } from './container-charts-pending-payments.component';
 
 @NgModule({
   declarations: [
-    ContainerChartsPendingRenewalsComponent
+    ContainerChartsPendingPaymentsComponent
   ],
   exports: [
-      ContainerChartsPendingRenewalsComponent
+      ContainerChartsPendingPaymentsComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +22,7 @@ import { ContainerChartsPendingRenewalsComponent } from './container-charts-pend
     ChartInsurancesModule
   ],
   providers: [
-      PolicyService
+      PaymentService
   ]
 })
-export class ContainerChartsPendingRenewalsModule { }
+export class ContainerChartsPendingPaymentsModule { }

@@ -22,9 +22,13 @@ var StatsGlobalPlugin = function() {
                 colors:["#034ea8","#f10088"],
             };
 
-            var chart = new google.visualization.PieChart(document.getElementById('agt-chart-clients'));
+            var chart = new google.visualization.PieChart(document.getElementById('agt-chart-contact-types'));
             chart.draw(data, options);
         }
+    }
+
+    function removeChartContactTypes() {
+        document.getElementById('agt-chart-contact-types').innerHTML = '';
     }
 
     function drawChartInsurers(chartData) {
@@ -53,6 +57,10 @@ var StatsGlobalPlugin = function() {
         }
     }
 
+    function removeChartInsurers() {
+        document.getElementById('agt-chart-insurers').innerHTML = '';
+    }
+
     function drawChartInsurances(chartData) {
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(function() {
@@ -79,9 +87,16 @@ var StatsGlobalPlugin = function() {
         }
     }
 
+    function removeChartInsurances() {
+        document.getElementById('agt-chart-insurances').innerHTML = '';
+    }
+
     return {
         drawChartContactTypes,
+        removeChartContactTypes,
         drawChartInsurers,
-        drawChartInsurances
+        removeChartInsurers,
+        drawChartInsurances,
+        removeChartInsurances
     }
 }();

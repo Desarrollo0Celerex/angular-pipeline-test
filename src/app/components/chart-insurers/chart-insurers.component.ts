@@ -13,29 +13,29 @@ declare var StatsGlobalPlugin: any;
 export class ChartInsurersComponent implements OnChanges {
     @Input() description: string = '';
     @Input() data: ChartPieData[] = [];
-    chartData: any[] = [];
 
     constructor() { }
 
     get canShowChart(): boolean {
-        return (this.chartData.length > 0) ? true : false;
+        return (this.data.length > 0) ? true : false;
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.data && !!changes.data.currentValue) {
+        StatsGlobalPlugin.removeChartInsurers();
+        if(changes.data.currentValue.length > 0) {
             this._loadCharData(changes.data.currentValue);
         }
     }
 
-    private _loadCharData(chartData: ChartPieData[]): void {
-        this.chartData = [];
-        this.chartData.push(['Aseguradora', 'Pólizas']);
-        for(let data of chartData) {
-            this.chartData.push([
+    private _loadCharData(chartPieData: ChartPieData[]): void {
+        const chartData: any[] = [];
+        chartData.push(['Aseguradora', 'Pólizas']);
+        for(let data of chartPieData) {
+            chartData.push([
                 data.name,
                 data.value
             ]);
         }
-        StatsGlobalPlugin.drawChartInsurers(this.chartData);
+        StatsGlobalPlugin.drawChartInsurers(chartData);
     }
 }

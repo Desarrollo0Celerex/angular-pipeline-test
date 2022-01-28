@@ -23,6 +23,7 @@ const routes: any = {
     paymentsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/payments',
     collectionStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/collection',
     insurancesPaymentsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/insurances/payments',
+    workspacePendingPaymentStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/stats',
 }
 
 @Injectable()
@@ -123,6 +124,19 @@ export class PaymentService {
     getPaymentsStats(): Observable<PaymentStat[]> {
         const route: string = routes.paymentsStats(this._workspaceId);
         return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getPendingPaymentStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt') {
+        const route: string = routes.workspacePendingPaymentStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );
     }

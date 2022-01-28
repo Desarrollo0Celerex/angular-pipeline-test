@@ -30,6 +30,13 @@
 </div>
 <!-- //AGENTHOS - LISTING FILTERS  -->
 
+<agt-container-charts-pending-payments
+    *ngIf="!!statsPeriodData"
+    [rangeField]="rangeField"
+    [rangeStart]="statsPeriodData.startDate"
+    [rangeEnd]="statsPeriodData.endDate"
+></agt-container-charts-pending-payments>
+
 <agt-content-list
     *ngIf="!!statsPeriodData"
     [contentType]="CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID"
