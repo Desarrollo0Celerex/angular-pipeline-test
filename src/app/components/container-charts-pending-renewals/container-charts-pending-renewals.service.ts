@@ -11,7 +11,7 @@ export class ContainerChartsPendingRenewalsService {
 
     constructor(private _policyService: PolicyService) { }
 
-    loadClientsData(rangeField: string, rangeStart: string, rangeEnd: string): void {
+    loadData(rangeField: string, rangeStart: string, rangeEnd: string): void {
         this.chartsData = this._getDefaultData();
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
         const sortBy: string = 'validityEndDate';

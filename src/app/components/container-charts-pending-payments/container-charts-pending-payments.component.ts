@@ -1,20 +1,20 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { ContainerChartsPendingRenewalsService } from './container-charts-pending-renewals.service';
+import { ContainerChartsPendingPaymentsService } from './container-charts-pending-payments.service';
 
 @Component({
-  selector: 'agt-container-charts-pending-renewals',
-  templateUrl: './container-charts-pending-renewals.component.html',
+  selector: 'agt-container-charts-pending-payments',
+  templateUrl: './container-charts-pending-payments.component.html',
   styles: [
   ],
-  providers: [ContainerChartsPendingRenewalsService]
+  providers: [ContainerChartsPendingPaymentsService]
 })
-export class ContainerChartsPendingRenewalsComponent implements OnChanges {
+export class ContainerChartsPendingPaymentsComponent implements OnChanges {
     @Input() rangeField: string = '';
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
 
-    constructor(public model: ContainerChartsPendingRenewalsService) { }
+    constructor(public model: ContainerChartsPendingPaymentsService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(
@@ -25,5 +25,8 @@ export class ContainerChartsPendingRenewalsComponent implements OnChanges {
             this.model.loadData(this.rangeField, this.rangeStart, this.rangeEnd);
         }
     }
+
+  ngOnInit(): void {
+  }
 
 }

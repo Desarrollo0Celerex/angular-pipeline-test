@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { ChartPieData } from '@interfaces/chart-pie-data.interface';
 
 declare var StatsGlobalPlugin: any;
+declare var PopoverPlugin: any;
 
 @Component({
   selector: 'agt-chart-contact-types',
@@ -10,7 +11,7 @@ declare var StatsGlobalPlugin: any;
   styles: [
   ]
 })
-export class ChartContactTypesComponent implements OnChanges {
+export class ChartContactTypesComponent implements OnChanges, OnInit {
     @Input() description: string = '';
     @Input() data: ChartPieData[] = [];
 
@@ -25,6 +26,10 @@ export class ChartContactTypesComponent implements OnChanges {
         if(changes.data.currentValue.length > 0) {
             this._loadCharData(changes.data.currentValue);
         }
+    }
+
+    ngOnInit(): void {
+        PopoverPlugin.init();
     }
 
     private _loadCharData(chartPieData: ChartPieData[]): void {
