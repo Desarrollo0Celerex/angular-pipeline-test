@@ -5,12 +5,12 @@ import { ChartPieData } from '@interfaces/chart-pie-data.interface';
 declare var StatsGlobalPlugin: any;
 
 @Component({
-  selector: 'agt-chart-insurances',
-  templateUrl: './chart-insurances.component.html',
+  selector: 'agt-chart-contact-types',
+  templateUrl: './chart-contact-types.component.html',
   styles: [
   ]
 })
-export class ChartInsurancesComponent implements OnChanges {
+export class ChartContactTypesComponent implements OnChanges {
     @Input() description: string = '';
     @Input() data: ChartPieData[] = [];
 
@@ -21,7 +21,7 @@ export class ChartInsurancesComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        StatsGlobalPlugin.removeChartInsurances();
+        StatsGlobalPlugin.removeChartContactTypes();
         if(changes.data.currentValue.length > 0) {
             this._loadCharData(changes.data.currentValue);
         }
@@ -29,13 +29,14 @@ export class ChartInsurancesComponent implements OnChanges {
 
     private _loadCharData(chartPieData: ChartPieData[]): void {
         const chartData: any[] = [];
-        chartData.push(['Ramos', 'Pólizas']);
+        chartData.push(['Tipo', 'Pólizas']);
         for(let data of chartPieData) {
             chartData.push([
                 data.name,
                 data.value
             ]);
         }
-        StatsGlobalPlugin.drawChartInsurances(chartData);
+        StatsGlobalPlugin.drawChartContactTypes(chartData);
     }
+
 }

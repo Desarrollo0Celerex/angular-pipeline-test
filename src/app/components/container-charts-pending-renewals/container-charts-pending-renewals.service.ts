@@ -7,19 +7,24 @@ import { PolicyService } from '@services/policy.service';
 
 @Injectable()
 export class ContainerChartsPendingRenewalsService {
-    chartsData: ContainerCharts = {
-        insurers: [],
-        insurances: [],
-        contactTypes: []
-    };
+    chartsData: ContainerCharts = this._getDefaultData();
 
     constructor(private _policyService: PolicyService) { }
 
     loadClientsData(rangeField: string, rangeStart: string, rangeEnd: string): void {
+        this.chartsData = this._getDefaultData();
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
         const sortBy: string = 'validityEndDate';
         this._policyService.getPendingRenewalStats(filters, rangeField, rangeStart, rangeEnd, sortBy).subscribe((res: ContainerCharts) => {
             this.chartsData = res;
         });
+    }
+
+    private _getDefaultData(): ContainerCharts {
+        return {
+            insurers: [],
+            insurances: [],
+            contactTypes: []
+        };
     }
 }

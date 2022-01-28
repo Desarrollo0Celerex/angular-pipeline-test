@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ChartInsurancesModule } from '@components/chart-insurances/chart-insurances.module';
 import { ChartInsurersModule } from '@components/chart-insurers/chart-insurers.module';
-import { ChartClientsModule } from '@components/chart-clients/chart-clients.module';
+import { ChartContactTypesModule } from '@components/chart-contact-types/chart-contact-types.module';
 import { PolicyService } from '@services/policy.service';
 
 import { ContainerChartsPendingRenewalsComponent } from './container-charts-pending-renewals.component';
@@ -17,7 +17,7 @@ import { ContainerChartsPendingRenewalsComponent } from './container-charts-pend
   ],
   imports: [
     CommonModule,
-    ChartClientsModule,
+    ChartContactTypesModule,
     ChartInsurersModule,
     ChartInsurancesModule
   ],
