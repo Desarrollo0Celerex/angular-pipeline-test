@@ -29,6 +29,12 @@
 </div>
 <!-- //AGENTHOS - LISTING FILTERS  -->
 
+<agt-container-charts-active-policies
+    *ngIf="!!statsPeriodData"
+    [rangeStart]="statsPeriodData.startDate"
+    [rangeEnd]="statsPeriodData.endDate"
+></agt-container-charts-active-policies>
+
 <agt-content-list
     *ngIf="!!statsPeriodData"
     [contentType]="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID"

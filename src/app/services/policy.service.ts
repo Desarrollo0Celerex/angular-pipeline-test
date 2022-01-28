@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { DEFAULT_PER_PAGE, POLICY_STATUS } from '@constants/global';
 import { environment } from '@env/environment';
+import { ContainerCharts } from '@interfaces/container-charts.interface';
 import { CreatePolicyData } from '@interfaces/create-policy-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Policy } from '@interfaces/policy.interface';
@@ -53,6 +54,7 @@ const routes: any = {
     endorsePolicyWithDecrement: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-decrement',
     endorsePolicyWithIncrement: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-increment',
     workspaceActivePoliciesReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/reports/actives',
+    workspaceActivePolicieStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/stats/actives',
 }
 
 @Injectable()
@@ -215,6 +217,16 @@ export class PolicyService {
         return this._httpClient.post<void>(route, requestBody);
     }
 
+    getActivePolicieStats(rangeStart: string = '', rangeEnd: string = ''): Observable<ContainerCharts> {
+        const route: string = routes.workspaceActivePolicieStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
     getCancelledPoliciesStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
         const route: string = routes.cancelledPoliciesStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
@@ -370,7 +382,7 @@ export class PolicyService {
         )
     }
 
-    getPendingRenewalStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt') {
+    getPendingRenewalStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt'): Observable<ContainerCharts> {
         const route: string = routes.workspacePendingRenewalStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
