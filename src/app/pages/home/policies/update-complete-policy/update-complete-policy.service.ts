@@ -81,15 +81,15 @@ export class UpdateCompletePolicyService {
             policyAmount: [(!!policy && !!policy.policyAmount) ? policy.policyAmount : '', [Validators.required, ValidatorsHelper.amount] ],
             currencyId: [(!!policy && !!policy.currencyId) ? policy.currencyId : '', [Validators.required]],
             paymentMethodId: [(!!policy && !!policy.paymentMethodId) ? policy.paymentMethodId : '', [Validators.required]],
-            /*paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : '', [Validators.required]],
-            bills: ['', [Validators.required, ValidatorsHelper.number]]*/
+            paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : '', [Validators.required]],
+            bills: [(!!policy && !!policy.bills) ? policy.bills : '', [Validators.required, ValidatorsHelper.number]]
         });
     }
 
     /**
      * Calculate the bills
      */
-    /*calculateBills(): void {
+    calculateBills(): void {
         let bills: number = 0;
         const validityStartDate: string = this.f.validityStartDate.value;
         const validityEndDate: string = this.f.validityEndDate.value;
@@ -113,7 +113,7 @@ export class UpdateCompletePolicyService {
                 }
             }
         }
-    }*/
+    }
 
     /**
      * Check the policy amounts
@@ -147,6 +147,21 @@ export class UpdateCompletePolicyService {
             }
         }
         return false;
+    }
+
+    disableFormFields(): void {
+        this.f.validityStartDate.disable();
+        this.f.validityEndDate.disable();
+        this.f.netPay.disable();
+        this.f.feePay.disable();
+        this.f.coverPay.disable();
+        this.f.extraPay.disable();
+        this.f.taxPay.disable();
+        this.f.policyAmount.disable();
+        this.f.currencyId.disable();
+        this.f.paymentMethodId.disable();
+        this.f.paymentPlanId.disable();
+        this.f.bills.disable();
     }
 
     /**
@@ -234,7 +249,7 @@ export class UpdateCompletePolicyService {
      */
     loadPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,paymentPlanName,bills';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,receiptsPaid,totalEndorsements';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
@@ -247,14 +262,13 @@ export class UpdateCompletePolicyService {
         )
     }
 
-    /**
-     * Update the complete policy data
-     * @param  contactId The contact ID
-     * @param  policyId  The policy ID to update
-     * @return           Notice of action done
-     */
-    updateCompletePolicy(contactId: string, policyId: string): Observable<void> {
+    updatePolicy(contactId: string, policyId: string): Observable<void> {
         const requestBody: FormData = this._getRequestBody();
+        return this._policyService.updateContactPolicy(contactId, policyId, requestBody);
+    }
+
+    updateCompletePolicy(contactId: string, policyId: string): Observable<void> {
+        const requestBody: FormData = this._getRequestBodyCompletePolicy();
         return this._policyService.updateCompletePolicy(contactId, policyId, requestBody);
     }
 
@@ -296,6 +310,23 @@ export class UpdateCompletePolicyService {
         requestBody.append('insuranceId', this.f.insuranceId.value);
         requestBody.append('insuranceTypeId', this.f.insuranceTypeId.value);
         requestBody.append('emissionDate', this.f.emissionDate.value);
+        requestBody.append('titularName', this.f.titularName.value);
+        requestBody.append('titularRfc', this.f.titularRfc.value);
+        requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
+        requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
+        return requestBody;
+    }
+
+    private _getRequestBodyCompletePolicy(): FormData {
+        const requestBody: FormData = new FormData();
+        requestBody.append('policyFile', this.f.policyFile.value);
+        requestBody.append('coveredProperty', this.f.coveredProperty.value);
+        requestBody.append('policyNumber', this.f.policyNumber.value);
+        requestBody.append('clientNumber', this.f.clientNumber.value);
+        requestBody.append('insurerId', this.f.insurerId.value);
+        requestBody.append('insuranceId', this.f.insuranceId.value);
+        requestBody.append('insuranceTypeId', this.f.insuranceTypeId.value);
+        requestBody.append('emissionDate', this.f.emissionDate.value);
         requestBody.append('validityStartDate', this.f.validityStartDate.value);
         requestBody.append('validityEndDate', this.f.validityEndDate.value);
         requestBody.append('titularName', this.f.titularName.value);
@@ -311,8 +342,8 @@ export class UpdateCompletePolicyService {
         requestBody.append('policyAmount', this.f.policyAmount.value);
         requestBody.append('currencyId', this.f.currencyId.value);
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
-        /*requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
-        requestBody.append('bills', this.f.bills.value);*/
+        requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
+        requestBody.append('bills', this.f.bills.value);
         return requestBody;
     }
 }

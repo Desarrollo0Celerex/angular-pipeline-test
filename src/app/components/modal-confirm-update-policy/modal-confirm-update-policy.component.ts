@@ -31,11 +31,7 @@ export class ModalConfirmUpdatePolicyComponent {
      * Event to close the modal
      */
     onClickCloseModal(): void {
-        if(this.roleId === 1) {
-            this._router.navigateByUrl(ROUTES_NAME.updateCompletePolicy(this.contactId, this.policyId));
-        } else {
-            this._router.navigateByUrl(ROUTES_NAME.updatePolicy(this.contactId, this.policyId));
-        }
+        this._router.navigateByUrl(ROUTES_NAME.updateCompletePolicy(this.contactId, this.policyId));
         ModalPlugin.hide(this.modalId);
     }
 }

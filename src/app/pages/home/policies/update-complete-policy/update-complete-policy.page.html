@@ -329,7 +329,10 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - PAY PLAN * -->
                                     <label class="form-label">Tipo de Plan</label>
-                                    <input type="text" class="form-control" [placeholder]="updateCompletePolicyService.policy.paymentPlanName" disabled="">
+                                    <select class="form-control custom-select {{getValidationClass('paymentPlanId')}}" formControlName="paymentPlanId" (change)="onChangeCalculateBills()">
+                                        <option [value]="paymentPlan.paymentPlanId" *ngFor="let paymentPlan of updateCompletePolicyService.paymentPlans">{{paymentPlan.name | uppercase}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">{{getErrorMessage('paymentPlanId')}}</div>
                                 </div>
                             </div>
                             <!-- TOTAL TICKETS -->
@@ -337,7 +340,8 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - PAY BILLS * -->
                                     <label class="form-label">Recibos Totales</label>
-                                    <input type="text" class="form-control" [placeholder]="updateCompletePolicyService.policy.bills" disabled="">
+                                    <input type="text" class="form-control {{getValidationClass('bills')}}" formControlName="bills">
+                                    <div class="invalid-feedback">{{getErrorMessage('bills')}}</div>
                                 </div>
                             </div>
                         </div>

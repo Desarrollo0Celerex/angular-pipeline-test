@@ -77,7 +77,7 @@ export class UpdateCompletePolicyPage implements OnInit {
      * Change event to calculate the bills
      */
     onChangeCalculateBills(): void {
-        //this.updateCompletePolicyService.calculateBills();
+        this.updateCompletePolicyService.calculateBills();
     }
 
     onChangeLoadInsuranceTypes(): void {
@@ -112,14 +112,23 @@ export class UpdateCompletePolicyPage implements OnInit {
     onSubmitSavePolicy(): void {
         this._isFormSubmitted = true;
         if(this.updateCompletePolicyService.policyForm.valid) {
-            if(this.updateCompletePolicyService.checkPolicyAmounts()) {
+            // Policy has receipts paid or endorsements
+            if(this.updateCompletePolicyService.policy!.receiptsPaid > 0 || this.updateCompletePolicyService.policy!.totalEndorsements > 0) {
                 this._loadingService.show();
-                this.updateCompletePolicyService.updateCompletePolicy(this.contactId, this.policyId).subscribe( () => {
+                this.updateCompletePolicyService.updatePolicy(this.contactId, this.policyId).subscribe( () => {
                     this._loadingService.hide();
                     AlertHelper.policyUpdated(this._goToListContactPolicies, this);
                 })
             } else {
-                ModalPlugin.show(this.modalIdPolicyAmountsDifferent);
+                if(this.updateCompletePolicyService.checkPolicyAmounts()) {
+                    this._loadingService.show();
+                    this.updateCompletePolicyService.updateCompletePolicy(this.contactId, this.policyId).subscribe( () => {
+                        this._loadingService.hide();
+                        AlertHelper.policyUpdated(this._goToListContactPolicies, this);
+                    })
+                } else {
+                    ModalPlugin.show(this.modalIdPolicyAmountsDifferent);
+                }
             }
         }
     }
@@ -130,6 +139,12 @@ export class UpdateCompletePolicyPage implements OnInit {
     private _catchParams(): void {
         this.contactId = this._activatedRoute.snapshot.params.contactId;
         this.policyId = this._activatedRoute.snapshot.params.policyId;
+    }
+
+    private _checkPolicyPayments(receiptsPaid: number, totalEndorsements: number): void {
+        if(receiptsPaid > 0 || totalEndorsements > 0) {
+            this.updateCompletePolicyService.disableFormFields();
+        }
     }
 
     /**
@@ -188,7 +203,7 @@ export class UpdateCompletePolicyPage implements OnInit {
      */
     private _loadPaymentPlans(): void {
         this.updateCompletePolicyService.loadPaymentPlans().subscribe( () => {
-            //this.updateCompletePolicyService.calculateBills();
+            this.updateCompletePolicyService.calculateBills();
         })
     }
 
@@ -204,6 +219,7 @@ export class UpdateCompletePolicyPage implements OnInit {
             this._loadInsurances();
             this._loadPaymentMethods();
             this._loadPaymentPlans();
+            this._checkPolicyPayments(res.data.receiptsPaid, res.data.totalEndorsements);
         })
     }
 
@@ -215,7 +231,7 @@ export class UpdateCompletePolicyPage implements OnInit {
      */
     private _onChangeDate(selectorId: string, changedValue: string, context: UpdateCompletePolicyPage): void {
         context.updateCompletePolicyService.policyForm.patchValue({[selectorId]: changedValue});
-        //context.updateCompletePolicyService.calculateBills();
+        context.updateCompletePolicyService.calculateBills();
     }
 
 }
