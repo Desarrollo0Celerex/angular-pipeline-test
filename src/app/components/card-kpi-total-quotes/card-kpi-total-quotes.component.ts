@@ -21,7 +21,7 @@ export class CardKpiTotalQuotesComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.model.loadTotalQuotations();
+        this.model.loadTotalPendingQuotations();
     }
 
     get model(): CardKpiTotalQuotesService {

@@ -53,5 +53,8 @@ export interface Policy {
     policySourceId: number,
     workspaceCountryId: number,
     basePolicyId: string,
-    baseContactId: string
+    baseContactId: string,
+    receiptsPaid: number,
+    totalEndorsements: number,
+    contactName: string
 }
