@@ -64,21 +64,6 @@ export class EndorsePolicyPage implements OnInit {
         fileType: FILE_TYPES.MIXED
     };
 
-    get finalPolicyAmount(): number {
-        let finalPolicyAmount: number = 0;
-        if(this.model.policy) {
-            if(!!this.model.f.endorsementAmount && !!this.model.f.endorsementAmount.value && !this.model.f.endorsementAmount.disabled) {
-                const endorsementAmountFormatted: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.endorsementAmount.value));
-                const policyAmount: number = parseFloat(this.model.policy.policyAmount.toString());
-                finalPolicyAmount = (this.model.f.endorsementTypeId.value == ENDORSEMENT_TYPES.A) ? policyAmount + endorsementAmountFormatted : policyAmount - endorsementAmountFormatted;
-            } else {
-                finalPolicyAmount = this.model.policy.policyAmount;
-                this.model.f.endorsementAmount.setValue('');
-            }
-        }
-        return finalPolicyAmount;
-    }
-
     constructor(
         public model: EndorsePolicyService,
         private _activatedRoute: ActivatedRoute,
@@ -156,11 +141,26 @@ export class EndorsePolicyPage implements OnInit {
         this._showModalToConfirmApplyEndorsementWithIncrement();
     }
 
+    changeFinalPolicyAmount(): void {
+        const endorsementAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.endorsementAmount.value));
+        const policyAmount: number = parseFloat(this.model.policy!.policyAmount.toString());
+        const finalPolicyAmount = (this.model.f.endorsementTypeId.value == ENDORSEMENT_TYPES.A) ? policyAmount + endorsementAmount : policyAmount - endorsementAmount;
+        this.model.f.finalPolicyAmount.setValue(finalPolicyAmount);
+    }
+
+    changeEndorsementAmount(): void {
+        const finalPolicyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.finalPolicyAmount.value));
+        const policyAmount: number = parseFloat(this.model.policy!.policyAmount.toString());
+        const endorsementAmount = (this.model.f.endorsementTypeId.value == ENDORSEMENT_TYPES.A) ? finalPolicyAmount - policyAmount : policyAmount - finalPolicyAmount;
+        this.model.f.endorsementAmount.setValue(endorsementAmount);
+    }
+
     endorsementFileSelected(file: File): void {
         this.model.form.patchValue({ endorsementFile: file})
     }
 
     endorsementTypeIdChanged(): void {
+        this.model.checkAmountFields();
         this.model.disableFormFields();
     }
 

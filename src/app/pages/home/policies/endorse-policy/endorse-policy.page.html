@@ -326,7 +326,7 @@
                                                         <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
                                                     </div>
                                                 </div>
-                                                <input type="text" class="form-control {{getValidationClass('endorsementAmount')}}" formControlName="endorsementAmount">
+                                                <input type="text" class="form-control {{getValidationClass('endorsementAmount')}}" formControlName="endorsementAmount" (blur)="changeFinalPolicyAmount()">
                                                 <div class="invalid-feedback">{{getErrorMessage('endorsementAmount')}}</div>
                                             </div>
                                         </div>
@@ -348,7 +348,8 @@
                                                         <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
                                                     </div>
                                                 </div>
-                                                <input type="text" name="agtReceiptAmmount" class="form-control" placeholder="{{finalPolicyAmount | currency: '': '': '0.2-2'}}" disabled="">
+                                                <input type="text" class="form-control {{getValidationClass('finalPolicyAmount')}}" formControlName="finalPolicyAmount" (blur)="changeEndorsementAmount()">
+                                                <div class="invalid-feedback">{{getErrorMessage('finalPolicyAmount')}}</div>
                                             </div>
                                         </div>
                                         <span class="col-auto align-self-center">

@@ -95,6 +95,17 @@ export class EndorsePolicyService {
         }
     }
 
+    checkAmountFields(): void {
+        const endorsementType: number = parseInt(this.f.endorsementTypeId.value);
+        switch(endorsementType) {
+            case ENDORSEMENT_TYPES.B:
+            case ENDORSEMENT_TYPES.C:
+                this.f.endorsementAmount.setValue('');
+                this.f.finalPolicyAmount.setValue(this.policy!.policyAmount);
+            break;
+        }
+    }
+
     /**
      * Check if the policy data was changed
      * @return True if it was changed, otherwise false
@@ -149,6 +160,7 @@ export class EndorsePolicyService {
                 this.f.clientNumber.enable();
                 this.f.validityEndDate.enable();
                 this.f.endorsementAmount.enable();
+                this.f.finalPolicyAmount.enable();
                 this.f.paymentMethodId.enable();
                 this.f.paymentPlanId.enable();
                 break;
@@ -174,6 +186,7 @@ export class EndorsePolicyService {
                 this.f.clientNumber.enable();
                 this.f.validityEndDate.enable();
                 this.f.endorsementAmount.enable();
+                this.f.finalPolicyAmount.enable();
                 this.f.paymentMethodId.enable();
                 this.f.paymentPlanId.enable();
                 break;
@@ -182,19 +195,6 @@ export class EndorsePolicyService {
                 this.f.coveredProperty.enable();
                 break;
         }
-    }
-
-    /**
-     * Endorse the policy
-     * @param  contactId                The contact ID
-     * @param  policyId                 The policy ID
-     * @param  fractionalReceiptAmount  The fractional receipt amount
-     * @param  endorsementPaymentMethod The endorsement payment method
-     * @return                          Notice of action done
-     */
-    endorsePolicy(contactId: string, policyId: string, fractionalReceiptAmount: number, endorsementPaymentMethod: number): Observable<void> {
-        const requestBody: FormData = this._getRequestBody(fractionalReceiptAmount, endorsementPaymentMethod);
-        return this._policyService.endorseContactPolicy(contactId, policyId, requestBody);
     }
 
     endorsePolicyWithCancellation(contactId: string, policyId: string): Observable<void> {
@@ -301,6 +301,7 @@ export class EndorsePolicyService {
                 titularPostalCode: [this.policy.titularPostalCode, [ValidatorsHelper.postalCode ] ],
                 titularPhoneNumber: [this.policy.titularPhoneNumber, [ValidatorsHelper.phoneNumber] ],
                 validityEndDate: [this._getDateFormat(this.policy.validityEndDate) || 0, [Validators.required, ValidatorsHelper.date, ValidatorsHelper.dateGreaterThan(this.policy.validityEndDate)] ],
+                finalPolicyAmount: [this.policy.policyAmount, [Validators.required, ValidatorsHelper.amount] ],
                 paymentMethodId: [this.policy.paymentMethodId || '', [Validators.required]],
                 paymentPlanId: [this.policy.paymentPlanId || '', [Validators.required]],
                 bills: [this.policy.bills || 0]
@@ -340,65 +341,6 @@ export class EndorsePolicyService {
     private _getPaymentPlanMonths(paymentPlanId: number): number {
         const paymentPlan: PaymentPlan | undefined = this.paymentPlans.find((element: PaymentPlan) => element.paymentPlanId == paymentPlanId);
         return (!!paymentPlan) ? paymentPlan.months : 0;
-    }
-
-    /**
-     * Get the request body
-     * @param  fractionalReceiptAmount  The fractional receipt amount
-     * @param  endorsementPaymentMethod The method of payment of the endorsement
-     * @return                          The request body
-     */
-    private _getRequestBody(fractionalReceiptAmount: number, endorsementPaymentMethod: number): FormData {
-        const requestBody: FormData = new FormData();
-        requestBody.append('endorsementFile', this.f.endorsementFile.value);
-        requestBody.append('evidenceFile', this.f.evidenceFile.value);
-        requestBody.append('endorsementNumber', this.f.endorsementNumber.value);
-        requestBody.append('endorsementEmissionDate', this.f.endorsementEmissionDate.value);
-        requestBody.append('endorsementTypeId', this.f.endorsementTypeId.value);
-        requestBody.append('endorsementComments', this.f.endorsementComments.value);
-        requestBody.append('coveredProperty', this.f.coveredProperty.value);
-        requestBody.append('policyNumber', this.f.policyNumber.value);
-        requestBody.append('clientNumber', this.f.clientNumber.value);
-        requestBody.append('titularName', this.f.titularName.value);
-        requestBody.append('titularRfc', this.f.titularRfc.value);
-        requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
-        requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
-
-        if(!!this.policy) {
-            const validityEndDate: string = UtilitiesHelper.getOriginalDateFormat(this.f.validityEndDate.value);
-            if(this.policy.validityEndDate != validityEndDate) {
-                requestBody.append('validityEndDate', this.f.validityEndDate.value);
-            }
-
-            if(!!this.f.endorsementAmount.value && !!this.f.endorsementTypeId.value) {
-                const endorsementAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.endorsementAmount.value));
-                const policyAmount: number = parseFloat(this.policy.policyAmount.toString());
-                const newAmount: number = (this.f.endorsementTypeId.value == ENDORSEMENT_TYPES.A) ? policyAmount + endorsementAmount : policyAmount - endorsementAmount ;
-                requestBody.append('newAmount', newAmount.toString());
-            }
-
-            if(this.policy.paymentMethodId != this.f.paymentMethodId.value) {
-                requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
-            }
-
-            if(this.policy.paymentPlanId != this.f.paymentPlanId.value) {
-                requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
-            }
-
-            if(this.policy.bills != this.f.bills.value) {
-                requestBody.append('bills', this.f.bills.value);
-            }
-        }
-
-        if(!!fractionalReceiptAmount) {
-            requestBody.append('fractionalReceiptAmount', fractionalReceiptAmount.toString());
-        }
-
-        if(!!endorsementPaymentMethod) {
-            requestBody.append('endorsementPaymentMethod', endorsementPaymentMethod.toString());
-        }
-
-        return requestBody;
     }
 
     private _getRequestBodyToEndorsePolicyWithCancellation(): FormData {
