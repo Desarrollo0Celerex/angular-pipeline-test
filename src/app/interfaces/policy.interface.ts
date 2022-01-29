@@ -55,5 +55,6 @@ export interface Policy {
     basePolicyId: string,
     baseContactId: string,
     receiptsPaid: number,
-    totalEndorsements: number
+    totalEndorsements: number,
+    contactName: string
 }

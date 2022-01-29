@@ -15,7 +15,7 @@ export class ContainerWorkspaceIncompletePoliciesService {
     loadWorkspaceIncompletePolicies(): void {
         const page: number = 1;
         const perPage: number = 4;
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId';
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,contactName';
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.INCOMPLETE]);
         const sortBy: string = '-createdAt';
         this._policyService.getPolicies(page, fields, filters, '', sortBy, '', '', '', perPage).subscribe((res: HttpResponse) => {
