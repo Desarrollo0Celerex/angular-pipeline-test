@@ -18,6 +18,7 @@
             [rangeField]="rangeField"
             [rangeStart]="statsPeriodData.startDate"
             [rangeEnd]="statsPeriodData.endDate"
+            [specialFilter]="specialFilter"
         ></agt-card-report-pending-renewals>
     </div>
 </div>
@@ -27,6 +28,7 @@
     [rangeField]="rangeField"
     [rangeStart]="statsPeriodData.startDate"
     [rangeEnd]="statsPeriodData.endDate"
+    (specialFilterChanged)="applySpecialFilter($event)"
 ></agt-container-charts-pending-renewals>
 
 <agt-content-list
@@ -36,5 +38,6 @@
     contentSubtypeName="Pendiente"
     [rangeField]="rangeField"
     [rangeStart]="statsPeriodData.startDate"
-    [rangeEnd]="statsPeriodData.endDate">
-</agt-content-list>
+    [rangeEnd]="statsPeriodData.endDate"
+    [contentSpecialFilter]="specialFilter"
+></agt-content-list>

@@ -10,11 +10,11 @@ export class CardReportPendingRenewalsService {
 
     constructor(private _policyService: PolicyService) { }
 
-    downloadReport(rangeField: string, rangeStart: string, rangeEnd: string): Promise<void> {
+    downloadReport(rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Promise<void> {
         return new Promise((resolve) => {
             const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
             const sortBy: string = 'validityEndDate';
-            this._policyService.downloadReportPendingRenewals(filters, rangeField, rangeStart, rangeEnd, sortBy).then((response: any) => {
+            this._policyService.downloadReportPendingRenewals(filters, rangeField, rangeStart, rangeEnd, sortBy, specialFilter).then((response: any) => {
               const filename = response.headers.get('content-disposition').split(';')[1].split('filename')[1].split('=')[1].split('"')[1].trim();
               const blob = new Blob([response.body], {type: response.type.toString()});
                   saveAs(blob, filename);

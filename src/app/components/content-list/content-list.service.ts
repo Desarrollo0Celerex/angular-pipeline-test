@@ -467,11 +467,11 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadPoliciesToRenew(page: number, rangeField: string, rangeStart: string, rangeEnd: string): Observable<void> {
+    loadPoliciesToRenew(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
         const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId,paymentId,policyCancellationReasonId';
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
         const sortBy: string = 'validityEndDate';
-        return this._policyService.getPoliciesToRenew(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd).pipe(
+        return this._policyService.getPoliciesToRenew(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
@@ -486,11 +486,11 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadPendingPaymentsByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string): Observable<void> {
+    loadPendingPaymentsByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
         const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE]);
         const sortBy: string = 'paymentDate';
-        return this._paymentService.getPayments(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd).pipe(
+        return this._paymentService.getPayments(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);

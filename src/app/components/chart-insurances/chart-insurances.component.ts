@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
 
 import { ChartPieData } from '@interfaces/chart-pie-data.interface';
 
@@ -11,8 +11,8 @@ declare var StatsGlobalPlugin: any;
   ]
 })
 export class ChartInsurancesComponent implements OnChanges {
-    @Input() description: string = '';
     @Input() data: ChartPieData[] = [];
+    @Output() showModal: EventEmitter<void> = new EventEmitter<void>();
 
     constructor() { }
 
@@ -25,6 +25,10 @@ export class ChartInsurancesComponent implements OnChanges {
         if(changes.data.currentValue.length > 0) {
             this._loadCharData(changes.data.currentValue);
         }
+    }
+
+    showModalToApplyFilter(): void {
+        this.showModal.emit();
     }
 
     private _loadCharData(chartPieData: ChartPieData[]): void {

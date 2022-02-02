@@ -167,7 +167,7 @@ export class PolicyService {
         return this._httpClient.get(route, fileParams).toPromise();
     }
 
-    downloadReportPendingRenewals(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt') {
+    downloadReportPendingRenewals(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt', specialFilter: string = '') {
         const route: string = routes.workspacePendingRenewalsReport(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
@@ -175,6 +175,7 @@ export class PolicyService {
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         if(!!sortBy) params = params.append('sortBy', sortBy);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         params.append('observe', 'response');
         params.append('responseType', 'arraybuffer');
         const fileParams: any = {
@@ -382,14 +383,14 @@ export class PolicyService {
         )
     }
 
-    getPendingRenewalStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt'): Observable<ContainerCharts> {
+    getPendingRenewalStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<ContainerCharts> {
         const route: string = routes.workspacePendingRenewalStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
-        if(!!sortBy) params = params.append('sortBy', sortBy);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );
@@ -487,7 +488,7 @@ export class PolicyService {
      * @param  search    The search to do
      * @return           The policies
      */
-    getPoliciesToRenew(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
+    getPoliciesToRenew(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
         const route: string = routes.workspacePendingRenewals(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
@@ -497,6 +498,7 @@ export class PolicyService {
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         params = params.append('sortBy', sortBy);
         return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map((res: HttpResponse) => {

@@ -15,6 +15,7 @@ export class CardReportPendingReceiptsComponent {
     @Input() rangeField: string = '';
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
+    @Input() specialFilter: string = '';
 
     constructor(
         public model: CardReportPendingReceiptsService,
@@ -23,7 +24,7 @@ export class CardReportPendingReceiptsComponent {
 
     downloadReport(): void {
         this._loadingService.show();
-        this.model.downloadReport(this.rangeField, this.rangeStart, this.rangeEnd).then(() => {
+        this.model.downloadReport(this.rangeField, this.rangeStart, this.rangeEnd, this.specialFilter).then(() => {
             this._loadingService.hide();
         });
     }

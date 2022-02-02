@@ -24,6 +24,7 @@
             [rangeField]="rangeField"
             [rangeStart]="statsPeriodData.startDate"
             [rangeEnd]="statsPeriodData.endDate"
+            [specialFilter]="specialFilter"
         ></agt-card-report-pending-receipts>
     </div>
     <!-- //AGENTHOS - DATA SUITE REPORT -->
@@ -35,6 +36,7 @@
     [rangeField]="rangeField"
     [rangeStart]="statsPeriodData.startDate"
     [rangeEnd]="statsPeriodData.endDate"
+    (specialFilterChanged)="applySpecialFilter($event)"
 ></agt-container-charts-pending-payments>
 
 <agt-content-list
@@ -44,5 +46,6 @@
     contentSubtypeName="Pendiente"
     [rangeField]="rangeField"
     [rangeStart]="statsPeriodData.startDate"
-    [rangeEnd]="statsPeriodData.endDate">
-</agt-content-list>
+    [rangeEnd]="statsPeriodData.endDate"
+    [contentSpecialFilter]="specialFilter"
+></agt-content-list>
