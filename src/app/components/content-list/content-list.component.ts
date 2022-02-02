@@ -1059,7 +1059,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             break;
 
             case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
-                this.contentListService.loadPendingPaymentsByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd).subscribe( () => {
+                this.contentListService.loadPendingPaymentsByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
                 });
             break;

@@ -17,9 +17,14 @@ export class ListPendingPaymentsByRangePage implements OnInit {
     pageUrl: string = '/' + ROUTES_NAME.listPayments;
     rangeField: string = 'paymentDate';
     statsPeriodData: StatsPeriodData | null = null;
+    specialFilter: string = '';
 
     ngOnInit(): void {
         this._catchPeriodData();
+    }
+
+    applySpecialFilter(specialFilter: string): void {
+        this.specialFilter = specialFilter;
     }
 
     loadContent(statsPeriodData: StatsPeriodData): void {

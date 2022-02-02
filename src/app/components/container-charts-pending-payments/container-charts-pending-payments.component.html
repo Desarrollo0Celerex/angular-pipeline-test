@@ -2,21 +2,42 @@
 <div class="row mt-3">
     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
         <agt-chart-insurances
-            description="Clasificación de recibos pendientes por ramo."
             [data]="model.chartsData.insurances"
+            (showModal)="showModalInsurancesToApplyFilter()"
         ></agt-chart-insurances>
     </div>
     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
         <agt-chart-insurers
-            description="Clasificación de recibos pendientes por aseguradora."
             [data]="model.chartsData.insurers"
+            (showModal)="showModalInsurersToApplyFilter()"
         ></agt-chart-insurers>
     </div>
     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
         <agt-chart-contact-types
-            description="Clasificación de recibos pendientes por tipo de cliente."
             [data]="model.chartsData.contactTypes"
+            (showModal)="showModalContactTypesToApplyFilter()"
         ></agt-chart-contact-types>
     </div>
 </div>
 <!-- //AGENTHOS - SMART INSIGHTS -->
+
+<agt-modal-filter-results
+    *ngIf="!!model.filtersData"
+    [modalId]="modalIdInsuranceFilterResults"
+    [filters]="model.filtersData.insurances.filters"
+    (filtersSelected)="applyInsuranceFilters($event)"
+></agt-modal-filter-results>
+
+<agt-modal-filter-results
+    *ngIf="!!model.filtersData"
+    [modalId]="modalIdInsurerFilterResults"
+    [filters]="model.filtersData.insurers.filters"
+    (filtersSelected)="applyInsurerFilters($event)"
+></agt-modal-filter-results>
+
+<agt-modal-filter-results
+    *ngIf="!!model.filtersData"
+    [modalId]="modalIdContactTypeFilterResults"
+    [filters]="model.filtersData.contactTypes.filters"
+    (filtersSelected)="applyContactTypeFilters($event)"
+></agt-modal-filter-results>

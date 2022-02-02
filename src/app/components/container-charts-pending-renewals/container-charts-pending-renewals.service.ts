@@ -27,7 +27,7 @@ export class ContainerChartsPendingRenewalsService {
     }
 
     generateSpecialFilter(): void {
-        this.specialFilter = this.filtersData!.insurances.specialFilter + ';' + this.filtersData!.insurers.specialFilter;// + ';' + this.filtersData!.contactTypes.specialFilter;
+        this.specialFilter = this.filtersData!.insurances.specialFilter + ';' + this.filtersData!.insurers.specialFilter + ';' + this.filtersData!.contactTypes.specialFilter;
     }
 
     private _getDefaultChartsData(): ContainerCharts {
