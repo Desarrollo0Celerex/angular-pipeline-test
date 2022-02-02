@@ -23,6 +23,7 @@
             *ngIf="!!statsPeriodData"
             [rangeStart]="statsPeriodData.startDate"
             [rangeEnd]="statsPeriodData.endDate"
+            [specialFilter]="specialFilter"
         ></agt-card-report-active-policies>
     </div>
     <!-- //AGENTHOS - DATA SUITE REPORT -->
@@ -33,6 +34,7 @@
     *ngIf="!!statsPeriodData"
     [rangeStart]="statsPeriodData.startDate"
     [rangeEnd]="statsPeriodData.endDate"
+    (specialFilterChanged)="applySpecialFilter($event)"
 ></agt-container-charts-active-policies>
 
 <agt-content-list
@@ -42,5 +44,6 @@
     contentSubtypeName="Activa"
     [rangeField]="rangeField"
     [rangeStart]="statsPeriodData.startDate"
-    [rangeEnd]="statsPeriodData.endDate">
-</agt-content-list>
+    [rangeEnd]="statsPeriodData.endDate"
+    [contentSpecialFilter]="specialFilter"
+></agt-content-list>

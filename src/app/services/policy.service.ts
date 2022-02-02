@@ -152,11 +152,12 @@ export class PolicyService {
         return this._httpClient.get(policyUrl, {responseType: 'blob'});
     }
 
-    downloadReportActivePolicies(rangeStart: string = '', rangeEnd: string = '') {
+    downloadReportActivePolicies(rangeStart: string = '', rangeEnd: string = '', specialFilter: string = '') {
         const route: string = routes.workspaceActivePoliciesReport(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         params.append('observe', 'response');
         params.append('responseType', 'arraybuffer');
         const fileParams: any = {
@@ -218,11 +219,12 @@ export class PolicyService {
         return this._httpClient.post<void>(route, requestBody);
     }
 
-    getActivePolicieStats(rangeStart: string = '', rangeEnd: string = ''): Observable<ContainerCharts> {
+    getActivePolicieStats(rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<ContainerCharts> {
         const route: string = routes.workspaceActivePolicieStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );
