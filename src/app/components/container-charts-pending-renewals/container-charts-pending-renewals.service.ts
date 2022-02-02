@@ -17,8 +17,7 @@ export class ContainerChartsPendingRenewalsService {
     loadData(rangeField: string, rangeStart: string, rangeEnd: string): void {
         this.chartsData = this._getDefaultChartsData();
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
-        const sortBy: string = 'validityEndDate';
-        this._policyService.getPendingRenewalStats(filters, rangeField, rangeStart, rangeEnd, sortBy, this.specialFilter).subscribe((res: ContainerCharts) => {
+        this._policyService.getPendingRenewalStats(filters, rangeField, rangeStart, rangeEnd, this.specialFilter).subscribe((res: ContainerCharts) => {
             this.chartsData = res;
             if(this.filtersData === null) {
                 this._loadFiltersData(res);
@@ -28,7 +27,7 @@ export class ContainerChartsPendingRenewalsService {
     }
 
     generateSpecialFilter(): void {
-        this.specialFilter = this.filtersData!.insurances.specialFilter + this.filtersData!.insurers.specialFilter + this.filtersData!.contactTypes.specialFilter;
+        this.specialFilter = this.filtersData!.insurances.specialFilter + ';' + this.filtersData!.insurers.specialFilter;// + ';' + this.filtersData!.contactTypes.specialFilter;
     }
 
     private _getDefaultChartsData(): ContainerCharts {
@@ -64,7 +63,7 @@ export class ContainerChartsPendingRenewalsService {
             });
             insuranceIds.push(insuranceData.id);
         }
-        this.filtersData.insurances.specialFilter = UtilitiesHelper.generateHttpSpecialFilter('insuranceId', insuranceIds);
+        this.filtersData.insurances.specialFilter = UtilitiesHelper.generateHttpFilter('insuranceId', insuranceIds);
 
         const insurerIds: number[] = [];
         for(let insurerData of containerCharts.insurers) {
@@ -75,7 +74,7 @@ export class ContainerChartsPendingRenewalsService {
             });
             insurerIds.push(insurerData.id);
         }
-        this.filtersData.insurers.specialFilter = UtilitiesHelper.generateHttpSpecialFilter('insurerId', insurerIds);
+        this.filtersData.insurers.specialFilter = UtilitiesHelper.generateHttpFilter('insurerId', insurerIds);
 
         const contactTypeIds: number[] = [];
         for(let contactTypeData of containerCharts.contactTypes) {
@@ -86,6 +85,6 @@ export class ContainerChartsPendingRenewalsService {
             });
             contactTypeIds.push(contactTypeData.id);
         }
-        this.filtersData.contactTypes.specialFilter = UtilitiesHelper.generateHttpSpecialFilter('contactTypeId', contactTypeIds);
+        this.filtersData.contactTypes.specialFilter = UtilitiesHelper.generateHttpFilter('contactTypeId', contactTypeIds);
     }
 }

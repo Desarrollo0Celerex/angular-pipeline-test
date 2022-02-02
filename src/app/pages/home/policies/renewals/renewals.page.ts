@@ -17,9 +17,14 @@ export class RenewalsPage implements OnInit {
     pageUrl: string = '/' + ROUTES_NAME.listClients;
     rangeField: string = 'validityEndDate';
     statsPeriodData: StatsPeriodData | null = null;
+    specialFilter: string = '';
 
     ngOnInit(): void {
         this._catchPeriodData();
+    }
+
+    applySpecialFilter(specialFilter: string): void {
+        this.specialFilter = specialFilter;
     }
 
     loadContent(statsPeriodData: StatsPeriodData): void {

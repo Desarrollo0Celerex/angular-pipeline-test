@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, OnInit, SimpleChanges } from '@angular/core';
 
 import { ChartPieData } from '@interfaces/chart-pie-data.interface';
 
@@ -14,6 +14,7 @@ declare var PopoverPlugin: any;
 export class ChartContactTypesComponent implements OnChanges, OnInit {
     @Input() description: string = '';
     @Input() data: ChartPieData[] = [];
+    @Output() showModal: EventEmitter<void> = new EventEmitter<void>();
 
     constructor() { }
 
@@ -30,6 +31,10 @@ export class ChartContactTypesComponent implements OnChanges, OnInit {
 
     ngOnInit(): void {
         PopoverPlugin.init();
+    }
+
+    showModalToApplyFilter(): void {
+        this.showModal.emit();
     }
 
     private _loadCharData(chartPieData: ChartPieData[]): void {

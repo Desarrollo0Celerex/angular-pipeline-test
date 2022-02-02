@@ -14,8 +14,8 @@
 							<li class="list-group-item" *ngFor="let filter of filters; let index = index">
 								{{filter.name}}
 								<div class="material-switch pull-right">
-									<input id="agtResultOption{{index + 1}}" type="checkbox" [checked]="filter.selected" (change)="toggleFilter(index)"/>
-									<label for="agtResultOption{{index + 1}}" class="label-success"></label>
+									<input id="{{modalId}}{{index + 1}}" type="checkbox" [checked]="filter.selected" (change)="toggleFilter(index)"/>
+									<label for="{{modalId}}{{index + 1}}" class="label-success"></label>
 								</div>
 							</li>
 						</ul>

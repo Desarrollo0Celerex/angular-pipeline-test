@@ -11,7 +11,6 @@ declare var StatsGlobalPlugin: any;
   ]
 })
 export class ChartInsurancesComponent implements OnChanges {
-    @Input() description: string = '';
     @Input() data: ChartPieData[] = [];
     @Output() showModal: EventEmitter<void> = new EventEmitter<void>();
 

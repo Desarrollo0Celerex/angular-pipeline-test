@@ -44,6 +44,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() contactId: string;
     @Input() contentType: number;
     @Input() contentTypeName: string;
+    @Input() contentSpecialFilter: string = '';
     @Input() contentSubtype: number;
     @Input() contentSubtypeName: string;
     @Input() originContactId: string;
@@ -215,7 +216,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             (!!changes.rangeField && !!changes.rangeField.currentValue) ||
             (!!changes.rangeStart && !!changes.rangeStart.currentValue) ||
             (!!changes.rangeEnd && !!changes.rangeEnd.currentValue) ||
-            (!!changes.partnerId && !!changes.partnerId.currentValue)
+            (!!changes.partnerId && !!changes.partnerId.currentValue) ||
+            (!!changes.contentSpecialFilter && !!changes.contentSpecialFilter.currentValue)
         ) {
             this._initContent();
 
@@ -1033,7 +1035,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     private _loadContentsByRange(): void {
         switch(this.contentType) {
             case CONTENT_TYPES.POLICY_TO_RENEW.ID:
-                this.contentListService.loadPoliciesToRenew(this.page, this.rangeField, this.rangeStart, this.rangeEnd).subscribe( () => {
+                this.contentListService.loadPoliciesToRenew(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
                 });
             break;
