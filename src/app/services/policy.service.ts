@@ -382,7 +382,7 @@ export class PolicyService {
         )
     }
 
-    getPendingRenewalStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt'): Observable<ContainerCharts> {
+    getPendingRenewalStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt', specialFilter: string = ''): Observable<ContainerCharts> {
         const route: string = routes.workspacePendingRenewalStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
@@ -390,6 +390,7 @@ export class PolicyService {
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         if(!!sortBy) params = params.append('sortBy', sortBy);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );

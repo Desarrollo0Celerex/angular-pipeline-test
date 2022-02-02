@@ -4,6 +4,7 @@
         <agt-chart-insurances
             description="Clasificación de renovaciones pendientes por ramo."
             [data]="model.chartsData.insurances"
+            (showModal)="showModalToApplyFilter()"
         ></agt-chart-insurances>
     </div>
     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
@@ -20,3 +21,9 @@
     </div>
 </div>
 <!-- //AGENTHOS - SMART INSIGHTS -->
+<agt-modal-filter-results
+    *ngIf="!!model.filtersData"
+    [modalId]="modalIdFilterResults"
+    [filters]="model.filtersData.insurances.filters"
+    (filtersSelected)="applyInsuranceFilters($event)"
+></agt-modal-filter-results>

@@ -77,6 +77,11 @@ export class UtilitiesHelper {
         return filterIds.join(',');
     }
 
+    static generateHttpSpecialFilter(filterName: string, filters: number[]) {
+        const specialFilter: string = filterName+'[=]'+filters.join(',')+';';
+        return specialFilter;
+    }
+
     static generateRange(statsPeriodData: StatsPeriodData): RangeData {
         const startDateAux: any = moment(statsPeriodData.startDate, 'DD/MM/YYYY');
         const endDateAux: any = moment(statsPeriodData.endDate, 'DD/MM/YYYY');
