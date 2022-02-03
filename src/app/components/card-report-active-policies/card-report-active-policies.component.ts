@@ -14,6 +14,7 @@ import { CardReportActivePoliciesService } from './card-report-active-policies.s
 export class CardReportActivePoliciesComponent {
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
+    @Input() specialFilter: string = '';
 
     constructor(
         public model: CardReportActivePoliciesService,
@@ -22,7 +23,7 @@ export class CardReportActivePoliciesComponent {
 
     downloadReport(): void {
         this._loadingService.show();
-        this.model.downloadReport(this.rangeStart, this.rangeEnd).then(() => {
+        this.model.downloadReport(this.rangeStart, this.rangeEnd, this.specialFilter).then(() => {
             this._loadingService.hide();
         });
     }
