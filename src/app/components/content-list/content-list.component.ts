@@ -1053,7 +1053,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             break;
 
             case CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID:
-                this.contentListService.loadActivePoliciesByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd).subscribe( () => {
+                this.contentListService.loadActivePoliciesByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
                 });
             break;

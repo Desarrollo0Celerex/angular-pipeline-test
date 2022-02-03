@@ -418,7 +418,7 @@ export class PolicyService {
      * @param  search    The search to do
      * @return           The policies
      */
-    getPolicies(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', perPage: number = DEFAULT_PER_PAGE): Observable<HttpResponse> {
+    getPolicies(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', perPage: number = DEFAULT_PER_PAGE, specialFilter: string = ''): Observable<HttpResponse> {
         const route: string = routes.policies(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
@@ -429,6 +429,7 @@ export class PolicyService {
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         params = params.append('sortBy', sortBy);
         return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map((res: HttpResponse) => {

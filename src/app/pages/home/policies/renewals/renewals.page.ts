@@ -42,7 +42,7 @@ export class RenewalsPage implements OnInit {
         } else {
             // Else, set default data.
             this.statsPeriodData = {
-                startDate: moment().subtract(60, 'days').format('DD/MM/YYYY'),
+                startDate: moment().subtract(30, 'days').format('DD/MM/YYYY'),
                 endDate: moment().add(30, 'days').format('DD/MM/YYYY'),
                 periodId: 0
             }
