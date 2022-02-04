@@ -56,5 +56,6 @@ export interface Policy {
     baseContactId: string,
     receiptsPaid: number,
     totalEndorsements: number,
-    contactName: string
+    contactName: string,
+    isAutoPayment: string
 }
