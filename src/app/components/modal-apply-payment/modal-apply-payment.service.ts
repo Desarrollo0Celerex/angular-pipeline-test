@@ -33,7 +33,7 @@ export class ModalApplyPaymentService {
     buildPaymentForm(): void {
         if(!!this.payment) {
             this.paymentForm = this._formBuilder.group({
-                amount: [this._generatePaymentAmount(), [Validators.required]],
+                amount: [this._calculatePaymentAmount(), [Validators.required]],
                 receipts: [1, [Validators.required]],
                 applicationDate: [moment(this.payment.paymentDate).format('DD/MM/YYYY'), Validators.required],
                 nextPaymentDate: [this._calculateNextPatmentDate(), [Validators.required]]
@@ -65,17 +65,13 @@ export class ModalApplyPaymentService {
         )
     }
 
-    private _calculatePaymentAmount(paymentPlanReceips: number, netPay: number, taxPay: number, feePay: number, coverPay: number, extraPay: number, isFirstPayment: boolean): number {
+    private _calculateFirstPaymentAmount(paymentPlanReceips: number, netPay: number, taxPay: number, feePay: number, coverPay: number, extraPay: number): number {
         let paymentAmount: number =
             (parseFloat(netPay.toString()) / paymentPlanReceips) +
             (parseFloat(taxPay.toString()) / paymentPlanReceips) +
             (parseFloat(feePay.toString()) / paymentPlanReceips) +
-            (parseFloat(extraPay.toString()) / paymentPlanReceips);
-
-            if(isFirstPayment) {
-                paymentAmount += parseFloat(coverPay.toString());
-            }
-
+            (parseFloat(extraPay.toString()) / paymentPlanReceips) +
+            parseFloat(coverPay.toString());
         return paymentAmount;
     }
 
@@ -83,12 +79,13 @@ export class ModalApplyPaymentService {
      * Calculate the payment amount to pay
      * @return The payment amount
      */
-    private _generatePaymentAmount(): string {
+    private _calculatePaymentAmount(): string {
         let formattedPaymentAmount: string = '';
         if(!!this.payment) {
-            let receiptsAmount: number;
-            const isFirstPayment: boolean = (this.payment.tickets === 0) ? true : false;
-            receiptsAmount = this._calculatePaymentAmount(this.payment.paymentPlanReceips, this.payment.netPay, this.payment.taxPay, this.payment.feePay, this.payment.coverPay, this.payment.extraPay, isFirstPayment);
+            let receiptsAmount: number = 0;
+            receiptsAmount = (this.payment.tickets === 0)
+                ? this._calculateFirstPaymentAmount(this.payment.paymentPlanReceips, this.payment.netPay, this.payment.taxPay, this.payment.feePay, this.payment.coverPay, this.payment.extraPay)
+                : this.payment.pendingAmount / this.payment.pendingReceipts;
             formattedPaymentAmount = this._currencyPipe.transform(receiptsAmount, '', '', '0.2-2') || '';
         }
         return  formattedPaymentAmount;
