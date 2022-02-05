@@ -38,7 +38,7 @@ export class ContainerChartsPendingRenewalsComponent implements OnChanges {
     applyInsuranceFilters(filterIds: number[]): void {
         const insuranceFilters: string = UtilitiesHelper.generateHttpFilter('insuranceId', filterIds);
         this.model.filtersData!.insurances.specialFilter = insuranceFilters;
-        this.model.generateSpecialFilter();
+        this.model.specialFilter = this.model.filtersData!.insurances.specialFilter+';';
         this.model.loadData(this.rangeField, this.rangeStart, this.rangeEnd);
         this.specialFilterChanged.emit(this.model.specialFilter);
     }
@@ -46,7 +46,7 @@ export class ContainerChartsPendingRenewalsComponent implements OnChanges {
     applyInsurerFilters(filterIds: number[]): void {
         const insurerFilters: string = UtilitiesHelper.generateHttpFilter('insurerId', filterIds);
         this.model.filtersData!.insurers.specialFilter = insurerFilters;
-        this.model.generateSpecialFilter();
+        this.model.specialFilter = this.model.filtersData!.insurances.specialFilter+';'+this.model.filtersData!.insurers.specialFilter;
         this.model.loadData(this.rangeField, this.rangeStart, this.rangeEnd);
         this.specialFilterChanged.emit(this.model.specialFilter);
     }
@@ -54,7 +54,7 @@ export class ContainerChartsPendingRenewalsComponent implements OnChanges {
     applyContactTypeFilters(filterIds: number[]): void {
         const contactTypeFilters: string = UtilitiesHelper.generateHttpFilter('contactTypeId', filterIds);
         this.model.filtersData!.contactTypes.specialFilter = contactTypeFilters;
-        this.model.generateSpecialFilter();
+        this.model.specialFilter = this.model.filtersData!.insurances.specialFilter+';'+this.model.filtersData!.insurers.specialFilter+';'+this.model.filtersData!.contactTypes.specialFilter;
         this.model.loadData(this.rangeField, this.rangeStart, this.rangeEnd);
         this.specialFilterChanged.emit(this.model.specialFilter);
     }

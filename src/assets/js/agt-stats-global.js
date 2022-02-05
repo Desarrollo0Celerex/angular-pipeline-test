@@ -15,7 +15,7 @@ var StatsGlobalPlugin = function() {
                 fontSize:12,
                 pieSliceTextStyle:{"color":"#fbfbfb"},
                 sliceVisibilityThreshold:true,
-                sliceVisibilityThreshold: .08,
+                sliceVisibilityThreshold: 0.0001,
                 legend:{"position":"top","textStyle":{"color":"#536d98","fontSize":12}},
                 tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
                 animation:{"duration":2888,"easing":"inAndOut","startup":true},

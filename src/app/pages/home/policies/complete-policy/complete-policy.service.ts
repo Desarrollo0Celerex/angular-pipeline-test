@@ -81,7 +81,8 @@ export class CompletePolicyService {
             currencyId: [(!!policy && !!policy.currencyId) ? policy.currencyId : '', [Validators.required]],
             paymentMethodId: [(!!policy && !!policy.paymentMethodId) ? policy.paymentMethodId : '', [Validators.required]],
             paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : '', [Validators.required]],
-            bills: [{value: '', disabled: canDisableBills}, [Validators.required, ValidatorsHelper.number]]
+            bills: [{value: '', disabled: canDisableBills}, [Validators.required, ValidatorsHelper.number]],
+            isAutoPayment: [false]
         });
     }
 
@@ -361,6 +362,7 @@ export class CompletePolicyService {
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);
+        requestBody.append('isAutoPayment', (this.f.isAutoPayment.value) ? '1' : '0');
         if(!!scannedPolicyData) {
             requestBody.append('coveredPropertyId', scannedPolicyData.coveredPropertyId);
             requestBody.append('coveredPropertyAge', scannedPolicyData.coveredPropertyAge);

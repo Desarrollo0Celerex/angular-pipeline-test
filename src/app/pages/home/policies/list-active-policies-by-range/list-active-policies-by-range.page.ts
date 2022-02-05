@@ -42,8 +42,8 @@ export class ListActivePoliciesByRangePage implements OnInit {
         } else {
             // Else, set default data.
             this.statsPeriodData = {
-                startDate: moment().subtract(3, 'month').format('DD/MM/YYYY'),
-                endDate: moment().format('DD/MM/YYYY'),
+                startDate: moment().subtract(1, 'month').format('DD/MM/YYYY'),
+                endDate: moment().add(1, 'month').format('DD/MM/YYYY'),
                 periodId: 0
             }
         }

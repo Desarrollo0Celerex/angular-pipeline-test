@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { FiltersHelper } from '@helpers/filters.helper';
 import { ContainerCharts } from '@interfaces/container-charts.interface';
 import { ContainerFilters } from '@interfaces/container-filters.interface';
 import { PolicyService } from '@services/policy.service';
@@ -18,14 +18,12 @@ export class ContainerChartsActivePoliciesService {
         this._policyService.getActivePolicieStats(rangeStart, rangeEnd, this.specialFilter).subscribe((res: ContainerCharts) => {
             this.chartsData = res;
             if(this.filtersData === null) {
-                this._loadFiltersData(res);
-                this.generateSpecialFilter();
+                this.filtersData = FiltersHelper.generateFiltersData(res);
+                this.specialFilter = this.filtersData!.insurances.specialFilter + ';' + this.filtersData!.insurers.specialFilter + ';' + this.filtersData!.contactTypes.specialFilter;
+            } else {
+                this.filtersData = FiltersHelper.updateFiltersData(res, this.filtersData);
             }
         });
-    }
-
-    generateSpecialFilter(): void {
-        this.specialFilter = this.filtersData!.insurances.specialFilter + ';' + this.filtersData!.insurers.specialFilter + ';' + this.filtersData!.contactTypes.specialFilter;
     }
 
     private _getDefaultChartsData(): ContainerCharts {
@@ -34,55 +32,5 @@ export class ContainerChartsActivePoliciesService {
             insurances: [],
             contactTypes: []
         };
-    }
-
-    private _loadFiltersData(containerCharts: ContainerCharts): void {
-        this.filtersData = {
-            insurances: {
-                filters: [],
-                specialFilter: ''
-            },
-            insurers: {
-                filters: [],
-                specialFilter: ''
-            },
-            contactTypes: {
-                filters: [],
-                specialFilter: ''
-            }
-        };
-
-        const insuranceIds: number[] = [];
-        for(let insuranceData of containerCharts.insurances) {
-            this.filtersData.insurances.filters.push({
-                id: insuranceData.id,
-                name: insuranceData.name,
-                selected: true
-            });
-            insuranceIds.push(insuranceData.id);
-        }
-        this.filtersData.insurances.specialFilter = UtilitiesHelper.generateHttpFilter('insuranceId', insuranceIds);
-
-        const insurerIds: number[] = [];
-        for(let insurerData of containerCharts.insurers) {
-            this.filtersData.insurers.filters.push({
-                id: insurerData.id,
-                name: insurerData.name,
-                selected: true
-            });
-            insurerIds.push(insurerData.id);
-        }
-        this.filtersData.insurers.specialFilter = UtilitiesHelper.generateHttpFilter('insurerId', insurerIds);
-
-        const contactTypeIds: number[] = [];
-        for(let contactTypeData of containerCharts.contactTypes) {
-            this.filtersData.contactTypes.filters.push({
-                id: contactTypeData.id,
-                name: contactTypeData.name,
-                selected: true
-            });
-            contactTypeIds.push(contactTypeData.id);
-        }
-        this.filtersData.contactTypes.specialFilter = UtilitiesHelper.generateHttpFilter('contactTypeId', contactTypeIds);
     }
 }

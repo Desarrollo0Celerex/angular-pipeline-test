@@ -82,7 +82,8 @@ export class UpdateCompletePolicyService {
             currencyId: [(!!policy && !!policy.currencyId) ? policy.currencyId : '', [Validators.required]],
             paymentMethodId: [(!!policy && !!policy.paymentMethodId) ? policy.paymentMethodId : '', [Validators.required]],
             paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : '', [Validators.required]],
-            bills: [(!!policy && !!policy.bills) ? policy.bills : '', [Validators.required, ValidatorsHelper.number]]
+            bills: [(!!policy && !!policy.bills) ? policy.bills : '', [Validators.required, ValidatorsHelper.number]],
+            isAutoPayment: [(!!policy && !!policy.isAutoPayment && policy.isAutoPayment === '1') ? true : false]
         });
     }
 
@@ -249,7 +250,7 @@ export class UpdateCompletePolicyService {
      */
     loadPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,receiptsPaid,totalEndorsements';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,coveredProperty,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,receiptsPaid,totalEndorsements,isAutoPayment';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
@@ -314,6 +315,7 @@ export class UpdateCompletePolicyService {
         requestBody.append('titularRfc', this.f.titularRfc.value);
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
         requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
+        requestBody.append('isAutoPayment', (this.f.isAutoPayment.value) ? '1' : '0');
         return requestBody;
     }
 
@@ -344,6 +346,7 @@ export class UpdateCompletePolicyService {
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);
+        requestBody.append('isAutoPayment', (this.f.isAutoPayment.value) ? '1' : '0');
         return requestBody;
     }
 }

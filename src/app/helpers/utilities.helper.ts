@@ -28,21 +28,12 @@ export class UtilitiesHelper {
     }
 
     /**
-     * Get a number with only two decimals
-     * @param  quantity The quantity to format
-     * @return          The formatted quantity
+     * Get the current date
+     * @return The current date
      */
-    static getQuantityWithOnlyTwoDecimals(quantity: number): number {
-        return Math.floor(quantity * 100) / 100;
-    }
-
-    /**
-     * Remove the commas from a quantity
-     * @param  quantity The quantity to format
-     * @return          The formatted quantity
-     */
-    static removeCommasFromQuantity(quantity: string): string {
-        return quantity.replace(',', '');
+    static getCurrentYear(): number {
+        const currentDate: Date = new Date();
+        return currentDate.getFullYear();
     }
 
     /**
@@ -56,12 +47,19 @@ export class UtilitiesHelper {
     }
 
     /**
-     * Get the current date
-     * @return The current date
+     * Get a number with only two decimals
+     * @param  quantity The quantity to format
+     * @return          The formatted quantity
      */
-    static getCurrentYear(): number {
-        const currentDate: Date = new Date();
-        return currentDate.getFullYear();
+    static getQuantityWithOnlyTwoDecimals(quantity: number): number {
+        return Math.floor(quantity * 100) / 100;
+    }
+
+    static getRangeDays(startDate: string, endDate: string): number {
+        const startDateAux: any = moment(startDate, 'DD/MM/YYYY');
+        const endDateAux: any = moment(endDate, 'DD/MM/YYYY');
+        const days: number = endDateAux.diff(startDateAux, 'days') + 1;
+        return days;
     }
 
     /**
@@ -96,10 +94,13 @@ export class UtilitiesHelper {
         return range;
     }
 
-    static getRangeDays(startDate: string, endDate: string): number {
-        const startDateAux: any = moment(startDate, 'DD/MM/YYYY');
-        const endDateAux: any = moment(endDate, 'DD/MM/YYYY');
-        const days: number = endDateAux.diff(startDateAux, 'days') + 1;
-        return days;
+    /**
+     * Remove the commas from a quantity
+     * @param  quantity The quantity to format
+     * @return          The formatted quantity
+     */
+    static removeCommasFromQuantity(quantity: string): string {
+        return quantity.replace(',', '');
     }
+
 }

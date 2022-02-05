@@ -33,7 +33,7 @@ export class ModalApplyPaymentService {
     buildPaymentForm(): void {
         if(!!this.payment) {
             this.paymentForm = this._formBuilder.group({
-                amount: [this._calculateAmount(), [Validators.required]],
+                amount: [this._calculatePaymentAmount(), [Validators.required]],
                 receipts: [1, [Validators.required]],
                 applicationDate: [moment(this.payment.paymentDate).format('DD/MM/YYYY'), Validators.required],
                 nextPaymentDate: [this._calculateNextPatmentDate(), [Validators.required]]
@@ -56,7 +56,7 @@ export class ModalApplyPaymentService {
      * @return           Notice of action done
      */
     loadPayment(paymentId: string): Observable<void> {
-        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,titularName,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay';
+        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,titularName,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay,paymentPlanReceips';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap( (res: HttpResponse) => {
                 this.payment = res.data;
@@ -65,23 +65,30 @@ export class ModalApplyPaymentService {
         )
     }
 
+    private _calculateFirstPaymentAmount(paymentPlanReceips: number, netPay: number, taxPay: number, feePay: number, coverPay: number, extraPay: number): number {
+        let paymentAmount: number =
+            (parseFloat(netPay.toString()) / paymentPlanReceips) +
+            (parseFloat(taxPay.toString()) / paymentPlanReceips) +
+            (parseFloat(feePay.toString()) / paymentPlanReceips) +
+            (parseFloat(extraPay.toString()) / paymentPlanReceips) +
+            parseFloat(coverPay.toString());
+        return paymentAmount;
+    }
+
     /**
-     * Calculate the amount to pay
-     * @return The calculated amount
+     * Calculate the payment amount to pay
+     * @return The payment amount
      */
-    private _calculateAmount(): string {
-        let amount: string = '';
+    private _calculatePaymentAmount(): string {
+        let formattedPaymentAmount: string = '';
         if(!!this.payment) {
-            let receiptsAmount: number;
-            // If it is the first receipt to pay
-            if(this.payment.tickets === 0) {
-                receiptsAmount = (parseFloat(this.payment.netPay.toString()) / this.payment.pendingReceipts) + parseFloat(this.payment.taxPay.toString()) + parseFloat(this.payment.feePay.toString()) + parseFloat(this.payment.coverPay.toString()) + parseFloat(this.payment.extraPay.toString());
-            } else {
-                receiptsAmount = this.payment.pendingAmount / this.payment.pendingReceipts;
-            }
-            amount = this._currencyPipe.transform(receiptsAmount, '', '', '0.2-2') || '';
+            let receiptsAmount: number = 0;
+            receiptsAmount = (this.payment.tickets === 0)
+                ? this._calculateFirstPaymentAmount(this.payment.paymentPlanReceips, this.payment.netPay, this.payment.taxPay, this.payment.feePay, this.payment.coverPay, this.payment.extraPay)
+                : this.payment.pendingAmount / this.payment.pendingReceipts;
+            formattedPaymentAmount = this._currencyPipe.transform(receiptsAmount, '', '', '0.2-2') || '';
         }
-        return  amount;
+        return  formattedPaymentAmount;
     }
 
     /**
