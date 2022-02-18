@@ -336,7 +336,35 @@ export class CompletePolicyPage implements OnInit {
                 }
             }
         } else {
-            missingFields = ['clientNumber','coveredProperty','currencyId','emissionDate','paymentMethodId','paymentPlanId','netPay','taxPay','feePay','coverPay','extraPay','policyAmount','policyNumber','titularName','titularPhoneNumber','titularRfc','titularPostalCode','validityStartDate','validityEndDate'];
+            missingFields = [
+                'coveredProperty',
+                'coveredPropertyBrand',
+                'coveredPropertyId',
+                'coveredPropertyAge',
+                'coveredPropertyPlan',
+                'agentNumber',
+                'policyNumber',
+                'clientNumber',
+                'titularName',
+                'titularRfc',
+                'titularPostalCode',
+                'titularPhoneNumber',
+                'titularAge',
+                'titularGenderId',
+                'emissionDate',
+                'validityStartDate',
+                'validityEndDate',
+                'netPay',
+                'taxPay',
+                'feePay',
+                'coverPay',
+                'extraPay',
+                'firstPayment',
+                'policyAmount',
+                'currencyId',
+                'paymentMethodId',
+                'paymentPlanId'
+            ];
         }
         return missingFields;
     }
