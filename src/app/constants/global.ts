@@ -41,6 +41,10 @@ export const FILE_NAME_LENGTH: any = {
     MIN: 1,
     MAX: 50
 }
+export const TITULAR_NAME_LENGTH: any = {
+    MIN: 2,
+    MAX: 100
+}
 
 // Dropify
 export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
