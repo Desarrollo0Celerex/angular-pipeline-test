@@ -16,6 +16,7 @@ const routes: any = {
     contactExternalPolicy: (workspaceId: string, contactId: string, externalPolicyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/external-policies/' + externalPolicyId,
     groupExternalPolicies: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/external-policies',
     partnerExternalPolicies: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/external-policies',
+    workspaceExternalPolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/external-policies',
 }
 
 @Injectable()
@@ -111,6 +112,32 @@ export class ExternalPolicyService {
         if(!!fields) params = params.append('fields', fields);
         if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
         params = params.append('sortBy', '-createdAt');
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const policies: Policy[] = res.data.items.map( (policy: Policy) => {
+                        return this._calculatePolicyLifeTime(policy);
+                    })
+                    res.data.items = policies;
+                }
+                return res;
+            })
+        )
+    }
+
+    /**
+     * Get the partner external policies from the API
+     * @param  partnerId   The partner ID
+     * @return             The policy data
+     */
+    getWorkspaceExternalPolicies(fields: string = '', filters: string = '', page: number = 1, perPage: number = DEFAULT_PER_PAGE, sortBy: string = '-createdAt'): Observable<HttpResponse> {
+        const route: string = routes.workspaceExternalPolicies(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        params = params.append('perPage', perPage.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        params = params.append('sortBy', sortBy);
         return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map((res: HttpResponse) => {
                 if(fields.includes('lifeTime')) {

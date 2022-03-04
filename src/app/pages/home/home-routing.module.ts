@@ -32,6 +32,7 @@ const routes: Routes = [
 
             // External policies routes
             { path: ROUTES_NAME.updateExternalPolicy(':contactId', ':externalPolicyId'), loadChildren: () => import('@pages/home/external-policies/update-external-policy/update-external-policy.module').then(mod => mod.UpdateExternalPolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.listExternalPolicies, loadChildren: () => import('@pages/home/external-policies/list-external-policies/list-external-policies.module').then(mod => mod.ListExternalPoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Groups routes
             { path: ROUTES_NAME.listGroups, loadChildren: () => import('@pages/home/groups/list-groups/list-groups.module').then(mod => mod.ListGroupsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

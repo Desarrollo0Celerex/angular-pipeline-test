@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
+import { ROUTES_NAME } from '@constants/routes-name';
+
 import { ContainerContactDetailsService } from './container-contact-details.service';
 
 @Component({
@@ -9,16 +11,15 @@ import { ContainerContactDetailsService } from './container-contact-details.serv
   ]
 })
 export class ContainerContactDetailsComponent implements OnChanges {
-    @Input() contactId: string;
-    @Input() message: string;
+    @Input() contactId: string = '';
+    @Input() message: string = '';
+    contactProfileRoute: string = '';
 
-    constructor(public containerContactDetailsService: ContainerContactDetailsService) {
-        this.contactId = '';
-        this.message = '';
-    }
+    constructor(public containerContactDetailsService: ContainerContactDetailsService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.contactId.currentValue) {
+            this.contactProfileRoute = ROUTES_NAME.contactResume(this.contactId);
             this.containerContactDetailsService.loadContact(this.contactId);
         }
     }
