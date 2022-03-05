@@ -79,6 +79,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedCancelledPolicyId: string = '';
     selectedEndorsementId: string;
     selectedEvidenceUrl: string = '';
+    selectedExternalPolicyId: string = '';
+    selectedExternalPolicyUrl: string = '';
     selectedGroup: Group | null = null;
     selectedGroupId: string = '';
     selectedPartner: Partner | null = null;
@@ -114,7 +116,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmShowSinister: string = 'agt-confirm-show-sinister';
     modalIdConfirmShowSinisterHistory: string;
     modalIdConfirmUpdateContactFile: string = 'agt-confirm-update-contact-file';
+    modalIdConfirmUpdateExternalPolicy: string = 'modal-confirm-update-external-policy';
     modalIdConfirmUpdatePolicy: string;
+    modalIdConfirmValidateExternalPolicy: string = 'modal-confirm-validate-external-policy';
     modalIdRejectQuotation: string;
     modalIdSelectContact: string;
     modalIdSelectContactType: string;
@@ -125,6 +129,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowGroupDetails: string = 'agt-show-group-details';
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
+    modalIdShowPolicyFile: string = 'modal-show-policy-file';
     modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
     modalIdShowPartnerDetails: string = 'agt-show-partner-details';
     modalIdShowQuotationDetails: string;
@@ -243,6 +248,18 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdConfirmDeleteGroupMember)
     }
 
+    confirmUpdateExternalPolicy(data: ContactPolicyData): void {
+        this.selectedContactId = data.contactId;
+        this.selectedExternalPolicyId = data.policyId;
+        ModalPlugin.show(this.modalIdConfirmUpdateExternalPolicy);
+    }
+
+    confirmValidateExternalPolicy(data: ContactPolicyData): void {
+        this.selectedContactId = data.contactId;
+        this.selectedExternalPolicyId = data.policyId;
+        ModalPlugin.show(this.modalIdConfirmValidateExternalPolicy);
+    }
+
     deleteContact(): void {
         this._loadingService.show();
         this.contentListService.deleteContact(this.selectedContactId).subscribe(() => {
@@ -272,6 +289,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             this.containerIncompletePolicies.deletePolicyCard(this.selectedPolicyIdToDelete);
             this.contentListService.deletePolicyCard(this.selectedPolicyIdToDelete);
         });
+    }
+
+    goToUpdateExternalPolicy(): void {
+        this._router.navigateByUrl(ROUTES_NAME.updateExternalPolicy(this.selectedContactId, this.selectedExternalPolicyId));
     }
 
     /**
@@ -528,6 +549,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onShowEndorsementFromRecord(data: PolicyRecordData): void {
         this.selectedEndorsementId = data.sourceId;
         ModalPlugin.show(this.modalIdShowEndorsement);
+    }
+
+    showExternalPolicy(policyUrl: string): void {
+        this.selectedExternalPolicyUrl = policyUrl;
+        ModalPlugin.show(this.modalIdShowPolicyFile);
     }
 
     /**
@@ -825,6 +851,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.PARTNER_POLICY.ID:
             case CONTENT_TYPES.PARTNER_SINISTER.ID:
             case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:
+            case CONTENT_TYPES.EXTERNAL_POLICIES.ID:
                 this.cardClasses = 'col-xl-3 col-lg-4 col-md-6 col-sm-12';
             break;
 
@@ -1023,6 +1050,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:
                 this.contentListService.loadIncompletePolicies(this.page).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.EXTERNAL_POLICIES.ID:
+                this.contentListService.loadExternalPolicies(this.page).subscribe( () => {
                     this._contentLoaded();
                 })
             break;

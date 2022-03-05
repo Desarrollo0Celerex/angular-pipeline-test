@@ -261,6 +261,10 @@ export const CONTENT_TYPES: any = {
         ID: 32,
         NAME: 'Póliza'
     },
+    EXTERNAL_POLICIES: {
+        ID: 33,
+        NAME: 'Póliza'
+    }
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

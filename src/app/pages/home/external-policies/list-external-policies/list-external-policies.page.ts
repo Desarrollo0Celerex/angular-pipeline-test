@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { CONTENT_TYPES } from '@constants/global';
 
 @Component({
   selector: 'agt-list-external-policies',
@@ -6,11 +8,6 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class ListExternalPoliciesPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class ListExternalPoliciesPage {
+    CONTENT_TYPES: any = CONTENT_TYPES;
 }

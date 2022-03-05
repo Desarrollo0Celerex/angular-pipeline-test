@@ -99,6 +99,13 @@
                     (contactSelected)="onContactSelected($event)"
                     (deleteContactRequested)="showModalToConfirmDeleteContact($event)"
                 ></agt-card-contact>
+                <agt-card-external-policy
+                    *ngSwitchCase="CONTENT_TYPES.EXTERNAL_POLICIES.ID"
+                    [externalPolicy]="content"
+                    (showExternalPolicy)="showExternalPolicy($event)"
+                    (confirmValidateExternalPolicy)="confirmValidateExternalPolicy($event)"
+                    (confirmUpdateExternalPolicy)="confirmUpdateExternalPolicy($event)"
+                ></agt-card-external-policy>
                 <agt-card-group *ngSwitchCase="CONTENT_TYPES.GROUP.ID"
                     [group]="content"
                     [isCoincidence]="isCoincidence"
@@ -402,5 +409,10 @@
         [modalId]="modalIdConfirmDeleteContact"
         (actionConfirmed)="deleteContact()">
     </agt-modal-confirm-delete-contact>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.EXTERNAL_POLICIES.ID">
+    <agt-modal-confirm-validate-external-policy [modalId]="modalIdConfirmValidateExternalPolicy" (actionConfirmed)="goToUpdateExternalPolicy()"></agt-modal-confirm-validate-external-policy>
+    <agt-modal-confirm-update-external-policy [modalId]="modalIdConfirmUpdateExternalPolicy" (actionConfirmed)="goToUpdateExternalPolicy()"></agt-modal-confirm-update-external-policy>
+    <agt-modal-show-policy-file [modalId]="modalIdShowPolicyFile" [policyUrl]="selectedExternalPolicyUrl"></agt-modal-show-policy-file>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->
