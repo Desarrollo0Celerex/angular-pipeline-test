@@ -52,7 +52,8 @@ const HOME_ERRORS_ROUTES = {
 }
 
 const HOME_EXTERNAL_POLICIES_ROUTES = {
-    updateExternalPolicy: (contactId: string, externalPolicyId: string) => `workspace/external-policies/update-external-policy/${contactId}/${externalPolicyId}`
+    updateExternalPolicy: (contactId: string, externalPolicyId: string) => `workspace/external-policies/update-external-policy/${contactId}/${externalPolicyId}`,
+    listExternalPolicies: `workspace/external-policies`
 }
 
 const HOME_GROUPS_ROUTES = {

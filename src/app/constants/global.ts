@@ -41,6 +41,10 @@ export const FILE_NAME_LENGTH: any = {
     MIN: 1,
     MAX: 50
 }
+export const TITULAR_NAME_LENGTH: any = {
+    MIN: 2,
+    MAX: 100
+}
 
 // Dropify
 export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
@@ -257,6 +261,10 @@ export const CONTENT_TYPES: any = {
         ID: 32,
         NAME: 'Póliza'
     },
+    EXTERNAL_POLICIES: {
+        ID: 33,
+        NAME: 'Póliza'
+    }
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

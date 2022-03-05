@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CardClientModule } from '@components/card-client/card-client.module';
 import { CardContactModule } from '@components/card-contact/card-contact.module';
 import { CardContactFileModule } from '@components/card-contact-file/card-contact-file.module';
+import { CardExternalPolicyModule } from '@components/card-external-policy/card-external-policy.module';
 import { CardGroupModule } from '@components/card-group/card-group.module';
 import { CardGroupMemberModule } from '@components/card-group-member/card-group-member.module';
 import { CardLeadModule } from '@components/card-lead/card-lead.module';
@@ -52,7 +53,9 @@ import { ModalConfirmShowPolicySinistersModule } from '@components/modal-confirm
 import { ModalConfirmShowSinisterModule } from '@components/modal-confirm-show-sinister/modal-confirm-show-sinister.module';
 import { ModalConfirmShowSinisterHistoryModule } from '@components/modal-confirm-show-sinister-history/modal-confirm-show-sinister-history.module';
 import { ModalConfirmUpdateContactFileModule } from '@components/modal-confirm-update-contact-file/modal-confirm-update-contact-file.module';
+import { ModalConfirmUpdateExternalPolicyModule } from '@components/modal-confirm-update-external-policy/modal-confirm-update-external-policy.module';
 import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
+import { ModalConfirmValidateExternalPolicyModule } from '@components/modal-confirm-validate-external-policy/modal-confirm-validate-external-policy.module';
 import { ModalSelectContactModule } from '@components/modal-select-contact/modal-select-contact.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { ModalShowCancellationEvidenceModule } from '@components/modal-show-cancellation-evidence/modal-show-cancellation-evidence.module';
@@ -63,6 +66,7 @@ import { ModalShowGroupDetailsModule } from '@components/modal-show-group-detail
 import { ModalShowPartnerDetailsModule } from '@components/modal-show-partner-details/modal-show-partner-details.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
+import { ModalShowPolicyFileModule } from '@components/modal-show-policy-file/modal-show-policy-file.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
 import { ModalShowReactivationEvidenceModule } from '@components/modal-show-reactivation-evidence/modal-show-reactivation-evidence.module';
 import { ModalShowResolutionEvidenceModule } from '@components/modal-show-resolution-evidence/modal-show-resolution-evidence.module';
@@ -77,6 +81,7 @@ import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
 import { EndorsementService } from '@services/endorsement.service';
+import { ExternalPolicyService } from '@services/external-policy.service';
 import { GroupService } from '@services/group.service';
 import { GroupMemberService } from '@services/group-member.service';
 import { LeadService } from '@services/lead.service';
@@ -98,6 +103,7 @@ import { ContentListService } from './content-list.service';
     CardClientModule,
     CardContactModule,
     CardContactFileModule,
+    CardExternalPolicyModule,
     CardGroupModule,
     CardGroupMemberModule,
     CardLeadModule,
@@ -145,7 +151,9 @@ import { ContentListService } from './content-list.service';
     ModalConfirmShowSinisterModule,
     ModalConfirmShowSinisterHistoryModule,
     ModalConfirmUpdateContactFileModule,
+    ModalConfirmUpdateExternalPolicyModule,
     ModalConfirmUpdatePolicyModule,
+    ModalConfirmValidateExternalPolicyModule,
     ModalSelectContactModule,
     ModalSelectContactTypeModule,
     ModalShowCancellationEvidenceModule,
@@ -156,6 +164,7 @@ import { ContentListService } from './content-list.service';
     ModalShowPartnerDetailsModule,
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
+    ModalShowPolicyFileModule,
     ModalShowQuotationDetailsModule,
     ModalShowReactivationEvidenceModule,
     ModalShowResolutionEvidenceModule,
@@ -170,6 +179,7 @@ import { ContentListService } from './content-list.service';
       ContactFileService,
       ContentListService,
       EndorsementService,
+      ExternalPolicyService,
       GroupService,
       GroupMemberService,
       LeadService,

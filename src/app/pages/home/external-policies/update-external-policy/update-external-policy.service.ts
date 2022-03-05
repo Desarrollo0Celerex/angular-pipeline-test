@@ -4,7 +4,7 @@ import { tap, map } from 'rxjs/operators';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 
-import { FREE_TEXT_LENGTH, OWN_NAME_LENGTH } from '@constants/global';
+import { FREE_TEXT_LENGTH, TITULAR_NAME_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
 import { Currency } from '@interfaces/currency.interface';
@@ -59,7 +59,7 @@ export class UpdateExternalPolicyService {
             insurerId: [(!!externalPolicy && !!externalPolicy.insurerId) ? externalPolicy.insurerId : '', [Validators.required]],
             insuranceId: [(!!externalPolicy && !!externalPolicy.insuranceId) ? externalPolicy.insuranceId : '', [Validators.required]],
             insuranceTypeId: [(!!externalPolicy && !!externalPolicy.insuranceTypeId) ? externalPolicy.insuranceTypeId : '', [Validators.required]],
-            titularName: [(!!externalPolicy && !!externalPolicy.titularName) ? externalPolicy.titularName : '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
+            titularName: [(!!externalPolicy && !!externalPolicy.titularName) ? externalPolicy.titularName : '', [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
             titularRfc: [(!!externalPolicy && !!externalPolicy.titularRfc) ? externalPolicy.titularRfc : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             titularPostalCode: [(!!externalPolicy && !!externalPolicy.titularPostalCode) ? externalPolicy.titularPostalCode : '', [ValidatorsHelper.postalCode ] ],
             titularPhoneNumber: [(!!externalPolicy && !!externalPolicy.titularPhoneNumber) ? externalPolicy.titularPhoneNumber : '', [ValidatorsHelper.phoneNumber] ],
