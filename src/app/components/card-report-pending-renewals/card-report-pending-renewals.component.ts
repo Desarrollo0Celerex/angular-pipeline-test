@@ -4,6 +4,8 @@ import { LoadingService } from '@services/loading.service';
 
 import { CardReportPendingRenewalsService } from './card-report-pending-renewals.service';
 
+declare var ModalPlugin: any;
+
 @Component({
   selector: 'agt-card-report-pending-renewals',
   templateUrl: './card-report-pending-renewals.component.html',
@@ -16,17 +18,22 @@ export class CardReportPendingRenewalsComponent {
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
     @Input() specialFilter: string = '';
+    modalIdSelectReportFormat: string = 'agt-select-report-format';
 
     constructor(
         public model: CardReportPendingRenewalsService,
         private _loadingService: LoadingService
     ) { }
 
-    downloadReport(): void {
+    downloadReport(formatType: string): void {
         this._loadingService.show();
-        this.model.downloadReport(this.rangeField, this.rangeStart, this.rangeEnd, this.specialFilter).then(() => {
+        this.model.downloadReport(this.rangeField, this.rangeStart, this.rangeEnd, this.specialFilter, formatType).then(() => {
             this._loadingService.hide();
         });
+    }
+
+    showModalToSelectReportFormat(): void {
+        ModalPlugin.show(this.modalIdSelectReportFormat);
     }
 
 }

@@ -46,6 +46,11 @@ export const TITULAR_NAME_LENGTH: any = {
     MAX: 100
 }
 
+export const FORMAT_TYPES: any = {
+    PDF: 1,
+    XLSX: 2
+}
+
 // Dropify
 export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
 export const DOCUMENT_FORMATS: string[] = ['pdf'];
