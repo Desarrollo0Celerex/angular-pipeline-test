@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { CardContentTitleModule } from '@components/card-content-title/card-content-title.module';
 import { CardKpiTotalActiveClientsModule } from '@components/card-kpi-total-active-clients/card-kpi-total-active-clients.module';
 import { CardKpiTotalActiveLeadsModule } from '@components/card-kpi-total-active-leads/card-kpi-total-active-leads.module';
 import { CardKpiTotalActivePoliciesModule } from '@components/card-kpi-total-active-policies/card-kpi-total-active-policies.module';
@@ -23,6 +24,7 @@ import { DashboardPage } from './dashboard.page';
 @NgModule({
   declarations: [DashboardPage],
   imports: [
+    CardContentTitleModule,
     CardKpiTotalActiveClientsModule,
     CardKpiTotalActiveLeadsModule,
     CardKpiTotalActivePoliciesModule,

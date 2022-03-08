@@ -11,6 +11,7 @@ import { AuthService } from '@services/auth.service';
 const routes: any = {
     leads: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/leads',
     totalLeads: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/leads/count',
+    totalLeadsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/leads/count',
     leadsGeneratedStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/leads/leads-generated'
 }
 
@@ -51,6 +52,18 @@ export class LeadService {
      */
     getTotalLeads(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
         const route: string = routes.totalLeads(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getTotalLeadsStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+        const route: string = routes.totalLeadsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
         if(!!rangeField) params = params.append('rangeField', rangeField);

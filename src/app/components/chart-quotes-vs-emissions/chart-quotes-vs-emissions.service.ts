@@ -10,7 +10,7 @@ import * as moment from 'moment';
 
 @Injectable()
 export class ChartQuotesVsEmissionsService {
-    rangeStart: string = (moment().subtract(1, 'months')).add(1, 'days').format('DD/MM/YYYY');
+    rangeStart: string = (moment().subtract(6, 'days')).format('DD/MM/YYYY');
     rangeEnd: string = moment().format('DD/MM/YYYY');
     statsData: any[] = [];
 
@@ -24,13 +24,13 @@ export class ChartQuotesVsEmissionsService {
         let requests: Observable<RangeStat[]>[] = [];
         const rangeFieldEmissions: string = 'emissionDate';
         const rangeFieldQuotes: string = 'createdAt';
-        requests.push(this._policyService.getTotalPoliciesStats(rangeFieldEmissions, this.rangeStart, this.rangeEnd));
         requests.push(this._quotationService.getTotalQuotationsStats(rangeFieldQuotes, this.rangeStart, this.rangeEnd));
+        requests.push(this._policyService.getTotalPoliciesStats(rangeFieldEmissions, this.rangeStart, this.rangeEnd));
         return forkJoin(requests);
     }
 
     loadStatsData(stats: RangeStat[][]): void {
-        const headerData: any[] = [['', 'Emisiones', 'Cotizaciones']];
+        const headerData: any[] = [['', 'Cotizaciones', 'Emisiones']];
         this.statsData = ChartHelper.generateChartDataByRanges(stats, headerData, false);
     }
 }
