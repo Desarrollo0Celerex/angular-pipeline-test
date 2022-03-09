@@ -68,6 +68,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     CONTENT_TYPES: any;
     canReloadApplyPayment: boolean = false;
     canShowTotalResults: boolean;
+    canShowContentResultsTop: boolean = false;
     cardClasses: string;
     isCoincidence: boolean = false;
     isHistoryContent: boolean;
@@ -1229,6 +1230,18 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         return canShow;
     }
 
+    private _checkCanShowContentResultsTop(): boolean {
+        let canShow: boolean = false;
+        if(this.totalResults > 0 ) {
+            switch(this.contentType) {
+                case CONTENT_TYPES.POLICY_TO_RENEW.ID:
+                    canShow = true;
+                break;
+            }
+        }
+        return canShow;
+    }
+
     /**
      * Close loading content and notify the total results when content is loaded
      */
@@ -1236,6 +1249,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.isLoadingContent = false;
         this.totalResults = this.contentListService.contentResultData.totalItems;
         this.canShowTotalResults = this._checkCanShowTotalResults();
+        this.canShowContentResultsTop = this._checkCanShowContentResultsTop();
         this.totalResultsLoaded.emit(this.totalResults);
     }
 
