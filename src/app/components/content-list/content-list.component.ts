@@ -1235,6 +1235,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         if(this.totalResults > 0 ) {
             switch(this.contentType) {
                 case CONTENT_TYPES.POLICY_TO_RENEW.ID:
+                case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
                     canShow = true;
                 break;
             }

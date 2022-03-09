@@ -30,6 +30,7 @@
             <div class="card-header">
                 <ng-container [ngSwitch]="contentType">
                     <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_TO_RENEW.ID" class="card-title">Pólizas Encontradas</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID" class="card-title">Recibos Encontrados</h3>
                     <h3 *ngSwitchDefault class="card-title">{{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}</h3>
                 </ng-container>
             </div>

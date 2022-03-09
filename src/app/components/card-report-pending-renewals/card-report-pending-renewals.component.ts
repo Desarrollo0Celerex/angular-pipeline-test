@@ -25,7 +25,7 @@ export class CardReportPendingRenewalsComponent {
         private _loadingService: LoadingService
     ) { }
 
-    downloadReport(formatType: string): void {
+    downloadReport(formatType: number): void {
         this._loadingService.show();
         this.model.downloadReport(this.rangeField, this.rangeStart, this.rangeEnd, this.specialFilter, formatType).then(() => {
             this._loadingService.hide();

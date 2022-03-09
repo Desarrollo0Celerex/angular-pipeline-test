@@ -168,7 +168,7 @@ export class PolicyService {
         return this._httpClient.get(route, fileParams).toPromise();
     }
 
-    downloadReportPendingRenewals(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt', specialFilter: string = '', formatType: string) {
+    downloadReportPendingRenewals(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt', specialFilter: string = '', formatType: number) {
         const route: string = routes.workspacePendingRenewalsReport(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);

@@ -12,10 +12,10 @@ declare var ModalPlugin: any;
 })
 export class ModalSelectReportFormatComponent {
     @Input() modalId: string = '';
-    @Output() formatSelected: EventEmitter<string> = new EventEmitter<string>();
+    @Output() formatSelected: EventEmitter<number> = new EventEmitter<number>();
     FORMAT_TYPES: any = FORMAT_TYPES;
 
-    selectFormat(format: string): void {
+    selectFormat(format: number): void {
         ModalPlugin.hide(this.modalId);
         this.formatSelected.emit(format);
     }

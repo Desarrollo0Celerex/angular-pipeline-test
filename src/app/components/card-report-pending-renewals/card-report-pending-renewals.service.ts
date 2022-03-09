@@ -10,7 +10,7 @@ export class CardReportPendingRenewalsService {
 
     constructor(private _policyService: PolicyService) { }
 
-    downloadReport(rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string, formatType: string): Promise<void> {
+    downloadReport(rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string, formatType: number): Promise<void> {
         return new Promise((resolve) => {
             const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
             const sortBy: string = 'validityEndDate';
