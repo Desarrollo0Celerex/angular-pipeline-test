@@ -269,6 +269,10 @@ export const CONTENT_TYPES: any = {
     EXTERNAL_POLICIES: {
         ID: 33,
         NAME: 'Póliza'
+    },
+    OPENED_SINISTERS_BY_RANGE: {
+        ID: 34,
+        NAME: 'Siniestro'
     }
 }
 export const CONTACT_TYPES: any = {

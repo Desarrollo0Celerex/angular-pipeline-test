@@ -25,7 +25,8 @@ const routes: any = {
     finalizeSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/finalize',
     reactivateSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/reactivate',
     sinisterLogs: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/logs',
-    sinistersStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/sinisters'
+    sinistersStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/sinisters',
+    workspaceOpenedSinistersStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/stats',
 }
 
 @Injectable()
@@ -122,6 +123,19 @@ export class SinisterService {
         )
     }
 
+    getOpenedSinistersStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = '') {
+        const route: string = routes.workspaceOpenedSinistersStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
     /**
      * Get the partner sinisters
      * @param  partnerId The partner ID
@@ -205,14 +219,18 @@ export class SinisterService {
      * @param  query           The search to do
      * @return                 The sinisters
      */
-   getSinisters(page: number = 1, fields: string = '', sinisterStatusId: number = 0, query: string = ''): Observable<HttpResponse> {
+   getSinisters(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
        const route: string = routes.sinisters(this._workspaceId);
        let params: HttpParams = new HttpParams();
        params = params.append('page', page.toString());
        if(!!fields) params = params.append('fields', fields);
-       if(!!sinisterStatusId) params = params.append('filter', 'sinisterStatusId[=]' + sinisterStatusId);
+       if(!!filters) params = params.append('filter', filters);
        if(!!query) params = params.append('search', 'sinisterNumber:' + query);
-       params = params.append('sortBy', '-createdAt');
+       if(!!rangeField) params = params.append('rangeField', rangeField);
+       if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+       if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+       if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+       params = params.append('sortBy', sortBy);
        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
            map((res: HttpResponse) => {
                if(fields.includes('lifeTime')) {

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
-import { SINISTER_STATUS } from '@constants/global';
 
 import { CardKpiTotalOpenSinistersService } from './card-kpi-total-open-sinisters.service';
 
@@ -25,7 +24,7 @@ export class CardKpiTotalOpenSinistersComponent implements OnInit {
     }
 
     goToListPendingSinisters(): void {
-        this._router.navigate([ROUTES_NAME.listSinisters], { queryParams: { contentSubtype: SINISTER_STATUS.PENDING} })
+        this._router.navigateByUrl(ROUTES_NAME.listOpenedSinistersByRange)
     }
 
 }

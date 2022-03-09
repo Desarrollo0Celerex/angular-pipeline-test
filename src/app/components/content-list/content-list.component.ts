@@ -860,6 +860,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
             case CONTENT_TYPES.POLICY_TRACKER.ID:
+            case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
                 this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-3';
             break;
 
@@ -1097,6 +1098,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                     this._contentLoaded();
                 });
             break;
+
+            case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
+                this.contentListService.loadOpenedSinistersByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
         }
     }
 
@@ -1236,6 +1243,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             switch(this.contentType) {
                 case CONTENT_TYPES.POLICY_TO_RENEW.ID:
                 case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
+                case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
                     canShow = true;
                 break;
             }
