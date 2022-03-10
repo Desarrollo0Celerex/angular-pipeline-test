@@ -1057,7 +1057,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             break;
 
             case CONTENT_TYPES.EXTERNAL_POLICIES.ID:
-                this.contentListService.loadExternalPolicies(this.page).subscribe( () => {
+                this.contentListService.loadExternalPolicies(this.page, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
                 })
             break;
@@ -1246,6 +1246,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
                 case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
                 case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:
+                case CONTENT_TYPES.EXTERNAL_POLICIES.ID:
                     canShow = true;
                 break;
             }

@@ -139,11 +139,11 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadExternalPolicies(page: number): Observable<void> {
+    loadExternalPolicies(page: number, specialFilter: string): Observable<void> {
         const fields: string = 'externalPolicyId,isChecked,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyAmount,policyNumber,insurerImageUrl,insuranceName,insuranceIcon,insuranceBackground,paymentMethodName,insuranceTypeName,currencyName,externalPolicyStatusId,externalPolicyStatusName,externalPolicyStatusDescription,lifeTime,contactId,contactName,externalPolicyStatusBackground';
         const filters: string = UtilitiesHelper.generateHttpFilter('externalPolicyStatusId', [EXTERNAL_POLICY_STATUS.INCOMPLETE, EXTERNAL_POLICY_STATUS.CURRENT]);
         const sortBy: string = '-createdAt';
-        return this._externalPolicyService.getWorkspaceExternalPolicies(fields, filters, page, 12, sortBy).pipe(
+        return this._externalPolicyService.getWorkspaceExternalPolicies(fields, filters, page, 12, sortBy, '', '', '', specialFilter).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
