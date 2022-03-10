@@ -15,7 +15,7 @@ import * as moment from 'moment';
 export class ListActivePoliciesByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
     pageUrl: string = '/' + ROUTES_NAME.listLeads;
-    rangeField: string = 'validityEndDate';
+    rangeField: string = 'validityStartDate';
     statsPeriodData: StatsPeriodData | null = null;
     specialFilter: string = '';
 

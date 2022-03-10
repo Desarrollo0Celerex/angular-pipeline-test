@@ -33,25 +33,24 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID" class="card-title">Recibos Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID" class="card-title">Siniestros Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.LAST_CANCELLED_POLICY.ID" class="card-title">Pólizas Encontradas</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.INCOMPLETE_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchDefault class="card-title">{{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}</h3>
                 </ng-container>
             </div>
-            <div class="card-body" *ngIf="canShowContentResultsTop">
-                <agt-content-results-top
-                    [contentResultData]="contentListService.contentResultData"
-                    [contentTypeName]="contentTypeName"
-                    [contentSubtypeName]="contentSubtypeName"
-                ></agt-content-results-top>
-            </div>
-            <div class="card-body" *ngIf="canShowTotalResults">
-                <agt-content-total-results
-                    [contentType]="contentType"
-                    [query]="query"
-                    [totalResults]="totalResults"
-                    [contactId]="contactId"
-                    [policyId]="policyId">
-                </agt-content-total-results>
-            </div>
+            <agt-content-results-top
+                *ngIf="canShowContentResultsTop"
+                [contentResultData]="contentListService.contentResultData"
+                [contentTypeName]="contentTypeName"
+                [contentSubtypeName]="contentSubtypeName"
+            ></agt-content-results-top>
+            <agt-content-total-results
+                *ngIf="canShowTotalResults"
+                [contentType]="contentType"
+                [query]="query"
+                [totalResults]="totalResults"
+                [contactId]="contactId"
+                [policyId]="policyId">
+            </agt-content-total-results>
         </div>
     </div>
 </div>

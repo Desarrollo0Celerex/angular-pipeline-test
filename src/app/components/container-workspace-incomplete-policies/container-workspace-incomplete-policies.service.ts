@@ -9,6 +9,7 @@ import { PolicyService } from '@services/policy.service';
 @Injectable()
 export class ContainerWorkspaceIncompletePoliciesService {
     policies: Policy[] = [];
+    totalPolicies: number = 0;
 
     constructor(private _policyService: PolicyService) { }
 
@@ -20,6 +21,7 @@ export class ContainerWorkspaceIncompletePoliciesService {
         const sortBy: string = '-createdAt';
         this._policyService.getPolicies(page, fields, filters, '', sortBy, '', '', '', perPage).subscribe((res: HttpResponse) => {
             this.policies = res.data.items;
+            this.totalPolicies = res.data.totalItems;
         })
     }
 }

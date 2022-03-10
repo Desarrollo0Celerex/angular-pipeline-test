@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { CardContentTitleModule } from '@components/card-content-title/card-content-title.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { ModalConfirmDeletePolicyModule } from '@components/modal-confirm-delete-policy/modal-confirm-delete-policy.module';
 import { ModalConfirmShowHistoryPolicyModule } from '@components/modal-confirm-show-history-policy/modal-confirm-show-history-policy.module';
@@ -17,6 +18,7 @@ import { ContainerWorkspaceIncompletePoliciesComponent } from './container-works
   ],
   imports: [
     CommonModule,
+    CardContentTitleModule,
     CardPolicyModule,
     ModalConfirmDeletePolicyModule,
     ModalConfirmShowHistoryPolicyModule

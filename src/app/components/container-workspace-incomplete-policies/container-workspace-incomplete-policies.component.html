@@ -1,13 +1,14 @@
 <!-- AGENTHOS - INCOMPLETE POLICIES -->
 <!-- (JUST IF INCOMPLETE POLICIES DETECTED) -->
 <div class="row mt-3" *ngIf="model.policies.length > 0">
+
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Pólizas Incompletas</h3>
-            </div>
-        </div>
+        <agt-card-content-title
+            title="Pólizas Incompletas"
+            description="Mostrando pólizas cargadas con información pendiente."
+        ></agt-card-content-title>
     </div>
+
     <!-- AGENTHOS - POLICY CARD -->
     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngFor="let policy of model.policies">
         <agt-card-policy
@@ -22,7 +23,7 @@
     <!-- AGENTHOS - POLICY CARD -->
 
     <!-- AGENTHOS - SHOW MORE -->
-    <div class="col-12">
+    <div class="col-12" >
         <div class="card">
             <div class="card-body">
                 <!-- AGENTHOS - LOAD MORE (ONLY IF PENDING ITEMS) -->

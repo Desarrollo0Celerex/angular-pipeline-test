@@ -123,7 +123,7 @@ export class ContentListService {
     loadActivePoliciesByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
         const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId,paymentId,policyCancellationReasonId';
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED]);
-        const sortBy: string = '-validityEndDate';
+        const sortBy: string = 'validityStartDate';
         return this._policyService.getPolicies(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, DEFAULT_PER_PAGE, specialFilter).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
@@ -158,11 +158,11 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadIncompletePolicies(page: number): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,contactName';
+    loadIncompletePolicies(page: number, specialFilter: string): Observable<void> {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,contactName,insurerImageUrl';
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.INCOMPLETE]);
         const sortBy: string = '-createdAt';
-        return this._policyService.getPolicies(page, fields, filters, '', sortBy).pipe(
+        return this._policyService.getPolicies(page, fields, filters, '', sortBy, '', '', '', DEFAULT_PER_PAGE, specialFilter).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
