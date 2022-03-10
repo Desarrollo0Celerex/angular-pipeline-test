@@ -1,19 +1,19 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 
-import { ContainerChartsActivePoliciesService } from './container-charts-active-policies.service';
+import { ContainerChartsCancelledPoliciesService } from './container-charts-cancelled-policies.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-charts-active-policies',
-  templateUrl: './container-charts-active-policies.component.html',
+  selector: 'agt-container-charts-cancelled-policies',
+  templateUrl: './container-charts-cancelled-policies.component.html',
   styles: [
   ],
-  providers: [ContainerChartsActivePoliciesService]
+  providers: [ContainerChartsCancelledPoliciesService]
 })
-export class ContainerChartsActivePoliciesComponent implements OnChanges {
+export class ContainerChartsCancelledPoliciesComponent implements OnChanges {
     @Input() rangeField: string = '';
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
@@ -23,7 +23,7 @@ export class ContainerChartsActivePoliciesComponent implements OnChanges {
     modalIdContactTypeFilterResults: string = 'agt-contact-type-filter-results';
     specialFilter: string = '';
 
-    constructor(public model: ContainerChartsActivePoliciesService) { }
+    constructor(public model: ContainerChartsCancelledPoliciesService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(
@@ -69,5 +69,4 @@ export class ContainerChartsActivePoliciesComponent implements OnChanges {
     showModalContactTypesToApplyFilter(): void {
         ModalPlugin.show(this.modalIdContactTypeFilterResults);
     }
-
 }

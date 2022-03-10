@@ -236,7 +236,7 @@ export const CONTENT_TYPES: any = {
     },
     LAST_CANCELLED_POLICY: {
         ID: 25,
-        NAME: 'Última'
+        NAME: 'Póliza'
     },
     PARTNER_CLIENT: {
         ID: 26,

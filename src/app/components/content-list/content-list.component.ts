@@ -1076,7 +1076,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             break;
 
             case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
-                this.contentListService.loadCancelledPolicies(this.page, this.rangeField, this.rangeStart, this.rangeEnd).subscribe( () => {
+                this.contentListService.loadCancelledPolicies(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
                 });
             break;
@@ -1244,6 +1244,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.POLICY_TO_RENEW.ID:
                 case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
                 case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
+                case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
                     canShow = true;
                 break;
             }

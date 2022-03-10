@@ -26,7 +26,7 @@ const routes: any = {
     reactivateSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/reactivate',
     sinisterLogs: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/logs',
     sinistersStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/sinisters',
-    workspaceOpenedSinistersStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/stats',
+    workspaceSinisterStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/stats',
 }
 
 @Injectable()
@@ -123,8 +123,8 @@ export class SinisterService {
         )
     }
 
-    getOpenedSinistersStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = '') {
-        const route: string = routes.workspaceOpenedSinistersStats(this._workspaceId);
+    getSinisterStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = '') {
+        const route: string = routes.workspaceSinisterStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
         if(!!rangeField) params = params.append('rangeField', rangeField);
