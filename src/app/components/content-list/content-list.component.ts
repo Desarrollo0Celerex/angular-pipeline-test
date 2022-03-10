@@ -68,6 +68,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     CONTENT_TYPES: any;
     canReloadApplyPayment: boolean = false;
     canShowTotalResults: boolean;
+    canShowContentResultsTop: boolean = false;
     cardClasses: string;
     isCoincidence: boolean = false;
     isHistoryContent: boolean;
@@ -859,6 +860,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
             case CONTENT_TYPES.POLICY_TRACKER.ID:
+            case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
                 this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-3';
             break;
 
@@ -1074,7 +1076,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             break;
 
             case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
-                this.contentListService.loadCancelledPolicies(this.page, this.rangeField, this.rangeStart, this.rangeEnd).subscribe( () => {
+                this.contentListService.loadCancelledPolicies(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
                 });
             break;
@@ -1093,6 +1095,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
                 this.contentListService.loadPendingPaymentsByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
+                this.contentListService.loadOpenedSinistersByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
                 });
             break;
@@ -1229,6 +1237,21 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         return canShow;
     }
 
+    private _checkCanShowContentResultsTop(): boolean {
+        let canShow: boolean = false;
+        if(this.totalResults > 0 ) {
+            switch(this.contentType) {
+                case CONTENT_TYPES.POLICY_TO_RENEW.ID:
+                case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
+                case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
+                case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
+                    canShow = true;
+                break;
+            }
+        }
+        return canShow;
+    }
+
     /**
      * Close loading content and notify the total results when content is loaded
      */
@@ -1236,6 +1259,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.isLoadingContent = false;
         this.totalResults = this.contentListService.contentResultData.totalItems;
         this.canShowTotalResults = this._checkCanShowTotalResults();
+        this.canShowContentResultsTop = this._checkCanShowContentResultsTop();
         this.totalResultsLoaded.emit(this.totalResults);
     }
 

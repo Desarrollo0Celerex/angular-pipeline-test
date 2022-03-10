@@ -27,10 +27,13 @@
             <li class="breadcrumb-item1">No se encontraron recibos pendientes en el día seleccionado. <strong>Selecciona otro día para ver la cobranza pendiente</strong>.</li>
         </ng-container>
         <ng-container *ngSwitchCase="CONTENT_TYPES.POLICY_TO_RENEW.ID">
-            <li class="breadcrumb-item1">No se encontraron pólizas a renovar en este periodo. <strong>Tus pólizas se encuentran al corriente</strong>.</li>
+            <li class="breadcrumb-item1"><strong>Sin Resultados:</strong> No se encontraron pólizas por renovar en este periodo. <strong>Selecciona otro periodo para continuar</strong>.</li>
+        </ng-container>
+        <ng-container *ngSwitchCase="CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID">
+            <li class="breadcrumb-item1"><strong>Sin Resultados:</strong> No se encontraron recibos pendientes en este periodo. <strong>Selecciona otro periodo para continuar</strong>.</li>
         </ng-container>
         <ng-container *ngSwitchCase="CONTENT_TYPES.LAST_CANCELLED_POLICY.ID">
-            <li class="breadcrumb-item1">No se encontraron pólizas canceladas en este periodo. <strong>Todas tus pólizas se encuentran vigentes</strong>.</li>
+            <li class="breadcrumb-item1"><strong>Sin Resultados:</strong> No se encontraron pólizas canceladas en este periodo. <strong>Selecciona otro periodo para continuar</strong>.</li>
         </ng-container>
         <ng-container *ngSwitchDefault>
             <li class="breadcrumb-item1"><strong>Sin Resultados:</strong> Se han mostrado <strong>{{contentResultData.loadedItems}}</strong> {{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}.</li>

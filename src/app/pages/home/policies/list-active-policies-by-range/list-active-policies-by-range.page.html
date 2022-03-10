@@ -32,6 +32,7 @@
 
 <agt-container-charts-active-policies
     *ngIf="!!statsPeriodData"
+    [rangeField]="rangeField"
     [rangeStart]="statsPeriodData.startDate"
     [rangeEnd]="statsPeriodData.endDate"
     (specialFilterChanged)="applySpecialFilter($event)"

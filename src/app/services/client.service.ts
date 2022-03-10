@@ -13,6 +13,7 @@ import { AuthService } from '@services/auth.service';
 const routes: any = {
     clients: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/clients',
     totalClients: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/clients/count',
+    totalClientsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/clients/count',
     clientsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/clients',
     coveragesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/coverages'
 }
@@ -62,6 +63,18 @@ export class ClientService {
      */
     getTotalClients(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
         const route: string = routes.totalClients(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getTotalClientsStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+        const route: string = routes.totalClientsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
         if(!!rangeField) params = params.append('rangeField', rangeField);

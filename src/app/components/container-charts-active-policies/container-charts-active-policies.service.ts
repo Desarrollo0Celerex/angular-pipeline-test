@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
+import { POLICY_STATUS } from '@constants/global';
 import { FiltersHelper } from '@helpers/filters.helper';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ContainerCharts } from '@interfaces/container-charts.interface';
 import { ContainerFilters } from '@interfaces/container-filters.interface';
 import { PolicyService } from '@services/policy.service';
@@ -13,9 +15,10 @@ export class ContainerChartsActivePoliciesService {
 
     constructor(private _policyService: PolicyService) { }
 
-    loadData(rangeStart: string, rangeEnd: string): void {
+    loadData(rangeField: string, rangeStart: string, rangeEnd: string): void {
         this.chartsData = this._getDefaultChartsData();
-        this._policyService.getActivePolicieStats(rangeStart, rangeEnd, this.specialFilter).subscribe((res: ContainerCharts) => {
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED])
+        this._policyService.getPolicyStats(filters, rangeField, rangeStart, rangeEnd, this.specialFilter).subscribe((res: ContainerCharts) => {
             this.chartsData = res;
             if(this.filtersData === null) {
                 this.filtersData = FiltersHelper.generateFiltersData(res);

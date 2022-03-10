@@ -7,7 +7,12 @@
         <ol class="breadcrumb1 mt-2">
             <li class="breadcrumb-item1">Genera un reporte de las <strong>Renovaciones Pendientes</strong>.</li>
         </ol>
-        <button type="button" class="btn btn-block btn-primary mt-5" (click)="downloadReport()"><strong>DESCARGAR REPORTE</strong></button>
+        <button type="button" class="btn btn-block btn-primary mt-5" (click)="showModalToSelectReportFormat()"><strong>DESCARGAR REPORTE</strong></button>
     </div>
     <!-- //AGENTHOS - DATA SUITE REPORT GENERATOR -->
 </div>
+
+<agt-modal-select-report-format
+    [modalId]="modalIdSelectReportFormat"
+    (formatSelected)="downloadReport($event)"
+></agt-modal-select-report-format>

@@ -24,6 +24,7 @@ import { ContainerExternalPoliciesModule } from '@components/container-external-
 import { ContainerIncompletePoliciesModule } from '@components/container-incomplete-policies/container-incomplete-policies.module';
 import { ContentBackModule } from '@components/content-back/content-back.module';
 import { ContentResultsModule } from '@components/content-results/content-results.module';
+import { ContentResultsTopModule } from '@components/content-results-top/content-results-top.module';
 import { ContentSuggestionsModule } from '@components/content-suggestions/content-suggestions.module';
 import { ContentTotalResultsModule } from '@components/content-total-results/content-total-results.module';
 
@@ -123,6 +124,7 @@ import { ContentListService } from './content-list.service';
     ContainerIncompletePoliciesModule,
     ContentBackModule,
     ContentResultsModule,
+    ContentResultsTopModule,
     ContentSuggestionsModule,
     ContentTotalResultsModule,
     LoadingContentModule,

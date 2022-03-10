@@ -46,6 +46,11 @@ export const TITULAR_NAME_LENGTH: any = {
     MAX: 100
 }
 
+export const FORMAT_TYPES: any = {
+    PDF: 1,
+    XLSX: 2
+}
+
 // Dropify
 export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
 export const DOCUMENT_FORMATS: string[] = ['pdf'];
@@ -231,7 +236,7 @@ export const CONTENT_TYPES: any = {
     },
     LAST_CANCELLED_POLICY: {
         ID: 25,
-        NAME: 'Última'
+        NAME: 'Póliza'
     },
     PARTNER_CLIENT: {
         ID: 26,
@@ -264,6 +269,10 @@ export const CONTENT_TYPES: any = {
     EXTERNAL_POLICIES: {
         ID: 33,
         NAME: 'Póliza'
+    },
+    OPENED_SINISTERS_BY_RANGE: {
+        ID: 34,
+        NAME: 'Siniestro'
     }
 }
 export const CONTACT_TYPES: any = {
