@@ -35,6 +35,7 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.LAST_CANCELLED_POLICY.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.INCOMPLETE_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.EXTERNAL_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchDefault class="card-title">{{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}</h3>
                 </ng-container>
             </div>
