@@ -43,13 +43,16 @@ const routes: any = {
     workspacePendingRenewalsReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending/report',
     workspacePendingRenewalStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending/stats',
     totalWorkspacePendingRenewals: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending/count',
+    workspaceRenewedPolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/renewed',
+    workspaceRenewedPoliciesReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/renewed/report',
+    workspaceRenewedPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/renewed',
+    workspaceRenewedPoliciesSpecialFilters: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/renewed/special-filters',
     totalWorkspaceRenewedPolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/renewed/count',
     policiesReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/reports',
     policiesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies',
     totalPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/count',
     insurancesPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/insurances/policies',
     policiesRenewsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/renews',
-    renewedPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/renewed',
     cancelledPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/cancelled',
     endorsePolicyWithCancellation: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-cancellation',
     endorsePolicyWithChanges: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-changes',
@@ -173,6 +176,26 @@ export class PolicyService {
 
     downloadReportPendingRenewals(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt', specialFilter: string = '', formatType: number) {
         const route: string = routes.workspacePendingRenewalsReport(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!formatType) params = params.append('formatType', formatType);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
+    }
+
+    downloadReportRenewedPolicies(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt', specialFilter: string = '', formatType: number) {
+        const route: string = routes.workspaceRenewedPoliciesReport(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
         if(!!rangeField) params = params.append('rangeField', rangeField);
@@ -404,6 +427,19 @@ export class PolicyService {
         );
     }
 
+    getRenewedPoliciesSpecialFilters(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<ContainerCharts> {
+        const route: string = routes.workspaceRenewedPoliciesSpecialFilters(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
     getPendingRenovationsStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
         const route: string = routes.policiesRenewsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
@@ -417,7 +453,7 @@ export class PolicyService {
     }
 
     getRenewedPoliciesStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
-        const route: string = routes.renewedPoliciesStats(this._workspaceId);
+        const route: string = routes.workspaceRenewedPoliciesStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
         if(!!rangeField) params = params.append('rangeField', rangeField);
@@ -511,6 +547,31 @@ export class PolicyService {
      */
     getPoliciesToRenew(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
         const route: string = routes.workspacePendingRenewals(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!query) params = params.append('search', 'policyNumber:' + query);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const policies: Policy[] = res.data.items.map( (policy: Policy) => {
+                        return this._calculatePolicyLifeTime(policy);
+                    })
+                    res.data.items = policies;
+                }
+                return res;
+            })
+        )
+    }
+
+    getRenewedPolicies(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
+        const route: string = routes.workspaceRenewedPolicies(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);

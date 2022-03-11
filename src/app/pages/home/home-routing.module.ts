@@ -77,6 +77,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.cancelledPolicies, loadChildren: () => import('@pages/home/policies/cancelled-policies/cancelled-policies.module').then( mod => mod.CancelledPoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.listActivePoliciesByRange, loadChildren: () => import('@pages/home/policies/list-active-policies-by-range/list-active-policies-by-range.module').then( mod => mod.ListActivePoliciesByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.listIncompletePolicies, loadChildren: () => import('@pages/home/policies/list-incomplete-policies/list-incomplete-policies.module').then( mod => mod.ListIncompletePoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.listRenewedPoliciesByRange, loadChildren: () => import('@pages/home/policies/list-renewed-policies-by-range/list-renewed-policies-by-range.module').then( mod => mod.ListRenewedPoliciesByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Policy endorsements routes
             { path: ROUTES_NAME.policyEndorsementsHistory(':contactId', ':policyId'), loadChildren: () => import('@pages/home/endorsements/policy-endorsements-history/policy-endorsements-history.module').then(mod => mod.PolicyEndorsementsHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

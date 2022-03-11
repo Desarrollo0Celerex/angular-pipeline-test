@@ -23,23 +23,6 @@ export class StatsPoliciesPage {
         this.range = UtilitiesHelper.generateRange(statsPeriodData);
     }
 
-    goToPoliciesToRenew(): void {
-        if(!!this.range) {
-            this._router.navigateByUrl(
-                ROUTES_NAME.renewals,
-                {
-                    state: {
-                        periodData: {
-                            startDate: this.range.selectedRangeStart,
-                            endDate: this.range.selectedRangeEnd
-                        }
-                    }
-                }
-            );
-        }
-
-    }
-
     goToCancelledPolicies(): void {
         if(!!this.range) {
             this._router.navigateByUrl(
@@ -54,6 +37,37 @@ export class StatsPoliciesPage {
                 }
             );
         }
+    }
 
+    goToPoliciesToRenew(): void {
+        if(!!this.range) {
+            this._router.navigateByUrl(
+                ROUTES_NAME.renewals,
+                {
+                    state: {
+                        periodData: {
+                            startDate: this.range.selectedRangeStart,
+                            endDate: this.range.selectedRangeEnd
+                        }
+                    }
+                }
+            );
+        }
+    }
+
+    goToRenewedPoliciesByRange(): void {
+        if(!!this.range) {
+            this._router.navigateByUrl(
+                ROUTES_NAME.listRenewedPoliciesByRange,
+                {
+                    state: {
+                        periodData: {
+                            startDate: this.range.selectedRangeStart,
+                            endDate: this.range.selectedRangeEnd
+                        }
+                    }
+                }
+            );
+        }
     }
 }
