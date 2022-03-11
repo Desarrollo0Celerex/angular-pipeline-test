@@ -17,6 +17,7 @@ const routes: any = {
     groupExternalPolicies: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/external-policies',
     partnerExternalPolicies: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/external-policies',
     workspaceExternalPolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/external-policies',
+    workspaceExternalPolicyStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/external-policies/stats',
 }
 
 @Injectable()
@@ -71,6 +72,19 @@ export class ExternalPolicyService {
                 return res;
             })
         )
+    }
+
+    getExternalPolicyStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = '') {
+        const route: string = routes.workspaceExternalPolicyStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 
     /**
@@ -130,13 +144,17 @@ export class ExternalPolicyService {
      * @param  partnerId   The partner ID
      * @return             The policy data
      */
-    getWorkspaceExternalPolicies(fields: string = '', filters: string = '', page: number = 1, perPage: number = DEFAULT_PER_PAGE, sortBy: string = '-createdAt'): Observable<HttpResponse> {
+    getWorkspaceExternalPolicies(fields: string = '', filters: string = '', page: number = 1, perPage: number = DEFAULT_PER_PAGE, sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
         const route: string = routes.workspaceExternalPolicies(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         params = params.append('perPage', perPage.toString());
         if(!!fields) params = params.append('fields', fields);
         if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         params = params.append('sortBy', sortBy);
         return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map((res: HttpResponse) => {

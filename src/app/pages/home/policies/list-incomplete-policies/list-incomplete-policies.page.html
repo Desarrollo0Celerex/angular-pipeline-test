@@ -1,4 +1,20 @@
-<agt-contents
+<div class="row">
+    <div class="col-12">
+        <agt-card-content-title
+            title="Pólizas Incompletas"
+            description="Mostrando pólizas cargadas con información pendiente."
+        ></agt-card-content-title>
+    </div>
+</div>
+
+<agt-container-charts-incomplete-policies
+    (specialFilterChanged)="applySpecialFilter($event)"
+></agt-container-charts-incomplete-policies>
+
+<agt-content-list
     [contentType]="CONTENT_TYPES.INCOMPLETE_POLICIES.ID"
-    [contentTypeName]="CONTENT_TYPES.INCOMPLETE_POLICIES.NAME">
-</agt-contents>
+    [contentTypeName]="CONTENT_TYPES.INCOMPLETE_POLICIES.NAME"
+    [contentSubtype]="DEFAULT_CONTENT_FILTER_ID"
+    contentSubtypeName="Incompleta"
+    [contentSpecialFilter]="specialFilter"
+></agt-content-list>

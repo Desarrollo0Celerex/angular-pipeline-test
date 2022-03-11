@@ -152,12 +152,13 @@ export class PolicyService {
         return this._httpClient.get(policyUrl, {responseType: 'blob'});
     }
 
-    downloadReportActivePolicies(rangeStart: string = '', rangeEnd: string = '', specialFilter: string = '') {
+    downloadReportActivePolicies(rangeStart: string = '', rangeEnd: string = '', specialFilter: string = '', formatType: number) {
         const route: string = routes.workspaceActivePoliciesReport(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        if(!!formatType) params = params.append('formatType', formatType);
         params.append('observe', 'response');
         params.append('responseType', 'arraybuffer');
         const fileParams: any = {

@@ -1,6 +1,20 @@
+<div class="row">
+    <div class="col-12">
+        <agt-card-content-title
+            title="Pólizas Externas"
+            description="Mostrando pólizas cargadas por los asegurados desde el wallet."
+        ></agt-card-content-title>
+    </div>
+</div>
+
+<agt-container-charts-external-policies
+    (specialFilterChanged)="applySpecialFilter($event)"
+></agt-container-charts-external-policies>
+
 <agt-content-list
     [contentType]="CONTENT_TYPES.EXTERNAL_POLICIES.ID"
     [contentTypeName]="CONTENT_TYPES.EXTERNAL_POLICIES.NAME"
-    [contentSubtype]="1"
+    [contentSubtype]="DEFAULT_CONTENT_FILTER_ID"
     contentSubtypeName="Externa"
+    [contentSpecialFilter]="specialFilter"
 ></agt-content-list>
