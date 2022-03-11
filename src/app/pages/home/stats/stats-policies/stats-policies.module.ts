@@ -7,6 +7,7 @@ import { ChartPendingRenovationsModule } from '@components/chart-pending-renovat
 import { ChartPoliciesModule } from '@components/chart-policies/chart-policies.module';
 import { ChartPoliciesInsurancesModule } from '@components/chart-policies-insurances/chart-policies-insurances.module';
 import { ChartPolicyRenewalProcessModule } from '@components/chart-policy-renewal-process/chart-policy-renewal-process.module';
+import { ChartRenewedPoliciesModule } from '@components/chart-renewed-policies/chart-renewed-policies.module';
 import { ContainerIssuedPoliciesKpisModule } from '@components/container-issued-policies-kpis/container-issued-policies-kpis.module';
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
 import { MenuStatsModule } from '@components/menu-stats/menu-stats.module';
@@ -26,6 +27,7 @@ import { StatsPoliciesPage } from './stats-policies.page';
     ChartPoliciesModule,
     ChartPoliciesInsurancesModule,
     ChartPolicyRenewalProcessModule,
+    ChartRenewedPoliciesModule,
     CommonModule,
     ContainerIssuedPoliciesKpisModule,
     ContainerSelectStatsPeriodModule,
