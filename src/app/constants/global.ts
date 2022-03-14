@@ -273,6 +273,10 @@ export const CONTENT_TYPES: any = {
     OPENED_SINISTERS_BY_RANGE: {
         ID: 34,
         NAME: 'Siniestro'
+    },
+    RENEWED_POLICIES_BY_RANGE: {
+        ID: 35,
+        NAME: 'Renovación'
     }
 }
 export const CONTACT_TYPES: any = {

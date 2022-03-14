@@ -9,6 +9,7 @@
         contentType !== CONTENT_TYPES.EXTERNAL_POLICIES.ID &&
         contentType !== CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.INCOMPLETE_POLICIES.ID &&
+        contentType !== CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.PAYMENT_CALENDAR.ID">
     <div class="col-sm-12 col-md-12" *ngIf="!isLoadingContent && contentResultData.loadedItems === contentResultData.totalItems">
         <div class="alert alert-avatar alert-primary alert-dismissible mt-5 mb-5">

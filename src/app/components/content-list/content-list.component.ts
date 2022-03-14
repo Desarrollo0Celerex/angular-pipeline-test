@@ -1093,6 +1093,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 });
             break;
 
+            case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
+                this.contentListService.loadRenewedPoliciesByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
             case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
                 this.contentListService.loadPendingPaymentsByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
@@ -1248,6 +1254,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:
                 case CONTENT_TYPES.EXTERNAL_POLICIES.ID:
                 case CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID:
+                case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
                     canShow = true;
                 break;
             }

@@ -35,6 +35,9 @@
         <ng-container *ngSwitchCase="CONTENT_TYPES.LAST_CANCELLED_POLICY.ID">
             <li class="breadcrumb-item1"><strong>Sin Resultados:</strong> No se encontraron pólizas canceladas en este periodo. <strong>Selecciona otro periodo para continuar</strong>.</li>
         </ng-container>
+        <ng-container *ngSwitchCase="CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID">
+            <li class="breadcrumb-item1"><strong>Sin Resultados:</strong> No se encontraron pólizas renovadas en este periodo. <strong>Selecciona otro periodo para continuar</strong>.</li>
+        </ng-container>
         <ng-container *ngSwitchDefault>
             <li class="breadcrumb-item1"><strong>Sin Resultados:</strong> Se han mostrado <strong>{{contentResultData.loadedItems}}</strong> {{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}.</li>
         </ng-container>

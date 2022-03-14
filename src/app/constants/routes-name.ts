@@ -43,8 +43,6 @@ const HOME_CONTACT_PROFILE_ROUTES = {
 
 const HOME_DATA_ROUTES = {
     dashboard: 'workspace/data/dashboard',
-    renewals: 'workspace/policies/renewals',
-    cancelledPolicies: 'workspace/policies/cancelled',
 }
 
 const HOME_ERRORS_ROUTES = {
@@ -108,6 +106,9 @@ const HOME_POLICIES_ROUTES = {
     policyTracker: (contactId: string, policyId: string) => `workspace/policies/policy-tracker/${contactId}/${policyId}`,
     listActivePoliciesByRange: `workspace/policies/list-active-policies-by-range`,
     listIncompletePolicies: `workspace/policies/list-incomplete-policies`,
+    renewals: 'workspace/policies/renewals',
+    cancelledPolicies: 'workspace/policies/cancelled',
+    listRenewedPoliciesByRange: `workspace/policies/list-renewed-policies-by-range`,
 }
 
 const HOME_POLICY_ENDORSEMENTS_ROUTES = {
