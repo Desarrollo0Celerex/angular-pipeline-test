@@ -5,6 +5,8 @@ import { CardContentTitleModule } from '@components/card-content-title/card-cont
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { ModalConfirmDeletePolicyModule } from '@components/modal-confirm-delete-policy/modal-confirm-delete-policy.module';
 import { ModalConfirmShowHistoryPolicyModule } from '@components/modal-confirm-show-history-policy/modal-confirm-show-history-policy.module';
+import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
+import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { PolicyService } from '@services/policy.service';
 
 import { ContainerWorkspaceIncompletePoliciesComponent } from './container-workspace-incomplete-policies.component';
@@ -21,7 +23,9 @@ import { ContainerWorkspaceIncompletePoliciesComponent } from './container-works
     CardContentTitleModule,
     CardPolicyModule,
     ModalConfirmDeletePolicyModule,
-    ModalConfirmShowHistoryPolicyModule
+    ModalConfirmShowHistoryPolicyModule,
+    ModalShowPolicyModule,
+    ModalShowPolicyDetailsModule
   ],
   providers: [
     PolicyService

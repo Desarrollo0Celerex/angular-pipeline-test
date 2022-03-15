@@ -10,7 +10,8 @@
     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3" *ngFor="let incompletePolicy of containerListIncompletePoliciesService.incompletePolicies">
          <agt-card-policy
              [policy]="incompletePolicy"
-             [canShowFooter]="false"
+             (showPolicyDetails)="onShowPolicyDetails($event)"
+             (showPolicy)="onShowPolicy($event)"
              (completePolicy)="onCompletePolicy($event)"
              (deletePolicy)="onDeletePolicy($event)"
              (showHistoryPolicy)="onShowHistoryPolicy($event)"
@@ -20,4 +21,23 @@
 </div>
 <!-- //AGENTHOS - POLICY LISTING (INCOMPLETES) -->
 
-<agt-modal-confirm-delete-policy [modalId]="modalIdConfirmDeletePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (policyDeleted)="onPolicyDeleted($event)"></agt-modal-confirm-delete-policy>
+<agt-modal-confirm-delete-policy
+    [modalId]="modalIdConfirmDeletePolicy"
+    [contactId]="contactId"
+    [policyId]="selectedPolicyId"
+    (policyDeleted)="onPolicyDeleted($event)"
+></agt-modal-confirm-delete-policy>
+
+<agt-modal-show-policy-details
+    [modalId]="modalIdShowPolicyDetails"
+    [contactId]="contactId"
+    [policyId]="selectedPolicyId"
+    [isHistoryContent]="false"
+    (showPolicy)="onShowPolicy($event)"
+></agt-modal-show-policy-details>
+
+<agt-modal-show-policy
+    [modalId]="modalIdShowPolicy"
+    [contactId]="contactId"
+    [policyId]="selectedPolicyId"
+></agt-modal-show-policy>

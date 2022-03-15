@@ -172,7 +172,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadIncompletePolicies(page: number, specialFilter: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,contactName,insurerImageUrl';
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,contactName,insurerImageUrl,policyUrl';
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.INCOMPLETE]);
         const sortBy: string = '-createdAt';
         return this._policyService.getPolicies(page, fields, filters, '', sortBy, '', '', '', DEFAULT_PER_PAGE, specialFilter).pipe(

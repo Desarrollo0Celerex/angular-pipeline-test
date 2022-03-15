@@ -124,7 +124,7 @@
             </div>
             <!-- AGENTHOS - POLICY VIEW -->
             <div class="col-sm-3 col-3 text-right">
-                <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowPolicy()"><i class="fa fa-file-text-o"></i></button>
+                <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowPolicy()" [disabled]="!(!!policy.policyUrl)"><i class="fa fa-file-text-o"></i></button>
             </div>
         </div>
     </div>

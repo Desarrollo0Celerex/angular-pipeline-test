@@ -19,6 +19,8 @@ declare var ModalPlugin: any;
 export class ContainerWorkspaceIncompletePoliciesComponent implements OnInit {
     modalIdConfirmDeletePolicy: string = 'agt-confirm-delete-policy';
     modalIdConfirmShowHistoryPolicy: string = 'agt-confirm-show-history-policy';
+    modalIdShowPolicy: string = 'agt-show-policy';
+    modalIdShowPolicyDetails: string = 'agt-show-policy-details';
     selectedContactId: string = '';
     selectedPolicyId: string = '';
 
@@ -71,6 +73,22 @@ export class ContainerWorkspaceIncompletePoliciesComponent implements OnInit {
         this.selectedPolicyId = data.policyId;
         this.selectedContactId = data.contactId;
         ModalPlugin.show(this.modalIdConfirmShowHistoryPolicy);
+    }
+
+    onShowPolicy(data: string | ContactPolicyData): void {
+        if(typeof data === 'string') {
+            this.selectedPolicyId = data;
+        } else {
+            this.selectedContactId = data.contactId;
+            this.selectedPolicyId = data.policyId;
+        }
+        ModalPlugin.show(this.modalIdShowPolicy);
+    }
+
+    onShowPolicyDetails(data: ContactPolicyData): void {
+        this.selectedPolicyId = data.policyId;
+        this.selectedContactId = data.contactId;
+        ModalPlugin.show(this.modalIdShowPolicyDetails);
     }
 
     private _reloadPage(pageUrl: string): void {
