@@ -2,25 +2,25 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
+import { PaymentService } from '@services/payment.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
-import { WorkspaceService } from '@services/workspace.service';
 
-import { ChartAppliedPaymentsComponent } from './chart-applied-payments.component';
+import { ChartTicketPaymentProcessComponent } from './chart-ticket-payment-process.component';
 
 @NgModule({
   declarations: [
-    ChartAppliedPaymentsComponent
+    ChartTicketPaymentProcessComponent
   ],
   exports: [
-      ChartAppliedPaymentsComponent
+      ChartTicketPaymentProcessComponent
   ],
   imports: [
     CommonModule,
     LoadingContentModule
   ],
   providers: [
-      ReceiptPaidService,
-      WorkspaceService
+      PaymentService,
+      ReceiptPaidService
   ]
 })
-export class ChartAppliedPaymentsModule { }
+export class ChartTicketPaymentProcessModule { }

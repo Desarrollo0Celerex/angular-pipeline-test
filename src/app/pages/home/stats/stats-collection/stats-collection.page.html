@@ -47,6 +47,43 @@
 			</div>
         </div>
 		<agt-container-payments-kpis [range]="range"></agt-container-payments-kpis>
+
+		<!-- AGENTHOS - DATA SUITE PAYMENT PROGRESS -->
+		<div class="row mb-3">
+			<!-- AGENTHOS - DATA SUITE POLICIES INSURANCE TYPE -->
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+				<agt-chart-ticket-payment-process [range]="range"></agt-chart-ticket-payment-process>
+			</div>
+		</div>
+		<!-- AGENTHOS - DATA SUITE PAYMENT PROGRESS -->
+
+		<!-- AGENTHOS - DATA SUITE PAYMENTS APPLIED -->
+		<div class="row mb-3">
+			<!-- AGENTHOS - DATA SUITE PAYMENTS APPLIED GRAPH -->
+			<div class="col-xl-9 col-lg-9 col-md-6 col-sm-12">
+				<agt-chart-receipts-paid [range]="range"></agt-chart-receipts-paid>
+			</div>
+			<!-- //AGENTHOS - DATA SUITE PAYMENTS APPLIED TYPE -->
+			<!-- AGENTHOS - DATA SUITE PAYMENTS APPLIED GRAPH -->
+			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+				<div class="card">
+					<div class="card-header pt-2 pb-0 border-bottom-0">
+						<h3 class="card-title">Insights</h3>
+						<div class="card-options">
+							<i class="fe fe-trending-up mr-1 text-primary fs-30"></i>
+						</div>
+					</div>
+					<div class="card-body text-center">
+						<ol class="breadcrumb1">
+							<li class="breadcrumb-item1">Conoce el<br/>listado de los <strong>Recibos<br/>Aplicados</strong>.</li>
+						</ol>
+						<button type="button" name="agtReceiptsApplied" class="btn btn-block btn-primary" [disabled]="true"><strong>MUY PRONTO</strong></button>
+					</div>
+				</div>
+			</div>
+			<!-- //AGENTHOS - DATA SUITE PAYMENTS APPLIED INSIGHTS -->
+		</div>
+		<!-- //AGENTHOS - DATA SUITE PAYMENTS APPLIED -->
 		<div class="row mb-3">
 			<div class="col-xl-9 col-lg-9 col-md-6 col-sm-12">
 				<agt-chart-pending-payments [range]="range"></agt-chart-pending-payments>

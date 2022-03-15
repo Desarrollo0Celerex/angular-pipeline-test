@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { RangeData } from '@interfaces/range-data.interface';
 import { RangeStat } from '@interfaces/range-stat.interface';
@@ -17,15 +17,15 @@ declare var StatsCollectionPlugin: any;
 export class ChartAppliedPaymentsComponent implements OnChanges {
     @Input() range: RangeData | null = null;
 
-    constructor(private _chartAppliedPaymentsService: ChartAppliedPaymentsService) { }
+    constructor(public model: ChartAppliedPaymentsService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         StatsCollectionPlugin.removeChartAppliedPayments();
         this._loadAppliedPaymentsStats(changes.range.currentValue);
     }
 
-    get model(): ChartAppliedPaymentsService {
-        return this._chartAppliedPaymentsService;
+    ngOnInit(): void {
+        this.model.loadWorkspaceCurrencyName();
     }
 
     get canShowAppliedPaymentsStats(): boolean {
