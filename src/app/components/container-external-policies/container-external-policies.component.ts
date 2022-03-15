@@ -26,6 +26,7 @@ export class ContainerExternalPoliciesComponent implements OnChanges, OnInit {
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
     modalIdConfirmValidateExternalPolicy: string = 'modal-confirm-validate-external-policy';
     modalIdConfirmUpdateExternalPolicy: string = 'modal-confirm-update-external-policy';
+    modalIdShowExternalPolicyDetails: string = 'modal-show-external-policy-details';
     selectedContactId: string = '';
     selectedExternalPolicyId: string = '';
     selectedExternalPolicyUrl: string = '';
@@ -74,6 +75,12 @@ export class ContainerExternalPoliciesComponent implements OnChanges, OnInit {
     _showExternalPolicy(policyUrl: string): void {
         this.selectedExternalPolicyUrl = policyUrl;
         ModalPlugin.show(this.modalIdShowPolicyFile);
+    }
+
+    showExternalPolicyDetails(data: ContactPolicyData): void {
+        this.selectedContactId = data.contactId;
+        this.selectedExternalPolicyId = data.policyId;
+        ModalPlugin.show(this.modalIdShowExternalPolicyDetails);
     }
 
     private _loadExternalPolicies(): void {

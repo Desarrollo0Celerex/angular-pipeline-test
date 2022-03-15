@@ -15,8 +15,6 @@
                         <button type="button" class="dropdown-item" (click)="_confirmUpdatePolicy()"><i class="fa fa-eye mr-2"></i>Validar</button>
                     </ng-template>
                 </ng-container>
-                <div class="dropdown-divider"></div>
-                <button type="button" class="dropdown-item" (click)="_showExternalPolicy()"><i class="fa fa-file-text-o mr-2"></i>Ver Póliza</button>
             </div>
         </div>
     </div>
@@ -42,6 +40,16 @@
         <h6><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{externalPolicy.policyNumber}}</h6>
         <div class="progress progress-sm mt-2">
             <div class="progress-bar {{externalPolicy.insuranceBackground}}" [ngStyle]="{'width': externalPolicy.lifeTime+'%'}"></div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-9 col-9 text-left">
+                <button type="button" class="btn btn-block btn-primary" (click)="onClickShowExternalPolicyDetails()"><strong>VER DETALLES</strong></button>
+            </div>
+            <div class="col-sm-3 col-3 text-right">
+                <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowExternalPolicy()" [disabled]="!(!!externalPolicy.policyUrl)"><i class="fa fa-file-text-o"></i></button>
+            </div>
         </div>
     </div>
 </div>

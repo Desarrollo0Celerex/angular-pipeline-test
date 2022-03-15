@@ -132,6 +132,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowPolicyDetails: string;
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
     modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
+    modalIdShowExternalPolicyDetails: string = 'modal-show-external-policy-details';
     modalIdShowPartnerDetails: string = 'agt-show-partner-details';
     modalIdShowQuotationDetails: string;
     modalIdShowReactivationEvidence: string = 'agt-show-reactivation-evidence';
@@ -589,6 +590,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onShowHistorySinister(data: SinisterDataSend): void {
         this.selectedSinisterData = data;
         ModalPlugin.show(this.modalIdConfirmShowSinisterHistory);
+    }
+
+    showExternalPolicyDetails(data: ContactPolicyData): void {
+        this.selectedContactId = data.contactId;
+        this.selectedExternalPolicyId = data.policyId;
+        ModalPlugin.show(this.modalIdShowExternalPolicyDetails);
     }
 
     /**

@@ -15,6 +15,7 @@ export class CardExternalPolicyComponent {
     @Output() showExternalPolicy: EventEmitter<string> = new EventEmitter<string>();
     @Output() confirmValidateExternalPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() confirmUpdateExternalPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
+    @Output() showExternalPolicyDetails: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     externalPolicyStatusCancelled: number = EXTERNAL_POLICY_STATUS.CANCELLED;
 
     _confirmUpdatePolicy(): void {
@@ -33,7 +34,17 @@ export class CardExternalPolicyComponent {
         }
     }
 
-    _showExternalPolicy(): void {
+    onClickShowExternalPolicy(): void {
         if(!!this.externalPolicy) this.showExternalPolicy.emit(this.externalPolicy.policyUrl)
     }
+
+    onClickShowExternalPolicyDetails(): void {
+        if(!!this.externalPolicy) {
+            this.showExternalPolicyDetails.emit({
+                contactId: this.externalPolicy.contactId,
+                policyId: this.externalPolicy.externalPolicyId
+            });
+        }
+    }
+
 }

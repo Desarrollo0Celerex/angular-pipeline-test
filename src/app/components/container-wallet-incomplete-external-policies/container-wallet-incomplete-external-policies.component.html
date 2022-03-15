@@ -13,6 +13,7 @@
         <agt-card-external-policy
             [externalPolicy]="externalPolicy"
             (showExternalPolicy)="showExternalPolicy($event)"
+            (showExternalPolicyDetails)="showExternalPolicyDetails($event)"
             (confirmValidateExternalPolicy)="confirmValidateExternalPolicy($event)"
             (confirmUpdateExternalPolicy)="confirmUpdateExternalPolicy($event)"
         ></agt-card-external-policy>
@@ -37,3 +38,9 @@
 <agt-modal-confirm-validate-external-policy [modalId]="modalIdConfirmValidateExternalPolicy" (actionConfirmed)="goToUpdateExternalPolicy()"></agt-modal-confirm-validate-external-policy>
 <agt-modal-confirm-update-external-policy [modalId]="modalIdConfirmUpdateExternalPolicy" (actionConfirmed)="goToUpdateExternalPolicy()"></agt-modal-confirm-update-external-policy>
 <agt-modal-show-policy-file [modalId]="modalIdShowPolicyFile" [policyUrl]="selectedExternalPolicyUrl"></agt-modal-show-policy-file>
+<agt-modal-show-external-policy-details
+    [modalId]="modalIdShowExternalPolicyDetails"
+    [contactId]="selectedContactId"
+    [externalPolicyId]="selectedExternalPolicyId"
+    (showExternalPolicy)="showExternalPolicy($event)"
+></agt-modal-show-external-policy-details>

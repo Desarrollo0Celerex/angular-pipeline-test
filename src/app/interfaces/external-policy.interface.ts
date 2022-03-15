@@ -20,6 +20,7 @@ export interface ExternalPolicy {
     lifeTime: number,
     clientNumber: string,
     insurerId: number,
+    insurerShortName: string,
     insuranceId: number,
     insuranceTypeId: number,
     titularName: string,
