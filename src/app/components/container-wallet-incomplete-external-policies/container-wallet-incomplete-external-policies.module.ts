@@ -5,6 +5,7 @@ import { CardExternalPolicyModule } from '@components/card-external-policy/card-
 import { ModalConfirmValidateExternalPolicyModule } from '@components/modal-confirm-validate-external-policy/modal-confirm-validate-external-policy.module';
 import { ModalConfirmUpdateExternalPolicyModule } from '@components/modal-confirm-update-external-policy/modal-confirm-update-external-policy.module';
 import { ModalShowPolicyFileModule } from '@components/modal-show-policy-file/modal-show-policy-file.module';
+import { ModalShowExternalPolicyDetailsModule } from '@components/modal-show-external-policy-details/modal-show-external-policy-details.module';
 import { ExternalPolicyService } from '@services/external-policy.service';
 
 import { ContainerWalletIncompleteExternalPoliciesComponent } from './container-wallet-incomplete-external-policies.component';
@@ -19,6 +20,7 @@ import { ContainerWalletIncompleteExternalPoliciesComponent } from './container-
     CardExternalPolicyModule,
     ModalConfirmValidateExternalPolicyModule,
     ModalConfirmUpdateExternalPolicyModule,
+    ModalShowExternalPolicyDetailsModule,
     ModalShowPolicyFileModule
   ],
   providers: [

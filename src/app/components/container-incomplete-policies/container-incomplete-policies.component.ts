@@ -25,6 +25,8 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
     @Output() showHistoryPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();;
     contentSubtype: number;
     modalIdConfirmDeletePolicy: string;
+    modalIdShowPolicy: string = 'agt-show-policy';
+    modalIdShowPolicyDetails: string = 'agt-show-policy-details';
     selectedPolicyId: string;
     selectedPolicyIndex: number;
 
@@ -96,6 +98,22 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
      */
     onShowHistoryPolicy(data: ContactPolicyData): void {
         this.showHistoryPolicy.emit(data);
+    }
+
+    onShowPolicy(data: string | ContactPolicyData): void {
+        if(typeof data === 'string') {
+            this.selectedPolicyId = data;
+        } else {
+            this.contactId = data.contactId;
+            this.selectedPolicyId = data.policyId;
+        }
+        ModalPlugin.show(this.modalIdShowPolicy);
+    }
+
+    onShowPolicyDetails(data: ContactPolicyData): void {
+        this.selectedPolicyId = data.policyId;
+        this.contactId = data.contactId;
+        ModalPlugin.show(this.modalIdShowPolicyDetails);
     }
 
 }

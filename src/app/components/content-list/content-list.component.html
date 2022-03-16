@@ -37,6 +37,7 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.EXTERNAL_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID" class="card-title">Recibos Encontradas</h3>
                     <h3 *ngSwitchDefault class="card-title">{{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}</h3>
                 </ng-container>
             </div>
@@ -118,6 +119,7 @@
                     *ngSwitchCase="CONTENT_TYPES.EXTERNAL_POLICIES.ID"
                     [externalPolicy]="content"
                     (showExternalPolicy)="showExternalPolicy($event)"
+                    (showExternalPolicyDetails)="showExternalPolicyDetails($event)"
                     (confirmValidateExternalPolicy)="confirmValidateExternalPolicy($event)"
                     (confirmUpdateExternalPolicy)="confirmUpdateExternalPolicy($event)"
                 ></agt-card-external-policy>
@@ -172,7 +174,8 @@
                 <agt-card-policy
                     *ngSwitchCase="CONTENT_TYPES.INCOMPLETE_POLICIES.ID"
                     [policy]="content"
-                    [canShowFooter]="false"
+                    (showPolicyDetails)="onShowPolicyDetails($event)"
+                    (showPolicy)="onShowPolicy($event)"
                     (completePolicy)="onCompletePolicy($event)"
                     (deletePolicy)="confirmDeleteIncompletePolicy($event)"
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
@@ -204,6 +207,15 @@
                     (applyPayment)="onApplyPayment($event)"
                     (showContactData)="onShowContactData($event)"
                 ></agt-card-pending-receipt>
+                <agt-card-receipt-applied
+                    *ngSwitchCase="CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID"
+                    [receiptApplied]="content"
+                    (showReceiptAppliedDetails)="showReceiptAppliedDetails($event)"
+                    (showContactData)="onShowContactData($event)"
+                    (showHistoryPolicy)="onShowHistoryPolicy($event)"
+                    (showPaymentHistory)="onShowPaymentHistory($event)"
+                    (showPolicy)="onShowPolicyFromWorkspace($event)"
+                ></agt-card-receipt-applied>
                 <agt-card-sinister
                     *ngSwitchCase="(
                         contentType === CONTENT_TYPES.SINISTER.ID ||
@@ -283,6 +295,7 @@
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
     <agt-modal-show-contact-data [modalId]="modalIdShowContactData" [contactId]="selectedContactId"></agt-modal-show-contact-data>
     <agt-modal-select-contact [modalId]="modalIdSelectContact" [contactId]="selectedContactId"></agt-modal-select-contact>
@@ -302,6 +315,7 @@
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
@@ -316,6 +330,7 @@
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TRACKER.ID">
     <agt-modal-show-policy-details [modalId]="modalIdShowPolicyDetails" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [isHistoryContent]="isHistoryContent" (showPolicy)="onShowPolicy($event)"></agt-modal-show-policy-details>
     <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="selectedContactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
@@ -351,6 +366,7 @@
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
     <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
     <agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
@@ -366,6 +382,7 @@
     contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
+    contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
     <agt-modal-apply-payment
         [modalId]="modalIdApplyPayment"
@@ -439,5 +456,18 @@
     <agt-modal-confirm-validate-external-policy [modalId]="modalIdConfirmValidateExternalPolicy" (actionConfirmed)="goToUpdateExternalPolicy()"></agt-modal-confirm-validate-external-policy>
     <agt-modal-confirm-update-external-policy [modalId]="modalIdConfirmUpdateExternalPolicy" (actionConfirmed)="goToUpdateExternalPolicy()"></agt-modal-confirm-update-external-policy>
     <agt-modal-show-policy-file [modalId]="modalIdShowPolicyFile" [policyUrl]="selectedExternalPolicyUrl"></agt-modal-show-policy-file>
+    <agt-modal-show-external-policy-details
+        [modalId]="modalIdShowExternalPolicyDetails"
+        [contactId]="selectedContactId"
+        [externalPolicyId]="selectedExternalPolicyId"
+        (showExternalPolicy)="showExternalPolicy($event)"
+    ></agt-modal-show-external-policy-details>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID">
+    <agt-modal-show-receipt-applied-details
+        [modalId]="modalIdShowReceiptAppliedDetails"
+        [receiptAppliedId]="selectedReceiptAppliedId"
+        (showPaymentHistory)="onShowPaymentHistory($event)"
+    ></agt-modal-show-receipt-applied-details>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

@@ -1,0 +1,79 @@
+<div class="card" *ngIf="receiptApplied">
+    <!-- AGENTHOS - PAYCARD HEADER -->
+    <div class="card-header">
+        <!-- AGENTHOS - INSURANCE COMPANY -->
+        <img [src]="receiptApplied.insurerImageUrl" width="38px">
+        <!-- AGENTHOS - PAYCARD MENU -->
+        <div class="card-options">
+            <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                <span class="fa fa-bars"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                <div class="dropdown-plus-title">Acciones Disponibles</div>
+                <!-- AGENTHOS - PAYMENT SKIP -->
+                <button type="button" class="dropdown-item" (click)="onClickShowPolicy()"><i class="fa fa-file-text-o mr-2"></i>Ver Póliza</button>
+                <div class="dropdown-divider"></div>
+                <!-- AGENTHOS - POLICY PAYMENTS -->
+                <button type="button" class="dropdown-item" (click)="onClickShowPaymentHistory()"><i class="fa fa-credit-card mr-2"></i>Pagos</button>
+                <!-- AGENTHOS - POLICY HISTORY -->
+                <button type="button" class="dropdown-item" (click)="onClickShowHistoryPolicy()"><i class="fa fa-history mr-2"></i>Historial</button>
+            </div>
+        </div>
+        <!-- //AGENTHOS - PAYCARD MENU -->
+    </div>
+    <!-- //AGENTHOS - PAYCARD HEADER -->
+    <!-- AGENTHOS - PAYCARD BODY -->
+    <div class="card-body">
+        <!-- AGENTHOS - PAYCARD COVER -->
+        <div class="d-flex clearfix">
+            <div class="text-left">
+                <!-- AGENTHOS - PAYCARD SOURCE -->
+                <div class="badge badge-primary-gradient mr-1 mb-3">{{receiptApplied.paymentSourceTypeName | uppercase}}</div>
+                <!-- AGENTHOS - PAYCARD STATUS -->
+                <div class="badge badge-primary-gradient mr-1 mb-3">{{'pagado' | uppercase}}</div>
+                <!-- AGENTHOS - POLICY TYPE -->
+                <h6><span class="text-primary"><i class="fe fe-shield mr-2"></i></span>{{receiptApplied.insuranceName | uppercase}}</h6>
+                <!-- AGENTHOS - POLICY PLAN -->
+                <h6><span class="text-primary"><i class="fe fe-credit-card mr-2"></i></span>{{receiptApplied.paymentPlanName | uppercase}}</h6>
+                <!-- AGENTHOS - POLICY TYPE -->
+                <h6><span class="text-primary"><i class="fe fe-globe mr-2"></i></span>{{receiptApplied.insuranceTypeName | uppercase}}</h6>
+            </div>
+            <div class="ml-auto">
+                <span class="{{receiptApplied.insuranceBackground}} icon-service"><i class="fa {{receiptApplied.insuranceIcon}} fs-2"></i></span>
+            </div>
+        </div>
+        <!-- //AGENTHOS - PAYCARD COVER -->
+        <!-- AGENTHOS - PAYCARD RESUME -->
+        <h6 class="mt-3 mb-2">{{receiptApplied.coveredProperty}}</h6>
+        <!-- AGENTHOS - POLICY NUMBER -->
+        <h6><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{receiptApplied.policyNumber}}</h6>
+        <div class="progress progress-sm mt-2 mb-2">
+            <!-- AGENTHOS - PAYCARD LIFE -->
+            <div class="progress-bar {{receiptApplied.insuranceBackground}}" [ngStyle]="{'width': receiptApplied.lifeTime+'%'}"></div>
+        </div>
+        <div class="row mt-4">
+            <div class="col text-left">
+                <span class="text-muted">MONTO</span>
+                <h4 class="font-weight-normal mt-2 mb-0 number-font1"><strong>{{receiptApplied.receiptsAmount | currency: '': '$': '0.2-2'}}</strong></h4>
+            </div>
+            <div class="col text-right">
+                <span class="text-muted">FECHA</span>
+                <h4 class="font-weight-normal mt-2 mb-0 number-font2"><strong>{{receiptApplied.applicationDate | date: 'dd/MM/yyyy'}}</strong></h4>
+            </div>
+        </div>
+        <!-- //AGENTHOS - PAYCARD RESUME -->
+    </div>
+    <!-- //AGENTHOS - PAYCARD BODY -->
+    <!-- AGENTHOS - PAYCARD FOOTER -->
+    <div class="card-footer text-center">
+        <div class="row user-social-detail">
+            <div class="col-lg-9 col-sm-9 col-9">
+                <button type="button" class="btn btn-block btn-primary" (click)="onClickShowReceiptAppliedDetails()"><strong>VER DETALLES</strong></button>
+            </div>
+            <div class="col-sm-3 col-3 text-right">
+                <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowContactData()"><i class="fa fa-id-badge"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - PAYCARD FOOTER -->
+</div>

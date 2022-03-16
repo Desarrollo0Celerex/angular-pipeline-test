@@ -15,6 +15,7 @@ import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardPolicyRecordModule } from '@components/card-policy-record/card-policy-record.module';
 import { CardPolicyTrackerModule } from '@components/card-policy-tracker/card-policy-tracker.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
+import { CardReceiptAppliedModule } from '@components/card-receipt-applied/card-receipt-applied.module';
 import { CardReceiptPaidRecordModule } from '@components/card-receipt-paid-record/card-receipt-paid-record.module';
 import { CardReportedSinisterModule } from '@components/card-reported-sinister/card-reported-sinister.module';
 import { CardSinisterModule } from '@components/card-sinister/card-sinister.module';
@@ -63,12 +64,14 @@ import { ModalShowCancellationEvidenceModule } from '@components/modal-show-canc
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 import { ModalShowContactFileDetailsModule } from '@components/modal-show-contact-file-details/modal-show-contact-file-details.module';
 import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/modal-show-endorsement.module';
+import { ModalShowExternalPolicyDetailsModule } from '@components/modal-show-external-policy-details/modal-show-external-policy-details.module';
 import { ModalShowGroupDetailsModule } from '@components/modal-show-group-details/modal-show-group-details.module';
 import { ModalShowPartnerDetailsModule } from '@components/modal-show-partner-details/modal-show-partner-details.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowPolicyFileModule } from '@components/modal-show-policy-file/modal-show-policy-file.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
+import { ModalShowReceiptAppliedDetailsModule } from '@components/modal-show-receipt-applied-details/modal-show-receipt-applied-details.module';
 import { ModalShowReactivationEvidenceModule } from '@components/modal-show-reactivation-evidence/modal-show-reactivation-evidence.module';
 import { ModalShowResolutionEvidenceModule } from '@components/modal-show-resolution-evidence/modal-show-resolution-evidence.module';
 import { ModalShowSinisterDetailsModule } from '@components/modal-show-sinister-details/modal-show-sinister-details.module';
@@ -115,6 +118,7 @@ import { ContentListService } from './content-list.service';
     CardPolicyRecordModule,
     CardPolicyTrackerModule,
     CardQuotationModule,
+    CardReceiptAppliedModule,
     CardReceiptPaidRecordModule,
     CardReportedSinisterModule,
     CardSinisterModule,
@@ -162,12 +166,14 @@ import { ContentListService } from './content-list.service';
     ModalShowContactDataModule,
     ModalShowContactFileDetailsModule,
     ModalShowEndorsementModule,
+    ModalShowExternalPolicyDetailsModule,
     ModalShowGroupDetailsModule,
     ModalShowPartnerDetailsModule,
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
     ModalShowPolicyFileModule,
     ModalShowQuotationDetailsModule,
+    ModalShowReceiptAppliedDetailsModule,
     ModalShowReactivationEvidenceModule,
     ModalShowResolutionEvidenceModule,
     ModalShowSinisterDetailsModule,

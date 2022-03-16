@@ -19,6 +19,7 @@ import { Payment } from '@interfaces/payment.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
+import { ReceiptApplied } from '@interfaces/receipt-applied.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
 import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.interface';
@@ -92,6 +93,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedPolicyPos: number = 0;
     selectedQuotationId: string;
     selectedReceiptPaidId: string;
+    selectedReceiptAppliedId: string = '';
     selectedSinister: Sinister | null = null;
     selectedSinisterData: SinisterDataSend | null = null;
     selectedSinisterEventData: SinisterEventDataSend | null = null;
@@ -132,9 +134,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowPolicyDetails: string;
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
     modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
+    modalIdShowExternalPolicyDetails: string = 'modal-show-external-policy-details';
     modalIdShowPartnerDetails: string = 'agt-show-partner-details';
     modalIdShowQuotationDetails: string;
     modalIdShowReactivationEvidence: string = 'agt-show-reactivation-evidence';
+    modalIdShowReceiptAppliedDetails: string = 'agt-show-receipt-applied-details';
     modalIdShowResolutionEvidence: string = 'agt-show-resolution-evidence';
     modalIdShowSinisterDetails: string = 'agt-show-sinister-details';
     modalIdTransferContactFile: string = 'agt-transfer-contact-file';
@@ -591,6 +595,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdConfirmShowSinisterHistory);
     }
 
+    showExternalPolicyDetails(data: ContactPolicyData): void {
+        this.selectedContactId = data.contactId;
+        this.selectedExternalPolicyId = data.policyId;
+        ModalPlugin.show(this.modalIdShowExternalPolicyDetails);
+    }
+
     /**
      * Event to show the quotation details modal
      * @param quotationId The selected quotation ID
@@ -783,6 +793,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     showPartnerDetails(partner: Partner): void {
         this.selectedPartner = partner;
         ModalPlugin.show(this.modalIdShowPartnerDetails);
+    }
+
+    showReceiptAppliedDetails(receiptAppliedId: string): void {
+        this.selectedReceiptAppliedId = receiptAppliedId;
+        ModalPlugin.show(this.modalIdShowReceiptAppliedDetails);
     }
 
     updateReceiptPaid(receiptPaidId: string): void {
@@ -1093,6 +1108,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 });
             break;
 
+            case CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID:
+                this.contentListService.loadReceiptsAppliedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
             case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
                 this.contentListService.loadRenewedPoliciesByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
@@ -1255,6 +1276,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.EXTERNAL_POLICIES.ID:
                 case CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID:
                 case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
+                case CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID:
                     canShow = true;
                 break;
             }

@@ -46,19 +46,19 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Fecha Emisión</label>
-                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.emissionDate | date: 'dd/MM/yyyy'" readonly="">
+                                    <input type="text" class="form-control" [placeholder]="(!!modalShowPolicyDetailsService.policyDetails.emissionDate) ? (modalShowPolicyDetailsService.policyDetails.emissionDate | date: 'dd/MM/yyyy') : ''" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Inicio Vigencia</label>
-                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.validityStartDate | date: 'dd/MM/yyyy'" readonly="">
+                                    <input type="text" class="form-control" [placeholder]="(!!modalShowPolicyDetailsService.policyDetails.validityStartDate) ? (modalShowPolicyDetailsService.policyDetails.validityStartDate | date: 'dd/MM/yyyy') : ''" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Fin Vigencia</label>
-                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.validityEndDate | date: 'dd/MM/yyyy'" readonly="">
+                                    <input type="text" class="form-control" [placeholder]="(!!modalShowPolicyDetailsService.policyDetails.validityEndDate) ? (modalShowPolicyDetailsService.policyDetails.validityEndDate | date: 'dd/MM/yyyy') : ''" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-4">

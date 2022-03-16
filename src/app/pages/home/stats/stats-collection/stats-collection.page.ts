@@ -25,6 +25,22 @@ export class StatsCollectionPage {
         this._router.navigateByUrl(ROUTES_NAME.paymentCalendar);
     }
 
+    goToListReceiptsAppliedByRange(): void {
+        if(!!this.range) {
+            this._router.navigateByUrl(
+                ROUTES_NAME.listReceiptsAppliedByRange,
+                {
+                    state: {
+                        periodData: {
+                            startDate: this.range.selectedRangeStart,
+                            endDate: this.range.selectedRangeEnd
+                        }
+                    }
+                }
+            );
+        }
+    }
+
     goToListPendingPaymentsByRange(): void {
         if(!!this.range) {
             this._router.navigateByUrl(

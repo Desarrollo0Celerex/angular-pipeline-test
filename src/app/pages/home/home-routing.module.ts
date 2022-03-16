@@ -61,6 +61,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.pendingReceipts(':contactId', ':policyId', ':paymentId'), loadChildren: () => import('@pages/home/payments/pending-receipts/pending-receipts.module').then(mod => mod.PendingReceiptsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.paymentCalendar, loadChildren: () => import('@pages/home/payments/calendar/calendar.module').then(mod => mod.CalendarModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.listPendingPaymentsByRange, loadChildren: () => import('@pages/home/payments/list-pending-payments-by-range/list-pending-payments-by-range.module').then(mod => mod.ListPendingPaymentsByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.listReceiptsAppliedByRange, loadChildren: () => import('@pages/home/payments/list-receipts-applied-by-range/list-receipts-applied-by-range.module').then(mod => mod.ListReceiptsAppliedByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Policies routes
             { path: ROUTES_NAME.createPolicy(':contactId'), loadChildren: () => import('@pages/home/policies/create-policy/create-policy.module').then(mod => mod.CreatePolicyModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

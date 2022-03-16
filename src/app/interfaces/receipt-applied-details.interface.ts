@@ -1,0 +1,16 @@
+export interface ReceiptAppliedDetails {
+    contactId: string,
+    policyId: string,
+    paymentId: string,
+    titularName: string,
+    policyNumber: string,
+    validityStartDate: string,
+    validityEndDate: string,
+    paymentPlanName: string,
+    paymentAmount: number,
+    paymentAmountPaid: number,
+    currencyName: string,
+    bills: number,
+    receiptsAmount: number,
+    applicationDate: string,
+}

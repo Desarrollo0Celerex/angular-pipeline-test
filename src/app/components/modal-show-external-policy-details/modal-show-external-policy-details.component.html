@@ -1,0 +1,70 @@
+<!-- AGENTHOS - POLICY DETAILS -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- AGENTHOS - POLICY NUMBER -->
+                <h5 class="modal-title">Detalles de Póliza</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+								<div class="form-group">
+									<label class="form-label">Titular</label>
+									<input type="text" class="form-control" [placeholder]="model.externalPolicy.titularName" readonly="">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="form-label">No. Póliza</label>
+									<input type="text" class="form-control" [placeholder]="model.externalPolicy.policyNumber" readonly="">
+								</div>
+							</div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Fecha Emisión</label>
+                                    <input type="text" class="form-control" [placeholder]="(!!model.externalPolicy.emissionDate) ? (model.externalPolicy.emissionDate | date: 'dd/MM/yyyy') : ''" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Inicio Vigencia</label>
+                                    <input type="text" class="form-control" [placeholder]="(!!model.externalPolicy.validityStartDate) ? (model.externalPolicy.validityStartDate | date: 'dd/MM/yyyy') : ''" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Fin Vigencia</label>
+                                    <input type="text" class="form-control" [placeholder]="(!!model.externalPolicy.validityEndDate) ? (model.externalPolicy.validityEndDate | date: 'dd/MM/yyyy') : ''" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+								<div class="form-group">
+									<label class="form-label">Aseguradora</label>
+									<input type="text" class="form-control" [placeholder]="model.externalPolicy.insurerShortName" readonly="">
+								</div>
+							</div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Prima Total</label>
+                                    <input type="text" class="form-control" [placeholder]="model.externalPolicy.policyAmount | currency: '' : '$' : '0.2-2'" readonly="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="col-12">
+                    <button type="button" class="btn btn-primary btn-block" (click)="onClickShowExternalPolicy()"><strong>VER PÓLIZA</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - POLICY DETAILS -->

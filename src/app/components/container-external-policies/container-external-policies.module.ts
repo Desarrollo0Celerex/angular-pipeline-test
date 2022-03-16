@@ -6,6 +6,7 @@ import { ModalConfirmValidateExternalPolicyModule } from '@components/modal-conf
 import { ModalConfirmUpdateExternalPolicyModule } from '@components/modal-confirm-update-external-policy/modal-confirm-update-external-policy.module';
 import { ModalShowPolicyFileModule } from '@components/modal-show-policy-file/modal-show-policy-file.module';
 import { ExternalPolicyService } from '@services/external-policy.service';
+import { ModalShowExternalPolicyDetailsModule } from '@components/modal-show-external-policy-details/modal-show-external-policy-details.module';
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
 
 import { ContainerExternalPoliciesComponent } from './container-external-policies.component';
@@ -23,7 +24,8 @@ import { ContainerExternalPoliciesComponent } from './container-external-policie
     CardExternalPolicyModule,
     ModalConfirmValidateExternalPolicyModule,
     ModalConfirmUpdateExternalPolicyModule,
-    ModalShowPolicyFileModule
+    ModalShowPolicyFileModule,
+    ModalShowExternalPolicyDetailsModule
   ],
   providers: [
       ExternalPolicyService
