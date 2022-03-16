@@ -1,0 +1,118 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- AGENTHOS - POLICY NUMBER -->
+				<h5 class="modal-title">Detalles de Recibo</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<!-- AGENTHOS - POLICY OWNER -->
+							<label class="form-label">Titular</label>
+							<input type="text" class="form-control" [placeholder]="model.receiptApplied.titularName" readonly="">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<!-- AGENTHOS - POLICY NO. -->
+							<label class="form-label">No. Póliza</label>
+							<input type="text" class="form-control" [placeholder]="model.receiptApplied.policyNumber" readonly="">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<!-- AGENTHOS - POLICY INI. -->
+							<label class="form-label">Inicio Vigencia</label>
+							<input type="text" class="form-control" [placeholder]="model.receiptApplied.validityStartDate | date: 'dd/MM/yyyy'" readonly="">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<!-- AGENTHOS - POLICY END. -->
+							<label class="form-label">Fin Vigencia</label>
+							<input type="text" class="form-control" [placeholder]="model.receiptApplied.validityEndDate | date: 'dd/MM/yyyy'" readonly="">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<!-- AGENTHOS - POLICY PAYPLAN -->
+							<label class="form-label">Plan de Pagos</label>
+							<input type="text" class="form-control" [placeholder]="model.receiptApplied.paymentPlanName" readonly="">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<!-- AGENTHOS - POLICY PAYPLAN -->
+							<label class="form-label">Prima Total ({{model.receiptApplied.currencyName}})</label>
+							<input type="text" class="form-control" [placeholder]="model.receiptApplied.paymentAmount | currency: '' : '$' : '0.2-2'" readonly="">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<!-- AGENTHOS - POLICY PAYPLAN -->
+							<label class="form-label">Prima Pagada ({{model.receiptApplied.currencyName}})</label>
+							<input type="text" class="form-control" [placeholder]="model.receiptApplied.paymentAmountPaid | currency: '' : '$' : '0.2-2'" readonly="">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<!-- AGENTHOS - POLICY PAYPLAN -->
+							<label class="form-label">Recibos Totales</label>
+							<input type="text" class="form-control" [placeholder]="model.receiptApplied.bills" readonly="">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<!-- AGENTHOS - PAID AMOUNT * -->
+							<label class="form-label">Monto Recibo ({{model.receiptApplied.currencyName}})</label>
+							<div class="row gutters-sm">
+								<div class="col">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<i class="fa fa-credit-card tx-16 lh-0 op-6"></i>
+											</div>
+										</div>
+										<input type="text" class="form-control" [placeholder]="model.receiptApplied.receiptsAmount | currency: '' : '$' : '0.2-2'" readonly="">
+									</div>
+								</div>
+								<span class="col-auto align-self-center">
+									<span class="form-help" data-toggle="popover" data-placement="top" data-content="Monto total del recibo." data-original-title="">?</span>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<!-- AGENTHOS - PAY DATE * -->
+							<label class="form-label">Fecha Aplicación</label>
+							<div class="row gutters-sm">
+								<div class="col">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+											</div>
+										</div>
+										<input class="form-control fc-datepicker" [value]="model.receiptApplied.applicationDate | date: 'dd/MM/yyyy'" type="text" readonly="">
+									</div>
+								</div>
+								<span class="col-auto align-self-center">
+									<span class="form-help" data-toggle="popover" data-placement="top" data-content="Fecha de aplicación de recibo." data-original-title="">?</span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-block btn-primary" (click)="onShowPaymentHistory()"><strong>VER PAGOS APLICADOS</strong></button>
+			</div>
+		</div>
+	</div>
+</div>

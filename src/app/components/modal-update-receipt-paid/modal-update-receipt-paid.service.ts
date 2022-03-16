@@ -5,6 +5,7 @@ import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
+import { HttpResponse } from '@interfaces/http-response.interface';
 import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
 import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
 
@@ -24,8 +25,8 @@ export class ModalUpdateReceiptPaidService {
     loadReceiptPaid(receiptPaidId: string): Observable<void> {
         const fields: string = 'policyNumber,paymentPlanName,validityStartDate,validityEndDate,receiptsAmount,receiptsNumber,applicationDate,currencyName';
         return this._receiptPaidService.getReceiptPaid(receiptPaidId, fields).pipe(
-            tap((res: ReceiptPaid) => {
-                this.receiptPaid = res;
+            tap((res: HttpResponse) => {
+                this.receiptPaid = res.data;
             }),
             map(() => { })
         )

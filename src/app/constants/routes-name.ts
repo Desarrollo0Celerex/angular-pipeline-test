@@ -90,7 +90,8 @@ const HOME_PAYMENTS_ROUTES = {
     paymentHistory: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/payment-history/${contactId}/${policyId}/${paymentId}`,
     pendingReceipts: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/pending-receipts/${contactId}/${policyId}/${paymentId}`,
     paymentCalendar: `workspace/payments/calendar`,
-    listPendingPaymentsByRange: `workspace/payments/list-pending-payments-by-range`
+    listPendingPaymentsByRange: `workspace/payments/list-pending-payments-by-range`,
+    listReceiptsAppliedByRange: `workspace/payments/list-receipts-applied-by-range`
 }
 
 const HOME_POLICIES_ROUTES = {

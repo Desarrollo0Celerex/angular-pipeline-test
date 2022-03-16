@@ -15,6 +15,7 @@ import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { CardPolicyRecordModule } from '@components/card-policy-record/card-policy-record.module';
 import { CardPolicyTrackerModule } from '@components/card-policy-tracker/card-policy-tracker.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
+import { CardReceiptAppliedModule } from '@components/card-receipt-applied/card-receipt-applied.module';
 import { CardReceiptPaidRecordModule } from '@components/card-receipt-paid-record/card-receipt-paid-record.module';
 import { CardReportedSinisterModule } from '@components/card-reported-sinister/card-reported-sinister.module';
 import { CardSinisterModule } from '@components/card-sinister/card-sinister.module';
@@ -70,6 +71,7 @@ import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowPolicyFileModule } from '@components/modal-show-policy-file/modal-show-policy-file.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
+import { ModalShowReceiptAppliedDetailsModule } from '@components/modal-show-receipt-applied-details/modal-show-receipt-applied-details.module';
 import { ModalShowReactivationEvidenceModule } from '@components/modal-show-reactivation-evidence/modal-show-reactivation-evidence.module';
 import { ModalShowResolutionEvidenceModule } from '@components/modal-show-resolution-evidence/modal-show-resolution-evidence.module';
 import { ModalShowSinisterDetailsModule } from '@components/modal-show-sinister-details/modal-show-sinister-details.module';
@@ -116,6 +118,7 @@ import { ContentListService } from './content-list.service';
     CardPolicyRecordModule,
     CardPolicyTrackerModule,
     CardQuotationModule,
+    CardReceiptAppliedModule,
     CardReceiptPaidRecordModule,
     CardReportedSinisterModule,
     CardSinisterModule,
@@ -170,6 +173,7 @@ import { ContentListService } from './content-list.service';
     ModalShowPolicyDetailsModule,
     ModalShowPolicyFileModule,
     ModalShowQuotationDetailsModule,
+    ModalShowReceiptAppliedDetailsModule,
     ModalShowReactivationEvidenceModule,
     ModalShowResolutionEvidenceModule,
     ModalShowSinisterDetailsModule,

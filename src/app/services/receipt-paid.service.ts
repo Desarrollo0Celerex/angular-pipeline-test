@@ -6,8 +6,8 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { CreateReceiptPaidDataSend } from '@interfaces/create-receipt-paid-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { Payment } from '@interfaces/payment.interface';
 import { RangeStat } from '@interfaces/range-stat.interface';
-import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
 import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
@@ -18,7 +18,9 @@ const routes: any = {
     receiptPaidAux: (workspaceId: string, receiptPaidId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid/'+receiptPaidId,
     totalReceiptsPaid: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid/count',
     appliedPaymentsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/applied-payments',
-    receiptsPaidStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/receipts-paid'
+    receiptsPaidStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/receipts-paid',
+    workspaceReceiptsPaid: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid',
+    workspaceReceiptsAppliedStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid/stats',
 }
 
 @Injectable()
@@ -51,13 +53,11 @@ export class ReceiptPaidService {
         return this._httpClient.delete<void>(route);
     }
 
-    getReceiptPaid(receiptPaidId: string, fields: string = ''): Observable<ReceiptPaid> {
+    getReceiptPaid(receiptPaidId: string, fields: string = ''): Observable<HttpResponse> {
         const route: string = routes.receiptPaidAux(this._workspaceId, receiptPaidId);
         let params: HttpParams = new HttpParams();
         if(!!fields) params = params.append('fields', fields);
-        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
-            map((res: HttpResponse) => { return res.data; })
-        );
+        return this._httpClient.get<HttpResponse>(route, {params});
     }
 
     /**
@@ -76,12 +76,50 @@ export class ReceiptPaidService {
         return this._httpClient.get<HttpResponse>(route, {params});
     }
 
+    getWorkspaceReceiptsPaid(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
+        const route: string = routes.workspaceReceiptsPaid(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!query) params = params.append('search', query);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const payments: Payment[] = res.data.items.map( (payment: Payment) => {
+                        return this._calculatePaymentLifeTime(payment);
+                    })
+                    res.data.items = payments;
+                }
+                return res;
+            })
+        )
+    }
+
     getAppliedPaymentsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
         const route: string = routes.appliedPaymentsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getReceiptsAppliedStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = '') {
+        const route: string = routes.workspaceReceiptsAppliedStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );
@@ -113,6 +151,20 @@ export class ReceiptPaidService {
     updateReceiptPaid(receiptPaidId: string, requestBody: UpdateReceiptPaidDataSend): Observable<void> {
         const route: string = routes.receiptPaidAux(this._workspaceId, receiptPaidId);
         return this._httpClient.put<void>(route, requestBody);
+    }
+
+    private _calculatePaymentLifeTime(payment: Payment): Payment {
+        const paymentAmountPaid: number = parseFloat(payment.paymentAmountPaid.toString());
+        const pendingAmount: number = (!!payment.pendingAmount) ? parseFloat(payment.pendingAmount.toString()) : 0;
+        const paymentAmount: number = (!!payment.paymentAmount) ? parseFloat(payment.paymentAmount.toString()) : 0;
+        let percentage: number = 0;
+        if(!(!!pendingAmount)) {
+            percentage = 100
+        } else {
+            percentage = Math.round(paymentAmountPaid * 100 / paymentAmount);
+        }
+        payment.lifeTime = percentage;
+        return payment;
     }
 
 }

@@ -277,6 +277,10 @@ export const CONTENT_TYPES: any = {
     RENEWED_POLICIES_BY_RANGE: {
         ID: 35,
         NAME: 'Renovación'
+    },
+    RECEIPTS_APPLIED_BY_RANGE: {
+        ID: 36,
+        NAME: 'Recibo'
     }
 }
 export const CONTACT_TYPES: any = {

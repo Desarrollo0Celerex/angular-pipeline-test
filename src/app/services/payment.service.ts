@@ -101,7 +101,7 @@ export class PaymentService {
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         if(!!filters) params = params.append('filter', filters);
-        if(!!query) params = params.append('search', query);if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!query) params = params.append('search', query);
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
