@@ -19,6 +19,7 @@ import * as moment from 'moment';
 
 const routes: any = {
     contactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies',
+    policyTitularInfo: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/titular-info',
     contactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId,
     updateContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/update',
     uploadContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/upload',
@@ -257,6 +258,13 @@ export class PolicyService {
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );
+    }
+
+    getPolicyTitularInfo(contactId: string = '', fields: string = '') {
+        const route: string = routes.policyTitularInfo(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 
     getCancelledPoliciesStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
