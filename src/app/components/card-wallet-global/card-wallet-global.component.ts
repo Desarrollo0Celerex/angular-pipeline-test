@@ -30,8 +30,8 @@ export class CardWalletGlobalComponent implements OnChanges {
         return (!!this.cardWalletGlobalService.contact) ? this.cardWalletGlobalService.contact.currencyName : '';
     }
 
-    get totalActivePolicies(): number {
-        return (!!this.cardWalletGlobalService.contact) ? this.cardWalletGlobalService.contact.totalActivePolicies : 0;
+    get totalCurrentPolicies(): number {
+        return (!!this.cardWalletGlobalService.contact) ? this.cardWalletGlobalService.contact.totalCurrentPolicies : 0;
     }
 
     get totalCancelledPolicies(): number {
@@ -42,8 +42,8 @@ export class CardWalletGlobalComponent implements OnChanges {
         return (!!this.cardWalletGlobalService.contact) ? this.cardWalletGlobalService.contact.totalExpiredPolicies : 0;
     }
 
-    get totalGlobalWallet(): number {
-        return (!!this.cardWalletGlobalService.contact) ? this.cardWalletGlobalService.contact.totalGlobalWallet : 0;
+    get totalGlobalCurrentWallet(): number {
+        return (!!this.cardWalletGlobalService.contact) ? this.cardWalletGlobalService.contact.totalGlobalCurrentWallet : 0;
     }
 
     /**
