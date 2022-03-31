@@ -15,7 +15,7 @@ export class CardWalletGlobalService {
      * @param contactId The contact ID
      */
     loadContact(contactId: string): void {
-        const fields: string = 'totalGlobalCurrentWallet,currencyName,totalCurrentPolicies,totalExpiredPolicies,totalCancelledPolicies';
+        const fields: string = 'totalGlobalCurrentWallet,currencyName,totalActivePolicies,totalExpiredPolicies,totalCancelledPolicies';
         this._contactService.getContact(contactId, fields).subscribe((res: HttpResponse) => {
             this.contact = res.data;
         });
