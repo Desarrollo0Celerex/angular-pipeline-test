@@ -277,9 +277,35 @@ export class CompletePolicyPage implements OnInit {
             ModalPlugin.show(this.modalIdScanningPolicySuccess);
             this._scannedPolicyData = res.data;
             this._reviewPolicyData(policyUrl);
+            this._reviewTitularData();
         }, (error: HttpError) => {
             this._handleScanError(error, policyUrl);
         });
+    }
+
+    private _getTitularMissingFields(): string[] {
+        let titularMissingFields: string[] = [];
+        const data: any = this._scannedPolicyData;
+        for(const field in data) {
+            if(field === 'titularName' || field === 'titularRfc' || field === 'titularPostalCode' || field === 'titularPhoneNumber') {
+                if(data[field] == '') {
+                    titularMissingFields.push(field);
+                }
+            }
+        }
+        return titularMissingFields;
+    }
+
+    private _reviewTitularData(): void {
+        const titularMissingFields: string[] = this._getTitularMissingFields();
+        if(titularMissingFields.length > 0) {
+            this.completePolicyService.getPolicyTitularInfo(this.contactId, titularMissingFields).subscribe((res: HttpResponse) => {
+                this._scannedPolicyData = {
+                    ...this._scannedPolicyData,
+                    ...res.data
+                };
+            });
+        }
     }
 
     private _handleScanError(error: HttpError, policyUrl: string): void {

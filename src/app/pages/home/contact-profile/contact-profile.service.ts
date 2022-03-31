@@ -5,11 +5,13 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContactService } from '@services/contact.service';
 
 import { Contact } from '@interfaces/contact.interface';
+import { AnnualWallet } from '@interfaces/annual-wallet.interface';
 
 @Injectable()
 export class ContactProfileService {
     contact: Contact | null = null;
     totalAnnualWallet: number = 0;
+    annualWallet: AnnualWallet | null = null;
 
     constructor(private _contactService: ContactService) { }
 
@@ -57,7 +59,7 @@ export class ContactProfileService {
      */
     loadTotalAnnualWallet(contactId: string, year: number): void {
         this._contactService.getContactAnnualWallet(contactId, year).subscribe((res: HttpResponse) => {
-            this.totalAnnualWallet = res.data.totalAnnualWallet;
+            this.annualWallet = res.data;
         });
     }
 }

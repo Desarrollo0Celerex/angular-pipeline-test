@@ -52,5 +52,7 @@ export interface Contact {
     protectionRate: number,
     workspaceProtectionRate: number,
     shortName: string,
-    workspaceName: string
+    workspaceName: string,
+    totalGlobalCurrentWallet: number,
+    totalCurrentPolicies: number
 }

@@ -305,6 +305,11 @@ export class CompletePolicyService {
         );
     }
 
+    getPolicyTitularInfo(contactId: string, titularMissingFields: string[]): Observable<HttpResponse> {
+        const fields: string = titularMissingFields.join(',');
+        return this._policyService.getPolicyTitularInfo(contactId, fields);
+    }
+
     scannPolicy(policyFile: any): Observable<HttpResponse> {
         const requestBody: FormData = this._getRequestBodyToScannPolicy(policyFile);
         return this._atomScannService.scannPolicy(requestBody);

@@ -42,8 +42,8 @@ export class CardWalletGlobalComponent implements OnChanges {
         return (!!this.cardWalletGlobalService.contact) ? this.cardWalletGlobalService.contact.totalExpiredPolicies : 0;
     }
 
-    get totalGlobalWallet(): number {
-        return (!!this.cardWalletGlobalService.contact) ? this.cardWalletGlobalService.contact.totalGlobalWallet : 0;
+    get totalGlobalCurrentWallet(): number {
+        return (!!this.cardWalletGlobalService.contact) ? this.cardWalletGlobalService.contact.totalGlobalCurrentWallet : 0;
     }
 
     /**
