@@ -118,14 +118,19 @@
     <!-- AGENTHOS - POLICY FOOTER -->
     <div class="card-footer" *ngIf="canShowFooter">
         <div class="row">
-            <!-- AGENTHOS - POLICY DETAILS -->
-            <div class="col-sm-9 col-9 text-left">
-                <button type="button" class="btn btn-block btn-primary" (click)="onClickShowPolicyDetails()"><strong>VER DETALLES</strong></button>
-            </div>
-            <!-- AGENTHOS - POLICY VIEW -->
-            <div class="col-sm-3 col-3 text-right">
-                <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowPolicy()" [disabled]="!(!!policy.policyUrl)"><i class="fa fa-file-text-o"></i></button>
-            </div>
+            <ng-container *ngIf="isHistoryContent; else containerActions">
+                <button type="button" class="btn btn-block btn-primary" (click)="onClickShowContactProfile()"><strong>VER PERFIL</strong></button>
+            </ng-container>
+            <ng-template #containerActions>
+                <!-- AGENTHOS - POLICY DETAILS -->
+                <div class="col-sm-9 col-9 text-left">
+                    <button type="button" class="btn btn-block btn-primary" (click)="onClickShowPolicyDetails()"><strong>VER DETALLES</strong></button>
+                </div>
+                <!-- AGENTHOS - POLICY VIEW -->
+                <div class="col-sm-3 col-3 text-right">
+                    <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowPolicy()" [disabled]="!(!!policy.policyUrl)"><i class="fa fa-file-text-o"></i></button>
+                </div>
+            </ng-template>
         </div>
     </div>
     <!-- //AGENTHOS - POLICY FOOTER -->

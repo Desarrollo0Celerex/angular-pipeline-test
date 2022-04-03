@@ -21,6 +21,7 @@ const routes: any = {
     contactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies',
     policyTitularInfo: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/titular-info',
     contactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId,
+    lastPercentageIncrease: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/last-percentage-increase',
     updateContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/update',
     uploadContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/upload',
     completeContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/complete',
@@ -291,7 +292,8 @@ export class PolicyService {
         if(!!fields) params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map( (res: HttpResponse) => {
-                const policy: Policy = (fields.includes('lifeTime')) ? this._calculatePolicyLifeTime(res.data) : res.data;
+                let policy: Policy = (fields.includes('lifeTime')) ? this._calculatePolicyLifeTime(res.data) : res.data;
+                policy = (fields.includes('daysLeft')) ? this._calculateDaysLeft(policy) : policy;
                 return { data: this._cleanObject(policy) };
             })
         );
@@ -432,6 +434,15 @@ export class PolicyService {
         if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getLastPercentageIncrease(contactId: string, policyId: string): Observable<number> {
+        const route: string = routes.lastPercentageIncrease(this._workspaceId, contactId, policyId);
+        return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => {
+                return res.data;
+            })
         );
     }
 
@@ -732,6 +743,13 @@ export class PolicyService {
     updatePolicyStatus(policyId: string, requestBody: UpdatePolicyStatusDataSend): Observable<void> {
         const route: string = routes.updatePolicyStatus(this._workspaceId, policyId);
         return this._httpClient.put<void>(route, requestBody);
+    }
+
+    private _calculateDaysLeft(policy: Policy): Policy {
+        const currentDate = moment();
+        const validityEndDate = moment(policy.validityEndDate);
+        policy.daysLeft = (validityEndDate.isAfter(currentDate)) ? validityEndDate.diff(currentDate, 'days') : 0;
+        return policy;
     }
 
     /**

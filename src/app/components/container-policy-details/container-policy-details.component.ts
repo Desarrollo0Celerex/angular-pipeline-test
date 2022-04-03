@@ -140,6 +140,10 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
         })
     }
 
+    onShowContactProfile(contactId: string): void {
+        this._router.navigateByUrl(ROUTES_NAME.contactResume(contactId));
+    }
+
     /**
      * Event to show the modal to confirm show the payment history
      * @param data The data to show the payment history

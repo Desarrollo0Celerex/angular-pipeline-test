@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
+import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalConfirmCancelPolicyModule } from '@components/modal-confirm-cancel-policy/modal-confirm-cancel-policy.module';
 import { ModalConfirmDeletePolicyModule } from '@components/modal-confirm-delete-policy/modal-confirm-delete-policy.module';
 import { ModalConfirmDeleteRenewedPolicyModule } from '@components/modal-confirm-delete-renewed-policy/modal-confirm-delete-renewed-policy.module';
@@ -26,6 +27,7 @@ import { ContainerPolicyDetailsService } from './container-policy-details.servic
   imports: [
     CardPolicyModule,
     CommonModule,
+    LoadingContentModule,
     ModalConfirmCancelPolicyModule,
     ModalConfirmDeletePolicyModule,
     ModalConfirmDeleteRenewedPolicyModule,

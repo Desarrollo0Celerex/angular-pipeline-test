@@ -21,7 +21,7 @@ export class ContainerPolicyDetailsService {
     ) { }
 
     loadPolicy(contactId: string, policyId: string): void {
-        const fields: string = 'policyId,policyStatusId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,paymentPlanName,policyNumber,policyAmount,currencyName,totalAmount,coveredProperty,lifeTime,totalAmountPaid,bills,emissionDate,validityStartDate,validityEndDate,totalEndorsements,totalSinisters,insurerImageUrl,contactId';
+        const fields: string = 'policyId,policyStatusId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,paymentPlanName,policyNumber,policyAmount,currencyName,totalAmount,coveredProperty,lifeTime,totalAmountPaid,bills,emissionDate,validityStartDate,validityEndDate,totalEndorsements,totalSinisters,insurerImageUrl,contactId,titularName,daysLeft,totalRenovations';
         this._policyService.getContactPolicy(contactId, policyId, fields).subscribe( (res: HttpResponse) => {
             this.policy = res.data;
             this.policyComplete = res.data;

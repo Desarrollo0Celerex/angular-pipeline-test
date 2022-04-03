@@ -3,6 +3,26 @@
     [policyId]="policyId">
 </agt-container-policy-details>
 
+<!-- AGENTHOS - POLICY INSIGHTS HEADER -->
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <!-- AGENTHOS - POLICY INSIGHTS TITLE -->
+            <div class="card-header">
+                <h3 class="card-title">Desempeño de Renovaciones</h3>
+            </div>
+            <!-- AGENTHOS - TRACKER CONTROL HEADER -->
+        </div>
+    </div>
+    <div class="col-12">
+        <agt-alert-unusual-policy-increase
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-alert-unusual-policy-increase>
+    </div>
+</div>
+<!-- //AGENTHOS - POLICY INSIGHTS HEADER -->
+
 <agt-container-policy-tracker-manager
     [contactId]="contactId"
     [policyId]="policyId">

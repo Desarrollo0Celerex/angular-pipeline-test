@@ -27,6 +27,7 @@ export class CardPolicyComponent implements OnInit {
     @Output() endorsePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() reissuePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() renewPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
+    @Output() showContactProfile: EventEmitter<string> = new EventEmitter<string>();
     @Output() showHistoryPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() showPaymentHistory: EventEmitter<PaymentDataSend> = new EventEmitter<PaymentDataSend>();
     @Output() showPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
@@ -107,6 +108,10 @@ export class CardPolicyComponent implements OnInit {
             contactId: this.policy.contactId,
             policyId: this.policy.policyId
         });
+    }
+
+    onClickShowContactProfile(): void {
+        if(!!this.policy) this.showContactProfile.emit(this.policy.contactId);
     }
 
     /**
