@@ -39,6 +39,7 @@ const routes: any = {
     updatePolicyStatus: (workspaceId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/' + policyId + '/policy-status',
     totalWorkspacePolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/count',
     policyTracker: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/tracker',
+    policyTrackerAmounts: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/tracker/amounts',
     policyTrackerInsurers: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/tracker/insurers',
     groupPolicies: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/policies',
     partnerPolicies: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/policies',
@@ -637,6 +638,11 @@ export class PolicyService {
 
     getPolicyTrackerInsurers(contactId: string, policyId: string): Observable<HttpResponse> {
         const route: string = routes.policyTrackerInsurers(this._workspaceId, contactId, policyId);
+        return this._httpClient.get<HttpResponse>(route);
+    }
+
+    getPolicyTrackerAmounts(contactId: string, policyId: string): Observable<HttpResponse> {
+        const route: string = routes.policyTrackerAmounts(this._workspaceId, contactId, policyId);
         return this._httpClient.get<HttpResponse>(route);
     }
 

@@ -34,8 +34,40 @@ var StatsTrackerPlugin = function() {
         document.getElementById('agt-stats-tracker-insurers').innerHTML = '';
     }
 
+    function drawChartTrackerAmounts(chartData) {
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            console.log('data: ',data);
+            var data = google.visualization.arrayToDataTable(chartData);
+
+            var options = {
+              chartArea:{left:80,top:18,width:'88%',height:'68%'},
+              vAxis:{"minValue":0,"format":"currency"},
+              axisTitlesPosition:"in",
+              legend:{"position":"none"},
+              crosshair:{"trigger":"both","color":"#ec4178","opacity":0.8},
+              tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+              animation:{"duration":2888,"easing":"inAndOut","startup":true},
+              colors:["#6c5ce8"],
+            };
+
+            var chart = new google.visualization.AreaChart(document.getElementById('agt-stats-tracker-amounts'));
+            chart.draw(data, options);
+        }
+    }
+
+    function removeChartTrackerAmounts() {
+        document.getElementById('agt-stats-tracker-amounts').innerHTML = '';
+    }
+
     return {
         drawChartTrackerInsurers,
         removeChartTrackerInsurers,
+        drawChartTrackerAmounts,
+        removeChartTrackerAmounts,
     }
 }();
