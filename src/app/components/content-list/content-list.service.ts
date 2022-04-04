@@ -662,7 +662,7 @@ export class ContentListService {
     loadPolicyTracker(contactId: string, policyId: string, page: number): Observable<void> {
         const fields: string = 'policyId,insurerImageUrl,currencyName,policyAmount,policyNumber,validityStartDate,validityEndDate,policyStatusBackground,policyStatusName,policyStatusDescription';
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED, POLICY_STATUS.CANCELLED]);
-        return this._policyService.getPolicyTracker(contactId, policyId, page, fields, filters).pipe(
+        return this._policyService.getPolicyTracker(contactId, policyId, fields, filters, page).pipe(
             tap((res: HttpResponse) => {
                 const policies: Policy[] = res.data.items;
                 this.contents = this.contents.concat(policies);

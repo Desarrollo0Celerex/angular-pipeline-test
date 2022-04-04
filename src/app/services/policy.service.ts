@@ -39,6 +39,7 @@ const routes: any = {
     updatePolicyStatus: (workspaceId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/' + policyId + '/policy-status',
     totalWorkspacePolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/count',
     policyTracker: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/tracker',
+    policyTrackerInsurers: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/tracker/insurers',
     groupPolicies: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/policies',
     partnerPolicies: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/policies',
     workspacePendingRenewals: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending',
@@ -623,14 +624,20 @@ export class PolicyService {
      * @param  fields    The fields to get
      * @return           The history policy
      */
-    getPolicyTracker(contactId: string, policyId: string, page: number = 1, fields: string = '', filters: string = ''): Observable<HttpResponse> {
+    getPolicyTracker(contactId: string, policyId: string, fields: string = '', filters: string = '', page: number = 1, perPage: number = 12): Observable<HttpResponse> {
         const route: string = routes.policyTracker(this._workspaceId, contactId, policyId);
         let params: HttpParams = new HttpParams();
-        params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         if(!!filters) params = params.append('filter', filters);
         params = params.append('sortBy', 'validityStartDate');
+        params = params.append('page', page.toString());
+        params = params.append('perPage', perPage.toString());
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    getPolicyTrackerInsurers(contactId: string, policyId: string): Observable<HttpResponse> {
+        const route: string = routes.policyTrackerInsurers(this._workspaceId, contactId, policyId);
+        return this._httpClient.get<HttpResponse>(route);
     }
 
     /**
