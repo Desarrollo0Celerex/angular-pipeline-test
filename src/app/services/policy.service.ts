@@ -21,6 +21,7 @@ const routes: any = {
     contactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies',
     policyTitularInfo: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/titular-info',
     contactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId,
+    lastPercentageIncrease: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/last-percentage-increase',
     updateContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/update',
     uploadContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/upload',
     completeContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/complete',
@@ -38,6 +39,8 @@ const routes: any = {
     updatePolicyStatus: (workspaceId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/' + policyId + '/policy-status',
     totalWorkspacePolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/count',
     policyTracker: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/tracker',
+    policyTrackerAmounts: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/tracker/amounts',
+    policyTrackerInsurers: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/tracker/insurers',
     groupPolicies: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/policies',
     partnerPolicies: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/policies',
     workspacePendingRenewals: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending',
@@ -291,7 +294,8 @@ export class PolicyService {
         if(!!fields) params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map( (res: HttpResponse) => {
-                const policy: Policy = (fields.includes('lifeTime')) ? this._calculatePolicyLifeTime(res.data) : res.data;
+                let policy: Policy = (fields.includes('lifeTime')) ? this._calculatePolicyLifeTime(res.data) : res.data;
+                policy = (fields.includes('daysLeft')) ? this._calculateDaysLeft(policy) : policy;
                 return { data: this._cleanObject(policy) };
             })
         );
@@ -432,6 +436,15 @@ export class PolicyService {
         if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getLastPercentageIncrease(contactId: string, policyId: string): Observable<number> {
+        const route: string = routes.lastPercentageIncrease(this._workspaceId, contactId, policyId);
+        return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => {
+                return res.data;
+            })
         );
     }
 
@@ -612,14 +625,25 @@ export class PolicyService {
      * @param  fields    The fields to get
      * @return           The history policy
      */
-    getPolicyTracker(contactId: string, policyId: string, page: number = 1, fields: string = '', filters: string = ''): Observable<HttpResponse> {
+    getPolicyTracker(contactId: string, policyId: string, fields: string = '', filters: string = '', page: number = 1, perPage: number = 12): Observable<HttpResponse> {
         const route: string = routes.policyTracker(this._workspaceId, contactId, policyId);
         let params: HttpParams = new HttpParams();
-        params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         if(!!filters) params = params.append('filter', filters);
         params = params.append('sortBy', 'validityStartDate');
+        params = params.append('page', page.toString());
+        params = params.append('perPage', perPage.toString());
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    getPolicyTrackerInsurers(contactId: string, policyId: string): Observable<HttpResponse> {
+        const route: string = routes.policyTrackerInsurers(this._workspaceId, contactId, policyId);
+        return this._httpClient.get<HttpResponse>(route);
+    }
+
+    getPolicyTrackerAmounts(contactId: string, policyId: string): Observable<HttpResponse> {
+        const route: string = routes.policyTrackerAmounts(this._workspaceId, contactId, policyId);
+        return this._httpClient.get<HttpResponse>(route);
     }
 
     /**
@@ -732,6 +756,13 @@ export class PolicyService {
     updatePolicyStatus(policyId: string, requestBody: UpdatePolicyStatusDataSend): Observable<void> {
         const route: string = routes.updatePolicyStatus(this._workspaceId, policyId);
         return this._httpClient.put<void>(route, requestBody);
+    }
+
+    private _calculateDaysLeft(policy: Policy): Policy {
+        const currentDate = moment();
+        const validityEndDate = moment(policy.validityEndDate);
+        policy.daysLeft = (validityEndDate.isAfter(currentDate)) ? validityEndDate.diff(currentDate, 'days') : 0;
+        return policy;
     }
 
     /**

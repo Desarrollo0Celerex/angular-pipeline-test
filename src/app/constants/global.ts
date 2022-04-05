@@ -89,6 +89,10 @@ export const PAYMENT_STATUS: any = {
     OVERDUE: 4,
     PAID: 5
 }
+export const PAYMENT_PLANS: any = {
+    SINGLE_PAYMENT: 1,
+    ANNUAL: 5,
+}
 export const SINISTER_STATUS: any = {
     RECENT: 1,
     PENDING: 2,
@@ -204,7 +208,7 @@ export const CONTENT_TYPES: any = {
     },
     POLICY_TRACKER: {
         ID: 17,
-        NAME: 'Póliza'
+        NAME: 'Renovación'
     },
     GROUP: {
         ID: 18,

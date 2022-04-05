@@ -17,6 +17,7 @@ export class ContainerPolicyTrackerManagerComponent implements OnChanges {
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
     modalIdConfirmEndorsePolicy: string = 'modal-confirm-endorse-policy';
     modalIdConfirmLinkPolicy: string = 'modal-confirm-link-policy';
+    modalIdConfirmShowPolicyHistory: string = 'modal-confirm-show-policy-history';
 
     constructor(
         private _containerPolicyTrackerManagerService: ContainerPolicyTrackerManagerService
@@ -32,6 +33,10 @@ export class ContainerPolicyTrackerManagerComponent implements OnChanges {
 
     showPolicy(): void {
         ModalPlugin.show(this.modalIdShowPolicyFile);
+    }
+
+    confirmShowPolicyHistory(): void {
+        ModalPlugin.show(this.modalIdConfirmShowPolicyHistory);
     }
 
     confirmLinkPolicy(): void {

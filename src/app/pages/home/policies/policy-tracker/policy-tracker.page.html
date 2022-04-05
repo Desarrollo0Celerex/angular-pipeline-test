@@ -3,6 +3,47 @@
     [policyId]="policyId">
 </agt-container-policy-details>
 
+<!-- AGENTHOS - POLICY INSIGHTS HEADER -->
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <!-- AGENTHOS - POLICY INSIGHTS TITLE -->
+            <div class="card-header">
+                <h3 class="card-title">Desempeño de Renovaciones</h3>
+            </div>
+            <!-- AGENTHOS - TRACKER CONTROL HEADER -->
+        </div>
+    </div>
+    <div class="col-12">
+        <agt-alert-unusual-policy-increase
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-alert-unusual-policy-increase>
+    </div>
+</div>
+<!-- //AGENTHOS - POLICY INSIGHTS HEADER -->
+
+<!-- AGENTHOS - POLICY INSIGHTS -->
+<div class="row">
+    <!-- AGENTHOS - POLICY TRACKER INSURERS -->
+    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-3">
+        <agt-chart-policy-tracker-insurers
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-chart-policy-tracker-insurers>
+    </div>
+    <!-- //AGENTHOS - POLICY TRACKER INSURERS -->
+    <!-- AGENTHOS - POLICY LIFETIME AMOUNTS -->
+    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-9">
+        <agt-chart-policy-tracker-amounts
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-chart-policy-tracker-amounts>
+    </div>
+    <!-- //AGENTHOS - POLICY LIFETIME AMOUNTS -->
+</div>
+<!-- //AGENTHOS - POLICY INSIGHTS -->
+
 <agt-container-policy-tracker-manager
     [contactId]="contactId"
     [policyId]="policyId">
@@ -14,5 +55,5 @@
     [contactId]="contactId"
     [policyId]="policyId"
     [contentSubtype]="DEFAULT_CONTENT_FILTER_ID"
-    contentSubtypeName="Enlazada">
+    contentSubtypeName="Registrada">
 </agt-content-list>

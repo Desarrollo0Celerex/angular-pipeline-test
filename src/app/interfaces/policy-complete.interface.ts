@@ -37,4 +37,6 @@ export interface PolicyComplete {
     totalSinisters: number,
     paymentAmount: number,
     paymentAmountPaid: number,
+    daysLeft: number,
+    totalRenovations: number
 }

@@ -35,5 +35,6 @@ export interface Payment {
     feePay: number,
     coverPay: number,
     extraPay: number,
-    paymentPlanReceips: number
+    paymentPlanReceips: number,
+    paymentPlanId: number
 }

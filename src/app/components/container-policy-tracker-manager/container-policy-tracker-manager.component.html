@@ -1,26 +1,28 @@
-<!-- AGENTHOS - ENDORSEMENTS CONTROL -->
+<!-- AGENTHOS - TRACKER CONTROL -->
 <div class="row mt-5">
-    <div class="col-lg-12">
+    <div class="col-12">
         <div class="card">
-            <!-- AGENTHOS - ENDORSEMENTS CONTROL HEADER -->
+            <!-- AGENTHOS - TRACKER CONTROL HEADER -->
             <div class="card-header">
-                <h3 class="card-title">Gestión de Enlaces</h3>
+                <h3 class="card-title">Gestión de Renovaciones</h3>
             </div>
-            <!-- AGENTHOS - ENDORSEMENTS CONTROL HEADER -->
-            <!-- AGENTHOS - ENDORSEMENTS CONTROL BODY -->
+            <!-- AGENTHOS - TRACKER CONTROL HEADER -->
+            <!-- AGENTHOS - TRACKER CONTROL BODY -->
             <div class="card-body">
-                <div class="btn-list mt-3">
+                <div class="btn-list">
                     <!-- AGENTHOS - POLICY VIEW -->
                     <button type="button" class="btn btn-secondary" (click)="showPolicy()" [disabled]="model.policy == null"><strong>VER PÓLIZA</strong></button>
+                    <!-- AGENTHOS - POLICY RECORD -->
+                    <button type="button" class="btn btn-primary" (click)="confirmShowPolicyHistory()"><strong>VER HISTORIAL</strong></button>
                     <!-- AGENTHOS - POLICY ENDORSEMENT -->
                     <button type="button" class="btn btn-primary" (click)="confirmLinkPolicy()"><strong>ENLAZAR PÓLIZA</strong></button>
                 </div>
             </div>
-            <!-- //AGENTHOS - ENDORSEMENTS CONTROL BODY -->
+            <!-- //AGENTHOS - TRACKER CONTROL BODY -->
         </div>
     </div>
 </div>
-<!-- //AGENTHOS - ENDORSEMENTS CONTROL -->
+<!-- //AGENTHOS - TRACKER CONTROL -->
 
 <ng-container *ngIf="!!model.policy">
     <agt-modal-show-policy-file [modalId]="modalIdShowPolicyFile" [policyUrl]="model.policy.policyUrl"></agt-modal-show-policy-file>
@@ -32,4 +34,10 @@
         [tracker]="model.policy.tracker"
         >
     </agt-modal-confirm-link-policy>
+
+    <agt-modal-confirm-show-history-policy
+        [modalId]="modalIdConfirmShowPolicyHistory"
+        [contactId]="contactId"
+        [policyId]="policyId"
+    ></agt-modal-confirm-show-history-policy>
 </ng-container>
