@@ -204,7 +204,7 @@ export const CONTENT_TYPES: any = {
     },
     POLICY_TRACKER: {
         ID: 17,
-        NAME: 'Póliza'
+        NAME: 'Renovación'
     },
     GROUP: {
         ID: 18,

@@ -861,6 +861,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.GROUP.ID:
             case CONTENT_TYPES.GROUP_MEMBER.ID:
             case CONTENT_TYPES.GROUP_POLICY.ID:
+            case CONTENT_TYPES.POLICY_TRACKER.ID:
             case CONTENT_TYPES.GROUP_SINISTER.ID:
             case CONTENT_TYPES.PARTNER.ID:
             case CONTENT_TYPES.PARTNER_CLIENT.ID:
@@ -874,7 +875,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.CONTACT_FILE.ID:
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
-            case CONTENT_TYPES.POLICY_TRACKER.ID:
             case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
                 this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-3';
             break;
@@ -1277,6 +1277,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID:
                 case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
                 case CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID:
+                case CONTENT_TYPES.POLICY_TRACKER.ID:
                     canShow = true;
                 break;
             }

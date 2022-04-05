@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -11,10 +11,11 @@ declare var ModalPlugin: any;
   styles: [
   ]
 })
-export class ModalConfirmShowHistoryPolicyComponent {
+export class ModalConfirmShowHistoryPolicyComponent implements OnChanges {
     @Input() contactId: string;
     @Input() modalId: string;
     @Input() policyId: string;
+    private _policyId: string = '';
 
     constructor(private _router: Router) {
         this.contactId = '';
@@ -22,12 +23,19 @@ export class ModalConfirmShowHistoryPolicyComponent {
         this.policyId = '';
     }
 
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if(!!changes.policyId && !!changes.policyId.currentValue) {
+            this._policyId = changes.policyId.currentValue;
+        }
+    }
+
     /**
      * click event to confirm show the history policy
      */
     onClickConfirmShowHistoryPolicy(): void {
         ModalPlugin.hide(this.modalId);
-        this._router.navigateByUrl(ROUTES_NAME.showHistoryPolicy(this.contactId, this.policyId));
+        this._router.navigateByUrl(ROUTES_NAME.showHistoryPolicy(this.contactId, this._policyId));
     }
 
 }

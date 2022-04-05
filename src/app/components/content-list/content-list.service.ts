@@ -660,7 +660,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPolicyTracker(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'policyId,insurerImageUrl,currencyName,policyAmount,policyNumber,validityStartDate,validityEndDate,policyStatusBackground,policyStatusName,policyStatusDescription';
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,groupId,paymentId,policyCancellationReasonId,contactId';
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED, POLICY_STATUS.CANCELLED]);
         return this._policyService.getPolicyTracker(contactId, policyId, fields, filters, page).pipe(
             tap((res: HttpResponse) => {

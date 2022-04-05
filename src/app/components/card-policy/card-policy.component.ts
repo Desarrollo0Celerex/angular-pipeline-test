@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 
-import { POLICY_STATUS, CANCELLATION_REASONS, ROLES, SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY } from '@constants/global';
+import { POLICY_STATUS, CANCELLATION_REASONS, ROLES, SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY, CONTENT_TYPES } from '@constants/global';
 
 import { Policy } from '@interfaces/policy.interface';
 import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
@@ -19,8 +19,11 @@ declare var PopoverPlugin: any;
 })
 export class CardPolicyComponent implements OnInit {
     @Input() policy: Policy | null;
+    @Input() contentType: number = 0;
     @Input() canShowFooter: boolean;
     @Input() isHistoryContent: boolean;
+    @Input() selectedPolicyPos: number = 0;
+    @Input() policyPos: number = 0;
     @Output() cancelPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() completePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() deletePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
@@ -36,6 +39,7 @@ export class CardPolicyComponent implements OnInit {
     @Output() updatePolicy: EventEmitter<ContactPolicyData>  = new EventEmitter<ContactPolicyData>();;
     CANCELLATION_REASONS: any = CANCELLATION_REASONS;
     POLICY_STATUS: any = POLICY_STATUS;
+    CONTENT_TYPES: any = CONTENT_TYPES;
     isInTime: boolean = false;
 
     constructor(private _authService: AuthService) {

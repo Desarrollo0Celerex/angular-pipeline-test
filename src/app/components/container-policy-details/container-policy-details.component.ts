@@ -29,7 +29,7 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
     modalIdConfirmEndorsePolicy: string = 'agt-confirm-endorse-policy';
     modalIdConfirmReissuePolicy: string = 'agt-confirm-reissue-policy';
     modalIdConfirmRenewPolicy: string = 'agt-confirm-renew-policy';
-    modalIdConfirmShowHistoryPolicy: string = 'agt-confitm-show-history-policy';
+    modalIdConfirmShowHistoryPolicy: string = 'agt-confirm-show-history-policy-02';
     modalIdConfirmShowPaymentHistory: string = 'agt-confirm-show-payment-history';
     modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
     modalIdConfirmUpdatePolicy: string = 'agt-confirm-update-policy';

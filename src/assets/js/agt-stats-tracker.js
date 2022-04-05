@@ -41,7 +41,6 @@ var StatsTrackerPlugin = function() {
         });
 
         function drawChart(chartData) {
-            console.log('data: ',data);
             var data = google.visualization.arrayToDataTable(chartData);
 
             var options = {
