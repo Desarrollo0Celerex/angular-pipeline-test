@@ -114,7 +114,7 @@ export class ValidatorsHelper {
      */
     static freeText(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = /^[&a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ,.:;\-\"()¿?¡!_ ]{3,1000}$/;
+            const regex = /^[&a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ,.:;\-\"()¿?¡!_/ ]{3,1000}$/;
             const value = control.value;
             return (!regex.test(value)) ? {freeText: true} : null;
         }

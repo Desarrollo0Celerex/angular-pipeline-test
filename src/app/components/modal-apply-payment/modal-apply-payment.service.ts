@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
+import { PAYMENT_PLANS } from '@constants/global';
 import { CreateReceiptPaidDataSend } from '@interfaces/create-receipt-paid-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
@@ -56,7 +57,7 @@ export class ModalApplyPaymentService {
      * @return           Notice of action done
      */
     loadPayment(paymentId: string): Observable<void> {
-        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,titularName,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay,paymentPlanReceips';
+        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,titularName,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay,paymentPlanReceips,paymentPlanId';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap( (res: HttpResponse) => {
                 this.payment = res.data;
@@ -65,13 +66,14 @@ export class ModalApplyPaymentService {
         )
     }
 
-    private _calculateFirstPaymentAmount(paymentPlanReceips: number, netPay: number, taxPay: number, feePay: number, coverPay: number, extraPay: number): number {
-        let paymentAmount: number =
+    private _calculateFirstPaymentAmount(paymentPlanReceips: number, netPay: number, feePay: number, coverPay: number, extraPay: number): number {
+        let sumPayments: number =
             (parseFloat(netPay.toString()) / paymentPlanReceips) +
-            (parseFloat(taxPay.toString()) / paymentPlanReceips) +
             (parseFloat(feePay.toString()) / paymentPlanReceips) +
             (parseFloat(extraPay.toString()) / paymentPlanReceips) +
             parseFloat(coverPay.toString());
+        const taxes: number = sumPayments * 0.16;
+        const paymentAmount = sumPayments + taxes;
         return paymentAmount;
     }
 
@@ -83,8 +85,8 @@ export class ModalApplyPaymentService {
         let formattedPaymentAmount: string = '';
         if(!!this.payment) {
             let receiptsAmount: number = 0;
-            receiptsAmount = (this.payment.tickets === 0)
-                ? this._calculateFirstPaymentAmount(this.payment.paymentPlanReceips, this.payment.netPay, this.payment.taxPay, this.payment.feePay, this.payment.coverPay, this.payment.extraPay)
+            receiptsAmount = (this.payment.tickets === 0 && this.payment.paymentPlanId != PAYMENT_PLANS.SINGLE_PAYMENT && this.payment.paymentPlanId != PAYMENT_PLANS.ANNUAL)
+                ? this._calculateFirstPaymentAmount(this.payment.paymentPlanReceips, this.payment.netPay, this.payment.feePay, this.payment.coverPay, this.payment.extraPay)
                 : this.payment.pendingAmount / this.payment.pendingReceipts;
             formattedPaymentAmount = this._currencyPipe.transform(receiptsAmount, '', '', '0.2-2') || '';
         }
