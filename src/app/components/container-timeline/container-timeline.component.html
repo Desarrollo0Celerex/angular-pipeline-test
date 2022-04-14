@@ -15,6 +15,11 @@
     [contactId]="contactId"
     [policyId]="policyId">
 </agt-container-policy-manager>
+<agt-alert-unusual-reported-sinisters
+    *ngIf="contentType == CONTENT_TYPES.HISTORY_POLICY.ID"
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-alert-unusual-reported-sinisters>
 
 <agt-container-policy-endorsements-manager
     *ngIf="contentType == CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID"

@@ -271,7 +271,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             this._loadingService.hide();
             AlertHelper.contactDeleted();
             const url: string = this._router.url.split('?')[0] ;
-            this._reloadPage(url);
+            //const url: string = this._router.url;
+            const queryParams = this.sortParams(this._router.url);
+            this._reloadPage(url, queryParams);
         })
     }
 
@@ -1304,16 +1306,28 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         context._initContent();
     }
 
-    private _reloadPage(pageUrl: string): void {
+    private _reloadPage(pageUrl: string, queryParams: any = {}): void {
         this._router.routeReuseStrategy.shouldReuseRoute = () => false;
         this._router.onSameUrlNavigation = 'reload';
-        this._router.navigate(['/' + pageUrl], { relativeTo: this._activatedRoute });
+        this._router.navigate(['/' + pageUrl], { relativeTo: this._activatedRoute, queryParams });
     }
 
     private _reloadPageAux(context: ContentListComponent, pageUrl: string): void {
         context._router.routeReuseStrategy.shouldReuseRoute = () => false;
         context._router.onSameUrlNavigation = 'reload';
         context._router.navigate(['/' + pageUrl], { relativeTo: context._activatedRoute });
+    }
+
+    private sortParams(link: string) {
+        let queryParams = link.split('?')[1];
+        let params = queryParams.split('&');
+        let pair = null;
+        let data: any = {};
+        params.forEach((d) => {
+          pair = d.split('=');
+          data[`${pair[0]}`] = pair[1].replace('%20', ' ');
+        });
+        return data;
     }
 
 }
