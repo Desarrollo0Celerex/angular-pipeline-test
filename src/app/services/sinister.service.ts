@@ -21,6 +21,7 @@ const routes: any = {
     groupSinisters: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/sinisters',
     partnerSinisters: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/sinisters',
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
+    policySinistersStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinister-statistics',
     policySinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId,
     finalizeSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/finalize',
     reactivateSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/reactivate',
@@ -179,6 +180,11 @@ export class SinisterService {
         let params: HttpParams = new HttpParams();
         if(!!fields) params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    getPolicySinisterStatistics(contactId: string, policyId: string): Observable<HttpResponse> {
+        const route: string = routes.policySinistersStatistics(this._workspaceId, contactId, policyId);
+        return this._httpClient.get<HttpResponse>(route);
     }
 
     /**
