@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { CONTENT_TYPES } from '@constants/global';
+import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 
 @Component({
   selector: 'agt-show-history-policy',
@@ -14,6 +14,8 @@ export class ShowHistoryPolicyPage implements OnInit, OnDestroy {
     policyId: string = '';
     contentType: number = CONTENT_TYPES.HISTORY_POLICY.ID;
     contentTypeName: string = CONTENT_TYPES.HISTORY_POLICY.NAME;
+    contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
+    contentSubtypeName: string = 'Registrado';
     private _subParams: any;
 
     constructor(private _activatedRoute: ActivatedRoute) { }

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 
-import { PolicyService } from '@services/policy.service';
+import { BusinessIntelligenceService } from '@services/business-intelligence.service';
 
 @Injectable()
 export class AlertUnusualPolicyIncreaseService {
     lastPercentageIncrease: number = 0;
 
-    constructor(private policyService: PolicyService) { }
+    constructor(private businessIntelligenceService: BusinessIntelligenceService) { }
 
     loadLastPercentageIncrease(contactId: string, policyId: string): void {
-        this.policyService.getLastPercentageIncrease(contactId, policyId).subscribe((res: number) => {
+        this.businessIntelligenceService.getLastPercentageIncrease(contactId, policyId).subscribe((res: number) => {
             this.lastPercentageIncrease = res;
         })
     }

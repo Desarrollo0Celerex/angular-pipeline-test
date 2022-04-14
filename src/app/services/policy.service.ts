@@ -63,8 +63,6 @@ const routes: any = {
     endorsePolicyWithIncrement: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-increment',
     workspaceActivePoliciesReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/reports/actives',
     workspacePolicyStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/stats',
-    lastPercentageIncrease: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/last-percentage-increase',
-    reportedSinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/reported-sinisters',
 }
 
 @Injectable()
@@ -437,24 +435,6 @@ export class PolicyService {
         if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
-        );
-    }
-
-    getLastPercentageIncrease(contactId: string, policyId: string): Observable<number> {
-        const route: string = routes.lastPercentageIncrease(this._workspaceId, contactId, policyId);
-        return this._httpClient.get<HttpResponse>(route).pipe(
-            map((res: HttpResponse) => {
-                return res.data;
-            })
-        );
-    }
-
-    getReportedSinisters(contactId: string, policyId: string): Observable<number> {
-        const route: string = routes.reportedSinisters(this._workspaceId, contactId, policyId);
-        return this._httpClient.get<HttpResponse>(route).pipe(
-            map((res: HttpResponse) => {
-                return res.data;
-            })
         );
     }
 

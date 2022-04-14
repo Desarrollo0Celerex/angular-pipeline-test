@@ -1,1 +1,44 @@
-<agt-container-timeline [contactId]="contactId" [policyId]="policyId" [contentType]="contentType" [contentTypeName]="contentTypeName"></agt-container-timeline>
+<agt-container-policy-details
+    [contactId]="contactId"
+    [policyId]="policyId">
+</agt-container-policy-details>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <!-- AGENTHOS - POLICY INSIGHTS TITLE -->
+            <div class="card-header">
+                <h3 class="card-title">Desempeño de Póliza</h3>
+            </div>
+            <!-- AGENTHOS - TRACKER CONTROL HEADER -->
+        </div>
+    </div>
+    <div class="col-12">
+        <agt-alert-unusual-reported-sinisters
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-alert-unusual-reported-sinisters>
+    </div>
+    <div class="col-12">
+        <agt-alert-unusual-added-endorsements
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-alert-unusual-added-endorsements>
+    </div>
+</div>
+
+<agt-container-policy-manager
+    [contactId]="contactId"
+    [policyId]="policyId">
+</agt-container-policy-manager>
+
+
+
+<agt-content-list
+    [contentType]="contentType"
+    [contentTypeName]="contentTypeName"
+    [contactId]="contactId"
+    [policyId]="policyId"
+    [contentSubtype]="contentSubtype"
+    [contentSubtypeName]="contentSubtypeName">
+</agt-content-list>
