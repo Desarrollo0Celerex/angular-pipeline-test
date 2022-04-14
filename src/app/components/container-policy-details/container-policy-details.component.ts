@@ -152,6 +152,7 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
         this.selectedContactId = data.contactId;
         this.selectedPolicyId = data.policyId;
         this.selectedPaymentId = data.paymentId;
+        console.log('data: ',data);
         ModalPlugin.show(this.modalIdConfirmShowPaymentHistory);
     }
 

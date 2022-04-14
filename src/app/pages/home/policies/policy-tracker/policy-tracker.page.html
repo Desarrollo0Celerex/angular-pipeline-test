@@ -14,12 +14,11 @@
             <!-- AGENTHOS - TRACKER CONTROL HEADER -->
         </div>
     </div>
-    <div class="col-12">
-        <agt-alert-unusual-policy-increase
-            [contactId]="contactId"
-            [policyId]="policyId"
-        ></agt-alert-unusual-policy-increase>
-    </div>
+    <agt-alert-unusual-policy-increase
+        [ngStyle]="{'width': '100%'}"
+        [contactId]="contactId"
+        [policyId]="policyId"
+    ></agt-alert-unusual-policy-increase>
 </div>
 <!-- //AGENTHOS - POLICY INSIGHTS HEADER -->
 

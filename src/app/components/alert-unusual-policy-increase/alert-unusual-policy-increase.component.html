@@ -1,6 +1,8 @@
-<div class="alert alert-avatar alert-primary alert-dismissible mb-3" *ngIf="model.lastPercentageIncrease > 0">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-    <strong>Business Intelligence</strong> <hr class="message-inner-separator">
-    <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-    <p><strong>Alerta</strong>: La prima presenta un incremento inusual del <strong>{{model.lastPercentageIncrease}}%</strong>, considera comparar con otras aseguradoras para la siguiente renovación.</p>
+<div class="col-12" *ngIf="model.lastPercentageIncrease > 0">
+    <div class="alert alert-avatar alert-primary alert-dismissible mb-3">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <strong>Business Intelligence</strong> <hr class="message-inner-separator">
+        <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+        <p><strong>Alerta</strong>: La prima presenta un incremento inusual del <strong>{{model.lastPercentageIncrease}}%</strong>, considera comparar con otras aseguradoras para la siguiente renovación.</p>
+    </div>
 </div>

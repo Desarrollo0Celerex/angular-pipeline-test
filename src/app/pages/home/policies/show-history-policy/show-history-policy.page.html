@@ -13,26 +13,96 @@
             <!-- AGENTHOS - TRACKER CONTROL HEADER -->
         </div>
     </div>
-    <div class="col-12">
-        <agt-alert-unusual-reported-sinisters
-            [contactId]="contactId"
-            [policyId]="policyId"
-        ></agt-alert-unusual-reported-sinisters>
-    </div>
-    <div class="col-12">
-        <agt-alert-unusual-added-endorsements
-            [contactId]="contactId"
-            [policyId]="policyId"
-        ></agt-alert-unusual-added-endorsements>
-    </div>
+    <agt-alert-unusual-reported-sinisters
+        [ngStyle]="{'width': '100%'}"
+        [contactId]="contactId"
+        [policyId]="policyId"
+    ></agt-alert-unusual-reported-sinisters>
+    <agt-alert-unusual-added-endorsements
+        [ngStyle]="{'width': '100%'}"
+        [contactId]="contactId"
+        [policyId]="policyId"
+    ></agt-alert-unusual-added-endorsements>
+    <agt-alert-unusual-late-payments
+        [ngStyle]="{'width': '100%'}"
+        [contactId]="contactId"
+        [policyId]="policyId"
+    ></agt-alert-unusual-late-payments>
+    <agt-alert-unusual-policy-increase
+        [ngStyle]="{'width': '100%'}"
+        [contactId]="contactId"
+        [policyId]="policyId"
+    ></agt-alert-unusual-policy-increase>
 </div>
+
+<!-- AGENTHOS - POLICY INSIGHTS -->
+<div class="row">
+
+    <!-- AGENTHOS - POLICY RECORD SINISTERS -->
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+        <div class="card">
+            <div class="card-header pt-2 pb-0 border-bottom-0">
+                <h3 class="card-title">Siniestros</h3>
+                <div class="card-options">
+                    <i data-toggle="popover" data-placement="left" class="fe fe-help-circle fs-20 text-primary" data-content="Siniestros reportados en la póliza." data-original-title="" title=""></i>
+                </div>
+            </div>
+            <!-- AGENTHOS - POLICY SINISTERS -->
+            <div id="agtPolicyRecordSinisters"></div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - POLICY RECORD SINISTERS -->
+
+    <!-- AGENTHOS - POLICY RECORD ENDORSEMENTS -->
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+        <div class="card">
+            <div class="card-header pt-2 pb-0 border-bottom-0">
+                <h3 class="card-title">Endosos</h3>
+                <div class="card-options">
+                    <i data-toggle="popover" data-placement="left" class="fe fe-help-circle fs-20 text-primary" data-content="Endosos aplicados a la póliza." data-original-title="" title=""></i>
+                </div>
+            </div>
+            <!-- AGENTHOS - POLICY ENDORSEMENTS -->
+            <div id="agtPolicyRecordEndorsements"></div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - POLICY RECORD ENDORSEMENTS -->
+
+    <!-- AGENTHOS - POLICY RECORD RECEIPTS -->
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+        <div class="card">
+            <div class="card-header pt-2 pb-0 border-bottom-0">
+                <h3 class="card-title">Recibos</h3>
+                <div class="card-options">
+                    <i data-toggle="popover" data-placement="left" class="fe fe-help-circle fs-20 text-primary" data-content="Recibos totales de la póliza." data-original-title="" title=""></i>
+                </div>
+            </div>
+            <!-- AGENTHOS - POLICY RECEIPTS -->
+            <div id="agtPolicyRecordReceipts"></div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - POLICY RECORD RECEIPTS -->
+    <!-- AGENTHOS - POLICY RECORD ENDORSEMENTS -->
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+        <div class="card">
+            <div class="card-header pt-2 pb-0 border-bottom-0">
+                <h3 class="card-title">Renovaciones</h3>
+                <div class="card-options">
+                    <i data-toggle="popover" data-placement="left" class="fe fe-help-circle fs-20 text-primary" data-content="Renovaciones aplicadas a la póliza" data-original-title="" title=""></i>
+                </div>
+            </div>
+            <!-- AGENTHOS - PROFILE GLOBAL PROTECTION -->
+            <div id="agtPolicyRecordRenewals"></div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - POLICY RECORD ENDORSEMENTS -->
+</div>
+<!-- //AGENTHOS - POLICY INSIGHTS -->
 
 <agt-container-policy-manager
     [contactId]="contactId"
     [policyId]="policyId">
 </agt-container-policy-manager>
-
-
 
 <agt-content-list
     [contentType]="contentType"
