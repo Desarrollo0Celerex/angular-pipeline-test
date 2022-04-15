@@ -92,6 +92,36 @@ var StatsRecordPlugin = function() {
         document.getElementById('agt-record-policy-payments').innerHTML = '';
     }
 
+    function drawChartPolicyRenewals(chartData) {
+        google.charts.load("current", {packages: ["corechart"]});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var data = google.visualization.arrayToDataTable(chartData);
+
+            var options = {
+                chart: {},
+                isStacked: true,
+                fontSize:12,
+                bubble: {textStyle: {fontSize: 12}},
+                crosshair:{"trigger":"both","color":"#8b0d88","opacity":0.8},
+                legend:{"position":"none","textStyle":{"color":"#536d98","fontSize":12}},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                colors:["#0b0742","#5e72e8","#ff9198","#fdc094"],
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('agt-record-policy-renewals'));
+            chart.draw(data, options);
+        }
+    }
+
+    function removeChartPolicyRenewals() {
+        document.getElementById('agt-record-policy-renewals').innerHTML = '';
+    }
+
     return {
         drawChartPolicySinisters,
         removeChartPolicySinisters,
@@ -99,5 +129,7 @@ var StatsRecordPlugin = function() {
         removeChartPolicyEndorsements,
         drawChartPolicyPayments,
         removeChartPolicyPayments,
+        drawChartPolicyRenewals,
+        removeChartPolicyRenewals,
     }
 }();

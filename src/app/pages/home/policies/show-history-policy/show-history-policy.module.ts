@@ -7,6 +7,7 @@ import { AlertUnusualPolicyIncreaseModule } from '@components/alert-unusual-poli
 import { AlertUnusualReportedSinistersModule } from '@components/alert-unusual-reported-sinisters/alert-unusual-reported-sinisters.module';
 import { ChartPolicySinistersModule } from '@components/chart-policy-sinisters/chart-policy-sinisters.module';
 import { ChartPolicyPaymentsModule } from '@components/chart-policy-payments/chart-policy-payments.module';
+import { ChartPolicyRenewalsModule } from '@components/chart-policy-renewals/chart-policy-renewals.module';
 import { ChartPolicyEndorsementsModule } from '@components/chart-policy-endorsements/chart-policy-endorsements.module';
 import { ContainerPolicyDetailsModule } from '@components/container-policy-details/container-policy-details.module';
 import { ContainerPolicyManagerModule } from '@components/container-policy-manager/container-policy-manager.module';
@@ -24,6 +25,7 @@ import { ShowHistoryPolicyPage } from './show-history-policy.page';
     AlertUnusualReportedSinistersModule,
     ChartPolicyEndorsementsModule,
     ChartPolicyPaymentsModule,
+    ChartPolicyRenewalsModule,
     ChartPolicySinistersModule,
     CommonModule,
     ContainerPolicyDetailsModule,
