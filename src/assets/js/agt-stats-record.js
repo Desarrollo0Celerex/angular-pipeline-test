@@ -27,8 +27,44 @@ var StatsRecordPlugin = function() {
         document.getElementById('agt-record-policy-sinisters').innerHTML = '';
     }
 
+    function drawChartPolicyEndorsements(chartData) {
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Ramos');
+            data.addColumn('number', 'Aseguradoras');
+            data.addRows(chartData);
+
+            var options = {
+                is3D:true,
+                pieHole:0,
+                fontSize:12,
+                pieSliceTextStyle:{"color":"#fbfbfb"},
+                sliceVisibilityThreshold:true,
+                sliceVisibilityThreshold: .08,
+                legend:{"position":"labeled","textStyle":{"color":"#536d98","fontSize":12}},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                colors:["#383368","#5a5488","#746cc8","#a09ac8"],
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('agt-record-policy-endorsements'));
+            chart.draw(data, options);
+        }
+    }
+
+    function removeChartPolicyEndorsements() {
+        document.getElementById('agt-record-policy-endorsements').innerHTML = '';
+    }
+
     return {
         drawChartPolicySinisters,
         removeChartPolicySinisters,
+        drawChartPolicyEndorsements,
+        removeChartPolicyEndorsements,
     }
 }();

@@ -7,7 +7,8 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
-    policySinistersStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/sinisters',
+    policyEndorsementStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/endorsements',
+    policySinisterStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/sinisters',
 }
 
 @Injectable()
@@ -19,8 +20,13 @@ export class StatisticService {
         private _authService: AuthService
     ) { }
 
+    getPolicyEndorsementStatistics(contactId: string, policyId: string): Observable<HttpResponse> {
+        const route: string = routes.policyEndorsementStatistics(this._workspaceId, contactId, policyId);
+        return this._httpClient.get<HttpResponse>(route);
+    }
+
     getPolicySinisterStatistics(contactId: string, policyId: string): Observable<HttpResponse> {
-        const route: string = routes.policySinistersStatistics(this._workspaceId, contactId, policyId);
+        const route: string = routes.policySinisterStatistics(this._workspaceId, contactId, policyId);
         return this._httpClient.get<HttpResponse>(route);
     }
 

@@ -49,16 +49,10 @@
 
     <!-- AGENTHOS - POLICY RECORD ENDORSEMENTS -->
     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
-        <div class="card">
-            <div class="card-header pt-2 pb-0 border-bottom-0">
-                <h3 class="card-title">Endosos</h3>
-                <div class="card-options">
-                    <i data-toggle="popover" data-placement="left" class="fe fe-help-circle fs-20 text-primary" data-content="Endosos aplicados a la póliza." data-original-title="" title=""></i>
-                </div>
-            </div>
-            <!-- AGENTHOS - POLICY ENDORSEMENTS -->
-            <div id="agtPolicyRecordEndorsements"></div>
-        </div>
+        <agt-chart-policy-endorsements
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-chart-policy-endorsements>
     </div>
     <!-- //AGENTHOS - POLICY RECORD ENDORSEMENTS -->
 
