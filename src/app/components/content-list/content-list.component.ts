@@ -230,7 +230,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             (!!changes.contentSpecialFilter && !!changes.contentSpecialFilter.currentValue)
         ) {
             this._initContent();
-
             setTimeout(() => {
                 this.contentReloaded.emit();
             }, 500);
