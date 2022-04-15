@@ -6,6 +6,7 @@ import { AlertUnusualLatePaymentsModule } from '@components/alert-unusual-late-p
 import { AlertUnusualPolicyIncreaseModule } from '@components/alert-unusual-policy-increase/alert-unusual-policy-increase.module';
 import { AlertUnusualReportedSinistersModule } from '@components/alert-unusual-reported-sinisters/alert-unusual-reported-sinisters.module';
 import { ChartPolicySinistersModule } from '@components/chart-policy-sinisters/chart-policy-sinisters.module';
+import { ChartPolicyPaymentsModule } from '@components/chart-policy-payments/chart-policy-payments.module';
 import { ChartPolicyEndorsementsModule } from '@components/chart-policy-endorsements/chart-policy-endorsements.module';
 import { ContainerPolicyDetailsModule } from '@components/container-policy-details/container-policy-details.module';
 import { ContainerPolicyManagerModule } from '@components/container-policy-manager/container-policy-manager.module';
@@ -22,6 +23,7 @@ import { ShowHistoryPolicyPage } from './show-history-policy.page';
     AlertUnusualPolicyIncreaseModule,
     AlertUnusualReportedSinistersModule,
     ChartPolicyEndorsementsModule,
+    ChartPolicyPaymentsModule,
     ChartPolicySinistersModule,
     CommonModule,
     ContainerPolicyDetailsModule,

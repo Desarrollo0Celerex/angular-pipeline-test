@@ -61,10 +61,43 @@ var StatsRecordPlugin = function() {
         document.getElementById('agt-record-policy-endorsements').innerHTML = '';
     }
 
+    function drawChartPolicyPayments(chartData) {
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var data = google.visualization.arrayToDataTable(chartData);
+
+            var options = {
+                is3D:true,
+                pieHole:0.2,
+                fontSize:12,
+                pieSliceTextStyle:{"color":"#fbfbfb"},
+                sliceVisibilityThreshold:true,
+                sliceVisibilityThreshold: 0.0001,
+                legend:{"position":"top","textStyle":{"color":"#536d98","fontSize":12}},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                colors:["#303a98","#c00388"],
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('agt-record-policy-payments'));
+            chart.draw(data, options);
+        }
+    }
+
+    function removeChartPolicyPayments() {
+        document.getElementById('agt-record-policy-payments').innerHTML = '';
+    }
+
     return {
         drawChartPolicySinisters,
         removeChartPolicySinisters,
         drawChartPolicyEndorsements,
         removeChartPolicyEndorsements,
+        drawChartPolicyPayments,
+        removeChartPolicyPayments,
     }
 }();
