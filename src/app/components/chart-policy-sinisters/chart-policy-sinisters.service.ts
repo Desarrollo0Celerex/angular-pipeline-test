@@ -3,16 +3,16 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { SinisterService } from '@services/sinister.service';
+import { StatisticService } from '@services/statistic.service';
 
 @Injectable()
 export class ChartPolicySinistersService {
     policySinisterStatistics: any = null;
 
-    constructor(private _sinisterService: SinisterService) { }
+    constructor(private _statisticService: StatisticService) { }
 
     loadPolicySinisterStatistics(contactId: string, policyId: string): Observable<void> {
-        return this._sinisterService.getPolicySinisterStatistics(contactId, policyId).pipe(
+        return this._statisticService.getPolicySinisterStatistics(contactId, policyId).pipe(
             tap((res: HttpResponse) => {
                 const statistics: any = res.data;
                 statistics[0].push({ role: 'style' });

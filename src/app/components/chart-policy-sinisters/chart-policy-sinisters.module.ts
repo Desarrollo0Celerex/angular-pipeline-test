@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
-import { SinisterService } from '@services/sinister.service';
+import { StatisticService } from '@services/statistic.service';
 
 import { ChartPolicySinistersComponent } from './chart-policy-sinisters.component';
 
@@ -18,7 +18,7 @@ import { ChartPolicySinistersComponent } from './chart-policy-sinisters.componen
     LoadingContentModule
   ],
   providers: [
-      SinisterService
+      StatisticService
   ]
 })
 export class ChartPolicySinistersModule { }
