@@ -41,6 +41,11 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID" class="card-title">Recibos Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_TRACKER.ID" class="card-title">Registro de Renovaciones</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.HISTORY_POLICY.ID" class="card-title">Historial de Póliza</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_SINISTERS.ID" class="card-title">Historial de Siniestros</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID" class="card-title">Historial de Endosos</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.PAYMENT_HISTORY.ID" class="card-title">Pagos Aplicados</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.SINISTER_HISTORY.ID" class="card-title">Eventos del Siniestro</h3>
                     <h3 *ngSwitchDefault class="card-title">{{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}</h3>
                 </ng-container>
             </div>
@@ -339,7 +344,13 @@
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TRACKER.ID">
-    <agt-modal-show-policy-details [modalId]="modalIdShowPolicyDetails" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [isHistoryContent]="isHistoryContent" (showPolicy)="onShowPolicy($event)"></agt-modal-show-policy-details>
+    <agt-modal-show-policy-details
+        [modalId]="modalIdShowPolicyDetails"
+        [contactId]="selectedContactId"
+        [policyId]="selectedPolicyId"
+        [isHistoryContent]="isHistoryContent"
+        (showPolicy)="onShowPolicy($event)"
+    ></agt-modal-show-policy-details>
     <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="selectedContactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||

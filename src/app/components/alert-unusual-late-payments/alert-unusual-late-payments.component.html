@@ -1,0 +1,8 @@
+<div class="col-12" *ngIf="model.latePayments > 0">
+    <div class="alert alert-avatar alert-primary alert-dismissible mb-3">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <strong>Business Intelligence</strong> <hr class="message-inner-separator">
+        <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+        <p><strong>Alerta:</strong> Hay <strong>{{model.latePayments}}</strong> recibos pagados con un retraso considerable, invita al asegurado a descargar tu Wallet para enviarle recordatorios de pago.</p>
+    </div>
+</div>

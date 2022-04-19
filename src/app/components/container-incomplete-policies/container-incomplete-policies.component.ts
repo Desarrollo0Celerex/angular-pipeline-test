@@ -26,7 +26,7 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
     contentSubtype: number;
     modalIdConfirmDeletePolicy: string;
     modalIdShowPolicy: string = 'agt-show-policy';
-    modalIdShowPolicyDetails: string = 'agt-show-policy-details';
+    modalIdShowPolicyDetails: string = 'agt-show-policy-details-01';
     selectedPolicyId: string;
     selectedPolicyIndex: number;
 

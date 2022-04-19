@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ImageAgenthosAssistantModule } from '@components/image-agenthos-assistant/image-agenthos-assistant.module';
-import { PolicyService } from '@services/policy.service';
+import { BusinessIntelligenceService } from '@services/business-intelligence.service';
 
 import { AlertUnusualPolicyIncreaseComponent } from './alert-unusual-policy-increase.component';
 
@@ -17,6 +17,8 @@ import { AlertUnusualPolicyIncreaseComponent } from './alert-unusual-policy-incr
     CommonModule,
     ImageAgenthosAssistantModule
   ],
-  providers: [PolicyService]
+  providers: [
+      BusinessIntelligenceService
+  ]
 })
 export class AlertUnusualPolicyIncreaseModule { }

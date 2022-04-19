@@ -39,14 +39,6 @@ export class ModalShowPolicyDetailsComponent implements OnChanges {
     }
 
     /**
-     * Click event to show policy
-     */
-    onClickShowPolicy(): void {
-        ModalPlugin.hide(this.modalId);
-        this.showPolicy.emit(this.policyId);
-    }
-
-    /**
      * Click event to navigate to the history policy
      */
     onClickShowHistoryPolicy(): void {

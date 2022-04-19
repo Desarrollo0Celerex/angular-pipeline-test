@@ -1,1 +1,90 @@
-<agt-container-timeline [contactId]="contactId" [policyId]="policyId" [contentType]="contentType" [contentTypeName]="contentTypeName"></agt-container-timeline>
+<agt-container-policy-details
+    [contactId]="contactId"
+    [policyId]="policyId">
+</agt-container-policy-details>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <!-- AGENTHOS - POLICY INSIGHTS TITLE -->
+            <div class="card-header">
+                <h3 class="card-title">Desempeño de Póliza</h3>
+            </div>
+            <!-- AGENTHOS - TRACKER CONTROL HEADER -->
+        </div>
+    </div>
+    <agt-alert-unusual-reported-sinisters
+        [ngStyle]="{'width': '100%'}"
+        [contactId]="contactId"
+        [policyId]="policyId"
+    ></agt-alert-unusual-reported-sinisters>
+    <agt-alert-unusual-added-endorsements
+        [ngStyle]="{'width': '100%'}"
+        [contactId]="contactId"
+        [policyId]="policyId"
+    ></agt-alert-unusual-added-endorsements>
+    <agt-alert-unusual-late-payments
+        [ngStyle]="{'width': '100%'}"
+        [contactId]="contactId"
+        [policyId]="policyId"
+    ></agt-alert-unusual-late-payments>
+    <agt-alert-unusual-policy-increase
+        [ngStyle]="{'width': '100%'}"
+        [contactId]="contactId"
+        [policyId]="policyId"
+    ></agt-alert-unusual-policy-increase>
+</div>
+
+<!-- AGENTHOS - POLICY INSIGHTS -->
+<div class="row">
+
+    <!-- AGENTHOS - POLICY RECORD SINISTERS -->
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+        <agt-chart-policy-sinisters
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-chart-policy-sinisters>
+    </div>
+    <!-- //AGENTHOS - POLICY RECORD SINISTERS -->
+
+    <!-- AGENTHOS - POLICY RECORD ENDORSEMENTS -->
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+        <agt-chart-policy-endorsements
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-chart-policy-endorsements>
+    </div>
+    <!-- //AGENTHOS - POLICY RECORD ENDORSEMENTS -->
+
+    <!-- AGENTHOS - POLICY RECORD RECEIPTS -->
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+        <agt-chart-policy-payments
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-chart-policy-payments>
+    </div>
+    <!-- //AGENTHOS - POLICY RECORD RECEIPTS -->
+    <!-- AGENTHOS - POLICY RECORD ENDORSEMENTS -->
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+        <agt-chart-policy-renewals
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-chart-policy-renewals>
+    </div>
+    <!-- //AGENTHOS - POLICY RECORD ENDORSEMENTS -->
+</div>
+<!-- //AGENTHOS - POLICY INSIGHTS -->
+
+<agt-container-policy-manager
+    [contactId]="contactId"
+    [policyId]="policyId">
+</agt-container-policy-manager>
+
+<agt-content-list
+    [contentType]="contentType"
+    [contentTypeName]="contentTypeName"
+    [contactId]="contactId"
+    [policyId]="policyId"
+    [contentSubtype]="contentSubtype"
+    [contentSubtypeName]="contentSubtypeName">
+</agt-content-list>

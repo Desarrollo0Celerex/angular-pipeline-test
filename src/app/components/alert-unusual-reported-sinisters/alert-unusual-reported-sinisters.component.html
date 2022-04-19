@@ -1,0 +1,8 @@
+<div class="col-12" *ngIf="model.reportedSinisters > 0">
+    <div class="alert alert-avatar alert-primary alert-dismissible mb-3">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <strong>Business Intelligence</strong> <hr class="message-inner-separator">
+        <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+        <p><strong>Alerta:</strong> La póliza tiene <strong>{{model.reportedSinisters}}</strong> siniestros reportados, renueva con otra aseguradora para reiniciar la siniestralidad y mantener la prima estable.</p>
+    </div>
+</div>

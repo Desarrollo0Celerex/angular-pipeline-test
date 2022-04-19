@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AlertUnusualReportedSinistersModule } from '@components/alert-unusual-reported-sinisters/alert-unusual-reported-sinisters.module';
 import { ContainerPolicyDetailsModule } from '@components/container-policy-details/container-policy-details.module';
 import { ContainerPaymentsManagerModule } from '@components/container-payments-manager/container-payments-manager.module';
 import { ContainerPolicyEndorsementsManagerModule } from '@components/container-policy-endorsements-manager/container-policy-endorsements-manager.module';
@@ -13,6 +14,7 @@ import { ContainerTimelineComponent } from './container-timeline.component';
   declarations: [ContainerTimelineComponent],
   exports: [ContainerTimelineComponent],
   imports: [
+    AlertUnusualReportedSinistersModule,
     CommonModule,
     ContentListModule,
     ContainerPolicyDetailsModule,

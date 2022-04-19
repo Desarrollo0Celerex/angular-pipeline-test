@@ -9,5 +9,6 @@ export interface PolicyDetails {
     totalSinisters: string,
     totalEndorsements: string,
     titularName: string,
-    insurerName: string
+    insurerName: string,
+    totalRenewals: number
 }
