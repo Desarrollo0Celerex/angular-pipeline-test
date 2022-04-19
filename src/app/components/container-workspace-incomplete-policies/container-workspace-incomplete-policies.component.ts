@@ -20,7 +20,7 @@ export class ContainerWorkspaceIncompletePoliciesComponent implements OnInit {
     modalIdConfirmDeletePolicy: string = 'agt-confirm-delete-policy';
     modalIdConfirmShowHistoryPolicy: string = 'agt-confirm-show-history-policy';
     modalIdShowPolicy: string = 'agt-show-policy';
-    modalIdShowPolicyDetails: string = 'agt-show-policy-details';
+    modalIdShowPolicyDetails: string = 'agt-show-policy-details-02';
     selectedContactId: string = '';
     selectedPolicyId: string = '';
 

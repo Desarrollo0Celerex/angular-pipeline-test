@@ -344,7 +344,13 @@
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TRACKER.ID">
-    <agt-modal-show-policy-details [modalId]="modalIdShowPolicyDetails" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [isHistoryContent]="isHistoryContent" (showPolicy)="onShowPolicy($event)"></agt-modal-show-policy-details>
+    <agt-modal-show-policy-details
+        [modalId]="modalIdShowPolicyDetails"
+        [contactId]="selectedContactId"
+        [policyId]="selectedPolicyId"
+        [isHistoryContent]="isHistoryContent"
+        (showPolicy)="onShowPolicy($event)"
+    ></agt-modal-show-policy-details>
     <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="selectedContactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
