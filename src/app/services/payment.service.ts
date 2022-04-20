@@ -16,6 +16,7 @@ import { AuthService } from '@services/auth.service';
 const routes: any = {
     payment: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/' +paymentId,
     paymentDate: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/' + paymentId + '/payment-date',
+    paymentPreauthorizations: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/' + paymentId + '/preauthorizations',
     payments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments',
     workspacePaymentsReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/report',
     totalPayments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/count',
@@ -187,6 +188,11 @@ export class PaymentService {
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );
+    }
+
+    preauthorizePayment(paymentId: string): Observable<void> {
+        const route: string = routes.paymentPreauthorizations(this._workspaceId, paymentId);
+        return this._httpClient.put<void>(route, null);
     }
 
     updatePaymentDate(paymentId: string, requestBody: UpdatePaymentDateDataSend): Observable<void> {

@@ -210,6 +210,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static paymentPreauthorized(): void {
+        const alertData: Alert = {
+            title: 'Pago Preautorizado',
+            text: 'El pago está en espera de consolidación.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static paymentsSuspended(): void {
         const alertData: Alert = {
             title: 'Cobranza Suspendida',

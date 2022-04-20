@@ -75,6 +75,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     isHistoryContent: boolean;
     isLoadingContent: boolean;
     page: number;
+    posContent: number = -1;
     selectedActionType: number;
     selectedContactId: string;
     selectedContactFileData: ContactFileDataSend | null = null;
@@ -125,6 +126,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdRejectQuotation: string;
     modalIdSelectContact: string;
     modalIdSelectContactType: string;
+    modalIdSelectPaymentRegistrationType: string = 'agt-select-payment-registration-type';
     modalIdShowCancellationEvidence: string = 'agt-show-cancellation-evidence';
     modalIdShowContactData: string;
     modalIdShowContactFileDetails: string = 'agt-show-contact-file-details';
@@ -481,6 +483,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this._initContent();
     }
 
+    onPreautorizedPayment(): void {
+        this.contentListService.contents[this.posContent].isPreauthorizedPayment = '1';
+    }
+
     /**
      * Event to reactivate a sinister
      * @param sinisterData The sinister data
@@ -528,6 +534,18 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 ModalPlugin.show(this.modalIdConfirmRenewPolicy);
             }
         })
+    }
+
+    /**
+     * Event to select the registration type
+     * @param data The payment data
+     */
+    onSelectRegistrationType(data: ShowPaymentHistoryData, posPayment: number): void {
+        this.posContent = posPayment;
+        this.selectedContactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
+        this.selectedPaymentId = data.paymentId;
+        ModalPlugin.show(this.modalIdSelectPaymentRegistrationType);
     }
 
     /**

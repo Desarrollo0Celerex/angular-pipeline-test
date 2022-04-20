@@ -206,6 +206,7 @@
                         ) ? contentType : ''"
                     [payment]="content"
                     (applyPayment)="onApplyPayment($event)"
+                    (selectRegistrationType)="onSelectRegistrationType($event, index)"
                     (showContactData)="onShowContactData($event)"
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                     (cancelPolicy)="onCancelPolicy($event)"
@@ -415,6 +416,14 @@
         (showModalAgain)="showModalApplyPayment()"
         (applyPaymentReloaded)="applyPaymentReloaded()"
     ></agt-modal-apply-payment>
+    <agt-modal-select-payment-registration-type
+        [modalId]="modalIdSelectPaymentRegistrationType"
+        [contactId]="selectedContactId"
+        [policyId]="selectedPolicyId"
+        [paymentId]="selectedPaymentId"
+        (preauthorizedPayment)="onPreautorizedPayment()"
+        (applyPayment)="onApplyPayment($event)"
+    ></agt-modal-select-payment-registration-type>
     <agt-modal-confirm-show-payment-history [modalId]="modalIdConfirmShowPaymentHistory" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [paymentId]="selectedPaymentId"></agt-modal-confirm-show-payment-history>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.GROUP_MEMBER.ID">

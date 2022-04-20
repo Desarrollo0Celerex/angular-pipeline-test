@@ -60,6 +60,7 @@ import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update
 import { ModalConfirmValidateExternalPolicyModule } from '@components/modal-confirm-validate-external-policy/modal-confirm-validate-external-policy.module';
 import { ModalSelectContactModule } from '@components/modal-select-contact/modal-select-contact.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
+import { ModalSelectPaymentRegistrationTypeModule } from '@components/modal-select-payment-registration-type/modal-select-payment-registration-type.module';
 import { ModalShowCancellationEvidenceModule } from '@components/modal-show-cancellation-evidence/modal-show-cancellation-evidence.module';
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 import { ModalShowContactFileDetailsModule } from '@components/modal-show-contact-file-details/modal-show-contact-file-details.module';
@@ -162,6 +163,7 @@ import { ContentListService } from './content-list.service';
     ModalConfirmValidateExternalPolicyModule,
     ModalSelectContactModule,
     ModalSelectContactTypeModule,
+    ModalSelectPaymentRegistrationTypeModule,
     ModalShowCancellationEvidenceModule,
     ModalShowContactDataModule,
     ModalShowContactFileDetailsModule,

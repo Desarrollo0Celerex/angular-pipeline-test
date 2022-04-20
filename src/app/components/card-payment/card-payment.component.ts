@@ -13,6 +13,7 @@ import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.in
 export class CardPaymentComponent {
     @Input() payment: Payment | null = null;
     @Output() applyPayment: EventEmitter<ShowPaymentHistoryData> = new EventEmitter<ShowPaymentHistoryData>();
+    @Output() selectRegistrationType: EventEmitter<ShowPaymentHistoryData> = new EventEmitter<ShowPaymentHistoryData>();
     @Output() cancelPolicy: EventEmitter<{ policyId: string, contactId: string }> = new EventEmitter<{ policyId: string, contactId: string }>();
     @Output() showContactData: EventEmitter<string> = new EventEmitter<string>();
     @Output() showHistoryPolicy: EventEmitter<{ policyId: string, contactId: string }> = new EventEmitter<{ policyId: string, contactId: string }>();
@@ -28,6 +29,12 @@ export class CardPaymentComponent {
     onClickApplyPayment(): void {
         if(!!this.payment) {
             this.applyPayment.emit({policyId: this.payment.policyId, contactId: this.payment.contactId, paymentId: this.payment.paymentId});
+        }
+    }
+
+    onClickSelectRegistrationType(): void {
+        if(!!this.payment) {
+            this.selectRegistrationType.emit({policyId: this.payment.policyId, contactId: this.payment.contactId, paymentId: this.payment.paymentId});
         }
     }
 
