@@ -35,6 +35,17 @@ var DropifyPlugin = function() {
 				'fileSize': 'El tamaño del archivo es demasiado grande. ('+maxFileSize+' máximo).',
 				'fileExtension': 'El tipo de documento seleccionado no está permitido'
 			}
+		} else if(fileType === 4) {
+			messages = {
+				'default': 'Selecciona un archivo de tu dispositivo.',
+				'replace': 'Selecciona otro archivo de tu dispositivo.',
+				'remove': 'Eliminar archivo',
+				'error': 'No se pudo cargar el archivo, intenta nuevamente.'
+			}
+			error = {
+				'fileSize': 'El tamaño del archivo es demasiado grande. ('+maxFileSize+' máximo).',
+				'fileExtension': 'El tipo de archivo seleccionado no está permitido, solo se aceptan pdf, png, jpg, jpeg, gif y bmp'
+			}
 		}
 
 		let dropifySettings = {
@@ -51,10 +62,18 @@ var DropifyPlugin = function() {
 		$('.dropify').dropify(dropifySettings);
 	}
 
+	function reset() {
+		let drEvent = $('.dropify').dropify();
+		drEvent = drEvent.data('dropify');
+		drEvent.resetPreview();
+		drEvent.clearElement();
+	}
+
 	return {
 		init: function(fileType, allowedFileTypes, canShowPreview = true, maxFileSize = '2M') {
 			initDropify(fileType, allowedFileTypes, canShowPreview, maxFileSize);
-		}
+		},
+		reset
 	}
 
 }();

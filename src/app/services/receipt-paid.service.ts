@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { CreateReceiptPaidDataSend } from '@interfaces/create-receipt-paid-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { RangeStat } from '@interfaces/range-stat.interface';
@@ -37,7 +36,7 @@ export class ReceiptPaidService {
      * @param  requestBody The request body
      * @return             Notice of actiion done
      */
-    createReceiptPaid(contactId: string, policyId: string, paymentId: string, requestBody: CreateReceiptPaidDataSend): Observable<void> {
+    createReceiptPaid(contactId: string, policyId: string, paymentId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.receiptsPaidAux(this._workspaceId, contactId, policyId, paymentId);
         return this._httpClient.post<void>(route, requestBody);
     }

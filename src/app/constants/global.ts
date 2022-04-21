@@ -55,6 +55,7 @@ export const FORMAT_TYPES: any = {
 export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
 export const DOCUMENT_FORMATS: string[] = ['pdf'];
 export const FILE_ALL_FORMATS: string[] = ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'mail', 'eml', 'doc', 'docx', 'txt', 'csv', 'xls', 'xlsx', 'zip', 'rar'];
+export const IMAGE_AND_DOCUMENT_FORMATS: string[] = ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp'];
 
 // Status
 export const WORKSPACE_STATUS: any = {
@@ -300,7 +301,8 @@ export const BUTTON_TYPES: any = {
 export const FILE_TYPES: any = {
     IMAGE: 1,
     DOCUMENT: 2,
-    MIXED: 3
+    MIXED: 3,
+    IMAGE_AND_DOCUMENT: 4
 }
 export const ENDORSEMENT_TYPES: any = {
     A: 1,

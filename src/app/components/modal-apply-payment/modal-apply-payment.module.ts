@@ -7,7 +7,9 @@ import { ModalNotifyAmountExceededModule } from '@components/modal-notify-amount
 import { ModalNotifyReceiptsExceededModule } from '@components/modal-notify-receipts-exceeded/modal-notify-receipts-exceeded.module';
 import { ModalNotifyMissingReceiptsModule } from '@components/modal-notify-missing-receipts/modal-notify-missing-receipts.module';
 import { ModalNotifyMissingAmountModule } from '@components/modal-notify-missing-amount/modal-notify-missing-amount.module';
+import { ModalSelectEvidenceModule } from '@components/modal-select-evidence/modal-select-evidence.module';
 import { PaymentService } from '@services/payment.service';
+import { PaymentTypeService } from '@services/payment-type.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
 
 import { ModalApplyPaymentComponent } from './modal-apply-payment.component';
@@ -23,8 +25,14 @@ import { ModalApplyPaymentComponent } from './modal-apply-payment.component';
     ModalNotifyAmountExceededModule,
     ModalNotifyReceiptsExceededModule,
     ModalNotifyMissingReceiptsModule,
-    ModalNotifyMissingAmountModule
+    ModalNotifyMissingAmountModule,
+    ModalSelectEvidenceModule
   ],
-  providers: [CurrencyPipe, PaymentService, ReceiptPaidService]
+  providers: [
+      CurrencyPipe,
+      PaymentService,
+      PaymentTypeService,
+      ReceiptPaidService
+  ]
 })
 export class ModalApplyPaymentModule { }

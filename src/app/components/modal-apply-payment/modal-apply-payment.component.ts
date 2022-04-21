@@ -1,10 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
-import { SLACK_UNITS } from '@constants/global';
+import { SLACK_UNITS, IMAGE_AND_DOCUMENT_FORMATS, FILE_TYPES } from '@constants/global';
+import { ModalSelectEvidenceComponent } from '@components/modal-select-evidence/modal-select-evidence.component';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ModalApplyPaymentService } from './modal-apply-payment.service';
@@ -20,7 +22,7 @@ declare var PopoverPlugin: any;
   ],
   providers: [ModalApplyPaymentService]
 })
-export class ModalApplyPaymentComponent implements OnChanges {
+export class ModalApplyPaymentComponent implements OnChanges, OnInit {
     @Input() modalId: string = '';
     @Input() contactId: string = '';
     @Input() policyId: string = '';
@@ -29,24 +31,33 @@ export class ModalApplyPaymentComponent implements OnChanges {
     @Output() receiptPaid: EventEmitter<void> = new EventEmitter<void>();
     @Output() showModalAgain: EventEmitter<void> = new EventEmitter<void>();
     @Output() applyPaymentReloaded: EventEmitter<void> = new EventEmitter<void>();
+    @ViewChild('modalSelectEvidence') private _modalSelectEvidence!: ModalSelectEvidenceComponent;
+    amountExceeded: number = 0;
     calendarIdApplicationDate: string = 'applicationDate';
     calendarIdNextPaymentDate: string = 'nextPaymentDate';
+    missingAmount: number = 0;
+    missingReceipts: number = 0;
     modalIdConfirmApplyPaymentWithBalanceOutstanding: string = 'agt-confirm-apply-payment-with-balance-outstanding'
     modalIdConfirmApplyPaymentWithBalanceRemaining: string = 'agt-confirm-apply-payment-with-balance-remaining'
     modalIdNotifyAmountExceeded: string = 'agt-notify-amount-exceeded';
     modalIdNotifyReceiptsExceeded: string = 'agt-notify-receipts-exceeded';
     modalIdNotifyMissingReceipts: string = 'agt-notify-missing-receipts';
     modalIdNotifyMissingAmount: string = 'agt-notify-missing-amount';
-    amountExceeded: number = 0;
+    modalIdSelectPaymentEvidence: string = 'agt-upload-payment-evidence';
+    modalSelectEvidenceData: ModalSelectFileData = {
+        title: 'Cargar Evidencia',
+        description: 'Selecciona el formato digital de la evidencia del pago.',
+        buttonLabel: 'Cargar evidencia',
+        formats: IMAGE_AND_DOCUMENT_FORMATS,
+        fileType: FILE_TYPES.IMAGE_AND_DOCUMENT
+    };
     receiptsExceeded: number = 0;
-    missingReceipts: number = 0;
-    missingAmount: number = 0;
     private _isFormSubmitted: boolean = false;
     private _canIgnoreAmountExceeded: boolean = false;
     private _canIgnoreMissingAmount: boolean = false;
 
     constructor(
-        private _modalApplyPaymentService: ModalApplyPaymentService,
+        public model: ModalApplyPaymentService,
         private _loadingService: LoadingService
     ) { }
 
@@ -68,8 +79,13 @@ export class ModalApplyPaymentComponent implements OnChanges {
         }
     }
 
-    get model(): ModalApplyPaymentService {
-        return this._modalApplyPaymentService;
+    ngOnInit(): void {
+        this.model.loadPaymentTypes();
+    }
+
+    addPaymentEvidence(file: File): void {
+        this.showModalApplyPayment();
+        this.model.paymentForm.patchValue({ paymentEvidence: file})
     }
 
     /**
@@ -164,6 +180,15 @@ export class ModalApplyPaymentComponent implements OnChanges {
         this.showModalAgain.emit();
     }
 
+    selectPaymentEvidence(): void {
+        ModalPlugin.hide(this.modalId);
+        ModalPlugin.show(this.modalIdSelectPaymentEvidence);
+    }
+
+    showModalApplyPayment(): void {
+        ModalPlugin.show(this.modalId);
+    }
+
     /**
      * Create a payment
      */
@@ -194,6 +219,9 @@ export class ModalApplyPaymentComponent implements OnChanges {
             PopoverPlugin.init();
             this._initCalendars();
             this.model.buildPaymentForm();
+            if(!!this._modalSelectEvidence) {
+                this._modalSelectEvidence.resetEvidenceValue();
+            }
         })
     }
 
