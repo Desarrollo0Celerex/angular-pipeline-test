@@ -1,6 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 
-import { FILE_TYPES } from '@constants/global';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 
 declare var DropifyPlugin: any;
@@ -49,9 +48,22 @@ export class ModalSelectFileComponent implements OnChanges {
     onChangeFile(event: any): void {
         if (event.target.files.length > 0) {
             const file: File = event.target.files[0];
-            this.fileSelected.emit(file);
-            ModalPlugin.hide(this.modalId);
+            if(this._checkIfValidFile(file.name, this.data!.formats)) {
+                this.fileSelected.emit(file);
+                ModalPlugin.hide(this.modalId);
+            }
         }
+    }
+
+    private _checkIfValidFile(fileName: string, fileFormats: string[]): boolean {
+        const fileExtension: string = this._getFileExtension(fileName);
+        const isValid: boolean = fileFormats.includes(fileExtension);
+        return isValid;
+    }
+
+    private _getFileExtension(fileName: string): string {
+        const index: number = fileName.lastIndexOf('.');
+        return (index !== -1 ) ? fileName.substring(index + 1) : '';
     }
 
 }

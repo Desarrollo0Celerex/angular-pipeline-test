@@ -33,7 +33,7 @@
                 <!-- AGENTHOS - PAYCARD SOURCE -->
                 <div class="badge badge-primary-gradient mr-1 mb-3">{{payment.paymentSourceTypeName | uppercase}}</div>
                 <!-- AGENTHOS - PAYCARD STATUS -->
-                <div class="badge badge-{{payment.paymentStatusBackground}} mr-1 mb-3">{{payment.paymentStatusName | uppercase}}</div>
+                <div class="badge badge-{{payment.paymentStatusBackground}} mr-1 mb-3">{{(payment.isPreauthorizedPayment === '1') ? 'EN REVISIÓN' : (payment.paymentStatusName | uppercase)}}</div>
                 <!-- AGENTHOS - POLICY TYPE -->
                 <h6><span class="text-primary"><i class="fe fe-shield mr-2"></i></span>{{payment.insuranceName | uppercase}}</h6>
                 <!-- AGENTHOS - POLICY PLAN -->
@@ -71,7 +71,10 @@
     <div class="card-footer text-center">
         <div class="row user-social-detail">
             <div class="col-lg-9 col-sm-9 col-9">
-                <button type="button" class="btn btn-block btn-primary" (click)="onClickApplyPayment()" [disabled]="payment.paymentStatusId === PAYMENT_STATUS.PAID"><strong>APLICAR PAGO</strong></button>
+                <button type="button" class="btn btn-block btn-primary" (click)="onClickApplyPayment()" *ngIf="payment.isPreauthorizedPayment === '1'; else selectRegistrationType"><strong>CONFIRMAR PAGO</strong></button>
+                <ng-template #selectRegistrationType>
+                    <button type="button" class="btn btn-block btn-primary" (click)="onClickSelectRegistrationType()" [disabled]="payment.paymentStatusId === PAYMENT_STATUS.PAID"><strong>APLICAR PAGO</strong></button>
+                </ng-template>
             </div>
             <div class="col-sm-3 col-3 text-right">
                 <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowContactData()"><i class="fa fa-id-badge"></i></button>

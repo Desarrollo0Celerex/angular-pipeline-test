@@ -36,5 +36,6 @@ export interface Payment {
     coverPay: number,
     extraPay: number,
     paymentPlanReceips: number,
-    paymentPlanId: number
+    paymentPlanId: number,
+    isPreauthorizedPayment: string
 }

@@ -497,7 +497,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPayments(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
+        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [contentSubtype]);
         return this._paymentService.getPayments(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
@@ -534,7 +534,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPendingPaymentsByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
+        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE]);
         const sortBy: string = 'paymentDate';
         return this._paymentService.getPayments(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
@@ -572,7 +572,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadCalendarPayments(page: number, specialFilter: number | string): Observable<void> {
-        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
+        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentDate', [specialFilter]);
         return this._paymentService.getPayments(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
@@ -1036,7 +1036,7 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchPayments(page: number, query: string): Observable<void> {
-        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
+        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
         query = 'policyNumber:' + query;
         return this._paymentService.getPayments(page, fields, '', query).pipe(
             tap((res: HttpResponse) => {

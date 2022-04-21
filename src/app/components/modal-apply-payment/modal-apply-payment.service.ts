@@ -6,22 +6,25 @@ import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { PAYMENT_PLANS } from '@constants/global';
-import { CreateReceiptPaidDataSend } from '@interfaces/create-receipt-paid-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
+import { PaymentType } from '@interfaces/payment-type.interface';
 import { PaymentService } from '@services/payment.service';
+import { PaymentTypeService } from '@services/payment-type.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
 
 @Injectable()
 export class ModalApplyPaymentService {
     payment: Payment | null = null;
+    paymentTypes: PaymentType[] = [];
     paymentForm: FormGroup = this._formBuilder.group({});
 
     constructor(
         private _currencyPipe: CurrencyPipe,
         private _receiptPaidService: ReceiptPaidService,
         private _formBuilder: FormBuilder,
-        private _paymentService: PaymentService
+        private _paymentService: PaymentService,
+        private _paymentTypeService: PaymentTypeService
     ) { }
 
     get f(): { [key: string]: AbstractControl } {
@@ -37,7 +40,10 @@ export class ModalApplyPaymentService {
                 amount: [this._calculatePaymentAmount(), [Validators.required]],
                 receipts: [1, [Validators.required]],
                 applicationDate: [moment(this.payment.paymentDate).format('DD/MM/YYYY'), Validators.required],
-                nextPaymentDate: [this._calculateNextPatmentDate(), [Validators.required]]
+                nextPaymentDate: [this._calculateNextPatmentDate(), [Validators.required]],
+                paymentTypeId: [1, [Validators.required]],
+                paymentReference: [this._calculatePaymentReference(), [Validators.required]],
+                paymentEvidence: ['']
             });
         }
     }
@@ -47,7 +53,7 @@ export class ModalApplyPaymentService {
      * @return Notice of action done
      */
     createReceiptPaid(contactId: string, policyId: string, paymentId: string): Observable<void> {
-        const requestBody: CreateReceiptPaidDataSend = this.paymentForm.value;
+        const requestBody: FormData = this._getRequestBody();
         return this._receiptPaidService.createReceiptPaid(contactId, policyId, paymentId, requestBody);
     }
 
@@ -57,13 +63,20 @@ export class ModalApplyPaymentService {
      * @return           Notice of action done
      */
     loadPayment(paymentId: string): Observable<void> {
-        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,titularName,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay,paymentPlanReceips,paymentPlanId';
+        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay,paymentPlanReceips,paymentPlanId';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap( (res: HttpResponse) => {
                 this.payment = res.data;
             }),
             map( () => {})
         )
+    }
+
+    loadPaymentTypes(): void {
+        const fields: string = 'paymentTypeId,name';
+        this._paymentTypeService.getPaymentTypes(fields).subscribe((res: HttpResponse) => {
+            this.paymentTypes = res.data;
+        });
     }
 
     private _calculateFirstPaymentAmount(paymentPlanReceips: number, netPay: number, feePay: number, coverPay: number, extraPay: number): number {
@@ -93,6 +106,11 @@ export class ModalApplyPaymentService {
         return  formattedPaymentAmount;
     }
 
+    private _calculatePaymentReference(): string {
+        const tickets: number = parseInt(this.payment!.tickets.toString()) + 1;
+        return 'PAG-'+tickets+'-'+this.payment!.bills;
+    }
+
     /**
      * Calculate the next payment date
      * @return The calculated date
@@ -103,5 +121,17 @@ export class ModalApplyPaymentService {
             nextPaymentDate = moment(this.payment.paymentDate).add(this.payment.paymentPlanMonths, 'M').format('DD/MM/YYYY');
         }
         return nextPaymentDate;
+    }
+
+    private _getRequestBody(): FormData {
+        const requestBody: FormData = new FormData();
+        requestBody.append('amount', this.f.amount.value);
+        requestBody.append('receipts', this.f.receipts.value);
+        requestBody.append('applicationDate', this.f.applicationDate.value);
+        requestBody.append('nextPaymentDate', this.f.nextPaymentDate.value);
+        requestBody.append('paymentTypeId', this.f.paymentTypeId.value);
+        requestBody.append('paymentReference', this.f.paymentReference.value);
+        requestBody.append('paymentEvidence', this.f.paymentEvidence.value);
+        return requestBody;
     }
 }

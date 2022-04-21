@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <!-- AGENTHOS - POLICY NUMBER -->
-                <h5 class="modal-title">Aplicar Pago</h5>
+                <h5 class="modal-title">Confirmar Pago</h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,38 +14,31 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6">
-        						<div class="form-group">
-        							<!-- AGENTHOS - POLICY OWNER -->
-        							<label class="form-label">Titular</label>
-        							<input type="text" class="form-control" [placeholder]="model.payment.titularName" readonly="">
-        						</div>
-        					</div>
-                            <div class="col-md-6">
                                 <div class="form-group">
                                     <!-- AGENTHOS - POLICY NO. -->
                                     <label class="form-label">No. Póliza</label>
                                     <input type="text" class="form-control" [placeholder]="model.payment.policyNumber" readonly="">
                                 </div>
+        					</div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - POLICY NO. -->
+                                    <label class="form-label">Plan de Pagos</label>
+                                    <input type="text" class="form-control" [placeholder]="model.payment.paymentPlanName" readonly="">
+                                </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <!-- AGENTHOS - POLICY INI. -->
                                     <label class="form-label">Inicio Vigencia</label>
                                     <input type="text" class="form-control" placeholder="{{model.payment.validityStartDate | date: 'dd/MM/yyyy'}}" readonly="">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <!-- AGENTHOS - POLICY END. -->
                                     <label class="form-label">Fin Vigencia</label>
                                     <input type="text" class="form-control" placeholder="{{model.payment.validityEndDate | date: 'dd/MM/yyyy'}}" readonly="">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - POLICY PAYPLAN -->
-                                    <label class="form-label">Plan de Pagos</label>
-                                    <input type="text" class="form-control" [placeholder]="model.payment.paymentPlanName" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -65,22 +58,7 @@
                                             </div>
                                         </div>
                                         <span class="col-auto align-self-center">
-                                            <span class="form-help" data-toggle="popover" data-placement="top" data-content="Monto total que debe aplicarse para el registro de este pago." data-original-title="">?</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - PAID TICKETS * -->
-                                    <label class="form-label">Recibos Pagados</label>
-                                    <div class="row gutters-sm">
-                                        <div class="col">
-                                            <input type="text" class="form-control {{getValidationClass('receipts')}}" formControlName="receipts">
-                                            <div class="invalid-feedback">{{getErrorMessage('receipts')}}</div>
-                                        </div>
-                                        <span class="col-auto align-self-center">
-                                            <span class="form-help" data-toggle="popover" data-placement="top" data-content="Número de recibos que deben aplicarse en este pago." data-original-title="">?</span>
+                                            <span class="form-help" data-toggle="popover" data-placement="top" data-content="Monto total reconocido en el pago del recibo." data-original-title="">?</span>
                                         </span>
                                     </div>
                                 </div>
@@ -88,7 +66,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <!-- AGENTHOS - PAY DATE * -->
-                                    <label class="form-label">Fecha Aplicación</label>
+                                    <label class="form-label">Fecha de Pago</label>
                                     <div class="row gutters-sm">
                                         <div class="col">
                                             <div class="input-group">
@@ -102,33 +80,44 @@
                                             </div>
                                         </div>
                                         <span class="col-auto align-self-center">
-                                            <span class="form-help" data-toggle="popover" data-placement="top" data-content="Fecha en la que debe registrarse el movimiento de pago." data-original-title="">?</span>
+                                            <span class="form-help" data-toggle="popover" data-placement="top" data-content="Fecha en la que se aplicó con éxito el pago del recibo." data-original-title="">?</span>
                                         </span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6" *ngIf="!((model.payment.bills - 1) === model.payment.tickets)">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - NEXT PAY * -->
-                                    <label class="form-label">Siguiente Pago</label>
-                                    <div class="row gutters-sm">
-                                        <div class="col">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">
-                                                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
-                                                    </div>
-                                                </div>
-                                                <input [id]="calendarIdNextPaymentDate" class="form-control fc-datepicker {{getValidationClass('nextPaymentDate')}}" type="text" formControlName="nextPaymentDate">
-                                                <div class="invalid-feedback">{{getErrorMessage('nextPaymentDate')}}</div>
+                            <div class="col-md-6">
+        						<div class="form-group">
+        							<!-- AGENTHOS - NEXT PAY * -->
+        							<label class="form-label">Forma de Pago</label>
+        							<div class="row gutters-sm">
+        								<div class="col">
+        									<div class="form-group">
+        										<select class="form-control {{getValidationClass('paymentTypeId')}}" formControlName="paymentTypeId">
+        											<option [value]="paymentType.paymentTypeId" *ngFor="let paymentType of model.paymentTypes">{{paymentType.name | uppercase}}</option>
+        										</select>
+                                                <div class="invalid-feedback">{{getErrorMessage('paymentTypeId')}}</div>
                                             </div>
-                                        </div>
-                                        <span class="col-auto align-self-center">
-                                            <span class="form-help" data-toggle="popover" data-placement="top" data-content="Fecha de pago programada para el siguiente recibo." data-original-title="">?</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+        								</div>
+        							</div>
+        						</div>
+        					</div>
+        					<div class="col-md-6">
+        						<div class="form-group">
+        							<!-- AGENTHOS - PAY REFERENCE * -->
+        							<label class="form-label">Referencia de Pago</label>
+        							<div class="row gutters-sm">
+        								<div class="col">
+        									<div class="input-group">
+        										<input type="text" class="form-control {{getValidationClass('paymentReference')}}" formControlName="paymentReference">
+        										<span class="input-group-append">
+        											<button class="btn btn-primary" type="button" (click)="selectPaymentEvidence()"><i class="fa fa-cloud-upload tx-16 lh-0 op-6"></i></button>
+        										</span>
+                                                <div class="invalid-feedback">{{getErrorMessage('paymentReference')}}</div>
+        									</div>
+        								</div>
+        							</div>
+        						</div>
+        					</div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -182,4 +171,12 @@
         [currencyName]="model.payment.currencyName"
         (actionConfirmed)="ignoreMissingAmount()">
     </agt-modal-notify-missing-amount>
+
+    <agt-modal-select-evidence
+        #modalSelectEvidence
+        [modalId]="modalIdSelectPaymentEvidence"
+        [data]="modalSelectEvidenceData"
+        (fileSelected)="addPaymentEvidence($event)"
+        (modalClosed)="showModalApplyPayment()"
+    ></agt-modal-select-evidence>
 </ng-container>
