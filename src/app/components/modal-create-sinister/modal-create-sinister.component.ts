@@ -3,7 +3,6 @@ import { AbstractControl } from '@angular/forms';
 
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { Policy } from '@interfaces/policy.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ModalCreateSinisterService } from './modal-create-sinister.service';
@@ -15,11 +14,14 @@ declare var ModalPlugin: any;
   selector: 'agt-modal-create-sinister',
   templateUrl: './modal-create-sinister.component.html',
   styles: [
-  ]
+  ],
+  providers: [ModalCreateSinisterService]
 })
 export class ModalCreateSinisterComponent implements OnChanges {
     @Input() modalId: string = '';
-    @Input() policy: Policy | null = null;
+    @Input() contactId: string = '';
+    @Input() policyId: string = '';
+    @Input() insuranceId: number = 0;
     @Output() sinisterCreated: EventEmitter<void> = new EventEmitter<void>();
     calendarIdSinisterDate: string = 'sinisterDate';
     private _isFormSubmitted: boolean = false;
@@ -30,10 +32,15 @@ export class ModalCreateSinisterComponent implements OnChanges {
     ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.policy.currentValue) {
-            this._initCalendars();
-            this.modalCreateSinisterService.loadSinisterTypes(changes.policy.currentValue.insuranceId);
+        if(!!changes.insuranceId && !!changes.insuranceId.currentValue) {
+            this.modalCreateSinisterService.loadSinisterTypes(changes.insuranceId.currentValue);
+        } else if(!!this.policyId) {
+            this._loadPolicyInsuranceId();
         }
+    }
+
+    ngOnInit(): void {
+        this._initCalendars();
     }
 
     /**
@@ -69,10 +76,10 @@ export class ModalCreateSinisterComponent implements OnChanges {
      */
     onSubmitCreateSinister(): void {
         this._isFormSubmitted = true;
-        if(this.modalCreateSinisterService.sinisterForm.valid && !!this.policy) {
+        if(this.modalCreateSinisterService.sinisterForm.valid) {
             ModalPlugin.hide(this.modalId);
             this._loadingService.show();
-            this.modalCreateSinisterService.createSinister(this.policy.contactId, this.policy.policyId).subscribe( () => {
+            this.modalCreateSinisterService.createSinister(this.contactId, this.policyId).subscribe( () => {
                 this._resetSinisterForm();
                 this._loadingService.hide();
                 AlertHelper.sinisterCreated(this._notifySinisterCreated, this);
@@ -86,6 +93,12 @@ export class ModalCreateSinisterComponent implements OnChanges {
     private _initCalendars(): void {
         DatePickerPlugin.init();
         DatePickerPlugin.initElement(this.calendarIdSinisterDate, this._onChangeDate, this);
+    }
+
+    private _loadPolicyInsuranceId(): void {
+        this.modalCreateSinisterService.getPolicyInsuranceId(this.contactId, this.policyId).subscribe((insuranceId: number) => {
+            this.modalCreateSinisterService.loadSinisterTypes(insuranceId);
+        });
     }
 
     /**

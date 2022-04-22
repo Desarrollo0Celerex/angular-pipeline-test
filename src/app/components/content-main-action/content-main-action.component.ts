@@ -40,8 +40,10 @@ export class ContentMainActionComponent implements OnInit {
     selectContactTypeModalId: string;
     selectPolicyStatusModalId: string;
     selectQuotationStatusModalId: string;
-    selectedPolicy: Policy | null = null;
+    //selectedPolicy: Policy | null = null;
     selectedName: string = '';
+    policyId: string = '';
+    insuranceId: number = 0;
 
     constructor(
         private _pluralNameFormatPipe: PluralNameFormatPipe,
@@ -82,7 +84,7 @@ export class ContentMainActionComponent implements OnInit {
         switch(this.contentType) {
             case CONTENT_TYPES.CONTACT.ID:
             case CONTENT_TYPES.LEAD.ID:
-            case CONTENT_TYPES.CLIENT.ID: 
+            case CONTENT_TYPES.CLIENT.ID:
                 title = 'Nuevo '+this.contentTypeName;
             break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
@@ -179,7 +181,9 @@ export class ContentMainActionComponent implements OnInit {
      * @param policies The found policy
      */
     onPolicyFound(policy: Policy): void {
-        this.selectedPolicy = policy;
+        //this.selectedPolicy = policy;
+        this.policyId = policy.policyId;
+        this.insuranceId = policy.insuranceId;
         switch(this.contentType) {
             case CONTENT_TYPES.SINISTER.ID:
                 ModalPlugin.show(this.modalIdCreateSinister);

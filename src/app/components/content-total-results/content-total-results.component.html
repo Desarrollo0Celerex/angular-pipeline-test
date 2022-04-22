@@ -1,6 +1,11 @@
 <div class="card-body">
     <ol class="breadcrumb1 mb-0" *ngIf="!!totalResults">
-        <li class="breadcrumb-item1" *ngIf="isHistoryContent; else noHistoryContent">Se han detectado <strong>{{totalResults}}</strong> Movimientos Registrados para la póliza <strong>{{contentTotalResultsService.policyNumber}}</strong>.</li>
+        <ng-container *ngIf="isHistoryContent; else noHistoryContent">
+            <ng-container [ngSwitch]="contentType">
+                <li class="breadcrumb-item1" *ngSwitchCase="CONTENT_TYPES.POLICY_SINISTERS.ID">Se han detectado <strong>{{totalResults}}</strong> Siniestros Confirmados para la póliza <strong>{{contentTotalResultsService.policyNumber}}</strong>.</li>
+                <li class="breadcrumb-item1" *ngSwitchDefault>Se han detectado <strong>{{totalResults}}</strong> Movimientos Registrados para la póliza <strong>{{contentTotalResultsService.policyNumber}}</strong>.</li>
+            </ng-container>
+        </ng-container>
         <ng-template #noHistoryContent>
             <li class="breadcrumb-item1">Se han encontrado <strong>{{totalResults}}</strong> resultados con <strong>{{query}}</strong>.</li>
         </ng-template>

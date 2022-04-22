@@ -120,4 +120,10 @@
 
 <agt-modal-confirm-create-sinister [modalId]="modalIdConfirmCreateSinister" (createSinisterConfirmed)="onCreateSinisterConfirmed()"></agt-modal-confirm-create-sinister>
 <agt-modal-search-contact-policy [modalId]="modalIdSearchContactPolicy" [message]="searchContactPolicyMessage" [contactId]="contactId" (policyFound)="onPolicyFound($event)"></agt-modal-search-contact-policy>
-<agt-modal-create-sinister [modalId]="modalIdCreateSinister" [policy]="selectedPolicy" (sinisterCreated)="onSinisterCreated()"></agt-modal-create-sinister>
+<agt-modal-create-sinister
+    [modalId]="modalIdCreateSinister"
+    [contactId]="contactId"
+    [policyId]="policyId"
+    [insuranceId]="insuranceId"
+    (sinisterCreated)="onSinisterCreated()"
+></agt-modal-create-sinister>

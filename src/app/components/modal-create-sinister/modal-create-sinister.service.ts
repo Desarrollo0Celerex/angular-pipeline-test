@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { CreateSinister } from '@interfaces/create-sinister.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { SinisterType } from '@interfaces/sinister-type.interface';
-import { SinisterTypeService } from '@services/sinister-type.service';
 
 import { SHORT_ALPHANUMERIC_LENGTH, LONG_ALPHANUMERIC_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
+import { PolicyService } from '@services/policy.service';
 import { SinisterService } from '@services/sinister.service';
+import { SinisterTypeService } from '@services/sinister-type.service';
 
 @Injectable()
 export class ModalCreateSinisterService {
@@ -19,6 +21,7 @@ export class ModalCreateSinisterService {
 
     constructor(
         private _formBuilder: FormBuilder,
+        private _policyService: PolicyService,
         private _sinisterService: SinisterService,
         private _sinisterTypeService: SinisterTypeService
     ) { }
@@ -32,6 +35,15 @@ export class ModalCreateSinisterService {
     createSinister(contactId: string, policyId: string): Observable<void> {
         const requestBody: CreateSinister = this.sinisterForm.value;
         return this._sinisterService.createSinister(contactId, policyId, requestBody);
+    }
+
+    getPolicyInsuranceId(contactId: string, policyId: string): Observable<number> {
+        const fields: string = 'insuranceId';
+        return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
+            map((res: HttpResponse) => {
+                return res.data.insuranceId;
+            })
+        )
     }
 
     /**

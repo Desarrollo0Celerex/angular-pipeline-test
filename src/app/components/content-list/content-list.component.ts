@@ -19,7 +19,6 @@ import { Payment } from '@interfaces/payment.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
-import { ReceiptApplied } from '@interfaces/receipt-applied.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
 import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.interface';
@@ -1276,6 +1275,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.GROUP_POLICY.ID:
                 case CONTENT_TYPES.PARTNER_POLICY.ID:
                 case CONTENT_TYPES.HISTORY_POLICY.ID:
+                case CONTENT_TYPES.POLICY_SINISTERS.ID:
                     canShow = true;
                 break;
             }
