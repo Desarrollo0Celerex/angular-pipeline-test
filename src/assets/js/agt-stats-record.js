@@ -122,6 +122,43 @@ var StatsRecordPlugin = function() {
         document.getElementById('agt-record-policy-renewals').innerHTML = '';
     }
 
+    function drawChartPolicySinistersBehavior(chartData) {
+        google.charts.load('current', {'packages':['timeline']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var container = document.getElementById('agt-record-policy-sinisters-behavior');
+            var chart = new google.visualization.Timeline(container);
+            var dataTable = new google.visualization.DataTable();
+
+            dataTable.addColumn({ type: 'string', id: 'Número' });
+            dataTable.addColumn({ type: 'string', id: 'Tipo Siniestro' });
+            //MONTHS STARTS FROM 0. ENE = 0 / DIC = 11
+            dataTable.addColumn({ type: 'date', id: 'Reporte' });
+            dataTable.addColumn({ type: 'date', id: 'Resolución' });
+
+            dataTable.addRows(chartData);
+
+            var options = {
+                fontSize:12,
+                bubble: {textStyle: {fontSize: 12}},
+                crosshair:{"trigger":"both","color":"#8b0d88","opacity":0.8},
+                legend:{"position":"none","textStyle":{"color":"#536d98","fontSize":12}},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                colors:["#feb838","#fed238","#ffdb68","#fee588","#fef4a8"],
+            };
+
+            chart.draw(dataTable, options);
+        }
+    }
+
+    function removeChartPolicySinistersBehavior() {
+        document.getElementById('agt-record-policy-sinisters-behavior').innerHTML = '';
+    }
+
     return {
         drawChartPolicySinisters,
         removeChartPolicySinisters,
@@ -131,5 +168,7 @@ var StatsRecordPlugin = function() {
         removeChartPolicyPayments,
         drawChartPolicyRenewals,
         removeChartPolicyRenewals,
+        drawChartPolicySinistersBehavior,
+        removeChartPolicySinistersBehavior,
     }
 }();
