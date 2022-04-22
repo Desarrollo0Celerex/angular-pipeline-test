@@ -43,6 +43,8 @@
         <agt-chart-policy-sinisters
             [contactId]="contactId"
             [policyId]="policyId"
+            [canShowFooter]="true"
+            (confirmedAction)="showModalToConfirmShowPolicySinisters()"
         ></agt-chart-policy-sinisters>
     </div>
     <!-- //AGENTHOS - POLICY RECORD SINISTERS -->
@@ -75,11 +77,6 @@
 </div>
 <!-- //AGENTHOS - POLICY INSIGHTS -->
 
-<agt-container-policy-manager
-    [contactId]="contactId"
-    [policyId]="policyId">
-</agt-container-policy-manager>
-
 <agt-content-list
     [contentType]="contentType"
     [contentTypeName]="contentTypeName"
@@ -88,3 +85,8 @@
     [contentSubtype]="contentSubtype"
     [contentSubtypeName]="contentSubtypeName">
 </agt-content-list>
+
+<agt-modal-confirm-show-policy-sinisters
+    [modalId]="modalIdConfirmShowPolicySinisters"
+    [policyData]="policyData"
+></agt-modal-confirm-show-policy-sinisters>

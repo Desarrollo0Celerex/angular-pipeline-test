@@ -26,6 +26,18 @@
 									<input type="text" class="form-control" [placeholder]="sinister.policyNumber" readonly="">
 								</div>
 							</div>
+							<div class="col-md-8">
+								<div class="form-group">
+									<label class="form-label">Resolución</label>
+									<input type="text" class="form-control" [placeholder]="(sinister.sinisterResolutionName) ? sinister.sinisterResolutionName : ''" readonly="">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="form-label">Monto ({{(!!sinister.sinisterResolutionCurrencyName) ? sinister.sinisterResolutionCurrencyName : ''}})</label>
+									<input type="text" class="form-control" [placeholder]="(sinister.sinisterResolutionIndemnificationAmount) ? (sinister.sinisterResolutionIndemnificationAmount | currency: '': '$': '0.2-2') : ''" readonly="">
+								</div>
+							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<!-- AGENTHOS - SINISTER NUMBER -->

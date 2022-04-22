@@ -22,14 +22,14 @@
             <div class="card">
                 <agt-loading-content
                     [isLoadingContent]="true"
-                    [height]="422"
+                    [height]="427"
                 ></agt-loading-content>
             </div>
         </ng-template>
     </div>
     <!-- //AGENTHOS - POLICY CARD -->
     <!-- AGENTHOS - POLICY SUMMARY -->
-    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-9" >
+    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-9">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Detalles de Póliza</h3>
@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <!-- AGENTHOS - POLICY NAME -->
                             <label class="form-label">Titular de Póliza</label>
-                            <input type="text" class="form-control" [placeholder]="containerPolicyDetailsService.policyComplete.titularName" readonly="">
+                            <input type="text" class="form-control" readonly="" [placeholder]="containerPolicyDetailsService.policyComplete.titularName">
                         </div>
                     </div>
                 </div>
@@ -53,27 +53,27 @@
                         <div class="form-group">
                             <!-- AGENTHOS - POLICY TOTAL AMOUNT -->
                             <label class="form-label">Prima Total ({{containerPolicyDetailsService.policyComplete.currencyName}})</label>
-                            <input type="text" class="form-control" [placeholder]="(!!containerPolicyDetailsService.policyComplete.totalAmount) ? (containerPolicyDetailsService.policyComplete.totalAmount | currency: '': '$': '0.2-2') : ''" readonly="">
+                            <input type="text" class="form-control" readonly="" [placeholder]="(!!containerPolicyDetailsService.policyComplete.totalAmount) ? (containerPolicyDetailsService.policyComplete.totalAmount | currency: '': '$': '0.2-2') : ''">
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <!-- AGENTHOS - POLICY PAID AMOUNT -->
-                            <label class="form-label">Prima Pagada ({{containerPolicyDetailsService.policyComplete.currencyName}})</label>
-                            <input type="text" class="form-control" [placeholder]="(!!containerPolicyDetailsService.policyComplete.totalAmountPaid) ? (containerPolicyDetailsService.policyComplete.totalAmountPaid | currency: '': '$': '0.2-2') : ''" readonly="">
+                            <label class="form-label">Prima Pagada</label>
+                            <input type="text" class="form-control" readonly="" [placeholder]="(!!containerPolicyDetailsService.policyComplete.totalAmountPaid) ? (containerPolicyDetailsService.policyComplete.totalAmountPaid | currency: '': '$': '0.2-2') : ''">
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <!-- AGENTHOS - POLICY PENDING AMOUNT -->
-                            <label class="form-label">Prima Pendiente ({{containerPolicyDetailsService.policyComplete.currencyName}})</label>
-                            <input type="text" class="form-control" [placeholder]="(!!containerPolicyDetailsService.policyComplete.totalAmount && !!containerPolicyDetailsService.policyComplete.totalAmountPaid) ? (containerPolicyDetailsService.policyComplete.totalAmount - containerPolicyDetailsService.policyComplete.totalAmountPaid | currency: '': '$': '0.2-2') : ''" readonly="">
+                            <label class="form-label">Prima Pendiente</label>
+                            <input type="text" class="form-control" readonly="" [placeholder]="(!!containerPolicyDetailsService.policyComplete.totalAmount && !!containerPolicyDetailsService.policyComplete.totalAmountPaid) ? (containerPolicyDetailsService.policyComplete.totalAmount - containerPolicyDetailsService.policyComplete.totalAmountPaid | currency: '': '$': '0.2-2') : ''">
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <label class="form-label">Recibos Totales</label>
-                            <input type="text" class="form-control" [placeholder]="containerPolicyDetailsService.policyComplete.bills" readonly="">
+                            <input type="text" class="form-control" readonly="" [placeholder]="containerPolicyDetailsService.policyComplete.bills">
                         </div>
                     </div>
                 </div>
@@ -81,25 +81,25 @@
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <label class="form-label">Fecha Emisión</label>
-                            <input type="text" class="form-control" [placeholder]="(!!containerPolicyDetailsService.policyComplete.emissionDate) ? (containerPolicyDetailsService.policyComplete.emissionDate | date: 'dd/MM/yyyy') : ''" readonly="">
+                            <input type="text" class="form-control" readonly="" [placeholder]="(!!containerPolicyDetailsService.policyComplete.emissionDate) ? (containerPolicyDetailsService.policyComplete.emissionDate | date: 'dd/MM/yyyy') : ''">
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <label class="form-label">Inicio Vigencia</label>
-                            <input type="text" class="form-control" [placeholder]="(!!containerPolicyDetailsService.policyComplete.validityStartDate) ? (containerPolicyDetailsService.policyComplete.validityStartDate | date: 'dd/MM/yyyy') : ''" readonly="">
+                            <input type="text" class="form-control" readonly="" [placeholder]="(!!containerPolicyDetailsService.policyComplete.validityStartDate) ? (containerPolicyDetailsService.policyComplete.validityStartDate | date: 'dd/MM/yyyy') : ''">
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <label class="form-label">Fin Vigencia</label>
-                            <input type="text" class="form-control" [placeholder]="(!!containerPolicyDetailsService.policyComplete.validityEndDate) ? (containerPolicyDetailsService.policyComplete.validityEndDate | date: 'dd/MM/yyyy') : ''" readonly="">
+                            <input type="text" class="form-control" readonly="" [placeholder]="(!!containerPolicyDetailsService.policyComplete.validityEndDate) ? (containerPolicyDetailsService.policyComplete.validityEndDate | date: 'dd/MM/yyyy') : ''">
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <label class="form-label">Días Restantes</label>
-                            <input type="text" class="form-control" [placeholder]="containerPolicyDetailsService.policyComplete.daysLeft" readonly="">
+                            <input type="text" class="form-control" readonly="" [placeholder]="containerPolicyDetailsService.policyComplete.daysLeft">
                         </div>
                     </div>
                 </div>
@@ -107,19 +107,19 @@
                     <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                         <div class="form-group">
                             <label class="form-label">Siniestros</label>
-                            <input type="text" class="form-control" [placeholder]="containerPolicyDetailsService.policyComplete.totalSinisters" readonly="">
+                            <input type="text" class="form-control" readonly="" [placeholder]="containerPolicyDetailsService.policyComplete.totalSinisters">
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                         <div class="form-group">
                             <label class="form-label">Endosos</label>
-                            <input type="text" class="form-control" [placeholder]="containerPolicyDetailsService.policyComplete.totalEndorsements" readonly="">
+                            <input type="text" class="form-control" readonly="" [placeholder]="containerPolicyDetailsService.policyComplete.totalEndorsements">
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                         <div class="form-group">
                             <label class="form-label">Renovaciones</label>
-                            <input type="text" class="form-control" [placeholder]="containerPolicyDetailsService.policyComplete.totalRenovations" readonly="">
+                            <input type="text" class="form-control" readonly="" [placeholder]="containerPolicyDetailsService.policyComplete.totalRenovations">
                         </div>
                     </div>
                 </div>

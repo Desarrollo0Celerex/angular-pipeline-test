@@ -128,7 +128,10 @@ export class CardPolicyRecordComponent implements OnInit {
                 totalEvents: this.policyRecord.totalEvents,
                 contactId: this.policyRecord.contactId,
                 policyId: this.policyRecord.policyId,
-                sinisterId: this.policyRecord.sourceId
+                sinisterId: this.policyRecord.sourceId,
+                sinisterResolutionName: this.policyRecord.sinisterResolutionName,
+                sinisterResolutionCurrencyName: this.policyRecord.sinisterResolutionCurrencyName,
+                sinisterResolutionIndemnificationAmount: this.policyRecord.sinisterResolutionIndemnificationAmount
             }
             this.showSinisterDetails.emit(sinister);
         }

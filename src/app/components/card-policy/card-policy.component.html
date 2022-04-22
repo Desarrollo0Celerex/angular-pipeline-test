@@ -106,8 +106,8 @@
         <!-- AGENTHOS - TOTAL PAY -->
         <h6 class="mt-3">Prima Total ({{policy.currencyName | uppercase}})</h6>
         <h6 class="number-font">$<span class="counter">{{policy.policyAmount | currency: '' : '' : '0.2-2'}}</span></h6>
-        <h6 class="mb-1">{{policy.coveredProperty}}</h6>
-        <h6 class="mb-1" *ngIf="!!policy.contactName">{{policy.contactName}}</h6>
+        <h6 class="mb-2">{{policy.coveredProperty}}</h6>
+        <h6 class="mb-2" *ngIf="!!policy.contactName">{{policy.contactName}}</h6>
         <!-- AGENTHOS - POLICY NUMBER -->
         <h6><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{policy.policyNumber}}</h6>
         <!-- AGENTHOS - POLICY LIVE -->

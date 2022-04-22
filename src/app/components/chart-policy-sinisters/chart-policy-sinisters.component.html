@@ -8,4 +8,11 @@
     <!-- AGENTHOS - POLICY SINISTERS -->
     <div id="agt-record-policy-sinisters"></div>
     <agt-loading-content [isLoadingContent]="!canShowChart" [height]="200"></agt-loading-content>
+    <div class="card-footer" *ngIf="!!canShowFooter">
+        <div class="row">
+            <div class="col-12 text-left">
+                <button type="button" class="btn btn-block btn-primary" (click)="confirmAction()"><strong>VER SINIESTROS</strong></button>
+            </div>
+        </div>
+    </div>
 </div>

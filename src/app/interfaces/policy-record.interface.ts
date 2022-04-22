@@ -24,5 +24,8 @@ export interface PolicyRecord {
     dateLastEvent: string,
     totalEvents: string,
     endorsementComments: string,
-    cancellationEvidenceUrl: string
+    cancellationEvidenceUrl: string,
+    sinisterResolutionName: string,
+    sinisterResolutionCurrencyName: string,
+    sinisterResolutionIndemnificationAmount: string
 }

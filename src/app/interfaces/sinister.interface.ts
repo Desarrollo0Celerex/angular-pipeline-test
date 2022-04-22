@@ -31,4 +31,7 @@ export interface Sinister {
     insurerName: string,
     createdAt: string,
     createdByName: string,
+    sinisterResolutionName: string,
+    sinisterResolutionCurrencyName: string,
+    sinisterResolutionIndemnificationAmount: string
 }
