@@ -14,6 +14,7 @@ import { ContainerPolicyManagerModule } from '@components/container-policy-manag
 import { ContentListModule } from '@components/content-list/content-list.module';
 import { ModalConfirmShowPolicyEndorsementsModule } from '@components/modal-confirm-show-policy-endorsements/modal-confirm-show-policy-endorsements.module';
 import { ModalConfirmShowPolicySinistersModule } from '@components/modal-confirm-show-policy-sinisters/modal-confirm-show-policy-sinisters.module';
+import { ModalConfirmShowPolicyTrackerModule } from '@components/modal-confirm-show-policy-tracker/modal-confirm-show-policy-tracker.module';
 
 import { ShowHistoryPolicyRoutingModule } from './show-history-policy-routing.module';
 import { ShowHistoryPolicyPage } from './show-history-policy.page';
@@ -35,6 +36,7 @@ import { ShowHistoryPolicyPage } from './show-history-policy.page';
     ContentListModule,
     ModalConfirmShowPolicyEndorsementsModule,
     ModalConfirmShowPolicySinistersModule,
+    ModalConfirmShowPolicyTrackerModule,
     ShowHistoryPolicyRoutingModule
   ]
 })

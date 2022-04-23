@@ -58,6 +58,8 @@
             <agt-content-total-results
                 *ngIf="canShowTotalResults"
                 [contentType]="contentType"
+                [contentTypeName]="contentTypeName"
+                [contentSubtypeName]="contentSubtypeName"
                 [query]="query"
                 [totalResults]="totalResults"
                 [contactId]="contactId"

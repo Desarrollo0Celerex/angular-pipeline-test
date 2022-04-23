@@ -1281,6 +1281,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 break;
             }
         }
+
+        // Special contents
+        switch(this.contentType) {
+            case CONTENT_TYPES.POLICY_TRACKER.ID:
+                canShow = true;
+            break;
+        }
+        
         return canShow;
     }
 
@@ -1297,7 +1305,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID:
                 case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
                 case CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID:
-                case CONTENT_TYPES.POLICY_TRACKER.ID:
                     canShow = true;
                 break;
             }

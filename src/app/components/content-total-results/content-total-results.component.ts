@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { CONTENT_TYPES } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
 
 import { ContentTotalResultsService } from './content-total-results.service';
 
@@ -17,8 +16,9 @@ export class ContentTotalResultsComponent implements OnChanges {
     @Input() policyId: string;
     @Input() query: string;
     @Input() totalResults: number;
+    @Input() contentTypeName: string = '';
+    @Input() contentSubtypeName: string = '';
     CONTENT_TYPES: any = CONTENT_TYPES;
-    isHistoryContent: boolean;
     policyNumber: string;
 
     constructor(public contentTotalResultsService: ContentTotalResultsService) {
@@ -27,18 +27,13 @@ export class ContentTotalResultsComponent implements OnChanges {
         this.policyId = '';
         this.query = '';
         this.totalResults = 0;
-        this.isHistoryContent = false;
         this.policyNumber = '';
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(typeof changes.contentType !== 'undefined' && !!changes.contentType.currentValue) {
-            this.isHistoryContent = UtilitiesHelper.checkIsHistoryContent(this.contentType);
-        }
         if(
             (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) &&
-            (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) &&
-            this.isHistoryContent
+            (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue)
         ) {
             this.contentTotalResultsService.loadPolicyNumber(this.contactId, this.policyId);
         }
