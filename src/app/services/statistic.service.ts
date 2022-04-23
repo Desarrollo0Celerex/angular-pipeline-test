@@ -10,6 +10,7 @@ const routes: any = {
     policyEndorsementStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/endorsements',
     policyEndorsementBehaviorStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/endorsements/behavior',
     policyPaymentStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/payments',
+    policyPaymentBehaviorStatistics: (workspaceId: string, contactId: string, policyId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/payments/'+paymentId+'/receipts-paid/behavior',
     policyRenewalStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/renewals',
     policySinisterStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/sinisters',
     policySinisterBehaviorStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/sinisters/behavior',
@@ -36,6 +37,11 @@ export class StatisticService {
 
     getPolicyPaymentStatistics(contactId: string, policyId: string): Observable<HttpResponse> {
         const route: string = routes.policyPaymentStatistics(this._workspaceId, contactId, policyId);
+        return this._httpClient.get<HttpResponse>(route);
+    }
+
+    getPolicyPaymentBehaviorStatistics(contactId: string, policyId: string, paymentId: string): Observable<HttpResponse> {
+        const route: string = routes.policyPaymentBehaviorStatistics(this._workspaceId, contactId, policyId, paymentId);
         return this._httpClient.get<HttpResponse>(route);
     }
 

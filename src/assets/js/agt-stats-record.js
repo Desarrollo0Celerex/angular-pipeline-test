@@ -1,4 +1,4 @@
-var StatsRecordPlugin = function() {
+let StatsRecordPlugin = function() {
 
     function drawChartPolicySinisters(chartData) {
         google.charts.load("current", {packages: ["corechart"]});
@@ -7,8 +7,8 @@ var StatsRecordPlugin = function() {
         });
 
         function drawChart(chartData) {
-            var data = google.visualization.arrayToDataTable(chartData);
-            var options = {
+            let data = google.visualization.arrayToDataTable(chartData);
+            let options = {
                 chart: {},
                 fontSize:12,
                 bubble: {textStyle: {fontSize: 12}},
@@ -18,7 +18,7 @@ var StatsRecordPlugin = function() {
                 animation:{"duration":2888,"easing":"inAndOut","startup":true},
             };
 
-            var chart = new google.visualization.ColumnChart(document.getElementById('agt-record-policy-sinisters'));
+            let chart = new google.visualization.ColumnChart(document.getElementById('agt-record-policy-sinisters'));
             chart.draw(data, options);
         }
     }
@@ -34,12 +34,12 @@ var StatsRecordPlugin = function() {
         });
 
         function drawChart(chartData) {
-            var data = new google.visualization.DataTable();
+            let data = new google.visualization.DataTable();
             data.addColumn('string', 'Ramos');
             data.addColumn('number', 'Aseguradoras');
             data.addRows(chartData);
 
-            var options = {
+            let options = {
                 is3D:true,
                 pieHole:0,
                 fontSize:12,
@@ -52,7 +52,7 @@ var StatsRecordPlugin = function() {
                 colors:["#383368","#5a5488","#746cc8","#a09ac8"],
             };
 
-            var chart = new google.visualization.PieChart(document.getElementById('agt-record-policy-endorsements'));
+            let chart = new google.visualization.PieChart(document.getElementById('agt-record-policy-endorsements'));
             chart.draw(data, options);
         }
     }
@@ -68,9 +68,9 @@ var StatsRecordPlugin = function() {
         });
 
         function drawChart(chartData) {
-            var data = google.visualization.arrayToDataTable(chartData);
+            let data = google.visualization.arrayToDataTable(chartData);
 
-            var options = {
+            let options = {
               chartArea:{left:80,top:18,width:'88%',height:'68%'},
               vAxis:{"minValue":0,"format":"short"},
               axisTitlesPosition:"in",
@@ -81,7 +81,7 @@ var StatsRecordPlugin = function() {
               colors:["#062b8c","#bd250d","#0dbd17","#e4ee0c"],
             };
 
-            var chart = new google.visualization.AreaChart(document.getElementById('agt-record-policy-endorsements-behavior'));
+            let chart = new google.visualization.AreaChart(document.getElementById('agt-record-policy-endorsements-behavior'));
             chart.draw(data, options);
         }
     }
@@ -97,9 +97,9 @@ var StatsRecordPlugin = function() {
         });
 
         function drawChart(chartData) {
-            var data = google.visualization.arrayToDataTable(chartData);
+            let data = google.visualization.arrayToDataTable(chartData);
 
-            var options = {
+            let options = {
                 is3D:true,
                 pieHole:0.2,
                 fontSize:12,
@@ -112,13 +112,42 @@ var StatsRecordPlugin = function() {
                 colors:["#38ada8","#0a3d68"],
             };
 
-            var chart = new google.visualization.PieChart(document.getElementById('agt-record-policy-payments'));
+            let chart = new google.visualization.PieChart(document.getElementById('agt-record-policy-payments'));
             chart.draw(data, options);
         }
     }
 
     function removeChartPolicyPayments() {
         document.getElementById('agt-record-policy-payments').innerHTML = '';
+    }
+
+    function drawChartPolicyPaymentsBehavior(chartData) {
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            let data = google.visualization.arrayToDataTable(chartData);
+
+            let options = {
+                chartArea:{left:80,top:18,width:'88%',height:'68%'},
+                vAxis:{"minValue":0,"format":"currency"},
+                axisTitlesPosition:"in",
+                legend:{"position":"none"},
+                crosshair:{"trigger":"both","color":"#ec4178","opacity":0.8},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                colors:["#38ada8"],
+            };
+
+            let chart = new google.visualization.AreaChart(document.getElementById('agt-record-policy-payments-behavior'));
+            chart.draw(data, options);
+        }
+    }
+
+    function removeChartPolicyPaymentsBehavior() {
+        document.getElementById('agt-record-policy-payments-behavior').innerHTML = '';
     }
 
     function drawChartPolicyRenewals(chartData) {
@@ -128,9 +157,9 @@ var StatsRecordPlugin = function() {
         });
 
         function drawChart(chartData) {
-            var data = google.visualization.arrayToDataTable(chartData);
+            let data = google.visualization.arrayToDataTable(chartData);
 
-            var options = {
+            let options = {
                 chart: {},
                 isStacked: true,
                 fontSize:12,
@@ -142,7 +171,7 @@ var StatsRecordPlugin = function() {
                 colors:["#0b0742","#5e72e8","#ff9198","#fdc094"],
             };
 
-            var chart = new google.visualization.ColumnChart(document.getElementById('agt-record-policy-renewals'));
+            let chart = new google.visualization.ColumnChart(document.getElementById('agt-record-policy-renewals'));
             chart.draw(data, options);
         }
     }
@@ -158,9 +187,9 @@ var StatsRecordPlugin = function() {
         });
 
         function drawChart(chartData) {
-            var container = document.getElementById('agt-record-policy-sinisters-behavior');
-            var chart = new google.visualization.Timeline(container);
-            var dataTable = new google.visualization.DataTable();
+            let container = document.getElementById('agt-record-policy-sinisters-behavior');
+            let chart = new google.visualization.Timeline(container);
+            let dataTable = new google.visualization.DataTable();
 
             dataTable.addColumn({ type: 'string', id: 'Número' });
             dataTable.addColumn({ type: 'string', id: 'Tipo Siniestro' });
@@ -170,7 +199,7 @@ var StatsRecordPlugin = function() {
 
             dataTable.addRows(chartData);
 
-            var options = {
+            let options = {
                 fontSize:12,
                 bubble: {textStyle: {fontSize: 12}},
                 crosshair:{"trigger":"both","color":"#8b0d88","opacity":0.8},
@@ -198,6 +227,8 @@ var StatsRecordPlugin = function() {
         drawChartPolicyEndorsementsBehavior,
         removeChartPolicyEndorsements,
         drawChartPolicyPayments,
+        removeChartPolicyPaymentsBehavior,
+        drawChartPolicyPaymentsBehavior,
         removeChartPolicyPayments,
         drawChartPolicyRenewals,
         removeChartPolicyRenewals,
