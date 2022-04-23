@@ -61,6 +61,35 @@ var StatsRecordPlugin = function() {
         document.getElementById('agt-record-policy-endorsements').innerHTML = '';
     }
 
+    function drawChartPolicyEndorsementsBehavior(chartData) {
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            var data = google.visualization.arrayToDataTable(chartData);
+
+            var options = {
+              chartArea:{left:80,top:18,width:'88%',height:'68%'},
+              vAxis:{"minValue":0,"format":"short"},
+              axisTitlesPosition:"in",
+              legend:{"position":"none"},
+              crosshair:{"trigger":"both","color":"#ec4178","opacity":0.8},
+              tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+              animation:{"duration":2888,"easing":"inAndOut","startup":true},
+              colors:["#062b8c","#bd250d","#0dbd17","#e4ee0c"],
+            };
+
+            var chart = new google.visualization.AreaChart(document.getElementById('agt-record-policy-endorsements-behavior'));
+            chart.draw(data, options);
+        }
+    }
+
+    function removeChartPolicyEndorsementsBehavior() {
+        document.getElementById('agt-record-policy-endorsements-behavior').innerHTML = '';
+    }
+
     function drawChartPolicyPayments(chartData) {
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(function() {
@@ -162,13 +191,15 @@ var StatsRecordPlugin = function() {
     return {
         drawChartPolicySinisters,
         removeChartPolicySinisters,
+        drawChartPolicySinistersBehavior,
+        removeChartPolicySinistersBehavior,
         drawChartPolicyEndorsements,
+        removeChartPolicyEndorsementsBehavior,
+        drawChartPolicyEndorsementsBehavior,
         removeChartPolicyEndorsements,
         drawChartPolicyPayments,
         removeChartPolicyPayments,
         drawChartPolicyRenewals,
         removeChartPolicyRenewals,
-        drawChartPolicySinistersBehavior,
-        removeChartPolicySinistersBehavior,
     }
 }();
