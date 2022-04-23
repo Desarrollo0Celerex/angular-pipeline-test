@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { CONTENT_TYPES } from '@constants/global';
+import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 
 @Component({
   selector: 'agt-policy-endorsements-history',
@@ -14,6 +14,8 @@ export class PolicyEndorsementsHistoryPage implements OnInit, OnDestroy {
     policyId: string = '';
     contentType: number = CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID;
     contentTypeName: string = CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.NAME;
+    contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
+    contentSubtypeName: string = 'Aplicado';
     private _subParams: any;
 
     constructor(private _activatedRoute: ActivatedRoute) { }

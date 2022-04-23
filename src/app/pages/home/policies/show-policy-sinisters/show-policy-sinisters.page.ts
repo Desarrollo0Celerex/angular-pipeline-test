@@ -15,7 +15,7 @@ export class ShowPolicySinistersPage implements OnInit {
     contentType: number = CONTENT_TYPES.POLICY_SINISTERS.ID;
     contentTypeName: string = CONTENT_TYPES.POLICY_SINISTERS.NAME;
     contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
-    contentSubtypeName: string = 'Registrado';
+    contentSubtypeName: string = 'Confirmado';
 
     constructor(private _activatedRoute: ActivatedRoute) { }
 

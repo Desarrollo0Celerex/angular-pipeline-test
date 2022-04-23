@@ -19,7 +19,8 @@ export class ShowHistoryPolicyPage implements OnInit, OnDestroy {
     contentTypeName: string = CONTENT_TYPES.HISTORY_POLICY.NAME;
     contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
     contentSubtypeName: string = 'Registrado';
-    modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters-02';
+    modalIdConfirmShowPolicyEndorsements: string = 'shp-confirm-show-policy-endorsements';
+    modalIdConfirmShowPolicySinisters: string = 'shp-confirm-show-policy-sinisters';
     policyData: PolicyDataSend | null = null;
     private _subParams: any;
 
@@ -35,6 +36,10 @@ export class ShowHistoryPolicyPage implements OnInit, OnDestroy {
 
     showModalToConfirmShowPolicySinisters(): void {
         ModalPlugin.show(this.modalIdConfirmShowPolicySinisters);
+    }
+
+    showModalToConfirmShowPolicyEndorsements(): void {
+        ModalPlugin.show(this.modalIdConfirmShowPolicyEndorsements);
     }
 
     /**

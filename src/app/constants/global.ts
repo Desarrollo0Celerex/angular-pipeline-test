@@ -189,7 +189,7 @@ export const CONTENT_TYPES: any = {
     },
     POLICY_SINISTERS: {
         ID: 12,
-        NAME: 'Movimiento'
+        NAME: 'Siniestro'
     },
     CONTACT_FILE: {
         ID: 13,
@@ -205,7 +205,7 @@ export const CONTENT_TYPES: any = {
     },
     POLICY_ENDORSEMENTS_HISTORY: {
         ID: 16,
-        NAME: 'Movimiento'
+        NAME: 'Endoso'
     },
     POLICY_TRACKER: {
         ID: 17,

@@ -10,10 +10,9 @@
             <!-- AGENTHOS - ENDORSEMENTS CONTROL BODY -->
             <div class="card-body">
                 <div class="btn-list mt-3">
-                    <!-- AGENTHOS - POLICY VIEW -->
-                    <button type="button" class="btn btn-secondary" (click)="showPolicy()" [disabled]="model.policy == null"><strong>VER PÓLIZA</strong></button>
-                    <!-- AGENTHOS - POLICY ENDORSEMENT -->
-                    <button type="button" class="btn btn-primary" (click)="confirmEndorsePolicy()"><strong>APLICAR ENDOSO</strong></button>
+                    <button type="button" class="btn btn-secondary" (click)="showModalToShowPolicyFile()"><strong>VER PÓLIZA</strong></button>
+                    <button type="button" class="btn btn-primary" (click)="showModalToConfirmShowPolicyHistory()"><strong>VER HISTORIAL</strong></button>
+                    <button type="button" class="btn btn-primary" (click)="showModalToConfirmEndorsePolicy()"><strong>APLICAR ENDOSO</strong></button>
                 </div>
             </div>
             <!-- //AGENTHOS - ENDORSEMENTS CONTROL BODY -->
@@ -22,8 +21,18 @@
 </div>
 <!-- //AGENTHOS - ENDORSEMENTS CONTROL -->
 
-<ng-container *ngIf="!!model.policy">
-    <agt-modal-show-policy-file [modalId]="modalIdShowPolicyFile" [policyUrl]="model.policy.policyUrl"></agt-modal-show-policy-file>
-</ng-container>
-
-<agt-modal-confirm-endorse-policy [modalId]="modalIdConfirmEndorsePolicy" [contactId]="contactId" [policyId]="policyId"></agt-modal-confirm-endorse-policy>
+<agt-modal-show-policy-file
+    [modalId]="modalIdShowPolicyFile"
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-modal-show-policy-file>
+<agt-modal-confirm-show-history-policy
+    [modalId]="modalIdConfirmShowHistoryPolicy"
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-modal-confirm-show-history-policy>
+<agt-modal-confirm-endorse-policy
+    [modalId]="modalIdConfirmEndorsePolicy"
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-modal-confirm-endorse-policy>

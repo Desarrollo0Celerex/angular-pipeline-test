@@ -1276,6 +1276,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.PARTNER_POLICY.ID:
                 case CONTENT_TYPES.HISTORY_POLICY.ID:
                 case CONTENT_TYPES.POLICY_SINISTERS.ID:
+                case CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID:
                     canShow = true;
                 break;
             }

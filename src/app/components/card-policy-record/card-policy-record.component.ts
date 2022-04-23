@@ -141,7 +141,7 @@ export class CardPolicyRecordComponent implements OnInit {
         if(!!this.policyRecord) {
             switch(this.policyRecord.policyRecordTypeId) {
                 case POLICY_RECORD_TYPES.ENDORSEMENT:
-                    this.policyRecord.policyRecordTypeDescription = this.policyRecord.policyRecordTypeDescription.replace('[endorsementTypeName]', '<strong>'+this.policyRecord.endorsementTypeName+'</strong>');
+                    this.policyRecord.policyRecordTypeDescription = this.policyRecord.policyRecordTypeDescription.replace('[endorsementTypeName]', '<strong>'+this.policyRecord.endorsementTypeShortName+'</strong>');
                     this.policyRecord.policyRecordTypeDescription = this.policyRecord.policyRecordTypeDescription.replace('[endorsementNumber]', '<strong>'+this.policyRecord.endorsementNumber+'</strong>');
                     break;
 

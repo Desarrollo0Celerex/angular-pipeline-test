@@ -3,6 +3,7 @@
         <ng-container *ngIf="isHistoryContent; else noHistoryContent">
             <ng-container [ngSwitch]="contentType">
                 <li class="breadcrumb-item1" *ngSwitchCase="CONTENT_TYPES.POLICY_SINISTERS.ID">Se han detectado <strong>{{totalResults}}</strong> Siniestros Confirmados para la póliza <strong>{{contentTotalResultsService.policyNumber}}</strong>.</li>
+                <li class="breadcrumb-item1" *ngSwitchCase="CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID">Se han detectado <strong>{{totalResults}}</strong> Endosos Aplicados para la póliza <strong>{{contentTotalResultsService.policyNumber}}</strong>.</li>
                 <li class="breadcrumb-item1" *ngSwitchDefault>Se han detectado <strong>{{totalResults}}</strong> Movimientos Registrados para la póliza <strong>{{contentTotalResultsService.policyNumber}}</strong>.</li>
             </ng-container>
         </ng-container>

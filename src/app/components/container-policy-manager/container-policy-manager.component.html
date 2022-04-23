@@ -31,6 +31,16 @@
     <agt-modal-confirm-show-payment-history [modalId]="modalIdConfirmShowPolicyPayments" [contactId]="contactId" [policyId]="policyId" [paymentId]="model.policy.paymentId"></agt-modal-confirm-show-payment-history>
 </ng-container>
 
-<agt-modal-confirm-show-policy-endorsements [modalId]="modalIdConfirmShowPolicyEndorsements" (actionConfirmed)="goToPolicyEndorsements()"></agt-modal-confirm-show-policy-endorsements>
-<agt-modal-confirm-show-policy-sinisters [modalId]="modalIdConfirmShowPolicySinisters" [policyData]="policyData"></agt-modal-confirm-show-policy-sinisters>
-<agt-modal-confirm-show-policy-tracker [modalId]="modalIdConfirmShowPolicyTracker" [contactId]="contactId" [policyId]="policyId"></agt-modal-confirm-show-policy-tracker>
+<agt-modal-confirm-show-policy-endorsements
+    [modalId]="modalIdConfirmShowPolicyEndorsements"
+    [policyData]="policyData"
+></agt-modal-confirm-show-policy-endorsements>
+<agt-modal-confirm-show-policy-sinisters
+    [modalId]="modalIdConfirmShowPolicySinisters"
+    [policyData]="policyData"
+></agt-modal-confirm-show-policy-sinisters>
+<agt-modal-confirm-show-policy-tracker
+    [modalId]="modalIdConfirmShowPolicyTracker"
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-modal-confirm-show-policy-tracker>

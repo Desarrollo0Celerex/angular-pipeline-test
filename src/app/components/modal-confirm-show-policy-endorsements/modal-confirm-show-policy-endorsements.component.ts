@@ -1,4 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { ROUTES_NAME } from '@constants/routes-name';
+import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 
 declare var ModalPlugin: any;
 
@@ -10,10 +14,14 @@ declare var ModalPlugin: any;
 })
 export class ModalConfirmShowPolicyEndorsementsComponent {
     @Input() modalId: string = '';
-    @Output() actionConfirmed: EventEmitter<void> = new EventEmitter<void>();
+    @Input() policyData: PolicyDataSend | null = null;
+
+    constructor(private _router: Router) { }
 
     confirmAction(): void {
         ModalPlugin.hide(this.modalId);
-        this.actionConfirmed.emit();
+        if(!!this.policyData) {
+            this._router.navigateByUrl(ROUTES_NAME.policyEndorsementsHistory(this.policyData.contactId, this.policyData.policyId));
+        }
     }
 }

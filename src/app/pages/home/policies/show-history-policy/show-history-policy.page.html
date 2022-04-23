@@ -54,6 +54,8 @@
         <agt-chart-policy-endorsements
             [contactId]="contactId"
             [policyId]="policyId"
+            [canShowFooter]="true"
+            (confirmedAction)="showModalToConfirmShowPolicyEndorsements()"
         ></agt-chart-policy-endorsements>
     </div>
     <!-- //AGENTHOS - POLICY RECORD ENDORSEMENTS -->
@@ -90,3 +92,8 @@
     [modalId]="modalIdConfirmShowPolicySinisters"
     [policyData]="policyData"
 ></agt-modal-confirm-show-policy-sinisters>
+
+<agt-modal-confirm-show-policy-endorsements
+    [modalId]="modalIdConfirmShowPolicyEndorsements"
+    [policyData]="policyData"
+></agt-modal-confirm-show-policy-endorsements>

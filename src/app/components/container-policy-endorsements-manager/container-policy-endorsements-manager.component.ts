@@ -1,6 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
-
-import { ContainerPolicyEndorsementsManagerService } from './container-policy-endorsements-manager.service';
+import { Component, Input } from '@angular/core';
 
 declare var ModalPlugin: any;
 
@@ -8,32 +6,26 @@ declare var ModalPlugin: any;
   selector: 'agt-container-policy-endorsements-manager',
   templateUrl: './container-policy-endorsements-manager.component.html',
   styles: [
-  ],
-  providers: [ContainerPolicyEndorsementsManagerService]
+  ]
 })
-export class ContainerPolicyEndorsementsManagerComponent implements OnChanges {
+export class ContainerPolicyEndorsementsManagerComponent {
     @Input() contactId: string = '';
     @Input() policyId: string = '';
-    modalIdShowPolicyFile: string = 'modal-show-policy-file';
-    modalIdConfirmEndorsePolicy: string = 'modal-confirm-endorse-policy';
+    modalIdShowPolicyFile: string = 'cpem-modal-show-policy-file';
+    modalIdConfirmShowHistoryPolicy: string = 'cpem-confirm-show-history-policy';
+    modalIdConfirmEndorsePolicy: string = 'cpem-modal-confirm-endorse-policy';
 
-    constructor(
-        private _containerPolicyEndorsementsManagerService: ContainerPolicyEndorsementsManagerService
-    ) { }
+    constructor() { }
 
-    ngOnChanges(): void {
-        this.model.loadPolicy(this.contactId, this.policyId);
-    }
-
-    get model(): ContainerPolicyEndorsementsManagerService {
-        return this._containerPolicyEndorsementsManagerService;
-    }
-
-    showPolicy(): void {
+    showModalToShowPolicyFile(): void {
         ModalPlugin.show(this.modalIdShowPolicyFile);
     }
 
-    confirmEndorsePolicy(): void {
+    showModalToConfirmShowPolicyHistory(): void {
+        ModalPlugin.show(this.modalIdConfirmShowHistoryPolicy);
+    }
+
+    showModalToConfirmEndorsePolicy(): void {
         ModalPlugin.show(this.modalIdConfirmEndorsePolicy);
     }
 

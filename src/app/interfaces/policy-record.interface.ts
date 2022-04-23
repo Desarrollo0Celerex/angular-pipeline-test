@@ -8,6 +8,7 @@ export interface PolicyRecord {
     policyRecordTypeIcon: string,
     createdByName: string,
     endorsementTypeName: string,
+    endorsementTypeShortName: string,
     endorsementNumber: string,
     insurerName: string,
     policyNumber: string,
