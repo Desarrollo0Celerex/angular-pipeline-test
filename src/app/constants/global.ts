@@ -179,7 +179,7 @@ export const CONTENT_TYPES: any = {
     },
     PAYMENT_HISTORY: {
         ID: 10,
-        NAME: 'Movimiento'
+        NAME: 'Pago'
     },
     SINISTER_HISTORY: {
         ID: 11,

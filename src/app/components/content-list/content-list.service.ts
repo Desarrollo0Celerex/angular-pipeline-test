@@ -240,7 +240,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadContactHistoryPolicy(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeName,endorsementNumber,insurerName,policyNumber,policyCancellationReasonName,sourceContactId,sinisterTypeName,sinisterNumber,contactId,policyId,titularName,invoice,certificate,sinisterDate,dateLastEvent,totalEvents,endorsementComments,cancellationEvidenceUrl,sinisterResolutionName,sinisterResolutionCurrencyName,sinisterResolutionIndemnificationAmount';
+        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeShortName,endorsementNumber,insurerName,policyNumber,policyCancellationReasonName,sourceContactId,sinisterTypeName,sinisterNumber,contactId,policyId,titularName,invoice,certificate,sinisterDate,dateLastEvent,totalEvents,endorsementComments,cancellationEvidenceUrl,sinisterResolutionName,sinisterResolutionCurrencyName,sinisterResolutionIndemnificationAmount';
         return this._policyService.getContactHistoryPolicy(contactId, policyId, page, fields).pipe(
             tap((res: HttpResponse) => {
                 const policies: Policy[] = res.data.items;

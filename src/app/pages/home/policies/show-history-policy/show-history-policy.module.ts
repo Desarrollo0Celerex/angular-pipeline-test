@@ -12,6 +12,7 @@ import { ChartPolicyEndorsementsModule } from '@components/chart-policy-endorsem
 import { ContainerPolicyDetailsModule } from '@components/container-policy-details/container-policy-details.module';
 import { ContainerPolicyManagerModule } from '@components/container-policy-manager/container-policy-manager.module';
 import { ContentListModule } from '@components/content-list/content-list.module';
+import { ModalConfirmShowPaymentHistoryModule } from '@components/modal-confirm-show-payment-history/modal-confirm-show-payment-history.module';
 import { ModalConfirmShowPolicyEndorsementsModule } from '@components/modal-confirm-show-policy-endorsements/modal-confirm-show-policy-endorsements.module';
 import { ModalConfirmShowPolicySinistersModule } from '@components/modal-confirm-show-policy-sinisters/modal-confirm-show-policy-sinisters.module';
 import { ModalConfirmShowPolicyTrackerModule } from '@components/modal-confirm-show-policy-tracker/modal-confirm-show-policy-tracker.module';
@@ -34,6 +35,7 @@ import { ShowHistoryPolicyPage } from './show-history-policy.page';
     ContainerPolicyDetailsModule,
     ContainerPolicyManagerModule,
     ContentListModule,
+    ModalConfirmShowPaymentHistoryModule,
     ModalConfirmShowPolicyEndorsementsModule,
     ModalConfirmShowPolicySinistersModule,
     ModalConfirmShowPolicyTrackerModule,

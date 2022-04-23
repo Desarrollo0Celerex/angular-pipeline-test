@@ -109,7 +109,7 @@ var StatsRecordPlugin = function() {
                 legend:{"position":"top","textStyle":{"color":"#536d98","fontSize":12}},
                 tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
                 animation:{"duration":2888,"easing":"inAndOut","startup":true},
-                colors:["#303a98","#c00388"],
+                colors:["#38ada8","#0a3d68"],
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('agt-record-policy-payments'));

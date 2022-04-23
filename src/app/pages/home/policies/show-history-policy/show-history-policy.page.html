@@ -65,6 +65,8 @@
         <agt-chart-policy-payments
             [contactId]="contactId"
             [policyId]="policyId"
+            [canShowFooter]="true"
+            (confirmedAction)="showModalToConfirmShowPolicyPayments()"
         ></agt-chart-policy-payments>
     </div>
     <!-- //AGENTHOS - POLICY RECORD RECEIPTS -->
@@ -99,6 +101,12 @@
     [modalId]="modalIdConfirmShowPolicyEndorsements"
     [policyData]="policyData"
 ></agt-modal-confirm-show-policy-endorsements>
+
+<agt-modal-confirm-show-payment-history
+    [modalId]="modalIdConfirmShowPolicyPayments"
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-modal-confirm-show-payment-history>
 
 <agt-modal-confirm-show-policy-tracker
     [modalId]="modalIdConfirmShowPolicyRenewals"

@@ -20,6 +20,7 @@ export class ShowHistoryPolicyPage implements OnInit, OnDestroy {
     contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
     contentSubtypeName: string = 'Registrado';
     modalIdConfirmShowPolicyEndorsements: string = 'shp-confirm-show-policy-endorsements';
+    modalIdConfirmShowPolicyPayments: string = 'shp-confirm-show-policy-payments';
     modalIdConfirmShowPolicySinisters: string = 'shp-confirm-show-policy-sinisters';
     modalIdConfirmShowPolicyRenewals: string = 'shp-confirm-show-policy-renewals';
     policyData: PolicyDataSend | null = null;
@@ -41,6 +42,10 @@ export class ShowHistoryPolicyPage implements OnInit, OnDestroy {
 
     showModalToConfirmShowPolicyEndorsements(): void {
         ModalPlugin.show(this.modalIdConfirmShowPolicyEndorsements);
+    }
+
+    showModalToConfirmShowPolicyPayments(): void {
+        ModalPlugin.show(this.modalIdConfirmShowPolicyPayments);
     }
 
     showModalToConfirmShowPolicyRenewals(): void {
