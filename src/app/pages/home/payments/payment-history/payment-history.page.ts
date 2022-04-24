@@ -1,19 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { CONTENT_TYPES } from '@constants/global';
+import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 
 @Component({
   selector: 'agt-payment-history',
-  template: '<agt-container-timeline [contactId]="contactId" [policyId]="policyId" [paymentId]="paymentId" [contentType]="CONTENT_TYPES.PAYMENT_HISTORY.ID" [contentTypeName]="CONTENT_TYPES.PAYMENT_HISTORY.NAME"></agt-container-timeline>',
+  templateUrl: './payment-history.page.html',
   styles: [
   ]
 })
 export class PaymentHistoryPage implements OnInit {
-    CONTENT_TYPES: any = CONTENT_TYPES;
     contactId: string = '';
     policyId: string = '';
     paymentId: string = '';
+    contentType: number = CONTENT_TYPES.PAYMENT_HISTORY.ID;
+    contentTypeName: string = CONTENT_TYPES.PAYMENT_HISTORY.NAME;
+    contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
+    contentSubtypeName: string = 'Aplicado';
     private _subParams: any;
 
     constructor(private _activatedRoute: ActivatedRoute) { }

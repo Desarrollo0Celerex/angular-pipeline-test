@@ -240,7 +240,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadContactHistoryPolicy(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeName,endorsementNumber,insurerName,policyNumber,policyCancellationReasonName,sourceContactId,sinisterTypeName,sinisterNumber,contactId,policyId,titularName,invoice,certificate,sinisterDate,dateLastEvent,totalEvents,endorsementComments,cancellationEvidenceUrl';
+        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeShortName,endorsementNumber,insurerName,policyNumber,policyCancellationReasonName,sourceContactId,sinisterTypeName,sinisterNumber,contactId,policyId,titularName,invoice,certificate,sinisterDate,dateLastEvent,totalEvents,endorsementComments,cancellationEvidenceUrl,sinisterResolutionName,sinisterResolutionCurrencyName,sinisterResolutionIndemnificationAmount';
         return this._policyService.getContactHistoryPolicy(contactId, policyId, page, fields).pipe(
             tap((res: HttpResponse) => {
                 const policies: Policy[] = res.data.items;
@@ -590,7 +590,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPaymentHistory(paymentId: string, page: number): Observable<void> {
-        const fields: string = 'receiptPaidId,createdAt,applicationDate,receiptsAmount,receiptsNumber,createdByName,currencyName,paymentId';
+        const fields: string = 'receiptPaidId,createdAt,applicationDate,receiptsAmount,receiptsNumber,createdByName,currencyName,paymentId,paymentEvidenceUrl';
         return this._receiptPaidService.getReceiptsPaid(paymentId, page, fields).pipe(
             tap((res: HttpResponse) => {
                 const receiptsPaid: ReceiptPaid[] = res.data.items;
@@ -641,7 +641,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPolicyEndorsements(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeName,endorsementNumber,contactId,policyId,titularName,endorsementComments';
+        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeShortName,endorsementNumber,contactId,policyId,titularName,endorsementComments';
         return this._endorsementService.getPolicyEndorsements(contactId, policyId, page, fields).pipe(
             tap((res: HttpResponse) => {
                 const policies: Policy[] = res.data.items;

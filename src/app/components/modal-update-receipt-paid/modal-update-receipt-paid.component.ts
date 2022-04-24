@@ -1,10 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
+import { ModalSelectEvidenceComponent } from '@components/modal-select-evidence/modal-select-evidence.component';
 import { ERROR_CODES } from '@constants/error-codes';
+import { IMAGE_AND_DOCUMENT_FORMATS, FILE_TYPES } from '@constants/global';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { HttpError } from '@interfaces/http-error.interface';
+import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
 import { LoadingService } from '@services/loading.service';
 
@@ -20,16 +23,28 @@ declare var ModalPlugin: any;
   ],
   providers: [ModalUpdateReceiptPaidService]
 })
-export class ModalUpdateReceiptPaidComponent implements OnChanges {
+export class ModalUpdateReceiptPaidComponent implements OnChanges, OnInit {
     @Input() modalId: string = '';
+    @Input() contactId: string = '';
+    @Input() policyId: string = '';
+    @Input() paymentId: string = '';
     @Input() receiptPaidId: string = '';
     @Output() receiptPaidUpdated: EventEmitter<UpdateReceiptPaidDataSend> = new EventEmitter<UpdateReceiptPaidDataSend>();
+    @ViewChild('modalSelectEvidence') private _modalSelectEvidence!: ModalSelectEvidenceComponent;
     calendarIdApplicationDate: string = 'applicationDate';
-    modalIdErrorUpdatingPaidReceipt: string = 'agt-error-updating-paid-receipt';
+    modalIdErrorUpdatingPaidReceipt: string = 'murp-error-updating-paid-receipt';
+    modalIdSelectPaymentEvidence: string = 'murp-upload-payment-evidence';
+    modalSelectEvidenceData: ModalSelectFileData = {
+        title: 'Cargar Evidencia',
+        description: 'Selecciona el formato digital de la evidencia del pago.',
+        buttonLabel: 'Cargar evidencia',
+        formats: IMAGE_AND_DOCUMENT_FORMATS,
+        fileType: FILE_TYPES.IMAGE_AND_DOCUMENT
+    };
     private _isFormSubmitted: boolean = false;
 
     constructor(
-        private _modalUpdateReceiptPaidService: ModalUpdateReceiptPaidService,
+        public model: ModalUpdateReceiptPaidService,
         private _loadingService: LoadingService
     ) { }
 
@@ -39,8 +54,13 @@ export class ModalUpdateReceiptPaidComponent implements OnChanges {
         }
     }
 
-    get model(): ModalUpdateReceiptPaidService {
-        return this._modalUpdateReceiptPaidService;
+    ngOnInit(): void {
+        this.model.loadPaymentTypes();
+    }
+
+    addPaymentEvidence(file: File): void {
+        this.showModalUpdateReceiptPaid();
+        this.model.form.patchValue({ paymentEvidence: file})
     }
 
     /**
@@ -63,11 +83,20 @@ export class ModalUpdateReceiptPaidComponent implements OnChanges {
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
+    selectPaymentEvidence(): void {
+        ModalPlugin.hide(this.modalId);
+        ModalPlugin.show(this.modalIdSelectPaymentEvidence);
+    }
+
+    showModalUpdateReceiptPaid(): void {
+        ModalPlugin.show(this.modalId);
+    }
+
     updateReceipPaid(): void {
         this._isFormSubmitted = true;
         if(this.model.form.valid) {
             this._loadingService.show();
-            this.model.updateReceipPaid(this.receiptPaidId).subscribe(() => {
+            this.model.updateReceipPaid(this.contactId, this.policyId, this.paymentId, this.receiptPaidId).subscribe(() => {
                 ModalPlugin.hide(this.modalId);
                 this.receiptPaidUpdated.emit(this.model.form.value);
                 setTimeout(() => {

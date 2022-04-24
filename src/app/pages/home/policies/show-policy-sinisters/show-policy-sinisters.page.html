@@ -1,1 +1,48 @@
-<agt-container-timeline [contactId]="contactId" [policyId]="policyId" [contentType]="CONTENT_TYPES.POLICY_SINISTERS.ID" [contentTypeName]="CONTENT_TYPES.POLICY_SINISTERS.NAME"></agt-container-timeline>
+<agt-container-policy-details
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-container-policy-details>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Desempeño de Siniestros</h3>
+            </div>
+        </div>
+    </div>
+    <agt-alert-unusual-reported-sinisters
+        [ngStyle]="{'width': '100%'}"
+        [contactId]="contactId"
+        [policyId]="policyId"
+    ></agt-alert-unusual-reported-sinisters>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+        <agt-chart-policy-sinisters
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-chart-policy-sinisters>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-9">
+        <agt-chart-policy-sinisters-behavior
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-chart-policy-sinisters-behavior>
+    </div>
+</div>
+
+<agt-container-sinisters-manager
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-container-sinisters-manager>
+
+<agt-content-list
+    [contentType]="contentType"
+    [contentTypeName]="contentTypeName"
+    [contactId]="contactId"
+    [policyId]="policyId"
+    [contentSubtype]="contentSubtype"
+    [contentSubtypeName]="contentSubtypeName">
+</agt-content-list>

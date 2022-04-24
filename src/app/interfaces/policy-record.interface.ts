@@ -8,6 +8,7 @@ export interface PolicyRecord {
     policyRecordTypeIcon: string,
     createdByName: string,
     endorsementTypeName: string,
+    endorsementTypeShortName: string,
     endorsementNumber: string,
     insurerName: string,
     policyNumber: string,
@@ -24,5 +25,8 @@ export interface PolicyRecord {
     dateLastEvent: string,
     totalEvents: string,
     endorsementComments: string,
-    cancellationEvidenceUrl: string
+    cancellationEvidenceUrl: string,
+    sinisterResolutionName: string,
+    sinisterResolutionCurrencyName: string,
+    sinisterResolutionIndemnificationAmount: string
 }

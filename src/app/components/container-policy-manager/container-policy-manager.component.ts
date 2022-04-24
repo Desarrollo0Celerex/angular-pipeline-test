@@ -61,8 +61,4 @@ export class ContainerPolicyManagerComponent implements OnChanges {
         ModalPlugin.show(this.modalIdConfirmShowPolicyTracker);
     }
 
-    goToPolicyEndorsements(): void {
-        this._router.navigateByUrl(ROUTES_NAME.policyEndorsementsHistory(this.contactId, this.policyId))
-    }
-
 }

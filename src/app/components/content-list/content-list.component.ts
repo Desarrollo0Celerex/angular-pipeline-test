@@ -19,7 +19,6 @@ import { Payment } from '@interfaces/payment.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
-import { ReceiptApplied } from '@interfaces/receipt-applied.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
 import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.interface';
@@ -87,6 +86,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedGroup: Group | null = null;
     selectedGroupId: string = '';
     selectedPartner: Partner | null = null;
+    selectedPaymentEvidenceUrl: string = '';
     selectedPaymentId: string;
     selectedPolicyData: PolicyDataSend | null = null;
     selectedPolicyId: string;
@@ -132,6 +132,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowContactFileDetails: string = 'agt-show-contact-file-details';
     modalIdShowEndorsement: string;
     modalIdShowGroupDetails: string = 'agt-show-group-details';
+    modalIdShowPaymentEvidenceFile: string = 'agt-show-payment-evidence-file';
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
@@ -814,6 +815,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdShowPartnerDetails);
     }
 
+    showPaymentEvidence(paymentEvidenceUrl: string): void {
+        this.selectedPaymentEvidenceUrl = paymentEvidenceUrl;
+        ModalPlugin.show(this.modalIdShowPaymentEvidenceFile);
+    }
+
     showReceiptAppliedDetails(receiptAppliedId: string): void {
         this.selectedReceiptAppliedId = receiptAppliedId;
         ModalPlugin.show(this.modalIdShowReceiptAppliedDetails);
@@ -1276,10 +1282,22 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.GROUP_POLICY.ID:
                 case CONTENT_TYPES.PARTNER_POLICY.ID:
                 case CONTENT_TYPES.HISTORY_POLICY.ID:
+                case CONTENT_TYPES.POLICY_SINISTERS.ID:
+                case CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID:
+                case CONTENT_TYPES.PAYMENT_HISTORY.ID:
                     canShow = true;
                 break;
             }
         }
+
+        // Special contents
+        switch(this.contentType) {
+            case CONTENT_TYPES.POLICY_TRACKER.ID:
+            case CONTENT_TYPES.PENDING_RECEIP.ID:
+                canShow = true;
+            break;
+        }
+
         return canShow;
     }
 
@@ -1296,7 +1314,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID:
                 case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
                 case CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID:
-                case CONTENT_TYPES.POLICY_TRACKER.ID:
                     canShow = true;
                 break;
             }

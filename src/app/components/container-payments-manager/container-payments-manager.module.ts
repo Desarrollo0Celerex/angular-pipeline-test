@@ -6,6 +6,9 @@ import { ModalChangePaymentDateModule } from '@components/modal-change-payment-d
 import { ModalShowPolicyFileModule } from '@components/modal-show-policy-file/modal-show-policy-file.module';
 import { ModalConfirmSuspendPaymentsModule } from '@components/modal-confirm-suspend-payments/modal-confirm-suspend-payments.module';
 import { ModalConfirmActivatePaymentsModule } from '@components/modal-confirm-activate-payments/modal-confirm-activate-payments.module';
+import { ModalConfirmShowHistoryPolicyModule } from '@components/modal-confirm-show-history-policy/modal-confirm-show-history-policy.module';
+import { ModalConfirmShowPendingPaymentsModule } from '@components/modal-confirm-show-pending-payments/modal-confirm-show-pending-payments.module';
+import { ModalConfirmShowPaymentHistoryModule } from '@components/modal-confirm-show-payment-history/modal-confirm-show-payment-history.module';
 import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
 
@@ -24,7 +27,10 @@ import { ContainerPaymentsManagerComponent } from './container-payments-manager.
     ModalShowPolicyFileModule,
     ModalChangePaymentDateModule,
     ModalConfirmSuspendPaymentsModule,
-    ModalConfirmActivatePaymentsModule
+    ModalConfirmActivatePaymentsModule,
+    ModalConfirmShowHistoryPolicyModule,
+    ModalConfirmShowPendingPaymentsModule,
+    ModalConfirmShowPaymentHistoryModule
   ],
   providers: [
       PaymentService,

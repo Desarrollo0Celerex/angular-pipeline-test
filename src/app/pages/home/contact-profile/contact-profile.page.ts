@@ -25,7 +25,8 @@ export class ContactProfilePage implements OnInit {
     modalIdSearchContactPolicy: string = 'agt-search-contact-policy';
     pageType: number = 0;
     searchContactPolicyMessage: string = 'Ingresa la póliza a la que deseas reportar el siniestro.';
-    selectedPolicy: Policy | null = null;
+    policyId: string = '';
+    insuranceId: number = 0;
 
     constructor(
         public contactProfileService: ContactProfileService,
@@ -70,7 +71,9 @@ export class ContactProfilePage implements OnInit {
      * @param policies The found policy
      */
     onPolicyFound(policy: Policy): void {
-        this.selectedPolicy = policy;
+        //this.selectedPolicy = policy;
+        this.policyId = policy.policyId;
+        this.insuranceId = policy.insuranceId;
         ModalPlugin.show(this.modalIdCreateSinister);
     }
 

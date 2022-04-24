@@ -1,0 +1,51 @@
+<agt-container-policy-details
+    [contactId]="contactId"
+    [policyId]="policyId">
+</agt-container-policy-details>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Desempeño de Pagos</h3>
+            </div>
+        </div>
+    </div>
+    <agt-alert-unusual-late-payments
+        [ngStyle]="{'width': '100%'}"
+        [contactId]="contactId"
+        [policyId]="policyId"
+    ></agt-alert-unusual-late-payments>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+        <agt-chart-policy-payments
+            [contactId]="contactId"
+            [policyId]="policyId"
+        ></agt-chart-policy-payments>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-9">
+        <agt-chart-policy-payments-behavior
+            [contactId]="contactId"
+            [policyId]="policyId"
+            [paymentId]="paymentId"
+        ></agt-chart-policy-payments-behavior>
+    </div>
+</div>
+
+<agt-container-payments-manager
+    [contactId]="contactId"
+    [policyId]="policyId"
+    [paymentId]="paymentId"
+></agt-container-payments-manager>
+
+<agt-content-list
+    [contentType]="contentType"
+    [contentTypeName]="contentTypeName"
+    [contactId]="contactId"
+    [policyId]="policyId"
+    [paymentId]="paymentId"
+    [contentSubtype]="contentSubtype"
+    [contentSubtypeName]="contentSubtypeName">
+</agt-content-list>

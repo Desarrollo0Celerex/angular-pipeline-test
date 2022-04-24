@@ -1,8 +1,16 @@
 <div class="card-body">
     <ol class="breadcrumb1 mb-0" *ngIf="!!totalResults">
-        <li class="breadcrumb-item1" *ngIf="isHistoryContent; else noHistoryContent">Se han detectado <strong>{{totalResults}}</strong> movimientos para la póliza <strong>{{contentTotalResultsService.policyNumber}}</strong>.</li>
-        <ng-template #noHistoryContent>
-            <li class="breadcrumb-item1">Se han encontrado <strong>{{totalResults}}</strong> resultados con <strong>{{query}}</strong>.</li>
-        </ng-template>
+        <ng-container [ngSwitch]="contentType">
+            <li class="breadcrumb-item1" *ngSwitchCase="(
+                contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
+                contentType === CONTENT_TYPES.PAYMENT_HISTORY.ID ||
+                contentType === CONTENT_TYPES.SINISTER_HISTORY.ID ||
+                contentType === CONTENT_TYPES.POLICY_SINISTERS.ID ||
+                contentType === CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID ||
+                contentType === CONTENT_TYPES.PENDING_RECEIP.ID ||
+                contentType === CONTENT_TYPES.POLICY_TRACKER.ID
+            ) ? contentType : ''">Se han detectado <strong>{{totalResults}}</strong> {{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}} para la póliza <strong>{{contentTotalResultsService.policyNumber}}</strong>.</li>
+            <li class="breadcrumb-item1" *ngSwitchDefault>Se han encontrado <strong>{{totalResults}}</strong> resultados con <strong>{{query}}</strong>.</li>
+        </ng-container>
     </ol>
 </div>

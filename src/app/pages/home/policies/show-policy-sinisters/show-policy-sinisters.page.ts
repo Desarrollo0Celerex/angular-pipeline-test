@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { CONTENT_TYPES } from '@constants/global';
+import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 
 @Component({
   selector: 'agt-show-policy-sinisters',
@@ -12,7 +12,10 @@ import { CONTENT_TYPES } from '@constants/global';
 export class ShowPolicySinistersPage implements OnInit {
     contactId: string = '';
     policyId: string = '';
-    CONTENT_TYPES: any = CONTENT_TYPES;
+    contentType: number = CONTENT_TYPES.POLICY_SINISTERS.ID;
+    contentTypeName: string = CONTENT_TYPES.POLICY_SINISTERS.NAME;
+    contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
+    contentSubtypeName: string = 'Confirmado';
 
     constructor(private _activatedRoute: ActivatedRoute) { }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { ChartPolicyEndorsementsService } from './chart-policy-endorsements.service';
 
@@ -14,6 +14,8 @@ declare var StatsRecordPlugin: any;
 export class ChartPolicyEndorsementsComponent implements OnInit {
     @Input() contactId: string = '';
     @Input() policyId: string = '';
+    @Input() canShowFooter: boolean = false;
+    @Output() confirmedAction: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(public model: ChartPolicyEndorsementsService) { }
 
@@ -24,6 +26,10 @@ export class ChartPolicyEndorsementsComponent implements OnInit {
     ngOnInit(): void {
         StatsRecordPlugin.removeChartPolicyEndorsements();
         this._loadPolicyEndorsementStatistics();
+    }
+
+    confirmAction(): void {
+        this.confirmedAction.emit();
     }
 
     private _loadPolicyEndorsementStatistics(): void {

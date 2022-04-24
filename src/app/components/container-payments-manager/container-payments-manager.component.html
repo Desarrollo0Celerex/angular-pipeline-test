@@ -13,13 +13,14 @@
     			<div class="card-footer">
     				<div class="btn-list mt-3">
     					<button type="button" class="btn btn-secondary" (click)="showPolicy()"><strong>VER PÓLIZA</strong></button>
+						<button type="button" class="btn btn-primary" (click)="showModalToConfirmShowPolicyHistory()"><strong>VER HISTORIAL</strong></button>
                         <ng-container *ngIf="!!model.payment.paymentDate">
                             <button type="button" class="btn btn-primary" (click)="showModalToChangePaymentDate()"><strong>CAMBIAR FECHA</strong></button>
                             <button type="button" class="btn btn-primary" *ngIf="model.payment.policyStatusId == POLICY_STATUS.CURRENT" (click)="confirmSuspendPayments()"><strong>SUSPENDER PAGOS</strong></button>
         					<button type="button" class="btn btn-primary" *ngIf="model.payment.policyStatusId == POLICY_STATUS.SUSPENDED" (click)="confirmActivatePayments()"><strong>ACTIVAR PAGOS</strong></button>
-        					<button type="button" class="btn btn-primary" *ngIf="canShowPendingReceipts; else paymenHistory" (click)="goToPendingReceipts()"><strong>RECIBOS PENDIENTES</strong></button>
+        					<button type="button" class="btn btn-primary" *ngIf="canShowPendingReceipts; else paymenHistory" (click)="showModalToConfirmShowPendingPayments()"><strong>PAGOS PENDIENTES</strong></button>
         					<ng-template #paymenHistory>
-								<button type="button" class="btn btn-primary" (click)="goToPaymentHistory()"><strong>PAGOS APLICADOS</strong></button>
+								<button type="button" class="btn btn-primary" (click)="showModalToConfirmShowPaymentHistory()"><strong>PAGOS APLICADOS</strong></button>
 							</ng-template>
 						</ng-container>
                     </div>
@@ -35,12 +36,31 @@
 
 <ng-template #noPendingReceipts>
     <ol class="breadcrumb1 mb-0">
-        <li class="breadcrumb-item1"><strong>Sin recibos pendientes</strong>. Esta póliza ya cuenta con todos los recibos pagados.</li>
+        <li class="breadcrumb-item1"><strong>Sin recibos pendientes</strong>. Esta póliza ya cuenta con todos los pagos aplicados.</li>
     </ol>
 </ng-template>
+<agt-modal-confirm-show-history-policy
+    [modalId]="modalIdConfirmShowHistoryPolicy"
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-modal-confirm-show-history-policy>
 <ng-container *ngIf="!!model.payment">
     <agt-modal-show-policy-file [modalId]="modalIdShowPolicyFile" [policyUrl]="model.payment.policyUrl"></agt-modal-show-policy-file>
     <agt-modal-change-payment-date [modalId]="modalIdChangePaymentDate" [paymentId]="paymentId" (paymenDateUpdated)="reloadPage()"></agt-modal-change-payment-date>
 	<agt-modal-confirm-suspend-payments [modalId]="modalIdConfirmSuspendPayments" (actionConfirmed)="suspendPayments()"></agt-modal-confirm-suspend-payments>
 	<agt-modal-confirm-activate-payments [modalId]="modalIdConfirmActivatePayments" (actionConfirmed)="activatePayments()"></agt-modal-confirm-activate-payments>
 </ng-container>
+
+<agt-modal-confirm-show-pending-payments
+	[modalId]="modalIdConfirmShowPendingPayments"
+	[contactId]="contactId"
+    [policyId]="policyId"
+    [paymentId]="paymentId"
+></agt-modal-confirm-show-pending-payments>
+
+<agt-modal-confirm-show-payment-history
+	[modalId]="modalIdConfirmShowPaymentHistory"
+	[contactId]="contactId"
+    [policyId]="policyId"
+    [paymentId]="paymentId"
+></agt-modal-confirm-show-payment-history>

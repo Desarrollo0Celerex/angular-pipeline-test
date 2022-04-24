@@ -14,6 +14,7 @@ export class CardReceiptPaidRecordComponent {
     @Input() index: number | null = null;
     @Output() deleteReceiptPaid: EventEmitter<DeleteReceiptPaidData> = new EventEmitter<DeleteReceiptPaidData>();
     @Output() updateReceiptPaid: EventEmitter<string> = new EventEmitter<string>();
+    @Output() showPaymentEvidence: EventEmitter<string> = new EventEmitter<string>();
 
     /**
      * Click event to delete the receipt paid
@@ -21,6 +22,12 @@ export class CardReceiptPaidRecordComponent {
     onClickDeleteReceiptPaid(): void {
         if(!!this.receiptPaid) {
             this.deleteReceiptPaid.emit({paymentId: this.receiptPaid.paymentId, receiptPaidId: this.receiptPaid.receiptPaidId})
+        }
+    }
+
+    onClickShowPaymentEvidence(): void {
+        if(!!this.receiptPaid) {
+            this.showPaymentEvidence.emit(this.receiptPaid.paymentEvidenceUrl)
         }
     }
 

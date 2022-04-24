@@ -7,12 +7,12 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { RangeStat } from '@interfaces/range-stat.interface';
-import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     receiptsPaid: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/'+paymentId+'/receipts-paid',
-    receiptsPaidAux: (workspaceId: string, contactId: string, policyId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/payments/'+paymentId+'/receipts-paid',
+    paymentReceiptsPaid: (workspaceId: string, contactId: string, policyId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/payments/'+paymentId+'/receipts-paid',
+    paymentReceiptPaid: (workspaceId: string, contactId: string, policyId: string, paymentId: string, receiptPaidId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/payments/'+paymentId+'/receipts-paid/'+receiptPaidId,
     receiptPaid: (workspaceId: string, paymentId: string, receiptPaidId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/'+paymentId+'/receipts-paid/'+receiptPaidId,
     receiptPaidAux: (workspaceId: string, receiptPaidId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid/'+receiptPaidId,
     totalReceiptsPaid: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid/count',
@@ -37,7 +37,7 @@ export class ReceiptPaidService {
      * @return             Notice of actiion done
      */
     createReceiptPaid(contactId: string, policyId: string, paymentId: string, requestBody: FormData): Observable<void> {
-        const route: string = routes.receiptsPaidAux(this._workspaceId, contactId, policyId, paymentId);
+        const route: string = routes.paymentReceiptsPaid(this._workspaceId, contactId, policyId, paymentId);
         return this._httpClient.post<void>(route, requestBody);
     }
 
@@ -147,9 +147,9 @@ export class ReceiptPaidService {
         );
     }
 
-    updateReceiptPaid(receiptPaidId: string, requestBody: UpdateReceiptPaidDataSend): Observable<void> {
-        const route: string = routes.receiptPaidAux(this._workspaceId, receiptPaidId);
-        return this._httpClient.put<void>(route, requestBody);
+    updateReceiptPaid(contactId: string, policyId: string, paymentId: string, receiptPaidId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.paymentReceiptPaid(this._workspaceId, contactId, policyId, paymentId, receiptPaidId);
+        return this._httpClient.post<void>(route, requestBody);
     }
 
     private _calculatePaymentLifeTime(payment: Payment): Payment {

@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { CONTENT_TYPES } from '@constants/global';
 
 import { ContentTotalResultsService } from './content-total-results.service';
 
@@ -10,13 +10,15 @@ import { ContentTotalResultsService } from './content-total-results.service';
   styles: [
   ]
 })
-export class ContentTotalResultsComponent implements OnInit, OnChanges {
+export class ContentTotalResultsComponent implements OnChanges {
     @Input() contactId: string;
     @Input() contentType: number;
     @Input() policyId: string;
     @Input() query: string;
     @Input() totalResults: number;
-    isHistoryContent: boolean;
+    @Input() contentTypeName: string = '';
+    @Input() contentSubtypeName: string = '';
+    CONTENT_TYPES: any = CONTENT_TYPES;
     policyNumber: string;
 
     constructor(public contentTotalResultsService: ContentTotalResultsService) {
@@ -25,22 +27,13 @@ export class ContentTotalResultsComponent implements OnInit, OnChanges {
         this.policyId = '';
         this.query = '';
         this.totalResults = 0;
-        this.isHistoryContent = false;
         this.policyNumber = '';
     }
 
-    ngOnInit(): void {
-
-    }
-
     ngOnChanges(changes: SimpleChanges): void {
-        if(typeof changes.contentType !== 'undefined' && !!changes.contentType.currentValue) {
-            this.isHistoryContent = UtilitiesHelper.checkIsHistoryContent(this.contentType);
-        }
         if(
             (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) &&
-            (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) &&
-            this.isHistoryContent
+            (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue)
         ) {
             this.contentTotalResultsService.loadPolicyNumber(this.contactId, this.policyId);
         }

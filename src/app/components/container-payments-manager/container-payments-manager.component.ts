@@ -23,10 +23,13 @@ export class ContainerPaymentsManagerComponent implements OnInit {
     @Input() paymentId: string = '';
     @Input() canShowPendingReceipts: boolean = true;
     POLICY_STATUS: any = POLICY_STATUS;
-    modalIdChangePaymentDate: string = 'agt-modal-change-payment-date';
-    modalIdShowPolicyFile: string = 'agt-modal-show-policy-file';
-    modalIdConfirmSuspendPayments: string = 'agt-modal-confirm-suspend-payments';
-    modalIdConfirmActivatePayments: string = 'agt-modal-confirm-activate-payments';
+    modalIdChangePaymentDate: string = 'cpm-modal-change-payment-date';
+    modalIdShowPolicyFile: string = 'cpm-modal-show-policy-file';
+    modalIdConfirmShowHistoryPolicy: string = 'cpm-confirm-show-history-policy';
+    modalIdConfirmSuspendPayments: string = 'cpm-modal-confirm-suspend-payments';
+    modalIdConfirmActivatePayments: string = 'cpm-modal-confirm-activate-payments';
+    modalIdConfirmShowPendingPayments: string = 'cpm-modal-confirm-show-pending-payments';
+    modalIdConfirmShowPaymentHistory: string = 'cpm-modal-confirm-show-payment-history';
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -63,6 +66,18 @@ export class ContainerPaymentsManagerComponent implements OnInit {
         if(!!this.model.payment) {
             ModalPlugin.show(this.modalIdChangePaymentDate);
         }
+    }
+
+    showModalToConfirmShowPolicyHistory(): void {
+        ModalPlugin.show(this.modalIdConfirmShowHistoryPolicy);
+    }
+
+    showModalToConfirmShowPendingPayments(): void {
+        ModalPlugin.show(this.modalIdConfirmShowPendingPayments);
+    }
+
+    showModalToConfirmShowPaymentHistory(): void {
+        ModalPlugin.show(this.modalIdConfirmShowPaymentHistory);
     }
 
     showPolicy(): void {

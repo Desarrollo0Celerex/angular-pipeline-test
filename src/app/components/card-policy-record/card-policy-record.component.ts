@@ -128,7 +128,10 @@ export class CardPolicyRecordComponent implements OnInit {
                 totalEvents: this.policyRecord.totalEvents,
                 contactId: this.policyRecord.contactId,
                 policyId: this.policyRecord.policyId,
-                sinisterId: this.policyRecord.sourceId
+                sinisterId: this.policyRecord.sourceId,
+                sinisterResolutionName: this.policyRecord.sinisterResolutionName,
+                sinisterResolutionCurrencyName: this.policyRecord.sinisterResolutionCurrencyName,
+                sinisterResolutionIndemnificationAmount: this.policyRecord.sinisterResolutionIndemnificationAmount
             }
             this.showSinisterDetails.emit(sinister);
         }
@@ -138,7 +141,7 @@ export class CardPolicyRecordComponent implements OnInit {
         if(!!this.policyRecord) {
             switch(this.policyRecord.policyRecordTypeId) {
                 case POLICY_RECORD_TYPES.ENDORSEMENT:
-                    this.policyRecord.policyRecordTypeDescription = this.policyRecord.policyRecordTypeDescription.replace('[endorsementTypeName]', '<strong>'+this.policyRecord.endorsementTypeName+'</strong>');
+                    this.policyRecord.policyRecordTypeDescription = this.policyRecord.policyRecordTypeDescription.replace('[endorsementTypeName]', '<strong>'+this.policyRecord.endorsementTypeShortName+'</strong>');
                     this.policyRecord.policyRecordTypeDescription = this.policyRecord.policyRecordTypeDescription.replace('[endorsementNumber]', '<strong>'+this.policyRecord.endorsementNumber+'</strong>');
                     break;
 

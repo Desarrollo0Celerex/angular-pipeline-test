@@ -68,6 +68,7 @@ import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/m
 import { ModalShowExternalPolicyDetailsModule } from '@components/modal-show-external-policy-details/modal-show-external-policy-details.module';
 import { ModalShowGroupDetailsModule } from '@components/modal-show-group-details/modal-show-group-details.module';
 import { ModalShowPartnerDetailsModule } from '@components/modal-show-partner-details/modal-show-partner-details.module';
+import { ModalShowPaymentEvidenceFileModule } from '@components/modal-show-payment-evidence-file/modal-show-payment-evidence-file.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowPolicyFileModule } from '@components/modal-show-policy-file/modal-show-policy-file.module';
@@ -171,6 +172,7 @@ import { ContentListService } from './content-list.service';
     ModalShowExternalPolicyDetailsModule,
     ModalShowGroupDetailsModule,
     ModalShowPartnerDetailsModule,
+    ModalShowPaymentEvidenceFileModule,
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
     ModalShowPolicyFileModule,
