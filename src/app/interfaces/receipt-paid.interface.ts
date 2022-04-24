@@ -10,5 +10,7 @@ export interface ReceiptPaid {
     policyNumber: string,
     paymentPlanName: string,
     validityStartDate: string,
-    validityEndDate: string
+    validityEndDate: string,
+    paymentTypeId: number,
+    paymentReference: string
 }

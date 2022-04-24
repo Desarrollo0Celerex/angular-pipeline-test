@@ -436,7 +436,14 @@
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT_HISTORY.ID">
     <agt-modal-confirm-delete-receipt-paid [modalId]="modalIdConfirmDeleteReceiptPaid" (deleteReceiptPaidConfimed)="onDeleteReceiptPaidConfirmed()"></agt-modal-confirm-delete-receipt-paid>
-    <agt-modal-update-receipt-paid [modalId]="modalIdUpdateReceiptPaid" [receiptPaidId]="selectedReceiptPaidId" (receiptPaidUpdated)="reloadReceiptPaid($event)"></agt-modal-update-receipt-paid>
+    <agt-modal-update-receipt-paid
+        [modalId]="modalIdUpdateReceiptPaid"
+        [contactId]="contactId"
+        [policyId]="policyId"
+        [paymentId]="paymentId"
+        [receiptPaidId]="selectedReceiptPaidId"
+        (receiptPaidUpdated)="reloadReceiptPaid($event)"
+    ></agt-modal-update-receipt-paid>
 </ng-container>
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.SINISTER.ID ||
