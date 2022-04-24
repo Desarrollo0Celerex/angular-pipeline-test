@@ -92,6 +92,7 @@
                             [index]="index"
                             (deleteReceiptPaid)="onDeleteReceiptPaid($event)"
                             (updateReceiptPaid)="updateReceiptPaid($event)"
+                            (showPaymentEvidence)="showPaymentEvidence($event)"
                         ></agt-card-receipt-paid-record>
                         <agt-card-sinister-log *ngSwitchCase="CONTENT_TYPES.SINISTER_HISTORY.ID"
                             [sinisterLog]="content"
@@ -444,6 +445,10 @@
         [receiptPaidId]="selectedReceiptPaidId"
         (receiptPaidUpdated)="reloadReceiptPaid($event)"
     ></agt-modal-update-receipt-paid>
+    <agt-modal-show-payment-evidence-file
+        [modalId]="modalIdShowPaymentEvidenceFile"
+        [paymentEvidenceUrl]="selectedPaymentEvidenceUrl"
+    ></agt-modal-show-payment-evidence-file>
 </ng-container>
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.SINISTER.ID ||

@@ -12,5 +12,6 @@ export interface ReceiptPaid {
     validityStartDate: string,
     validityEndDate: string,
     paymentTypeId: number,
-    paymentReference: string
+    paymentReference: string,
+    paymentEvidenceUrl: string
 }

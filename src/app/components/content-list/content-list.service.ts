@@ -590,7 +590,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPaymentHistory(paymentId: string, page: number): Observable<void> {
-        const fields: string = 'receiptPaidId,createdAt,applicationDate,receiptsAmount,receiptsNumber,createdByName,currencyName,paymentId';
+        const fields: string = 'receiptPaidId,createdAt,applicationDate,receiptsAmount,receiptsNumber,createdByName,currencyName,paymentId,paymentEvidenceUrl';
         return this._receiptPaidService.getReceiptsPaid(paymentId, page, fields).pipe(
             tap((res: HttpResponse) => {
                 const receiptsPaid: ReceiptPaid[] = res.data.items;

@@ -86,6 +86,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedGroup: Group | null = null;
     selectedGroupId: string = '';
     selectedPartner: Partner | null = null;
+    selectedPaymentEvidenceUrl: string = '';
     selectedPaymentId: string;
     selectedPolicyData: PolicyDataSend | null = null;
     selectedPolicyId: string;
@@ -131,6 +132,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowContactFileDetails: string = 'agt-show-contact-file-details';
     modalIdShowEndorsement: string;
     modalIdShowGroupDetails: string = 'agt-show-group-details';
+    modalIdShowPaymentEvidenceFile: string = 'agt-show-payment-evidence-file';
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
@@ -813,6 +815,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdShowPartnerDetails);
     }
 
+    showPaymentEvidence(paymentEvidenceUrl: string): void {
+        this.selectedPaymentEvidenceUrl = paymentEvidenceUrl;
+        ModalPlugin.show(this.modalIdShowPaymentEvidenceFile);
+    }
+
     showReceiptAppliedDetails(receiptAppliedId: string): void {
         this.selectedReceiptAppliedId = receiptAppliedId;
         ModalPlugin.show(this.modalIdShowReceiptAppliedDetails);
@@ -1286,6 +1293,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         // Special contents
         switch(this.contentType) {
             case CONTENT_TYPES.POLICY_TRACKER.ID:
+            case CONTENT_TYPES.PENDING_RECEIP.ID:
                 canShow = true;
             break;
         }
