@@ -37,6 +37,10 @@ export class ModalCreateSinisterComponent implements OnChanges {
         } else if(!!this.policyId) {
             this._loadPolicyInsuranceId();
         }
+
+        if(!(!!changes.contactId) || !(!!changes.contactId.currentValue) && !!this.policyId) {
+            this._loadPolicyCotactId();
+        }
     }
 
     ngOnInit(): void {
@@ -93,6 +97,12 @@ export class ModalCreateSinisterComponent implements OnChanges {
     private _initCalendars(): void {
         DatePickerPlugin.init();
         DatePickerPlugin.initElement(this.calendarIdSinisterDate, this._onChangeDate, this);
+    }
+
+    private _loadPolicyCotactId(): void {
+        this.modalCreateSinisterService.getPolicyContactId(this.policyId).subscribe((contactId: string) => {
+            this.contactId = contactId;
+        });
     }
 
     private _loadPolicyInsuranceId(): void {

@@ -37,6 +37,15 @@ export class ModalCreateSinisterService {
         return this._sinisterService.createSinister(contactId, policyId, requestBody);
     }
 
+    getPolicyContactId(policyId: string): Observable<string> {
+        const fields: string = 'contactId';
+        return this._policyService.getWorkspacePolicy(policyId, fields).pipe(
+            map((res: HttpResponse) => {
+                return res.data.contactId;
+            })
+        )
+    }
+
     getPolicyInsuranceId(contactId: string, policyId: string): Observable<number> {
         const fields: string = 'insuranceId';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
