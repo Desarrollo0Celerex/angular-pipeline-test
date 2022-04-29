@@ -121,6 +121,15 @@ export class ValidatorsHelper {
         return null;
     }
 
+    static freeTextShort(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^[&a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ,.:;\-\"()¿?¡!_/ ]{1,100}$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {freeText: true} : null;
+        }
+        return null;
+    }
+
     /**
      * Validate a license code
      * @param  control The control to evaluate

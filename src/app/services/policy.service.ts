@@ -63,6 +63,7 @@ const routes: any = {
     endorsePolicyWithIncrement: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-increment',
     workspaceActivePoliciesReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/reports/actives',
     workspacePolicyStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/stats',
+    workspacePolicy: (workspaceId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/' + policyId,
 }
 
 @Injectable()
@@ -682,6 +683,19 @@ export class PolicyService {
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getWorkspacePolicy(policyId: string, fields: string = ''): Observable<HttpResponse> {
+        const route: string = routes.workspacePolicy(this._workspaceId, policyId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map( (res: HttpResponse) => {
+                let policy: Policy = (fields.includes('lifeTime')) ? this._calculatePolicyLifeTime(res.data) : res.data;
+                policy = (fields.includes('daysLeft')) ? this._calculateDaysLeft(policy) : policy;
+                return { data: this._cleanObject(policy) };
+            })
         );
     }
 
