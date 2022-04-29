@@ -92,8 +92,6 @@ export class CompletePolicyService {
         });
 
         this.addInsured();
-        this.addInsured();
-        this.addInsured();
     }
 
     /**
