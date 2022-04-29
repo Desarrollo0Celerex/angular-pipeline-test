@@ -372,6 +372,37 @@ export const ROLES: any = {
     INSURANCE_ADVISOR: 6,
     DATA_ANALYST: 7
 }
+export const INSURANCES: any = {
+    LIVE: 1,
+    RETIRE: 2,
+    HEALTH: 3,
+    ACCIDENTS: 4,
+    CARE: 5,
+    PETS: 11,
+    CRISIS: 12,
+    TRAVEL: 14,
+    DEATH: 15,
+    CREDIT: 17,
+    WARRANTY: 18,
+    SCHOOLAR: 19,
+    FIANCE: 20,
+
+    CAR: 6,
+    MOTORBIKE: 7,
+    BIKE: 8,
+    TRUCK: 25,
+
+    HOME: 9,
+    BUILDING: 10,
+    FARM: 28,
+
+    CIVIL: 22,
+    TECHNICAL: 23,
+    CAUTION: 24,
+    TRANSPORT: 26,
+    AERO: 27
+
+}
 
 export const CANCELLATION_REASONS: any = {
     CAPTURE_ERROR: 7

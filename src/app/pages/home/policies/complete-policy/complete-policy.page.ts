@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
 import { ERROR_CODES } from '@constants/error-codes';
-import { DOCUMENT_FORMATS, FILE_TYPES, POLICY_SOURCES } from '@constants/global';
+import { DOCUMENT_FORMATS, FILE_TYPES, POLICY_SOURCES, INSURANCES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -26,6 +26,7 @@ declare var ModalPlugin: any;
   ]
 })
 export class CompletePolicyPage implements OnInit {
+    INSURANCES: any = INSURANCES;
     contactId: string;
     message: string;
     policyId: string;
@@ -54,7 +55,7 @@ export class CompletePolicyPage implements OnInit {
     ) {
         this.emissionDateCalendarId = 'emissionDate';
         this.contactId = '';
-        this.message = 'Verfica los datos para la nueva póliza de';
+        this.message = 'Verfica los datos de la póliza cargada en el perfil de';
         this.policyId = '';
         this.modalIdSelectFile = 'agt-select-file';
         this.modalIdScanningPolicy = 'agt-scanning-policy';
@@ -88,6 +89,12 @@ export class CompletePolicyPage implements OnInit {
         return InputValidatorHelper.getErrorMessage(control);
     }
 
+    getErrorMessageInsured(constrolName: string, insuredIndex: number): string {
+        //const aux: any = this.completePolicyService.insureds[insuredIndex];
+        const control: AbstractControl | null = this.completePolicyService.insureds.at(insuredIndex).get(constrolName);
+        return InputValidatorHelper.getErrorMessage(control);
+    }
+
     /**
      * Get the validation class
      * @param  constrolName Control name
@@ -95,6 +102,11 @@ export class CompletePolicyPage implements OnInit {
      */
     getValidationClass(constrolName: string): string {
         const control: AbstractControl | null = this.completePolicyService.policyForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+    }
+
+    getValidationClassInsured(constrolName: string, insuredIndex: number): string {
+        const control: AbstractControl | null = this.completePolicyService.insureds.at(insuredIndex).get(constrolName);
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
@@ -225,6 +237,7 @@ export class CompletePolicyPage implements OnInit {
             this.completePolicyService.buildPolicyForm(res.data);
             this._initCalendars();
             this._loadCurrencies();
+            this._loadGenders();
             this._loadPaymentMethods();
             this._loadPaymentPlans();
         })
@@ -234,16 +247,18 @@ export class CompletePolicyPage implements OnInit {
      * Load the currencies
      */
     private _loadCurrencies(): void {
-        this.completePolicyService.loadCurrencies().subscribe( () => {
-        })
+        this.completePolicyService.loadCurrencies();
+    }
+
+    private _loadGenders(): void {
+        this.completePolicyService.loadGenders();
     }
 
     /**
      * Load the payment methods
      */
     private _loadPaymentMethods(): void {
-        this.completePolicyService.loadPaymentMethods().subscribe( () => {
-        })
+        this.completePolicyService.loadPaymentMethods();
     }
 
     /**
@@ -363,11 +378,6 @@ export class CompletePolicyPage implements OnInit {
             }
         } else {
             missingFields = [
-                'coveredProperty',
-                'coveredPropertyBrand',
-                'coveredPropertyId',
-                'coveredPropertyAge',
-                'coveredPropertyPlan',
                 'agentNumber',
                 'policyNumber',
                 'clientNumber',
@@ -376,7 +386,7 @@ export class CompletePolicyPage implements OnInit {
                 'titularPostalCode',
                 'titularPhoneNumber',
                 'titularAge',
-                'titularGenderId',
+                'policyPlan',
                 'emissionDate',
                 'validityStartDate',
                 'validityEndDate',

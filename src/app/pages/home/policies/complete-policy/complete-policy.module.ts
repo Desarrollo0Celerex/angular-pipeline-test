@@ -14,6 +14,7 @@ import { ModalScanningPolicyFailedModule } from '@components/modal-scanning-poli
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { AtomScannService } from '@services/atom-scann.service';
 import { CurrencyService } from '@services/currency.service';
+import { GendersService } from '@services/genders.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
@@ -41,6 +42,16 @@ import { CompletePolicyService } from './complete-policy.service';
     ModalShowPolicyModule,
     ReactiveFormsModule
   ],
-  providers: [AtomScannService, CompletePolicyService, CurrencyService, DatePipe, PaymentMethodService, PaymentPlanService, PolicyService, ScannerLogService]
+  providers: [
+      AtomScannService,
+      CompletePolicyService,
+      CurrencyService,
+      DatePipe,
+      GendersService,
+      PaymentMethodService,
+      PaymentPlanService,
+      PolicyService,
+      ScannerLogService
+  ]
 })
 export class CompletePolicyModule { }
