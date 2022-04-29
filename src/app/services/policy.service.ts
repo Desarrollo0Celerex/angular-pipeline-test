@@ -63,7 +63,7 @@ const routes: any = {
     endorsePolicyWithIncrement: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-increment',
     workspaceActivePoliciesReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/reports/actives',
     workspacePolicyStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/stats',
-    workspacePolicy: (workspaceId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/' + policyId,
+    workspacePolicy: (workspaceId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/policies/' + policyId,
 }
 
 @Injectable()
