@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
-import { DOCUMENT_FORMATS, FILE_TYPES } from '@constants/global';
+import { DOCUMENT_FORMATS, FILE_TYPES, INSURANCES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -23,11 +23,12 @@ declare var ModalPlugin: any;
   providers: [UpdateCompletePolicyService]
 })
 export class UpdateCompletePolicyPage implements OnInit {
+    INSURANCES: any = INSURANCES;
     calendarIdEmissionDate: string = 'emissionDate';
     calendarIdValidityEndDate: string = 'validityEndDate';
     calendarIdValidityStartDate: string = 'validityStartDate';
     contactId: string = '';
-    message: string = 'Actualiza los datos de la póliza de';
+    message: string = 'Verfica los datos para la nueva póliza de';
     modalIdPolicyAmountsDifferent: string = 'agt-policy-amounts-different';
     modalIdSelectFile: string = 'agt-select-file';
     modalIdShowPolicy: string = 'agt-show-policy';
@@ -63,6 +64,11 @@ export class UpdateCompletePolicyPage implements OnInit {
         return InputValidatorHelper.getErrorMessage(control);
     }
 
+    getErrorMessageInsured(constrolName: string, insuredIndex: number): string {
+        const control: AbstractControl | null = this.updateCompletePolicyService.insureds.at(insuredIndex).get(constrolName);
+        return InputValidatorHelper.getErrorMessage(control);
+    }
+
     /**
      * Get the validation class
      * @param  constrolName Control name
@@ -70,6 +76,11 @@ export class UpdateCompletePolicyPage implements OnInit {
      */
     getValidationClass(constrolName: string): string {
         const control: AbstractControl | null = this.updateCompletePolicyService.policyForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+    }
+
+    getValidationClassInsured(constrolName: string, insuredIndex: number): string {
+        const control: AbstractControl | null = this.updateCompletePolicyService.insureds.at(insuredIndex).get(constrolName);
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
@@ -173,6 +184,10 @@ export class UpdateCompletePolicyPage implements OnInit {
         })
     }
 
+    private _loadGenders(): void {
+        this.updateCompletePolicyService.loadGenders();
+    }
+
     /**
      * Load the insurances
      */
@@ -215,6 +230,7 @@ export class UpdateCompletePolicyPage implements OnInit {
             this.updateCompletePolicyService.buildPolicyForm(res.data);
             this._initCalendars();
             this._loadCurrencies();
+            this._loadGenders();
             this.updateCompletePolicyService.loadInsuers();
             this._loadInsurances();
             this._loadPaymentMethods();

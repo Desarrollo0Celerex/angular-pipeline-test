@@ -1,33 +1,52 @@
 <agt-container-contact-details [contactId]="contactId" [message]="message"></agt-container-contact-details>
 
-<!-- AGENTHOS - POLICY DETAILS -->
 <form *ngIf="!!updateCompletePolicyService.policy; else loading" [formGroup]="updateCompletePolicyService.policyForm" (submit)="onSubmitSavePolicy()">
+    <!-- AGENTHOS - POLICY DETAILS -->
     <div class="row">
+        <!-- AGENTHOS - POLICY UPLOAD -->
         <div class="col-md-4">
+            <!-- AGENTHOS - POLICY FILE -->
+            <div class="card">
+                <div class="card-header">
+                    <img [src]="updateCompletePolicyService.policy.insurerImageUrl" width="38px">
+                </div>
+                <div class="card-body">
+                    <!-- AGENTHOS - POLICY COVER -->
+                    <div class="d-flex clearfix">
+                        <div class="text-left">
+                            <!-- AGENTHOS - POLICY STATUS -->
+                            <div class="badge badge-{{updateCompletePolicyService.policy.policyStatusBackground}} mr-1 mb-3">{{updateCompletePolicyService.policy.policyStatusName | uppercase}}</div>
+                            <span class="col-auto align-self-center">
+                                <span class="form-help" data-toggle="popover" data-placement="top" [attr.data-content]="updateCompletePolicyService.policy.policyStatusDescription" data-original-title="">?</span>
+                            </span>
+                            <!-- AGENTHOS - POLICY TYPE -->
+                            <h6><span class="text-primary"><i class="fe fe-shield mr-2"></i></span>{{updateCompletePolicyService.policy.insuranceName | uppercase}}</h6>
+                            <!-- AGENTHOS - POLICY TYPE -->
+                            <h6><span class="text-primary"><i class="fe fe-globe mr-2"></i></span>{{updateCompletePolicyService.policy.insuranceTypeName | uppercase}}</h6>
+                            <!-- AGENTHOS - POLICY NUMBER -->
+                            <h6><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{updateCompletePolicyService.policy.policyNumber}}</h6>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="{{updateCompletePolicyService.policy.insuranceBackground}} icon-service">
+                                <i class="fa {{updateCompletePolicyService.policy.insuranceIcon}} fs-2"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - POLICY COVER -->
+                    <!-- AGENTHOS - POLICY LIFE -->
+                    <div class="progress progress-sm mt-2">
+                        <div class="progress-bar {{updateCompletePolicyService.policy.insuranceBackground}}" [ngStyle]="{'width': updateCompletePolicyService.policy.lifeTime+'%'}"></div>
+                    </div>
+                    <!-- //AGENTHOS - POLICY LIFE -->
+                </div>
+                <!-- //AGENTHOS - POLICY BODY -->
+            </div>
+            <!-- //AGENTHOS - POLICY FILE -->
             <!-- AGENTHOS - POLICY FILE -->
             <div class="card">
                 <div class="card-header">
                     <h6 class="mb-0">Carátula de Póliza</h6>
                     <div class="card-options">
-                    </div>
-                </div>
-                <div class="card-body d-flex">
-                    <div class="card-order">
-                        <h6 class="mb-2">
-                            <span class="badge badge-{{updateCompletePolicyService.policy.policyStatusBackground}}  mr-1 mb-1 mt-1">{{updateCompletePolicyService.policy.policyStatusName | uppercase}}</span>
-                        </h6>
-                        <h6 class="mb-2">
-                            <span class="text-primary"><i class="fe fe-shield mr-2 fs-20"></i></span>{{updateCompletePolicyService.policy.insuranceName | uppercase}}
-                        </h6>
-                        <h6 class="mb-2">
-                            <span class="text-primary"><i class="fe fe-file-text mr-2 fs-20"></i></span>{{updateCompletePolicyService.policy.insuranceTypeName | uppercase}}
-                        </h6>
-                    </div>
-                    <div class="ml-auto">
-                        <!-- AGENTHOS - INSURANCE TYPE -->
-                        <span class="{{updateCompletePolicyService.policy.insuranceBackground}} icon-service">
-                            <i class="fa {{updateCompletePolicyService.policy.insuranceIcon}} fs-2"></i>
-                        </span>
                     </div>
                 </div>
                 <div class="card-body">
@@ -48,13 +67,6 @@
                 <div class="card-body">
                     <div class="block-content">
                         <div class="form-group row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label">Bien Asegurado</label>
-                                    <input type="text" class="form-control {{getValidationClass('coveredProperty')}}" formControlName="coveredProperty">
-                                    <div class="invalid-feedback">{{getErrorMessage('coveredProperty')}}</div>
-                                </div>
-                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">No. Póliza</label>
@@ -107,6 +119,64 @@
                 </div>
             </div>
             <!-- //AGENTHOS - POLICY RESUME -->
+            <!-- AGENTHOS - POLICY VALIDITY -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Vigencia de Póliza</h3>
+                </div>
+                <div class="card-body">
+                    <div class="block-content">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - POLICY VALIDITY EMISSION * -->
+                                    <label class="form-label">Fecha de Emisión</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                            </div>
+                                        </div>
+                                        <input [id]="calendarIdEmissionDate" class="form-control fc-datepicker {{getValidationClass('emissionDate')}}" formControlName="emissionDate" type="text">
+                                        <div class="invalid-feedback">{{getErrorMessage('emissionDate')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - POLICY VALIDITY INI * -->
+                                    <label class="form-label">Inicio de Vigencia</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                            </div>
+                                        </div>
+                                        <input [id]="calendarIdValidityStartDate" class="form-control fc-datepicker {{getValidationClass('validityStartDate')}}" formControlName="validityStartDate" type="text">
+                                        <div class="invalid-feedback">{{getErrorMessage('validityStartDate')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - POLICY VALIDITY END * -->
+                                    <label class="form-label">Fin de Vigencia</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                            </div>
+                                        </div>
+                                        <input [id]="calendarIdValidityEndDate" class="form-control fc-datepicker {{getValidationClass('validityEndDate')}}" formControlName="validityEndDate" type="text">
+                                        <div class="invalid-feedback">{{getErrorMessage('validityEndDate')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - POLICY VALIDITY -->
         </div>
 
         <div class="col-md-8">
@@ -155,58 +225,266 @@
                 </div>
             </div>
             <!-- //AGENTHOS - POLICY OWNER -->
-            <!-- AGENTHOS - POLICY VALIDITY -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Vigencia de Póliza</h3>
-                </div>
-                <div class="card-body">
-                    <div class="block-content">
-                        <div class="form-group row text-center">
-                            <div class="col-md-4">
-                                <!-- AGENTHOS - EMISSION DATE * -->
-                                <label class="form-label">Fecha de Emisión</label>
-                                <div class="input-group agt-text-left">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
-                                        </div>
-                                    </div>
-                                    <input [id]="calendarIdEmissionDate" class="form-control fc-datepicker {{getValidationClass('emissionDate')}}" name="agtPolicyEmission" formControlName="emissionDate" type="text">
-                                    <div class="invalid-feedback">{{getErrorMessage('emissionDate')}}</div>
-                                </div>
+
+            <div formArrayName="insureds">
+                <ng-container [ngSwitch]="updateCompletePolicyService.policy.insuranceId">
+                    <ng-container *ngSwitchCase="(
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.LIVE ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.RETIRE ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.HEALTH ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.ACCIDENTS ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.CARE ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.PETS ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.CRISIS ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.TRAVEL ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.DEATH ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.CREDIT ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.WARRANTY ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.SCHOOLAR ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.FIANCE
+                    ) ? updateCompletePolicyService.policy.insuranceId : ''">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Datos del Asegurado</h3>
                             </div>
-                            <div class="col-md-4">
-                                <!-- AGENTHOS - VALIDITY INI * -->
-                                <label class="form-label">Inicio de Vigencia</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                            <div class="card-body">
+
+                                <ng-container *ngFor="let insured of updateCompletePolicyService.insureds.controls; let insuredIndex = index">
+                                    <ng-container [formGroupName]="insuredIndex">
+                                        <div class="block-content">
+                                            <div class="form-group row text-center">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY INSURED NAME * -->
+                                                        <label class="form-label">Nombre del Asegurado</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('personName', insuredIndex)}}" formControlName="personName">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('personName', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY INSURED GENDER -->
+                                                        <label class="form-label">Género</label>
+                                                        <select class="form-control custom-select {{getValidationClassInsured('personGenderId', insuredIndex)}}" formControlName="personGenderId">
+                                                            <option [value]="gender.genderId" *ngFor="let gender of updateCompletePolicyService.genders">{{gender.name | uppercase}}</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('personGenderId', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY INSURED AGE -->
+                                                        <label class="form-label">Edad</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('personAge', insuredIndex)}}" formControlName="personAge">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('personAge', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <input [id]="calendarIdValidityStartDate" class="form-control fc-datepicker {{getValidationClass('validityStartDate')}}" formControlName="validityStartDate" type="text">
-                                    <div class="invalid-feedback">{{getErrorMessage('validityStartDate')}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <!-- AGENTHOS - VALIDITY END * -->
-                                <label class="form-label">Fin de Vigencia</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
-                                        </div>
-                                    </div>
-                                    <input [id]="calendarIdValidityEndDate" class="form-control fc-datepicker {{getValidationClass('validityEndDate')}}" formControlName="validityEndDate" type="text">
-                                    <div class="invalid-feedback">{{getErrorMessage('validityEndDate')}}</div>
-                                </div>
+                                    </ng-container>
+                                </ng-container>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="(
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.CAR ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.MOTORBIKE ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.BIKE ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.TRUCK
+                    ) ? updateCompletePolicyService.policy.insuranceId : ''">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Datos del Vehículo</h3>
+                            </div>
+                            <div class="card-body">
+
+                                <ng-container *ngFor="let insured of updateCompletePolicyService.insureds.controls; let insuredIndex = index">
+                                    <ng-container [formGroupName]="insuredIndex">
+                                        <div class="block-content">
+                                            <div class="form-group row text-center">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY VEHICLE MAKER * -->
+                                                        <label class="form-label">Fabricante</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('vehicleMaker', insuredIndex)}}" formControlName="vehicleMaker">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('vehicleMaker', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY VEHICLE VERSION * -->
+                                                        <label class="form-label">Versión</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('vehicleVersion', insuredIndex)}}" formControlName="vehicleVersion">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('vehicleVersion', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY VEHICLE MODEL * -->
+                                                        <label class="form-label">Modelo</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('vehicleModel', insuredIndex)}}" formControlName="vehicleModel">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('vehicleModel', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY VEHICLE PLATES -->
+                                                        <label class="form-label">Placas</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('vehiclePlates', insuredIndex)}}" formControlName="vehiclePlates">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('vehiclePlates', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY VEHICLE SERIAL -->
+                                                        <label class="form-label">No. Serie</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('vehicleSerial', insuredIndex)}}" formControlName="vehicleSerial">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('vehicleSerial', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY VEHICLE MOTOR -->
+                                                        <label class="form-label">No. Motor</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('vehicleMotor', insuredIndex)}}" formControlName="vehicleMotor">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('vehicleMotor', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="(
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.HOME ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.BUILDING ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.FARM
+                    ) ? updateCompletePolicyService.policy.insuranceId : ''">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Datos de la Propiedad</h3>
+                            </div>
+                            <div class="card-body">
+
+                                <ng-container *ngFor="let insured of updateCompletePolicyService.insureds.controls; let insuredIndex = index">
+                                    <ng-container [formGroupName]="insuredIndex">
+                                        <div class="block-content">
+                                            <div class="form-group row text-center">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY INSURED BUILDING NAME * -->
+                                                        <label class="form-label">Nombre de la Propiedad</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('buildingName', insuredIndex)}}" formControlName="buildingName">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('buildingName', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY INSURED BUILDING USE * -->
+                                                        <label class="form-label">Uso de la Propiedad</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('buildingUsage', insuredIndex)}}" formControlName="buildingUsage">
+                                                        <div class="invalid-feedback">{{getErrorMessage('buildingUsage')}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY INSURED BUILDING LOCATION * -->
+                                                        <label class="form-label">Dirección de la Propiedad</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('buildingLocation', insuredIndex)}}" formControlName="buildingLocation">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('buildingLocation', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="(
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.CIVIL ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.TECHNICAL ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.CAUTION ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.TRANSPORT ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.AERO
+                    ) ? updateCompletePolicyService.policy.insuranceId : ''">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Datos del Bien Asegurado</h3>
+                            </div>
+                            <div class="card-body">
+
+                                <ng-container *ngFor="let insured of updateCompletePolicyService.insureds.controls; let insuredIndex = index">
+                                    <ng-container [formGroupName]="insuredIndex">
+                                        <div class="block-content">
+                                            <div class="form-group row text-center">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY INSURED OBJECT NAME * -->
+                                                        <label class="form-label">Nombre del Bien Asegurado</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('objectName', insuredIndex)}}" formControlName="objectName">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('objectName', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY INSURED OBJECT USE * -->
+                                                        <label class="form-label">Uso del Bien Asegurado</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('objectUsage', insuredIndex)}}" formControlName="objectUsage">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('objectUsage', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY INSURED OBJECT DESCRIPTION * -->
+                                                        <label class="form-label">Descripción del Bien Asegurado</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('objectDescription', insuredIndex)}}" formControlName="objectDescription">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('objectDescription', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Persona o Bien Asegurado</h3>
+                            </div>
+                            <div class="card-body">
+
+                                <ng-container *ngFor="let insured of updateCompletePolicyService.insureds.controls; let insuredIndex = index">
+                                    <ng-container [formGroupName]="insuredIndex">
+                                        <div class="block-content">
+                                            <div class="form-group row text-center">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY DETAILS * -->
+                                                        <label class="form-label">Nombre de la Persona o Bien Asegurado</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('policyDetails', insuredIndex)}}" formControlName="policyDetails">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('policyDetails', insuredIndex)}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
             </div>
-            <!-- //AGENTHOS - POLICY VALIDITY -->
+
             <!-- AGENTHOS - POLICY PAYMENT -->
             <div class="card">
                 <div class="card-header">
@@ -293,7 +571,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <!-- AGENTHOS - TOTAL PAYMENT * -->
-                                    <label class="form-label">Prima Total</label>
+                                    <label class="form-label">Monto Total</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
@@ -339,7 +617,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <!-- AGENTHOS - PAY BILLS * -->
-                                    <label class="form-label">Recibos Totales</label>
+                                    <label class="form-label">Cuotas / Recibos</label>
                                     <input type="text" class="form-control {{getValidationClass('bills')}}" formControlName="bills">
                                     <div class="invalid-feedback">{{getErrorMessage('bills')}}</div>
                                 </div>

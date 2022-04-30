@@ -90,7 +90,6 @@ export class CompletePolicyPage implements OnInit {
     }
 
     getErrorMessageInsured(constrolName: string, insuredIndex: number): string {
-        //const aux: any = this.completePolicyService.insureds[insuredIndex];
         const control: AbstractControl | null = this.completePolicyService.insureds.at(insuredIndex).get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
