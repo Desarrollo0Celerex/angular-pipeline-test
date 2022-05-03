@@ -187,6 +187,10 @@ export class CompletePolicyPage implements OnInit {
         });
     }
 
+    titularPhoneCodeIdSelected(titularPhoneCodeId: number): void {
+        this.completePolicyService.policyForm.patchValue({titularPhoneCodeId});
+    }
+
     /**
      * Calculate the bills
      */

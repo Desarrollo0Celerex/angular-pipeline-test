@@ -144,6 +144,10 @@ export class UpdateCompletePolicyPage implements OnInit {
         }
     }
 
+    titularPhoneCodeIdSelected(titularPhoneCodeId: number): void {
+        this.updateCompletePolicyService.policyForm.patchValue({titularPhoneCodeId});
+    }
+
     /**
      * Catch the params
      */

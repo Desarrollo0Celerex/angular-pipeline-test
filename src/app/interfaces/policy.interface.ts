@@ -37,6 +37,7 @@ export interface Policy {
     titularName: string,
     titularRfc: string,
     titularPostalCode: string,
+    titularPhoneCodeId: number,
     titularPhoneNumber: string,
     titularAge: string,
     policyPlan: string,
@@ -60,5 +61,6 @@ export interface Policy {
     isAutoPayment: string,
     daysLeft: number,
     totalRenovations: number,
+    workspacePhoneCodeId: number,
     insureds: Insured[]
 }
