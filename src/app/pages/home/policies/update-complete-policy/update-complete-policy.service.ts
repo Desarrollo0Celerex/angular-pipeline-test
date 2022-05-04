@@ -103,7 +103,6 @@ export class UpdateCompletePolicyService {
             for(let insured of policy.insureds) {
                 this.addInsured(insured);
             }
-            this.addInsured();
         } else {
             this.addInsured();
         }
@@ -174,7 +173,6 @@ export class UpdateCompletePolicyService {
 
     disableFormFields(): void {
         this.f.validityStartDate.disable();
-        this.f.validityEndDate.disable();
         this.f.netPay.disable();
         this.f.feePay.disable();
         this.f.coverPay.disable();
@@ -415,6 +413,7 @@ export class UpdateCompletePolicyService {
         requestBody.append('insuranceId', this.f.insuranceId.value);
         requestBody.append('insuranceTypeId', this.f.insuranceTypeId.value);
         requestBody.append('emissionDate', this.f.emissionDate.value);
+        requestBody.append('validityEndDate', this.f.validityEndDate.value);
         requestBody.append('titularName', this.f.titularName.value);
         requestBody.append('titularRfc', this.f.titularRfc.value);
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
