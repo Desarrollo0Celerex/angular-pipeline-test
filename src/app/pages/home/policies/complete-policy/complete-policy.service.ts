@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { FREE_TEXT_LENGTH, TITULAR_NAME_LENGTH, POLICY_SOURCES, ROLES, SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY, SLACK_DAYS_TO_LOAD_A_EXPIRED_POLICY, INSURANCES } from '@constants/global';
+import { FREE_TEXT_LENGTH, TITULAR_NAME_LENGTH, POLICY_SOURCES, ROLES, SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY, SLACK_DAYS_TO_LOAD_A_EXPIRED_POLICY, INSURANCES, DEFAULT_PAYMENT_METHOD_ID } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
@@ -73,19 +73,19 @@ export class CompletePolicyService {
             titularName: [(!!policy && !!policy.titularName) ? policy.titularName : '', [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
             titularRfc: [(!!policy && !!policy.titularRfc) ? policy.titularRfc : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             titularPostalCode: [(!!policy && !!policy.titularPostalCode) ? policy.titularPostalCode : '', [ValidatorsHelper.postalCode ] ],
-            titularPhoneCodeId: [(!!policy && !!policy.workspacePhoneCodeId) ? policy.workspacePhoneCodeId : ''],
+            titularPhoneCodeId: [(!!this.policy && !!this.policy.workspacePhoneCodeId) ? this.policy.workspacePhoneCodeId : ''],
             titularPhoneNumber: [(!!policy && !!policy.titularPhoneNumber) ? policy.titularPhoneNumber : '', [ValidatorsHelper.phoneNumber] ],
             emissionDate: [(!!policy && !!policy.emissionDate) ? policy.emissionDate : '', [Validators.required, ValidatorsHelper.date] ],
             validityStartDate: [(!!policy && !!policy.validityStartDate) ? policy.validityStartDate : '', [Validators.required, ValidatorsHelper.date] ],
             validityEndDate: [(!!policy && !!policy.validityEndDate) ? policy.validityEndDate : '', [Validators.required, ValidatorsHelper.date] ],
-            netPay: [(!!policy && !!policy.netPay) ? policy.netPay : '', [Validators.required, ValidatorsHelper.amount] ],
-            taxPay: [(!!policy && !!policy.taxPay) ? policy.taxPay : '', [Validators.required, ValidatorsHelper.amount] ],
-            feePay: [(!!policy && !!policy.feePay) ? policy.feePay : '', [Validators.required, ValidatorsHelper.amount] ],
-            coverPay: [(!!policy && !!policy.coverPay) ? policy.coverPay : '', [Validators.required, ValidatorsHelper.amount] ],
-            extraPay: [(!!policy && !!policy.extraPay) ? policy.extraPay : '', [Validators.required, ValidatorsHelper.amount] ],
-            policyAmount: [(!!policy && !!policy.policyAmount) ? policy.policyAmount : '', [Validators.required, ValidatorsHelper.amount] ],
+            netPay: [(!!policy && !!policy.netPay) ? policy.netPay : '0.00', [Validators.required, ValidatorsHelper.amount] ],
+            taxPay: [(!!policy && !!policy.taxPay) ? policy.taxPay : '0.00', [Validators.required, ValidatorsHelper.amount] ],
+            feePay: [(!!policy && !!policy.feePay) ? policy.feePay : '0.00', [Validators.required, ValidatorsHelper.amount] ],
+            coverPay: [(!!policy && !!policy.coverPay) ? policy.coverPay : '0.00', [Validators.required, ValidatorsHelper.amount] ],
+            extraPay: [(!!policy && !!policy.extraPay) ? policy.extraPay : '0.00', [Validators.required, ValidatorsHelper.amount] ],
+            policyAmount: [(!!policy && !!policy.policyAmount) ? policy.policyAmount : '0.00', [Validators.required, ValidatorsHelper.amount] ],
             currencyId: [(!!policy && !!policy.currencyId) ? policy.currencyId : '', [Validators.required]],
-            paymentMethodId: [(!!policy && !!policy.paymentMethodId) ? policy.paymentMethodId : '', [Validators.required]],
+            paymentMethodId: [(!!policy && !!policy.paymentMethodId) ? policy.paymentMethodId : DEFAULT_PAYMENT_METHOD_ID, [Validators.required]],
             paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : '', [Validators.required]],
             bills: [{value: '', disabled: canDisableBills}, [Validators.required, ValidatorsHelper.number]],
             isAutoPayment: [false],

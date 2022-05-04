@@ -28,5 +28,6 @@ export interface PolicyRecord {
     cancellationEvidenceUrl: string,
     sinisterResolutionName: string,
     sinisterResolutionCurrencyName: string,
-    sinisterResolutionIndemnificationAmount: string
+    sinisterResolutionIndemnificationAmount: string,
+    sinisterStatusName: string
 }

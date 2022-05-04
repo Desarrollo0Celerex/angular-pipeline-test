@@ -7237,7 +7237,7 @@ function Datepicker() {
 		nextText: "Next", // Display text for next month link
 		currentText: "Today", // Display text for current month link
 		monthNames: [ "Enero","Febrero","Marzo","Abril","Mayo","Junio",
-			"Julio","Augosto","Septiembre","Octubre","Noviembre","Diciembre" ], // Names of months for drop-down and formatting
+			"Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre" ], // Names of months for drop-down and formatting
 		monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ], // For formatting
 		dayNames: [ "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado" ], // For formatting
 		dayNamesShort: [ "Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab" ], // For formatting

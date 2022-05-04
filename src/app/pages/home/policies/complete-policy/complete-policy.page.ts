@@ -188,6 +188,7 @@ export class CompletePolicyPage implements OnInit {
     }
 
     titularPhoneCodeIdSelected(titularPhoneCodeId: number): void {
+        console.log('Paso 1');
         this.completePolicyService.policyForm.patchValue({titularPhoneCodeId});
     }
 
