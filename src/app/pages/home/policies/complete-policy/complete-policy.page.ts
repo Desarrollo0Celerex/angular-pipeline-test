@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
+import * as moment from 'moment';
 
 import { ERROR_CODES } from '@constants/error-codes';
 import { DOCUMENT_FORMATS, FILE_TYPES, POLICY_SOURCES, INSURANCES } from '@constants/global';
@@ -188,7 +189,6 @@ export class CompletePolicyPage implements OnInit {
     }
 
     titularPhoneCodeIdSelected(titularPhoneCodeId: number): void {
-        console.log('Paso 1');
         this.completePolicyService.policyForm.patchValue({titularPhoneCodeId});
     }
 
@@ -283,6 +283,30 @@ export class CompletePolicyPage implements OnInit {
     private _onChangeDate(selectorId: string, changedValue: string, context: CompletePolicyPage): void {
         context.completePolicyService.policyForm.patchValue({[selectorId]: changedValue});
         context.completePolicyService.calculateBills();
+        if(selectorId === 'validityStartDate' || selectorId === 'validityEndDate') {
+            let validityStartDate: string = '';
+            let validityEndDate: string = '';
+            switch(selectorId){
+                case 'validityStartDate':
+                    validityStartDate = changedValue;
+                    validityEndDate = context.completePolicyService.f.validityEndDate.value;
+                break;
+
+                case 'validityEndDate':
+                    validityStartDate = context.completePolicyService.f.validityStartDate.value;
+                    validityEndDate = changedValue;
+                break;
+            }
+            context._validValidityEndDate(context, validityStartDate, validityEndDate);
+        }
+    }
+
+    private _validValidityEndDate(context: CompletePolicyPage, validityStartDate: string, validityEndDate: string): void {
+        const validityStartDateAux = moment(validityStartDate, 'DD/MM/YYYY');
+        const validityEndDateAux = moment(validityEndDate, 'DD/MM/YYYY');
+        if(validityEndDateAux.isBefore(validityStartDateAux)) {
+            context.completePolicyService.f.validityEndDate.setErrors({invalidValidityEndDate: true});
+        }
     }
 
     /**

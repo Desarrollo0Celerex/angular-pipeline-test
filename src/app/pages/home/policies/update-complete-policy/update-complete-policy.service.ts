@@ -126,6 +126,7 @@ export class UpdateCompletePolicyService {
                 const endDate = moment(validityEndDate, 'DD/MM/YYYY');
                 // If the end date is major than the start date
                 if(endDate.isAfter(startDate)) {
+                    endDate.subtract(3, 'days');
                     while(startDate.isBefore(endDate)) {
                         bills++;
                         startDate.add(paymentPlanMonths, 'month');

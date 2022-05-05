@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
+import * as moment from 'moment';
 
 import { DOCUMENT_FORMATS, FILE_TYPES, INSURANCES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -252,6 +253,30 @@ export class UpdateCompletePolicyPage implements OnInit {
     private _onChangeDate(selectorId: string, changedValue: string, context: UpdateCompletePolicyPage): void {
         context.updateCompletePolicyService.policyForm.patchValue({[selectorId]: changedValue});
         context.updateCompletePolicyService.calculateBills();
+        if(selectorId === 'validityStartDate' || selectorId === 'validityEndDate') {
+            let validityStartDate: string = '';
+            let validityEndDate: string = '';
+            switch(selectorId) {
+                case 'validityStartDate':
+                    validityStartDate = changedValue;
+                    validityEndDate = context.updateCompletePolicyService.f.validityEndDate.value;
+                break;
+
+                case 'validityEndDate':
+                    validityStartDate = context.updateCompletePolicyService.f.validityStartDate.value;
+                    validityEndDate = changedValue;
+                break;
+            }
+            context._validValidityEndDate(context, validityStartDate, validityEndDate);
+        }
+    }
+
+    private _validValidityEndDate(context: UpdateCompletePolicyPage, validityStartDate: string, validityEndDate: string): void {
+        const validityStartDateAux = moment(validityStartDate, 'DD/MM/YYYY');
+        const validityEndDateAux = moment(validityEndDate, 'DD/MM/YYYY');
+        if(validityEndDateAux.isBefore(validityStartDateAux)) {
+            context.updateCompletePolicyService.f.validityEndDate.setErrors({invalidValidityEndDate: true});
+        }
     }
 
 }
