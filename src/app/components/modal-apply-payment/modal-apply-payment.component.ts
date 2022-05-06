@@ -118,7 +118,8 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
             const receiptsToPay: number = parseInt(this.model.f.receipts.value);
             const pendingReceipts: number = parseInt(this.model.payment.pendingReceipts.toString());
             const amountToPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.amount.value));
-            const pendingAmount: number = parseFloat(this.model.payment.pendingAmount.toString());
+            let pendingAmount: number = parseFloat(this.model.payment.pendingAmount.toString());
+            pendingAmount = (pendingAmount >= 0) ? pendingAmount : pendingAmount * -1;
             // If the receipts to pay are greater than the pending receipts
             if(receiptsToPay > pendingReceipts) {
                 this.receiptsExceeded = receiptsToPay - pendingReceipts;
