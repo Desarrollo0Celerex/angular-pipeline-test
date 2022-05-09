@@ -18,5 +18,6 @@ export interface WalletContact {
     quotesPhoneCodeWhatsapp: number,
     quotesPhoneNumberWhatsapp: string,
     sinistersPhoneCodeWhatsapp: number,
-    sinistersPhoneNumberWhatsapp: string
+    sinistersPhoneNumberWhatsapp: string,
+    workspaceCountryId: number
 }

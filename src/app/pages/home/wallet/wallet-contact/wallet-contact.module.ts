@@ -23,6 +23,8 @@ import { WalletContactPage } from './wallet-contact.page';
     LoadingContentModule,
     ModalConfirmUpdateWalletModule
   ],
-  providers: [WalletContactService]
+  providers: [
+      WalletContactService
+  ]
 })
 export class WalletContactModule { }

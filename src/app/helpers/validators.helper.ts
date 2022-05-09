@@ -70,7 +70,7 @@ export class ValidatorsHelper {
      */
     static date(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
+            const regex = /^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])[\/]([12][0-9]{3})$/;
             const value = control.value;
             return (!regex.test(value)) ? {date: true} : null;
         }
@@ -207,7 +207,7 @@ export class ValidatorsHelper {
      */
     static phoneNumber(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = /^[0-9]{8,10}$/;
+            const regex = /^[0-9]{7,15}$/;
             const value = control.value;
             return (!regex.test(value)) ? {phoneNumber: true} : null;
         }

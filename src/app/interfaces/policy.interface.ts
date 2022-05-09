@@ -37,6 +37,7 @@ export interface Policy {
     titularName: string,
     titularRfc: string,
     titularPostalCode: string,
+    titularPhoneCodeId: number,
     titularPhoneNumber: string,
     titularAge: string,
     policyPlan: string,

@@ -179,8 +179,12 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - POLICY PHONE -->
                                     <label class="form-label">Teléfono</label>
-                                    <input type="text" class="form-control {{getValidationClass('titularPhoneNumber')}}" formControlName="titularPhoneNumber">
-                                    <div class="invalid-feedback">{{getErrorMessage('titularPhoneNumber')}}</div>
+                                    <div class="input-group mb-3">
+                                        <agt-dropdown-select-phone-code [phoneCodeId]="completePolicyService.f.titularPhoneCodeId.value" (phoneCodeIdSelected)="titularPhoneCodeIdSelected($event)"></agt-dropdown-select-phone-code>
+                                        <!-- AGENTHOS - PHONE NUMBER -->
+                                        <input type="text" class="form-control {{getValidationClass('titularPhoneNumber')}}" formControlName="titularPhoneNumber">
+                                        <div class="invalid-feedback">{{getErrorMessage('titularPhoneNumber')}}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
