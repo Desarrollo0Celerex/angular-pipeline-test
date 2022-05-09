@@ -89,6 +89,9 @@ export class InputValidatorHelper {
                     case (typeof error.fileName !== 'undefined'):
                         message = 'Algunos caracteres no son validos.';
                         break;
+                    case (typeof error.invalidValidityEndDate !== 'undefined'):
+                        message = 'El fin de vigencia no es valido.';
+                        break;
                     default: message = '';
                 }
             }

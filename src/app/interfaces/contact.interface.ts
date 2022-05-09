@@ -54,5 +54,6 @@ export interface Contact {
     shortName: string,
     workspaceName: string,
     totalGlobalCurrentWallet: number,
-    totalCurrentPolicies: number
+    totalCurrentPolicies: number,
+    workspaceCountryId: number
 }

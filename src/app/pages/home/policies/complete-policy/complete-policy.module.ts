@@ -3,6 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ContainerContactDetailsModule } from '@components/container-contact-details/container-contact-details.module';
+import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone-code/dropdown-select-phone-code.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalBasePolicyDataLoadedModule } from '@components/modal-base-policy-data-loaded/modal-base-policy-data-loaded.module';
 import { ModalInvalidExpiredPolicyModule } from '@components/modal-invalid-expired-policy/modal-invalid-expired-policy.module';
@@ -30,6 +31,7 @@ import { CompletePolicyService } from './complete-policy.service';
     ContainerContactDetailsModule,
     CommonModule,
     CompletePolicyRoutingModule,
+    DropdownSelectPhoneCodeModule,
     FormsModule,
     LoadingContentModule,
     ModalBasePolicyDataLoadedModule,

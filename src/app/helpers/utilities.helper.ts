@@ -100,6 +100,7 @@ export class UtilitiesHelper {
      * @return          The formatted quantity
      */
     static removeCommasFromQuantity(quantity: string): string {
+        quantity = quantity.toString();
         return quantity.replace(',', '');
     }
 

@@ -45,7 +45,7 @@
                         <div class="form-group">
                             <!-- AGENTHOS - CONTACT NAME PATERNAL * -->
                             <label class="form-label">Apellido Paterno</label>
-                            <input type="text" name="agtContactNamePaternal" class="form-control {{getValidationClass('namePaternal')}}" placeholder="Ingresa su apellido paterno" formControlName="namePaternal">
+                            <input type="text" class="form-control {{getValidationClass('namePaternal')}}" placeholder="Ingresa su apellido paterno" formControlName="namePaternal">
                             <div class="invalid-feedback">{{getErrorMessage('namePaternal')}}</div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                         <div class="form-group">
                             <!-- AGENTHOS - CONTACT NAME MATERNAL * -->
                             <label class="form-label">Apellido Materno</label>
-                            <input type="text" name="agtContactNameMaternal" class="form-control {{getValidationClass('nameMaternal')}}" placeholder="Ingresa su apellido materno" formControlName="nameMaternal">
+                            <input type="text" class="form-control {{getValidationClass('nameMaternal')}}" placeholder="Ingresa su apellido materno" formControlName="nameMaternal">
                             <div class="invalid-feedback">{{getErrorMessage('nameMaternal')}}</div>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                         <div class="form-group">
                             <!-- AGENTHOS - CONTACT NAME * -->
                             <label class="form-label">Razón Social</label>
-                            <input type="text" class="form-control {{getValidationClass('companyName')}}" placeholder="Ingresa el nombre del prospecto" formControlName="companyName">
+                            <input type="text" class="form-control {{getValidationClass('companyName')}}" placeholder="Ingresa el nombre fiscal de la empresa" formControlName="companyName">
                             <div class="invalid-feedback">{{getErrorMessage('companyName')}}</div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                         <div class="form-group">
                             <!-- AGENTHOS - CONTACT NAME PATERNAL * -->
                             <label class="form-label">Nombre Comercial</label>
-                            <input type="text" name="agtContactNamePaternal" class="form-control {{getValidationClass('brandName')}}" placeholder="Ingresa su apellido paterno" formControlName="brandName">
+                            <input type="text" class="form-control {{getValidationClass('brandName')}}" placeholder="Ingresa el nombre comercial de la empresa" formControlName="brandName">
                             <div class="invalid-feedback">{{getErrorMessage('brandName')}}</div>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                     <div class="form-group">
                         <!-- AGENTHOS - CONTACT MAIL -->
                         <label class="form-label">Correo Electrónico</label>
-                        <input type="text" name="agtContactEmail" class="form-control {{getValidationClass('email')}}" placeholder="Ingresa su correo electrónico" formControlName="email">
+                        <input type="text" class="form-control {{getValidationClass('email')}}" placeholder="Ingresa su correo electrónico" formControlName="email">
                         <div class="invalid-feedback">{{getErrorMessage('email')}}</div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                     <div class="input-group mb-3">
                         <agt-dropdown-select-phone-code [phoneCodeId]="model.f.phoneCodeId.value" (phoneCodeIdSelected)="onPhoneCodeIdSelected($event)"></agt-dropdown-select-phone-code>
                         <!-- AGENTHOS - PHONE NUMBER -->
-                        <input type="text" name="agtContactPhoneNumber" class="form-control {{getValidationClass('phoneNumber')}}" placeholder="Ingresa su WhatsApp" formControlName="phoneNumber">
+                        <input type="text" class="form-control {{getValidationClass('phoneNumber')}}" placeholder="Ingresa su WhatsApp" formControlName="phoneNumber">
                         <div class="invalid-feedback">{{getErrorMessage('phoneNumber')}}</div>
                     </div>
                 </div>
