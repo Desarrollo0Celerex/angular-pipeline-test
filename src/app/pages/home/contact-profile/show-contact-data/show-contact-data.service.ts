@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 
-import { BRAND_NAME_LENGTH, DEFAULT_PHONE_CODE_ID, EMAIL_LENGTH, FREE_TEXT_LENGTH, OWN_NAME_LENGTH, WEB_LINK_LENGTH, CONTACT_SOURCE_TYPES } from '@constants/global';
+import { BRAND_NAME_LENGTH, EMAIL_LENGTH, FREE_TEXT_LENGTH, OWN_NAME_LENGTH, WEB_LINK_LENGTH, CONTACT_SOURCE_TYPES } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
 import { CivilStatus } from '@interfaces/civil-status.interface';
@@ -73,13 +73,13 @@ export class ShowContactDataService {
                 offspringId: [this.contact.offspringId || '', [ValidatorsHelper.number]],
                 rfc: [this.contact.rfc || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
                 email: [this.contact.email || '', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                phoneCodeId: [this.contact.phoneCodeId || DEFAULT_PHONE_CODE_ID, [ValidatorsHelper.number]],
+                phoneCodeId: [this.contact.phoneCodeId || this.contact.workspaceCountryId, [ValidatorsHelper.number]],
                 phoneNumber: [this.contact.phoneNumber || '', [ValidatorsHelper.phoneNumber]],
                 website: [this.contact.website || '', [Validators.minLength(WEB_LINK_LENGTH.MIN), Validators.maxLength(WEB_LINK_LENGTH.MAX), ValidatorsHelper.webLink]],
                 secondaryContactName: [this.contact.secondaryContactName || '', [Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
                 secondaryContactRelationId: [this.contact.secondaryContactRelationId || '', [ValidatorsHelper.number]],
                 secondaryContactEmail: [this.contact.secondaryContactEmail || '', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                secondaryContactPhoneCodeId: [this.contact.secondaryContactPhoneCodeId || DEFAULT_PHONE_CODE_ID],
+                secondaryContactPhoneCodeId: [this.contact.secondaryContactPhoneCodeId || this.contact.workspaceCountryId],
                 secondaryContactPhoneNumber: [this.contact.secondaryContactPhoneNumber || '', [ValidatorsHelper.phoneNumber]],
                 street: [this.contact.street || '', [Validators.minLength(FREE_TEXT_LENGTH), Validators.maxLength(FREE_TEXT_LENGTH), ValidatorsHelper.freeText]],
                 exteriorNumber: [this.contact.exteriorNumber || '', [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
@@ -104,13 +104,13 @@ export class ShowContactDataService {
                 brandName: [this.contact.brandName || '', [Validators.required, Validators.minLength(BRAND_NAME_LENGTH.MIN), Validators.maxLength(BRAND_NAME_LENGTH.MAX), ValidatorsHelper.brandName]],
                 rfc: [this.contact.rfc || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
                 email: [this.contact.email || '', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                phoneCodeId: [this.contact.phoneCodeId || DEFAULT_PHONE_CODE_ID, [ValidatorsHelper.number]],
+                phoneCodeId: [this.contact.phoneCodeId || this.contact.workspaceCountryId, [ValidatorsHelper.number]],
                 phoneNumber: [this.contact.phoneNumber || '', [ValidatorsHelper.phoneNumber]],
                 website: [this.contact.website || '', [Validators.minLength(WEB_LINK_LENGTH.MIN), Validators.maxLength(WEB_LINK_LENGTH.MAX), ValidatorsHelper.webLink]],
                 secondaryContactName: [this.contact.secondaryContactName || '', [Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
                 secondaryContactRelationId: [this.contact.secondaryContactRelationId || '', [ValidatorsHelper.number]],
                 secondaryContactEmail: [this.contact.secondaryContactEmail || '', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                secondaryContactPhoneCodeId: [this.contact.secondaryContactPhoneCodeId || DEFAULT_PHONE_CODE_ID],
+                secondaryContactPhoneCodeId: [this.contact.secondaryContactPhoneCodeId || this.contact.workspaceCountryId],
                 secondaryContactPhoneNumber: [this.contact.secondaryContactPhoneNumber || '', [ValidatorsHelper.phoneNumber]],
                 street: [this.contact.street || '', [Validators.minLength(FREE_TEXT_LENGTH), Validators.maxLength(FREE_TEXT_LENGTH), ValidatorsHelper.freeText]],
                 exteriorNumber: [this.contact.exteriorNumber || '', [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
@@ -164,7 +164,7 @@ export class ShowContactDataService {
      * @return           Notice of action done
      */
     loadContact(contactId: string): Observable<void> {
-        const fields: string = 'name,namePaternal,nameMaternal,genderId,birthdate,civilStatusId,contactOccupationId,offspringId,companyName,brandName,rfc,website,secondaryContactName,secondaryContactRelationId,secondaryContactPhoneCodeId,secondaryContactPhoneNumber,secondaryContactEmail,street,exteriorNumber,interiorNumber,colony,city,stateId,postalCode,countryId,phoneCodeId,phoneNumber,email,contactTypeId,contactSourceId,contactSourceTypeId,partnerId';
+        const fields: string = 'name,namePaternal,nameMaternal,genderId,birthdate,civilStatusId,contactOccupationId,offspringId,companyName,brandName,rfc,website,secondaryContactName,secondaryContactRelationId,secondaryContactPhoneCodeId,secondaryContactPhoneNumber,secondaryContactEmail,street,exteriorNumber,interiorNumber,colony,city,stateId,postalCode,countryId,phoneCodeId,workspaceCountryId,phoneNumber,email,contactTypeId,contactSourceId,contactSourceTypeId,partnerId';
         return this._contactService.getContact(contactId, fields).pipe(
             tap((res: HttpResponse) => {
                 res.data.contactSourceTypeId = (res.data.contactSourceId == CONTACT_SOURCE_TYPES.PARTNERS) ? res.data.partnerId : res.data.contactSourceTypeId;

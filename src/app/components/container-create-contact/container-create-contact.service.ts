@@ -113,7 +113,7 @@ export class ContainerCreateContactService {
         const fields: string = 'countryId';
         this._workspaceService.getWorkspace(fields).subscribe((res: HttpResponse) => {
             const countryId: number = res.data.countryId;
-            this.contactForm.patchValue({countryId });
+            this.contactForm.patchValue({countryId, phoneCodeId: countryId });
             this.loadCountryStates(countryId);
         })
     }

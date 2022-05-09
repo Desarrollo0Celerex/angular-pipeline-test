@@ -61,6 +61,5 @@ export interface Policy {
     isAutoPayment: string,
     daysLeft: number,
     totalRenovations: number,
-    workspacePhoneCodeId: number,
     insureds: Insured[]
 }
