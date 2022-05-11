@@ -21,6 +21,7 @@ export interface Policy {
     feePay: number,
     coverPay: number,
     extraPay: number,
+    discount: number,
     policyAmount: number,
     currencyName: string,
     paymentPlanName: string,
