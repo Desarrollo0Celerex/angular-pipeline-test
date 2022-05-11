@@ -240,7 +240,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadContactHistoryPolicy(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeShortName,endorsementNumber,insurerName,policyNumber,policyCancellationReasonName,sourceContactId,sinisterTypeName,sinisterNumber,contactId,policyId,titularName,invoice,certificate,sinisterDate,dateLastEvent,totalEvents,endorsementComments,cancellationEvidenceUrl,sinisterResolutionName,sinisterResolutionCurrencyName,sinisterResolutionIndemnificationAmount,sinisterStatusName';
+        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeShortName,endorsementNumber,insurerName,policyNumber,policyCancellationReasonName,sourceContactId,sinisterTypeName,sinisterNumber,contactId,policyId,titularName,invoice,certificate,sinisterDate,dateLastEvent,totalEvents,endorsementComments,cancellationEvidenceUrl,sinisterResolutionName,sinisterResolutionCurrencyName,sinisterResolutionIndemnificationAmount,sinisterStatusId';
         return this._policyService.getContactHistoryPolicy(contactId, policyId, page, fields).pipe(
             tap((res: HttpResponse) => {
                 const policies: Policy[] = res.data.items;
@@ -687,7 +687,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPolicySinisters(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'sinisterId,createdByName,sinisterNumber,sinisterTypeName,sinisterDate,titularName,policyNumber,invoice,certificate,dateLastEvent,totalEvents,createdAt,createdByName,policyId,contactId,sinisterStatusName';
+        const fields: string = 'sinisterId,createdByName,sinisterNumber,sinisterTypeName,sinisterDate,titularName,policyNumber,invoice,certificate,dateLastEvent,totalEvents,createdAt,createdByName,policyId,contactId,sinisterStatusId';
         return this._policyService.getPolicySinisters(contactId, policyId, page, fields).pipe(
             tap((res: HttpResponse) => {
                 const sinisters: Sinister[] = res.data.items;

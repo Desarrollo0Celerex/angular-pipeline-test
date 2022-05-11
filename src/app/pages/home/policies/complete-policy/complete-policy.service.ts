@@ -66,6 +66,7 @@ export class CompletePolicyService {
      */
     buildPolicyForm(policy: Policy | null = null): void {
         const canDisableBills: boolean = (!!this.policy && !!this.policy.policySourceId && this.policy.policySourceId == POLICY_SOURCES.HISTORY) ? true : false;
+        const currencyId: string | number = (!!policy && !!policy.currencyId) ? policy.currencyId : (!!this.policy && !!this.policy.workspaceCurrencyId) ? this.policy.workspaceCurrencyId : '';
         this.policyForm = this._formBuilder.group({
             policyFile: [''],
             policyNumber: [(!!policy && !!policy.policyNumber) ? policy.policyNumber : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
@@ -85,7 +86,7 @@ export class CompletePolicyService {
             extraPay: [(!!policy && !!policy.extraPay) ? policy.extraPay : '0.00', [Validators.required, ValidatorsHelper.amount] ],
             discount: [(!!policy && !!policy.discount) ? policy.discount : '0.00', [Validators.required, ValidatorsHelper.amount] ],
             policyAmount: [(!!policy && !!policy.policyAmount) ? policy.policyAmount : '0.00', [Validators.required, ValidatorsHelper.amount] ],
-            currencyId: [(!!policy && !!policy.currencyId) ? policy.currencyId : '', [Validators.required]],
+            currencyId: [currencyId, [Validators.required]],
             paymentMethodId: [(!!policy && !!policy.paymentMethodId) ? policy.paymentMethodId : DEFAULT_PAYMENT_METHOD_ID, [Validators.required]],
             paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : '', [Validators.required]],
             bills: [{value: '', disabled: canDisableBills}, [Validators.required, ValidatorsHelper.number]],
@@ -164,6 +165,7 @@ export class CompletePolicyService {
         let coverPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value));
         let extraPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value));
         let discount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.discount.value));
+        discount = (discount < 0) ? discount * (-1) : discount;
         let totalPolicy: number = netPay + taxPay + feePay + coverPay + extraPay - discount;
         const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value));
 
@@ -194,7 +196,6 @@ export class CompletePolicyService {
      */
     completePolicy(contactId: string, policyId: string, scannedPolicyData: Policy | null): Observable<void> {
         const requestBody: FormData = this._getRequestBody(scannedPolicyData);
-
         return this._policyService.completePolicy(contactId, policyId, requestBody);
     }
 
@@ -218,6 +219,10 @@ export class CompletePolicyService {
         return this._scannerLogService.createScannerLog(contactId, policyId, requestBody);
     }
 
+    deletePolicy(contactId: string, policyId: string): Observable<void> {
+        return this._policyService.deleteIncompletePolicy(contactId, policyId);
+    }
+
     /**
      * Download the policy
      * @param  policyUrl The policy Url
@@ -235,7 +240,7 @@ export class CompletePolicyService {
      */
     getContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
@@ -430,6 +435,8 @@ export class CompletePolicyService {
      * @return The request body
      */
     private _getRequestBody(scannedPolicyData: Policy | null): FormData {
+        let discount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.discount.value));
+        discount = (discount < 0) ? discount * (-1) : discount;
         const requestBody: FormData = new FormData();
         requestBody.append('policyFile', this.f.policyFile.value);
         requestBody.append('policyNumber', this.f.policyNumber.value);
@@ -447,7 +454,7 @@ export class CompletePolicyService {
         requestBody.append('feePay', this.f.feePay.value);
         requestBody.append('coverPay', this.f.coverPay.value);
         requestBody.append('extraPay', this.f.extraPay.value);
-        requestBody.append('discount', this.f.discount.value);
+        requestBody.append('discount', discount.toString());
         requestBody.append('areFractionatedPaymentAmounts', (this._areFractionatedPaymentAmounts) ? '1' : '0');
         requestBody.append('policyAmount', this.f.policyAmount.value);
         requestBody.append('currencyId', this.f.currencyId.value);

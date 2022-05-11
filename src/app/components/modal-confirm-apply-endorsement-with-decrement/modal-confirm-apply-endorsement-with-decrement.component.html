@@ -14,7 +14,7 @@
 					<div class="col-md-12">
 						<p class="text-justify"><strong>Se ha detectado un decremento de prima</strong>.</p>
 						<p class="text-justify">
-						La prima actual de <strong>{{policyAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> decrementará a <strong>{{policyAmount - endorsementAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong>.</p>
+						La prima actual de <strong>{{policyAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> decrementará a <strong>{{policyAmount - endorsementAmountConverted | currency: '': '$': '0.2-2'}} {{currencyName}}</strong>.</p>
 						<p class="text-justify">
 						El plan de pagos <strong>{{paymentPlanName}}</strong> hará un ajuste de cobranza para los recibos pendientes de la póliza. <strong>Por favor confirma si deseas continuar</strong>.</p>
 					</div>

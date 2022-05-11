@@ -375,6 +375,8 @@ export class EndorsePolicyService {
     }
 
     private _getRequestBodyToEndorsePolicyWithDecrement(): FormData {
+        let endorsementAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.endorsementAmount.value));
+        endorsementAmount = (endorsementAmount < 0) ? endorsementAmount * (-1) : endorsementAmount;
         const requestBody: FormData = new FormData();
         requestBody.append('endorsementFile', this.f.endorsementFile.value);
         requestBody.append('evidenceFile', this.f.evidenceFile.value);
@@ -390,7 +392,7 @@ export class EndorsePolicyService {
         requestBody.append('policyNumber', this.f.policyNumber.value);
         requestBody.append('clientNumber', this.f.clientNumber.value);
         requestBody.append('validityEndDate', this.f.validityEndDate.value);
-        requestBody.append('endorsementAmount', this.f.endorsementAmount.value);
+        requestBody.append('endorsementAmount', endorsementAmount.toString());
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);
@@ -399,6 +401,8 @@ export class EndorsePolicyService {
     }
 
     private _getRequestBodyToEndorsePolicyWithIncrement(fractionalReceiptAmount: number, endorsementPaymentMethod: number): FormData {
+        let endorsementAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.endorsementAmount.value));
+        endorsementAmount = (endorsementAmount < 0) ? endorsementAmount * (-1) : endorsementAmount;
         const requestBody: FormData = new FormData();
         requestBody.append('endorsementFile', this.f.endorsementFile.value);
         requestBody.append('evidenceFile', this.f.evidenceFile.value);
@@ -414,7 +418,7 @@ export class EndorsePolicyService {
         requestBody.append('policyNumber', this.f.policyNumber.value);
         requestBody.append('clientNumber', this.f.clientNumber.value);
         requestBody.append('validityEndDate', this.f.validityEndDate.value);
-        requestBody.append('endorsementAmount', this.f.endorsementAmount.value);
+        requestBody.append('endorsementAmount', endorsementAmount.toString());
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);

@@ -20,4 +20,9 @@ export class ModalConfirmApplyEndorsementWithDecrementComponent {
         ModalPlugin.hide(this.modalId);
         this.actionConfirmed.emit();
     }
+
+    get endorsementAmountConverted(): number {
+        let endorsementAmount: number = parseFloat(this.endorsementAmount.toString());
+        return (endorsementAmount < 0) ? endorsementAmount * (-1) : endorsementAmount;
+    }
 }

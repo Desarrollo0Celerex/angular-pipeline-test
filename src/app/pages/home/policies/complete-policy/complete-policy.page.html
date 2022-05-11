@@ -658,3 +658,7 @@
 <agt-modal-invalid-expired-policy [modalId]="modalIdInvalidExpiredPolicy"></agt-modal-invalid-expired-policy>
 <agt-modal-invalid-history-policy [modalId]="modalIdInvalidHistoryPolicy"></agt-modal-invalid-history-policy>
 <agt-modal-base-policy-data-loaded [modalId]="modalIdBasePoliciDataLoaded"></agt-modal-base-policy-data-loaded>
+<agt-modal-notify-policy-already-exists
+    [modalId]="modalIdNotifyPolicyAlreadyExists"
+    (actionConfirmed)="onDeletePolicy()"
+></agt-modal-notify-policy-already-exists>

@@ -142,7 +142,8 @@ export class EndorsePolicyPage implements OnInit {
     }
 
     changeFinalPolicyAmount(): void {
-        const endorsementAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.endorsementAmount.value));
+        let endorsementAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.endorsementAmount.value));
+        endorsementAmount = (endorsementAmount < 0) ? endorsementAmount * (-1) : endorsementAmount;
         const policyAmount: number = parseFloat(this.model.policy!.policyAmount.toString());
         const finalPolicyAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals((this.model.f.endorsementTypeId.value == ENDORSEMENT_TYPES.A) ? policyAmount + endorsementAmount : policyAmount - endorsementAmount);
         this.model.f.finalPolicyAmount.setValue(finalPolicyAmount);

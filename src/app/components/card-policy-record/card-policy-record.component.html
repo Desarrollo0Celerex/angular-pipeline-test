@@ -3,7 +3,7 @@
     <div class="cbp_tmicon {{policyRecord.policyRecordTypeBackground}}"><i class="fa {{policyRecord.policyRecordTypeIcon}}"></i></div>
     <div class="cbp_tmlabel">
         <h2>{{policyRecord.policyRecordTypeName}}</h2>
-        <p class="text-sm"><strong>{{policyRecord.createdByName + ' '}}</strong> <span [innerHtml]="policyRecord.policyRecordTypeDescription"></span> <span *ngIf="!!policyRecord.sinisterStatusName"> Estatus Siniestro: <strong>{{policyRecord.sinisterStatusName}}.</strong></span></p>
+        <p class="text-sm"><strong>{{policyRecord.createdByName + ' '}}</strong> <span [innerHtml]="policyRecord.policyRecordTypeDescription"></span> <span *ngIf="!!policyRecord.sinisterStatusId"> Estatus Siniestro: <strong>{{policyRecord.sinisterStatusId | sinisterStatusName}}.</strong></span></p>
         <ng-container [ngSwitch]="policyRecord.policyRecordTypeId">
             <ng-container *ngSwitchCase="POLICY_RECORD_TYPES.ENDORSEMENT">
                 <ol class="breadcrumb1 mt-3" *ngIf="!!endorsementComments">
