@@ -29,11 +29,13 @@ declare var ModalPlugin: any;
 export class CompletePolicyPage implements OnInit {
     INSURANCES: any = INSURANCES;
     contactId: string;
+    existingPolicyId: string = '';
     message: string;
     policyId: string;
     modalIdBasePoliciDataLoaded: string = 'agt-base-policy-data-loaded';
     modalIdInvalidExpiredPolicy: string = 'agt-invalid-expired-policy';
     modalIdInvalidHistoryPolicy: string = 'agt-invalid-history-policy';
+    modalIdNotifyPolicyAlreadyExists: string = 'agt-notify-policy-already-exists';
     modalIdPolicyAmountsDifferent: string = 'agt-policy-amounts-different';
     modalIdSelectFile: string;
     modalIdScanningPolicy: string;
@@ -131,6 +133,14 @@ export class CompletePolicyPage implements OnInit {
         ModalPlugin.show(this.modalIdShowPolicy);
     }
 
+    onDeletePolicy(): void {
+        this._loadingService.show();
+        this.completePolicyService.deletePolicy(this.contactId, this.policyId).subscribe(() => {
+            this._loadingService.hide();
+            this._router.navigateByUrl(ROUTES_NAME.showHistoryPolicy(this.contactId, this.existingPolicyId));
+        });
+    }
+
     /**
      * Event to load the data of the scanned policy
      */
@@ -185,6 +195,8 @@ export class CompletePolicyPage implements OnInit {
         this.completePolicyService.completePolicy(this.contactId, this.policyId, this._scannedPolicyData).subscribe( () => {
             this._loadingService.hide();
             AlertHelper.policyCompleted(this._goToListContactPolicies, this);
+        }, (error: HttpError) => {
+            this._handleCompletePolicyError(error);
         });
     }
 
@@ -434,4 +446,13 @@ export class CompletePolicyPage implements OnInit {
         return missingFields;
     }
 
+    private _handleCompletePolicyError(error: HttpError): void {
+        const arrError: string [] = error.error.split(' ');
+        switch(arrError[0]) {
+            case ERROR_CODES.policyAlreadyExists:
+                this.existingPolicyId = arrError[1];
+                ModalPlugin.show(this.modalIdNotifyPolicyAlreadyExists);
+            break;
+        }
+    }
 }

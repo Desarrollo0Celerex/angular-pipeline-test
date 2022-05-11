@@ -8,6 +8,7 @@ import { LoadingContentModule } from '@components/loading-content/loading-conten
 import { ModalBasePolicyDataLoadedModule } from '@components/modal-base-policy-data-loaded/modal-base-policy-data-loaded.module';
 import { ModalInvalidExpiredPolicyModule } from '@components/modal-invalid-expired-policy/modal-invalid-expired-policy.module';
 import { ModalInvalidHistoryPolicyModule } from '@components/modal-invalid-history-policy/modal-invalid-history-policy.module';
+import { ModalNotifyPolicyAlreadyExistsModule } from '@components/modal-notify-policy-already-exists/modal-notify-policy-already-exists.module';
 import { ModalPolicyAmountsDifferentModule } from '@components/modal-policy-amounts-different/modal-policy-amounts-different.module';
 import { ModalSelectFileModule } from '@components/modal-select-file/modal-select-file.module';
 import { ModalScanningPolicySuccessModule } from '@components/modal-scanning-policy-success/modal-scanning-policy-success.module';
@@ -37,6 +38,7 @@ import { CompletePolicyService } from './complete-policy.service';
     ModalBasePolicyDataLoadedModule,
     ModalInvalidExpiredPolicyModule,
     ModalInvalidHistoryPolicyModule,
+    ModalNotifyPolicyAlreadyExistsModule,
     ModalPolicyAmountsDifferentModule,
     ModalSelectFileModule,
     ModalScanningPolicySuccessModule,

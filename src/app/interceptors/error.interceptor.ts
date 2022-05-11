@@ -90,10 +90,6 @@ export class ErrorInterceptor implements HttpInterceptor {
             case ERROR_CODES.contactNotFound:
                 this._router.navigateByUrl(ROUTES_NAME.contactNotFound);
                 break;
-
-            case ERROR_CODES.policyAlreadyExists:
-                AlertHelper.policyAlreadyExists();
-                break;
         }
     }
 }

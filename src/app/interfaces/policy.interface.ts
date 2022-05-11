@@ -54,6 +54,7 @@ export interface Policy {
     tracker: string,
     policySourceId: number,
     workspaceCountryId: number,
+    workspaceCurrencyId: number,
     basePolicyId: string,
     baseContactId: string,
     receiptsPaid: number,

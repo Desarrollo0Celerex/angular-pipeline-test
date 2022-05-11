@@ -66,6 +66,7 @@ export class CompletePolicyService {
      */
     buildPolicyForm(policy: Policy | null = null): void {
         const canDisableBills: boolean = (!!this.policy && !!this.policy.policySourceId && this.policy.policySourceId == POLICY_SOURCES.HISTORY) ? true : false;
+        const currencyId: string | number = (!!policy && !!policy.currencyId) ? policy.currencyId : (!!this.policy && !!this.policy.workspaceCurrencyId) ? this.policy.workspaceCurrencyId : '';
         this.policyForm = this._formBuilder.group({
             policyFile: [''],
             policyNumber: [(!!policy && !!policy.policyNumber) ? policy.policyNumber : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
@@ -85,7 +86,7 @@ export class CompletePolicyService {
             extraPay: [(!!policy && !!policy.extraPay) ? policy.extraPay : '0.00', [Validators.required, ValidatorsHelper.amount] ],
             discount: [(!!policy && !!policy.discount) ? policy.discount : '0.00', [Validators.required, ValidatorsHelper.amount] ],
             policyAmount: [(!!policy && !!policy.policyAmount) ? policy.policyAmount : '0.00', [Validators.required, ValidatorsHelper.amount] ],
-            currencyId: [(!!policy && !!policy.currencyId) ? policy.currencyId : '', [Validators.required]],
+            currencyId: [currencyId, [Validators.required]],
             paymentMethodId: [(!!policy && !!policy.paymentMethodId) ? policy.paymentMethodId : DEFAULT_PAYMENT_METHOD_ID, [Validators.required]],
             paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : '', [Validators.required]],
             bills: [{value: '', disabled: canDisableBills}, [Validators.required, ValidatorsHelper.number]],
@@ -194,7 +195,6 @@ export class CompletePolicyService {
      */
     completePolicy(contactId: string, policyId: string, scannedPolicyData: Policy | null): Observable<void> {
         const requestBody: FormData = this._getRequestBody(scannedPolicyData);
-
         return this._policyService.completePolicy(contactId, policyId, requestBody);
     }
 
@@ -218,6 +218,10 @@ export class CompletePolicyService {
         return this._scannerLogService.createScannerLog(contactId, policyId, requestBody);
     }
 
+    deletePolicy(contactId: string, policyId: string): Observable<void> {
+        return this._policyService.deleteIncompletePolicy(contactId, policyId);
+    }
+
     /**
      * Download the policy
      * @param  policyUrl The policy Url
@@ -235,7 +239,7 @@ export class CompletePolicyService {
      */
     getContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
