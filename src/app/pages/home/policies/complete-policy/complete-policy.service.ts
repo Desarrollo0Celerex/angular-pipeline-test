@@ -165,6 +165,7 @@ export class CompletePolicyService {
         let coverPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value));
         let extraPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value));
         let discount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.discount.value));
+        discount = (discount < 0) ? discount * (-1) : discount;
         let totalPolicy: number = netPay + taxPay + feePay + coverPay + extraPay - discount;
         const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value));
 
@@ -434,6 +435,8 @@ export class CompletePolicyService {
      * @return The request body
      */
     private _getRequestBody(scannedPolicyData: Policy | null): FormData {
+        let discount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.discount.value));
+        discount = (discount < 0) ? discount * (-1) : discount;
         const requestBody: FormData = new FormData();
         requestBody.append('policyFile', this.f.policyFile.value);
         requestBody.append('policyNumber', this.f.policyNumber.value);
@@ -451,7 +454,7 @@ export class CompletePolicyService {
         requestBody.append('feePay', this.f.feePay.value);
         requestBody.append('coverPay', this.f.coverPay.value);
         requestBody.append('extraPay', this.f.extraPay.value);
-        requestBody.append('discount', this.f.discount.value);
+        requestBody.append('discount', discount.toString());
         requestBody.append('areFractionatedPaymentAmounts', (this._areFractionatedPaymentAmounts) ? '1' : '0');
         requestBody.append('policyAmount', this.f.policyAmount.value);
         requestBody.append('currencyId', this.f.currencyId.value);
