@@ -424,6 +424,7 @@ export class CompletePolicyPage implements OnInit {
                 'coverPay',
                 'extraPay',
                 'firstPayment',
+                'discount',
                 'policyAmount',
                 'currencyId',
                 'paymentMethodId',

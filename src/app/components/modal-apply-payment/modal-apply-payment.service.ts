@@ -63,7 +63,7 @@ export class ModalApplyPaymentService {
      * @return           Notice of action done
      */
     loadPayment(paymentId: string): Observable<void> {
-        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay,paymentPlanReceips,paymentPlanId';
+        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay,discount,paymentPlanReceips,paymentPlanId';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap( (res: HttpResponse) => {
                 this.payment = res.data;
@@ -79,9 +79,9 @@ export class ModalApplyPaymentService {
         });
     }
 
-    private _calculateFirstPaymentAmount(paymentPlanReceips: number, netPay: number, feePay: number, coverPay: number, extraPay: number, taxPay: number): number {
+    private _calculateFirstPaymentAmount(paymentPlanReceips: number, netPay: number, feePay: number, coverPay: number, extraPay: number, taxPay: number, discount: number): number {
         let sumPayments: number =
-            (parseFloat(netPay.toString()) / paymentPlanReceips) +
+            ( (parseFloat(netPay.toString()) - parseFloat(discount.toString())) / paymentPlanReceips) +
             (parseFloat(feePay.toString()) / paymentPlanReceips) +
             (parseFloat(extraPay.toString()) / paymentPlanReceips) +
             parseFloat(coverPay.toString());
@@ -97,15 +97,11 @@ export class ModalApplyPaymentService {
     private _calculatePaymentAmount(): string {
         let formattedPaymentAmount: string = '';
         if(!!this.payment) {
-            console.log('this.payment.pendingAmount: ',this.payment.pendingAmount)
-            console.log('this.payment.pendingReceipts: ',this.payment.pendingReceipts)
             let receiptsAmount: number = 0;
             receiptsAmount = (this.payment.tickets === 0 && this.payment.paymentPlanId != PAYMENT_PLANS.SINGLE_PAYMENT && this.payment.paymentPlanId != PAYMENT_PLANS.ANNUAL)
-                ? this._calculateFirstPaymentAmount(this.payment.paymentPlanReceips, this.payment.netPay, this.payment.feePay, this.payment.coverPay, this.payment.extraPay, this.payment.taxPay)
+                ? this._calculateFirstPaymentAmount(this.payment.paymentPlanReceips, this.payment.netPay, this.payment.feePay, this.payment.coverPay, this.payment.extraPay, this.payment.taxPay, this.payment.discount)
                 : this.payment.pendingAmount / this.payment.pendingReceipts;
-                console.log('receiptsAmount: ',receiptsAmount);
             formattedPaymentAmount = this._currencyPipe.transform(receiptsAmount, '', '', '0.2-2') || '';
-            console.log('formattedPaymentAmount: ',formattedPaymentAmount);
         }
         return  formattedPaymentAmount;
     }
