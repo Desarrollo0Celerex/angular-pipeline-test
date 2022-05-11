@@ -9,8 +9,8 @@
             <strong>{{sinister.sinisterNumber}}</strong>.
             Motivo: <strong>{{sinister.sinisterTypeName}}</strong>.
             Fecha: <strong>{{sinister.sinisterDate | date: 'dd/MM/yyyy'}}</strong>.
-            <span *ngIf="!!sinister.sinisterStatusName"> Estatus Siniestro:
-                <strong>{{sinister.sinisterStatusName}}.</strong>
+            <span *ngIf="!!sinister.sinisterStatusId"> Estatus Siniestro:
+                <strong>{{sinister.sinisterStatusId | sinisterStatusName}}.</strong>
             </span>
         </p>
         <div class="btn-list mt-3">
