@@ -7,7 +7,7 @@ import {
   HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 
@@ -18,6 +18,7 @@ import { HttpError } from '@interfaces/http-error.interface';
 
 import { LoadingService } from '@services/loading.service';
 import { ScanningService } from '@services/scanning.service';
+import { HttpCancelService } from '@services/http-cancel.service';
 
 declare var ModalPlugin: any;
 
@@ -28,7 +29,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     constructor(
         private _loadingService: LoadingService,
         private _router: Router,
-        private _scanningService: ScanningService
+        private _scanningService: ScanningService,
+        private _httpCancelService: HttpCancelService,
     ) { }
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -38,7 +40,10 @@ export class ErrorInterceptor implements HttpInterceptor {
                   const errorMessage = error.error || error.statusText;
                   this._handlerHttpErrors(errorMessage);
                   return throwError(errorMessage);
-              })
+              }),
+              takeUntil(
+                  this._httpCancelService.onCancelPendingRequests()
+              )
           )
     }
 
@@ -50,7 +55,6 @@ export class ErrorInterceptor implements HttpInterceptor {
             case ERROR_CODES.errorAcceptingInvitation:
             case ERROR_CODES.roleNotFound:
             case ERROR_CODES.invalidFilter:
-            case ERROR_CODES.workspaceUserNotFound:
             case ERROR_CODES.errorSendingInvitation:
             case ERROR_CODES.errorSendingEmail:
                 AlertHelper.globalError();
@@ -89,6 +93,11 @@ export class ErrorInterceptor implements HttpInterceptor {
 
             case ERROR_CODES.contactNotFound:
                 this._router.navigateByUrl(ROUTES_NAME.contactNotFound);
+                break;
+
+            case ERROR_CODES.workspaceUserNotFound:
+                this._httpCancelService.cancelPendingRequests();
+                ModalPlugin.show('modal-workspace-user-not-found');
                 break;
         }
     }
