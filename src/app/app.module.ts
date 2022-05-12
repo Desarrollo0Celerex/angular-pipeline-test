@@ -14,6 +14,7 @@ import { ModalVoiceControlCommandNotFoundModule } from '@components/modal-voice-
 import { ModalVoiceControlNoResultsModule } from '@components/modal-voice-control-no-results/modal-voice-control-no-results.module';
 import { ModalUserRoleUpdatedModule } from '@components/modal-user-role-updated/modal-user-role-updated.module';
 import { ModalSessionExpiredModule } from '@components/modal-session-expired/modal-session-expired.module';
+import { ModalWorkspaceUserNotFoundModule } from '@components/modal-workspace-user-not-found/modal-workspace-user-not-found.module';
 import { ScanningModule } from '@components/scanning/scanning.module';
 import { environment } from '@env/environment';
 import { AUTH_INTERCEPTOR_PROVIDER } from '@interceptors/auth.interceptor';
@@ -43,6 +44,7 @@ import { AppComponent } from './app.component';
     ModalVoiceControlNoResultsModule,
     ModalUserRoleUpdatedModule,
     ModalSessionExpiredModule,
+    ModalWorkspaceUserNotFoundModule,
     ScanningModule
   ],
   providers: [

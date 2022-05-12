@@ -1,0 +1,23 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- AGENTHOS - DETAILS CARD -->
+				<h5 class="modal-title">Usuario no encontrado</h5>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="text-justify"><strong>Tu usuario ha sido eliminado de éste espacio de trabajo</strong>.</p>
+						<p class="text-justify">Por motivos de seguridad y para proteger tu cuenta la sesión ha finalizado.</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="col-12">
+					<button type="button" class="btn btn-block btn-primary" (click)="logout()"><strong>CONTINUAR</strong></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

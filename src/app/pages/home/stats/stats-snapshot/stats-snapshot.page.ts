@@ -107,9 +107,11 @@ export class StatsSnapshotPage implements OnInit {
     }
 
     private _loadCoveragesStats(): void {
-        this.model.getCoveragesStats().subscribe((coveragesStats: CoverageStat[]) => {
-            this.model.loadCoveragesStatsData(coveragesStats);
-            StatsPlugin.drawChartCoverages(this.model.coveragesStatsData);
+        this.model.getWorkspaceCountry().subscribe((country: string) => {
+            this.model.getCoveragesStats().subscribe((coveragesStats: CoverageStat[]) => {
+                this.model.loadCoveragesStatsData(coveragesStats);
+                StatsPlugin.drawChartCoverages(country, this.model.coveragesStatsData);
+            });
         })
     }
 
