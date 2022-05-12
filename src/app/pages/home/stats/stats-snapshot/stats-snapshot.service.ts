@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { LEAD_STATUS, CLIENT_STATUS, POLICY_SOURCES, POLICY_STATUS, PAYMENT_STATUS, SINISTER_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
@@ -29,6 +30,7 @@ import { PaymentService } from '@services/payment.service';
 import { PaymentStatusService } from '@services/payment-status.service';
 import { SinisterService } from '@services/sinister.service';
 import { SinisterStatusService } from '@services/sinister-status.service';
+import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
 export class StatsSnapshotService {
@@ -59,6 +61,7 @@ export class StatsSnapshotService {
         private _paymentStatusService: PaymentStatusService,
         private _sinisterService: SinisterService,
         private _sinisterStatusService: SinisterStatusService,
+        private _workspaceService: WorkspaceService,
     ) { }
 
     /**
@@ -77,6 +80,15 @@ export class StatsSnapshotService {
     getContactSourcesStats(): Observable<Stat[]> {
         const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED]);
         return this._contactSourceService.getContactSourcesStats(filters);
+    }
+
+    getWorkspaceCountry(): Observable<string> {
+        const fields: string = 'countryAbbreviation';
+        return this._workspaceService.getWorkspace(fields).pipe(
+            map((res: HttpResponse) => {
+                return res.data.countryAbbreviation;
+            })
+        )
     }
 
     getCoveragesStats(): Observable<CoverageStat[]> {

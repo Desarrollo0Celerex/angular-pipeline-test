@@ -1,19 +1,19 @@
 
 var StatsPlugin = function() {
 
-    function drawChartCoverages(chartData) {
+    function drawChartCoverages(country, chartData) {
         google.charts.load('current', {
            'packages': ['geochart'],
            'mapsApiKey': 'AIzaSyDpclEqcDp6PC8tuaA3acg4z92zJ2wHaFA'
         });
         google.charts.setOnLoadCallback(function() {
-            drawChart(chartData);
+            drawChart(country, chartData);
         });
 
-        function drawChart(chartData) {
+        function drawChart(country, chartData) {
             var data = google.visualization.arrayToDataTable(chartData);
             var options = {
-                region: 'MX',
+                region: country,
                 height: 353,
                 fontSize:12,
                 bubble: {textStyle: {fontSize: 12}},

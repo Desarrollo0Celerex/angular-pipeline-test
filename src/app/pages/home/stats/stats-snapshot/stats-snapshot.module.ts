@@ -16,6 +16,7 @@ import { PaymentService } from '@services/payment.service';
 import { PaymentStatusService } from '@services/payment-status.service';
 import { SinisterService } from '@services/sinister.service';
 import { SinisterStatusService } from '@services/sinister-status.service';
+import { WorkspaceService } from '@services/workspace.service';
 
 import { StatsSnapshotRoutingModule } from './stats-snapshot-routing.module';
 import { StatsSnapshotPage } from './stats-snapshot.page';
@@ -42,7 +43,8 @@ import { StatsSnapshotPage } from './stats-snapshot.page';
       PaymentService,
       PaymentStatusService,
       SinisterService,
-      SinisterStatusService
+      SinisterStatusService,
+      WorkspaceService
   ]
 })
 export class StatsSnapshotModule { }
