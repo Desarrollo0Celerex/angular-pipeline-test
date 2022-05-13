@@ -54,7 +54,7 @@ export class ButtonSendWhatsappComponent implements OnChanges, OnInit {
      */
     public getLink(): string {
         if(!!this.buttonSendWhatsappService.contact && !!this.buttonSendWhatsappService.user) {
-            return 'https://wa.me/'+ this.buttonSendWhatsappService.contact.phoneCode +'1'+ this.buttonSendWhatsappService.contact.phoneNumber + '?text=Hola, Te escribe '+this.buttonSendWhatsappService.user.shortName+' de '+this.buttonSendWhatsappService.contact.workspaceName+'.';
+            return 'https://wa.me/'+ this.buttonSendWhatsappService.contact.phoneCode + this.buttonSendWhatsappService.contact.phoneNumber + '?text=Hola, Te escribe '+this.buttonSendWhatsappService.user.shortName+' de '+this.buttonSendWhatsappService.contact.workspaceName+'.';
         }
         return '';
     }
