@@ -49,7 +49,7 @@ export class ButtonSendTelegramComponent {
      * @return The link
      */
     public getLink(): string {
-        return 'https://telegram.me/'+ this.buttonSendTelegramService.phone.phoneCode +'1'+ this.buttonSendTelegramService.phone.phoneNumber;
+        return 'https://telegram.me/'+ this.buttonSendTelegramService.phone.phoneCode + this.buttonSendTelegramService.phone.phoneNumber;
     }
 
     /**
