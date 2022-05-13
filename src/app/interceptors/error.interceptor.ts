@@ -7,9 +7,8 @@ import {
   HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, takeUntil } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
 
 import { ERROR_CODES } from '@constants/error-codes';
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -40,10 +39,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                   const errorMessage = error.error || error.statusText;
                   this._handlerHttpErrors(errorMessage);
                   return throwError(errorMessage);
-              }),
-              takeUntil(
-                  this._httpCancelService.onCancelPendingRequests()
-              )
+              })
           )
     }
 
