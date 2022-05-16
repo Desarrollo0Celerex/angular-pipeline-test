@@ -254,6 +254,7 @@ export class CompletePolicyPage implements OnInit {
             this._initCalendars();
             this._loadCurrencies();
             this._loadGenders();
+            this._loadPartners(res.data.workspaceBrandName);
             this._loadPaymentMethods();
             this._loadPaymentPlans();
         })
@@ -268,6 +269,10 @@ export class CompletePolicyPage implements OnInit {
 
     private _loadGenders(): void {
         this.completePolicyService.loadGenders();
+    }
+
+    private _loadPartners(workspaceBrandName: string): void {
+        this.completePolicyService.loadPartners(workspaceBrandName);
     }
 
     /**

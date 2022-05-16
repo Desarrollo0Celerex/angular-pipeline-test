@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { DEFAULT_PER_PAGE } from '@constants/global';
 import { environment } from '@env/environment';
 import { CreatePartnerDataSend } from '@interfaces/create-partner-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -71,10 +72,11 @@ export class PartnerService {
      * @param  query           The search to do
      * @return                 The partners
      */
-   getPartners(page: number = 1, fields: string = '', filters: string = '', query: string = ''): Observable<HttpResponse> {
+   getPartners(page: number = 1, fields: string = '', filters: string = '', query: string = '', perPage = DEFAULT_PER_PAGE): Observable<HttpResponse> {
        const route: string = routes.partners(this._workspaceId);
        let params: HttpParams = new HttpParams();
        params = params.append('page', page.toString());
+       params = params.append('perPage', perPage.toString());
        if(!!fields) params = params.append('fields', fields);
        if(!!filters) params = params.append('filter', filters);
        if(!!query) params = params.append('search', 'name:' + query);

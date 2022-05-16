@@ -16,6 +16,7 @@ import { Insured } from '@interfaces/insured.interface';
 import { Insurer } from '@interfaces/insurer.interface';
 import { Insurance } from '@interfaces/insurance.interface';
 import { InsuranceType } from '@interfaces/insurance-type.interface';
+import { Partner } from '@interfaces/partner.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
 import { Policy } from '@interfaces/policy.interface';
@@ -25,6 +26,7 @@ import { GendersService } from '@services/genders.service';
 import { InsurerService } from '@services/insurer.service';
 import { InsuranceService } from '@services/insurance.service';
 import { InsuranceTypeService } from '@services/insurance-type.service';
+import { PartnerService } from '@services/partner.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
@@ -36,6 +38,7 @@ export class UpdateCompletePolicyService {
     insurers: Insurer[] = [];
     insurances: Insurance[] = [];
     insuranceTypes: InsuranceType[] = [];
+    partners: Partner[] = [];
     paymentMethods: PaymentMethod[] = [];
     paymentPlans: PaymentPlan[] = [];
     policy: Policy | null = null;
@@ -50,6 +53,7 @@ export class UpdateCompletePolicyService {
         private _insuranceTypeService: InsuranceTypeService,
         private _datePipe: DatePipe,
         private _formBuilder: FormBuilder,
+        private _partnerService: PartnerService,
         private _paymentMethodService: PaymentMethodService,
         private _paymentPlanService: PaymentPlanService,
         private _policyService: PolicyService
@@ -98,6 +102,7 @@ export class UpdateCompletePolicyService {
             paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : '', [Validators.required]],
             bills: [(!!policy && !!policy.bills) ? policy.bills : '', [Validators.required, ValidatorsHelper.number]],
             isAutoPayment: [(!!policy && !!policy.isAutoPayment && policy.isAutoPayment === '1') ? true : false],
+            partnerId: [(!!policy && !!policy.partnerId) ? policy.partnerId : '0'],
             insureds: this._formBuilder.array([])
         });
 
@@ -247,6 +252,16 @@ export class UpdateCompletePolicyService {
         })
     }
 
+    loadPartners(workspaceBrandName: string): void {
+        const fields: string = 'partnerId,name';
+        const page: number = 1;
+        const perPage: number = 1000;
+        this._partnerService.getPartners(page, fields, '', '', perPage).subscribe((res: HttpResponse) => {
+            this.partners = res.data.items;
+            this._addWorkspaceBrandNameToPartners(workspaceBrandName);
+        });
+    }
+
     /**
      * Load the payment methods
      * @return Notice of action done
@@ -283,10 +298,11 @@ export class UpdateCompletePolicyService {
      */
     loadPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceBrandName,partnerId';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
+                console.log('this.policy: ',this.policy);
                 if(!!this.policy) {
                     this.policy.emissionDate = this._getDateFormat(this.policy.emissionDate);
                     this.policy.validityStartDate = this._getDateFormat(this.policy.validityStartDate);
@@ -382,6 +398,14 @@ export class UpdateCompletePolicyService {
         return this._policyService.updateCompletePolicy(contactId, policyId, requestBody);
     }
 
+    private _addWorkspaceBrandNameToPartners(workspaceName: string): void {
+        const partner: Partner = {
+            partnerId: '0',
+            name: workspaceName
+        }
+        this.partners.unshift(partner);
+    }
+
     /**
      * Get the date format
      * @param  date The date to format
@@ -464,7 +488,8 @@ export class UpdateCompletePolicyService {
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);
         requestBody.append('isAutoPayment', (this.f.isAutoPayment.value) ? '1' : '0');
-
+        requestBody.append('partnerId', this.f.partnerId.value);
+        
         const insureds: any[] = this.insureds.value;
         requestBody.append('insureds', JSON.stringify(insureds));
 
