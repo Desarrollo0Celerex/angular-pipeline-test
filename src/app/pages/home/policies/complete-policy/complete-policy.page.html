@@ -630,6 +630,24 @@
                 </div>
             </div>
             <!-- //AGENTHOS - AUTO PAYMENT -->
+            <!-- AGENTHOS - AGENT OR PARTNER -->
+            <div class="card" *ngIf="completePolicyService.partners.length > 0">
+                <div class="card-header">
+                    <h3 class="card-title">Nombre del Agente</h3>
+                </div>
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">Selecciona el agente o socio comercial al que deseas enlazar esta póliza.</li>
+                        </ol>
+                        <select class="form-control custom-select {{getValidationClass('partnerId')}}" formControlName="partnerId">
+                            <option [value]="partner.partnerId" *ngFor="let partner of completePolicyService.partners">{{partner.name | titlecase}}</option>
+                        </select>
+                        <div class="invalid-feedback">{{getErrorMessage('partnerId')}}</div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - AGENT OR PARTNER -->
             <!-- AGENTHOS - UPDATE INFO -->
             <div class="card">
                 <div class="card-body">
