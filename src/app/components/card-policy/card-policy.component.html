@@ -25,7 +25,7 @@
                             <!-- AGENTHOS - POLICY DELETE -->
                             <button type="button" class="dropdown-item" (click)="onClickDeletePolicy()"><i class="fa fa-trash mr-2"></i>Eliminar</button>
                         </ng-container>
-                        <ng-container *ngSwitchCase="POLICY_STATUS.FINISHED">
+                        <ng-container *ngSwitchCase="(policy.policyStatusId === POLICY_STATUS.FINISHED || policy.policyStatusId === POLICY_STATUS.PENDING) ? policy.policyStatusId : ''">
                             <ng-container *ngIf="isInTime">
                                 <!-- AGENTHOS - POLICY RENEWAL -->
                                 <button type="button" class="dropdown-item" (click)="onClickRenewPolicy()"><i class="fa fa-refresh mr-2"></i>Renovar</button>
