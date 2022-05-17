@@ -17,6 +17,7 @@ import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-
 import { AtomScannService } from '@services/atom-scann.service';
 import { CurrencyService } from '@services/currency.service';
 import { GendersService } from '@services/genders.service';
+import { PartnerService } from '@services/partner.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
@@ -52,6 +53,7 @@ import { CompletePolicyService } from './complete-policy.service';
       CurrencyService,
       DatePipe,
       GendersService,
+      PartnerService,
       PaymentMethodService,
       PaymentPlanService,
       PolicyService,

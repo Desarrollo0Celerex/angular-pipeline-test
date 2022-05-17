@@ -13,6 +13,7 @@ import { Currency } from '@interfaces/currency.interface';
 import { CreateScannerLogDataSend } from '@interfaces/create-scanner-log-data-send.interface';
 import { Gender } from '@interfaces/gender.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { Partner } from '@interfaces/partner.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
 import { Policy } from '@interfaces/policy.interface';
@@ -21,6 +22,7 @@ import { AuthService } from '@services/auth.service';
 import { AtomScannService } from '@services/atom-scann.service';
 import { CurrencyService } from '@services/currency.service';
 import { GendersService } from '@services/genders.service';
+import { PartnerService } from '@services/partner.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
@@ -30,6 +32,7 @@ import { ScannerLogService } from '@services/scanner-log.service';
 export class CompletePolicyService {
     currencies: Currency[] = [];
     genders: Gender[] = [];
+    partners: Partner[] = [];
     paymentMethods: PaymentMethod[] = [];
     paymentPlans: PaymentPlan[] = [];
     policy: Policy | null = null;
@@ -43,6 +46,7 @@ export class CompletePolicyService {
         private _datePipe: DatePipe,
         private _formBuilder: FormBuilder,
         private _gendersService: GendersService,
+        private _partnerService: PartnerService,
         private _paymentMethodService: PaymentMethodService,
         private _paymentPlanService: PaymentPlanService,
         private _policyService: PolicyService,
@@ -91,6 +95,7 @@ export class CompletePolicyService {
             paymentPlanId: [(!!policy && !!policy.paymentPlanId) ? policy.paymentPlanId : '', [Validators.required]],
             bills: [{value: '', disabled: canDisableBills}, [Validators.required, ValidatorsHelper.number]],
             isAutoPayment: [false],
+            partnerId: [0, [Validators.required]],
             insureds: this._formBuilder.array([])
         });
 
@@ -240,7 +245,7 @@ export class CompletePolicyService {
      */
     getContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceBrandName';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
@@ -287,6 +292,16 @@ export class CompletePolicyService {
         const fields: string = 'genderId,name';
         this._gendersService.getGenders(fields).subscribe((res: HttpResponse) => {
             this.genders = res.data;
+        });
+    }
+
+    loadPartners(workspaceBrandName: string): void {
+        const fields: string = 'partnerId,name';
+        const page: number = 1;
+        const perPage: number = 1000;
+        this._partnerService.getPartners(page, fields, '', '', perPage).subscribe((res: HttpResponse) => {
+            this.partners = res.data.items;
+            this._addWorkspaceBrandNameToPartners(workspaceBrandName);
         });
     }
 
@@ -397,6 +412,14 @@ export class CompletePolicyService {
         return this._atomScannService.scannPolicy(requestBody);
     }
 
+    private _addWorkspaceBrandNameToPartners(workspaceName: string): void {
+        const partner: Partner = {
+            partnerId: '0',
+            name: workspaceName
+        }
+        this.partners.unshift(partner);
+    }
+
     private _calculateNewPolicyNumber(policyNumber: string): string {
         const lastChart: number =  parseInt(policyNumber.substring(policyNumber.length - 1));
         if(Number.isInteger(lastChart)) {
@@ -462,6 +485,7 @@ export class CompletePolicyService {
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);
         requestBody.append('isAutoPayment', (this.f.isAutoPayment.value) ? '1' : '0');
+        requestBody.append('partnerId', this.f.partnerId.value);
         if(!!scannedPolicyData) {
             requestBody.append('agentNumber', scannedPolicyData.agentNumber);
             requestBody.append('policyPlan', scannedPolicyData.policyPlan);

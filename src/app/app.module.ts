@@ -19,6 +19,7 @@ import { ScanningModule } from '@components/scanning/scanning.module';
 import { environment } from '@env/environment';
 import { AUTH_INTERCEPTOR_PROVIDER } from '@interceptors/auth.interceptor';
 import { ERROR_INTERCEPTOR_PROVIDER } from '@interceptors/error.interceptor';
+import { MANAGE_HTTP_INTERCEPTOR_PROVIDER } from '@interceptors/manage-http.interceptor';
 import { RoutingHistoryService } from '@services/routing-history.service';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -49,7 +50,8 @@ import { AppComponent } from './app.component';
   ],
   providers: [
       AUTH_INTERCEPTOR_PROVIDER,
-      ERROR_INTERCEPTOR_PROVIDER
+      ERROR_INTERCEPTOR_PROVIDER,
+      MANAGE_HTTP_INTERCEPTOR_PROVIDER
   ],
   bootstrap: [AppComponent]
 })
