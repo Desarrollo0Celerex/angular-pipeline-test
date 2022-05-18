@@ -13,6 +13,7 @@ import { Currency } from '@interfaces/currency.interface';
 import { CreateScannerLogDataSend } from '@interfaces/create-scanner-log-data-send.interface';
 import { Gender } from '@interfaces/gender.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { Insured } from '@interfaces/insured.interface';
 import { Partner } from '@interfaces/partner.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
@@ -61,8 +62,8 @@ export class CompletePolicyService {
         return this.policyForm.get('insureds') as FormArray;
     }
 
-    addInsured(): void {
-        this.insureds.push(this.newInsured());
+    addInsured(insured: Insured | null): void {
+        this.insureds.push(this.newInsured(insured));
     }
 
     /**
@@ -99,7 +100,8 @@ export class CompletePolicyService {
             insureds: this._formBuilder.array([])
         });
 
-        this.addInsured();
+        const insured: Insured | null = (!!policy && !!policy.insureds && policy.insureds.length > 0) ? policy.insureds[0] : null;
+        this.addInsured(insured);
     }
 
     /**
@@ -335,8 +337,8 @@ export class CompletePolicyService {
         return this._policyService.getPolicyTitularInfo(contactId, fields);
     }
 
-    newInsured(): FormGroup {
-        let insured: FormGroup;
+    newInsured(insured: Insured | null): FormGroup {
+        let insuredForm: FormGroup;
         switch (this.policy!.insuranceId) {
             case INSURANCES.LIVE:
             case INSURANCES.RETIRE:
@@ -351,10 +353,10 @@ export class CompletePolicyService {
             case INSURANCES.WARRANTY:
             case INSURANCES.SCHOOLAR:
             case INSURANCES.FIANCE:
-                insured = this._formBuilder.group({
-                    personName: ['', [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                    personGenderId: [''],
-                    personAge: ['', [Validators.minLength(1), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeTextShort]]
+                insuredForm = this._formBuilder.group({
+                    personName: [(!!insured && !!insured.personName) ? insured.personName : '', [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
+                    personGenderId: [(!!insured && !!insured.personGenderId) ? insured.personGenderId : ''],
+                    personAge: [(!!insured && !!insured.personAge) ? insured.personAge : '', [Validators.minLength(1), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeTextShort]]
                 });
                 break;
 
@@ -362,23 +364,23 @@ export class CompletePolicyService {
             case INSURANCES.MOTORBIKE:
             case INSURANCES.BIKE:
             case INSURANCES.TRUCK:
-                insured = this._formBuilder.group({
-                    vehicleMaker: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    vehicleVersion: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    vehicleModel: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    vehiclePlates: ['', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    vehicleSerial: ['', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    vehicleMotor: ['', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                insuredForm = this._formBuilder.group({
+                    vehicleMaker: [(!!insured && !!insured.vehicleMaker) ? insured.vehicleMaker : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                    vehicleVersion: [(!!insured && !!insured.vehicleVersion) ? insured.vehicleVersion : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                    vehicleModel: [(!!insured && !!insured.vehicleModel) ? insured.vehicleModel : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                    vehiclePlates: [(!!insured && !!insured.vehiclePlates) ? insured.vehiclePlates : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                    vehicleSerial: [(!!insured && !!insured.vehicleSerial) ? insured.vehicleSerial : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                    vehicleMotor: [(!!insured && !!insured.vehicleMotor) ? insured.vehicleMotor : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
                 });
                 break;
 
             case INSURANCES.HOME:
             case INSURANCES.BUILDING:
             case INSURANCES.FARM:
-                insured = this._formBuilder.group({
-                    buildingName: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    buildingUsage: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    buildingLocation: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
+                insuredForm = this._formBuilder.group({
+                    buildingName: [(!!insured && !!insured.buildingName) ? insured.buildingName : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                    buildingUsage: [(!!insured && !!insured.buildingUsage) ? insured.buildingUsage : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                    buildingLocation: [(!!insured && !!insured.buildingLocation) ? insured.buildingLocation : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
                 });
                 break;
 
@@ -387,20 +389,20 @@ export class CompletePolicyService {
             case INSURANCES.CAUTION:
             case INSURANCES.TRANSPORT:
             case INSURANCES.AERO:
-                insured = this._formBuilder.group({
-                    objectName: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    objectUsage: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    objectDescription: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
+                insuredForm = this._formBuilder.group({
+                    objectName: [(!!insured && !!insured.objectName) ? insured.objectName : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                    objectUsage: [(!!insured && !!insured.objectUsage) ? insured.objectUsage : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                    objectDescription: [(!!insured && !!insured.objectDescription) ? insured.objectDescription : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
                 });
                 break;
 
             default:
-                insured = this._formBuilder.group({
+                insuredForm = this._formBuilder.group({
                     policyDetails: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
                 });
                 break;
         }
-        return insured;
+        return insuredForm;
     }
 
     removeInsured(insuredIndex: number): void {

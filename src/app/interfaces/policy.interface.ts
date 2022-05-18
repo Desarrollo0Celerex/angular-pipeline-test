@@ -40,7 +40,6 @@ export interface Policy {
     titularPostalCode: string,
     titularPhoneCodeId: number,
     titularPhoneNumber: string,
-    titularAge: string,
     policyPlan: string,
     currencyId: number,
     paymentMethodId: number,
