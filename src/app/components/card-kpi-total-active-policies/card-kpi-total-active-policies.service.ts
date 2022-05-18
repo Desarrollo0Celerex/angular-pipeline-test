@@ -12,7 +12,7 @@ export class CardKpiTotalActivePoliciesService {
     constructor(private _policyService: PolicyService) { }
 
     loadTotalActivePolicies(): void {
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED]);
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.SUSPENDED]);
         this._policyService.getTotalWorkspacePolicies(filters).subscribe((res: number) => {
             this.totalActivePolicies = res;
         })

@@ -191,7 +191,7 @@ export class CardPolicyComponent implements OnInit {
      * Check if the policy is in time
      */
     private _checkIsInTime(): void {
-        if(!!this.policy && this.policy.policyStatusId === POLICY_STATUS.FINISHED) {
+        if(!!this.policy && (this.policy.policyStatusId === POLICY_STATUS.FINISHED || this.policy.policyStatusId === POLICY_STATUS.PENDING)) {
             const roleId: number = this._authService.roleId;
             let slackDays: number = 0;
             switch(roleId) {

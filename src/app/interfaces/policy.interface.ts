@@ -40,7 +40,6 @@ export interface Policy {
     titularPostalCode: string,
     titularPhoneCodeId: number,
     titularPhoneNumber: string,
-    titularAge: string,
     policyPlan: string,
     currencyId: number,
     paymentMethodId: number,
@@ -63,7 +62,7 @@ export interface Policy {
     isAutoPayment: string,
     daysLeft: number,
     totalRenovations: number,
-    workspaceBrandName: string,
+    workspaceRealName: string,
     partnerId: number,
     insureds: Insured[]
 }

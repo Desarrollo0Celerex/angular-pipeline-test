@@ -254,7 +254,7 @@ export class CompletePolicyPage implements OnInit {
             this._initCalendars();
             this._loadCurrencies();
             this._loadGenders();
-            this._loadPartners(res.data.workspaceBrandName);
+            this._loadPartners(res.data.workspaceRealName);
             this._loadPaymentMethods();
             this._loadPaymentPlans();
         })
@@ -271,8 +271,8 @@ export class CompletePolicyPage implements OnInit {
         this.completePolicyService.loadGenders();
     }
 
-    private _loadPartners(workspaceBrandName: string): void {
-        this.completePolicyService.loadPartners(workspaceBrandName);
+    private _loadPartners(workspaceRealName: string): void {
+        this.completePolicyService.loadPartners(workspaceRealName);
     }
 
     /**
@@ -417,8 +417,80 @@ export class CompletePolicyPage implements OnInit {
         if(!!this._scannedPolicyData) {
             const data: any = this._scannedPolicyData;
             for(const field in data) {
-                if(data[field] == '') {
-                    missingFields.push(field);
+                if(field === 'insureds') {
+                    for(const fieldAux in data[field][0]) {
+                        if(data[field][0][fieldAux] == '') {
+                            switch(this.completePolicyService.policy!.insuranceId) {
+                                case INSURANCES.LIVE:
+                                case INSURANCES.RETIRE:
+                                case INSURANCES.HEALTH:
+                                case INSURANCES.ACCIDENTS:
+                                case INSURANCES.CARE:
+                                case INSURANCES.PETS:
+                                case INSURANCES.CRISIS:
+                                case INSURANCES.TRAVEL:
+                                case INSURANCES.DEATH:
+                                case INSURANCES.CREDIT:
+                                case INSURANCES.WARRANTY:
+                                case INSURANCES.SCHOOLAR:
+                                case INSURANCES.FIANCE:
+                                    switch(fieldAux){
+                                        case 'personName':
+                                        case 'personGenderId':
+                                        case 'personAge':
+                                            missingFields.push(fieldAux);
+                                        break;
+                                    }
+                                break;
+
+                                case INSURANCES.CAR:
+                                case INSURANCES.MOTORBIKE:
+                                case INSURANCES.BIKE:
+                                case INSURANCES.TRUCK:
+                                    switch(fieldAux){
+                                        case 'vehicleMaker':
+                                        case 'vehicleVersion':
+                                        case 'vehicleModel':
+                                        case 'vehiclePlates':
+                                        case 'vehicleSerial':
+                                        case 'vehicleMotor':
+                                            missingFields.push(fieldAux);
+                                        break;
+                                    }
+                                break;
+
+                                case INSURANCES.HOME:
+                                case INSURANCES.BUILDING:
+                                case INSURANCES.FARM:
+                                    switch(fieldAux){
+                                        case 'buildingName':
+                                        case 'buildingUsage':
+                                        case 'buildingLocation':
+                                            missingFields.push(fieldAux);
+                                        break;
+                                    }
+                                break;
+
+                                case INSURANCES.CIVIL:
+                                case INSURANCES.TECHNICAL:
+                                case INSURANCES.CAUTION:
+                                case INSURANCES.TRANSPORT:
+                                case INSURANCES.AERO:
+                                    switch(fieldAux){
+                                        case 'objectName':
+                                        case 'objectUsage':
+                                        case 'objectDescription':
+                                            missingFields.push(fieldAux);
+                                        break;
+                                    }
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    if(data[field] == '') {
+                        missingFields.push(field);
+                    }
                 }
             }
         } else {
@@ -430,7 +502,6 @@ export class CompletePolicyPage implements OnInit {
                 'titularRfc',
                 'titularPostalCode',
                 'titularPhoneNumber',
-                'titularAge',
                 'policyPlan',
                 'emissionDate',
                 'validityStartDate',

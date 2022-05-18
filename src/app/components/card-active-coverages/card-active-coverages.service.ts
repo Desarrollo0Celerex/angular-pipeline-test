@@ -20,12 +20,12 @@ export class CardActiveCoveragesService {
     loadChartData(contactId: string): Observable<void> {
         this.chartData = [];
         return new Observable((observer: any) => {
-            const filter: number[] = [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED];
+            const filter: number[] = [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.SUSPENDED];
             this._policyService.getTotalContactPolicies(contactId, filter).subscribe((res: HttpResponse) => {
                 const page: number = 1;
                 const perPage: number = res.data;
                 const fields: string = 'insuranceName';
-                const filters: number [] = [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED];
+                const filters: number [] = [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.SUSPENDED];
                 this._policyService.getContactPolicies(contactId, page, fields, filters, '', perPage).subscribe((res: HttpResponse) => {
                     this._populateChartData(res.data.items);
                     observer.next();

@@ -17,7 +17,7 @@ export class ContainerChartsActivePoliciesService {
 
     loadData(rangeField: string, rangeStart: string, rangeEnd: string): void {
         this.chartsData = this._getDefaultChartsData();
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED])
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.SUSPENDED])
         this._policyService.getPolicyStats(filters, rangeField, rangeStart, rangeEnd, this.specialFilter).subscribe((res: ContainerCharts) => {
             this.chartsData = res;
             if(this.filtersData === null) {

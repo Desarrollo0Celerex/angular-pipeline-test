@@ -23,6 +23,7 @@ import { CardSinisterLogModule } from '@components/card-sinister-log/card-sinist
 
 import { ContainerExternalPoliciesModule } from '@components/container-external-policies/container-external-policies.module';
 import { ContainerIncompletePoliciesModule } from '@components/container-incomplete-policies/container-incomplete-policies.module';
+import { ContainerPendingPoliciesModule } from '@components/container-pending-policies/container-pending-policies.module';
 import { ContentBackModule } from '@components/content-back/content-back.module';
 import { ContentResultsModule } from '@components/content-results/content-results.module';
 import { ContentResultsTopModule } from '@components/content-results-top/content-results-top.module';
@@ -128,6 +129,7 @@ import { ContentListService } from './content-list.service';
     CommonModule,
     ContainerExternalPoliciesModule,
     ContainerIncompletePoliciesModule,
+    ContainerPendingPoliciesModule,
     ContentBackModule,
     ContentResultsModule,
     ContentResultsTopModule,
