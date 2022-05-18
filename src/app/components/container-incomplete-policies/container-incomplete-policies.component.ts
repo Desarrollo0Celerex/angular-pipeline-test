@@ -25,8 +25,8 @@ export class ContainerIncompletePoliciesComponent implements OnInit {
     @Output() showHistoryPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();;
     contentSubtype: number;
     modalIdConfirmDeletePolicy: string;
-    modalIdShowPolicy: string = 'agt-show-policy';
-    modalIdShowPolicyDetails: string = 'agt-show-policy-details-01';
+    modalIdShowPolicy: string = 'cip-show-policy';
+    modalIdShowPolicyDetails: string = 'cip-show-policy-details';
     selectedPolicyId: string;
     selectedPolicyIndex: number;
 

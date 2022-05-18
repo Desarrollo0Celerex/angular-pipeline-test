@@ -1,9 +1,24 @@
 <!-- AGENTHOS - SEARCH RESULTS -->
-<div class="row">
-    <div class="col-md-12 col-lg-12">
+<div class="row" *ngIf="contentType === CONTENT_TYPES.CLIENT.ID ||contentType === CONTENT_TYPES.LEAD.ID; else otherContent">
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
         <agt-content-search-engine [contentType]="contentType" [contentTypeName]="contentTypeName" [query]="query" [totalResults]="totalResults"></agt-content-search-engine>
     </div>
+    <!-- AGENTHOS - ADD CLIENT -->
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+        <agt-content-main-action
+            [contentType]="contentType"
+            [contentTypeName]="contentTypeName">
+        </agt-content-main-action>
+    </div>
+    <!-- //AGENTHOS - ADD CLIENT -->
 </div>
+<ng-template #otherContent>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <agt-content-search-engine [contentType]="contentType" [contentTypeName]="contentTypeName" [query]="query" [totalResults]="totalResults"></agt-content-search-engine>
+        </div>
+    </div>
+</ng-template>
 
 <agt-content-list
     *ngIf="!!contentType"

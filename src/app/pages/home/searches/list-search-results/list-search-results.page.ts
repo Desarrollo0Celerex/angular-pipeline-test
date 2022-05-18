@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
+import { CONTENT_TYPES } from '@constants/global';
 import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-format.pipe';
 
 @Component({
@@ -10,6 +11,7 @@ import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-form
   ]
 })
 export class ListSearchResultsPage implements OnInit, OnDestroy {
+    CONTENT_TYPES: any = CONTENT_TYPES;
     actionType: number
     contentType: number;
     contentTypeName: string;

@@ -1278,13 +1278,19 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         if(((!!this.query) || this.isHistoryContent) && (this.totalResults > 0) ) {
             switch(this.contentType) {
                 case CONTENT_TYPES.CONTACT_QUOTATION.ID:
-                case CONTENT_TYPES.POLICY.ID:
+                case CONTENT_TYPES.CLIENT.ID:
+                case CONTENT_TYPES.GROUP.ID:
                 case CONTENT_TYPES.GROUP_POLICY.ID:
-                case CONTENT_TYPES.PARTNER_POLICY.ID:
                 case CONTENT_TYPES.HISTORY_POLICY.ID:
-                case CONTENT_TYPES.POLICY_SINISTERS.ID:
-                case CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID:
+                case CONTENT_TYPES.LEAD.ID:
+                case CONTENT_TYPES.PARTNER.ID:
+                case CONTENT_TYPES.PARTNER_POLICY.ID:
+                case CONTENT_TYPES.PAYMENT.ID:
                 case CONTENT_TYPES.PAYMENT_HISTORY.ID:
+                case CONTENT_TYPES.POLICY.ID:
+                case CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID:
+                case CONTENT_TYPES.POLICY_SINISTERS.ID:
+                case CONTENT_TYPES.SINISTER.ID:
                     canShow = true;
                 break;
             }

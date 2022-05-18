@@ -1,7 +1,6 @@
 <agt-container-external-policies
     *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
-    contentType === CONTENT_TYPES.POLICY_TRACKER.ID ||
     contentType === CONTENT_TYPES.PARTNER_POLICY.ID"
     [contentType]="contentType"
     [contactId]="contactId"
@@ -14,7 +13,6 @@
     #containerIncompletePolicies
     *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
-    contentType === CONTENT_TYPES.POLICY_TRACKER.ID ||
     contentType === CONTENT_TYPES.PARTNER_POLICY.ID"
     [contentType]="contentType"
     [contentTypeName]="contentTypeName"
@@ -24,6 +22,24 @@
     (policyDeleted)="onPolicyDeleted()"
     (showHistoryPolicy)="onShowHistoryPolicy($event)">
 </agt-container-incomplete-policies>
+<agt-container-pending-policies
+    #containerPendingPolicies
+    *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+    contentType === CONTENT_TYPES.PARTNER_POLICY.ID"
+    [contentType]="contentType"
+    [contentTypeName]="contentTypeName"
+    [contactId]="contactId"
+    [groupId]="groupId"
+    [partnerId]="partnerId"
+    (reissuePolicy)="onReissuePolicy($event)"
+    (renewPolicy)="onRenewPolicy($event)"
+    (showHistoryPolicy)="onShowHistoryPolicy($event)"
+    (showPaymentHistory)="onShowPaymentHistory($event)"
+    (showPolicySinisters)="onShowPolicySinisters($event)"
+    (showPolicyDetails)="onShowPolicyDetails($event)"
+    (showPolicy)="onShowPolicy($event)"
+></agt-container-pending-policies>
 
 <!-- AGENTHOS - CONTENT HEADER -->
 <div *ngIf="contentType !== CONTENT_TYPES.PAYMENT_CALENDAR.ID" class="row mt-3">

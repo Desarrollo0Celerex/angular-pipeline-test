@@ -135,7 +135,7 @@ export class StatsSnapshotService {
      * @return The policy status stats
      */
     getPolicyStatusStats(): Observable<PolicyStatusStat[]> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED]);
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.SUSPENDED]);
         return this._policyStatusService.getPolicyStatusStats(filters);
     }
 
