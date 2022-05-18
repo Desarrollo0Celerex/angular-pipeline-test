@@ -63,7 +63,7 @@ export interface Policy {
     isAutoPayment: string,
     daysLeft: number,
     totalRenovations: number,
-    workspaceBrandName: string,
+    workspaceRealName: string,
     partnerId: number,
     insureds: Insured[]
 }

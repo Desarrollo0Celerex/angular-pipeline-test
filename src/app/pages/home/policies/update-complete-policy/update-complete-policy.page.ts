@@ -210,8 +210,8 @@ export class UpdateCompletePolicyPage implements OnInit {
         this.updateCompletePolicyService.loadInsuranceTypes(insuranceId);
     }
 
-    private _loadPartners(workspaceBrandName: string): void {
-        this.updateCompletePolicyService.loadPartners(workspaceBrandName);
+    private _loadPartners(workspaceRealName: string): void {
+        this.updateCompletePolicyService.loadPartners(workspaceRealName);
     }
 
     /**
@@ -244,7 +244,7 @@ export class UpdateCompletePolicyPage implements OnInit {
             this._loadInsurances();
             this._loadPaymentMethods();
             this._loadPaymentPlans();
-            this._loadPartners(res.data.workspaceBrandName);
+            this._loadPartners(res.data.workspaceRealName);
             this._checkPolicyPayments(res.data.receiptsPaid, res.data.totalEndorsements);
         })
     }

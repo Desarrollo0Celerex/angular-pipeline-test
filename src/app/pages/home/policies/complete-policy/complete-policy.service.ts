@@ -245,7 +245,7 @@ export class CompletePolicyService {
      */
     getContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceBrandName';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
@@ -295,13 +295,13 @@ export class CompletePolicyService {
         });
     }
 
-    loadPartners(workspaceBrandName: string): void {
+    loadPartners(workspaceRealName: string): void {
         const fields: string = 'partnerId,name';
         const page: number = 1;
         const perPage: number = 1000;
         this._partnerService.getPartners(page, fields, '', '', perPage).subscribe((res: HttpResponse) => {
             this.partners = res.data.items;
-            this._addWorkspaceBrandNameToPartners(workspaceBrandName);
+            this._addWorkspaceRealNameToPartners(workspaceRealName);
         });
     }
 
@@ -412,7 +412,7 @@ export class CompletePolicyService {
         return this._atomScannService.scannPolicy(requestBody);
     }
 
-    private _addWorkspaceBrandNameToPartners(workspaceName: string): void {
+    private _addWorkspaceRealNameToPartners(workspaceName: string): void {
         const partner: Partner = {
             partnerId: '0',
             name: workspaceName

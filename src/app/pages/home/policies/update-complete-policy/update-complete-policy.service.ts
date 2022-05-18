@@ -252,13 +252,13 @@ export class UpdateCompletePolicyService {
         })
     }
 
-    loadPartners(workspaceBrandName: string): void {
+    loadPartners(workspaceRealName: string): void {
         const fields: string = 'partnerId,name';
         const page: number = 1;
         const perPage: number = 1000;
         this._partnerService.getPartners(page, fields, '', '', perPage).subscribe((res: HttpResponse) => {
             this.partners = res.data.items;
-            this._addWorkspaceBrandNameToPartners(workspaceBrandName);
+            this._addWorkspaceRealNameToPartners(workspaceRealName);
         });
     }
 
@@ -298,7 +298,7 @@ export class UpdateCompletePolicyService {
      */
     loadPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceBrandName,partnerId';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceRealName,partnerId';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
@@ -398,7 +398,7 @@ export class UpdateCompletePolicyService {
         return this._policyService.updateCompletePolicy(contactId, policyId, requestBody);
     }
 
-    private _addWorkspaceBrandNameToPartners(workspaceName: string): void {
+    private _addWorkspaceRealNameToPartners(workspaceName: string): void {
         const partner: Partner = {
             partnerId: '0',
             name: workspaceName
@@ -489,7 +489,7 @@ export class UpdateCompletePolicyService {
         requestBody.append('bills', this.f.bills.value);
         requestBody.append('isAutoPayment', (this.f.isAutoPayment.value) ? '1' : '0');
         requestBody.append('partnerId', this.f.partnerId.value);
-        
+
         const insureds: any[] = this.insureds.value;
         requestBody.append('insureds', JSON.stringify(insureds));
 
