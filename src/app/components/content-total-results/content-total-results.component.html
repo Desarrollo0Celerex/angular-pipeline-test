@@ -1,11 +1,13 @@
 <ng-container *ngIf="!!query; else otherContents">
-    <ol class="breadcrumb1 mb-0" *ngIf="!!totalResults">
-        <li class="breadcrumb-item1">Se han encontrado <strong>{{totalResults}}</strong> resultados con <strong>{{query}}</strong>.</li>
-    </ol>
+    <div class="card-body" *ngIf="!!totalResults">
+        <ol class="breadcrumb1 mb-0">
+            <li class="breadcrumb-item1">Se han encontrado <strong>{{totalResults}}</strong> resultados con <strong>{{query}}</strong>.</li>
+        </ol>
+    </div>
 </ng-container>
 <ng-template #otherContents>
-    <div class="card-body">
-        <ol class="breadcrumb1 mb-0" *ngIf="!!totalResults">
+    <div class="card-body" *ngIf="!!totalResults">
+        <ol class="breadcrumb1 mb-0">
             <ng-container [ngSwitch]="contentType">
                 <li class="breadcrumb-item1" *ngSwitchCase="(
                     contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
