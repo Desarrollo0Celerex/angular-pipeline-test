@@ -5,8 +5,6 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { PartnerProfileService } from './partner-profile.service';
 import { ActivatedRoute } from '@angular/router';
 
-declare var ModalPlugin: any;
-
 @Component({
   selector: 'agt-partner-profile',
   templateUrl: './partner-profile.layout.html',
@@ -16,7 +14,6 @@ declare var ModalPlugin: any;
 })
 export class PartnerProfileLayout implements OnInit, OnDestroy {
     ROUTES_NAME: any = ROUTES_NAME;
-    modalIdSelectContactType: string = 'agt-select-contact-type';
     partnerId: string = '';
     private _subParams: any;
 
@@ -35,10 +32,6 @@ export class PartnerProfileLayout implements OnInit, OnDestroy {
 
     get model(): PartnerProfileService {
         return this._partnerProfileService;
-    }
-
-    showModalToSelectContactTypeId(): void {
-        ModalPlugin.show(this.modalIdSelectContactType);
     }
 
     /**
