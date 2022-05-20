@@ -302,7 +302,6 @@ export class UpdateCompletePolicyService {
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
-                console.log('this.policy: ',this.policy);
                 if(!!this.policy) {
                     this.policy.emissionDate = this._getDateFormat(this.policy.emissionDate);
                     this.policy.validityStartDate = this._getDateFormat(this.policy.validityStartDate);
@@ -450,6 +449,7 @@ export class UpdateCompletePolicyService {
         requestBody.append('titularPhoneCodeId', this.f.titularPhoneCodeId.value);
         requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
         requestBody.append('isAutoPayment', (this.f.isAutoPayment.value) ? '1' : '0');
+        requestBody.append('partnerId', this.f.partnerId.value);
 
         const insureds: any[] = this.insureds.value;
         requestBody.append('insureds', JSON.stringify(insureds));
