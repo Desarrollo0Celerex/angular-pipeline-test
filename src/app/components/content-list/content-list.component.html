@@ -163,7 +163,8 @@
                     [lead]="content"
                     (showContactData)="onShowContactData($event)">
                 </agt-card-lead>
-                <agt-card-client *ngSwitchCase="(contentType === CONTENT_TYPES.CLIENT.ID || contentType === CONTENT_TYPES.PARTNER_CLIENT.ID) ? contentType : ''"
+                <agt-card-client
+                    *ngIf="contentType === CONTENT_TYPES.CLIENT.ID"
                     [client]="content"
                     (showContactData)="onShowContactData($event)">
                 </agt-card-client>
@@ -216,6 +217,11 @@
                     [isCoincidence]="isCoincidence"
                     (showDetails)="showPartnerDetails($event)"
                 ></agt-card-partner>
+                <agt-card-partner-client 
+                    *ngIf="contentType === CONTENT_TYPES.PARTNER_CLIENT.ID"
+                    [partnerClient]="content"
+                    (showContactData)="onShowContactData($event)">
+                </agt-card-partner-client>
                 <agt-card-payment
                     *ngSwitchCase="(
                         contentType === CONTENT_TYPES.PAYMENT.ID ||

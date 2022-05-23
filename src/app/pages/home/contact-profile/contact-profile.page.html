@@ -74,56 +74,12 @@
 
     <!-- AGENTHOS - PROFILE WALLET -->
     <div class="col-lg-4">
-        <div class="card">
-            <div class="card-header pt-2 pb-0 border-bottom-0">
-                <h3 class="card-title">Prima Anual</h3>
-                <div class="card-options">
-                    <i class="fe fe-credit-card mr-1 text-primary fs-30"></i>
-                </div>
-            </div>
-            <div class="card-body pt-0" *ngIf="!!contactProfileService.annualWallet">
-                <h2 class="mb-0 number-font">{{contactProfileService.annualWallet.totalAnnualWallet | currency: '': '$': '0.2-2'}} {{contactProfileService.annualWallet.currencyName}}</h2>
-                <div class="row mt-3 dash1">
-                    <div class="col  border-right">
-                        <h6 class="font-weight-500 number-font1 mb-0">{{contactProfileService.annualWallet.totalAnnualActivePolicies}}</h6>
-                        <span class="text-muted">Pólizas<br/>Vigentes</span>
-                    </div>
-                    <div class="col  border-right">
-                        <h6 class="font-weight-500 number-font1 mb-0">{{contactProfileService.annualWallet.totalAnnualOpenSinisters}}</h6>
-                        <span class="text-muted">Siniestros<br/>Abiertos</span>
-                    </div>
-                    <div class="col ">
-                        <p class="font-weight-500 number-font1 mb-0">{{contactProfileService.contact.contactScoreName}}</p>
-                        <span class="text-muted">Score<br/>de Cliente</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer text-center">
-                <ng-container [ngSwitch]="pageType">
-                    <ng-container *ngSwitchCase="CONTACT_PROFILE_PAGE_TYPES.POLICIES.ID">
-                        <button type="button" class="btn btn-block btn-primary" (click)="onClickCreatePolicy()"><strong>CARGAR PÓLIZA</strong></button>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="CONTACT_PROFILE_PAGE_TYPES.SINISTERS.ID">
-                        <button type="button" class="btn btn-block btn-primary" (click)="onClickCreateSinister()"><strong>REPORTAR SINIESTRO</strong></button>
-                    </ng-container>
-                    <ng-container *ngSwitchDefault>
-                        <button type="button" class="btn btn-block btn-primary" (click)="onClickCreateQuotation()"><strong>COTIZAR SEGURO</strong></button>
-                    </ng-container>
-                </ng-container>
-            </div>
-        </div>
+        <agt-card-contact-annual-wallet
+            [contactId]="contactId"
+            [pageType]="pageType"
+        ></agt-card-contact-annual-wallet>
     </div>
 </div>
 <!-- //AGENTHOS - PROFILE PANEL -->
 
 <router-outlet></router-outlet>
-
-<agt-modal-confirm-create-sinister [modalId]="modalIdConfirmCreateSinister" (createSinisterConfirmed)="onCreateSinisterConfirmed()"></agt-modal-confirm-create-sinister>
-<agt-modal-search-contact-policy [modalId]="modalIdSearchContactPolicy" [message]="searchContactPolicyMessage" [contactId]="contactId" (policyFound)="onPolicyFound($event)"></agt-modal-search-contact-policy>
-<agt-modal-create-sinister
-    [modalId]="modalIdCreateSinister"
-    [contactId]="contactId"
-    [policyId]="policyId"
-    [insuranceId]="insuranceId"
-    (sinisterCreated)="onSinisterCreated()"
-></agt-modal-create-sinister>

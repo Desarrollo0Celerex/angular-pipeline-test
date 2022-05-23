@@ -51,9 +51,10 @@ export class CardWalletProjectionService {
     }
 
     private getRequestToGetAnnualwallet(contactId: string, startYear: number, endYear: number): Observable<HttpResponse[]> {
+        const fields: string = 'totalAnnualWallet,totalAnnualActivePolicies,totalAnnualOpenSinisters,currencyName';
         let requests: Observable<HttpResponse>[] = [];
         for(let i = startYear; i<= endYear; i++) {
-            let request: Observable<HttpResponse> = this._contactService.getContactAnnualWallet(contactId, i);
+            let request: Observable<HttpResponse> = this._contactService.getContactAnnualWallet(contactId, i, fields);
             requests.push(request);
         }
         return forkJoin(requests);

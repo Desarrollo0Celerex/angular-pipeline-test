@@ -8,5 +8,7 @@ export interface Partner {
     totalPolicies?: number,
     wallet?: number,
     walletPaid?: number,
-    currencyName?: string
+    currencyName?: string,
+    totalSinisters?: number,
+    createdByName?: string,
 }
