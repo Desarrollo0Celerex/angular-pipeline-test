@@ -62,9 +62,11 @@ export class ContactService {
      * @param  number    The year to get
      * @return           The contact annual wallet
      */
-    getContactAnnualWallet(contactId: string, year: number): Observable<HttpResponse> {
+    getContactAnnualWallet(contactId: string, year: number, fields: string): Observable<HttpResponse> {
         const route: string = routes.contactAnnualWallet(this._workspaceId, contactId, year);
-        return this._httpClient.get<HttpResponse>(route);
+        let params: HttpParams = new HttpParams();
+        params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params});
     }
 
     /**

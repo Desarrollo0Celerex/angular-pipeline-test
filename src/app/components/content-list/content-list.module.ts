@@ -9,6 +9,7 @@ import { CardGroupModule } from '@components/card-group/card-group.module';
 import { CardGroupMemberModule } from '@components/card-group-member/card-group-member.module';
 import { CardLeadModule } from '@components/card-lead/card-lead.module';
 import { CardPartnerModule } from '@components/card-partner/card-partner.module';
+import { CardPartnerClientModule } from '@components/card-partner-client/card-partner-client.module';
 import { CardPaymentModule } from '@components/card-payment/card-payment.module';
 import { CardPendingReceiptModule } from '@components/card-pending-receipt/card-pending-receipt.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
@@ -115,6 +116,7 @@ import { ContentListService } from './content-list.service';
     CardGroupMemberModule,
     CardLeadModule,
     CardPartnerModule,
+    CardPartnerClientModule,
     CardPaymentModule,
     CardPendingReceiptModule,
     CardPolicyModule,

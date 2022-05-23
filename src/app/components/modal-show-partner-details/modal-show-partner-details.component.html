@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<!-- AGENTHOS - CARD DETAILS -->
-				<h5 class="modal-title">Detalles de Socio</h5>
+				<h5 class="modal-title">Detalles del Socio</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -13,28 +13,40 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="form-label">Prima Total ({{partner.currencyName}})</label>
 										<input type="text" class="form-control" placeholder="{{partner.wallet | currency: '': '$': '0.2-2'}}" readonly="">
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<div class="form-group">
-										<label class="form-label">Prima Pagada ({{partner.currencyName}})</label>
+										<label class="form-label">Prima Pagada</label>
 										<input type="text" class="form-control" placeholder="{{partner.walletPaid | currency: '': '$': '0.2-2'}}" readonly="">
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-label">Prima Pendiente</label>
+										<input type="text" class="form-control" placeholder="{{walletPending | currency: '': '$': '0.2-2'}}" readonly="">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-label">Clientes Totales</label>
+										<input type="text" class="form-control" [placeholder]="partner.totalClients" readonly="">
+									</div>
+								</div>
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="form-label">Pólizas Totales</label>
 										<input type="text" class="form-control" [placeholder]="partner.totalPolicies" readonly="">
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<div class="form-group">
-										<label class="form-label">Clientes Totales</label>
-										<input type="text" class="form-control" [placeholder]="partner.totalClients" readonly="">
+										<label class="form-label">Siniestros Totales</label>
+										<input type="text" class="form-control" [placeholder]="partner.totalSinisters" readonly="">
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -43,13 +55,19 @@
 										<input type="text" class="form-control" placeholder="{{partner.createdAt | date: 'dd/MM/yyyy'}}" readonly="">
 									</div>
 								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="form-label">Creador Socio</label>
+										<input type="text" class="form-control" placeholder="{{partner.createdByName}}" readonly="">
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer text-center">
 					<div class="col-12">
-						<button type="button" class="btn btn-block btn-primary" disabled><strong>MUY PRONTO</strong></button>
+						<button type="button" class="btn btn-block btn-primary" (click)="goToPartnerPolicies()"><strong>VER PÓLIZAS</strong></button>
 					</div>
 				</div>
 			</ng-container>
