@@ -48,7 +48,7 @@ export class PartnerService {
      * @param  fields          The fields to get
      * @return                 The partners
      */
-   getPartner(partnerId: string, fields: string = ''): Observable<HttpResponse> {
+   getPartner(partnerId: number, fields: string = ''): Observable<HttpResponse> {
        const route: string = routes.partner(this._workspaceId, partnerId);
        let params: HttpParams = new HttpParams();
        if(!!fields) params = params.append('fields', fields);

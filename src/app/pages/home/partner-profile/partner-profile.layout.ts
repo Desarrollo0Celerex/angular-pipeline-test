@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PartnerProfileLayout implements OnInit, OnDestroy {
     ROUTES_NAME: any = ROUTES_NAME;
-    partnerId: string = '';
+    partnerId: number = 0;
     private _subParams: any;
 
     constructor(

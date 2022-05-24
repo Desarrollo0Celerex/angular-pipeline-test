@@ -10,7 +10,7 @@ export class PartnerProfileService {
 
     constructor(private _partnerService: PartnerService) { }
 
-    loadPartner(partnerId: string): void {
+    loadPartner(partnerId: number): void {
         const fields: string = 'name,totalClients,totalPolicies';
         this._partnerService.getPartner(partnerId, fields).subscribe((res: HttpResponse) => {
             this.partner = res.data;

@@ -12,7 +12,7 @@ import { CardPartnerAnnualWalletService } from './card-partner-annual-wallet.ser
   providers: [CardPartnerAnnualWalletService]
 })
 export class CardPartnerAnnualWalletComponent implements OnChanges {
-    @Input() partnerId: string = '';
+    @Input() partnerId: number = 0;
     year: number = UtilitiesHelper.getCurrentYear();
 
     constructor(public model: CardPartnerAnnualWalletService) { }
