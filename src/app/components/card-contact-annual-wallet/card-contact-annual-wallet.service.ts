@@ -12,7 +12,7 @@ export class CardContactAnnualWalletService {
     constructor(private _contactService: ContactService) { }
 
     loadContactAnnualWallet(contactId: string, year: number): void {
-        const fields: string = 'issuedAnnualWallet,totalIssuedAnnualNewPolicies,totalIssuedAnnualRenewedPolicies';
+        const fields: string = 'issuedAnnualWallet,totalIssuedAnnualNewPolicies,totalIssuedAnnualRenewedPolicies,currencyName';
         this._contactService.getContactAnnualWallet(contactId, year, fields).subscribe((res: HttpResponse) => {
             this.annualWallet = res.data;
             this.loadedContent = true;

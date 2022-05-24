@@ -19,12 +19,8 @@ export class CardPartnerAnnualWalletComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.partnerId && !!changes.partnerId.currentValue) {
-            this._loadPartnerAnnualWallet();
+            this.model.loadPartnerAnnualWallet(changes.partnerId.currentValue, this.year);
         }
-    }
-
-    private _loadPartnerAnnualWallet(): void {
-        console.log('Cargar datos del socio: ',this.partnerId,' => year: ',this.year);
     }
 
 }
