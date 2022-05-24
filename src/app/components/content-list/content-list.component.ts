@@ -1243,6 +1243,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 })
             break;
 
+            case CONTENT_TYPES.PARTNER_CLIENT.ID:
+                this.contentListService.searchPartnerClients(this.partnerId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
             case CONTENT_TYPES.PARTNER_POLICY.ID:
                 this.contentListService.searchPartnerPolicies(this.partnerId, this.page, this.query).subscribe( () => {
                     this._contentLoaded();

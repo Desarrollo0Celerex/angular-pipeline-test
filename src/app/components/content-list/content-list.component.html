@@ -217,7 +217,7 @@
                     [isCoincidence]="isCoincidence"
                     (showDetails)="showPartnerDetails($event)"
                 ></agt-card-partner>
-                <agt-card-partner-client 
+                <agt-card-partner-client
                     *ngIf="contentType === CONTENT_TYPES.PARTNER_CLIENT.ID"
                     [partnerClient]="content"
                     (showContactData)="onShowContactData($event)">
@@ -307,8 +307,8 @@
     [query]="query"
     [contactId]="contactId"
     [groupId]="groupId"
-    >
-</agt-content-back>
+    [partnerId]="partnerId"
+></agt-content-back>
 <agt-content-suggestions
     *ngIf="!isHistoryContent"
     [isLoadingContent]="isLoadingContent"
