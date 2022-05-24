@@ -34,6 +34,7 @@ const routes: any = {
     policies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies',
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
     totalContactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/count',
+    totalPartnerPolicies: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/policies/count',
     updateCompletePolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/update-complete',
     updatePolicyStatus: (workspaceId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/' + policyId + '/policy-status',
     totalWorkspacePolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/count',
@@ -645,6 +646,13 @@ export class PolicyService {
      */
     getTotalContactPolicies(contactId: string, filters: number[] = []): Observable<HttpResponse> {
         const route: string = routes.totalContactPolicies(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    getTotalPartnerPolicies(partnerId: number, filters: number[] = []): Observable<HttpResponse> {
+        const route: string = routes.totalPartnerPolicies(this._workspaceId, partnerId);
         let params: HttpParams = new HttpParams();
         if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
         return this._httpClient.get<HttpResponse>(route, {params});
