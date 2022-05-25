@@ -7,6 +7,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
+    partnerRenewalStatistics: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/statistics/renewals',
     policyEndorsementStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/endorsements',
     policyEndorsementBehaviorStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/endorsements/behavior',
     policyPaymentStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/payments',
@@ -24,6 +25,11 @@ export class StatisticService {
         private _httpClient: HttpClient,
         private _authService: AuthService
     ) { }
+
+    getPartnerRenewalStatistics(partnerId: number): Observable<HttpResponse> {
+        const route: string = routes.partnerRenewalStatistics(this._workspaceId, partnerId);
+        return this._httpClient.get<HttpResponse>(route);
+    }
 
     getPolicyEndorsementStatistics(contactId: string, policyId: string): Observable<HttpResponse> {
         const route: string = routes.policyEndorsementStatistics(this._workspaceId, contactId, policyId);
