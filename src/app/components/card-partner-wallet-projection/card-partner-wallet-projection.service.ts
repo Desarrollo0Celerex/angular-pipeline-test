@@ -19,20 +19,27 @@ export class CardPartnerWalletProjectionService {
         this.chartData = [['AÑO', 'Prima Anual']];
         return new Observable((observer: any) => {
             this._getPartner(partnerId).subscribe((res: HttpResponse) => {
-                const startYear: number = UtilitiesHelper.getYearFromDate(res.data.oldestActivePolicyDate);
-                const endYear: number = UtilitiesHelper.getYearFromDate(res.data.farthestActivePolicyDate);
-                this.getRequestToGetAnnualwallet(partnerId, startYear, endYear).subscribe((res: HttpResponse[]) => {
-                    let index: number = 0;
-                    for(let i = startYear; i<= endYear; i++) {
-                        const year: string = i.toString();
-                        const value: number = parseFloat(parseFloat(res[index].data.totalAnnualWallet).toFixed(2));
-                        this.chartData[0][1] = 'Prima Anual ('+res[index].data.currencyName+')';
-                        this.chartData.push([year, value]);
-                        index++;
-                    }
+                if(!!res.data.oldestActivePolicyDate && !!res.data.farthestActivePolicyDate) {
+                    const startYear: number = UtilitiesHelper.getYearFromDate(res.data.oldestActivePolicyDate);
+                    const endYear: number = UtilitiesHelper.getYearFromDate(res.data.farthestActivePolicyDate);
+                    this.getRequestToGetAnnualwallet(partnerId, startYear, endYear).subscribe((res: HttpResponse[]) => {
+                        let index: number = 0;
+                        for(let i = startYear; i<= endYear; i++) {
+                            const year: string = i.toString();
+                            const value: number = parseFloat(parseFloat(res[index].data.totalAnnualWallet).toFixed(2));
+                            this.chartData[0][1] = 'Prima Anual ('+res[index].data.currencyName+')';
+                            this.chartData.push([year, value]);
+                            index++;
+                        }
+                        observer.next();
+                        observer.complete();
+                    });
+                } else {
+                    const year: number = UtilitiesHelper.getCurrentYear();
+                    this.chartData.push([year.toString(), 0]);
                     observer.next();
                     observer.complete();
-                });
+                }
             });
         });
     }

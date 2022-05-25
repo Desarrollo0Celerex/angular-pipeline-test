@@ -20,7 +20,8 @@ export class CardWalletProjectionService {
         return new Observable((observer: any) => {
             this._getContact(contactId).subscribe((res: HttpResponse) => {
                 const startYear: number = UtilitiesHelper.getYearFromDate(res.data.oldestActivePolicyDate);
-                const endYear: number = UtilitiesHelper.getYearFromDate(res.data.farthestActivePolicyDate);this.getRequestToGetAnnualwallet(contactId, startYear, endYear).subscribe((res: HttpResponse[]) => {
+                const endYear: number = UtilitiesHelper.getYearFromDate(res.data.farthestActivePolicyDate);
+                this.getRequestToGetAnnualwallet(contactId, startYear, endYear).subscribe((res: HttpResponse[]) => {
                     let index: number = 0;
                     for(let i = startYear; i<= endYear; i++) {
                         const year: string = i.toString();

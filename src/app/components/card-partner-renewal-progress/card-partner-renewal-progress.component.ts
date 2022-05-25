@@ -13,6 +13,9 @@ declare var ChartPlugin: any;
 })
 export class CardPartnerRenewalProgressComponent implements OnChanges {
     @Input() partnerId: number = 0;
+    @Input() rangeField: string = '';
+    @Input() rangeStart: string = '';
+    @Input() rangeEnd: string = '';
 
     constructor(public model: CardPartnerRenewalProgressService) { }
 
@@ -32,7 +35,7 @@ export class CardPartnerRenewalProgressComponent implements OnChanges {
      * @param partnerId The partner ID
      */
     private loadChartData(partnerId: number): void {
-        this.model.loadChartData(partnerId).subscribe(() => {
+        this.model.loadChartData(partnerId, this.rangeField, this.rangeStart, this.rangeEnd).subscribe(() => {
             ChartPlugin.drawChartRenewalProcess(this.model.chartData);
         })
     }

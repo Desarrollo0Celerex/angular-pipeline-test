@@ -23,6 +23,19 @@
         <agt-card-partner-global-balance [partnerId]="partnerId"></agt-card-partner-global-balance>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
-        <agt-card-partner-renewal-progress [partnerId]="partnerId"></agt-card-partner-renewal-progress>
+        <agt-card-partner-renewal-progress
+            [partnerId]="partnerId"
+            [rangeField]="rangeField"
+            [rangeStart]="rangeStart"
+            [rangeEnd]="rangeEnd"
+        ></agt-card-partner-renewal-progress>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <agt-card-partner-renewal-reports
+            [partnerId]="partnerId"
+            [rangeField]="rangeField"
+            [rangeStart]="rangeStart"
+            [rangeEnd]="rangeEnd"
+        ></agt-card-partner-renewal-reports>
     </div>
 </div>

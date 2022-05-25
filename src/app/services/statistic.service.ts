@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
@@ -26,9 +26,14 @@ export class StatisticService {
         private _authService: AuthService
     ) { }
 
-    getPartnerRenewalStatistics(partnerId: number): Observable<HttpResponse> {
+    getPartnerRenewalStatistics(partnerId: number, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
         const route: string = routes.partnerRenewalStatistics(this._workspaceId, partnerId);
-        return this._httpClient.get<HttpResponse>(route);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params});
     }
 
     getPolicyEndorsementStatistics(contactId: string, policyId: string): Observable<HttpResponse> {

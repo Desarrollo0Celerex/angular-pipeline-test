@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
 
 declare var TooltipPlugin: any;
 
@@ -11,6 +12,9 @@ declare var TooltipPlugin: any;
 })
 export class ResumePage implements OnInit, OnDestroy {
     partnerId: number = 0;
+    rangeField: string = 'validityEndDate';
+    rangeStart: string = moment().subtract(61, 'day').format('DD/MM/YYYY');
+    rangeEnd: string = moment().add(30, 'day').format('DD/MM/YYYY');
     private _subParams: any | null = null;
 
     constructor(private _activatedRoute: ActivatedRoute) { }
