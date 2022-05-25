@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
@@ -7,6 +7,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
+    partnerRenewalStatistics: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/statistics/renewals',
     policyEndorsementStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/endorsements',
     policyEndorsementBehaviorStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/endorsements/behavior',
     policyPaymentStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/payments',
@@ -24,6 +25,16 @@ export class StatisticService {
         private _httpClient: HttpClient,
         private _authService: AuthService
     ) { }
+
+    getPartnerRenewalStatistics(partnerId: number, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
+        const route: string = routes.partnerRenewalStatistics(this._workspaceId, partnerId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
 
     getPolicyEndorsementStatistics(contactId: string, policyId: string): Observable<HttpResponse> {
         const route: string = routes.policyEndorsementStatistics(this._workspaceId, contactId, policyId);

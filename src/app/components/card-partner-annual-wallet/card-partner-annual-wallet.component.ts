@@ -12,19 +12,15 @@ import { CardPartnerAnnualWalletService } from './card-partner-annual-wallet.ser
   providers: [CardPartnerAnnualWalletService]
 })
 export class CardPartnerAnnualWalletComponent implements OnChanges {
-    @Input() partnerId: string = '';
+    @Input() partnerId: number = 0;
     year: number = UtilitiesHelper.getCurrentYear();
 
     constructor(public model: CardPartnerAnnualWalletService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.partnerId && !!changes.partnerId.currentValue) {
-            this._loadPartnerAnnualWallet();
+            this.model.loadPartnerAnnualWallet(changes.partnerId.currentValue, this.year);
         }
-    }
-
-    private _loadPartnerAnnualWallet(): void {
-        console.log('Cargar datos del socio: ',this.partnerId,' => year: ',this.year);
     }
 
 }

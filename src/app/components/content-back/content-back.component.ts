@@ -14,6 +14,7 @@ import { ContentResultData } from '@interfaces/content-result-data.interface';
 export class ContentBackComponent {
     @Input() contactId: string = '';
     @Input() groupId: string = '';
+    @Input() partnerId: string = '';
     @Input() contentResultData: ContentResultData = {
         loadedItems: 0,
         totalItems: 0
@@ -30,28 +31,20 @@ export class ContentBackComponent {
     onClickBack(): void {
         let route: string;
         switch(this.contentType){
-            case CONTENT_TYPES.LEAD.ID:
-                route = ROUTES_NAME.listLeads;
-                break;
-
             case CONTENT_TYPES.CLIENT.ID:
                 route = ROUTES_NAME.listClients;
                 break;
 
-            case CONTENT_TYPES.PAYMENT.ID:
-                route = ROUTES_NAME.listPayments;
+            case CONTENT_TYPES.CONTACT.ID:
+                route = ROUTES_NAME.listContacts;
                 break;
 
-            case CONTENT_TYPES.SINISTER.ID:
-                route = ROUTES_NAME.listSinisters;
+            case CONTENT_TYPES.CONTACT_FILE.ID:
+                route = ROUTES_NAME.listContactFiles(this.contactId);
                 break;
 
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
                 route = ROUTES_NAME.listContactQuotations(this.contactId);
-                break;
-
-            case CONTENT_TYPES.POLICY.ID:
-                route = ROUTES_NAME.listContactPolicies(this.contactId);
                 break;
 
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
@@ -70,16 +63,36 @@ export class ContentBackComponent {
                 route = ROUTES_NAME.groupSinisters(this.groupId);
                 break;
 
-            case CONTENT_TYPES.CONTACT_FILE.ID:
-                route = ROUTES_NAME.listContactFiles(this.contactId);
-                break;
-
-            case CONTENT_TYPES.CONTACT.ID:
-                route = ROUTES_NAME.listContacts;
+            case CONTENT_TYPES.LEAD.ID:
+                route = ROUTES_NAME.listLeads;
                 break;
 
             case CONTENT_TYPES.PARTNER.ID:
                 route = ROUTES_NAME.listPartners;
+                break;
+
+            case CONTENT_TYPES.PARTNER_CLIENT.ID:
+                route = ROUTES_NAME.partnerClients(this.partnerId);
+                break;
+
+            case CONTENT_TYPES.PARTNER_POLICY.ID:
+                route = ROUTES_NAME.partnerPolicies(this.partnerId);
+                break;
+
+            case CONTENT_TYPES.PARTNER_SINISTER.ID:
+                route = ROUTES_NAME.partnerSinisters(this.partnerId);
+                break;
+
+            case CONTENT_TYPES.PAYMENT.ID:
+                route = ROUTES_NAME.listPayments;
+                break;
+
+            case CONTENT_TYPES.POLICY.ID:
+                route = ROUTES_NAME.listContactPolicies(this.contactId);
+                break;
+
+            case CONTENT_TYPES.SINISTER.ID:
+                route = ROUTES_NAME.listSinisters;
                 break;
 
             default:

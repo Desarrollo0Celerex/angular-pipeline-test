@@ -11,4 +11,8 @@ export interface Partner {
     currencyName?: string,
     totalSinisters?: number,
     createdByName?: string,
+    totalGlobalCurrentWallet?: number,
+    totalActivePolicies?: number,
+    totalExpiredPolicies?: number,
+    totalCancelledPolicies?: number,
 }

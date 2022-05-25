@@ -12,6 +12,7 @@ const routes: Routes = [{
     component: PartnerProfileLayout,
     children: [
         { path: ROUTES_NAME.partnerResume(':partnerId'), loadChildren: () => import('@pages/home/partner-profile/resume/resume.module').then(mod => mod.ResumeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+        { path: ROUTES_NAME.partnerClients(':partnerId'), loadChildren: () => import('@pages/home/partner-profile/clients/clients.module').then(mod => mod.ClientsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
         { path: ROUTES_NAME.partnerPolicies(':partnerId'), loadChildren: () => import('@pages/home/partner-profile/policies/policies.module').then(mod => mod.PoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
         { path: ROUTES_NAME.partnerSinisters(':partnerId'), loadChildren: () => import('@pages/home/partner-profile/sinisters/sinisters.module').then(mod => mod.SinistersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
     ]

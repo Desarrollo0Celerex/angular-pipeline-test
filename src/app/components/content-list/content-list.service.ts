@@ -993,6 +993,17 @@ export class ContentListService {
     }
 
 
+    searchPartnerClients(partnerId: string, page: number, query: string): Observable<void> {
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalPartnerWallet,totalActivePartnerPolicies,currencyName';
+        return this._partnerService.getPartnerClients(partnerId, fields, page, query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
     /**
      * Search the partner policies
      * @param  partnerId The partner ID
