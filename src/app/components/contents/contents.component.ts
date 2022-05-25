@@ -55,6 +55,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
         this.canShowKpis = this._checkCanShowKpis();
         this.mainActionWidth = this._getMainActionWidth();
         this.searchEngineWidth = this._getSearchEngineWidth();
+        this.contentSubtypeName = (!!this.contentSubtypeName) ? this.contentSubtypeName : this._generateContentSubtypeName();
     }
 
     ngOnDestroy(): void {
@@ -219,6 +220,16 @@ export class ContentsComponent implements OnInit, OnDestroy {
         } else {
             this._router.navigate([url], { relativeTo: this._activatedRoute } );
         }
+    }
+
+    private _generateContentSubtypeName(): string {
+        let contentSubtypeName: string = '';
+        switch(this.contentType) {
+            case CONTENT_TYPES.PARTNER_CLIENT.ID:
+                contentSubtypeName = 'del Socio';
+            break;
+        }
+        return contentSubtypeName;
     }
 
 }

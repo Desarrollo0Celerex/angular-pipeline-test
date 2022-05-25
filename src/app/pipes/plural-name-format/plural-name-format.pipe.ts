@@ -17,6 +17,7 @@ export class PluralNameFormatPipe implements PipeTransform {
                 case 'Reexpedición': pluralName = 'Reexpediciones'; break;
                 case 'Familiar': pluralName = 'Familiares'; break;
                 case 'del Grupo': pluralName = 'del Grupo'; break;
+                case 'del Socio': pluralName = 'del Socio'; break;
                 case 'Cancelación': pluralName = 'Cancelaciones'; break;
                 default: pluralName = name + 's';
             }

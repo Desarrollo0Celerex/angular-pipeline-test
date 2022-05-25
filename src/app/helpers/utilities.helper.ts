@@ -36,6 +36,11 @@ export class UtilitiesHelper {
         return currentDate.getFullYear();
     }
 
+    static getYearFromDate(date: string): number {
+        const arrDate: string[] = date.split('-');
+        return (arrDate.length === 3) ? parseInt(arrDate[0]) : 0;
+    }
+
     /**
      * Get the original format of the date
      * @param  date The date to format

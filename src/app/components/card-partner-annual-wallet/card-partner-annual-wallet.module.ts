@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { PartnerService } from '@services/partner.service';
 
 import { CardPartnerAnnualWalletComponent } from './card-partner-annual-wallet.component';
@@ -13,7 +14,8 @@ import { CardPartnerAnnualWalletComponent } from './card-partner-annual-wallet.c
       CardPartnerAnnualWalletComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    LoadingContentModule
   ],
   providers: [
       PartnerService

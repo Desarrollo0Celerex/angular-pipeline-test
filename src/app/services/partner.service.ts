@@ -12,6 +12,7 @@ import { AuthService } from '@services/auth.service';
 const routes: any = {
     partners: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners',
     partner: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId,
+    partnerAnnualWallet: (workspaceId: string, partnerId: string, year: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/annual-wallet/' + year,
     partnerClients: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/clients',
     partnerCoincidences: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/coincidences',
     totalPartners: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/count',
@@ -47,19 +48,27 @@ export class PartnerService {
      * @param  fields          The fields to get
      * @return                 The partners
      */
-   getPartner(partnerId: string, fields: string = ''): Observable<HttpResponse> {
+   getPartner(partnerId: number, fields: string = ''): Observable<HttpResponse> {
        const route: string = routes.partner(this._workspaceId, partnerId);
        let params: HttpParams = new HttpParams();
        if(!!fields) params = params.append('fields', fields);
        return this._httpClient.get<HttpResponse>(route, { params });
    }
 
-   getPartnerClients(partnerId: string, fields: string = '', page: number = 1, perPage: number = 12): Observable<HttpResponse> {
+   getPartnerAnnualWallet(partnerId: number, year: number, fields: string): Observable<HttpResponse> {
+       const route: string = routes.partnerAnnualWallet(this._workspaceId, partnerId, year);
+       let params: HttpParams = new HttpParams();
+       params = params.append('fields', fields);
+       return this._httpClient.get<HttpResponse>(route, {params});
+   }
+
+   getPartnerClients(partnerId: string, fields: string = '', page: number = 1, query: string = '', perPage: number = 12): Observable<HttpResponse> {
        const route: string = routes.partnerClients(this._workspaceId, partnerId);
        let params: HttpParams = new HttpParams();
        params = params.append('page', page.toString());
        params = params.append('perPage', perPage.toString());
        if(!!fields) params = params.append('fields', fields);
+       if(!!query) params = params.append('search', 'contactName:' + query);
        params = params.append('sortBy', '-createdAt');
        return this._httpClient.get<HttpResponse>(route, { params });
    }

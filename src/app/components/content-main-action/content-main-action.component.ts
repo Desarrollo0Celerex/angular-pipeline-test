@@ -94,6 +94,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.GROUP_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.GROUP_SINISTER.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.PARTNER.ID: title = 'Nuevo Socio'; break;
+            case CONTENT_TYPES.PARTNER_CLIENT.ID: title = 'Nueva Póliza'; break;
             case CONTENT_TYPES.PARTNER_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.PARTNER_SINISTER.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'Actualizar Cobranza'; break;
@@ -128,6 +129,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.CONTACT_FILE.ID: title = 'SUBIR ARCHIVO'; break;
             case CONTENT_TYPES.GROUP.ID: title = 'CREAR '+this.contentTypeName; break;
             case CONTENT_TYPES.PARTNER.ID: title = 'CREAR SOCIO'; break;
+            case CONTENT_TYPES.PARTNER_CLIENT.ID: title = 'ENLAZAR PÓLIZA'; break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'APLICAR PAGO'; break;
             case CONTENT_TYPES.SINISTER.ID: title = 'REPORTAR '+this.contentTypeName; break;
             case CONTENT_TYPES.INCOMPLETE_POLICIES.ID: title = 'CARGAR '+this.contentTypeName; break;
@@ -144,6 +146,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:
+            case CONTENT_TYPES.PARTNER_CLIENT.ID:
                 ModalPlugin.show(this.selectContactTypeModalId);
             break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: ModalPlugin.show(this.selectQuotationStatusModalId); break;

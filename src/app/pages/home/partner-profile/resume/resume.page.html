@@ -1,7 +1,41 @@
-<agt-content-list
-    [contentType]="contentType"
-    [contentTypeName]="contentTypeName"
-    [contentSubtype]="contentSubtype"
-    [contentSubtypeName]="contentSubtypeName"
-    [partnerId]="partnerId"
-></agt-content-list>
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Resumen del Socio</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+        <agt-card-partner-wallet-projection [partnerId]="partnerId"></agt-card-partner-wallet-projection>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <agt-card-partner-wallet-global [partnerId]="partnerId"></agt-card-partner-wallet-global>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <agt-card-partner-active-coverages [partnerId]="partnerId"></agt-card-partner-active-coverages>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <agt-card-partner-preferred-insurers [partnerId]="partnerId"></agt-card-partner-preferred-insurers>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <agt-card-partner-global-balance [partnerId]="partnerId"></agt-card-partner-global-balance>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+        <agt-card-partner-renewal-progress
+            [partnerId]="partnerId"
+            [rangeField]="rangeField"
+            [rangeStart]="rangeStart"
+            [rangeEnd]="rangeEnd"
+        ></agt-card-partner-renewal-progress>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <agt-card-partner-renewal-reports
+            [partnerId]="partnerId"
+            [rangeField]="rangeField"
+            [rangeStart]="rangeStart"
+            [rangeEnd]="rangeEnd"
+        ></agt-card-partner-renewal-reports>
+    </div>
+</div>

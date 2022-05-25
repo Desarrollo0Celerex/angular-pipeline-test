@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContactService } from '@services/contact.service';
 
@@ -18,21 +19,17 @@ export class CardWalletProjectionService {
         this.chartData = [['AÑO', 'Prima Anual']];
         return new Observable((observer: any) => {
             this._getContact(contactId).subscribe((res: HttpResponse) => {
-                const startYear: number = new Date(res.data.oldestActivePolicyDate).getFullYear();
-                const endYear: number = new Date(res.data.farthestActivePolicyDate).getFullYear();
+                const startYear: number = UtilitiesHelper.getYearFromDate(res.data.oldestActivePolicyDate);
+                const endYear: number = UtilitiesHelper.getYearFromDate(res.data.farthestActivePolicyDate);
                 this.getRequestToGetAnnualwallet(contactId, startYear, endYear).subscribe((res: HttpResponse[]) => {
                     let index: number = 0;
-                    // TODO: Ajustar query para aumentar la precisión. NOTA: Tomar como ejemplo a Jaime Alberto Surita Mercado
-                    //let aux: number = 0;
                     for(let i = startYear; i<= endYear; i++) {
                         const year: string = i.toString();
                         const value: number = parseFloat(parseFloat(res[index].data.totalAnnualWallet).toFixed(2));
                         this.chartData[0][1] = 'Prima Anual ('+res[index].data.currencyName+')';
-                        //aux += value;
                         this.chartData.push([year, value]);
                         index++;
                     }
-                    //console.log('aux: ',aux);
                     observer.next();
                     observer.complete();
                 });
@@ -51,7 +48,7 @@ export class CardWalletProjectionService {
     }
 
     private getRequestToGetAnnualwallet(contactId: string, startYear: number, endYear: number): Observable<HttpResponse[]> {
-        const fields: string = 'totalAnnualWallet,totalAnnualActivePolicies,totalAnnualOpenSinisters,currencyName';
+        const fields: string = 'totalAnnualWallet,currencyName';
         let requests: Observable<HttpResponse>[] = [];
         for(let i = startYear; i<= endYear; i++) {
             let request: Observable<HttpResponse> = this._contactService.getContactAnnualWallet(contactId, i, fields);
