@@ -12,8 +12,7 @@ declare var TooltipPlugin: any;
 })
 export class ResumePage implements OnInit, OnDestroy {
     partnerId: number = 0;
-    rangeField: string = 'validityEndDate';
-    rangeStart: string = moment().subtract(61, 'day').format('DD/MM/YYYY');
+    rangeStart: string = moment().subtract(60, 'day').format('DD/MM/YYYY');
     rangeEnd: string = moment().add(30, 'day').format('DD/MM/YYYY');
     private _subParams: any | null = null;
 

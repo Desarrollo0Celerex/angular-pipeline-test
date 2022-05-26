@@ -67,6 +67,8 @@ const routes: any = {
     workspaceActivePoliciesReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/reports/actives',
     workspacePolicyStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/stats',
     workspacePolicy: (workspaceId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/policies/' + policyId,
+    reportPartnerAppliedRenewals: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/applied-renewals/report',
+    reportPartnerPendingRenewals: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/pending-renewals/report',
 }
 
 @Injectable()
@@ -191,6 +193,44 @@ export class PolicyService {
         if(!!formatType) params = params.append('formatType', formatType);
         if(!!sortBy) params = params.append('sortBy', sortBy);
         if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
+    }
+
+    downloadReportPartnerAppliedRenewals(partnerId: number, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', formatType: number, sortBy: string = '-createdAt') {
+        const route: string = routes.reportPartnerAppliedRenewals(this._workspaceId, partnerId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!formatType) params = params.append('formatType', formatType);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
+    }
+
+    downloadReportPartnerPendingRenewals(partnerId: number, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', formatType: number, sortBy: string = '-createdAt') {
+        const route: string = routes.reportPartnerPendingRenewals(this._workspaceId, partnerId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!formatType) params = params.append('formatType', formatType);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
         params.append('observe', 'response');
         params.append('responseType', 'arraybuffer');
         const fileParams: any = {
