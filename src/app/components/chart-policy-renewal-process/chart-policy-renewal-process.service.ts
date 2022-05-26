@@ -23,7 +23,7 @@ export class ChartPolicyRenewalProcessService {
     }
 
     loadRenewalProcessStatsData(renewalProcessStats: number[]): void {
-        this.renewalProcessStatsData.push(['Estatus', 'Renovaciones Aplicadas', 'Renovaciones Pendinetes', { role: 'annotation'} ]);
+        this.renewalProcessStatsData.push(['Estatus', 'Renovaciones Aplicadas', 'Renovaciones Pendientes', { role: 'annotation'} ]);
         this.renewalProcessStatsData.push(['', renewalProcessStats[0], renewalProcessStats[1], '']);
     }
 }

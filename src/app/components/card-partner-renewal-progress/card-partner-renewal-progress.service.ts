@@ -21,7 +21,7 @@ export class CardPartnerRenewalProgressService {
     loadChartData(partnerId: number, rangeStart: string, rangeEnd: string): Observable<void> {
         this.chartData = null;
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
-        const rangeField: string = 'validityStartDate';
+        const rangeField: string = 'validityEndDate';
         return this._statisticService.getPartnerRenewalStatistics(partnerId, filters, rangeField, rangeStart, rangeEnd).pipe(
             tap((res: HttpResponse) => {
                 this.chartData = res.data;
