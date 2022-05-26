@@ -20,7 +20,6 @@ export class CardPartnerRenewalReportsService {
     totalPartnerAppliedRenewals: number = 0;
     totalPartnerPendingRenewals: number = 0;
 
-
     constructor(private _policyService: PolicyService) { }
 
     downloadReport(partnerId: number, rangeStart: string, rangeEnd: string, formatType: number): Promise<void> {
