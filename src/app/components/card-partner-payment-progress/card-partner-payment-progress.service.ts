@@ -2,27 +2,22 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 
-import { POLICY_STATUS } from '@constants/global';
+import { PAYMENT_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { StatisticService } from '@services/statistic.service';
 
 @Injectable()
-export class CardPartnerRenewalProgressService {
+export class CardPartnerPaymentProgressService {
     chartData: any = null;
 
     constructor(private _statisticService: StatisticService) { }
 
-    /**
-     * Load the chart data
-     * @param  partnerId The partner ID
-     * @return           The chart data
-     */
     loadChartData(partnerId: number, rangeStart: string, rangeEnd: string): Observable<void> {
         this.chartData = null;
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
-        const rangeField: string = 'validityStartDate';
-        return this._statisticService.getPartnerRenewalStatistics(partnerId, filters, rangeField, rangeStart, rangeEnd).pipe(
+        const rangeField: string = 'paymentDate';
+        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE])
+        return this._statisticService.getPartnerPaymentStatistics(partnerId, filters, rangeField, rangeStart, rangeEnd).pipe(
             tap((res: HttpResponse) => {
                 this.chartData = res.data;
             }),

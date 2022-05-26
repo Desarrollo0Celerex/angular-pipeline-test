@@ -204,6 +204,37 @@ let ChartPlugin = function() {
         document.getElementById('agt-renewal-progress').innerHTML = '';
     }
 
+    function drawChartPaymentProcess(chartData) {
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(function() {
+            drawChart(chartData);
+        });
+
+        function drawChart(chartData) {
+            let data = google.visualization.arrayToDataTable(chartData);
+
+            let options = {
+                height: 118,
+                fontSize:12,
+                legend: {"position":"top","textStyle":{"color":"#536d98","fontSize":11}},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                bubble: {textStyle: {fontSize: 12}},
+                crosshair:{"trigger":"both","color":"#8b0d88","opacity":0.8},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                colors:["#38ada8","#0a3d68"],
+                bar: { groupWidth: '88%' },
+                isStacked: 'percent',
+            };
+
+            let chart = new google.visualization.BarChart(document.getElementById('agt-payment-progress'));
+            chart.draw(data, options);
+        }
+    }
+
+    function removeChartPaymentProcess() {
+        document.getElementById('agt-payment-progress').innerHTML = '';
+    }
+
     return {
         drawWalletProjection,
         drawActiveCoverages,
@@ -211,5 +242,7 @@ let ChartPlugin = function() {
         drawGlobalBalance,
         drawChartRenewalProcess,
         removeChartRenewalProcess,
+        drawChartPaymentProcess,
+        removeChartPaymentProcess,
     };
 }();

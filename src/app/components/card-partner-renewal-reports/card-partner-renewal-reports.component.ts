@@ -11,7 +11,6 @@ import { CardPartnerRenewalReportsService } from './card-partner-renewal-reports
 })
 export class CardPartnerRenewalReportsComponent implements OnChanges {
     @Input() partnerId: number = 0;
-    @Input() rangeField: string = '';
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
 
@@ -19,7 +18,7 @@ export class CardPartnerRenewalReportsComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.partnerId && changes.partnerId.currentValue) {
-            this.model.loadTotalRenewals(changes.partnerId.currentValue, this.rangeField, this.rangeStart, this.rangeEnd)
+            this.model.loadTotalRenewals(changes.partnerId.currentValue, this.rangeStart, this.rangeEnd)
         }
     }
 

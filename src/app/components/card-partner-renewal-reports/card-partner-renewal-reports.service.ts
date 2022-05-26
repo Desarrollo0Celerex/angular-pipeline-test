@@ -14,8 +14,9 @@ export class CardPartnerRenewalReportsService {
 
     constructor(private _policyService: PolicyService) { }
 
-    loadTotalRenewals(parnerId: number, rangeField: string, rangeStart: string, rangeEnd: string): void {
+    loadTotalRenewals(parnerId: number, rangeStart: string, rangeEnd: string): void {
         this.loadedContent = false;
+        const rangeField: string = 'validityStartDate';
         const renewalRequests: Observable<HttpResponse[]> = this._generateRenewalRequests(parnerId, rangeField, rangeStart, rangeEnd);
         renewalRequests.subscribe((res: HttpResponse[]) => {
             this.totalPartnerAppliedRenewals = res[0].data;
