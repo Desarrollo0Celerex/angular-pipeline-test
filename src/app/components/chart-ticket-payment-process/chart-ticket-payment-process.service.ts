@@ -19,10 +19,9 @@ export class ChartTicketPaymentProcessService {
     getPaymentProcessStats(range: RangeData): Observable<number[]> {
         this.paymentProcessStatsData = [];
         const rangeField: string = 'paymentDate';
-        const receiptsPaidFilters: string = '';
         const paymentsFilters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE]);
         let requests: Observable<number>[] = [];
-        requests.push(this._receiptPaidService.getTotalReceiptsPaid(receiptsPaidFilters, rangeField, range.selectedRangeStart, range.selectedRangeEnd));
+        requests.push(this._receiptPaidService.getTotalReceiptsPaid(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
         requests.push(this._paymentService.getTotalPayments(paymentsFilters, rangeField, range.selectedRangeStart, range.selectedRangeEnd));
         return forkJoin(requests);
     }

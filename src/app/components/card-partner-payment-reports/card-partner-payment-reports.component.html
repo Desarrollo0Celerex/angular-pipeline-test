@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-header pt-2 pb-0 border-bottom-0">
+        <h3 class="card-title">Recibos Pendientes</h3>
+        <!--<div class="card-options">
+            <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                <span class="fa fa-bars"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                <div class="dropdown-plus-title">Reportes Disponibles</div>
+                <button type="button" name="agtPartnerReports" class="dropdown-item"><i class="fa fa-refresh mr-2"></i>Recibos Aplicadas</button>
+                <button type="button" name="agtPartnerReports" class="dropdown-item"><i class="fa fa-refresh mr-2"></i>Recibos Pendientes</button>
+            </div>
+        </div>-->
+    </div>
+    <div class="card-body text-center">
+        <ng-container *ngIf="model.loadedContent; else loadingContent">
+            <ol class="breadcrumb1">
+                <li class="breadcrumb-item1">Se han detectado <strong>{{model.totalPartnerPendingPayments}} Recibos Pendientes</strong> de {{model.totalPartnerAppliedPayments + model.totalPartnerPendingPayments}} Recibos por Pagar.</li>
+            </ol>
+            <button type="button" class="btn btn-block btn-primary" disabled><strong>MUY PRONTO</strong></button>
+        </ng-container>
+        <ng-template #loadingContent>
+            <agt-loading-content
+    			[isLoadingContent]="true"
+    			[height]="118"
+    		></agt-loading-content>
+        </ng-template>
+    </div>
+</div>
