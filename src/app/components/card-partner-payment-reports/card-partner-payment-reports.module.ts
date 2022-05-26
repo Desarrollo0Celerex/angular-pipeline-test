@@ -3,16 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalSelectReportFormatModule } from '@components/modal-select-report-format/modal-select-report-format.module'
-import { PolicyService } from '@services/policy.service';
+import { PaymentService } from '@services/payment.service';
+import { ReceiptPaidService } from '@services/receipt-paid.service';
 
-import { CardPartnerRenewalReportsComponent } from './card-partner-renewal-reports.component';
+import { CardPartnerPaymentReportsComponent } from './card-partner-payment-reports.component';
 
 @NgModule({
   declarations: [
-    CardPartnerRenewalReportsComponent
+    CardPartnerPaymentReportsComponent
   ],
   exports: [
-      CardPartnerRenewalReportsComponent
+      CardPartnerPaymentReportsComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +21,8 @@ import { CardPartnerRenewalReportsComponent } from './card-partner-renewal-repor
     ModalSelectReportFormatModule
   ],
   providers: [
-      PolicyService
+      PaymentService,
+      ReceiptPaidService
   ]
 })
-export class CardPartnerRenewalReportsModule { }
+export class CardPartnerPaymentReportsModule { }

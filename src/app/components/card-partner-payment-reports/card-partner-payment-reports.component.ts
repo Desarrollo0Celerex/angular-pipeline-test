@@ -2,31 +2,31 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { LoadingService } from '@services/loading.service';
 
-import { CardPartnerRenewalReportsService } from './card-partner-renewal-reports.service';
+import { CardPartnerPaymentReportsService } from './card-partner-payment-reports.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-card-partner-renewal-reports',
-  templateUrl: './card-partner-renewal-reports.component.html',
+  selector: 'agt-card-partner-payment-reports',
+  templateUrl: './card-partner-payment-reports.component.html',
   styles: [
   ],
-  providers: [CardPartnerRenewalReportsService]
+  providers: [CardPartnerPaymentReportsService]
 })
-export class CardPartnerRenewalReportsComponent implements OnChanges {
+export class CardPartnerPaymentReportsComponent implements OnChanges {
     @Input() partnerId: number = 0;
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
-    modalIdSelectReportFormat: string = 'cprr-modal-select-report-format';
+    modalIdSelectReportFormat: string = 'cppr-modal-select-report-format';
 
     constructor(
-        public model: CardPartnerRenewalReportsService,
+        public model: CardPartnerPaymentReportsService,
         private _loadingService: LoadingService
     ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.partnerId && changes.partnerId.currentValue) {
-            this.model.loadTotalRenewals(changes.partnerId.currentValue, this.rangeStart, this.rangeEnd)
+            this.model.loadTotalPayments(changes.partnerId.currentValue, this.rangeStart, this.rangeEnd)
         }
     }
 
@@ -44,5 +44,4 @@ export class CardPartnerRenewalReportsComponent implements OnChanges {
     showModalToSelectReportFormat(): void {
         ModalPlugin.show(this.modalIdSelectReportFormat);
     }
-
 }

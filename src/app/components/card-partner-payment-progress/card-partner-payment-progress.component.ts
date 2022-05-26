@@ -1,26 +1,26 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { CardPartnerRenewalProgressService } from './card-partner-renewal-progress.service';
+import { CardPartnerPaymentProgressService } from './card-partner-payment-progress.service';
 
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-card-partner-renewal-progress',
-  templateUrl: './card-partner-renewal-progress.component.html',
+  selector: 'agt-card-partner-payment-progress',
+  templateUrl: './card-partner-payment-progress.component.html',
   styles: [
   ],
-  providers: [CardPartnerRenewalProgressService]
+  providers: [CardPartnerPaymentProgressService]
 })
-export class CardPartnerRenewalProgressComponent implements OnChanges {
+export class CardPartnerPaymentProgressComponent implements OnChanges {
     @Input() partnerId: number = 0;
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
 
-    constructor(public model: CardPartnerRenewalProgressService) { }
+    constructor(public model: CardPartnerPaymentProgressService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.partnerId && changes.partnerId.currentValue) {
-            ChartPlugin.removeChartRenewalProcess();
+            ChartPlugin.removeChartPaymentProcess();
             this.loadChartData(changes.partnerId.currentValue);
         }
     }
@@ -35,7 +35,7 @@ export class CardPartnerRenewalProgressComponent implements OnChanges {
      */
     private loadChartData(partnerId: number): void {
         this.model.loadChartData(partnerId, this.rangeStart, this.rangeEnd).subscribe(() => {
-            ChartPlugin.drawChartRenewalProcess(this.model.chartData);
+            ChartPlugin.drawChartPaymentProcess(this.model.chartData);
         })
     }
 
