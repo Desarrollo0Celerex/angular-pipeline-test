@@ -29,6 +29,55 @@ export class CardPartnerRenewalReportsComponent implements OnChanges {
             this.model.loadTotalRenewals(changes.partnerId.currentValue, this.rangeStart, this.rangeEnd)
         }
     }
+    get canDownloadReport(): boolean {
+        let canDownloadReport: boolean = true;
+        switch(this.model.selectedReportType) {
+            case this.model.REPORT_TYPES.APPLIED_RENEWALS:
+                canDownloadReport = (this.model.totalPartnerAppliedRenewals === 0) ? false : true;
+            break;
+            case this.model.REPORT_TYPES.PENDING_RENEWALS:
+                canDownloadReport = (this.model.totalPartnerPendingRenewals === 0) ? false : true;
+            break;
+        }
+        return canDownloadReport;
+    }
+
+    get contentTypeName(): string {
+        return (this.totalPartnerRenewals === 1) ? 'Póliza' : 'Pólizas';
+    }
+
+    get description(): string {
+        let description: string = '';
+        let label: string = '';
+        switch(this.model.selectedReportType) {
+            case this.model.REPORT_TYPES.APPLIED_RENEWALS:
+                label = (this.model.totalPartnerAppliedRenewals === 1) ? 'Renovación Aplicada' : 'Renovaciones Aplicadas';
+                description = this.model.totalPartnerAppliedRenewals + ' ' + label;
+            break;
+            case this.model.REPORT_TYPES.PENDING_RENEWALS:
+                label = (this.model.totalPartnerPendingRenewals === 1) ? 'Renovación Pendiente' : 'Renovaciones Pendientes';
+                description = this.model.totalPartnerPendingRenewals + ' ' + label;
+            break;
+        }
+        return description;
+    }
+
+    get title(): string {
+        let title: string = '';
+        switch(this.model.selectedReportType) {
+            case this.model.REPORT_TYPES.APPLIED_RENEWALS:
+                title = 'Renovaciones Aplicadas';
+            break;
+            case this.model.REPORT_TYPES.PENDING_RENEWALS:
+                title = 'Renovaciones Pendientes';
+            break;
+        }
+        return title;
+    }
+
+    get totalPartnerRenewals(): number {
+        return this.model.totalPartnerAppliedRenewals + this.model.totalPartnerPendingRenewals;
+    }
 
     downloadReport(formatType: number): void {
         this._loadingService.show();
