@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header pt-2 pb-0 border-bottom-0">
-        <h3 class="card-title">Recibos Pendientes</h3>
+        <h3 class="card-title">{{title}}</h3>
         <div class="card-options">
             <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                 <span class="fa fa-bars"></span>
@@ -15,15 +15,10 @@
     <div class="card-body text-center">
         <ng-container *ngIf="model.loadedContent; else loadingContent">
             <ol class="breadcrumb1">
-                <li class="breadcrumb-item1">Se han detectado
-                    <ng-container [ngSwitch]="model.selectedReportType">
-                        <strong *ngSwitchCase="model.REPORT_TYPES.APPLIED_PAYMENTS">{{model.totalPartnerAppliedPayments}} Recibos Aplicados </strong>
-                        <strong *ngSwitchCase="model.REPORT_TYPES.PENDING_PAYMENTS">{{model.totalPartnerPendingPayments}} Recibos Pendientes </strong>
-                    </ng-container>
-                    de {{model.totalPartnerAppliedPayments + model.totalPartnerPendingPayments}} Recibos por Pagar.
+                <li class="breadcrumb-item1">Se han detectado <strong>{{description}}</strong> de {{totalPartnerPayments}} {{contentTypeName}} por Pagar.
                 </li>
             </ol>
-            <button type="button" class="btn btn-block btn-primary" (click)="showModalToSelectReportFormat()"><strong>DESCARGAR REPORTE</strong></button>
+            <button type="button" class="btn btn-block btn-primary" (click)="showModalToSelectReportFormat()" [disabled]="!canDownloadReport"><strong>DESCARGAR REPORTE</strong></button>
         </ng-container>
         <ng-template #loadingContent>
             <agt-loading-content
