@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ModalCreatePartnerService } from './modal-create-partner.service';
@@ -56,9 +55,9 @@ export class ModalCreatePartnerComponent {
         if(this.model.form.valid) {
             this._loadingService.show();
             ModalPlugin.hide(this.modalId);
-            this.model.checkHasCoincidences().subscribe((res: HttpResponse) => {
+            this.model.checkHasCoincidences().subscribe((hasCoincidences: boolean) => {
                 this._loadingService.hide();
-                if(res.data == true) {
+                if(hasCoincidences) {
                     this.hasCoincidences.emit(this.model.f.name.value);
                 } else {
                     this.canCreatePartner.emit(this.model.f.name.value);

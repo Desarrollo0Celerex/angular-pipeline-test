@@ -190,6 +190,26 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static partnerDeleted(): void {
+        const alertData: Alert = {
+            title: 'Socio eliminado',
+            text: 'El socio ha sido eliminado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static partnerUpdated(): void {
+        const alertData: Alert = {
+            title: 'Socio actualizado',
+            text: 'El socio ha sido actualizado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static paymentsActivated(): void {
         const alertData: Alert = {
             title: 'Cobranza Activada',

@@ -1,0 +1,34 @@
+<!-- AGENTHOS - PARTNERS UPDATE -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<form [formGroup]="model.form" (submit)="updatePartner()">
+            <div class="modal-content">
+    			<div class="modal-header">
+    				<h5 class="modal-title">Actualizar Socio</h5>
+    				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    					<span aria-hidden="true">&times;</span>
+    				</button>
+    			</div>
+    			<div class="modal-body">
+    				<div class="row">
+    					<div class="col-md-12">
+    						<div class="form-group">
+    							<!-- AGENTHOS - PARTNER NAME * -->
+    							<input type="text" class="form-control {{getValidationClass('name')}}" formControlName="name">
+                                <div class="invalid-feedback">{{getErrorMessage('name')}}</div>
+        					</div>
+    						<ol class="breadcrumb1">
+    						<li class="breadcrumb-item1">Ingresa el nuevo nombre que deseas asignar a este socio.</li>
+    					</ol>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="modal-footer">
+    				<button type="button" class="btn btn-secondary" (click)="closeModal()">CANCELAR</button>
+    				<button type="submit" class="btn btn-primary">CONFIRMAR</button>
+    			</div>
+    		</div>
+        </form>
+	</div>
+</div>
+<!-- //AGENTHOS - PARTNERS UPDATE -->

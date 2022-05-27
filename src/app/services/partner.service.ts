@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { DEFAULT_PER_PAGE } from '@constants/global';
 import { environment } from '@env/environment';
 import { CreatePartnerDataSend } from '@interfaces/create-partner-data-send.interface';
+import { UpdatePartnerDataSend } from '@interfaces/update-partner-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
@@ -27,9 +28,11 @@ export class PartnerService {
         private _authService: AuthService
     ) { }
 
-    checkHasCoincidences(name: string): Observable<HttpResponse> {
+    checkHasCoincidences(name: string): Observable<boolean> {
         const route: string = routes.partnerCoincidences(this._workspaceId);
-        return this._httpClient.post<HttpResponse>(route, { name });
+        return this._httpClient.post<HttpResponse>(route, { name }).pipe(
+            map((res: HttpResponse) => res.data)
+        );
     }
 
     /**
@@ -40,6 +43,11 @@ export class PartnerService {
     createPartner(requestBody: CreatePartnerDataSend): Observable<void> {
         const route: string = routes.partners(this._workspaceId);
         return this._httpClient.post<void>(route, requestBody);
+    }
+
+    deletePartner(partnerId: number): Observable<void> {
+        const route: string = routes.partner(this._workspaceId, partnerId.toString());
+        return this._httpClient.delete<void>(route);
     }
 
     /**
@@ -105,5 +113,10 @@ export class PartnerService {
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );
+    }
+
+    updatePartner(partnerId: number, requestBody: UpdatePartnerDataSend): Observable<void> {
+        const route: string = routes.partner(this._workspaceId, partnerId.toString());
+        return this._httpClient.put<void>(route, requestBody);
     }
 }
