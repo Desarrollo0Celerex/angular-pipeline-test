@@ -92,6 +92,9 @@ export class InputValidatorHelper {
                     case (typeof error.invalidValidityEndDate !== 'undefined'):
                         message = 'El fin de vigencia no es valido.';
                         break;
+                    case (typeof error.partnerNameExist !== 'undefined'):
+                        message = 'Ya existe un socio con esté nombre.';
+                        break;
                     default: message = '';
                 }
             }

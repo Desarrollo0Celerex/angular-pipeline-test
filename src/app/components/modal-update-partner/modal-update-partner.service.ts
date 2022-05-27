@@ -4,15 +4,16 @@ import { Observable } from 'rxjs';
 
 import { OWN_NAME_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
+import { UpdatePartnerDataSend } from '@interfaces/update-partner-data-send.interface';
 import { PartnerService } from '@services/partner.service';
 
 @Injectable()
-export class ModalCreatePartnerService {
+export class ModalUpdatePartnerService {
     form: FormGroup = this._buildForm();
 
     constructor(
         private _formBuilder: FormBuilder,
-        private _partnerService: PartnerService
+        private _partnerService: PartnerService,
     ) { }
 
     get f(): { [key: string]: AbstractControl; } {
@@ -23,9 +24,14 @@ export class ModalCreatePartnerService {
         return this._partnerService.checkHasCoincidences(this.f.name.value);
     }
 
+    updatePartner(partnerId: number): Observable<void> {
+        const requestBody: UpdatePartnerDataSend = { name: this.f.name.value };
+        return this._partnerService.updatePartner(partnerId, requestBody);
+    }
+
     private _buildForm(): FormGroup {
         return this._formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]]
-        })
+        });
     }
 }
