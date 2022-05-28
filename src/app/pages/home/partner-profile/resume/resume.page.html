@@ -11,6 +11,12 @@
         [ngStyle]="{'width': '100%'}"
         [partnerId]="partnerId"
     ></agt-alert-partner-unusual-cancelled-policies>
+    <agt-alert-partner-unusual-applied-renewals
+        [ngStyle]="{'width': '100%'}"
+        [partnerId]="partnerId"
+        [rangeStart]="rangeStart"
+        [rangeEnd]="rangeEnd"
+    ></agt-alert-partner-unusual-applied-renewals>
 
     <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
         <agt-card-partner-wallet-projection [partnerId]="partnerId"></agt-card-partner-wallet-projection>

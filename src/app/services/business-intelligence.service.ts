@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -13,6 +13,7 @@ const routes: any = {
     latePayments: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/late-payments',
     reportedSinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/reported-sinisters',
     partnerCancelledPolicies: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/cancelled-policies',
+    partnerAppliedRenewals: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/applied-renewals',
 }
 
 @Injectable()
@@ -60,9 +61,21 @@ export class BusinessIntelligenceService {
         );
     }
 
-    getPartnerCancelledPoliciesPercentage(partnerId: number): Observable<number> {
+    getPartnerCancelledPoliciesRate(partnerId: number): Observable<number> {
         const route: string = routes.partnerCancelledPolicies(this._workspaceId, partnerId);
         return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => {
+                return res.data;
+            })
+        );
+    }
+
+    getPartnerAppliedRenewalsRate(partnerId: number, rangeStart: string, rangeEnd: string): Observable<number> {
+        const route: string = routes.partnerAppliedRenewals(this._workspaceId, partnerId);
+        let params: HttpParams = new HttpParams();
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map((res: HttpResponse) => {
                 return res.data;
             })

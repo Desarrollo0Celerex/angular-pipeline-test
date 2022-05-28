@@ -4,13 +4,13 @@ import { BusinessIntelligenceService } from '@services/business-intelligence.ser
 
 @Injectable()
 export class AlertPartnerUnusualCancelledPoliciesService {
-    cancelledPoliciesPercentage: number = 0;
+    cancelledPoliciesRate: number = 0;
 
     constructor(private gusinessIntelligenceService: BusinessIntelligenceService) { }
 
-    loadCancelledPoliciesPercentage(contactId: number): void {
-        this.gusinessIntelligenceService.getPartnerCancelledPoliciesPercentage(contactId).subscribe((res: number) => {
-            this.cancelledPoliciesPercentage = res;
+    loadCancelledPoliciesRate(partnerId: number): void {
+        this.gusinessIntelligenceService.getPartnerCancelledPoliciesRate(partnerId).subscribe((res: number) => {
+            this.cancelledPoliciesRate = res;
         });
     }
 }

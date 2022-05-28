@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { AlertPartnerUnusualCancelledPoliciesService } from './alert-partner-unusual-cancelled-policies.service';
 
@@ -9,13 +9,15 @@ import { AlertPartnerUnusualCancelledPoliciesService } from './alert-partner-unu
   ],
   providers: [AlertPartnerUnusualCancelledPoliciesService]
 })
-export class AlertPartnerUnusualCancelledPoliciesComponent implements OnInit {
+export class AlertPartnerUnusualCancelledPoliciesComponent implements OnChanges {
     @Input() partnerId: number = 0;
 
     constructor(public model: AlertPartnerUnusualCancelledPoliciesService) { }
 
-    ngOnInit(): void {
-        this.model.loadCancelledPoliciesPercentage(this.partnerId);
+    ngOnChanges(changes: SimpleChanges): void {
+        if(!!changes.partnerId && !!changes.partnerId.currentValue) {
+            this.model.loadCancelledPoliciesRate(changes.partnerId.currentValue);
+        }
     }
 
 }
