@@ -12,8 +12,9 @@ const routes: any = {
     lastPercentageIncrease: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/last-percentage-increase',
     latePayments: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/late-payments',
     reportedSinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/reported-sinisters',
-    partnerCancelledPolicies: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/cancelled-policies',
+    partnerAppliedPayments: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/applied-payments',
     partnerAppliedRenewals: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/applied-renewals',
+    partnerCancelledPolicies: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/cancelled-policies',
 }
 
 @Injectable()
@@ -61,9 +62,12 @@ export class BusinessIntelligenceService {
         );
     }
 
-    getPartnerCancelledPoliciesRate(partnerId: number): Observable<number> {
-        const route: string = routes.partnerCancelledPolicies(this._workspaceId, partnerId);
-        return this._httpClient.get<HttpResponse>(route).pipe(
+    getPartnerAppliedPaymentsRate(partnerId: number, rangeStart: string, rangeEnd: string): Observable<number> {
+        const route: string = routes.partnerAppliedPayments(this._workspaceId, partnerId);
+        let params: HttpParams = new HttpParams();
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map((res: HttpResponse) => {
                 return res.data;
             })
@@ -81,4 +85,14 @@ export class BusinessIntelligenceService {
             })
         );
     }
+
+    getPartnerCancelledPoliciesRate(partnerId: number): Observable<number> {
+        const route: string = routes.partnerCancelledPolicies(this._workspaceId, partnerId);
+        return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => {
+                return res.data;
+            })
+        );
+    }
+
 }

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AlertPartnerUnusualCancelledPoliciesModule } from '@components/alert-partner-unusual-cancelled-policies/alert-partner-unusual-cancelled-policies.module';
+import { AlertPartnerUnusualAppliedPaymentsModule } from '@components/alert-partner-unusual-applied-payments/alert-partner-unusual-applied-payments.module';
 import { AlertPartnerUnusualAppliedRenewalsModule } from '@components/alert-partner-unusual-applied-renewals/alert-partner-unusual-applied-renewals.module';
+import { AlertPartnerUnusualCancelledPoliciesModule } from '@components/alert-partner-unusual-cancelled-policies/alert-partner-unusual-cancelled-policies.module';
 import { CardPartnerActiveCoveragesModule } from '@components/card-partner-active-coverages/card-partner-active-coverages.module';
 import { CardPartnerGlobalBalanceModule } from '@components/card-partner-global-balance/card-partner-global-balance.module';
 import { CardPartnerPaymentProgressModule } from '@components/card-partner-payment-progress/card-partner-payment-progress.module';
@@ -21,8 +22,9 @@ import { ResumePage } from './resume.page';
     ResumePage
   ],
   imports: [
-    AlertPartnerUnusualCancelledPoliciesModule,
+    AlertPartnerUnusualAppliedPaymentsModule,
     AlertPartnerUnusualAppliedRenewalsModule,
+    AlertPartnerUnusualCancelledPoliciesModule,
     CardPartnerActiveCoveragesModule,
     CardPartnerGlobalBalanceModule,
     CardPartnerPaymentProgressModule,

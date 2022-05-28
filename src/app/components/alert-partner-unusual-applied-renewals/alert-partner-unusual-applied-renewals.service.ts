@@ -10,7 +10,6 @@ export class AlertPartnerUnusualAppliedRenewalsService {
 
     loadAppliedRenewalsRate(partnerId: number, rangeStart: string, rangeEnd: string): void {
         this.gusinessIntelligenceService.getPartnerAppliedRenewalsRate(partnerId, rangeStart, rangeEnd).subscribe((res: number) => {
-            console.log('res: ',res);
             this.appliedRenewalsRate = res;
         });
     }
