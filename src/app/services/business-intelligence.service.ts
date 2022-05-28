@@ -15,6 +15,7 @@ const routes: any = {
     partnerAppliedPayments: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/applied-payments',
     partnerAppliedRenewals: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/applied-renewals',
     partnerCancelledPolicies: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/cancelled-policies',
+    partnerWalletDecrease: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/wallet-decrease',
 }
 
 @Injectable()
@@ -88,6 +89,15 @@ export class BusinessIntelligenceService {
 
     getPartnerCancelledPoliciesRate(partnerId: number): Observable<number> {
         const route: string = routes.partnerCancelledPolicies(this._workspaceId, partnerId);
+        return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => {
+                return res.data;
+            })
+        );
+    }
+
+    getPartnerWalletDecreaseRate(partnerId: number): Observable<number> {
+        const route: string = routes.partnerWalletDecrease(this._workspaceId, partnerId);
         return this._httpClient.get<HttpResponse>(route).pipe(
             map((res: HttpResponse) => {
                 return res.data;

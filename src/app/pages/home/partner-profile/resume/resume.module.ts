@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AlertPartnerUnusualAppliedPaymentsModule } from '@components/alert-partner-unusual-applied-payments/alert-partner-unusual-applied-payments.module';
 import { AlertPartnerUnusualAppliedRenewalsModule } from '@components/alert-partner-unusual-applied-renewals/alert-partner-unusual-applied-renewals.module';
 import { AlertPartnerUnusualCancelledPoliciesModule } from '@components/alert-partner-unusual-cancelled-policies/alert-partner-unusual-cancelled-policies.module';
+import { AlertPartnerUnusualWalletDecreaseModule } from '@components/alert-partner-unusual-wallet-decrease/alert-partner-unusual-wallet-decrease.module';
 import { CardPartnerActiveCoveragesModule } from '@components/card-partner-active-coverages/card-partner-active-coverages.module';
 import { CardPartnerGlobalBalanceModule } from '@components/card-partner-global-balance/card-partner-global-balance.module';
 import { CardPartnerPaymentProgressModule } from '@components/card-partner-payment-progress/card-partner-payment-progress.module';
@@ -25,6 +26,7 @@ import { ResumePage } from './resume.page';
     AlertPartnerUnusualAppliedPaymentsModule,
     AlertPartnerUnusualAppliedRenewalsModule,
     AlertPartnerUnusualCancelledPoliciesModule,
+    AlertPartnerUnusualWalletDecreaseModule,
     CardPartnerActiveCoveragesModule,
     CardPartnerGlobalBalanceModule,
     CardPartnerPaymentProgressModule,
