@@ -1,15 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { CONTENT_TYPES, POLICY_STATUS } from '@constants/global';
-import { ROUTES_NAME } from '@constants/routes-name';
 import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 import { PaymentDataSend } from '@interfaces/payment-data-send.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 
 import { ContainerPendingPoliciesService } from './container-pending-policies.service';
-
-declare var ModalPlugin: any;
 
 @Component({
   selector: 'agt-container-pending-policies',

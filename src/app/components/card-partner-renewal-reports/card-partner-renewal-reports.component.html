@@ -15,7 +15,7 @@
     <div class="card-body text-center">
         <ng-container *ngIf="model.loadedContent; else loadingContent">
             <ol class="breadcrumb1">
-                <li class="breadcrumb-item1">Se han detectado<strong>{{description}}</strong> de {{totalPartnerRenewals}} {{contentTypeName}} por Renovar.
+                <li class="breadcrumb-item1">Se han detectado <strong>{{description}}</strong> de {{totalPartnerRenewals}} {{contentTypeName}} por Renovar.
                 </li>
             </ol>
             <button type="button" class="btn btn-block btn-primary" (click)="showModalToSelectReportFormat()" [disabled]="!canDownloadReport"><strong>DESCARGAR REPORTE</strong></button>

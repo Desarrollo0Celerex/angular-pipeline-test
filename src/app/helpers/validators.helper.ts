@@ -193,7 +193,7 @@ export class ValidatorsHelper {
      */
     static postalCode(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = /^[0-9]{5}$/;
+            const regex = /^[a-zA-Z0-9ñÑ]{3,10}$/;
             const value = control.value;
             return (!regex.test(value)) ? {postalCode: true} : null;
         }

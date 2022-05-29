@@ -63,7 +63,7 @@ export class AlertHelper {
     static forbiddenAccess(): void {
         const alertData: Alert = {
             title: 'Error',
-            text: 'Acceso denegado.',
+            text: 'Acceso Denegado.',
             type: 'error',
             confirmButtonText: 'OK'
         }
@@ -82,7 +82,7 @@ export class AlertHelper {
 
     static groupCreated(): void {
         const alertData: Alert = {
-            title: 'Grupo creado',
+            title: 'Grupo Creado',
             text: 'El grupo ha sido creado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR'
@@ -182,7 +182,7 @@ export class AlertHelper {
 
     static partnerCreated(): void {
         const alertData: Alert = {
-            title: 'Socio creado',
+            title: 'Socio Creado',
             text: 'El socio ha sido creado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR'
@@ -192,7 +192,7 @@ export class AlertHelper {
 
     static partnerDeleted(): void {
         const alertData: Alert = {
-            title: 'Socio eliminado',
+            title: 'Socio Eliminado',
             text: 'El socio ha sido eliminado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR'
@@ -202,7 +202,7 @@ export class AlertHelper {
 
     static partnerUpdated(): void {
         const alertData: Alert = {
-            title: 'Socio actualizado',
+            title: 'Socio Actualizado',
             text: 'El socio ha sido actualizado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR'
@@ -342,7 +342,7 @@ export class AlertHelper {
 
     static quotationCreated(callBack: any, context: any): void {
         const alertData: Alert = {
-            title: 'Cotización creada',
+            title: 'Cotización Creada',
             text: 'La cotización ha sido creada con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
@@ -354,7 +354,7 @@ export class AlertHelper {
 
     static quotationRejected(callBack: any, context: any, data: any): void {
         const alertData: Alert = {
-            title: 'Cotización rechazada',
+            title: 'Cotización Rechazada',
             text: 'La cotización ha sido rechazada con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
@@ -382,7 +382,7 @@ export class AlertHelper {
 
     static receiptPaid(callBack: any, context: any): void {
         const alertData: Alert = {
-            title: 'Pago aplicado',
+            title: 'Pago Aplicado',
             text: 'El recibo ha sido pagado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
@@ -533,7 +533,7 @@ export class AlertHelper {
 
     static walletCreated(callBack: any, context: any): void {
         const alertData: Alert = {
-            title: 'Wallet creado',
+            title: 'Wallet Creado',
             text: 'La aplicación móvil se ha creado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
@@ -567,7 +567,7 @@ export class AlertHelper {
 
     static workspaceAvatarUploaded(callBack: any, context: any): void {
         const alertData: Alert = {
-            title: 'Imagen cargada',
+            title: 'Imagen Cargada',
             text: 'La imagen del agente ha sido cargada con éxtio.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
@@ -579,7 +579,7 @@ export class AlertHelper {
 
     static workspaceCreated(callBack: any, context: any): void {
         const alertData: Alert = {
-            title: 'Agente registrado',
+            title: 'Agente Registrado',
             text: 'Tu espacio de trabajo se ha creado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
