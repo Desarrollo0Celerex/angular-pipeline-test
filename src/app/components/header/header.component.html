@@ -24,13 +24,13 @@
                         <i class="fe fe-minimize" ></i>
                     </a>
                 </div>
-                <div class="dropdown header-user" *ngIf="!!headerService.user">
+                <div class="dropdown header-user">
                     <a href="#" class="nav-link icon" data-toggle="dropdown">
                         <!-- ATOM ID - USER PICTURE -->
-                        <span><img [src]="headerService.user.avatarUrl" alt="Atom Account User Pic" class="avatar brround cover-image mb-0 ml-0"></span>
+                        <span><img [src]="(!!headerService.user) ? headerService.user.avatarUrl : ''" alt="" class="avatar brround cover-image mb-0 ml-0"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <div class=" dropdown-header noti-title text-center border-bottom p-3">
+                        <div class=" dropdown-header noti-title text-center border-bottom p-3" *ngIf="!!headerService.user">
                             <div class="header-usertext">
                                 <!-- ATOM ID - SHORT NAME -->
                                 <h5 class="mb-1">{{headerService.user.shortName}}</h5>
