@@ -9,10 +9,11 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
-    groups: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups',
     group: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId,
+    groupAnnualWallet: (workspaceId: string, groupId: string, year: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/annual-wallet/' + year,
+    groupCoincidences: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/coincidences',
+    groups: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups',
     totalGroups: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/count',
-    groupCoincidences: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/coincidences'
 }
 
 @Injectable()
@@ -54,6 +55,13 @@ export class GroupService {
         let params: HttpParams = new HttpParams();
         if(!!fields) params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, { params });
+    }
+
+    getGroupAnnualWallet(groupId: string, year: number, fields: string): Observable<HttpResponse> {
+        const route: string = routes.groupAnnualWallet(this._workspaceId, groupId, year);
+        let params: HttpParams = new HttpParams();
+        params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params});
     }
 
     /**
