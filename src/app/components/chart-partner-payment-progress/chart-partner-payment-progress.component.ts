@@ -1,22 +1,22 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { CardPartnerPaymentProgressService } from './card-partner-payment-progress.service';
+import { ChartPartnerPaymentProgressService } from './chart-partner-payment-progress.service';
 
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-card-partner-payment-progress',
-  templateUrl: './card-partner-payment-progress.component.html',
+  selector: 'agt-chart-partner-payment-progress',
+  templateUrl: './chart-partner-payment-progress.component.html',
   styles: [
   ],
-  providers: [CardPartnerPaymentProgressService]
+  providers: [ChartPartnerPaymentProgressService]
 })
-export class CardPartnerPaymentProgressComponent implements OnChanges {
+export class ChartPartnerPaymentProgressComponent implements OnChanges {
     @Input() partnerId: number = 0;
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
 
-    constructor(public model: CardPartnerPaymentProgressService) { }
+    constructor(public model: ChartPartnerPaymentProgressService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.partnerId && changes.partnerId.currentValue) {

@@ -5,7 +5,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { PartnerService } from '@services/partner.service';
 
 @Injectable()
-export class CardPartnerGlobalBalanceService {
+export class ChartPartnerGlobalBalanceService {
     chartData: any[] = [['Task', 'Balance']];
 
     constructor(private _partnerService: PartnerService) { }

@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { PolicyService } from '@services/policy.service';
 
-import { CardPartnerActiveCoveragesComponent } from './card-partner-active-coverages.component';
+import { ChartPartnerActiveCoveragesComponent } from './chart-partner-active-coverages.component';
 
 @NgModule({
   declarations: [
-    CardPartnerActiveCoveragesComponent
+    ChartPartnerActiveCoveragesComponent
   ],
   exports: [
-      CardPartnerActiveCoveragesComponent
+      ChartPartnerActiveCoveragesComponent
   ],
   imports: [
     CommonModule,
@@ -21,4 +21,4 @@ import { CardPartnerActiveCoveragesComponent } from './card-partner-active-cover
       PolicyService
   ]
 })
-export class CardPartnerActiveCoveragesModule { }
+export class ChartPartnerActiveCoveragesModule { }

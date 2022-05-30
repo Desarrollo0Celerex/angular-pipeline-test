@@ -1,21 +1,24 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { CardPartnerPreferredInsurersService } from './card-partner-preferred-insurers.service';
+import { ChartPartnerGlobalBalanceService } from './chart-partner-global-balance.service';
 
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-card-partner-preferred-insurers',
-  templateUrl: './card-partner-preferred-insurers.component.html',
+  selector: 'agt-chart-partner-global-balance',
+  templateUrl: './chart-partner-global-balance.component.html',
   styles: [
   ],
-  providers: [CardPartnerPreferredInsurersService]
+  providers: [ChartPartnerGlobalBalanceService]
 })
-export class CardPartnerPreferredInsurersComponent implements OnChanges {
+export class ChartPartnerGlobalBalanceComponent implements OnChanges {
     @Input() partnerId: number = 0;
     canShowChart: boolean = false;
 
-    constructor(public model: CardPartnerPreferredInsurersService) { }
+    constructor(public model: ChartPartnerGlobalBalanceService) { }
+
+    ngOnInit(): void {
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.partnerId && changes.partnerId.currentValue) {
@@ -30,7 +33,7 @@ export class CardPartnerPreferredInsurersComponent implements OnChanges {
     private loadChartData(partnerId: number): void {
         this.model.loadChartData(partnerId).subscribe(() => {
             this.canShowChart = true;
-            ChartPlugin.drawPreferredInsurers(this.model.chartData);
+            ChartPlugin.drawGlobalBalance(this.model.chartData);
         })
     }
 

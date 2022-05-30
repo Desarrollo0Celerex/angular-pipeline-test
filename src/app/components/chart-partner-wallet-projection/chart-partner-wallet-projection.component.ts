@@ -1,23 +1,23 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
-import { CardPartnerWalletProjectionService } from './card-partner-wallet-projection.service';
+import { ChartPartnerWalletProjectionService } from './chart-partner-wallet-projection.service';
 
 declare var ChartPlugin: any;
 declare var PopoverPlugin: any;
 declare var TooltipPlugin: any;
 
 @Component({
-  selector: 'agt-card-partner-wallet-projection',
-  templateUrl: './card-partner-wallet-projection.component.html',
+  selector: 'agt-chart-partner-wallet-projection',
+  templateUrl: './chart-partner-wallet-projection.component.html',
   styles: [
   ],
-  providers: [CardPartnerWalletProjectionService]
+  providers: [ChartPartnerWalletProjectionService]
 })
-export class CardPartnerWalletProjectionComponent implements OnChanges, OnInit {
+export class ChartPartnerWalletProjectionComponent implements OnChanges, OnInit {
     @Input() partnerId: number = 0;
     canShowChart: boolean = false;
 
-    constructor(public model: CardPartnerWalletProjectionService) { }
+    constructor(public model: ChartPartnerWalletProjectionService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.partnerId && changes.partnerId.currentValue) {

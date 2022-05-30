@@ -7,7 +7,7 @@ import { Policy } from '@interfaces/policy.interface';
 import { PolicyService } from '@services/policy.service';
 
 @Injectable()
-export class CardPartnerActiveCoveragesService {
+export class ChartPartnerActiveCoveragesService {
     chartData: any[] = [];
 
     constructor(private _policyService: PolicyService) {}

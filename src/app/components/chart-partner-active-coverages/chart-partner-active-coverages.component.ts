@@ -1,21 +1,21 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { CardPartnerActiveCoveragesService } from './card-partner-active-coverages.service';
+import { ChartPartnerActiveCoveragesService } from './chart-partner-active-coverages.service';
 
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-card-partner-active-coverages',
-  templateUrl: './card-partner-active-coverages.component.html',
+  selector: 'agt-chart-partner-active-coverages',
+  templateUrl: './chart-partner-active-coverages.component.html',
   styles: [
   ],
-  providers: [CardPartnerActiveCoveragesService]
+  providers: [ChartPartnerActiveCoveragesService]
 })
-export class CardPartnerActiveCoveragesComponent implements OnChanges {
+export class ChartPartnerActiveCoveragesComponent implements OnChanges {
     @Input() partnerId: number = 0;
     canShowChart: boolean = false;
 
-    constructor(public model: CardPartnerActiveCoveragesService) { }
+    constructor(public model: ChartPartnerActiveCoveragesService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.partnerId && changes.partnerId.currentValue) {

@@ -4,21 +4,21 @@ import { CommonModule } from '@angular/common';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { StatisticService } from '@services/statistic.service';
 
-import { CardPartnerPaymentProgressComponent } from './card-partner-payment-progress.component';
+import { ChartPartnerRenewalProgressComponent } from './chart-partner-renewal-progress.component';
 
 @NgModule({
   declarations: [
-    CardPartnerPaymentProgressComponent
-  ],
-  exports: [
-      CardPartnerPaymentProgressComponent
+    ChartPartnerRenewalProgressComponent
   ],
   imports: [
     CommonModule,
     LoadingContentModule
   ],
+  exports: [
+      ChartPartnerRenewalProgressComponent
+  ],
   providers: [
       StatisticService
   ]
 })
-export class CardPartnerPaymentProgressModule { }
+export class ChartPartnerRenewalProgressModule { }

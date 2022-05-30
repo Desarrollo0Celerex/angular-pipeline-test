@@ -8,7 +8,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { StatisticService } from '@services/statistic.service';
 
 @Injectable()
-export class CardPartnerPaymentProgressService {
+export class ChartPartnerPaymentProgressService {
     chartData: any = null;
 
     constructor(private _statisticService: StatisticService) { }
