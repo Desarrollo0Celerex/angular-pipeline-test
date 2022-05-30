@@ -9,5 +9,7 @@ export interface Group {
     totalGlobalWallet: number,
     totalGlobalWalletPaid: number,
     currencyName: string,
-    totalActivePolicies: number
+    totalActivePolicies: number,
+    totalOpenSinisters: number,
+    createdByName: string
 }

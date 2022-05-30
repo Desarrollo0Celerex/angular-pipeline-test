@@ -11,8 +11,7 @@
 <agt-container-incomplete-policies
     #containerIncompletePolicies
     *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
-    contentType === CONTENT_TYPES.PARTNER_POLICY.ID"
+    contentType === CONTENT_TYPES.GROUP_POLICY.ID"
     [contentType]="contentType"
     [contentTypeName]="contentTypeName"
     [contactId]="contactId"

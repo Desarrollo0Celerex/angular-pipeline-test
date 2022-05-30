@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalSelectClientModule } from '@components/modal-select-client/modal-select-client.module';
 import { ModalConfirmAddMemberModule } from '@components/modal-confirm-add-member/modal-confirm-add-member.module';
 import { ClientService } from '@services/client.service';
+import { GroupMemberService } from '@services/group-member.service';
 
 import { ModalSearchClientComponent } from './modal-search-client.component';
 
@@ -23,7 +24,8 @@ import { ModalSearchClientComponent } from './modal-search-client.component';
     ModalConfirmAddMemberModule
   ],
   providers: [
-      ClientService
+      ClientService,
+      GroupMemberService
   ]
 })
 export class ModalSearchClientModule { }

@@ -8,6 +8,7 @@ import { ModalCreatePartnerModule } from '@components/modal-create-partner/modal
 import { ModalCreateSinisterModule } from '@components/modal-create-sinister/modal-create-sinister.module';
 import { ModalDuplicateGroupModule } from '@components/modal-duplicate-group/modal-duplicate-group.module';
 import { ModalDuplicatePartnerModule } from '@components/modal-duplicate-partner/modal-duplicate-partner.module';
+import { ModalSearchClientModule } from '@components/modal-search-client/modal-search-client.module';
 import { ModalSearchPaymentModule } from '@components/modal-search-payment/modal-search-payment.module';
 import { ModalSearchPolicyModule } from '@components/modal-search-policy/modal-search-policy.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
@@ -31,6 +32,7 @@ import { ContentMainActionComponent } from './content-main-action.component';
     ModalCreateSinisterModule,
     ModalDuplicateGroupModule,
     ModalDuplicatePartnerModule,
+    ModalSearchClientModule,
     ModalSearchPaymentModule,
     ModalSearchPolicyModule,
     ModalSelectContactTypeModule,

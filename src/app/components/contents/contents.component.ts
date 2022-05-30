@@ -228,6 +228,9 @@ export class ContentsComponent implements OnInit, OnDestroy {
             case CONTENT_TYPES.PARTNER_CLIENT.ID:
                 contentSubtypeName = 'del Socio';
             break;
+            case CONTENT_TYPES.GROUP_MEMBER.ID:
+                contentSubtypeName = 'del Grupo';
+            break;
         }
         return contentSubtypeName;
     }

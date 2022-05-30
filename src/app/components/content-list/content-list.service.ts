@@ -331,7 +331,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadGroups(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground,totalMembers,totalGlobalWallet,totalGlobalWalletPaid,currencyName,totalActivePolicies,createdAt';
+        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground,totalMembers,totalGlobalWallet,totalGlobalWalletPaid,currencyName,totalActivePolicies,createdAt,totalOpenSinisters,createdByName';
         const filters: string = UtilitiesHelper.generateHttpFilter('groupStatusId', [contentSubtype])
         return this._groupService.getGroups(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
@@ -910,7 +910,7 @@ export class ContentListService {
      * @return           Notice of action done
      */
     searchGroups(page: number, query: string): Observable<void> {
-        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground,totalMembers,totalGlobalWallet,totalGlobalWalletPaid,currencyName,totalActivePolicies,createdAt';
+        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground,totalMembers,totalGlobalWallet,totalGlobalWalletPaid,currencyName,totalActivePolicies,createdAt,totalOpenSinisters,createdByName';
         return this._groupService.getGroups(page, fields, '', query).pipe(
             tap((res: HttpResponse) => {
                     this.contents = this.contents.concat(res.data.items);
@@ -918,6 +918,17 @@ export class ContentListService {
             }),
             map(() => { })
         );
+    }
+
+    searchGroupMembers(groupId: string, page: number, query: string): Observable<void> {
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        return this._groupMemberService.getGroupMembers(groupId, fields, page, query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
     }
 
     /**

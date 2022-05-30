@@ -93,3 +93,9 @@
         (contentSubtypeNameSelected)="onContentSubtypeNameSelected($event)">
     </agt-modal-select-sinister-status>
 </ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.GROUP_MEMBER.ID">
+    <agt-modal-search-client
+        [modalId]="modalIdSearchClient"
+        [groupId]="groupId"
+    ></agt-modal-search-client>
+</ng-container>

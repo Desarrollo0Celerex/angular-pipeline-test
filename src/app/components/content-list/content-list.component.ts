@@ -1225,6 +1225,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 });
             break;
 
+            case CONTENT_TYPES.GROUP_MEMBER.ID:
+                this.contentListService.searchGroupMembers(this.groupId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
             case CONTENT_TYPES.GROUP_POLICY.ID:
                 this.contentListService.searchGroupPolicies(this.groupId, this.page, this.query).subscribe( () => {
                     this._contentLoaded();

@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 import { ImageAgenthosAssistantModule } from '@components/image-agenthos-assistant/image-agenthos-assistant.module';
 import { BusinessIntelligenceService } from '@services/business-intelligence.service';
 
-import { AlertUnusualAddedEndorsementsComponent } from './alert-unusual-added-endorsements.component';
+import { AlertPartnerUnusualAppliedPaymentsComponent } from './alert-partner-unusual-applied-payments.component';
 
 @NgModule({
   declarations: [
-    AlertUnusualAddedEndorsementsComponent
+    AlertPartnerUnusualAppliedPaymentsComponent
   ],
   exports: [
-      AlertUnusualAddedEndorsementsComponent
+      AlertPartnerUnusualAppliedPaymentsComponent
   ],
   imports: [
     CommonModule,
@@ -21,4 +21,4 @@ import { AlertUnusualAddedEndorsementsComponent } from './alert-unusual-added-en
       BusinessIntelligenceService
   ]
 })
-export class AlertUnusualAddedEndorsementsModule { }
+export class AlertPartnerUnusualAppliedPaymentsModule { }

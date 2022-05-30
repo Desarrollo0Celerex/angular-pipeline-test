@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { CardPartnerWalletProjectionService } from './card-partner-wallet-projection.service';
 
 declare var ChartPlugin: any;
+declare var PopoverPlugin: any;
 declare var TooltipPlugin: any;
 
 @Component({
@@ -12,7 +13,7 @@ declare var TooltipPlugin: any;
   ],
   providers: [CardPartnerWalletProjectionService]
 })
-export class CardPartnerWalletProjectionComponent implements OnChanges {
+export class CardPartnerWalletProjectionComponent implements OnChanges, OnInit {
     @Input() partnerId: number = 0;
     canShowChart: boolean = false;
 
@@ -22,6 +23,10 @@ export class CardPartnerWalletProjectionComponent implements OnChanges {
         if(!!changes.partnerId && changes.partnerId.currentValue) {
             this._loadChartData(changes.partnerId.currentValue);
         }
+    }
+
+    ngOnInit(): void {
+        PopoverPlugin.init();
     }
 
     /**

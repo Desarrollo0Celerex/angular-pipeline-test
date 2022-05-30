@@ -13,28 +13,40 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<div class="form-group">
-									<label class="form-label">Prima Total</label>
+									<label class="form-label">Prima Total ({{group.currencyName}})</label>
 									<input type="text" class="form-control" placeholder="{{group.totalGlobalWallet | currency: '': '$': '0.2-2'}}" readonly="">
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class="form-label">Prima Pagada</label>
 									<input type="text" class="form-control" placeholder="{{group.totalGlobalWalletPaid | currency: '': '$': '0.2-2'}}" readonly="">
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="form-label">Prima Pendiente</label>
+									<input type="text" class="form-control" placeholder="{{walletPending | currency: '': '$': '0.2-2'}}" readonly="">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="form-label">Miembros Totales</label>
+									<input type="text" class="form-control" [placeholder]="group.totalMembers" readonly="">
+								</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class="form-label">Pólizas Totales</label>
 									<input type="text" class="form-control" [placeholder]="group.totalActivePolicies" readonly="">
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<div class="form-group">
-									<label class="form-label">Clientes Totales</label>
-									<input type="text" class="form-control" [placeholder]="group.totalMembers" readonly="">
+									<label class="form-label">Siniestros Totales</label>
+									<input type="text" class="form-control" [placeholder]="group.totalOpenSinisters" readonly="">
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -43,13 +55,19 @@
 									<input type="text" class="form-control" placeholder="{{group.createdAt | date: 'dd/MM/yyyy'}}" readonly="">
 								</div>
 							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="form-label">Creador Grupo</label>
+									<input type="text" class="form-control" placeholder="{{group.createdByName}}" readonly="">
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer text-center">
 				<div class="col-12">
-					<button type="button" class="btn btn-block btn-primary" (click)="goToGroupResume()"><strong>VER DETALLES</strong></button>
+					<button type="button" class="btn btn-block btn-primary" (click)="goToGroupMembers()"><strong>VER MIEMBROS</strong></button>
 				</div>
 			</div>
 		</div>
