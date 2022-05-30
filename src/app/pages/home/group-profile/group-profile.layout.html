@@ -45,6 +45,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <!-- AGENTHOS - GROUP MEMBERS -->
+                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.groupMembers(groupId)" routerLinkActive="active">
+                            <span class="nav-link-icon d-block"><i class="fe fe-activity"></i> Miembros</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <!-- AGENTHOS - GROUP POLICIES -->
                         <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.groupPolicies(groupId)" routerLinkActive="active">
                             <span class="nav-link-icon d-block"><i class="fe fe-shield"></i> Pólizas</span>
@@ -92,11 +98,7 @@
                 <agt-loading-content [isLoadingContent]="true" [height]="130"></agt-loading-content>
             </ng-template>
             <div class="card-footer text-center">
-                <!-- AGENTHOS - GROUPS ADD MEMBER -->
-                <!-- AGENTHOS - TARGET IF FOUND (#agtGroupContactAdd) -->
-                <!-- AGENTHOS - TARGET IF DUPLICATED (#agtGroupContactSearchResults) -->
-                <!-- AGENTHOS - TARGET IF NOT FOUND (#agtGroupContactSearchNotFound) -->
-                <button type="button" class="btn btn-block btn-primary" [disabled]="!model.isLoadedGroupMembers" (click)="showModalToSeachClient()"><strong>AGREGAR MIEMBRO</strong></button>
+                <button type="button" class="btn btn-block btn-primary" disabled><strong>MUY PRONTO</strong></button>
             </div>
         </div>
     </div>
@@ -104,9 +106,3 @@
 <!-- //AGENTHOS - GROUP PANEL -->
 
 <router-outlet></router-outlet>
-
-<agt-modal-search-client
-    [modalId]="modalIdSearchClient"
-    [groupMembers]="model.groupMembers"
-    (clientFound)="addClient($event)">
-</agt-modal-search-client>

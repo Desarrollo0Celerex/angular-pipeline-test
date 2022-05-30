@@ -12,6 +12,7 @@ const routes: Routes = [{
     component: GroupProfileLayout,
     children: [
         { path: ROUTES_NAME.groupResume(':groupId'), loadChildren: () => import('@pages/home/group-profile/resume/resume.module').then(mod => mod.ResumeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+        { path: ROUTES_NAME.groupMembers(':groupId'), loadChildren: () => import('@pages/home/group-profile/members/members.module').then(mod => mod.MembersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
         { path: ROUTES_NAME.groupPolicies(':groupId'), loadChildren: () => import('@pages/home/group-profile/policies/policies.module').then(mod => mod.PoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
         { path: ROUTES_NAME.groupSinisters(':groupId'), loadChildren: () => import('@pages/home/group-profile/sinisters/sinisters.module').then(mod => mod.SinistersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
     ]

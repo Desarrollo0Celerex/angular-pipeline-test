@@ -49,8 +49,11 @@
 
 <agt-modal-select-client
 	[modalId]="modalIdSelectClient"
-	[groupMembers]="groupMembers"
+	[groupMembers]="model.groupMembers"
 	[clients]="foundClients"
-	(clientSelected)="showModalToConfirmAddClient($event)">
-</agt-modal-select-client>
-<agt-modal-confirm-add-member [modalId]="modalIdConfirmAddClient" (actionConfirmed)="selectClient()"></agt-modal-confirm-add-member>
+	(clientSelected)="showModalToConfirmAddClient($event)"
+></agt-modal-select-client>
+<agt-modal-confirm-add-member
+	[modalId]="modalIdConfirmAddClient"
+	(actionConfirmed)="selectClient()"
+></agt-modal-confirm-add-member>

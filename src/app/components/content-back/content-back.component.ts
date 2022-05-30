@@ -55,6 +55,10 @@ export class ContentBackComponent {
                 route = ROUTES_NAME.listGroups;
                 break;
 
+            case CONTENT_TYPES.GROUP_MEMBER.ID:
+                route = ROUTES_NAME.groupMembers(this.groupId);
+                break;
+
             case CONTENT_TYPES.GROUP_POLICY.ID:
                 route = ROUTES_NAME.groupPolicies(this.groupId);
                 break;

@@ -41,12 +41,13 @@ export class GroupMemberService {
       * @param  query           The search to do
       * @return                 The groups
       */
-    getGroupMembers(groupId: string, fields: string = '', page: number = 1, perPage: number = 12): Observable<HttpResponse> {
+    getGroupMembers(groupId: string, fields: string = '', page: number = 1, query: string = '', perPage: number = 12): Observable<HttpResponse> {
         const route: string = routes.groupMembers(this._workspaceId, groupId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         params = params.append('perPage', perPage.toString());
         if(!!fields) params = params.append('fields', fields);
+        if(!!query) params = params.append('search', 'contactName:' + query);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, { params });
     }

@@ -20,6 +20,7 @@ export class ContentMainActionComponent implements OnInit {
     @Input() contentType: number;
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
+    @Input() groupId: string = '';
     @Output() contentSubtypeNameSelected: EventEmitter<string>;
     @Output() groupCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() sinisterCreated: EventEmitter<void> = new EventEmitter<void>();
@@ -31,6 +32,7 @@ export class ContentMainActionComponent implements OnInit {
     modalIdCreateGroup: string = 'agt-create-group';
     modalIdCreatePartner: string = 'agt-create-partner';
     modalIdCreateSinister: string = 'agt-create-sinister';
+    modalIdSearchClient: string = 'agt-search-client';
     modalIdSearchPayment: string = 'agt-search-payment';
     modalIdSearchPolicy: string = 'agt-search-policy';
     modalIdSelectSinisterStatus: string = 'agt-select-sinister-status';
@@ -91,6 +93,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.CONTACT_FILE.ID: title = 'Actualizar Expediente'; break;
             case CONTENT_TYPES.GROUP.ID: title = 'Nuevo ' + this.contentTypeName; break;
+            case CONTENT_TYPES.GROUP_MEMBER.ID: title = 'Nuevo Miembro'; break;
             case CONTENT_TYPES.GROUP_POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.GROUP_SINISTER.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.PARTNER.ID: title = 'Nuevo Socio'; break;
@@ -128,6 +131,7 @@ export class ContentMainActionComponent implements OnInit {
             break;
             case CONTENT_TYPES.CONTACT_FILE.ID: title = 'SUBIR ARCHIVO'; break;
             case CONTENT_TYPES.GROUP.ID: title = 'CREAR '+this.contentTypeName; break;
+            case CONTENT_TYPES.GROUP_MEMBER.ID: title = 'AGREGAR MIEMBRO'; break;
             case CONTENT_TYPES.PARTNER.ID: title = 'CREAR SOCIO'; break;
             case CONTENT_TYPES.PARTNER_CLIENT.ID: title = 'ENLAZAR PÓLIZA'; break;
             case CONTENT_TYPES.PAYMENT.ID: title = 'APLICAR PAGO'; break;
@@ -167,7 +171,14 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.PARTNER_SINISTER.ID:
                 ModalPlugin.show(this.modalIdSelectSinisterStatus);
             break;
-            case CONTENT_TYPES.CONTACT_FILE.ID: this._router.navigateByUrl(ROUTES_NAME.uploadContactFile(this.contactId)); break;
+
+            case CONTENT_TYPES.CONTACT_FILE.ID:
+                this._router.navigateByUrl(ROUTES_NAME.uploadContactFile(this.contactId));
+            break;
+
+            case CONTENT_TYPES.GROUP_MEMBER.ID:
+                ModalPlugin.show(this.modalIdSearchClient);
+            break;
         }
     }
 

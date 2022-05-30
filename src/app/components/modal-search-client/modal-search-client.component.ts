@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, SimpleChanges, Output } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Client } from '@interfaces/client.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -17,10 +19,9 @@ declare var ModalPlugin: any;
   ],
   providers: [ModalSearchClientService]
 })
-export class ModalSearchClientComponent implements OnInit {
+export class ModalSearchClientComponent implements OnChanges {
     @Input() modalId: string = '';
-    @Input() groupMembers: string[] = [];
-    @Output() clientFound: EventEmitter<Client> = new EventEmitter<Client>();
+    @Input() groupId: string = '';
     foundClients: Client[] = [];
     clientIsAlreadyMember: boolean = false;
     isNoResults: boolean = false;
@@ -30,15 +31,16 @@ export class ModalSearchClientComponent implements OnInit {
     private _selectedClient: Client | null = null;
 
     constructor(
-        private _modalSearchClientService: ModalSearchClientService,
-        private _loadingService: LoadingService
+        public model: ModalSearchClientService,
+        private _activatedRoute: ActivatedRoute,
+        private _loadingService: LoadingService,
+        private _router: Router
     ) { }
 
-    ngOnInit(): void {
-    }
-
-    get model(): ModalSearchClientService {
-        return this._modalSearchClientService;
+    ngOnChanges(changes: SimpleChanges): void {
+        if(!!changes.groupId && !!changes.groupId.currentValue) {
+            this.model.loadGroupMembers(changes.groupId.currentValue);
+        }
     }
 
     /**
@@ -113,12 +115,28 @@ export class ModalSearchClientComponent implements OnInit {
 
     selectClient(): void {
         if(!!this._selectedClient) {
-            this.clientFound.emit(this._selectedClient);
+            this._addClient(this._selectedClient)
         }
     }
 
     private _checkClientAlreadyMember(contactId: string): boolean {
-        return this.groupMembers.includes(contactId) ? true : false;
+        return this.model.groupMembers.includes(contactId) ? true : false;
+    }
+
+    private _addClient(client: Client): void {
+        this._loadingService.show();
+        this.model.addGroupMember(this.groupId, client.contactId).subscribe(() => {
+            this._loadingService.hide();
+            AlertHelper.groupMemberAdded();
+            this._reloadPage();
+        })
+    }
+
+    private _reloadPage(): void {
+        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this._router.onSameUrlNavigation = 'reload';
+        const url: string = this._router.url.split('?')[0] ;
+        this._router.navigate([url], { relativeTo: this._activatedRoute } );
     }
 
     /**

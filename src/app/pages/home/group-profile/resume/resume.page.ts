@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
-import { CONTENT_TYPES } from '@constants/global';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'agt-resume',
@@ -9,8 +6,8 @@ import { CONTENT_TYPES } from '@constants/global';
   styles: [
   ]
 })
-export class ResumePage implements OnInit {
-    contentType: number = CONTENT_TYPES.GROUP_MEMBER.ID;
+export class ResumePage {
+    /*contentType: number = CONTENT_TYPES.GROUP_MEMBER.ID;
     contentTypeName: string = CONTENT_TYPES.GROUP_MEMBER.NAME;
     contentSubtype: number = 1;
     contentSubtypeName: string = 'del Grupo';
@@ -26,10 +23,10 @@ export class ResumePage implements OnInit {
     /**
      * Catch the params
      */
-    private _catchParams(): void {
+    /*private _catchParams(): void {
         this.subParams = this._activatedRoute.paramMap.subscribe((res: any) => {
             this.groupId = res.get('groupId');
         });
-    }
+    }*/
 
 }

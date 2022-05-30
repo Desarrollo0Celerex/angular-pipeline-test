@@ -18,10 +18,17 @@ export class ModalShowGroupDetailsComponent {
 
     constructor(private _router: Router) { }
 
-    goToGroupResume(): void {
+    get walletPending(): number {
+        if(!!this.group && !!this.group.totalGlobalWallet && !!this.group.totalGlobalWalletPaid) {
+            return this.group.totalGlobalWallet - this.group.totalGlobalWalletPaid;
+        }
+        return 0;
+    }
+
+    goToGroupMembers(): void {
         if(!!this.group) {
             ModalPlugin.hide(this.modalId);
-            this._router.navigateByUrl(ROUTES_NAME.groupResume(this.group.groupId));
+            this._router.navigateByUrl(ROUTES_NAME.groupMembers(this.group.groupId));
         }
     }
 }
