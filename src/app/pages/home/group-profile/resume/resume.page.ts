@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
+
+declare var TooltipPlugin: any;
 
 @Component({
   selector: 'agt-resume',
@@ -6,27 +10,29 @@ import { Component } from '@angular/core';
   styles: [
   ]
 })
-export class ResumePage {
-    /*contentType: number = CONTENT_TYPES.GROUP_MEMBER.ID;
-    contentTypeName: string = CONTENT_TYPES.GROUP_MEMBER.NAME;
-    contentSubtype: number = 1;
-    contentSubtypeName: string = 'del Grupo';
+export class ResumePage implements OnInit, OnDestroy {
     groupId: string = '';
-    subParams: any | null = null;
+    rangeStart: string = moment().subtract(60, 'day').format('DD/MM/YYYY');
+    rangeEnd: string = moment().add(30, 'day').format('DD/MM/YYYY');
+    private _subParams: any | null = null;
 
     constructor(private _activatedRoute: ActivatedRoute) { }
 
     ngOnInit(): void {
         this._catchParams();
+        TooltipPlugin.init();
+    }
+
+    ngOnDestroy(): void {
+        if(!!this._subParams) this._subParams.unsubscribe();
     }
 
     /**
      * Catch the params
      */
-    /*private _catchParams(): void {
-        this.subParams = this._activatedRoute.paramMap.subscribe((res: any) => {
+    private _catchParams(): void {
+        this._subParams = this._activatedRoute.paramMap.subscribe((res: any) => {
             this.groupId = res.get('groupId');
         });
-    }*/
-
+    }
 }
