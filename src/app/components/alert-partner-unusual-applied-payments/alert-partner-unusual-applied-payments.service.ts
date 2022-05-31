@@ -4,7 +4,7 @@ import { BusinessIntelligenceService } from '@services/business-intelligence.ser
 
 @Injectable()
 export class AlertPartnerUnusualAppliedPaymentsService {
-    appliedPaymentsRate: number = 0;
+    appliedPaymentsRate: number = -1;
 
     constructor(private gusinessIntelligenceService: BusinessIntelligenceService) { }
 

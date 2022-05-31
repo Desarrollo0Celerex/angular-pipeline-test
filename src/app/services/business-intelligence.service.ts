@@ -9,6 +9,7 @@ import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     addedEndorsements: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/added-endorsements',
+    groupAppliedRenewals: (workspaceId: string, groupId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/business-intelligences/applied-renewals',
     groupCancelledPolicies: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/business-intelligences/cancelled-policies',
     groupWalletDecrease: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/business-intelligences/wallet-decrease',
     lastPercentageIncrease: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/last-percentage-increase',
@@ -32,6 +33,18 @@ export class BusinessIntelligenceService {
     getAddedEndorsements(contactId: string, policyId: string): Observable<number> {
         const route: string = routes.addedEndorsements(this._workspaceId, contactId, policyId);
         return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => {
+                return res.data;
+            })
+        );
+    }
+
+    getGroupAppliedRenewalsRate(groupId: string, rangeStart: string, rangeEnd: string): Observable<number> {
+        const route: string = routes.groupAppliedRenewals(this._workspaceId, groupId);
+        let params: HttpParams = new HttpParams();
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map((res: HttpResponse) => {
                 return res.data;
             })
