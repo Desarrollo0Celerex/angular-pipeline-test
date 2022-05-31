@@ -9,7 +9,8 @@ import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     addedEndorsements: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/added-endorsements',
-    groupWalletDecrease: (workspaceId: string, groupId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/business-intelligences/wallet-decrease',
+    groupCancelledPolicies: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/business-intelligences/cancelled-policies',
+    groupWalletDecrease: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/business-intelligences/wallet-decrease',
     lastPercentageIncrease: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/last-percentage-increase',
     latePayments: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/late-payments',
     partnerAppliedPayments: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/applied-payments',
@@ -30,6 +31,15 @@ export class BusinessIntelligenceService {
 
     getAddedEndorsements(contactId: string, policyId: string): Observable<number> {
         const route: string = routes.addedEndorsements(this._workspaceId, contactId, policyId);
+        return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => {
+                return res.data;
+            })
+        );
+    }
+
+    getGroupCancelledPoliciesRate(groupId: string): Observable<number> {
+        const route: string = routes.groupCancelledPolicies(this._workspaceId, groupId);
         return this._httpClient.get<HttpResponse>(route).pipe(
             map((res: HttpResponse) => {
                 return res.data;
