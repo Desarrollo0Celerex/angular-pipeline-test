@@ -7,11 +7,16 @@ import { Policy } from '@interfaces/policy.interface';
 import { PolicyService } from '@services/policy.service';
 
 @Injectable()
-export class ChartGroupActiveCoveragesService {
+export class ChartGroupPreferredInsurersService {
     chartData: any[] = [];
 
-    constructor(private _policyService: PolicyService) {}
+    constructor(private _policyService: PolicyService) { }
 
+    /**
+     * Load the chart data
+     * @param  groupId The group ID
+     * @return           The chart data
+     */
     loadChartData(groupId: string): Observable<void> {
         this.chartData = [];
         return new Observable((observer: any) => {
@@ -19,14 +24,15 @@ export class ChartGroupActiveCoveragesService {
             this._policyService.getTotalGroupPolicies(groupId, filter).subscribe((res: HttpResponse) => {
                 const page: number = 1;
                 const perPage: number = res.data;
-                const fields: string = 'insuranceName';
+                const fields: string = 'insurerShortName';
                 const filters: number [] = [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.SUSPENDED];
                 this._policyService.getGroupPolicies(groupId, page, fields, filters, '', perPage).subscribe((res: HttpResponse) => {
                     this._populateChartData(res.data.items);
                     observer.next();
                     observer.complete();
                 });
-            });
+            })
+
         });
     }
 
@@ -35,16 +41,16 @@ export class ChartGroupActiveCoveragesService {
      * @param policies The policies to evaluate
      */
     private _populateChartData(policies: Policy[]): void {
-        let activeCoverage: any = {};
+        let preferredInsurers: any = {};
         for(const policy of policies) {
-            if(!!activeCoverage[policy.insuranceName]) {
-                activeCoverage[policy.insuranceName] += 1;
+            if(!!preferredInsurers[policy.insurerShortName]) {
+                preferredInsurers[policy.insurerShortName] += 1;
             } else {
-                activeCoverage[policy.insuranceName] = 1;
+                preferredInsurers[policy.insurerShortName] = 1;
             }
         }
-        for(const index in activeCoverage) {
-            this.chartData.push([index, activeCoverage[index]])
+        for(const index in preferredInsurers) {
+            this.chartData.push([index, preferredInsurers[index]])
         }
     }
 }

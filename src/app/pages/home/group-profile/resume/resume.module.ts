@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CardGroupWalletGlobalModule } from '@components/card-group-wallet-global/card-group-wallet-global.module';
 import { ChartGroupActiveCoveragesModule } from '@components/chart-group-active-coverages/chart-group-active-coverages.module';
+import { ChartGroupPreferredInsurersModule } from '@components/chart-group-preferred-insurers/chart-group-preferred-insurers.module';
 import { ChartGroupWalletProjectionModule } from '@components/chart-group-wallet-projection/chart-group-wallet-projection.module';
 import { ContentListModule } from '@components/content-list/content-list.module';
 
@@ -16,6 +17,7 @@ import { ResumePage } from './resume.page';
   imports: [
     CardGroupWalletGlobalModule,
     ChartGroupActiveCoveragesModule,
+    ChartGroupPreferredInsurersModule,
     ChartGroupWalletProjectionModule,
     CommonModule,
     ResumeRoutingModule,
