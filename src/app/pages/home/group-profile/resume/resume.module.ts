@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AlertGroupUnusualAppliedPaymentsModule } from '@components/alert-group-unusual-applied-payments/alert-group-unusual-applied-payments.module';
 import { AlertGroupUnusualAppliedRenewalsModule } from '@components/alert-group-unusual-applied-renewals/alert-group-unusual-applied-renewals.module';
 import { AlertGroupUnusualCancelledPoliciesModule } from '@components/alert-group-unusual-cancelled-policies/alert-group-unusual-cancelled-policies.module';
 import { AlertGroupUnusualWalletDecreaseModule } from '@components/alert-group-unusual-wallet-decrease/alert-group-unusual-wallet-decrease.module';
@@ -23,6 +24,7 @@ import { ResumePage } from './resume.page';
     ResumePage
   ],
   imports: [
+    AlertGroupUnusualAppliedPaymentsModule,
     AlertGroupUnusualAppliedRenewalsModule,
     AlertGroupUnusualCancelledPoliciesModule,
     AlertGroupUnusualWalletDecreaseModule,
