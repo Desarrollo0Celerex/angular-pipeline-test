@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, SimpleChanges, Output } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -21,12 +21,14 @@ declare var ModalPlugin: any;
 })
 export class ModalSearchClientComponent implements OnChanges {
     @Input() modalId: string = '';
+    @Input() modalIdSelectClient: string = '';
+    @Input() modalIdConfirmAddClient: string = '';
     @Input() groupId: string = '';
     foundClients: Client[] = [];
     clientIsAlreadyMember: boolean = false;
     isNoResults: boolean = false;
-    modalIdSelectClient: string = 'agt-select-client';
-    modalIdConfirmAddClient: string = 'agt-confirm-add-client';
+    /*modalIdSelectClient: string = 'agt-select-client-';
+    modalIdConfirmAddClient: string = 'agt-confirm-add-client-';*/
     private _isFormSubmitted: boolean = false;
     private _selectedClient: Client | null = null;
 
