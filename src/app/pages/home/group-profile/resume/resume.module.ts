@@ -5,6 +5,7 @@ import { CardGroupWalletGlobalModule } from '@components/card-group-wallet-globa
 import { ChartGroupActiveCoveragesModule } from '@components/chart-group-active-coverages/chart-group-active-coverages.module';
 import { ChartGroupGlobalBalanceModule } from '@components/chart-group-global-balance/chart-group-global-balance.module';
 import { ChartGroupPreferredInsurersModule } from '@components/chart-group-preferred-insurers/chart-group-preferred-insurers.module';
+import { ChartGroupRenewalProgressModule } from '@components/chart-group-renewal-progress/chart-group-renewal-progress.module';
 import { ChartGroupWalletProjectionModule } from '@components/chart-group-wallet-projection/chart-group-wallet-projection.module';
 import { ContentListModule } from '@components/content-list/content-list.module';
 
@@ -20,6 +21,7 @@ import { ResumePage } from './resume.page';
     ChartGroupActiveCoveragesModule,
     ChartGroupGlobalBalanceModule,
     ChartGroupPreferredInsurersModule,
+    ChartGroupRenewalProgressModule,
     ChartGroupWalletProjectionModule,
     CommonModule,
     ResumeRoutingModule,
