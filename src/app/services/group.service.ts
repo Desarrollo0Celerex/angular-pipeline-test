@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { CreateGroupDataSend } from '@interfaces/create-group-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { UpdateGroupDataSend } from '@interfaces/update-group-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
@@ -27,9 +28,11 @@ export class GroupService {
         this._workspaceId = this._authService.workspaceId;
     }
 
-    checkHasCoincidences(name: string): Observable<HttpResponse> {
-        const route: string = routes.groupCoincidences(this._workspaceId);
-        return this._httpClient.post<HttpResponse>(route, { name });
+    checkHasCoincidences(name: string): Observable<boolean> {
+        const route: string = routes.groupCoincidences(this._workspaceId)
+        return this._httpClient.post<HttpResponse>(route, { name }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 
     /**
@@ -40,6 +43,11 @@ export class GroupService {
     createGroup(requestBody: CreateGroupDataSend): Observable<void> {
         const route: string = routes.groups(this._workspaceId);
         return this._httpClient.post<void>(route, requestBody);
+    }
+
+    deleteGroup(groupId: string): Observable<void> {
+        const route: string = routes.group(this._workspaceId, groupId);
+        return this._httpClient.delete<void>(route);
     }
 
      /**
@@ -98,5 +106,10 @@ export class GroupService {
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );
+    }
+
+    updateGroup(groupId: string, requestBody: UpdateGroupDataSend): Observable<void> {
+        const route: string = routes.group(this._workspaceId, groupId.toString());
+        return this._httpClient.put<void>(route, requestBody);
     }
 }

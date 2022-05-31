@@ -27,6 +27,8 @@ export class ContentMainActionComponent implements OnInit {
     @Output() partnerCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() paymentSelected: EventEmitter<Payment> = new EventEmitter<Payment>();
     CONTENT_TYPES: any;
+    modalIdSelectClient: string = 'agt-modal-select-client';
+    modalIdConfirmAddClient: string = 'agt-modal-confirm-add-client';
     modalIdConfirmCreatePartner: string = 'agt-confirm-create-partner';
     modalIdConfirmCreateGroup: string = 'agt-confirm-create-group';
     modalIdCreateGroup: string = 'agt-create-group';

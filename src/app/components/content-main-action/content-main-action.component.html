@@ -96,6 +96,8 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.GROUP_MEMBER.ID">
     <agt-modal-search-client
         [modalId]="modalIdSearchClient"
+        [modalIdSelectClient]="modalIdSelectClient"
+        [modalIdConfirmAddClient]="modalIdConfirmAddClient"
         [groupId]="groupId"
     ></agt-modal-search-client>
 </ng-container>

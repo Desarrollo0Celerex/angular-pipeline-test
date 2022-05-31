@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { BusinessIntelligenceService } from '@services/business-intelligence.service';
 
 @Injectable()
-export class AlertPartnerUnusualWalletDecreaseService {
+export class AlertGroupUnusualWalletDecreaseService {
     walletDecreaseRate: number = 0;
 
     constructor(private businessIntelligenceService: BusinessIntelligenceService) { }
 
-    loadWalletDecreaseRate(partnerId: number): void {
-        this.businessIntelligenceService.getPartnerWalletDecreaseRate(partnerId).subscribe((res: number) => {
+    loadWalletDecreaseRate(groupId: string): void {
+        this.businessIntelligenceService.getGroupWalletDecreaseRate(groupId).subscribe((res: number) => {
             this.walletDecreaseRate = res;
         });
     }

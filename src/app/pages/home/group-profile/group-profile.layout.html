@@ -5,9 +5,25 @@
         <div class="card ">
             <div class="card-header pt-0 pb-0 border-bottom-0">
                 <h3 class="card-title">Perfil de Grupo</h3>
+                <!-- AGENTHOS - POLICY MENU -->
                 <div class="card-options">
-                    <i class="fe fe-user mr-1 text-primary fs-30"></i>
+                    <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                        <span class="fa fa-bars"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                        <div class="dropdown-plus-title">Acciones Disponibles</div>
+                        <!-- AGENTHOS - GROUP DETAILS -->
+                        <button type="button" class="dropdown-item" (click)="showModalGroupDetails()"><i class="fa fa-id-card-o mr-2"></i>Ver Detalles</button>
+                        <!-- AGENTHOS - GROUP UPDATE -->
+                        <button type="button" class="dropdown-item" (click)="showModalUpdateGroup()"><i class="fa fa-edit mr-2"></i>Actualizar Grupo</button>
+                        <!-- AGENTHOS - GROUP ADD MEMBER -->
+                        <button type="button" class="dropdown-item" (click)="showModalAddGroupMember()"><i class="fa fa-user-plus mr-2"></i>Agregar Miembro</button>
+                        <div class="dropdown-divider"></div>
+                        <!-- AGENTHOS - GROUP DELETE -->
+                        <button type="button" class="dropdown-item" (click)="showModalConfirmDeleteGroup()"><i class="fa fa-exclamation-circle mr-2"></i>Eliminar Grupo</button>
+                    </div>
                 </div>
+                <!-- //AGENTHOS - POLICY MENU -->
             </div>
             <!-- AGENTHOS - GROUP RESUME -->
             <div class="card-body pt-0" *ngIf="!!model.group; else groupEmpty">
@@ -24,7 +40,7 @@
                                     <!-- AGENTHOS - GROUP SOURCE --->
                                     <h4 class="text-muted font-weight-normal mb-3">Miembros: {{model.group.totalMembers}}</h4>
                                     <!-- AGENTHOS - GROUP PHONE -->
-                                    <h4 class="text-muted font-weight-normal">Creado: {{model.group.createdAt | date: 'dd/MM/yyyy'}}</h4>
+                                    <h4 class="text-muted font-weight-normal">Tipo: {{model.group.groupStatusName}}</h4>
                                 </div>
                             </div>
                         </div>
@@ -79,3 +95,27 @@
 <!-- //AGENTHOS - GROUP PANEL -->
 
 <router-outlet></router-outlet>
+
+<ng-container *ngIf="model.group">
+    <agt-modal-show-group-details
+        [modalId]="modalIdShowGroupDetails"
+        [group]="model.group"
+    ></agt-modal-show-group-details>
+    <agt-modal-update-group
+        [modalId]="modalIdUpdateGroup"
+        [groupId]="groupId"
+        [groupName]="model.group.name"
+        (groupNameUpdated)="updateGroupName($event)"
+    ></agt-modal-update-group>
+</ng-container>
+
+<agt-modal-search-client
+    [modalId]="modalIdAddGroupMember"
+    [modalIdSelectClient]="modalIdSelectClient"
+    [modalIdConfirmAddClient]="modalIdConfirmAddClient"
+    [groupId]="groupId"
+></agt-modal-search-client>
+<agt-modal-confirm-delete-group
+    [modalId]="modalIdConfirmDeleteGroup"
+    (actionConfirmed)="deleteGroup()"
+></agt-modal-confirm-delete-group>

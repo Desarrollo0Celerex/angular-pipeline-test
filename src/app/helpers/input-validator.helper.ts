@@ -95,6 +95,10 @@ export class InputValidatorHelper {
                     case (typeof error.partnerNameExist !== 'undefined'):
                         message = 'Ya existe un socio con esté nombre.';
                         break;
+                    case (typeof error.groupNameExist !== 'undefined'):
+                        message = 'Ya existe un grupo con esté nombre.';
+                        break;
+                        
                     default: message = '';
                 }
             }
