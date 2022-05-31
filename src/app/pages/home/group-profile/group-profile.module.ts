@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CardGroupAnnualWalletModule } from '@components/card-group-annual-wallet/card-group-annual-wallet.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
+import { ModalConfirmDeleteGroupModule } from '@components/modal-confirm-delete-group/modal-confirm-delete-group.module';
 import { ModalSearchClientModule } from '@components/modal-search-client/modal-search-client.module';
 import { ModalShowGroupDetailsModule } from '@components/modal-show-group-details/modal-show-group-details.module';
 import { ModalUpdateGroupModule } from '@components/modal-update-group/modal-update-group.module';
@@ -20,6 +21,7 @@ import { GroupProfileLayout } from './group-profile.layout';
     CommonModule,
     GroupProfileRoutingModule,
     LoadingContentModule,
+    ModalConfirmDeleteGroupModule,
     ModalSearchClientModule,
     ModalShowGroupDetailsModule,
     ModalUpdateGroupModule

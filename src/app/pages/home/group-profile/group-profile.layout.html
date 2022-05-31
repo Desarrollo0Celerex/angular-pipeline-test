@@ -20,7 +20,7 @@
                         <button type="button" class="dropdown-item" (click)="showModalAddGroupMember()"><i class="fa fa-user-plus mr-2"></i>Agregar Miembro</button>
                         <div class="dropdown-divider"></div>
                         <!-- AGENTHOS - GROUP DELETE -->
-                        <button type="button" class="dropdown-item" ><i class="fa fa-exclamation-circle mr-2"></i>Eliminar Grupo</button>
+                        <button type="button" class="dropdown-item" (click)="showModalConfirmDeleteGroup()"><i class="fa fa-exclamation-circle mr-2"></i>Eliminar Grupo</button>
                     </div>
                 </div>
                 <!-- //AGENTHOS - POLICY MENU -->
@@ -115,3 +115,7 @@
     [modalIdConfirmAddClient]="modalIdConfirmAddClient"
     [groupId]="groupId"
 ></agt-modal-search-client>
+<agt-modal-confirm-delete-group
+    [modalId]="modalIdConfirmDeleteGroup"
+    (actionConfirmed)="deleteGroup()"
+></agt-modal-confirm-delete-group>

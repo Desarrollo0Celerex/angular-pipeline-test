@@ -45,6 +45,11 @@ export class GroupService {
         return this._httpClient.post<void>(route, requestBody);
     }
 
+    deleteGroup(groupId: string): Observable<void> {
+        const route: string = routes.group(this._workspaceId, groupId);
+        return this._httpClient.delete<void>(route);
+    }
+
      /**
       * Get the groups from the API
       * @param  page            The page number

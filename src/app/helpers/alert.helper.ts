@@ -90,6 +90,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static groupDeleted(): void {
+        const alertData: Alert = {
+            title: 'Grupo Eliminado',
+            text: 'El grupo ha sido eliminado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static groupMemberAdded(): void {
         const alertData: Alert = {
             title: 'Cliente Agregado',
