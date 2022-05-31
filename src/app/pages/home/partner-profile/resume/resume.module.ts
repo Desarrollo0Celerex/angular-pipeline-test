@@ -5,15 +5,15 @@ import { AlertPartnerUnusualAppliedPaymentsModule } from '@components/alert-part
 import { AlertPartnerUnusualAppliedRenewalsModule } from '@components/alert-partner-unusual-applied-renewals/alert-partner-unusual-applied-renewals.module';
 import { AlertPartnerUnusualCancelledPoliciesModule } from '@components/alert-partner-unusual-cancelled-policies/alert-partner-unusual-cancelled-policies.module';
 import { AlertPartnerUnusualWalletDecreaseModule } from '@components/alert-partner-unusual-wallet-decrease/alert-partner-unusual-wallet-decrease.module';
-import { CardPartnerActiveCoveragesModule } from '@components/card-partner-active-coverages/card-partner-active-coverages.module';
-import { CardPartnerGlobalBalanceModule } from '@components/card-partner-global-balance/card-partner-global-balance.module';
-import { CardPartnerPaymentProgressModule } from '@components/card-partner-payment-progress/card-partner-payment-progress.module';
+import { ChartPartnerActiveCoveragesModule } from '@components/chart-partner-active-coverages/chart-partner-active-coverages.module';
+import { ChartPartnerGlobalBalanceModule } from '@components/chart-partner-global-balance/chart-partner-global-balance.module';
+import { ChartPartnerPaymentProgressModule } from '@components/chart-partner-payment-progress/chart-partner-payment-progress.module';
 import { CardPartnerPaymentReportsModule } from '@components/card-partner-payment-reports/card-partner-payment-reports.module';
-import { CardPartnerPreferredInsurersModule } from '@components/card-partner-preferred-insurers/card-partner-preferred-insurers.module';
-import { CardPartnerRenewalProgressModule } from '@components/card-partner-renewal-progress/card-partner-renewal-progress.module';
+import { ChartPartnerPreferredInsurersModule } from '@components/chart-partner-preferred-insurers/chart-partner-preferred-insurers.module';
+import { ChartPartnerRenewalProgressModule } from '@components/chart-partner-renewal-progress/chart-partner-renewal-progress.module';
 import { CardPartnerRenewalReportsModule } from '@components/card-partner-renewal-reports/card-partner-renewal-reports.module';
 import { CardPartnerWalletGlobalModule } from '@components/card-partner-wallet-global/card-partner-wallet-global.module';
-import { CardPartnerWalletProjectionModule } from '@components/card-partner-wallet-projection/card-partner-wallet-projection.module';
+import { ChartPartnerWalletProjectionModule } from '@components/chart-partner-wallet-projection/chart-partner-wallet-projection.module';
 
 import { ResumeRoutingModule } from './resume-routing.module';
 import { ResumePage } from './resume.page';
@@ -27,15 +27,15 @@ import { ResumePage } from './resume.page';
     AlertPartnerUnusualAppliedRenewalsModule,
     AlertPartnerUnusualCancelledPoliciesModule,
     AlertPartnerUnusualWalletDecreaseModule,
-    CardPartnerActiveCoveragesModule,
-    CardPartnerGlobalBalanceModule,
-    CardPartnerPaymentProgressModule,
+    ChartPartnerActiveCoveragesModule,
+    ChartPartnerGlobalBalanceModule,
+    ChartPartnerPaymentProgressModule,
     CardPartnerPaymentReportsModule,
-    CardPartnerPreferredInsurersModule,
-    CardPartnerRenewalProgressModule,
+    ChartPartnerPreferredInsurersModule,
+    ChartPartnerRenewalProgressModule,
     CardPartnerRenewalReportsModule,
     CardPartnerWalletGlobalModule,
-    CardPartnerWalletProjectionModule,
+    ChartPartnerWalletProjectionModule,
     CommonModule,
     ResumeRoutingModule
   ]

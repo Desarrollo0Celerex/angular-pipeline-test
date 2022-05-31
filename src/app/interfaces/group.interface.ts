@@ -11,5 +11,8 @@ export interface Group {
     currencyName: string,
     totalActivePolicies: number,
     totalOpenSinisters: number,
-    createdByName: string
+    createdByName: string,
+    totalGlobalCurrentWallet: number,
+    totalExpiredPolicies: number,
+    totalCancelledPolicies: number,
 }
