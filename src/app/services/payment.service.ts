@@ -19,7 +19,9 @@ const routes: any = {
     paymentPreauthorizations: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/' + paymentId + '/preauthorizations',
     payments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments',
     workspacePaymentsReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/report',
+    totalGroupPayments: (workspaceId: string, groupId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/payments/count',
     totalPartnerPayments: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/payments/count',
+    reportGroupPendingPayments: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/payments/report',
     reportPartnerPendingPayments: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/payments/report',
     totalPayments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/count',
     totalPaymentsAmount: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/total-amount',
@@ -48,6 +50,25 @@ export class PaymentService {
         if(!!formatType) params = params.append('formatType', formatType);
         if(!!sortBy) params = params.append('sortBy', sortBy);
         if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
+    }
+
+    downloadReportGroupPendingPayments(groupId: string, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', formatType: number, sortBy: string = '-createdAt') {
+        const route: string = routes.reportGroupPendingPayments(this._workspaceId, groupId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!formatType) params = params.append('formatType', formatType);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
         params.append('observe', 'response');
         params.append('responseType', 'arraybuffer');
         const fileParams: any = {
@@ -168,6 +189,18 @@ export class PaymentService {
 
     getCollectionStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
         const route: string = routes.collectionStats(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getTotalGroupPayments(groupId: number, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
+        const route: string = routes.totalGroupPayments(this._workspaceId, groupId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
         if(!!rangeField) params = params.append('rangeField', rangeField);

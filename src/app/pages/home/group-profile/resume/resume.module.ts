@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { CardGroupPaymentReportsModule } from '@components/card-group-payment-reports/card-group-payment-reports.module';
 import { CardGroupRenewalReportsModule } from '@components/card-group-renewal-reports/card-group-renewal-reports.module';
 import { CardGroupWalletGlobalModule } from '@components/card-group-wallet-global/card-group-wallet-global.module';
 import { ChartGroupActiveCoveragesModule } from '@components/chart-group-active-coverages/chart-group-active-coverages.module';
@@ -19,6 +20,7 @@ import { ResumePage } from './resume.page';
     ResumePage
   ],
   imports: [
+    CardGroupPaymentReportsModule,
     CardGroupRenewalReportsModule,
     CardGroupWalletGlobalModule,
     ChartGroupActiveCoveragesModule,
