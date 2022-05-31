@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ModalCreateGroupService } from './modal-create-group.service';
@@ -60,9 +59,9 @@ export class ModalCreateGroupComponent implements OnInit {
         if(this.model.form.valid) {
             this._loadingService.show();
             ModalPlugin.hide(this.modalId);
-            this.model.checkHasCoincidences().subscribe((res: HttpResponse) => {
+            this.model.checkHasCoincidences().subscribe((hasCoincidences: boolean) => {
                 this._loadingService.hide();
-                if(res.data == true) {
+                if(hasCoincidences == true) {
                     this.hasCoincidences.emit(this.model.f.name.value);
                 } else {
                     this.canCreateGroup.emit(this.model.f.name.value);
@@ -84,42 +83,4 @@ export class ModalCreateGroupComponent implements OnInit {
         this._isFormSubmitted = false;
         this.model.form.reset();
     }
-
-    /*createGroup(): void {
-        this._isFormSubmitted = true;
-        if(this.model.form.valid) {
-            this._loadingService.show();
-            ModalPlugin.hide(this.modalId);
-            this.model.createGroup().subscribe(() => {
-                this._reloadPage();
-                this._loadingService.hide();
-                AlertHelper.groupCreated();
-            }, (error: HttpError) => {
-                ModalPlugin.hide(this.modalId);
-                switch(error.error) {
-                    case ERROR_CODES.groupHasCoincidences:
-                        this.hasCoincidences.emit();
-                        break;
-                }
-            });
-        }
-    }
-
-    private _catchQueryParams(): void {
-        this._activatedRoute.queryParams.subscribe(params => {
-            this._contentSubtype = params.contentSubtype || '';
-        })
-    }
-
-    private _reloadPage(): void {
-        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this._router.onSameUrlNavigation = 'reload';
-        const url: string = this._router.url.split('?')[0] ;
-        if(!!this._contentSubtype) {
-            this._router.navigate([url], { relativeTo: this._activatedRoute, queryParams: { contentSubtype: this._contentSubtype } } );
-        } else {
-            this._router.navigate([url], { relativeTo: this._activatedRoute } );
-        }
-    }*/
-
 }

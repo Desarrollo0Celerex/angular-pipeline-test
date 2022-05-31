@@ -110,6 +110,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static groupUpdated(): void {
+        const alertData: Alert = {
+            title: 'Grupo Actualizado',
+            text: 'El grupo ha sido actualizado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static invalidAuthToken(): void {
         const alertData: Alert = {
             title: 'Error',

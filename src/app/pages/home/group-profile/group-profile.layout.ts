@@ -17,7 +17,9 @@ declare var ModalPlugin: any;
 export class GroupProfileLayout implements OnInit, OnDestroy {
     ROUTES_NAME: any = ROUTES_NAME;
     groupId: string = '';
-    modalIdSearchClient: string = 'agt-search-client';
+    modalIdSearchClient: string = 'gp-modal-client';
+    modalIdShowGroupDetails: string = 'gp-modal-show-group-details';
+    modalIdUpdateGroup: string = 'gp-modal-update-group';
     private _subParams: any;
 
     constructor(
@@ -37,8 +39,20 @@ export class GroupProfileLayout implements OnInit, OnDestroy {
         return this._groupProfileService;
     }
 
+    showModalGroupDetails(): void {
+        ModalPlugin.show(this.modalIdShowGroupDetails);
+    }
+
     showModalToSeachClient(): void {
         ModalPlugin.show(this.modalIdSearchClient);
+    }
+
+    showModalUpdateGroup(): void {
+        ModalPlugin.show(this.modalIdUpdateGroup);
+    }
+
+    updateGroupName(name: string): void {
+        this.model.group!.name = name;
     }
 
     /**
