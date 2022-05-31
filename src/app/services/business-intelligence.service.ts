@@ -9,13 +9,14 @@ import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     addedEndorsements: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/added-endorsements',
+    groupWalletDecrease: (workspaceId: string, groupId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/business-intelligences/wallet-decrease',
     lastPercentageIncrease: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/last-percentage-increase',
     latePayments: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/late-payments',
-    reportedSinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/reported-sinisters',
     partnerAppliedPayments: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/applied-payments',
     partnerAppliedRenewals: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/applied-renewals',
     partnerCancelledPolicies: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/cancelled-policies',
     partnerWalletDecrease: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/business-intelligences/wallet-decrease',
+    reportedSinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/reported-sinisters',
 }
 
 @Injectable()
@@ -29,6 +30,15 @@ export class BusinessIntelligenceService {
 
     getAddedEndorsements(contactId: string, policyId: string): Observable<number> {
         const route: string = routes.addedEndorsements(this._workspaceId, contactId, policyId);
+        return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => {
+                return res.data;
+            })
+        );
+    }
+
+    getGroupWalletDecreaseRate(groupId: string): Observable<number> {
+        const route: string = routes.groupWalletDecrease(this._workspaceId, groupId);
         return this._httpClient.get<HttpResponse>(route).pipe(
             map((res: HttpResponse) => {
                 return res.data;
