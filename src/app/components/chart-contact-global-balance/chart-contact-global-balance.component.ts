@@ -1,21 +1,21 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { CardGlobalBalanceService } from './card-global-balance.service';
+import { ChartContactGlobalBalanceService } from './chart-contact-global-balance.service';
 
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-card-global-balance',
-  templateUrl: './card-global-balance.component.html',
+  selector: 'agt-chart-contact-global-balance',
+  templateUrl: './chart-contact-global-balance.component.html',
   styles: [
   ],
-  providers: [CardGlobalBalanceService]
+  providers: [ChartContactGlobalBalanceService]
 })
-export class CardGlobalBalanceComponent implements OnChanges {
+export class ChartContactGlobalBalanceComponent implements OnChanges {
     @Input() contactId: string = '';
     canShowChart: boolean = false;
 
-    constructor(public cardGlobalBalanceService: CardGlobalBalanceService) { }
+    constructor(public cardGlobalBalanceService: ChartContactGlobalBalanceService) { }
 
     ngOnInit(): void {
     }

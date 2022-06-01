@@ -4,15 +4,15 @@ import { CommonModule } from '@angular/common';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { PolicyService } from '@services/policy.service';
 
-import { CardActiveCoveragesComponent } from './card-active-coverages.component';
+import { ChartContactPreferredInsurersComponent } from './chart-contact-preferred-insurers.component';
 
 @NgModule({
-  declarations: [CardActiveCoveragesComponent],
-  exports: [CardActiveCoveragesComponent],
+  declarations: [ChartContactPreferredInsurersComponent],
+  exports: [ChartContactPreferredInsurersComponent],
   imports: [
     CommonModule,
     LoadingContentModule
   ],
   providers: [PolicyService]
 })
-export class CardActiveCoveragesModule { }
+export class ChartContactPreferredInsurersModule { }

@@ -6,7 +6,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContactService } from '@services/contact.service';
 
 @Injectable()
-export class CardWalletProjectionService {
+export class ChartContactWalletProjectionService {
     chartData: any = [['AÑO', 'Prima Anual']];
 
     constructor(private _contactService: ContactService) { }

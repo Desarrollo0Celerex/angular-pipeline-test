@@ -1,21 +1,21 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { CardWalletProjectionService } from './card-wallet-projection.service';
+import { ChartContactWalletProjectionService } from './chart-contact-wallet-projection.service';
 
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-card-wallet-projection',
-  templateUrl: './card-wallet-projection.component.html',
+  selector: 'agt-chart-contact-wallet-projection',
+  templateUrl: './chart-contact-wallet-projection.component.html',
   styles: [
   ],
-  providers: [CardWalletProjectionService]
+  providers: [ChartContactWalletProjectionService]
 })
-export class CardWalletProjectionComponent implements OnChanges {
+export class ChartContactWalletProjectionComponent implements OnChanges {
     @Input() contactId: string = '';
     canShowChart: boolean = false;
 
-    constructor(public cardWalletProjectionService: CardWalletProjectionService) { }
+    constructor(public cardWalletProjectionService: ChartContactWalletProjectionService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.contactId && changes.contactId.currentValue) {
