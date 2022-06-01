@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ChartContactActiveCoveragesModule } from '@components/chart-contact-active-coverages/chart-contact-active-coverages.module';
 import { CardContactConversionRateModule } from '@components/card-contact-conversion-rate/card-contact-conversion-rate.module';
 import { CardContactProtectionRateModule } from '@components/card-contact-protection-rate/card-contact-protection-rate.module';
+import { CardContactPaymentReportsModule } from '@components/card-contact-payment-reports/card-contact-payment-reports.module';
 import { CardContactRenewalReportsModule } from '@components/card-contact-renewal-reports/card-contact-renewal-reports.module';
 import { ChartContactGlobalBalanceModule } from '@components/chart-contact-global-balance/chart-contact-global-balance.module';
 import { ChartContactPaymentProgressModule } from '@components/chart-contact-payment-progress/chart-contact-payment-progress.module';
@@ -25,6 +26,7 @@ import { ResumeService } from './resume.service';
     ChartContactActiveCoveragesModule,
     CardContactConversionRateModule,
     CardContactProtectionRateModule,
+    CardContactPaymentReportsModule,
     CardContactRenewalReportsModule,
     ChartContactGlobalBalanceModule,
     ChartContactPaymentProgressModule,
