@@ -7,8 +7,9 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
-    groupPaymentStatistics: (workspaceId: string, groupId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/statistics/payments',
-    groupRenewalStatistics: (workspaceId: string, groupId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/statistics/renewals',
+    contactRenewalStatistics: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/statistics/renewals',
+    groupPaymentStatistics: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/statistics/payments',
+    groupRenewalStatistics: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/statistics/renewals',
     partnerPaymentStatistics: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/statistics/payments',
     partnerRenewalStatistics: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/statistics/renewals',
     policyEndorsementStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/endorsements',
@@ -28,6 +29,16 @@ export class StatisticService {
         private _httpClient: HttpClient,
         private _authService: AuthService
     ) { }
+
+    getContactRenewalStatistics(contactId: string, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactRenewalStatistics(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
 
     getGroupPaymentStatistics(groupId: string, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
         const route: string = routes.groupPaymentStatistics(this._workspaceId, groupId);

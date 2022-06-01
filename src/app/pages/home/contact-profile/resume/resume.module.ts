@@ -9,6 +9,7 @@ import { CardPreferredInsurersModule } from '@components/card-preferred-insurers
 import { CardWalletGlobalModule } from '@components/card-wallet-global/card-wallet-global.module';
 import { CardWalletProjectionModule } from '@components/card-wallet-projection/card-wallet-projection.module';
 import { CardContactSinistersRateModule } from '@components/card-contact-sinisters-rate/card-contact-sinisters-rate.module';
+import { ChartContactRenewalProgressModule } from '@components/chart-contact-renewal-progress/chart-contact-renewal-progress.module';
 import { ModalContactSavedModule } from '@components/modal-contact-saved/modal-contact-saved.module';
 import { QuotationService } from '@services/quotation.service';
 
@@ -27,6 +28,7 @@ import { ResumeService } from './resume.service';
     CardWalletGlobalModule,
     CardWalletProjectionModule,
     CardContactSinistersRateModule,
+    ChartContactRenewalProgressModule,
     CommonModule,
     ModalContactSavedModule,
     ResumeRoutingModule
