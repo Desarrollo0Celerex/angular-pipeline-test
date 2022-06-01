@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AlertContactUnusualWalletDecreaseModule } from '@components/alert-contact-unusual-wallet-decrease/alert-contact-unusual-wallet-decrease.module';
 import { ChartContactActiveCoveragesModule } from '@components/chart-contact-active-coverages/chart-contact-active-coverages.module';
 import { CardContactConversionRateModule } from '@components/card-contact-conversion-rate/card-contact-conversion-rate.module';
 import { CardContactProtectionRateModule } from '@components/card-contact-protection-rate/card-contact-protection-rate.module';
@@ -23,6 +24,7 @@ import { ResumeService } from './resume.service';
 @NgModule({
   declarations: [ResumePage],
   imports: [
+    AlertContactUnusualWalletDecreaseModule,
     ChartContactActiveCoveragesModule,
     CardContactConversionRateModule,
     CardContactProtectionRateModule,

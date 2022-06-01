@@ -1,5 +1,17 @@
 <!-- AGENTHOS - PROFILE KPIS -->
-<div class="row mt-5">
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Resumen del Contacto</h3>
+            </div>
+        </div>
+    </div>
+
+    <agt-alert-contact-unusual-wallet-decrease
+        [ngStyle]="{'width': '100%'}"
+        [contactId]="contactId"
+    ></agt-alert-contact-unusual-wallet-decrease>
     <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
         <agt-chart-contact-wallet-projection [contactId]="contactId"></agt-chart-contact-wallet-projection>
     </div>
