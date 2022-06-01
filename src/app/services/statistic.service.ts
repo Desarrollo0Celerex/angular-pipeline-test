@@ -7,6 +7,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
+    contactPaymentStatistics: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/statistics/payments',
     contactRenewalStatistics: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/statistics/renewals',
     groupPaymentStatistics: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/statistics/payments',
     groupRenewalStatistics: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/statistics/renewals',
@@ -29,6 +30,16 @@ export class StatisticService {
         private _httpClient: HttpClient,
         private _authService: AuthService
     ) { }
+
+    getContactPaymentStatistics(contactId: string, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactPaymentStatistics(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
 
     getContactRenewalStatistics(contactId: string, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
         const route: string = routes.contactRenewalStatistics(this._workspaceId, contactId);

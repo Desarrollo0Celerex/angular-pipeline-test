@@ -6,6 +6,7 @@ import { CardContactConversionRateModule } from '@components/card-contact-conver
 import { CardContactProtectionRateModule } from '@components/card-contact-protection-rate/card-contact-protection-rate.module';
 import { CardContactRenewalReportsModule } from '@components/card-contact-renewal-reports/card-contact-renewal-reports.module';
 import { ChartContactGlobalBalanceModule } from '@components/chart-contact-global-balance/chart-contact-global-balance.module';
+import { ChartContactPaymentProgressModule } from '@components/chart-contact-payment-progress/chart-contact-payment-progress.module';
 import { ChartContactPreferredInsurersModule } from '@components/chart-contact-preferred-insurers/chart-contact-preferred-insurers.module';
 import { CardWalletGlobalModule } from '@components/card-wallet-global/card-wallet-global.module';
 import { ChartContactWalletProjectionModule } from '@components/chart-contact-wallet-projection/chart-contact-wallet-projection.module';
@@ -26,6 +27,7 @@ import { ResumeService } from './resume.service';
     CardContactProtectionRateModule,
     CardContactRenewalReportsModule,
     ChartContactGlobalBalanceModule,
+    ChartContactPaymentProgressModule,
     ChartContactPreferredInsurersModule,
     CardWalletGlobalModule,
     ChartContactWalletProjectionModule,
