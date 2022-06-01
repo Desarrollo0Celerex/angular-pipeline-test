@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AlertContactUnusualAppliedPaymentsModule } from '@components/alert-contact-unusual-applied-payments/alert-contact-unusual-applied-payments.module';
 import { AlertContactUnusualAppliedRenewalsModule } from '@components/alert-contact-unusual-applied-renewals/alert-contact-unusual-applied-renewals.module';
 import { AlertContactUnusualCancelledPoliciesModule } from '@components/alert-contact-unusual-cancelled-policies/alert-contact-unusual-cancelled-policies.module';
 import { AlertContactUnusualWalletDecreaseModule } from '@components/alert-contact-unusual-wallet-decrease/alert-contact-unusual-wallet-decrease.module';
@@ -26,6 +27,7 @@ import { ResumeService } from './resume.service';
 @NgModule({
   declarations: [ResumePage],
   imports: [
+    AlertContactUnusualAppliedPaymentsModule,
     AlertContactUnusualAppliedRenewalsModule,
     AlertContactUnusualCancelledPoliciesModule,
     AlertContactUnusualWalletDecreaseModule,
