@@ -2,49 +2,49 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { LoadingService } from '@services/loading.service';
 
-import { CardPartnerRenewalReportsService } from './card-partner-renewal-reports.service';
+import { CardContactRenewalReportsService } from './card-contact-renewal-reports.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-card-partner-renewal-reports',
-  templateUrl: './card-partner-renewal-reports.component.html',
+  selector: 'agt-card-contact-renewal-reports',
+  templateUrl: './card-contact-renewal-reports.component.html',
   styles: [
   ],
-  providers: [CardPartnerRenewalReportsService]
+  providers: [CardContactRenewalReportsService]
 })
-export class CardPartnerRenewalReportsComponent implements OnChanges {
-    @Input() partnerId: number = 0;
+export class CardContactRenewalReportsComponent implements OnChanges {
+    @Input() contactId: string = '';
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
     modalIdSelectReportFormat: string = 'cprr-modal-select-report-format';
 
     constructor(
-        public model: CardPartnerRenewalReportsService,
+        public model: CardContactRenewalReportsService,
         private _loadingService: LoadingService
     ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.partnerId && changes.partnerId.currentValue) {
-            this.model.loadTotalRenewals(changes.partnerId.currentValue, this.rangeStart, this.rangeEnd)
+        if(!!changes.contactId && changes.contactId.currentValue) {
+            this.model.loadTotalRenewals(changes.contactId.currentValue, this.rangeStart, this.rangeEnd)
         }
     }
-    
+
     get canDownloadReport(): boolean {
         let canDownloadReport: boolean = true;
         switch(this.model.selectedReportType) {
             case this.model.REPORT_TYPES.APPLIED_RENEWALS:
-                canDownloadReport = (this.model.totalPartnerAppliedRenewals === 0) ? false : true;
+                canDownloadReport = (this.model.totalContactAppliedRenewals === 0) ? false : true;
             break;
             case this.model.REPORT_TYPES.PENDING_RENEWALS:
-                canDownloadReport = (this.model.totalPartnerPendingRenewals === 0) ? false : true;
+                canDownloadReport = (this.model.totalContactPendingRenewals === 0) ? false : true;
             break;
         }
         return canDownloadReport;
     }
 
     get contentTypeName(): string {
-        return (this.totalPartnerRenewals === 1) ? 'Póliza' : 'Pólizas';
+        return (this.totalContactRenewals === 1) ? 'Póliza' : 'Pólizas';
     }
 
     get description(): string {
@@ -52,12 +52,12 @@ export class CardPartnerRenewalReportsComponent implements OnChanges {
         let label: string = '';
         switch(this.model.selectedReportType) {
             case this.model.REPORT_TYPES.APPLIED_RENEWALS:
-                label = (this.model.totalPartnerAppliedRenewals === 1) ? 'Renovación Aplicada' : 'Renovaciones Aplicadas';
-                description = this.model.totalPartnerAppliedRenewals + ' ' + label;
+                label = (this.model.totalContactAppliedRenewals === 1) ? 'Renovación Aplicada' : 'Renovaciones Aplicadas';
+                description = this.model.totalContactAppliedRenewals + ' ' + label;
             break;
             case this.model.REPORT_TYPES.PENDING_RENEWALS:
-                label = (this.model.totalPartnerPendingRenewals === 1) ? 'Renovación Pendiente' : 'Renovaciones Pendientes';
-                description = this.model.totalPartnerPendingRenewals + ' ' + label;
+                label = (this.model.totalContactPendingRenewals === 1) ? 'Renovación Pendiente' : 'Renovaciones Pendientes';
+                description = this.model.totalContactPendingRenewals + ' ' + label;
             break;
         }
         return description;
@@ -76,13 +76,13 @@ export class CardPartnerRenewalReportsComponent implements OnChanges {
         return title;
     }
 
-    get totalPartnerRenewals(): number {
-        return this.model.totalPartnerAppliedRenewals + this.model.totalPartnerPendingRenewals;
+    get totalContactRenewals(): number {
+        return this.model.totalContactAppliedRenewals + this.model.totalContactPendingRenewals;
     }
 
     downloadReport(formatType: number): void {
         this._loadingService.show();
-        this.model.downloadReport(this.partnerId, this.rangeStart, this.rangeEnd, formatType).then(() => {
+        this.model.downloadReport(this.contactId, this.rangeStart, this.rangeEnd, formatType).then(() => {
             this._loadingService.hide();
         });
     }
@@ -94,5 +94,4 @@ export class CardPartnerRenewalReportsComponent implements OnChanges {
     showModalToSelectReportFormat(): void {
         ModalPlugin.show(this.modalIdSelectReportFormat);
     }
-
 }
