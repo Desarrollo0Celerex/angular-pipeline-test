@@ -16,6 +16,13 @@
         [ngStyle]="{'width': '100%'}"
         [contactId]="contactId"
     ></agt-alert-contact-unusual-cancelled-policies>
+    <agt-alert-contact-unusual-applied-renewals
+        [ngStyle]="{'width': '100%'}"
+        [contactId]="contactId"
+        [rangeStart]="rangeStart"
+        [rangeEnd]="rangeEnd"
+    ></agt-alert-contact-unusual-applied-renewals>
+
     <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
         <agt-chart-contact-wallet-projection [contactId]="contactId"></agt-chart-contact-wallet-projection>
     </div>

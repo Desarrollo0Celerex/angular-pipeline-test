@@ -9,6 +9,7 @@ import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     addedEndorsements: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/business-intelligences/added-endorsements',
+    contactAppliedRenewals: (workspaceId: string, contactId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/business-intelligences/applied-renewals',
     contactCancelledPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/business-intelligences/cancelled-policies',
     contactWalletDecrease: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/business-intelligences/wallet-decrease',
     groupAppliedPayments: (workspaceId: string, groupId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/business-intelligences/applied-payments',
@@ -36,6 +37,18 @@ export class BusinessIntelligenceService {
     getAddedEndorsements(contactId: string, policyId: string): Observable<number> {
         const route: string = routes.addedEndorsements(this._workspaceId, contactId, policyId);
         return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => {
+                return res.data;
+            })
+        );
+    }
+
+    getContactAppliedRenewalsRate(contactId: string, rangeStart: string, rangeEnd: string): Observable<number> {
+        const route: string = routes.contactAppliedRenewals(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map((res: HttpResponse) => {
                 return res.data;
             })
