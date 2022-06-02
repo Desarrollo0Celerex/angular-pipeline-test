@@ -14,7 +14,7 @@ import { ChartContactGlobalBalanceModule } from '@components/chart-contact-globa
 import { ChartContactPaymentProgressModule } from '@components/chart-contact-payment-progress/chart-contact-payment-progress.module';
 import { ChartContactPreferredInsurersModule } from '@components/chart-contact-preferred-insurers/chart-contact-preferred-insurers.module';
 import { CardWalletGlobalModule } from '@components/card-wallet-global/card-wallet-global.module';
-import { ChartContactWalletProjectionModule } from '@components/chart-contact-wallet-projection/chart-contact-wallet-projection.module';
+import { ChartContactWalletProjectionAuxModule } from '@components/chart-contact-wallet-projection-aux/chart-contact-wallet-projection-aux.module';
 import { CardContactSinistersRateModule } from '@components/card-contact-sinisters-rate/card-contact-sinisters-rate.module';
 import { ChartContactRenewalProgressModule } from '@components/chart-contact-renewal-progress/chart-contact-renewal-progress.module';
 import { ModalContactSavedModule } from '@components/modal-contact-saved/modal-contact-saved.module';
@@ -40,7 +40,7 @@ import { ResumeService } from './resume.service';
     ChartContactPaymentProgressModule,
     ChartContactPreferredInsurersModule,
     CardWalletGlobalModule,
-    ChartContactWalletProjectionModule,
+    ChartContactWalletProjectionAuxModule,
     CardContactSinistersRateModule,
     ChartContactRenewalProgressModule,
     CommonModule,
