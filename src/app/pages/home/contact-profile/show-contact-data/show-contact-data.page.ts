@@ -24,7 +24,6 @@ export class ShowContactDataPage implements OnInit {
     BUTTON_TYPES: any = BUTTON_TYPES;
     CONTACT_TYPES: any = CONTACT_TYPES;
     calendarIdBirthdate: string = 'birthdate';
-    canEdit: boolean = false;
     contactId: string = '';
     modalIdIncompleteContactData: string = 'agt-incomplete-contact-data';
     modalIdSelectContactSource: string = 'agt-select-contact-source';
@@ -67,14 +66,6 @@ export class ShowContactDataPage implements OnInit {
     }
 
     /**
-     * Click event to enable the fields of the contact form
-     */
-    onClickEditContact(): void {
-        this.canEdit = true;
-        this.showContactDataService.enableFormFields();
-    }
-
-    /**
      * Event to catch the action failed
      */
     onContactActionFailed(): void {
@@ -106,7 +97,7 @@ export class ShowContactDataPage implements OnInit {
             this._loadingService.show();
             this.showContactDataService.updateContact(this.contactId).subscribe( () => {
                 this._loadingService.hide();
-                AlertHelper.contactUpdated(this._disabledContactForm, this);
+                AlertHelper.contactUpdated();
             })
         }
     }
@@ -134,15 +125,6 @@ export class ShowContactDataPage implements OnInit {
     }
 
     /**
-     * Disabled the contact form
-     * @param context The app context
-     */
-    private _disabledContactForm(context: ShowContactDataPage): void {
-        context.canEdit = false;
-        context.showContactDataService.desableFormFields();
-    }
-
-    /**
      * Initialize the calendars
      */
     private _initCalendars(): void {
@@ -162,7 +144,6 @@ export class ShowContactDataPage implements OnInit {
                 this.showContactDataService.buildCompanyForm();
             }
             this._initCalendars();
-            this.showContactDataService.desableFormFields();
             this.showContactDataService.loadGenders()
             this.showContactDataService.loadOffsprings();
             this.showContactDataService.loadCivilStatus();

@@ -34,16 +34,16 @@ export class ContactProfilePage implements OnInit {
 
     }
 
+    goToUpdateContact(): void {
+        this._router.navigateByUrl(ROUTES_NAME.showContactData(this.contactId))
+    }
+
     showModalConfirmDeleteContact(): void {
 
     }
 
     showModalContactDetails(): void {
         ModalPlugin.show(this.modalIdShowContactDetails);
-    }
-
-    showModalUpdateContact(): void {
-
     }
 
     /**
