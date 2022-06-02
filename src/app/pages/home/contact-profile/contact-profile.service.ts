@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { CONTACT_PROFILE_PAGE_TYPES } from '@constants/global';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -11,6 +12,10 @@ export class ContactProfileService {
     contact: Contact | null = null;
 
     constructor(private _contactService: ContactService) { }
+
+    deleteContact(contactId: string): Observable<void> {
+        return this._contactService.deleteContact(contactId);
+    }
 
     /**
      * Get the page type
@@ -43,7 +48,7 @@ export class ContactProfileService {
      * @param contactId The contact ID
      */
     loadContact(contactId: string): void {
-        const fields: string = 'contactId,avatarUrl,contactName,contactSourceName,contactSourceTypeName,phoneCode,phoneNumber,currencyName,totalActivePolicies,totalOpenSinisters,contactScoreName,totalGlobalWallet,totalGlobalWalletPaid,createdAt,createdByName';
+        const fields: string = 'contactId,avatarUrl,contactName,contactSourceName,contactSourceTypeName,phoneCode,phoneNumber,currencyName,totalActivePolicies,totalOpenSinisters,contactScoreName,totalGlobalWallet,totalGlobalWalletPaid,createdAt,createdByName,leadStatusId,clientStatusId';
         this._contactService.getContact(contactId, fields).subscribe( (res: HttpResponse) => {
             this.contact = res.data;
         });

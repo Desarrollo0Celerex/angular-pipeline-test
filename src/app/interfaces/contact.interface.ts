@@ -59,4 +59,6 @@ export interface Contact {
     workspaceCountryId: number,
     createdAt: string,
     createdByName: string,
+    leadStatusId: number,
+    clientStatusId: number,
 }
