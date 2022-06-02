@@ -1,21 +1,21 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { CardPreferredInsurersService } from './card-preferred-insurers.service';
+import { ChartContactPreferredInsurersService } from './chart-contact-preferred-insurers.service';
 
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-card-preferred-insurers',
-  templateUrl: './card-preferred-insurers.component.html',
+  selector: 'agt-chart-contact-preferred-insurers',
+  templateUrl: './chart-contact-preferred-insurers.component.html',
   styles: [
   ],
-  providers: [CardPreferredInsurersService]
+  providers: [ChartContactPreferredInsurersService]
 })
-export class CardPreferredInsurersComponent implements OnChanges {
+export class ChartContactPreferredInsurersComponent implements OnChanges {
     @Input() contactId: string = '';
     canShowChart: boolean = false;
 
-    constructor(public cardPreferredInsurersService: CardPreferredInsurersService) { }
+    constructor(public cardPreferredInsurersService: ChartContactPreferredInsurersService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.contactId && changes.contactId.currentValue) {

@@ -33,6 +33,8 @@ const routes: any = {
     contactHistoryPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/history',
     policies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies',
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
+    totalContactAppliedRenewals: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/applied-renewals/count',
+    totalContactPendingRenewals: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/pending-renewals/count',
     totalContactPolicies: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/count',
     totalGroupAppliedRenewals: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/applied-renewals/count',
     totalGroupPendingRenewals: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/pending-renewals/count',
@@ -70,6 +72,8 @@ const routes: any = {
     workspaceActivePoliciesReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/reports/actives',
     workspacePolicyStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/stats',
     workspacePolicy: (workspaceId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/policies/' + policyId,
+    reportContactAppliedRenewals: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/applied-renewals/report',
+    reportContactPendingRenewals: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/pending-renewals/report',
     reportGroupAppliedRenewals: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/applied-renewals/report',
     reportGroupPendingRenewals: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/pending-renewals/report',
     reportPartnerAppliedRenewals: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/applied-renewals/report',
@@ -178,6 +182,44 @@ export class PolicyService {
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         if(!!formatType) params = params.append('formatType', formatType);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
+    }
+
+    downloadReportContactAppliedRenewals(contactId: string, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', formatType: number, sortBy: string = '-createdAt') {
+        const route: string = routes.reportContactAppliedRenewals(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!formatType) params = params.append('formatType', formatType);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
+    }
+
+    downloadReportContactPendingRenewals(contactId: string, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', formatType: number, sortBy: string = '-createdAt') {
+        const route: string = routes.reportContactPendingRenewals(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!formatType) params = params.append('formatType', formatType);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
         params.append('observe', 'response');
         params.append('responseType', 'arraybuffer');
         const fileParams: any = {
@@ -721,6 +763,26 @@ export class PolicyService {
     getPolicyTrackerAmounts(contactId: string, policyId: string): Observable<HttpResponse> {
         const route: string = routes.policyTrackerAmounts(this._workspaceId, contactId, policyId);
         return this._httpClient.get<HttpResponse>(route);
+    }
+
+    getTotalContactAppliedRenewals(contactId: string, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
+        const route: string = routes.totalContactAppliedRenewals(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    getTotalContactPendingRenewals(contactId: string, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
+        const route: string = routes.totalContactPendingRenewals(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params});
     }
 
     /**

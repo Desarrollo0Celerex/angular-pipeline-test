@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ContactService } from '@services/contact.service';
 
-import { CardGlobalBalanceComponent } from './card-global-balance.component';
+import { ChartContactGlobalBalanceComponent } from './chart-contact-global-balance.component';
 
 @NgModule({
-  declarations: [CardGlobalBalanceComponent],
-  exports: [CardGlobalBalanceComponent],
+  declarations: [ChartContactGlobalBalanceComponent],
+  exports: [ChartContactGlobalBalanceComponent],
   imports: [
     CommonModule,
     LoadingContentModule
@@ -17,4 +17,4 @@ import { CardGlobalBalanceComponent } from './card-global-balance.component';
       ContactService
   ]
 })
-export class CardGlobalBalanceModule { }
+export class ChartContactGlobalBalanceModule { }

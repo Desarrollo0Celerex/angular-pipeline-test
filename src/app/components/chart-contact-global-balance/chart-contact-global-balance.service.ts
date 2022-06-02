@@ -5,7 +5,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContactService } from '@services/contact.service';
 
 @Injectable()
-export class CardGlobalBalanceService {
+export class ChartContactGlobalBalanceService {
     chartData: any[] = [['Task', 'Balance']];
 
     constructor(private _contactService: ContactService) { }

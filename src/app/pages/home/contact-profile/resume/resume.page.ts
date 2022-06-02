@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 
@@ -19,6 +20,8 @@ export class ResumePage implements OnInit, OnDestroy {
     contactId: string;
     modalIdContactSaved: string;
     paramsSub: any | null = null;
+    rangeStart: string = moment().subtract(60, 'day').format('DD/MM/YYYY');
+    rangeEnd: string = moment().add(30, 'day').format('DD/MM/YYYY');
 
     constructor(
         public resumeService: ResumeService,

@@ -1,0 +1,15 @@
+<div class="card">
+	<div class="card-header pt-2 pb-0 border-bottom-0">
+		<h3 class="card-title">Progreso de Renovación</h3>
+		<div class="card-options">
+			<i data-toggle="popover" data-placement="left" class="fe fe-help-circle fs-20 text-primary" data-content="Progreso de renovación del contacto." data-original-title="" title=""></i>
+		</div>
+	</div>
+    <div class="card-body text-center">
+        <div id="agt-renewal-progress"></div>
+        <agt-loading-content
+			[isLoadingContent]="!canShowChart"
+			[height]="118"
+		></agt-loading-content>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="col-12" *ngIf="model.walletDecreaseRate > 0">
+    <div class="alert alert-avatar alert-primary alert-dismissible mb-3">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <strong>Business Intelligence</strong> <hr class="message-inner-separator">
+        <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
+        <p><strong>Alerta:</strong> El contacto presenta un decremento inesperado del <strong>{{model.walletDecreaseRate}}%</strong> en su prima global, considera revisar las pólizas del contacto.</p>
+    </div>
+</div>
