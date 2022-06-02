@@ -5,6 +5,8 @@ import { ROUTES_NAME } from '@constants/routes-name';
 
 import { ContactProfileService } from './contact-profile.service';
 
+declare var ModalPlugin: any;
+
 @Component({
   selector: 'agt-contact-profile',
   templateUrl: './contact-profile.page.html',
@@ -15,6 +17,7 @@ import { ContactProfileService } from './contact-profile.service';
 export class ContactProfilePage implements OnInit {
     ROUTES_NAME: any = ROUTES_NAME;
     contactId: string = '';
+    modalIdShowContactDetails: string = 'cp-modal-show-contact-details';
     pageType: number = 0;
 
     constructor(
@@ -25,6 +28,22 @@ export class ContactProfilePage implements OnInit {
 
     ngOnInit(): void {
         this._catchParams();
+    }
+
+    goToSelectInsurer(): void {
+
+    }
+
+    showModalConfirmDeleteContact(): void {
+
+    }
+
+    showModalContactDetails(): void {
+        ModalPlugin.show(this.modalIdShowContactDetails);
+    }
+
+    showModalUpdateContact(): void {
+
     }
 
     /**

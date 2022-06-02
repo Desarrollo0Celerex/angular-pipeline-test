@@ -5,9 +5,25 @@
         <div class="card ">
             <div class="card-header pt-0 pb-0 border-bottom-0">
                 <h3 class="card-title">Perfil de Contacto</h3>
+                <!-- AGENTHOS - PARTNER MENU -->
                 <div class="card-options">
-                    <i class="fe fe-user mr-1 text-primary fs-30"></i>
+                    <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                        <span class="fa fa-bars"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                        <div class="dropdown-plus-title">Acciones Disponibles</div>
+                        <!-- AGENTHOS - PARTNER DETAILS -->
+                        <button type="button" class="dropdown-item" (click)="showModalContactDetails()"><i class="fa fa-id-card-o mr-2"></i>Ver Detalles</button>
+                        <!-- AGENTHOS - PARTNER UPDATE -->
+                        <button type="button" class="dropdown-item" (click)="showModalUpdateContact()"><i class="fa fa-edit mr-2"></i>Actualizar Socio</button>
+                        <!-- AGENTHOS - PARTNER ADD MEMBER -->
+                        <button type="button" class="dropdown-item" (click)="goToSelectInsurer()"><i class="fa fa-file-text-o mr-2"></i>Agregar Póliza</button>
+                        <div class="dropdown-divider"></div>
+                        <!-- AGENTHOS - PARTNER DELETE -->
+                        <button type="button" class="dropdown-item" (click)="showModalConfirmDeleteContact()"><i class="fa fa-exclamation-circle mr-2"></i>Eliminar Socio</button>
+                    </div>
                 </div>
+                <!-- //AGENTHOS - PARTNER MENU -->
             </div>
             <!-- AGENTHOS - PROFILE RESUME -->
             <div class="card-body pt-0">
@@ -83,3 +99,8 @@
 <!-- //AGENTHOS - PROFILE PANEL -->
 
 <router-outlet></router-outlet>
+
+<agt-modal-show-contact-details
+    [modalId]="modalIdShowContactDetails"
+    [contact]="contactProfileService.contact"
+></agt-modal-show-contact-details>

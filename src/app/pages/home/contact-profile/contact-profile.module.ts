@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CardContactAnnualWalletModule } from '@components/card-contact-annual-wallet/card-contact-annual-wallet.module'
+import { ModalShowContactDetailsModule } from '@components/modal-show-contact-details/modal-show-contact-details.module'
 import { PhoneNumberFormatModule } from '@pipes/phone-number-format/phone-number-format.module';
 import { ContactService } from '@services/contact.service';
 
@@ -14,6 +15,7 @@ import { ContactProfilePage } from './contact-profile.page';
     CardContactAnnualWalletModule,
     CommonModule,
     ContactProfileRoutingModule,
+    ModalShowContactDetailsModule,
     PhoneNumberFormatModule
   ],
   providers: [
