@@ -5,6 +5,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { Partner } from '@interfaces/partner.interface';
 
 declare var ModalPlugin: any;
+
 @Component({
   selector: 'agt-modal-show-partner-details',
   templateUrl: './modal-show-partner-details.component.html',

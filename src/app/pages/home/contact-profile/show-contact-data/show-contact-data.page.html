@@ -387,10 +387,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <button *ngIf="canEdit; else noEdit" type="submit" class="btn btn-block btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
-                                <ng-template #noEdit>
-                                    <button type="button" class="btn btn-block btn-primary" (click)="onClickEditContact()"><strong>ACTUALIZAR DATOS</strong></button>
-                                </ng-template>
+                                <button type="submit" class="btn btn-block btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
                             </div>
                         </div>
                     </div>

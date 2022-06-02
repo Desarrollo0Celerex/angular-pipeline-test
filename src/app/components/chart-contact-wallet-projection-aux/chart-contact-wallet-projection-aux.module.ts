@@ -4,21 +4,15 @@ import { CommonModule } from '@angular/common';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ContactService } from '@services/contact.service';
 
-import { ChartContactWalletProjectionComponent } from './chart-contact-wallet-projection.component';
+import { ChartContactWalletProjectionAuxComponent } from './chart-contact-wallet-projection-aux.component';
 
 @NgModule({
-  declarations: [
-    ChartContactWalletProjectionComponent
-  ],
-  exports: [
-      ChartContactWalletProjectionComponent
-  ],
+  declarations: [ChartContactWalletProjectionAuxComponent],
+  exports: [ChartContactWalletProjectionAuxComponent],
   imports: [
     CommonModule,
     LoadingContentModule
   ],
-  providers: [
-      ContactService
-  ]
+  providers: [ContactService]
 })
-export class ChartContactWalletProjectionModule { }
+export class ChartContactWalletProjectionAuxModule { }

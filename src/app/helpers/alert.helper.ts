@@ -14,14 +14,12 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
-    static contactUpdated(callBack: any, context: any): void {
+    static contactUpdated(): void {
         const alertData: Alert = {
             title: 'Contacto Actualizado',
             text: 'Los datos han sido actualizados con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR',
-            callBack: callBack,
-            context: context
+            confirmButtonText: 'CONTINUAR'
         }
         SweetAlertPlugin.showAlert(alertData);
     }

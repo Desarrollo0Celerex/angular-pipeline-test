@@ -19,6 +19,7 @@ export interface Contact {
     clientStatusBackground: string,
     totalAnnualWallet: number,
     totalGlobalWallet: number,
+    totalGlobalWalletPaid: number,
     totalActivePolicies: number,
     totalExpiredPolicies: number,
     totalCancelledPolicies: number,
@@ -55,5 +56,9 @@ export interface Contact {
     workspaceName: string,
     totalGlobalCurrentWallet: number,
     totalCurrentPolicies: number,
-    workspaceCountryId: number
+    workspaceCountryId: number,
+    createdAt: string,
+    createdByName: string,
+    leadStatusId: number,
+    clientStatusId: number,
 }

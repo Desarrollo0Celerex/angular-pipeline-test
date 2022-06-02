@@ -13,14 +13,18 @@ declare var ChartPlugin: any;
 })
 export class ChartContactWalletProjectionComponent implements OnChanges {
     @Input() contactId: string = '';
-    canShowChart: boolean = false;
 
-    constructor(public cardWalletProjectionService: ChartContactWalletProjectionService) { }
+    constructor(public model: ChartContactWalletProjectionService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.contactId && changes.contactId.currentValue) {
+            ChartPlugin.removeWalletProjection();
             this._loadChartData(changes.contactId.currentValue);
         }
+    }
+
+    get canShowChart(): boolean {
+        return (this.model.chartData !== null) ? true : false;
     }
 
     /**
@@ -28,9 +32,8 @@ export class ChartContactWalletProjectionComponent implements OnChanges {
      * @param contactId The contact ID
      */
     private _loadChartData(contactId: string): void {
-        this.cardWalletProjectionService.loadChartData(contactId).subscribe(() => {
-            this.canShowChart = true;
-            ChartPlugin.drawWalletProjection(this.cardWalletProjectionService.chartData);
+        this.model.loadChartData(contactId).subscribe(() => {
+            ChartPlugin.drawWalletProjection(this.model.chartData);
         })
     }
 }

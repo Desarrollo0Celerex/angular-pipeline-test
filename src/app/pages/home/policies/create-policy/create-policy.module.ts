@@ -8,7 +8,6 @@ import { PolicyService } from '@services/policy.service';
 
 import { CreatePolicyRoutingModule } from './create-policy-routing.module';
 import { CreatePolicyPage } from './create-policy.page';
-import { CreatePolicyService } from './create-policy.service';
 
 @NgModule({
   declarations: [CreatePolicyPage],
@@ -19,6 +18,6 @@ import { CreatePolicyService } from './create-policy.service';
     CreatePolicyRoutingModule,
     ModalGetPolicyDetailsModule
   ],
-  providers: [CreatePolicyService, PolicyService]
+  providers: [PolicyService]
 })
 export class CreatePolicyModule { }

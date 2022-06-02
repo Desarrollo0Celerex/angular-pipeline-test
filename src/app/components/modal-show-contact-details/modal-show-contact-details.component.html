@@ -1,0 +1,70 @@
+<div  class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- AGENTHOS - CARD DETAILS -->
+				<h5 class="modal-title">Detalles del Socio</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<ng-container *ngIf="!!contact">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-label">Prima Total ({{contact.currencyName}})</label>
+										<input type="text" class="form-control" placeholder="{{contact.totalGlobalWallet | currency: '': '$': '0.2-2'}}" readonly="">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-label">Prima Pagada</label>
+										<input type="text" class="form-control" placeholder="{{contact.totalGlobalWalletPaid | currency: '': '$': '0.2-2'}}" readonly="">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-label">Prima Pendiente</label>
+										<input type="text" class="form-control" placeholder="{{walletPending | currency: '': '$': '0.2-2'}}" readonly="">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="form-label">Pólizas Totales</label>
+										<input type="text" class="form-control" [placeholder]="contact.totalActivePolicies" readonly="">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="form-label">Siniestros Totales</label>
+										<input type="text" class="form-control" [placeholder]="contact.totalOpenSinisters" readonly="">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="form-label">Fecha Registro</label>
+										<input type="text" class="form-control" placeholder="{{contact.createdAt | date: 'dd/MM/yyyy'}}" readonly="">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="form-label">Creador Socio</label>
+										<input type="text" class="form-control" placeholder="{{contact.createdByName}}" readonly="">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer text-center">
+					<div class="col-12">
+						<button type="button" class="btn btn-block btn-primary" (click)="goToContactPolicies()"><strong>VER PÓLIZAS</strong></button>
+					</div>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+</div>

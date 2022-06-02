@@ -9,35 +9,22 @@ let ChartPlugin = function() {
         function drawChart(chartData) {
             let data = google.visualization.arrayToDataTable(chartData);
             let options = {
-              vAxis: {
-                  "minValue": 0,
-                  "format": "currency"
-              },
-              axisTitlesPosition: "in",
-              legend: {
-                  "position": "none"
-              },
-              crosshair: {
-                  "trigger": "both",
-                  "color": "#8b0d88",
-                  "opacity": 0.8
-              },
-              tooltip:{
-                  "textStyle": {
-                      "color": "#536d98"
-                  },
-                  "showColorCode": true
-              },
-              animation: {
-                  "duration": 2888,
-                  "easing": "inAndOut",
-                  "startup": true
-              },
-              colors:["#6c5ce8"]
+                chartArea:{left:80,top:18,width:'88%',height:'68%'},
+                vAxis:{"minValue":0,"format":"currency"},
+                axisTitlesPosition:"in",
+                legend:{"position":"none"},
+                crosshair:{"trigger":"both","color":"#ec4178","opacity":0.8},
+                tooltip:{"textStyle":{"color":"#536d98"},"showColorCode":true},
+                animation:{"duration":2888,"easing":"inAndOut","startup":true},
+                colors:["#64c2a8", "#2d87b8"],
             };
             let chart = new google.visualization.AreaChart(document.getElementById('chart-wallet-projection'));
             chart.draw(data, options);
         }
+    }
+
+    function removeWalletProjection() {
+        document.getElementById('chart-wallet-projection').innerHTML = '';
     }
 
     function drawActiveCoverages(chartData) {
@@ -237,6 +224,7 @@ let ChartPlugin = function() {
 
     return {
         drawWalletProjection,
+        removeWalletProjection,
         drawActiveCoverages,
         drawPreferredInsurers,
         drawGlobalBalance,

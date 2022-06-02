@@ -126,28 +126,6 @@ export class ShowContactDataService {
     }
 
     /**
-     * Enable the form fields
-     */
-    enableFormFields(): void {
-        if(!!this.contactForm) {
-            for(const field in this.contactForm.controls) {
-                this.contactForm.get(field)!.enable();
-            }
-        }
-    }
-
-    /**
-     * Disable the form fields
-     */
-    desableFormFields(): void {
-        if(!!this.contactForm) {
-            for(const field in this.contactForm.controls) {
-                this.contactForm.controls[field].disable();
-            }
-        }
-    }
-
-    /**
      * Load the civil status
      * @return           Notice of action done
      */

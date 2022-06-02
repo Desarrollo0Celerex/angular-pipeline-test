@@ -15,7 +15,8 @@ declare var ModalPlugin: any;
   selector: 'agt-create-policy',
   templateUrl: './create-policy.page.html',
   styles: [
-  ]
+  ],
+  providers: [CreatePolicyService]
 })
 export class CreatePolicyPage implements OnInit {
     actionType: number = ACTION_TYPES.CREATE_POLICY;
