@@ -31,7 +31,7 @@ export class ContactProfilePage implements OnInit {
     }
 
     goToSelectInsurer(): void {
-
+        this._router.navigateByUrl(ROUTES_NAME.createPolicy(this.contactId));
     }
 
     goToUpdateContact(): void {
