@@ -4,7 +4,6 @@ import { ChartGroupWalletProjectionService } from './chart-group-wallet-projecti
 
 declare var ChartPlugin: any;
 declare var PopoverPlugin: any;
-declare var TooltipPlugin: any;
 
 @Component({
   selector: 'agt-chart-group-wallet-projection',
@@ -13,14 +12,14 @@ declare var TooltipPlugin: any;
   ],
   providers: [ChartGroupWalletProjectionService]
 })
-export class ChartGroupWalletProjectionComponent implements OnInit {
+export class ChartGroupWalletProjectionComponent implements OnChanges, OnInit {
     @Input() groupId: string = '';
-    canShowChart: boolean = false;
 
     constructor(public model: ChartGroupWalletProjectionService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.groupId && changes.groupId.currentValue) {
+            ChartPlugin.removeWalletProjection();
             this._loadChartData(changes.groupId.currentValue);
         }
     }
@@ -29,15 +28,17 @@ export class ChartGroupWalletProjectionComponent implements OnInit {
         PopoverPlugin.init();
     }
 
+    get canShowChart(): boolean {
+        return (this.model.chartData !== null) ? true : false;
+    }
+
     /**
      * Load the chart data
      * @param groupId The contact ID
      */
     private _loadChartData(groupId: string): void {
         this.model.loadChartData(groupId).subscribe(() => {
-            this.canShowChart = true;
             ChartPlugin.drawWalletProjection(this.model.chartData);
-            TooltipPlugin.init();
         })
     }
 }

@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { ChartPartnerWalletProjectionService } from './chart-partner-wallet-projection.service';
 
 declare var ChartPlugin: any;
+declare var PopoverPlugin: any;
 
 @Component({
   selector: 'agt-chart-partner-wallet-projection',
@@ -11,7 +12,7 @@ declare var ChartPlugin: any;
   ],
   providers: [ChartPartnerWalletProjectionService]
 })
-export class ChartPartnerWalletProjectionComponent implements OnChanges {
+export class ChartPartnerWalletProjectionComponent implements OnChanges, OnInit {
     @Input() partnerId: number = 0;
 
     constructor(public model: ChartPartnerWalletProjectionService) { }
@@ -21,6 +22,10 @@ export class ChartPartnerWalletProjectionComponent implements OnChanges {
             ChartPlugin.removeWalletProjection();
             this._loadChartData(changes.partnerId.currentValue);
         }
+    }
+
+    ngOnInit(): void {
+        PopoverPlugin.init();
     }
 
     get canShowChart(): boolean {

@@ -12,6 +12,7 @@ const routes: any = {
     contactWalletProjectionStatistics: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/statistics/wallet-projection',
     groupPaymentStatistics: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/statistics/payments',
     groupRenewalStatistics: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/statistics/renewals',
+    groupWalletProjectionStatistics: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/statistics/wallet-projection',
     partnerPaymentStatistics: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/statistics/payments',
     partnerRenewalStatistics: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/statistics/renewals',
     partnerWalletProjectionStatistics: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/statistics/wallet-projection',
@@ -55,6 +56,11 @@ export class StatisticService {
 
     getContactWalletProjectionStatistics(contactId: string): Observable<HttpResponse> {
         const route: string = routes.contactWalletProjectionStatistics(this._workspaceId, contactId);
+        return this._httpClient.get<HttpResponse>(route);
+    }
+
+    getGroupWalletProjectionStatistics(groupId: string): Observable<HttpResponse> {
+        const route: string = routes.groupWalletProjectionStatistics(this._workspaceId, groupId);
         return this._httpClient.get<HttpResponse>(route);
     }
 
