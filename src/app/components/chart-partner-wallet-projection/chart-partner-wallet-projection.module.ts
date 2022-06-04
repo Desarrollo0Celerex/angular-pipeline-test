@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
-import { PartnerService } from '@services/partner.service';
+import { StatisticService } from '@services/statistic.service';
 
 import { ChartPartnerWalletProjectionComponent } from './chart-partner-wallet-projection.component';
 
@@ -18,7 +18,7 @@ import { ChartPartnerWalletProjectionComponent } from './chart-partner-wallet-pr
     LoadingContentModule
   ],
   providers: [
-      PartnerService
+      StatisticService
   ]
 })
 export class ChartPartnerWalletProjectionModule { }
