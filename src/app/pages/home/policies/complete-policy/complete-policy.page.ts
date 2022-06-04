@@ -29,6 +29,7 @@ declare var ModalPlugin: any;
 export class CompletePolicyPage implements OnInit {
     INSURANCES: any = INSURANCES;
     contactId: string;
+    existingContactId: string = '';
     existingPolicyId: string = '';
     message: string;
     policyId: string;
@@ -137,7 +138,7 @@ export class CompletePolicyPage implements OnInit {
         this._loadingService.show();
         this.completePolicyService.deletePolicy(this.contactId, this.policyId).subscribe(() => {
             this._loadingService.hide();
-            this._router.navigateByUrl(ROUTES_NAME.showHistoryPolicy(this.contactId, this.existingPolicyId));
+            this._router.navigateByUrl(ROUTES_NAME.showHistoryPolicy(this.existingContactId, this.existingPolicyId));
         });
     }
 
@@ -526,7 +527,8 @@ export class CompletePolicyPage implements OnInit {
         const arrError: string [] = error.error.split(' ');
         switch(arrError[0]) {
             case ERROR_CODES.policyAlreadyExists:
-                this.existingPolicyId = arrError[1];
+                this.existingContactId = arrError[1];
+                this.existingPolicyId = arrError[2];
                 ModalPlugin.show(this.modalIdNotifyPolicyAlreadyExists);
             break;
         }
