@@ -4,7 +4,6 @@ import { ChartPartnerWalletProjectionService } from './chart-partner-wallet-proj
 
 declare var ChartPlugin: any;
 declare var PopoverPlugin: any;
-declare var TooltipPlugin: any;
 
 @Component({
   selector: 'agt-chart-partner-wallet-projection',
@@ -15,12 +14,12 @@ declare var TooltipPlugin: any;
 })
 export class ChartPartnerWalletProjectionComponent implements OnChanges, OnInit {
     @Input() partnerId: number = 0;
-    canShowChart: boolean = false;
 
     constructor(public model: ChartPartnerWalletProjectionService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.partnerId && changes.partnerId.currentValue) {
+            ChartPlugin.removeWalletProjection();
             this._loadChartData(changes.partnerId.currentValue);
         }
     }
@@ -29,15 +28,17 @@ export class ChartPartnerWalletProjectionComponent implements OnChanges, OnInit 
         PopoverPlugin.init();
     }
 
+    get canShowChart(): boolean {
+        return (this.model.chartData !== null) ? true : false;
+    }
+
     /**
      * Load the chart data
      * @param partnerId The contact ID
      */
     private _loadChartData(partnerId: number): void {
         this.model.loadChartData(partnerId).subscribe(() => {
-            this.canShowChart = true;
             ChartPlugin.drawWalletProjection(this.model.chartData);
-            TooltipPlugin.init();
         })
     }
 }

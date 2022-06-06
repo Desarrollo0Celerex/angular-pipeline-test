@@ -12,8 +12,10 @@ const routes: any = {
     contactWalletProjectionStatistics: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/statistics/wallet-projection',
     groupPaymentStatistics: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/statistics/payments',
     groupRenewalStatistics: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/statistics/renewals',
+    groupWalletProjectionStatistics: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/statistics/wallet-projection',
     partnerPaymentStatistics: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/statistics/payments',
     partnerRenewalStatistics: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/statistics/renewals',
+    partnerWalletProjectionStatistics: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/statistics/wallet-projection',
     policyEndorsementStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/endorsements',
     policyEndorsementBehaviorStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/endorsements/behavior',
     policyPaymentStatistics: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/statistics/payments',
@@ -57,6 +59,11 @@ export class StatisticService {
         return this._httpClient.get<HttpResponse>(route);
     }
 
+    getGroupWalletProjectionStatistics(groupId: string): Observable<HttpResponse> {
+        const route: string = routes.groupWalletProjectionStatistics(this._workspaceId, groupId);
+        return this._httpClient.get<HttpResponse>(route);
+    }
+
     getGroupPaymentStatistics(groupId: string, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
         const route: string = routes.groupPaymentStatistics(this._workspaceId, groupId);
         let params: HttpParams = new HttpParams();
@@ -95,6 +102,11 @@ export class StatisticService {
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    getPartnerWalletProjectionStatistics(partnerId: number): Observable<HttpResponse> {
+        const route: string = routes.partnerWalletProjectionStatistics(this._workspaceId, partnerId);
+        return this._httpClient.get<HttpResponse>(route);
     }
 
     getPolicyEndorsementStatistics(contactId: string, policyId: string): Observable<HttpResponse> {
