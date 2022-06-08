@@ -499,7 +499,8 @@ export class ContentListService {
     loadPayments(page: number, contentSubtype: number): Observable<void> {
         const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [contentSubtype]);
-        return this._paymentService.getPayments(page, fields, filters).pipe(
+        const sortBy: string = 'paymentDate';
+        return this._paymentService.getPayments(page, fields, filters, '', sortBy).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
@@ -574,7 +575,8 @@ export class ContentListService {
     loadCalendarPayments(page: number, specialFilter: number | string): Observable<void> {
         const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentDate', [specialFilter]);
-        return this._paymentService.getPayments(page, fields, filters).pipe(
+        const sortBy: string = 'paymentDate';
+        return this._paymentService.getPayments(page, fields, filters, '', sortBy).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
@@ -804,7 +806,7 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchClients(page: number, query: string): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName,createdAt';
         const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL, CLIENT_STATUS.LOST])
         return this._clientService.getClients(page, fields, filters, query).pipe(
             tap((res: HttpResponse) => {
@@ -1059,8 +1061,9 @@ export class ContentListService {
      */
     searchPayments(page: number, query: string): Observable<void> {
         const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
-        query = 'policyNumber:' + query;
-        return this._paymentService.getPayments(page, fields, '', query).pipe(
+        query = 'multiple:' + query;
+        const sortBy: string = 'paymentDate';
+        return this._paymentService.getPayments(page, fields, '', query, sortBy).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
@@ -1077,6 +1080,7 @@ export class ContentListService {
      */
     searchSinisters(page: number, query: string): Observable<void> {
         const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        query = 'multiple:'+query;
         return this._sinisterService.getSinisters(page, fields, '', query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
