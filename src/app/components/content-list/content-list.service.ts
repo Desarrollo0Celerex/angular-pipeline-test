@@ -689,7 +689,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPolicySinisters(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'sinisterId,createdByName,sinisterNumber,sinisterTypeName,sinisterDate,titularName,policyNumber,invoice,certificate,dateLastEvent,totalEvents,createdAt,createdByName,policyId,contactId,sinisterStatusId';
+        const fields: string = 'sinisterId,createdByName,sinisterNumber,sinisterTypeName,sinisterDate,titularName,policyNumber,invoice,certificate,dateLastEvent,totalEvents,createdAt,createdByName,policyId,contactId,sinisterStatusId,sinisterResolutionName,sinisterResolutionCurrencyName,sinisterResolutionIndemnificationAmount';
         return this._policyService.getPolicySinisters(contactId, policyId, page, fields).pipe(
             tap((res: HttpResponse) => {
                 const sinisters: Sinister[] = res.data.items;
