@@ -174,9 +174,13 @@ export class CompletePolicyService {
         let discount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.discount.value));
         discount = (discount < 0) ? discount * (-1) : discount;
         let totalPolicy: number = netPay + taxPay + feePay + coverPay + extraPay - discount;
+        let totalPolicyWithoutDiscount: number = netPay + taxPay + feePay + coverPay + extraPay;
         const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value));
 
-        if((totalPolicy >= (policyAmount - 1)) && (totalPolicy <= (policyAmount + 1))) {
+        if(
+            (totalPolicy >= (policyAmount - 1)) && (totalPolicy <= (policyAmount + 1)) ||
+            (totalPolicyWithoutDiscount >= (policyAmount - 1)) && (totalPolicyWithoutDiscount <= (policyAmount + 1))
+        ) {
             return true;
         } else {
             const paymentPlanMonths: number = 12 / this._getPaymentPlanMonths(this.f.paymentPlanId.value);
@@ -186,8 +190,12 @@ export class CompletePolicyService {
             coverPay *= paymentPlanMonths;
             extraPay *= paymentPlanMonths;
             totalPolicy = netPay + taxPay + feePay + coverPay + extraPay - discount;
+            totalPolicyWithoutDiscount = netPay + taxPay + feePay + coverPay + extraPay;
 
-            if((totalPolicy >= (policyAmount - 1)) && (totalPolicy <= (policyAmount + 1))) {
+            if(
+                (totalPolicy >= (policyAmount - 1)) && (totalPolicy <= (policyAmount + 1)) ||
+                (totalPolicyWithoutDiscount >= (policyAmount - 1)) && (totalPolicyWithoutDiscount <= (policyAmount + 1))
+            ) {
                 this._areFractionatedPaymentAmounts = true;
                 return true;
             }
