@@ -65,7 +65,7 @@ export class ShowContactDataService {
             this.contactForm = this._formBuilder.group({
                 name: [this.contact.name || '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
                 namePaternal: [this.contact.namePaternal || '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                nameMaternal: [this.contact.nameMaternal || '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
+                nameMaternal: [this.contact.nameMaternal || '', [Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
                 genderId: [this.contact.genderId || '', [Validators.required]],
                 birthdate: [this._getDateFormat(this.contact.birthdate) || '', [ValidatorsHelper.date]],
                 civilStatusId: [this.contact.civilStatusId || '', [ValidatorsHelper.number]],
