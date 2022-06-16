@@ -12,7 +12,7 @@
     				<div class="col-md-12">
     					<p class="text-justify"><strong>Se han detectado diferentes recibos para esta póliza.</strong> Por favor selecciona el recibo al que deseas aplicar el pago.</p>
     				</div>
-    				<div class="col-md-12 mt-3">
+    				<div class="col-md-12 mt-3 agt-scroll">
     					<div class="list-group list-lg-group list-group-flush">
     						<div class="list-group-item list-group-item-action" *ngFor="let payment of payments">
     							<agt-card-payment-short [payment]="payment" (paymentSelected)="selectPayment($event)"></agt-card-payment-short>
