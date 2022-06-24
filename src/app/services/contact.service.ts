@@ -119,7 +119,7 @@ export class ContactService {
        let specialSearch: string = '';
        for(const field in specialQuery) {
            if(!!specialQuery[field]) {
-               specialSearch += field + ':' + specialQuery[field] + ',';
+               specialSearch += field + ':' + specialQuery[field] + '|';
            }
        }
        specialSearch = specialSearch.substring(0, specialSearch.length - 1);
