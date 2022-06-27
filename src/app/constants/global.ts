@@ -88,7 +88,8 @@ export const PAYMENT_STATUS: any = {
     PENDING: 2,
     LATE: 3,
     OVERDUE: 4,
-    PAID: 5
+    PAID: 5,
+    STANDBY: 6
 }
 export const PAYMENT_PLANS: any = {
     SINGLE_PAYMENT: 1,

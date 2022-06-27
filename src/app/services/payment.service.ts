@@ -42,7 +42,7 @@ export class PaymentService {
         private _authService: AuthService
     ) { }
 
-    downloadReportPaayments(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt', specialFilter: string = '', formatType: number) {
+    downloadReportPayments(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt', specialFilter: string = '', formatType: number) {
         const route: string = routes.workspacePaymentsReport(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
