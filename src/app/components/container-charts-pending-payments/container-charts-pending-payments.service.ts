@@ -17,7 +17,7 @@ export class ContainerChartsPendingPaymentsService {
 
     loadData(rangeField: string, rangeStart: string, rangeEnd: string): void {
         this.chartsData = this._getDefaultChartsData();
-        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE]);
+        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE, PAYMENT_STATUS.STANDBY]);
         this._paymentService.getPendingPaymentStats(filters, rangeField, rangeStart, rangeEnd, this.specialFilter).subscribe((res: ContainerCharts) => {
             this.chartsData = res;
             if(this.filtersData === null) {
