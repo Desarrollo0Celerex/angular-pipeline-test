@@ -172,7 +172,7 @@ export class CompletePolicyPage implements OnInit {
             return;
         }
         // Check if it is a new policy
-        if(this.completePolicyService.checkIsNewPolicy()) {
+        /*if(this.completePolicyService.checkIsNewPolicy()) {
             // Check if it is a expired policy
             if(this.completePolicyService.checkIsExpiredPolicy()) {
                 // Check if it is a valid expired policy
@@ -181,7 +181,7 @@ export class CompletePolicyPage implements OnInit {
                     return;
                 }
             }
-        } else {
+        }*/ else {
             // Check if the policy is a history policy
             if(this.completePolicyService.checkIsHistoryPolicy()) {
                 // Check if it is a valid history policy
@@ -530,6 +530,10 @@ export class CompletePolicyPage implements OnInit {
                 this.existingContactId = arrError[1];
                 this.existingPolicyId = arrError[2];
                 ModalPlugin.show(this.modalIdNotifyPolicyAlreadyExists);
+            break;
+
+            case ERROR_CODES.policyAlreadyConfirmed:
+                AlertHelper.policyCompleted(this._goToListContactPolicies, this);
             break;
         }
     }
