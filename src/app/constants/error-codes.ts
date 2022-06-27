@@ -25,4 +25,5 @@ export const ERROR_CODES: any = {
     partnerHasCoincidences: 'PartnerHasCoincidences',
     groupHasCoincidences: 'GroupHasCoincidences',
     scanFileError: 'ScanFileError',
+    policyAlreadyConfirmed: 'PolicyAlreadyConfirmed',
 }
