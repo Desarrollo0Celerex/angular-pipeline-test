@@ -47,7 +47,7 @@ export class PaymentStatusService {
      * @return               The filtered payment status
      */
     private _removePaidPaymentStatus(paymentStatus: PaymentStatus[]): PaymentStatus[] {
-        return paymentStatus.filter((element: PaymentStatus) => element.paymentStatusId !== PAYMENT_STATUS.PAID);
+        return paymentStatus.filter((element: PaymentStatus) => element.paymentStatusId !== PAYMENT_STATUS.PAID && element.paymentStatusId !== PAYMENT_STATUS.STANDBY);
     }
 
     /**
