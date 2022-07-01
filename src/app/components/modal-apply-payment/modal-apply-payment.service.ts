@@ -6,6 +6,7 @@ import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { PAYMENT_PLANS } from '@constants/global';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { PaymentType } from '@interfaces/payment-type.interface';
@@ -40,7 +41,7 @@ export class ModalApplyPaymentService {
                 amount: [this._calculatePaymentAmount(), [Validators.required]],
                 receipts: [1, [Validators.required]],
                 applicationDate: [moment(this.payment.paymentDate).format('DD/MM/YYYY'), Validators.required],
-                nextPaymentDate: [this._calculateNextPatmentDate(), [Validators.required]],
+                nextPaymentDate: [this._calculateNextPaymentDate(this.payment), [Validators.required]],
                 paymentTypeId: [1, [Validators.required]],
                 paymentReference: [this._calculatePaymentReference(), [Validators.required]],
                 paymentEvidence: ['']
@@ -115,12 +116,10 @@ export class ModalApplyPaymentService {
      * Calculate the next payment date
      * @return The calculated date
      */
-    private _calculateNextPatmentDate(): string {
-        let nextPaymentDate: string = '';
-        if(!!this.payment) {
-            nextPaymentDate = moment(this.payment.paymentDate).add(this.payment.paymentPlanMonths, 'M').format('DD/MM/YYYY');
-        }
-        return nextPaymentDate;
+    private _calculateNextPaymentDate(payment: Payment): string {
+        const paymentDay: number = parseInt(moment(payment.validityStartDate).format('D'));
+        const nextPaymentDate: string = UtilitiesHelper.calculateNextPaymentDate(payment.paymentDate, payment.paymentPlanMonths, paymentDay);
+        return moment(nextPaymentDate).format('DD/MM/YYYY');
     }
 
     private _getRequestBody(): FormData {

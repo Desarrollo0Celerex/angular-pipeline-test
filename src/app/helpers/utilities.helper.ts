@@ -6,6 +6,17 @@ import * as moment from 'moment';
 
 export class UtilitiesHelper {
 
+    static calculateNextPaymentDate(paymentDate: string, paymentPlanMonths: string, paymentDay: number): string {
+        let nextPaymentDate: string = moment(paymentDate).add(paymentPlanMonths, 'months').format('YYYY-MM-DD');
+        const nextPaymentDay: number = parseInt(moment(nextPaymentDate).format('D'));
+        const daysInMonth: number = moment(nextPaymentDate).daysInMonth();
+        if(nextPaymentDay < daysInMonth) {
+            const leftDays: number = paymentDay - nextPaymentDay;
+            nextPaymentDate = moment(nextPaymentDate).add(leftDays, 'days').format('YYYY-MM-DD');
+        }
+        return nextPaymentDate;
+    }
+
     /**
      * Check if the content is history content
      * @param  contentType The type of content to evaluate
