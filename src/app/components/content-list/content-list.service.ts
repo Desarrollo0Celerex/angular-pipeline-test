@@ -610,7 +610,7 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPendingReceipts(paymentId: string, page: number): Observable<void> {
-        const fields: string = 'pendingReceipts,paymentPlanMonths,paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId';
+        const fields: string = 'pendingReceipts,paymentPlanMonths,paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,validityStartDate';
         const perPage: number = DEFAULT_PER_PAGE;
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap((res: HttpResponse) => {
@@ -618,13 +618,14 @@ export class ContentListService {
                 if(page === 1) this.nextPaymentDate = payment.paymentDate;
                 let items: number = 0;
                 const start: number = payment.tickets + ((page - 1) * DEFAULT_PER_PAGE);
+                const paymentDay: number = parseInt(moment(payment.validityStartDate).format('D'));
                 for(let i = start; i<payment.bills; i++) {
                     items++;
                     const paymentAux: Payment = {...payment};
                     paymentAux.tickets = i;
                     paymentAux.paymentDate = this.nextPaymentDate;
                     this.contents.push(paymentAux);
-                    this.nextPaymentDate = moment(this.nextPaymentDate).add(payment.paymentPlanMonths, 'months').format('YYYY-MM-DD');
+                    this.nextPaymentDate = this._calculateNextPaymentDate(this.nextPaymentDate, payment.paymentPlanMonths, paymentDay);
                     if(items === perPage) {
                         break;
                     }
@@ -633,6 +634,17 @@ export class ContentListService {
             }),
             map( () => { })
         )
+    }
+
+    private _calculateNextPaymentDate(paymentDate: string, paymentPlanMonths: string, paymentDay: number): string {
+        let nextPaymentDate: string = moment(paymentDate).add(paymentPlanMonths, 'months').format('YYYY-MM-DD');
+        const nextPaymentDay: number = parseInt(moment(nextPaymentDate).format('D'));
+        const daysInMonth: number = moment(nextPaymentDate).daysInMonth();
+        if(nextPaymentDay < daysInMonth) {
+            const leftDays: number = paymentDay - nextPaymentDay;
+            nextPaymentDate = moment(nextPaymentDate).add(leftDays, 'days').format('YYYY-MM-DD');
+        }
+        return nextPaymentDate;
     }
 
     /**
