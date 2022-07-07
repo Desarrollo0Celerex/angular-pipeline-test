@@ -337,7 +337,6 @@ export class UpdateCompletePolicyService {
             case INSURANCES.CAR:
             case INSURANCES.MOTORBIKE:
             case INSURANCES.BIKE:
-            case INSURANCES.TRUCK:
                 insuredForm = this._formBuilder.group({
                     vehicleMaker: [(!!insured) ? insured.vehicleMaker : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
                     vehicleVersion: [(!!insured) ? insured.vehicleVersion : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
@@ -361,6 +360,7 @@ export class UpdateCompletePolicyService {
             case INSURANCES.CIVIL:
             case INSURANCES.TECHNICAL:
             case INSURANCES.CAUTION:
+            case INSURANCES.TERRESTRIAL:
             case INSURANCES.TRANSPORT:
             case INSURANCES.AERO:
                 insuredForm = this._formBuilder.group({
@@ -383,8 +383,8 @@ export class UpdateCompletePolicyService {
         return insuredForm;
     }
 
-    removeInsured(insuredIndex: number): void {
-        this.insureds.removeAt(insuredIndex);
+    replaceInsureds(): void {
+        this.insureds.controls[0] = this.newInsured();
     }
 
     updatePolicy(contactId: string, policyId: string): Observable<void> {
@@ -451,7 +451,10 @@ export class UpdateCompletePolicyService {
         requestBody.append('isAutoPayment', (this.f.isAutoPayment.value) ? '1' : '0');
         requestBody.append('partnerId', this.f.partnerId.value);
 
-        const insureds: any[] = this.insureds.value;
+        const insureds: any[] = [];
+        for(let insured of this.insureds.controls) {
+            insureds.push(insured.value);
+        }
         requestBody.append('insureds', JSON.stringify(insureds));
 
         return requestBody;
@@ -490,7 +493,10 @@ export class UpdateCompletePolicyService {
         requestBody.append('isAutoPayment', (this.f.isAutoPayment.value) ? '1' : '0');
         requestBody.append('partnerId', this.f.partnerId.value);
 
-        const insureds: any[] = this.insureds.value;
+        const insureds: any[] = [];
+        for(let insured of this.insureds.controls) {
+            insureds.push(insured.value);
+        }
         requestBody.append('insureds', JSON.stringify(insureds));
 
         return requestBody;

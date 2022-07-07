@@ -447,7 +447,6 @@ export class CompletePolicyPage implements OnInit {
                                 case INSURANCES.CAR:
                                 case INSURANCES.MOTORBIKE:
                                 case INSURANCES.BIKE:
-                                case INSURANCES.TRUCK:
                                     switch(fieldAux){
                                         case 'vehicleMaker':
                                         case 'vehicleVersion':
@@ -475,6 +474,7 @@ export class CompletePolicyPage implements OnInit {
                                 case INSURANCES.CIVIL:
                                 case INSURANCES.TECHNICAL:
                                 case INSURANCES.CAUTION:
+                                case INSURANCES.TERRESTRIAL:
                                 case INSURANCES.TRANSPORT:
                                 case INSURANCES.AERO:
                                     switch(fieldAux){

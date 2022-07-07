@@ -94,6 +94,7 @@ export class UpdateCompletePolicyPage implements OnInit {
 
     onChangeLoadInsuranceTypes(): void {
         this.updateCompletePolicyService.f.insuranceTypeId.setValue(null);
+        this._updateInsurance();
         this._loadInsuranceTypes();
     }
 
@@ -274,6 +275,12 @@ export class UpdateCompletePolicyPage implements OnInit {
             }
             context._validValidityEndDate(context, validityStartDate, validityEndDate);
         }
+    }
+
+    private _updateInsurance(): void {
+        const newInsuranceId: number = parseInt(this.updateCompletePolicyService.f.insuranceId.value);
+        this.updateCompletePolicyService.policy!.insuranceId = newInsuranceId;
+        this.updateCompletePolicyService.replaceInsureds();
     }
 
     private _validValidityEndDate(context: UpdateCompletePolicyPage, validityStartDate: string, validityEndDate: string): void {
