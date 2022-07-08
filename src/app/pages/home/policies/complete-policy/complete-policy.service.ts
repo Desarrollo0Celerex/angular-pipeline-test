@@ -371,7 +371,6 @@ export class CompletePolicyService {
             case INSURANCES.CAR:
             case INSURANCES.MOTORBIKE:
             case INSURANCES.BIKE:
-            case INSURANCES.TRUCK:
                 insuredForm = this._formBuilder.group({
                     vehicleMaker: [(!!insured && !!insured.vehicleMaker) ? insured.vehicleMaker : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
                     vehicleVersion: [(!!insured && !!insured.vehicleVersion) ? insured.vehicleVersion : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
@@ -395,6 +394,7 @@ export class CompletePolicyService {
             case INSURANCES.CIVIL:
             case INSURANCES.TECHNICAL:
             case INSURANCES.CAUTION:
+            case INSURANCES.TERRESTRIAL:
             case INSURANCES.TRANSPORT:
             case INSURANCES.AERO:
                 insuredForm = this._formBuilder.group({

@@ -391,7 +391,7 @@ export const INSURANCES: any = {
     CAR: 6,
     MOTORBIKE: 7,
     BIKE: 8,
-    TRUCK: 25,
+    TERRESTRIAL: 25,
 
     HOME: 9,
     BUILDING: 10,

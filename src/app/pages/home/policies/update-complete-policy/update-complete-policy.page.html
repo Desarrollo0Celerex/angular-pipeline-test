@@ -229,7 +229,6 @@
                 </div>
             </div>
             <!-- //AGENTHOS - POLICY OWNER -->
-
             <div formArrayName="insureds">
                 <ng-container [ngSwitch]="updateCompletePolicyService.policy.insuranceId">
                     <ng-container *ngSwitchCase="(
@@ -294,8 +293,7 @@
                     <ng-container *ngSwitchCase="(
                         updateCompletePolicyService.policy.insuranceId === INSURANCES.CAR ||
                         updateCompletePolicyService.policy.insuranceId === INSURANCES.MOTORBIKE ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.BIKE ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.TRUCK
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.BIKE
                     ) ? updateCompletePolicyService.policy.insuranceId : ''">
 
                         <div class="card">
@@ -414,6 +412,7 @@
                         updateCompletePolicyService.policy.insuranceId === INSURANCES.CIVIL ||
                         updateCompletePolicyService.policy.insuranceId === INSURANCES.TECHNICAL ||
                         updateCompletePolicyService.policy.insuranceId === INSURANCES.CAUTION ||
+                        updateCompletePolicyService.policy.insuranceId === INSURANCES.TERRESTRIAL ||
                         updateCompletePolicyService.policy.insuranceId === INSURANCES.TRANSPORT ||
                         updateCompletePolicyService.policy.insuranceId === INSURANCES.AERO
                     ) ? updateCompletePolicyService.policy.insuranceId : ''">
