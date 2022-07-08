@@ -3,7 +3,7 @@ export const environment = {
     agenthosUrl: 'https://agenthos.com',
     atomAccountUrl: 'http://localhost:4201',
     appAgenthosUrl: 'http://localhost:4200',
-    apiUrl: 'http://localhost:8888/atombits/agenthos/api/v1',
+    apiUrl: 'http://localhost:8888/atombits/agenthos/v1',
     atomScann: 'http://localhost:8888/atombits/atom-scanner/api/v1',
     firebaseConfig: {
         apiKey: "AIzaSyCT6zwYtSCrpr5iXe3x4TcwCGcMUO12GzA",
