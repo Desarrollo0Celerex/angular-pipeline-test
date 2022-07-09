@@ -49,18 +49,22 @@ export class ValidatorsHelper {
         return null;
     }
 
-    /**
-     * Validate an amount
-     * @param  control The control to evaluate
-     * @return         Error object if validation failed, otherwise null.
-     */
     static amount(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = /^-?(([1-9]\d{0,2}(,\d{3}){0,2})|\d{0,9})?(\.\d{1,2})?$/;
-            const value = control.value;
-            return (!regex.test(value)) ? {currency: true} : null;
+            const value: any = control.value;
+            return (ValidatorsHelper.isValidAmounMexican(value) || ValidatorsHelper.isValidAmounSpanish(value)) ? null : {currency: true};
         }
         return null;
+    }
+
+    static isValidAmounMexican(value: any): boolean {
+        const regex = /^-?(([1-9]\d{0,2}(,\d{3}){0,2})|\d{0,9})?(\.\d{1,2})?$/;
+        return (regex.test(value)) ? true : false;
+    }
+
+    static isValidAmounSpanish(value: any): boolean {
+        const regex = /^-?(([1-9]\d{0,2}(\.\d{3}){0,2})|\d{0,9})?(,\d{1,2})?$/;
+        return (regex.test(value)) ? true : false;
     }
 
     /**

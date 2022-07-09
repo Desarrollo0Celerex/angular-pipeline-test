@@ -1,5 +1,6 @@
 import { CONTENT_TYPES } from '@constants/global';
 import { PERIODS } from '@constants/global';
+import { ValidatorsHelper } from '@helpers/validators.helper';
 import { RangeData } from '@interfaces/range-data.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 import * as moment from 'moment';
@@ -117,6 +118,11 @@ export class UtilitiesHelper {
      */
     static removeCommasFromQuantity(quantity: string): string {
         quantity = quantity.toString();
+        if(ValidatorsHelper.isValidAmounSpanish(quantity)) {
+            quantity = quantity.replace('.', '&');
+            quantity = quantity.replace(',', '.');
+            quantity = quantity.replace('&', ',');
+        }
         return quantity.replace(',', '');
     }
 
