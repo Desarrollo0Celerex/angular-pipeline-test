@@ -35,7 +35,7 @@ export class ContactProfilePage implements OnInit {
     }
 
     get canDeleteContact(): boolean {
-        if(!!this.contactProfileService.contact && this.contactProfileService.contact.leadStatusId === null && this.contactProfileService.contact.clientStatusId === null) {
+        if(!!this.contactProfileService.contact && this.contactProfileService.contact.clientStatusId === null) {
             return true;
         }
         return false;

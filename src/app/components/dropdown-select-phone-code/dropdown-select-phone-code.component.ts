@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { DropdownSelectPhoneCodeService } from './dropdown-select-phone-code.service';
 
@@ -10,7 +10,7 @@ declare var TooltipPlugin: any;
   styles: [
   ]
 })
-export class DropdownSelectPhoneCodeComponent implements OnInit {
+export class DropdownSelectPhoneCodeComponent implements OnChanges {
     @Input() phoneCodeId: number;
     @Input() isDisabled: boolean;
     @Output() phoneCodeIdSelected: EventEmitter<number>;
@@ -23,8 +23,10 @@ export class DropdownSelectPhoneCodeComponent implements OnInit {
         this.selectedPhoneCodePosition = 0;
     }
 
-    ngOnInit(): void {
-        this._loadPhoneCodes();
+    ngOnChanges(changes: SimpleChanges): void {
+        if(!!changes.phoneCodeId && !!changes.phoneCodeId.currentValue) {
+            this._loadPhoneCodes();
+        }
     }
 
     /**

@@ -40,7 +40,7 @@ export class CardPolicyComponent implements OnInit {
     CANCELLATION_REASONS: any = CANCELLATION_REASONS;
     POLICY_STATUS: any = POLICY_STATUS;
     CONTENT_TYPES: any = CONTENT_TYPES;
-    isInTime: boolean = false;
+    //isInTime: boolean = false;
 
     constructor(private _authService: AuthService) {
         this.policy = null;
@@ -50,7 +50,7 @@ export class CardPolicyComponent implements OnInit {
 
     ngOnInit(): void {
         PopoverPlugin.init();
-        this._checkIsInTime();
+        //this._checkIsInTime();
     }
 
     /**
@@ -190,7 +190,7 @@ export class CardPolicyComponent implements OnInit {
     /**
      * Check if the policy is in time
      */
-    private _checkIsInTime(): void {
+    /*private _checkIsInTime(): void {
         if(!!this.policy && (this.policy.policyStatusId === POLICY_STATUS.FINISHED || this.policy.policyStatusId === POLICY_STATUS.PENDING)) {
             const roleId: number = this._authService.roleId;
             let slackDays: number = 0;
@@ -206,5 +206,5 @@ export class CardPolicyComponent implements OnInit {
             const validityEndDate: any = moment(this.policy.validityEndDate).add(slackDays, 'd');
             this.isInTime = (moment().isSameOrBefore(validityEndDate, 'day')) ? true : false;
         }
-    }
+    }*/
 }

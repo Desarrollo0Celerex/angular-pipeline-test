@@ -406,7 +406,7 @@ export const INSURANCES: any = {
 }
 
 export const CANCELLATION_REASONS: any = {
-    CAPTURE_ERROR: 7
+    CAPTURE_ERROR: 9
 }
 export const PERIODS: any = {
     LAST_YEAR: 1,
