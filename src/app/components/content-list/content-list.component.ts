@@ -273,7 +273,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             this._loadingService.hide();
             AlertHelper.contactDeleted();
             const url: string = this._router.url.split('?')[0] ;
-            //const url: string = this._router.url;
             const queryParams = this.sortParams(this._router.url);
             this._reloadPage(url, queryParams);
         })
@@ -1371,8 +1370,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     private sortParams(link: string) {
-        let queryParams = link.split('?')[1];
-        let params = queryParams.split('&');
+        let queryParams: string = link.split('?')[1];
+        let params = (!!queryParams) ? queryParams.split('&') : [];
         let pair = null;
         let data: any = {};
         params.forEach((d) => {
