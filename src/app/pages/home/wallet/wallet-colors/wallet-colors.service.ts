@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { Wallet } from '@interfaces/wallet.interface';
@@ -7,11 +7,11 @@ import { WalletService } from '@services/wallet.service';
 
 @Injectable()
 export class WalletColorsService {
-    form: FormGroup = this._formBuilder.group({});
+    form: UntypedFormGroup = this._formBuilder.group({});
     isBuiltForm: boolean = false;
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _walletService: WalletService
     ) { }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Role } from '@interfaces/role.interface';
@@ -8,10 +8,10 @@ import { RoleService } from '@services/role.service';
 @Injectable()
 export class ModalSelectRoleService {
     roles: Role[];
-    roleForm: FormGroup;
+    roleForm: UntypedFormGroup;
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _roleService: RoleService
     ){
         this.roleForm = this._buildRoleForm();
@@ -40,7 +40,7 @@ export class ModalSelectRoleService {
      * Build the role form
      * @return Role form
      */
-    private _buildRoleForm(): FormGroup {
+    private _buildRoleForm(): UntypedFormGroup {
         return this._formBuilder.group({
             roleId: ['', [Validators.required]]
         });

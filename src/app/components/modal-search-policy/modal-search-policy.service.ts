@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { POLICY_STATUS } from '@constants/global';
@@ -12,10 +12,10 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 
 @Injectable()
 export class ModalSearchPolicyService {
-    searchForm: FormGroup = this._buildSearchForm();
+    searchForm: UntypedFormGroup = this._buildSearchForm();
 
     constructor(
-        private _formbuilder: FormBuilder,
+        private _formbuilder: UntypedFormBuilder,
         private _policyService: PolicyService
     ) { }
 
@@ -39,7 +39,7 @@ export class ModalSearchPolicyService {
      * Build the search form
      * @return The search form
      */
-    private _buildSearchForm(): FormGroup {
+    private _buildSearchForm(): UntypedFormGroup {
         return this._formbuilder.group({
             policyNumber: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
         })

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
@@ -11,11 +11,11 @@ import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
 export class WalletIdentityService {
-    form: FormGroup = this._formBuilder.group({});
+    form: UntypedFormGroup = this._formBuilder.group({});
     isBuiltForm: boolean = false;
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _walletService: WalletService,
         private _workspaceService: WorkspaceService
     ) { }

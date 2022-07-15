@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 
 import { FREE_TEXT_LENGTH, TITULAR_NAME_LENGTH } from '@constants/global';
@@ -29,7 +29,7 @@ import { PaymentPlanService } from '@services/payment-plan.service';
 export class UpdateExternalPolicyService {
     currencies: Currency[] = [];
     externalPolicy: ExternalPolicy | null = null;
-    form: FormGroup = this._formBuilder.group({});
+    form: UntypedFormGroup = this._formBuilder.group({});
     insurers: Insurer[] = [];
     insurances: Insurance[] = [];
     insuranceTypes: InsuranceType[] = [];
@@ -39,7 +39,7 @@ export class UpdateExternalPolicyService {
     constructor(
         private _currencyService: CurrencyService,
         private _externalPolicyService: ExternalPolicyService,
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _insurerService: InsurerService,
         private _insuranceService: InsuranceService,
         private _insuranceTypeService: InsuranceTypeService,

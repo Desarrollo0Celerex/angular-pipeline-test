@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
 @Injectable()
 export class ContainerSelectStatsPeriodService {
-    form: FormGroup = this._formBuilder.group({});
+    form: UntypedFormGroup = this._formBuilder.group({});
 
-    constructor(private _formBuilder: FormBuilder) { }
+    constructor(private _formBuilder: UntypedFormBuilder) { }
 
     /**
      * Buid the form

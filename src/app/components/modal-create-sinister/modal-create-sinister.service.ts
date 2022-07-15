@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -16,11 +16,11 @@ import { SinisterTypeService } from '@services/sinister-type.service';
 
 @Injectable()
 export class ModalCreateSinisterService {
-    sinisterForm: FormGroup = this._buildSinisterForm();
+    sinisterForm: UntypedFormGroup = this._buildSinisterForm();
     sinisterTypes: SinisterType[] = [];
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _policyService: PolicyService,
         private _sinisterService: SinisterService,
         private _sinisterTypeService: SinisterTypeService
@@ -70,7 +70,7 @@ export class ModalCreateSinisterService {
      * Build the sinister form
      * @return The sinister form
      */
-    private _buildSinisterForm(): FormGroup {
+    private _buildSinisterForm(): UntypedFormGroup {
         return this._formBuilder.group({
             sinisterNumber: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
             invoice: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],

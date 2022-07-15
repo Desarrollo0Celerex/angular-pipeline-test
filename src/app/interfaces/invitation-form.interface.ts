@@ -1,6 +1,6 @@
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 export interface InvitationForm {
-    form: FormGroup,
+    form: UntypedFormGroup,
     isSubmitted: boolean
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { FILE_NAME_LENGTH } from '@constants/global';
@@ -12,12 +12,12 @@ import { ContactFileTypeService } from '@services/contact-file-type.service';
 @Injectable()
 export class UploadContactFileService {
     contactFileTypes: ContactFileType[] = [];
-    fileForm: FormGroup = this._formBuilder.group({});
+    fileForm: UntypedFormGroup = this._formBuilder.group({});
 
     constructor(
         private _contactFileService: ContactFileService,
         private _contactFileTypeService: ContactFileTypeService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: UntypedFormBuilder
     ) { }
 
     get f(): { [key: string]: AbstractControl; }  {

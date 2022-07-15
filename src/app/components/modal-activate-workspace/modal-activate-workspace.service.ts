@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
 @Injectable()
 export class ModalActivateWorkspaceService {
-    licenseForm: FormGroup;
+    licenseForm: UntypedFormGroup;
 
-    constructor(private _formBuilder: FormBuilder) {
+    constructor(private _formBuilder: UntypedFormBuilder) {
         this.licenseForm = this._buildLicenseForm();
     }
 
@@ -15,7 +15,7 @@ export class ModalActivateWorkspaceService {
      * Build the license form
      * @return License form
      */
-    private _buildLicenseForm(): FormGroup {
+    private _buildLicenseForm(): UntypedFormGroup {
         return this._formBuilder.group({
             licenseCode: ['', [Validators.required, ValidatorsHelper.licenseCode]]
         })

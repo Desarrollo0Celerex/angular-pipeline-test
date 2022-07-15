@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
@@ -42,7 +42,7 @@ export class UpdateCompletePolicyService {
     paymentMethods: PaymentMethod[] = [];
     paymentPlans: PaymentPlan[] = [];
     policy: Policy | null = null;
-    policyForm: FormGroup = this._formBuilder.group({});
+    policyForm: UntypedFormGroup = this._formBuilder.group({});
     private _areFractionatedPaymentAmounts: boolean = false;
 
     constructor(
@@ -52,7 +52,7 @@ export class UpdateCompletePolicyService {
         private _insuranceService: InsuranceService,
         private _insuranceTypeService: InsuranceTypeService,
         private _datePipe: DatePipe,
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _partnerService: PartnerService,
         private _paymentMethodService: PaymentMethodService,
         private _paymentPlanService: PaymentPlanService,
@@ -63,8 +63,8 @@ export class UpdateCompletePolicyService {
         return this.policyForm.controls;
     }
 
-    get insureds(): FormArray {
-        return this.policyForm.get('insureds') as FormArray;
+    get insureds(): UntypedFormArray {
+        return this.policyForm.get('insureds') as UntypedFormArray;
     }
 
     addInsured(insured: Insured | null = null): void {
@@ -311,8 +311,8 @@ export class UpdateCompletePolicyService {
         )
     }
 
-    newInsured(insured: Insured | null = null): FormGroup {
-        let insuredForm: FormGroup;
+    newInsured(insured: Insured | null = null): UntypedFormGroup {
+        let insuredForm: UntypedFormGroup;
         switch (this.policy!.insuranceId) {
             case INSURANCES.LIVE:
             case INSURANCES.RETIRE:
@@ -378,7 +378,7 @@ export class UpdateCompletePolicyService {
         }
 
         if(!!insured) {
-            insuredForm.addControl('policyInsuredId', new FormControl(insured.policyInsuredId));
+            insuredForm.addControl('policyInsuredId', new UntypedFormControl(insured.policyInsuredId));
         }
         return insuredForm;
     }

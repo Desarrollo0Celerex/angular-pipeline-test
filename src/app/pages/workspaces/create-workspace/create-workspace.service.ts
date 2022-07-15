@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 
@@ -19,12 +19,12 @@ import { WorkspaceService } from '@services/workspace.service';
 export class CreateWorkspaceService {
     countries: Country[];
     countryStates: State[];
-    workspaceForm: FormGroup;
+    workspaceForm: UntypedFormGroup;
 
     constructor(
         private _authService: AuthService,
         private _countryService: CountryService,
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _stateService: StateService,
         private _workspaceService: WorkspaceService
     ) {
@@ -93,7 +93,7 @@ export class CreateWorkspaceService {
      * Build de workspace form
      * @return Workspace form
      */
-    private _buildWorkspaceForm(): FormGroup {
+    private _buildWorkspaceForm(): UntypedFormGroup {
         return this._formBuilder.group({
             realName: ['', [Validators.required, Validators.minLength(REAL_NAME_LENGTH.MIN), Validators.maxLength(REAL_NAME_LENGTH.MAX), ValidatorsHelper.realName]],
             brandName: ['', [Validators.required, Validators.minLength(BRAND_NAME_LENGTH.MIN), Validators.maxLength(BRAND_NAME_LENGTH.MAX), ValidatorsHelper.brandName]],

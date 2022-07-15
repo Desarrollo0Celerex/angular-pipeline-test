@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { PaymentService } from '@services/payment.service';
@@ -10,10 +10,10 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 
 @Injectable()
 export class ModalSearchPaymentService {
-    form: FormGroup = this._buildSearchForm();
+    form: UntypedFormGroup = this._buildSearchForm();
 
     constructor(
-        private _formbuilder: FormBuilder,
+        private _formbuilder: UntypedFormBuilder,
         private _paymentService: PaymentService
     ) { }
 
@@ -36,7 +36,7 @@ export class ModalSearchPaymentService {
      * Build the search form
      * @return The search form
      */
-    private _buildSearchForm(): FormGroup {
+    private _buildSearchForm(): UntypedFormGroup {
         return this._formbuilder.group({
             policyNumber: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
         })

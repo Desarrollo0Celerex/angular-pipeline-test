@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
@@ -11,10 +11,10 @@ import { PolicyService } from '@services/policy.service';
 @Injectable()
 export class UploadPolicyService {
     insurers: Insurer[];
-    policyForm: FormGroup;
+    policyForm: UntypedFormGroup;
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _insurerService: InsurerService,
         private _policyService: PolicyService
     ) {

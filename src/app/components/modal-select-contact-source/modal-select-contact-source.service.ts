@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { ContactSource } from '@interfaces/contact-source.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -9,14 +9,14 @@ import { ContactSourceTypeService } from '@services/contact-source-type.service'
 
 @Injectable()
 export class ModalSelectContactSourceService {
-    contactSourceForm: FormGroup = this._formBuilder.group({});
+    contactSourceForm: UntypedFormGroup = this._formBuilder.group({});
     contactSources: ContactSource[] = [];
     contactSourceTypes: ContactSourceType[] = [];
 
     constructor(
         private _contactSourceService: ContactSourceService,
         private _contactSourceTypeService: ContactSourceTypeService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: UntypedFormBuilder
     ) { }
 
     get f() {

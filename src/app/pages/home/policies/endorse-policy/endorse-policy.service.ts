@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
@@ -20,7 +20,7 @@ import { PolicyService } from '@services/policy.service';
 
 @Injectable()
 export class EndorsePolicyService {
-    form: FormGroup;
+    form: UntypedFormGroup;
     endorsementTypes: EndorsementType[];
     monthsLeftToPay: number;
     paymentMethods: PaymentMethod[];
@@ -34,7 +34,7 @@ export class EndorsePolicyService {
         private _endorsementTypeService: EndorsementTypeService,
         private _paymentMethodService: PaymentMethodService,
         private _paymentPlanService: PaymentPlanService,
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _policyService: PolicyService
     ) {
         this.form = this._formBuilder.group({});
