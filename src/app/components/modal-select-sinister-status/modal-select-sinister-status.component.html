@@ -12,7 +12,7 @@
 				<div class="form-group">
 					<!-- LIVE SINISTERS -->
 					<div class="col-md-12 mt-5" *ngFor="let sinisterStatus of modalSelectSinisterStatusService.sinisterStatus">
-						<a [routerLink]="" [queryParams]="{'contentSubtype': sinisterStatus.sinisterStatusId }">
+						<a [routerLink]="[]" [queryParams]="{'contentSubtype': sinisterStatus.sinisterStatusId }">
 							<button type="button" class="btn btn-block {{(contentSubtype === sinisterStatus.sinisterStatusId) ? 'btn-secondary' : 'btn-primary'}}" (click)="onClickSelectSinisterStatus(sinisterStatus.name)"><strong>{{contentTypeName | pluralNameFormat | uppercase }} {{sinisterStatus.name | pluralNameFormat | uppercase}}</strong></button>
 						</a>
 					</div>

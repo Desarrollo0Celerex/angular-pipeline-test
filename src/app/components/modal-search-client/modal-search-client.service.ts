@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { OWN_NAME_LENGTH, CLIENT_STATUS } from '@constants/global';
@@ -12,11 +12,11 @@ import { GroupMemberService } from '@services/group-member.service';
 
 @Injectable()
 export class ModalSearchClientService {
-    form: FormGroup = this._buildForm();
+    form: UntypedFormGroup = this._buildForm();
     groupMembers: string[] = [];
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _groupMemberService: GroupMemberService,
         private _clientService: ClientService
     ) { }
@@ -56,7 +56,7 @@ export class ModalSearchClientService {
     }
 
 
-    private _buildForm(): FormGroup {
+    private _buildForm(): UntypedFormGroup {
         return this._formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]]
         });

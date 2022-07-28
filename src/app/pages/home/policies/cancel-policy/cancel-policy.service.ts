@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -12,12 +12,12 @@ import { PolicyCancellationReasonService } from '@services/policy-cancellation-r
 
 @Injectable()
 export class CancelPolicyService {
-    cancellationForm: FormGroup;
+    cancellationForm: UntypedFormGroup;
     policy: PolicyComplete | null;
     policyCancellationReasons: PolicyCancellationReason[];
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _policyService: PolicyService,
         private _policyCancellationReasonService: PolicyCancellationReasonService
     ) {

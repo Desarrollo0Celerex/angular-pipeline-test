@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -18,12 +18,12 @@ import { ReceiptPaidService } from '@services/receipt-paid.service';
 export class ModalApplyPaymentService {
     payment: Payment | null = null;
     paymentTypes: PaymentType[] = [];
-    paymentForm: FormGroup = this._formBuilder.group({});
+    paymentForm: UntypedFormGroup = this._formBuilder.group({});
 
     constructor(
         private _currencyPipe: CurrencyPipe,
         private _receiptPaidService: ReceiptPaidService,
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _paymentService: PaymentService,
         private _paymentTypeService: PaymentTypeService
     ) { }

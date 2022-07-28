@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
@@ -18,11 +18,11 @@ export class FinalizeSinisterService {
     currencies: Currency[] = [];
     sinister: Sinister | null = null;
     sinisterResolutions: SinisterResolution[] = [];
-    sinisterForm: FormGroup = this._buildSinisterForm();
+    sinisterForm: UntypedFormGroup = this._buildSinisterForm();
 
     constructor(
         private _currencyService: CurrencyService,
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _sinisterService: SinisterService,
         private _sinisterResolutionService: SinisterResolutionService
     ) { }
@@ -81,7 +81,7 @@ export class FinalizeSinisterService {
      * Build the sinister form
      * @return The sinister form
      */
-    private _buildSinisterForm(): FormGroup {
+    private _buildSinisterForm(): UntypedFormGroup {
         return this._formBuilder.group({
             evidenceFile: [''],
             sinisterResolutionId: ['', [Validators.required]],

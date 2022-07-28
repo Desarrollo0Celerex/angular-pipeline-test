@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { BRAND_NAME_LENGTH, CONTACT_TYPES, DEFAULT_PHONE_CODE_ID, DEFAULT_CONTACT_SOURCE_ID, EMAIL_LENGTH, OWN_NAME_LENGTH } from '@constants/global';
@@ -17,7 +17,7 @@ import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
 export class ContainerCreateContactService {
-    contactForm: FormGroup;
+    contactForm: UntypedFormGroup;
     contactSources: ContactSource[];
     countries: Country[] = [];
     states: State[] = [];
@@ -26,7 +26,7 @@ export class ContainerCreateContactService {
         private _contactService: ContactService,
         private _contactSourceService: ContactSourceService,
         private _countryService: CountryService,
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _stateService: StateService,
         private _workspaceService: WorkspaceService
     ) {

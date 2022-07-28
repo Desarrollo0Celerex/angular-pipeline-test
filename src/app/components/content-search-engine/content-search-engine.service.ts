@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, AbstractControl } from '@angular/forms';
 
 import { FREE_TEXT_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
 @Injectable()
 export class ContentSearchEngineService {
-    searchForm: FormGroup;
+    searchForm: UntypedFormGroup;
 
-    constructor(private _formBuider: FormBuilder) {
+    constructor(private _formBuider: UntypedFormBuilder) {
         this.searchForm = this.buildSearchForm();
     }
 
@@ -19,7 +19,7 @@ export class ContentSearchEngineService {
     /**
      * Build the search form
      */
-    buildSearchForm(): FormGroup {
+    buildSearchForm(): UntypedFormGroup {
         return this._formBuider.group({
             query: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
         })

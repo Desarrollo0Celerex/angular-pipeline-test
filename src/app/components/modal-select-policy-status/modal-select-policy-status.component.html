@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <div class="col-md-12 mt-5" *ngFor="let policyStatus of modalSelectPolicyTypeService.policyStatus">
-                        <a [routerLink]="" [queryParams]="{'contentSubtype': policyStatus.policyStatusId }">
+                        <a [routerLink]="[]" [queryParams]="{'contentSubtype': policyStatus.policyStatusId }">
                             <button type="button" class="btn btn-block {{(contentSubtype === policyStatus.policyStatusId) ? 'btn-secondary' : 'btn-primary'}}" (click)="onClickSelectPolicyStatus(policyStatus.name)"><strong>{{contentTypeName | pluralNameFormat | uppercase }} {{policyStatus.name | pluralNameFormat | uppercase}}</strong></button>
                         </a>
                     </div>

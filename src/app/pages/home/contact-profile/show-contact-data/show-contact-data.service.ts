@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 
@@ -30,7 +30,7 @@ import { StateService } from '@services/state.service';
 
 @Injectable()
 export class ShowContactDataService {
-    contactForm: FormGroup = this._formBuilder.group({});
+    contactForm: UntypedFormGroup = this._formBuilder.group({});
     civilStatus: CivilStatus[] = [];
     contact: Contact | null = null;
     contactOccupations: ContactOccupation[] = [];
@@ -46,7 +46,7 @@ export class ShowContactDataService {
         private _contactRelationService: ContactRelationService,
         private _contactService: ContactService,
         private _datePipe: DatePipe,
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _gendersService: GendersService,
         private _offspringService: OffspringService,
         private _countryService: CountryService,

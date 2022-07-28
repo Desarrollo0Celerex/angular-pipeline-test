@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -37,7 +37,7 @@ export class CompletePolicyService {
     paymentMethods: PaymentMethod[] = [];
     paymentPlans: PaymentPlan[] = [];
     policy: Policy | null = null;
-    policyForm: FormGroup = this._formBuilder.group({});;
+    policyForm: UntypedFormGroup = this._formBuilder.group({});;
     private _areFractionatedPaymentAmounts: boolean = false;
 
     constructor(
@@ -45,7 +45,7 @@ export class CompletePolicyService {
         private _atomScannService: AtomScannService,
         private _currencyService: CurrencyService,
         private _datePipe: DatePipe,
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _gendersService: GendersService,
         private _partnerService: PartnerService,
         private _paymentMethodService: PaymentMethodService,
@@ -58,8 +58,8 @@ export class CompletePolicyService {
         return this.policyForm.controls;
     }
 
-    get insureds(): FormArray {
-        return this.policyForm.get('insureds') as FormArray;
+    get insureds(): UntypedFormArray {
+        return this.policyForm.get('insureds') as UntypedFormArray;
     }
 
     addInsured(insured: Insured | null): void {
@@ -345,8 +345,8 @@ export class CompletePolicyService {
         return this._policyService.getPolicyTitularInfo(contactId, fields);
     }
 
-    newInsured(insured: Insured | null): FormGroup {
-        let insuredForm: FormGroup;
+    newInsured(insured: Insured | null): UntypedFormGroup {
+        let insuredForm: UntypedFormGroup;
         switch (this.policy!.insuranceId) {
             case INSURANCES.LIVE:
             case INSURANCES.RETIRE:

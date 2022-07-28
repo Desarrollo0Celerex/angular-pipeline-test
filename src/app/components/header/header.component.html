@@ -20,7 +20,7 @@
                     </a>
                 </div>
                 <div class="dropdown  header-fullscreen">
-                    <a [routerLink]="" class="nav-link icon full-screen-link nav-link-bg" (click)="showFullScreen()">
+                    <a [routerLink]="[]" class="nav-link icon full-screen-link nav-link-bg" (click)="showFullScreen()">
                         <i class="fe fe-minimize" ></i>
                     </a>
                 </div>
@@ -41,7 +41,7 @@
                         <a class="dropdown-item" [href]="atomAccountUrl" target="_blank">
                             <i class="mdi mdi-account-outline mr-2"></i> <span>Atom Account</span>
                         </a>
-                        <a class="dropdown-item" [routerLink]="" (click)="onClickLogout()">
+                        <a class="dropdown-item" [routerLink]="[]" (click)="onClickLogout()">
                             <i class="mdi  mdi-logout-variant mr-2"></i> <span>Salir</span>
                         </a>
                     </div>

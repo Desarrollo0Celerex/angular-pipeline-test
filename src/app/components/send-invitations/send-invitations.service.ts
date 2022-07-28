@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
@@ -21,7 +21,7 @@ export class SendInvitationsService {
     workspace: Workspace | null;
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _invitationService: InvitationService,
         private _roleService: RoleService,
         private _workspaceService: WorkspaceService
@@ -110,7 +110,7 @@ export class SendInvitationsService {
      * Get an invitation form
      * @return Invitation form
      */
-    private _getInvitationForm(): FormGroup {
+    private _getInvitationForm(): UntypedFormGroup {
         return this._formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
             email: ['', [Validators.required, Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],

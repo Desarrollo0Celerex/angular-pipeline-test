@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { MULTITEXT_LENGTH } from '@constants/global';
@@ -16,11 +16,11 @@ import * as moment from 'moment';
 
 @Injectable()
 export class ModalUpdateSinisterEventService {
-    sinisterEventForm: FormGroup = this._buildSinisterEventForm();
+    sinisterEventForm: UntypedFormGroup = this._buildSinisterEventForm();
     sinisterEventTypes: SinisterEventType[] = [];
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _sinisterEventService: SinisterEventService,
         private _sinisterEventTypeService: SinisterEventTypeService
     ) { }
@@ -71,7 +71,7 @@ export class ModalUpdateSinisterEventService {
      * Build the sinister event form
      * @return The sinister event form
      */
-    private _buildSinisterEventForm(): FormGroup {
+    private _buildSinisterEventForm(): UntypedFormGroup {
         return this._formBuilder.group({
             details: ['', [Validators.required, Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]],
             eventDate: ['', [Validators.required, ValidatorsHelper.date]],

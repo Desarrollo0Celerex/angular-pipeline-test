@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { OWN_NAME_LENGTH } from '@constants/global';
@@ -8,10 +8,10 @@ import { GroupService } from '@services/group.service';
 
 @Injectable()
 export class ModalCreateGroupService {
-    form: FormGroup = this._buildForm();
+    form: UntypedFormGroup = this._buildForm();
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _groupService: GroupService
     ) { }
 
@@ -23,7 +23,7 @@ export class ModalCreateGroupService {
         return this._groupService.checkHasCoincidences(this.f.name.value);
     }
 
-    private _buildForm(): FormGroup {
+    private _buildForm(): UntypedFormGroup {
         return this._formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]]
         })

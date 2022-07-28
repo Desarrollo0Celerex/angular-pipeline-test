@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
@@ -12,10 +12,10 @@ import { InsuranceTypeService } from '@services/insurance-type.service';
 @Injectable()
 export class ModalGetPolicyDetailsService {
     insuranceTypes: InsuranceType[] = [];
-    policyDetailsForm: FormGroup = this._formBuilder.group({});
+    policyDetailsForm: UntypedFormGroup = this._formBuilder.group({});
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _insuranceTypeService: InsuranceTypeService
     ) { }
 

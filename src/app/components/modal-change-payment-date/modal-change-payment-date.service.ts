@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -12,12 +12,12 @@ import { PaymentService } from '@services/payment.service';
 
 @Injectable()
 export class ModalChangePaymentDateService {
-    form: FormGroup = this._formBuilder.group({});
+    form: UntypedFormGroup = this._formBuilder.group({});
     payment: Payment | null = null;
     isBuiltForm: boolean = false;
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _paymentService: PaymentService,
     ) { }
 

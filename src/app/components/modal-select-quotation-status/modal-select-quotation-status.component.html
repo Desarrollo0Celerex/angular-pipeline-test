@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <!-- ACCEPTED QUOTES -->
                     <div class="col-md-12 mt-5" *ngFor="let quotationStatus of modalSelectQuotationTypeService.quotationStatus">
-                        <a [routerLink]="" [queryParams]="{'contentSubtype': quotationStatus.quotationStatusId }">
+                        <a [routerLink]="[]" [queryParams]="{'contentSubtype': quotationStatus.quotationStatusId }">
                             <button type="button" class="btn btn-block {{(contentSubtype === quotationStatus.quotationStatusId) ? 'btn-secondary' : 'btn-primary'}}" (click)="onClickSelectQuotationStatus(quotationStatus.name)"><strong>{{contentTypeName | pluralNameFormat | uppercase}} {{quotationStatus.name | pluralNameFormat | uppercase}}</strong></button>
                         </a>
                     </div>
