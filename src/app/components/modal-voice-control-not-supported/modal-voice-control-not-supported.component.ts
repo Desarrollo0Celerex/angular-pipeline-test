@@ -14,6 +14,7 @@ export class ModalVoiceControlNotSupportedComponent {
     modalId: string = 'agt-voice-control-not-supported';
 
     constructor(private _voiceControlService: VoiceControlService) {
+        ModalPlugin.hide(this.modalId);
         this._voiceControlService.modalNotSupported.subscribe( (status: boolean) => {
             this._toggleModal(status);
         })

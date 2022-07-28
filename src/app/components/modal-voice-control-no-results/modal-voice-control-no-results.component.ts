@@ -17,6 +17,7 @@ export class ModalVoiceControlNoResultsComponent {
     commandText: string = '';
 
     constructor(private _voiceControlService: VoiceControlService) {
+        ModalPlugin.hide(this.modalId);
         this._voiceControlService.modalNoResults.subscribe( (status: VoiceControlCommandNotFoundData) => {
             this._toggleModal(status);
         })

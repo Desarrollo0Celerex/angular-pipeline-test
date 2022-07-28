@@ -3,6 +3,10 @@ const AUTH_ROUTES = {
     identify_user: (authToken: string) => `auth/identify-user/${authToken}`
 }
 
+const CHANGELOG_ROUTES = {
+    changelog: 'changelog'
+}
+
 const ERRORS_ROUTES = {
     notFound: 'errors/not-found',
     notAuthenticated: 'errors/not-authenticated',
@@ -168,6 +172,7 @@ const WORKSPACES_ROUTES = {
 
 export const ROUTES_NAME = {
     ...AUTH_ROUTES,
+    ...CHANGELOG_ROUTES,
     ...ERRORS_ROUTES,
     ...EXPRESS_ROUTES,
     ...HOME_CLIENTS_ROUTES,
