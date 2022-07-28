@@ -22,6 +22,7 @@ export class ModalVoiceControlContactResultsComponent {
         private _voiceControlService: VoiceControlService,
         private _router: Router
     ) {
+        ModalPlugin.hide(this.modalId);
         this._voiceControlService.contactResults.subscribe( (status: VoiceControlContactResultsData) => {
             this._toggleModal(status);
         })

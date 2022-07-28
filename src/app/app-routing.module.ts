@@ -11,6 +11,9 @@ const routes: Routes = [
     { path: ROUTES_NAME.login, loadChildren: () => import('@pages/auth/login/login.module').then( mod => mod.LoginModule) },
     { path: ROUTES_NAME.identify_user(':authToken'), loadChildren: () => import('@pages/auth/identify-user/identify-user.module').then( mod => mod.IdentifyUserModule) },
 
+    // Changelog routes
+    { path: ROUTES_NAME.changelog, loadChildren: () => import('@pages/changelog/changelog.module').then( mod => mod.ChangelogModule) },
+
     // Errors routes
     { path: ROUTES_NAME.notFound, loadChildren: () => import('@pages/errors/not-found/not-found.module').then( mod => mod.NotFoundModule) },
     { path: ROUTES_NAME.notAuthenticated, loadChildren: () => import('@pages/errors/not-authenticated/not-authenticated.module').then( mod => mod.NotAuthenticatedModule) },

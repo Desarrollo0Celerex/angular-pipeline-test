@@ -1,0 +1,13 @@
+<ng-container *ngFor="let log of logs">
+    <h1>Agenthos Api V: {{log.version}}</h1>
+    <!-- API LAUNCH -->
+    <h3>Agenthos Api Launch: {{log.launchDate}}</h3>
+    <!-- API LAST UPDATE -->
+    <dl>
+        <ng-container *ngFor="let change of log.changes">
+            <dt>{{change.title}}</dt>
+            <dd *ngFor="let item of change.items">- {{item}}</dd>
+        </ng-container>
+    </dl>
+    <br>
+</ng-container>
