@@ -24,7 +24,7 @@
                     </div>
                     <div class="px__screen">
                       <div class="px__screen__">
-                        <div class="px__screen__frame" [ngStyle]="{'background-image': model.wallet.themeId ? 'url(https://webkit.atombits.xyz/agenthos/mockups/agenthos_wallet_'+themeColors[model.wallet.themeId - 1].preview+'.png)' : ''}">
+                        <div class="px__screen__frame" [ngStyle]="{'background-image': model.wallet.themeId ? 'url(https://webkit.atombits.xyz/agenthos/mockups/agenthos_wallet_'+((themeColors[model.wallet.themeId - 1].preview === 'blue-dark') ? 'azure' : themeColors[model.wallet.themeId - 1].preview )+'.png)' : ''}">
                         </div>
                       </div>
                     </div>

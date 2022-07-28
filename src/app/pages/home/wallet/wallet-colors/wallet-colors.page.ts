@@ -31,7 +31,8 @@ export class WalletColorsPage implements OnInit {
         { themeId: 5, background: 'bg-yellow', preview: 'yellow' },
         { themeId: 6, background: 'bg-lime', preview: 'lime' },
         { themeId: 7, background: 'bg-green', preview: 'green' },
-        { themeId: 8, background: 'bg-teal', preview: 'teal' }
+        { themeId: 8, background: 'bg-teal', preview: 'teal' },
+        { themeId: 9, background: 'bg-blue-dark', preview: 'blue-dark' }
     ];
     selectedColorName: string = '';
     modalIdConfirmUpdateWallet: string = 'modal-confirm-update-wallet';
