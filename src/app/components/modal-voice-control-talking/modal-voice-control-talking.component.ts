@@ -15,6 +15,7 @@ export class ModalVoiceControlTalkingComponent {
     modalId: string = 'agt-voice-control-talking';
 
     constructor(private _voiceControlService: VoiceControlService) {
+        ModalPlugin.hide(this.modalId);
         this._voiceControlService.isTalking.subscribe( (status: boolean) => {
             this._toggleModal(status);
         })

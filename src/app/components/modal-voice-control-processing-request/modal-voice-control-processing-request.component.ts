@@ -16,6 +16,7 @@ export class ModalVoiceControlProcessingRequestComponent {
     commandText: string = '';
 
     constructor(private _voiceControlService: VoiceControlService) {
+        ModalPlugin.hide(this.modalId);
         this._voiceControlService.isProcessingRequest.subscribe( (status: VoiceControlProcessingRequestData) => {
             this._toggleModal(status);
         })
