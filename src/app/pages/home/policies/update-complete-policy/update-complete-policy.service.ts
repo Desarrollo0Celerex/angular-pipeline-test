@@ -384,7 +384,8 @@ export class UpdateCompletePolicyService {
     }
 
     replaceInsureds(): void {
-        this.insureds.controls[0] = this.newInsured();
+        this.insureds.removeAt(0);
+        this.addInsured();
     }
 
     updatePolicy(contactId: string, policyId: string): Observable<void> {
