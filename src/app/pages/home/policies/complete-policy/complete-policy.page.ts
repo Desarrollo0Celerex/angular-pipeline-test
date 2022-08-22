@@ -4,7 +4,7 @@ import { AbstractControl } from '@angular/forms';
 import * as moment from 'moment';
 
 import { ERROR_CODES } from '@constants/error-codes';
-import { DOCUMENT_FORMATS, FILE_TYPES, POLICY_SOURCES, INSURANCES } from '@constants/global';
+import { DOCUMENT_FORMATS, FILE_TYPES, POLICY_SOURCES, INSURANCES, INSURANCE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -28,6 +28,7 @@ declare var ModalPlugin: any;
 })
 export class CompletePolicyPage implements OnInit {
     INSURANCES: any = INSURANCES;
+    INSURANCE_TYPES: any = INSURANCE_TYPES;
     contactId: string;
     existingContactId: string = '';
     existingPolicyId: string = '';
@@ -83,6 +84,10 @@ export class CompletePolicyPage implements OnInit {
         this._loadContactPolicy();
     }
 
+    addNewInsured(): void {
+        this.completePolicyService.addInsured();
+    }
+
     /**
      * Get the error message
      * @param  constrolName Control name
@@ -110,7 +115,11 @@ export class CompletePolicyPage implements OnInit {
 
     getValidationClassInsured(constrolName: string, insuredIndex: number): string {
         const control: AbstractControl | null = this.completePolicyService.insureds.at(insuredIndex).get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const validationClass: string = InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        if(constrolName === 'insuredPolicyFile') {
+            return (validationClass === 'is-valid') ? 'agt-is-valid' : (validationClass === 'is-invalid') ? 'agt-is-invalid' : '';
+        }
+        return validationClass;
     }
 
     /**
@@ -199,6 +208,18 @@ export class CompletePolicyPage implements OnInit {
         }, (error: HttpError) => {
             this._handleCompletePolicyError(error);
         });
+    }
+
+    removeInsured(insuredIndex: number): void {
+        this.completePolicyService.removeInsured(insuredIndex);
+    }
+
+    selectInsuredPolicyFile(event: any, index: number): void {
+        if (event.target.files.length > 0) {
+            const insuredPolicyFile = event.target.files[0];
+            this.completePolicyService.insureds.at(index).patchValue({insuredPolicyFile});
+            this.completePolicyService.insureds.at(index).get('insuredPolicyFile')!.updateValueAndValidity();
+        }
     }
 
     titularPhoneCodeIdSelected(titularPhoneCodeId: number): void {

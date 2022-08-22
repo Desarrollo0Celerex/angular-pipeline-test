@@ -405,6 +405,10 @@ export const INSURANCES: any = {
 
 }
 
+export const INSURANCE_TYPES: any = {
+    FLOTILLA: 5
+}
+
 export const CANCELLATION_REASONS: any = {
     CAPTURE_ERROR: 9
 }
