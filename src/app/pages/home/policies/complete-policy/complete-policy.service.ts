@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { FREE_TEXT_LENGTH, TITULAR_NAME_LENGTH, POLICY_SOURCES, ROLES, SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY, SLACK_DAYS_TO_LOAD_A_EXPIRED_POLICY, INSURANCES, DEFAULT_PAYMENT_METHOD_ID } from '@constants/global';
+import { FREE_TEXT_LENGTH, TITULAR_NAME_LENGTH, POLICY_SOURCES, ROLES, SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY,
+    SLACK_DAYS_TO_LOAD_A_EXPIRED_POLICY, INSURANCES, DEFAULT_PAYMENT_METHOD_ID, INSURANCE_TYPES, SHORT_ALPHANUMERIC_LENGTH,
+    LONG_ALPHANUMERIC_LENGTH, FILE_TYPES
+} from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
@@ -27,7 +30,10 @@ import { PartnerService } from '@services/partner.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
+import { PolicyInsuredService } from '@services/policy-insured.service';
 import { ScannerLogService } from '@services/scanner-log.service';
+
+declare var DropifyPlugin: any;
 
 @Injectable()
 export class CompletePolicyService {
@@ -37,20 +43,24 @@ export class CompletePolicyService {
     paymentMethods: PaymentMethod[] = [];
     paymentPlans: PaymentPlan[] = [];
     policy: Policy | null = null;
-    policyForm: UntypedFormGroup = this._formBuilder.group({});;
+    policyForm: FormGroup = this._formBuilder.group({});;
     private _areFractionatedPaymentAmounts: boolean = false;
+    private _allowedFileTypes: string[] = ['pdf'];
+    private _canShowPreview: boolean = true;
+    private _maxFileSize: string = '2M';
 
     constructor(
         private _authService: AuthService,
         private _atomScannService: AtomScannService,
         private _currencyService: CurrencyService,
         private _datePipe: DatePipe,
-        private _formBuilder: UntypedFormBuilder,
+        private _formBuilder: FormBuilder,
         private _gendersService: GendersService,
         private _partnerService: PartnerService,
         private _paymentMethodService: PaymentMethodService,
         private _paymentPlanService: PaymentPlanService,
         private _policyService: PolicyService,
+        private _policyInsuredService: PolicyInsuredService,
         private _scannerLogService: ScannerLogService
     ) { }
 
@@ -58,12 +68,13 @@ export class CompletePolicyService {
         return this.policyForm.controls;
     }
 
-    get insureds(): UntypedFormArray {
-        return this.policyForm.get('insureds') as UntypedFormArray;
+    get insureds(): FormArray {
+        return this.policyForm.get('insureds') as FormArray;
     }
 
-    addInsured(insured: Insured | null): void {
+    addInsured(insured: Insured | null = null): void {
         this.insureds.push(this.newInsured(insured));
+        this._initDropifyPlugin();
     }
 
     /**
@@ -99,6 +110,10 @@ export class CompletePolicyService {
             partnerId: [0, [Validators.required]],
             insureds: this._formBuilder.array([])
         });
+
+        if(this.policy!.insuranceTypeId === INSURANCE_TYPES.FLOTILLA) {
+            this.policyForm.addControl('description', new FormControl('', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]))
+        }
 
         const insured: Insured | null = (!!policy && !!policy.insureds && policy.insureds.length > 0) ? policy.insureds[0] : null;
         this.addInsured(insured);
@@ -211,7 +226,15 @@ export class CompletePolicyService {
      */
     completePolicy(contactId: string, policyId: string, scannedPolicyData: Policy | null): Observable<void> {
         const requestBody: FormData = this._getRequestBody(scannedPolicyData);
-        return this._policyService.completePolicy(contactId, policyId, requestBody);
+        return new Observable((observer => {
+            this._policyService.completePolicy(contactId, policyId, requestBody).subscribe(() => {
+                const requestBodies: FormData[] = this._generateRequestBodies();
+                this._policyInsuredService.createPolicyInsured(contactId, policyId, requestBodies).subscribe(() => {
+                    observer.next();
+                    observer.complete();
+                });
+            });
+        }));
     }
 
     /**
@@ -345,8 +368,8 @@ export class CompletePolicyService {
         return this._policyService.getPolicyTitularInfo(contactId, fields);
     }
 
-    newInsured(insured: Insured | null): UntypedFormGroup {
-        let insuredForm: UntypedFormGroup;
+    newInsured(insured: Insured | null): FormGroup {
+        let insuredForm: FormGroup;
         switch (this.policy!.insuranceId) {
             case INSURANCES.LIVE:
             case INSURANCES.RETIRE:
@@ -371,14 +394,44 @@ export class CompletePolicyService {
             case INSURANCES.CAR:
             case INSURANCES.MOTORBIKE:
             case INSURANCES.BIKE:
-                insuredForm = this._formBuilder.group({
-                    vehicleMaker: [(!!insured && !!insured.vehicleMaker) ? insured.vehicleMaker : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    vehicleVersion: [(!!insured && !!insured.vehicleVersion) ? insured.vehicleVersion : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    vehicleModel: [(!!insured && !!insured.vehicleModel) ? insured.vehicleModel : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    vehiclePlates: [(!!insured && !!insured.vehiclePlates) ? insured.vehiclePlates : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    vehicleSerial: [(!!insured && !!insured.vehicleSerial) ? insured.vehicleSerial : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    vehicleMotor: [(!!insured && !!insured.vehicleMotor) ? insured.vehicleMotor : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                });
+                switch(this.policy!.insuranceTypeId) {
+                    case INSURANCE_TYPES.FLOTILLA:
+                        insuredForm = this._formBuilder.group({
+                            vehicleNumber: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleInternalNumber: ['', [Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleType: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleUnitType: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleCargoTypeId: [''],
+                            vehicleCoverageId: ['', [Validators.required]],
+                            vehicleUseId: ['', [Validators.required]],
+                            vehicleAdaptation: ['', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleValidityStartDate: ['', [Validators.required, ValidatorsHelper.date]],
+                            vehicleMaker: ['', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleVersion: ['', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleModel: ['', [Validators.required, ValidatorsHelper.vehicleModel]],
+                            vehiclePlates: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleSerial: ['', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleMotor: ['', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleNickname: ['', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleNetPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
+                            vehicleFeePay: ['0.00', [ValidatorsHelper.amount]],
+                            vehicleCoverPay: ['0.00', [ValidatorsHelper.amount]],
+                            vehicleExtraPay: ['0.00', [ValidatorsHelper.amount]],
+                            vehicleTaxPay: ['0.00', [ValidatorsHelper.amount]],
+                            insuredPolicyFile: ['']
+                        });
+                    break;
+
+                    default:
+                        insuredForm = this._formBuilder.group({
+                            vehicleMaker: [(!!insured && !!insured.vehicleMaker) ? insured.vehicleMaker : '', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleVersion: [(!!insured && !!insured.vehicleVersion) ? insured.vehicleVersion : '', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleModel: [(!!insured && !!insured.vehicleModel) ? insured.vehicleModel : '', [Validators.required, ValidatorsHelper.vehicleModel]],
+                            vehiclePlates: [(!!insured && !!insured.vehiclePlates) ? insured.vehiclePlates : '', [Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleSerial: [(!!insured && !!insured.vehicleSerial) ? insured.vehicleSerial : '', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleMotor: [(!!insured && !!insured.vehicleMotor) ? insured.vehicleMotor : '', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                        });
+                }
                 break;
 
             case INSURANCES.HOME:
@@ -439,6 +492,16 @@ export class CompletePolicyService {
         return policyNumber;
     }
 
+    private _generateRequestBodies(): FormData[] {
+        let requests: FormData[] = [];
+        const insureds: any[] = this.insureds.controls;
+        for(let insured of insureds) {
+            const requestBody: FormData = this._getInsuredRequestBody(insured.value);
+            requests.push(requestBody);
+        }
+        return requests;
+    }
+
     /**
      * Get the date format
      * @param  date The date to format
@@ -451,6 +514,92 @@ export class CompletePolicyService {
             dateFormat = (!!formattedDate) ? formattedDate : '';
         }
         return dateFormat;
+    }
+
+    private _getInsuredRequestBody(insured: any): FormData {
+        const requestBody: FormData = new FormData();
+        switch(this.policy!.insuranceId) {
+            case INSURANCES.LIVE:
+            case INSURANCES.RETIRE:
+            case INSURANCES.HEALTH:
+            case INSURANCES.ACCIDENTS:
+            case INSURANCES.CARE:
+            case INSURANCES.PETS:
+            case INSURANCES.CRISIS:
+            case INSURANCES.TRAVEL:
+            case INSURANCES.DEATH:
+            case INSURANCES.CREDIT:
+            case INSURANCES.WARRANTY:
+            case INSURANCES.SCHOOLAR:
+            case INSURANCES.FIANCE:
+                requestBody.append('personName', insured.personName);
+                requestBody.append('personGenderId', insured.personGenderId);
+                requestBody.append('personAge', insured.personAge);
+                break;
+
+            case INSURANCES.CAR:
+            case INSURANCES.MOTORBIKE:
+            case INSURANCES.BIKE:
+                switch(this.policy!.insuranceTypeId) {
+                    case INSURANCE_TYPES.FLOTILLA:
+                        requestBody.append('vehicleNumber', insured.vehicleNumber);
+                        requestBody.append('vehicleInternalNumber', insured.vehicleInternalNumber);
+                        requestBody.append('vehicleType', insured.vehicleType);
+                        requestBody.append('vehicleUnitType', insured.vehicleUnitType);
+                        requestBody.append('vehicleCargoTypeId', insured.vehicleCargoTypeId);
+                        requestBody.append('vehicleCoverageId', insured.vehicleCoverageId);
+                        requestBody.append('vehicleUseId', insured.vehicleUseId);
+                        requestBody.append('vehicleAdaptation', insured.vehicleAdaptation);
+                        requestBody.append('vehicleValidityStartDate', insured.vehicleValidityStartDate);
+                        requestBody.append('vehicleMaker', insured.vehicleMaker);
+                        requestBody.append('vehicleVersion', insured.vehicleVersion);
+                        requestBody.append('vehicleModel', insured.vehicleModel);
+                        requestBody.append('vehiclePlates', insured.vehiclePlates);
+                        requestBody.append('vehicleSerial', insured.vehicleSerial);
+                        requestBody.append('vehicleMotor', insured.vehicleMotor);
+                        requestBody.append('vehicleNickname', insured.vehicleNickname);
+                        requestBody.append('vehicleNetPay', insured.vehicleNetPay);
+                        requestBody.append('vehicleFeePay', insured.vehicleFeePay);
+                        requestBody.append('vehicleCoverPay', insured.vehicleCoverPay);
+                        requestBody.append('vehicleExtraPay', insured.vehicleExtraPay);
+                        requestBody.append('vehicleTaxPay', insured.vehicleTaxPay);
+                        requestBody.append('insuredPolicyFile', insured.insuredPolicyFile);
+                    break;
+
+                    default:
+                        requestBody.append('vehicleMaker', insured.vehicleMaker);
+                        requestBody.append('vehicleVersion', insured.vehicleVersion);
+                        requestBody.append('vehicleModel', insured.vehicleModel);
+                        requestBody.append('vehiclePlates', insured.vehiclePlates);
+                        requestBody.append('vehicleSerial', insured.vehicleSerial);
+                        requestBody.append('vehicleMotor', insured.vehicleMotor);
+                }
+                break;
+
+            case INSURANCES.HOME:
+            case INSURANCES.BUILDING:
+            case INSURANCES.FARM:
+                requestBody.append('buildingName', insured.buildingName);
+                requestBody.append('buildingUsage', insured.buildingUsage);
+                requestBody.append('buildingLocation', insured.buildingLocation);
+                break;
+
+            case INSURANCES.CIVIL:
+            case INSURANCES.TECHNICAL:
+            case INSURANCES.CAUTION:
+            case INSURANCES.TERRESTRIAL:
+            case INSURANCES.TRANSPORT:
+            case INSURANCES.AERO:
+                requestBody.append('objectName', insured.objectName);
+                requestBody.append('objectUsage', insured.objectUsage);
+                requestBody.append('objectDescription', insured.objectDescription);
+                break;
+
+            default:
+                requestBody.append('policyDetails', insured.policyDetails);
+                break;
+        }
+        return requestBody;
     }
 
     /**
@@ -500,8 +649,9 @@ export class CompletePolicyService {
             requestBody.append('agentNumber', scannedPolicyData.agentNumber);
             requestBody.append('policyPlan', scannedPolicyData.policyPlan);
         }
-        const insureds: any[] = this.insureds.value;
-        requestBody.append('insureds', JSON.stringify(insureds));
+        if(this.policy!.insuranceTypeId === INSURANCE_TYPES.FLOTILLA) {
+            requestBody.append('description', this.f.description.value);
+        }
         return requestBody;
     }
 
@@ -519,5 +669,11 @@ export class CompletePolicyService {
             requestBody.append('insuranceTypeId', this.policy.insuranceTypeId.toString());
         }
         return requestBody;
+    }
+
+    private _initDropifyPlugin(): void {
+        setTimeout(() => {
+            DropifyPlugin.init(FILE_TYPES.DOCUMENT, this._allowedFileTypes, this._canShowPreview, this._maxFileSize);
+        }, 0);
     }
 }

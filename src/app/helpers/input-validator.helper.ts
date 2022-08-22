@@ -98,7 +98,10 @@ export class InputValidatorHelper {
                     case (typeof error.groupNameExist !== 'undefined'):
                         message = 'Ya existe un grupo con esté nombre.';
                         break;
-                        
+                    case (typeof error.vehicleModel !== 'undefined'):
+                        message = 'Por favor ingresa un modelo válido.';
+                        break;
+
                     default: message = '';
                 }
             }

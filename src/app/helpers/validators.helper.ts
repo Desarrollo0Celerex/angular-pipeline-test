@@ -246,6 +246,15 @@ export class ValidatorsHelper {
         return null;
     }
 
+    static vehicleModel(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^[0-9]{4}$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {vehicleModel: true} : null;
+        }
+        return null;
+    }
+
     /**
      * Validate a web link
      * @param  control The control to evaluate

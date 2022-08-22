@@ -21,6 +21,7 @@ import { PartnerService } from '@services/partner.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
+import { PolicyInsuredService } from '@services/policy-insured.service';
 import { ScannerLogService } from '@services/scanner-log.service';
 
 import { CompletePolicyRoutingModule } from './complete-policy-routing.module';
@@ -57,6 +58,7 @@ import { CompletePolicyService } from './complete-policy.service';
       PaymentMethodService,
       PaymentPlanService,
       PolicyService,
+      PolicyInsuredService,
       ScannerLogService
   ]
 })
