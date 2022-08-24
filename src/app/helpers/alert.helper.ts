@@ -334,6 +334,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static policyInsuredDeleted(): void {
+        const alertData: Alert = {
+            title: 'Vehículo Eliminado',
+            text: 'El vehículo ha sido eliminado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static policyUploaded(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Póliza Cargada',

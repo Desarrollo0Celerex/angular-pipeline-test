@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 import * as moment from 'moment';
 
-import { DOCUMENT_FORMATS, FILE_TYPES, INSURANCES } from '@constants/global';
+import { DOCUMENT_FORMATS, FILE_TYPES, INSURANCES, INSURANCE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -25,14 +25,17 @@ declare var ModalPlugin: any;
 })
 export class UpdateCompletePolicyPage implements OnInit {
     INSURANCES: any = INSURANCES;
+    INSURANCE_TYPES: any = INSURANCE_TYPES;
     calendarIdEmissionDate: string = 'emissionDate';
     calendarIdValidityEndDate: string = 'validityEndDate';
     calendarIdValidityStartDate: string = 'validityStartDate';
     contactId: string = '';
     message: string = 'Verfica los datos para la nueva póliza de';
+    modalIdConfirmRemoveInsured: string = 'agt-confirm-remove-insured';
     modalIdPolicyAmountsDifferent: string = 'agt-policy-amounts-different';
     modalIdSelectFile: string = 'agt-select-file';
     modalIdShowPolicy: string = 'agt-show-policy';
+    modalIdShowPolicyFile: string = 'agt-show-policy-file';
     modalSelectFileData: ModalSelectFileData = {
         title: 'Actualizar Póliza',
         description: 'Selecciona el formato digital de la póliza.',
@@ -41,7 +44,10 @@ export class UpdateCompletePolicyPage implements OnInit {
         fileType: FILE_TYPES.DOCUMENT
     };
     policyId: string = '';
+    selectedPolicyUrl: string = '';
+    selectedVehicleNumber: string = '';
     private _isFormSubmitted: boolean = false;
+    private _selectedInsuredIndex: number = 0;
 
     constructor(
         public updateCompletePolicyService: UpdateCompletePolicyService,
@@ -53,6 +59,26 @@ export class UpdateCompletePolicyPage implements OnInit {
     ngOnInit(): void {
         this._catchParams();
         this._loadPolicy();
+    }
+
+    addNewInsured(): void {
+        this.updateCompletePolicyService.addInsured();
+    }
+
+    confirmRemoveInsured(insuredIndex: number): void {
+        const policyInsuredId: any = this.updateCompletePolicyService.insureds.at(insuredIndex).get('policyInsuredId');
+        if(!!policyInsuredId) {
+            this._selectedInsuredIndex = insuredIndex;
+            this.selectedVehicleNumber = this.updateCompletePolicyService.insureds.at(insuredIndex).get('vehicleNumber')!.value;
+            ModalPlugin.show(this.modalIdConfirmRemoveInsured);
+        } else {
+            this.updateCompletePolicyService.removeInsured(insuredIndex);
+        }
+    }
+
+    confirmUpdateInsured(insuredIndex: number): void {
+        this.updateCompletePolicyService.insureds.at(insuredIndex).enable();
+        this.updateCompletePolicyService.initDropifyPlugin();
     }
 
     /**
@@ -144,6 +170,28 @@ export class UpdateCompletePolicyPage implements OnInit {
                 }
             }
         }
+    }
+
+    deleteInsured(): void {
+        this._selectedInsuredIndex;
+        this._loadingService.show();
+        this.updateCompletePolicyService.deletePolicyInsured(this.contactId, this.policyId, this._selectedInsuredIndex).subscribe(() => {
+            this._loadingService.hide();
+            AlertHelper.policyInsuredDeleted();
+        })
+    }
+
+    selectInsuredPolicyFile(event: any, index: number): void {
+        if (event.target.files.length > 0) {
+            const insuredPolicyFile = event.target.files[0];
+            this.updateCompletePolicyService.insureds.at(index).patchValue({insuredPolicyFile});
+            this.updateCompletePolicyService.insureds.at(index).get('insuredPolicyFile')!.updateValueAndValidity();
+        }
+    }
+
+    showPolicyFile(insuredIndex: number): void {
+        this.selectedPolicyUrl = this.updateCompletePolicyService.insureds.at(insuredIndex).get('policyUrl')!.value;
+        ModalPlugin.show(this.modalIdShowPolicyFile);
     }
 
     titularPhoneCodeIdSelected(titularPhoneCodeId: number): void {
