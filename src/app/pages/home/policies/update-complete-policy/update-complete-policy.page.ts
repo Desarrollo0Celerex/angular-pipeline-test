@@ -57,6 +57,7 @@ export class UpdateCompletePolicyPage implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this._loadingService.show();
         this._catchParams();
         this._loadPolicy();
     }
