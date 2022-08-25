@@ -414,10 +414,10 @@ export class CompletePolicyService {
                             vehicleMotor: ['', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
                             vehicleInternalNumber: ['', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
                             vehicleNetPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
-                            vehicleFeePay: ['0.00', [ValidatorsHelper.amount]],
-                            vehicleCoverPay: ['0.00', [ValidatorsHelper.amount]],
-                            vehicleExtraPay: ['0.00', [ValidatorsHelper.amount]],
-                            vehicleTaxPay: ['0.00', [ValidatorsHelper.amount]],
+                            vehicleFeePay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
+                            vehicleCoverPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
+                            vehicleExtraPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
+                            vehicleTaxPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
                             insuredPolicyFile: ['']
                         });
                     break;
