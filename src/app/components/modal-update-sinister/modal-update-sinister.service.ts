@@ -3,7 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { LONG_ALPHANUMERIC_LENGTH, SHORT_ALPHANUMERIC_LENGTH } from '@constants/global';
+import { LONG_ALPHANUMERIC_LENGTH, SHORT_ALPHANUMERIC_LENGTH, FREE_TEXT_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { CreateSinister } from '@interfaces/create-sinister.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -11,7 +11,6 @@ import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterType } from '@interfaces/sinister-type.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { SinisterService } from '@services/sinister.service';
-import { SinisterTypeService } from '@services/sinister-type.service';
 
 import * as moment from 'moment';
 
@@ -23,8 +22,7 @@ export class ModalUpdateSinisterService {
 
     constructor(
         private _formBuilder: UntypedFormBuilder,
-        private _sinisterService: SinisterService,
-        private _sinisterTypeService: SinisterTypeService
+        private _sinisterService: SinisterService
     ) { }
 
     /**
@@ -32,7 +30,7 @@ export class ModalUpdateSinisterService {
      * @param sinisterData The sinister data
      */
     loadSinister(sinisterData: SinisterDataSend): Observable<HttpResponse> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterTypeId,sinisterDate,insuranceId';
+        const fields: string = 'sinisterId,reportNumber,manager,sinisterNumber,invoice,sinisterDate,estimatedResolutionDate';
         return this._sinisterService.getPolicySinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.sinister = res.data;
@@ -46,27 +44,13 @@ export class ModalUpdateSinisterService {
      */
     fillSinisterForm(sinister: Sinister): void {
         this.sinisterForm.patchValue({
+            reportNumber: sinister.reportNumber,
+            manager: sinister.manager,
             sinisterNumber: sinister.sinisterNumber,
             invoice: sinister.invoice,
-            certificate: sinister.certificate,
-            sinisterTypeId: sinister.sinisterTypeId,
-            sinisterDate: moment(sinister.sinisterDate).format('DD/MM/YYYY')
+            sinisterDate: moment(sinister.sinisterDate).format('DD/MM/YYYY'),
+            estimatedResolutionDate: moment(sinister.estimatedResolutionDate).format('DD/MM/YYYY'),
         })
-    }
-
-    /**
-     * Load the sinister types
-     * @param  insuranceId The insurance ID
-     * @return             The sinister
-     */
-    loadSinisterTypes(insuranceId: number): Observable<void> {
-        const fields: string = 'sinisterTypeId,name';
-        return this._sinisterTypeService.getSinisterTypes(insuranceId, fields).pipe(
-            tap((res: HttpResponse) => {
-                this.sinisterTypes = res.data;
-            }),
-            map(() => {})
-        )
     }
 
     /**
@@ -85,11 +69,12 @@ export class ModalUpdateSinisterService {
      */
     private _buildSinisterForm(): UntypedFormGroup {
         return this._formBuilder.group({
+            reportNumber: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX)]],
+            manager: ['', [Validators.required, ValidatorsHelper.freeText, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX)]],
             sinisterNumber: ['', [Validators.required, ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
             invoice: ['', [Validators.required, ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
-            certificate: ['', [Validators.required, ValidatorsHelper.alphanumeric, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX)]],
-            sinisterTypeId: ['', [Validators.required]],
-            sinisterDate: ['', [Validators.required, ValidatorsHelper.date]]
+            sinisterDate: ['', [Validators.required, ValidatorsHelper.date]],
+            estimatedResolutionDate: ['', [Validators.required, ValidatorsHelper.date]]
         });
     }
 }

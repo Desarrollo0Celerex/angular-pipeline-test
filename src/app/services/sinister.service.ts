@@ -22,6 +22,7 @@ const routes: any = {
     partnerSinisters: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/sinisters',
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
     policySinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId,
+    policySinisterDetails: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/details',
     finalizeSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/finalize',
     reactivateSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/reactivate',
     sinisterLogs: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/logs',
@@ -45,9 +46,9 @@ export class SinisterService {
      * @param  requestBody The request body
      * @return             Notice of action done
      */
-    createSinister(contactId: string, policyId: string, requestBody: CreateSinister): Observable<void> {
+    createSinister(contactId: string, policyId: string, requestBody: CreateSinister): Observable<HttpResponse> {
         const route: string = routes.policySinisters(this._workspaceId, contactId, policyId);
-        return this._httpClient.post<void>(route, requestBody);
+        return this._httpClient.post<HttpResponse>(route, requestBody);
     }
 
     /**
@@ -265,6 +266,11 @@ export class SinisterService {
     */
    updatePolicySinister(sinisterData: SinisterDataSend, requestBody: CreateSinister ): Observable<void> {
        const route: string = routes.policySinister(this._workspaceId, sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId);
+       return this._httpClient.put<void>(route, requestBody);
+   }
+
+   updatePolicySinisterDetails(sinisterData: SinisterDataSend, requestBody: CreateSinister ): Observable<void> {
+       const route: string = routes.policySinisterDetails(this._workspaceId, sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId);
        return this._httpClient.put<void>(route, requestBody);
    }
 
