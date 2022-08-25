@@ -125,7 +125,9 @@ export class UpdateCompletePolicyService {
                 for(let insured of policy.insureds) {
                     this.addInsured(insured);
                 }
-                this.policyForm.get('insureds')!.disable();
+                if(policy.insuranceTypeId === INSURANCE_TYPES.FLOTILLA) {
+                    this.policyForm.get('insureds')!.disable();
+                }
             } else {
                 this.addInsured();
             }
