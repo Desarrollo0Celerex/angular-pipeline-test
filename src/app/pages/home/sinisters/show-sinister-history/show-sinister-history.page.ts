@@ -1,26 +1,74 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
 
-import { CONTENT_TYPES } from '@constants/global';
+import { CONTENT_TYPES, SINISTER_STATUS } from '@constants/global';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
+
+import { ShowSinisterHistoryService } from './show-sinister-history.service';
+
+declare var ModalPlugin: any;
 
 @Component({
   selector: 'agt-show-sinister-history',
   templateUrl: './show-sinister-history.page.html',
   styles: [
-  ]
+  ],
+  providers: [ShowSinisterHistoryService]
 })
 export class ShowSinisterHistoryPage implements OnInit {
+    CONTENT_TYPES: any = CONTENT_TYPES;
+    SINISTER_STATUS: any = SINISTER_STATUS;
     contactId: string = '';
+    modalIdConfirmFinalizeSinister: string = 'agt-confirm-finalize-sinister';
+    modalIdConfirmReactivateSinister: string = 'agt-confirm-reactivate-sinister';
+    modalIdUpdateSinister: string = 'agt-update-sinister';
+    modalIdUpdateSinisterDetails: string = 'agt-update-sinister-details';
     policyId: string = '';
     sinisterId: string = '';
     sinisterData: SinisterDataSend | null = null;
-    CONTENT_TYPES: any = CONTENT_TYPES;
 
-    constructor(private _activatedRoute: ActivatedRoute) { }
+    constructor(
+        public model: ShowSinisterHistoryService,
+        private _activatedRoute: ActivatedRoute
+    ) { }
 
     ngOnInit(): void {
         this._catchParams();
+    }
+
+    get estimatedDays(): number {
+        if(!!this.model.sinister) {
+            const sinisterDate: any = moment(this.model.sinister.sinisterDate);
+            const estimatedDate: any = moment(this.model.sinister.estimatedResolutionDate);
+            return estimatedDate.diff(sinisterDate, 'days');
+        }
+        return 0;
+    }
+
+    get elapsedDays(): number {
+        if(!!this.model.sinister) {
+            const sinisterDate: any = moment(this.model.sinister.sinisterDate);
+            const currentDate: any = moment();
+            return currentDate.diff(sinisterDate, 'days');
+        }
+        return 0;
+    }
+
+    confirmReactivateSinister(): void {
+        ModalPlugin.show(this.modalIdConfirmReactivateSinister);
+    }
+
+    confirmFinalizeSinister(): void {
+        ModalPlugin.show(this.modalIdConfirmFinalizeSinister);
+    }
+
+    showModalToUpdateSinister(): void {
+        ModalPlugin.show(this.modalIdUpdateSinister);
+    }
+
+    showModalToUpdateSinisterDetails(): void {
+        ModalPlugin.show(this.modalIdUpdateSinisterDetails);
     }
 
     /**
@@ -35,6 +83,7 @@ export class ShowSinisterHistoryPage implements OnInit {
             policyId: this.policyId,
             sinisterId: this.sinisterId
         }
+        this.model.loadSinister(this.sinisterData);
     }
 
 }

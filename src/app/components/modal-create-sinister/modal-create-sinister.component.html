@@ -13,31 +13,48 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <!-- AGENTHOS - SINISTER NUMBER * -->
-                                <label class="form-label">Número de Siniestro</label>
-                                <input type="text" class="form-control {{getValidationClass('sinisterNumber')}}" placeholder="Ingresa el número de siniestro" formControlName="sinisterNumber">
+                                <label class="form-label">No. Reporte</label>
+                                <input type="text" class="form-control {{getValidationClass('reportNumber')}}" formControlName="reportNumber">
+                                <div class="invalid-feedback">{{getErrorMessage('reportNumber')}}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Ejecutivo Asignado</label>
+                                <input type="text" class="form-control {{getValidationClass('manager')}}" formControlName="manager">
+                                <div class="invalid-feedback">{{getErrorMessage('manager')}}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">No. Siniestro</label>
+                                <input type="text" class="form-control {{getValidationClass('sinisterNumber')}}" placeholder="Ingresa el no. de siniestro." formControlName="sinisterNumber">
                                 <div class="invalid-feedback">{{getErrorMessage('sinisterNumber')}}</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <!-- AGENTHOS - SINISTER INVOICE * -->
-                                <label class="form-label">Número de Folio</label>
-                                <input type="text" class="form-control {{getValidationClass('invoice')}}" placeholder="Ingresa el folio del siniestro." formControlName="invoice">
+                                <label class="form-label">No. Folio</label>
+                                <input type="text" class="form-control {{getValidationClass('invoice')}}" placeholder="Ingresa el no. de folio." formControlName="invoice">
                                 <div class="invalid-feedback">{{getErrorMessage('invoice')}}</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <!-- AGENTHOS - SINISTER CERTIFICATE * -->
-                                <label class="form-label">Número de Certificado</label>
-                                <input type="text" class="form-control {{getValidationClass('certificate')}}" placeholder="Ingresa el número de certificado." formControlName="certificate">
-                                <div class="invalid-feedback">{{getErrorMessage('certificate')}}</div>
+                                <label class="form-label">Fecha Siniestro</label>
+                                <input [id]="calendarIdSinisterDate" type="text" class="form-control fc-datepicker {{getValidationClass('sinisterDate')}}" placeholder="08/09/2020" formControlName="sinisterDate">
+                                <div class="invalid-feedback">{{getErrorMessage('sinisterDate')}}</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <!-- AGENTHOS - SINISTER CLASS * -->
+                                <label class="form-label">Resolución Estimada</label>
+                                <input [id]="calendarIdResolutionDate" type="text" class="form-control fc-datepicker {{getValidationClass('estimatedResolutionDate')}}" placeholder="08/09/2020" formControlName="estimatedResolutionDate">
+                                <div class="invalid-feedback">{{getErrorMessage('estimatedResolutionDate')}}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label class="form-label">Tipo de Siniestro</label>
                                 <select class="form-control custom-select {{getValidationClass('sinisterTypeId')}}" formControlName="sinisterTypeId">
                                     <option [value]="sinisterType.sinisterTypeId" *ngFor="let sinisterType of modalCreateSinisterService.sinisterTypes">{{sinisterType.name}}</option>
@@ -45,12 +62,11 @@
                                 <div class="invalid-feedback">{{getErrorMessage('sinisterTypeId')}}</div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - SINISTER DATE * -->
-                                <label class="form-label">Fecha de Siniestro</label>
-                                <input [id]="calendarIdSinisterDate" type="text" class="form-control fc-datepicker {{getValidationClass('sinisterDate')}}" placeholder="08/09/2020" formControlName="sinisterDate">
-                                <div class="invalid-feedback">{{getErrorMessage('sinisterDate')}}</div>
+                                <label class="form-label">Ubicación del Siniestro</label>
+                                <input type="text" class="form-control {{getValidationClass('location')}}" placeholder="Dirección del Siniestro" formControlName="location">
+                                <div class="invalid-feedback">{{getErrorMessage('location')}}</div>
                             </div>
                         </div>
                     </div>
