@@ -126,4 +126,14 @@ export class UtilitiesHelper {
         return quantity.replace(',', '');
     }
 
+    static generateKey(length: number = 5): string {
+        const characters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const charactersLength: number = characters.length;
+        let key: string = '';
+        for ( let i = 0; i < length; i++ ) {
+          key += characters.charAt(Math.floor(Math.random() * charactersLength));
+       }
+       return key;
+    }
+
 }

@@ -1,8 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import * as moment from 'moment';
 
+import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { HttpResponse } from '@interfaces/http-response.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ModalCreateSinisterService } from './modal-create-sinister.service';
@@ -17,18 +21,21 @@ declare var ModalPlugin: any;
   ],
   providers: [ModalCreateSinisterService]
 })
-export class ModalCreateSinisterComponent implements OnChanges {
+export class ModalCreateSinisterComponent implements OnChanges, OnInit {
     @Input() modalId: string = '';
     @Input() contactId: string = '';
     @Input() policyId: string = '';
     @Input() insuranceId: number = 0;
     @Output() sinisterCreated: EventEmitter<void> = new EventEmitter<void>();
     calendarIdSinisterDate: string = 'sinisterDate';
+    calendarIdResolutionDate: string = 'resolutionDate';
     private _isFormSubmitted: boolean = false;
+    private _sinisterId: string = '';
 
     constructor(
         public modalCreateSinisterService: ModalCreateSinisterService,
-        private _loadingService: LoadingService
+        private _loadingService: LoadingService,
+        private _router: Router,
     ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -44,6 +51,7 @@ export class ModalCreateSinisterComponent implements OnChanges {
     }
 
     ngOnInit(): void {
+        this.modalCreateSinisterService.loadWorkspaceUser();
         this._initCalendars();
     }
 
@@ -83,9 +91,10 @@ export class ModalCreateSinisterComponent implements OnChanges {
         if(this.modalCreateSinisterService.sinisterForm.valid) {
             ModalPlugin.hide(this.modalId);
             this._loadingService.show();
-            this.modalCreateSinisterService.createSinister(this.contactId, this.policyId).subscribe( () => {
+            this.modalCreateSinisterService.createSinister(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
                 this._resetSinisterForm();
                 this._loadingService.hide();
+                this._sinisterId = res.data;
                 AlertHelper.sinisterCreated(this._notifySinisterCreated, this);
             });
         }
@@ -97,6 +106,7 @@ export class ModalCreateSinisterComponent implements OnChanges {
     private _initCalendars(): void {
         DatePickerPlugin.init();
         DatePickerPlugin.initElement(this.calendarIdSinisterDate, this._onChangeDate, this);
+        DatePickerPlugin.initElement(this.calendarIdResolutionDate, this._onChangeDate, this);
     }
 
     private _loadPolicyCotactId(): void {
@@ -116,7 +126,7 @@ export class ModalCreateSinisterComponent implements OnChanges {
      * @param context The app context
      */
     private _notifySinisterCreated(context: ModalCreateSinisterComponent): void {
-        context.sinisterCreated.emit();
+        context._router.navigateByUrl(ROUTES_NAME.showSinisterHistory(context.contactId, context.policyId, context._sinisterId));
     }
 
     /**
@@ -127,6 +137,10 @@ export class ModalCreateSinisterComponent implements OnChanges {
      */
     private _onChangeDate(selectorId: string, changedValue: string, context: ModalCreateSinisterComponent): void {
         context.modalCreateSinisterService.sinisterForm.patchValue({[selectorId]: changedValue});
+        if(selectorId === 'sinisterDate') {
+            const resolutionDate: string = moment(changedValue, 'DD/MM/YYYY').add('days', 7).format('DD/MM/YYYY');
+            context.modalCreateSinisterService.sinisterForm.patchValue({resolutionDate});
+        }
     }
 
     /**

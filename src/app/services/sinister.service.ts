@@ -45,9 +45,9 @@ export class SinisterService {
      * @param  requestBody The request body
      * @return             Notice of action done
      */
-    createSinister(contactId: string, policyId: string, requestBody: CreateSinister): Observable<void> {
+    createSinister(contactId: string, policyId: string, requestBody: CreateSinister): Observable<HttpResponse> {
         const route: string = routes.policySinisters(this._workspaceId, contactId, policyId);
-        return this._httpClient.post<void>(route, requestBody);
+        return this._httpClient.post<HttpResponse>(route, requestBody);
     }
 
     /**

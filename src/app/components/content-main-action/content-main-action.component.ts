@@ -23,7 +23,6 @@ export class ContentMainActionComponent implements OnInit {
     @Input() groupId: string = '';
     @Output() contentSubtypeNameSelected: EventEmitter<string>;
     @Output() groupCreated: EventEmitter<void> = new EventEmitter<void>();
-    @Output() sinisterCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() partnerCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() paymentSelected: EventEmitter<Payment> = new EventEmitter<Payment>();
     CONTENT_TYPES: any;
@@ -205,13 +204,6 @@ export class ContentMainActionComponent implements OnInit {
                 ModalPlugin.show(this.modalIdCreateSinister);
                 break;
         }
-    }
-
-    /**
-     * Event to notify that a sinister was created
-     */
-    onSinisterCreated(): void {
-        this.sinisterCreated.emit();
     }
 
     showModalGroupHasCoincidences(name: string): void {
