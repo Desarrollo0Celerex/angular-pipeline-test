@@ -94,7 +94,7 @@ export class ModalCreateSinisterService {
             sinisterNumber: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
             invoice: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
             sinisterDate: ['', [Validators.required, ValidatorsHelper.date]],
-            resolutionDate: ['', [Validators.required, ValidatorsHelper.date]],
+            estimatedResolutionDate: ['', [Validators.required, ValidatorsHelper.date]],
             sinisterTypeId: ['', [Validators.required]],
             location: ['', [Validators.required, ValidatorsHelper.freeText, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX)]],
         });

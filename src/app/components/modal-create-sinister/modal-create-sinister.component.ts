@@ -28,7 +28,7 @@ export class ModalCreateSinisterComponent implements OnChanges, OnInit {
     @Input() insuranceId: number = 0;
     @Output() sinisterCreated: EventEmitter<void> = new EventEmitter<void>();
     calendarIdSinisterDate: string = 'sinisterDate';
-    calendarIdResolutionDate: string = 'resolutionDate';
+    calendarIdResolutionDate: string = 'estimatedResolutionDate';
     private _isFormSubmitted: boolean = false;
     private _sinisterId: string = '';
 
@@ -138,8 +138,8 @@ export class ModalCreateSinisterComponent implements OnChanges, OnInit {
     private _onChangeDate(selectorId: string, changedValue: string, context: ModalCreateSinisterComponent): void {
         context.modalCreateSinisterService.sinisterForm.patchValue({[selectorId]: changedValue});
         if(selectorId === 'sinisterDate') {
-            const resolutionDate: string = moment(changedValue, 'DD/MM/YYYY').add('days', 7).format('DD/MM/YYYY');
-            context.modalCreateSinisterService.sinisterForm.patchValue({resolutionDate});
+            const estimatedResolutionDate: string = moment(changedValue, 'DD/MM/YYYY').add('days', 7).format('DD/MM/YYYY');
+            context.modalCreateSinisterService.sinisterForm.patchValue({estimatedResolutionDate});
         }
     }
 

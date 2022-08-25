@@ -9,18 +9,18 @@ import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { LoadingService } from '@services/loading.service';
 
-import { ModalUpdateSinisterService } from './modal-update-sinister.service';
+import { ModalUpdateSinisterDetailsService } from './modal-update-sinister-details.service';
 
-declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-update-sinister',
-  templateUrl: './modal-update-sinister.component.html',
+  selector: 'agt-modal-update-sinister-details',
+  templateUrl: './modal-update-sinister-details.component.html',
   styles: [
-  ]
+  ],
+  providers: [ModalUpdateSinisterDetailsService]
 })
-export class ModalUpdateSinisterComponent implements OnInit {
+export class ModalUpdateSinisterDetailsComponent implements OnInit {
     @Input() modalId: string = '';
     @Input() sinisterData: SinisterDataSend | null = null;
     calendarIdSinisterDate: string = 'sinisterDate';
@@ -28,7 +28,7 @@ export class ModalUpdateSinisterComponent implements OnInit {
     private _isFormSubmitted: boolean = false;
 
     constructor(
-        public modalUpdateSinisterService: ModalUpdateSinisterService,
+        public model: ModalUpdateSinisterDetailsService,
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
@@ -44,7 +44,7 @@ export class ModalUpdateSinisterComponent implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.modalUpdateSinisterService.sinisterForm.get(constrolName);
+        const control: AbstractControl | null = this.model.sinisterDetailsForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -54,7 +54,7 @@ export class ModalUpdateSinisterComponent implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.modalUpdateSinisterService.sinisterForm.get(constrolName);
+        const control: AbstractControl | null = this.model.sinisterDetailsForm.get(constrolName);
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
@@ -63,10 +63,10 @@ export class ModalUpdateSinisterComponent implements OnInit {
      */
     onSubmitUpdateSinister(): void {
         this._isFormSubmitted = true;
-        if(this.modalUpdateSinisterService.sinisterForm.valid && !!this.sinisterData) {
+        if(this.model.sinisterDetailsForm.valid && !!this.sinisterData) {
             this._loadingService.show();
             ModalPlugin.hide(this.modalId);
-            this.modalUpdateSinisterService.updateSinister(this.sinisterData).subscribe(() => {
+            this.model.updateSinister(this.sinisterData).subscribe(() => {
                 this._loadingService.hide();
                 AlertHelper.sinisterUpdated(this._reloadPage, this)
             });
@@ -77,7 +77,7 @@ export class ModalUpdateSinisterComponent implements OnInit {
      * Reload the page
      * @param context The app context
      */
-    private _reloadPage(context: ModalUpdateSinisterComponent): void {
+    private _reloadPage(context: ModalUpdateSinisterDetailsComponent): void {
         context._router.routeReuseStrategy.shouldReuseRoute = () => false;
         context._router.onSameUrlNavigation = 'reload';
         if(!!context.sinisterData) {
@@ -86,34 +86,14 @@ export class ModalUpdateSinisterComponent implements OnInit {
     }
 
     /**
-     * Initialize the calendars
-     */
-    private _initCalendars(): void {
-        DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdSinisterDate, this._onChangeDate, this);
-        DatePickerPlugin.initElement(this.calendarIdEstimatedResolutionDate, this._onChangeDate, this);
-    }
-
-    /**
      * Load the sinister
      */
     private _loadSinister(): void {
         if(this.sinisterData) {
-            this.modalUpdateSinisterService.loadSinister(this.sinisterData).subscribe( (res: HttpResponse) => {
-                this.modalUpdateSinisterService.fillSinisterForm(res.data);
-                this._initCalendars();
+            this.model.loadSinister(this.sinisterData).subscribe( (res: HttpResponse) => {
+                this.model.fillSinisterForm(res.data);
+                this.model.loadSinisterTypes(res.data.insuranceId);
             })
         }
     }
-
-    /**
-     * Event to update a date in the policy form
-     * @param selectorId   The selector ID
-     * @param changedValue The changed value
-     * @param context      The app context
-     */
-    private _onChangeDate(selectorId: string, changedValue: string, context: ModalUpdateSinisterComponent): void {
-        context.modalUpdateSinisterService.sinisterForm.patchValue({[selectorId]: changedValue});
-    }
-
 }

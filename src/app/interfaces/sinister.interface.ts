@@ -34,5 +34,11 @@ export interface Sinister {
     sinisterResolutionName: string,
     sinisterResolutionCurrencyName: string,
     sinisterResolutionIndemnificationAmount: string,
-    workspaceCurrencyId: number
+    workspaceCurrencyId: number,
+    estimatedResolutionDate: string,
+    manager: string,
+    reportNumber: string,
+    affectedCoverage: string,
+    location: string,
+    affectedName: string,
 }

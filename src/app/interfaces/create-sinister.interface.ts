@@ -4,7 +4,7 @@ export interface CreateSinister {
     sinisterNumber: string,
     invoice: string,
     sinisterDate: string,
-    resolutionDate: string,
+    estimatedResolutionDate: string,
     sinisterTypeId: number,
     location: string,
 }
