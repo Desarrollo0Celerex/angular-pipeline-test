@@ -137,6 +137,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowPolicyDetails: string;
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
     modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
+    modalIdSelectReportFormat: string = 'agt-select-report-format';
     modalIdShowExternalPolicyDetails: string = 'modal-show-external-policy-details';
     modalIdShowPartnerDetails: string = 'agt-show-partner-details';
     modalIdShowQuotationDetails: string;
@@ -386,14 +387,17 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdConfirmDeleteContactFile);
     }
 
-    /**
-     * Event to show modal to confirm delete the policy
-     * @param policyId The policy ID to delete
-     */
     onDeletePolicy(data: ContactPolicyData): void {
         this.contactId = data.contactId;
         this.selectedPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmDeleteCompletePolicy);
+    }
+
+    onDownloadReportFlotilla(formatType: number): void {
+        this._loadingService.show();
+        this.contentListService.downloadReportFlotilla(this.contactId, this.selectedPolicyId, formatType).then(() => {
+            this._loadingService.hide();
+        });
     }
 
     confirmDeleteIncompletePolicy(data: ContactPolicyData): void {
@@ -592,6 +596,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             this.contactId = data.contactId
         }
         ModalPlugin.show(this.modalIdConfirmShowHistoryPolicy);
+    }
+
+    onShowModalToSelectReportFormat(data: ContactPolicyData): void {
+        this.selectedPolicyId = data.policyId;
+        this.contactId = data.contactId;
+        ModalPlugin.show(this.modalIdSelectReportFormat);
     }
 
     /**

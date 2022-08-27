@@ -22,7 +22,7 @@ export interface Insured {
     vehicleNetPay: number,
     vehicleFeePay: number,
     vehicleCoverPay: number,
-    vehicleExtraPay: number,
+    vehicleTotalAmount: number,
     vehicleTaxPay: number,
     vehicleStatusId: number,
     insuredPolicyFile: string,

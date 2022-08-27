@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { CONTACT_PROFILE_PAGE_TYPES } from '@constants/global';
+import { Contact } from '@interfaces/contact.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContactService } from '@services/contact.service';
-
-import { Contact } from '@interfaces/contact.interface';
 
 @Injectable()
 export class ContactProfileService {
     contact: Contact | null = null;
 
-    constructor(private _contactService: ContactService) { }
+    constructor(
+        private _contactService: ContactService
+    ) { }
 
     deleteContact(contactId: string): Observable<void> {
         return this._contactService.deleteContact(contactId);

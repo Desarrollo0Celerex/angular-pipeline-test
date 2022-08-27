@@ -63,6 +63,7 @@ import { ModalConfirmValidateExternalPolicyModule } from '@components/modal-conf
 import { ModalSelectContactModule } from '@components/modal-select-contact/modal-select-contact.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { ModalSelectPaymentRegistrationTypeModule } from '@components/modal-select-payment-registration-type/modal-select-payment-registration-type.module';
+import { ModalSelectReportFormatModule } from '@components/modal-select-report-format/modal-select-report-format.module'
 import { ModalShowCancellationEvidenceModule } from '@components/modal-show-cancellation-evidence/modal-show-cancellation-evidence.module';
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 import { ModalShowContactFileDetailsModule } from '@components/modal-show-contact-file-details/modal-show-contact-file-details.module';
@@ -97,6 +98,7 @@ import { PartnerService } from '@services/partner.service';
 import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
 import { PolicyLogService } from '@services/policy-log.service';
+import { PolicyInsuredService } from '@services/policy-insured.service';
 import { QuotationService } from '@services/quotation.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
 import { SinisterService } from '@services/sinister.service';
@@ -169,6 +171,7 @@ import { ContentListService } from './content-list.service';
     ModalSelectContactModule,
     ModalSelectContactTypeModule,
     ModalSelectPaymentRegistrationTypeModule,
+    ModalSelectReportFormatModule,
     ModalShowCancellationEvidenceModule,
     ModalShowContactDataModule,
     ModalShowContactFileDetailsModule,
@@ -203,6 +206,7 @@ import { ContentListService } from './content-list.service';
       PaymentService,
       PolicyService,
       PolicyLogService,
+      PolicyInsuredService,
       QuotationService,
       ReceiptPaidService,
       SinisterService

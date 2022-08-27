@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
@@ -8,7 +8,9 @@ import { AuthService } from '@services/auth.service';
 
 const ROUTES = {
     policyInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds`,
-    policyInsured: (workspaceId: string, contactId: string, policyId: string, policyInsuredId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds/${policyInsuredId}`
+    policyInsured: (workspaceId: string, contactId: string, policyId: string, policyInsuredId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds/${policyInsuredId}`,
+    reportFlotilla: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/reports/flotilla`,
+    reportFlotillas: (workspaceId: string, contactId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/reports/flotillas`
 }
 
 @Injectable()
@@ -30,6 +32,34 @@ export class PolicyInsuredService {
     deletePolicyInsured(contactId: string, policyId: string, policyInsuredId: string): Observable<void> {
         const route: string = ROUTES.policyInsured(this._workspaceId, contactId, policyId, policyInsuredId);
         return this._httpClient.delete<void>(route);
+    }
+
+    downloadReportFlotilla(contactId: string, policyId: string, formatType: number) {
+        const route: string = ROUTES.reportFlotilla(this._workspaceId, contactId, policyId);
+        let params: HttpParams = new HttpParams();
+        if(!!formatType) params = params.append('formatType', formatType);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
+    }
+
+    downloadReportFlotillas(contactId: string, formatType: number) {
+        const route: string = ROUTES.reportFlotillas(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        if(!!formatType) params = params.append('formatType', formatType);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
     }
 
     updatePolicyInsureds(contactId: string, policyId: string, requestBodies: FormData[]): Observable<void> {

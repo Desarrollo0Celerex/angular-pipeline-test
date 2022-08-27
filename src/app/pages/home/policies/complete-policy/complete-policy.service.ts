@@ -397,26 +397,26 @@ export class CompletePolicyService {
                 switch(this.policy!.insuranceTypeId) {
                     case INSURANCE_TYPES.FLOTILLA:
                         insuredForm = this._formBuilder.group({
-                            vehicleNumber: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
-                            vehicleSubgroup: ['', [Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleNumber: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(20), ValidatorsHelper.alphanumeric]],
+                            vehicleInternalNumber: ['', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(75), ValidatorsHelper.alphanumeric]],
+                            vehicleSubgroup: ['', [Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(20), ValidatorsHelper.alphanumeric]],
                             vehicleType: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
                             vehicleUnitType: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
                             vehicleCargoTypeId: [''],
                             vehicleCoverageId: ['', [Validators.required]],
                             vehicleUseId: ['', [Validators.required]],
-                            vehicleAdaptation: ['', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehicleAdaptation: ['', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(150), ValidatorsHelper.freeText]],
                             vehicleValidityStartDate: ['', [Validators.required, ValidatorsHelper.date]],
-                            vehicleMaker: ['', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
-                            vehicleVersion: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                            vehicleMaker: ['', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(50), ValidatorsHelper.alphanumeric]],
+                            vehicleVersion: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(100), ValidatorsHelper.freeText]],
                             vehicleModel: ['', [Validators.required, ValidatorsHelper.vehicleModel]],
-                            vehiclePlates: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
-                            vehicleSerial: ['', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
-                            vehicleMotor: ['', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
-                            vehicleInternalNumber: ['', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehiclePlates: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(20), ValidatorsHelper.alphanumeric]],
+                            vehicleSerial: ['', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(100), ValidatorsHelper.alphanumeric]],
+                            vehicleMotor: ['', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(100), ValidatorsHelper.alphanumeric]],
                             vehicleNetPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
                             vehicleFeePay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
                             vehicleCoverPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
-                            vehicleExtraPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
+                            vehicleTotalAmount: ['0.00', [Validators.required, ValidatorsHelper.amount]],
                             vehicleTaxPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
                             insuredPolicyFile: ['']
                         });
@@ -424,12 +424,12 @@ export class CompletePolicyService {
 
                     default:
                         insuredForm = this._formBuilder.group({
-                            vehicleMaker: [(!!insured && !!insured.vehicleMaker) ? insured.vehicleMaker : '', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
-                            vehicleVersion: [(!!insured && !!insured.vehicleVersion) ? insured.vehicleVersion : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                            vehicleMaker: [(!!insured && !!insured.vehicleMaker) ? insured.vehicleMaker : '', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(50), ValidatorsHelper.alphanumeric]],
+                            vehicleVersion: [(!!insured && !!insured.vehicleVersion) ? insured.vehicleVersion : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(100), ValidatorsHelper.freeText]],
                             vehicleModel: [(!!insured && !!insured.vehicleModel) ? insured.vehicleModel : '', [Validators.required, ValidatorsHelper.vehicleModel]],
-                            vehiclePlates: [(!!insured && !!insured.vehiclePlates) ? insured.vehiclePlates : '', [Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
-                            vehicleSerial: [(!!insured && !!insured.vehicleSerial) ? insured.vehicleSerial : '', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
-                            vehicleMotor: [(!!insured && !!insured.vehicleMotor) ? insured.vehicleMotor : '', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
+                            vehiclePlates: [(!!insured && !!insured.vehiclePlates) ? insured.vehiclePlates : '', [Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(20), ValidatorsHelper.alphanumeric]],
+                            vehicleSerial: [(!!insured && !!insured.vehicleSerial) ? insured.vehicleSerial : '', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(100), ValidatorsHelper.alphanumeric]],
+                            vehicleMotor: [(!!insured && !!insured.vehicleMotor) ? insured.vehicleMotor : '', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(100), ValidatorsHelper.alphanumeric]],
                         });
                 }
                 break;
@@ -561,7 +561,7 @@ export class CompletePolicyService {
                         requestBody.append('vehicleNetPay', insured.vehicleNetPay);
                         requestBody.append('vehicleFeePay', insured.vehicleFeePay);
                         requestBody.append('vehicleCoverPay', insured.vehicleCoverPay);
-                        requestBody.append('vehicleExtraPay', insured.vehicleExtraPay);
+                        requestBody.append('vehicleTotalAmount', insured.vehicleTotalAmount);
                         requestBody.append('vehicleTaxPay', insured.vehicleTaxPay);
                         requestBody.append('insuredPolicyFile', insured.insuredPolicyFile);
                     break;
