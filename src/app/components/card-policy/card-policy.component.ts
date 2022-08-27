@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import * as moment from 'moment';
 
-import { POLICY_STATUS, CANCELLATION_REASONS, ROLES, SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY, CONTENT_TYPES } from '@constants/global';
+import { POLICY_STATUS, CANCELLATION_REASONS, INSURANCE_TYPES, CONTENT_TYPES } from '@constants/global';
 
 import { Policy } from '@interfaces/policy.interface';
 import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
@@ -27,6 +26,7 @@ export class CardPolicyComponent implements OnInit {
     @Output() cancelPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() completePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() deletePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
+    @Output() downloadReportFlotilla: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() endorsePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() reissuePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() renewPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
@@ -40,6 +40,7 @@ export class CardPolicyComponent implements OnInit {
     CANCELLATION_REASONS: any = CANCELLATION_REASONS;
     POLICY_STATUS: any = POLICY_STATUS;
     CONTENT_TYPES: any = CONTENT_TYPES;
+    INSURANCE_TYPES: any = INSURANCE_TYPES;
     //isInTime: boolean = false;
 
     constructor(private _authService: AuthService) {
@@ -79,6 +80,13 @@ export class CardPolicyComponent implements OnInit {
      */
     onClickDeletePolicy(): void {
         if(!!this.policy) this.deletePolicy.emit({
+            contactId: this.policy.contactId,
+            policyId: this.policy.policyId
+        });
+    }
+
+    onClickDownloadReportFlotilla(): void {
+        if(!!this.policy) this.downloadReportFlotilla.emit({
             contactId: this.policy.contactId,
             policyId: this.policy.policyId
         });

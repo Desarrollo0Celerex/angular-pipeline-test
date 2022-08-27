@@ -199,6 +199,7 @@
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                     (showPaymentHistory)="onShowPaymentHistory($event)"
                     (showPolicySinisters)="onShowPolicySinisters($event)"
+                    (downloadReportFlotilla)="onShowModalToSelectReportFormat($event)"
                     (deletePolicy)="onDeletePolicy($event)"
                 ></agt-card-policy>
                 <agt-card-policy
@@ -414,6 +415,10 @@
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
     <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
     <agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
+    <agt-modal-select-report-format
+        [modalId]="modalIdSelectReportFormat"
+        (formatSelected)="onDownloadReportFlotilla($event)"
+    ></agt-modal-select-report-format>
 </ng-container>
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID ||

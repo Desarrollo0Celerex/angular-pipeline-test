@@ -66,6 +66,8 @@
                             <!-- AGENTHOS - POLICY SINISTERS -->
                             <button type="button" class="dropdown-item" (click)="onClickShowPolicySinisters()"><i class="fa fa-support mr-2"></i>Siniestros</button>
                             <div class="dropdown-divider"></div>
+                            <!-- AGENTHOS - DOWNLOAD FLOTILLA REPORT -->
+                            <button *ngIf="policy.insuranceTypeId === INSURANCE_TYPES.FLOTILLA" type="button" class="dropdown-item" (click)="onClickDownloadReportFlotilla()"><i class="fa fa-download mr-2"></i>Reporte</button>
                             <!-- AGENTHOS - POLICY CANCEL -->
                             <button type="button" class="dropdown-item" (click)="onClickCancelPolicy()"><i class="fa fa-exclamation-circle mr-2"></i>Cancelar</button>
                         </ng-container>
