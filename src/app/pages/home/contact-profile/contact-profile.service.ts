@@ -1,20 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { saveAs } from 'file-saver';
 
 import { CONTACT_PROFILE_PAGE_TYPES } from '@constants/global';
+import { Contact } from '@interfaces/contact.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContactService } from '@services/contact.service';
-
-import { Contact } from '@interfaces/contact.interface';
+import { PolicyInsuredService } from '@services/policy-insured.service';
 
 @Injectable()
 export class ContactProfileService {
     contact: Contact | null = null;
 
-    constructor(private _contactService: ContactService) { }
+    constructor(
+        private _contactService: ContactService,
+        private _policyInsuredService: PolicyInsuredService
+    ) { }
 
     deleteContact(contactId: string): Observable<void> {
         return this._contactService.deleteContact(contactId);
+    }
+
+    downloadReportFlotillas(contactId: string, formatType: number): Promise<void> {
+        return new Promise((resolve) => {
+            this._policyInsuredService.downloadReportFlotillas(contactId, formatType).then((response: any) => {
+              const filename = response.headers.get('content-disposition').split(';')[1].split('filename')[1].split('=')[1].split('"')[1].trim();
+              const blob = new Blob([response.body], {type: response.type.toString()});
+                  saveAs(blob, filename);
+                  resolve();
+            });
+        });
     }
 
     /**

@@ -20,6 +20,7 @@ export class ContactProfilePage implements OnInit {
     ROUTES_NAME: any = ROUTES_NAME;
     contactId: string = '';
     modalIdConfirmDeleteContact: string = 'cp-modal-confirm-delete-contact';
+    modalIdSelectReportFormat: string = 'cp-select-report-format';
     modalIdShowContactDetails: string = 'cp-modal-show-contact-details';
     pageType: number = 0;
 
@@ -50,6 +51,13 @@ export class ContactProfilePage implements OnInit {
         })
     }
 
+    downloadReport(formatType: number): void {
+        this._loadingService.show();
+        this.contactProfileService.downloadReportFlotillas(this.contactId, formatType).then(() => {
+            this._loadingService.hide();
+        });
+    }
+
     goToSelectInsurer(): void {
         this._router.navigateByUrl(ROUTES_NAME.createPolicy(this.contactId));
     }
@@ -64,6 +72,10 @@ export class ContactProfilePage implements OnInit {
 
     showModalContactDetails(): void {
         ModalPlugin.show(this.modalIdShowContactDetails);
+    }
+
+    showModalToSelectReportFormat(): void {
+        ModalPlugin.show(this.modalIdSelectReportFormat);
     }
 
     /**
