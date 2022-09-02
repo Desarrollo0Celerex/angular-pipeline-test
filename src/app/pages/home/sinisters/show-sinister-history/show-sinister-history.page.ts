@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
 import { CONTENT_TYPES, SINISTER_STATUS, INSURANCE_TYPES } from '@constants/global';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
+import { WrapperDownloadSinisterEvidenceComponent } from '@components/wrapper-download-sinister-evidence/wrapper-download-sinister-evidence.component';
+import { WrapperUploadSinisterEvidenceComponent } from '@components/wrapper-upload-sinister-evidence/wrapper-upload-sinister-evidence.component';
 
 import { ShowSinisterHistoryService } from './show-sinister-history.service';
 
@@ -17,6 +19,8 @@ declare var ModalPlugin: any;
   providers: [ShowSinisterHistoryService]
 })
 export class ShowSinisterHistoryPage implements OnInit {
+    @ViewChild('modalDownloadSinisterEvidence') modalDownloadSinisterEvidence!: WrapperDownloadSinisterEvidenceComponent;
+    @ViewChild('modalUploadSinisterEvidence') modalUploadSinisterEvidence!: WrapperUploadSinisterEvidenceComponent;
     CONTENT_TYPES: any = CONTENT_TYPES;
     INSURANCE_TYPES: any = INSURANCE_TYPES;
     SINISTER_STATUS: any = SINISTER_STATUS;
@@ -27,6 +31,7 @@ export class ShowSinisterHistoryPage implements OnInit {
     modalIdUpdateSinisterCertificate: string = 'agt-update-sinister-certificate';
     modalIdUpdateSinisterDetails: string = 'agt-update-sinister-details';
     policyId: string = '';
+    selectedSinisterEvidence: string = '';
     sinisterId: string = '';
     sinisterData: SinisterDataSend | null = null;
 
@@ -65,6 +70,11 @@ export class ShowSinisterHistoryPage implements OnInit {
         ModalPlugin.show(this.modalIdConfirmFinalizeSinister);
     }
 
+    showModalToDownloadSinisterEvidence(): void {
+        this.selectedSinisterEvidence = this.model.sinister!.evidenceUrl;
+        this.modalDownloadSinisterEvidence.downloadSinisterEvidence();
+    }
+
     showModalToUpdateCertificate(): void {
         ModalPlugin.show(this.modalIdUpdateSinisterCertificate);
     }
@@ -75,6 +85,10 @@ export class ShowSinisterHistoryPage implements OnInit {
 
     showModalToUpdateSinisterDetails(): void {
         ModalPlugin.show(this.modalIdUpdateSinisterDetails);
+    }
+
+    showModalToUploadSinisterEvidence(): void {
+        this.modalUploadSinisterEvidence.selectSinisterEvidence();
     }
 
     updateSinisterCertificate(policyInsuredId: string): void {

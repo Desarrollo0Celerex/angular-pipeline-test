@@ -43,4 +43,5 @@ export interface Sinister {
     affectedName: string,
     policyInsuredId: string,
     insuranceTypeId: string,
+    evidenceUrl: string,
 }

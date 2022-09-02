@@ -26,6 +26,15 @@
         </div>
     </li>
 
+    <li *ngSwitchCase="SINISTER_RECORD_TYPES.UPDATE_EVIDENCE">
+        <time class="cbp_tmtime"><span>{{sinisterLog.createdAt | date: 'dd/MM/yyyy'}}</span><span>{{sinisterLog.createdAt | date: 'h:mm a'}}</span></time>
+        <div class="cbp_tmicon bg-warning"><i class="fa fa-edit"></i></div>
+        <div class="cbp_tmlabel">
+            <h2>{{sinisterLog.sinisterRecordTypeName}}</h2>
+            <p class="text-sm"><strong>{{sinisterLog.createdByName}}</strong> actualizó la evidencia del siniestro.</p>
+        </div>
+    </li>
+
     <li *ngSwitchCase="SINISTER_RECORD_TYPES.FINISHED">
         <time class="cbp_tmtime"><span>{{sinisterLog.createdAt | date: 'dd/MM/yyyy'}}</span><span>{{sinisterLog.createdAt | date: 'h:mm a'}}</span></time>
         <div class="cbp_tmicon bg-success"><i class="fa fa-check-square-o"></i></div>

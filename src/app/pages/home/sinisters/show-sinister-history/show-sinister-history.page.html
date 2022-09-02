@@ -26,7 +26,8 @@
                             " type="button" class="btn btn-primary" (click)="showModalToUpdateCertificate()">
                                 <strong>ACTUALIZAR CERTIFICADO</strong>
                         </button>
-
+                        <button type="button" class="btn btn-primary" (click)="showModalToUploadSinisterEvidence()"><strong>{{(!!model.sinister.evidenceUrl) ? 'ACTUALIZAR' : 'CARGAR'}} EVIDENCIA</strong></button>
+                        <button *ngIf="!!model.sinister.evidenceUrl" type="button" class="btn btn-primary" (click)="showModalToDownloadSinisterEvidence()"><strong>DESCARGAR EVIDENCIA</strong></button>
                     </div>
                 </div>
                 <!-- //AGENTHOS - SINISTER CONTROL FOOTER -->
@@ -196,9 +197,18 @@
     [contentSubtypeName]="CONTENT_TYPES.SINISTER_HISTORY.CONTENT_SUBTYPE_NAME"
 ></agt-content-list>
 
-<agt-modal-confirm-finalize-sinister [modalId]="modalIdConfirmFinalizeSinister" [sinisterData]="sinisterData"></agt-modal-confirm-finalize-sinister>
-<agt-modal-confirm-reactivate-sinister [modalId]="modalIdConfirmReactivateSinister" [sinisterData]="sinisterData"></agt-modal-confirm-reactivate-sinister>
-<agt-modal-update-sinister [modalId]="modalIdUpdateSinister" [sinisterData]="sinisterData"></agt-modal-update-sinister>
+<agt-modal-confirm-finalize-sinister
+    [modalId]="modalIdConfirmFinalizeSinister"
+    [sinisterData]="sinisterData"
+></agt-modal-confirm-finalize-sinister>
+<agt-modal-confirm-reactivate-sinister
+    [modalId]="modalIdConfirmReactivateSinister"
+    [sinisterData]="sinisterData"
+></agt-modal-confirm-reactivate-sinister>
+<agt-modal-update-sinister
+    [modalId]="modalIdUpdateSinister"
+    [sinisterData]="sinisterData"
+></agt-modal-update-sinister>
 <agt-modal-update-sinister-certificate
     *ngIf="!!model.sinister"
     [modalId]="modalIdUpdateSinisterCertificate"
@@ -206,4 +216,15 @@
     [policyNumber]="model.sinister.policyNumber"
     [sinisterData]="sinisterData"
 ></agt-modal-update-sinister-certificate>
-<agt-modal-update-sinister-details [modalId]="modalIdUpdateSinisterDetails" [sinisterData]="sinisterData"></agt-modal-update-sinister-details>
+<agt-modal-update-sinister-details
+    [modalId]="modalIdUpdateSinisterDetails"
+    [sinisterData]="sinisterData"
+></agt-modal-update-sinister-details>
+<agt-wrapper-download-sinister-evidence
+    #modalDownloadSinisterEvidence
+    [fileUrl]="selectedSinisterEvidence"
+></agt-wrapper-download-sinister-evidence>
+<agt-wrapper-upload-sinister-evidence
+    #modalUploadSinisterEvidence
+    [sinisterData]="sinisterData"
+></agt-wrapper-upload-sinister-evidence>
