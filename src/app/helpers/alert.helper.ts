@@ -537,6 +537,18 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static sinisterCertificateUpdated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Certificado Actualizado',
+            text: 'El certificado del siniestro se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static trialStarted(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Acceso Permitido',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
-import { CONTENT_TYPES, SINISTER_STATUS } from '@constants/global';
+import { CONTENT_TYPES, SINISTER_STATUS, INSURANCE_TYPES } from '@constants/global';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 
 import { ShowSinisterHistoryService } from './show-sinister-history.service';
@@ -18,11 +18,13 @@ declare var ModalPlugin: any;
 })
 export class ShowSinisterHistoryPage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
+    INSURANCE_TYPES: any = INSURANCE_TYPES;
     SINISTER_STATUS: any = SINISTER_STATUS;
     contactId: string = '';
     modalIdConfirmFinalizeSinister: string = 'agt-confirm-finalize-sinister';
     modalIdConfirmReactivateSinister: string = 'agt-confirm-reactivate-sinister';
     modalIdUpdateSinister: string = 'agt-update-sinister';
+    modalIdUpdateSinisterCertificate: string = 'agt-update-sinister-certificate';
     modalIdUpdateSinisterDetails: string = 'agt-update-sinister-details';
     policyId: string = '';
     sinisterId: string = '';
@@ -63,12 +65,20 @@ export class ShowSinisterHistoryPage implements OnInit {
         ModalPlugin.show(this.modalIdConfirmFinalizeSinister);
     }
 
+    showModalToUpdateCertificate(): void {
+        ModalPlugin.show(this.modalIdUpdateSinisterCertificate);
+    }
+
     showModalToUpdateSinister(): void {
         ModalPlugin.show(this.modalIdUpdateSinister);
     }
 
     showModalToUpdateSinisterDetails(): void {
         ModalPlugin.show(this.modalIdUpdateSinisterDetails);
+    }
+
+    updateSinisterCertificate(policyInsuredId: string): void {
+        this.model.sinister!.policyInsuredId = policyInsuredId;
     }
 
     /**

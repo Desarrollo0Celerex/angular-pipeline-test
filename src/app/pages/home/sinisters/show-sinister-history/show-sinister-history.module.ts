@@ -1,34 +1,39 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ContainerInsuredDetailsModule } from '@components/container-insured-details/container-insured-details.module';
 import { ContainerPolicyDetailsModule } from '@components/container-policy-details/container-policy-details.module';
 import { ContainerReportEventModule } from '@components/container-report-event/container-report-event.module';
 import { ContentListModule } from '@components/content-list/content-list.module';
 import { ModalConfirmFinalizeSinisterModule } from '@components/modal-confirm-finalize-sinister/modal-confirm-finalize-sinister.module';
 import { ModalConfirmReactivateSinisterModule } from '@components/modal-confirm-reactivate-sinister/modal-confirm-reactivate-sinister.module';
 import { ModalUpdateSinisterModule } from '@components/modal-update-sinister/modal-update-sinister.module';
+import { ModalUpdateSinisterCertificateModule } from '@components/modal-update-sinister-certificate/modal-update-sinister-certificate.module';
 import { ModalUpdateSinisterDetailsModule } from '@components/modal-update-sinister-details/modal-update-sinister-details.module';
 
+import { PolicyInsuredService } from '@services/policy-insured.service';
 import { SinisterService } from '@services/sinister.service';
 
 import { ShowSinisterHistoryRoutingModule } from './show-sinister-history-routing.module';
 import { ShowSinisterHistoryPage } from './show-sinister-history.page';
 
-
 @NgModule({
   declarations: [ShowSinisterHistoryPage],
   imports: [
     CommonModule,
+    ContainerInsuredDetailsModule,
     ContainerPolicyDetailsModule,
     ContainerReportEventModule,
     ContentListModule,
     ModalConfirmFinalizeSinisterModule,
     ModalConfirmReactivateSinisterModule,
     ModalUpdateSinisterModule,
+    ModalUpdateSinisterCertificateModule,
     ModalUpdateSinisterDetailsModule,
     ShowSinisterHistoryRoutingModule
   ],
   providers: [
+      PolicyInsuredService,
       SinisterService
   ]
 })

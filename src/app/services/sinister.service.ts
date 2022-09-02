@@ -9,6 +9,7 @@ import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterStat } from '@interfaces/sinister-stat.interface';
+import { UpdateSinisterCertificateDataSend } from '@interfaces/update-sinister-certificate-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
 import * as moment from 'moment';
@@ -25,6 +26,7 @@ const routes: any = {
     policySinisterDetails: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/details',
     finalizeSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/finalize',
     reactivateSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/reactivate',
+    sinisterCertificate: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/certificate',
     sinisterLogs: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/logs',
     sinistersStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/sinisters',
     workspaceSinisterStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/stats',
@@ -272,6 +274,13 @@ export class SinisterService {
    updatePolicySinisterDetails(sinisterData: SinisterDataSend, requestBody: CreateSinister ): Observable<void> {
        const route: string = routes.policySinisterDetails(this._workspaceId, sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId);
        return this._httpClient.put<void>(route, requestBody);
+   }
+
+   updatePolicySinisterCertificate(sinisterData: SinisterDataSend, requestBody: UpdateSinisterCertificateDataSend ): Observable<string> {
+       const route: string = routes.sinisterCertificate(this._workspaceId, sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId);
+       return this._httpClient.put<HttpResponse>(route, requestBody).pipe(
+           map((res: HttpResponse) => res.data)
+       );
    }
 
    /**

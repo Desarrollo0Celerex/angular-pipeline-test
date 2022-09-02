@@ -26,4 +26,5 @@ export const ERROR_CODES: any = {
     groupHasCoincidences: 'GroupHasCoincidences',
     scanFileError: 'ScanFileError',
     policyAlreadyConfirmed: 'PolicyAlreadyConfirmed',
+    sinisterCertificateNotFound: 'SinisterCertificateNotFound',
 }

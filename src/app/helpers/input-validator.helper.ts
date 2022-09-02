@@ -78,7 +78,7 @@ export class InputValidatorHelper {
                         message = 'Solo se permiten números.';
                         break;
                     case (typeof error.freeText !== 'undefined'):
-                        message = 'Algunos caracteres no son validos.';
+                        message = 'Algunos caracteres no son válidos.';
                         break;
                     case (typeof error.max !== 'undefined'):
                         message = 'El monto no puede ser mayor a $'+error.max.max;
@@ -87,10 +87,10 @@ export class InputValidatorHelper {
                         message = 'Por favor ingresa una fecha válida.';
                         break;
                     case (typeof error.fileName !== 'undefined'):
-                        message = 'Algunos caracteres no son validos.';
+                        message = 'Algunos caracteres no son válidos.';
                         break;
                     case (typeof error.invalidValidityEndDate !== 'undefined'):
-                        message = 'El fin de vigencia no es valido.';
+                        message = 'El fin de vigencia no es válido.';
                         break;
                     case (typeof error.partnerNameExist !== 'undefined'):
                         message = 'Ya existe un socio con esté nombre.';
@@ -100,6 +100,9 @@ export class InputValidatorHelper {
                         break;
                     case (typeof error.vehicleModel !== 'undefined'):
                         message = 'Por favor ingresa un modelo válido.';
+                        break;
+                    case (typeof error.sinisterCertificateNotFound !== 'undefined'):
+                        message = 'Certificado no encontrado.';
                         break;
 
                     default: message = '';

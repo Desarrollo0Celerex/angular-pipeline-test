@@ -30,7 +30,7 @@ export class ModalUpdateSinisterService {
      * @param sinisterData The sinister data
      */
     loadSinister(sinisterData: SinisterDataSend): Observable<HttpResponse> {
-        const fields: string = 'sinisterId,reportNumber,manager,sinisterNumber,invoice,sinisterDate,estimatedResolutionDate';
+        const fields: string = 'sinisterId,internalNumber,manager,sinisterNumber,invoice,sinisterDate,estimatedResolutionDate';
         return this._sinisterService.getPolicySinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.sinister = res.data;
@@ -44,7 +44,7 @@ export class ModalUpdateSinisterService {
      */
     fillSinisterForm(sinister: Sinister): void {
         this.sinisterForm.patchValue({
-            reportNumber: sinister.reportNumber,
+            internalNumber: sinister.internalNumber,
             manager: sinister.manager,
             sinisterNumber: sinister.sinisterNumber,
             invoice: sinister.invoice,
@@ -69,7 +69,7 @@ export class ModalUpdateSinisterService {
      */
     private _buildSinisterForm(): UntypedFormGroup {
         return this._formBuilder.group({
-            reportNumber: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX)]],
+            internalNumber: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX)]],
             manager: ['', [Validators.required, ValidatorsHelper.freeText, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX)]],
             sinisterNumber: ['', [Validators.required, ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
             invoice: ['', [Validators.required, ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],

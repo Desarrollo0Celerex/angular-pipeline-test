@@ -2,6 +2,7 @@ export interface Insured {
     policyInsuredId: string,
     personName: string,
     personGenderId: number,
+    personGenderName: string,
     personAge: string,
     vehicleNumber: string,
     vehicleSubgroup: string,
@@ -34,4 +35,10 @@ export interface Insured {
     objectDescription: string,
     policyDetails: string,
     policyUrl: string,
+    insuranceId: number,
+    insuranceTypeId: number,
+    vehicleCargoTypeName: string,
+    vehicleCoverageName: string,
+    vehicleUseName: string,
+    vehicleStatusName: string,
 }

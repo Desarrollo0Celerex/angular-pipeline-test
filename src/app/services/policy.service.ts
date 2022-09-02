@@ -446,7 +446,7 @@ export class PolicyService {
         params = params.append('perPage', perPage.toString());
         if(!!fields) params = params.append('fields', fields);
         if(filters.length > 0) params = params.append('filter', this._getFilter(filters));
-        if(!!query) params = params.append('search', 'multiple:' + query);
+        if(!!query) params = params.append('search', query);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map((res: HttpResponse) => {

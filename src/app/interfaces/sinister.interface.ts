@@ -37,8 +37,10 @@ export interface Sinister {
     workspaceCurrencyId: number,
     estimatedResolutionDate: string,
     manager: string,
-    reportNumber: string,
+    internalNumber: string,
     affectedCoverage: string,
     location: string,
     affectedName: string,
+    policyInsuredId: string,
+    insuranceTypeId: string,
 }

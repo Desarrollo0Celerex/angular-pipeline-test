@@ -1,0 +1,317 @@
+<!-- AGENTHOS - SINISTER POLICY DETAILS -->
+<div class="row mt-5" *ngIf="!!model.insured">
+    <div class="col-md-12">
+        <ng-container [ngSwitch]="internalInsuranceId">
+            <ng-container *ngSwitchCase="(internalInsuranceId === INTERNAL_INSURANCES.PERSON) ? internalInsuranceId : ''">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Datos del Asegurado</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="block-content">
+                            <div class="form-group row text-center">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre del Asegurado</label>
+                                        <input type="text" class="form-control" [placeholder]="model.insured.personName" readonly="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Género</label>
+                                        <input type="text" class="form-control" [placeholder]="model.insured.personGenderName" readonly="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Edad</label>
+                                        <input type="text" class="form-control" [placeholder]="model.insured.personAge" readonly="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="(internalInsuranceId === INTERNAL_INSURANCES.VEHICLE) ? internalInsuranceId : ''">
+                <ng-container *ngIf="insuranceTypeId === INSURANCE_TYPES.INDIVIDUAL; else vehicleFlotilla">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Datos del Vehículo</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="block-content">
+                                <div class="form-group row text-center">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Fabricante</label>
+                                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleMaker" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Versión</label>
+                                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleVersion" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Modelo</label>
+                                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleModel" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Placas</label>
+                                            <input type="text" class="form-control" [placeholder]="model.insured.vehiclePlates" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">No. Serie</label>
+                                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleSerial" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">No. Motor</label>
+                                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleMotor" readonly="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="(internalInsuranceId === INTERNAL_INSURANCES.BUILDING) ? internalInsuranceId : ''">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Datos de la Propiedad</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="block-content">
+                            <div class="form-group row text-center">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre de la Propiedad</label>
+                                        <input type="text" class="form-control" [placeholder]="model.insured.buildingName" readonly="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Uso de la Propiedad</label>
+                                        <input type="text" class="form-control" [placeholder]="model.insured.buildingUsage" readonly="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Dirección de la Propiedad</label>
+                                        <input type="text" class="form-control" [placeholder]="model.insured.buildingLocation" readonly="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="(internalInsuranceId === INTERNAL_INSURANCES.OBJECT) ? internalInsuranceId : ''">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Datos del Bien Asegurado</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="block-content">
+                            <div class="form-group row text-center">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre del Bien Asegurado</label>
+                                        <input type="text" class="form-control" [placeholder]="model.insured.objectName" readonly="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Uso del Bien Asegurado</label>
+                                        <input type="text" class="form-control" [placeholder]="model.insured.objectUsage" readonly="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Descripción del Bien Asegurado</label>
+                                        <input type="text" class="form-control" [placeholder]="model.insured.objectDescription" readonly="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Persona o Bien Asegurado</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="block-content">
+                            <div class="form-group row text-center">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre de la Persona o Bien Asegurado</label>
+                                        <input type="text" class="form-control" [placeholder]="model.insured.policyDetails" readonly="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #vehicleFlotilla>
+    <div class="card" *ngIf="model.insured">
+        <div class="card-header">
+            <h3 class="card-title">Datos del Vehículo</h3>
+        </div>
+        <div class="card-body">
+            <div class="block-content">
+                <div class="form-group row text-center">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">No. Inciso</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleNumber" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">No. Unidad</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleInternalNumber" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Subgrupo</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleSubgroup" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Tipo Vehículo</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleType" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Tipo Unidad</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleUnitType" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Tipo Carga</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleCargoTypeName" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Cobertura</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleCoverageName" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Giro</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleUseName" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Adaptación</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleAdaptation" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Inicio Vigencia</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleValidityStartDate" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Fabricante</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleMaker" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Versión</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleVersion" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Modelo</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleModel" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Placas</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehiclePlates" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">No. Serie</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleSerial" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">No. Motor</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleMotor" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Prima Neta</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleNetPay" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Financiamiento</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleFeePay" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Gastos Expedición</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleCoverPay" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Impuestos</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleTaxPay" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Monto total</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleTotalAmount" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Estatus</label>
+                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleStatusName" readonly="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - SINISTER CONTROL DETAILS -->
+    </div>
+</ng-template>
