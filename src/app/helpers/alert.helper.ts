@@ -561,6 +561,30 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static sinisterReportUpdated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Reporte Actualizado',
+            text: 'El reporte del siniestro se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static sinisterTrackingUpdated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Tracking Actualizado',
+            text: 'El tracking del siniestro se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static trialStarted(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Acceso Permitido',

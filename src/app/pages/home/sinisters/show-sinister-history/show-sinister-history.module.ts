@@ -10,6 +10,7 @@ import { ModalConfirmReactivateSinisterModule } from '@components/modal-confirm-
 import { ModalUpdateSinisterCertificateModule } from '@components/modal-update-sinister-certificate/modal-update-sinister-certificate.module';
 import { ModalUpdateSinisterDetailsModule } from '@components/modal-update-sinister-details/modal-update-sinister-details.module';
 import { ModalUpdateSinisterReportModule } from '@components/modal-update-sinister-report/modal-update-sinister-report.module';
+import { ModalUpdateSinisterTrackingModule } from '@components/modal-update-sinister-tracking/modal-update-sinister-tracking.module';
 import { WrapperDownloadSinisterEvidenceModule } from '@components/wrapper-download-sinister-evidence/wrapper-download-sinister-evidence.module';
 import { WrapperUploadSinisterEvidenceModule } from '@components/wrapper-upload-sinister-evidence/wrapper-upload-sinister-evidence.module';
 
@@ -32,6 +33,7 @@ import { ShowSinisterHistoryPage } from './show-sinister-history.page';
     ModalUpdateSinisterCertificateModule,
     ModalUpdateSinisterDetailsModule,
     ModalUpdateSinisterReportModule,
+    ModalUpdateSinisterTrackingModule,
     WrapperDownloadSinisterEvidenceModule,
     WrapperUploadSinisterEvidenceModule,
     ShowSinisterHistoryRoutingModule

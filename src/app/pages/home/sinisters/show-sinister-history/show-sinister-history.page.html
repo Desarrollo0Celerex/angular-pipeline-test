@@ -22,7 +22,7 @@
                             model.sinister.insuranceTypeId == INSURANCE_TYPES.GROUP ||
                             model.sinister.insuranceTypeId == INSURANCE_TYPES.COLLECTIVE ||
                             model.sinister.insuranceTypeId == INSURANCE_TYPES.FLOTILLA
-                            " type="button" class="btn btn-primary" (click)="showModalToUpdateCertificate()">
+                            " type="button" class="btn btn-primary" (click)="showModalToUpdateSinisterCertificate()">
                                 <strong>ACTUALIZAR CERTIFICADO</strong>
                         </button>
                         <button type="button" class="btn btn-primary" (click)="showModalToUploadSinisterEvidence()"><strong>{{(!!model.sinister.evidenceUrl) ? 'ACTUALIZAR' : 'CARGAR'}} EVIDENCIA</strong></button>
@@ -89,7 +89,77 @@
                 <!-- //AGENTHOS - SINISTER CONTROL FOOTER -->
             </div>
         </div>
-        <!-- //AGENTHOS - SINISTER REPORT DATA -->
+        <div class="col-md-6">
+            <div class="card">
+                <!-- AGENTHOS - SINISTER CONTROL HEADER -->
+                <div class="card-header">
+                    <h3 class="card-title">Tracking del Siniestro</h3>
+                </div>
+                <!-- //AGENTHOS - SINISTER CONTROL HEADER -->
+                <!-- AGENTHOS - SINISTER CONTROL DETAILS -->
+                <div class="card-body">
+                    <!-- AGENTHOS - SINISTER DAYS -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SINISTER ESTIMATED DAYS -->
+                                <label class="form-label">Días Estimados</label>
+                                <input type="text" class="form-control" [placeholder]="model.sinister.estimatedResolutionDays" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SINISTER REAL DAYS -->
+                                <label class="form-label">Días Transcurridos</label>
+                                <input type="text" class="form-control" [placeholder]="model.sinister.sinisterElapsedDays" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SINISTER CLASIFICATION -->
+                                <label class="form-label">Clasificación</label>
+                                <input type="text" class="form-control" [placeholder]="model.sinister.sinisterStatusName" readonly="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - SINISTER DAYS -->
+                    <!-- AGENTHOS - SINISTER DATES -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SINISTER NOTIFICATION DATE * -->
+                                <label class="form-label">Fecha Notificación</label>
+                                <input type="text" class="form-control" [placeholder]="model.sinister.notificationDate" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SINISTER REPORT DATE * -->
+                                <label class="form-label">Fecha Siniestro</label>
+                                <input type="text" class="form-control" [placeholder]="model.sinister.sinisterDate" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SINISTER APPROXIMATE DATE * -->
+                                <label class="form-label">Resolución Estimada</label>
+                                <input type="text" class="form-control" [placeholder]="model.sinister.estimatedResolutionDate" readonly="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - SINISTER DATES -->
+                </div>
+                <!-- //AGENTHOS - SINISTER CONTROL DETAILS -->
+                <!-- AGENTHOS - SINISTER CONTROL FOOTER -->
+                <div class="card-footer">
+                    <div class="btn-list">
+                        <!-- AGENTHOS - SINISTER UPDATE -->
+                        <button type="button" class="btn btn-secondary" (click)="showModalToUpdateSinisterTracking()"><strong>ACTUALIZAR</strong></button>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - SINISTER CONTROL FOOTER -->
+            </div>
+        </div>
     </div>
 
     <!-- AGENTHOS - SINISTER DETAILS -->
@@ -168,10 +238,6 @@
     [modalId]="modalIdConfirmReactivateSinister"
     [sinisterData]="sinisterData"
 ></agt-modal-confirm-reactivate-sinister>
-<agt-modal-update-sinister-report
-    [modalId]="modalIdUpdateSinisterReport"
-    [sinisterData]="sinisterData"
-></agt-modal-update-sinister-report>
 <agt-modal-update-sinister-certificate
     *ngIf="!!model.sinister"
     [modalId]="modalIdUpdateSinisterCertificate"
@@ -183,6 +249,14 @@
     [modalId]="modalIdUpdateSinisterDetails"
     [sinisterData]="sinisterData"
 ></agt-modal-update-sinister-details>
+<agt-modal-update-sinister-report
+    [modalId]="modalIdUpdateSinisterReport"
+    [sinisterData]="sinisterData"
+></agt-modal-update-sinister-report>
+<agt-modal-update-sinister-tracking
+    [modalId]="modalIdUpdateSinisterTracking"
+    [sinisterData]="sinisterData"
+></agt-modal-update-sinister-tracking>
 <agt-wrapper-download-sinister-evidence
     #modalDownloadSinisterEvidence
     [fileUrl]="selectedSinisterEvidence"

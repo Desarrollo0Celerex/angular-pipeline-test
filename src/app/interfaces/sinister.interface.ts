@@ -44,4 +44,7 @@ export interface Sinister {
     policyInsuredId: string,
     insuranceTypeId: string,
     evidenceUrl: string,
+    estimatedResolutionDays: string,
+    sinisterElapsedDays: string,
+    notificationDate: string,
 }

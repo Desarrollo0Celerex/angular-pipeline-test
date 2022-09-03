@@ -66,7 +66,7 @@ export class ModalUpdateSinisterReportComponent implements OnInit {
             ModalPlugin.hide(this.modalId);
             this.model.updateSinister(this.sinisterData).subscribe(() => {
                 this._loadingService.hide();
-                AlertHelper.sinisterUpdated(this._reloadPage, this);
+                AlertHelper.sinisterReportUpdated(this._reloadPage, this);
             });
         }
     }
