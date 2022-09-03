@@ -4,20 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SinisterService } from '@services/sinister.service';
 
-import { ModalUpdateSinisterComponent } from './modal-update-sinister.component';
-import { ModalUpdateSinisterService } from './modal-update-sinister.service';
+import { ModalUpdateSinisterReportComponent } from './modal-update-sinister-report.component';
 
 @NgModule({
-  declarations: [ModalUpdateSinisterComponent],
-  exports: [ModalUpdateSinisterComponent],
+  declarations: [ModalUpdateSinisterReportComponent],
+  exports: [ModalUpdateSinisterReportComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule
   ],
   providers: [
-      ModalUpdateSinisterService,
       SinisterService
   ]
 })
-export class ModalUpdateSinisterModule { }
+export class ModalUpdateSinisterReportModule { }

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { Sinister } from '@interfaces/sinister.interface';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { LoadingService } from '@services/loading.service';
@@ -90,9 +90,9 @@ export class ModalUpdateSinisterDetailsComponent implements OnInit {
      */
     private _loadSinister(): void {
         if(this.sinisterData) {
-            this.model.loadSinister(this.sinisterData).subscribe( (res: HttpResponse) => {
-                this.model.fillSinisterForm(res.data);
-                this.model.loadSinisterTypes(res.data.insuranceId);
+            this.model.loadSinister(this.sinisterData).subscribe( (res: Sinister) => {
+                this.model.fillSinisterForm(res);
+                this.model.loadSinisterTypes(res.insuranceId);
             })
         }
     }

@@ -27,9 +27,9 @@ export class ShowSinisterHistoryPage implements OnInit {
     contactId: string = '';
     modalIdConfirmFinalizeSinister: string = 'agt-confirm-finalize-sinister';
     modalIdConfirmReactivateSinister: string = 'agt-confirm-reactivate-sinister';
-    modalIdUpdateSinister: string = 'agt-update-sinister';
     modalIdUpdateSinisterCertificate: string = 'agt-update-sinister-certificate';
     modalIdUpdateSinisterDetails: string = 'agt-update-sinister-details';
+    modalIdUpdateSinisterReport: string = 'agt-update-sinister';
     policyId: string = '';
     selectedSinisterEvidence: string = '';
     sinisterId: string = '';
@@ -79,16 +79,16 @@ export class ShowSinisterHistoryPage implements OnInit {
         ModalPlugin.show(this.modalIdUpdateSinisterCertificate);
     }
 
-    showModalToUpdateSinister(): void {
-        ModalPlugin.show(this.modalIdUpdateSinister);
-    }
-
     showModalToUpdateSinisterDetails(): void {
         ModalPlugin.show(this.modalIdUpdateSinisterDetails);
     }
 
     showModalToUploadSinisterEvidence(): void {
         this.modalUploadSinisterEvidence.selectSinisterEvidence();
+    }
+
+    showModalToUpdateSinisterReport(): void {
+        ModalPlugin.show(this.modalIdUpdateSinisterReport);
     }
 
     updateSinisterCertificate(policyInsuredId: string): void {

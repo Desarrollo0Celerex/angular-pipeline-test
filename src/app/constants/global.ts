@@ -352,6 +352,7 @@ export const SINISTER_RECORD_TYPES: any = {
     NEW_EVENT: 5,
     UPDATE_CERTIFICATE: 6,
     UPDATE_EVIDENCE: 7,
+    UPDATE_REPORT: 8,
 }
 export const CONTACT_SOURCE_TYPES: any = {
     PARTNERS: 4

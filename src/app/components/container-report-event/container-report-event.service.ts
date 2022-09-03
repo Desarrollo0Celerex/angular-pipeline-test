@@ -32,8 +32,8 @@ export class ContainerReportEventService {
      */
     loadSinister(sinisterData: SinisterDataSend): void {
         const fields: string = 'sinisterStatusId';
-        this._sinisterService.getPolicySinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, fields).subscribe((res: HttpResponse) => {
-            this.sinister = res.data;
+        this._sinisterService.getPolicySinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, fields).subscribe((res: Sinister) => {
+            this.sinister = res;
         });
     }
 

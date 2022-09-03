@@ -10,6 +10,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterStat } from '@interfaces/sinister-stat.interface';
 import { UpdateSinisterCertificateDataSend } from '@interfaces/update-sinister-certificate-data-send.interface';
+import { UpdateSinisterReportDataSend } from '@interfaces/update-sinister-report-data-send.interface';
 import { AuthService } from '@services/auth.service';
 
 import * as moment from 'moment';
@@ -23,10 +24,11 @@ const routes: any = {
     partnerSinisters: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/sinisters',
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
     policySinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId,
+    policySinisterCertificate: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/certificate',
     policySinisterDetails: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/details',
+    policySinisterReport: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/report',
     finalizeSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/finalize',
     reactivateSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/reactivate',
-    sinisterCertificate: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/certificate',
     sinisterEvidence: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/evidence',
     sinisterLogs: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/logs',
     sinistersStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/sinisters',
@@ -178,11 +180,20 @@ export class SinisterService {
      * @param  fields     The fields to get
      * @return            The policy sinister
      */
-    getPolicySinister(contactId: string, policyId: string, sinisterId: string, fields: string = ''): Observable<HttpResponse> {
+    getPolicySinister(contactId: string, policyId: string, sinisterId: string, fields: string = ''): Observable<Sinister> {
         const route: string = routes.policySinister(this._workspaceId, contactId, policyId, sinisterId);
         let params: HttpParams = new HttpParams();
         if(!!fields) params = params.append('fields', fields);
-        return this._httpClient.get<HttpResponse>(route, {params});
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => {
+                const sinister: Sinister = res.data;
+                sinister.manager = (!!sinister.manager) ? sinister.manager : '';
+                sinister.internalNumber = (!!sinister.internalNumber) ? sinister.internalNumber : '';
+                sinister.sinisterNumber = (!!sinister.sinisterNumber) ? sinister.sinisterNumber : '';
+                sinister.invoice = (!!sinister.invoice) ? sinister.invoice : '';
+                return sinister;
+            })
+        );
     }
 
     /**
@@ -261,19 +272,8 @@ export class SinisterService {
        return this._httpClient.post<void>(route, requestBody);
    }
 
-   /**
-    * Update the policy sinister
-    * @param  sinisterData The sinister data
-    * @param  requestBody  The sinister data to update
-    * @return              Notification of action done
-    */
-   updatePolicySinister(sinisterData: SinisterDataSend, requestBody: CreateSinister ): Observable<void> {
-       const route: string = routes.policySinister(this._workspaceId, sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId);
-       return this._httpClient.put<void>(route, requestBody);
-   }
-
    updatePolicySinisterCertificate(sinisterData: SinisterDataSend, requestBody: UpdateSinisterCertificateDataSend ): Observable<string> {
-       const route: string = routes.sinisterCertificate(this._workspaceId, sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId);
+       const route: string = routes.policySinisterCertificate(this._workspaceId, sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId);
        return this._httpClient.put<HttpResponse>(route, requestBody).pipe(
            map((res: HttpResponse) => res.data)
        );
@@ -289,6 +289,11 @@ export class SinisterService {
        return this._httpClient.post<HttpResponse>(route, requestBody).pipe(
            map((res: HttpResponse) => res.data)
        );
+   }
+
+   updatePolicySinisterReport(sinisterData: SinisterDataSend, requestBody: UpdateSinisterReportDataSend ): Observable<void> {
+       const route: string = routes.policySinisterReport(this._workspaceId, sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId);
+       return this._httpClient.put<void>(route, requestBody);
    }
 
    /**

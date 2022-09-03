@@ -29,11 +29,11 @@ export class ModalUpdateSinisterDetailsService {
      * Load the sinister
      * @param sinisterData The sinister data
      */
-    loadSinister(sinisterData: SinisterDataSend): Observable<HttpResponse> {
+    loadSinister(sinisterData: SinisterDataSend): Observable<Sinister> {
         const fields: string = 'sinisterId,sinisterTypeId,affectedCoverage,location,affectedName,insuranceId';
         return this._sinisterService.getPolicySinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, fields).pipe(
-            tap((res: HttpResponse) => {
-                this.sinister = res.data;
+            tap((res: Sinister) => {
+                this.sinister = res;
             })
         )
     }
