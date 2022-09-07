@@ -15,6 +15,7 @@ import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Currency } from '@interfaces/currency.interface';
 import { CreateScannerLogDataSend } from '@interfaces/create-scanner-log-data-send.interface';
 import { Gender } from '@interfaces/gender.interface';
+import { HttpError } from '@interfaces/http-error.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Insured } from '@interfaces/insured.interface';
 import { Partner } from '@interfaces/partner.interface';
@@ -233,6 +234,9 @@ export class CompletePolicyService {
                     observer.next();
                     observer.complete();
                 });
+            }, (error: HttpError) => {
+                observer.error(error);
+                observer.complete();
             });
         }));
     }
