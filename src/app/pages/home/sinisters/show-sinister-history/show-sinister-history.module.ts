@@ -13,6 +13,7 @@ import { ModalUpdateSinisterReportModule } from '@components/modal-update-sinist
 import { ModalUpdateSinisterTrackingModule } from '@components/modal-update-sinister-tracking/modal-update-sinister-tracking.module';
 import { WrapperDownloadSinisterEvidenceModule } from '@components/wrapper-download-sinister-evidence/wrapper-download-sinister-evidence.module';
 import { WrapperUploadSinisterEvidenceModule } from '@components/wrapper-upload-sinister-evidence/wrapper-upload-sinister-evidence.module';
+import { SafeContentModule } from '@pipes/safe-content/safe-content.module';
 
 import { PolicyInsuredService } from '@services/policy-insured.service';
 import { SinisterService } from '@services/sinister.service';
@@ -34,9 +35,10 @@ import { ShowSinisterHistoryPage } from './show-sinister-history.page';
     ModalUpdateSinisterDetailsModule,
     ModalUpdateSinisterReportModule,
     ModalUpdateSinisterTrackingModule,
+    SafeContentModule,
+    ShowSinisterHistoryRoutingModule,
     WrapperDownloadSinisterEvidenceModule,
-    WrapperUploadSinisterEvidenceModule,
-    ShowSinisterHistoryRoutingModule
+    WrapperUploadSinisterEvidenceModule
   ],
   providers: [
       PolicyInsuredService,

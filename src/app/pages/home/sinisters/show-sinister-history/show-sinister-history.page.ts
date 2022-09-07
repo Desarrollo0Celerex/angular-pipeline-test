@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
 import { CONTENT_TYPES, SINISTER_STATUS, INSURANCE_TYPES } from '@constants/global';
+import { environment } from '@env/environment';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { WrapperDownloadSinisterEvidenceComponent } from '@components/wrapper-download-sinister-evidence/wrapper-download-sinister-evidence.component';
 import { WrapperUploadSinisterEvidenceComponent } from '@components/wrapper-upload-sinister-evidence/wrapper-upload-sinister-evidence.component';
@@ -61,6 +62,22 @@ export class ShowSinisterHistoryPage implements OnInit {
             return currentDate.diff(sinisterDate, 'days');
         }
         return 0;
+    }
+
+    get srcSinisterLocation(): string {
+        if(!!this.model.sinister) {
+            if(!!this.model.sinister.location || !!this.model.sinister.latLong) {
+                if(!!this.model.sinister.latLong) {
+                    const arrLatLong: string[] = this.model.sinister.latLong.split(',')
+                    const lat: string = arrLatLong[0];
+                    const long: string = arrLatLong[1];
+                    return 'https://www.google.com/maps/embed/v1/streetview?key='+environment.googleMapsConfig.apiKey+'&location='+lat+','+long+'&heading=218&pitch=10&fov=38';
+                } else {
+                    return 'https://www.google.com/maps/embed/v1/place?key='+environment.googleMapsConfig.apiKey+'&q='+this.model.sinister.location;
+                }
+            }
+        }
+        return '';
     }
 
     confirmReactivateSinister(): void {

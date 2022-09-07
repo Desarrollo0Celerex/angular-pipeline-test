@@ -354,6 +354,7 @@ export const SINISTER_RECORD_TYPES: any = {
     UPDATE_EVIDENCE: 7,
     UPDATE_REPORT: 8,
     UPDATE_TRACKING: 9,
+    UPDATE_DETAILS: 10
 }
 export const CONTACT_SOURCE_TYPES: any = {
     PARTNERS: 4

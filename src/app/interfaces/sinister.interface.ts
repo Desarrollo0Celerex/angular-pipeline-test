@@ -40,6 +40,7 @@ export interface Sinister {
     internalNumber: string,
     affectedCoverage: string,
     location: string,
+    latLong: string,
     affectedName: string,
     policyInsuredId: string,
     insuranceTypeId: string,
@@ -47,4 +48,8 @@ export interface Sinister {
     estimatedResolutionDays: string,
     sinisterElapsedDays: string,
     notificationDate: string,
+    timeReport: string,
+    timeResponse: string,
+    sinisterElapsedMinutes: string,
+    sinisterCause: string,
 }

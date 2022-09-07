@@ -233,6 +233,34 @@ export class ValidatorsHelper {
     }
 
     /**
+     * Validate a time 10:30 AM
+     * @param  control The control to evaluate
+     * @return         Error object if validation failed, otherwise null.
+     */
+    static time(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^(0?[1-9]|1[012])[:](0?[1-9]|[012345][0-9])[ ](AM|PM)$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {date: true} : null;
+        }
+        return null;
+    }
+
+    /**
+     * Validate a short date
+     * @param  control The control to evaluate
+     * @return         Error object if validation failed, otherwise null.
+     */
+    /*static date(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])[\/]([12][0-9]{3})$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {date: true} : null;
+        }
+        return null;
+    }*/
+
+    /**
      * Validate an alphanumeric
      * @param  control The control to evaluate
      * @return         Error object if validation failed, otherwise null.

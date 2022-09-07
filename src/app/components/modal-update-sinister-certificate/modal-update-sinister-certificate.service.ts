@@ -28,7 +28,7 @@ export class ModalUpdateSinisterCertificateService {
 
     private _buildForm(): FormGroup {
         return this._formBuilder.group({
-            certificate: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]]
+            certificate: ['', [Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]]
         });
     }
 }

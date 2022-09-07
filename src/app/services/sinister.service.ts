@@ -10,6 +10,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterStat } from '@interfaces/sinister-stat.interface';
 import { UpdateSinisterCertificateDataSend } from '@interfaces/update-sinister-certificate-data-send.interface';
+import { UpdateSinisterDetailsDataSend } from '@interfaces/update-sinister-details-data-send.interface';
 import { UpdateSinisterReportDataSend } from '@interfaces/update-sinister-report-data-send.interface';
 import { UpdateSinisterTrackingDataSend } from '@interfaces/update-sinister-tracking-data-send.interface';
 import { AuthService } from '@services/auth.service';
@@ -198,6 +199,13 @@ export class SinisterService {
                 sinister.notificationDate = (!!sinister.notificationDate) ? moment(sinister.notificationDate).format('DD/MM/YYYY') : '';
                 sinister.sinisterDate = (!!sinister.sinisterDate) ? moment(sinister.sinisterDate).format('DD/MM/YYYY') : '';
                 sinister.estimatedResolutionDate = (!!sinister.estimatedResolutionDate) ? moment(sinister.estimatedResolutionDate).format('DD/MM/YYYY') : '';
+                sinister.timeReport = (!!sinister.timeReport) ? moment(sinister.timeReport, 'HH:mm:ss').format('hh:mm A') : '';
+                sinister.timeResponse = (!!sinister.timeResponse) ? moment(sinister.timeResponse, 'HH:mm:ss').format('hh:mm A') : '';
+                sinister.sinisterElapsedMinutes = (!!sinister.timeReport && !!sinister.timeResponse) ? moment(sinister.timeResponse, 'HH:mm:ss').diff(moment(sinister.timeReport, 'HH:mm:ss'), 'minutes').toString() + ' MIN.' : '';
+                sinister.affectedCoverage = (!!sinister.affectedCoverage) ? sinister.affectedCoverage : '';
+                sinister.affectedName = (!!sinister.affectedName) ? sinister.affectedName : '';
+                sinister.location = (!!sinister.location) ? sinister.location : (!!sinister.latLong) ? sinister.latLong : '';
+                sinister.sinisterCause = (!!sinister.sinisterCause) ? sinister.sinisterCause : '';
                 return sinister;
             })
         );
@@ -286,7 +294,7 @@ export class SinisterService {
        );
    }
 
-   updatePolicySinisterDetails(sinisterData: SinisterDataSend, requestBody: CreateSinister ): Observable<void> {
+   updatePolicySinisterDetails(sinisterData: SinisterDataSend, requestBody: UpdateSinisterDetailsDataSend ): Observable<void> {
        const route: string = routes.policySinisterDetails(this._workspaceId, sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId);
        return this._httpClient.put<void>(route, requestBody);
    }

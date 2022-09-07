@@ -104,6 +104,9 @@ export class InputValidatorHelper {
                     case (typeof error.sinisterCertificateNotFound !== 'undefined'):
                         message = 'Certificado no encontrado.';
                         break;
+                    case (typeof error.time !== 'undefined'):
+                        message = 'Por favor ingresa una hora válida.';
+                        break;
 
                     default: message = '';
                 }

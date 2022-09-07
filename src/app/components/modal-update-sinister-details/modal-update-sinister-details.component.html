@@ -2,7 +2,7 @@
 <div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
 	<div class="modal-dialog" role="document" *ngIf="!!model.sinister">
 		<div class="modal-content">
-            <form [formGroup]="model.sinisterDetailsForm" (submit)="onSubmitUpdateSinister()" >
+            <form [formGroup]="model.form" (submit)="updateSinisterDetails()" >
     			<div class="modal-header">
     				<h5 class="modal-title">Actualizar Siniestro</h5>
     				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -11,6 +11,34 @@
     			</div>
     			<div class="modal-body">
     				<div class="row">
+						<div class="col-md-6">
+							<!-- AGENTHOS - SINISTER TIME REPORT -->
+							<label class="form-label">Hora Siniestro</label>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<div class="input-group-text">
+										<i class="fa fa-clock-o tx-16 lh-0 op-6"></i>
+									</div>
+								</div><!-- input-group-prepend -->
+								<input [id]="timerIdTimeReport" class="form-control fc-timepicker {{getValidationClass('timeReport')}}" type="text" formControlName="timeReport">
+								<div class="invalid-feedback">{{getErrorMessage('timeReport')}}</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<!-- AGENTHOS - SINISTER TIME RESPONSE -->
+							<label class="form-label">Hora Respuesta</label>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<div class="input-group-text">
+										<i class="fa fa-clock-o tx-16 lh-0 op-6"></i>
+									</div>
+								</div><!-- input-group-prepend -->
+								<input [id]="timerIdTimeResponse" class="form-control fc-timepicker {{getValidationClass('timeResponse')}}" type="text" formControlName="timeResponse">
+								<div class="invalid-feedback">{{getErrorMessage('timeResponse')}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-3">
     					<div class="col-md-12">
     						<div class="form-group">
     							<label class="form-label">Tipo de Siniestro</label>
@@ -22,6 +50,13 @@
     					</div>
     					<div class="col-md-12">
     						<div class="form-group">
+    							<label class="form-label">Causa Siniestro</label>
+    							<input type="text" class="form-control {{getValidationClass('sinisterCause')}}" formControlName="sinisterCause">
+                                <div class="invalid-feedback">{{getErrorMessage('sinisterCause')}}</div>
+    						</div>
+    					</div>
+    					<div class="col-md-12">
+    						<div class="form-group">
     							<label class="form-label">Cobertura Afectada</label>
     							<input type="text" class="form-control {{getValidationClass('affectedCoverage')}}" formControlName="affectedCoverage">
                                 <div class="invalid-feedback">{{getErrorMessage('affectedCoverage')}}</div>
@@ -29,16 +64,16 @@
     					</div>
     					<div class="col-md-12">
     						<div class="form-group">
-    							<label class="form-label">Ubicación Siniestro</label>
-    							<input type="text" class="form-control {{getValidationClass('location')}}" formControlName="location">
-                                <div class="invalid-feedback">{{getErrorMessage('location')}}</div>
+    							<label class="form-label">Nombre Conductor</label>
+    							<input type="text" class="form-control {{getValidationClass('affectedName')}}" formControlName="affectedName">
+                                <div class="invalid-feedback">{{getErrorMessage('affectedName')}}</div>
     						</div>
     					</div>
     					<div class="col-md-12">
     						<div class="form-group">
-    							<label class="form-label">Nombre Conductor</label>
-    							<input type="text" class="form-control {{getValidationClass('affectedName')}}" formControlName="affectedName">
-                                <div class="invalid-feedback">{{getErrorMessage('affectedName')}}</div>
+    							<label class="form-label">Ubicación Siniestro</label>
+    							<input type="text" class="form-control {{getValidationClass('location')}}" formControlName="location">
+                                <div class="invalid-feedback">{{getErrorMessage('location')}}</div>
     						</div>
     					</div>
     				</div>
