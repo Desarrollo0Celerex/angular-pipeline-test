@@ -84,6 +84,8 @@ import { ModalTransferContactFileModule } from '@components/modal-transfer-conta
 import { ModalUpdateReceiptPaidModule } from '@components/modal-update-receipt-paid/modal-update-receipt-paid.module';
 import { ModalUpdateSinisterEventModule } from '@components/modal-update-sinister-event/modal-update-sinister-event.module';
 
+import { WrapperDownloadSinisterEventEvidenceModule } from '@components/wrapper-download-sinister-event-evidence/wrapper-download-sinister-event-evidence.module';
+
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
 
 import { ClientService } from '@services/client.service';
@@ -190,7 +192,8 @@ import { ContentListService } from './content-list.service';
     ModalShowSinisterDetailsModule,
     ModalTransferContactFileModule,
     ModalUpdateReceiptPaidModule,
-    ModalUpdateSinisterEventModule
+    ModalUpdateSinisterEventModule,
+    WrapperDownloadSinisterEventEvidenceModule
   ],
   providers: [
       ClientService,

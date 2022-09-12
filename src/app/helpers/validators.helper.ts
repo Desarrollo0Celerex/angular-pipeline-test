@@ -104,7 +104,7 @@ export class ValidatorsHelper {
      */
     static fileName(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = new RegExp(`^[${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
+            const regex = new RegExp(`^[_${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
             const value = control.value;
             return (!regex.test(value)) ? {fileName: true} : null;
         }

@@ -16,6 +16,7 @@ export class CardSinisterLogComponent implements OnInit {
     @Output() deleteSinisterEvent: EventEmitter<SinisterEventDataSend> = new EventEmitter<SinisterEventDataSend>();
     @Output() showReactivationEvidence: EventEmitter<string> = new EventEmitter<string>();
     @Output() showResolutionEvidence: EventEmitter<string> = new EventEmitter<string>();
+    @Output() showSinisterEventEvidence: EventEmitter<string> = new EventEmitter<string>();
     SINISTER_RECORD_TYPES: any = SINISTER_RECORD_TYPES;
 
     constructor() { }
@@ -72,6 +73,12 @@ export class CardSinisterLogComponent implements OnInit {
     onClickShowResolutionEvidence(): void {
         if(!!this.sinisterLog) {
             this.showResolutionEvidence.emit(this.sinisterLog.finishedEvidenceUrl);
+        }
+    }
+
+    onClickShowSinisterEventEvidence(): void {
+        if(!!this.sinisterLog) {
+            this.showSinisterEventEvidence.emit(this.sinisterLog.sinisterEventEvidenceUrl);
         }
     }
 

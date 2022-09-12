@@ -1,5 +1,18 @@
 export interface SinisterEvent {
-    details: string,
+    sinisterEventTypeId: number,
+    evidenceName: string,
+    providerName: string,
     providerDate: string,
-    sinisterEventTypeId: number
+    valuationDate: string,
+    authorizationDate: string,
+    insuredNoticeDate: string,
+    insuredAuthorizationDate: string,
+    estimatedDeliveryDate: string,
+    readmissionDate: string,
+    providerFolio: string,
+    providerBill: string,
+    providerPhoneCodeId: number,
+    providerPhoneNumber: string,
+    providerEmail: string,
+    observations: string,
 }

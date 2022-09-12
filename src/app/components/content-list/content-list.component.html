@@ -114,6 +114,7 @@
                             (deleteSinisterEvent)="onDeleteSinisterEvent($event)"
                             (showResolutionEvidence)="onShowResolutionEvidence($event)"
                             (showReactivationEvidence)="onShowReactivationEvidence($event)"
+                            (showSinisterEventEvidence)="onShowSinisterEventEvidence($event)"
                         ></agt-card-sinister-log>
                         <agt-card-reported-sinister *ngSwitchCase="CONTENT_TYPES.POLICY_SINISTERS.ID"
                             [sinister]="content"
@@ -493,6 +494,7 @@
     <agt-modal-confirm-delete-sinister-event [modalId]="modalIdConfirmDeleteSinisterEvent" [sinisterEventData]="selectedSinisterEventData"></agt-modal-confirm-delete-sinister-event>
     <agt-modal-show-resolution-evidence [modalId]="modalIdShowResolutionEvidence" [evidenceUrl]="selectedEvidenceUrl"></agt-modal-show-resolution-evidence>
     <agt-modal-show-reactivation-evidence [modalId]="modalIdShowReactivationEvidence" [evidenceUrl]="selectedEvidenceUrl"></agt-modal-show-reactivation-evidence>
+    <agt-wrapper-download-sinister-event-evidence #wrapperDownloadSinisterEventEvidence [fileUrl]="selectedEvidenceUrl"></agt-wrapper-download-sinister-event-evidence>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY_SINISTERS.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
     <agt-modal-confirm-show-sinister [modalId]="modalIdConfirmShowSinister" [sinisterData]="selectedSinisterData"></agt-modal-confirm-show-sinister>
