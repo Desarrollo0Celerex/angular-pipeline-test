@@ -31,7 +31,7 @@ export class ModalUpdateSinisterEventService {
      * @return                   The sinister event
      */
     getSinisterEvent(sinisterEventData: SinisterEventDataSend): Observable<HttpResponse> {
-        const fields: string = 'eventDate,sinisterEventTypeId,details';
+        const fields: string = 'providerDate,sinisterEventTypeId,details';
         return this._sinisterEventService.getSinisterEvent(sinisterEventData, fields);
     }
 
@@ -40,8 +40,9 @@ export class ModalUpdateSinisterEventService {
      */
     loadSinisterEventTypes(): void {
         const fields: string = 'sinisterEventTypeId,name';
-        this._sinisterEventTypeService.getSinisterEventTypes(fields).subscribe((res: HttpResponse) => {
-            this.sinisterEventTypes = res.data;
+        const insuranceGroupId: number = 0;
+        this._sinisterEventTypeService.getSinisterEventTypes(insuranceGroupId, fields).subscribe((res: SinisterEventType[]) => {
+            this.sinisterEventTypes = res;
         })
     }
 
@@ -52,7 +53,7 @@ export class ModalUpdateSinisterEventService {
     populateSinisterEventForm(sinisterEvent: SinisterEvent): void {
         this.sinisterEventForm.patchValue({
             details: sinisterEvent.details,
-            eventDate: moment(sinisterEvent.eventDate).format('DD/MM/YYYY'),
+            providerDate: moment(sinisterEvent.providerDate).format('DD/MM/YYYY'),
             sinisterEventTypeId: sinisterEvent.sinisterEventTypeId
         });
     }
@@ -74,7 +75,7 @@ export class ModalUpdateSinisterEventService {
     private _buildSinisterEventForm(): UntypedFormGroup {
         return this._formBuilder.group({
             details: ['', [Validators.required, Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]],
-            eventDate: ['', [Validators.required, ValidatorsHelper.date]],
+            providerDate: ['', [Validators.required, ValidatorsHelper.date]],
             sinisterEventTypeId: ['', [Validators.required]],
         })
     }

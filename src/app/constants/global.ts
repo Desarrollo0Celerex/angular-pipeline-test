@@ -103,6 +103,13 @@ export const SINISTER_STATUS: any = {
     FINISHED: 5
 }
 export const SINISTER_STATUS_OPEN: number = 100;
+export const SINISTER_EVENT_TYPES: any = {
+    OTHER_MOVEMENTS: 1,
+    WORKSHOP_AND_SERVICE: 2,
+    CIVIL_WORK: 3,
+    CRANES_AND_TRANSFER: 4,
+    LEGAL_PROCESS: 5
+}
 export const EXTERNAL_POLICY_STATUS: any = {
     INCOMPLETE: 1,
     CURRENT: 2,

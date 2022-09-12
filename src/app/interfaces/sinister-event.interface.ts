@@ -1,5 +1,5 @@
 export interface SinisterEvent {
     details: string,
-    eventDate: string,
+    providerDate: string,
     sinisterEventTypeId: number
 }

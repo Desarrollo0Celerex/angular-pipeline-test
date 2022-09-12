@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { DEFAULT_PHONE_CODE_ID } from '@constants/global';
 import { environment } from '@env/environment';
 import { CreateSinister } from '@interfaces/create-sinister.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
@@ -206,6 +207,8 @@ export class SinisterService {
                 sinister.affectedName = (!!sinister.affectedName) ? sinister.affectedName : '';
                 sinister.location = (!!sinister.location) ? sinister.location : (!!sinister.latLong) ? sinister.latLong : '';
                 sinister.sinisterCause = (!!sinister.sinisterCause) ? sinister.sinisterCause : '';
+                sinister.insuranceGroupId = (!!sinister.insuranceGroupId) ? sinister.insuranceGroupId : 0;
+                sinister.workspaceCountryId = (!!sinister.workspaceCountryId) ? sinister.workspaceCountryId : DEFAULT_PHONE_CODE_ID;
                 return sinister;
             })
         );
@@ -220,12 +223,12 @@ export class SinisterService {
      * @param  fields       The fields to get
      * @return              The history policy
      */
-    getSinisterLogs(contactId: string, policyId: string, sinisterId: string, page: number = 1, fields: string = ''): Observable<HttpResponse> {
+    getSinisterLogs(contactId: string, policyId: string, sinisterId: string, page: number = 1, fields: string = '', sortBy: string = 'createdAt'): Observable<HttpResponse> {
         const route: string = routes.sinisterLogs(this._workspaceId, contactId, policyId, sinisterId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
-        params = params.append('sortBy', 'createdAt');
+        params = params.append('sortBy', sortBy);
         return this._httpClient.get<HttpResponse>(route, {params});
     }
 

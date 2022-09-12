@@ -19,5 +19,5 @@ export class ShowSinisterHistoryService {
         this._sinisterService.getPolicySinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, fields).subscribe((res: Sinister) => {
             this.sinister = res;
         })
-    }
+    } 
 }

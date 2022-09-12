@@ -100,11 +100,23 @@
         <time class="cbp_tmtime"><span>{{sinisterLog.createdAt | date: 'dd/MM/yyyy'}}</span><span>{{sinisterLog.createdAt | date: 'h:mm a'}}</span></time>
         <div class="cbp_tmicon bg-secondary"><i class="fa fa-comments-o"></i></div>
         <div class="cbp_tmlabel">
-            <h2>{{sinisterLog.sinisterRecordTypeName}}</h2>
-            <p class="text-sm mb-3"><strong>{{sinisterLog.createdByName}}</strong> reportó un evento para este siniestro. Fecha Evento: <strong>{{sinisterLog.eventDate | date: 'dd/MM/yyyy'}}</strong></p>
+            <h2>{{sinisterLog.sinisterRecordTypeName}}: {{sinisterLog.sinisterEventTypeName}}</h2>
+            <p class="text-sm mb-3"><strong>{{sinisterLog.createdByName}}</strong> reportó un evento para este siniestro.</p>
             <ol class="breadcrumb1">
-                <li class="breadcrumb-item1" [innerHTML]="details"></li>
+                <li class="breadcrumb-item1"><strong>Fecha Inicio:</strong> {{sinisterLog.providerDate | date: 'dd/MM/yyyy'}} <br/>
+                    <ng-container *ngIf="!!sinisterLog.sinisterEventDetails">{{sinisterLog.sinisterEventDetails}}</ng-container>
+                </li>
             </ol>
+            <ol class="breadcrumb1" *ngIf="!!sinisterLog.sinisterEventFinishDate">
+                <li class="breadcrumb-item1"><strong>Fecha Finalización:</strong> {{sinisterLog.sinisterEventFinishDate | date: 'dd/MM/yyyy'}} <br/>
+                Se finaliza evento el día: {{sinisterLog.sinisterEventFinishDate | date: 'dd/MM/yyyy'}}
+                <ng-container *ngIf="!!sinisterLog.sinisterEventFinishAmount">, con un costo de servicio de: {{sinisterLog.sinisterEventFinishAmount | currency: '': '': '0.2-2'}}</ng-container>.
+                <ng-container *ngIf="!!sinisterLog.sinisterEventFinishFolio">No. Folio: {{sinisterLog.sinisterEventFinishFolio}}.</ng-container></li>
+            </ol>
+            <ng-container *ngIf="!!observations">
+                <p class="text-sm mb-0"><strong>Observaciones:</strong></p>
+                <p class="text-sm mb-3" [innerHTML]="observations"></p>
+            </ng-container>
             <div class="btn-list mt-3">
                 <button type="button" class="btn btn-primary" (click)="onClickUpdateSinisterEvent()"><strong>EDITAR EVENTO</strong></button>
                 <button type="button" class="btn btn-secondary" (click)="onClickDeleteSinisterEvent()"><strong>ELIMINAR EVENTO</strong></button>

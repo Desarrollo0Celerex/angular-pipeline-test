@@ -23,7 +23,7 @@ declare var ModalPlugin: any;
 export class ModalUpdateSinisterEventComponent implements OnChanges, OnInit {
     @Input() modalId: string = '';
     @Input() sinisterEventData: SinisterEventDataSend | null = null;
-    calendarIdEventDate: string = 'eventDate';
+    calendarIdEventDate: string = 'providerDate';
     private _isFormSubmitted: boolean = false;
 
     constructor(

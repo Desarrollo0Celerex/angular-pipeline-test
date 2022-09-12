@@ -52,4 +52,6 @@ export interface Sinister {
     timeResponse: string,
     sinisterElapsedMinutes: string,
     sinisterCause: string,
+    insuranceGroupId: number,
+    workspaceCountryId: number
 }

@@ -4,8 +4,9 @@ import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { saveAs } from 'file-saver';
 
-import { CLIENT_STATUS, EXTERNAL_POLICY_STATUS, LEAD_STATUS, PARTNER_STATUS, PAYMENT_STATUS, POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN, DEFAULT_PER_PAGE } from '@constants/global';
+import { CLIENT_STATUS, EXTERNAL_POLICY_STATUS, LEAD_STATUS, PARTNER_STATUS, PAYMENT_STATUS, POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN, DEFAULT_PER_PAGE, SINISTER_RECORD_TYPES } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { SinisterEventHelper } from '@helpers/sinister-event.helper';
 import { Contact } from '@interfaces/contact.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
@@ -769,10 +770,16 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadSinisterLogs(contactId: string, policyId: string, sinisterId: string, page: number): Observable<void> {
-        const fields: string = 'sinisterLogId,sinisterRecordTypeId,sinisterRecordTypeName,eventDate,details,sinisterResolutionName,indemnificationAmount,resolutionDate,sinisterReactivationName,reactivationDate,createdAt,createdByName,contactId,policyId,sinisterId,logSourceId,finishedEvidenceUrl,reactivatedEvidenceUrl';
-        return this._sinisterService.getSinisterLogs(contactId, policyId, sinisterId, page, fields).pipe(
+        const fields: string = 'sinisterLogId,sinisterRecordTypeId,sinisterRecordTypeName,providerDate,observations,sinisterResolutionName,indemnificationAmount,resolutionDate,sinisterReactivationName,reactivationDate,createdAt,createdByName,contactId,policyId,sinisterId,logSourceId,finishedEvidenceUrl,reactivatedEvidenceUrl,sinisterEventTypeName,sinisterEventFinishDate,sinisterEventFinishAmount,sinisterEventFinishFolio,sinisterEventTypeId,providerName,providerFolio,providerPhoneNumber,providerEmail,providerBill';
+        const sortBy: string = '-createdAt';
+        return this._sinisterService.getSinisterLogs(contactId, policyId, sinisterId, page, fields, sortBy).pipe(
             tap((res: HttpResponse) => {
                 const sinisterLogs: SinisterLog[] = res.data.items;
+                for(let sinisterLog of sinisterLogs) {
+                    if(sinisterLog.sinisterRecordTypeId === SINISTER_RECORD_TYPES.NEW_EVENT) {
+                        sinisterLog.sinisterEventDetails = SinisterEventHelper.generateSinisterEventDetails(sinisterLog);
+                    }
+                }
                 this.contents = this.contents.concat(sinisterLogs);
                 this._loadContentResultData(res.data.totalItems);
             }),
