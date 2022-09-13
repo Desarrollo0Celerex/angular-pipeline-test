@@ -1,5 +1,5 @@
 export interface ReportEventDataSend {
     details: string,
-    eventDate: string,
+    providerDate: string,
     sinisterEventTypeId: number
 }

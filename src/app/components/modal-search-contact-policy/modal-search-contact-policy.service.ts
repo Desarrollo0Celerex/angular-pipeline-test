@@ -35,7 +35,7 @@ export class ModalSearchContactPolicyService {
         const page: number = 1;
         const fields: string = 'policyId,contactId,policyStatusName,policyStatusBackground,policyNumber,validityStartDate,validityEndDate,totalAmount,currencyName,insuranceId';
         const filters: number [] = [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED, POLICY_STATUS.CANCELLED];
-        const query: string = this.f.policyNumber.value.trim();
+        const query: string = 'policyNumber: ' + this.f.policyNumber.value.trim();
         return this._policyService.getContactPolicies(contactId, page, fields, filters, query);
     }
 

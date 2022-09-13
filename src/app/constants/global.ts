@@ -103,6 +103,13 @@ export const SINISTER_STATUS: any = {
     FINISHED: 5
 }
 export const SINISTER_STATUS_OPEN: number = 100;
+export const SINISTER_EVENT_TYPES: any = {
+    OTHER_MOVEMENTS: 1,
+    WORKSHOP_AND_SERVICE: 2,
+    CIVIL_WORK: 3,
+    CRANES_AND_TRANSFER: 4,
+    LEGAL_PROCESS: 5
+}
 export const EXTERNAL_POLICY_STATUS: any = {
     INCOMPLETE: 1,
     CURRENT: 2,
@@ -349,7 +356,12 @@ export const SINISTER_RECORD_TYPES: any = {
     UPDATE: 2,
     FINISHED: 3,
     REACTIVATED: 4,
-    NEW_EVENT: 5
+    NEW_EVENT: 5,
+    UPDATE_CERTIFICATE: 6,
+    UPDATE_EVIDENCE: 7,
+    UPDATE_REPORT: 8,
+    UPDATE_TRACKING: 9,
+    UPDATE_DETAILS: 10
 }
 export const CONTACT_SOURCE_TYPES: any = {
     PARTNERS: 4
@@ -406,7 +418,19 @@ export const INSURANCES: any = {
 }
 
 export const INSURANCE_TYPES: any = {
+    PERSONAL: 1,
+    INDIVIDUAL: 2,
+    GROUP: 3,
+    COLLECTIVE: 4,
     FLOTILLA: 5
+}
+
+export const INTERNAL_INSURANCES: any = {
+    PERSON: 1,
+    VEHICLE: 2,
+    BUILDING: 3,
+    OBJECT: 4,
+    GENERIC: 5
 }
 
 export const CANCELLATION_REASONS: any = {

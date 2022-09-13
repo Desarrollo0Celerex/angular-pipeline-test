@@ -1,9 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
+import { concatMap, map } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { environment } from '@env/environment';
+import { HttpResponse } from '@interfaces/http-response.interface';
+import { Insured } from '@interfaces/insured.interface';
 import { AuthService } from '@services/auth.service';
 
 const ROUTES = {
@@ -60,6 +63,49 @@ export class PolicyInsuredService {
             params
         };
         return this._httpClient.get(route, fileParams).toPromise();
+    }
+
+    getPolicyInsured(contactId: string, policyId: string, policyInsuredId: string, fields: string): Observable<Insured> {
+        const route: string = ROUTES.policyInsured(this._workspaceId, contactId, policyId, policyInsuredId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
+                const insured: Insured = res.data;
+                insured.personName = (!!insured.personName) ? insured.personName : '';
+                insured.personGenderName = (!!insured.personGenderName) ? insured.personGenderName : '';
+                insured.personAge = (!!insured.personAge) ? insured.personAge : '';
+                insured.vehicleMaker = (!!insured.vehicleMaker) ? insured.vehicleMaker : '';
+                insured.vehicleVersion = (!!insured.vehicleVersion) ? insured.vehicleVersion : '';
+                insured.vehicleModel = (!!insured.vehicleModel) ? insured.vehicleModel : '';
+                insured.vehiclePlates = (!!insured.vehiclePlates) ? insured.vehiclePlates : '';
+                insured.vehicleSerial = (!!insured.vehicleSerial) ? insured.vehicleSerial : '';
+                insured.vehicleMotor = (!!insured.vehicleMotor) ? insured.vehicleMotor : '';
+                insured.vehicleNumber = (!!insured.vehicleNumber) ? insured.vehicleNumber : '';
+                insured.vehicleInternalNumber = (!!insured.vehicleInternalNumber) ? insured.vehicleInternalNumber : '';
+                insured.vehicleSubgroup = (!!insured.vehicleSubgroup) ? insured.vehicleSubgroup : '';
+                insured.vehicleType = (!!insured.vehicleType) ? insured.vehicleType : '';
+                insured.vehicleUnitType = (!!insured.vehicleUnitType) ? insured.vehicleUnitType : '';
+                insured.vehicleCargoTypeName = (!!insured.vehicleCargoTypeName) ? insured.vehicleCargoTypeName : '';
+                insured.vehicleCoverageName = (!!insured.vehicleCoverageName) ? insured.vehicleCoverageName : '';
+                insured.vehicleUseName = (!!insured.vehicleUseName) ? insured.vehicleUseName : '';
+                insured.vehicleAdaptation = (!!insured.vehicleAdaptation) ? insured.vehicleAdaptation : '';
+                insured.vehicleValidityStartDate = (!!insured.vehicleValidityStartDate) ? moment(insured.vehicleValidityStartDate, 'YYYY-MM-DD').format('DD/MM/YYYY') : '';
+                insured.vehicleNetPay = (!!insured.vehicleNetPay) ? insured.vehicleNetPay : 0.00;
+                insured.vehicleFeePay = (!!insured.vehicleFeePay) ? insured.vehicleFeePay : 0.00;
+                insured.vehicleCoverPay = (!!insured.vehicleCoverPay) ? insured.vehicleCoverPay : 0.00;
+                insured.vehicleTaxPay = (!!insured.vehicleTaxPay) ? insured.vehicleTaxPay : 0.00;
+                insured.vehicleTotalAmount = (!!insured.vehicleTotalAmount) ? insured.vehicleTotalAmount : 0.00;
+                insured.vehicleStatusName = (!!insured.vehicleStatusName) ? insured.vehicleStatusName : '';
+                insured.buildingName = (!!insured.buildingName) ? insured.buildingName : '';
+                insured.buildingUsage = (!!insured.buildingUsage) ? insured.buildingUsage : '';
+                insured.objectName = (!!insured.objectName) ? insured.objectName : '';
+                insured.objectUsage = (!!insured.objectUsage) ? insured.objectUsage : '';
+                insured.objectDescription = (!!insured.objectDescription) ? insured.objectDescription : '';
+                insured.policyDetails = (!!insured.policyDetails) ? insured.policyDetails : '';
+                return insured;
+            })
+        );
     }
 
     updatePolicyInsureds(contactId: string, policyId: string, requestBodies: FormData[]): Observable<void> {

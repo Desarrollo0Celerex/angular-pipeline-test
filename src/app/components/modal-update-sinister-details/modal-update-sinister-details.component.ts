@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { Sinister } from '@interfaces/sinister.interface';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { LoadingService } from '@services/loading.service';
@@ -12,6 +12,7 @@ import { LoadingService } from '@services/loading.service';
 import { ModalUpdateSinisterDetailsService } from './modal-update-sinister-details.service';
 
 declare var ModalPlugin: any;
+declare var TimePickerPlugin: any;
 
 @Component({
   selector: 'agt-modal-update-sinister-details',
@@ -23,8 +24,8 @@ declare var ModalPlugin: any;
 export class ModalUpdateSinisterDetailsComponent implements OnInit {
     @Input() modalId: string = '';
     @Input() sinisterData: SinisterDataSend | null = null;
-    calendarIdSinisterDate: string = 'sinisterDate';
-    calendarIdEstimatedResolutionDate: string = 'estimatedResolutionDate';
+    timerIdTimeReport: string = 'timeReport';
+    timerIdTimeResponse: string = 'timeResponse';
     private _isFormSubmitted: boolean = false;
 
     constructor(
@@ -44,7 +45,7 @@ export class ModalUpdateSinisterDetailsComponent implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.sinisterDetailsForm.get(constrolName);
+        const control: AbstractControl | null = this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -54,23 +55,26 @@ export class ModalUpdateSinisterDetailsComponent implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.sinisterDetailsForm.get(constrolName);
+        const control: AbstractControl | null = this.model.form.get(constrolName);
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
-    /**
-     * Submit event to update the sinister
-     */
-    onSubmitUpdateSinister(): void {
+    updateSinisterDetails(): void {
         this._isFormSubmitted = true;
-        if(this.model.sinisterDetailsForm.valid && !!this.sinisterData) {
+        if(this.model.form.valid && !!this.sinisterData) {
             this._loadingService.show();
             ModalPlugin.hide(this.modalId);
-            this.model.updateSinister(this.sinisterData).subscribe(() => {
+            this.model.updateSinisterDetails(this.sinisterData).subscribe(() => {
                 this._loadingService.hide();
                 AlertHelper.sinisterUpdated(this._reloadPage, this)
             });
         }
+    }
+
+    private _initTimers(): void {
+        TimePickerPlugin.init();
+        TimePickerPlugin.initElement(this.timerIdTimeReport, this._onChangeTime, this);
+        TimePickerPlugin.initElement(this.timerIdTimeResponse, this._onChangeTime, this);
     }
 
     /**
@@ -90,10 +94,15 @@ export class ModalUpdateSinisterDetailsComponent implements OnInit {
      */
     private _loadSinister(): void {
         if(this.sinisterData) {
-            this.model.loadSinister(this.sinisterData).subscribe( (res: HttpResponse) => {
-                this.model.fillSinisterForm(res.data);
-                this.model.loadSinisterTypes(res.data.insuranceId);
+            this.model.loadSinister(this.sinisterData).subscribe( (res: Sinister) => {
+                this.model.fillSinisterForm(res);
+                this._initTimers();
+                this.model.loadSinisterTypes(res.insuranceId);
             })
         }
+    }
+
+    private _onChangeTime(selectorId: string, changedValue: string, context: ModalUpdateSinisterDetailsComponent): void {
+        context.model.form.patchValue({[selectorId]: changedValue});
     }
 }

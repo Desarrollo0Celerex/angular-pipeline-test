@@ -5,7 +5,7 @@
             <div class="card-header">
                 <h3 class="card-title">Reportar Evento</h3>
             </div>
-            <div class="card-body" *ngIf="!!containerReportEventService.sinister && containerReportEventService.sinister.sinisterStatusId === SINISTER_STATUS.FINISHED; else reportEvent">
+            <div class="card-body" *ngIf="!!model.sinister && model.sinister.sinisterStatusId === SINISTER_STATUS.FINISHED; else reportEvent">
                 <div class="row">
                     <!-- AGENTHOS - -->
                     <div class="col-md-12">
@@ -16,37 +16,421 @@
                 </div>
             </div>
             <ng-template #reportEvent>
-                <form [formGroup]="containerReportEventService.eventForm" (submit)="onSubmitReportEvent()">
+                <form *ngIf="model.isBuiltForm" [formGroup]="model.form" (submit)="createEvent()">
                     <!-- AGENTHOS - SINISTER EVENT BODY-->
                     <div class="card-body">
-                        <!-- AGENTHOS - SINISTER EVENT DETAILS -->
+                        <!-- AGENTHOS - SINISTER EVENT TYPE -->
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - SINISTER EVENT REPORT * -->
-                                    <label class="form-label">Detalles del Evento</label>
-                                    <textarea class="form-control {{getValidationClass('details')}}" rows="3" placeholder="Ingresa los detalles del evento." formControlName="details"></textarea>
-                                    <div class="invalid-feedback">{{getErrorMessage('details')}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - SINISTER EVENT DATE * -->
-                                    <label class="form-label">Fecha del Evento</label>
-                                    <input [id]="calendarIdEventDate" class="form-control fc-datepicker {{getValidationClass('eventDate')}}" type="text" formControlName="eventDate">
-                                    <div class="invalid-feedback">{{getErrorMessage('eventDate')}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <!-- AGENTHOS - SINISTER EVENT NOTIFICATION * -->
-                                    <label class="form-label">Notificar Evento</label>
+                                    <label class="form-label">Tipo de Evento</label>
                                     <div class="form-group">
-                                        <select class="form-control custom-select {{getValidationClass('sinisterEventTypeId')}}" formControlName="sinisterEventTypeId">
-                                            <option [value]="sinisterEventType.sinisterEventTypeId" *ngFor="let sinisterEventType of containerReportEventService.sinisterEventTypes">{{sinisterEventType.name}}</option>
+                                        <select class="form-control {{getValidationClass('sinisterEventTypeId')}}" formControlName="sinisterEventTypeId" (change)="rebuildForm($event)">
+                                            <option [value]="sinisterEventType.sinisterEventTypeId" *ngFor="let sinisterEventType of model.sinisterEventTypes">{{sinisterEventType.name}}</option>
                                         </select>
                                         <div class="invalid-feedback">{{getErrorMessage('sinisterEventTypeId')}}</div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SINISTER EVENT EVIDENCE -->
+                                    <label class="form-label">Evidencia del Evento</label>
+                                    <div class="row gutters-sm">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control {{getValidationClass('evidenceName')}}" formControlName="evidenceName" placeholder="Nombre del Documento" >
+                                                <span class="input-group-append">
+                                                    <button class="btn btn-primary" type="button" (click)="showModalToSelectEvidence()"><i class="fa fa-cloud-upload tx-16 lh-0 op-6"></i></button>
+                                                </span>
+                                            </div>
+                                            <div class="invalid-feedback">{{getErrorMessage('evidenceName')}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //AGENTHOS - SINISTER EVENT TYPE -->
+                        <div class="row">
+
+                            <ng-container [ngSwitch]="selectedSinisterEventTypeId">
+                                <ng-container *ngSwitchCase="SINISTER_EVENT_TYPES.WORKSHOP_AND_SERVICE">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER PROVIDER NAME * -->
+                                            <label class="form-label">Nombre Taller</label>
+                                            <input type="text" class="form-control {{getValidationClass('providerName')}}" formControlName="providerName" placeholder="Nombre de las grúas">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerName')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER PROVIDER DATE * -->
+                                            <label class="form-label">Fecha Ingreso</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input [id]="calendarIdProviderDate" type="text" class="form-control fc-datepicker {{getValidationClass('providerDate')}}" formControlName="providerDate" placeholder="Fecha de ingreso">
+                                                <div class="invalid-feedback">{{getErrorMessage('providerDate')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER VALUATION DATE -->
+                                            <label class="form-label">Fecha Valuación</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input [id]="calendarIdValuationDate" type="text" class="form-control fc-datepicker {{getValidationClass('valuationDate')}}" formControlName="valuationDate">
+                                                <div class="invalid-feedback">{{getErrorMessage('valuationDate')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER AUTHORIZATION DATE -->
+                                            <label class="form-label">Fecha Autorización</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input [id]="calendarIdAuthorizationDate" type="text" class="form-control fc-datepicker {{getValidationClass('authorizationDate')}}" formControlName="authorizationDate">
+                                                <div class="invalid-feedback">{{getErrorMessage('authorizationDate')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER INSURED NOTICE DATE -->
+                                            <label class="form-label">Fecha Aviso Asegurado</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input [id]="calendarIdInsuredNoticeDate" type="text" class="form-control fc-datepicker {{getValidationClass('insuredNoticeDate')}}" formControlName="insuredNoticeDate">
+                                                <div class="invalid-feedback">{{getErrorMessage('insuredNoticeDate')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER INSURED AUTHORIZATION DATE -->
+                                            <label class="form-label">Fecha Autorización Asegurado</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input [id]="calendarIdInsuredAuthorizationDate" type="text" class="form-control fc-datepicker {{getValidationClass('insuredAuthorizationDate')}}" formControlName="insuredAuthorizationDate">
+                                                <div class="invalid-feedback">{{getErrorMessage('insuredAuthorizationDate')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER ESTIMATED DELIVERY DATE -->
+                                            <label class="form-label">Fecha Estimada Entrega</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input [id]="calendarIdEstimatedDeliveryDate" type="text" class="form-control fc-datepicker {{getValidationClass('estimatedDeliveryDate')}}" formControlName="estimatedDeliveryDate">
+                                                <div class="invalid-feedback">{{getErrorMessage('estimatedDeliveryDate')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER READMISSION DATE -->
+                                            <label class="form-label">Fecha Reingreso</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input [id]="calendarIdReadmissionDate" type="text" class="form-control fc-datepicker {{getValidationClass('readmissionDate')}}" formControlName="readmissionDate">
+                                                <div class="invalid-feedback">{{getErrorMessage('readmissionDate')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER PROVIDER BILL -->
+                                            <label class="form-label">Monto de Valuación</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control {{getValidationClass('providerBill')}}" formControlName="providerBill">
+                                                <div class="invalid-feedback">{{getErrorMessage('providerBill')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+    									<div class="form-group">
+    										<!-- AGENTHOS - SINISTER PROVIDER FOLIO * -->
+    										<label class="form-label">No. Folio</label>
+    										<input type="text" class="form-control {{getValidationClass('providerFolio')}}" formControlName="providerFolio" placeholder="Número de Folio">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerFolio')}}</div>
+    									</div>
+    								</div>
+                                    <div class="col-md-4">
+                                        <!-- AGENTHOS - SINISTER PROVIDER PHONE CODE -->
+                                        <label class="form-label">Teléfono Taller</label>
+                                        <div class="input-group mb-3">
+                                            <agt-dropdown-select-phone-code [phoneCodeId]="model.f.providerPhoneCodeId.value" (phoneCodeIdSelected)="updateProviderPhoneCodeId($event)"></agt-dropdown-select-phone-code>
+                                            <!-- AGENTHOS - SINISTER PROVIDER PHONE NUMBER -->
+                                            <input type="text" class="form-control {{getValidationClass('providerPhoneNumber')}}" formControlName="providerPhoneNumber" placeholder="Teléfono del Taller" >
+                                            <div class="invalid-feedback">{{getErrorMessage('providerPhoneNumber')}}</div>
+                                        </div>
+                                    </div>
+    								<div class="col-md-4">
+    									<div class="form-group">
+    										<!-- AGENTHOS - SINISTER PROVIDER MAIL -->
+    										<label class="form-label">Correo Taller</label>
+    										<input type="text" class="form-control {{getValidationClass('providerEmail')}}" formControlName="providerEmail" placeholder="Correo del Taller">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerEmail')}}</div>
+    									</div>
+    								</div>
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="SINISTER_EVENT_TYPES.CIVIL_WORK">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER PROVIDER NAME * -->
+                                            <label class="form-label">Nombre Constructora</label>
+                                            <input type="text" class="form-control {{getValidationClass('providerName')}}" formControlName="providerName" placeholder="Nombre de la constructora">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerName')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER PROVIDER DATE * -->
+                                            <label class="form-label">Fecha Inicio</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input [id]="calendarIdProviderDate" type="text" class="form-control fc-datepicker {{getValidationClass('providerDate')}}" formControlName="providerDate" placeholder="Fecha de inicio">
+                                                <div class="invalid-feedback">{{getErrorMessage('providerDate')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+    									<div class="form-group">
+    										<!-- AGENTHOS - SINISTER PROVIDER FOLIO * -->
+    										<label class="form-label">No. Folio</label>
+    										<input type="text" class="form-control {{getValidationClass('providerFolio')}}" formControlName="providerFolio" placeholder="Número de Folio">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerFolio')}}</div>
+    									</div>
+    								</div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER PROVIDER BILL -->
+                                            <label class="form-label">Monto de Obra</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control {{getValidationClass('providerBill')}}" formControlName="providerBill">
+                                                <div class="invalid-feedback">{{getErrorMessage('providerBill')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <!-- AGENTHOS - SINISTER PROVIDER PHONE CODE -->
+                                        <label class="form-label">Teléfono Constructora</label>
+                                        <div class="input-group mb-3">
+                                            <agt-dropdown-select-phone-code [phoneCodeId]="model.f.providerPhoneCodeId.value" (phoneCodeIdSelected)="updateProviderPhoneCodeId($event)"></agt-dropdown-select-phone-code>
+                                            <!-- AGENTHOS - SINISTER PROVIDER PHONE NUMBER -->
+                                            <input type="text" class="form-control {{getValidationClass('providerPhoneNumber')}}" placeholder="Teléfono de la Constructora" formControlName="providerPhoneNumber">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerPhoneNumber')}}</div>
+                                        </div>
+                                    </div>
+    								<div class="col-md-4">
+    									<div class="form-group">
+    										<!-- AGENTHOS - SINISTER PROVIDER MAIL -->
+    										<label class="form-label">Correo Constructora</label>
+    										<input type="text" class="form-control {{getValidationClass('providerEmail')}}" formControlName="providerEmail" placeholder="Correo de la Constructora">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerEmail')}}</div>
+    									</div>
+    								</div>
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="SINISTER_EVENT_TYPES.CRANES_AND_TRANSFER">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER PROVIDER NAME * -->
+                                            <label class="form-label">Nombre Grúas</label>
+                                            <input type="text" class="form-control {{getValidationClass('providerName')}}" formControlName="providerName" placeholder="Nombre de las grúas">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerName')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER PROVIDER DATE * -->
+                                            <label class="form-label">Fecha Arrastre</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input [id]="calendarIdProviderDate" type="text" class="form-control fc-datepicker {{getValidationClass('providerDate')}}" formControlName="providerDate" placeholder="Fecha de arrastre">
+                                                <div class="invalid-feedback">{{getErrorMessage('providerDate')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+    									<div class="form-group">
+    										<!-- AGENTHOS - SINISTER PROVIDER FOLIO * -->
+    										<label class="form-label">No. Folio</label>
+    										<input type="text" class="form-control {{getValidationClass('providerFolio')}}" formControlName="providerFolio" placeholder="Número de Folio">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerFolio')}}</div>
+    									</div>
+    								</div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER PROVIDER BILL -->
+                                            <label class="form-label">Monto de Servicio</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control {{getValidationClass('providerBill')}}" formControlName="providerBill">
+                                                <div class="invalid-feedback">{{getErrorMessage('providerBill')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <!-- AGENTHOS - SINISTER PROVIDER PHONE CODE -->
+                                        <label class="form-label">Teléfono Grúas</label>
+                                        <div class="input-group mb-3">
+                                            <agt-dropdown-select-phone-code [phoneCodeId]="model.f.providerPhoneCodeId.value" (phoneCodeIdSelected)="updateProviderPhoneCodeId($event)"></agt-dropdown-select-phone-code>
+                                            <!-- AGENTHOS - SINISTER PROVIDER PHONE NUMBER -->
+                                            <input type="text" class="form-control {{getValidationClass('providerPhoneNumber')}}" placeholder="Teléfono de las Grúas" formControlName="providerPhoneNumber">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerPhoneNumber')}}</div>
+                                        </div>
+                                    </div>
+    								<div class="col-md-4">
+    									<div class="form-group">
+    										<!-- AGENTHOS - SINISTER PROVIDER MAIL -->
+    										<label class="form-label">Correo Grúas</label>
+    										<input type="text" class="form-control {{getValidationClass('providerEmail')}}" formControlName="providerEmail" placeholder="Correo de las Grúas">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerEmail')}}</div>
+    									</div>
+    								</div>
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="SINISTER_EVENT_TYPES.LEGAL_PROCESS">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER PROVIDER NAME * -->
+                                            <label class="form-label">Nombre Abogado</label>
+                                            <input type="text" class="form-control {{getValidationClass('providerName')}}" formControlName="providerName" placeholder="Nombre del Abogado">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerName')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER PROVIDER DATE * -->
+                                            <label class="form-label">Fecha Asignación</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input [id]="calendarIdProviderDate" type="text" class="form-control fc-datepicker {{getValidationClass('providerDate')}}" formControlName="providerDate" placeholder="Fecha de Asignación">
+                                                <div class="invalid-feedback">{{getErrorMessage('providerDate')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+    									<div class="form-group">
+    										<!-- AGENTHOS - SINISTER PROVIDER FOLIO * -->
+    										<label class="form-label">No. Carpeta</label>
+    										<input type="text" class="form-control {{getValidationClass('providerFolio')}}" formControlName="providerFolio" placeholder="Número de Carpeta">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerFolio')}}</div>
+    									</div>
+    								</div>
+                                    <div class="col-md-4">
+                                        <!-- AGENTHOS - SINISTER PROVIDER PHONE CODE -->
+                                        <label class="form-label">Teléfono Abogado</label>
+                                        <div class="input-group mb-3">
+                                            <agt-dropdown-select-phone-code [phoneCodeId]="model.f.providerPhoneCodeId.value" (phoneCodeIdSelected)="updateProviderPhoneCodeId($event)"></agt-dropdown-select-phone-code>
+                                            <!-- AGENTHOS - SINISTER PROVIDER PHONE NUMBER -->
+                                            <input type="text" class="form-control {{getValidationClass('providerPhoneNumber')}}" placeholder="Teléfono del Abogado" formControlName="providerPhoneNumber">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerPhoneNumber')}}</div>
+                                        </div>
+                                    </div>
+    								<div class="col-md-4">
+    									<div class="form-group">
+    										<!-- AGENTHOS - SINISTER PROVIDER MAIL -->
+    										<label class="form-label">Correo Abogado</label>
+    										<input type="text" class="form-control {{getValidationClass('providerEmail')}}" formControlName="providerEmail" placeholder="Correo del Abogado">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerEmail')}}</div>
+    									</div>
+    								</div>
+                                </ng-container>
+
+                                <ng-container *ngSwitchDefault>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER PROVIDER NAME * -->
+                                            <label class="form-label">Nombre Responsable</label>
+                                            <input type="text" class="form-control {{getValidationClass('providerName')}}" formControlName="providerName">
+                                            <div class="invalid-feedback">{{getErrorMessage('providerName')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - SINISTER PROVIDER DATE * -->
+                                            <label class="form-label">Fecha Evento</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input [id]="calendarIdProviderDate" type="text" class="form-control fc-datepicker {{getValidationClass('providerDate')}}" formControlName="providerDate">
+                                                <div class="invalid-feedback">{{getErrorMessage('providerDate')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SINISTER EVENT REPORT * -->
+                                    <label class="form-label">Observaciones del Evento</label>
+                                    <textarea class="form-control {{getValidationClass('observations')}}" formControlName="observations" rows="3" placeholder="Observaciones sobre el evento."></textarea>
+                                    <div class="invalid-feedback">{{getErrorMessage('observations')}}</div>
                                 </div>
                             </div>
                         </div>
@@ -69,3 +453,9 @@
     </div>
 </div>
 <!-- AGENTHOS - SINISTER EVENT NEW -->
+
+<agt-modal-select-evidence
+    [modalId]="modalIdSelectEventEvidence"
+    [data]="modalSelectEvidenceData"
+    (fileSelected)="loadEventEvidence($event)"
+></agt-modal-select-evidence>

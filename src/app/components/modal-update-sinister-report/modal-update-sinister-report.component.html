@@ -1,8 +1,8 @@
 <!-- AGENTHOS - SINISTER UPDATE -->
 <div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
-	<div class="modal-dialog" role="document" *ngIf="!!modalUpdateSinisterService.sinister">
+	<div class="modal-dialog" role="document" *ngIf="!!model.sinister">
 		<div class="modal-content">
-            <form [formGroup]="modalUpdateSinisterService.sinisterForm" (submit)="onSubmitUpdateSinister()" >
+            <form [formGroup]="model.sinisterForm" (submit)="onSubmitUpdateSinister()" >
     			<div class="modal-header">
     				<h5 class="modal-title">Actualizar Siniestro</h5>
     				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -13,9 +13,9 @@
     				<div class="row">
     					<div class="col-md-6">
     						<div class="form-group">
-    							<label class="form-label">No. Reporte</label>
-    							<input type="text" class="form-control {{getValidationClass('reportNumber')}}" formControlName="reportNumber">
-                                <div class="invalid-feedback">{{getErrorMessage('reportNumber')}}</div>
+    							<label class="form-label">No. Interno</label>
+    							<input type="text" class="form-control {{getValidationClass('internalNumber')}}" formControlName="internalNumber">
+                                <div class="invalid-feedback">{{getErrorMessage('internalNumber')}}</div>
     						</div>
     					</div>
     					<div class="col-md-6">
@@ -37,20 +37,6 @@
     							<label class="form-label">No. Folio</label>
     							<input type="text" class="form-control {{getValidationClass('invoice')}}" formControlName="invoice">
                                 <div class="invalid-feedback">{{getErrorMessage('invoice')}}</div>
-    						</div>
-    					</div>
-                        <div class="col-md-6">
-    						<div class="form-group">
-    							<label class="form-label">Fecha Siniestro</label>
-    							<input [id]="calendarIdSinisterDate" type="text" class="form-control fc-datepicker {{getValidationClass('sinisterDate')}}" formControlName="sinisterDate">
-                                <div class="invalid-feedback">{{getErrorMessage('sinisterDate')}}</div>
-    						</div>
-    					</div>
-                        <div class="col-md-6">
-    						<div class="form-group">
-    							<label class="form-label">Resolución Estimada</label>
-    							<input [id]="calendarIdEstimatedResolutionDate" type="text" class="form-control fc-datepicker {{getValidationClass('estimatedResolutionDate')}}" formControlName="estimatedResolutionDate">
-                                <div class="invalid-feedback">{{getErrorMessage('estimatedResolutionDate')}}</div>
     						</div>
     					</div>
     				</div>
