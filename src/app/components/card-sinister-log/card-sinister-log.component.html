@@ -119,7 +119,7 @@
             </ng-container>
             <div class="btn-list mt-3">
                 <button type="button" class="btn btn-primary" (click)="onClickUpdateSinisterEvent()"><strong>EDITAR EVENTO</strong></button>
-                <button type="button" class="btn btn-primary"><strong>FINALIZAR EVENTO</strong></button>
+                <button type="button" class="btn btn-primary" (click)="onClickFinalizeSinisterEvent()"><strong>FINALIZAR EVENTO</strong></button>
                 <button type="button" class="btn btn-primary" (click)="onClickDeleteSinisterEvent()"><strong>ELIMINAR EVENTO</strong></button>
                 <button *ngIf="sinisterLog.sinisterEventEvidenceUrl" type="button" class="btn btn-secondary" (click)="onClickShowSinisterEventEvidence()"><strong>VER EVIDENCIA</strong></button>
             </div>

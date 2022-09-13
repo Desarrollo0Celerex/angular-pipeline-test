@@ -125,6 +125,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmUpdateExternalPolicy: string = 'modal-confirm-update-external-policy';
     modalIdConfirmUpdatePolicy: string;
     modalIdConfirmValidateExternalPolicy: string = 'modal-confirm-validate-external-policy';
+    modalIdFinalizeSinisterEvent: string = 'modal-finalize-sinister-event';
     modalIdRejectQuotation: string;
     modalIdSelectContact: string;
     modalIdSelectContactType: string;
@@ -457,6 +458,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onFinalizeSinister(sinisterData: SinisterDataSend): void {
         this.selectedSinisterData = sinisterData;
         ModalPlugin.show(this.modalIdConfirmFinalizeSinister);
+    }
+
+    onFinalizeSinisterEvent(sinisterEventData: SinisterEventDataSend): void {
+        this.selectedSinisterEventData = sinisterEventData;
+        ModalPlugin.show(this.modalIdFinalizeSinisterEvent);
     }
 
     /**

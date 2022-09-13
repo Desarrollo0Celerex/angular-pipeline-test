@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { environment } from '@env/environment';
+import { FinalizeSinisterEventDataSend } from '@interfaces/finalize-sinister-event-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { SinisterEvent } from '@interfaces/sinister-event.interface';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
@@ -45,6 +46,11 @@ export class SinisterEventService {
     deleteSinisterEvent(sinisterEventData: SinisterEventDataSend): Observable<void> {
         const route: string = routes.sinisterEvent(this._workspaceId, sinisterEventData.contactId, sinisterEventData.policyId, sinisterEventData.sinisterId, sinisterEventData.sinisterEventId);
         return this._httpClient.delete<void>(route);
+    }
+
+    finalizeSinisterEvent(sinisterEventData: SinisterEventDataSend, requestBody: FinalizeSinisterEventDataSend): Observable<void> {
+        const route: string = routes.sinisterEvent(this._workspaceId, sinisterEventData.contactId, sinisterEventData.policyId, sinisterEventData.sinisterId, sinisterEventData.sinisterEventId);
+        return this._httpClient.put<void>(route, requestBody);
     }
 
     /**
