@@ -89,19 +89,19 @@ export class ModalCreateSinisterService {
      */
     private _buildSinisterForm(): UntypedFormGroup {
         return this._formBuilder.group({
-            reportNumber: [this._generateReportNumber(), [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX)]],
+            internalNumber: [this._generateInternalNumber(), [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX)]],
             manager: ['', [Validators.required, ValidatorsHelper.freeText, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX)]],
             sinisterNumber: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
             invoice: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
             sinisterDate: ['', [Validators.required, ValidatorsHelper.date]],
-            estimatedResolutionDate: ['', [Validators.required, ValidatorsHelper.date]],
+            notificationDate: ['', [Validators.required, ValidatorsHelper.date]],
             sinisterTypeId: ['', [Validators.required]],
             location: ['', [Validators.required, ValidatorsHelper.freeText, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX)]],
         });
     }
 
-    private _generateReportNumber(): string {
+    private _generateInternalNumber(): string {
         const currentDate: string = moment().format('DDMMYY');
-        return 'REP-'+currentDate+'-'+UtilitiesHelper.generateKey(6);
+        return 'SIN-'+currentDate+'-'+UtilitiesHelper.generateKey(6);
     }
 }

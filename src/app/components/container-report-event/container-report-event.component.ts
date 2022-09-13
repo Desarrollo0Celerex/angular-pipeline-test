@@ -3,15 +3,19 @@ import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
-import { SINISTER_STATUS } from '@constants/global';
+import { FILE_TYPES, IMAGE_AND_DOCUMENT_FORMATS, SINISTER_EVENT_TYPES, SINISTER_STATUS } from '@constants/global';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
+import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
+import { SinisterEventType } from '@interfaces/sinister-event-type.interface';
 import { LoadingService } from '@services/loading.service'
 
 import { ContainerReportEventService } from './container-report-event.service';
 
 declare var DatePickerPlugin: any;
+declare var ModalPlugin: any;
 
 @Component({
   selector: 'agt-container-report-event',
@@ -21,12 +25,29 @@ declare var DatePickerPlugin: any;
 })
 export class ContainerReportEventComponent implements OnInit {
     @Input() sinisterData: SinisterDataSend | null = null;
+    SINISTER_EVENT_TYPES: any = SINISTER_EVENT_TYPES;
     SINISTER_STATUS: any = SINISTER_STATUS;
-    calendarIdEventDate: string = 'eventDate';
+    calendarIdProviderDate: string = 'providerDate';
+    calendarIdValuationDate: string = 'valuationDate';
+    calendarIdAuthorizationDate: string = 'authorizationDate';
+    calendarIdInsuredNoticeDate: string = 'insuredNoticeDate';
+    calendarIdInsuredAuthorizationDate: string = 'insuredAuthorizationDate';
+    calendarIdEstimatedDeliveryDate: string = 'estimatedDeliveryDate';
+    calendarIdReadmissionDate: string = 'readmissionDate';
+    defaultPhoneCodeId: number = 0;
+    modalIdSelectEventEvidence: string = 'agt-select-event-evidence';
+    selectedSinisterEventTypeId: number = 0;
+    modalSelectEvidenceData: ModalSelectFileData = {
+        title: 'Cargar Evidencia',
+        description: 'Selecciona el formato digital de la evidencia del evento.',
+        buttonLabel: 'Cargar evidencia',
+        formats: IMAGE_AND_DOCUMENT_FORMATS,
+        fileType: FILE_TYPES.IMAGE_AND_DOCUMENT
+    };
     private _isFormSubmitted: boolean = false;
 
     constructor(
-        public containerReportEventService: ContainerReportEventService,
+        public model: ContainerReportEventService,
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
@@ -34,8 +55,19 @@ export class ContainerReportEventComponent implements OnInit {
 
     ngOnInit(): void {
         this._loadSinister();
-        this._initCalendars();
-        this.containerReportEventService.loadSinisterEventTypes();
+    }
+
+    createEvent(): void {
+        this._isFormSubmitted = true;
+        if(this.model.form.valid && !!this.sinisterData) {
+            this._loadingService.show();
+            this.model.createSinisterEvent(this.sinisterData).subscribe(() => {
+                this._loadingService.hide();
+                this._isFormSubmitted = false;
+                this.model.form.reset();
+                AlertHelper.sinisterEventReported(this._reloadPage, this)
+            });
+        }
     }
 
     /**
@@ -44,7 +76,7 @@ export class ContainerReportEventComponent implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.containerReportEventService.eventForm.get(constrolName);
+        const control: AbstractControl | null = this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -54,24 +86,26 @@ export class ContainerReportEventComponent implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.containerReportEventService.eventForm.get(constrolName);
+        const control: AbstractControl | null = this.model.form.get(constrolName);
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
-    /**
-     * Event submit to report event
-     */
-    onSubmitReportEvent(): void {
-        this._isFormSubmitted = true;
-        if(this.containerReportEventService.eventForm.valid && !!this.sinisterData) {
-            this._loadingService.show();
-            this.containerReportEventService.reportSinisterEvent(this.sinisterData).subscribe(() => {
-                this._loadingService.hide();
-                this._isFormSubmitted = false;
-                this.containerReportEventService.eventForm.reset();
-                AlertHelper.sinisterEventReported(this._reloadPage, this)
-            })
-        }
+    loadEventEvidence(evidenceFile: File): void {
+        this.model.form.patchValue({evidenceFile});
+    }
+
+    rebuildForm(event: any): void {
+        this.selectedSinisterEventTypeId = parseInt(event.target.value);
+        this.model.buildForm(this.selectedSinisterEventTypeId, this.defaultPhoneCodeId);
+        this._initCalendars();
+    }
+
+    showModalToSelectEvidence(): void {
+        ModalPlugin.show(this.modalIdSelectEventEvidence);
+    }
+
+    updateProviderPhoneCodeId(providerPhoneCodeId: number): void {
+        this.model.form.patchValue({providerPhoneCodeId});
     }
 
     /**
@@ -79,7 +113,20 @@ export class ContainerReportEventComponent implements OnInit {
      */
     private _initCalendars(): void {
         DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdEventDate, this._onChangeDate, this);
+        switch(this.selectedSinisterEventTypeId) {
+            case SINISTER_EVENT_TYPES.WORKSHOP_AND_SERVICE:
+                DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
+                DatePickerPlugin.initElement(this.calendarIdValuationDate, this._onChangeDate, this);
+                DatePickerPlugin.initElement(this.calendarIdAuthorizationDate, this._onChangeDate, this);
+                DatePickerPlugin.initElement(this.calendarIdInsuredNoticeDate, this._onChangeDate, this);
+                DatePickerPlugin.initElement(this.calendarIdInsuredAuthorizationDate, this._onChangeDate, this);
+                DatePickerPlugin.initElement(this.calendarIdEstimatedDeliveryDate, this._onChangeDate, this);
+                DatePickerPlugin.initElement(this.calendarIdReadmissionDate, this._onChangeDate, this);
+            break;
+
+            default:
+                DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
+        }
     }
 
     /**
@@ -87,7 +134,16 @@ export class ContainerReportEventComponent implements OnInit {
      */
     private _loadSinister(): void {
         if(!!this.sinisterData) {
-            this.containerReportEventService.loadSinister(this.sinisterData);
+            this.model.loadSinister(this.sinisterData).subscribe((sinister: Sinister) => {
+                if(!!sinister.sinisterStatusId !== SINISTER_STATUS.FINISHED && !!sinister.insuranceGroupId) {
+                    this.defaultPhoneCodeId = sinister.workspaceCountryId;
+                    this.model.loadSinisterEventTypes(sinister.insuranceGroupId).subscribe((sinisterEventType: SinisterEventType) => {
+                        this.selectedSinisterEventTypeId = sinisterEventType.sinisterEventTypeId;
+                        this.model.buildForm(this.selectedSinisterEventTypeId, this.defaultPhoneCodeId);
+                        this._initCalendars();
+                    });
+                }
+            });
         }
     }
 
@@ -98,7 +154,7 @@ export class ContainerReportEventComponent implements OnInit {
      * @param context      The app context
      */
     private _onChangeDate(selectorId: string, changedValue: string, context: ContainerReportEventComponent): void {
-        context.containerReportEventService.eventForm.patchValue({[selectorId]: changedValue});
+        context.model.form.patchValue({[selectorId]: changedValue});
     }
 
     /**

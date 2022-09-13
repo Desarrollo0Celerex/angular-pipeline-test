@@ -1,0 +1,61 @@
+<!-- AGENTHOS - SINISTER EVENT FINISH -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+            <form [formGroup]="model.form" (submit)="finalizeSinisterEvent()">
+    			<div class="modal-header">
+    				<h5 class="modal-title">Finalizar Evento</h5>
+    				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    					<span aria-hidden="true">&times;</span>
+    				</button>
+    			</div>
+    			<div class="modal-body">
+    				<div class="row">
+    					<!-- AGENTHOS - SPECIAL INPUTS -->
+    					<div class="col-md-6">
+    						<div class="form-group">
+    							<!-- AGENTHOS - SINISTER PROVIDER FINISH DATE * -->
+    							<label class="form-label">Fecha Finalización</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+										</div>
+									</div>
+	    							<input [id]="calendarIdFinishDate" type="text" class="form-control fc-datepicker {{getValidationClass('finishDate')}}" formControlName="finishDate">
+	                                <div class="invalid-feedback">{{getErrorMessage('finishDate')}}</div>
+								</div>
+                            </div>
+    					</div>
+    					<div class="col-md-6">
+    						<div class="form-group">
+    							<label class="form-label">Monto Total</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+										</div>
+									</div>
+	    							<input type="text" class="form-control {{getValidationClass('finishAmount')}}" formControlName="finishAmount">
+	                                <div class="invalid-feedback">{{getErrorMessage('finishAmount')}}</div>
+								</div>
+                            </div>
+    					</div>
+    					<div class="col-md-12">
+    						<div class="form-group">
+    							<label class="form-label">No. Folio</label>
+    							<input type="text" class="form-control {{getValidationClass('finishFolio')}}" formControlName="finishFolio">
+                                <div class="invalid-feedback">{{getErrorMessage('finishFolio')}}</div>
+                            </div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="modal-footer">
+    				<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+    				<button type="submit" class="btn btn-primary">CONFIRMAR</button>
+    			</div>
+            </form>
+		</div>
+	</div>
+</div>
+<!-- //AGENTHOS - SINISTER EVENT FINISH -->

@@ -14,8 +14,10 @@ export class CardSinisterLogComponent implements OnInit {
     @Input() sinisterLog: SinisterLog | null = null;
     @Output() updateSinisterEvent: EventEmitter<SinisterEventDataSend> = new EventEmitter<SinisterEventDataSend>();
     @Output() deleteSinisterEvent: EventEmitter<SinisterEventDataSend> = new EventEmitter<SinisterEventDataSend>();
+    @Output() finalizeSinisterEvent: EventEmitter<SinisterEventDataSend> = new EventEmitter<SinisterEventDataSend>();
     @Output() showReactivationEvidence: EventEmitter<string> = new EventEmitter<string>();
     @Output() showResolutionEvidence: EventEmitter<string> = new EventEmitter<string>();
+    @Output() showSinisterEventEvidence: EventEmitter<string> = new EventEmitter<string>();
     SINISTER_RECORD_TYPES: any = SINISTER_RECORD_TYPES;
 
     constructor() { }
@@ -23,8 +25,8 @@ export class CardSinisterLogComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    get details(): string {
-        return (!!this.sinisterLog) ? this.sinisterLog.details.replace(/(?:\r\n|\r|\n)/g, '<br>'): '';
+    get observations(): string {
+        return (!!this.sinisterLog) ? this.sinisterLog.observations.replace(/(?:\r\n|\r|\n)/g, '<br>'): '';
     }
 
     /**
@@ -57,6 +59,18 @@ export class CardSinisterLogComponent implements OnInit {
         }
     }
 
+    onClickFinalizeSinisterEvent(): void {
+        if(!!this.sinisterLog) {
+            const sinisterEventData: SinisterEventDataSend = {
+                contactId: this.sinisterLog.contactId,
+                policyId: this.sinisterLog.policyId,
+                sinisterId: this.sinisterLog.sinisterId,
+                sinisterEventId: this.sinisterLog.logSourceId
+            }
+            this.finalizeSinisterEvent.emit(sinisterEventData);
+        }
+    }
+
     /**
      * Click event to show the resolution evidence
      */
@@ -72,6 +86,12 @@ export class CardSinisterLogComponent implements OnInit {
     onClickShowResolutionEvidence(): void {
         if(!!this.sinisterLog) {
             this.showResolutionEvidence.emit(this.sinisterLog.finishedEvidenceUrl);
+        }
+    }
+
+    onClickShowSinisterEventEvidence(): void {
+        if(!!this.sinisterLog) {
+            this.showSinisterEventEvidence.emit(this.sinisterLog.sinisterEventEvidenceUrl);
         }
     }
 

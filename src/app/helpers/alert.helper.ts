@@ -489,6 +489,18 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static sinisterEventFinalized(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Evento Finalizado',
+            text: 'El evento se finalizo con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static sinisterEventUpdated(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Evento Actualizado',
@@ -529,6 +541,54 @@ export class AlertHelper {
         const alertData: Alert = {
             title: 'Siniestro Actualizado',
             text: 'El siniestro se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static sinisterCertificateUpdated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Certificado Actualizado',
+            text: 'El certificado del siniestro se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static sinisterEvidenceUpdated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Evidencia Actualizada',
+            text: 'La evidencia del siniestro se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static sinisterReportUpdated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Reporte Actualizado',
+            text: 'El reporte del siniestro se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static sinisterTrackingUpdated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Tracking Actualizado',
+            text: 'El tracking del siniestro se actualizó con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,

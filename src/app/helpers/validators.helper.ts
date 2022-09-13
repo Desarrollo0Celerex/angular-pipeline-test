@@ -104,7 +104,7 @@ export class ValidatorsHelper {
      */
     static fileName(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = new RegExp(`^[${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
+            const regex = new RegExp(`^[_${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
             const value = control.value;
             return (!regex.test(value)) ? {fileName: true} : null;
         }
@@ -118,7 +118,7 @@ export class ValidatorsHelper {
      */
     static freeText(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = /^[&a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ,.:;\-\"()¿?¡!_/ ]{3,1000}$/;
+            const regex = /^[&a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ,.:;\-\"()¿?¡!_/@ ]{3,1000}$/;
             const value = control.value;
             return (!regex.test(value)) ? {freeText: true} : null;
         }
@@ -127,7 +127,7 @@ export class ValidatorsHelper {
 
     static freeTextShort(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = /^[&a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ,.:;\-\"()¿?¡!_/ ]{1,100}$/;
+            const regex = /^[&a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ,.:;\-\"()¿?¡!_/@ ]{1,100}$/;
             const value = control.value;
             return (!regex.test(value)) ? {freeText: true} : null;
         }
@@ -169,7 +169,7 @@ export class ValidatorsHelper {
      */
     static multitext(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = /^[&a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ,.:;\-\"()¿?¡!_\/\|#%\r\n$ ]{1,1000}$/;
+            const regex = /^[&a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ,.:;\-\"()¿?¡!_\/\|#%\r\n$@ ]{1,1000}$/;
             const value = control.value;
             return (!regex.test(value)) ? {freeText: true} : null;
         }
@@ -231,6 +231,34 @@ export class ValidatorsHelper {
         }
         return null;
     }
+
+    /**
+     * Validate a time 10:30 AM
+     * @param  control The control to evaluate
+     * @return         Error object if validation failed, otherwise null.
+     */
+    static time(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^(0?[1-9]|1[012])[:](0?[1-9]|[012345][0-9])[ ](AM|PM)$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {date: true} : null;
+        }
+        return null;
+    }
+
+    /**
+     * Validate a short date
+     * @param  control The control to evaluate
+     * @return         Error object if validation failed, otherwise null.
+     */
+    /*static date(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])[\/]([12][0-9]{3})$/;
+            const value = control.value;
+            return (!regex.test(value)) ? {date: true} : null;
+        }
+        return null;
+    }*/
 
     /**
      * Validate an alphanumeric

@@ -60,6 +60,7 @@ import { ModalConfirmUpdateContactFileModule } from '@components/modal-confirm-u
 import { ModalConfirmUpdateExternalPolicyModule } from '@components/modal-confirm-update-external-policy/modal-confirm-update-external-policy.module';
 import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
 import { ModalConfirmValidateExternalPolicyModule } from '@components/modal-confirm-validate-external-policy/modal-confirm-validate-external-policy.module';
+import { ModalFinalizeSinisterEventModule } from '@components/modal-finalize-sinister-event/modal-finalize-sinister-event.module';
 import { ModalSelectContactModule } from '@components/modal-select-contact/modal-select-contact.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { ModalSelectPaymentRegistrationTypeModule } from '@components/modal-select-payment-registration-type/modal-select-payment-registration-type.module';
@@ -83,6 +84,8 @@ import { ModalShowSinisterDetailsModule } from '@components/modal-show-sinister-
 import { ModalTransferContactFileModule } from '@components/modal-transfer-contact-file/modal-transfer-contact-file.module';
 import { ModalUpdateReceiptPaidModule } from '@components/modal-update-receipt-paid/modal-update-receipt-paid.module';
 import { ModalUpdateSinisterEventModule } from '@components/modal-update-sinister-event/modal-update-sinister-event.module';
+
+import { WrapperDownloadSinisterEventEvidenceModule } from '@components/wrapper-download-sinister-event-evidence/wrapper-download-sinister-event-evidence.module';
 
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
 
@@ -168,6 +171,7 @@ import { ContentListService } from './content-list.service';
     ModalConfirmUpdateExternalPolicyModule,
     ModalConfirmUpdatePolicyModule,
     ModalConfirmValidateExternalPolicyModule,
+    ModalFinalizeSinisterEventModule,
     ModalSelectContactModule,
     ModalSelectContactTypeModule,
     ModalSelectPaymentRegistrationTypeModule,
@@ -190,7 +194,8 @@ import { ContentListService } from './content-list.service';
     ModalShowSinisterDetailsModule,
     ModalTransferContactFileModule,
     ModalUpdateReceiptPaidModule,
-    ModalUpdateSinisterEventModule
+    ModalUpdateSinisterEventModule,
+    WrapperDownloadSinisterEventEvidenceModule
   ],
   providers: [
       ClientService,

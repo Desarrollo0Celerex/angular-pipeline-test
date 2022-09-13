@@ -1,11 +1,13 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { SINISTER_EVENT_TYPES, IMAGE_AND_DOCUMENT_FORMATS, FILE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
+import { SinisterEvent } from '@interfaces/sinister-event.interface';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
 import { LoadingService } from '@services/loading.service';
 
@@ -20,14 +22,29 @@ declare var ModalPlugin: any;
   styles: [
   ]
 })
-export class ModalUpdateSinisterEventComponent implements OnChanges, OnInit {
+export class ModalUpdateSinisterEventComponent implements OnChanges {
     @Input() modalId: string = '';
     @Input() sinisterEventData: SinisterEventDataSend | null = null;
-    calendarIdEventDate: string = 'eventDate';
+    SINISTER_EVENT_TYPES: any = SINISTER_EVENT_TYPES;
+    calendarIdProviderDate: string = 'providerDate';
+    calendarIdValuationDate: string = 'valuationDate';
+    calendarIdAuthorizationDate: string = 'authorizationDate';
+    calendarIdInsuredNoticeDate: string = 'insuredNoticeDate';
+    calendarIdInsuredAuthorizationDate: string = 'insuredAuthorizationDate';
+    calendarIdEstimatedDeliveryDate: string = 'estimatedDeliveryDate';
+    calendarIdReadmissionDate: string = 'readmissionDate';
+    modalIdSelectEventEvidence: string = 'muse-select-event-evidence';
+    modalSelectEvidenceData: ModalSelectFileData = {
+        title: 'Cargar Evidencia',
+        description: 'Selecciona el formato digital de la evidencia del evento.',
+        buttonLabel: 'Cargar evidencia',
+        formats: IMAGE_AND_DOCUMENT_FORMATS,
+        fileType: FILE_TYPES.IMAGE_AND_DOCUMENT
+    };
     private _isFormSubmitted: boolean = false;
 
     constructor(
-        public modalUpdateSinisterEventService: ModalUpdateSinisterEventService,
+        public model: ModalUpdateSinisterEventService,
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
@@ -36,13 +53,10 @@ export class ModalUpdateSinisterEventComponent implements OnChanges, OnInit {
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.sinisterEventData && !!changes.sinisterEventData.currentValue) {
             this._isFormSubmitted = false;
-            this.modalUpdateSinisterEventService.sinisterEventForm.reset();
+            this.model.isBuiltForm = false;
+            this.model.form.reset();
             this._loadSinisterEvent();
         }
-    }
-
-    ngOnInit(): void {
-        this.modalUpdateSinisterEventService.loadSinisterEventTypes();
     }
 
     /**
@@ -51,7 +65,7 @@ export class ModalUpdateSinisterEventComponent implements OnChanges, OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.modalUpdateSinisterEventService.sinisterEventForm.get(constrolName);
+        const control: AbstractControl | null = this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -61,8 +75,13 @@ export class ModalUpdateSinisterEventComponent implements OnChanges, OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.modalUpdateSinisterEventService.sinisterEventForm.get(constrolName);
+        const control: AbstractControl | null = this.model.form.get(constrolName);
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+    }
+
+    loadEventEvidence(evidenceFile: File): void {
+        this.showModalToUpdateSinisterEvent();
+        this.model.form.patchValue({evidenceFile});
     }
 
     /**
@@ -72,19 +91,32 @@ export class ModalUpdateSinisterEventComponent implements OnChanges, OnInit {
         this._closeModal();
     }
 
-    /**
-     * Submit event to update the sinister event
-     */
-    onSubmitUpdateSinisterEvent(): void {
+    showModalToSelectEvidence(): void {
+        ModalPlugin.hide(this.modalId);
+        ModalPlugin.show(this.modalIdSelectEventEvidence);
+    }
+
+    showModalToUpdateSinisterEvent(): void {
+        setTimeout(() => {
+            ModalPlugin.show(this.modalId);
+        }, 350);
+
+    }
+
+    updateSinisterEvent(): void {
         this._isFormSubmitted = true;
-        if(this.modalUpdateSinisterEventService.sinisterEventForm.valid && !!this.sinisterEventData) {
+        if(this.model.form.valid && !!this.sinisterEventData) {
             this._loadingService.show();
-            this.modalUpdateSinisterEventService.updateSinisterEvent(this.sinisterEventData).subscribe(() => {
+            this.model.updateSinisterEvent(this.sinisterEventData).subscribe(() => {
                 this._loadingService.hide();
                 this._closeModal();
                 AlertHelper.sinisterEventUpdated(this._reloadPage, this)
             })
         }
+    }
+
+    updateProviderPhoneCodeId(providerPhoneCodeId: number): void {
+        this.model.form.patchValue({providerPhoneCodeId});
     }
 
     /**
@@ -97,18 +129,31 @@ export class ModalUpdateSinisterEventComponent implements OnChanges, OnInit {
     /**
      * Initialize the calendars
      */
-    private _initCalendars(): void {
-        DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdEventDate, this._onChangeDate, this);
-    }
+     private _initCalendars(): void {
+         DatePickerPlugin.init();
+         switch(this.model.sinisterEvent!.sinisterEventTypeId) {
+             case SINISTER_EVENT_TYPES.WORKSHOP_AND_SERVICE:
+                 DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
+                 DatePickerPlugin.initElement(this.calendarIdValuationDate, this._onChangeDate, this);
+                 DatePickerPlugin.initElement(this.calendarIdAuthorizationDate, this._onChangeDate, this);
+                 DatePickerPlugin.initElement(this.calendarIdInsuredNoticeDate, this._onChangeDate, this);
+                 DatePickerPlugin.initElement(this.calendarIdInsuredAuthorizationDate, this._onChangeDate, this);
+                 DatePickerPlugin.initElement(this.calendarIdEstimatedDeliveryDate, this._onChangeDate, this);
+                 DatePickerPlugin.initElement(this.calendarIdReadmissionDate, this._onChangeDate, this);
+             break;
+
+             default:
+                 DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
+         }
+     }
 
     /**
      * Load the sinister event
      */
     private _loadSinisterEvent(): void {
         if(!!this.sinisterEventData) {
-            this.modalUpdateSinisterEventService.getSinisterEvent(this.sinisterEventData).subscribe((res: HttpResponse) => {
-                this.modalUpdateSinisterEventService.populateSinisterEventForm(res.data);
+            this.model.getSinisterEvent(this.sinisterEventData).subscribe((res: SinisterEvent) => {
+                this.model.fillForm(res);
                 this._initCalendars();
             });
         }
@@ -121,7 +166,7 @@ export class ModalUpdateSinisterEventComponent implements OnChanges, OnInit {
      * @param context      The app context
      */
     private _onChangeDate(selectorId: string, changedValue: string, context: ModalUpdateSinisterEventComponent): void {
-        context.modalUpdateSinisterEventService.sinisterEventForm.patchValue({[selectorId]: changedValue});
+        context.model.form.patchValue({[selectorId]: changedValue});
     }
 
     /**

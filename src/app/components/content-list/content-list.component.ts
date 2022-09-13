@@ -26,6 +26,7 @@ import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
 import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
+import { WrapperDownloadSinisterEventEvidenceComponent } from '@components/wrapper-download-sinister-event-evidence/wrapper-download-sinister-event-evidence.component';
 
 import { LoadingService } from '@services/loading.service';
 
@@ -65,6 +66,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Output() contentReloaded: EventEmitter<void> = new EventEmitter<void>();
     @Output() receiptPaid: EventEmitter<void> = new EventEmitter<void>();
     @ViewChild('containerIncompletePolicies') containerIncompletePolicies: any;
+    @ViewChild('wrapperDownloadSinisterEventEvidence') wrapperDownloadSinisterEventEvidence!: WrapperDownloadSinisterEventEvidenceComponent;
     CONTENT_TYPES: any;
     canReloadApplyPayment: boolean = false;
     canShowTotalResults: boolean;
@@ -123,6 +125,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmUpdateExternalPolicy: string = 'modal-confirm-update-external-policy';
     modalIdConfirmUpdatePolicy: string;
     modalIdConfirmValidateExternalPolicy: string = 'modal-confirm-validate-external-policy';
+    modalIdFinalizeSinisterEvent: string = 'modal-finalize-sinister-event';
     modalIdRejectQuotation: string;
     modalIdSelectContact: string;
     modalIdSelectContactType: string;
@@ -145,6 +148,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowReceiptAppliedDetails: string = 'agt-show-receipt-applied-details';
     modalIdShowResolutionEvidence: string = 'agt-show-resolution-evidence';
     modalIdShowSinisterDetails: string = 'agt-show-sinister-details';
+    modalIdShowSinisterEventEvidence: string = 'agt-show-sinister-event-evidence';
     modalIdTransferContactFile: string = 'agt-transfer-contact-file';
     modalIdUpdateReceiptPaid: string = 'agt-update-receipt-paid';
     modalIdUpdateSinisterEvent: string = 'agt-update-sinister-event';
@@ -456,6 +460,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdConfirmFinalizeSinister);
     }
 
+    onFinalizeSinisterEvent(sinisterEventData: SinisterEventDataSend): void {
+        this.selectedSinisterEventData = sinisterEventData;
+        ModalPlugin.show(this.modalIdFinalizeSinisterEvent);
+    }
+
     /**
      * Event to load more content
      */
@@ -748,6 +757,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     onShowSinisterDetails(sinister: Sinister): void {
         this.selectedSinister = sinister;
         ModalPlugin.show(this.modalIdShowSinisterDetails);
+    }
+
+    onShowSinisterEventEvidence(evidenceUrl: string): void {
+        this.selectedEvidenceUrl = evidenceUrl;
+        this.wrapperDownloadSinisterEventEvidence.downloadSinisterEventEvidence();
     }
 
     /**

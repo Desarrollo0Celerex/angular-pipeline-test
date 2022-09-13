@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as moment from 'moment';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
@@ -28,7 +27,7 @@ export class ModalCreateSinisterComponent implements OnChanges, OnInit {
     @Input() insuranceId: number = 0;
     @Output() sinisterCreated: EventEmitter<void> = new EventEmitter<void>();
     calendarIdSinisterDate: string = 'sinisterDate';
-    calendarIdResolutionDate: string = 'estimatedResolutionDate';
+    calendarIdResolutionDate: string = 'notificationDate';
     private _isFormSubmitted: boolean = false;
     private _sinisterId: string = '';
 
@@ -51,8 +50,10 @@ export class ModalCreateSinisterComponent implements OnChanges, OnInit {
     }
 
     ngOnInit(): void {
-        this.modalCreateSinisterService.loadWorkspaceUser();
         this._initCalendars();
+        setTimeout(() => {
+            this.modalCreateSinisterService.loadWorkspaceUser();
+        }, 50);
     }
 
     /**
@@ -137,10 +138,6 @@ export class ModalCreateSinisterComponent implements OnChanges, OnInit {
      */
     private _onChangeDate(selectorId: string, changedValue: string, context: ModalCreateSinisterComponent): void {
         context.modalCreateSinisterService.sinisterForm.patchValue({[selectorId]: changedValue});
-        if(selectorId === 'sinisterDate') {
-            const estimatedResolutionDate: string = moment(changedValue, 'DD/MM/YYYY').add('days', 7).format('DD/MM/YYYY');
-            context.modalCreateSinisterService.sinisterForm.patchValue({estimatedResolutionDate});
-        }
     }
 
     /**

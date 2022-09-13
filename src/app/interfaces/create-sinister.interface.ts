@@ -1,5 +1,5 @@
 export interface CreateSinister {
-    reportNumber: string,
+    internalNumber: string,
     manager: string,
     sinisterNumber: string,
     invoice: string,

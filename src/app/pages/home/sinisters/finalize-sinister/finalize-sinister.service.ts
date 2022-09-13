@@ -59,8 +59,8 @@ export class FinalizeSinisterService {
     loadSinister(sinisterData: SinisterDataSend): Observable<void> {
         const fields: string = 'coveredProperty,policyNumber,clientNumber,insurerName,sinisterDate,sinisterNumber,invoice,certificate,workspaceCurrencyId';
         return this._sinisterService.getPolicySinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, fields).pipe(
-            tap((res: HttpResponse) => {
-                this.sinister = res.data;
+            tap((res: Sinister) => {
+                this.sinister = res;
                 const currencyId: number | string = (!!this.sinister && this.sinister.workspaceCurrencyId) ? this.sinister.workspaceCurrencyId : '';
                 this.sinisterForm.patchValue({currencyId})
             }),
