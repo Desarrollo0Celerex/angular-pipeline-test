@@ -13,5 +13,8 @@ export const environment = {
       storageBucket: "atom-account-30384.appspot.com",
       messagingSenderId: "1012733303319",
       appId: "1:1012733303319:web:935df0a75025a0231c5a52"
+    },
+    googleMapsConfig: {
+        apiKey: "AIzaSyDpclEqcDp6PC8tuaA3acg4z92zJ2wHaFA"
     }
 };
