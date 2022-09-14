@@ -33,6 +33,7 @@ const routes: any = {
     policySinisterTracking: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/tracking',
     finalizeSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/finalize',
     reactivateSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/reactivate',
+    reportSinistersVehicles: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/reports/vehicles',
     sinisterEvidence: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/evidence',
     sinisterLogs: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/logs',
     sinistersStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/sinisters',
@@ -58,6 +59,21 @@ export class SinisterService {
     createSinister(contactId: string, policyId: string, requestBody: CreateSinister): Observable<HttpResponse> {
         const route: string = routes.policySinisters(this._workspaceId, contactId, policyId);
         return this._httpClient.post<HttpResponse>(route, requestBody);
+    }
+
+    downloadReportSinistersVehicles(formatType: number, sortBy: string) {
+        const route: string = routes.reportSinistersVehicles(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!formatType) params = params.append('formatType', formatType);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
     }
 
     /**

@@ -1,0 +1,6 @@
+<button type="button" class="btn btn-block btn-primary" (click)="showModalToSelectReportFormat()"><strong>DESCARGAR REPORTE</strong></button>
+
+<agt-modal-select-report-format
+    [modalId]="modalIdSelectReportFormat"
+    (formatSelected)="downloadReport($event)"
+></agt-modal-select-report-format>
