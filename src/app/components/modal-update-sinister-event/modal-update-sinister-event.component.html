@@ -14,6 +14,19 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
+								<!-- AGENTHOS - SINISTER EVENT NOTIFICATION * -->
+								<label class="form-label">Seguimiento</label>
+								<div class="form-group">
+									<select class="form-control {{getValidationClass('canNotifyInsured')}}" formControlName="canNotifyInsured">
+										<option value="0">Seguimiento Interno</option>
+										<option value="1">Notificar al asegurado</option>
+									</select>
+									<div class="invalid-feedback">{{getErrorMessage('canNotifyInsured')}}</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
 								<!-- AGENTHOS - SINISTER EVENT EVIDENCE -->
 								<label class="form-label">Evidencia del Evento</label>
 								<div class="row gutters-sm">
@@ -351,6 +364,21 @@
 										<label class="form-label">No. Carpeta</label>
 										<input type="text" class="form-control {{getValidationClass('providerFolio')}}" formControlName="providerFolio" placeholder="Número de Carpeta">
 										<div class="invalid-feedback">{{getErrorMessage('providerFolio')}}</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<!-- AGENTHOS - SINISTER PROVIDER BILL -->
+										<label class="form-label">Monto de Servicio</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+												</div>
+											</div>
+											<input type="text" class="form-control {{getValidationClass('providerBill')}}" formControlName="providerBill">
+											<div class="invalid-feedback">{{getErrorMessage('providerBill')}}</div>
+										</div>
 									</div>
 								</div>
 								<div class="col-md-6">

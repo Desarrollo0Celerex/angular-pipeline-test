@@ -112,7 +112,10 @@ export class SinisterEventHelper {
                 if(!!sinisterLog.providerFolio) {
                     eventDetails += ', con la carpeta de investigación no: '+sinisterLog.providerFolio;
                 }
-                if(!!sinisterLog.providerName || !!sinisterLog.providerDate || !!sinisterLog.providerFolio) {
+                if(!!sinisterLog.providerBill) {
+                    eventDetails += ', el cual tiene un costo aproximado de: '+sinisterLog.providerBill;
+                }
+                if(!!sinisterLog.providerName || !!sinisterLog.providerDate || !!sinisterLog.providerFolio || !!sinisterLog.providerBill) {
                     eventDetails += '. ';
                 }
                 if(!!sinisterLog.providerPhoneNumber || !!sinisterLog.providerEmail) {

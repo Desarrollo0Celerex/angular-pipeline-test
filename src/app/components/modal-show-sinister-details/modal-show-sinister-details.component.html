@@ -1,7 +1,7 @@
 <!-- AGENTHOS - SINISTER DETAILS -->
 <div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content" *ngIf="!!sinister">
+		<div class="modal-content" *ngIf="!!model.sinister">
 			<div class="modal-header">
 				<h5 class="modal-title">Detalles de Siniestro</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -16,68 +16,67 @@
 								<div class="form-group">
 									<!-- AGENTHOS - POLICY OWNER -->
 									<label class="form-label">Titular</label>
-									<input type="text" class="form-control" [placeholder]="sinister.titularName" readonly="">
+									<input type="text" class="form-control" [placeholder]="model.sinister.titularName" readonly="">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<!-- AGENTHOS - SINISTER TYPE -->
 									<label class="form-label">No. Póliza</label>
-									<input type="text" class="form-control" [placeholder]="sinister.policyNumber" readonly="">
+									<input type="text" class="form-control" [placeholder]="model.sinister.policyNumber" readonly="">
 								</div>
 							</div>
-							<div class="col-md-8">
+							<div class="col-md-6">
 								<div class="form-group">
-									<label class="form-label">Resolución</label>
-									<input type="text" class="form-control" [placeholder]="(sinister.sinisterResolutionName) ? sinister.sinisterResolutionName : ''" readonly="">
+									<label class="form-label">Ejecutivo Asignado</label>
+									<input type="text" class="form-control" [placeholder]="model.sinister.manager" readonly="">
 								</div>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-6">
 								<div class="form-group">
-									<label class="form-label">Monto ({{(!!sinister.sinisterResolutionCurrencyName) ? sinister.sinisterResolutionCurrencyName : ''}})</label>
-									<input type="text" class="form-control" [placeholder]="(sinister.sinisterResolutionIndemnificationAmount) ? (sinister.sinisterResolutionIndemnificationAmount | currency: '': '$': '0.2-2') : ''" readonly="">
+									<label class="form-label">No. Reporte</label>
+									<input type="text" class="form-control" [placeholder]="model.sinister.internalNumber" readonly="">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<!-- AGENTHOS - SINISTER NUMBER -->
 									<label class="form-label">No. Siniestro</label>
-									<input type="text" class="form-control" [placeholder]="sinister.sinisterNumber" readonly="">
+									<input type="text" class="form-control" [placeholder]="model.sinister.sinisterNumber" readonly="">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<!-- AGENTHOS - SINISTER INVOICE -->
 									<label class="form-label">No. Folio</label>
-									<input type="text" class="form-control" [placeholder]="sinister.invoice" readonly="">
+									<input type="text" class="form-control" [placeholder]="model.sinister.invoice" readonly="">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<!-- AGENTHOS - SINISTER CERTIFICATE -->
 									<label class="form-label">No. Certificado</label>
-									<input type="text" class="form-control" [placeholder]="sinister.certificate" readonly="">
+									<input type="text" class="form-control" [placeholder]="model.sinister.certificate" readonly="">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<!-- AGENTHOS - SINISTER DATE -->
 									<label class="form-label">Fecha Siniestro</label>
-									<input type="text" class="form-control" [placeholder]="sinister.sinisterDate | date: 'dd/MM/yyyy'" readonly="">
+									<input type="text" class="form-control" [placeholder]="model.sinister.sinisterDate" readonly="">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<!-- AGENTHOS - LAST EVENT -->
-									<label class="form-label">Último Evento</label>
-									<input type="text" class="form-control" placeholder="{{(!!sinister.dateLastEvent) ? (sinister.dateLastEvent | date: 'dd/MM/yyyy') : ''}}" readonly="">
+									<!-- AGENTHOS - SINISTER DATE -->
+									<label class="form-label">Fecha Estimación</label>
+									<input type="text" class="form-control" [placeholder]="model.sinister.estimatedResolutionDate" readonly="">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<!-- AGENTHOS - TOTAL EVENTS -->
-									<label class="form-label">Eventos Totales</label>
-									<input type="text" class="form-control" [placeholder]="sinister.totalEvents" readonly="">
+									<label class="form-label">Estado Siniestro</label>
+									<input type="text" class="form-control" [placeholder]="sinisterStatus" readonly="">
 								</div>
 							</div>
 						</div>

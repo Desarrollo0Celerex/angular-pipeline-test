@@ -777,7 +777,7 @@ export class ContentListService {
                 const sinisterLogs: SinisterLog[] = res.data.items;
                 for(let sinisterLog of sinisterLogs) {
                     if(sinisterLog.sinisterRecordTypeId === SINISTER_RECORD_TYPES.NEW_EVENT) {
-                        sinisterLog.sinisterEventDetails = SinisterEventHelper.generateSinisterEventDetails(sinisterLog);
+                        sinisterLog.sinisterEventDetails = SinisterEventHelper.generateSinisterEventDetails({...sinisterLog});
                     }
                 }
                 this.contents = this.contents.concat(sinisterLogs);

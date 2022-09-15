@@ -40,6 +40,7 @@ export class ContainerReportEventService {
             case SINISTER_EVENT_TYPES.WORKSHOP_AND_SERVICE:
                 this.form = this._formBuilder.group({
                     sinisterEventTypeId: [sinisterEventTypeId, [Validators.required]],
+                    canNotifyInsured: [0, [Validators.required]],
                     evidenceName: ['', [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
                     evidenceFile: [''],
                     providerName: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
@@ -60,45 +61,17 @@ export class ContainerReportEventService {
             break;
 
             case SINISTER_EVENT_TYPES.CIVIL_WORK:
-                this.form = this._formBuilder.group({
-                    sinisterEventTypeId: [sinisterEventTypeId, [Validators.required]],
-                    evidenceName: ['', [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
-                    evidenceFile: [''],
-                    providerName: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                    providerDate: ['', [Validators.required, ValidatorsHelper.date]],
-                    providerFolio: ['', [Validators.required, ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
-                    providerBill: ['', [ValidatorsHelper.amount]],
-                    providerPhoneCodeId: [providerPhoneCodeId],
-                    providerPhoneNumber: ['', [ValidatorsHelper.phoneNumber]],
-                    providerEmail: ['', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                    observations: ['', [Validators.required, Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]]
-                });
-            break;
-
             case SINISTER_EVENT_TYPES.CRANES_AND_TRANSFER:
-                this.form = this._formBuilder.group({
-                    sinisterEventTypeId: [sinisterEventTypeId, [Validators.required]],
-                    evidenceName: ['', [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
-                    evidenceFile: [''],
-                    providerName: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                    providerDate: ['', [Validators.required, ValidatorsHelper.date]],
-                    providerFolio: ['', [Validators.required, ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
-                    providerBill: ['', [ValidatorsHelper.amount]],
-                    providerPhoneCodeId: [providerPhoneCodeId],
-                    providerPhoneNumber: ['', [ValidatorsHelper.phoneNumber]],
-                    providerEmail: ['', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                    observations: ['', [Validators.required, Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]]
-                });
-            break;
-
             case SINISTER_EVENT_TYPES.LEGAL_PROCESS:
                 this.form = this._formBuilder.group({
                     sinisterEventTypeId: [sinisterEventTypeId, [Validators.required]],
+                    canNotifyInsured: [0, [Validators.required]],
                     evidenceName: ['', [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
                     evidenceFile: [''],
                     providerName: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
                     providerDate: ['', [Validators.required, ValidatorsHelper.date]],
                     providerFolio: ['', [Validators.required, ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
+                    providerBill: ['', [ValidatorsHelper.amount]],
                     providerPhoneCodeId: [providerPhoneCodeId],
                     providerPhoneNumber: ['', [ValidatorsHelper.phoneNumber]],
                     providerEmail: ['', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
@@ -109,6 +82,7 @@ export class ContainerReportEventService {
             default:
                 this.form = this._formBuilder.group({
                     sinisterEventTypeId: [sinisterEventTypeId, [Validators.required]],
+                    canNotifyInsured: [0, [Validators.required]],
                     evidenceName: ['', [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
                     evidenceFile: [''],
                     providerName: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
@@ -130,6 +104,7 @@ export class ContainerReportEventService {
         switch(sinisterEventTypeId) {
             case SINISTER_EVENT_TYPES.WORKSHOP_AND_SERVICE:
                 requestBody.set('sinisterEventTypeId', this.f.sinisterEventTypeId.value);
+                requestBody.set('canNotifyInsured', this.f.canNotifyInsured.value);
                 requestBody.set('evidenceName', this.f.evidenceName.value);
                 requestBody.set('evidenceFile', this.f.evidenceFile.value);
                 requestBody.set('providerName', this.f.providerName.value);
@@ -150,7 +125,9 @@ export class ContainerReportEventService {
 
             case SINISTER_EVENT_TYPES.CIVIL_WORK:
             case SINISTER_EVENT_TYPES.CRANES_AND_TRANSFER:
+            case SINISTER_EVENT_TYPES.LEGAL_PROCESS:
                 requestBody.set('sinisterEventTypeId', this.f.sinisterEventTypeId.value);
+                requestBody.set('canNotifyInsured', this.f.canNotifyInsured.value);
                 requestBody.set('evidenceName', this.f.evidenceName.value);
                 requestBody.set('evidenceFile', this.f.evidenceFile.value);
                 requestBody.set('providerName', this.f.providerName.value);
@@ -163,21 +140,9 @@ export class ContainerReportEventService {
                 requestBody.set('observations', this.f.observations.value);
             break;
 
-            case SINISTER_EVENT_TYPES.LEGAL_PROCESS:
-                requestBody.set('sinisterEventTypeId', this.f.sinisterEventTypeId.value);
-                requestBody.set('evidenceName', this.f.evidenceName.value);
-                requestBody.set('evidenceFile', this.f.evidenceFile.value);
-                requestBody.set('providerName', this.f.providerName.value);
-                requestBody.set('providerDate', this.f.providerDate.value);
-                requestBody.set('providerFolio', this.f.providerFolio.value);
-                requestBody.set('providerPhoneCodeId', this.f.providerPhoneCodeId.value);
-                requestBody.set('providerPhoneNumber', this.f.providerPhoneNumber.value);
-                requestBody.set('providerEmail', this.f.providerEmail.value);
-                requestBody.set('observations', this.f.observations.value);
-            break;
-
             default:
                 requestBody.set('sinisterEventTypeId', this.f.sinisterEventTypeId.value);
+                requestBody.set('canNotifyInsured', this.f.canNotifyInsured.value);
                 requestBody.set('evidenceName', this.f.evidenceName.value);
                 requestBody.set('evidenceFile', this.f.evidenceFile.value);
                 requestBody.set('providerName', this.f.providerName.value);
