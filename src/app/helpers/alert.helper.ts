@@ -58,6 +58,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static fileUploadFailed(): void {
+        const alertData: Alert = {
+            title: 'Error',
+            text: 'Error al cargar archivo.',
+            type: 'error',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static forbiddenAccess(): void {
         const alertData: Alert = {
             title: 'Error',
