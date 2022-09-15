@@ -5,7 +5,6 @@ import { tap } from 'rxjs/operators';
 
 import { EMAIL_LENGTH, FILE_NAME_LENGTH, LONG_ALPHANUMERIC_LENGTH, MULTITEXT_LENGTH, OWN_NAME_LENGTH, SINISTER_EVENT_TYPES } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
-import { ReportEventDataSend } from '@interfaces/report-event-data-send.interface';
 import { SinisterEvent } from '@interfaces/sinister-event.interface';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
 import { SinisterEventService } from '@services/sinister-event.service';
@@ -31,7 +30,7 @@ export class ModalUpdateSinisterEventService {
      * @return                   The sinister event
      */
     getSinisterEvent(sinisterEventData: SinisterEventDataSend): Observable<SinisterEvent> {
-        const fields: string = 'sinisterEventTypeId,evidenceName,providerName,providerDate,valuationDate,authorizationDate,insuredNoticeDate,insuredAuthorizationDate,estimatedDeliveryDate,readmissionDate,providerFolio,providerBill,providerPhoneCodeId,providerPhoneNumber,providerEmail,observations';
+        const fields: string = 'sinisterEventTypeId,evidenceName,providerName,providerDate,valuationDate,authorizationDate,insuredNoticeDate,insuredAuthorizationDate,estimatedDeliveryDate,readmissionDate,providerFolio,providerBill,providerPhoneCodeId,providerPhoneNumber,providerEmail,observations,canNotifyInsured';
         return this._sinisterEventService.getSinisterEvent(sinisterEventData, fields).pipe(
             tap((res: SinisterEvent) => {
                 this.sinisterEvent = res;
@@ -48,6 +47,7 @@ export class ModalUpdateSinisterEventService {
         switch(sinisterEvent.sinisterEventTypeId) {
             case SINISTER_EVENT_TYPES.WORKSHOP_AND_SERVICE:
                 this.form = this._formBuilder.group({
+                    canNotifyInsured: [sinisterEvent.canNotifyInsured, [Validators.required]],
                     evidenceName: [sinisterEvent.evidenceName, [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
                     evidenceFile: [''],
                     providerName: [sinisterEvent.providerName, [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
@@ -69,7 +69,9 @@ export class ModalUpdateSinisterEventService {
 
             case SINISTER_EVENT_TYPES.CIVIL_WORK:
             case SINISTER_EVENT_TYPES.CRANES_AND_TRANSFER:
+            case SINISTER_EVENT_TYPES.LEGAL_PROCESS:
                 this.form = this._formBuilder.group({
+                    canNotifyInsured: [sinisterEvent.canNotifyInsured, [Validators.required]],
                     evidenceName: [sinisterEvent.evidenceName, [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
                     evidenceFile: [''],
                     providerName: [sinisterEvent.providerName, [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
@@ -83,22 +85,9 @@ export class ModalUpdateSinisterEventService {
                 });
             break;
 
-            case SINISTER_EVENT_TYPES.LEGAL_PROCESS:
-                this.form = this._formBuilder.group({
-                    evidenceName: [sinisterEvent.evidenceName, [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
-                    evidenceFile: [''],
-                    providerName: [sinisterEvent.providerName, [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                    providerDate: [sinisterEvent.providerDate, [Validators.required, ValidatorsHelper.date]],
-                    providerFolio: [sinisterEvent.providerFolio, [ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
-                    providerPhoneCodeId: [sinisterEvent.providerPhoneCodeId],
-                    providerPhoneNumber: [sinisterEvent.providerPhoneNumber, [ValidatorsHelper.phoneNumber]],
-                    providerEmail: [sinisterEvent.providerEmail, [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                    observations: [sinisterEvent.observations, [Validators.required, Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]]
-                });
-            break;
-
             default:
                 this.form = this._formBuilder.group({
+                    canNotifyInsured: [sinisterEvent.canNotifyInsured, [Validators.required]],
                     evidenceName: [sinisterEvent.evidenceName, [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
                     evidenceFile: [''],
                     providerName: [sinisterEvent.providerName, [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
@@ -124,6 +113,7 @@ export class ModalUpdateSinisterEventService {
         this.sinisterEvent!.sinisterEventTypeId = parseInt(this.sinisterEvent!.sinisterEventTypeId.toString());
         switch(this.sinisterEvent!.sinisterEventTypeId) {
             case SINISTER_EVENT_TYPES.WORKSHOP_AND_SERVICE:
+                requestBody.set('canNotifyInsured', this.f.canNotifyInsured.value);
                 requestBody.set('evidenceName', this.f.evidenceName.value);
                 requestBody.set('evidenceFile', this.f.evidenceFile.value);
                 requestBody.set('providerName', this.f.providerName.value);
@@ -144,6 +134,8 @@ export class ModalUpdateSinisterEventService {
 
             case SINISTER_EVENT_TYPES.CIVIL_WORK:
             case SINISTER_EVENT_TYPES.CRANES_AND_TRANSFER:
+            case SINISTER_EVENT_TYPES.LEGAL_PROCESS:
+                requestBody.set('canNotifyInsured', this.f.canNotifyInsured.value);
                 requestBody.set('evidenceName', this.f.evidenceName.value);
                 requestBody.set('evidenceFile', this.f.evidenceFile.value);
                 requestBody.set('providerName', this.f.providerName.value);
@@ -156,19 +148,8 @@ export class ModalUpdateSinisterEventService {
                 requestBody.set('observations', this.f.observations.value);
             break;
 
-            case SINISTER_EVENT_TYPES.LEGAL_PROCESS:
-                requestBody.set('evidenceName', this.f.evidenceName.value);
-                requestBody.set('evidenceFile', this.f.evidenceFile.value);
-                requestBody.set('providerName', this.f.providerName.value);
-                requestBody.set('providerDate', this.f.providerDate.value);
-                requestBody.set('providerFolio', this.f.providerFolio.value);
-                requestBody.set('providerPhoneCodeId', this.f.providerPhoneCodeId.value);
-                requestBody.set('providerPhoneNumber', this.f.providerPhoneNumber.value);
-                requestBody.set('providerEmail', this.f.providerEmail.value);
-                requestBody.set('observations', this.f.observations.value);
-            break;
-
             default:
+                requestBody.set('canNotifyInsured', this.f.canNotifyInsured.value);
                 requestBody.set('evidenceName', this.f.evidenceName.value);
                 requestBody.set('evidenceFile', this.f.evidenceFile.value);
                 requestBody.set('providerName', this.f.providerName.value);
