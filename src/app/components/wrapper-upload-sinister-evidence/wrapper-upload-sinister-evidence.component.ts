@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { DOCUMENT_FORMATS, FILE_TYPES } from '@constants/global';
+import { FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
@@ -26,8 +26,8 @@ export class WrapperUploadSinisterEvidenceComponent {
         title: 'Cargar Evidencia',
         description: 'Selecciona el formato digital de la evidencia del siniestro.',
         buttonLabel: 'Cargar evidencia',
-        formats: DOCUMENT_FORMATS,
-        fileType: FILE_TYPES.DOCUMENT
+        formats: FILE_ALL_FORMATS,
+        fileType: FILE_TYPES.MIXED
     };
 
     constructor(

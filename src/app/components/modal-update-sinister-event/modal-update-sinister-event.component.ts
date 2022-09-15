@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { SINISTER_EVENT_TYPES, IMAGE_AND_DOCUMENT_FORMATS, FILE_TYPES } from '@constants/global';
+import { SINISTER_EVENT_TYPES, FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -38,8 +38,8 @@ export class ModalUpdateSinisterEventComponent implements OnChanges {
         title: 'Cargar Evidencia',
         description: 'Selecciona el formato digital de la evidencia del evento.',
         buttonLabel: 'Cargar evidencia',
-        formats: IMAGE_AND_DOCUMENT_FORMATS,
-        fileType: FILE_TYPES.IMAGE_AND_DOCUMENT
+        formats: FILE_ALL_FORMATS,
+        fileType: FILE_TYPES.MIXED
     };
     private _isFormSubmitted: boolean = false;
 
