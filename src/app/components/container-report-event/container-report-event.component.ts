@@ -3,7 +3,7 @@ import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
-import { FILE_TYPES, IMAGE_AND_DOCUMENT_FORMATS, SINISTER_EVENT_TYPES, SINISTER_STATUS } from '@constants/global';
+import { FILE_TYPES, FILE_ALL_FORMATS, SINISTER_EVENT_TYPES, SINISTER_STATUS } from '@constants/global';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
@@ -41,8 +41,8 @@ export class ContainerReportEventComponent implements OnInit {
         title: 'Cargar Evidencia',
         description: 'Selecciona el formato digital de la evidencia del evento.',
         buttonLabel: 'Cargar evidencia',
-        formats: IMAGE_AND_DOCUMENT_FORMATS,
-        fileType: FILE_TYPES.IMAGE_AND_DOCUMENT
+        formats: FILE_ALL_FORMATS,
+        fileType: FILE_TYPES.MIXED
     };
     private _isFormSubmitted: boolean = false;
 
