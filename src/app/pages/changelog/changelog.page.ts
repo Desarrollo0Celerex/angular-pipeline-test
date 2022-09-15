@@ -9,6 +9,60 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.32.2',
+            launchDate: '15/09/2022',
+            changes: [
+                {
+                    title: 'Changelog',
+                    items: [
+                        'Se actualizo changelog.',
+                    ]
+                }
+            ]
+        },
+        {
+            version: '1.32.1',
+            launchDate: '14/09/2022',
+            changes: [
+                {
+                    title: 'Care Center',
+                    items: [
+                        'Se agrego No. de Siniestro en la tarjeta del siniestro.',
+                        'Se actualizo modal de los detalles del siniestro.',
+                        'Se actualizo buscador de siniestros para buscar por Nombre del cliente, Nombre del titular, Bien Asegurado, No. de póliza, No. de siniestro y No. de folio.',
+                        'Se permitio capturar No. de certificado, incluso si el certificado no existe.',
+                        'Se agrego select para poder escoger si se desea mostrar el evento al asegurado o si es un seguimiento interno.',
+                        'Se abrio campo “Capturar evidencia del endoso” para poder seleccionar cualquier tipo de archivo.'
+                    ]
+                }
+            ]
+        },
+        {
+            version: '1.32.0',
+            launchDate: '27/08/2022',
+            changes: [
+                {
+                    title: 'Care Center',
+                    items: [
+                        'Se agrego actualización al reportar un sinisetro.',
+                        'Se agrego actualización al ver el historial de un siniestro.'
+                    ]
+                }
+            ]
+        },
+        {
+            version: '1.31.0',
+            launchDate: '27/08/2022',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se Se agrego descarga de reporte para las pólizas tipo flotilla.'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.30.2',
             launchDate: '24/08/2022',
             changes: [
