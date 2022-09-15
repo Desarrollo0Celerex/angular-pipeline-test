@@ -195,6 +195,7 @@ export class SinisterService {
                 sinister.internalNumber = (!!sinister.internalNumber) ? sinister.internalNumber : '';
                 sinister.sinisterNumber = (!!sinister.sinisterNumber) ? sinister.sinisterNumber : '';
                 sinister.invoice = (!!sinister.invoice) ? sinister.invoice : '';
+                sinister.certificate = (!!sinister.certificate) ? sinister.certificate : '';
                 sinister.estimatedResolutionDays = (!!sinister.sinisterDate && !!sinister.estimatedResolutionDate) ? moment(sinister.estimatedResolutionDate).diff(moment(sinister.sinisterDate), 'days').toString() : '';
                 sinister.sinisterElapsedDays = (!!sinister.sinisterDate) ? moment().diff(moment(sinister.sinisterDate), 'days').toString() : '';
                 sinister.notificationDate = (!!sinister.notificationDate) ? moment(sinister.notificationDate).format('DD/MM/YYYY') : '';

@@ -27,4 +27,5 @@ export const ERROR_CODES: any = {
     scanFileError: 'ScanFileError',
     policyAlreadyConfirmed: 'PolicyAlreadyConfirmed',
     sinisterCertificateNotFound: 'SinisterCertificateNotFound',
+    sinisterEvidenceMissing: 'SinisterEvidenceMissing',
 }

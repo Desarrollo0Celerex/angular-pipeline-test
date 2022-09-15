@@ -2,8 +2,10 @@ import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
+import { ERROR_CODES } from '@constants/error-codes';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
+import { HttpError } from '@interfaces/http-error.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { LoadingService } from '@services/loading.service';
@@ -48,6 +50,14 @@ export class WrapperUploadSinisterEvidenceComponent {
             this.model.updateSinisterEvidence(this.sinisterData).subscribe((sinisterEvidenceUrl: string) => {
                 this._loadingService.hide();
                 AlertHelper.sinisterEvidenceUpdated(this._reloadPage, this);
+            },
+            (error: HttpError) => {
+                this._loadingService.hide();
+                switch (error.error) {
+                    case ERROR_CODES.sinisterEvidenceMissing:
+                        AlertHelper.fileUploadFailed();
+                        break;
+                }
             });
         }
     }
