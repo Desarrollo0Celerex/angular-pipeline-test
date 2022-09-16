@@ -38,6 +38,7 @@ const routes: any = {
     sinisterLogs: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/logs',
     sinistersStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/sinisters',
     workspaceSinisterStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/stats',
+    workspaceSinisterStatistics: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/statistics',
 }
 
 @Injectable()
@@ -157,6 +158,18 @@ export class SinisterService {
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getSinisterStatistics(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '') {
+        const route: string = routes.workspaceSinisterStatistics(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );

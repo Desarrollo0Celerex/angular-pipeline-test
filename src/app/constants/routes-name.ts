@@ -143,6 +143,7 @@ const HOME_STATS_ROUTES = {
     statsClients: `workspace/stats/clients`,
     statsPolicies: `workspace/stats/policies`,
     statsCollection: `workspace/stats/collection`,
+    statsSinisters: `workspace/stats/sinisters`,
 }
 
 const HOME_WALLET_ROUTES = {

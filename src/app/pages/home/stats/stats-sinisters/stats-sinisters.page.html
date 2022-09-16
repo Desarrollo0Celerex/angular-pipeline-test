@@ -1,0 +1,47 @@
+<div class="row mt-3">
+	<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+		<agt-container-select-stats-period (statsPeriodSelected)="loadContent($event)"></agt-container-select-stats-period>
+	</div>
+	<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Generar Reporte</h3>
+            </div>
+            <div class="card-body">
+                <ol class="breadcrumb1 mt-2">
+                    <li class="breadcrumb-item1">Genera un reporte de <strong>Siniestros Abiertos</strong>.</li>
+                </ol>
+                <button type="button" class="btn btn-block btn-primary mt-5" disabled><strong>MUY PRONTO</strong></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+	<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+		<agt-menu-stats></agt-menu-stats>
+	</div>
+	<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+        <div class="row mb-3">
+			<div class="col-xl-9 col-lg-9 col-md-6 col-sm-12">
+				<agt-chart-sinisters [range]="range"></agt-chart-sinisters>
+			</div>
+			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+				<div class="card">
+					<div class="card-header pt-2 pb-0 border-bottom-0">
+						<h3 class="card-title">Insights</h3>
+						<div class="card-options">
+							<i class="fe fe-trending-up mr-1 text-primary fs-30"></i>
+						</div>
+					</div>
+					<div class="card-body text-center">
+						<ol class="breadcrumb1">
+							<li class="breadcrumb-item1">Conoce el<br/>listado de los <strong>Siniestros<br/>de Autos</strong>.</li>
+						</ol>
+						<button type="button" class="btn btn-block btn-primary"><strong>VER DETALLES</strong></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
