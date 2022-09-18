@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ButtonDownloadReportSinistersVehiclesModule } from '@components/button-download-report-sinisters-vehicles/button-download-report-sinisters-vehicles.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { MenuStatsModule } from '@components/menu-stats/menu-stats.module';
 import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
@@ -27,7 +26,6 @@ import { StatsSnapshotPage } from './stats-snapshot.page';
     StatsSnapshotPage
   ],
   imports: [
-    ButtonDownloadReportSinistersVehiclesModule,
     CommonModule,
     LoadingContentModule,
     StatsSnapshotRoutingModule,

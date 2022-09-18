@@ -28,6 +28,7 @@ export class ListRenewedPoliciesByRangePage implements OnInit {
     }
 
     loadContent(statsPeriodData: StatsPeriodData): void {
+        this.specialFilter = '';
         this.statsPeriodData = statsPeriodData;
     }
 

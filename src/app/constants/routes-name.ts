@@ -134,7 +134,8 @@ const HOME_SINISTERS_ROUTES = {
     showSinisterHistory: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/sinister-history/${contactId}/${policyId}/${sinisterId}`,
     finalizeSinister: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/finalize-sinister/${contactId}/${policyId}/${sinisterId}`,
     reactivateSinister: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/reactivate-sinister/${contactId}/${policyId}/${sinisterId}`,
-    listOpenedSinistersByRange: `workspace/sinisters/list-opened-sinisters-by-range`
+    listOpenedSinistersByRange: `workspace/sinisters/list-opened-sinisters-by-range`,
+    insuranceSinistersByRange: `workspace/sinisters/insurance-sinisters-by-range`
 }
 
 const HOME_STATS_ROUTES = {

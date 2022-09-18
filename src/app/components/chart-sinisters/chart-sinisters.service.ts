@@ -20,13 +20,13 @@ export class ChartSinistersService {
         this.charData = ChartHelper.generateChartDataByRanges(statistics, header);
     }
 
-    loadStatistics(range: RangeData): Observable<RangeStat[][]> {
+    loadStatistics(insuranceId: number, range: RangeData): Observable<RangeStat[][]> {
         this.charData = [];
         const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE, SINISTER_STATUS.FINISHED])
         const rangeField: string = 'sinisterDate';
         let requests: Observable<RangeStat[]>[] = [];
-        requests.push(this._sinisterService.getSinisterStatistics(filters, rangeField, range.selectedRangeStart, range.selectedRangeEnd));
-        requests.push(this._sinisterService.getSinisterStatistics(filters, rangeField, range.comparedRangeStart, range.comparedRangeEnd));
+        requests.push(this._sinisterService.getInsuranceSinisterStatistics(insuranceId, filters, rangeField, range.selectedRangeStart, range.selectedRangeEnd));
+        requests.push(this._sinisterService.getInsuranceSinisterStatistics(insuranceId, filters, rangeField, range.comparedRangeStart, range.comparedRangeEnd));
         return forkJoin(requests);
     }
 }

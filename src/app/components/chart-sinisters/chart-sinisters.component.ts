@@ -16,6 +16,7 @@ declare var StatsSinistersPlugin: any;
 })
 export class ChartSinistersComponent implements OnChanges {
     @Input() range: RangeData | null = null;
+    @Input() insuranceId: number = 0;
 
     constructor(public model: ChartSinistersService) { }
 
@@ -29,7 +30,7 @@ export class ChartSinistersComponent implements OnChanges {
     }
 
     private _loadStatistics(range: RangeData): void {
-        this.model.loadStatistics(range).subscribe((res: RangeStat[][]) => {
+        this.model.loadStatistics(this.insuranceId, range).subscribe((res: RangeStat[][]) => {
             this.model.generateChartData(res);
             StatsSinistersPlugin.drawChartSinisters(this.model.charData);
         });

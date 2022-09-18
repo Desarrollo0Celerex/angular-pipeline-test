@@ -38,7 +38,9 @@ const routes: any = {
     sinisterLogs: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/logs',
     sinistersStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/sinisters',
     workspaceSinisterStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/stats',
-    workspaceSinisterStatistics: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/statistics',
+    workspacesInsuranceSinisters: (workspaceId: string, insuranceId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/insurances/' + insuranceId + '/sinisters',
+    workspaceInsuranceSinisterFilters: (workspaceId: string, insuranceId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/insurances/' + insuranceId + '/sinisters/filters',
+    workspaceInsuranceSinisterStatistics: (workspaceId: string, insuranceId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/insurances/' + insuranceId + '/sinisters/statistics',
 }
 
 @Injectable()
@@ -163,8 +165,46 @@ export class SinisterService {
         );
     }
 
-    getSinisterStatistics(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '') {
-        const route: string = routes.workspaceSinisterStatistics(this._workspaceId);
+    getInsuranceSinisters(insuranceId: number, page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-sinisterDate', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
+        const route: string = routes.workspacesInsuranceSinisters(this._workspaceId, insuranceId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!query) params = params.append('search', query);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const sinisters: Sinister[] = res.data.items.map( (sinister: Sinister) => {
+                        return this._calculatePolicyLifeTime(sinister);
+                    })
+                    res.data.items = sinisters;
+                }
+                return res;
+            })
+        )
+    }
+
+    getInsuranceSinisterFilters(insuranceId: number, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = '') {
+        const route: string = routes.workspaceInsuranceSinisterFilters(this._workspaceId, insuranceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getInsuranceSinisterStatistics(insuranceId: number, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '') {
+        const route: string = routes.workspaceInsuranceSinisterStatistics(this._workspaceId, insuranceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
         if(!!rangeField) params = params.append('rangeField', rangeField);

@@ -48,6 +48,7 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_TO_RENEW.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID" class="card-title">Recibos Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID" class="card-title">Siniestros Encontrados</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID" class="card-title">Siniestros Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.LAST_CANCELLED_POLICY.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.INCOMPLETE_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.EXTERNAL_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
@@ -261,7 +262,8 @@
                         contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
                         contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
                         contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
-                        contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID
+                        contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+                        contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID
                     ) ? contentType : ''"
                     [sinister]="content"
                     (showContactData)="onShowContactData($event)"
@@ -334,6 +336,7 @@
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
     <agt-modal-show-contact-data [modalId]="modalIdShowContactData" [contactId]="selectedContactId"></agt-modal-show-contact-data>
@@ -369,6 +372,7 @@
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TRACKER.ID">
     <agt-modal-show-policy-details
@@ -412,6 +416,7 @@
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TRACKER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
@@ -484,6 +489,7 @@
     contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PARTNER_SINISTER.ID">
     <agt-modal-show-sinister-details [modalId]="modalIdShowSinisterDetails" [sinister]="selectedSinister"></agt-modal-show-sinister-details>
     <agt-modal-confirm-show-sinister-history [modalId]="modalIdConfirmShowSinisterHistory" [sinisterData]="selectedSinisterData"></agt-modal-confirm-show-sinister-history>
