@@ -34,6 +34,7 @@ export class ListPendingPaymentsByRangePage implements OnInit {
     }
 
     loadContent(statsPeriodData: StatsPeriodData): void {
+        this.specialFilter = '';
         this.statsPeriodData = statsPeriodData;
     }
 

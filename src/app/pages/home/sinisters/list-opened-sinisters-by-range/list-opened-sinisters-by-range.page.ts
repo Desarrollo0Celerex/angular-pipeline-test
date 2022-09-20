@@ -26,6 +26,7 @@ export class ListOpenedSinistersByRangePage implements OnInit {
     }
 
     loadContent(statsPeriodData: StatsPeriodData): void {
+        this.specialFilter = '';
         this.statsPeriodData = statsPeriodData;
     }
 

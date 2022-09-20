@@ -294,7 +294,11 @@ export const CONTENT_TYPES: any = {
     RECEIPTS_APPLIED_BY_RANGE: {
         ID: 36,
         NAME: 'Recibo'
-    }
+    },
+    INSURANCE_SINISTERS_BY_RANGE: {
+        ID: 37,
+        NAME: 'Siniestro'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

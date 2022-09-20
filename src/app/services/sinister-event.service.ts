@@ -74,6 +74,8 @@ export class SinisterEventService {
                 sinisterEvent.insuredNoticeDate = (!!sinisterEvent.insuredNoticeDate) ? moment(sinisterEvent.insuredNoticeDate).format('DD/MM/YYYY') : '';
                 sinisterEvent.insuredAuthorizationDate = (!!sinisterEvent.insuredAuthorizationDate) ? moment(sinisterEvent.insuredAuthorizationDate).format('DD/MM/YYYY') : '';
                 sinisterEvent.estimatedDeliveryDate = (!!sinisterEvent.estimatedDeliveryDate) ? moment(sinisterEvent.estimatedDeliveryDate).format('DD/MM/YYYY') : '';
+                sinisterEvent.repairDate = (!!sinisterEvent.repairDate) ? moment(sinisterEvent.repairDate).format('DD/MM/YYYY') : '';
+                sinisterEvent.deliveryDate = (!!sinisterEvent.deliveryDate) ? moment(sinisterEvent.deliveryDate).format('DD/MM/YYYY') : '';
                 sinisterEvent.readmissionDate = (!!sinisterEvent.readmissionDate) ? moment(sinisterEvent.readmissionDate).format('DD/MM/YYYY') : '';
                 sinisterEvent.providerFolio = (!!sinisterEvent.providerFolio) ? sinisterEvent.providerFolio : '';
                 sinisterEvent.providerBill = (!!sinisterEvent.providerBill) ? sinisterEvent.providerBill : '';

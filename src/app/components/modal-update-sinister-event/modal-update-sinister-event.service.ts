@@ -30,7 +30,7 @@ export class ModalUpdateSinisterEventService {
      * @return                   The sinister event
      */
     getSinisterEvent(sinisterEventData: SinisterEventDataSend): Observable<SinisterEvent> {
-        const fields: string = 'sinisterEventTypeId,evidenceName,providerName,providerDate,valuationDate,authorizationDate,insuredNoticeDate,insuredAuthorizationDate,estimatedDeliveryDate,readmissionDate,providerFolio,providerBill,providerPhoneCodeId,providerPhoneNumber,providerEmail,observations,canNotifyInsured';
+        const fields: string = 'sinisterEventTypeId,evidenceName,providerName,providerDate,valuationDate,authorizationDate,insuredNoticeDate,insuredAuthorizationDate,estimatedDeliveryDate,repairDate,deliveryDate,readmissionDate,providerFolio,providerBill,providerPhoneCodeId,providerPhoneNumber,providerEmail,observations,canNotifyInsured';
         return this._sinisterEventService.getSinisterEvent(sinisterEventData, fields).pipe(
             tap((res: SinisterEvent) => {
                 this.sinisterEvent = res;
@@ -57,6 +57,8 @@ export class ModalUpdateSinisterEventService {
                     insuredNoticeDate: [sinisterEvent.insuredNoticeDate, [ValidatorsHelper.date]],
                     insuredAuthorizationDate: [sinisterEvent.insuredAuthorizationDate, [ValidatorsHelper.date]],
                     estimatedDeliveryDate: [sinisterEvent.estimatedDeliveryDate, [ValidatorsHelper.date]],
+                    repairDate: [sinisterEvent.repairDate, [ValidatorsHelper.date]],
+                    deliveryDate: [sinisterEvent.deliveryDate, [ValidatorsHelper.date]],
                     readmissionDate: [sinisterEvent.readmissionDate, [ValidatorsHelper.date]],
                     providerFolio: [sinisterEvent.providerFolio, [ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
                     providerBill: [sinisterEvent.providerBill, [ValidatorsHelper.amount]],
@@ -123,6 +125,8 @@ export class ModalUpdateSinisterEventService {
                 requestBody.set('insuredNoticeDate', this.f.insuredNoticeDate.value);
                 requestBody.set('insuredAuthorizationDate', this.f.insuredAuthorizationDate.value);
                 requestBody.set('estimatedDeliveryDate', this.f.estimatedDeliveryDate.value);
+                requestBody.set('repairDate', this.f.repairDate.value);
+                requestBody.set('deliveryDate', this.f.deliveryDate.value);
                 requestBody.set('readmissionDate', this.f.readmissionDate.value);
                 requestBody.set('providerFolio', this.f.providerFolio.value);
                 requestBody.set('providerBill', this.f.providerBill.value);

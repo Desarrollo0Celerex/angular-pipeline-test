@@ -32,6 +32,8 @@ export class ModalUpdateSinisterEventComponent implements OnChanges {
     calendarIdInsuredNoticeDate: string = 'insuredNoticeDate';
     calendarIdInsuredAuthorizationDate: string = 'insuredAuthorizationDate';
     calendarIdEstimatedDeliveryDate: string = 'estimatedDeliveryDate';
+    calendarIdRepairDate: string = 'repairDate';
+    calendarIdDeliveryDate: string = 'deliveryDate';
     calendarIdReadmissionDate: string = 'readmissionDate';
     modalIdSelectEventEvidence: string = 'muse-select-event-evidence';
     modalSelectEvidenceData: ModalSelectFileData = {
@@ -139,6 +141,8 @@ export class ModalUpdateSinisterEventComponent implements OnChanges {
                  DatePickerPlugin.initElement(this.calendarIdInsuredNoticeDate, this._onChangeDate, this);
                  DatePickerPlugin.initElement(this.calendarIdInsuredAuthorizationDate, this._onChangeDate, this);
                  DatePickerPlugin.initElement(this.calendarIdEstimatedDeliveryDate, this._onChangeDate, this);
+                 DatePickerPlugin.initElement(this.calendarIdRepairDate, this._onChangeDate, this);
+                 DatePickerPlugin.initElement(this.calendarIdDeliveryDate, this._onChangeDate, this);
                  DatePickerPlugin.initElement(this.calendarIdReadmissionDate, this._onChangeDate, this);
              break;
 

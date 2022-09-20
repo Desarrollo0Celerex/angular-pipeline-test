@@ -28,6 +28,7 @@ export class ListReceiptsAppliedByRangePage implements OnInit {
     }
 
     loadContent(statsPeriodData: StatsPeriodData): void {
+        this.specialFilter = '';
         this.statsPeriodData = statsPeriodData;
     }
 
