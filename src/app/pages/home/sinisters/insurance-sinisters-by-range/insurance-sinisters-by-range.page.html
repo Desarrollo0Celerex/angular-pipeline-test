@@ -24,7 +24,14 @@
                 <ol class="breadcrumb1 mt-2">
                     <li class="breadcrumb-item1">Genera un reporte inmediato de <strong>Siniestros de Auto</strong>.</li>
                 </ol>
-                <agt-button-download-report-sinisters-vehicles></agt-button-download-report-sinisters-vehicles>
+                <agt-button-download-report-insurance-sinisters
+                    *ngIf="!!statsPeriodData && !!insuranceId"
+                    [insuranceId]="insuranceId"
+                    [rangeField]="rangeField"
+                    [rangeStart]="statsPeriodData.startDate"
+                    [rangeEnd]="statsPeriodData.endDate"
+                    [specialFilter]="specialFilter"
+                ></agt-button-download-report-insurance-sinisters>
             </div>
         </div>
     </div>

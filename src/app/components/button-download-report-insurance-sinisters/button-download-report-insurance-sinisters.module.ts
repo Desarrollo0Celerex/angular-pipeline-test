@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 import { ModalSelectReportFormatModule } from '@components/modal-select-report-format/modal-select-report-format.module';
 import { SinisterService } from '@services/sinister.service';
 
-import { ButtonDownloadReportSinistersVehiclesComponent } from './button-download-report-sinisters-vehicles.component';
+import { ButtonDownloadReportInsuranceSinistersComponent } from './button-download-report-insurance-sinisters.component';
 
 @NgModule({
   declarations: [
-    ButtonDownloadReportSinistersVehiclesComponent
+    ButtonDownloadReportInsuranceSinistersComponent
   ],
   exports: [
-      ButtonDownloadReportSinistersVehiclesComponent
+      ButtonDownloadReportInsuranceSinistersComponent
   ],
   imports: [
     CommonModule,
@@ -21,4 +21,4 @@ import { ButtonDownloadReportSinistersVehiclesComponent } from './button-downloa
       SinisterService
   ]
 })
-export class ButtonDownloadReportSinistersVehiclesModule { }
+export class ButtonDownloadReportInsuranceSinistersModule { }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ButtonDownloadReportSinistersVehiclesModule } from '@components/button-download-report-sinisters-vehicles/button-download-report-sinisters-vehicles.module';
+import { ButtonDownloadReportInsuranceSinistersModule } from '@components/button-download-report-insurance-sinisters/button-download-report-insurance-sinisters.module';
 import { CardContentTitleModule } from '@components/card-content-title/card-content-title.module';
 import { ContainerFiltersInsuranceSinistersModule } from '@components/container-filters-insurance-sinisters/container-filters-insurance-sinisters.module';
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
@@ -16,7 +16,7 @@ import { InsuranceSinistersByRangePage } from './insurance-sinisters-by-range.pa
     InsuranceSinistersByRangePage
   ],
   imports: [
-    ButtonDownloadReportSinistersVehiclesModule,
+    ButtonDownloadReportInsuranceSinistersModule,
     CardContentTitleModule,
     CommonModule,
     ContainerFiltersInsuranceSinistersModule,

@@ -33,6 +33,8 @@ export class ContainerReportEventComponent implements OnInit {
     calendarIdInsuredNoticeDate: string = 'insuredNoticeDate';
     calendarIdInsuredAuthorizationDate: string = 'insuredAuthorizationDate';
     calendarIdEstimatedDeliveryDate: string = 'estimatedDeliveryDate';
+    calendarIdRepairDate: string = 'repairDate';
+    calendarIdDeliveryDate: string = 'deliveryDate';
     calendarIdReadmissionDate: string = 'readmissionDate';
     defaultPhoneCodeId: number = 0;
     modalIdSelectEventEvidence: string = 'agt-select-event-evidence';
@@ -121,6 +123,8 @@ export class ContainerReportEventComponent implements OnInit {
                 DatePickerPlugin.initElement(this.calendarIdInsuredNoticeDate, this._onChangeDate, this);
                 DatePickerPlugin.initElement(this.calendarIdInsuredAuthorizationDate, this._onChangeDate, this);
                 DatePickerPlugin.initElement(this.calendarIdEstimatedDeliveryDate, this._onChangeDate, this);
+                DatePickerPlugin.initElement(this.calendarIdRepairDate, this._onChangeDate, this);
+                DatePickerPlugin.initElement(this.calendarIdDeliveryDate, this._onChangeDate, this);
                 DatePickerPlugin.initElement(this.calendarIdReadmissionDate, this._onChangeDate, this);
             break;
 

@@ -8,6 +8,8 @@ export interface SinisterEvent {
     insuredNoticeDate: string,
     insuredAuthorizationDate: string,
     estimatedDeliveryDate: string,
+    repairDate: string,
+    deliveryDate: string,
     readmissionDate: string,
     providerFolio: string,
     providerBill: string,
