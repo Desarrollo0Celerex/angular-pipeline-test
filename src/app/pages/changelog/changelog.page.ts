@@ -9,6 +9,20 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.32.3',
+            launchDate: '20/09/2022',
+            changes: [
+                {
+                    title: 'Data Suite',
+                    items: [
+                        'Se agrego grafica para visualizar los siniestros de autos reportados dentro de un periodo.',
+                        'Se agrego página para listar los siniestros de autos reportados dentro de un periodo.',
+                        'Se agrego reporte para descargar información sobre los siniestros de autos.',
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.32.2',
             launchDate: '15/09/2022',
             changes: [
