@@ -33,10 +33,14 @@ const routes: any = {
     policySinisterTracking: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/tracking',
     finalizeSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/finalize',
     reactivateSinister: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/reactivate',
+    reportInsuranceSinisters: (workspaceId: string, insuranceId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/insurances/' + insuranceId + '/sinisters/reports',
     sinisterEvidence: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/evidence',
     sinisterLogs: (workspaceId: string, contactId: string, policyId: string, sinisterId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters/' + sinisterId + '/logs',
     sinistersStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/sinisters',
     workspaceSinisterStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/stats',
+    workspacesInsuranceSinisters: (workspaceId: string, insuranceId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/insurances/' + insuranceId + '/sinisters',
+    workspaceInsuranceSinisterFilters: (workspaceId: string, insuranceId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/insurances/' + insuranceId + '/sinisters/filters',
+    workspaceInsuranceSinisterStatistics: (workspaceId: string, insuranceId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/insurances/' + insuranceId + '/sinisters/statistics',
 }
 
 @Injectable()
@@ -58,6 +62,26 @@ export class SinisterService {
     createSinister(contactId: string, policyId: string, requestBody: CreateSinister): Observable<HttpResponse> {
         const route: string = routes.policySinisters(this._workspaceId, contactId, policyId);
         return this._httpClient.post<HttpResponse>(route, requestBody);
+    }
+
+    downloadReportInsuranceSinisters(insuranceId: number, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', sortBy: string = '-createdAt', specialFilter: string = '', formatType: number) {
+        const route: string = routes.reportInsuranceSinisters(this._workspaceId, insuranceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!formatType) params = params.append('formatType', formatType);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
     }
 
     /**
@@ -146,6 +170,56 @@ export class SinisterService {
         );
     }
 
+    getInsuranceSinisters(insuranceId: number, page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-sinisterDate', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
+        const route: string = routes.workspacesInsuranceSinisters(this._workspaceId, insuranceId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!query) params = params.append('search', query);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const sinisters: Sinister[] = res.data.items.map( (sinister: Sinister) => {
+                        return this._calculatePolicyLifeTime(sinister);
+                    })
+                    res.data.items = sinisters;
+                }
+                return res;
+            })
+        )
+    }
+
+    getInsuranceSinisterFilters(insuranceId: number, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = '') {
+        const route: string = routes.workspaceInsuranceSinisterFilters(this._workspaceId, insuranceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getInsuranceSinisterStatistics(insuranceId: number, filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '') {
+        const route: string = routes.workspaceInsuranceSinisterStatistics(this._workspaceId, insuranceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
     /**
      * Get the partner sinisters
      * @param  partnerId The partner ID
@@ -201,9 +275,9 @@ export class SinisterService {
                 sinister.notificationDate = (!!sinister.notificationDate) ? moment(sinister.notificationDate).format('DD/MM/YYYY') : '';
                 sinister.sinisterDate = (!!sinister.sinisterDate) ? moment(sinister.sinisterDate).format('DD/MM/YYYY') : '';
                 sinister.estimatedResolutionDate = (!!sinister.estimatedResolutionDate) ? moment(sinister.estimatedResolutionDate).format('DD/MM/YYYY') : '';
+                sinister.sinisterElapsedMinutes = (!!sinister.timeReport && !!sinister.timeResponse) ? moment(sinister.timeResponse, 'HH:mm:ss').diff(moment(sinister.timeReport, 'HH:mm:ss'), 'minutes').toString() + ' MIN.' : '';
                 sinister.timeReport = (!!sinister.timeReport) ? moment(sinister.timeReport, 'HH:mm:ss').format('hh:mm A') : '';
                 sinister.timeResponse = (!!sinister.timeResponse) ? moment(sinister.timeResponse, 'HH:mm:ss').format('hh:mm A') : '';
-                sinister.sinisterElapsedMinutes = (!!sinister.timeReport && !!sinister.timeResponse) ? moment(sinister.timeResponse, 'HH:mm:ss').diff(moment(sinister.timeReport, 'HH:mm:ss'), 'minutes').toString() + ' MIN.' : '';
                 sinister.affectedCoverage = (!!sinister.affectedCoverage) ? sinister.affectedCoverage : '';
                 sinister.affectedName = (!!sinister.affectedName) ? sinister.affectedName : '';
                 sinister.location = (!!sinister.location) ? sinister.location : (!!sinister.latLong) ? sinister.latLong : '';

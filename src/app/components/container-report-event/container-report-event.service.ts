@@ -50,6 +50,8 @@ export class ContainerReportEventService {
                     insuredNoticeDate: ['', [ValidatorsHelper.date]],
                     insuredAuthorizationDate: ['', [ValidatorsHelper.date]],
                     estimatedDeliveryDate: ['', [ValidatorsHelper.date]],
+                    repairDate: ['', [ValidatorsHelper.date]],
+                    deliveryDate: ['', [ValidatorsHelper.date]],
                     readmissionDate: ['', [ValidatorsHelper.date]],
                     providerFolio: ['', [ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
                     providerBill: ['', [ValidatorsHelper.amount]],
@@ -114,6 +116,8 @@ export class ContainerReportEventService {
                 requestBody.set('insuredNoticeDate', this.f.insuredNoticeDate.value);
                 requestBody.set('insuredAuthorizationDate', this.f.insuredAuthorizationDate.value);
                 requestBody.set('estimatedDeliveryDate', this.f.estimatedDeliveryDate.value);
+                requestBody.set('repairDate', this.f.repairDate.value);
+                requestBody.set('deliveryDate', this.f.deliveryDate.value);
                 requestBody.set('readmissionDate', this.f.readmissionDate.value);
                 requestBody.set('providerFolio', this.f.providerFolio.value);
                 requestBody.set('providerBill', this.f.providerBill.value);

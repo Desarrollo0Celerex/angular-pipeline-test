@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -8,24 +8,21 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'agt-cancelled-policies',
-  templateUrl: './cancelled-policies.page.html',
+  selector: 'agt-insurance-sinisters-by-range',
+  templateUrl: './insurance-sinisters-by-range.page.html',
   styles: [
   ]
 })
-export class CancelledPoliciesPage implements OnInit {
+export class InsuranceSinistersByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
-    pageUrl: string = '/' + ROUTES_NAME.listClients;
-    rangeField: string = 'updatedAt';
+    insuranceId: number = 0;
+    rangeField: string = 'sinisterDate';
     statsPeriodData: StatsPeriodData | null = null;
     specialFilter: string = '';
-    private rangeStart: string = '';
-    private rangeEnd: string = '';
 
-    constructor(private _activatedRoute: ActivatedRoute){ }
+    constructor(private _router: Router) { }
 
     ngOnInit(): void {
-        this.catchParams();
         this._catchPeriodData();
     }
 
@@ -38,32 +35,28 @@ export class CancelledPoliciesPage implements OnInit {
         this.statsPeriodData = statsPeriodData;
     }
 
-    private catchParams(): void {
-        this.rangeStart = this._activatedRoute.snapshot.params.rangeStart || '';
-        this.rangeEnd = this._activatedRoute.snapshot.params.rangeEnd || '';
-    }
-
     private _catchPeriodData(): void {
         // If there is saved data
-        if(!!history.state.periodData) {
+        if(!!history.state.periodData && !!history.state.insuranceId) {
             this.statsPeriodData = {
                 startDate: history.state.periodData.startDate,
                 endDate: history.state.periodData.endDate,
                 periodId: 0
             }
-        } else if(!!this.rangeStart && !!this.rangeEnd) {
-            this.statsPeriodData = {
-                startDate: moment(this.rangeStart, 'DD-MM-YYYY').format('DD/MM/YYYY'),
-                endDate: moment(this.rangeEnd, 'DD-MM-YYYY').format('DD/MM/YYYY'),
-                periodId: 0
-            }
+            this.insuranceId = history.state.insuranceId;
         } else {
-            // Else, set default data.
+            // TEMP
             this.statsPeriodData = {
-                startDate: moment().subtract(90, 'days').format('DD/MM/YYYY'),
+                startDate: moment().subtract(3, 'month').format('DD/MM/YYYY'),
                 endDate: moment().format('DD/MM/YYYY'),
                 periodId: 0
             }
+            this.insuranceId = 6;
+            // END TEMP
+
+            // TODO: Crear página "sinisters-by-range" y navegar a ella
+            //this._router.navigateByUrl(ROUTES_NAME.listSinisters);
         }
     }
+
 }

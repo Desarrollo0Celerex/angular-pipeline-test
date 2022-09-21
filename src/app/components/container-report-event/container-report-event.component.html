@@ -169,6 +169,34 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
+                                            <label class="form-label">Fecha Reparación</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input [id]="calendarIdRepairDate" type="text" class="form-control fc-datepicker {{getValidationClass('repairDate')}}" formControlName="repairDate">
+                                                <div class="invalid-feedback">{{getErrorMessage('repairDate')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Fecha Entrega</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                                    </div>
+                                                </div>
+                                                <input [id]="calendarIdDeliveryDate" type="text" class="form-control fc-datepicker {{getValidationClass('deliveryDate')}}" formControlName="deliveryDate">
+                                                <div class="invalid-feedback">{{getErrorMessage('deliveryDate')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <!-- AGENTHOS - SINISTER READMISSION DATE -->
                                             <label class="form-label">Fecha Reingreso</label>
                                             <div class="input-group">

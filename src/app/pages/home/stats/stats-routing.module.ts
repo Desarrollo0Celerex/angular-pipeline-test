@@ -16,6 +16,7 @@ const routes: Routes = [{
         { path: ROUTES_NAME.statsClients, loadChildren: () => import('@pages/home/stats/stats-clients/stats-clients.module').then(mod => mod.StatsClientsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
         { path: ROUTES_NAME.statsPolicies, loadChildren: () => import('@pages/home/stats/stats-policies/stats-policies.module').then(mod => mod.StatsPoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
         { path: ROUTES_NAME.statsCollection, loadChildren: () => import('@pages/home/stats/stats-collection/stats-collection.module').then(mod => mod.StatsCollectionModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+        { path: ROUTES_NAME.statsSinisters, loadChildren: () => import('@pages/home/stats/stats-sinisters/stats-sinisters.module').then(mod => mod.StatsSinistersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
     ]
 }];
 

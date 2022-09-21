@@ -48,6 +48,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() contentSpecialFilter: string = '';
     @Input() contentSubtype: number;
     @Input() contentSubtypeName: string;
+    @Input() insuranceId: number = 0;
     @Input() originContactId: string;
     @Input() originPolicyId: string;
     @Input() paymentId: string;
@@ -924,6 +925,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
             case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
+            case CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID:
                 this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-3';
             break;
 
@@ -1179,6 +1181,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                     this._contentLoaded();
                 });
             break;
+
+            case CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID:
+                this.contentListService.loadInsuranceSinistersByRange(this.insuranceId, this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
         }
     }
 
@@ -1349,6 +1357,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.POLICY_TO_RENEW.ID:
                 case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
                 case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
+                case CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID:
                 case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
                 case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:
                 case CONTENT_TYPES.EXTERNAL_POLICIES.ID:

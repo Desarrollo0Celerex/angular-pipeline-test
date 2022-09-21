@@ -1,19 +1,20 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, Output, Input, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
 
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 
-import { ContainerChartsPendingRenewalsService } from './container-charts-pending-renewals.service';
+import { ContainerFiltersInsuranceSinistersService } from './container-filters-insurance-sinisters.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-charts-pending-renewals',
-  templateUrl: './container-charts-pending-renewals.component.html',
+  selector: 'agt-container-filters-insurance-sinisters',
+  templateUrl: './container-filters-insurance-sinisters.component.html',
   styles: [
   ],
-  providers: [ContainerChartsPendingRenewalsService]
+  providers: [ContainerFiltersInsuranceSinistersService]
 })
-export class ContainerChartsPendingRenewalsComponent implements OnChanges {
+export class ContainerFiltersInsuranceSinistersComponent implements OnChanges {
+    @Input() insuranceId: number = 0;
     @Input() rangeField: string = '';
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
@@ -23,7 +24,7 @@ export class ContainerChartsPendingRenewalsComponent implements OnChanges {
     modalIdContactTypeFilterResults: string = 'agt-contact-type-filter-results';
     specialFilter: string = '';
 
-    constructor(public model: ContainerChartsPendingRenewalsService) { }
+    constructor(public model: ContainerFiltersInsuranceSinistersService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(
@@ -32,7 +33,7 @@ export class ContainerChartsPendingRenewalsComponent implements OnChanges {
             (!!changes.rangeEnd && !!changes.rangeEnd.currentValue)
         ) {
             this.model.specialFilter = '';
-            this.model.loadData(this.rangeField, this.rangeStart, this.rangeEnd);
+            this.model.loadData(this.insuranceId, this.rangeField, this.rangeStart, this.rangeEnd);
         }
     }
 
@@ -40,7 +41,7 @@ export class ContainerChartsPendingRenewalsComponent implements OnChanges {
         const insuranceFilters: string = UtilitiesHelper.generateHttpFilter('insuranceId', filterIds);
         this.model.filtersData!.insurances.specialFilter = insuranceFilters;
         this.model.specialFilter = this.model.filtersData!.insurances.specialFilter+';';
-        this.model.loadData(this.rangeField, this.rangeStart, this.rangeEnd);
+        this.model.loadData(this.insuranceId, this.rangeField, this.rangeStart, this.rangeEnd);
         this.specialFilterChanged.emit(this.model.specialFilter);
     }
 
@@ -48,7 +49,7 @@ export class ContainerChartsPendingRenewalsComponent implements OnChanges {
         const insurerFilters: string = UtilitiesHelper.generateHttpFilter('insurerId', filterIds);
         this.model.filtersData!.insurers.specialFilter = insurerFilters;
         this.model.specialFilter = this.model.filtersData!.insurances.specialFilter+';'+this.model.filtersData!.insurers.specialFilter;
-        this.model.loadData(this.rangeField, this.rangeStart, this.rangeEnd);
+        this.model.loadData(this.insuranceId, this.rangeField, this.rangeStart, this.rangeEnd);
         this.specialFilterChanged.emit(this.model.specialFilter);
     }
 
@@ -56,7 +57,7 @@ export class ContainerChartsPendingRenewalsComponent implements OnChanges {
         const contactTypeFilters: string = UtilitiesHelper.generateHttpFilter('contactTypeId', filterIds);
         this.model.filtersData!.contactTypes.specialFilter = contactTypeFilters;
         this.model.specialFilter = this.model.filtersData!.insurances.specialFilter+';'+this.model.filtersData!.insurers.specialFilter+';'+this.model.filtersData!.contactTypes.specialFilter;
-        this.model.loadData(this.rangeField, this.rangeStart, this.rangeEnd);
+        this.model.loadData(this.insuranceId, this.rangeField, this.rangeStart, this.rangeEnd);
         this.specialFilterChanged.emit(this.model.specialFilter);
     }
 
@@ -71,5 +72,4 @@ export class ContainerChartsPendingRenewalsComponent implements OnChanges {
     showModalContactTypesToApplyFilter(): void {
         ModalPlugin.show(this.modalIdContactTypeFilterResults);
     }
-
 }

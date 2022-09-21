@@ -30,6 +30,7 @@ export class ContainerChartsActivePoliciesComponent implements OnChanges {
             (!!changes.rangeStart && !!changes.rangeStart.currentValue) ||
             (!!changes.rangeEnd && !!changes.rangeEnd.currentValue)
         ) {
+            this.model.specialFilter = '';
             this.model.loadData(this.rangeField, this.rangeStart, this.rangeEnd);
         }
     }
