@@ -43,7 +43,7 @@ export const FILE_NAME_LENGTH: any = {
 }
 export const TITULAR_NAME_LENGTH: any = {
     MIN: 2,
-    MAX: 100
+    MAX: 200
 }
 
 export const FORMAT_TYPES: any = {
