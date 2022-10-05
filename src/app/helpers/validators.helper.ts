@@ -190,6 +190,15 @@ export class ValidatorsHelper {
         return null;
     }
 
+    static ownNames(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = new RegExp(`^[/${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
+            const value = control.value;
+            return (!regex.test(value)) ? {alphanumeric: true} : null;
+        }
+        return null;
+    }
+
     /**
      * Validate a postal code
      * @param  control The control to evaluate

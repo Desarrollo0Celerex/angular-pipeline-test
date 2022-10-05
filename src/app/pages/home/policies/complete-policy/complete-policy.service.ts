@@ -389,7 +389,7 @@ export class CompletePolicyService {
             case INSURANCES.SCHOOLAR:
             case INSURANCES.FIANCE:
                 insuredForm = this._formBuilder.group({
-                    personName: [(!!insured && !!insured.personName) ? insured.personName : '', [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
+                    personName: [(!!insured && !!insured.personName) ? insured.personName : '', [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownNames]],
                     personGenderId: [(!!insured && !!insured.personGenderId) ? insured.personGenderId : ''],
                     personAge: [(!!insured && !!insured.personAge) ? insured.personAge : '', [Validators.minLength(1), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeTextShort]]
                 });
