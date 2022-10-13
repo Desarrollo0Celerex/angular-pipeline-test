@@ -96,18 +96,14 @@ export class ModalApplyPaymentService {
      * @return The payment amount
      */
     private _calculatePaymentAmount(): string {
-        console.log('Paso 1')
         let formattedPaymentAmount: string = '';
         if(!!this.payment) {
-            console.log('Paso 2: ',this.payment);
             let receiptsAmount: number = 0;
             receiptsAmount = (this.payment.tickets === 0 && this.payment.paymentPlanId != PAYMENT_PLANS.SINGLE_PAYMENT && this.payment.paymentPlanId != PAYMENT_PLANS.ANNUAL)
                 ? this._calculateFirstPaymentAmount(this.payment.paymentPlanReceips, this.payment.netPay, this.payment.feePay, this.payment.coverPay, this.payment.extraPay, this.payment.taxPay, this.payment.discount)
                 : this.payment.pendingAmount / this.payment.pendingReceipts;
-            console.log('paso 3: ',receiptsAmount);
             formattedPaymentAmount = this._currencyPipe.transform(receiptsAmount, '', '', '0.2-2') || '';
         }
-        console.log('paso 4: ',formattedPaymentAmount)
         return  formattedPaymentAmount;
     }
 
