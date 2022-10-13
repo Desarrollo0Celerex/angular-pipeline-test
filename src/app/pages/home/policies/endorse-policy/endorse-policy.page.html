@@ -380,7 +380,7 @@
                                     <!-- AGENTHOS - PAY PLAN * -->
                                     <label class="form-label">Tipo de Plan</label>
                                     <select class="form-control custom-select {{getValidationClass('paymentPlanId')}}" formControlName="paymentPlanId" (change)="paymentPlanIdChanged()">
-                                        <option [value]="paymentPlan.paymentPlanId" *ngFor="let paymentPlan of model.paymentPlansAvailable">{{paymentPlan.name | uppercase}}</option>
+                                        <option [value]="paymentPlan.paymentPlanId" *ngFor="let paymentPlan of model.paymentPlans">{{paymentPlan.name | uppercase}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('paymentPlanId')}}</div>
                                 </div>

@@ -9,6 +9,20 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.32.4',
+            launchDate: '13/08/2022',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se solucionaron bugs al cargar endosos de incremento a las pólizas.',
+                        'Se agrego item en el historial de una póliza para saber el origen de una póliza que fue reexpedida.',
+                        'Se habilitaron todos los planes de pago al aplicar un endoso.',
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.32.3',
             launchDate: '20/09/2022',
             changes: [
