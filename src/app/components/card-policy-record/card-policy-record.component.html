@@ -13,6 +13,9 @@
                     <button type="button" class="btn btn-primary" (click)="onClickShowEndorsement()"><strong>VER ENDOSO</strong></button>
                 </div>
             </ng-container>
+            <ng-container *ngSwitchCase="POLICY_RECORD_TYPES.REISSUED_OLD">
+                <ng-container *ngTemplateOutlet="showActions"></ng-container>
+            </ng-container>
             <ng-container *ngSwitchCase="POLICY_RECORD_TYPES.RENOVATED">
                 <ng-container *ngTemplateOutlet="showActions"></ng-container>
             </ng-container>

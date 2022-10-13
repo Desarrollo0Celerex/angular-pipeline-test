@@ -339,7 +339,8 @@ export const POLICY_RECORD_TYPES: any = {
     REISSUED: 7,
     CANCELLED: 8,
     SINISTER: 9,
-    RENOVATED: 10
+    RENOVATED: 10,
+    REISSUED_OLD: 11
 }
 export const CONTACT_PROFILE_PAGE_TYPES: any = {
     QUOTATIONS: {

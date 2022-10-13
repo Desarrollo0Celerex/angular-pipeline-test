@@ -362,9 +362,9 @@ export class UpdateCompletePolicyService {
             case INSURANCES.SCHOOLAR:
             case INSURANCES.FIANCE:
                 insuredForm = this._formBuilder.group({
-                    personName: [(!!insured) ? insured.personName : '', [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownNames]],
-                    personGenderId: [(!!insured) ? insured.personGenderId : ''],
-                    personAge: [(!!insured) ? insured.personAge : '', [Validators.minLength(1), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeTextShort]]
+                    personName: [(!!insured && !!insured.personName) ? insured.personName : '', [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownNames]],
+                    personGenderId: [(!!insured && !!insured.personGenderId) ? insured.personGenderId : ''],
+                    personAge: [(!!insured && !!insured.personAge) ? insured.personAge : '', [Validators.minLength(1), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeTextShort]]
                 });
                 break;
 
@@ -417,9 +417,9 @@ export class UpdateCompletePolicyService {
             case INSURANCES.BUILDING:
             case INSURANCES.FARM:
                 insuredForm = this._formBuilder.group({
-                    buildingName: [(!!insured) ? insured.buildingName : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    buildingUsage: [(!!insured) ? insured.buildingUsage : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    buildingLocation: [(!!insured) ? insured.buildingLocation : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
+                    buildingName: [(!!insured && !!insured.buildingName) ? insured.buildingName : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                    buildingUsage: [(!!insured && !!insured.buildingUsage) ? insured.buildingUsage : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                    buildingLocation: [(!!insured && !!insured.buildingLocation) ? insured.buildingLocation : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
                 });
                 break;
 
@@ -430,15 +430,15 @@ export class UpdateCompletePolicyService {
             case INSURANCES.TRANSPORT:
             case INSURANCES.AERO:
                 insuredForm = this._formBuilder.group({
-                    objectName: [(!!insured) ? insured.objectName : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    objectUsage: [(!!insured) ? insured.objectUsage : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                    objectDescription: [(!!insured) ? insured.objectDescription : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
+                    objectName: [(!!insured && !!insured.objectName) ? insured.objectName : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                    objectUsage: [(!!insured && !!insured.objectUsage) ? insured.objectUsage : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
+                    objectDescription: [(!!insured && !!insured.objectDescription) ? insured.objectDescription : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
                 });
                 break;
 
             default:
                 insuredForm = this._formBuilder.group({
-                    policyDetails: [(!!insured) ? insured.policyDetails : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
+                    policyDetails: [(!!insured && !!insured.policyDetails) ? insured.policyDetails : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
                 });
                 break;
         }

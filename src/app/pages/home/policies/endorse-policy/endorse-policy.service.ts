@@ -54,7 +54,8 @@ export class EndorsePolicyService {
     /**
      * Calculate the plans of payment available
      */
-    calculatePaymentPlansAvailable(): void {
+    // TODO: Permitir seleccionar todos los planes de pago disponibles, pero si se selecciona algun plan que no este en los planes disponibles, alertar al usuario.
+    /*calculatePaymentPlansAvailable(): void {
         if(this.policy) {
             const startDate = moment(this.policy.validityStartDate);
             const endDate = moment(UtilitiesHelper.getOriginalDateFormat(this.f.validityEndDate.value));
@@ -80,7 +81,7 @@ export class EndorsePolicyService {
                 }
             }
         }
-    }
+    }*/
 
     /**
      * Calculate the new bills
