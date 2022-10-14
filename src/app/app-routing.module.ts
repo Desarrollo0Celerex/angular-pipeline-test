@@ -30,6 +30,9 @@ const routes: Routes = [
     // Invitations routes
     { path: ROUTES_NAME.acceptInvitation(':invitationToken'), loadChildren: () => import('@pages/invitations/accept-invitation/accept-invitation.module').then( mod => mod.AcceptInvitationModule), canActivate: [UserAuthenticatedGuard] },
 
+    // Policy search engine routes
+    { path: ROUTES_NAME.policySearchEngine, loadChildren: () => import('@pages/policy-search-engine/policy-search-engine.module').then( mod => mod.PolicySearchEngineModule) },
+
     // Workspaces routes
     { path: ROUTES_NAME.checkWorkspaceStatus, loadChildren: () => import('@pages/workspaces/check-workspace-status/check-workspace-status.module').then( mod => mod.CheckWorkspaceStatusModule), canActivate: [UserAuthenticatedGuard] },
     { path: ROUTES_NAME.welcome, loadChildren: () => import('@pages/workspaces/welcome/welcome.module').then( mod => mod.WelcomeModule), canActivate: [UserAuthenticatedGuard] },

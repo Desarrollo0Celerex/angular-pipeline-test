@@ -1,0 +1,68 @@
+<div class="page">
+    <div class="page-main">
+        <div class="container  content-area">
+        	<div class="section">
+
+                <div class="row mt-7">
+                    <div class="col-md-5">
+                        <form [formGroup]="model.form" (submit)="searchWorkspacePolicy()">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">BUSCADOR</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="block-content">
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Workspace ID</label>
+                                                    <input type="text" class="form-control {{getValidationClass('workspaceId')}}" formControlName="workspaceId">
+                                                    <div class="invalid-feedback">{{getErrorMessage('workspaceId')}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Número de Póliza</label>
+                                                    <input type="text" class="form-control {{getValidationClass('policyNumber')}}" formControlName="policyNumber">
+                                                    <div class="invalid-feedback">{{getErrorMessage('policyNumber')}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <button type="submit" class="btn btn-block btn-primary"><strong>BUSCAR</strong></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <ng-container *ngIf="!!policy">Póliza encontrada</ng-container>
+                                    <ng-container *ngIf="!!errorMessage">{{errorMessage}}</ng-container>
+                                </h3>
+                            </div>
+                            <div class="card-body" [ngStyle]="{'min-height': '309px'}">
+                                <ng-container *ngIf="!!policy">
+                                    <h6>Número: <strong>{{policy.policyNumber}}</strong></h6>
+                                    <h6>Aseguradora: <strong>{{policy.insurerName}}</strong></h6>
+                                    <h6>Ramo: <strong>{{policy.insuranceName}}</strong></h6>
+                                    <h6>Tipo: <strong>{{policy.insuranceTypeName}}</strong></h6>
+                                    <div class="mt-3" *ngIf="!!policy.insureds">
+                                        <h6>Incisos:</h6>
+                                        <ul>
+                                            <li *ngFor="let insured of policy.insureds; let index = index">{{(index + 1) + '.- '}} <strong>{{insured.vehicleNumber}}</strong></li>
+                                        </ul>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

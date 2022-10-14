@@ -31,7 +31,7 @@ const routes: any = {
     deleteActivePolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/active',
     reissueContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/reissue',
     contactHistoryPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/history',
-    policies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies',
+    workspacePolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies',
     policySinisters: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/sinisters',
     totalContactAppliedRenewals: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/applied-renewals/count',
     totalContactPendingRenewals: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/pending-renewals/count',
@@ -921,6 +921,11 @@ export class PolicyService {
     renewContactPolicy(contactId: string, policyId: string, requestBody: RenewContactPolicyDataSend): Observable<HttpResponse> {
         const route: string = routes.renewContactPolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<HttpResponse>(route, requestBody);
+    }
+
+    searchWorkspacePolicy(workspaceId: string, policyNumber: string): Observable<HttpResponse> {
+        const route: string = routes.workspacePolicies(workspaceId);
+        return this._httpClient.post<HttpResponse>(route, { policyNumber });
     }
 
     /**
