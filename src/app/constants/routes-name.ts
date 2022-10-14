@@ -160,6 +160,10 @@ const INVITATIONS_ROUTES = {
     acceptInvitation: (invitationToken: string) => `invitations/accept-invitation/${invitationToken}`
 }
 
+const POLICY_SEARCH_ENGINE_ROUTES = {
+    policySearchEngine: 'policy-search-engine'
+}
+
 const SEARCHES_ROUTES = {
     listSearchResults: 'workspace/searches/search-results'
 }
@@ -198,6 +202,7 @@ export const ROUTES_NAME = {
     ...HOME_STATS_ROUTES,
     ...HOME_WALLET_ROUTES,
     ...INVITATIONS_ROUTES,
+    ...POLICY_SEARCH_ENGINE_ROUTES,
     ...SEARCHES_ROUTES,
     ...WORKSPACES_ROUTES
 }
