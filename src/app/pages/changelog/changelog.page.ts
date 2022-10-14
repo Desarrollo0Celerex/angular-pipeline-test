@@ -9,6 +9,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.33.0',
+            launchDate: '13/08/2022',
+            changes: [
+                {
+                    title: 'Policy Search Engine',
+                    items: [
+                        'Se página para buscar pólizas de un espacio de trabajo.',
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.32.4',
             launchDate: '13/08/2022',
             changes: [
