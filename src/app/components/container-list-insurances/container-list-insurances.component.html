@@ -1,5 +1,30 @@
-<!-- AGENTHOS - INSURANCE CATEGORIES -->
-<ng-container *ngFor="let insurancesByCategory of containerListInsurancesService.insurancesByCategories">
+<ng-container *ngIf="model.mostUsedInsurances.length > 0">
+    <!-- AGENTHOS - SEGUROS RECOMENDADOS -->
+    <div class="row mt-3" id="insuranceSuggestion">
+        <div class="col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Seguros Recomendados</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-avatar alert-primary alert-dismissible mb-3">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong>Business Intelligence</strong> <hr class="message-inner-separator">
+                <span class="avatar brround cover-image" data-image-src="https://webkit.atombits.xyz/agenthos/app/agenthos_agent_userpic.png" style="background: url(&quot;https://webkit.atombits.xyz/agenthos/app/agenthos_agent_userpic.png&quot;) center center;"></span>
+                <p><strong>Predicción:</strong> La póliza de <strong>{{contactName}}</strong> que deseas cargar en este momento, puede pertenecer a estos ramos.</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-xl-3" *ngFor="let insurance of model.mostUsedInsurances">
+            <agt-card-insurance [insurance]="insurance" (insuranceSelected)="selectInsurance($event)"></agt-card-insurance>
+        </div>
+    </div>
+    <!-- //AGENTHOS - SEGUROS RECOMENDADOS -->
+</ng-container>
+<ng-container *ngFor="let insurancesByCategory of model.insurancesByCategories">
     <div class="row">
         <div class="col-md-12 col-lg-12">
             <div class="card">
@@ -12,9 +37,13 @@
     <div class="row">
         <!-- AGENTHOS - INSURANCE -->
         <div class="col-md-3 col-xl-3" *ngFor="let insurance of insurancesByCategory.insurances">
-            <agt-card-insurance [insurance]="insurance" (insuranceSelected)="onInsuranceSelected($event)"></agt-card-insurance>
+            <agt-card-insurance [insurance]="insurance" (insuranceSelected)="selectInsurance($event)"></agt-card-insurance>
         </div>
         <!-- //AGENTHOS - INSURANCE -->
     </div>
 </ng-container>
+<agt-loading-content
+    [isLoadingContent]="model.insurancesByCategories.length === 0"
+    [height]="120"
+></agt-loading-content>
 <!-- //AGENTHOS - INSURANCE CATEGORIES -->

@@ -613,7 +613,7 @@ export class PolicyService {
      * @return           The policies
      */
     getPolicies(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', perPage: number = DEFAULT_PER_PAGE, specialFilter: string = ''): Observable<HttpResponse> {
-        const route: string = routes.policies(this._workspaceId);
+        const route: string = routes.workspacePolicies(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         params = params.append('perPage', perPage.toString());

@@ -1,40 +1,46 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { InsuranceCategory } from '@interfaces/insurance-category.interface';
+
 import { ContainerListInsurancesService } from './container-list-insurances.service';
 
 @Component({
   selector: 'agt-container-list-insurances',
   templateUrl: './container-list-insurances.component.html',
   styles: [
-  ]
+  ],
+  providers: [ContainerListInsurancesService]
 })
 export class ContainerListInsurancesComponent implements OnInit {
+    @Input() contactId: string = '';
     @Output() insuranceSelected: EventEmitter<number> = new EventEmitter<number>();;
 
-    constructor(public containerListInsurancesService: ContainerListInsurancesService) { }
+    constructor(public model: ContainerListInsurancesService) { }
 
     ngOnInit(): void {
-        this._loadInsuranceCategories();
+        this.model.insurancesByCategories = [];
+        this._loadContact();
     }
 
-    /**
-     * Event to catch the selected insurance ID
-     * @param insuranceId The selected insurance ID
-     */
-    onInsuranceSelected(insuranceId: number): void {
-        this.insuranceSelected.emit(insuranceId);
+    get contactName(): string {
+        return (!!this.model.contact) ? `${this.model.contact.name} ${this.model.contact.namePaternal} ${this.model.contact.nameMaternal}` : '';
     }
 
-    /**
-     * Load the insurance categories
-     * And load the insurances by category
-     */
-    private _loadInsuranceCategories(): void {
-        this.containerListInsurancesService.getInsuranceCategories().subscribe( (res: HttpResponse) => {
-            const insuranceCategories: InsuranceCategory[] = res.data;
-            this.containerListInsurancesService.loadCategoryInsurances(insuranceCategories);
+    selectInsurance(insuranceId: number): void {
+        console.log('insuranceId: ',insuranceId);
+        //this.insuranceSelected.emit(insuranceId);
+    }
+
+    private _loadContact(): void {
+        this.model.loadContact(this.contactId).subscribe((res: HttpResponse) => {
+            this.model.loadMostUsedInsurances(res.data.contactTypeId);
+            this._loadCategories(res.data.contactTypeId);
         })
+    }
+
+    private _loadCategories(contactTypeId: number): void {
+        this.model.getCategories(contactTypeId).subscribe( (res: HttpResponse) => {
+            this.model.loadInsurances(res.data);
+        });
     }
 }

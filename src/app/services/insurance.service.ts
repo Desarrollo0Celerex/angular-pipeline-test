@@ -9,6 +9,7 @@ import { AuthService } from '@services/auth.service';
 
 const routes = {
     insurances: environment.apiUrl + '/insurances',
+    mostUsedInsurances: (workspaceId: string, contactTypeId: number) => environment.apiUrl + '/workspaces/'+workspaceId+'/contact-types/'+contactTypeId+'/insurances',
     activeInsurances: (workspaceId: string) => environment.apiUrl + '/workspaces/'+workspaceId+'/insurances/active',
     categoryInsurances: (insuranceCategoryId: number) => environment.apiUrl + '/insurance-categories/' + insuranceCategoryId + '/insurances'
 }
@@ -29,6 +30,13 @@ export class InsuranceService {
      */
     getInsurances(fields: string = ''): Observable<HttpResponse> {
         const route = routes.insurances;
+        let params: HttpParams = new HttpParams();
+        params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    getMostUsedInsurances(contactTypeId: number, fields: string = ''): Observable<HttpResponse> {
+        const route = routes.mostUsedInsurances(this._workspaceId, contactTypeId);
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, {params});
