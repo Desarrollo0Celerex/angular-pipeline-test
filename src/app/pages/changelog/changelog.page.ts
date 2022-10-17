@@ -9,8 +9,21 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.33.1',
+            launchDate: '17/10/2022',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se actualizo listado de seguros.',
+                        'Se agrego sección de seguros recomendados.',
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.33.0',
-            launchDate: '13/08/2022',
+            launchDate: '13/10/2022',
             changes: [
                 {
                     title: 'Policy Search Engine',
@@ -22,7 +35,7 @@ export class ChangelogPage {
         },
         {
             version: '1.32.4',
-            launchDate: '13/08/2022',
+            launchDate: '13/10/2022',
             changes: [
                 {
                     title: 'Smart Wallet',
