@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 import * as moment from 'moment';
 
-import { DOCUMENT_FORMATS, FILE_TYPES, INSURANCES, INSURANCE_TYPES } from '@constants/global';
+import { DOCUMENT_FORMATS, FILE_TYPES, INSURANCE_GROUPS, INSURANCE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -24,7 +24,7 @@ declare var ModalPlugin: any;
   providers: [UpdateCompletePolicyService]
 })
 export class UpdateCompletePolicyPage implements OnInit {
-    INSURANCES: any = INSURANCES;
+    INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     INSURANCE_TYPES: any = INSURANCE_TYPES;
     calendarIdEmissionDate: string = 'emissionDate';
     calendarIdValidityEndDate: string = 'validityEndDate';
@@ -59,6 +59,42 @@ export class UpdateCompletePolicyPage implements OnInit {
     ngOnInit(): void {
         this._catchParams();
         this._loadPolicy();
+    }
+
+    get objectNameLabel(): string {
+        let label: string = '';
+        if(!!this.updateCompletePolicyService.policy && !!this.updateCompletePolicyService.policy.insuranceGroupId) {
+            switch(this.updateCompletePolicyService.policy.insuranceGroupId) {
+                case INSURANCE_GROUPS.OBJECTS:
+                case INSURANCE_GROUPS.MERCHANDISE: label = 'Nombre del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.RC: label = 'Nombre de la Persona o Bien Asegurado'; break;
+            }
+        }
+        return label;
+    }
+
+    get objectUsageLabel(): string {
+        let label: string = '';
+        if(!!this.updateCompletePolicyService.policy && !!this.updateCompletePolicyService.policy.insuranceGroupId) {
+            switch(this.updateCompletePolicyService.policy.insuranceGroupId) {
+                case INSURANCE_GROUPS.OBJECTS: label = 'Marca del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.MERCHANDISE: label = 'Uso del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.RC: label = 'Actividad Asegurada'; break;
+            }
+        }
+        return label;
+    }
+
+    get objectDescriptionLabel(): string {
+        let label: string = '';
+        if(!!this.updateCompletePolicyService.policy && !!this.updateCompletePolicyService.policy.insuranceGroupId) {
+            switch(this.updateCompletePolicyService.policy.insuranceGroupId) {
+                case INSURANCE_GROUPS.OBJECTS: label = 'Características del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.MERCHANDISE: label = 'Descripción del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.RC: label = 'Descripción'; break;
+            }
+        }
+        return label;
     }
 
     addNewInsured(): void {

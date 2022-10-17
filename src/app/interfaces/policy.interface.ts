@@ -64,5 +64,6 @@ export interface Policy {
     totalRenovations: number,
     workspaceRealName: string,
     partnerId: number,
-    insureds: Insured[]
+    insureds: Insured[],
+    insuranceGroupId: number
 }

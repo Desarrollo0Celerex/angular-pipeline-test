@@ -1,5 +1,5 @@
 <!-- AGENTHOS - PROFILE RESUME -->
-<div class="row" *ngIf="!!containerContactDetailsService.contact">
+<div class="row" *ngIf="!!containerContactDetailsService.contact; else loadingContactDetails">
     <div class="col-sm-12">
         <div class="card">
             <!-- AGENTHOS - CARD HEADER -->
@@ -28,4 +28,14 @@
         </div>
     </div>
 </div>
+
+<ng-template #loadingContactDetails>
+    <div class="card">
+        <agt-loading-content
+            [isLoadingContent]="true"
+            [height]="218"
+        ></agt-loading-content>
+    </div>
+</ng-template>
+
 <!-- //AGENTHOS - PROFILE RESUME -->

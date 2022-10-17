@@ -41,4 +41,5 @@ export interface Insured {
     vehicleCoverageName: string,
     vehicleUseName: string,
     vehicleStatusName: string,
+    insuranceGroupId: number
 }

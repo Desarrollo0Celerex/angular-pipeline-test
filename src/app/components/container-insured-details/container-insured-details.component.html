@@ -1,3 +1,4 @@
+
 <!-- AGENTHOS - SINISTER POLICY DETAILS -->
 <div class="row mt-5" *ngIf="!!model.insured">
     <div class="col-md-12">
@@ -8,8 +9,8 @@
             <div class="card-body">
                 <div class="block-content">
                     <div class="form-group row text-center">
-                        <ng-container [ngSwitch]="internalInsuranceId">
-                            <ng-container *ngSwitchCase="(internalInsuranceId === INTERNAL_INSURANCES.PERSON) ? internalInsuranceId : ''">
+                        <ng-container [ngSwitch]="model.insured.insuranceGroupId">
+                            <ng-container *ngSwitchCase="INSURANCE_GROUPS.PEOPLE">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">Nombre del Asegurado</label>
@@ -29,7 +30,7 @@
                                     </div>
                                 </div>
                             </ng-container>
-                            <ng-container *ngSwitchCase="(internalInsuranceId === INTERNAL_INSURANCES.VEHICLE) ? internalInsuranceId : ''">
+                            <ng-container *ngSwitchCase="INSURANCE_GROUPS.VEHICLES">
                                 <ng-container *ngIf="insuranceTypeId === INSURANCE_TYPES.INDIVIDUAL; else vehicleFlotilla">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -69,7 +70,7 @@
                                     </div>
                                 </ng-container>
                             </ng-container>
-                            <ng-container *ngSwitchCase="(internalInsuranceId === INTERNAL_INSURANCES.BUILDING) ? internalInsuranceId : ''">
+                            <ng-container *ngSwitchCase="INSURANCE_GROUPS.BUILDINGS">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">Nombre de la Propiedad</label>
@@ -89,22 +90,26 @@
                                     </div>
                                 </div>
                             </ng-container>
-                            <ng-container *ngSwitchCase="(internalInsuranceId === INTERNAL_INSURANCES.OBJECT) ? internalInsuranceId : ''">
+                            <ng-container *ngSwitchCase="(
+                                model.insured.insuranceGroupId === INSURANCE_GROUPS.MERCHANDISE ||
+                                model.insured.insuranceGroupId === INSURANCE_GROUPS.OBJECTS ||
+                                model.insured.insuranceGroupId === INSURANCE_GROUPS.RC
+                            ) ? model.insured.insuranceGroupId : ''">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="form-label">Nombre del Bien Asegurado</label>
+                                        <label class="form-label">{{objectNameLabel}}</label>
                                         <input type="text" class="form-control" [placeholder]="model.insured.objectName" readonly="">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="form-label">Uso del Bien Asegurado</label>
+                                        <label class="form-label">{{objectUsageLabel}}</label>
                                         <input type="text" class="form-control" [placeholder]="model.insured.objectUsage" readonly="">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="form-label">Descripción del Bien Asegurado</label>
+                                        <label class="form-label">{{objectDescriptionLabel}}</label>
                                         <input type="text" class="form-control" [placeholder]="model.insured.objectDescription" readonly="">
                                     </div>
                                 </div>

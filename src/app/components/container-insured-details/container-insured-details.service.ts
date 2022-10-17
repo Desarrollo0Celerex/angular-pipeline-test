@@ -10,7 +10,7 @@ export class ContainerInsuredDetailsService {
     constructor(private _policyInsuredService: PolicyInsuredService) { }
 
     loadInsured(contactId: string, policyId: string, policyInsuredId: string): void {
-        const fields: string = 'insuranceId,insuranceTypeId,buildingLocation,buildingName,buildingUsage,objectDescription,objectName,objectUsage,personAge,personName,personGenderName,policyDetails,vehicleAdaptation,vehicleCargoTypeName,vehicleCoverPay,vehicleCoverageName,vehicleFeePay,vehicleInternalNumber,vehicleMaker,vehicleModel,vehicleMotor,vehicleNetPay,vehicleNumber,vehiclePlates,vehicleSerial,vehicleStatusName,vehicleSubgroup,vehicleTaxPay,vehicleTotalAmount,vehicleType,vehicleUnitType,vehicleUseName,vehicleValidityStartDate,vehicleVersion';
+        const fields: string = 'insuranceId,insuranceTypeId,buildingLocation,buildingName,buildingUsage,objectDescription,objectName,objectUsage,personAge,personName,personGenderName,policyDetails,vehicleAdaptation,vehicleCargoTypeName,vehicleCoverPay,vehicleCoverageName,vehicleFeePay,vehicleInternalNumber,vehicleMaker,vehicleModel,vehicleMotor,vehicleNetPay,vehicleNumber,vehiclePlates,vehicleSerial,vehicleStatusName,vehicleSubgroup,vehicleTaxPay,vehicleTotalAmount,vehicleType,vehicleUnitType,vehicleUseName,vehicleValidityStartDate,vehicleVersion,insuranceGroupId';
         this._policyInsuredService.getPolicyInsured(contactId, policyId, policyInsuredId, fields).subscribe((res: Insured) => {
             this.insured = res;
         });
