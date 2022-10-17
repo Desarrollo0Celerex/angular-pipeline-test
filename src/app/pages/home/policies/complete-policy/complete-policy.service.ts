@@ -6,8 +6,8 @@ import { tap, map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { FREE_TEXT_LENGTH, TITULAR_NAME_LENGTH, POLICY_SOURCES, ROLES, SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY,
-    SLACK_DAYS_TO_LOAD_A_EXPIRED_POLICY, INSURANCES, DEFAULT_PAYMENT_METHOD_ID, INSURANCE_TYPES, SHORT_ALPHANUMERIC_LENGTH,
-    LONG_ALPHANUMERIC_LENGTH, FILE_TYPES
+    SLACK_DAYS_TO_LOAD_A_EXPIRED_POLICY, DEFAULT_PAYMENT_METHOD_ID, INSURANCE_TYPES, SHORT_ALPHANUMERIC_LENGTH,
+    LONG_ALPHANUMERIC_LENGTH, FILE_TYPES, INSURANCE_GROUPS
 } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
@@ -282,7 +282,7 @@ export class CompletePolicyService {
      */
     getContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
@@ -374,20 +374,8 @@ export class CompletePolicyService {
 
     newInsured(insured: Insured | null): FormGroup {
         let insuredForm: FormGroup;
-        switch (this.policy!.insuranceId) {
-            case INSURANCES.LIVE:
-            case INSURANCES.RETIRE:
-            case INSURANCES.HEALTH:
-            case INSURANCES.ACCIDENTS:
-            case INSURANCES.CARE:
-            case INSURANCES.PETS:
-            case INSURANCES.CRISIS:
-            case INSURANCES.TRAVEL:
-            case INSURANCES.DEATH:
-            case INSURANCES.CREDIT:
-            case INSURANCES.WARRANTY:
-            case INSURANCES.SCHOOLAR:
-            case INSURANCES.FIANCE:
+        switch (this.policy!.insuranceGroupId) {
+            case INSURANCE_GROUPS.PEOPLE:
                 insuredForm = this._formBuilder.group({
                     personName: [(!!insured && !!insured.personName) ? insured.personName : '', [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownNames]],
                     personGenderId: [(!!insured && !!insured.personGenderId) ? insured.personGenderId : ''],
@@ -395,9 +383,7 @@ export class CompletePolicyService {
                 });
                 break;
 
-            case INSURANCES.CAR:
-            case INSURANCES.MOTORBIKE:
-            case INSURANCES.BIKE:
+            case INSURANCE_GROUPS.VEHICLES:
                 switch(this.policy!.insuranceTypeId) {
                     case INSURANCE_TYPES.FLOTILLA:
                         insuredForm = this._formBuilder.group({
@@ -438,9 +424,7 @@ export class CompletePolicyService {
                 }
                 break;
 
-            case INSURANCES.HOME:
-            case INSURANCES.BUILDING:
-            case INSURANCES.FARM:
+            case INSURANCE_GROUPS.BUILDINGS:
                 insuredForm = this._formBuilder.group({
                     buildingName: [(!!insured && !!insured.buildingName) ? insured.buildingName : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
                     buildingUsage: [(!!insured && !!insured.buildingUsage) ? insured.buildingUsage : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
@@ -448,12 +432,9 @@ export class CompletePolicyService {
                 });
                 break;
 
-            case INSURANCES.CIVIL:
-            case INSURANCES.TECHNICAL:
-            case INSURANCES.CAUTION:
-            case INSURANCES.TERRESTRIAL:
-            case INSURANCES.TRANSPORT:
-            case INSURANCES.AERO:
+            case INSURANCE_GROUPS.MERCHANDISE:
+            case INSURANCE_GROUPS.OBJECTS:
+            case INSURANCE_GROUPS.RC:
                 insuredForm = this._formBuilder.group({
                     objectName: [(!!insured && !!insured.objectName) ? insured.objectName : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
                     objectUsage: [(!!insured && !!insured.objectUsage) ? insured.objectUsage : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
@@ -522,28 +503,14 @@ export class CompletePolicyService {
 
     private _getInsuredRequestBody(insured: any): FormData {
         const requestBody: FormData = new FormData();
-        switch(this.policy!.insuranceId) {
-            case INSURANCES.LIVE:
-            case INSURANCES.RETIRE:
-            case INSURANCES.HEALTH:
-            case INSURANCES.ACCIDENTS:
-            case INSURANCES.CARE:
-            case INSURANCES.PETS:
-            case INSURANCES.CRISIS:
-            case INSURANCES.TRAVEL:
-            case INSURANCES.DEATH:
-            case INSURANCES.CREDIT:
-            case INSURANCES.WARRANTY:
-            case INSURANCES.SCHOOLAR:
-            case INSURANCES.FIANCE:
+        switch(this.policy!.insuranceGroupId) {
+            case INSURANCE_GROUPS.PEOPLE:
                 requestBody.append('personName', insured.personName);
                 requestBody.append('personGenderId', insured.personGenderId);
                 requestBody.append('personAge', insured.personAge);
                 break;
 
-            case INSURANCES.CAR:
-            case INSURANCES.MOTORBIKE:
-            case INSURANCES.BIKE:
+            case INSURANCE_GROUPS.VEHICLES:
                 switch(this.policy!.insuranceTypeId) {
                     case INSURANCE_TYPES.FLOTILLA:
                         requestBody.append('vehicleNumber', insured.vehicleNumber);
@@ -580,20 +547,15 @@ export class CompletePolicyService {
                 }
                 break;
 
-            case INSURANCES.HOME:
-            case INSURANCES.BUILDING:
-            case INSURANCES.FARM:
+            case INSURANCE_GROUPS.BUILDING:
                 requestBody.append('buildingName', insured.buildingName);
                 requestBody.append('buildingUsage', insured.buildingUsage);
                 requestBody.append('buildingLocation', insured.buildingLocation);
                 break;
 
-            case INSURANCES.CIVIL:
-            case INSURANCES.TECHNICAL:
-            case INSURANCES.CAUTION:
-            case INSURANCES.TERRESTRIAL:
-            case INSURANCES.TRANSPORT:
-            case INSURANCES.AERO:
+            case INSURANCE_GROUPS.MERCHANDISE:
+            case INSURANCE_GROUPS.OBJECTS:
+            case INSURANCE_GROUPS.RC:
                 requestBody.append('objectName', insured.objectName);
                 requestBody.append('objectUsage', insured.objectUsage);
                 requestBody.append('objectDescription', insured.objectDescription);

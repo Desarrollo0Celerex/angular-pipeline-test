@@ -254,22 +254,8 @@
 
             <!-- //AGENTHOS - POLICY OWNER -->
             <div formArrayName="insureds">
-                <ng-container [ngSwitch]="updateCompletePolicyService.policy.insuranceId">
-                    <ng-container *ngSwitchCase="(
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.LIVE ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.RETIRE ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.HEALTH ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.ACCIDENTS ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.CARE ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.PETS ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.CRISIS ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.TRAVEL ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.DEATH ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.CREDIT ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.WARRANTY ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.SCHOOLAR ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.FIANCE
-                    ) ? updateCompletePolicyService.policy.insuranceId : ''">
+                <ng-container [ngSwitch]="updateCompletePolicyService.policy.insuranceGroupId">
+                    <ng-container *ngSwitchCase="INSURANCE_GROUPS.PEOPLE">
 
                         <div class="card">
                             <div class="card-header">
@@ -314,11 +300,7 @@
                             </div>
                         </div>
                     </ng-container>
-                    <ng-container *ngSwitchCase="(
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.CAR ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.MOTORBIKE ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.BIKE
-                    ) ? updateCompletePolicyService.policy.insuranceId : ''">
+                    <ng-container *ngSwitchCase="INSURANCE_GROUPS.VEHICLES">
 
                         <ng-container *ngIf="updateCompletePolicyService.f.insuranceTypeId.value == INSURANCE_TYPES.FLOTILLA; else vehicleIndividual">
                             <ng-container *ngFor="let insured of updateCompletePolicyService.insureds.controls; let insuredIndex = index">
@@ -636,11 +618,7 @@
                         </ng-template>
 
                     </ng-container>
-                    <ng-container *ngSwitchCase="(
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.HOME ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.BUILDING ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.FARM
-                    ) ? updateCompletePolicyService.policy.insuranceId : ''">
+                    <ng-container *ngSwitchCase="INSURANCE_GROUPS.BUILDINGS">
 
                         <div class="card">
                             <div class="card-header">
@@ -684,13 +662,10 @@
                         </div>
                     </ng-container>
                     <ng-container *ngSwitchCase="(
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.CIVIL ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.TECHNICAL ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.CAUTION ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.TERRESTRIAL ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.TRANSPORT ||
-                        updateCompletePolicyService.policy.insuranceId === INSURANCES.AERO
-                    ) ? updateCompletePolicyService.policy.insuranceId : ''">
+                        updateCompletePolicyService.policy.insuranceGroupId === INSURANCE_GROUPS.MERCHANDISE ||
+                        updateCompletePolicyService.policy.insuranceGroupId === INSURANCE_GROUPS.OBJECTS ||
+                        updateCompletePolicyService.policy.insuranceGroupId === INSURANCE_GROUPS.RC
+                    ) ? updateCompletePolicyService.policy.insuranceGroupId : ''">
 
                         <div class="card">
                             <div class="card-header">
@@ -705,7 +680,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <!-- AGENTHOS - POLICY INSURED OBJECT NAME * -->
-                                                        <label class="form-label">Nombre del Bien Asegurado</label>
+                                                        <label class="form-label">{{objectNameLabel}}</label>
                                                         <input type="text" class="form-control {{getValidationClassInsured('objectName', insuredIndex)}}" formControlName="objectName">
                                                         <div class="invalid-feedback">{{getErrorMessageInsured('objectName', insuredIndex)}}</div>
                                                     </div>
@@ -713,7 +688,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <!-- AGENTHOS - POLICY INSURED OBJECT USE * -->
-                                                        <label class="form-label">Uso del Bien Asegurado</label>
+                                                        <label class="form-label">{{objectUsageLabel}}</label>
                                                         <input type="text" class="form-control {{getValidationClassInsured('objectUsage', insuredIndex)}}" formControlName="objectUsage">
                                                         <div class="invalid-feedback">{{getErrorMessageInsured('objectUsage', insuredIndex)}}</div>
                                                     </div>
@@ -721,7 +696,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <!-- AGENTHOS - POLICY INSURED OBJECT DESCRIPTION * -->
-                                                        <label class="form-label">Descripción del Bien Asegurado</label>
+                                                        <label class="form-label">{{objectDescriptionLabel}}</label>
                                                         <input type="text" class="form-control {{getValidationClassInsured('objectDescription', insuredIndex)}}" formControlName="objectDescription">
                                                         <div class="invalid-feedback">{{getErrorMessageInsured('objectDescription', insuredIndex)}}</div>
                                                     </div>

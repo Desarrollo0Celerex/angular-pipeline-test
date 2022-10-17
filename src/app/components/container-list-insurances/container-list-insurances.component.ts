@@ -27,8 +27,7 @@ export class ContainerListInsurancesComponent implements OnInit {
     }
 
     selectInsurance(insuranceId: number): void {
-        console.log('insuranceId: ',insuranceId);
-        //this.insuranceSelected.emit(insuranceId);
+        this.insuranceSelected.emit(insuranceId);
     }
 
     private _loadContact(): void {

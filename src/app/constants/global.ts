@@ -390,6 +390,14 @@ export const ROLES: any = {
     INSURANCE_ADVISOR: 6,
     DATA_ANALYST: 7
 }
+export const INSURANCE_GROUPS: any = {
+    PEOPLE: 1,
+    VEHICLES: 2,
+    BUILDINGS: 3,
+    MERCHANDISE: 4,
+    OBJECTS: 5,
+    RC: 6
+}
 export const INSURANCES: any = {
     LIVE: 1,
     RETIRE: 2,

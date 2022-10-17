@@ -4,7 +4,7 @@ import { AbstractControl } from '@angular/forms';
 import * as moment from 'moment';
 
 import { ERROR_CODES } from '@constants/error-codes';
-import { DOCUMENT_FORMATS, FILE_TYPES, POLICY_SOURCES, INSURANCES, INSURANCE_TYPES } from '@constants/global';
+import { DOCUMENT_FORMATS, FILE_TYPES, POLICY_SOURCES, INSURANCE_GROUPS, INSURANCE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -27,7 +27,7 @@ declare var ModalPlugin: any;
   ]
 })
 export class CompletePolicyPage implements OnInit {
-    INSURANCES: any = INSURANCES;
+    INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     INSURANCE_TYPES: any = INSURANCE_TYPES;
     contactId: string;
     existingContactId: string = '';
@@ -82,6 +82,42 @@ export class CompletePolicyPage implements OnInit {
     ngOnInit(): void {
         this._catchParams();
         this._loadContactPolicy();
+    }
+
+    get objectNameLabel(): string {
+        let label: string = '';
+        if(!!this.completePolicyService.policy && !!this.completePolicyService.policy.insuranceGroupId) {
+            switch(this.completePolicyService.policy.insuranceGroupId) {
+                case INSURANCE_GROUPS.OBJECTS:
+                case INSURANCE_GROUPS.MERCHANDISE: label = 'Nombre del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.RC: label = 'Nombre de la Persona o Bien Asegurado'; break;
+            }
+        }
+        return label;
+    }
+
+    get objectUsageLabel(): string {
+        let label: string = '';
+        if(!!this.completePolicyService.policy && !!this.completePolicyService.policy.insuranceGroupId) {
+            switch(this.completePolicyService.policy.insuranceGroupId) {
+                case INSURANCE_GROUPS.OBJECTS: label = 'Marca del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.MERCHANDISE: label = 'Uso del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.RC: label = 'Actividad Asegurada'; break;
+            }
+        }
+        return label;
+    }
+
+    get objectDescriptionLabel(): string {
+        let label: string = '';
+        if(!!this.completePolicyService.policy && !!this.completePolicyService.policy.insuranceGroupId) {
+            switch(this.completePolicyService.policy.insuranceGroupId) {
+                case INSURANCE_GROUPS.OBJECTS: label = 'Características del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.MERCHANDISE: label = 'Descripción del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.RC: label = 'Descripción'; break;
+            }
+        }
+        return label;
     }
 
     addNewInsured(): void {
@@ -442,20 +478,8 @@ export class CompletePolicyPage implements OnInit {
                 if(field === 'insureds') {
                     for(const fieldAux in data[field][0]) {
                         if(data[field][0][fieldAux] == '') {
-                            switch(this.completePolicyService.policy!.insuranceId) {
-                                case INSURANCES.LIVE:
-                                case INSURANCES.RETIRE:
-                                case INSURANCES.HEALTH:
-                                case INSURANCES.ACCIDENTS:
-                                case INSURANCES.CARE:
-                                case INSURANCES.PETS:
-                                case INSURANCES.CRISIS:
-                                case INSURANCES.TRAVEL:
-                                case INSURANCES.DEATH:
-                                case INSURANCES.CREDIT:
-                                case INSURANCES.WARRANTY:
-                                case INSURANCES.SCHOOLAR:
-                                case INSURANCES.FIANCE:
+                            switch(this.completePolicyService.policy!.insuranceGroupId) {
+                                case INSURANCE_GROUPS.PEOPLE:
                                     switch(fieldAux){
                                         case 'personName':
                                         case 'personGenderId':
@@ -465,9 +489,7 @@ export class CompletePolicyPage implements OnInit {
                                     }
                                 break;
 
-                                case INSURANCES.CAR:
-                                case INSURANCES.MOTORBIKE:
-                                case INSURANCES.BIKE:
+                                case INSURANCE_GROUPS.VEHICLES:
                                     switch(fieldAux){
                                         case 'vehicleMaker':
                                         case 'vehicleVersion':
@@ -480,9 +502,7 @@ export class CompletePolicyPage implements OnInit {
                                     }
                                 break;
 
-                                case INSURANCES.HOME:
-                                case INSURANCES.BUILDING:
-                                case INSURANCES.FARM:
+                                case INSURANCE_GROUPS.BUILDINGS:
                                     switch(fieldAux){
                                         case 'buildingName':
                                         case 'buildingUsage':
@@ -492,12 +512,9 @@ export class CompletePolicyPage implements OnInit {
                                     }
                                 break;
 
-                                case INSURANCES.CIVIL:
-                                case INSURANCES.TECHNICAL:
-                                case INSURANCES.CAUTION:
-                                case INSURANCES.TERRESTRIAL:
-                                case INSURANCES.TRANSPORT:
-                                case INSURANCES.AERO:
+                                case INSURANCE_GROUPS.MERCHANDISE:
+                                case INSURANCE_GROUPS.OBJECTS:
+                                case INSURANCE_GROUPS.RC:
                                     switch(fieldAux){
                                         case 'objectName':
                                         case 'objectUsage':

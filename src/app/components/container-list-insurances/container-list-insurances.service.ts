@@ -57,7 +57,6 @@ export class ContainerListInsurancesService {
         const fields: string = 'insuranceId,name,description,background,icon';
         this._insuranceService.getMostUsedInsurances(contactTypeId, fields).subscribe((res: HttpResponse) => {
             this.mostUsedInsurances = res.data;
-            console.log('this.mostUsedInsurances: ',this.mostUsedInsurances);
         });
     }
 
