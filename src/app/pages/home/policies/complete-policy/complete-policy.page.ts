@@ -280,7 +280,11 @@ export class CompletePolicyPage implements OnInit {
     private _downloadPolicy(policyUrl: string): void {
         this.completePolicyService.downloadPolicy(policyUrl).subscribe( (res: any) => {
             this._scannPolicy(res, policyUrl);
-        })
+        },
+        (error: any) =>{
+            this._scanningService.hide();
+            ModalPlugin.show(this.modalIdScanningPolicyFailed);
+        });
     }
 
     /**
