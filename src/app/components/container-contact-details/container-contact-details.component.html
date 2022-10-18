@@ -1,4 +1,3 @@
-<!-- AGENTHOS - PROFILE RESUME -->
 <div class="row" *ngIf="!!containerContactDetailsService.contact; else loadingContactDetails">
     <div class="col-sm-12">
         <div class="card">
@@ -7,19 +6,17 @@
                 <!-- AGENTHOS - CONTACT PIC -->
                 <img class="avatar brround" [src]="containerContactDetailsService.contact.avatarUrl" width="38px">
                 <div class="card-options">
-                    <div class="badge badge-primary-gradient mr-1">{{containerContactDetailsService.contact.contactTypeName | uppercase}}</div>
+                    <div class="badge badge-primary-gradient mr-1">{{(containerContactDetailsService.contact.clientStatusName | contactStatusName: containerContactDetailsService.contact.leadStatusName) | uppercase}}</div>
+                    <div class="badge badge-{{!!containerContactDetailsService.contact.clientStatusBackground ? containerContactDetailsService.contact.clientStatusBackground : containerContactDetailsService.contact.leadStatusBackground}} mr-1" *ngIf="!!containerContactDetailsService.contact.clientStatusName || containerContactDetailsService.contact.leadStatusName">{{(!!containerContactDetailsService.contact.clientStatusName ? containerContactDetailsService.contact.clientStatusName : containerContactDetailsService.contact.leadStatusName) | uppercase}}</div>
                 </div>
             </div>
             <!-- //AGENTHOS - CARD HEADER -->
             <!-- AGENTHOS - CARD BODY -->
-            <div class="card-body">
+            <div class="card-body pt-0">
                 <!-- AGENTHOS - CONTACT NAME -->
-                <a routerLink="/{{contactProfileRoute}}"><h3 class="h3">{{containerContactDetailsService.contact.contactName}}</h3></a>
-                <!-- AGENTHOS - CONTACT SOURCE -->
-                <p class="mb-3">
-                    <i class="fe fe-globe mr-1"></i>{{containerContactDetailsService.contact.contactSourceTypeName}}
-                    <span class="float-right"><i class="fe fe-award mr-1"></i>{{containerContactDetailsService.contact.contactScoreName}}</span>
-                </p>
+                <a routerLink="/{{contactProfileRoute}}">
+                    <h3 class="h3">{{containerContactDetailsService.contact.contactName}}</h3>
+                </a>
                 <ol class="breadcrumb1">
                     <li class="breadcrumb-item1">{{message}} <strong>{{containerContactDetailsService.contact.contactName}}</strong>.</li>
                 </ol>
