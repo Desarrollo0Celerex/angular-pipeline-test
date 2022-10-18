@@ -68,8 +68,9 @@ export class ContainerListInsurancesService {
     private _getRequestToGetCategoryInsurances(insuranceCategories: InsuranceCategory[]): Observable<HttpResponse[]> {
         let requests: Observable<HttpResponse>[] = [];
         const fields: string = 'insuranceId,name,description,background,icon';
+        const sortBy: string = 'sorting';
         for(let insuranceCategory of insuranceCategories) {
-            let request: Observable<HttpResponse> = this._insuranceService.getCategoryInsurances(insuranceCategory.insuranceCategoryId, fields);
+            let request: Observable<HttpResponse> = this._insuranceService.getCategoryInsurances(insuranceCategory.insuranceCategoryId, fields, sortBy);
             requests.push(request);
         }
         return forkJoin(requests);

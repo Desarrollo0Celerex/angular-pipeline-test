@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
+import { ContactStatusNameModule } from '@pipes/contact-status-name/contact-status-name.module';
 import { ContactService } from '@services/contact.service';
 
 import { ContainerContactDetailsComponent } from './container-contact-details.component';
@@ -13,6 +14,7 @@ import { ContainerContactDetailsService } from './container-contact-details.serv
   exports: [ContainerContactDetailsComponent],
   imports: [
     CommonModule,
+    ContactStatusNameModule,
     LoadingContentModule,
     RouterModule
   ],
