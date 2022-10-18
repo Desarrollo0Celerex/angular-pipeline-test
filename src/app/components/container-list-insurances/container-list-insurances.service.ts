@@ -31,7 +31,7 @@ export class ContainerListInsurancesService {
     }
 
     loadContact(contactId: string): Observable<HttpResponse> {
-        const fields: string = 'contactTypeId,name,namePaternal,nameMaternal';
+        const fields: string = 'contactTypeId,contactName';
         return this._contactService.getContact(contactId,fields).pipe(
             tap((res: HttpResponse) => {
                 this.contact = res.data;

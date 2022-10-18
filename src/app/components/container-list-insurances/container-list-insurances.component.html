@@ -15,7 +15,7 @@
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 <strong>Business Intelligence</strong> <hr class="message-inner-separator">
                 <span class="avatar brround cover-image" data-image-src="https://webkit.atombits.xyz/agenthos/app/agenthos_agent_userpic.png" style="background: url(&quot;https://webkit.atombits.xyz/agenthos/app/agenthos_agent_userpic.png&quot;) center center;"></span>
-                <p><strong>Predicción:</strong> La póliza de <strong>{{contactName}}</strong> que deseas cargar en este momento, puede pertenecer a estos ramos.</p>
+                <p><strong>Predicción:</strong> La póliza de <strong *ngIf="!!model.contact">{{model.contact.contactName}}</strong> que deseas cargar en este momento, puede pertenecer a estos ramos.</p>
             </div>
         </div>
         <div class="col-md-3 col-xl-3" *ngFor="let insurance of model.mostUsedInsurances">
