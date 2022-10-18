@@ -22,10 +22,6 @@ export class ContainerListInsurancesComponent implements OnInit {
         this._loadContact();
     }
 
-    get contactName(): string {
-        return (!!this.model.contact) ? `${this.model.contact.name} ${this.model.contact.namePaternal} ${this.model.contact.nameMaternal}` : '';
-    }
-
     selectInsurance(insuranceId: number): void {
         this.insuranceSelected.emit(insuranceId);
     }
