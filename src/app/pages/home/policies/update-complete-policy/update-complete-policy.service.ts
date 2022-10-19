@@ -399,7 +399,7 @@ export class UpdateCompletePolicyService {
                 }
                 break;
 
-            case INSURANCE_GROUPS.BUILDING:
+            case INSURANCE_GROUPS.BUILDINGS:
                 insuredForm = this._formBuilder.group({
                     buildingName: [(!!insured && !!insured.buildingName) ? insured.buildingName : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
                     buildingUsage: [(!!insured && !!insured.buildingUsage) ? insured.buildingUsage : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
@@ -603,7 +603,7 @@ export class UpdateCompletePolicyService {
                 }
                 break;
 
-            case INSURANCE_GROUPS.BUILDING:
+            case INSURANCE_GROUPS.BUILDINGS:
                 requestBody.append('buildingName', insured.buildingName);
                 requestBody.append('buildingUsage', insured.buildingUsage);
                 requestBody.append('buildingLocation', insured.buildingLocation);
