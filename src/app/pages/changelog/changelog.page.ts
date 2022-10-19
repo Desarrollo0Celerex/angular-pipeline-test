@@ -9,6 +9,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.33.3',
+            launchDate: '19/10/2022',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se soluciono bug al cargar y actualizar pólizas de la categoría "Hogar & Propiedades Inmobiliarias".'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.33.2',
             launchDate: '18/10/2022',
             changes: [

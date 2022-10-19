@@ -547,7 +547,7 @@ export class CompletePolicyService {
                 }
                 break;
 
-            case INSURANCE_GROUPS.BUILDING:
+            case INSURANCE_GROUPS.BUILDINGS:
                 requestBody.append('buildingName', insured.buildingName);
                 requestBody.append('buildingUsage', insured.buildingUsage);
                 requestBody.append('buildingLocation', insured.buildingLocation);
