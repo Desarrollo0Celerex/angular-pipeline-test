@@ -172,11 +172,15 @@ export class ContainerReportEventService {
     /**
      * Load the sinister event types
      */
-    loadSinisterEventTypes(insuranceGroupId: number): Observable<SinisterEventType> {
-        const fields: string = 'sinisterEventTypeId,name';
-        return this._sinisterEventTypeService.getSinisterEventTypes(insuranceGroupId, fields).pipe(
-            tap((res: SinisterEventType[]) => { this.sinisterEventTypes = res }),
-            map((res: SinisterEventType[]) => res[0] )
-        );
+    loadSinisterEventTypes(sinisterData: SinisterDataSend, insuranceGroupId: number): Observable<SinisterEventType> {
+        const fields: string = 'sinisterEventTypeId,name,isUnique';
+        return this._sinisterEventTypeService
+          .getSinisterEventTypes(sinisterData, insuranceGroupId, fields)
+          .pipe(
+            tap((res: SinisterEventType[]) => {
+              this.sinisterEventTypes = res;
+            }),
+            map((res: SinisterEventType[]) => res[0])
+          );
     }
 }

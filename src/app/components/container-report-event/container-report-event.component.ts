@@ -141,7 +141,7 @@ export class ContainerReportEventComponent implements OnInit {
             this.model.loadSinister(this.sinisterData).subscribe((sinister: Sinister) => {
                 if(!!sinister.sinisterStatusId !== SINISTER_STATUS.FINISHED && !!sinister.insuranceGroupId) {
                     this.defaultPhoneCodeId = sinister.workspaceCountryId;
-                    this.model.loadSinisterEventTypes(sinister.insuranceGroupId).subscribe((sinisterEventType: SinisterEventType) => {
+                    this.model.loadSinisterEventTypes(this.sinisterData!, sinister.insuranceGroupId).subscribe((sinisterEventType: SinisterEventType) => {
                         this.selectedSinisterEventTypeId = sinisterEventType.sinisterEventTypeId;
                         this.model.buildForm(this.selectedSinisterEventTypeId, this.defaultPhoneCodeId);
                         this._initCalendars();
