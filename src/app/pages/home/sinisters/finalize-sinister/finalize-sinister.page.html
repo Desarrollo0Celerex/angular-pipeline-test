@@ -71,16 +71,15 @@
                     <div class="card-body">
                         <div class="block-content">
                             <div class="form-group row">
-                                <div class="col-md-6">
+                                <!--<div class="col-md-6">
                                     <div class="form-group">
-                                        <!-- AGENTHOS - SINISTER RESOLUTION * -->
                                         <label class="form-label">Resolución de Siniestro</label>
                                         <select class="form-control custom-select {{getValidationClass('sinisterResolutionId')}}" formControlName="sinisterResolutionId">
                                             <option [value]="sinisterResolution.sinisterResolutionId" *ngFor="let sinisterResolution of finalizeSinisterService.sinisterResolutions">{{sinisterResolution.name}}</option>
                                         </select>
                                         <div class="invalid-feedback">{{getErrorMessage('sinisterResolutionId')}}</div>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Fecha de Resolución</label>
@@ -88,9 +87,8 @@
                                         <div class="invalid-feedback">{{getErrorMessage('resolutionDate')}}</div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <!--<div class="col-md-6">
                                     <div class="form-group">
-                                        <!-- AGENTHOS - SINISTER COMPENSATION AMMOUNT * -->
                                         <label class="form-label">Indemnización Total</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -105,14 +103,13 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <!-- AGENTHOS - SINISTER COMPENSATION CURRENCY * -->
                                         <label class="form-label">Moneda</label>
                                         <select class="form-control custom-select {{getValidationClass('currencyId')}}" formControlName="currencyId">
                                             <option [value]="currency.currencyId" *ngFor="let currency of finalizeSinisterService.currencies">{{currency.name}}</option>
                                         </select>
                                         <div class="invalid-feedback">{{getErrorMessage('currencyId')}}</div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -130,7 +127,7 @@
                                     <div class="form-group">
                                         <!-- AGENTHOS - SINISTER DATE -->
                                         <label class="form-label">Fecha del Siniestro</label>
-                                        <input type="text" class="form-control" [placeholder]="finalizeSinisterService.sinister.sinisterDate | date: 'dd/MM/yyyy'" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="finalizeSinisterService.sinister.sinisterDate" readonly="">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
