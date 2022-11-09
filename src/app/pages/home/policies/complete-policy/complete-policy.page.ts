@@ -209,6 +209,7 @@ export class CompletePolicyPage implements OnInit {
     onSubmitSavePolicy(): void {
         this._isFormSubmitted = true;
         if(!this.completePolicyService.policyForm.valid) {
+            AlertHelper.invalidForm();
             return;
         }
         // Check the policy amounts
