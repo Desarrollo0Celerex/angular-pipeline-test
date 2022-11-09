@@ -83,6 +83,16 @@ export class EndorsePolicyService {
         }
     }*/
 
+    // NOTA: Solución deribada de la cancelación de la función anterior
+    calculateMonthsLeftToPay(): void {
+        if(this.policy) {
+            const startDate = moment(this.policy.validityStartDate);
+            const endDate = moment(UtilitiesHelper.getOriginalDateFormat(this.f.validityEndDate.value));
+            const totalMonths = endDate.diff(startDate, 'months');
+            this.monthsLeftToPay = totalMonths - this.policy.monthsPaid;
+        }
+    }
+
     /**
      * Calculate the new bills
      */

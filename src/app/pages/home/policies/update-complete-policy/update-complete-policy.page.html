@@ -108,7 +108,7 @@
                                     <!-- AGENTHOS - POLICY TYPE * -->
                                     <!-- (JUST ENABLED FOR GLOBAL ADMIN)-->
                                     <label class="form-label">Tipo de Póliza</label>
-                                    <select class="form-control custom-select {{getValidationClass('insuranceTypeId')}}" formControlName="insuranceTypeId">
+                                    <select class="form-control custom-select {{getValidationClass('insuranceTypeId')}}" formControlName="insuranceTypeId" (change)="onChangeInsuranceTypeId()">
                                         <option [value]="insuranceType.insuranceTypeId" *ngFor="let insuranceType of updateCompletePolicyService.insuranceTypes">{{insuranceType.name}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('insuranceTypeId')}}</div>

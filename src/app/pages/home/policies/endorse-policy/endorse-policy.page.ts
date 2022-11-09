@@ -215,6 +215,7 @@ export class EndorsePolicyPage implements OnInit {
     validityEndDateChanged(): void {
         if(this.model.f.validityEndDate.valid) {
             //this.model.calculatePaymentPlansAvailable();
+            this.model.calculateMonthsLeftToPay();
             this.model.calculateNewBills();
         }
     }
@@ -286,6 +287,7 @@ export class EndorsePolicyPage implements OnInit {
         this.model.loadPaymentPlans().subscribe( () => {
             this.selectedPaymentPlanName = this.model.getSelectedPaymentPlanName();
             //this.model.calculatePaymentPlansAvailable();
+            this.model.calculateMonthsLeftToPay();
         })
     }
 

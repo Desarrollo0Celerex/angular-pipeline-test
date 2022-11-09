@@ -9,6 +9,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.33.4',
+            launchDate: '08/11/2022',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se soluciono bug al aplicar un endoso de incremento de prima y en ese proceso intentar carmbiar el plan de pago; los recibos no se calculaban bien.',
+                        'Se soluciono bug al actualizar una póliza de autos individual a autos flotilla'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.33.3',
             launchDate: '19/10/2022',
             changes: [

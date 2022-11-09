@@ -160,6 +160,13 @@ export class UpdateCompletePolicyPage implements OnInit {
         this._loadInsuranceTypes();
     }
 
+    onChangeInsuranceTypeId(): void {
+        const newInsuranceTypeId: number = parseInt(this.updateCompletePolicyService.f.insuranceTypeId.value);
+        this.updateCompletePolicyService.policy!.insuranceTypeId = newInsuranceTypeId;
+        this.updateCompletePolicyService.buildPolicyForm(this.updateCompletePolicyService.policy);
+        this.confirmUpdateInsured(0);
+    }
+
     /**
      * Click event to show modal to select policy
      */
@@ -205,6 +212,8 @@ export class UpdateCompletePolicyPage implements OnInit {
                     ModalPlugin.show(this.modalIdPolicyAmountsDifferent);
                 }
             }
+        } else {
+            AlertHelper.invalidForm();
         }
     }
 
