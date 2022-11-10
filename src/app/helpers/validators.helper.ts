@@ -57,6 +57,20 @@ export class ValidatorsHelper {
         return null;
     }
 
+    static amountWithoutZero(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            let value: any = control.value;
+            if(!!value) {
+                value = value.toString();
+                value = value.replace('.', '');
+                value = value.replace(',', '');
+                value = value.replace('-', '');
+                return (parseInt(value) * 1 !== 0) ? null : {currency: true};
+            }
+        }
+        return null;
+    }
+
     static isValidAmounMexican(value: any): boolean {
         const regex = /^-?(([1-9]\d{0,2}(,\d{3}){0,2})|\d{0,9})?(\.\d{1,2})?$/;
         return (regex.test(value)) ? true : false;
