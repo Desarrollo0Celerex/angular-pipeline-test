@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import * as moment from 'moment';
 
 import { FREE_TEXT_LENGTH, INSURANCE_GROUPS, TITULAR_NAME_LENGTH, INSURANCE_TYPES,
-    LONG_ALPHANUMERIC_LENGTH, SHORT_ALPHANUMERIC_LENGTH, FILE_TYPES
+    LONG_ALPHANUMERIC_LENGTH, SHORT_ALPHANUMERIC_LENGTH, FILE_TYPES, PAYMENT_PLANS
 } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
@@ -51,6 +51,7 @@ export class UpdateCompletePolicyService {
     private _areFractionatedPaymentAmounts: boolean = false;
     private _allowedFileTypes: string[] = ['pdf'];
     private _canShowPreview: boolean = true;
+    private _isSinglePayment: boolean = false;
     private _maxFileSize: string = '2M';
 
     constructor(
@@ -220,8 +221,16 @@ export class UpdateCompletePolicyService {
         this.f.policyAmount.disable();
         this.f.currencyId.disable();
         this.f.paymentMethodId.disable();
-        this.f.paymentPlanId.disable();
         this.f.bills.disable();
+
+        // Enable update payment plan if the policy has a single payment and is valid for one year
+        const policyYears = moment(this.policy!.validityEndDate, 'DD/MM/YYYY').diff(moment(this.policy!.validityStartDate, 'DD/MM/YYYY').format('YYYY/MM/DD'), 'years');
+        if((this.policy!.paymentPlanId === PAYMENT_PLANS.SINGLE_PAYMENT || this.policy!.paymentPlanId === PAYMENT_PLANS.ANNUAL) && policyYears <= 1) {
+            this._isSinglePayment = true;
+        } else {
+            this.f.paymentPlanId.disable();
+        }
+        
     }
 
     initDropifyPlugin(): void {
@@ -318,7 +327,11 @@ export class UpdateCompletePolicyService {
         const fields: string = 'paymentPlanId,name,months';
         return this._paymentPlanService.getPaymentPlans(fields).pipe(
             tap((res: HttpResponse) => {
-                this.paymentPlans = res.data;
+                if(this._isSinglePayment) {
+                    this.paymentPlans = res.data.filter((paymentPlan: PaymentPlan) => paymentPlan.months === 0 || paymentPlan.months === 12 );
+                } else {
+                    this.paymentPlans = res.data;
+                }
             }),
             map(() => { })
         );
@@ -659,6 +672,7 @@ export class UpdateCompletePolicyService {
         requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
         requestBody.append('isAutoPayment', (this.f.isAutoPayment.value) ? '1' : '0');
         requestBody.append('partnerId', this.f.partnerId.value);
+        requestBody.append('paymentPlanId', (this._isSinglePayment) ? this.f.paymentPlanId.value : this.policy!.paymentPlanId);
 
         if(this.f.insuranceTypeId.value == INSURANCE_TYPES.FLOTILLA) {
             requestBody.append('description', this.f.description.value);
