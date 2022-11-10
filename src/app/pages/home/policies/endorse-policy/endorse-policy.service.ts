@@ -303,7 +303,7 @@ export class EndorsePolicyService {
                 endorsementEmissionDate: ['', [Validators.required, ValidatorsHelper.date] ],
                 endorsementTypeId: ['', [Validators.required] ],
                 endorsementComments: ['', [Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext] ],
-                endorsementAmount: ['', [Validators.required, ValidatorsHelper.amount] ],
+                endorsementAmount: ['', [Validators.required, ValidatorsHelper.amount, ValidatorsHelper.amountWithoutZero] ],
                 coveredProperty: [this.policy.coveredProperty, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 policyNumber: [this.policy.policyNumber, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
                 clientNumber: [this.policy.clientNumber, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],

@@ -16,6 +16,7 @@ export class ChangelogPage {
                     title: 'Smart Wallet',
                     items: [
                         'Se habilito actualización del plan de pago si y solo si la póliza solo es de un pago (pago único o pago anual) y la vigencia de la póliza es de un año o menor.',
+                        'Se agrego validación al aplicar un endoso de incremento o decremento de prima para que el monto del endoso sea diferente a cero.'
                     ]
                 }
             ]

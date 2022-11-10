@@ -143,6 +143,7 @@ export class EndorsePolicyPage implements OnInit {
 
     changeFinalPolicyAmount(): void {
         let endorsementAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.endorsementAmount.value));
+        endorsementAmount = (Number.isNaN(endorsementAmount)) ? 0 : endorsementAmount;
         endorsementAmount = (endorsementAmount < 0) ? endorsementAmount * (-1) : endorsementAmount;
         const policyAmount: number = parseFloat(this.model.policy!.policyAmount.toString());
         const finalPolicyAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals((this.model.f.endorsementTypeId.value == ENDORSEMENT_TYPES.A) ? policyAmount + endorsementAmount : policyAmount - endorsementAmount);
@@ -150,7 +151,8 @@ export class EndorsePolicyPage implements OnInit {
     }
 
     changeEndorsementAmount(): void {
-        const finalPolicyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.finalPolicyAmount.value));
+        let finalPolicyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.finalPolicyAmount.value));
+        finalPolicyAmount = (Number.isNaN(finalPolicyAmount)) ? 0 : finalPolicyAmount;
         const policyAmount: number = parseFloat(this.model.policy!.policyAmount.toString());
         const endorsementAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals((this.model.f.endorsementTypeId.value == ENDORSEMENT_TYPES.A) ? finalPolicyAmount - policyAmount : policyAmount - finalPolicyAmount);
         this.model.f.endorsementAmount.setValue(endorsementAmount);
