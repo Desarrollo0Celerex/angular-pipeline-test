@@ -223,8 +223,8 @@ export class EndorsePolicyService {
         return this._policyService.endorsePolicyWithDecrement(contactId, policyId, requestBody);
     }
 
-    endorsePolicyWithIncrement(contactId: string, policyId: string, fractionalReceiptAmount: number, endorsementPaymentMethod: number): Observable<void> {
-        const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithIncrement(fractionalReceiptAmount, endorsementPaymentMethod);
+    endorsePolicyWithIncrement(contactId: string, policyId: string, fractionalReceiptAmount: number, endorsementPaymentMethodId: number): Observable<void> {
+        const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithIncrement(fractionalReceiptAmount, endorsementPaymentMethodId);
         return this._policyService.endorsePolicyWithIncrement(contactId, policyId, requestBody);
     }
 
@@ -411,7 +411,7 @@ export class EndorsePolicyService {
         return requestBody;
     }
 
-    private _getRequestBodyToEndorsePolicyWithIncrement(fractionalReceiptAmount: number, endorsementPaymentMethod: number): FormData {
+    private _getRequestBodyToEndorsePolicyWithIncrement(fractionalReceiptAmount: number, endorsementPaymentMethodId: number): FormData {
         let endorsementAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.endorsementAmount.value));
         endorsementAmount = (endorsementAmount < 0) ? endorsementAmount * (-1) : endorsementAmount;
         const requestBody: FormData = new FormData();
@@ -434,7 +434,7 @@ export class EndorsePolicyService {
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);
         requestBody.append('fractionalReceiptAmount', fractionalReceiptAmount.toString());
-        requestBody.append('endorsementPaymentMethod', endorsementPaymentMethod.toString());
+        requestBody.append('endorsementPaymentMethodId', endorsementPaymentMethodId.toString());
 
         return requestBody;
     }

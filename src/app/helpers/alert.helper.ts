@@ -620,9 +620,9 @@ export class AlertHelper {
     static trialStarted(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Acceso Permitido',
-            text: 'El periodo de prueba de 30 días ha sido activado.',
+            text: 'Tu periodo de prueba de 30 días ha sido activado con éxito.',
             type: 'success',
-            confirmButtonText: 'ACEPTAR',
+            confirmButtonText: 'CONTINUAR',
             callBack: callBack,
             context: context
         }

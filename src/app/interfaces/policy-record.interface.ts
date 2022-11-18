@@ -30,5 +30,8 @@ export interface PolicyRecord {
     sinisterResolutionCurrencyName: string,
     sinisterResolutionIndemnificationAmount: string,
     sinisterStatusName: string,
-    sinisterStatusId: number
+    sinisterStatusId: number,
+    endorsementAmount: number,
+    endorsementPaymentMethodName: string,
+    endorsementTypeId: number
 }

@@ -25,7 +25,24 @@
                             <!-- AGENTHOS - POLICY DELETE -->
                             <button type="button" class="dropdown-item" (click)="onClickDeletePolicy()"><i class="fa fa-trash mr-2"></i>Eliminar</button>
                         </ng-container>
-                        <ng-container *ngSwitchCase="(policy.policyStatusId === POLICY_STATUS.FINISHED || policy.policyStatusId === POLICY_STATUS.PENDING) ? policy.policyStatusId : ''">
+                        <ng-container *ngSwitchCase="POLICY_STATUS.PENDING">
+                            <!-- AGENTHOS - POLICY UPDATE -->
+                            <button type="button" class="dropdown-item" (click)="onClickUpdatePolicy()"><i class="fa fa-edit mr-2"></i>Actualizar</button>
+                             <!--<ng-container *ngIf="isInTime">-->  
+                                <!-- AGENTHOS - POLICY RENEWAL -->
+                                <button type="button" class="dropdown-item" (click)="onClickRenewPolicy()"><i class="fa fa-refresh mr-2"></i>Renovar</button>
+                                <!-- AGENTHOS - POLICY REISSUE -->
+                                <button type="button" class="dropdown-item" (click)="onClickReissuePolicy()"><i class="fa fa-retweet mr-2"></i>Reexpedir</button>
+                                <div class="dropdown-divider"></div>
+                            <!--</ng-container>-->
+                            <!-- AGENTHOS - POLICY HISTORY -->
+                            <button type="button" class="dropdown-item" (click)="onClickShowHistoryPolicy()"><i class="fa fa-history mr-2"></i>Historial</button>
+                            <!-- AGENTHOS - POLICY DELETE -->
+                            <button type="button" class="dropdown-item" (click)="onClickShowPaymentHistory()"><i class="fa fa-credit-card mr-2"></i>Pagos</button>
+                            <!-- AGENTHOS - POLICY SINISTERS -->
+                            <button type="button" class="dropdown-item" (click)="onClickShowPolicySinisters()"><i class="fa fa-support mr-2"></i>Siniestros</button>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="POLICY_STATUS.FINISHED">
                             <!--<ng-container *ngIf="isInTime">-->
                                 <!-- AGENTHOS - POLICY RENEWAL -->
                                 <button type="button" class="dropdown-item" (click)="onClickRenewPolicy()"><i class="fa fa-refresh mr-2"></i>Renovar</button>
