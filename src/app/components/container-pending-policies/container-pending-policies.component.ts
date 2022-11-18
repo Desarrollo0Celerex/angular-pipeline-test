@@ -27,7 +27,8 @@ export class ContainerPendingPoliciesComponent implements OnInit {
     @Output() showPolicy: EventEmitter<PolicyDataSend> = new EventEmitter<PolicyDataSend>();
     @Output() showPolicyDetails: EventEmitter<PolicyDataSend> = new EventEmitter<PolicyDataSend>();
     @Output() showPolicySinisters: EventEmitter<PolicyDataSend> = new EventEmitter<PolicyDataSend>();
-    contentSubtype: number = POLICY_STATUS.PENDING;
+    @Output() updatePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
+   contentSubtype: number = POLICY_STATUS.PENDING;
     modalIdShowPolicy: string = 'cpp-show-policy';
     modalIdShowPolicyDetails: string = 'cpp-show-policy-details';
     selectedPolicyId: string = '';
@@ -78,6 +79,10 @@ export class ContainerPendingPoliciesComponent implements OnInit {
 
     onShowPolicySinisters(data: PolicyDataSend): void {
         this.showPolicySinisters.emit(data);
+    }
+
+    onUpdatePolicy(data: ContactPolicyData): void {
+        this.updatePolicy.emit(data);
     }
 
 }

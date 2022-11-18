@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 
-import { POLICY_RECORD_TYPES } from '@constants/global';
+import { ENDORSEMENT_TYPES, POLICY_RECORD_TYPES } from '@constants/global';
 import { PolicyRecord } from '@interfaces/policy-record.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
@@ -23,7 +24,7 @@ export class CardPolicyRecordComponent implements OnInit {
     @Output() showSinisterDetails: EventEmitter<Sinister> = new EventEmitter<Sinister>();
     POLICY_RECORD_TYPES: any = POLICY_RECORD_TYPES;
 
-    constructor() { }
+    constructor(private _currencyPipe:CurrencyPipe) { }
 
     ngOnInit(): void {
         this._updatePolicyRecordTypeDescription();
@@ -143,6 +144,16 @@ export class CardPolicyRecordComponent implements OnInit {
                 case POLICY_RECORD_TYPES.ENDORSEMENT:
                     this.policyRecord.policyRecordTypeDescription = this.policyRecord.policyRecordTypeDescription.replace('[endorsementTypeName]', '<strong>'+this.policyRecord.endorsementTypeShortName+'</strong>');
                     this.policyRecord.policyRecordTypeDescription = this.policyRecord.policyRecordTypeDescription.replace('[endorsementNumber]', '<strong>'+this.policyRecord.endorsementNumber+'</strong>');
+                    if(!!this.policyRecord.endorsementAmount) {
+                        this.policyRecord.policyRecordTypeDescription += ' Monto del endoso: <strong>';
+                        if(this.policyRecord.endorsementTypeId === ENDORSEMENT_TYPES.D) {
+                            this.policyRecord.policyRecordTypeDescription += '- ';
+                        }
+                        this.policyRecord.policyRecordTypeDescription += this._currencyPipe.transform(this.policyRecord.endorsementAmount) + '</strong>. ';
+                    }
+                    if(!!this.policyRecord.endorsementPaymentMethodName) {
+                        this.policyRecord.policyRecordTypeDescription += ' Forma de pago: <strong>' + this.policyRecord.endorsementPaymentMethodName + '</strong>.';
+                    }
                     break;
 
                 case POLICY_RECORD_TYPES.RENEWED:
