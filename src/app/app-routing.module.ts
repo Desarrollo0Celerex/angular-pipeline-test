@@ -39,6 +39,7 @@ const routes: Routes = [
     { path: ROUTES_NAME.createWorkspace, loadChildren: () => import('@pages/workspaces/create-workspace/create-workspace.module').then(mod => mod.CreateWorkspaceModule), canActivate: [UserAuthenticatedGuard] },
     { path: ROUTES_NAME.uploadWorkspaceAvatar, loadChildren: () => import('@pages/workspaces/upload-workspace-avatar/upload-workspace-avatar.module').then(mod => mod.UploadWorkspaceAvatarModule), canActivate: [UserAuthenticatedGuard] },
     { path: ROUTES_NAME.activateWorkspace, loadChildren: () => import('@pages/workspaces/activate-workspace/activate-workspace.module').then(mod => mod.ActivateWorkspaceModule), canActivate: [UserAuthenticatedGuard] },
+    { path: ROUTES_NAME.activatedLicense, loadChildren: () => import('@pages/workspaces/activated-license/activated-license.module').then(mod => mod.ActivatedLicenseModule), canActivate: [UserAuthenticatedGuard] },
 
     { path: '**', redirectTo: ROUTES_NAME.notFound }
 ];

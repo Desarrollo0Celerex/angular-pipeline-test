@@ -173,7 +173,8 @@ const WORKSPACES_ROUTES = {
     welcome: 'workspaces/welcome',
     createWorkspace: 'workspaces/create-workspace',
     uploadWorkspaceAvatar: 'workspaces/upload-workspace-avatar',
-    activateWorkspace: 'workspaces/activate-workspace'
+    activateWorkspace: 'workspaces/activate-workspace',
+    activatedLicense: 'workspaces/activated-license',
 }
 
 export const ROUTES_NAME = {

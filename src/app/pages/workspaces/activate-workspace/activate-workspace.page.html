@@ -22,7 +22,9 @@
                     </div>
                     <div class="card-footer text-center">
                         <!-- AGENTHOS - START FREE TRIAL -->
-                        <button type="button" class="btn btn-primary btn-block" (click)="onClickStartTreal()"><strong>INICIAR PERIODO DE PRUEBA</strong></button>
+                        <a [href]="activateWorkspaceService.workspace.payLink">
+                            <button type="button" class="btn btn-primary btn-block"><strong>INICIAR PERIODO DE PRUEBA</strong></button>
+                        </a>
                     </div>
                 </div>
             </div>

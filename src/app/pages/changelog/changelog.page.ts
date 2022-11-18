@@ -9,6 +9,21 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.33.6',
+            launchDate: '18/11/2022',
+            changes: [
+                {
+                    title: 'Bugs',
+                    items: [
+                        'Se actualizo aplicación de endosos con incremento y decremento para guardar el monto del endoso.',
+                        'Se actualizo aplicación de endosos con incremento para guardar el metodo de pago.',
+                        'Se habilito menú para actualizar una póliza pendiente.',
+                        'Se agrego conexión con Stripe para capturar los datos de tarjeta y activar un espacio de trabajo.'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.33.5',
             launchDate: '10/11/2022',
             changes: [

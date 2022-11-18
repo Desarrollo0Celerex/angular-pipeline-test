@@ -4,5 +4,6 @@ export interface Workspace {
     brandName: string,
     avatarUrl: string,
     isActiveWorkspace: boolean,
-    countryId: number
+    countryId: number,
+    payLink: string
 }
