@@ -17,5 +17,13 @@ export interface SinisterEvent {
     providerPhoneNumber: string,
     providerEmail: string,
     observations: string,
-    canNotifyInsured: number
+    canNotifyInsured: number,
+    sinisterResolutionId: number,
+    currencyId: number,
+    paymentMethodId: number,
+    insuranceGroupId: number,
+    sumInsuredChassis: number,
+    deductibleChassis: number,
+    sumInsuredAdaptation: number,
+    deductibleAdaptation: number
 }

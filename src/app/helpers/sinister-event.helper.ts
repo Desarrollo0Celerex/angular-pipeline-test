@@ -132,6 +132,22 @@ export class SinisterEventHelper {
                     eventDetails += '.';
                 }
             break;
+
+            case SINISTER_EVENT_TYPES.INDEMNIFICATION:
+                if(!!sinisterLog.providerDate) {
+                    eventDetails += 'Se efectúa indemnización del siniestro el día: ' + sinisterLog.providerDate;
+                }
+                if(!!sinisterLog.providerBill) {
+                    eventDetails += ', por un monto de: ' + sinisterLog.providerBill;
+                }
+                if(!!sinisterLog.currencyName) {
+                    eventDetails += ', moneda: ' + sinisterLog.currencyName;
+                }
+                if(!!sinisterLog.paymentMethodName) {
+                    eventDetails += ', con forma de pago: ' + sinisterLog.paymentMethodName;
+                }
+                eventDetails += '.';
+            break;
         }
         return eventDetails;
     }

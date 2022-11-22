@@ -106,6 +106,7 @@ export class ContainerReportEventService {
                             evidenceFile: [''],
                             sinisterResolutionId: ['', [Validators.required]],
                             providerDate: ['', [Validators.required, ValidatorsHelper.date]],
+                            valuationDate: ['', [Validators.required, ValidatorsHelper.date]],
                             sumInsuredChassis: ['', [Validators.required, ValidatorsHelper.amount]],
                             deductibleChassis: ['', [Validators.required, ValidatorsHelper.amount]],
                             sumInsuredAdaptation: ['', [Validators.required, ValidatorsHelper.amount]],
@@ -113,7 +114,7 @@ export class ContainerReportEventService {
                             providerBill: ['', [Validators.required, ValidatorsHelper.amount]],
                             currencyId: ['', [Validators.required]],
                             paymentMethodId: ['', [Validators.required]],
-                            observations: ['', [Validators.required, Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]]
+                            observations: ['', [Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]]
                         });
                     break;
                 
@@ -124,10 +125,11 @@ export class ContainerReportEventService {
                             evidenceName: ['', [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
                             evidenceFile: [''],
                             sinisterResolutionId: ['', [Validators.required]],
+                            providerDate: ['', [Validators.required, ValidatorsHelper.date]],
                             providerBill: ['', [Validators.required, ValidatorsHelper.amount]],
                             currencyId: ['', [Validators.required]],
                             paymentMethodId: ['', [Validators.required]],
-                            observations: ['', [Validators.required, Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]]
+                            observations: ['', [Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]]
                         });
                     break;
                 }
@@ -160,7 +162,6 @@ export class ContainerReportEventService {
                 this.currencies = res.data;
             });
         }
-        
     }
 
     loadPaymentMethods(): void {
@@ -234,6 +235,7 @@ export class ContainerReportEventService {
                         requestBody.set('evidenceFile', this.f.evidenceFile.value);
                         requestBody.set('sinisterResolutionId', this.f.sinisterResolutionId.value);
                         requestBody.set('providerDate', this.f.providerDate.value);
+                        requestBody.set('valuationDate', this.f.valuationDate.value);
                         requestBody.set('sumInsuredChassis', this.f.sumInsuredChassis.value);
                         requestBody.set('deductibleChassis', this.f.deductibleChassis.value);
                         requestBody.set('sumInsuredAdaptation', this.f.sumInsuredAdaptation.value);
@@ -250,6 +252,7 @@ export class ContainerReportEventService {
                         requestBody.set('evidenceName', this.f.evidenceName.value);
                         requestBody.set('evidenceFile', this.f.evidenceFile.value);
                         requestBody.set('sinisterResolutionId', this.f.sinisterResolutionId.value);
+                        requestBody.set('providerDate', this.f.providerDate.value);
                         requestBody.set('providerBill', this.f.providerBill.value);
                         requestBody.set('currencyId', this.f.currencyId.value);
                         requestBody.set('paymentMethodId', this.f.paymentMethodId.value);

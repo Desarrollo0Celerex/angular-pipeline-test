@@ -129,6 +129,11 @@ export class ContainerReportEventComponent implements OnInit {
                 DatePickerPlugin.initElement(this.calendarIdReadmissionDate, this._onChangeDate, this);
             break;
 
+            case SINISTER_EVENT_TYPES.INDEMNIFICATION:
+                DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
+                DatePickerPlugin.initElement(this.calendarIdValuationDate, this._onChangeDate, this);              
+            break;
+
             default:
                 DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
         }

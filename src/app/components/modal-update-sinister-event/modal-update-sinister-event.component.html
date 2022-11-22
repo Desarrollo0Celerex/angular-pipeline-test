@@ -429,6 +429,147 @@
 								</div>
 							</ng-container>
 
+							<ng-container *ngSwitchCase="SINISTER_EVENT_TYPES.INDEMNIFICATION">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="form-label">Tipo de Indemnización</label>
+										<div class="form-group">
+											<select class="form-control {{getValidationClass('sinisterResolutionId')}}" formControlName="sinisterResolutionId">
+												<option [value]="sinisterResolution.sinisterResolutionId" *ngFor="let sinisterResolution of model.sinisterResolutions">{{sinisterResolution.name}}</option>
+											</select>
+											<div class="invalid-feedback">{{getErrorMessage('sinisterResolutionId')}}</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="form-label">Fecha de Indemnización</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+												</div>
+											</div>
+											<input [id]="calendarIdProviderDate" type="text" class="form-control fc-datepicker {{getValidationClass('providerDate')}}" formControlName="providerDate">
+											<div class="invalid-feedback">{{getErrorMessage('providerDate')}}</div>
+										</div>
+									</div>
+								</div>
+
+								<ng-container [ngSwitch]="model.sinisterEvent.insuranceGroupId">
+
+									<ng-container *ngSwitchCase="INSURANCE_GROUPS.VEHICLES">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="form-label">Entrega de Documentos</label>
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+														</div>
+													</div>
+													<input [id]="calendarIdValuationDate" type="text" class="form-control fc-datepicker {{getValidationClass('valuationDate')}}" formControlName="valuationDate">
+													<div class="invalid-feedback">{{getErrorMessage('valuationDate')}}</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="form-label">Suma Asegurada Chasis</label>
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+														</div>
+													</div>
+													<input type="text" class="form-control {{getValidationClass('sumInsuredChassis')}}" formControlName="sumInsuredChassis">
+													<div class="invalid-feedback">{{getErrorMessage('sumInsuredChassis')}}</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="form-label">Deducible Chasis</label>
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+														</div>
+													</div>
+													<input type="text" class="form-control {{getValidationClass('deductibleChassis')}}" formControlName="deductibleChassis">
+													<div class="invalid-feedback">{{getErrorMessage('deductibleChassis')}}</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="form-label">Suma Asegurada Apaptación</label>
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+														</div>
+													</div>
+													<input type="text" class="form-control {{getValidationClass('sumInsuredAdaptation')}}" formControlName="sumInsuredAdaptation">
+													<div class="invalid-feedback">{{getErrorMessage('sumInsuredAdaptation')}}</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="form-label">Deducible Adaptación</label>
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+														</div>
+													</div>
+													<input type="text" class="form-control {{getValidationClass('deductibleAdaptation')}}" formControlName="deductibleAdaptation">
+													<div class="invalid-feedback">{{getErrorMessage('deductibleAdaptation')}}</div>
+												</div>
+											</div>
+										</div>
+									</ng-container>
+								</ng-container>
+
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="form-label">Monto a Indemnizar</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+												</div>
+											</div>
+											<input type="text" class="form-control {{getValidationClass('providerBill')}}" formControlName="providerBill">
+											<div class="invalid-feedback">{{getErrorMessage('providerBill')}}</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="form-label">Moneda</label>
+										<div class="form-group">
+											<select class="form-control {{getValidationClass('currencyId')}}" formControlName="currencyId">
+												<option [value]="currency.currencyId" *ngFor="let currency of model.currencies">{{currency.name}}</option>
+											</select>
+											<div class="invalid-feedback">{{getErrorMessage('currencyId')}}</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="form-label">Forma de Pago</label>
+										<div class="form-group">
+											<select class="form-control {{getValidationClass('paymentMethodId')}}" formControlName="paymentMethodId">
+												<option [value]="paymentMethod.paymentMethodId" *ngFor="let paymentMethod of model.paymentMethods">{{paymentMethod.name}}</option>
+											</select>
+											<div class="invalid-feedback">{{getErrorMessage('paymentMethodId')}}</div>
+										</div>
+									</div>
+								</div>
+							</ng-container>
+
 							<ng-container *ngSwitchDefault>
 								<div class="col-md-6">
 									<div class="form-group">
