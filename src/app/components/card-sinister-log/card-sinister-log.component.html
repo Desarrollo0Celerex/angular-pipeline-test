@@ -67,7 +67,7 @@
         <div class="cbp_tmicon bg-success"><i class="fa fa-check-square-o"></i></div>
         <div class="cbp_tmlabel">
             <h2>{{sinisterLog.sinisterRecordTypeName}}</h2>
-            <p class="text-sm"><strong>{{sinisterLog.createdByName}}</strong> cerró el siniestro. Resolución: <strong>{{sinisterLog.sinisterResolutionName}}</strong>. Monto: <strong>{{sinisterLog.indemnificationAmount | currency: '': '$': '0.2-2'}}</strong>. Fecha Resolución: <strong>{{sinisterLog.resolutionDate | date: 'dd/MM/yyyy'}}</strong>.</p>
+            <p class="text-sm"><strong>{{sinisterLog.createdByName}}</strong> cerró el siniestro. Fecha Resolución: <strong>{{sinisterLog.resolutionDate | date: 'dd/MM/yyyy'}}</strong>.</p>
             <div class="btn-list mt-3" *ngIf="!!sinisterLog.finishedEvidenceUrl; else noFinishedEvidence">
                 <button type="button" class="btn btn-primary" (click)="onClickShowResolutionEvidence()"><strong>VER EVIDENCIA</strong></button>
             </div>

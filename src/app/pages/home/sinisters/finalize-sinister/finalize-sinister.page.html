@@ -71,45 +71,13 @@
                     <div class="card-body">
                         <div class="block-content">
                             <div class="form-group row">
-                                <!--<div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Resolución de Siniestro</label>
-                                        <select class="form-control custom-select {{getValidationClass('sinisterResolutionId')}}" formControlName="sinisterResolutionId">
-                                            <option [value]="sinisterResolution.sinisterResolutionId" *ngFor="let sinisterResolution of finalizeSinisterService.sinisterResolutions">{{sinisterResolution.name}}</option>
-                                        </select>
-                                        <div class="invalid-feedback">{{getErrorMessage('sinisterResolutionId')}}</div>
-                                    </div>
-                                </div>-->
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="form-label">Fecha de Resolución</label>
                                         <input [id]="calendarIdResolutionDate" class="form-control fc-datepicker {{getValidationClass('resolutionDate')}}" type="text" formControlName="resolutionDate">
                                         <div class="invalid-feedback">{{getErrorMessage('resolutionDate')}}</div>
                                     </div>
                                 </div>
-                                <!--<div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Indemnización Total</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
-                                                </div>
-                                            </div>
-                                            <input type="text" class="form-control {{getValidationClass('indemnificationAmount')}}" formControlName="indemnificationAmount">
-                                            <div class="invalid-feedback">{{getErrorMessage('indemnificationAmount')}}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Moneda</label>
-                                        <select class="form-control custom-select {{getValidationClass('currencyId')}}" formControlName="currencyId">
-                                            <option [value]="currency.currencyId" *ngFor="let currency of finalizeSinisterService.currencies">{{currency.name}}</option>
-                                        </select>
-                                        <div class="invalid-feedback">{{getErrorMessage('currencyId')}}</div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>

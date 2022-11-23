@@ -10,7 +10,7 @@ export class ChangelogPage {
     logs: any[] = [
         {
             version: '1.33.5',
-            launchDate: '22/11/2022',
+            launchDate: '23/11/2022',
             changes: [
                 {
                     title: 'Care Center',
