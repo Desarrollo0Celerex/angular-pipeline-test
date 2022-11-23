@@ -26,6 +26,7 @@ export class ModalUpdateSinisterCertificateComponent implements OnChanges {
     @Input() modalId: string = '';
     @Input() policyNumber: string = '';
     @Input() sinisterData: SinisterDataSend | null = null;
+    selectedInsuredPos: number = -1;
     private _isFormSubmitted: boolean = false;
 
     constructor(
@@ -39,6 +40,15 @@ export class ModalUpdateSinisterCertificateComponent implements OnChanges {
         if(!!changes.certificate && !!changes.certificate.currentValue) {
             this.model.form.patchValue({ certificate: changes.certificate.currentValue });
         }
+        if(!!this.sinisterData) {
+            this.model.loadPolicyInsureds(this.sinisterData.contactId, this.sinisterData.policyId).subscribe(() => {
+                this.calculateInsuredPos();
+            });
+        }
+    }
+
+    calculateInsuredPos(): void {
+        this.selectedInsuredPos = this.model.calculateInsuredPos(this.model.f.certificate.value);
     }
 
     /**

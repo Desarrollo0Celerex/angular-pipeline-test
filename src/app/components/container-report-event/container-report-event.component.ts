@@ -3,7 +3,8 @@ import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
-import { FILE_TYPES, FILE_ALL_FORMATS, SINISTER_EVENT_TYPES, SINISTER_STATUS } from '@constants/global';
+import { FILE_TYPES, FILE_ALL_FORMATS, SINISTER_EVENT_TYPES, SINISTER_STATUS,
+    INSURANCE_GROUPS } from '@constants/global';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
@@ -25,6 +26,7 @@ declare var ModalPlugin: any;
 })
 export class ContainerReportEventComponent implements OnInit {
     @Input() sinisterData: SinisterDataSend | null = null;
+    INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     SINISTER_EVENT_TYPES: any = SINISTER_EVENT_TYPES;
     SINISTER_STATUS: any = SINISTER_STATUS;
     calendarIdProviderDate: string = 'providerDate';
@@ -98,8 +100,7 @@ export class ContainerReportEventComponent implements OnInit {
 
     rebuildForm(event: any): void {
         this.selectedSinisterEventTypeId = parseInt(event.target.value);
-        this.model.buildForm(this.selectedSinisterEventTypeId, this.defaultPhoneCodeId);
-        this._initCalendars();
+        this._loadSinisterEventData();
     }
 
     showModalToSelectEvidence(): void {
@@ -128,6 +129,11 @@ export class ContainerReportEventComponent implements OnInit {
                 DatePickerPlugin.initElement(this.calendarIdReadmissionDate, this._onChangeDate, this);
             break;
 
+            case SINISTER_EVENT_TYPES.INDEMNIFICATION:
+                DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
+                DatePickerPlugin.initElement(this.calendarIdValuationDate, this._onChangeDate, this);              
+            break;
+
             default:
                 DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
         }
@@ -141,13 +147,25 @@ export class ContainerReportEventComponent implements OnInit {
             this.model.loadSinister(this.sinisterData).subscribe((sinister: Sinister) => {
                 if(!!sinister.sinisterStatusId !== SINISTER_STATUS.FINISHED && !!sinister.insuranceGroupId) {
                     this.defaultPhoneCodeId = sinister.workspaceCountryId;
-                    this.model.loadSinisterEventTypes(sinister.insuranceGroupId).subscribe((sinisterEventType: SinisterEventType) => {
+                    this.model.loadSinisterEventTypes(this.sinisterData!, sinister.insuranceGroupId).subscribe((sinisterEventType: SinisterEventType) => {
                         this.selectedSinisterEventTypeId = sinisterEventType.sinisterEventTypeId;
-                        this.model.buildForm(this.selectedSinisterEventTypeId, this.defaultPhoneCodeId);
-                        this._initCalendars();
+                        this._loadSinisterEventData();
                     });
                 }
             });
+        }
+    }
+
+    private _loadSinisterEventData(): void {
+        this.model.buildForm(this.selectedSinisterEventTypeId, this.defaultPhoneCodeId);
+        this._initCalendars();
+
+        switch (this.selectedSinisterEventTypeId) {
+            case SINISTER_EVENT_TYPES.INDEMNIFICATION:
+                this.model.loadSinisterResolutions(); 
+                this.model.loadCurrencies(); 
+                this.model.loadPaymentMethods();   
+            break;
         }
     }
 

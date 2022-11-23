@@ -9,6 +9,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.33.7',
+            launchDate: '23/11/2022',
+            changes: [
+                {
+                    title: 'Care Center',
+                    items: [
+                        'Se agrego nuevo evento "Indemnización" al reportar un siniestro.'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.33.6',
             launchDate: '18/11/2022',
             changes: [

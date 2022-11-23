@@ -44,8 +44,6 @@ export class FinalizeSinisterPage implements OnInit {
 
     ngOnInit(): void {
         this._catchParams();
-        this.finalizeSinisterService.loadSinisterResolutions();
-        this.finalizeSinisterService.loadCurrencies();
         this._loadSinister();
     }
 

@@ -67,7 +67,7 @@
         <div class="cbp_tmicon bg-success"><i class="fa fa-check-square-o"></i></div>
         <div class="cbp_tmlabel">
             <h2>{{sinisterLog.sinisterRecordTypeName}}</h2>
-            <p class="text-sm"><strong>{{sinisterLog.createdByName}}</strong> cerró el siniestro. Resolución: <strong>{{sinisterLog.sinisterResolutionName}}</strong>. Monto: <strong>{{sinisterLog.indemnificationAmount | currency: '': '$': '0.2-2'}}</strong>. Fecha Resolución: <strong>{{sinisterLog.resolutionDate | date: 'dd/MM/yyyy'}}</strong>.</p>
+            <p class="text-sm"><strong>{{sinisterLog.createdByName}}</strong> cerró el siniestro. Fecha Resolución: <strong>{{sinisterLog.resolutionDate | date: 'dd/MM/yyyy'}}</strong>.</p>
             <div class="btn-list mt-3" *ngIf="!!sinisterLog.finishedEvidenceUrl; else noFinishedEvidence">
                 <button type="button" class="btn btn-primary" (click)="onClickShowResolutionEvidence()"><strong>VER EVIDENCIA</strong></button>
             </div>
@@ -103,7 +103,10 @@
             <h2>{{sinisterLog.sinisterRecordTypeName}}: {{sinisterLog.sinisterEventTypeName}}</h2>
             <p class="text-sm mb-3"><strong>{{sinisterLog.createdByName}}</strong> reportó un evento para este siniestro.</p>
             <ol class="breadcrumb1">
-                <li class="breadcrumb-item1"><strong>Fecha Inicio:</strong> {{sinisterLog.providerDate | date: 'dd/MM/yyyy'}} <br/>
+                <li class="breadcrumb-item1">
+                    <strong>{{(sinisterLog.sinisterEventTypeId === SINISTER_EVENT_TYPES.INDEMNIFICATION) ? 'Fecha Indemnización:' : 'Fecha Inicio:'}}</strong> 
+                    {{sinisterLog.providerDate | date: 'dd/MM/yyyy'}} 
+                    <br/>
                     <ng-container *ngIf="!!sinisterLog.sinisterEventDetails">{{sinisterLog.sinisterEventDetails}}</ng-container>
                 </li>
             </ol>
@@ -119,7 +122,7 @@
             </ng-container>
             <div class="btn-list mt-3">
                 <button type="button" class="btn btn-primary" (click)="onClickUpdateSinisterEvent()"><strong>EDITAR EVENTO</strong></button>
-                <button type="button" class="btn btn-primary" (click)="onClickFinalizeSinisterEvent()"><strong>FINALIZAR EVENTO</strong></button>
+                <button *ngIf="sinisterLog.sinisterEventTypeId !== SINISTER_EVENT_TYPES.INDEMNIFICATION" type="button" class="btn btn-primary" (click)="onClickFinalizeSinisterEvent()"><strong>FINALIZAR EVENTO</strong></button>
                 <button type="button" class="btn btn-primary" (click)="onClickDeleteSinisterEvent()"><strong>ELIMINAR EVENTO</strong></button>
                 <button *ngIf="sinisterLog.sinisterEventEvidenceUrl" type="button" class="btn btn-secondary" (click)="onClickShowSinisterEventEvidence()"><strong>VER EVIDENCIA</strong></button>
             </div>

@@ -6,7 +6,7 @@ import { CONTENT_TYPES, SINISTER_STATUS, INSURANCE_TYPES } from '@constants/glob
 import { environment } from '@env/environment';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { WrapperDownloadSinisterEvidenceComponent } from '@components/wrapper-download-sinister-evidence/wrapper-download-sinister-evidence.component';
-import { WrapperUploadSinisterEvidenceComponent } from '@components/wrapper-upload-sinister-evidence/wrapper-upload-sinister-evidence.component';
+/* import { WrapperUploadSinisterEvidenceComponent } from '@components/wrapper-upload-sinister-evidence/wrapper-upload-sinister-evidence.component'; */
 
 import { ShowSinisterHistoryService } from './show-sinister-history.service';
 
@@ -21,14 +21,14 @@ declare var ModalPlugin: any;
 })
 export class ShowSinisterHistoryPage implements OnInit {
     @ViewChild('modalDownloadSinisterEvidence') modalDownloadSinisterEvidence!: WrapperDownloadSinisterEvidenceComponent;
-    @ViewChild('modalUploadSinisterEvidence') modalUploadSinisterEvidence!: WrapperUploadSinisterEvidenceComponent;
+    /* @ViewChild('modalUploadSinisterEvidence') modalUploadSinisterEvidence!: WrapperUploadSinisterEvidenceComponent; */
     CONTENT_TYPES: any = CONTENT_TYPES;
     INSURANCE_TYPES: any = INSURANCE_TYPES;
     SINISTER_STATUS: any = SINISTER_STATUS;
     contactId: string = '';
     modalIdConfirmFinalizeSinister: string = 'agt-confirm-finalize-sinister';
     modalIdConfirmReactivateSinister: string = 'agt-confirm-reactivate-sinister';
-    modalIdUpdateSinisterCertificate: string = 'agt-update-sinister-certificate';
+    modalIdShowSinisterEvidences: string = 'agt-show-sinister-evidences'
     modalIdUpdateSinisterDetails: string = 'agt-update-sinister-details';
     modalIdUpdateSinisterReport: string = 'agt-update-sinister-report';
     modalIdUpdateSinisterTracking: string = 'agt-update-sinister-tracking';
@@ -93,16 +93,12 @@ export class ShowSinisterHistoryPage implements OnInit {
         this.modalDownloadSinisterEvidence.downloadSinisterEvidence();
     }
 
-    showModalToUpdateSinisterCertificate(): void {
-        ModalPlugin.show(this.modalIdUpdateSinisterCertificate);
+    showModalToShowSinisterEvidences(): void {
+        ModalPlugin.show(this.modalIdShowSinisterEvidences);
     }
 
     showModalToUpdateSinisterDetails(): void {
         ModalPlugin.show(this.modalIdUpdateSinisterDetails);
-    }
-
-    showModalToUploadSinisterEvidence(): void {
-        this.modalUploadSinisterEvidence.selectSinisterEvidence();
     }
 
     showModalToUpdateSinisterReport(): void {

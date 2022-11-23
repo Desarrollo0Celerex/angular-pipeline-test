@@ -1,0 +1,66 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Evidencias del Siniestro</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" *ngIf="!!model.sinister">
+				<!-- AGENTHOS - EVIDENCE INFO -->
+				<ol class="breadcrumb1" *ngIf="!!model.sinister.evidenceUrl; else withoutEvidence"><li class="breadcrumb-item1">Este siniestro cuenta con <strong>1</strong> evidencias cargadas. Selecciona una evidencia para ver los detalles.</li></ol>
+				<ng-template #withoutEvidence>
+                    <ol class="breadcrumb1"><li class="breadcrumb-item1">Este siniestro cuenta con <strong>0</strong> evidencias cargadas. Carga una evidencia para continuar.</li></ol>
+                </ng-template>
+				<!-- //AGENTHOS - EVIDENCE INFO -->
+				<div class="row" *ngIf="!!model.sinister.evidenceUrl">
+					<div class="col-md-12 mt-3">
+						<div class="list-group list-lg-group list-group-flush">
+							<!-- AGENTHOS - EVIDENCE FOUND -->
+							<div class="list-group-item list-group-item-action">
+								<div class="media mt-0">
+									<div class="media-body">
+										<div class="d-flex align-items-center">
+											<div class="mt-0">
+												<!-- AGENTHOS - SINISTER EVIDENCE TYPE -->
+												<ng-container [ngSwitch]="fileExtension">
+													<div class="badge badge-success-gradient mr-1 mb-3" *ngSwitchCase="'pdf'">PDF</div>
+													<div class="badge badge-warning-gradient mr-1 mb-3" *ngSwitchCase="(fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'gif' || fileExtension === 'bmp') ? fileExtension : ''">IMAGEN 02</div>
+													<div class="badge badge-info-gradient mr-1 mb-3" *ngSwitchDefault>ARCHIVO</div>
+												</ng-container>
+												<!-- AGENTHOS - SINISTER EVIDENCE NAME -->
+												<h5 class="mb-3">{{(model.sinister.evidenceName) ? (model.sinister.evidenceName | uppercase) : ''}}</h5>
+												<!-- AGENTHOS - SINISTER EVIDENCE DATE -->
+												<h6><span class="text-primary text-left"><i class="fe fe-calendar mr-2"></i></span>{{(!!model.sinister.evidenceCreatedAt) ? (model.sinister.evidenceCreatedAt | date: 'dd/MM/yyyy') : ''}}</h6>
+												<!-- AGENTHOS - SINISTER EVIDENCE CLASS -->
+												<h6><span class="text-primary text-left"><i class="fe fe-folder mr-2"></i></span>{{(model.sinister.sinisterEvidenceTypeName) ? (model.sinister.sinisterEvidenceTypeName | uppercase) : '' }}</h6>
+											</div>
+											<small class="ml-auto fs-16 mt-2">
+												<button type="button" class="btn btn-primary" (click)="showModalToDownloadSinisterEvidence()"><i class="fe fe-download-cloud"></i></button>
+											</small>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- //AGENTHOS - EVIDENCE FOUND -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-block btn-secondary" (click)="showModalToUploadSinisterEvidence()" [disabled]="!!model.sinister && !!model.sinister.evidenceUrl"><strong>CARGAR EVIDENCIA</strong></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<agt-modal-upload-sinister-evidence
+    [modalId]="modalIdToUploadSinisterEvidence"
+	[sinisterData]="sinisterData"
+></agt-modal-upload-sinister-evidence>
+
+<agt-wrapper-download-sinister-evidence
+    #modalDownloadSinisterEvidence
+    [fileUrl]="selectedSinisterEvidenceUrl"
+></agt-wrapper-download-sinister-evidence>
