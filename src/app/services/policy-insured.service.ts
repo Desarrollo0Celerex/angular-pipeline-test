@@ -108,6 +108,15 @@ export class PolicyInsuredService {
         );
     }
 
+    getPolicyInsureds(contactId: string, policyId: string, fields: string): Observable<Insured[]> {
+        const route: string = ROUTES.policyInsureds(this._workspaceId, contactId, policyId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data.items)
+        );
+    }
+
     updatePolicyInsureds(contactId: string, policyId: string, requestBodies: FormData[]): Observable<void> {
         return from(requestBodies).pipe(
             concatMap((requestBody: FormData) => {

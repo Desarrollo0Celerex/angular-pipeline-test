@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SinisterService } from '@services/sinister.service';
+import { PolicyInsuredService } from '@services/policy-insured.service';
 
 import { ModalUpdateSinisterCertificateComponent } from './modal-update-sinister-certificate.component';
 
@@ -19,6 +20,7 @@ import { ModalUpdateSinisterCertificateComponent } from './modal-update-sinister
     ReactiveFormsModule
   ],
   providers: [
+      PolicyInsuredService,
       SinisterService
   ]
 })

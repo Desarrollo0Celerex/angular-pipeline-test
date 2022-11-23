@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { SINISTER_EVENT_TYPES, FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
+import { SINISTER_EVENT_TYPES, FILE_ALL_FORMATS, FILE_TYPES, INSURANCE_GROUPS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -25,6 +25,7 @@ declare var ModalPlugin: any;
 export class ModalUpdateSinisterEventComponent implements OnChanges {
     @Input() modalId: string = '';
     @Input() sinisterEventData: SinisterEventDataSend | null = null;
+    INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     SINISTER_EVENT_TYPES: any = SINISTER_EVENT_TYPES;
     calendarIdProviderDate: string = 'providerDate';
     calendarIdValuationDate: string = 'valuationDate';
@@ -134,7 +135,7 @@ export class ModalUpdateSinisterEventComponent implements OnChanges {
      private _initCalendars(): void {
          DatePickerPlugin.init();
          switch(this.model.sinisterEvent!.sinisterEventTypeId) {
-             case SINISTER_EVENT_TYPES.WORKSHOP_AND_SERVICE:
+            case SINISTER_EVENT_TYPES.WORKSHOP_AND_SERVICE:
                  DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
                  DatePickerPlugin.initElement(this.calendarIdValuationDate, this._onChangeDate, this);
                  DatePickerPlugin.initElement(this.calendarIdAuthorizationDate, this._onChangeDate, this);
@@ -144,10 +145,22 @@ export class ModalUpdateSinisterEventComponent implements OnChanges {
                  DatePickerPlugin.initElement(this.calendarIdRepairDate, this._onChangeDate, this);
                  DatePickerPlugin.initElement(this.calendarIdDeliveryDate, this._onChangeDate, this);
                  DatePickerPlugin.initElement(this.calendarIdReadmissionDate, this._onChangeDate, this);
-             break;
+            break;
+
+            case SINISTER_EVENT_TYPES.INDEMNIFICATION:
+                switch (this.model.sinisterEvent!.insuranceGroupId) {
+                    case INSURANCE_GROUPS.VEHICLES:
+                        DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
+                        DatePickerPlugin.initElement(this.calendarIdValuationDate, this._onChangeDate, this);
+                    break;
+
+                    default:
+                        DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
+                }
+            break;
 
              default:
-                 DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
+                DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
          }
      }
 
@@ -159,6 +172,13 @@ export class ModalUpdateSinisterEventComponent implements OnChanges {
             this.model.getSinisterEvent(this.sinisterEventData).subscribe((res: SinisterEvent) => {
                 this.model.fillForm(res);
                 this._initCalendars();
+                switch (res.sinisterEventTypeId) {
+                    case SINISTER_EVENT_TYPES.INDEMNIFICATION:
+                        this.model.loadSinisterResolutions(); 
+                        this.model.loadCurrencies(); 
+                        this.model.loadPaymentMethods();   
+                    break;
+                }
             });
         }
     }

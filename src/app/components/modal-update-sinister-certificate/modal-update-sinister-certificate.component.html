@@ -10,27 +10,37 @@
     				</button>
     			</div>
     			<div class="modal-body">
-    				<div class="row">
-    					<div class="col-md-12">
-    						<div class="row">
-    							<div class="col-md-12">
-    								<div class="form-group">
-    									<!-- AGENTHOS - POLICY NUMBER -->
-    									<label class="form-label">No. Póliza</label>
-    									<input type="text" class="form-control" [placeholder]="policyNumber" readonly="">
-    								</div>
-    							</div>
-    							<div class="col-md-12">
-    								<div class="form-group">
-    									<!-- AGENTHOS - SINISTER TYPE -->
-    									<label class="form-label">No. Certificado</label>
-    									<input type="text" class="form-control {{getValidationClass('certificate')}}" formControlName="certificate">
-                                        <div class="invalid-feedback">{{getErrorMessage('certificate')}}</div>
-    								</div>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
+					<!-- AGENTHOS - CERTIFICATE INFO -->
+					<ol class="breadcrumb1"><li class="breadcrumb-item1">Selecciona el certificado correspondiente para asignar a la persona o bien asegurado afectado en el siniestro.</li></ol>
+					<!-- //AGENTHOS - CERTIFICATE INFO -->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<!-- AGENTHOS - CERTIFICATE NUMBER * -->
+								<label class="form-label">No. Certificado</label>
+								<select class="form-control {{getValidationClass('certificate')}}" formControlName="certificate" (change)="calculateInsuredPos()">
+									<option *ngFor="let insured of model.insureds" [value]="insured.vehicleNumber">{{insured.vehicleNumber}}</option>
+								</select>
+								<div class="invalid-feedback">{{getErrorMessage('certificate')}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<!-- AGENTHOS - POLICY DETAILS -->
+								<label class="form-label">Persona o Bien Asegurado</label>
+								<input type="text" class="form-control" placeholder="{{(selectedInsuredPos > -1) ? model.insureds[selectedInsuredPos].vehicleMaker + ' ' + model.insureds[selectedInsuredPos].vehicleVersion + ' ' + model.insureds[selectedInsuredPos].vehicleModel : ''}}" readonly="">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<!-- AGENTHOS - POLICY NUMBER -->
+								<label class="form-label">No. Póliza</label>
+								<input type="text" class="form-control" [placeholder]="policyNumber" readonly="">
+							</div>
+						</div>
+					</div>
     			</div>
     			<div class="modal-footer text-center">
     				<div class="col-12">

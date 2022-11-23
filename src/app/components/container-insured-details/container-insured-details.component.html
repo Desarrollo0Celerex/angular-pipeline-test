@@ -1,6 +1,6 @@
 
 <!-- AGENTHOS - SINISTER POLICY DETAILS -->
-<div class="row mt-5" *ngIf="!!model.insured">
+<div class="row mt-5">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
@@ -9,24 +9,24 @@
             <div class="card-body">
                 <div class="block-content">
                     <div class="form-group row text-center">
-                        <ng-container [ngSwitch]="model.insured.insuranceGroupId">
+                        <ng-container [ngSwitch]="insuranceGroupId">
                             <ng-container *ngSwitchCase="INSURANCE_GROUPS.PEOPLE">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">Nombre del Asegurado</label>
-                                        <input type="text" class="form-control" [placeholder]="model.insured.personName" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.personName : ''" readonly="">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">Género</label>
-                                        <input type="text" class="form-control" [placeholder]="model.insured.personGenderName" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.personGenderName: ''" readonly="">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">Edad</label>
-                                        <input type="text" class="form-control" [placeholder]="model.insured.personAge" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.personAge : ''" readonly="">
                                     </div>
                                 </div>
                             </ng-container>
@@ -35,37 +35,37 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label">Fabricante</label>
-                                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleMaker" readonly="">
+                                            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleMaker : ''" readonly="">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label">Versión</label>
-                                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleVersion" readonly="">
+                                            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleVersion : ''" readonly="">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label">Modelo</label>
-                                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleModel" readonly="">
+                                            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleModel : ''" readonly="">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label">Placas</label>
-                                            <input type="text" class="form-control" [placeholder]="model.insured.vehiclePlates" readonly="">
+                                            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehiclePlates : ''" readonly="">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label">No. Serie</label>
-                                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleSerial" readonly="">
+                                            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleSerial : ''" readonly="">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label">No. Motor</label>
-                                            <input type="text" class="form-control" [placeholder]="model.insured.vehicleMotor" readonly="">
+                                            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleMotor : ''" readonly="">
                                         </div>
                                     </div>
                                 </ng-container>
@@ -74,43 +74,43 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">Nombre de la Propiedad</label>
-                                        <input type="text" class="form-control" [placeholder]="model.insured.buildingName" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.buildingName : ''" readonly="">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">Uso de la Propiedad</label>
-                                        <input type="text" class="form-control" [placeholder]="model.insured.buildingUsage" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.buildingUsage : ''" readonly="">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">Dirección de la Propiedad</label>
-                                        <input type="text" class="form-control" [placeholder]="model.insured.buildingLocation" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.buildingLocation : ''" readonly="">
                                     </div>
                                 </div>
                             </ng-container>
                             <ng-container *ngSwitchCase="(
-                                model.insured.insuranceGroupId === INSURANCE_GROUPS.MERCHANDISE ||
-                                model.insured.insuranceGroupId === INSURANCE_GROUPS.OBJECTS ||
-                                model.insured.insuranceGroupId === INSURANCE_GROUPS.RC
-                            ) ? model.insured.insuranceGroupId : ''">
+                                insuranceGroupId === INSURANCE_GROUPS.MERCHANDISE ||
+                                insuranceGroupId === INSURANCE_GROUPS.OBJECTS ||
+                                insuranceGroupId === INSURANCE_GROUPS.RC
+                            ) ? insuranceGroupId : ''">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">{{objectNameLabel}}</label>
-                                        <input type="text" class="form-control" [placeholder]="model.insured.objectName" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.objectName : ''" readonly="">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">{{objectUsageLabel}}</label>
-                                        <input type="text" class="form-control" [placeholder]="model.insured.objectUsage" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.objectUsage : ''" readonly="">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">{{objectDescriptionLabel}}</label>
-                                        <input type="text" class="form-control" [placeholder]="model.insured.objectDescription" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.objectDescription : ''" readonly="">
                                     </div>
                                 </div>
                             </ng-container>
@@ -118,7 +118,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="form-label">Nombre de la Persona o Bien Asegurado</label>
-                                        <input type="text" class="form-control" [placeholder]="model.insured.policyDetails" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.policyDetails : ''" readonly="">
                                     </div>
                                 </div>
                             </ng-container>
@@ -126,143 +126,155 @@
                     </div>
                 </div>
             </div>
+            <div class="card-footer" *ngIf="insuranceTypeId == INSURANCE_TYPES.FLOTILLA">
+                <div class="btn-list">
+                    <button type="button" class="btn btn-secondary" (click)="updateCertificate()">
+                        <strong>ACTUALIZAR</strong>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <ng-template #vehicleFlotilla>
-    <ng-container *ngIf="model.insured">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">No. Inciso</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleNumber" readonly="">
-            </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">No. Inciso</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleNumber : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">No. Unidad</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleInternalNumber" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">No. Unidad</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleInternalNumber : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Subgrupo</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleSubgroup" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Subgrupo</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleSubgroup : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Tipo Vehículo</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleType" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Tipo Vehículo</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleType : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Tipo Unidad</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleUnitType" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Tipo Unidad</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleUnitType : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Tipo Carga</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleCargoTypeName" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Tipo Carga</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleCargoTypeName : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Cobertura</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleCoverageName" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Cobertura</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleCoverageName : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Giro</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleUseName" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Giro</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleUseName : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Adaptación</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleAdaptation" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Adaptación</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleAdaptation : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Inicio Vigencia</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleValidityStartDate" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Inicio Vigencia</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleValidityStartDate : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Fabricante</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleMaker" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Fabricante</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleMaker : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Versión</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleVersion" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Versión</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleVersion : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Modelo</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleModel" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Modelo</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleModel : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Placas</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehiclePlates" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Placas</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehiclePlates : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">No. Serie</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleSerial" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">No. Serie</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleSerial : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">No. Motor</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleMotor" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">No. Motor</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleMotor : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Prima Neta</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleNetPay" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Prima Neta</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleNetPay : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Financiamiento</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleFeePay" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Financiamiento</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleFeePay : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Gastos Expedición</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleCoverPay" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Gastos Expedición</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleCoverPay : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Impuestos</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleTaxPay" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Impuestos</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleTaxPay : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Monto total</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleTotalAmount" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Monto total</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleTotalAmount : ''" readonly="">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="form-label">Estatus</label>
-                <input type="text" class="form-control" [placeholder]="model.insured.vehicleStatusName" readonly="">
-            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Estatus</label>
+            <input type="text" class="form-control" [placeholder]="!!model.insured ? model.insured.vehicleStatusName : ''" readonly="">
         </div>
-    </ng-container>
+    </div>
 </ng-template>
+
+<agt-modal-update-sinister-certificate
+    [modalId]="modalIdUpdateSinisterCertificate"
+    [certificate]="certificate"
+    [policyNumber]="policyNumber"
+    [sinisterData]="sinisterData"
+></agt-modal-update-sinister-certificate>

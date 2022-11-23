@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { SINISTER_RECORD_TYPES } from '@constants/global';
+import { SINISTER_EVENT_TYPES, SINISTER_RECORD_TYPES } from '@constants/global';
 import { SinisterLog } from '@interfaces/sinister-log.interface';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
 
@@ -18,6 +18,7 @@ export class CardSinisterLogComponent implements OnInit {
     @Output() showReactivationEvidence: EventEmitter<string> = new EventEmitter<string>();
     @Output() showResolutionEvidence: EventEmitter<string> = new EventEmitter<string>();
     @Output() showSinisterEventEvidence: EventEmitter<string> = new EventEmitter<string>();
+    SINISTER_EVENT_TYPES: any = SINISTER_EVENT_TYPES;
     SINISTER_RECORD_TYPES: any = SINISTER_RECORD_TYPES;
 
     constructor() { }

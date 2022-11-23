@@ -29,5 +29,7 @@ export interface SinisterLog {
     providerPhoneNumber: string,
     providerEmail: string,
     providerBill: string,
-    sinisterEventEvidenceUrl: string
+    sinisterEventEvidenceUrl: string,
+    currencyName: string,
+    paymentMethodName: string
 }

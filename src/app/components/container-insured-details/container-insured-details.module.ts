@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ModalUpdateSinisterCertificateModule } from '@components/modal-update-sinister-certificate/modal-update-sinister-certificate.module';
 import { PolicyInsuredService } from '@services/policy-insured.service';
 
 import { ContainerInsuredDetailsComponent } from './container-insured-details.component';
@@ -13,7 +14,8 @@ import { ContainerInsuredDetailsComponent } from './container-insured-details.co
       ContainerInsuredDetailsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ModalUpdateSinisterCertificateModule
   ],
   providers: [
       PolicyInsuredService

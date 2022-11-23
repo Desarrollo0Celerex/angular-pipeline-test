@@ -41,40 +41,19 @@ export class FinalizeSinisterService {
         return this._sinisterService.finalizeSinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, requestBody);
     }
 
-    /**
-     * Load the currencies
-     */
-    loadCurrencies(): void {
-        const fields: string = "currencyId,name";
-        this._currencyService.getCurrencies(fields).subscribe((res: HttpResponse) => {
-            this.currencies = res.data;
-        });
-    }
-
      /**
      * Load the sinister data
      * @param sinisterData The sinister data
      * @return             Notification of action done
      */
     loadSinister(sinisterData: SinisterDataSend): Observable<void> {
-        const fields: string = 'coveredProperty,policyNumber,clientNumber,insurerName,sinisterDate,sinisterNumber,invoice,certificate,workspaceCurrencyId';
+        const fields: string = 'coveredProperty,policyNumber,clientNumber,insurerName,sinisterDate,sinisterNumber,invoice,certificate';
         return this._sinisterService.getPolicySinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, fields).pipe(
             tap((res: Sinister) => {
                 this.sinister = res;
-                const currencyId: number | string = (!!this.sinister && this.sinister.workspaceCurrencyId) ? this.sinister.workspaceCurrencyId : '';
-                this.sinisterForm.patchValue({currencyId})
             }),
             map(() => { })
         )
-    }
-
-    /**
-     * Load the sinister resolutions
-     */
-    loadSinisterResolutions(): void {
-        this._sinisterResolutionService.getSinisterResolutions().subscribe((res: HttpResponse) => {
-            this.sinisterResolutions = res.data;
-        })
     }
 
     /**
@@ -84,10 +63,7 @@ export class FinalizeSinisterService {
     private _buildSinisterForm(): UntypedFormGroup {
         return this._formBuilder.group({
             evidenceFile: [''],
-            sinisterResolutionId: ['', [Validators.required]],
-            resolutionDate: ['', [Validators.required, ValidatorsHelper.date]],
-            indemnificationAmount: ['0.00', [Validators.required, ValidatorsHelper.amount]],
-            currencyId: ['', [Validators.required]]
+            resolutionDate: ['', [Validators.required, ValidatorsHelper.date]]
         });
     }
 
@@ -98,10 +74,7 @@ export class FinalizeSinisterService {
     private _getRequestBody(): FormData {
         const requestBody: FormData = new FormData();
         requestBody.append('evidenceFile', this.f.evidenceFile.value);
-        requestBody.append('sinisterResolutionId', this.f.sinisterResolutionId.value);
         requestBody.append('resolutionDate', this.f.resolutionDate.value);
-        requestBody.append('indemnificationAmount', this.f.indemnificationAmount.value);
-        requestBody.append('currencyId', this.f.currencyId.value);
         return requestBody;
     }
 }
