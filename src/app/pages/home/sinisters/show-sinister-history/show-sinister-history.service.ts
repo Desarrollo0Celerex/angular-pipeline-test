@@ -15,7 +15,7 @@ export class ShowSinisterHistoryService {
      * @param sinisterData The sinister data
      */
     loadSinister(sinisterData: SinisterDataSend): void {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,sinisterStatusId,estimatedResolutionDate,manager,internalNumber,sinisterTypeName,affectedCoverage,location,affectedName,policyNumber,insuranceTypeId,policyInsuredId,evidenceUrl,sinisterStatusName,notificationDate,timeReport,timeResponse,sinisterCause,latLong';
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,sinisterStatusId,estimatedResolutionDate,manager,internalNumber,sinisterTypeName,affectedCoverage,location,affectedName,policyNumber,insuranceTypeId,policyInsuredId,evidenceUrl,sinisterStatusName,notificationDate,timeReport,timeResponse,sinisterCause,latLong,insuranceGroupId';
         this._sinisterService.getPolicySinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, fields).subscribe((res: Sinister) => {
             this.sinister = res;
         })

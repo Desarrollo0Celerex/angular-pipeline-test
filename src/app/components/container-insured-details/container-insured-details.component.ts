@@ -1,7 +1,11 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
 import { INSURANCE_GROUPS, INSURANCE_TYPES } from '@constants/global';
+import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
+
 import { ContainerInsuredDetailsService } from './container-insured-details.service';
+
+declare var ModalPlugin: any;
 
 @Component({
   selector: 'agt-container-insured-details',
@@ -11,20 +15,22 @@ import { ContainerInsuredDetailsService } from './container-insured-details.serv
   providers: [ContainerInsuredDetailsService]
 })
 export class ContainerInsuredDetailsComponent implements OnChanges {
-    @Input() contactId: string = '';
-    @Input() policyId: string = '';
+    @Input() certificate: string = '';
+    @Input() insuranceGroupId: number = 0;
+    @Input() insuranceTypeId: string = '';
     @Input() policyInsuredId: string = '';
+    @Input() policyNumber: string = '';
+    @Input() sinisterData: SinisterDataSend | null = null;
     INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     INSURANCE_TYPES: any = INSURANCE_TYPES;
+    modalIdUpdateSinisterCertificate: string = "agt-update-sinister-certificate";
 
     constructor(public model: ContainerInsuredDetailsService) { }
 
     ngOnChanges(): void {
-        this.model.loadInsured(this.contactId, this.policyId, this.policyInsuredId);
-    }
-
-    get insuranceTypeId(): number {
-        return (!!this.model.insured) ? this.model.insured.insuranceTypeId : 0;
+        if(!!this.sinisterData && !!this.policyInsuredId) {
+            this.model.loadInsured(this.sinisterData.contactId, this.sinisterData.policyId, this.policyInsuredId);
+        }
     }
 
     get objectNameLabel(): string {
@@ -61,6 +67,10 @@ export class ContainerInsuredDetailsComponent implements OnChanges {
             }
         }
         return label;
+    }
+
+    updateCertificate(): void {
+        ModalPlugin.show(this.modalIdUpdateSinisterCertificate);
     }
 
 }

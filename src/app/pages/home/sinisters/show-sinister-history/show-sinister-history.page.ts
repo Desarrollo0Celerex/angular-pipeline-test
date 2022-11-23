@@ -28,7 +28,6 @@ export class ShowSinisterHistoryPage implements OnInit {
     contactId: string = '';
     modalIdConfirmFinalizeSinister: string = 'agt-confirm-finalize-sinister';
     modalIdConfirmReactivateSinister: string = 'agt-confirm-reactivate-sinister';
-    modalIdUpdateSinisterCertificate: string = 'agt-update-sinister-certificate';
     modalIdUpdateSinisterDetails: string = 'agt-update-sinister-details';
     modalIdUpdateSinisterReport: string = 'agt-update-sinister-report';
     modalIdUpdateSinisterTracking: string = 'agt-update-sinister-tracking';
@@ -91,10 +90,6 @@ export class ShowSinisterHistoryPage implements OnInit {
     showModalToDownloadSinisterEvidence(): void {
         this.selectedSinisterEvidence = this.model.sinister!.evidenceUrl;
         this.modalDownloadSinisterEvidence.downloadSinisterEvidence();
-    }
-
-    showModalToUpdateSinisterCertificate(): void {
-        ModalPlugin.show(this.modalIdUpdateSinisterCertificate);
     }
 
     showModalToUpdateSinisterDetails(): void {

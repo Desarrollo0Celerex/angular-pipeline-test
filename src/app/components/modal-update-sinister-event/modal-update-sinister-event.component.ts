@@ -153,6 +153,9 @@ export class ModalUpdateSinisterEventComponent implements OnChanges {
                         DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
                         DatePickerPlugin.initElement(this.calendarIdValuationDate, this._onChangeDate, this);
                     break;
+
+                    default:
+                        DatePickerPlugin.initElement(this.calendarIdProviderDate, this._onChangeDate, this);
                 }
             break;
 

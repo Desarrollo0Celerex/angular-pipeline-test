@@ -18,13 +18,6 @@
                             <!-- AGENTHOS - SINISTER FINISH (JUST IF STATUS: ACTIVE) -->
                             <button type="button" class="btn btn-primary" (click)="confirmFinalizeSinister()"><strong>FINALIZAR SINIESTRO</strong></button>
                         </ng-template>
-                        <button *ngIf="
-                            model.sinister.insuranceTypeId == INSURANCE_TYPES.GROUP ||
-                            model.sinister.insuranceTypeId == INSURANCE_TYPES.COLLECTIVE ||
-                            model.sinister.insuranceTypeId == INSURANCE_TYPES.FLOTILLA
-                            " type="button" class="btn btn-primary" (click)="showModalToUpdateSinisterCertificate()">
-                                <strong>ACTUALIZAR CERTIFICADO</strong>
-                        </button>
                         <button type="button" class="btn btn-primary" (click)="showModalToUploadSinisterEvidence()"><strong>{{(!!model.sinister.evidenceUrl) ? 'ACTUALIZAR' : 'CARGAR'}} EVIDENCIA</strong></button>
                         <button *ngIf="!!model.sinister.evidenceUrl" type="button" class="btn btn-primary" (click)="showModalToDownloadSinisterEvidence()"><strong>DESCARGAR EVIDENCIA</strong></button>
                     </div>
@@ -36,10 +29,13 @@
     <!-- //AGENTHOS - SINISTER CONTROL -->
 
     <agt-container-insured-details
-        *ngIf="!!model.sinister && !!model.sinister.policyInsuredId"
-        [policyId]="policyId"
-        [contactId]="contactId"
+        *ngIf="!!model.sinister"
+        [sinisterData]="sinisterData"
         [policyInsuredId]="model.sinister.policyInsuredId"
+        [insuranceGroupId]="model.sinister.insuranceGroupId"
+        [insuranceTypeId]="model.sinister.insuranceTypeId"
+        [policyNumber]="model.sinister.policyNumber"
+        [certificate]="model.sinister.certificate"
     ></agt-container-insured-details>
 
     <div class="row mt-5">
@@ -298,13 +294,6 @@
     [modalId]="modalIdConfirmReactivateSinister"
     [sinisterData]="sinisterData"
 ></agt-modal-confirm-reactivate-sinister>
-<agt-modal-update-sinister-certificate
-    *ngIf="!!model.sinister"
-    [modalId]="modalIdUpdateSinisterCertificate"
-    [certificate]="model.sinister.certificate"
-    [policyNumber]="model.sinister.policyNumber"
-    [sinisterData]="sinisterData"
-></agt-modal-update-sinister-certificate>
 <agt-modal-update-sinister-details
     [modalId]="modalIdUpdateSinisterDetails"
     [sinisterData]="sinisterData"
