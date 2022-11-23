@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { ModalDownloadFileData } from '@interfaces/modal-download-file-data.interface';
 
@@ -10,7 +10,7 @@ declare var ModalPlugin: any;
   styles: [
   ]
 })
-export class WrapperDownloadSinisterEvidenceComponent {
+export class WrapperDownloadSinisterEvidenceComponent implements OnChanges {
     @Input() fileUrl: string = '';
     modalIdDownloadFile: string = 'agt-download-sinister-evidence';
     modalDownloadFileData: ModalDownloadFileData = {
@@ -19,6 +19,11 @@ export class WrapperDownloadSinisterEvidenceComponent {
         description: 'Apunta con la cámara de tu Smartphone al código inteligente y la evidencia será transferida automáticamente a tu dispositivo.',
         note: 'También puedes ver y guardar la evidencia de manera directa.',
         buttonLabel: 'Descargar Evidencia'
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log('changes: ',changes);
+        
     }
 
     downloadSinisterEvidence(): void {

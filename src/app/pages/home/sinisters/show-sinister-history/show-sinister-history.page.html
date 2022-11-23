@@ -18,8 +18,9 @@
                             <!-- AGENTHOS - SINISTER FINISH (JUST IF STATUS: ACTIVE) -->
                             <button type="button" class="btn btn-primary" (click)="confirmFinalizeSinister()"><strong>FINALIZAR SINIESTRO</strong></button>
                         </ng-template>
-                        <button type="button" class="btn btn-primary" (click)="showModalToUploadSinisterEvidence()"><strong>{{(!!model.sinister.evidenceUrl) ? 'ACTUALIZAR' : 'CARGAR'}} EVIDENCIA</strong></button>
-                        <button *ngIf="!!model.sinister.evidenceUrl" type="button" class="btn btn-primary" (click)="showModalToDownloadSinisterEvidence()"><strong>DESCARGAR EVIDENCIA</strong></button>
+                        <button type="button" class="btn btn-primary" (click)="showModalToShowSinisterEvidences()"><strong>EVIDENCIAS</strong></button>
+                        <!-- <button type="button" class="btn btn-primary" (click)="showModalToUploadSinisterEvidence()"><strong>{{(!!model.sinister.evidenceUrl) ? 'ACTUALIZAR' : 'CARGAR'}} EVIDENCIA</strong></button>
+                        <button *ngIf="!!model.sinister.evidenceUrl" type="button" class="btn btn-primary" (click)="showModalToDownloadSinisterEvidence()"><strong>DESCARGAR EVIDENCIA</strong></button> -->
                     </div>
                 </div>
                 <!-- //AGENTHOS - SINISTER CONTROL FOOTER -->
@@ -306,11 +307,15 @@
     [modalId]="modalIdUpdateSinisterTracking"
     [sinisterData]="sinisterData"
 ></agt-modal-update-sinister-tracking>
-<agt-wrapper-download-sinister-evidence
+<!-- <agt-wrapper-download-sinister-evidence
     #modalDownloadSinisterEvidence
     [fileUrl]="selectedSinisterEvidence"
-></agt-wrapper-download-sinister-evidence>
-<agt-wrapper-upload-sinister-evidence
+></agt-wrapper-download-sinister-evidence> -->
+<agt-modal-show-sinister-evidences
+    [modalId]="modalIdShowSinisterEvidences"
+    [sinisterData]="sinisterData"
+></agt-modal-show-sinister-evidences>
+<!-- <agt-wrapper-upload-sinister-evidence
     #modalUploadSinisterEvidence
     [sinisterData]="sinisterData"
-></agt-wrapper-upload-sinister-evidence>
+></agt-wrapper-upload-sinister-evidence> -->

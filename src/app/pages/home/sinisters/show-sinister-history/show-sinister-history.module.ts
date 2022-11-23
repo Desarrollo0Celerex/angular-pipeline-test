@@ -7,6 +7,7 @@ import { ContainerReportEventModule } from '@components/container-report-event/c
 import { ContentListModule } from '@components/content-list/content-list.module';
 import { ModalConfirmFinalizeSinisterModule } from '@components/modal-confirm-finalize-sinister/modal-confirm-finalize-sinister.module';
 import { ModalConfirmReactivateSinisterModule } from '@components/modal-confirm-reactivate-sinister/modal-confirm-reactivate-sinister.module';
+import { ModalShowSinisterEvidencesModule } from '@components/modal-show-sinister-evidences/modal-show-sinister-evidences.module';
 import { ModalUpdateSinisterDetailsModule } from '@components/modal-update-sinister-details/modal-update-sinister-details.module';
 import { ModalUpdateSinisterReportModule } from '@components/modal-update-sinister-report/modal-update-sinister-report.module';
 import { ModalUpdateSinisterTrackingModule } from '@components/modal-update-sinister-tracking/modal-update-sinister-tracking.module';
@@ -30,6 +31,7 @@ import { ShowSinisterHistoryPage } from './show-sinister-history.page';
     ContentListModule,
     ModalConfirmFinalizeSinisterModule,
     ModalConfirmReactivateSinisterModule,
+    ModalShowSinisterEvidencesModule,
     ModalUpdateSinisterDetailsModule,
     ModalUpdateSinisterReportModule,
     ModalUpdateSinisterTrackingModule,
