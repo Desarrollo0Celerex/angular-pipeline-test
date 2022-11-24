@@ -11,6 +11,8 @@ import { LoadingService } from '@services/loading.service';
 
 import { ModalUploadSinisterEvidenceService } from './modal-upload-sinister-evidence.service';
 
+declare var ModalPlugin: any;
+
 @Component({
   selector: 'agt-modal-upload-sinister-evidence',
   templateUrl: './modal-upload-sinister-evidence.component.html',
@@ -72,9 +74,11 @@ export class ModalUploadSinisterEvidenceComponent implements OnInit {
         this._isFormSubmitted = true;
         if(this.model.form.valid && !!this.sinisterData) {
             this._loadingService.show();
+            ModalPlugin.hide(this.modalId);
             this.model.uploadSinisterEvidence(this.sinisterData).subscribe(() => {
+                this._reloadPage();
                 this._loadingService.hide();
-                AlertHelper.sinisterEvidenceUpdated(this._reloadPage, this);
+                AlertHelper.sinisterEvidenceUploaded();
             });
         }
     }
@@ -90,11 +94,11 @@ export class ModalUploadSinisterEvidenceComponent implements OnInit {
         return (index !== -1 ) ? fileName.substring(index + 1) : '';
     }
 
-    private _reloadPage(context: ModalUploadSinisterEvidenceComponent): void {
-        context._router.routeReuseStrategy.shouldReuseRoute = () => false;
-        context._router.onSameUrlNavigation = 'reload';
-        if(!!context.sinisterData) {
-            context._router.navigate(['/' + ROUTES_NAME.showSinisterHistory(context.sinisterData.contactId, context.sinisterData.policyId, context.sinisterData.sinisterId)], { relativeTo: context._activatedRoute });
+    private _reloadPage(): void {
+        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this._router.onSameUrlNavigation = 'reload';
+        if(!!this.sinisterData) {
+            this._router.navigate(['/' + ROUTES_NAME.showSinisterHistory(this.sinisterData.contactId, this.sinisterData.policyId, this.sinisterData.sinisterId)], { relativeTo: this._activatedRoute });
         }
     }
 

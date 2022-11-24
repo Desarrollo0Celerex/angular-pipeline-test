@@ -581,6 +581,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static sinisterEvidenceUploaded(): void {
+        const alertData: Alert = {
+            title: 'Evidencia Cargada',
+            text: 'La evidencia del siniestro se cargo con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static sinisterEvidenceUpdated(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Evidencia Actualizada',

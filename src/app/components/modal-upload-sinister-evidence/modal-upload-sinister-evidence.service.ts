@@ -6,7 +6,7 @@ import { FILE_NAME_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { SinisterEvidenceType } from '@interfaces/sinister-evidence-type.interface';
-import { SinisterService } from '@services/sinister.service';
+import { SinisterEvidenceService } from '@services/sinister-evidence.service';
 import { SinisterEvidenceTypeService } from '@services/sinister-evidence-type.service';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class ModalUploadSinisterEvidenceService {
 
     constructor(
         private _formBuilder: FormBuilder,
-        private _sinisterService: SinisterService,
+        private _sinisterEvidenceService: SinisterEvidenceService,
         private _sinisterEvidenceTypeService: SinisterEvidenceTypeService
     ) { }
 
@@ -32,18 +32,23 @@ export class ModalUploadSinisterEvidenceService {
     }
 
     uploadSinisterEvidence(sinisterData: SinisterDataSend): Observable<void> {
-        const requestBody: FormData = new FormData();
-        requestBody.append('evidenceFile', this.f.evidenceFile.value);
-        requestBody.append('evidenceName', this.f.evidenceName.value);
-        requestBody.append('sinisterEvidenceTypeId', this.f.sinisterEvidenceTypeId.value);
-        return this._sinisterService.uploadSinisterEvidence(sinisterData, requestBody);
+        const requestBody: FormData = this._getRequestBody();
+        return this._sinisterEvidenceService.uploadSinisterEvidence(sinisterData, requestBody);
     }
 
     private _buildForm(): FormGroup {
         return this._formBuilder.group({
             evidenceFile: ['', [Validators.required]],
-            evidenceName: ['', [Validators.required, Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
+            name: ['', [Validators.required, Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
             sinisterEvidenceTypeId: ['', [Validators.required]]
         });
+    }
+
+    private _getRequestBody(): FormData {
+        const requestBody: FormData = new FormData();
+        requestBody.append('evidenceFile', this.f.evidenceFile.value);
+        requestBody.append('name', this.f.name.value);
+        requestBody.append('sinisterEvidenceTypeId', this.f.sinisterEvidenceTypeId.value);
+        return requestBody;
     }
 }

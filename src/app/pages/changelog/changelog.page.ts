@@ -9,13 +9,26 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.33.8',
+            launchDate: '24/11/2022',
+            changes: [
+                {
+                    title: 'Care Center',
+                    items: [
+                        'Se habilito carga de varias evidencias al reportar un siniestro.'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.33.7',
             launchDate: '23/11/2022',
             changes: [
                 {
                     title: 'Care Center',
                     items: [
-                        'Se agrego nuevo evento "Indemnización" al reportar un siniestro.'
+                        'Se agrego nuevo evento "Indemnización" al reportar un siniestro.',
+                        'Se agrego nuevo flujo para capturar el número de certificado'
                     ]
                 }
             ]

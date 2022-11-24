@@ -394,11 +394,6 @@ export class SinisterService {
        return this._httpClient.put<void>(route, requestBody);
    }
 
-    uploadSinisterEvidence(sinisterData: SinisterDataSend, requestBody: FormData): Observable<void> {
-        const route: string = routes.sinisterEvidence(this._workspaceId, sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId);
-        return this._httpClient.post<void>(route, requestBody);
-    }
-
    /**
     * Get the sinisters stats
     * @return         The sinisters stats
