@@ -25,22 +25,14 @@ export class ModalShowSinisterEvidencesPage implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!this.sinisterData) {
-            this.model.loadSinister(this.sinisterData);
+            this.model.loadSinisterEvidences(this.sinisterData);
         }
     }
 
-    get fileExtension(): string {
-        if(!!this.model.sinister && !!this.model.sinister.evidenceUrl) {
-            const fileExtension: string = this.model.sinister.evidenceUrl.split(/[#?]/)[0].split('.').pop()!.trim();
-            return fileExtension;
-        }
-        return 'empty';
-    }
-
-    showModalToDownloadSinisterEvidence(): void {
+    showModalToDownloadSinisterEvidence(evidenceUrl: string): void {
         ModalPlugin.hide(this.modalId);
         setTimeout(() => {
-            this.selectedSinisterEvidenceUrl = this.model.sinister!.evidenceUrl;
+            this.selectedSinisterEvidenceUrl = evidenceUrl;
             this.modalDownloadSinisterEvidence.downloadSinisterEvidence();
         }, 500)
     }

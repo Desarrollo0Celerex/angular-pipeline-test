@@ -1,23 +1,19 @@
 import { Injectable } from '@angular/core';
 
-import { Sinister } from '@interfaces/sinister.interface';
+import { SinisterEvidence } from '@interfaces/sinister-evidence.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
-import { SinisterService } from '@services/sinister.service';
+import { SinisterEvidenceService } from '@services/sinister-evidence.service';
 
 @Injectable()
 export class ModalShowSinisterEvidencesService {
-    sinister: Sinister | null = null;
+    sinisterEvidences: SinisterEvidence[] = [];
 
-    constructor(private _sinisterService: SinisterService) { }
+    constructor(private _sinisterEvidenceService: SinisterEvidenceService) { }
 
-    /**
-     * Load the sinister
-     * @param sinisterData The sinister data
-     */
-    loadSinister(sinisterData: SinisterDataSend): void {
-        const fields: string = 'evidenceUrl,evidenceName,sinisterEvidenceTypeName,evidenceCreatedAt';
-        this._sinisterService.getPolicySinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, fields).subscribe((res: Sinister) => {
-            this.sinister = res;
+    loadSinisterEvidences(sinisterData: SinisterDataSend): void {
+        const fields: string = 'sinisterEvidenceId,name,extension,sinisterEvidenceTypeName,evidenceUrl,createdAt';
+        this._sinisterEvidenceService.getSinisterEvidences(sinisterData, fields).subscribe((res: SinisterEvidence[]) => {
+            this.sinisterEvidences = res;
         })
     } 
 }
