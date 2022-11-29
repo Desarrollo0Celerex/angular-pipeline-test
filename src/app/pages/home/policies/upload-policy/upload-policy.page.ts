@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -21,6 +21,7 @@ declare var Select2Plugin: any;
   ]
 })
 export class UploadPolicyPage implements OnInit, OnDestroy {
+    @ViewChild('fileUploader') fileUploader: any;
     ROUTES_NAME: any;
     contactId: string;
     isLoadingContent: boolean;
@@ -32,7 +33,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     private _isFormSubmitted: boolean;
     private _subParams: any;
     private _canShowPreview: boolean = true;
-    private _maxFileSize: string = '2M';
+    private _maxFileSize: string = '10M';
 
     constructor(
         public uploadPolicyService: UploadPolicyService,
@@ -103,12 +104,19 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     onSubmitUploadPolicy(): void {
         this._isFormSubmitted = true;
         if(this.uploadPolicyService.policyForm.valid) {
-            this._loadingService.show();
+            this.fileUploader.uploadFile(this.uploadPolicyService.f.insurerId.value);
+
+
+            /*this._loadingService.show();
             this.uploadPolicyService.uploadContactPolicy(this.contactId, this.policyId).subscribe( () => {
                 this._loadingService.hide();
                 AlertHelper.policyUploaded(this._goToCompletePolicy, this);
-            });
+            });*/
         }
+    }
+
+    setPolicyFile(file: any): void {
+        this.uploadPolicyService.policyForm.patchValue({policyFile: file});
     }
 
     /**

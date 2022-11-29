@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { ContainerContactDetailsModule } from '@components/container-contact-details/container-contact-details.module';
+import { FileUploaderModule } from '@components/file-uploader/file-uploader.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { InsurerService } from '@services/insurer.service';
 import { PolicyService } from '@services/policy.service';
@@ -17,6 +18,7 @@ import { UploadPolicyService } from './upload-policy.service';
   imports: [
     ContainerContactDetailsModule,
     CommonModule,
+    FileUploaderModule,
     FormsModule,
     LoadingContentModule,
     ReactiveFormsModule,
