@@ -28,7 +28,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     message: string;
     policy: { policyUrl: string, insurerId: number, insurerName: string, workspaceCountryId: number };
     policyId: string;
-    private _allowedFileTypes: string[];
+    allowedFileTypes: string[] = ['pdf'];
     private _comesFromRenewalPolicy: boolean = false;
     private _isFormSubmitted: boolean;
     private _subParams: any;
@@ -47,13 +47,12 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
         this.message = 'Selecciona la póliza digital que deseas cargar para';
         this.policy = { policyUrl: '', insurerId: 0, insurerName: '', workspaceCountryId: 0 };
         this.policyId = '';
-        this._allowedFileTypes = ['pdf'];
         this._isFormSubmitted = false;
     }
 
     ngOnInit(): void {
         this._catchParams();
-        DropifyPlugin.init(FILE_TYPES.DOCUMENT, this._allowedFileTypes, this._canShowPreview, this._maxFileSize);
+        DropifyPlugin.init(FILE_TYPES.DOCUMENT, this.allowedFileTypes, this._canShowPreview, this._maxFileSize);
         this.uploadPolicyService.buildPolicyForm();
         this._getContactPolicy();
         this._comesFromRenewalPolicy = (!!history.state && !!history.state.comesFromRenewalPolicy) ? true : false;
@@ -115,8 +114,27 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
         }
     }
 
-    setPolicyFile(file: any): void {
+    setPolicyFile(file: File): void {
+        this.setPreview(file);
         this.uploadPolicyService.policyForm.patchValue({policyFile: file});
+    }
+
+    blockSelectFile(event: any): void {
+        console.log('Paso 1');
+        event.preventDefault();
+        console.log('Paso 2');
+    }
+
+    private setPreview(file: File): void {
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        const fileInput: any = document.getElementById('dropify');
+        fileInput.files = dataTransfer.files;
+        fileInput.dispatchEvent(new Event('change'))
+        // Help Safari out
+        if (fileInput.webkitEntries.length) {
+            fileInput.dataset.file = `${dataTransfer.files[0].name}`;
+        }
     }
 
     /**

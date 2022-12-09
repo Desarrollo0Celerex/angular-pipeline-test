@@ -19,7 +19,8 @@ declare let plupload: any;
 export class FileUploaderComponent implements OnInit {
     @Input() contactId: string = '';
     @Input() policyId: string = '';
-    @Output() fileSelected: EventEmitter<any> = new EventEmitter<any>();
+    @Input() extensions: string[] = [];
+    @Output() fileSelected: EventEmitter<File> = new EventEmitter<File>();
     uploader: any;
     fileList: any[] = [];
     private _pluploadSrc: string = 'https://cdnjs.cloudflare.com/ajax/libs/plupload/3.1.5/plupload.full.min.js';
@@ -73,7 +74,9 @@ export class FileUploaderComponent implements OnInit {
 
     initPlupload() {
         const userToken: string | null = this._storageService.getUserToken();
-
+        const extensions: string = this.extensions.join(',');
+        console.log('extensions: ',extensions);
+        
         this.uploader = new plupload.Uploader({
             runtimes : 'html5',
             browse_button : 'pick',
@@ -83,7 +86,7 @@ export class FileUploaderComponent implements OnInit {
             filters: {
                 max_file_size : '10mb',
                 mime_types: [
-                    { title: 'File Types', extensions: 'pdf' }
+                    { title: 'File Types', extensions }
                 ]
             },
             headers: {
@@ -95,7 +98,8 @@ export class FileUploaderComponent implements OnInit {
                 },
                 FilesAdded: (up: any, files: any) => {
                     plupload.each(files, (file: any) => {
-                        this.fileSelected.emit(file);
+                        const fileAux: File = file.getSource().getSource();
+                        this.fileSelected.emit(fileAux);
                         this.fileList.push({
                             id: file.id,
                             name: file.name,

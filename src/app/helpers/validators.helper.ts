@@ -42,7 +42,7 @@ export class ValidatorsHelper {
      */
     static brandName(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = new RegExp(`^[${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
+            const regex = new RegExp(`^[/${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
             const value = control.value;
             return (!regex.test(value)) ? {alphanumeric: true} : null;
         }
@@ -196,15 +196,6 @@ export class ValidatorsHelper {
      * @return         Error object if validation failed, otherwise null.
      */
     static ownName(control: AbstractControl): ValidationErrors | null {
-        if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = new RegExp(`^[${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
-            const value = control.value;
-            return (!regex.test(value)) ? {alphanumeric: true} : null;
-        }
-        return null;
-    }
-
-    static ownNames(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
             const regex = new RegExp(`^[/${ALPHANUMERICS} ${PUNCTUATION_MARKS}`);
             const value = control.value;
