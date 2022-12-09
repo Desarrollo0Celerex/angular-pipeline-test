@@ -15,7 +15,8 @@ export class ChangelogPage {
                 {
                     title: 'Smart Wallet',
                     items: [
-                        'Se agrego vista previa al seleccionar un archivo al cargar una póliza.'
+                        'Se agrego vista previa al seleccionar un archivo al cargar una póliza.',
+                        'Se agrego aceptación de "/" al capturar y/o actualizar el nombre de un contacto'
                     ]
                 }
             ]

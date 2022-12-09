@@ -28,7 +28,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     message: string;
     policy: { policyUrl: string, insurerId: number, insurerName: string, workspaceCountryId: number };
     policyId: string;
-    allowedFileTypes: string[] = ['pdf','png','jpg'];
+    allowedFileTypes: string[] = ['pdf'];
     private _comesFromRenewalPolicy: boolean = false;
     private _isFormSubmitted: boolean;
     private _subParams: any;
