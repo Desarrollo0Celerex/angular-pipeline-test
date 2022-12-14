@@ -31,7 +31,13 @@
                 <ol class="breadcrumb1 mt-2">
                     <li class="breadcrumb-item1">Genera un reporte inmediato de <strong>Siniestros Abiertos</strong>.</li>
                 </ol>
-                <button type="button" class="btn btn-block btn-primary mt-5" disabled="true"><strong>MUY PRONTO</strong></button>
+                <agt-button-download-report-open-sinisters
+                    *ngIf="!!statsPeriodData"
+                    [rangeField]="rangeField"
+                    [rangeStart]="statsPeriodData.startDate"
+                    [rangeEnd]="statsPeriodData.endDate"
+                    [specialFilter]="specialFilter"
+                ></agt-button-download-report-open-sinisters>
             </div>
             <!-- //AGENTHOS - DATA SUITE REPORT GENERATOR -->
         </div>
