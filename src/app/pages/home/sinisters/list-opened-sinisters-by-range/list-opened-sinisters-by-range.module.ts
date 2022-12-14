@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ButtonDownloadReportOpenSinistersModule } from '@components/button-download-report-open-sinisters/button-download-report-open-sinisters.module';
 import { CardContentTitleModule } from '@components/card-content-title/card-content-title.module';
 import { ContainerChartsOpenedSinistersModule } from '@components/container-charts-opened-sinisters/container-charts-opened-sinisters.module';
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
@@ -14,6 +15,7 @@ import { ListOpenedSinistersByRangePage } from './list-opened-sinisters-by-range
     ListOpenedSinistersByRangePage
   ],
   imports: [
+    ButtonDownloadReportOpenSinistersModule,
     CardContentTitleModule,
     CommonModule,
     ContainerChartsOpenedSinistersModule,
