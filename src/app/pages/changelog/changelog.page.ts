@@ -9,6 +9,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.35.1',
+            launchDate: '14/12/2022',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se resolvio bug al intentar ver la información de un contacto desde su código QR.'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.35.0',
             launchDate: '14/12/2022',
             changes: [
