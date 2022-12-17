@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { FILE_TYPES } from '@constants/global';
+import { FILE_TYPES, FILE_SIZES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -23,17 +23,16 @@ declare var Select2Plugin: any;
 export class UploadPolicyPage implements OnInit, OnDestroy {
     @ViewChild('fileUploader') fileUploader: any;
     ROUTES_NAME: any;
+    allowedFileExtensions: string[] = ['pdf'];
     contactId: string;
     isLoadingContent: boolean;
     message: string;
     policy: { policyUrl: string, insurerId: number, insurerName: string, workspaceCountryId: number };
     policyId: string;
-    allowedFileTypes: string[] = ['pdf'];
+    maxFileSize: string = FILE_SIZES.LARGE;
     private _comesFromRenewalPolicy: boolean = false;
     private _isFormSubmitted: boolean;
     private _subParams: any;
-    private _canShowPreview: boolean = true;
-    private _maxFileSize: string = '10M';
 
     constructor(
         public uploadPolicyService: UploadPolicyService,
@@ -52,7 +51,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this._catchParams();
-        DropifyPlugin.init(FILE_TYPES.DOCUMENT, this.allowedFileTypes, this._canShowPreview, this._maxFileSize);
+        DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
         this.uploadPolicyService.buildPolicyForm();
         this._getContactPolicy();
         this._comesFromRenewalPolicy = (!!history.state && !!history.state.comesFromRenewalPolicy) ? true : false;
@@ -80,21 +79,10 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     getValidationClass(constrolName: string): string {
         const control: AbstractControl | null = this.uploadPolicyService.policyForm.get(constrolName);
         const validationClass: string = InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
-        if(constrolName === 'policyFile') {
+        if(constrolName === 'file') {
             return (validationClass === 'is-valid') ? 'agt-is-valid' : (validationClass === 'is-invalid') ? 'agt-is-invalid' : '';
         }
         return validationClass;
-    }
-
-    /**
-     * Change event to catch the file selected
-     * @param event The event lounched
-     */
-    onChangePolicyFile(event: any): void {
-        if (event.target.files.length > 0) {
-            const policyFile = event.target.files[0];
-            this.uploadPolicyService.policyForm.patchValue({policyFile});
-        }
     }
 
     /**
@@ -114,27 +102,8 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
         }
     }
 
-    setPolicyFile(file: File): void {
-        this.setPreview(file);
-        this.uploadPolicyService.policyForm.patchValue({policyFile: file});
-    }
-
-    blockSelectFile(event: any): void {
-        console.log('Paso 1');
-        event.preventDefault();
-        console.log('Paso 2');
-    }
-
-    private setPreview(file: File): void {
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);
-        const fileInput: any = document.getElementById('dropify');
-        fileInput.files = dataTransfer.files;
-        fileInput.dispatchEvent(new Event('change'))
-        // Help Safari out
-        if (fileInput.webkitEntries.length) {
-            fileInput.dataset.file = `${dataTransfer.files[0].name}`;
-        }
+    patchFileValue(value: string): void {
+        this.uploadPolicyService.policyForm.patchValue({file: value});
     }
 
     /**

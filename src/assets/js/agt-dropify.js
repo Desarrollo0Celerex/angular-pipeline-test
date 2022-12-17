@@ -1,7 +1,7 @@
 var DropifyPlugin = function() {
 
 	function initDropify(fileType, allowedFileTypes, canShowPreview, maxFileSize) {
-		let message, error;
+		let messages, error;
 		if(fileType === 1) {
 			messages = {
 				'default': 'Selecciona una imagen de tu dispositivo.',
@@ -48,7 +48,7 @@ var DropifyPlugin = function() {
 			}
 		}
 
-		let dropifySettings = {
+		let settings = {
 			messages,
 			error,
 			errorTimeout: 5000,
@@ -56,10 +56,42 @@ var DropifyPlugin = function() {
 		}
 
 		if(!canShowPreview) {
-			dropifySettings = {...dropifySettings, tpl: { 'preview': ''} }
+			settings = {
+				...settings, 
+				tpl: { 
+					'preview': ''
+				} 
+			}
 		}
 
-		$('.dropify').dropify(dropifySettings);
+		$('.dropify').dropify(settings);
+	}
+	
+	function initDropifyAux(allowedFileExtensions, maxFileSize, canShowPreview) {
+		const messages = {
+			'default': 'Selecciona una archivo de tu dispositivo.',
+			'replace': 'Selecciona otro archivo de tu dispositivo.',
+			'remove': 'Eliminar archivo',
+			'error': ''
+		}
+		const error = {
+			'fileSize': 'El tamaño del archivo es demasiado grande. ('+maxFileSize+' máximo).',
+			'fileExtension': 'El tipo de archivo seleccionado no está permitido, solo se aceptan: '+ allowedFileExtensions.join(',')
+		}
+
+		let settings = {
+			messages,
+			error,
+			errorTimeout: 6000,
+			allowedFileExtensions,
+			maxFileSize
+		}
+
+		if(!canShowPreview) {
+			settings = {...settings, tpl: { 'preview': ''} }
+		}
+
+		$('.dropify').dropify(settings);
 	}
 
 	function reset() {
@@ -72,6 +104,9 @@ var DropifyPlugin = function() {
 	return {
 		init: function(fileType, allowedFileTypes, canShowPreview = true, maxFileSize = '2M') {
 			initDropify(fileType, allowedFileTypes, canShowPreview, maxFileSize);
+		},
+		initAux: function(allowedFileExtensions, maxFileSize = '2M', canShowPreview = true) {
+			initDropifyAux(allowedFileExtensions, maxFileSize, canShowPreview);
 		},
 		reset
 	}

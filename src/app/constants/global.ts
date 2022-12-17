@@ -438,6 +438,9 @@ export const INSURANCE_TYPES: any = {
     COLLECTIVE: 4,
     FLOTILLA: 5
 }
+export const FILE_SIZES: any = {
+    LARGE: '10M'
+}
 
 export const INTERNAL_INSURANCES: any = {
     PERSON: 1,
@@ -466,6 +469,7 @@ export const SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY: any = {
     OTHERS: 40
 }
 export const SLACK_DAYS_TO_LOAD_A_EXPIRED_POLICY: number = 30;
+
 
 // Default values
 export const DEFAULT_PHONE_CODE_ID: number = 1;
