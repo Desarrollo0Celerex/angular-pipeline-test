@@ -1,13 +1,14 @@
-<div class="row" *ngIf="!!containerContactDetailsService.contact; else loadingContactDetails">
+<!-- AGENTHOS - PROFILE RESUME -->
+<div class="row" *ngIf="!!model.contact; else loadingContactDetails">
     <div class="col-sm-12">
         <div class="card">
             <!-- AGENTHOS - CARD HEADER -->
             <div class="card-header border-bottom-0">
                 <!-- AGENTHOS - CONTACT PIC -->
-                <img class="avatar brround" [src]="containerContactDetailsService.contact.avatarUrl" width="38px">
+                <img class="avatar brround" [src]="model.contact.avatarUrl" width="38px">
                 <div class="card-options">
-                    <div class="badge badge-primary-gradient mr-1">{{(containerContactDetailsService.contact.clientStatusName | contactStatusName: containerContactDetailsService.contact.leadStatusName) | uppercase}}</div>
-                    <div class="badge badge-{{!!containerContactDetailsService.contact.clientStatusBackground ? containerContactDetailsService.contact.clientStatusBackground : containerContactDetailsService.contact.leadStatusBackground}} mr-1" *ngIf="!!containerContactDetailsService.contact.clientStatusName || containerContactDetailsService.contact.leadStatusName">{{(!!containerContactDetailsService.contact.clientStatusName ? containerContactDetailsService.contact.clientStatusName : containerContactDetailsService.contact.leadStatusName) | uppercase}}</div>
+                    <div class="badge badge-primary-gradient mr-1">{{(model.contact.clientStatusName | contactStatusName: model.contact.leadStatusName) | uppercase}}</div>
+                    <div class="badge badge-{{!!model.contact.clientStatusBackground ? model.contact.clientStatusBackground : model.contact.leadStatusBackground}} mr-1" *ngIf="!!model.contact.clientStatusName || model.contact.leadStatusName">{{(!!model.contact.clientStatusName ? model.contact.clientStatusName : model.contact.leadStatusName) | uppercase}}</div>
                 </div>
             </div>
             <!-- //AGENTHOS - CARD HEADER -->
@@ -15,16 +16,17 @@
             <div class="card-body pt-0">
                 <!-- AGENTHOS - CONTACT NAME -->
                 <a routerLink="/{{contactProfileRoute}}">
-                    <h3 class="h3">{{containerContactDetailsService.contact.contactName}}</h3>
+                    <h3 class="h3">{{model.contact.contactName}}</h3>
                 </a>
                 <ol class="breadcrumb1">
-                    <li class="breadcrumb-item1">{{message}} <strong>{{containerContactDetailsService.contact.contactName}}</strong>.</li>
+                    <li class="breadcrumb-item1">{{message}} <strong>{{model.contact.contactName}}</strong>.</li>
                 </ol>
             </div>
             <!-- //AGENTHOS - CARD BODY -->
         </div>
     </div>
 </div>
+<!-- //AGENTHOS - PROFILE RESUME -->
 
 <ng-template #loadingContactDetails>
     <div class="card">

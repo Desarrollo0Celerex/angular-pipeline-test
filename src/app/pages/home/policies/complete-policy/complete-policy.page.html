@@ -1,39 +1,63 @@
-<agt-container-contact-details [contactId]="contactId" [message]="message"></agt-container-contact-details>
+<agt-container-contact-details 
+    [contactId]="contactId" 
+    [message]="message"
+></agt-container-contact-details>
+
+<!-- AGENTHOS - POLICY DETAILS INFO -->
+<div class="row mt-3">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Datos de la Póliza</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="isScannerFailed">
+    <!-- AGENTHOS - BUSINESS INTELLIGENCE -->
+    <!-- (JUST IF AGENTHOS SCANNER FAILED) -->
+    <agt-alert-scanner-failed
+        *ngIf="!!model.policy && !!model.policy.contactName"
+        [contactName]="model.policy.contactName"
+    ></agt-alert-scanner-failed>
+</div>
+<!-- //AGENTHOS - POLICY DETAILS INFO -->
+
 <!-- AGENTHOS - POLICY DETAILS -->
-<form *ngIf="!!completePolicyService.policy; else loading" [formGroup]="completePolicyService.policyForm" (submit)="onSubmitSavePolicy()">
+<form *ngIf="!!model.policy; else loading" [formGroup]="model.policyForm" (submit)="onSubmitSavePolicy()">
     <div class="row">
         <div class="col-md-4">
             <!-- AGENTHOS - POLICY FILE -->
             <div class="card">
                 <div class="card-header">
-                    <img [src]="completePolicyService.policy.insurerImageUrl" width="38px">
+                    <img [src]="model.policy.insurerImageUrl" width="38px">
                 </div>
                 <div class="card-body">
                     <!-- AGENTHOS - POLICY COVER -->
                     <div class="d-flex clearfix">
                         <div class="text-left">
                             <!-- AGENTHOS - POLICY STATUS -->
-                            <div class="badge badge-{{completePolicyService.policy.policyStatusBackground}} mr-1 mb-3">{{completePolicyService.policy.policyStatusName | uppercase}}</div>
+                            <div class="badge badge-{{model.policy.policyStatusBackground}} mr-1 mb-3">{{model.policy.policyStatusName | uppercase}}</div>
                             <!--<span class="col-auto align-self-center">
-                                <span class="form-help" data-toggle="popover" data-placement="top" [attr.data-content]="completePolicyService.policy.policyStatusDescription" data-original-title="">?</span>
+                                <span class="form-help" data-toggle="popover" data-placement="top" [attr.data-content]="model.policy.policyStatusDescription" data-original-title="">?</span>
                             </span>-->
                             <!-- AGENTHOS - POLICY TYPE -->
-                            <h6><span class="text-primary"><i class="fe fe-shield mr-2"></i></span>{{completePolicyService.policy.insuranceName | uppercase}}</h6>
+                            <h6><span class="text-primary"><i class="fe fe-shield mr-2"></i></span>{{model.policy.insuranceName | uppercase}}</h6>
                             <!-- AGENTHOS - POLICY TYPE -->
-                            <h6><span class="text-primary"><i class="fe fe-globe mr-2"></i></span>{{completePolicyService.policy.insuranceTypeName | uppercase}}</h6>
+                            <h6><span class="text-primary"><i class="fe fe-globe mr-2"></i></span>{{model.policy.insuranceTypeName | uppercase}}</h6>
                             <!-- AGENTHOS - POLICY NUMBER -->
-                            <h6><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{completePolicyService.policy.policyNumber}}</h6>
+                            <h6><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{model.policy.policyNumber}}</h6>
                         </div>
                         <div class="ml-auto">
-                            <span class="{{completePolicyService.policy.insuranceBackground}} icon-service">
-                                <i class="fa {{completePolicyService.policy.insuranceIcon}} fs-2"></i>
+                            <span class="{{model.policy.insuranceBackground}} icon-service">
+                                <i class="fa {{model.policy.insuranceIcon}} fs-2"></i>
                             </span>
                         </div>
                     </div>
                     <!-- //AGENTHOS - POLICY COVER -->
                     <!-- AGENTHOS - POLICY LIFE -->
                     <div class="progress progress-sm mt-2">
-                        <div class="progress-bar {{completePolicyService.policy.insuranceBackground}}" [ngStyle]="{'width': completePolicyService.policy.lifeTime+'%'}"></div>
+                        <div class="progress-bar {{model.policy.insuranceBackground}}" [ngStyle]="{'width': model.policy.lifeTime+'%'}"></div>
                     </div>
                     <!-- //AGENTHOS - POLICY LIFE -->
                 </div>
@@ -48,7 +72,7 @@
                 <div class="card-body">
                     <div class="col-sm-12">
                         <!-- AGENTHOS - VIEW POLICY (JUST IF UPLOADED) -->
-                        <button type="button" class="btn btn-block btn-primary mb-5" (click)="onClickShowPolicy()" *ngIf="!(!!completePolicyService.f.policyFile.value)"><strong>VER PÓLIZA</strong></button>
+                        <button type="button" class="btn btn-block btn-primary mb-5" (click)="onClickShowPolicy()" *ngIf="!(!!model.f.policyFile.value)"><strong>VER PÓLIZA</strong></button>
                         <!-- AGENTHOS - UPDATE POLICY -->
                         <button type="button" class="btn btn-block btn-secondary" (click)="onClickSelectPolicy()"><strong>ACTUALIZAR PÓLIZA</strong></button>
                     </div>
@@ -180,7 +204,7 @@
                                     <!-- AGENTHOS - POLICY PHONE -->
                                     <label class="form-label">Teléfono</label>
                                     <div class="input-group mb-3">
-                                        <agt-dropdown-select-phone-code [phoneCodeId]="completePolicyService.f.titularPhoneCodeId.value" (phoneCodeIdSelected)="titularPhoneCodeIdSelected($event)"></agt-dropdown-select-phone-code>
+                                        <agt-dropdown-select-phone-code [phoneCodeId]="model.f.titularPhoneCodeId.value" (phoneCodeIdSelected)="titularPhoneCodeIdSelected($event)"></agt-dropdown-select-phone-code>
                                         <!-- AGENTHOS - PHONE NUMBER -->
                                         <input type="text" class="form-control {{getValidationClass('titularPhoneNumber')}}" formControlName="titularPhoneNumber">
                                         <div class="invalid-feedback">{{getErrorMessage('titularPhoneNumber')}}</div>
@@ -194,7 +218,7 @@
 
             <!-- AGENTHOS - POLICY DEFAULT DETAILS -->
             <!-- (FOR INSURANCE CARD) -->
-            <div class="card" *ngIf="completePolicyService.policy.insuranceTypeId === INSURANCE_TYPES.FLOTILLA">
+            <div class="card" *ngIf="model.policy.insuranceTypeId === INSURANCE_TYPES.FLOTILLA">
                 <div class="card-header">
                     <h3 class="card-title">Detalles de la Flotilla</h3>
                 </div>
@@ -217,7 +241,7 @@
 
             <!-- //AGENTHOS - POLICY OWNER -->
             <div formArrayName="insureds">
-                <ng-container [ngSwitch]="completePolicyService.policy.insuranceGroupId">
+                <ng-container [ngSwitch]="model.policy.insuranceGroupId">
 
                     <ng-container *ngSwitchCase="INSURANCE_GROUPS.PEOPLE">
                         <div class="card">
@@ -225,7 +249,7 @@
                                 <h3 class="card-title">Datos del Asegurado</h3>
                             </div>
                             <div class="card-body">
-                                <ng-container *ngFor="let insured of completePolicyService.insureds.controls; let insuredIndex = index">
+                                <ng-container *ngFor="let insured of model.insureds.controls; let insuredIndex = index">
                                     <ng-container [formGroupName]="insuredIndex">
                                         <div class="block-content">
                                             <div class="form-group row text-center">
@@ -242,7 +266,7 @@
                                                         <!-- AGENTHOS - POLICY INSURED GENDER -->
                                                         <label class="form-label">Género</label>
                                                         <select class="form-control custom-select {{getValidationClassInsured('personGenderId', insuredIndex)}}" formControlName="personGenderId">
-                                                            <option [value]="gender.genderId" *ngFor="let gender of completePolicyService.genders">{{gender.name | uppercase}}</option>
+                                                            <option [value]="gender.genderId" *ngFor="let gender of model.genders">{{gender.name | uppercase}}</option>
                                                         </select>
                                                         <div class="invalid-feedback">{{getErrorMessageInsured('personGenderId', insuredIndex)}}</div>
                                                     </div>
@@ -263,8 +287,8 @@
                         </div>
                     </ng-container>
                     <ng-container *ngSwitchCase="INSURANCE_GROUPS.VEHICLES">
-                        <ng-container *ngIf="completePolicyService.policy.insuranceTypeId === INSURANCE_TYPES.FLOTILLA; else vehicleIndividual">
-                            <ng-container *ngFor="let insured of completePolicyService.insureds.controls; let insuredIndex = index">
+                        <ng-container *ngIf="model.policy.insuranceTypeId === INSURANCE_TYPES.FLOTILLA; else vehicleIndividual">
+                            <ng-container *ngFor="let insured of model.insureds.controls; let insuredIndex = index">
                                 <ng-container [formGroupName]="insuredIndex">
                                     <div class="card">
                                         <div class="card-header">
@@ -493,7 +517,7 @@
                         </ng-container>
 
                         <ng-template #vehicleIndividual>
-                            <ng-container *ngFor="let insured of completePolicyService.insureds.controls; let insuredIndex = index">
+                            <ng-container *ngFor="let insured of model.insureds.controls; let insuredIndex = index">
                                 <ng-container [formGroupName]="insuredIndex">
                                     <div class="card">
                                         <div class="card-header">
@@ -566,7 +590,7 @@
                             </div>
                             <div class="card-body">
 
-                                <ng-container *ngFor="let insured of completePolicyService.insureds.controls; let insuredIndex = index">
+                                <ng-container *ngFor="let insured of model.insureds.controls; let insuredIndex = index">
                                     <ng-container [formGroupName]="insuredIndex">
                                         <div class="block-content">
                                             <div class="form-group row text-center">
@@ -602,10 +626,10 @@
                         </div>
                     </ng-container>
                     <ng-container *ngSwitchCase="(
-                        completePolicyService.policy.insuranceGroupId === INSURANCE_GROUPS.MERCHANDISE ||
-                        completePolicyService.policy.insuranceGroupId === INSURANCE_GROUPS.OBJECTS ||
-                        completePolicyService.policy.insuranceGroupId === INSURANCE_GROUPS.RC
-                    ) ? completePolicyService.policy.insuranceGroupId : ''">
+                        model.policy.insuranceGroupId === INSURANCE_GROUPS.MERCHANDISE ||
+                        model.policy.insuranceGroupId === INSURANCE_GROUPS.OBJECTS ||
+                        model.policy.insuranceGroupId === INSURANCE_GROUPS.RC
+                    ) ? model.policy.insuranceGroupId : ''">
 
                         <div class="card">
                             <div class="card-header">
@@ -613,7 +637,7 @@
                             </div>
                             <div class="card-body">
 
-                                <ng-container *ngFor="let insured of completePolicyService.insureds.controls; let insuredIndex = index">
+                                <ng-container *ngFor="let insured of model.insureds.controls; let insuredIndex = index">
                                     <ng-container [formGroupName]="insuredIndex">
                                         <div class="block-content">
                                             <div class="form-group row text-center">
@@ -656,7 +680,7 @@
                             </div>
                             <div class="card-body">
 
-                                <ng-container *ngFor="let insured of completePolicyService.insureds.controls; let insuredIndex = index">
+                                <ng-container *ngFor="let insured of model.insureds.controls; let insuredIndex = index">
                                     <ng-container [formGroupName]="insuredIndex">
                                         <div class="block-content">
                                             <div class="form-group row text-center">
@@ -679,7 +703,7 @@
             </div>
 
             <!-- AGENTHOS - ADD INSURED -->
-            <div class="card" *ngIf="completePolicyService.policy.insuranceTypeId == INSURANCE_TYPES.FLOTILLA">
+            <div class="card" *ngIf="model.policy.insuranceTypeId == INSURANCE_TYPES.FLOTILLA">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -810,7 +834,7 @@
                                     <!-- AGENTHOS - PAY CURRENCY * -->
                                     <label class="form-label">Moneda</label>
                                     <select class="form-control custom-select {{getValidationClass('currencyId')}}" formControlName="currencyId">
-                                        <option [value]="currency.currencyId" *ngFor="let currency of completePolicyService.currencies">{{currency.name}}</option>
+                                        <option [value]="currency.currencyId" *ngFor="let currency of model.currencies">{{currency.name}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('currencyId')}}</div>
                                 </div>
@@ -820,7 +844,7 @@
                                     <!-- AGENTHOS - PAYMENT METHOD * -->
                                     <label class="form-label">Forma de Pago</label>
                                     <select class="form-control custom-select {{getValidationClass('paymentMethodId')}}" formControlName="paymentMethodId">
-                                        <option [value]="paymentMethod.paymentMethodId" *ngFor="let paymentMethod of completePolicyService.paymentMethods">{{paymentMethod.name | uppercase}}</option>
+                                        <option [value]="paymentMethod.paymentMethodId" *ngFor="let paymentMethod of model.paymentMethods">{{paymentMethod.name | uppercase}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('paymentMethodId')}}</div>
                                 </div>
@@ -830,7 +854,7 @@
                                     <!-- AGENTHOS - PAY PLAN * -->
                                     <label class="form-label">Tipo de Plan</label>
                                     <select class="form-control custom-select {{getValidationClass('paymentPlanId')}}" formControlName="paymentPlanId" (change)="onChangeCalculateBills()">
-                                        <option [value]="paymentPlan.paymentPlanId" *ngFor="let paymentPlan of completePolicyService.paymentPlans">{{paymentPlan.name | uppercase}}</option>
+                                        <option [value]="paymentPlan.paymentPlanId" *ngFor="let paymentPlan of model.paymentPlans">{{paymentPlan.name | uppercase}}</option>
                                     </select>
                                     <div class="invalid-feedback">{{getErrorMessage('paymentPlanId')}}</div>
                                 </div>
@@ -873,7 +897,7 @@
             </div>
             <!-- //AGENTHOS - AUTO PAYMENT -->
             <!-- AGENTHOS - AGENT OR PARTNER -->
-            <div class="card" *ngIf="completePolicyService.partners.length > 1">
+            <div class="card" *ngIf="model.partners.length > 1">
                 <div class="card-header">
                     <h3 class="card-title">Nombre del Agente</h3>
                 </div>
@@ -883,7 +907,7 @@
                             <li class="breadcrumb-item1">Selecciona el agente o socio comercial al que deseas enlazar esta póliza.</li>
                         </ol>
                         <select class="form-control custom-select {{getValidationClass('partnerId')}}" formControlName="partnerId">
-                            <option [value]="partner.partnerId" *ngFor="let partner of completePolicyService.partners">{{partner.name | titlecase}}</option>
+                            <option [value]="partner.partnerId" *ngFor="let partner of model.partners">{{partner.name | titlecase}}</option>
                         </select>
                         <div class="invalid-feedback">{{getErrorMessage('partnerId')}}</div>
                     </div>

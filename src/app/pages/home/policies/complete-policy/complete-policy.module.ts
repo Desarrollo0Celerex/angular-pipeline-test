@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { AlertScannerFailedModule } from '@components/alert-scanner-failed/alert-scanner-failed.module';
 import { ContainerContactDetailsModule } from '@components/container-contact-details/container-contact-details.module';
 import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone-code/dropdown-select-phone-code.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
@@ -31,6 +32,7 @@ import { CompletePolicyService } from './complete-policy.service';
 @NgModule({
   declarations: [CompletePolicyPage],
   imports: [
+    AlertScannerFailedModule,
     ContainerContactDetailsModule,
     CommonModule,
     CompletePolicyRoutingModule,
