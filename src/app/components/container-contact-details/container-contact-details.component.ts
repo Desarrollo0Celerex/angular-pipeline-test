@@ -15,12 +15,12 @@ export class ContainerContactDetailsComponent implements OnChanges {
     @Input() message: string = '';
     contactProfileRoute: string = '';
 
-    constructor(public containerContactDetailsService: ContainerContactDetailsService) { }
+    constructor(public model: ContainerContactDetailsService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.contactId.currentValue) {
             this.contactProfileRoute = ROUTES_NAME.contactResume(this.contactId);
-            this.containerContactDetailsService.loadContact(this.contactId);
+            this.model.loadContact(this.contactId);
         }
     }
 

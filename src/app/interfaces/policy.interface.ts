@@ -65,5 +65,11 @@ export interface Policy {
     workspaceRealName: string,
     partnerId: number,
     insureds: Insured[],
-    insuranceGroupId: number
+    insuranceGroupId: number,
+    contactTypeId: number,
+    titularGenderId: number,
+    titularAge: number,
+    titularEmail: string,
+    policyCommission: number,
+    policyCommissionAmount: number
 }

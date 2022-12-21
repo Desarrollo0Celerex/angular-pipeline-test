@@ -107,6 +107,9 @@ export class InputValidatorHelper {
                     case (typeof error.time !== 'undefined'):
                         message = 'Por favor ingresa una hora válida.';
                         break;
+                    case (typeof error.percentage !== 'undefined'):
+                        message = 'Por favor ingresa un porcentaje válido.';
+                        break;
 
                     default: message = '';
                 }
