@@ -137,27 +137,11 @@ export class CompletePolicyPage implements OnInit {
     }
 
     calculatePolicyCommissionAmount(event: any): void {
-        let policyCommissionAmount: number = 0;
-        const policyCommission: number = parseFloat(event.target.value);
-        if(policyCommission > 0) {
-            const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.policyAmount.value));
-            if(policyAmount > 0) {
-                policyCommissionAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(policyCommission * policyAmount / 100);
-            }
-        }
-        this.model.policyForm.patchValue({policyCommissionAmount});
+        this.model.calculatePolicyCommissionAmount(event.target.value);
     }
 
     calculatePolicyCommission(event: any): void {
-        let policyCommission: number = 0;
-        const policyCommissionAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(event.target.value));
-        if(policyCommissionAmount > 0) {
-            const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.policyAmount.value));
-            if(policyAmount > 0) {
-                policyCommission = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(policyCommissionAmount * 100 / policyAmount);
-            }
-        }
-        this.model.policyForm.patchValue({policyCommission});
+        this.model.calculatePolicyCommission(event.target.value);
     }
 
     /**
@@ -297,6 +281,13 @@ export class CompletePolicyPage implements OnInit {
 
     titularPhoneCodeIdSelected(titularPhoneCodeId: number): void {
         this.model.policyForm.patchValue({titularPhoneCodeId});
+    }
+
+    tryCalculatePolicyCommissionAmount(): void {
+        const policyCommission: string = this.model.f.policyCommission.value;
+        if(!!policyCommission) {
+            this.model.calculatePolicyCommissionAmount(policyCommission);
+        }
     }
 
     /**

@@ -71,5 +71,7 @@ export interface Policy {
     titularAge: number,
     titularEmail: string,
     policyCommission: number,
-    policyCommissionAmount: number
+    policyCommissionAmount: number,
+    workspaceCommission: number,
+    workspaceAgentNumber: string
 }
