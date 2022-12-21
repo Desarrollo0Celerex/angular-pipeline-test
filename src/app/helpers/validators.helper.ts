@@ -204,6 +204,15 @@ export class ValidatorsHelper {
         return null;
     }
 
+    static percentage(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const value: any = control.value;
+            const regex = /^(100|(\d{1,2})?(\.\d{1,2})?)$/;
+            return (regex.test(value)) ? null : {percentage: true};
+        }
+        return null;
+    }
+
     /**
      * Validate a postal code
      * @param  control The control to evaluate
