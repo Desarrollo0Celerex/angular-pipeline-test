@@ -45,11 +45,17 @@ export const TITULAR_NAME_LENGTH: any = {
     MIN: 2,
     MAX: 200
 }
+export const AGENT_NUMBER_LENGTH: any = {
+    MIN: 5,
+    MAX: 11
+}
 
 export const FORMAT_TYPES: any = {
     PDF: 1,
     XLSX: 2
 }
+
+
 
 // Dropify
 export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
