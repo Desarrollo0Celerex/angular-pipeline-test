@@ -1016,7 +1016,7 @@
                                                     <i class="fa fa-dollar tx-16 lh-0 op-6"></i>
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control {{getValidationClass('policyAmount')}}" formControlName="policyAmount">
+                                            <input type="text" class="form-control {{getValidationClass('policyAmount')}}" formControlName="policyAmount" (change)="tryCalculatePolicyCommissionAmount()">
                                             <div class="invalid-feedback">{{getErrorMessage('policyAmount')}}</div>
                                         </div>
                                     </div>

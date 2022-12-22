@@ -110,7 +110,7 @@ export class CompletePolicyService {
             bills: [{value: '', disabled: canDisableBills}, [Validators.required, ValidatorsHelper.number]],
             isAutoPayment: [false],
             partnerId: [0, [Validators.required]],
-            agentNumber: [(!!policy && !!policy.agentNumber) ? policy.agentNumber : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+            agentNumber: [(!!policy && !!policy.agentNumber && policy.agentNumber.length <= 10) ? policy.agentNumber : (!!this.policy && !!this.policy.workspaceAgentNumber) ? this.policy.workspaceAgentNumber : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             policyCommission: ['', [Validators.required, ValidatorsHelper.percentage]],
             policyCommissionAmount: ['', [Validators.required, ValidatorsHelper.amount] ],
             insureds: this._formBuilder.array([])
@@ -123,6 +123,13 @@ export class CompletePolicyService {
 
         if(this.policy!.insuranceTypeId === INSURANCE_TYPES.FLOTILLA) {
             this.policyForm.addControl('description', new FormControl('', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]))
+        }
+
+        if(!!this.policy && !!this.policy.workspaceCommission) {
+            this.policyForm.patchValue({
+                policyCommission: this.policy.workspaceCommission
+            });
+            this.calculatePolicyCommissionAmount(this.policy.workspaceCommission);
         }
 
         const insured: Insured | null = (!!policy && !!policy.insureds && policy.insureds.length > 0) ? policy.insureds[0] : null;
@@ -157,6 +164,30 @@ export class CompletePolicyService {
                 }
             }
         }
+    }
+
+    calculatePolicyCommission(amount: any): void {
+        let policyCommission: number = 0;
+        const policyCommissionAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(amount));
+        if(policyCommissionAmount > 0) {
+            const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value));
+            if(policyAmount > 0) {
+                policyCommission = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(policyCommissionAmount * 100 / policyAmount);
+            }
+        }
+        this.policyForm.patchValue({policyCommission});
+    }
+
+    calculatePolicyCommissionAmount(percentage: any): void {
+        let policyCommissionAmount: number = 0;
+        const policyCommission: number = parseFloat(percentage);
+        if(policyCommission > 0) {
+            const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value));
+            if(policyAmount > 0) {
+                policyCommissionAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(policyCommission * policyAmount / 100);
+            }
+        }
+        this.policyForm.patchValue({policyCommissionAmount});
     }
 
     checkIsNewPolicy(): boolean {
@@ -291,7 +322,7 @@ export class CompletePolicyService {
      */
     getContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,workspaceCommission,workspaceAgentNumber';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;

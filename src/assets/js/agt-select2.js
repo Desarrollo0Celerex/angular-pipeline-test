@@ -9,20 +9,25 @@ var Select2Plugin = function() {
 		}, 0);
 	}
 
-	function initSearch(onItemSelected, context) {
-		$('.select2-show-search').select2({
+	function initSearch(elementId, onItemSelected, context) {
+		$('#'+elementId).select2({
 			minimumResultsForSearch: '',
 			width: '100%'
 		});
 
-		$('.select2-selection__rendered').on('DOMSubtreeModified', function() {
-			const selectedValue = $('.select2-show-search').val();
-			onItemSelected(context, selectedValue);
-		})
+		$('#'+elementId).on('select2:select', function (event) {
+			const selectedValue = event.target.value;
+			onItemSelected(context, selectedValue, elementId);
+		});
+	}
+
+	function setValue(elementId, id) {
+		$('#'+elementId).val(id).trigger('change');
 	}
 
 	return {
 		initSelect,
-		initSearch
+		initSearch,
+		setValue
 	}
 }();

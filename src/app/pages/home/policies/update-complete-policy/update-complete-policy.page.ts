@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 import * as moment from 'moment';
 
-import { DOCUMENT_FORMATS, FILE_TYPES, INSURANCE_GROUPS, INSURANCE_TYPES } from '@constants/global';
+import { DOCUMENT_FORMATS, FILE_TYPES, INSURANCE_GROUPS, INSURANCE_TYPES, CONTACT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -15,6 +15,8 @@ import { UpdateCompletePolicyService } from './update-complete-policy.service';
 
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
+declare var PopoverPlugin: any;
+declare var Select2Plugin: any;
 
 @Component({
   selector: 'agt-update-complete-policy',
@@ -24,13 +26,14 @@ declare var ModalPlugin: any;
   providers: [UpdateCompletePolicyService]
 })
 export class UpdateCompletePolicyPage implements OnInit {
+    CONTACT_TYPES: any = CONTACT_TYPES;
     INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     INSURANCE_TYPES: any = INSURANCE_TYPES;
     calendarIdEmissionDate: string = 'emissionDate';
     calendarIdValidityEndDate: string = 'validityEndDate';
     calendarIdValidityStartDate: string = 'validityStartDate';
     contactId: string = '';
-    message: string = 'Verfica los datos para la nueva póliza de';
+    message: string = 'Actualiza los datos de la póliza';
     modalIdConfirmRemoveInsured: string = 'agt-confirm-remove-insured';
     modalIdPolicyAmountsDifferent: string = 'agt-policy-amounts-different';
     modalIdSelectFile: string = 'agt-select-file';
@@ -44,13 +47,17 @@ export class UpdateCompletePolicyPage implements OnInit {
         fileType: FILE_TYPES.DOCUMENT
     };
     policyId: string = '';
+    searchIdInsurers: string = 'insurerId';
+    searchIdInsurances: string = 'insuranceId';
+    /* searchIdInsurers: string = 'agt-search-insurers';
+    searchIdInsurances: string = 'agt-search-insurances'; */
     selectedPolicyUrl: string = '';
     selectedVehicleNumber: string = '';
     private _isFormSubmitted: boolean = false;
     private _selectedInsuredIndex: number = 0;
 
     constructor(
-        public updateCompletePolicyService: UpdateCompletePolicyService,
+        public model: UpdateCompletePolicyService,
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
@@ -61,10 +68,18 @@ export class UpdateCompletePolicyPage implements OnInit {
         this._loadPolicy();
     }
 
+    get labelPolicyCommissionCurrency(): string {
+        const currencyId: number = parseInt(this.model.f.currencyId.value);
+        if(!!currencyId && this.model.currencies.length > 0) {
+            return this.model.currencies[currencyId - 1].name;
+        }
+        return '';
+    }
+
     get objectNameLabel(): string {
         let label: string = '';
-        if(!!this.updateCompletePolicyService.policy && !!this.updateCompletePolicyService.policy.insuranceGroupId) {
-            switch(this.updateCompletePolicyService.policy.insuranceGroupId) {
+        if(!!this.model.policy && !!this.model.policy.insuranceGroupId) {
+            switch(this.model.policy.insuranceGroupId) {
                 case INSURANCE_GROUPS.OBJECTS:
                 case INSURANCE_GROUPS.MERCHANDISE: label = 'Nombre del Bien Asegurado'; break;
                 case INSURANCE_GROUPS.RC: label = 'Nombre de la Persona o Bien Asegurado'; break;
@@ -75,8 +90,8 @@ export class UpdateCompletePolicyPage implements OnInit {
 
     get objectUsageLabel(): string {
         let label: string = '';
-        if(!!this.updateCompletePolicyService.policy && !!this.updateCompletePolicyService.policy.insuranceGroupId) {
-            switch(this.updateCompletePolicyService.policy.insuranceGroupId) {
+        if(!!this.model.policy && !!this.model.policy.insuranceGroupId) {
+            switch(this.model.policy.insuranceGroupId) {
                 case INSURANCE_GROUPS.OBJECTS: label = 'Marca del Bien Asegurado'; break;
                 case INSURANCE_GROUPS.MERCHANDISE: label = 'Uso del Bien Asegurado'; break;
                 case INSURANCE_GROUPS.RC: label = 'Actividad Asegurada'; break;
@@ -87,8 +102,8 @@ export class UpdateCompletePolicyPage implements OnInit {
 
     get objectDescriptionLabel(): string {
         let label: string = '';
-        if(!!this.updateCompletePolicyService.policy && !!this.updateCompletePolicyService.policy.insuranceGroupId) {
-            switch(this.updateCompletePolicyService.policy.insuranceGroupId) {
+        if(!!this.model.policy && !!this.model.policy.insuranceGroupId) {
+            switch(this.model.policy.insuranceGroupId) {
                 case INSURANCE_GROUPS.OBJECTS: label = 'Características del Bien Asegurado'; break;
                 case INSURANCE_GROUPS.MERCHANDISE: label = 'Descripción del Bien Asegurado'; break;
                 case INSURANCE_GROUPS.RC: label = 'Descripción'; break;
@@ -97,24 +112,39 @@ export class UpdateCompletePolicyPage implements OnInit {
         return label;
     }
 
+    get policyNumber(): string {
+        if(!!this.model.policy && !!this.model.policy.policyNumber) {
+            return this.model.policy.policyNumber;
+        }
+        return ' ';
+    }
+
     addNewInsured(): void {
-        this.updateCompletePolicyService.addInsured();
+        this.model.addInsured();
+    }
+
+    calculatePolicyCommission(event: any): void {
+        this.model.calculatePolicyCommission(event.target.value);
+    }
+
+    calculatePolicyCommissionAmount(event: any): void {
+        this.model.calculatePolicyCommissionAmount(event.target.value);
     }
 
     confirmRemoveInsured(insuredIndex: number): void {
-        const policyInsuredId: any = this.updateCompletePolicyService.insureds.at(insuredIndex).get('policyInsuredId');
+        const policyInsuredId: any = this.model.insureds.at(insuredIndex).get('policyInsuredId');
         if(!!policyInsuredId) {
             this._selectedInsuredIndex = insuredIndex;
-            this.selectedVehicleNumber = this.updateCompletePolicyService.insureds.at(insuredIndex).get('vehicleNumber')!.value;
+            this.selectedVehicleNumber = this.model.insureds.at(insuredIndex).get('vehicleNumber')!.value;
             ModalPlugin.show(this.modalIdConfirmRemoveInsured);
         } else {
-            this.updateCompletePolicyService.removeInsured(insuredIndex);
+            this.model.removeInsured(insuredIndex);
         }
     }
 
     confirmUpdateInsured(insuredIndex: number): void {
-        this.updateCompletePolicyService.insureds.at(insuredIndex).enable();
-        this.updateCompletePolicyService.initDropifyPlugin();
+        this.model.insureds.at(insuredIndex).enable();
+        this.model.initDropifyPlugin();
     }
 
     /**
@@ -123,12 +153,12 @@ export class UpdateCompletePolicyPage implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.updateCompletePolicyService.policyForm.get(constrolName);
+        const control: AbstractControl | null = this.model.policyForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
     getErrorMessageInsured(constrolName: string, insuredIndex: number): string {
-        const control: AbstractControl | null = this.updateCompletePolicyService.insureds.at(insuredIndex).get(constrolName);
+        const control: AbstractControl | null = this.model.insureds.at(insuredIndex).get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -138,12 +168,12 @@ export class UpdateCompletePolicyPage implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.updateCompletePolicyService.policyForm.get(constrolName);
+        const control: AbstractControl | null = this.model.policyForm.get(constrolName);
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
     getValidationClassInsured(constrolName: string, insuredIndex: number): string {
-        const control: AbstractControl | null = this.updateCompletePolicyService.insureds.at(insuredIndex).get(constrolName);
+        const control: AbstractControl | null = this.model.insureds.at(insuredIndex).get(constrolName);
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
@@ -151,19 +181,13 @@ export class UpdateCompletePolicyPage implements OnInit {
      * Change event to calculate the bills
      */
     onChangeCalculateBills(): void {
-        this.updateCompletePolicyService.calculateBills();
-    }
-
-    onChangeLoadInsuranceTypes(): void {
-        this.updateCompletePolicyService.f.insuranceTypeId.setValue(null);
-        this._updateInsurance();
-        this._loadInsuranceTypes();
+        this.model.calculateBills();
     }
 
     onChangeInsuranceTypeId(): void {
-        const newInsuranceTypeId: number = parseInt(this.updateCompletePolicyService.f.insuranceTypeId.value);
-        this.updateCompletePolicyService.policy!.insuranceTypeId = newInsuranceTypeId;
-        this.updateCompletePolicyService.buildPolicyForm(this.updateCompletePolicyService.policy);
+        const newInsuranceTypeId: number = parseInt(this.model.f.insuranceTypeId.value);
+        this.model.policy!.insuranceTypeId = newInsuranceTypeId;
+        this.model.buildPolicyForm(this.model.policy);
         this.confirmUpdateInsured(0);
     }
 
@@ -185,7 +209,7 @@ export class UpdateCompletePolicyPage implements OnInit {
      * Event to update the form policy file
      */
     onPolicySelected(policyFile: File): void {
-        this.updateCompletePolicyService.policyForm.patchValue({policyFile: policyFile});
+        this.model.policyForm.patchValue({policyFile: policyFile});
     }
 
     /**
@@ -193,18 +217,18 @@ export class UpdateCompletePolicyPage implements OnInit {
      */
     onSubmitSavePolicy(): void {
         this._isFormSubmitted = true;
-        if(this.updateCompletePolicyService.policyForm.valid) {
+        if(this.model.policyForm.valid) {
             // Policy has receipts paid or endorsements
-            if(this.updateCompletePolicyService.policy!.receiptsPaid > 0 || this.updateCompletePolicyService.policy!.totalEndorsements > 0) {
+            if(this.model.policy!.receiptsPaid > 0 || this.model.policy!.totalEndorsements > 0) {
                 this._loadingService.show();
-                this.updateCompletePolicyService.updatePolicy(this.contactId, this.policyId).subscribe( () => {
+                this.model.updatePolicy(this.contactId, this.policyId).subscribe( () => {
                     this._loadingService.hide();
                     AlertHelper.policyUpdated(this._goToListContactPolicies, this);
                 })
             } else {
-                if(this.updateCompletePolicyService.checkPolicyAmounts()) {
+                if(this.model.checkPolicyAmounts()) {
                     this._loadingService.show();
-                    this.updateCompletePolicyService.updateCompletePolicy(this.contactId, this.policyId).subscribe( () => {
+                    this.model.updateCompletePolicy(this.contactId, this.policyId).subscribe( () => {
                         this._loadingService.hide();
                         AlertHelper.policyUpdated(this._goToListContactPolicies, this);
                     })
@@ -220,7 +244,7 @@ export class UpdateCompletePolicyPage implements OnInit {
     deleteInsured(): void {
         this._selectedInsuredIndex;
         this._loadingService.show();
-        this.updateCompletePolicyService.deletePolicyInsured(this.contactId, this.policyId, this._selectedInsuredIndex).subscribe(() => {
+        this.model.deletePolicyInsured(this.contactId, this.policyId, this._selectedInsuredIndex).subscribe(() => {
             this._loadingService.hide();
             AlertHelper.policyInsuredDeleted();
         })
@@ -229,18 +253,25 @@ export class UpdateCompletePolicyPage implements OnInit {
     selectInsuredPolicyFile(event: any, index: number): void {
         if (event.target.files.length > 0) {
             const insuredPolicyFile = event.target.files[0];
-            this.updateCompletePolicyService.insureds.at(index).patchValue({insuredPolicyFile});
-            this.updateCompletePolicyService.insureds.at(index).get('insuredPolicyFile')!.updateValueAndValidity();
+            this.model.insureds.at(index).patchValue({insuredPolicyFile});
+            this.model.insureds.at(index).get('insuredPolicyFile')!.updateValueAndValidity();
         }
     }
 
     showPolicyFile(insuredIndex: number): void {
-        this.selectedPolicyUrl = this.updateCompletePolicyService.insureds.at(insuredIndex).get('policyUrl')!.value;
+        this.selectedPolicyUrl = this.model.insureds.at(insuredIndex).get('policyUrl')!.value;
         ModalPlugin.show(this.modalIdShowPolicyFile);
     }
 
     titularPhoneCodeIdSelected(titularPhoneCodeId: number): void {
-        this.updateCompletePolicyService.policyForm.patchValue({titularPhoneCodeId});
+        this.model.policyForm.patchValue({titularPhoneCodeId});
+    }
+
+    tryCalculatePolicyCommissionAmount(): void {
+        const policyCommission: string = this.model.f.policyCommission.value;
+        if(!!policyCommission) {
+            this.model.calculatePolicyCommissionAmount(policyCommission);
+        }
     }
 
     /**
@@ -253,7 +284,7 @@ export class UpdateCompletePolicyPage implements OnInit {
 
     private _checkPolicyPayments(receiptsPaid: number, totalEndorsements: number): void {
         if(receiptsPaid > 0 || totalEndorsements > 0) {
-            this.updateCompletePolicyService.disableFormFields();
+            this.model.disableFormFields();
         }
     }
 
@@ -275,24 +306,43 @@ export class UpdateCompletePolicyPage implements OnInit {
         context._router.navigateByUrl(ROUTES_NAME.listContactPolicies(context.contactId));
     }
 
+    private _loadCountryInsurers(countryId: number, insurerId: number): void {
+        this.model.loadCountryInsurers(countryId).subscribe( () => {
+            Select2Plugin.initSearch(this.searchIdInsurers, this._onItemSelected, this);
+            setTimeout(() => {
+                Select2Plugin.setValue(this.searchIdInsurers, insurerId);
+            }, 0)
+        });
+    }
+
     /**
      * Load the currencies
      */
     private _loadCurrencies(): void {
-        this.updateCompletePolicyService.loadCurrencies().subscribe( () => {
+        this.model.loadCurrencies().subscribe( () => {
         })
     }
 
     private _loadGenders(): void {
-        this.updateCompletePolicyService.loadGenders();
+        this.model.loadGenders();
+    }
+
+    private _loadInsuranceContext(): void {
+        this.model.f.insuranceTypeId.setValue(null);
+        this._updateInsurance();
+        this._loadInsuranceTypes();
     }
 
     /**
      * Load the insurances
      */
-    private _loadInsurances(): void {
-        this.updateCompletePolicyService.loadInsurances().subscribe(() => {
+    private _loadInsurances(insuranceId: number): void {
+        this.model.loadInsurances().subscribe(() => {
             this._loadInsuranceTypes();
+            Select2Plugin.initSearch(this.searchIdInsurances, this._onItemSelected, this);
+            setTimeout(() => {
+                Select2Plugin.setValue(this.searchIdInsurances, insuranceId);
+            }, 0)
         })
     }
 
@@ -300,19 +350,19 @@ export class UpdateCompletePolicyPage implements OnInit {
      * Load the insurance types
      */
     private _loadInsuranceTypes(): void {
-        const insuranceId: number = this.updateCompletePolicyService.f.insuranceId.value;
-        this.updateCompletePolicyService.loadInsuranceTypes(insuranceId);
+        const insuranceId: number = this.model.f.insuranceId.value;
+        this.model.loadInsuranceTypes(insuranceId);
     }
 
     private _loadPartners(workspaceRealName: string): void {
-        this.updateCompletePolicyService.loadPartners(workspaceRealName);
+        this.model.loadPartners(workspaceRealName);
     }
 
     /**
      * Load the payment methods
      */
     private _loadPaymentMethods(): void {
-        this.updateCompletePolicyService.loadPaymentMethods().subscribe( () => {
+        this.model.loadPaymentMethods().subscribe( () => {
         })
     }
 
@@ -320,26 +370,34 @@ export class UpdateCompletePolicyPage implements OnInit {
      * Load the payment plans
      */
     private _loadPaymentPlans(): void {
-        this.updateCompletePolicyService.loadPaymentPlans().subscribe( () => {
-            this.updateCompletePolicyService.calculateBills();
+        this.model.loadPaymentPlans().subscribe( () => {
+            this.model.calculateBills();
         })
+    }
+
+    private _onItemSelected(context: UpdateCompletePolicyPage, selectedItem: number, elementId: string): void {
+        context.model.policyForm.patchValue({[elementId]: selectedItem});
+        if(elementId === 'insuranceId') {
+            context._loadInsuranceContext();
+        }
     }
 
     /**
      * Load the policy data
      */
     private _loadPolicy(): void {
-        this.updateCompletePolicyService.loadPolicy(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
-            this.updateCompletePolicyService.buildPolicyForm(res.data);
+        this.model.loadPolicy(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
+            this.model.buildPolicyForm(res.data);
             this._initCalendars();
             this._loadCurrencies();
             this._loadGenders();
-            this.updateCompletePolicyService.loadInsuers();
-            this._loadInsurances();
+            this._loadCountryInsurers(res.data.workspaceCountryId, res.data.insurerId);
+            this._loadInsurances(res.data.insuranceId);
             this._loadPaymentMethods();
             this._loadPaymentPlans();
             this._loadPartners(res.data.workspaceRealName);
             this._checkPolicyPayments(res.data.receiptsPaid, res.data.totalEndorsements);
+            PopoverPlugin.init();
         })
     }
 
@@ -350,19 +408,19 @@ export class UpdateCompletePolicyPage implements OnInit {
      * @param context      The app context
      */
     private _onChangeDate(selectorId: string, changedValue: string, context: UpdateCompletePolicyPage): void {
-        context.updateCompletePolicyService.policyForm.patchValue({[selectorId]: changedValue});
-        context.updateCompletePolicyService.calculateBills();
+        context.model.policyForm.patchValue({[selectorId]: changedValue});
+        context.model.calculateBills();
         if(selectorId === 'validityStartDate' || selectorId === 'validityEndDate') {
             let validityStartDate: string = '';
             let validityEndDate: string = '';
             switch(selectorId) {
                 case 'validityStartDate':
                     validityStartDate = changedValue;
-                    validityEndDate = context.updateCompletePolicyService.f.validityEndDate.value;
+                    validityEndDate = context.model.f.validityEndDate.value;
                 break;
 
                 case 'validityEndDate':
-                    validityStartDate = context.updateCompletePolicyService.f.validityStartDate.value;
+                    validityStartDate = context.model.f.validityStartDate.value;
                     validityEndDate = changedValue;
                 break;
             }
@@ -371,16 +429,18 @@ export class UpdateCompletePolicyPage implements OnInit {
     }
 
     private _updateInsurance(): void {
-        const newInsuranceId: number = parseInt(this.updateCompletePolicyService.f.insuranceId.value);
-        this.updateCompletePolicyService.policy!.insuranceId = newInsuranceId;
-        this.updateCompletePolicyService.replaceInsureds();
+        const newInsuranceId: number = parseInt(this.model.f.insuranceId.value);
+        this.model.policy!.insuranceId = newInsuranceId;
+        this.model.loadInsuranceGroupIdByInsuranceId(newInsuranceId).subscribe(() => {
+            this.model.replaceInsureds();
+        })
     }
 
     private _validValidityEndDate(context: UpdateCompletePolicyPage, validityStartDate: string, validityEndDate: string): void {
         const validityStartDateAux = moment(validityStartDate, 'DD/MM/YYYY');
         const validityEndDateAux = moment(validityEndDate, 'DD/MM/YYYY');
         if(validityEndDateAux.isBefore(validityStartDateAux)) {
-            context.updateCompletePolicyService.f.validityEndDate.setErrors({invalidValidityEndDate: true});
+            context.model.f.validityEndDate.setErrors({invalidValidityEndDate: true});
         }
     }
 

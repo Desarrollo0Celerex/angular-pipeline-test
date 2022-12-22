@@ -18,6 +18,7 @@ import { CurrencyService } from '@services/currency.service';
 import { GendersService } from '@services/genders.service';
 import { InsurerService } from '@services/insurer.service';
 import { InsuranceService } from '@services/insurance.service';
+import { InsuranceGroupService } from '@services/insurance-group.service';
 import { InsuranceTypeService } from '@services/insurance-type.service';
 import { PartnerService } from '@services/partner.service';
 import { PaymentMethodService } from '@services/payment-method.service';
@@ -48,6 +49,7 @@ import { PolicyInsuredService } from '@services/policy-insured.service';
       GendersService,
       InsurerService,
       InsuranceService,
+      InsuranceGroupService,
       InsuranceTypeService,
       DatePipe,
       PartnerService,
