@@ -7,7 +7,7 @@ import * as moment from 'moment';
 
 import { FREE_TEXT_LENGTH, TITULAR_NAME_LENGTH, POLICY_SOURCES, ROLES, SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY,
     SLACK_DAYS_TO_LOAD_A_EXPIRED_POLICY, DEFAULT_PAYMENT_METHOD_ID, INSURANCE_TYPES, SHORT_ALPHANUMERIC_LENGTH,
-    LONG_ALPHANUMERIC_LENGTH, FILE_TYPES, INSURANCE_GROUPS, CONTACT_TYPES, EMAIL_LENGTH
+    LONG_ALPHANUMERIC_LENGTH, FILE_TYPES, INSURANCE_GROUPS, CONTACT_TYPES, EMAIL_LENGTH, AGENT_NUMBER_LENGTH
 } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
@@ -110,7 +110,7 @@ export class CompletePolicyService {
             bills: [{value: '', disabled: canDisableBills}, [Validators.required, ValidatorsHelper.number]],
             isAutoPayment: [false],
             partnerId: [0, [Validators.required]],
-            agentNumber: [(!!policy && !!policy.agentNumber && policy.agentNumber.length <= 10) ? policy.agentNumber : (!!this.policy && !!this.policy.workspaceAgentNumber) ? this.policy.workspaceAgentNumber : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+            agentNumber: [(!!policy && !!policy.agentNumber && policy.agentNumber.length >= AGENT_NUMBER_LENGTH.MIN && policy.agentNumber.length <= AGENT_NUMBER_LENGTH.MAX) ? policy.agentNumber : (!!this.policy && !!this.policy.workspaceAgentNumber) ? this.policy.workspaceAgentNumber : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             policyCommission: ['', [Validators.required, ValidatorsHelper.percentage]],
             policyCommissionAmount: ['', [Validators.required, ValidatorsHelper.amount] ],
             insureds: this._formBuilder.array([])
