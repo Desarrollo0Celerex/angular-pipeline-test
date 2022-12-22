@@ -29,10 +29,11 @@ export class InsurerService {
      * @param  fields              The fields to get
      * @return                     The insurers
      */
-    getCountryInsurers(countryId: number, fields: string = ''): Observable<HttpResponse> {
+    getCountryInsurers(countryId: number, fields: string = '', sortBy: string = 'name'): Observable<HttpResponse> {
         const route = routes.countryInsurers(countryId);
         let params: HttpParams = new HttpParams();
         if(!!fields) params = params.append('fields', fields);
+        params = params.append('sortBy', sortBy);
         return this._httpClient.get<HttpResponse>(route, {params});
     }
 
@@ -41,10 +42,11 @@ export class InsurerService {
      * @param  fields              The fields to get
      * @return                     The insurers
      */
-    getInsurers(fields: string = ''): Observable<HttpResponse> {
+    getInsurers(fields: string = '', sortBy: string = 'name'): Observable<HttpResponse> {
         const route = routes.insurers;
         let params: HttpParams = new HttpParams();
         if(!!fields) params = params.append('fields', fields);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
         return this._httpClient.get<HttpResponse>(route, {params});
     }
 

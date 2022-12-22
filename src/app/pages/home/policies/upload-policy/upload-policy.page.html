@@ -35,7 +35,7 @@
                             <!-- AGENTHOS - INSURANCE COMPANY -->
                             <div class="form-group">
                                 <label class="form-label">Compañía de Seguros</label>
-                                <select class="form-control select2-show-search {{getValidationClass('insurerId')}}" data-placeholder="Compañía Aseguradora" formControlName="insurerId">
+                                <select [id]="searchIdInsurers" class="form-control select2-show-search custom-select {{getValidationClass('insurerId')}}" data-placeholder="Compañía Aseguradora" formControlName="insurerId">
                                     <optgroup label="Seleccionar Compañía">
                                         <option [value]="insurer.insurerId" *ngFor="let insurer of uploadPolicyService.insurers">{{insurer.name | uppercase}}</option>
                                     </optgroup>

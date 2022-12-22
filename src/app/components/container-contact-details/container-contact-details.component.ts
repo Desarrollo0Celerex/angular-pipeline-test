@@ -13,12 +13,13 @@ import { ContainerContactDetailsService } from './container-contact-details.serv
 export class ContainerContactDetailsComponent implements OnChanges {
     @Input() contactId: string = '';
     @Input() message: string = '';
+    @Input() policyNumber: string = '';
     contactProfileRoute: string = '';
 
     constructor(public model: ContainerContactDetailsService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.contactId.currentValue) {
+        if(!!changes.contactId && !!changes.contactId.currentValue) {
             this.contactProfileRoute = ROUTES_NAME.contactResume(this.contactId);
             this.model.loadContact(this.contactId);
         }

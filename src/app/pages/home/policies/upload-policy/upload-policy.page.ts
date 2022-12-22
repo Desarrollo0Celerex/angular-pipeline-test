@@ -29,6 +29,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     policy: { policyUrl: string, insurerId: number, insurerName: string, workspaceCountryId: number };
     policyId: string;
     allowedFileTypes: string[] = ['pdf'];
+    searchIdInsurers: string = 'insurerId';
     private _comesFromRenewalPolicy: boolean = false;
     private _isFormSubmitted: boolean;
     private _subParams: any;
@@ -181,7 +182,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
      */
     private _loadCountryInsurers(countryId: number): void {
         this.uploadPolicyService.loadCountryInsurers(countryId).subscribe( () => {
-            Select2Plugin.initSearch(this._onItemSelected, this);
+            Select2Plugin.initSearch(this.searchIdInsurers, this._onItemSelected, this);
         });
     }
 
@@ -190,8 +191,8 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
      * @param  context      The app context
      * @param  selectedItem The selected item
      */
-    private _onItemSelected(context: UploadPolicyPage, selectedItem: number): void {
-        context.uploadPolicyService.policyForm.patchValue({insurerId: selectedItem});
+    private _onItemSelected(context: UploadPolicyPage, selectedItem: number, elementId: string): void {
+        context.uploadPolicyService.policyForm.patchValue({[elementId]: selectedItem});
     }
 
 }

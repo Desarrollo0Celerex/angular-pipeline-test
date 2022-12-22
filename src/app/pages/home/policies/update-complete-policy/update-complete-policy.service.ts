@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 import * as moment from 'moment';
 
 import { FREE_TEXT_LENGTH, INSURANCE_GROUPS, TITULAR_NAME_LENGTH, INSURANCE_TYPES,
-    LONG_ALPHANUMERIC_LENGTH, SHORT_ALPHANUMERIC_LENGTH, FILE_TYPES, PAYMENT_PLANS
+    LONG_ALPHANUMERIC_LENGTH, SHORT_ALPHANUMERIC_LENGTH, FILE_TYPES, PAYMENT_PLANS,
+    CONTACT_TYPES, EMAIL_LENGTH
 } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
@@ -27,6 +28,7 @@ import { CurrencyService } from '@services/currency.service';
 import { GendersService } from '@services/genders.service';
 import { InsurerService } from '@services/insurer.service';
 import { InsuranceService } from '@services/insurance.service';
+import { InsuranceGroupService } from '@services/insurance-group.service';
 import { InsuranceTypeService } from '@services/insurance-type.service';
 import { PartnerService } from '@services/partner.service';
 import { PaymentMethodService } from '@services/payment-method.service';
@@ -59,6 +61,7 @@ export class UpdateCompletePolicyService {
         private _gendersService: GendersService,
         private _insurerService: InsurerService,
         private _insuranceService: InsuranceService,
+        private _insuranceGroupService: InsuranceGroupService,
         private _insuranceTypeService: InsuranceTypeService,
         private _datePipe: DatePipe,
         private _formBuilder: FormBuilder,
@@ -96,6 +99,7 @@ export class UpdateCompletePolicyService {
             titularName: [(!!policy && !!policy.titularName) ? policy.titularName : '', [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
             titularRfc: [(!!policy && !!policy.titularRfc) ? policy.titularRfc : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             titularPostalCode: [(!!policy && !!policy.titularPostalCode) ? policy.titularPostalCode : '', [ValidatorsHelper.postalCode ] ],
+            titularEmail: [(!!policy && !!policy.titularEmail) ? policy.titularEmail : '', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)] ],
             titularPhoneCodeId: [(!!policy && !!policy.titularPhoneCodeId) ? policy.titularPhoneCodeId : ''],
             titularPhoneNumber: [(!!policy && !!policy.titularPhoneNumber) ? policy.titularPhoneNumber : '', [ValidatorsHelper.phoneNumber] ],
             emissionDate: [(!!policy && !!policy.emissionDate) ? policy.emissionDate : '', [Validators.required, ValidatorsHelper.date] ],
@@ -114,8 +118,16 @@ export class UpdateCompletePolicyService {
             bills: [(!!policy && !!policy.bills) ? policy.bills : '', [Validators.required, ValidatorsHelper.number]],
             isAutoPayment: [(!!policy && !!policy.isAutoPayment && policy.isAutoPayment === '1') ? true : false],
             partnerId: [(!!policy && !!policy.partnerId) ? policy.partnerId : '0'],
+            agentNumber: [(!!policy && !!policy.agentNumber) ? policy.agentNumber : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
+            policyCommission: [(!!policy && !!policy.policyCommission) ? policy.policyCommission : '', [Validators.required, ValidatorsHelper.percentage]],
+            policyCommissionAmount: [(!!policy && !!policy.policyCommissionAmount) ? policy.policyCommissionAmount : '', [Validators.required, ValidatorsHelper.amount] ],
             insureds: this._formBuilder.array([])
         });
+
+        if(this.policy!.contactTypeId === CONTACT_TYPES.PERSON) {
+            this.policyForm.addControl('titularAge', new FormControl((!!policy && !!policy.titularAge) ? policy.titularAge : '', [ValidatorsHelper.number]));
+            this.policyForm.addControl('titularGenderId', new FormControl((!!policy && !!policy.titularGenderId) ? policy.titularGenderId : '', [Validators.required, ValidatorsHelper.number]));
+        }
 
         if(!!policy) {
             if(policy.insuranceTypeId === INSURANCE_TYPES.FLOTILLA) {
@@ -163,6 +175,30 @@ export class UpdateCompletePolicyService {
                 }
             }
         }
+    }
+
+    calculatePolicyCommission(amount: any): void {
+        let policyCommission: number = 0;
+        const policyCommissionAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(amount));
+        if(policyCommissionAmount > 0) {
+            const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value));
+            if(policyAmount > 0) {
+                policyCommission = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(policyCommissionAmount * 100 / policyAmount);
+            }
+        }
+        this.policyForm.patchValue({policyCommission});
+    }
+
+    calculatePolicyCommissionAmount(percentage: any): void {
+        let policyCommissionAmount: number = 0;
+        const policyCommission: number = parseFloat(percentage);
+        if(policyCommission > 0) {
+            const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value));
+            if(policyAmount > 0) {
+                policyCommissionAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(policyCommission * policyAmount / 100);
+            }
+        }
+        this.policyForm.patchValue({policyCommissionAmount});
     }
 
     /**
@@ -263,16 +299,25 @@ export class UpdateCompletePolicyService {
     /**
      * Load the insurers
      */
-    loadInsuers(): void {
+    loadCountryInsurers(countryId: number): Observable<void> {
         const fields: string = 'insurerId,name';
-        this._insurerService.getInsurers(fields).subscribe((res: HttpResponse) => {
-            this.insurers = res.data;
-        })
+        return this._insurerService.getCountryInsurers(countryId, fields).pipe(
+            tap((res: HttpResponse) => {
+                this.insurers = res.data;
+            }),
+            map(() => { })
+        )
     }
 
-    /**
-     * Load the insurances
-     */
+    loadInsuranceGroupIdByInsuranceId(insuranceId: number): Observable<void> {
+        return this._insuranceGroupService.getInsuranceGroupIdByInsuranceId(insuranceId).pipe(
+            tap((res: number) => {
+                this.policy!.insuranceGroupId = res;
+            }),
+            map(() => { })
+        );
+    }
+
     loadInsurances(): Observable<void> {
         const fields: string = 'insuranceId,name';
         return this._insuranceService.getInsurances(fields).pipe(
@@ -345,7 +390,7 @@ export class UpdateCompletePolicyService {
      */
     loadPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
-        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceRealName,partnerId,coveredProperty,insuranceGroupId';
+        const fields: string = 'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceRealName,partnerId,coveredProperty,insuranceGroupId,workspaceCountryId,contactTypeId,titularGenderId,titularAge,titularEmail,agentNumber,policyCommission,policyCommissionAmount';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             tap(( res: HttpResponse) => {
                 this.policy = res.data;
@@ -668,11 +713,20 @@ export class UpdateCompletePolicyService {
         requestBody.append('titularName', this.f.titularName.value);
         requestBody.append('titularRfc', this.f.titularRfc.value);
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
+        requestBody.append('titularEmail', this.f.titularEmail.value);
         requestBody.append('titularPhoneCodeId', this.f.titularPhoneCodeId.value);
         requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
         requestBody.append('isAutoPayment', (this.f.isAutoPayment.value) ? '1' : '0');
         requestBody.append('partnerId', this.f.partnerId.value);
         requestBody.append('paymentPlanId', (this._isSinglePayment) ? this.f.paymentPlanId.value : this.policy!.paymentPlanId);
+        requestBody.append('agentNumber', this.f.agentNumber.value);
+        requestBody.append('policyCommission', this.f.policyCommission.value);
+        requestBody.append('policyCommissionAmount', this.f.policyCommissionAmount.value);
+
+        if(this.policy!.contactTypeId === CONTACT_TYPES.PERSON) {
+            requestBody.append('titularGenderId', this.f.titularGenderId.value);
+            requestBody.append('titularAge', this.f.titularAge.value);
+        }
 
         if(this.f.insuranceTypeId.value == INSURANCE_TYPES.FLOTILLA) {
             requestBody.append('description', this.f.description.value);
@@ -697,6 +751,7 @@ export class UpdateCompletePolicyService {
         requestBody.append('titularName', this.f.titularName.value);
         requestBody.append('titularRfc', this.f.titularRfc.value);
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
+        requestBody.append('titularEmail', this.f.titularEmail.value);
         requestBody.append('titularPhoneCodeId', this.f.titularPhoneCodeId.value);
         requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
         requestBody.append('netPay', this.f.netPay.value);
@@ -713,6 +768,14 @@ export class UpdateCompletePolicyService {
         requestBody.append('bills', this.f.bills.value);
         requestBody.append('isAutoPayment', (this.f.isAutoPayment.value) ? '1' : '0');
         requestBody.append('partnerId', this.f.partnerId.value);
+        requestBody.append('agentNumber', this.f.agentNumber.value);
+        requestBody.append('policyCommission', this.f.policyCommission.value);
+        requestBody.append('policyCommissionAmount', this.f.policyCommissionAmount.value);
+
+        if(this.policy!.contactTypeId === CONTACT_TYPES.PERSON) {
+            requestBody.append('titularGenderId', this.f.titularGenderId.value);
+            requestBody.append('titularAge', this.f.titularAge.value);
+        }
 
         if(this.f.insuranceTypeId.value == INSURANCE_TYPES.FLOTILLA) {
             requestBody.append('description', this.f.description.value);
