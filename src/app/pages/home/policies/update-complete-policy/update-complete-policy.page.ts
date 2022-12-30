@@ -3,10 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 import * as moment from 'moment';
 
+import { ERROR_CODES } from '@constants/error-codes';
 import { DOCUMENT_FORMATS, FILE_TYPES, INSURANCE_GROUPS, INSURANCE_TYPES, CONTACT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { AnalizeInsuredsResponse } from '@interfaces/analize-insureds-response.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { LoadingService } from '@services/loading.service';
@@ -147,6 +149,13 @@ export class UpdateCompletePolicyPage implements OnInit {
         this.model.initDropifyPlugin();
     }
 
+    exportInsureds(): void {
+        this._loadingService.show();
+        this.model.exportInsureds(this.contactId, this.policyId).then(() => {
+            this._loadingService.hide();
+        });
+    }
+
     /**
      * Get the error message
      * @param  constrolName Control name
@@ -175,6 +184,24 @@ export class UpdateCompletePolicyPage implements OnInit {
     getValidationClassInsured(constrolName: string, insuredIndex: number): string {
         const control: AbstractControl | null = this.model.insureds.at(insuredIndex).get(constrolName);
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+    }
+
+    analyzeInsureds(event: any): void {
+        const insuredsFile: File = event.target.files[0];
+        this._loadingService.show();
+        this.model.analyzeInsureds(this.contactId, this.policyId, insuredsFile).subscribe((res: AnalizeInsuredsResponse) => {
+            console.log('res: ',res);
+            this.model.importInsureds(this.contactId, this.policyId, insuredsFile).subscribe(() => {
+                this._loadingService.hide();
+            });
+        },
+        (error: any) => {
+            switch (error.error.message) {
+                case ERROR_CODES.invalidFields:
+                    console.log('Ocurrieron los siguientes errores: ',error.error.data);
+                    break;
+            }
+        });
     }
 
     /**
