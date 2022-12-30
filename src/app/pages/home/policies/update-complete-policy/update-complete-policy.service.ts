@@ -4,7 +4,6 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import { saveAs } from 'file-saver';
 
 import { FREE_TEXT_LENGTH, INSURANCE_GROUPS, TITULAR_NAME_LENGTH, INSURANCE_TYPES,
     LONG_ALPHANUMERIC_LENGTH, SHORT_ALPHANUMERIC_LENGTH, FILE_TYPES, PAYMENT_PLANS,
@@ -13,7 +12,6 @@ import { FREE_TEXT_LENGTH, INSURANCE_GROUPS, TITULAR_NAME_LENGTH, INSURANCE_TYPE
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
-import { AnalizeInsuredsResponse } from '@interfaces/analize-insureds-response.interface';
 import { Currency } from '@interfaces/currency.interface';
 import { Gender } from '@interfaces/gender.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
@@ -87,12 +85,6 @@ export class UpdateCompletePolicyService {
         this.initDropifyPlugin();
     }
 
-    analyzeInsureds(contactId: string, policyId: string, file: File): Observable<AnalizeInsuredsResponse> {
-        const requestBody: FormData = new FormData();
-        requestBody.append('insuredsFile', file);
-        return this._policyInsuredService.analyzeInsureds(contactId, policyId, requestBody);
-    }
-
     /**
      * Build the policy form
      */
@@ -146,11 +138,6 @@ export class UpdateCompletePolicyService {
                 for(let insured of policy.insureds) {
                     this.addInsured(insured);
                 }
-                if(policy.insuranceTypeId === INSURANCE_TYPES.FLOTILLA) {
-                    this.policyForm.get('insureds')!.disable();
-                }
-            } else {
-                this.addInsured();
             }
         }
     }
@@ -275,23 +262,6 @@ export class UpdateCompletePolicyService {
             this.f.paymentPlanId.disable();
         }
         
-    }
-
-    exportInsureds(contactId: string, policyId: string): Promise<void> {
-        return new Promise((resolve) => {
-            this._policyInsuredService.exportInsureds(contactId, policyId).then((response: any) => {
-              const filename = response.headers.get('content-disposition').split(';')[1].split('filename')[1].split('=')[1].split('"')[1].trim();
-              const blob = new Blob([response.body], {type: response.type.toString()});
-                  saveAs(blob, filename);
-                  resolve();
-            });
-        });
-    }
-
-    importInsureds(contactId: string, policyId: string, file: File): Observable<void> {
-        const requestBody: FormData = new FormData();
-        requestBody.append('insuredsFile', file);
-        return this._policyInsuredService.importInsureds(contactId, policyId, requestBody);
     }
 
     initDropifyPlugin(): void {

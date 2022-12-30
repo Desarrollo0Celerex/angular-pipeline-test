@@ -132,9 +132,9 @@ export class CompletePolicyPage implements OnInit {
         return label;
     }
 
-    addNewInsured(): void {
+    /* addNewInsured(): void {
         this.model.addInsured();
-    }
+    } */
 
     calculatePolicyCommission(event: any): void {
         this.model.calculatePolicyCommission(event.target.value);
@@ -261,6 +261,11 @@ export class CompletePolicyPage implements OnInit {
         this._loadingService.show();
         this.model.completePolicy(this.contactId, this.policyId, this._scannedPolicyData).subscribe( () => {
             this._loadingService.hide();
+            /*if(this.model.policy!.insuranceTypeId === INSURANCE_TYPES.FLOTILLA) {
+                AlertHelper.policyCompleted(this._goToListPolicyInsureds, this);
+            } else {
+                AlertHelper.policyCompleted(this._goToListContactPolicies, this);
+            } */
             AlertHelper.policyCompleted(this._goToListContactPolicies, this);
         }, (error: HttpError) => {
             this._handleCompletePolicyError(error);
@@ -321,6 +326,10 @@ export class CompletePolicyPage implements OnInit {
      */
     private _goToListContactPolicies(context: CompletePolicyPage): void {
         context._router.navigateByUrl(ROUTES_NAME.listContactPolicies(context.contactId));
+    }
+
+    private _goToListPolicyInsureds(context: CompletePolicyPage): void {
+        context._router.navigateByUrl(ROUTES_NAME.listPolicyInsureds(context.contactId, context.policyId));
     }
 
     /**
@@ -578,6 +587,36 @@ export class CompletePolicyPage implements OnInit {
                 'paymentMethodId',
                 'paymentPlanId'
             ];
+            switch(this.model.policy!.insuranceGroupId) {
+                case INSURANCE_GROUPS.PEOPLE:
+                    missingFields.push('personName');
+                    missingFields.push('personGenderId');
+                    missingFields.push('personAge');
+                break;
+
+                case INSURANCE_GROUPS.VEHICLES:
+                    missingFields.push('vehicleMaker');
+                    missingFields.push('vehicleVersion');
+                    missingFields.push('vehicleModel');
+                    missingFields.push('vehiclePlates');
+                    missingFields.push('vehicleSerial');
+                    missingFields.push('vehicleMotor');
+                break;
+
+                case INSURANCE_GROUPS.BUILDINGS:
+                    missingFields.push('buildingName');
+                    missingFields.push('buildingUsage');
+                    missingFields.push('buildingLocation');
+                break;
+
+                case INSURANCE_GROUPS.MERCHANDISE:
+                case INSURANCE_GROUPS.OBJECTS:
+                case INSURANCE_GROUPS.RC:
+                    missingFields.push('objectName');
+                    missingFields.push('objectUsage');
+                    missingFields.push('objectDescription');
+                break;
+            }
         }
         return missingFields;
     }
