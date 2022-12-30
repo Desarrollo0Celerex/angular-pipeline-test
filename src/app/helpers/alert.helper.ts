@@ -128,6 +128,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static importedInsureds(): void {
+        const alertData: Alert = {
+            title: 'Unidades Importadas',
+            text: 'Las unidades han sido importadas con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static groupUpdated(): void {
         const alertData: Alert = {
             title: 'Grupo Actualizado',

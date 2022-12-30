@@ -5,11 +5,15 @@ import { concatMap, map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { environment } from '@env/environment';
+import { AnalizeInsuredsResponse } from '@interfaces/analize-insureds-response.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Insured } from '@interfaces/insured.interface';
 import { AuthService } from '@services/auth.service';
 
 const ROUTES = {
+    analyzeInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/analyze`,
+    exportInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/export`,
+    importInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/import`,
     policyInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds`,
     policyInsured: (workspaceId: string, contactId: string, policyId: string, policyInsuredId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds/${policyInsuredId}`,
     reportFlotilla: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/reports/flotilla`,
@@ -24,6 +28,13 @@ export class PolicyInsuredService {
         private _authService: AuthService,
         private _httpClient: HttpClient
     ) { }
+
+    analyzeInsureds(contactId: string, policyId: string, requestBody: FormData): Observable<AnalizeInsuredsResponse> {
+        const route: string = ROUTES.analyzeInsureds(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<HttpResponse>(route, requestBody).pipe(
+            map((res: HttpResponse) => res.data)
+        );
+    }
 
     createPolicyInsured(contactId: string, policyId: string, requestBodies: FormData[]): Observable<void> {
         const route: string = ROUTES.policyInsureds(this._workspaceId, contactId, policyId);
@@ -55,6 +66,19 @@ export class PolicyInsuredService {
         const route: string = ROUTES.reportFlotillas(this._workspaceId, contactId);
         let params: HttpParams = new HttpParams();
         if(!!formatType) params = params.append('formatType', formatType);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
+    }
+
+    exportInsureds(contactId: string, policyId: string) {
+        const route: string = ROUTES.exportInsureds(this._workspaceId, contactId, policyId);
+        let params: HttpParams = new HttpParams();
         params.append('observe', 'response');
         params.append('responseType', 'arraybuffer');
         const fileParams: any = {
@@ -115,6 +139,11 @@ export class PolicyInsuredService {
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data.items)
         );
+    }
+
+    importInsureds(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = ROUTES.importInsureds(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
     }
 
     updatePolicyInsureds(contactId: string, policyId: string, requestBodies: FormData[]): Observable<void> {

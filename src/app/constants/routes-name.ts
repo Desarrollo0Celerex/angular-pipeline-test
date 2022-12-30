@@ -118,6 +118,7 @@ const HOME_POLICIES_ROUTES = {
     cancelledPolicies: 'workspace/policies/cancelled',
     cancelledPoliciesWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/policies/cancelled/${rangeStart}/${rangeEnd}`,
     listRenewedPoliciesByRange: `workspace/policies/list-renewed-policies-by-range`,
+    listPolicyInsureds: (contactId: string, policyId: string) => `workspace/policies/list-policy-insureds/${contactId}/${policyId}`,
 }
 
 const HOME_POLICY_ENDORSEMENTS_ROUTES = {

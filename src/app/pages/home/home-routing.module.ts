@@ -81,6 +81,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.listActivePoliciesByRange, loadChildren: () => import('@pages/home/policies/list-active-policies-by-range/list-active-policies-by-range.module').then( mod => mod.ListActivePoliciesByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.listIncompletePolicies, loadChildren: () => import('@pages/home/policies/list-incomplete-policies/list-incomplete-policies.module').then( mod => mod.ListIncompletePoliciesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.listRenewedPoliciesByRange, loadChildren: () => import('@pages/home/policies/list-renewed-policies-by-range/list-renewed-policies-by-range.module').then( mod => mod.ListRenewedPoliciesByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.listPolicyInsureds(':contactId', ':policyId'), loadChildren: () => import('@pages/home/policies/list-policy-insureds/list-policy-insureds.module').then( mod => mod.ListPolicyInsuredsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Policy endorsements routes
             { path: ROUTES_NAME.policyEndorsementsHistory(':contactId', ':policyId'), loadChildren: () => import('@pages/home/endorsements/policy-endorsements-history/policy-endorsements-history.module').then(mod => mod.PolicyEndorsementsHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

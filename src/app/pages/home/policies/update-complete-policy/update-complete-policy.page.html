@@ -4,8 +4,6 @@
     [message]="message"
 ></agt-container-contact-details>
 
-
-
 <form *ngIf="!!model.policy; else loading" [formGroup]="model.policyForm" (submit)="onSubmitSavePolicy()">
     
     <!-- AGENTHOS - POLICY DETAILS INFO -->
@@ -492,322 +490,69 @@
                         </div>
                     </ng-container>
                     <ng-container *ngSwitchCase="INSURANCE_GROUPS.VEHICLES">
-
-                        <ng-container *ngIf="model.f.insuranceTypeId.value == INSURANCE_TYPES.FLOTILLA; else vehicleIndividual">
-                            <ng-container *ngFor="let insured of model.insureds.controls; let insuredIndex = index">
-                                <ng-container [formGroupName]="insuredIndex">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Datos del Vehículo {{insuredIndex + 1}}</h3>
-                                            <div class="card-options">
-                                                <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-                                                    <span class="fa fa-bars"></span>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                                    <div class="dropdown-plus-title">Acciones Disponibles</div>
-                                                    <button type="button" class="dropdown-item" (click)="showPolicyFile(insuredIndex)" *ngIf="model.insureds.at(insuredIndex).get('policyUrl')!.value"><i class="fa fa-eye mr-2"></i>Ver Póliza</button>
-                                                    <button type="button" class="dropdown-item" (click)="confirmUpdateInsured(insuredIndex)" *ngIf="model.insureds.at(insuredIndex).get('policyUrl')!.disabled"><i class="fa fa-edit mr-2"></i>Actualizar</button>
-                                                    <button type="button" class="dropdown-item" (click)="confirmRemoveInsured(insuredIndex)"><i class="fa fa-trash mr-2"></i>Eliminar</button>
+                        <ng-container *ngFor="let insured of model.insureds.controls; let insuredIndex = index">
+                            <ng-container [formGroupName]="insuredIndex">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Datos del Vehículo</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="block-content">
+                                            <div class="form-group row text-center">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY VEHICLE MAKER * -->
+                                                        <label class="form-label">Fabricante</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('vehicleMaker', insuredIndex)}}" formControlName="vehicleMaker">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('vehicleMaker', insuredIndex)}}</div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="block-content">
-                                                <div class="form-group row text-center">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">No. Inciso</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleNumber', insuredIndex)}}" formControlName="vehicleNumber">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleNumber', insuredIndex)}}</div>
-                                                        </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY VEHICLE VERSION * -->
+                                                        <label class="form-label">Versión</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('vehicleVersion', insuredIndex)}}" formControlName="vehicleVersion">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('vehicleVersion', insuredIndex)}}</div>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">No. Unidad</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleInternalNumber', insuredIndex)}}" formControlName="vehicleInternalNumber">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleInternalNumber', insuredIndex)}}</div>
-                                                        </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY VEHICLE MODEL * -->
+                                                        <label class="form-label">Modelo</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('vehicleModel', insuredIndex)}}" formControlName="vehicleModel">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('vehicleModel', insuredIndex)}}</div>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Subgrupo</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleSubgroup', insuredIndex)}}" formControlName="vehicleSubgroup">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleSubgroup', insuredIndex)}}</div>
-                                                        </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY VEHICLE PLATES -->
+                                                        <label class="form-label">Placas</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('vehiclePlates', insuredIndex)}}" formControlName="vehiclePlates">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('vehiclePlates', insuredIndex)}}</div>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Tipo Vehículo</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleType', insuredIndex)}}" formControlName="vehicleType">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleType', insuredIndex)}}</div>
-                                                        </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY VEHICLE SERIAL -->
+                                                        <label class="form-label">No. Serie</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('vehicleSerial', insuredIndex)}}" formControlName="vehicleSerial">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('vehicleSerial', insuredIndex)}}</div>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Tipo Unidad</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleUnitType', insuredIndex)}}" formControlName="vehicleUnitType">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleUnitType', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Tipo Carga</label>
-                                                            <select class="form-control custom-select {{getValidationClassInsured('vehicleCargoTypeId', insuredIndex)}}" formControlName="vehicleCargoTypeId">
-                                                                <option value="1">NO PELIGROSA</option>
-                                                                <option value="2">PELIGROSA</option>
-                                                                <option value="3">MUY PELIGROSA</option>
-                                                            </select>
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleCargoTypeId', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Cobertura</label>
-                                                            <select class="form-control custom-select {{getValidationClassInsured('vehicleCoverageId', insuredIndex)}}" formControlName="vehicleCoverageId">
-                                                                <option value="1">AMPLIA</option>
-                                                                <option value="2">LIMITADA</option>
-                                                                <option value="3">RESPONSABILIDAD CIVIL</option>
-                                                            </select>
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleCoverageId', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Giro</label>
-                                                            <select class="form-control custom-select {{getValidationClassInsured('vehicleUseId', insuredIndex)}}" formControlName="vehicleUseId">
-                                                                <option value="1">PARTICULAR</option>
-                                                                <option value="2">CARGA</option>
-                                                            </select>
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleUseId', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Adaptación</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleAdaptation', insuredIndex)}}" formControlName="vehicleAdaptation">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleAdaptation', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Inicio Vigencia</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleValidityStartDate', insuredIndex)}}" formControlName="vehicleValidityStartDate" placeholder="DD/MM/AAAA">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleValidityStartDate', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Fabricante</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleMaker', insuredIndex)}}" formControlName="vehicleMaker">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleMaker', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Versión</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleVersion', insuredIndex)}}" formControlName="vehicleVersion">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleVersion', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Modelo</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleModel', insuredIndex)}}" formControlName="vehicleModel">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleModel', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Placas</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehiclePlates', insuredIndex)}}" formControlName="vehiclePlates">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehiclePlates', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">No. Serie</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleSerial', insuredIndex)}}" formControlName="vehicleSerial">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleSerial', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">No. Motor</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleMotor', insuredIndex)}}" formControlName="vehicleMotor">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleMotor', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Prima Neta</label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <div class="input-group-text">
-                                                                        <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <input type="text" class="form-control {{getValidationClassInsured('vehicleNetPay', insuredIndex)}}" formControlName="vehicleNetPay">
-                                                                <div class="invalid-feedback">{{getErrorMessageInsured('vehicleNetPay', insuredIndex)}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Financiamiento</label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <div class="input-group-text">
-                                                                        <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <input type="text" class="form-control {{getValidationClassInsured('vehicleFeePay', insuredIndex)}}" formControlName="vehicleFeePay">
-                                                                <div class="invalid-feedback">{{getErrorMessageInsured('vehicleFeePay', insuredIndex)}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Gastos Expedición</label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <div class="input-group-text">
-                                                                        <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <input type="text" class="form-control {{getValidationClassInsured('vehicleCoverPay', insuredIndex)}}" formControlName="vehicleCoverPay">
-                                                                <div class="invalid-feedback">{{getErrorMessageInsured('vehicleCoverPay', insuredIndex)}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Impuestos</label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <div class="input-group-text">
-                                                                        <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <input type="text" class="form-control {{getValidationClassInsured('vehicleTaxPay', insuredIndex)}}" formControlName="vehicleTaxPay">
-                                                                <div class="invalid-feedback">{{getErrorMessageInsured('vehicleTaxPay', insuredIndex)}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Monto Total</label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <div class="input-group-text">
-                                                                        <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <input type="text" class="form-control {{getValidationClassInsured('vehicleTotalAmount', insuredIndex)}}" formControlName="vehicleTotalAmount">
-                                                                <div class="invalid-feedback">{{getErrorMessageInsured('vehicleTotalAmount', insuredIndex)}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Estatus</label>
-                                                            <select class="form-control custom-select {{getValidationClassInsured('vehicleStatusId', insuredIndex)}}" formControlName="vehicleStatusId">
-                                                                <option value="1">ACTIVA</option>
-                                                                <option value="2">CANCELADA</option>
-                                                                <option value="3">ANULADA</option>
-                                                            </select>
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleStatusId', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12" *ngIf="model.insureds.at(insuredIndex).get('policyUrl')!.enabled">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Póliza Digital</label>
-                                                            <div class="form-group {{getValidationClassInsured('insuredPolicyFile', insuredIndex)}}">
-                                                                <input
-                                                                    class="form-control dropify"
-                                                                    type="file"
-                                                                    accept="application/pdf"
-                                                                    data-max-file-size="2M"
-                                                                    [attr.data-default-file]="model.insureds.at(insuredIndex).get('policyUrl')!.value"
-                                                                    (change)="selectInsuredPolicyFile($event, insuredIndex)"
-                                                                />
-                                                                <div class="invalid-feedback">{{getErrorMessageInsured('insuredPolicyFile', insuredIndex)}}</div>
-                                                            </div>
-                                                        </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <!-- AGENTHOS - POLICY VEHICLE MOTOR -->
+                                                        <label class="form-label">No. Motor</label>
+                                                        <input type="text" class="form-control {{getValidationClassInsured('vehicleMotor', insuredIndex)}}" formControlName="vehicleMotor">
+                                                        <div class="invalid-feedback">{{getErrorMessageInsured('vehicleMotor', insuredIndex)}}</div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </ng-container>
+                                </div>
                             </ng-container>
                         </ng-container>
-
-                        <ng-template #vehicleIndividual>
-                            <ng-container *ngFor="let insured of model.insureds.controls; let insuredIndex = index">
-                                <ng-container [formGroupName]="insuredIndex">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Datos del Vehículo</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="block-content">
-                                                <div class="form-group row text-center">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <!-- AGENTHOS - POLICY VEHICLE MAKER * -->
-                                                            <label class="form-label">Fabricante</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleMaker', insuredIndex)}}" formControlName="vehicleMaker">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleMaker', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <!-- AGENTHOS - POLICY VEHICLE VERSION * -->
-                                                            <label class="form-label">Versión</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleVersion', insuredIndex)}}" formControlName="vehicleVersion">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleVersion', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <!-- AGENTHOS - POLICY VEHICLE MODEL * -->
-                                                            <label class="form-label">Modelo</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleModel', insuredIndex)}}" formControlName="vehicleModel">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleModel', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <!-- AGENTHOS - POLICY VEHICLE PLATES -->
-                                                            <label class="form-label">Placas</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehiclePlates', insuredIndex)}}" formControlName="vehiclePlates">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehiclePlates', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <!-- AGENTHOS - POLICY VEHICLE SERIAL -->
-                                                            <label class="form-label">No. Serie</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleSerial', insuredIndex)}}" formControlName="vehicleSerial">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleSerial', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <!-- AGENTHOS - POLICY VEHICLE MOTOR -->
-                                                            <label class="form-label">No. Motor</label>
-                                                            <input type="text" class="form-control {{getValidationClassInsured('vehicleMotor', insuredIndex)}}" formControlName="vehicleMotor">
-                                                            <div class="invalid-feedback">{{getErrorMessageInsured('vehicleMotor', insuredIndex)}}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ng-container>
-                            </ng-container>
-                        </ng-template>
-
                     </ng-container>
                     <ng-container *ngSwitchCase="INSURANCE_GROUPS.BUILDINGS">
 
@@ -928,20 +673,6 @@
                     </ng-container>
                 </ng-container>
             </div>
-
-            <!-- AGENTHOS - ADD INSURED -->
-            <div class="card" *ngIf="model.policy.insuranceTypeId == INSURANCE_TYPES.FLOTILLA">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-icon btn-block btn-primary" (click)="addNewInsured()">
-                                <strong>AGREGAR VEHÍCULO</strong>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- //AGENTHOS - ADD INSURED -->
 
             <!-- AGENTHOS - POLICY PAYMENT -->
             <div class="card">

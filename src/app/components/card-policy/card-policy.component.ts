@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { POLICY_STATUS, CANCELLATION_REASONS, INSURANCE_TYPES, CONTENT_TYPES } from '@constants/global';
 
+import { ROUTES_NAME } from '@constants/routes-name';
 import { Policy } from '@interfaces/policy.interface';
 import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 import { PaymentDataSend } from '@interfaces/payment-data-send.interface';
@@ -43,7 +45,7 @@ export class CardPolicyComponent implements OnInit {
     INSURANCE_TYPES: any = INSURANCE_TYPES;
     //isInTime: boolean = false;
 
-    constructor(private _authService: AuthService) {
+    constructor(private _authService: AuthService, private _router: Router) {
         this.policy = null;
         this.canShowFooter = true;
         this.isHistoryContent = false;
@@ -52,6 +54,12 @@ export class CardPolicyComponent implements OnInit {
     ngOnInit(): void {
         PopoverPlugin.init();
         //this._checkIsInTime();
+    }
+
+    goToListPolicyInsureds(): void {
+        if(this.policy!.insuranceTypeId === 5) {
+            this._router.navigateByUrl(ROUTES_NAME.listPolicyInsureds(this.policy!.contactId, this.policy!.policyId));
+        }
     }
 
     /**

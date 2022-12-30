@@ -119,10 +119,6 @@ export class UpdateCompletePolicyPage implements OnInit {
         return ' ';
     }
 
-    addNewInsured(): void {
-        this.model.addInsured();
-    }
-
     calculatePolicyCommission(event: any): void {
         this.model.calculatePolicyCommission(event.target.value);
     }
