@@ -52,7 +52,7 @@ export class UpdateCompletePolicyPage implements OnInit {
     /* searchIdInsurers: string = 'agt-search-insurers';
     searchIdInsurances: string = 'agt-search-insurances'; */
     selectedPolicyUrl: string = '';
-    selectedVehicleNumber: string = '';
+    selectedCertificate: string = '';
     private _isFormSubmitted: boolean = false;
     private _selectedInsuredIndex: number = 0;
 
@@ -131,7 +131,7 @@ export class UpdateCompletePolicyPage implements OnInit {
         const policyInsuredId: any = this.model.insureds.at(insuredIndex).get('policyInsuredId');
         if(!!policyInsuredId) {
             this._selectedInsuredIndex = insuredIndex;
-            this.selectedVehicleNumber = this.model.insureds.at(insuredIndex).get('vehicleNumber')!.value;
+            this.selectedCertificate = this.model.insureds.at(insuredIndex).get('certificate')!.value;
             ModalPlugin.show(this.modalIdConfirmRemoveInsured);
         } else {
             this.model.removeInsured(insuredIndex);
@@ -268,6 +268,10 @@ export class UpdateCompletePolicyPage implements OnInit {
         if(!!policyCommission) {
             this.model.calculatePolicyCommissionAmount(policyCommission);
         }
+    }
+
+    goToListPolicyInsureds(): void {
+        this._router.navigateByUrl(ROUTES_NAME.listPolicyInsureds(this.contactId, this.policyId));
     }
 
     /**

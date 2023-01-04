@@ -88,6 +88,11 @@ export const POLICY_STATUS: any = {
     FINISHED: 6,
     CANCELLED: 7
 }
+export const POLICY_INSURED_STATUS: any = {
+    CURRENT: 1,
+    FINISHED: 2,
+    CANCELLED: 3
+}
 export const POLICY_STATUS_ACTIVE: number = 100;
 export const PAYMENT_STATUS: any = {
     INTIME: 1,
@@ -306,6 +311,10 @@ export const CONTENT_TYPES: any = {
         ID: 37,
         NAME: 'Siniestro'
     },
+    POLICY_INSURED: {
+        ID: 38,
+        NAME: 'Certificado'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,
@@ -482,5 +491,6 @@ export const DEFAULT_CONTENT_FILTER_ID: number = 1;
 export const DEFAULT_CURRENCY_ID: number = 1;
 export const DEFAULT_POLICY_STATUS_ID: number = POLICY_STATUS_ACTIVE;
 export const DEFAULT_POLICY_CANCELLATION_REASON_ID: number = 1;
+export const DEFAULT_PAGE: number = 1;
 export const DEFAULT_PER_PAGE: number = 12;
 export const DEFAULT_PAYMENT_METHOD_ID: number = 1;

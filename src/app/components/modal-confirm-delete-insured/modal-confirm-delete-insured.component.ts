@@ -10,7 +10,7 @@ declare var ModalPlugin: any;
 })
 export class ModalConfirmDeleteInsuredComponent {
     @Input() modalId: string = '';
-    @Input() vehicleNumber: string = '';
+    @Input() certificate: string = '';
     @Output() actionConfirmed: EventEmitter<void> = new EventEmitter<void>();
 
     confirmAction(): void {

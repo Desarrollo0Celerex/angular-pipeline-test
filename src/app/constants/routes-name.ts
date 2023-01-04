@@ -118,7 +118,10 @@ const HOME_POLICIES_ROUTES = {
     cancelledPolicies: 'workspace/policies/cancelled',
     cancelledPoliciesWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/policies/cancelled/${rangeStart}/${rangeEnd}`,
     listRenewedPoliciesByRange: `workspace/policies/list-renewed-policies-by-range`,
-    listPolicyInsureds: (contactId: string, policyId: string) => `workspace/policies/list-policy-insureds/${contactId}/${policyId}`,
+    listPolicyInsureds: (contactId: string, policyId: string) => `workspace/policy-insureds/list-policy-insureds/${contactId}/${policyId}`,
+    updatePolicyInsured: (contactId: string, policyId: string, policyInsuredId: string) => `workspace/policy-insureds/update-policy-insured/${contactId}/${policyId}/${policyInsuredId}`,
+    createPolicyInsured: (contactId: string, policyId: string) => `workspace/policy-insureds/create-policy-insured/${contactId}/${policyId}`,
+    importPolicyInsureds: (contactId: string, policyId: string) => `workspace/policy-insureds/import-policy-insureds/${contactId}/${policyId}`,
 }
 
 const HOME_POLICY_ENDORSEMENTS_ROUTES = {

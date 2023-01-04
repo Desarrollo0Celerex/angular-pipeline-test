@@ -203,7 +203,6 @@
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                     (showPaymentHistory)="onShowPaymentHistory($event)"
                     (showPolicySinisters)="onShowPolicySinisters($event)"
-                    (downloadReportFlotilla)="onShowModalToSelectReportFormat($event)"
                     (deletePolicy)="onDeletePolicy($event)"
                 ></agt-card-policy>
                 <agt-card-policy
@@ -216,6 +215,15 @@
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                 >
                 </agt-card-policy>
+                <agt-card-policy-insured
+                    *ngIf="contentType === CONTENT_TYPES.POLICY_INSURED.ID"
+                    [insured]="content"
+                    (cancelInsured)="confirmCancelInsured($event)"
+                    (deleteInsured)="confirmDeleteInsured($event)"
+                    (showInsuredFile)="showInsuredFile($event)"
+                    (showPolicyFile)="showPolicyFile($event)"
+                    (updateInsured)="confirmUpdateInsured($event)"
+                ></agt-card-policy-insured>
                 <agt-card-partner *ngSwitchCase="CONTENT_TYPES.PARTNER.ID"
                     [partner]="content"
                     [isCoincidence]="isCoincidence"
@@ -313,6 +321,7 @@
     [contactId]="contactId"
     [groupId]="groupId"
     [partnerId]="partnerId"
+    [policyId]="policyId"
 ></agt-content-back>
 <agt-content-suggestions
     *ngIf="!isHistoryContent"
@@ -423,10 +432,6 @@
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
     <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
     <agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
-    <agt-modal-select-report-format
-        [modalId]="modalIdSelectReportFormat"
-        (formatSelected)="onDownloadReportFlotilla($event)"
-    ></agt-modal-select-report-format>
 </ng-container>
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID ||
@@ -549,5 +554,28 @@
         [receiptAppliedId]="selectedReceiptAppliedId"
         (showPaymentHistory)="onShowPaymentHistory($event)"
     ></agt-modal-show-receipt-applied-details>
+</ng-container>
+
+<ng-container *ngIf="contentType === CONTENT_TYPES.POLICY_INSURED.ID">
+    <agt-modal-show-policy-file 
+        [modalId]="modalIdShowPolicyFile" 
+        [policyUrl]="selectedPolicyUrl"
+    ></agt-modal-show-policy-file>
+    <agt-modal-show-policy-insured-file
+        [modalId]="modalIdShowPolicyInsuredFile"
+        [policyInsuredUrl]="selectedPolicyInsuredUrl"
+    ></agt-modal-show-policy-insured-file>
+    <agt-modal-confirm-delete-policy-insured
+        [modalId]="modalIdConfirmDeletePolicyInsured"
+        (confirmedAction)="deletePolicyInsured()"
+    ></agt-modal-confirm-delete-policy-insured>
+    <agt-modal-confirm-cancel-policy-insured
+        [modalId]="modalIdConfirmCancelPolicyInsured"
+        (confirmedAction)="cancelPolicyInsured()"
+    ></agt-modal-confirm-cancel-policy-insured>
+    <agt-modal-confirm-update-policy-insured
+        [modalId]="modalIdConfirmUpdatePolicyInsured"
+        (confirmedAction)="goToUpdatePolicyInsured()"
+    ></agt-modal-confirm-update-policy-insured>
 </ng-container>
 <!-- //AGENTHOS - CONTENT ACTIONS -->

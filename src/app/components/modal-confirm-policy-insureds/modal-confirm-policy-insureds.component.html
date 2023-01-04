@@ -1,0 +1,40 @@
+<!-- AGENTHOS - SCANNER CERTIFICATE TRUE -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- AGENTHOS - DETAILS CARD -->
+				<h5 class="modal-title">Escaneo Exitoso</h5>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<i class="fe fe-check-circle text-success fa-5x"></i>
+					</div>
+					<div class="col-md-12 mt-5">
+						<p class="text-center"><strong>Certificados Encontrados</strong></p>
+						<ol class="breadcrumb1">
+							<li class="breadcrumb-item1">Valida que los movimientos sean correctos para continuar.</li>
+						</ol>
+					</div>
+					<div class="col-md-12" *ngIf="!!data">
+						<!-- AGENTHOS - POLICY CERTIFICATE UPDATE -->
+						<!-- (JUST IF POLICY CERTIFICATE UPDATE DETECTED ) -->
+						<div class="alert alert-info" role="alert" *ngIf="data.totalUpdates > 0"> <span class="alert-inner--icon"><i class="fe fe-check-square"></i></span> <span class="alert-inner--text"> Se actualizará<ng-container *ngIf="data.totalUpdates > 1">n</ng-container> <strong> {{data.totalUpdates}} Certificado<ng-container *ngIf="data.totalUpdates > 1">s</ng-container> Existente<ng-container *ngIf="data.totalUpdates > 1">s</ng-container></strong>.</span></div>
+						<!-- AGENTHOS - POLICY CERTIFICATE NEW -->
+						<!-- (JUST IF POLICY CERTIFICATE NEW DETECTED ) -->
+						<div class="alert alert-success" role="alert" *ngIf="data.totalNews > 0"> <span class="alert-inner--icon"><i class="fe fe-check-square"></i></span> <span class="alert-inner--text"> Se agregará<ng-container *ngIf="data.totalNews > 1">n</ng-container> <strong> {{data.totalNews}} Certificado<ng-container *ngIf="data.totalNews > 1">s</ng-container> Nuevo<ng-container *ngIf="data.totalNews > 1">s</ng-container></strong>.</span></div>
+						<!-- AGENTHOS - POLICY CERTIFICATE DELETE -->
+						<!-- (JUST IF POLICY CERTIFICATE DELETE DETECTED ) -->
+						<div class="alert alert-danger" role="alert" *ngIf="data.totalEliminations > 0"> <span class="alert-inner--icon"><i class="fe fe-check-square"></i></span> <span class="alert-inner--text"> Se eliminará<ng-container *ngIf="data.totalEliminations > 1">n</ng-container> <strong> {{data.totalEliminations}} Certificado<ng-container *ngIf="data.totalEliminations > 1">s</ng-container> Existente<ng-container *ngIf="data.totalEliminations > 1">s</ng-container></strong>.</span></div>
+					</div>
+				</div>	
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+				<button type="button" class="btn btn-primary" (click)="confirmAction()">CONFIRMAR</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //AGENTHOS - SCANNER CERTIFICATE TRUE -->

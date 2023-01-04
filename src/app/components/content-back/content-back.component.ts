@@ -14,6 +14,7 @@ import { ContentResultData } from '@interfaces/content-result-data.interface';
 export class ContentBackComponent {
     @Input() contactId: string = '';
     @Input() groupId: string = '';
+    @Input() policyId: string = '';
     @Input() partnerId: string = '';
     @Input() contentResultData: ContentResultData = {
         loadedItems: 0,
@@ -93,6 +94,10 @@ export class ContentBackComponent {
 
             case CONTENT_TYPES.POLICY.ID:
                 route = ROUTES_NAME.listContactPolicies(this.contactId);
+                break;
+
+            case CONTENT_TYPES.POLICY_INSURED.ID:
+                route = ROUTES_NAME.listPolicyInsureds(this.contactId, this.policyId);
                 break;
 
             case CONTENT_TYPES.SINISTER.ID:

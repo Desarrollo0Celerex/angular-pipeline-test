@@ -13,6 +13,7 @@ import { CardPartnerClientModule } from '@components/card-partner-client/card-pa
 import { CardPaymentModule } from '@components/card-payment/card-payment.module';
 import { CardPendingReceiptModule } from '@components/card-pending-receipt/card-pending-receipt.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
+import { CardPolicyInsuredModule } from '@components/card-policy-insured/card-policy-insured.module';
 import { CardPolicyRecordModule } from '@components/card-policy-record/card-policy-record.module';
 import { CardPolicyTrackerModule } from '@components/card-policy-tracker/card-policy-tracker.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
@@ -36,10 +37,12 @@ import { LoadingContentModule } from '@components/loading-content/loading-conten
 import { ModalApplyPaymentModule } from '@components/modal-apply-payment/modal-apply-payment.module';
 import { ModalConfirmAcceptQuotationModule } from '@components/modal-confirm-accept-quotation/modal-confirm-accept-quotation.module';
 import { ModalConfirmCancelPolicyModule } from '@components/modal-confirm-cancel-policy/modal-confirm-cancel-policy.module';
+import { ModalConfirmCancelPolicyInsuredModule } from '@components/modal-confirm-cancel-policy-insured/modal-confirm-cancel-policy-insured.module';
 import { ModalConfirmDeleteContactModule } from '@components/modal-confirm-delete-contact/modal-confirm-delete-contact.module';
 import { ModalConfirmDeleteContactFileModule } from '@components/modal-confirm-delete-contact-file/modal-confirm-delete-contact-file.module';
 import { ModalConfirmDeleteGroupMemberModule } from '@components/modal-confirm-delete-group-member/modal-confirm-delete-group-member.module';
 import { ModalConfirmDeletePolicyModule } from '@components/modal-confirm-delete-policy/modal-confirm-delete-policy.module';
+import { ModalConfirmDeletePolicyInsuredModule } from '@components/modal-confirm-delete-policy-insured/modal-confirm-delete-policy-insured.module';
 import { ModalConfirmDeletePolicyCompleteModule } from '@components/modal-confirm-delete-policy-complete/modal-confirm-delete-policy-complete.module';
 import { ModalConfirmDeleteReceiptPaidModule } from '@components/modal-confirm-delete-receipt-paid/modal-confirm-delete-receipt-paid.module';
 import { ModalConfirmDeleteRenewedPolicyModule } from '@components/modal-confirm-delete-renewed-policy/modal-confirm-delete-renewed-policy.module';
@@ -59,6 +62,7 @@ import { ModalConfirmShowSinisterHistoryModule } from '@components/modal-confirm
 import { ModalConfirmUpdateContactFileModule } from '@components/modal-confirm-update-contact-file/modal-confirm-update-contact-file.module';
 import { ModalConfirmUpdateExternalPolicyModule } from '@components/modal-confirm-update-external-policy/modal-confirm-update-external-policy.module';
 import { ModalConfirmUpdatePolicyModule } from '@components/modal-confirm-update-policy/modal-confirm-update-policy.module';
+import { ModalConfirmUpdatePolicyInsuredModule } from '@components/modal-confirm-update-policy-insured/modal-confirm-update-policy-insured.module';
 import { ModalConfirmValidateExternalPolicyModule } from '@components/modal-confirm-validate-external-policy/modal-confirm-validate-external-policy.module';
 import { ModalFinalizeSinisterEventModule } from '@components/modal-finalize-sinister-event/modal-finalize-sinister-event.module';
 import { ModalSelectContactModule } from '@components/modal-select-contact/modal-select-contact.module';
@@ -76,6 +80,7 @@ import { ModalShowPaymentEvidenceFileModule } from '@components/modal-show-payme
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { ModalShowPolicyFileModule } from '@components/modal-show-policy-file/modal-show-policy-file.module';
+import { ModalShowPolicyInsuredFileModule } from '@components/modal-show-policy-insured-file/modal-show-policy-insured-file.module';
 import { ModalShowQuotationDetailsModule } from '@components/modal-show-quotation-details/modal-show-quotation-details.module';
 import { ModalShowReceiptAppliedDetailsModule } from '@components/modal-show-receipt-applied-details/modal-show-receipt-applied-details.module';
 import { ModalShowReactivationEvidenceModule } from '@components/modal-show-reactivation-evidence/modal-show-reactivation-evidence.module';
@@ -125,6 +130,7 @@ import { ContentListService } from './content-list.service';
     CardPaymentModule,
     CardPendingReceiptModule,
     CardPolicyModule,
+    CardPolicyInsuredModule,
     CardPolicyRecordModule,
     CardPolicyTrackerModule,
     CardQuotationModule,
@@ -147,10 +153,12 @@ import { ContentListService } from './content-list.service';
     ModalApplyPaymentModule,
     ModalConfirmAcceptQuotationModule,
     ModalConfirmCancelPolicyModule,
+    ModalConfirmCancelPolicyInsuredModule,
     ModalConfirmDeleteContactModule,
     ModalConfirmDeleteContactFileModule,
     ModalConfirmDeleteGroupMemberModule,
     ModalConfirmDeletePolicyModule,
+    ModalConfirmDeletePolicyInsuredModule,
     ModalConfirmDeletePolicyCompleteModule,
     ModalConfirmDeleteReceiptPaidModule,
     ModalConfirmDeleteRenewedPolicyModule,
@@ -170,6 +178,7 @@ import { ContentListService } from './content-list.service';
     ModalConfirmUpdateContactFileModule,
     ModalConfirmUpdateExternalPolicyModule,
     ModalConfirmUpdatePolicyModule,
+    ModalConfirmUpdatePolicyInsuredModule,
     ModalConfirmValidateExternalPolicyModule,
     ModalFinalizeSinisterEventModule,
     ModalSelectContactModule,
@@ -187,6 +196,7 @@ import { ContentListService } from './content-list.service';
     ModalShowPolicyModule,
     ModalShowPolicyDetailsModule,
     ModalShowPolicyFileModule,
+    ModalShowPolicyInsuredFileModule,
     ModalShowQuotationDetailsModule,
     ModalShowReceiptAppliedDetailsModule,
     ModalShowReactivationEvidenceModule,

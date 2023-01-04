@@ -121,10 +121,6 @@ export class CompletePolicyService {
             this.policyForm.addControl('titularGenderId', new FormControl((!!policy && !!policy.titularGenderId) ? policy.titularGenderId : '', [Validators.required, ValidatorsHelper.number]));
         }
 
-        if(this.policy!.insuranceTypeId === INSURANCE_TYPES.FLOTILLA) {
-            this.policyForm.addControl('description', new FormControl('Varias Unidades', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]))
-        }
-
         if(!!this.policy && !!this.policy.workspaceCommission) {
             this.policyForm.patchValue({
                 policyCommission: this.policy.workspaceCommission
@@ -274,7 +270,7 @@ export class CompletePolicyService {
             this._policyService.completePolicy(contactId, policyId, requestBody).subscribe(() => {
                 const requestBodies: FormData[] = this._generateRequestBodies();
                 if(requestBodies.length > 0) {
-                    this._policyInsuredService.createPolicyInsured(contactId, policyId, requestBodies).subscribe(() => {
+                    this._policyInsuredService.createPolicyInsureds(contactId, policyId, requestBodies).subscribe(() => {
                         observer.next();
                         observer.complete();
                     });
@@ -612,9 +608,6 @@ export class CompletePolicyService {
         if(this.policy!.contactTypeId === CONTACT_TYPES.PERSON) {
             requestBody.append('titularGenderId', this.f.titularGenderId.value);
             requestBody.append('titularAge', this.f.titularAge.value);
-        }
-        if(this.policy!.insuranceTypeId === INSURANCE_TYPES.FLOTILLA) {
-            requestBody.append('description', this.f.description.value);
         }
         return requestBody;
     }

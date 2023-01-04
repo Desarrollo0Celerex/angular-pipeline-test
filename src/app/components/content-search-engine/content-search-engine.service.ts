@@ -21,7 +21,7 @@ export class ContentSearchEngineService {
      */
     buildSearchForm(): UntypedFormGroup {
         return this._formBuider.group({
-            query: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
+            query: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]]
         })
     }
 }

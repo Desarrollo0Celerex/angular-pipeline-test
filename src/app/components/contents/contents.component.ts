@@ -25,6 +25,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
     canReloadContent: boolean = false;
     canShowKpis: boolean;
     contactId: string;
+    policyId: string = '';
     groupId: string = '';
     contentSubtype: number;
     contentSubtypeName: string;
@@ -104,6 +105,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
     private _catchParams(): void {
         // Static params
         this.contactId = (!!this._activatedRoute.snapshot.params.contactId) ? this._activatedRoute.snapshot.params.contactId : '';
+        this.policyId = (!!this._activatedRoute.snapshot.params.policyId) ? this._activatedRoute.snapshot.params.policyId : '';
         this.groupId = (!!this._activatedRoute.snapshot.params.groupId) ? this._activatedRoute.snapshot.params.groupId : '';
         this.partnerId = (!!this._activatedRoute.snapshot.params.partnerId) ? this._activatedRoute.snapshot.params.partnerId : '';
 
@@ -230,6 +232,10 @@ export class ContentsComponent implements OnInit, OnDestroy {
             break;
             case CONTENT_TYPES.GROUP_MEMBER.ID:
                 contentSubtypeName = 'del Grupo';
+            break;
+            
+            case CONTENT_TYPES.POLICY_INSURED.ID:
+                contentSubtypeName = 'Registrado';
             break;
         }
         return contentSubtypeName;

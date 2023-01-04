@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
-import { saveAs } from 'file-saver';
 
-import { CLIENT_STATUS, EXTERNAL_POLICY_STATUS, LEAD_STATUS, PARTNER_STATUS, PAYMENT_STATUS, POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, SINISTER_STATUS, SINISTER_STATUS_OPEN, DEFAULT_PER_PAGE, SINISTER_RECORD_TYPES } from '@constants/global';
+import { CLIENT_STATUS, EXTERNAL_POLICY_STATUS, LEAD_STATUS, PARTNER_STATUS, 
+    PAYMENT_STATUS, POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, 
+    SINISTER_STATUS, SINISTER_STATUS_OPEN, DEFAULT_PER_PAGE, SINISTER_RECORD_TYPES,
+    POLICY_INSURED_STATUS 
+} from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { SinisterEventHelper } from '@helpers/sinister-event.helper';
 import { Contact } from '@interfaces/contact.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
+import { Insured } from '@interfaces/insured.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
@@ -18,6 +22,7 @@ import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterLog } from '@interfaces/sinister-log.interface';
+import { UpdatePolicyInsuredStatus } from '@interfaces/update-policy-insured-status.interface';
 
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@services/contact.service';
@@ -64,6 +69,13 @@ export class ContentListService {
         this.contentResultData = this._initContentResultData();
     }
 
+    cancelPolicyInsured(contactId: string, policyId: string, policyInsuredId: string): Observable<void> {
+        const requestBody: UpdatePolicyInsuredStatus = {
+            insuredStatusId: POLICY_INSURED_STATUS.CANCELLED
+        }
+        return this._policyInsuredService.updatePolicyInsuredStatus(contactId, policyId, policyInsuredId, requestBody);
+    }
+
     deleteContact(contactId: string): Observable<void> {
         return this._contactService.deleteContact(contactId);
     }
@@ -94,6 +106,17 @@ export class ContentListService {
         }
     }
 
+    deletePolicyInsured(contactId: string, policyId: string, policyInsuredId: string): Observable<void> {
+        return this._policyInsuredService.deletePolicyInsured(contactId, policyId, policyInsuredId);
+    }
+
+    deletePolicyInsuredCard(policyInsuredId: string): void {
+        const policyInsuredPosition: number = this._getPolicyInsuredPosition(policyInsuredId);
+        if(policyInsuredPosition > -1) {
+            this.contents.splice(policyInsuredPosition, 1);
+        }
+    }
+
     /**
      * Delete the receipt paid
      * @param paymentId     The payment ID
@@ -101,17 +124,6 @@ export class ContentListService {
      */
     deleteReceiptPaid(paymentId: string, receiptPaidId: string): Observable<void> {
         return this._receiptPaidService.deleteReceiptPaid(paymentId,receiptPaidId);
-    }
-
-    downloadReportFlotilla(contactId: string, policyId: string, formatType: number): Promise<void> {
-        return new Promise((resolve) => {
-            this._policyInsuredService.downloadReportFlotilla(contactId, policyId, formatType).then((response: any) => {
-              const filename = response.headers.get('content-disposition').split(';')[1].split('filename')[1].split('=')[1].split('"')[1].trim();
-              const blob = new Blob([response.body], {type: response.type.toString()});
-                  saveAs(blob, filename);
-                  resolve();
-            });
-        });
     }
 
     /**
@@ -541,6 +553,18 @@ export class ContentListService {
             }),
             map(() => { })
         );
+    }
+
+    loadPolicyInsureds(contactId: string, policyId: string, page: number): Observable<void> {
+        const fields: string = 'policyInsuredId,insurerImageUrl,insuredStatusBackground,insuredStatusName,insuredStatusId,insuranceName,insuranceTypeName,insuranceBackground,insuranceIcon,currencyName,totalAmount,coveredProperty,certificate,contactId,policyId,validityStartDate,validityEndDate,lifeTime,fatherPolicyUrl,policyUrl';
+        return this._policyInsuredService.getPolicyInsureds(contactId, policyId, fields, page).pipe(
+            tap((res: HttpResponse) => {
+                const policyInsureds: Insured[] = res.data.items;
+                this.contents = this.contents.concat(policyInsureds);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
     }
 
     /**
@@ -1119,6 +1143,19 @@ export class ContentListService {
         )
     }
 
+    searchPolicyInsureds(contactId: string, policyId: string, page: number, query: string): Observable<void> {
+        const fields: string = 'policyInsuredId,insurerImageUrl,insuredStatusBackground,insuredStatusName,insuredStatusId,insuranceName,insuranceTypeName,insuranceBackground,insuranceIcon,currencyName,totalAmount,coveredProperty,certificate,contactId,policyId,validityStartDate,validityEndDate,lifeTime,fatherPolicyUrl,policyUrl';
+        query = 'certificate:'+query;
+        const sortBy: string = 'insuredNumber';
+        return this._policyInsuredService.getPolicyInsureds(contactId, policyId, fields, page, DEFAULT_PER_PAGE, sortBy, query).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
     /**
      * Search the sinisters
      * @param  page  The page number to get
@@ -1137,6 +1174,11 @@ export class ContentListService {
         )
     }
 
+    updateContentResultData(): void {
+        this.contentResultData.loadedItems -= 1; 
+        this.contentResultData.totalItems -= 1; 
+    }
+
     private _getContactPosition(contactId: string): number {
         return this.contents.findIndex((value: Contact) => value.contactId == contactId)
     }
@@ -1148,6 +1190,10 @@ export class ContentListService {
      */
     private _getPolicyPosition(policyId: string): number {
         return this.contents.findIndex((value: Policy) => value.policyId == policyId)
+    }
+
+    private _getPolicyInsuredPosition(policyInsuredId: string): number {
+        return this.contents.findIndex((value: Insured) => value.policyInsuredId == policyInsuredId)
     }
 
     /**

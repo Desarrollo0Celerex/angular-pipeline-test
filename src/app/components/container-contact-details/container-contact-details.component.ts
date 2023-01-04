@@ -13,7 +13,7 @@ import { ContainerContactDetailsService } from './container-contact-details.serv
 export class ContainerContactDetailsComponent implements OnChanges {
     @Input() contactId: string = '';
     @Input() message: string = '';
-    @Input() policyNumber: string = '';
+    @Input() policyId: string = '';
     contactProfileRoute: string = '';
 
     constructor(public model: ContainerContactDetailsService) { }
@@ -22,6 +22,9 @@ export class ContainerContactDetailsComponent implements OnChanges {
         if(!!changes.contactId && !!changes.contactId.currentValue) {
             this.contactProfileRoute = ROUTES_NAME.contactResume(this.contactId);
             this.model.loadContact(this.contactId);
+        }
+        if(!!changes.contactId && !!changes.contactId.currentValue && !!changes.policyId && !!changes.policyId.currentValue) {
+            this.model.loadPolicyNumber(this.contactId, this.policyId);
         }
     }
 

@@ -6,6 +6,9 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { Policy } from '@interfaces/policy.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
+import { LoadingService } from '@services/loading.service';
+
+import { ContentMainActionService } from './content-main-action.service';
 
 declare var ModalPlugin: any;
 
@@ -13,10 +16,12 @@ declare var ModalPlugin: any;
   selector: 'agt-content-main-action',
   templateUrl: './content-main-action.component.html',
   styles: [
-  ]
+  ],
+  providers: [ContentMainActionService]
 })
 export class ContentMainActionComponent implements OnInit {
     @Input() contactId: string = '';
+    @Input() policyId: string = '';
     @Input() contentType: number;
     @Input() contentTypeName: string;
     @Input() contentSubtype: number;
@@ -36,7 +41,10 @@ export class ContentMainActionComponent implements OnInit {
     modalIdSearchClient: string = 'agt-search-client';
     modalIdSearchPayment: string = 'agt-search-payment';
     modalIdSearchPolicy: string = 'agt-search-policy';
+    modalIdSelectPolicyInsuredUploadType: string = 'agt-select-policy-insured-upload-type';
+    modalIdSelectReportFormat: string = 'agt-select-report-format';
     modalIdSelectSinisterStatus: string = 'agt-select-sinister-status';
+    modalIdShowPolicyInsuredActions: string = 'agt-show-policy-insured-actions';
     modalIdGroupHasCoincidences: string = 'agt-group-has-coincidences';
     modalIdPartnerHasCoincidences: string = 'agt-partner-has-coincidences';
     searchPolicyMessage: string = '';
@@ -45,10 +53,12 @@ export class ContentMainActionComponent implements OnInit {
     selectQuotationStatusModalId: string;
     //selectedPolicy: Policy | null = null;
     selectedName: string = '';
-    policyId: string = '';
+    selectedPolicyId: string = '';
     insuranceId: number = 0;
 
     constructor(
+        public model: ContentMainActionService,
+        private _loadingService: LoadingService,
         private _pluralNameFormatPipe: PluralNameFormatPipe,
         private _router: Router
     ) {
@@ -92,6 +102,7 @@ export class ContentMainActionComponent implements OnInit {
             break;
             case CONTENT_TYPES.CONTACT_QUOTATION.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.POLICY.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
+            case CONTENT_TYPES.POLICY_INSURED.ID: title = 'Acciones Disponibles'; break;
             case CONTENT_TYPES.CONTACT_FILE.ID: title = 'Actualizar Expediente'; break;
             case CONTENT_TYPES.GROUP.ID: title = 'Nuevo ' + this.contentTypeName; break;
             case CONTENT_TYPES.GROUP_MEMBER.ID: title = 'Nuevo Miembro'; break;
@@ -138,6 +149,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.PAYMENT.ID: title = 'APLICAR PAGO'; break;
             case CONTENT_TYPES.SINISTER.ID: title = 'REPORTAR '+this.contentTypeName; break;
             case CONTENT_TYPES.INCOMPLETE_POLICIES.ID: title = 'CARGAR '+this.contentTypeName; break;
+            case CONTENT_TYPES.POLICY_INSURED.ID: title = 'MOSTRAR ACCIONES'; break;
         }
         return title;
     }
@@ -180,6 +192,10 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.GROUP_MEMBER.ID:
                 ModalPlugin.show(this.modalIdSearchClient);
             break;
+
+            case CONTENT_TYPES.POLICY_INSURED.ID:
+                ModalPlugin.show(this.modalIdShowPolicyInsuredActions);
+            break;
         }
     }
 
@@ -197,7 +213,7 @@ export class ContentMainActionComponent implements OnInit {
      */
     onPolicyFound(policy: Policy): void {
         //this.selectedPolicy = policy;
-        this.policyId = policy.policyId;
+        this.selectedPolicyId = policy.policyId;
         this.insuranceId = policy.insuranceId;
         switch(this.contentType) {
             case CONTENT_TYPES.SINISTER.ID:
@@ -232,6 +248,21 @@ export class ContentMainActionComponent implements OnInit {
 
     notifyPartnerCreated(): void {
         this.partnerCreated.emit();
+    }
+
+    showModalToSelectPolicyInsuredUploadType(): void {
+        ModalPlugin.show(this.modalIdSelectPolicyInsuredUploadType);
+    }
+
+    showModalToSelectReportFormatType(): void {
+        ModalPlugin.show(this.modalIdSelectReportFormat);
+    }
+
+    downloadPolicyInsuredsReport(formatType: number): void {
+        this._loadingService.show();
+        this.model.downloadReportFlotilla(this.contactId, this.policyId, formatType).then(() => {
+            this._loadingService.hide();
+        });
     }
 
 }

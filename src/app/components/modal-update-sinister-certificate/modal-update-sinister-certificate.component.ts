@@ -41,7 +41,7 @@ export class ModalUpdateSinisterCertificateComponent implements OnChanges {
             this.model.form.patchValue({ certificate: changes.certificate.currentValue });
         }
         if(!!this.sinisterData) {
-            this.model.loadPolicyInsureds(this.sinisterData.contactId, this.sinisterData.policyId).subscribe(() => {
+            this.model.loadPolicyInsureds(this.sinisterData.contactId, this.sinisterData.policyId, ).subscribe(() => {
                 this.calculateInsuredPos();
             });
         }

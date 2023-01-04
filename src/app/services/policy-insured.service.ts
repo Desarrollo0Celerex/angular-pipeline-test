@@ -4,10 +4,12 @@ import { Observable, from } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
 import * as moment from 'moment';
 
+import { DEFAULT_PAGE, DEFAULT_PER_PAGE, POLICY_INSURED_STATUS } from '@constants/global';
 import { environment } from '@env/environment';
 import { AnalizeInsuredsResponse } from '@interfaces/analize-insureds-response.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Insured } from '@interfaces/insured.interface';
+import { UpdatePolicyInsuredStatus } from '@interfaces/update-policy-insured-status.interface';
 import { AuthService } from '@services/auth.service';
 
 const ROUTES = {
@@ -16,6 +18,7 @@ const ROUTES = {
     importInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/import`,
     policyInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds`,
     policyInsured: (workspaceId: string, contactId: string, policyId: string, policyInsuredId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds/${policyInsuredId}`,
+    policyInsuredStatus: (workspaceId: string, contactId: string, policyId: string, policyInsuredId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds/${policyInsuredId}/status`,
     reportFlotilla: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/reports/flotilla`,
     reportFlotillas: (workspaceId: string, contactId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/reports/flotillas`
 }
@@ -36,7 +39,12 @@ export class PolicyInsuredService {
         );
     }
 
-    createPolicyInsured(contactId: string, policyId: string, requestBodies: FormData[]): Observable<void> {
+    createPolicyInsured(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = ROUTES.policyInsureds(this._workspaceId, contactId, policyId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
+
+    createPolicyInsureds(contactId: string, policyId: string, requestBodies: FormData[]): Observable<void> {
         const route: string = ROUTES.policyInsureds(this._workspaceId, contactId, policyId);
         return from(requestBodies).pipe(
             concatMap(requestBody => <Observable<void>> this._httpClient.post<void>(route, requestBody) )
@@ -105,7 +113,7 @@ export class PolicyInsuredService {
                 insured.vehiclePlates = (!!insured.vehiclePlates) ? insured.vehiclePlates : '';
                 insured.vehicleSerial = (!!insured.vehicleSerial) ? insured.vehicleSerial : '';
                 insured.vehicleMotor = (!!insured.vehicleMotor) ? insured.vehicleMotor : '';
-                insured.vehicleNumber = (!!insured.vehicleNumber) ? insured.vehicleNumber : '';
+                insured.certificate = (!!insured.certificate) ? insured.certificate : '';
                 insured.vehicleInternalNumber = (!!insured.vehicleInternalNumber) ? insured.vehicleInternalNumber : '';
                 insured.vehicleSubgroup = (!!insured.vehicleSubgroup) ? insured.vehicleSubgroup : '';
                 insured.vehicleType = (!!insured.vehicleType) ? insured.vehicleType : '';
@@ -114,12 +122,12 @@ export class PolicyInsuredService {
                 insured.vehicleCoverageName = (!!insured.vehicleCoverageName) ? insured.vehicleCoverageName : '';
                 insured.vehicleUseName = (!!insured.vehicleUseName) ? insured.vehicleUseName : '';
                 insured.vehicleAdaptation = (!!insured.vehicleAdaptation) ? insured.vehicleAdaptation : '';
-                insured.vehicleValidityStartDate = (!!insured.vehicleValidityStartDate) ? moment(insured.vehicleValidityStartDate, 'YYYY-MM-DD').format('DD/MM/YYYY') : '';
-                insured.vehicleNetPay = (!!insured.vehicleNetPay) ? insured.vehicleNetPay : 0.00;
-                insured.vehicleFeePay = (!!insured.vehicleFeePay) ? insured.vehicleFeePay : 0.00;
-                insured.vehicleCoverPay = (!!insured.vehicleCoverPay) ? insured.vehicleCoverPay : 0.00;
-                insured.vehicleTaxPay = (!!insured.vehicleTaxPay) ? insured.vehicleTaxPay : 0.00;
-                insured.vehicleTotalAmount = (!!insured.vehicleTotalAmount) ? insured.vehicleTotalAmount : 0.00;
+                insured.validityStartDate = (!!insured.validityStartDate) ? moment(insured.validityStartDate, 'YYYY-MM-DD').format('DD/MM/YYYY') : '';
+                insured.netPay = (!!insured.netPay) ? insured.netPay : 0.00;
+                insured.feePay = (!!insured.feePay) ? insured.feePay : 0.00;
+                insured.coverPay = (!!insured.coverPay) ? insured.coverPay : 0.00;
+                insured.taxPay = (!!insured.taxPay) ? insured.taxPay : 0.00;
+                insured.totalAmount = (!!insured.totalAmount) ? insured.totalAmount : 0.00;
                 insured.vehicleStatusName = (!!insured.vehicleStatusName) ? insured.vehicleStatusName : '';
                 insured.buildingName = (!!insured.buildingName) ? insured.buildingName : '';
                 insured.buildingUsage = (!!insured.buildingUsage) ? insured.buildingUsage : '';
@@ -132,18 +140,34 @@ export class PolicyInsuredService {
         );
     }
 
-    getPolicyInsureds(contactId: string, policyId: string, fields: string): Observable<Insured[]> {
+    getPolicyInsureds(contactId: string, policyId: string, fields: string, page: number = DEFAULT_PAGE, perPage: number = DEFAULT_PER_PAGE, sortBy: string = 'insuredNumber', query: string = ''): Observable<HttpResponse> {
         const route: string = ROUTES.policyInsureds(this._workspaceId, contactId, policyId);
         let params: HttpParams = new HttpParams();
         if(!!fields) params = params.append('fields', fields);
+        if(!!query) params = params.append('search', query);
+        params = params.append('page', page);
+        params = params.append('perPage', perPage);
+        params = params.append('sortBy', sortBy);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
-            map((res: HttpResponse) => res.data.items)
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    for(let i in res.data.items) {
+                        res.data.items[i].lifeTime = this._calculateLifeTime(res.data.items[i].insuranceTypeId, res.data.items[i].validityStartDate, res.data.items[i].validityEndDate);
+                    }
+                }
+                return res;
+            })
         );
     }
 
     importInsureds(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
         const route: string = ROUTES.importInsureds(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
+    }
+
+    updatePolicyInsuredStatus(contactId: string, policyId: string, policyInsuredId: string, requestBody: UpdatePolicyInsuredStatus): Observable<void> {
+        const route: string = ROUTES.policyInsuredStatus(this._workspaceId, contactId, policyId, policyInsuredId);
+        return this._httpClient.put<void>(route, requestBody);
     }
 
     updatePolicyInsureds(contactId: string, policyId: string, requestBodies: FormData[]): Observable<void> {
@@ -154,5 +178,27 @@ export class PolicyInsuredService {
                 return <Observable<void>> this._httpClient.post<void>(route, requestBody);
             })
         )
+    }
+
+    private _calculateLifeTime(insuredStatusId: number, validityStartDate: string, validityEndDate: string): number {
+        let percentage: number;
+        switch(insuredStatusId) {
+            case POLICY_INSURED_STATUS.CANCELLED:
+                percentage = 100;
+            break;
+
+            default:
+                if(!!validityStartDate && !!validityEndDate) {
+                    const validityStartDateAux = moment(validityStartDate);
+                    const validityEndDateAux = moment(validityEndDate);
+                    const totalDays = validityEndDateAux.diff(validityStartDateAux, 'days');
+                    const daysPassed = moment().diff(validityStartDateAux, 'days');
+                    percentage = (daysPassed >= totalDays) ? 100 : Math.round(daysPassed * 100 / totalDays);
+                } else {
+                    percentage = 0;
+                }
+                
+        }
+        return percentage;
     }
 }

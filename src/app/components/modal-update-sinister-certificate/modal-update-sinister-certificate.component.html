@@ -19,7 +19,7 @@
 								<!-- AGENTHOS - CERTIFICATE NUMBER * -->
 								<label class="form-label">No. Certificado</label>
 								<select class="form-control {{getValidationClass('certificate')}}" formControlName="certificate" (change)="calculateInsuredPos()">
-									<option *ngFor="let insured of model.insureds" [value]="insured.vehicleNumber">{{insured.vehicleNumber}}</option>
+									<option *ngFor="let insured of model.insureds" [value]="insured.certificate">{{insured.certificate}}</option>
 								</select>
 								<div class="invalid-feedback">{{getErrorMessage('certificate')}}</div>
 							</div>

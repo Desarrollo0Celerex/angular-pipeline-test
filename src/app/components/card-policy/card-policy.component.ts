@@ -28,7 +28,6 @@ export class CardPolicyComponent implements OnInit {
     @Output() cancelPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() completePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() deletePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
-    @Output() downloadReportFlotilla: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() endorsePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() reissuePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
     @Output() renewPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
@@ -88,13 +87,6 @@ export class CardPolicyComponent implements OnInit {
      */
     onClickDeletePolicy(): void {
         if(!!this.policy) this.deletePolicy.emit({
-            contactId: this.policy.contactId,
-            policyId: this.policy.policyId
-        });
-    }
-
-    onClickDownloadReportFlotilla(): void {
-        if(!!this.policy) this.downloadReportFlotilla.emit({
             contactId: this.policy.contactId,
             policyId: this.policy.policyId
         });
