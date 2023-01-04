@@ -365,28 +365,24 @@
             </div>
             <!-- //AGENTHOS - POLICY OWNER CONTACT -->
 
-            <!-- AGENTHOS - POLICY DEFAULT DETAILS -->
-            <!-- (FOR INSURANCE CARD) -->
+            <!-- (JUST FOR: MULTIPLE INSUREDS) -->
             <div class="card" *ngIf="model.policy.insuranceTypeId === INSURANCE_TYPES.FLOTILLA">
                 <div class="card-header">
-                    <h3 class="card-title">Detalles de la Flotilla</h3>
+                    <h3 class="card-title">Datos de los Bienes Asegurados</h3>
                 </div>
                 <div class="card-body">
-                    <div class="block-content">
-                        <div class="form-group row text-center">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - POLICY DETAILS * -->
-                                    <label class="form-label">Descripción</label>
-                                    <input type="text" class="form-control {{getValidationClass('description')}}" formControlName="description">
-                                    <div class="invalid-feedback">{{getErrorMessage('description')}}</div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-12">
+                        <!-- AGENTHOS - CERTIFICATES BANNER -->
+                        <!-- (JUST IF POLICY: INCOMPLETE -->
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">Guarda la póliza principal para poder registrar los certificados de los bienes asegurados.</li>
+                        </ol>
+                        <!-- AGENTHOS - CERTIFICATE MANAGER -->
+                        <button type="button" class="btn btn-block btn-primary" name="agtPolicyCertificates" disabled=""><strong>ACTUALIZAR CERTIFICADOS</strong></button>
                     </div>
                 </div>
             </div>
-            <!-- //AGENTHOS - POLICY DEFAULT DETAILS -->
+            <!-- //AGENTHOS - POLICY INSURED VEHICLES -->
 
             <!-- //AGENTHOS - POLICY OWNER -->
             <div formArrayName="insureds">

@@ -6,7 +6,7 @@ import { AnalizeInsuredsResponse } from '@interfaces/analize-insureds-response.i
 import { PolicyInsuredService } from '@services/policy-insured.service';
 
 @Injectable()
-export class ListPolicyInsuredsService {
+export class ImportPolicyInsuredsService {
 
     constructor(private _policyInsuredService: PolicyInsuredService) { }
 

@@ -1,0 +1,72 @@
+<agt-container-contact-details 
+    [contactId]="contactId" 
+    [policyId]="policyId"
+    message="Importa los certificados de la póliza"
+></agt-container-contact-details>
+
+<!-- AGENTHOS - POLICY CERTIFICATES IMPORTER -->
+<div class="row mt-3">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Importar Certificados</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - POLICY CERTIFICATES IMPORTER -->
+
+<!-- AGENTHOS - POLICY CERTIFICATES IMPORTER INSTRUCTIONS -->
+<div class="row">
+    <!-- AGENTHOS - POLICY CERTIFICATES IMPORTER STEP 1 -->
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Descargar Formato</h3>
+            </div>
+            <div class="card-body">
+                <ol class="breadcrumb1">
+                    <li class="breadcrumb-item1"><strong>Paso 1:</strong> Descarga el formato para cargar y actualizar los certificados.</li>
+                </ol>
+            </div>
+            <div class="card-footer">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-block btn-primary" (click)="exportPolicyInsureds()"><strong>DESCARGAR FORMATO</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - POLICY CERTIFICATES IMPORTER STEP 1 -->
+    <!-- AGENTHOS - POLICY CERTIFICATES IMPORTER STEP 2 -->
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Cargar Formato</h3>
+            </div>
+            <div class="card-body">
+                <ol class="breadcrumb1">
+                    <li class="breadcrumb-item1"><strong>Paso 2:</strong> Carga el formato con los nuevos detalles de los certificados.</li>
+                </ol>
+            </div>
+            <div class="card-footer">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-block btn-secondary" (click)="showModalToSelectFile()"><strong>CARGAR FORMATO</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - POLICY CERTIFICATES IMPORTER STEP 2 -->
+</div>
+<!-- //AGENTHOS - POLICY CERTIFICATES IMPORTER INSTRUCTIONS -->
+
+<agt-modal-select-file 
+    [modalId]="modalIdSelectFile" 
+    [data]="modalSelectFileData" 
+    (fileSelected)="analyzePolicyInsureds($event)"
+></agt-modal-select-file>
+
+<agt-modal-confirm-policy-insureds
+    [modalId]="modalIdConfirmPolicyInsureds"
+    [data]="analizeInsuredResponse"
+    (confirmedAction)="importPolicyInsureds()"
+></agt-modal-confirm-policy-insureds>

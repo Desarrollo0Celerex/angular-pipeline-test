@@ -77,7 +77,7 @@
     <agt-modal-create-sinister
         [modalId]="modalIdCreateSinister"
         [contactId]="contactId"
-        [policyId]="policyId"
+        [policyId]="selectedPolicyId"
         [insuranceId]="insuranceId"
     ></agt-modal-create-sinister>
 </ng-container>
@@ -99,4 +99,23 @@
         [modalIdConfirmAddClient]="modalIdConfirmAddClient"
         [groupId]="groupId"
     ></agt-modal-search-client>
+</ng-container>
+<ng-container
+    *ngIf="contentType === CONTENT_TYPES.POLICY_INSURED.ID">
+    <agt-modal-show-policy-insured-actions 
+        [modalId]="modalIdShowPolicyInsuredActions"
+        [contactId]="contactId"
+        [policyId]="policyId"
+        (selectPolicyInsuredUploadType)="showModalToSelectPolicyInsuredUploadType()"
+        (selectReportFormatType)="showModalToSelectReportFormatType()"
+    ></agt-modal-show-policy-insured-actions>
+    <agt-modal-select-report-format
+        [modalId]="modalIdSelectReportFormat"
+        (formatSelected)="downloadPolicyInsuredsReport($event)"
+    ></agt-modal-select-report-format>
+    <agt-modal-select-policy-insured-upload-type
+        [modalId]="modalIdSelectPolicyInsuredUploadType"
+        [contactId]="contactId"
+        [policyId]="policyId"
+    ></agt-modal-select-policy-insured-upload-type>
 </ng-container>

@@ -17,6 +17,7 @@ import { Group } from '@interfaces/group.interface';
 import { Partner } from '@interfaces/partner.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
+import { PolicyInsuredData } from '@interfaces/policy-insured-data.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
 import { PolicyRecordData } from '@interfaces/policy-record-data.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
@@ -95,6 +96,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     selectedPolicyId: string;
     selectedPolicyIdToDelete: string = '';
     selectedPolicyPos: number = 0;
+    selectedPolicyUrl: string = '';
+    selectedPolicyInsured: PolicyInsuredData | null = null;
+    selectedPolicyInsuredUrl: string = '';
     selectedQuotationId: string;
     selectedReceiptPaidId: string;
     selectedReceiptAppliedId: string = '';
@@ -104,6 +108,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdAcceptQuotation: string;
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
+    modalIdConfirmCancelPolicyInsured: string = 'agt-confirm-cancel-policy-insured';
+    modalIdConfirmDeletePolicyInsured: string = 'agt-confirm-delete-policy-insured';
     modalIdConfirmDeleteContact: string = 'agt-confirm-delete-contact';
     modalIdConfirmDeleteContactFile: string = 'agt-confirm-delete-contact-file';
     modalIdConfirmDeleteCompletePolicy: string = 'agt-confirm-delete-complete-policy';
@@ -125,6 +131,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmUpdateContactFile: string = 'agt-confirm-update-contact-file';
     modalIdConfirmUpdateExternalPolicy: string = 'modal-confirm-update-external-policy';
     modalIdConfirmUpdatePolicy: string;
+    modalIdConfirmUpdatePolicyInsured: string = 'agt-confirm-update-policy-insured';
     modalIdConfirmValidateExternalPolicy: string = 'modal-confirm-validate-external-policy';
     modalIdFinalizeSinisterEvent: string = 'modal-finalize-sinister-event';
     modalIdRejectQuotation: string;
@@ -140,6 +147,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
+    modalIdShowPolicyInsuredFile: string = 'modal-show-policy-insured-file';
     modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
     modalIdSelectReportFormat: string = 'agt-select-report-format';
     modalIdShowExternalPolicyDetails: string = 'modal-show-external-policy-details';
@@ -398,13 +406,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdConfirmDeleteCompletePolicy);
     }
 
-    onDownloadReportFlotilla(formatType: number): void {
-        this._loadingService.show();
-        this.contentListService.downloadReportFlotilla(this.contactId, this.selectedPolicyId, formatType).then(() => {
-            this._loadingService.hide();
-        });
-    }
-
     confirmDeleteIncompletePolicy(data: ContactPolicyData): void {
         this.contactId = data.contactId;
         this.selectedPolicyId = data.policyId;
@@ -606,12 +607,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             this.contactId = data.contactId
         }
         ModalPlugin.show(this.modalIdConfirmShowHistoryPolicy);
-    }
-
-    onShowModalToSelectReportFormat(data: ContactPolicyData): void {
-        this.selectedPolicyId = data.policyId;
-        this.contactId = data.contactId;
-        ModalPlugin.show(this.modalIdSelectReportFormat);
     }
 
     /**
@@ -860,6 +855,58 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.canReloadApplyPayment = false;
     }
 
+    /* Policy insureds */
+    confirmCancelInsured(data: PolicyInsuredData): void {
+        this.selectedPolicyInsured = data;
+        ModalPlugin.show(this.modalIdConfirmCancelPolicyInsured);
+    }
+    
+    cancelPolicyInsured(): void {
+        this._loadingService.show();
+        this.contentListService.cancelPolicyInsured(this.selectedPolicyInsured!.contactId, this.selectedPolicyInsured!.policyId, this.selectedPolicyInsured!.policyInsuredId).subscribe(_ => {
+            const url: string = this._router.url.split('?')[0] ;
+            const queryParams = this.sortParams(this._router.url);
+            this._reloadPage(url, queryParams);
+            this._loadingService.hide();
+            AlertHelper.policyInsuredCancelled();
+        })
+    }
+
+    confirmDeleteInsured(data: PolicyInsuredData): void {
+        this.selectedPolicyInsured = data;
+        ModalPlugin.show(this.modalIdConfirmDeletePolicyInsured);
+    }
+
+    deletePolicyInsured(): void {
+        this._loadingService.show();
+        this.contentListService.deletePolicyInsured(this.selectedPolicyInsured!.contactId, this.selectedPolicyInsured!.policyId, this.selectedPolicyInsured!.policyInsuredId).subscribe(_ => {
+            const url: string = this._router.url.split('?')[0] ;
+            const queryParams = this.sortParams(this._router.url);
+            this._reloadPage(url, queryParams);
+            this._loadingService.hide();
+            AlertHelper.policyInsuredDeleted();
+        })
+    }
+
+    showInsuredFile(insuredPolicyUrl: string): void {
+        this.selectedPolicyInsuredUrl = insuredPolicyUrl;
+        ModalPlugin.show(this.modalIdShowPolicyInsuredFile);
+    }
+
+    showPolicyFile(policyUrl: string): void {
+        this.selectedPolicyUrl = policyUrl;
+        ModalPlugin.show(this.modalIdShowPolicyFile);
+    }
+
+    confirmUpdateInsured(data: PolicyInsuredData): void {
+        this.selectedPolicyInsured = data;
+        ModalPlugin.show(this.modalIdConfirmUpdatePolicyInsured);
+    }
+
+    goToUpdatePolicyInsured(): void {
+        this._router.navigateByUrl(ROUTES_NAME.updatePolicyInsured(this.selectedPolicyInsured!.contactId, this.selectedPolicyInsured!.policyId, this.selectedPolicyInsured!.policyInsuredId));
+    }
+
     /**
      * Do action to contact selected
      * @param contactId The selected contact ID
@@ -908,6 +955,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.POLICY.ID:
+            case CONTENT_TYPES.POLICY_INSURED.ID:
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.GROUP.ID:
             case CONTENT_TYPES.GROUP_MEMBER.ID:
@@ -998,6 +1046,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.POLICY.ID:
                 this.contentListService.loadContactPolicies(this.contactId, this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.POLICY_INSURED.ID:
+                this.contentListService.loadPolicyInsureds(this.contactId, this.policyId, this.page).subscribe( () => {
                     this._contentLoaded();
                 })
             break;
@@ -1246,6 +1300,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 })
             break;
 
+            case CONTENT_TYPES.POLICY_INSURED.ID:
+                this.contentListService.searchPolicyInsureds(this.contactId, this.policyId, this.page, this.query).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
                 this.contentListService.searchContactSinisters(this.contactId, this.page, this.query).subscribe( () => {
                     this._contentLoaded();
@@ -1333,6 +1393,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.PAYMENT.ID:
                 case CONTENT_TYPES.PAYMENT_HISTORY.ID:
                 case CONTENT_TYPES.POLICY.ID:
+                case CONTENT_TYPES.POLICY_INSURED.ID:
                 case CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID:
                 case CONTENT_TYPES.POLICY_SINISTERS.ID:
                 case CONTENT_TYPES.SINISTER.ID:

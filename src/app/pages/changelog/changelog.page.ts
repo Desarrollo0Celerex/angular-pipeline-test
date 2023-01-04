@@ -9,6 +9,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.36.1',
+            launchDate: '04/01/2023',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se agrego página para gestionar certificados de una póliza (cancelar, eliminar, buscar, exportar, importar, etc).'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.36.0',
             launchDate: '30/12/2022',
             changes: [

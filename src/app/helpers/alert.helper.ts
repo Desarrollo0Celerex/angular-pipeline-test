@@ -130,10 +130,20 @@ export class AlertHelper {
 
     static importedInsureds(): void {
         const alertData: Alert = {
-            title: 'Unidades Importadas',
-            text: 'Las unidades han sido importadas con éxito.',
+            title: 'Certificados Importadas',
+            text: 'Los certificados han sido importados con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static importInsuredsFailed(): void {
+        const alertData: Alert = {
+            title: 'Datos invalidos',
+            text: 'El archivo contiene algunos campos invalidos.',
+            type: 'warning',
+            confirmButtonText: 'ENTENDIDO'
         }
         SweetAlertPlugin.showAlert(alertData);
     }
@@ -364,10 +374,30 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static policyInsuredCancelled(): void {
+        const alertData: Alert = {
+            title: 'Certificado Cancelado',
+            text: 'El certificado se cancelo con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static policyInsuredCreated(): void {
+        const alertData: Alert = {
+            title: 'Certificado Creado',
+            text: 'El certificado fue creado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static policyInsuredDeleted(): void {
         const alertData: Alert = {
-            title: 'Vehículo Eliminado',
-            text: 'El vehículo ha sido eliminado con éxito.',
+            title: 'Certificado Eliminado',
+            text: 'El certificado ha sido eliminado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR'
         }

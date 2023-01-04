@@ -5,12 +5,12 @@ import { map, tap } from 'rxjs/operators';
 
 import { SHORT_ALPHANUMERIC_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
+import { HttpResponse } from '@interfaces/http-response.interface';
 import { Insured } from '@interfaces/insured.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { UpdateSinisterCertificateDataSend } from '@interfaces/update-sinister-certificate-data-send.interface';
 import { SinisterService } from '@services/sinister.service';
 import { PolicyInsuredService } from '@services/policy-insured.service';
-import { element } from 'protractor';
 
 @Injectable()
 export class ModalUpdateSinisterCertificateService {
@@ -27,15 +27,17 @@ export class ModalUpdateSinisterCertificateService {
         return this.form.controls;
     }
 
-    calculateInsuredPos(vehicleNumber: string): number {
-        return this.insureds.findIndex(element => element.vehicleNumber === vehicleNumber);
+    calculateInsuredPos(certificate: string): number {
+        return this.insureds.findIndex(element => element.certificate === certificate);
     }
 
     loadPolicyInsureds(contactId: string, policyId: string): Observable<void> {
-        const fields: string = 'vehicleNumber,vehicleMaker,vehicleVersion,vehicleModel';
-        return this._policyInsuredService.getPolicyInsureds(contactId, policyId, fields).pipe(
-            tap((res: Insured[]) => {
-                this.insureds = res;
+        const fields: string = 'certificate,vehicleMaker,vehicleVersion,vehicleModel';
+        const page: number = 1;
+        const perPage: number = 10000;
+        return this._policyInsuredService.getPolicyInsureds(contactId, policyId, fields, page, perPage).pipe(
+            tap((res: HttpResponse) => {
+                this.insureds = res.data.items;
             }),
             map(() => { }),
         )

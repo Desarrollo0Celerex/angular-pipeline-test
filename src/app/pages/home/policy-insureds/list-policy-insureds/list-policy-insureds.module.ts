@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ContainerContactDetailsModule } from '@components/container-contact-details/container-contact-details.module';
-import { PolicyInsuredService } from '@services/policy-insured.service';
+import { ContentsModule } from '@components/contents/contents.module';
 
 import { ListPolicyInsuredsRoutingModule } from './list-policy-insureds-routing.module';
 import { ListPolicyInsuredsPage } from './list-policy-insureds.page';
@@ -14,10 +14,8 @@ import { ListPolicyInsuredsPage } from './list-policy-insureds.page';
   imports: [
     CommonModule,
     ContainerContactDetailsModule,
+    ContentsModule,
     ListPolicyInsuredsRoutingModule
-  ],
-  providers: [
-    PolicyInsuredService
   ]
 })
 export class ListPolicyInsuredsModule { }

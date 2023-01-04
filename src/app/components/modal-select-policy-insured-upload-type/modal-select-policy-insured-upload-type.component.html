@@ -1,0 +1,32 @@
+<!-- AGENTHOS - POLICY NEW CERTIFICATE -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Cargar Certificados</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<ol class="breadcrumb1">
+					<li class="breadcrumb-item1">Selecciona cómo deseas cargar los certificados.</li>
+				</ol>
+				<div class="row">
+					<div class="col-md-12 mt-3">
+						<!-- AGENTHOS - POLICY INDIVIDUAL CERTIFICATE -->
+						<button type="button" class="btn btn-block btn-default" (click)="goToCreatePolicyInsured()"><i class="fa fa-file-text mr-2"></i><strong>CARGA INDIVIDUAL</strong></button>
+					</div>
+					<div class="col-md-12 mt-3">
+						<!-- AGENTHOS - POLICY MASIVE CERTIFICATES -->
+						<button type="button" class="btn btn-block btn-default" (click)="goToImportPolicyInsureds()"><i class="fa fa-cloud-upload mr-2"></i><strong>IMPORTAR CERTIFICADOS</strong></button>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //AGENTHOS - POLICY UPLOAD CERTIFICATE -->

@@ -261,12 +261,11 @@ export class CompletePolicyPage implements OnInit {
         this._loadingService.show();
         this.model.completePolicy(this.contactId, this.policyId, this._scannedPolicyData).subscribe( () => {
             this._loadingService.hide();
-            /*if(this.model.policy!.insuranceTypeId === INSURANCE_TYPES.FLOTILLA) {
+            if(this.model.policy!.insuranceTypeId === INSURANCE_TYPES.FLOTILLA) {
                 AlertHelper.policyCompleted(this._goToListPolicyInsureds, this);
             } else {
                 AlertHelper.policyCompleted(this._goToListContactPolicies, this);
-            } */
-            AlertHelper.policyCompleted(this._goToListContactPolicies, this);
+            }
         }, (error: HttpError) => {
             this._handleCompletePolicyError(error);
         });
