@@ -302,54 +302,68 @@
                 <div class="card-body">
                     <div class="block-content">
                         <div class="form-group row text-center">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - POLICY VEHICLE MAKER * -->
-                                    <label class="form-label">Fabricante</label>
-                                    <input type="text" class="form-control {{getValidationClass('vehicleMaker')}}" formControlName="vehicleMaker">
-                                    <div class="invalid-feedback">{{getErrorMessage('vehicleMaker')}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - POLICY VEHICLE VERSION * -->
-                                    <label class="form-label">Versión</label>
-                                    <input type="text" class="form-control {{getValidationClass('vehicleVersion')}}" formControlName="vehicleVersion">
-                                    <div class="invalid-feedback">{{getErrorMessage('vehicleVersion')}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - POLICY VEHICLE MODEL * -->
-                                    <label class="form-label">Modelo</label>
-                                    <input type="text" class="form-control {{getValidationClass('vehicleModel')}}" formControlName="vehicleModel">
-                                    <div class="invalid-feedback">{{getErrorMessage('vehicleModel')}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - POLICY VEHICLE PLATES -->
-                                    <label class="form-label">Placas</label>
-                                    <input type="text" class="form-control {{getValidationClass('vehiclePlates')}}" formControlName="vehiclePlates">
-                                    <div class="invalid-feedback">{{getErrorMessage('vehiclePlates')}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - POLICY VEHICLE SERIAL -->
-                                    <label class="form-label">No. Serie</label>
-                                    <input type="text" class="form-control {{getValidationClass('vehicleSerial')}}" formControlName="vehicleSerial">
-                                    <div class="invalid-feedback">{{getErrorMessage('vehicleSerial')}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <!-- AGENTHOS - POLICY VEHICLE MOTOR -->
-                                    <label class="form-label">No. Motor</label>
-                                    <input type="text" class="form-control {{getValidationClass('vehicleMotor')}}" formControlName="vehicleMotor">
-                                    <div class="invalid-feedback">{{getErrorMessage('vehicleMotor')}}</div>
-                                </div>
-                            </div>
+                            <ng-container [ngSwitch]="model.policy.insuranceGroupId">
+                                <ng-container *ngSwitchCase="INSURANCE_GROUPS.VEHICLES">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY VEHICLE MAKER * -->
+                                            <label class="form-label">Fabricante</label>
+                                            <input type="text" class="form-control {{getValidationClass('vehicleMaker')}}" formControlName="vehicleMaker">
+                                            <div class="invalid-feedback">{{getErrorMessage('vehicleMaker')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY VEHICLE VERSION * -->
+                                            <label class="form-label">Versión</label>
+                                            <input type="text" class="form-control {{getValidationClass('vehicleVersion')}}" formControlName="vehicleVersion">
+                                            <div class="invalid-feedback">{{getErrorMessage('vehicleVersion')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY VEHICLE MODEL * -->
+                                            <label class="form-label">Modelo</label>
+                                            <input type="text" class="form-control {{getValidationClass('vehicleModel')}}" formControlName="vehicleModel">
+                                            <div class="invalid-feedback">{{getErrorMessage('vehicleModel')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY VEHICLE PLATES -->
+                                            <label class="form-label">Placas</label>
+                                            <input type="text" class="form-control {{getValidationClass('vehiclePlates')}}" formControlName="vehiclePlates">
+                                            <div class="invalid-feedback">{{getErrorMessage('vehiclePlates')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY VEHICLE SERIAL -->
+                                            <label class="form-label">No. Serie</label>
+                                            <input type="text" class="form-control {{getValidationClass('vehicleSerial')}}" formControlName="vehicleSerial">
+                                            <div class="invalid-feedback">{{getErrorMessage('vehicleSerial')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY VEHICLE MOTOR -->
+                                            <label class="form-label">No. Motor</label>
+                                            <input type="text" class="form-control {{getValidationClass('vehicleMotor')}}" formControlName="vehicleMotor">
+                                            <div class="invalid-feedback">{{getErrorMessage('vehicleMotor')}}</div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngSwichDefault>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY DETAILS * -->
+                                            <label class="form-label">Nombre de la Persona o Bien Asegurado</label>
+                                            <input type="text" class="form-control {{getValidationClass('policyDetails')}}" formControlName="policyDetails">
+                                            <div class="invalid-feedback">{{getErrorMessage('policyDetails')}}</div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
@@ -610,6 +624,10 @@
     [contactId]="contactId" 
     [policyId]="policyId"
 ></agt-modal-show-policy>
+<agt-modal-policy-amounts-different 
+    [modalId]="modalIdPolicyAmountsDifferent"
+></agt-modal-policy-amounts-different>
+
 
 
 <ng-template #loadingContent>

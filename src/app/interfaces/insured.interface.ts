@@ -58,4 +58,8 @@ export interface Insured {
     policyId: string,
     lifeTime: number,
     fatherPolicyUrl: string,
+    currencyId: number,
+    paymentMethodId: number,
+    paymentPlanId: number
+    
 }

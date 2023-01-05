@@ -123,6 +123,7 @@ export class PolicyInsuredService {
                 insured.vehicleUseName = (!!insured.vehicleUseName) ? insured.vehicleUseName : '';
                 insured.vehicleAdaptation = (!!insured.vehicleAdaptation) ? insured.vehicleAdaptation : '';
                 insured.validityStartDate = (!!insured.validityStartDate) ? moment(insured.validityStartDate, 'YYYY-MM-DD').format('DD/MM/YYYY') : '';
+                insured.validityEndDate = (!!insured.validityEndDate) ? moment(insured.validityEndDate, 'YYYY-MM-DD').format('DD/MM/YYYY') : '';
                 insured.netPay = (!!insured.netPay) ? insured.netPay : 0.00;
                 insured.feePay = (!!insured.feePay) ? insured.feePay : 0.00;
                 insured.coverPay = (!!insured.coverPay) ? insured.coverPay : 0.00;
@@ -168,6 +169,11 @@ export class PolicyInsuredService {
     updatePolicyInsuredStatus(contactId: string, policyId: string, policyInsuredId: string, requestBody: UpdatePolicyInsuredStatus): Observable<void> {
         const route: string = ROUTES.policyInsuredStatus(this._workspaceId, contactId, policyId, policyInsuredId);
         return this._httpClient.put<void>(route, requestBody);
+    }
+
+    updatePolicyInsured(contactId: string, policyId: string, policyInsuredId: string, requestBody: FormData): Observable<void> {
+        const route: string = ROUTES.policyInsured(this._workspaceId, contactId, policyId, policyInsuredId);
+        return <Observable<void>> this._httpClient.post<void>(route, requestBody);
     }
 
     updatePolicyInsureds(contactId: string, policyId: string, requestBodies: FormData[]): Observable<void> {
