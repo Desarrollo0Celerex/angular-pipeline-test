@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ContainerContactDetailsModule } from '@components/container-contact-details/container-contact-details.module'
 import { LoadingContentModule } from '@components/loading-content/loading-content.module'
+import { ModalPolicyAmountsDifferentModule } from '@components/modal-policy-amounts-different/modal-policy-amounts-different.module'
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module'
 import { CurrencyService } from '@services/currency.service';
 import { PaymentMethodService } from '@services/payment-method.service';
@@ -25,6 +26,7 @@ import { CreatePolicyInsuredPage } from './create-policy-insured.page';
     CreatePolicyInsuredRoutingModule,
     FormsModule,
     LoadingContentModule,
+    ModalPolicyAmountsDifferentModule,
     ModalShowPolicyModule,
     ReactiveFormsModule
   ],

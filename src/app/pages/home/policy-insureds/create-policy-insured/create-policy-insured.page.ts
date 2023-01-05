@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 import * as moment from 'moment';
 
-import { FILE_TYPES } from '@constants/global';
+import { FILE_TYPES, INSURANCE_GROUPS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
@@ -24,11 +24,13 @@ declare var PopoverPlugin: any;
   providers: [CreatePolicyInsuredService]
 })
 export class CreatePolicyInsuredPage implements OnInit {
+    INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     contactId: string = '';
     policyId: string = '';
-    modalIdShowPolicy: string = 'agt-show-policy';
     calendarIdValidityEndDate: string = 'validityEndDate';
     calendarIdValidityStartDate: string = 'validityStartDate';
+    modalIdPolicyAmountsDifferent: string = 'agt-policy-amounts-different';
+    modalIdShowPolicy: string = 'agt-show-policy';
     private _isFormSubmitted: boolean = false;
 
     constructor(
@@ -67,14 +69,22 @@ export class CreatePolicyInsuredPage implements OnInit {
 
     savePolicyInsured(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
-            this._loadingService.show();
-            this.model.createPolicyInsured(this.contactId, this.policyId).subscribe(() => {
-                this._loadingService.hide();
-                this._router.navigateByUrl(ROUTES_NAME.listPolicyInsureds(this.contactId, this.policyId));
-                AlertHelper.policyInsuredCreated();
-            });
+        if(!this.model.form.valid) {
+            AlertHelper.invalidForm();
+            return;
         }
+
+        if(!this.model.checkPolicyAmounts()) {
+            ModalPlugin.show(this.modalIdPolicyAmountsDifferent);
+            return;
+        }
+
+        this._loadingService.show();
+        this.model.createPolicyInsured(this.contactId, this.policyId).subscribe(() => {
+            this._loadingService.hide();
+            this._router.navigateByUrl(ROUTES_NAME.listPolicyInsureds(this.contactId, this.policyId));
+            AlertHelper.policyInsuredCreated();
+        });
     }
 
     selectPolicyInsuredFile(event: any): void {
@@ -101,6 +111,7 @@ export class CreatePolicyInsuredPage implements OnInit {
 
     private _loadPolicy(): void {
         this.model.loadPolicy(this.contactId, this.policyId).subscribe(() => {
+            this.model.buildForm();
             setTimeout(() => {
               DropifyPlugin.init(FILE_TYPES.DOCUMENT, ['pdf'], true, '2M');
             }, 0);

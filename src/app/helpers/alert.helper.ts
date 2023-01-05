@@ -404,6 +404,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static policyInsuredUpdated(): void {
+        const alertData: Alert = {
+            title: 'Certificado Actualizado',
+            text: 'El certificado ha sido actualizado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static policyUploaded(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Póliza Cargada',
