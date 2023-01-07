@@ -1,6 +1,10 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 
+import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
+
+import { ModalSelectFileService } from './modal-select-file.service';
 
 declare var DropifyPlugin: any;
 declare var ModalPlugin: any;
@@ -9,48 +13,54 @@ declare var ModalPlugin: any;
   selector: 'agt-modal-select-file',
   templateUrl: './modal-select-file.component.html',
   styles: [
-  ]
+  ],
+  providers: [ModalSelectFileService]
 })
 export class ModalSelectFileComponent implements OnChanges {
-    @Input() modalId: string;
-    @Input() data: ModalSelectFileData | null;
-    @Output() fileSelected: EventEmitter<File>;
-    @ViewChild('buttonUploadFile') buttonUploadFile: ElementRef<HTMLElement> | null;
+    @Input() modalId: string = '';
+    @Input() data: ModalSelectFileData | null = null;
+    @Output() fileSelected: EventEmitter<File> = new EventEmitter<File>();
     private _canShowPreview: boolean = true;
+    private _isFormSubmitted: boolean = false;
     private _maxFileSize: string = '2M';
 
-    constructor() {
-        this.modalId = '';
-        this.data = null;
-        this.fileSelected = new EventEmitter<File>();
-        this.buttonUploadFile = null;
-    }
+    constructor(public model: ModalSelectFileService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.data.currentValue) {
-            DropifyPlugin.init(changes.data.currentValue.fileType, changes.data.currentValue.formats, this._canShowPreview, this._maxFileSize);
+            DropifyPlugin.init(changes.data.currentValue.formats, this._canShowPreview, this._maxFileSize);
         }
     }
 
-    /**
-     * Click event to request upload endorsement
-     */
-    onClickUploadEndorsement(): void {
-        if(!!this.buttonUploadFile) {
-            this.buttonUploadFile.nativeElement.click();
+    confirmFile(): void {
+        this._isFormSubmitted = true;
+        if(this.model.form.valid) {
+            this.fileSelected.emit(this.model.f.file.value);
+            ModalPlugin.hide(this.modalId);
         }
     }
 
-    /**
-     * Change event to catch the file selected
-     * @param event The event lounched
-     */
-    onChangeFile(event: any): void {
+    getErrorMessage(constrolName: string): string {
+        const control: AbstractControl | null = this.model.form.get(constrolName);
+        return InputValidatorHelper.getErrorMessage(control);
+    }
+
+    getValidationClass(constrolName: string): string {
+        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const validationClass: string = InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        if(constrolName === 'file') {
+            return (validationClass === 'is-valid') ? 'agt-is-valid' : (validationClass === 'is-invalid') ? 'agt-is-invalid' : '';
+        }
+        return validationClass;
+    }
+
+    selectFile(event: any): void {
         if (event.target.files.length > 0) {
             const file: File = event.target.files[0];
             if(this._checkIfValidFile(file.name, this.data!.formats)) {
-                this.fileSelected.emit(file);
-                ModalPlugin.hide(this.modalId);
+                this.model.form.patchValue({file});
+            } else {
+                this.model.form.patchValue({file: ''});
             }
         }
     }

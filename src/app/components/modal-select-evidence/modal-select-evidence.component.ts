@@ -27,7 +27,7 @@ export class ModalSelectEvidenceComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!!changes.data.currentValue) {
-            DropifyPlugin.init(changes.data.currentValue.fileType, changes.data.currentValue.formats);
+            DropifyPlugin.init(changes.data.currentValue.formats);
         }
     }
 
@@ -62,7 +62,7 @@ export class ModalSelectEvidenceComponent implements OnChanges {
     resetEvidenceValue(): void {
         if(!!this.data) {
             DropifyPlugin.reset();
-            DropifyPlugin.init(this.data.fileType, this.data.formats);
+            DropifyPlugin.init(this.data.formats);
         }
     }
 

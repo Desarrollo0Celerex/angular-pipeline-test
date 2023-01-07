@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ModalSelectFileComponent } from './modal-select-file.component';
 
@@ -7,7 +8,9 @@ import { ModalSelectFileComponent } from './modal-select-file.component';
   declarations: [ModalSelectFileComponent],
   exports: [ModalSelectFileComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ModalSelectFileModule { }

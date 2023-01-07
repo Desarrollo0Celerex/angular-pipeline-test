@@ -39,7 +39,7 @@ export class UpdateContactFilePage implements OnInit {
 
     ngOnInit(): void {
         this._catchParams();
-        DropifyPlugin.init(FILE_TYPES.MIXED, this._allowedFileTypes, this._canShowPreview, this._maxFileSize);
+        DropifyPlugin.init(this._allowedFileTypes, this._canShowPreview, this._maxFileSize);
         this.updateContactFileService.buildForm();
         this.updateContactFileService.loadContactFileTypes();
         if(!!this.contactFileData) {

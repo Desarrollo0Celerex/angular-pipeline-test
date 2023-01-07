@@ -28,4 +28,5 @@ export const ERROR_CODES: any = {
     policyAlreadyConfirmed: 'PolicyAlreadyConfirmed',
     sinisterCertificateNotFound: 'SinisterCertificateNotFound',
     sinisterEvidenceMissing: 'SinisterEvidenceMissing',
+    importFailed: 'ImportFailed'
 }

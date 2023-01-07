@@ -266,7 +266,7 @@ export class UpdateCompletePolicyService {
 
     initDropifyPlugin(): void {
         setTimeout(() => {
-            DropifyPlugin.init(FILE_TYPES.DOCUMENT, this._allowedFileTypes, this._canShowPreview, this._maxFileSize);
+            DropifyPlugin.init(this._allowedFileTypes, this._canShowPreview, this._maxFileSize);
         }, 0);
     }
 

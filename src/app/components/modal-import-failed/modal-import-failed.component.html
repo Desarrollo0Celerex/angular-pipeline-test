@@ -1,0 +1,32 @@
+<!-- AGENTHOS - SCANNER CERTIFICATE FALSE -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- AGENTHOS - DETAILS CARD -->
+				<h5 class="modal-title">Escaneo Fallido</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<i class="fe fe-alert-triangle text-warning fa-5x"></i>
+					</div>
+					<div class="col-md-12 mt-5">
+						<p class="text-center"><strong>Error en Lectura</strong></p>
+						<ol class="breadcrumb1">
+							<li class="breadcrumb-item1">Se detectaron errores en el documento a importar. Si lo deseas puedes descargar tu documento con los errores señalados para corregirlos y continuar con el proceso.</li>
+						</ol>
+					</div>
+				</div>	
+			</div>
+            <div class="modal-footer">
+				<button type="button" name="agtCancelAction" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+				<button type="button" name="agtConfirmAction" class="btn btn-primary" (click)="confirmAction()">DESCARGAR</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //AGENTHOS - SCANNER CERTIFICATE FALSE -->

@@ -2,28 +2,31 @@
 <div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <!-- AGENTHOS - DETAILS CARD -->
-                <h5 class="modal-title">{{(!!data) ? data.title : ''}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="text-justify">{{(!!data) ? data.description : ''}}</p>
-                        <div class="form-group">
-                            <input #buttonUploadFile type="file" class="dropify" data-max-file-size="2M" (change)="onChangeFile($event)"/>
+            <form [formGroup]="model.form" (submit)="confirmFile()">
+                <div class="modal-header">
+                    <!-- AGENTHOS - DETAILS CARD -->
+                    <h5 class="modal-title">{{(!!data) ? data.title : ''}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-justify">{{(!!data) ? data.description : ''}}</p>
+                            <div class="form-group {{getValidationClass('file')}}">
+                                <input type="file" class="dropify" data-max-file-size="2M" (change)="selectFile($event)"/>
+                                <div class="invalid-feedback">{{getErrorMessage('file')}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer text-center">
-                <div class="col-12">
-                    <button type="button" class="btn btn-primary btn-block" (click)="onClickUploadEndorsement()"><strong>{{ (!!data) ? (data.buttonLabel | uppercase) : ''}}</strong></button>
+                <div class="modal-footer text-center">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block"><strong>{{ (!!data) ? (data.buttonLabel | uppercase) : ''}}</strong></button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
