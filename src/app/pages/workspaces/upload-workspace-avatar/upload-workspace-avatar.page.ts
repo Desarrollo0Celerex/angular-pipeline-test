@@ -36,7 +36,7 @@ export class UploadWorkspaceAvatarPage implements OnInit {
     }
 
     ngOnInit(): void {
-        DropifyPlugin.init(FILE_TYPES.IMAGE, IMAGE_FORMATS, this._canShowPreview);
+        DropifyPlugin.init(IMAGE_FORMATS, this._canShowPreview);
     }
 
     /**

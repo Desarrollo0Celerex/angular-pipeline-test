@@ -16,6 +16,19 @@ export class ImportPolicyInsuredsService {
         return this._policyInsuredService.analyzeInsureds(contactId, policyId, requestBody);
     }
 
+    downloadErrorsFile(contactId: string, policyId: string, file: File): Promise<void> {
+        return new Promise((resolve) => {
+            const requestBody: FormData = new FormData();
+            requestBody.append('insuredsFile', file);
+            this._policyInsuredService.downloadErrorsFile(contactId, policyId, requestBody).then((response: any) => {
+              const filename = response.headers.get('content-disposition').split(';')[1].split('filename')[1].split('=')[1].split('"')[1].trim();
+              const blob = new Blob([response.body], {type: response.type.toString()});
+                  saveAs(blob, filename);
+                  resolve();
+            });
+        });
+    }
+
     exportInsureds(contactId: string, policyId: string): Promise<void> {
         return new Promise((resolve) => {
             this._policyInsuredService.exportInsureds(contactId, policyId).then((response: any) => {

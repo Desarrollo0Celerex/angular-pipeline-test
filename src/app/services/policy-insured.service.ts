@@ -14,6 +14,7 @@ import { AuthService } from '@services/auth.service';
 
 const ROUTES = {
     analyzeInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/analyze`,
+    downloadErrors: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/errors`,
     exportInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/export`,
     importInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/import`,
     policyInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds`,
@@ -54,6 +55,19 @@ export class PolicyInsuredService {
     deletePolicyInsured(contactId: string, policyId: string, policyInsuredId: string): Observable<void> {
         const route: string = ROUTES.policyInsured(this._workspaceId, contactId, policyId, policyInsuredId);
         return this._httpClient.delete<void>(route);
+    }
+
+    downloadErrorsFile(contactId: string, policyId: string, requestBody: FormData) {
+        const route: string = ROUTES.downloadErrors(this._workspaceId, contactId, policyId);
+        let params: HttpParams = new HttpParams();
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params
+        };
+        return this._httpClient.post(route, requestBody, fileParams).toPromise();
     }
 
     downloadReportFlotilla(contactId: string, policyId: string, formatType: number) {

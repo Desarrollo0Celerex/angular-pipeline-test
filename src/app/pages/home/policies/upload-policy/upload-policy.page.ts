@@ -53,7 +53,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this._catchParams();
-        DropifyPlugin.init(FILE_TYPES.DOCUMENT, this.allowedFileTypes, this._canShowPreview, this._maxFileSize);
+        DropifyPlugin.init(this.allowedFileTypes, this._canShowPreview, this._maxFileSize);
         this.uploadPolicyService.buildPolicyForm();
         this._getContactPolicy();
         this._comesFromRenewalPolicy = (!!history.state && !!history.state.comesFromRenewalPolicy) ? true : false;

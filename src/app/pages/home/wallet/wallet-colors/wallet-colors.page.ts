@@ -118,7 +118,7 @@ export class WalletColorsPage implements OnInit {
             this.model.buildForm(wallet);
             this.selectTheme(parseInt(this.model.f.themeId.value));
             setTimeout(() => {
-                DropifyPlugin.init(FILE_TYPES.IMAGE, this._allowedFileTypes);
+                DropifyPlugin.init(this._allowedFileTypes);
             }, 0);
         })
     }

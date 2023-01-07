@@ -113,7 +113,7 @@ export class CreatePolicyInsuredPage implements OnInit {
         this.model.loadPolicy(this.contactId, this.policyId).subscribe(() => {
             this.model.buildForm();
             setTimeout(() => {
-              DropifyPlugin.init(FILE_TYPES.DOCUMENT, ['pdf'], true, '2M');
+              DropifyPlugin.init(['pdf'], true, '2M');
             }, 0);
             this._initCalendars();
             PopoverPlugin.init();

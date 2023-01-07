@@ -70,3 +70,8 @@
     [data]="analizeInsuredResponse"
     (confirmedAction)="importPolicyInsureds()"
 ></agt-modal-confirm-policy-insureds>
+
+<agt-modal-import-failed 
+    [modalId]="modalIdImportFailed" 
+    (actionConfirmed)="downloadPolicyInsuredErrorsFile()"
+></agt-modal-import-failed>

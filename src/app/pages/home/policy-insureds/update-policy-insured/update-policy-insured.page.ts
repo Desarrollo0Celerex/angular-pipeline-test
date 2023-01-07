@@ -116,7 +116,7 @@ export class UpdatePolicyInsuredPage implements OnInit {
             this.model.loadPolicyInsured(this.contactId, this.policyId, this.policyInsuredId).subscribe(_ => {
                 this.model.buildForm();
                 setTimeout(() => {
-                DropifyPlugin.init(FILE_TYPES.DOCUMENT, ['pdf'], true, '2M');
+                DropifyPlugin.init(['pdf'], true, '2M');
                 }, 0);
                 this._initCalendars();
                 PopoverPlugin.init();

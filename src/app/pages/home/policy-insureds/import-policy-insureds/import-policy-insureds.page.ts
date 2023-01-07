@@ -6,8 +6,10 @@ import { FILE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { AnalizeInsuredsResponse } from '@interfaces/analize-insureds-response.interface';
+import { HttpError } from '@interfaces/http-error.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { LoadingService } from '@services/loading.service';
+import { ScanningService } from '@services/scanning.service';
 
 import { ImportPolicyInsuredsService } from './import-policy-insureds.service';
 
@@ -26,6 +28,7 @@ export class ImportPolicyInsuredsPage implements OnInit {
     analizeInsuredResponse: AnalizeInsuredsResponse | null = null;
     modalIdConfirmPolicyInsureds: string = 'agt-confirm-policy-insureds';
     modalIdSelectFile: string = 'agt-select-file';
+    modalIdImportFailed: string = 'agt-import-failed';
     modalSelectFileData: ModalSelectFileData = {
       title: 'Cargar Formato',
       description: 'Selecciona el formato con los certificados actualizados.',
@@ -40,6 +43,7 @@ export class ImportPolicyInsuredsPage implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router,
+        private _scanningService: ScanningService,
     ) { }
 
     ngOnInit(): void {
@@ -47,21 +51,30 @@ export class ImportPolicyInsuredsPage implements OnInit {
     }
 
     analyzePolicyInsureds(file: File): void {
-        this._loadingService.show();
+        this._scanningService.show();
+        this._selectedFile = file;
         this.model.analyzeInsureds(this.contactId, this.policyId, file).subscribe((res: AnalizeInsuredsResponse) => {
-            this._loadingService.hide();
+            this._scanningService.hide();
             this.analizeInsuredResponse = res;
-            this._selectedFile = file;
             ModalPlugin.show(this.modalIdConfirmPolicyInsureds);
         },
-        (error: any) => {
-            switch (error.error.message) {
-                case ERROR_CODES.invalidFields:
-                    //error.error.data
-                    AlertHelper.importInsuredsFailed();
+        (error: HttpError) => {
+            this._scanningService.hide();
+            switch (error.error) {
+                case ERROR_CODES.importFailed:
+                    ModalPlugin.show(this.modalIdImportFailed);
                     break;
             }
         });
+    }
+
+    downloadPolicyInsuredErrorsFile(): void {
+        if(this._selectedFile !== null) {
+            this._loadingService.show();
+            this.model.downloadErrorsFile(this.contactId, this.policyId, this._selectedFile).then(() => {
+                this._loadingService.hide();
+            });
+        }
     }
 
     exportPolicyInsureds(): void {
