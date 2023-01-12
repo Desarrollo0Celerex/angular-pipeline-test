@@ -10,73 +10,90 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- (JUST IF POLICY PENDING PAYMENTS) -->
+					<div class="col-md-12 mb-3" *ngIf="totalPendingReceipts > 0">
+                        <div class="alert alert-warning alert-dismissible fade show agt-cursor-pointer" role="alert" (click)="goToPendingReceipts()">
+                            <span class="alert-inner--icon"><i class="fe fe-alert-circle"></i></span> 
+                            <span class="alert-inner--text"> Póliza con <strong>{{totalPendingReceipts}}</strong> Recibo{{(totalPendingReceipts === 1) ? '' : 's'}} Pendiente{{(totalPendingReceipts === 1) ? '' : 's'}}.</span> 
+                        </div>
+					</div>
+					<!-- //AGENTHOS - PENDING PAYMENTS  -->
+					<!-- AGENTHOS - PENDING SINISTERS  -->
+					<!-- (JUST IF POLICY PENDING SINISTERS) -->
+					<div class="col-md-12 mb-3" *ngIf="totalOpenSinisters > 0">
+						<div class="alert alert-warning alert-dismissible fade show agt-cursor-pointer" role="alert" (click)="goToPolicySinisters()">
+                            <span class="alert-inner--icon"><i class="fe fe-alert-circle"></i></span> 
+                            <span class="alert-inner--text"> Póliza con <strong>{{totalOpenSinisters}}</strong> Siniestro{{(totalOpenSinisters === 1) ? '' : 's'}} Abierto{{(totalOpenSinisters === 1) ? '' : 's'}}.</span>
+                        </div>
+					</div>
+					<!-- AGENTHOS - PENDING SINISTERS  -->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
 								<div class="form-group">
 									<label class="form-label">Titular</label>
-									<input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.titularName" readonly="">
+									<input type="text" class="form-control" [placeholder]="model.policyDetails.titularName" readonly="">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="form-label">No. Póliza</label>
-									<input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.policyNumber" readonly="">
+									<input type="text" class="form-control" [placeholder]="model.policyDetails.policyNumber" readonly="">
 								</div>
 							</div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Prima Total</label>
-                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.totalAmount | currency: '' : '$' : '0.2-2'" readonly="">
+                                    <input type="text" class="form-control" [placeholder]="model.policyDetails.totalAmount | currency: '' : '$' : '0.2-2'" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Prima Pagada</label>
-                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.totalAmountPaid | currency: '' : '$' : '0.2-2'" readonly="">
+                                    <input type="text" class="form-control" [placeholder]="model.policyDetails.totalAmountPaid | currency: '' : '$' : '0.2-2'" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Recibos Totales</label>
-                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.bills" readonly="">
+                                    <input type="text" class="form-control" placeholder="{{model.policyDetails.totalTickets}} de {{model.policyDetails.totalBills}}" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Fecha Emisión</label>
-                                    <input type="text" class="form-control" [placeholder]="(!!modalShowPolicyDetailsService.policyDetails.emissionDate) ? (modalShowPolicyDetailsService.policyDetails.emissionDate | date: 'dd/MM/yyyy') : ''" readonly="">
+                                    <input type="text" class="form-control" [placeholder]="(!!model.policyDetails.emissionDate) ? (model.policyDetails.emissionDate | date: 'dd/MM/yyyy') : ''" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Inicio Vigencia</label>
-                                    <input type="text" class="form-control" [placeholder]="(!!modalShowPolicyDetailsService.policyDetails.validityStartDate) ? (modalShowPolicyDetailsService.policyDetails.validityStartDate | date: 'dd/MM/yyyy') : ''" readonly="">
+                                    <input type="text" class="form-control" [placeholder]="(!!model.policyDetails.validityStartDate) ? (model.policyDetails.validityStartDate | date: 'dd/MM/yyyy') : ''" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Fin Vigencia</label>
-                                    <input type="text" class="form-control" [placeholder]="(!!modalShowPolicyDetailsService.policyDetails.validityEndDate) ? (modalShowPolicyDetailsService.policyDetails.validityEndDate | date: 'dd/MM/yyyy') : ''" readonly="">
+                                    <input type="text" class="form-control" [placeholder]="(!!model.policyDetails.validityEndDate) ? (model.policyDetails.validityEndDate | date: 'dd/MM/yyyy') : ''" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Siniestros</label>
-                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.totalSinisters" readonly="">
+                                    <input type="text" class="form-control" [placeholder]="model.policyDetails.totalSinisters" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Endosos</label>
-                                    <input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.totalEndorsements" readonly="">
+                                    <input type="text" class="form-control" [placeholder]="model.policyDetails.totalEndorsements" readonly="">
                                 </div>
                             </div>
                             <div class="col-md-4">
 								<div class="form-group">
 									<label class="form-label">Renovaciones</label>
-									<input type="text" class="form-control" [placeholder]="modalShowPolicyDetailsService.policyDetails.totalRenewals" readonly="">
+									<input type="text" class="form-control" [placeholder]="model.policyDetails.totalRenewals" readonly="">
 								</div>
 							</div>
                         </div>
@@ -85,7 +102,7 @@
             </div>
             <div class="modal-footer text-center">
                 <div class="col-12">
-                    <button type="button" class="btn btn-primary btn-block" (click)="onClickShowHistoryPolicy()"><strong>VER HISTORIAL</strong></button>
+                    <button type="button" class="btn btn-primary btn-block" (click)="goToPolicyRecord()"><strong>VER HISTORIAL</strong></button>
                 </div>
             </div>
         </div>
