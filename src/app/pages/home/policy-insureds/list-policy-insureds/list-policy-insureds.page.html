@@ -7,4 +7,22 @@
 <agt-contents 
     [contentType]="CONTENT_TYPES.POLICY_INSURED.ID" 
     [contentTypeName]="CONTENT_TYPES.POLICY_INSURED.NAME"
+    (showPolicyInsuredActions)="showModalToShowPolicyInsuredActions()"
 ></agt-contents>
+
+<agt-modal-show-policy-insured-actions 
+    [modalId]="modalIdShowPolicyInsuredActions"
+    [contactId]="contactId"
+    [policyId]="policyId"
+    (selectPolicyInsuredUploadType)="showModalToSelectPolicyInsuredUploadType()"
+    (selectReportFormatType)="showModalToSelectReportFormatType()"
+></agt-modal-show-policy-insured-actions>
+<agt-modal-select-report-format
+    [modalId]="modalIdSelectReportFormat"
+    (formatSelected)="downloadPolicyInsuredsReport($event)"
+></agt-modal-select-report-format>
+<agt-modal-select-policy-insured-upload-type
+    [modalId]="modalIdSelectPolicyInsuredUploadType"
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-modal-select-policy-insured-upload-type>

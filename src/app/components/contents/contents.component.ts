@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import {
@@ -21,6 +21,7 @@ import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-form
 export class ContentsComponent implements OnInit, OnDestroy {
     @Input() contentType: number;
     @Input() contentTypeName: string;
+    @Output() showPolicyInsuredActions: EventEmitter<void> = new EventEmitter<void>();
     @ViewChild('contentList') contentList: any;
     canReloadContent: boolean = false;
     canShowKpis: boolean;
@@ -97,6 +98,10 @@ export class ContentsComponent implements OnInit, OnDestroy {
     reloadInactivePartnerPage(): void {
         this.contentSubtype = PARTNER_STATUS.INACTIVE;
         this._reloadPage();
+    }
+
+    _showPolicyInsuredActions(): void {
+        this.showPolicyInsuredActions.emit();
     }
 
     /**

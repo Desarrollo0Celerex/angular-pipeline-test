@@ -6,9 +6,6 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { Policy } from '@interfaces/policy.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
-import { LoadingService } from '@services/loading.service';
-
-import { ContentMainActionService } from './content-main-action.service';
 
 declare var ModalPlugin: any;
 
@@ -16,8 +13,7 @@ declare var ModalPlugin: any;
   selector: 'agt-content-main-action',
   templateUrl: './content-main-action.component.html',
   styles: [
-  ],
-  providers: [ContentMainActionService]
+  ]
 })
 export class ContentMainActionComponent implements OnInit {
     @Input() contactId: string = '';
@@ -30,6 +26,7 @@ export class ContentMainActionComponent implements OnInit {
     @Output() groupCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() partnerCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() paymentSelected: EventEmitter<Payment> = new EventEmitter<Payment>();
+    @Output() showPolicyInsuredActions: EventEmitter<void> = new EventEmitter<void>();
     CONTENT_TYPES: any;
     modalIdSelectClient: string = 'agt-modal-select-client';
     modalIdConfirmAddClient: string = 'agt-modal-confirm-add-client';
@@ -41,10 +38,7 @@ export class ContentMainActionComponent implements OnInit {
     modalIdSearchClient: string = 'agt-search-client';
     modalIdSearchPayment: string = 'agt-search-payment';
     modalIdSearchPolicy: string = 'agt-search-policy';
-    modalIdSelectPolicyInsuredUploadType: string = 'agt-select-policy-insured-upload-type';
-    modalIdSelectReportFormat: string = 'agt-select-report-format';
     modalIdSelectSinisterStatus: string = 'agt-select-sinister-status';
-    modalIdShowPolicyInsuredActions: string = 'agt-show-policy-insured-actions';
     modalIdGroupHasCoincidences: string = 'agt-group-has-coincidences';
     modalIdPartnerHasCoincidences: string = 'agt-partner-has-coincidences';
     searchPolicyMessage: string = '';
@@ -57,8 +51,6 @@ export class ContentMainActionComponent implements OnInit {
     insuranceId: number = 0;
 
     constructor(
-        public model: ContentMainActionService,
-        private _loadingService: LoadingService,
         private _pluralNameFormatPipe: PluralNameFormatPipe,
         private _router: Router
     ) {
@@ -194,7 +186,7 @@ export class ContentMainActionComponent implements OnInit {
             break;
 
             case CONTENT_TYPES.POLICY_INSURED.ID:
-                ModalPlugin.show(this.modalIdShowPolicyInsuredActions);
+                this.showPolicyInsuredActions.emit();
             break;
         }
     }
@@ -248,21 +240,6 @@ export class ContentMainActionComponent implements OnInit {
 
     notifyPartnerCreated(): void {
         this.partnerCreated.emit();
-    }
-
-    showModalToSelectPolicyInsuredUploadType(): void {
-        ModalPlugin.show(this.modalIdSelectPolicyInsuredUploadType);
-    }
-
-    showModalToSelectReportFormatType(): void {
-        ModalPlugin.show(this.modalIdSelectReportFormat);
-    }
-
-    downloadPolicyInsuredsReport(formatType: number): void {
-        this._loadingService.show();
-        this.model.downloadReportFlotilla(this.contactId, this.policyId, formatType).then(() => {
-            this._loadingService.hide();
-        });
     }
 
 }
