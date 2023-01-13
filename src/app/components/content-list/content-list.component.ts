@@ -1196,6 +1196,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 });
             break;
 
+            case CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID:
+                this.contentListService.loadContactPendingRenewalsByRange(this.contactId, this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
             case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
                 this.contentListService.loadCancelledPolicies(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
@@ -1220,14 +1226,32 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 });
             break;
 
+            case CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID:
+                this.contentListService.loadContactReceiptsAppliedByRange(this.contactId, this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
             case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
                 this.contentListService.loadRenewedPoliciesByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
                 });
             break;
 
+            case CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID:
+                this.contentListService.loadContactAppliedRenewalsByRange(this.contactId, this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
             case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
                 this.contentListService.loadPendingPaymentsByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID:
+                this.contentListService.loadContactPendingPaymentsByRange(this.contactId, this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
                 });
             break;
@@ -1418,7 +1442,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         if(this.totalResults > 0 ) {
             switch(this.contentType) {
                 case CONTENT_TYPES.POLICY_TO_RENEW.ID:
+                case CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID:
                 case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
+                case CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID:
                 case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
                 case CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID:
                 case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
@@ -1426,7 +1452,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.EXTERNAL_POLICIES.ID:
                 case CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID:
                 case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
+                case CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID:
                 case CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID:
+                case CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID:
                     canShow = true;
                 break;
             }

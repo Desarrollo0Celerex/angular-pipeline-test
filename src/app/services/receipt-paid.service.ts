@@ -21,6 +21,7 @@ const routes: any = {
     totalReceiptsPaid: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid/count',
     appliedPaymentsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/applied-payments',
     receiptsPaidStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/receipts-paid',
+    contactReceiptsPaid: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' +contactId+ '/receipts-paid',
     workspaceReceiptsPaid: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid',
     workspaceReceiptsAppliedStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid/stats',
     workspaceReceiptsPaidReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid/report',
@@ -154,6 +155,31 @@ export class ReceiptPaidService {
         if(!!fields) params = params.append('fields', fields);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    getContactReceiptsPaid(contactId: string, page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactReceiptsPaid(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!query) params = params.append('search', query);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const payments: Payment[] = res.data.items.map( (payment: Payment) => {
+                        return this._calculatePaymentLifeTime(payment);
+                    })
+                    res.data.items = payments;
+                }
+                return res;
+            })
+        )
     }
 
     getWorkspaceReceiptsPaid(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {

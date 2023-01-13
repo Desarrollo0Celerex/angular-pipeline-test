@@ -4,8 +4,8 @@ import { saveAs } from 'file-saver';
 import { PolicyInsuredService } from '@services/policy-insured.service';
 
 @Injectable()
-export class ContentMainActionService {
-
+export class ListPolicyInsuredsService {
+  
     constructor(private _policyInsuredService: PolicyInsuredService) { }
 
     downloadReportFlotilla(contactId: string, policyId: string, formatType: number): Promise<void> {

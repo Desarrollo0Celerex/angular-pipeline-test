@@ -50,10 +50,12 @@ const routes: any = {
     policyTrackerInsurers: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/tracker/insurers',
     groupPolicies: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/policies',
     partnerPolicies: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/policies',
+    contactPendingRenewals: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/'+contactId+'/renewals/pending',
     workspacePendingRenewals: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending',
     workspacePendingRenewalsReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending/report',
     workspacePendingRenewalStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending/stats',
     totalWorkspacePendingRenewals: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending/count',
+    contactAppliedRenewals: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/'+contactId+'/renewals/applied',
     workspaceRenewedPolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/renewed',
     workspaceRenewedPoliciesReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/renewed/report',
     workspaceRenewedPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/renewed',
@@ -687,6 +689,56 @@ export class PolicyService {
      */
     getPoliciesToRenew(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
         const route: string = routes.workspacePendingRenewals(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!query) params = params.append('search', 'policyNumber:' + query);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const policies: Policy[] = res.data.items.map( (policy: Policy) => {
+                        return this._calculatePolicyLifeTime(policy);
+                    })
+                    res.data.items = policies;
+                }
+                return res;
+            })
+        )
+    }
+
+    getContactPendingRenewals(contactId: string, page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactPendingRenewals(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!query) params = params.append('search', 'policyNumber:' + query);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const policies: Policy[] = res.data.items.map( (policy: Policy) => {
+                        return this._calculatePolicyLifeTime(policy);
+                    })
+                    res.data.items = policies;
+                }
+                return res;
+            })
+        )
+    }
+
+    getContactAppliedRenewals(contactId: string, page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactAppliedRenewals(this._workspaceId, contactId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);

@@ -12,15 +12,11 @@ import { ModalSearchClientModule } from '@components/modal-search-client/modal-s
 import { ModalSearchPaymentModule } from '@components/modal-search-payment/modal-search-payment.module';
 import { ModalSearchPolicyModule } from '@components/modal-search-policy/modal-search-policy.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
-import { ModalSelectPolicyInsuredUploadTypeModule } from '@components/modal-select-policy-insured-upload-type/modal-select-policy-insured-upload-type.module';
 import { ModalSelectPolicyStatusModule } from '@components/modal-select-policy-status/modal-select-policy-status.module';
 import { ModalSelectQuotationStatusModule } from '@components/modal-select-quotation-status/modal-select-quotation-status.module';
-import { ModalSelectReportFormatModule } from '@components/modal-select-report-format/modal-select-report-format.module';
 import { ModalSelectSinisterStatusModule } from '@components/modal-select-sinister-status/modal-select-sinister-status.module';
-import { ModalShowPolicyInsuredActionsModule } from '@components/modal-show-policy-insured-actions/modal-show-policy-insured-actions.module';
 import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
 import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
-import { PolicyInsuredService } from '@services/policy-insured.service';
 
 import { ContentMainActionComponent } from './content-main-action.component';
 
@@ -40,17 +36,13 @@ import { ContentMainActionComponent } from './content-main-action.component';
     ModalSearchPaymentModule,
     ModalSearchPolicyModule,
     ModalSelectContactTypeModule,
-    ModalSelectPolicyInsuredUploadTypeModule,
     ModalSelectPolicyStatusModule,
     ModalSelectQuotationStatusModule,
-    ModalSelectReportFormatModule,
     ModalSelectSinisterStatusModule,
-    ModalShowPolicyInsuredActionsModule,
     PluralNameFormatModule
   ],
   providers: [
-    PluralNameFormatPipe,
-    PolicyInsuredService
+    PluralNameFormatPipe
   ]
 })
 export class ContentMainActionModule { }
