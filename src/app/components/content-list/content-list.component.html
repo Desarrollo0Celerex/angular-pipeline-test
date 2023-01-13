@@ -47,7 +47,9 @@
             <div class="card-header">
                 <ng-container [ngSwitch]="contentType">
                     <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_TO_RENEW.ID" class="card-title">Pólizas Encontradas</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID" class="card-title">Recibos Encontrados</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID" class="card-title">Recibos Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID" class="card-title">Siniestros Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID" class="card-title">Siniestros Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.LAST_CANCELLED_POLICY.ID" class="card-title">Pólizas Encontradas</h3>
@@ -55,7 +57,9 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.EXTERNAL_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID" class="card-title">Recibos Encontradas</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID" class="card-title">Recibos Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_TRACKER.ID" class="card-title">Registro de Renovaciones</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.HISTORY_POLICY.ID" class="card-title">Historial de Póliza</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_SINISTERS.ID" class="card-title">Historial de Siniestros</h3>
@@ -182,7 +186,9 @@
                     *ngSwitchCase="(
                         contentType === CONTENT_TYPES.POLICY.ID ||
                         contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
+                        contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
                         contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
+                        contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
                         contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
                         contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
                         contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
@@ -238,7 +244,8 @@
                     *ngSwitchCase="(
                         contentType === CONTENT_TYPES.PAYMENT.ID ||
                         contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
-                        contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID
+                        contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
+                        contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID
                         ) ? contentType : ''"
                     [payment]="content"
                     (applyPayment)="onApplyPayment($event)"
@@ -257,7 +264,10 @@
                     (showContactData)="onShowContactData($event)"
                 ></agt-card-pending-receipt>
                 <agt-card-receipt-applied
-                    *ngSwitchCase="CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID"
+                    *ngSwitchCase="(
+                        contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
+                        contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID
+                    ) ? contentType : ''"
                     [receiptApplied]="content"
                     (showReceiptAppliedDetails)="showReceiptAppliedDetails($event)"
                     (showContactData)="onShowContactData($event)"
@@ -340,6 +350,7 @@
     contentType === CONTENT_TYPES.PARTNER_CLIENT.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
     contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
@@ -348,6 +359,7 @@
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
     <agt-modal-show-contact-data [modalId]="modalIdShowContactData" [contactId]="selectedContactId"></agt-modal-show-contact-data>
     <agt-modal-select-contact [modalId]="modalIdSelectContact" [contactId]="selectedContactId"></agt-modal-select-contact>
@@ -369,7 +381,9 @@
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
+    contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
@@ -378,12 +392,14 @@
     contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
     contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TRACKER.ID">
     <agt-modal-show-policy-details
         [modalId]="modalIdShowPolicyDetails"
@@ -397,7 +413,9 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
+    contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.POLICY_TRACKER.ID ||
@@ -414,7 +432,9 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
+    contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
@@ -422,12 +442,14 @@
     contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
     contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TRACKER.ID ||
     contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
     <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
@@ -436,15 +458,19 @@
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID ||
     contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
+    contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
     contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TRACKER.ID ||
     contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
     <agt-modal-apply-payment
@@ -548,7 +574,7 @@
         (showExternalPolicy)="showExternalPolicy($event)"
     ></agt-modal-show-external-policy-details>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID">
+<ng-container *ngIf="contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID || contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID">
     <agt-modal-show-receipt-applied-details
         [modalId]="modalIdShowReceiptAppliedDetails"
         [receiptAppliedId]="selectedReceiptAppliedId"

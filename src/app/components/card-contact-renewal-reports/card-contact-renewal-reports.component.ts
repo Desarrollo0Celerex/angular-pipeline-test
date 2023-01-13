@@ -1,10 +1,14 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { LoadingService } from '@services/loading.service';
+import { ROUTES_NAME } from '@constants/routes-name';
 
 import { CardContactRenewalReportsService } from './card-contact-renewal-reports.service';
 
-declare var ModalPlugin: any;
+const REPORT_TYPES: any = {
+    APPLIED_RENEWALS: 1,
+    PENDING_RENEWALS: 2
+};
 
 @Component({
   selector: 'agt-card-contact-renewal-reports',
@@ -17,11 +21,13 @@ export class CardContactRenewalReportsComponent implements OnChanges {
     @Input() contactId: string = '';
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
+    REPORT_TYPES: any = REPORT_TYPES;
     modalIdSelectReportFormat: string = 'cprr-modal-select-report-format';
+    selectedReportType: number = REPORT_TYPES.PENDING_RENEWALS;
 
     constructor(
         public model: CardContactRenewalReportsService,
-        private _loadingService: LoadingService
+        private _router: Router
     ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -32,11 +38,11 @@ export class CardContactRenewalReportsComponent implements OnChanges {
 
     get canDownloadReport(): boolean {
         let canDownloadReport: boolean = true;
-        switch(this.model.selectedReportType) {
-            case this.model.REPORT_TYPES.APPLIED_RENEWALS:
+        switch(this.selectedReportType) {
+            case this.REPORT_TYPES.APPLIED_RENEWALS:
                 canDownloadReport = (this.model.totalContactAppliedRenewals === 0) ? false : true;
             break;
-            case this.model.REPORT_TYPES.PENDING_RENEWALS:
+            case this.REPORT_TYPES.PENDING_RENEWALS:
                 canDownloadReport = (this.model.totalContactPendingRenewals === 0) ? false : true;
             break;
         }
@@ -50,12 +56,12 @@ export class CardContactRenewalReportsComponent implements OnChanges {
     get description(): string {
         let description: string = '';
         let label: string = '';
-        switch(this.model.selectedReportType) {
-            case this.model.REPORT_TYPES.APPLIED_RENEWALS:
+        switch(this.selectedReportType) {
+            case this.REPORT_TYPES.APPLIED_RENEWALS:
                 label = (this.model.totalContactAppliedRenewals === 1) ? 'Renovación Aplicada' : 'Renovaciones Aplicadas';
                 description = this.model.totalContactAppliedRenewals + ' ' + label;
             break;
-            case this.model.REPORT_TYPES.PENDING_RENEWALS:
+            case this.REPORT_TYPES.PENDING_RENEWALS:
                 label = (this.model.totalContactPendingRenewals === 1) ? 'Renovación Pendiente' : 'Renovaciones Pendientes';
                 description = this.model.totalContactPendingRenewals + ' ' + label;
             break;
@@ -65,11 +71,11 @@ export class CardContactRenewalReportsComponent implements OnChanges {
 
     get title(): string {
         let title: string = '';
-        switch(this.model.selectedReportType) {
-            case this.model.REPORT_TYPES.APPLIED_RENEWALS:
+        switch(this.selectedReportType) {
+            case this.REPORT_TYPES.APPLIED_RENEWALS:
                 title = 'Renovaciones Aplicadas';
             break;
-            case this.model.REPORT_TYPES.PENDING_RENEWALS:
+            case this.REPORT_TYPES.PENDING_RENEWALS:
                 title = 'Renovaciones Pendientes';
             break;
         }
@@ -79,19 +85,29 @@ export class CardContactRenewalReportsComponent implements OnChanges {
     get totalContactRenewals(): number {
         return this.model.totalContactAppliedRenewals + this.model.totalContactPendingRenewals;
     }
+    
 
-    downloadReport(formatType: number): void {
+    /* downloadReport(formatType: number): void {
         this._loadingService.show();
         this.model.downloadReport(this.contactId, this.rangeStart, this.rangeEnd, formatType).then(() => {
             this._loadingService.hide();
         });
-    }
+    } */
 
     selectReportType(reportType: number): void {
-        this.model.selectedReportType = reportType;
+        this.selectedReportType = reportType;
     }
 
-    showModalToSelectReportFormat(): void {
-        ModalPlugin.show(this.modalIdSelectReportFormat);
+    selectRoute(): void {
+        const formattedRangeStart = this.rangeStart.split('/').join('-');
+        const formattedRangeEnd = this.rangeEnd.split('/').join('-');
+        const route: string = (this.selectedReportType === REPORT_TYPES.PENDING_RENEWALS ) 
+        ? ROUTES_NAME.contactPendingRenewalsByRange(this.contactId, formattedRangeStart, formattedRangeEnd)
+        : ROUTES_NAME.contactAppliedRenewalsByRange(this.contactId, formattedRangeStart, formattedRangeEnd);
+        this._router.navigateByUrl(route);
     }
+
+    /* showModalToSelectReportFormat(): void {
+        ModalPlugin.show(this.modalIdSelectReportFormat);
+    } */
 }

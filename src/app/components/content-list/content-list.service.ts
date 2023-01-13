@@ -160,6 +160,19 @@ export class ContentListService {
         );
     }
 
+    loadContactReceiptsAppliedByRange(contactId: string, page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
+        const fields: string = 'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
+        const filters: string = '';
+        const sortBy: string = 'applicationDate';
+        return this._receiptPaidService.getContactReceiptsPaid(contactId, page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
     loadReceiptsAppliedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
         const fields: string = 'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
         const filters: string = '';
@@ -178,6 +191,19 @@ export class ContentListService {
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
         const sortBy: string = 'validityEndDate';
         return this._policyService.getRenewedPolicies(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    loadContactAppliedRenewalsByRange(contactId: string, page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
+        const sortBy: string = 'validityEndDate';
+        return this._policyService.getContactAppliedRenewals(contactId, page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
@@ -555,6 +581,19 @@ export class ContentListService {
         );
     }
 
+    loadContactPendingRenewalsByRange(contactId: string, page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
+        const sortBy: string = 'validityEndDate';
+        return this._policyService.getContactPendingRenewals(contactId, page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
     loadPolicyInsureds(contactId: string, policyId: string, page: number): Observable<void> {
         const fields: string = 'policyInsuredId,insurerImageUrl,insuredStatusBackground,insuredStatusName,insuredStatusId,insuranceName,insuranceTypeName,insuranceBackground,insuranceIcon,currencyName,totalAmount,coveredProperty,certificate,contactId,policyId,validityStartDate,validityEndDate,lifeTime,fatherPolicyUrl,policyUrl';
         return this._policyInsuredService.getPolicyInsureds(contactId, policyId, fields, page).pipe(
@@ -578,6 +617,19 @@ export class ContentListService {
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE, PAYMENT_STATUS.STANDBY]);
         const sortBy: string = 'paymentDate';
         return this._paymentService.getPayments(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    loadContactPendingPaymentsByRange(contactId: string, page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
+        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
+        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE, PAYMENT_STATUS.STANDBY]);
+        const sortBy: string = 'paymentDate';
+        return this._paymentService.getContactPayments(contactId, page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);

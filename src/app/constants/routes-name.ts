@@ -98,7 +98,9 @@ const HOME_PAYMENTS_ROUTES = {
     paymentCalendar: `workspace/payments/calendar`,
     listPendingPaymentsByRange: `workspace/payments/list-pending-payments-by-range`,
     listPendingPaymentsByRangeWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/payments/list-pending-payments-by-range/${rangeStart}/${rangeEnd}`,
-    listReceiptsAppliedByRange: `workspace/payments/list-receipts-applied-by-range`
+    listReceiptsAppliedByRange: `workspace/payments/list-receipts-applied-by-range`,
+    contactPendingPaymentsByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/payments/contact-pending-payments-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
+    contactReceiptsAppliedByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/payments/contact-receipts-applied-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
 }
 
 const HOME_POLICIES_ROUTES = {
@@ -115,6 +117,8 @@ const HOME_POLICIES_ROUTES = {
     listIncompletePolicies: `workspace/policies/list-incomplete-policies`,
     renewals: 'workspace/policies/renewals',
     renewalsWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/policies/renewals/${rangeStart}/${rangeEnd}`,
+    contactPendingRenewalsByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/policies/contact-pending-renewals-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
+    contactAppliedRenewalsByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/policies/contact-applied-renewals-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
     cancelledPolicies: 'workspace/policies/cancelled',
     cancelledPoliciesWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/policies/cancelled/${rangeStart}/${rangeEnd}`,
     listRenewedPoliciesByRange: `workspace/policies/list-renewed-policies-by-range`,

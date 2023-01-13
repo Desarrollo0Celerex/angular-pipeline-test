@@ -1,10 +1,14 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { LoadingService } from '@services/loading.service';
+import { ROUTES_NAME } from '@constants/routes-name';
 
 import { CardContactPaymentReportsService } from './card-contact-payment-reports.service';
 
-declare var ModalPlugin: any;
+const REPORT_TYPES: any = {
+    APPLIED_PAYMENTS: 1,
+    PENDING_PAYMENTS: 2
+};
 
 @Component({
   selector: 'agt-card-contact-payment-reports',
@@ -17,11 +21,13 @@ export class CardContactPaymentReportsComponent implements OnChanges {
     @Input() contactId: string = '';
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
+    REPORT_TYPES: any = REPORT_TYPES;
     modalIdSelectReportFormat: string = 'cppr-modal-select-report-format';
+    selectedReportType: number = REPORT_TYPES.PENDING_PAYMENTS;
 
     constructor(
         public model: CardContactPaymentReportsService,
-        private _loadingService: LoadingService
+        private _router: Router,
     ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -32,11 +38,11 @@ export class CardContactPaymentReportsComponent implements OnChanges {
 
     get canDownloadReport(): boolean {
         let canDownloadReport: boolean = true;
-        switch(this.model.selectedReportType) {
-            case this.model.REPORT_TYPES.APPLIED_PAYMENTS:
+        switch(this.selectedReportType) {
+            case REPORT_TYPES.APPLIED_PAYMENTS:
                 canDownloadReport = (this.model.totalContactAppliedPayments === 0) ? false : true;
             break;
-            case this.model.REPORT_TYPES.PENDING_PAYMENTS:
+            case REPORT_TYPES.PENDING_PAYMENTS:
                 canDownloadReport = (this.model.totalContactPendingPayments === 0) ? false : true;
             break;
         }
@@ -50,12 +56,12 @@ export class CardContactPaymentReportsComponent implements OnChanges {
     get description(): string {
         let description: string = '';
         let label: string = '';
-        switch(this.model.selectedReportType) {
-            case this.model.REPORT_TYPES.APPLIED_PAYMENTS:
+        switch(this.selectedReportType) {
+            case REPORT_TYPES.APPLIED_PAYMENTS:
                 label = (this.model.totalContactAppliedPayments === 1) ? 'Recibo Aplicado' : 'Recibos Aplicados';
                 description = this.model.totalContactAppliedPayments + ' ' + label;
             break;
-            case this.model.REPORT_TYPES.PENDING_PAYMENTS:
+            case REPORT_TYPES.PENDING_PAYMENTS:
                 label = (this.model.totalContactPendingPayments === 1) ? 'Recibo Pendiente' : 'Recibos Pendientes';
                 description = this.model.totalContactPendingPayments + ' ' + label;
             break;
@@ -65,11 +71,11 @@ export class CardContactPaymentReportsComponent implements OnChanges {
 
     get title(): string {
         let title: string = '';
-        switch(this.model.selectedReportType) {
-            case this.model.REPORT_TYPES.APPLIED_PAYMENTS:
+        switch(this.selectedReportType) {
+            case REPORT_TYPES.APPLIED_PAYMENTS:
                 title = 'Recibos Aplicados';
             break;
-            case this.model.REPORT_TYPES.PENDING_PAYMENTS:
+            case REPORT_TYPES.PENDING_PAYMENTS:
                 title = 'Recibos Pendientes';
             break;
         }
@@ -80,18 +86,16 @@ export class CardContactPaymentReportsComponent implements OnChanges {
         return this.model.totalContactAppliedPayments + this.model.totalContactPendingPayments;
     }
 
-    downloadReport(formatType: number): void {
-        this._loadingService.show();
-        this.model.downloadReport(this.contactId, this.rangeStart, this.rangeEnd, formatType).then(() => {
-            this._loadingService.hide();
-        });
+    selectRoute(): void {
+        const formattedRangeStart = this.rangeStart.split('/').join('-');
+        const formattedRangeEnd = this.rangeEnd.split('/').join('-');
+        const route: string = (this.selectedReportType === REPORT_TYPES.PENDING_PAYMENTS ) 
+        ? ROUTES_NAME.contactPendingPaymentsByRange(this.contactId, formattedRangeStart, formattedRangeEnd)
+        : ROUTES_NAME.contactReceiptsAppliedByRange(this.contactId, formattedRangeStart, formattedRangeEnd);
+        this._router.navigateByUrl(route);
     }
 
     selectReportType(reportType: number): void {
-        this.model.selectedReportType = reportType;
-    }
-
-    showModalToSelectReportFormat(): void {
-        ModalPlugin.show(this.modalIdSelectReportFormat);
+        this.selectedReportType = reportType;
     }
 }

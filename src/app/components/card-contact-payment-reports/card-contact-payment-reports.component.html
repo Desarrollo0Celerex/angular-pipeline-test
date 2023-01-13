@@ -7,8 +7,8 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" role="menu">
                 <div class="dropdown-plus-title">Reportes Disponibles</div>
-                <button type="button" class="dropdown-item" [ngClass]="{'active': model.selectedReportType === model.REPORT_TYPES.APPLIED_PAYMENTS}" (click)="selectReportType(model.REPORT_TYPES.APPLIED_PAYMENTS)"><i class="fa fa-refresh mr-2"></i>Recibos Aplicados</button>
-                <button type="button" class="dropdown-item" [ngClass]="{'active': model.selectedReportType === model.REPORT_TYPES.PENDING_PAYMENTS}" (click)="selectReportType(model.REPORT_TYPES.PENDING_PAYMENTS)"><i class="fa fa-refresh mr-2"></i>Recibos Pendientes</button>
+                <button type="button" class="dropdown-item" [ngClass]="{'active': selectedReportType === REPORT_TYPES.APPLIED_PAYMENTS}" (click)="selectReportType(REPORT_TYPES.APPLIED_PAYMENTS)"><i class="fa fa-refresh mr-2"></i>Recibos Aplicados</button>
+                <button type="button" class="dropdown-item" [ngClass]="{'active': selectedReportType === REPORT_TYPES.PENDING_PAYMENTS}" (click)="selectReportType(REPORT_TYPES.PENDING_PAYMENTS)"><i class="fa fa-refresh mr-2"></i>Recibos Pendientes</button>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
                 <li class="breadcrumb-item1">Se han detectado <strong>{{description}}</strong> de {{totalContactPayments}} {{contentTypeName}} por Pagar.
                 </li>
             </ol>
-            <button type="button" class="btn btn-block btn-primary" (click)="showModalToSelectReportFormat()" [disabled]="!canDownloadReport"><strong>DESCARGAR REPORTE</strong></button>
+            <button type="button" class="btn btn-block btn-primary" (click)="selectRoute()"><strong>VER DETALLES</strong></button>
         </ng-container>
         <ng-template #loadingContent>
             <agt-loading-content
@@ -30,7 +30,7 @@
 </div>
 
 
-<agt-modal-select-report-format
+<!-- <agt-modal-select-report-format
     [modalId]="modalIdSelectReportFormat"
     (formatSelected)="downloadReport($event)"
-></agt-modal-select-report-format>
+></agt-modal-select-report-format> -->

@@ -315,6 +315,22 @@ export const CONTENT_TYPES: any = {
         ID: 38,
         NAME: 'Certificado'
     },
+    CONTACT_PENDING_PAYMENTS_BY_RANGE: {
+        ID: 39,
+        NAME: 'Recibo'
+    },
+    CONTACT_RECEIPTS_APPLIED_BY_RANGE: {
+        ID: 40,
+        NAME: 'Recibo'
+    },
+    CONTACT_PENDING_RENEWALS_BY_RANGE: {
+        ID: 41,
+        NAME: 'Renovación'
+    },
+    CONTACT_APPLIED_RENEWALS_BY_RANGE: {
+        ID: 42,
+        NAME: 'Renovación'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

@@ -1,0 +1,18 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Generar Reporte</h3>
+    </div>
+    <!-- AGENTHOS - DATA SUITE REPORT GENERATOR -->
+    <div class="card-body">
+        <ol class="breadcrumb1 mt-2">
+            <li class="breadcrumb-item1">Genera un reporte inmediato de <strong>Recibos Aplicados</strong>.</li>
+        </ol>
+        <button type="button" class="btn btn-block btn-primary mt-5" (click)="showModalToSelectReportFormat()"><strong>DESCARGAR REPORTE</strong></button>
+    </div>
+    <!-- //AGENTHOS - DATA SUITE REPORT GENERATOR -->
+</div>
+
+<agt-modal-select-report-format
+    [modalId]="modalIdSelectReportFormat"
+    (formatSelected)="downloadReport($event)"
+></agt-modal-select-report-format>

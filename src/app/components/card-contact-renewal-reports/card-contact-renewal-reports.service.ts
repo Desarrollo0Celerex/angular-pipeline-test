@@ -7,22 +7,15 @@ import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicyService } from '@services/policy.service';
 
-const REPORT_TYPES: any = {
-    APPLIED_RENEWALS: 1,
-    PENDING_RENEWALS: 2
-};
-
 @Injectable()
 export class CardContactRenewalReportsService {
-    REPORT_TYPES: any = REPORT_TYPES;
     loadedContent: boolean = false;
-    selectedReportType: number = REPORT_TYPES.PENDING_RENEWALS;
     totalContactAppliedRenewals: number = 0;
     totalContactPendingRenewals: number = 0;
 
     constructor(private _policyService: PolicyService) { }
 
-    downloadReport(contactId: string, rangeStart: string, rangeEnd: string, formatType: number): Promise<void> {
+    /* downloadReport(contactId: string, rangeStart: string, rangeEnd: string, formatType: number): Promise<void> {
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
         const rangeField: string = 'validityEndDate';
         const sortBy: string = 'validityEndDate';
@@ -33,7 +26,7 @@ export class CardContactRenewalReportsService {
             default:
                 return this._downloadReportPendingRenewals(contactId, filters, rangeField, rangeStart, rangeEnd, formatType, sortBy);
         }
-    }
+    } */
 
     loadTotalRenewals(parnerId: string, rangeStart: string, rangeEnd: string): void {
         this.loadedContent = false;
@@ -46,7 +39,7 @@ export class CardContactRenewalReportsService {
         });
     }
 
-    private _downloadReportAppliedRenewals(contactId: string, filters: string, rangeField: string, rangeStart: string, rangeEnd: string, formatType: number, sortBy: string): Promise<void> {
+    /* private _downloadReportAppliedRenewals(contactId: string, filters: string, rangeField: string, rangeStart: string, rangeEnd: string, formatType: number, sortBy: string): Promise<void> {
         return new Promise((resolve) => {
             this._policyService.downloadReportContactAppliedRenewals(contactId, filters, rangeField, rangeStart, rangeEnd, formatType, sortBy).then((response: any) => {
               const filename = response.headers.get('content-disposition').split(';')[1].split('filename')[1].split('=')[1].split('"')[1].trim();
@@ -66,7 +59,7 @@ export class CardContactRenewalReportsService {
                   resolve();
             });
         });
-    }
+    } */
 
     private _generateRenewalRequests(parnerId: string, rangeField: string, rangeStart: string, rangeEnd: string): Observable<HttpResponse[]> {
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])

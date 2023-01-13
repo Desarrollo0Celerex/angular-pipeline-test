@@ -3,16 +3,20 @@
         contentType !== CONTENT_TYPES.POLICY_INSURED.ID &&
         contentType !== CONTENT_TYPES.POLICY_TRACKER.ID &&
         contentType !== CONTENT_TYPES.POLICY_TO_RENEW.ID &&
+        contentType !== CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.LAST_CANCELLED_POLICY.ID &&
         contentType !== CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID &&
+        contentType !== CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.EXTERNAL_POLICIES.ID &&
         contentType !== CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.INCOMPLETE_POLICIES.ID &&
         contentType !== CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID &&
+        contentType !== CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID &&
+        contentType !== CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.PAYMENT_CALENDAR.ID">
     <div class="col-sm-12 col-md-12" *ngIf="!isLoadingContent && contentResultData.loadedItems === contentResultData.totalItems">
         <div class="alert alert-avatar alert-primary alert-dismissible mt-5 mb-5">

@@ -18,6 +18,7 @@ const routes: any = {
     paymentDate: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/' + paymentId + '/payment-date',
     paymentPreauthorizations: (workspaceId: string, paymentId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/' + paymentId + '/preauthorizations',
     payments: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments',
+    contactPayments: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/payments',
     workspacePaymentsReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/payments/report',
     totalContactPayments: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/payments/count',
     totalGroupPayments: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/payments/count',
@@ -151,14 +152,31 @@ export class PaymentService {
         );
     }
 
-     /**
-      * Get the payments from the API
-      * @param  page            The page number
-      * @param  fields          The fields to get
-      * @param  paymentStatusId    The filter to apply
-      * @param  query           The search to do
-      * @return                 The payments
-      */
+    getContactPayments(contactId: string, page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
+        const route: string = routes.contactPayments(this._workspaceId, contactId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!query) params = params.append('search', query);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const payments: Payment[] = res.data.items.map( (payment: Payment) => {
+                        return this._calculatePaymentLifeTime(payment);
+                    })
+                    res.data.items = payments;
+                }
+                return res;
+            })
+        )
+    }
+
     getPayments(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
         const route: string = routes.payments(this._workspaceId);
         let params: HttpParams = new HttpParams();
