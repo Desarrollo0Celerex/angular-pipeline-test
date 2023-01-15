@@ -303,6 +303,34 @@
                     <div class="block-content">
                         <div class="form-group row text-center">
                             <ng-container [ngSwitch]="model.policy.insuranceGroupId">
+                                <ng-container *ngSwitchCase="INSURANCE_GROUPS.PEOPLE">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY INSURED NAME * -->
+                                            <label class="form-label">Nombre del Asegurado</label>
+                                            <input type="text" class="form-control {{getValidationClass('personName')}}" formControlName="personName">
+                                            <div class="invalid-feedback">{{getErrorMessage('personName')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY INSURED GENDER -->
+                                            <label class="form-label">Género</label>
+                                            <select class="form-control custom-select {{getValidationClass('personGenderId')}}" formControlName="personGenderId">
+                                                <option [value]="gender.genderId" *ngFor="let gender of model.genders">{{gender.name | uppercase}}</option>
+                                            </select>
+                                            <div class="invalid-feedback">{{getErrorMessage('personGenderId')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY INSURED AGE -->
+                                            <label class="form-label">Edad</label>
+                                            <input type="text" class="form-control {{getValidationClass('personAge')}}" formControlName="personAge">
+                                            <div class="invalid-feedback">{{getErrorMessage('personAge')}}</div>
+                                        </div>
+                                    </div>
+                                </ng-container>
                                 <ng-container *ngSwitchCase="INSURANCE_GROUPS.VEHICLES">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -350,6 +378,62 @@
                                             <label class="form-label">No. Motor</label>
                                             <input type="text" class="form-control {{getValidationClass('vehicleMotor')}}" formControlName="vehicleMotor">
                                             <div class="invalid-feedback">{{getErrorMessage('vehicleMotor')}}</div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="INSURANCE_GROUPS.BUILDINGS">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY INSURED BUILDING NAME * -->
+                                            <label class="form-label">Nombre de la Propiedad</label>
+                                            <input type="text" class="form-control {{getValidationClass('buildingName')}}" formControlName="buildingName">
+                                            <div class="invalid-feedback">{{getErrorMessage('buildingName')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY INSURED BUILDING USE * -->
+                                            <label class="form-label">Uso de la Propiedad</label>
+                                            <input type="text" class="form-control {{getValidationClass('buildingUsage')}}" formControlName="buildingUsage">
+                                            <div class="invalid-feedback">{{getErrorMessage('buildingUsage')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY INSURED BUILDING LOCATION * -->
+                                            <label class="form-label">Dirección de la Propiedad</label>
+                                            <input type="text" class="form-control {{getValidationClass('buildingLocation')}}" formControlName="buildingLocation">
+                                            <div class="invalid-feedback">{{getErrorMessage('buildingLocation')}}</div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="(
+                                    model.policy.insuranceGroupId === INSURANCE_GROUPS.MERCHANDISE ||
+                                    model.policy.insuranceGroupId === INSURANCE_GROUPS.OBJECTS ||
+                                    model.policy.insuranceGroupId === INSURANCE_GROUPS.RC
+                                ) ? model.policy.insuranceGroupId : ''">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY INSURED OBJECT NAME * -->
+                                            <label class="form-label">{{objectNameLabel}}</label>
+                                            <input type="text" class="form-control {{getValidationClass('objectName')}}" formControlName="objectName">
+                                            <div class="invalid-feedback">{{getErrorMessage('objectName')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY INSURED OBJECT USE * -->
+                                            <label class="form-label">{{objectUsageLabel}}</label>
+                                            <input type="text" class="form-control {{getValidationClass('objectUsage')}}" formControlName="objectUsage">
+                                            <div class="invalid-feedback">{{getErrorMessage('objectUsage')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <!-- AGENTHOS - POLICY INSURED OBJECT DESCRIPTION * -->
+                                            <label class="form-label">{{objectDescriptionLabel}}</label>
+                                            <input type="text" class="form-control {{getValidationClass('objectDescription')}}" formControlName="objectDescription">
+                                            <div class="invalid-feedback">{{getErrorMessage('objectDescription')}}</div>
                                         </div>
                                     </div>
                                 </ng-container>

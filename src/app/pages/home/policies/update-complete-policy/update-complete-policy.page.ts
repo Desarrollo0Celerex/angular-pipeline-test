@@ -7,6 +7,7 @@ import { DOCUMENT_FORMATS, FILE_TYPES, INSURANCE_GROUPS, INSURANCE_TYPES, CONTAC
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { LoadingService } from '@services/loading.service';
@@ -66,6 +67,13 @@ export class UpdateCompletePolicyPage implements OnInit {
     ngOnInit(): void {
         this._catchParams();
         this._loadPolicy();
+    }
+
+    get areSeveralInsured(): boolean {
+        if(this.model.policy !== null && !!this.model.policy.insuranceTypeId) {
+            return PolicyInsuredHelper.checkAreSeveralInsured(this.model.policy.insuranceTypeId)
+        }
+        return false;
     }
 
     get labelPolicyCommissionCurrency(): string {

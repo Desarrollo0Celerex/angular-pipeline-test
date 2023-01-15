@@ -4,14 +4,19 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { SHORT_ALPHANUMERIC_LENGTH, LONG_ALPHANUMERIC_LENGTH, FREE_TEXT_LENGTH, INSURANCE_GROUPS } from '@constants/global';
+import { SHORT_ALPHANUMERIC_LENGTH, LONG_ALPHANUMERIC_LENGTH, FREE_TEXT_LENGTH, 
+    INSURANCE_GROUPS, TITULAR_NAME_LENGTH 
+} from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Currency } from '@interfaces/currency.interface';
+import { Gender } from '@interfaces/gender.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
 import { Policy } from '@interfaces/policy.interface';
+
 import { CurrencyService } from '@services/currency.service';
+import { GendersService } from '@services/genders.service';
 import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
@@ -21,6 +26,7 @@ import { PolicyInsuredService } from '@services/policy-insured.service';
 export class CreatePolicyInsuredService {
     currencies: Currency[] = [];
     form: FormGroup = this._formBuilder.group({});
+    genders: Gender[] = [];
     paymentMethods: PaymentMethod[] = [];
     paymentPlans: PaymentPlan[] = [];
     policy: Policy | null = null;
@@ -28,6 +34,7 @@ export class CreatePolicyInsuredService {
     constructor(
         private _currencyService: CurrencyService,
         private _formBuilder: FormBuilder,
+        private _gendersService: GendersService,
         private _paymentMethodService: PaymentMethodService,
         private _paymentPlanService: PaymentPlanService,
         private _policyService: PolicyService,
@@ -69,6 +76,13 @@ export class CreatePolicyInsuredService {
         this._currencyService.getCurrencies(fields).subscribe((res: HttpResponse) => {
             this.currencies = res.data;
         })
+    }
+
+    loadGenders(): void {
+        const fields: string = 'genderId,name';
+        this._gendersService.getGenders(fields).subscribe((res: HttpResponse) => {
+            this.genders = res.data;
+        });
     }
 
     loadPaymentMethods(): void {
@@ -115,7 +129,9 @@ export class CreatePolicyInsuredService {
 
         switch (this.policy!.insuranceGroupId) {
             case INSURANCE_GROUPS.PEOPLE:
-               
+                this.form.addControl('personName', new FormControl('', [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownName]));
+                this.form.addControl('personGenderId', new FormControl(''));
+                this.form.addControl('personAge', new FormControl('', [ValidatorsHelper.number]));
                 break;
 
             case INSURANCE_GROUPS.VEHICLES:
@@ -128,13 +144,17 @@ export class CreatePolicyInsuredService {
                 break;
 
             case INSURANCE_GROUPS.BUILDINGS:
-                
+                this.form.addControl('buildingName', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]));
+                this.form.addControl('buildingUsage', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]));
+                this.form.addControl('buildingLocation', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]));
                 break;
 
             case INSURANCE_GROUPS.MERCHANDISE:
             case INSURANCE_GROUPS.OBJECTS:
             case INSURANCE_GROUPS.RC:
-                
+                this.form.addControl('objectName', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]));
+                this.form.addControl('objectUsage', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]));
+                this.form.addControl('objectDescription', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]));
                 break;
 
             default:
@@ -163,7 +183,9 @@ export class CreatePolicyInsuredService {
 
         switch (this.policy!.insuranceGroupId) {
             case INSURANCE_GROUPS.PEOPLE:
-               
+                requestBody.append('personName', this.f.personName.value);
+                requestBody.append('personGenderId', this.f.personGenderId.value);
+                requestBody.append('personAge', this.f.personAge.value);
                 break;
 
             case INSURANCE_GROUPS.VEHICLES:
@@ -176,13 +198,17 @@ export class CreatePolicyInsuredService {
                 break;
 
             case INSURANCE_GROUPS.BUILDINGS:
-                
+                requestBody.append('buildingName', this.f.buildingName.value);
+                requestBody.append('buildingUsage', this.f.buildingUsage.value);
+                requestBody.append('buildingLocation', this.f.buildingLocation.value);
                 break;
 
             case INSURANCE_GROUPS.MERCHANDISE:
             case INSURANCE_GROUPS.OBJECTS:
             case INSURANCE_GROUPS.RC:
-                
+                requestBody.append('objectName', this.f.objectName.value);
+                requestBody.append('objectUsage', this.f.objectUsage.value);
+                requestBody.append('objectDescription', this.f.objectDescription.value);
                 break;
 
             default:

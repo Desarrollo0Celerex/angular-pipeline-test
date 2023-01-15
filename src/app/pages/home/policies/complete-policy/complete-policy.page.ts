@@ -9,7 +9,7 @@ import { DOCUMENT_FORMATS, FILE_TYPES, POLICY_SOURCES, INSURANCE_GROUPS,
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
 import { HttpError } from '@interfaces/http-error.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
@@ -86,6 +86,13 @@ export class CompletePolicyPage implements OnInit {
     ngOnInit(): void {
         this._catchParams();
         this._loadContactPolicy();
+    }
+
+    get areSeveralInsured(): boolean {
+        if(this.model.policy !== null && !!this.model.policy.insuranceTypeId) {
+            return PolicyInsuredHelper.checkAreSeveralInsured(this.model.policy.insuranceTypeId)
+        }
+        return false;
     }
 
     get labelPolicyCommissionCurrency(): string {
@@ -261,7 +268,7 @@ export class CompletePolicyPage implements OnInit {
         this._loadingService.show();
         this.model.completePolicy(this.contactId, this.policyId, this._scannedPolicyData).subscribe( () => {
             this._loadingService.hide();
-            if(this.model.policy!.insuranceTypeId === INSURANCE_TYPES.FLOTILLA) {
+            if(this.areSeveralInsured) {
                 AlertHelper.policyCompleted(this._goToListPolicyInsureds, this);
             } else {
                 AlertHelper.policyCompleted(this._goToListContactPolicies, this);
