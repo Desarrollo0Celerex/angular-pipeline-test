@@ -46,6 +46,43 @@ export class CreatePolicyInsuredPage implements OnInit {
         this.model.loadCurrencies();
         this.model.loadPaymentMethods();
         this.model.loadPaymentPlans();
+        this.model.loadGenders();
+    }
+
+    get objectNameLabel(): string {
+        let label: string = '';
+        if(!!this.model.policy && !!this.model.policy.insuranceGroupId) {
+            switch(this.model.policy.insuranceGroupId) {
+                case INSURANCE_GROUPS.OBJECTS:
+                case INSURANCE_GROUPS.MERCHANDISE: label = 'Nombre del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.RC: label = 'Nombre de la Persona o Bien Asegurado'; break;
+            }
+        }
+        return label;
+    }
+
+    get objectUsageLabel(): string {
+        let label: string = '';
+        if(!!this.model.policy && !!this.model.policy.insuranceGroupId) {
+            switch(this.model.policy.insuranceGroupId) {
+                case INSURANCE_GROUPS.OBJECTS: label = 'Marca del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.MERCHANDISE: label = 'Uso del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.RC: label = 'Actividad Asegurada'; break;
+            }
+        }
+        return label;
+    }
+
+    get objectDescriptionLabel(): string {
+        let label: string = '';
+        if(!!this.model.policy && !!this.model.policy.insuranceGroupId) {
+            switch(this.model.policy.insuranceGroupId) {
+                case INSURANCE_GROUPS.OBJECTS: label = 'Características del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.MERCHANDISE: label = 'Descripción del Bien Asegurado'; break;
+                case INSURANCE_GROUPS.RC: label = 'Descripción'; break;
+            }
+        }
+        return label;
     }
 
     getErrorMessage(constrolName: string): string {

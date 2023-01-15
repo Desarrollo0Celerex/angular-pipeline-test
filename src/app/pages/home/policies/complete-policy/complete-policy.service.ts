@@ -12,6 +12,7 @@ import { FREE_TEXT_LENGTH, TITULAR_NAME_LENGTH, POLICY_SOURCES, ROLES, SLACK_DAY
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
+import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
 import { Currency } from '@interfaces/currency.interface';
 import { CreateScannerLogDataSend } from '@interfaces/create-scanner-log-data-send.interface';
 import { Gender } from '@interfaces/gender.interface';
@@ -116,22 +117,26 @@ export class CompletePolicyService {
             insureds: this._formBuilder.array([])
         });
 
-        if(this.policy!.contactTypeId === CONTACT_TYPES.PERSON) {
-            this.policyForm.addControl('titularAge', new FormControl((!!policy && !!policy.titularAge) ? policy.titularAge : '', [ValidatorsHelper.number]));
-            this.policyForm.addControl('titularGenderId', new FormControl((!!policy && !!policy.titularGenderId) ? policy.titularGenderId : '', [Validators.required, ValidatorsHelper.number]));
-        }
+        if(this.policy !== null) {
+            if(!!this.policy.contactTypeId && this.policy.contactTypeId === CONTACT_TYPES.PERSON) {
+                this.policyForm.addControl('titularAge', new FormControl((!!policy && !!policy.titularAge) ? policy.titularAge : '', [ValidatorsHelper.number]));
+                this.policyForm.addControl('titularGenderId', new FormControl((!!policy && !!policy.titularGenderId) ? policy.titularGenderId : '', [Validators.required, ValidatorsHelper.number]));
+            }
 
-        if(!!this.policy && !!this.policy.workspaceCommission) {
-            this.policyForm.patchValue({
-                policyCommission: this.policy.workspaceCommission
-            });
-            this.calculatePolicyCommissionAmount(this.policy.workspaceCommission);
-        }
+            if(!!this.policy.workspaceCommission) {
+                this.policyForm.patchValue({
+                    policyCommission: this.policy.workspaceCommission
+                });
+                this.calculatePolicyCommissionAmount(this.policy.workspaceCommission);
+            }
 
-        // Refactorized: Add insureds only if is PERSONAL or INDIVIDUAL
-        if(this.policy!.insuranceTypeId !== INSURANCE_TYPES.FLOTILLA) {
-            const insured: Insured | null = (!!policy && !!policy.insureds && policy.insureds.length > 0) ? policy.insureds[0] : null;
-            this.addInsured(insured);
+            if(!!this.policy.insuranceTypeId) {
+                const areSeveralInsured: boolean = PolicyInsuredHelper.checkAreSeveralInsured(this.policy.insuranceTypeId);
+                if(!areSeveralInsured) {
+                    const insured: Insured | null = (!!policy && !!policy.insureds && policy.insureds.length > 0) ? policy.insureds[0] : null;
+                    this.addInsured(insured);
+                }
+            }
         }
     }
 
@@ -423,7 +428,7 @@ export class CompletePolicyService {
                 insuredForm = this._formBuilder.group({
                     personName: [(!!insured && !!insured.personName) ? insured.personName : '', [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
                     personGenderId: [(!!insured && !!insured.personGenderId) ? insured.personGenderId : ''],
-                    personAge: [(!!insured && !!insured.personAge) ? insured.personAge : '', [Validators.minLength(1), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeTextShort]]
+                    personAge: [(!!insured && !!insured.personAge) ? insured.personAge : '', [ValidatorsHelper.number]]
                 });
                 break;
 

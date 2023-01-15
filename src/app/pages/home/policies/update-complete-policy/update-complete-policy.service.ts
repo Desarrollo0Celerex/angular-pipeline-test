@@ -9,6 +9,7 @@ import { FREE_TEXT_LENGTH, INSURANCE_GROUPS, TITULAR_NAME_LENGTH, INSURANCE_TYPE
     LONG_ALPHANUMERIC_LENGTH, SHORT_ALPHANUMERIC_LENGTH, FILE_TYPES, PAYMENT_PLANS,
     CONTACT_TYPES, EMAIL_LENGTH
 } from '@constants/global';
+import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
@@ -124,16 +125,15 @@ export class UpdateCompletePolicyService {
             insureds: this._formBuilder.array([])
         });
 
-        if(this.policy!.contactTypeId === CONTACT_TYPES.PERSON) {
-            this.policyForm.addControl('titularAge', new FormControl((!!policy && !!policy.titularAge) ? policy.titularAge : '', [ValidatorsHelper.number]));
-            this.policyForm.addControl('titularGenderId', new FormControl((!!policy && !!policy.titularGenderId) ? policy.titularGenderId : '', [Validators.required, ValidatorsHelper.number]));
-        }
+        if(this.policy !== null) {
+            if(!!this.policy.contactTypeId && this.policy.contactTypeId === CONTACT_TYPES.PERSON) {
+                this.policyForm.addControl('titularAge', new FormControl((!!policy && !!policy.titularAge) ? policy.titularAge : '', [ValidatorsHelper.number]));
+                this.policyForm.addControl('titularGenderId', new FormControl((!!policy && !!policy.titularGenderId) ? policy.titularGenderId : '', [Validators.required, ValidatorsHelper.number]));
+            }
 
-        if(!!policy) {
-
-            // Refactorized: Add insureds only if is PERSONAL or INDIVIDUAL
-            if(this.policy!.insuranceTypeId !== INSURANCE_TYPES.FLOTILLA) {
-                if(!!policy.insureds && policy.insureds.length > 0) {
+            if(!!this.policy.insuranceTypeId) {
+                const areSeveralInsured: boolean = PolicyInsuredHelper.checkAreSeveralInsured(this.policy.insuranceTypeId);
+                if(!areSeveralInsured && policy !== null && !!policy.insureds && policy.insureds.length > 0) {
                     for(let insured of policy.insureds) {
                         this.addInsured(insured);
                     }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { POLICY_STATUS, CANCELLATION_REASONS, INSURANCE_TYPES, CONTENT_TYPES } from '@constants/global';
 
 import { ROUTES_NAME } from '@constants/routes-name';
+import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
 import { Policy } from '@interfaces/policy.interface';
 import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 import { PaymentDataSend } from '@interfaces/payment-data-send.interface';
@@ -55,8 +56,15 @@ export class CardPolicyComponent implements OnInit {
         //this._checkIsInTime();
     }
 
+    get areSeveralInsured(): boolean {
+        if(this.policy !== null && this.policy.insuranceTypeId) {
+            return PolicyInsuredHelper.checkAreSeveralInsured(this.policy.insuranceTypeId);
+        }
+        return false
+    }
+
     goToListPolicyInsureds(): void {
-        if(this.policy!.insuranceTypeId === 5) {
+        if(this.areSeveralInsured) {
             this._router.navigateByUrl(ROUTES_NAME.listPolicyInsureds(this.policy!.contactId, this.policy!.policyId));
         }
     }
