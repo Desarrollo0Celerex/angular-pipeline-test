@@ -9,6 +9,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.37.2',
+            launchDate: '19/01/2023',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se actualizo etiqueta "Pagos Totales" por "Pagos Aplicados" en el modal del detalle de una póliza.',
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.37.1',
             launchDate: '14/01/2023',
             changes: [
