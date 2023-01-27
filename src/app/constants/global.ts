@@ -336,6 +336,12 @@ export const CONTACT_TYPES: any = {
     PERSON: 1,
     COMPANY: 2
 }
+export const CONTACT_INFORMATION_TYPES: any = {
+    MAIN: 1,
+    ISSUES: 2,
+    PAYMENTS: 3,
+    SINISTERS: 4,
+}
 export const BUTTON_TYPES: any = {
     TEXT: 1,
     TEXT_WITH_ICON: 2,
