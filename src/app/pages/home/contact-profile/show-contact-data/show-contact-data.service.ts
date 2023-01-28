@@ -335,15 +335,24 @@ export class ShowContactDataService {
     }
 
     private _buildFormContactInformations(contactInformations: ContactInformation[]): void {
-        const mainContact: ContactInformation | null = this._findContactInformation(CONTACT_INFORMATION_TYPES.MAIN, contactInformations);
+        this._addMainContacts(contactInformations);
         const issuesContact: ContactInformation | null = this._findContactInformation(CONTACT_INFORMATION_TYPES.ISSUES, contactInformations);
         const paymentsContact: ContactInformation | null = this._findContactInformation(CONTACT_INFORMATION_TYPES.PAYMENTS, contactInformations);
         const sinistersContact: ContactInformation | null = this._findContactInformation(CONTACT_INFORMATION_TYPES.SINISTERS, contactInformations);
-        this._addContactInformation(mainContact, CONTACT_INFORMATION_TYPES.MAIN);
         this._addContactInformation(issuesContact, CONTACT_INFORMATION_TYPES.ISSUES);
         this._addContactInformation(paymentsContact, CONTACT_INFORMATION_TYPES.PAYMENTS);
         this._addContactInformation(sinistersContact, CONTACT_INFORMATION_TYPES.SINISTERS);
-        
+    }
+
+    private _addMainContacts(contactInformations: ContactInformation[]): void {
+        for(let contactInformation of contactInformations) {
+            if(contactInformation.contactInformationTypeId === CONTACT_INFORMATION_TYPES.MAIN) {
+                this._addContactInformation(contactInformation, CONTACT_INFORMATION_TYPES.MAIN);
+            }
+        }
+        if(this.contactInformations.length === 0) {
+            this._addContactInformation(null, CONTACT_INFORMATION_TYPES.MAIN);
+        }
     }
 
     private _addContactInformation(contactInformation: ContactInformation | null = null, contactInformationTypeId: number): void {
