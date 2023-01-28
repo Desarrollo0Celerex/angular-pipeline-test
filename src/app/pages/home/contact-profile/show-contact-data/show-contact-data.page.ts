@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, FormControl } from '@angular/forms';
 
-import { BUTTON_TYPES, CONTACT_TYPES } from '@constants/global';
+import { BUTTON_TYPES, CONTACT_TYPES, CONTACT_INFORMATION_TYPES } from '@constants/global';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
@@ -22,6 +22,7 @@ declare var ModalPlugin: any;
 })
 export class ShowContactDataPage implements OnInit {
     BUTTON_TYPES: any = BUTTON_TYPES;
+    CONTACT_INFORMATION_TYPES: any = CONTACT_INFORMATION_TYPES;
     CONTACT_TYPES: any = CONTACT_TYPES;
     calendarIdBirthdate: string = 'birthdate';
     contactId: string = '';
@@ -38,25 +39,68 @@ export class ShowContactDataPage implements OnInit {
     ngOnInit(): void {
         this._catchParams();
         this._loadContact();
+        let aux = this.showContactDataService.contactInformations
     }
 
-    /**
-     * Get the error message
-     * @param  constrolName Control name
-     * @return              Error message
-     */
+    getContactInformationDescription(control: AbstractControl): string {
+        const contactInformationTypeId: number = control.get('contactInformationTypeId')!.value;
+        let description: string = '';
+        switch (contactInformationTypeId) {
+            case CONTACT_INFORMATION_TYPES.ISSUES:
+                description = 'Ingresa los datos para notificar sobre emisiones, renovaciones y vencimiento de pólizas.';
+                break;
+
+            case CONTACT_INFORMATION_TYPES.PAYMENTS:
+                description = 'Ingresa los datos para notificar sobre aplicaciones de pago y recibos pendientes.';
+                break;
+
+            case CONTACT_INFORMATION_TYPES.SINISTERS:
+                description = 'Ingresa los datos para notificar sobre reportes y actualización de siniestros.';
+                break;
+        }
+        return description;
+    }
+
+    getContactInformationTitle(control: AbstractControl): string {
+        const contactInformationTypeId: number = control.get('contactInformationTypeId')!.value;
+        let title: string = '';
+        switch (contactInformationTypeId) {
+            case CONTACT_INFORMATION_TYPES.MAIN:
+                title = 'Contacto Principal';
+                break;
+
+            case CONTACT_INFORMATION_TYPES.ISSUES:
+                title = 'Contacto para Notificaciones';
+                break;
+
+            case CONTACT_INFORMATION_TYPES.PAYMENTS:
+                title = 'Contacto para Cobranza';
+                break;
+
+            case CONTACT_INFORMATION_TYPES.SINISTERS:
+                title = 'Contacto de Siniestros';
+                break;
+        }
+        return title;
+    }
+
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null = this.showContactDataService.contactForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
-    /**
-     * Get the validation class
-     * @param  constrolName Control name
-     * @return              Validation class
-     */
+    getErrorMessageAux(constrolName: string, index: number): string {
+        const control: AbstractControl | null = this.showContactDataService.contactInformations.at(index).get(constrolName);
+        return InputValidatorHelper.getErrorMessage(control);
+    }
+
     getValidationClass(constrolName: string): string {
         const control: AbstractControl | null = this.showContactDataService.contactForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+    }
+
+    getValidationClassAux(constrolName: string, index: number): string {
+        const control: AbstractControl | null = this.showContactDataService.contactInformations.at(index).get(constrolName);
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
@@ -81,14 +125,6 @@ export class ShowContactDataPage implements OnInit {
     }
 
     /**
-     * Event to update the secondary contact phone code ID
-     * @param secondaryContactPhoneCodeId The selected secondary contact phone code ID
-     */
-    onSecondaryContactPhoneCodeIdSelected(secondaryContactPhoneCodeId: number): void {
-        this.showContactDataService.contactForm.patchValue({secondaryContactPhoneCodeId});
-    }
-
-    /**
      * Submit event to update the contact data
      */
     onSubmitUpdateContact(): void {
@@ -98,7 +134,7 @@ export class ShowContactDataPage implements OnInit {
             this.showContactDataService.updateContact(this.contactId).subscribe( () => {
                 this._loadingService.hide();
                 AlertHelper.contactUpdated();
-            })
+            });
         }
     }
 
@@ -107,6 +143,10 @@ export class ShowContactDataPage implements OnInit {
      */
     selectContactSource(): void {
         ModalPlugin.show(this.modalIdSelectContactSource);
+    }
+
+    selectPhoneCodeId(phoneCodeId: number, index: number): void {
+        this.showContactDataService.contactInformations.at(index).patchValue({phoneCodeId})
     }
 
     updateContactSource(data: SelectContactSourceData): void {
@@ -138,18 +178,10 @@ export class ShowContactDataPage implements OnInit {
      */
     private _loadContact(): void {
         this.showContactDataService.loadContact(this.contactId).subscribe( () => {
-            if(this.showContactDataService.contact?.contactTypeId === CONTACT_TYPES.PERSON) {
-                this.showContactDataService.buildPersonForm();
-            } else {
-                this.showContactDataService.buildCompanyForm();
-            }
+            this.showContactDataService.loadCatalogs();
+            this.showContactDataService.buildForm();
+            this.showContactDataService.loadContactInformations(this.contactId);
             this._initCalendars();
-            this.showContactDataService.loadGenders()
-            this.showContactDataService.loadOffsprings();
-            this.showContactDataService.loadCivilStatus();
-            this.showContactDataService.loadContactRelations();
-            this.showContactDataService.loadContactOccupations();
-            this.showContactDataService.loadCountries();
         })
     }
 

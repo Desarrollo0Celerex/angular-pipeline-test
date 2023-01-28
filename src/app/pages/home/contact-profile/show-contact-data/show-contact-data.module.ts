@@ -10,10 +10,12 @@ import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalIncompleteContactDataModule } from '@components/modal-incomplete-contact-data/modal-incomplete-contact-data.module';
 import { ModalSelectContactSourceModule } from '@components/modal-select-contact-source/modal-select-contact-source.module';
+
 import { CivilStatusService } from '@services/civil-status.service';
 import { ContactService } from '@services/contact.service';
+import { ContactCatalogService } from '@services/contact-catalog.service';
+import { ContactInformationService } from '@services/contact-information.service';
 import { ContactOccupationService } from '@services/contact-occupation.service';
-import { ContactRelationService } from '@services/contact-relation.service';
 import { GendersService } from '@services/genders.service';
 import { OffspringService } from '@services/offspring.service';
 import { CountryService } from '@services/country.service';
@@ -41,8 +43,9 @@ import { ShowContactDataPage } from './show-contact-data.page';
   providers: [
       CivilStatusService,
       ContactService,
+      ContactCatalogService,
+      ContactInformationService,
       ContactOccupationService,
-      ContactRelationService,
       DatePipe,
       GendersService,
       OffspringService,

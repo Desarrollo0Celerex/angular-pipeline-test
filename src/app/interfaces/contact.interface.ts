@@ -1,3 +1,5 @@
+import { ContactInformation } from './contact-information.interface';
+
 export interface Contact {
     contactId: string,
     avatarUrl: string,
@@ -37,11 +39,6 @@ export interface Contact {
     brandName: string,
     rfc: string,
     website: string,
-    secondaryContactName: string,
-    secondaryContactRelationId: number,
-    secondaryContactPhoneCodeId: number,
-    secondaryContactPhoneNumber: string,
-    secondaryContactEmail: string,
     street: string,
     exteriorNumber: number,
     interiorNumber: number,
@@ -61,4 +58,13 @@ export interface Contact {
     createdByName: string,
     leadStatusId: number,
     clientStatusId: number,
+    contactStudyId: number,
+    contactJobId: number,
+    contactHomeId: number,
+    contactCarId: number,
+    contactSmartphoneId: number,
+    facebook: string,
+    instagram: string,
+    linkedin: string,
+    twitter: string
 }
