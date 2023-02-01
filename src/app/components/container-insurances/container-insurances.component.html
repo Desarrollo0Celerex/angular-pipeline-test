@@ -1,0 +1,51 @@
+<agt-container-contact-details
+    [contactId]="contactId"
+    [message]="contactDetailsMessage"
+></agt-container-contact-details>
+
+<agt-container-insurances-most-used
+    [actionType]="actionType"
+    [contactId]="contactId"
+    (insuranceIdSelected)="showModalToSelectInsuranceType($event)"
+></agt-container-insurances-most-used>
+
+<!-- AGENTHOS - POLICY PANEL -->
+<div class="row mt-5">
+    <!-- AGENTHOS - SMART SEARCH -->
+    <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
+        <agt-content-search-engine
+            [contentType]="CONTENT_TYPES.INSURANCE.ID"
+            [contentTypeName]="CONTENT_TYPES.INSURANCE.NAME"
+            [contactId]="contactId"
+        ></agt-content-search-engine>
+    </div>
+    <!-- //AGENTHOS - SMART SEARCH -->
+    <!-- AGENTHOS - POLICY LIST -->
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+        <agt-content-main-action
+            [contentType]="CONTENT_TYPES.INSURANCE.ID"
+            [contentTypeName]="CONTENT_TYPES.INSURANCE.NAME"
+            (insuranceListTypeSelected)="updateInsuranceList($event)"
+        ></agt-content-main-action>
+    </div>
+    <!-- //AGENTHOS - POLICY LIST -->
+</div>
+
+<agt-container-insurances-by-category
+    *ngIf="selectedListType === INSURANCE_LIST_TYPES.BY_CATEGORY; else containerInsurancesByGroup"
+    [contactId]="contactId"
+    (insuranceIdSelected)="showModalToSelectInsuranceType($event)"
+></agt-container-insurances-by-category>
+
+<ng-template #containerInsurancesByGroup>
+    <agt-container-insurances-by-subcategory
+        (insuranceIdSelected)="showModalToSelectInsuranceType($event)"
+    ></agt-container-insurances-by-subcategory>
+</ng-template>
+
+<agt-modal-get-policy-details
+    [modalId]="modalIdGetPolicyDetails"
+    [insuranceId]="selectedInsuranceId"
+    [actionType]="actionType"
+    (policyDetailsSelected)="doAction($event)"
+></agt-modal-get-policy-details>

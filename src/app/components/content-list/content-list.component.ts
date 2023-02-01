@@ -781,8 +781,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show modal to confirm update policy
      */
     onUpdatePolicy(data: ContactPolicyData): void {
-        console.log('Paso final');
-        
         this.contactId = data.contactId;
         this.selectedPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmUpdatePolicy);

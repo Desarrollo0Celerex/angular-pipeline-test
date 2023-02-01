@@ -11,7 +11,8 @@ const routes = {
     insurances: environment.apiUrl + '/insurances',
     mostUsedInsurances: (workspaceId: string, contactTypeId: number) => environment.apiUrl + '/workspaces/'+workspaceId+'/contact-types/'+contactTypeId+'/insurances',
     activeInsurances: (workspaceId: string) => environment.apiUrl + '/workspaces/'+workspaceId+'/insurances/active',
-    categoryInsurances: (insuranceCategoryId: number) => environment.apiUrl + '/insurance-categories/' + insuranceCategoryId + '/insurances'
+    categoryInsurances: (insuranceCategoryId: number) => environment.apiUrl + '/insurance-categories/' + insuranceCategoryId + '/insurances',
+    subcategoryInsurances: (insuranceSubcategoryId: number) => environment.apiUrl + '/insurance-subcategories/' + insuranceSubcategoryId + '/insurances'
 }
 
 @Injectable()
@@ -51,6 +52,14 @@ export class InsuranceService {
      */
     getCategoryInsurances(insuranceCategoryId: number, fields: string = '', sortBy: string = ''): Observable<HttpResponse> {
         const route = routes.categoryInsurances(insuranceCategoryId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('fields', fields);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    getSubcategoryInsurances(insuranceSubcategoryId: number, fields: string = '', sortBy: string = ''): Observable<HttpResponse> {
+        const route = routes.subcategoryInsurances(insuranceSubcategoryId);
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
         if(!!sortBy) params = params.append('sortBy', sortBy);

@@ -1,13 +1,13 @@
 <div class="card" *ngIf="!!insurance">
     <div class="card-body text-center">
         <!-- AGENTHOS - INSURANCE TYPE -->
-        <span class="{{insurance.background}} icon-service">
+        <span class="{{insurance.background}} iconInsurance">
             <i class="{{insurance.icon}}"></i>
         </span>
         <!-- AGENTHOS - INSURANCE NAME -->
         <h4 class="h4 mb-3 mt-3">{{insurance.name | uppercase}}</h4>
         <!-- AGENTHOS - INSURANCE DETAIL -->
-        <button type="button" class="btn btn-pill btn-default-light" data-container="body" data-toggle="popover" data-popover-color="default" data-placement="top" title="" [attr.data-content]="insurance.description" data-original-title="Descripción:">DETALLES</button>
+        <button type="button" class="btn btn-pill btn-default-light" data-container="body" data-toggle="popover" data-popover-color="default" data-placement="top" title="" [attr.data-content]="insurance.description" [attr.data-original-title]="insurance.title">DETALLES</button>
     </div>
     <div class="card-footer text-center">
         <div class="row user-social-detail">

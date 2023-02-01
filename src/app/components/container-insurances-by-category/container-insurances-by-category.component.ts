@@ -1,23 +1,22 @@
-import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
-
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CONTENT_TYPES } from '@constants/global';
 import { HttpResponse } from '@interfaces/http-response.interface';
 
-import { ContainerListInsurancesService } from './container-list-insurances.service';
+import { ContainerInsurancesByCategoryService } from './container-insurances-by-category.service';
 
 @Component({
-  selector: 'agt-container-list-insurances',
-  templateUrl: './container-list-insurances.component.html',
+  selector: 'agt-container-insurances-by-category',
+  templateUrl: './container-insurances-by-category.component.html',
   styles: [
   ],
-  providers: [ContainerListInsurancesService]
+  providers: [ContainerInsurancesByCategoryService]
 })
-export class ContainerListInsurancesComponent implements OnInit {
+export class ContainerInsurancesByCategoryComponent implements OnInit {
     @Input() contactId: string = '';
-    @Output() insuranceSelected: EventEmitter<number> = new EventEmitter<number>();
+    @Output() insuranceIdSelected: EventEmitter<number> = new EventEmitter<number>();
     CONTENT_TYPES: any = CONTENT_TYPES;
 
-    constructor(public model: ContainerListInsurancesService) { }
+    constructor(public model: ContainerInsurancesByCategoryService) { }
 
     ngOnInit(): void {
         this.model.insurancesByCategories = [];
@@ -25,12 +24,11 @@ export class ContainerListInsurancesComponent implements OnInit {
     }
 
     selectInsurance(insuranceId: number): void {
-        this.insuranceSelected.emit(insuranceId);
+        this.insuranceIdSelected.emit(insuranceId);
     }
 
     private _loadContact(): void {
         this.model.loadContact(this.contactId).subscribe((res: HttpResponse) => {
-            this.model.loadMostUsedInsurances(res.data.contactTypeId);
             this._loadCategories(res.data.contactTypeId);
         })
     }

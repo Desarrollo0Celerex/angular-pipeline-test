@@ -331,6 +331,10 @@ export const CONTENT_TYPES: any = {
         ID: 42,
         NAME: 'Renovación'
     },
+    INSURANCE: {
+        ID: 43,
+        NAME: 'Seguro'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,
@@ -366,6 +370,10 @@ export const ACTION_TYPES: any = {
     SELECT_CONTACT: 3,
     RENEW_POLICY: 4,
     REISSUE_POLICY: 5
+}
+export const INSURANCE_LIST_TYPES: any = {
+    BY_CATEGORY: 1,
+    BY_GROUP: 2
 }
 export const POLICY_RECORD_TYPES: any = {
     REGISTER: 1,

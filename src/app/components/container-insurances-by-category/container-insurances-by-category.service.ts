@@ -13,10 +13,9 @@ import { InsuranceService } from '@services/insurance.service';
 import { InsuranceCategoryService } from '@services/insurance-category.service';
 
 @Injectable()
-export class ContainerListInsurancesService {
+export class ContainerInsurancesByCategoryService {
     contact: Contact | null = null;
     insurancesByCategories: InsurancesByCategory[] = [];
-    mostUsedInsurances: Insurance[] = [];
 
     constructor(
         private _contactService: ContactService,
@@ -31,7 +30,7 @@ export class ContainerListInsurancesService {
     }
 
     loadContact(contactId: string): Observable<HttpResponse> {
-        const fields: string = 'contactTypeId,contactName';
+        const fields: string = 'contactTypeId';
         return this._contactService.getContact(contactId,fields).pipe(
             tap((res: HttpResponse) => {
                 this.contact = res.data;
@@ -53,18 +52,6 @@ export class ContainerListInsurancesService {
         })
     }
 
-    loadMostUsedInsurances(contactTypeId: number): void {
-        const fields: string = 'insuranceId,name,title,description,background,icon';
-        this._insuranceService.getMostUsedInsurances(contactTypeId, fields).subscribe((res: HttpResponse) => {
-            this.mostUsedInsurances = res.data;
-        });
-    }
-
-    /**
-     * Get the request to get the category insurances
-     * @param  insuranceCategories The insurance categories
-     * @return                     The requests
-     */
     private _getRequestToGetCategoryInsurances(insuranceCategories: InsuranceCategory[]): Observable<HttpResponse[]> {
         let requests: Observable<HttpResponse>[] = [];
         const fields: string = 'insuranceId,name,title,description,background,icon';

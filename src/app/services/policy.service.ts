@@ -123,9 +123,11 @@ export class PolicyService {
      * @param  requestBody The policy details
      * @return             The created policy ID
      */
-    createPolicy(contactId: string, requestBody: CreatePolicyData): Observable<HttpResponse> {
+    createPolicy(contactId: string, requestBody: CreatePolicyData): Observable<string> {
         const route: string = routes.contactPolicies(this._workspaceId, contactId);
-        return this._httpClient.post<HttpResponse>(route, requestBody);
+        return this._httpClient.post<HttpResponse>(route, requestBody).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 
     /**
