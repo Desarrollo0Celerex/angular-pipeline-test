@@ -1144,6 +1144,18 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 })
             break;
 
+            case CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID:
+                this.contentListService.loadPolicyOpenSinisters(this.contactId, this.policyId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID:
+                this.contentListService.loadPolicyClosedSinisters(this.contactId, this.policyId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
             case CONTENT_TYPES.CONTACT_FILE.ID:
                 this.contentListService.loadContactFiles(this.contactId, this.page).subscribe( () => {
                     this._contentLoaded();
@@ -1179,6 +1191,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this.contentListService.loadExternalPolicies(this.page, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
                 })
+            break;
+
+            case CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID:
+                this.contentListService.loadPolicyReceiptsPaid(this.contactId, this.policyId, this.paymentId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                });
             break;
         }
     }
@@ -1453,6 +1471,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID:
                 case CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID:
                 case CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID:
+                case CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID:
                     canShow = true;
                 break;
             }

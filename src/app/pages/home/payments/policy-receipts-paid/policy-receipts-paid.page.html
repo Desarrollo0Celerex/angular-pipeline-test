@@ -1,8 +1,7 @@
-<agt-container-contact-details 
-    [contactId]="contactId" 
-    [policyId]="policyId" 
-    [message]="message"
-></agt-container-contact-details>
+<agt-container-policy-details
+    [contactId]="contactId"
+    [policyId]="policyId">
+</agt-container-policy-details>
 
 <div class="row mt-3">
     <div class="col-12">
@@ -39,14 +38,15 @@
     [contactId]="contactId"
     [policyId]="policyId"
     [paymentId]="paymentId"
-></agt-container-payments-manager>
+    [canShowPendingReceipts]="false">
+</agt-container-payments-manager>
 
 <agt-content-list
-    [contentType]="contentType"
-    [contentTypeName]="contentTypeName"
+    [contentType]="CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID"
+    [contentTypeName]="CONTENT_TYPES.POLICY_RECEIPTS_PAID.NAME"
     [contactId]="contactId"
     [policyId]="policyId"
     [paymentId]="paymentId"
-    [contentSubtype]="contentSubtype"
-    [contentSubtypeName]="contentSubtypeName">
+    [contentSubtype]="DEFAULT_CONTENT_FILTER_ID"
+    contentSubtypeName="Pagado">
 </agt-content-list>

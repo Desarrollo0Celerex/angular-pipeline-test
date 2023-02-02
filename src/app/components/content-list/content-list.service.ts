@@ -173,6 +173,19 @@ export class ContentListService {
         );
     }
 
+    loadPolicyReceiptsPaid(contactId: string, policyId: string, paymentId: string, page: number): Observable<void> {
+        const fields: string = 'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
+        const filters: string = '';
+        const sortBy: string = 'applicationDate';
+        return this._receiptPaidService.getPolicyReceiptsPaid(contactId, policyId, paymentId, page, fields, filters, '', sortBy).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
     loadReceiptsAppliedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
         const fields: string = 'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
         const filters: string = '';
@@ -794,6 +807,32 @@ export class ContentListService {
     loadPolicySinisters(contactId: string, policyId: string, page: number): Observable<void> {
         const fields: string = 'sinisterId,createdByName,sinisterNumber,sinisterTypeName,sinisterDate,titularName,policyNumber,invoice,certificate,dateLastEvent,totalEvents,createdAt,createdByName,policyId,contactId,sinisterStatusId,sinisterResolutionName,sinisterResolutionCurrencyName,sinisterResolutionIndemnificationAmount';
         return this._policyService.getPolicySinisters(contactId, policyId, page, fields).pipe(
+            tap((res: HttpResponse) => {
+                const sinisters: Sinister[] = res.data.items;
+                this.contents = this.contents.concat(sinisters);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    loadPolicyClosedSinisters(contactId: string, policyId: string, page: number): Observable<void> {
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.FINISHED]);
+        return this._policyService.getPolicySinisters(contactId, policyId, page, fields, filters).pipe(
+            tap((res: HttpResponse) => {
+                const sinisters: Sinister[] = res.data.items;
+                this.contents = this.contents.concat(sinisters);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
+    loadPolicyOpenSinisters(contactId: string, policyId: string, page: number): Observable<void> {
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE]);
+        return this._policyService.getPolicySinisters(contactId, policyId, page, fields, filters).pipe(
             tap((res: HttpResponse) => {
                 const sinisters: Sinister[] = res.data.items;
                 this.contents = this.contents.concat(sinisters);

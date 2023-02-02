@@ -335,6 +335,18 @@ export const CONTENT_TYPES: any = {
         ID: 43,
         NAME: 'Seguro'
     },
+    POLICY_OPEN_SINISTERS: {
+        ID: 44,
+        NAME: 'Siniestro'
+    },
+    POLICY_CLOSED_SINISTERS: {
+        ID: 45,
+        NAME: 'Siniestro'
+    },
+    POLICY_RECEIPTS_PAID: {
+        ID: 46,
+        NAME: 'Recibo'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

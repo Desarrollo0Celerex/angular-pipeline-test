@@ -17,6 +17,8 @@
         contentType !== CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID &&
+        contentType !== CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID &&
+        contentType !== CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID &&
         contentType !== CONTENT_TYPES.PAYMENT_CALENDAR.ID">
     <div class="col-sm-12 col-md-12" *ngIf="!isLoadingContent && contentResultData.loadedItems === contentResultData.totalItems">
         <div class="alert alert-avatar alert-primary alert-dismissible mt-5 mb-5">

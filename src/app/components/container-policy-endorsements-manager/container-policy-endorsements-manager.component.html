@@ -1,6 +1,25 @@
 <!-- AGENTHOS - ENDORSEMENTS CONTROL -->
-<div class="row mt-3">
-    <div class="col-lg-12">
+<div class="row mt-5">
+    <!-- AGENTHOS - POLICY OWNER -->
+    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-3">
+        <div class="card">
+            <!-- AGENTHOS - ENDORSEMENTS CONTROL HEADER -->
+            <div class="card-header">
+                <h3 class="card-title">Detalles de Póliza</h3>
+            </div>
+            <!-- AGENTHOS - ENDORSEMENTS CONTROL HEADER -->
+            <!-- AGENTHOS - ENDORSEMENTS CONTROL BODY -->
+            <div class="card-body">
+                <div class="btn-list">
+                    <!-- AGENTHOS - POLICY DETAILS -->
+                    <button type="button" class="btn btn-block btn-primary" (click)="goToPolicyHistory()"><strong>VER DETALLES</strong></button>
+                </div>
+            </div>
+            <!-- //AGENTHOS - ENDORSEMENTS CONTROL BODY -->
+        </div>
+    </div>
+    <!-- //AGENTHOS - POLICY OWNER -->
+    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-9">
         <div class="card">
             <!-- AGENTHOS - ENDORSEMENTS CONTROL HEADER -->
             <div class="card-header">
@@ -9,10 +28,9 @@
             <!-- AGENTHOS - ENDORSEMENTS CONTROL HEADER -->
             <!-- AGENTHOS - ENDORSEMENTS CONTROL BODY -->
             <div class="card-body">
-                <div class="btn-list mt-3">
-                    <button type="button" class="btn btn-secondary" (click)="showModalToShowPolicyFile()"><strong>VER PÓLIZA</strong></button>
-                    <button type="button" class="btn btn-primary" (click)="showModalToConfirmShowPolicyHistory()"><strong>VER HISTORIAL</strong></button>
-                    <button type="button" class="btn btn-primary" (click)="showModalToConfirmEndorsePolicy()"><strong>APLICAR ENDOSO</strong></button>
+                <div class="btn-list">
+                    <!-- AGENTHOS - POLICY ENDORSEMENTS RECORD -->
+                    <button type="button" class="btn btn-secondary"><strong>VER HISTORIAL</strong></button>
                 </div>
             </div>
             <!-- //AGENTHOS - ENDORSEMENTS CONTROL BODY -->
@@ -20,19 +38,3 @@
     </div>
 </div>
 <!-- //AGENTHOS - ENDORSEMENTS CONTROL -->
-
-<agt-modal-show-policy-file
-    [modalId]="modalIdShowPolicyFile"
-    [contactId]="contactId"
-    [policyId]="policyId"
-></agt-modal-show-policy-file>
-<agt-modal-confirm-show-history-policy
-    [modalId]="modalIdConfirmShowHistoryPolicy"
-    [contactId]="contactId"
-    [policyId]="policyId"
-></agt-modal-confirm-show-history-policy>
-<agt-modal-confirm-endorse-policy
-    [modalId]="modalIdConfirmEndorsePolicy"
-    [contactId]="contactId"
-    [policyId]="policyId"
-></agt-modal-confirm-endorse-policy>

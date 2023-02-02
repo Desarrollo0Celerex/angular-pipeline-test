@@ -17,6 +17,7 @@ export class PaymentHistoryPage implements OnInit {
     contentTypeName: string = CONTENT_TYPES.PAYMENT_HISTORY.NAME;
     contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
     contentSubtypeName: string = 'Aplicado';
+    message: string = 'Valida el historial de pagos de la póliza';
     private _subParams: any;
 
     constructor(private _activatedRoute: ActivatedRoute) { }

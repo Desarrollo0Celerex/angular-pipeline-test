@@ -8,11 +8,14 @@ import { ContainerContactDetailsModule } from '@components/container-contact-det
 import { ContainerSinistersManagerModule } from '@components/container-sinisters-manager/container-sinisters-manager.module';
 import { ContentListModule } from '@components/content-list/content-list.module';
 
-import { ShowPolicySinistersRoutingModule } from './show-policy-sinisters-routing.module';
-import { ShowPolicySinistersPage } from './show-policy-sinisters.page';
+import { ShowPolicyClosedSinistersRoutingModule } from './show-policy-closed-sinisters-routing.module';
+import { ShowPolicyClosedSinistersPage } from './show-policy-closed-sinisters.page';
+
 
 @NgModule({
-  declarations: [ShowPolicySinistersPage],
+  declarations: [
+    ShowPolicyClosedSinistersPage
+  ],
   imports: [
     AlertUnusualReportedSinistersModule,
     ChartPolicySinistersModule,
@@ -21,7 +24,7 @@ import { ShowPolicySinistersPage } from './show-policy-sinisters.page';
     ContainerContactDetailsModule,
     ContainerSinistersManagerModule,
     ContentListModule,
-    ShowPolicySinistersRoutingModule
+    ShowPolicyClosedSinistersRoutingModule
   ]
 })
-export class ShowPolicySinistersModule { }
+export class ShowPolicyClosedSinistersModule { }

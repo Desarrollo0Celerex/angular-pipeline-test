@@ -1,5 +1,25 @@
-<div class="row mt-3">
-    <div class="col-lg-12">
+<!-- AGENTHOS - SINISTERS CONTROL -->
+<div class="row mt-5">
+    <!-- AGENTHOS - POLICY OWNER -->
+    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-3">
+        <div class="card">
+            <!-- AGENTHOS - SINISTERS CONTROL HEADER -->
+            <div class="card-header">
+                <h3 class="card-title">Detalles de Póliza</h3>
+            </div>
+            <!-- AGENTHOS - SINISTERS CONTROL HEADER -->
+            <!-- AGENTHOS - SINISTERS CONTROL BODY -->
+            <div class="card-body">
+                <div class="btn-list">
+                    <!-- AGENTHOS - POLICY DETAILS -->
+                    <button type="button" class="btn btn-block btn-primary" (click)="goToPolicyHistory()"><strong>VER DETALLES</strong></button>
+                </div>
+            </div>
+            <!-- //AGENTHOS - SINISTERS CONTROL BODY -->
+        </div>
+    </div>
+    <!-- //AGENTHOS - POLICY OWNER -->
+    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-9">
         <div class="card">
             <!-- AGENTHOS - SINISTERS CONTROL HEADER -->
             <div class="card-header">
@@ -9,31 +29,31 @@
             <!-- AGENTHOS - SINISTERS CONTROL BODY -->
             <div class="card-body">
                 <div class="btn-list">
-                    <!-- AGENTHOS - POLICY VIEW -->
-                    <button type="button" class="btn btn-secondary" (click)="showModalToShowPolicyFile()"><strong>VER PÓLIZA</strong></button>
-                    <!-- AGENTHOS - POLICY RECORD -->
-                    <button type="button" class="btn btn-primary" (click)="showModalToConfirmShowPolicyHistory()"><strong>VER HISTORIAL</strong></button>
-                    <!-- AGENTHOS - POLICY SINISTER -->
-                    <button type="button" class="btn btn-primary" (click)="showModalToReportSinister()"><strong>REPORTAR SINIESTRO</strong></button>
+                    <!-- AGENTHOS - POLICY SINISTERS RECORD -->
+                    <button type="button" class="btn {{(selectedSinisterAction === SINISTER_ACTIONS.SHOW_HISTORY) ? 'btn-secondary' : 'btn-outline-primary' }}" (click)="showModalToConfirmShowPolicyHistory()"><strong>VER HISTORIAL</strong></button>
+                    <!-- AGENTHOS - POLICY SINISTERS OPENED -->
+                    <button type="button" class="btn {{(selectedSinisterAction === SINISTER_ACTIONS.SHOW_OPEN_SINISTERS) ? 'btn-secondary' : 'btn-outline-primary' }}" (click)="showModalToConfirmShowPolicyOpenSinisters()"><strong>SINIESTROS ABIERTOS</strong></button>
+                    <!-- AGENTHOS - POLICY SINISTERS CLOSED -->
+                    <button type="button" class="btn {{(selectedSinisterAction === SINISTER_ACTIONS.SHOW_CLOSED_SINISTERS) ? 'btn-secondary' : 'btn-outline-primary' }}" (click)="showModalToConfirmShowPolicyClosedSinisters()"><strong>SINIESTROS CERRADOS</strong></button>
                 </div>
             </div>
             <!-- //AGENTHOS - SINISTERS CONTROL BODY -->
         </div>
     </div>
 </div>
+<!-- //AGENTHOS - SINISTERS CONTROL -->
 
-<agt-modal-show-policy-file
-    [modalId]="modalIdShowPolicyFile"
-    [contactId]="contactId"
-    [policyId]="policyId"
-></agt-modal-show-policy-file>
-<agt-modal-confirm-show-history-policy
-    [modalId]="modalIdConfirmShowHistoryPolicy"
-    [contactId]="contactId"
-    [policyId]="policyId"
-></agt-modal-confirm-show-history-policy>
-<agt-modal-create-sinister
-    [modalId]="modalIdReportSinister"
-    [policyId]="policyId"
-    [contactId]="contactId"
-></agt-modal-create-sinister>
+<agt-modal-confirm-show-policy-sinisters
+    [modalId]="modalIdConfirmShowPolicySinisters"
+    [policyData]="policyData"
+></agt-modal-confirm-show-policy-sinisters>
+
+<agt-modal-confirm-show-policy-open-sinisters
+    [modalId]="modalIdConfirmShowPolicyOpenSinisters"
+    [policyData]="policyData"
+></agt-modal-confirm-show-policy-open-sinisters>
+
+<agt-modal-confirm-show-policy-closed-sinisters
+    [modalId]="modalIdConfirmShowPolicyClosedSinisters"
+    [policyData]="policyData"
+></agt-modal-confirm-show-policy-closed-sinisters>

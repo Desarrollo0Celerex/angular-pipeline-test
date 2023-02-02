@@ -4,19 +4,19 @@ import { ActivatedRoute } from '@angular/router';
 import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 
 @Component({
-  selector: 'agt-show-policy-sinisters',
-  templateUrl: './show-policy-sinisters.page.html',
+  selector: 'agt-show-policy-open-sinisters',
+  templateUrl: './show-policy-open-sinisters.page.html',
   styles: [
   ]
 })
-export class ShowPolicySinistersPage implements OnInit {
+export class ShowPolicyOpenSinistersPage implements OnInit {
     contactId: string = '';
     policyId: string = '';
-    contentType: number = CONTENT_TYPES.POLICY_SINISTERS.ID;
-    contentTypeName: string = CONTENT_TYPES.POLICY_SINISTERS.NAME;
+    contentType: number = CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID;
+    contentTypeName: string = CONTENT_TYPES.POLICY_OPEN_SINISTERS.NAME;
     contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
-    contentSubtypeName: string = 'Confirmado';
-    message: string = 'Valida el historial de siniestros de la póliza';
+    contentSubtypeName: string = 'Abierto';
+    message: string = 'Valida los siniestros abiertos de la póliza';
 
     constructor(private _activatedRoute: ActivatedRoute) { }
 
