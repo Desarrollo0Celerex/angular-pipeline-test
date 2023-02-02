@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CONTENT_TYPES } from '@constants/global';
@@ -24,6 +24,7 @@ export class ContentSearchEngineComponent implements OnChanges {
     @Input() originPolicyId: string;
     @Input() query: string;
     @Input() totalResults: number;
+    @Output() searchValue: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(
         public contentSearchEngineService: ContentSearchEngineService,
@@ -124,9 +125,9 @@ export class ContentSearchEngineComponent implements OnChanges {
                     this._router.navigate([ROUTES_NAME.listSearchResults], { queryParams: { contentType: this.contentType, contentTypeName: this.contentTypeName, query }});
                     break;
 
-                /* case CONTENT_TYPES.INSURANCE.ID:
-                    this._router.navigate([ROUTES_NAME.insuranceResults(this.contactId)], { queryParams: { contentType: this.contentType, contentTypeName: this.contentTypeName, query }});
-                    break; */
+                case CONTENT_TYPES.INSURANCE.ID:
+                    this.searchValue.emit(query);
+                    break;
             }
         }
     }

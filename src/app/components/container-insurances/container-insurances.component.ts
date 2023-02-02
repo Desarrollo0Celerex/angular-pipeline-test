@@ -26,6 +26,7 @@ export class ContainerInsurancesComponent implements OnInit {
     modalIdGetPolicyDetails: string = 'agt-modal-get-policy-details';
     selectedListType: number = INSURANCE_LIST_TYPES.BY_CATEGORY;
     selectedInsuranceId: number = 0;
+    query: string = '';
 
     constructor(
         public model: ContainerInsurancesService,
@@ -48,15 +49,21 @@ export class ContainerInsurancesComponent implements OnInit {
         }
     }
 
-    updateInsuranceList(listType: number): void {
-        this.selectedListType = listType;
+    searchInsurance(query: string): void {
+        this.selectedListType = INSURANCE_LIST_TYPES.BY_SEARCH;
+        this.query = query;
     }
-
+    
     showModalToSelectInsuranceType(insuranceId: number): void {
         this.selectedInsuranceId = insuranceId;
         ModalPlugin.show(this.modalIdGetPolicyDetails);
     }
 
+    updateInsuranceList(listType: number): void {
+        this.query = '';
+        this.selectedListType = listType;
+    }
+    
     private _createPolicy(insuranceTypeId: number): void {
         this._loadingService.show();
         this.model.createPolicy(this.contactId, this.selectedInsuranceId, insuranceTypeId).subscribe( (policyId: string) => {

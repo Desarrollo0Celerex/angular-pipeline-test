@@ -17,6 +17,8 @@
             [contentType]="CONTENT_TYPES.INSURANCE.ID"
             [contentTypeName]="CONTENT_TYPES.INSURANCE.NAME"
             [contactId]="contactId"
+            [query]="query"
+            (searchValue)="searchInsurance($event)"
         ></agt-content-search-engine>
     </div>
     <!-- //AGENTHOS - SMART SEARCH -->
@@ -31,16 +33,32 @@
     <!-- //AGENTHOS - POLICY LIST -->
 </div>
 
-<agt-container-insurances-by-category
-    *ngIf="selectedListType === INSURANCE_LIST_TYPES.BY_CATEGORY; else containerInsurancesByGroup"
-    [contactId]="contactId"
-    (insuranceIdSelected)="showModalToSelectInsuranceType($event)"
-></agt-container-insurances-by-category>
+<ng-container [ngSwitch]="selectedListType">
+
+    <ng-container *ngSwitchCase="INSURANCE_LIST_TYPES.BY_CATEGORY">
+        <agt-container-insurances-by-category
+            [contactId]="contactId"
+            (insuranceIdSelected)="showModalToSelectInsuranceType($event)"
+        ></agt-container-insurances-by-category>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="INSURANCE_LIST_TYPES.BY_GROUP">
+        <agt-container-insurances-by-subcategory
+            (insuranceIdSelected)="showModalToSelectInsuranceType($event)"
+        ></agt-container-insurances-by-subcategory>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="INSURANCE_LIST_TYPES.BY_SEARCH">
+        <agt-container-insurances-by-search
+            [query]="query"
+            (insuranceIdSelected)="showModalToSelectInsuranceType($event)"
+        ></agt-container-insurances-by-search>
+    </ng-container>
+
+</ng-container>
 
 <ng-template #containerInsurancesByGroup>
-    <agt-container-insurances-by-subcategory
-        (insuranceIdSelected)="showModalToSelectInsuranceType($event)"
-    ></agt-container-insurances-by-subcategory>
+    
 </ng-template>
 
 <agt-modal-get-policy-details

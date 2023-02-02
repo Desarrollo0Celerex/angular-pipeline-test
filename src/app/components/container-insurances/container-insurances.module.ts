@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ContainerContactDetailsModule } from '@components/container-contact-details/container-contact-details.module';
 import { ContainerInsurancesByCategoryModule } from '@components/container-insurances-by-category/container-insurances-by-category.module';
+import { ContainerInsurancesBySearchModule } from '@components/container-insurances-by-search/container-insurances-by-search.module';
 import { ContainerInsurancesBySubcategoryModule } from '@components/container-insurances-by-subcategory/container-insurances-by-subcategory.module';
 import { ContainerInsurancesMostUsedModule } from '@components/container-insurances-most-used/container-insurances-most-used.module';
 import { ContentMainActionModule } from '@components/content-main-action/content-main-action.module';
@@ -25,6 +26,7 @@ import { ContainerInsurancesComponent } from './container-insurances.component';
     CommonModule,
     ContainerContactDetailsModule,
     ContainerInsurancesByCategoryModule,
+    ContainerInsurancesBySearchModule,
     ContainerInsurancesBySubcategoryModule,
     ContainerInsurancesMostUsedModule,
     ContentMainActionModule,

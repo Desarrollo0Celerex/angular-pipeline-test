@@ -373,7 +373,8 @@ export const ACTION_TYPES: any = {
 }
 export const INSURANCE_LIST_TYPES: any = {
     BY_CATEGORY: 1,
-    BY_GROUP: 2
+    BY_GROUP: 2,
+    BY_SEARCH: 3
 }
 export const POLICY_RECORD_TYPES: any = {
     REGISTER: 1,
