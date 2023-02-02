@@ -5,6 +5,7 @@ import { LoadingContentModule } from '@components/loading-content/loading-conten
 import { ModalCreateSinisterModule } from '@components/modal-create-sinister/modal-create-sinister.module'
 import { ModalConfirmCreateSinisterModule } from '@components/modal-confirm-create-sinister/modal-confirm-create-sinister.module'
 import { ModalSearchContactPolicyModule } from '@components/modal-search-contact-policy/modal-search-contact-policy.module'
+import { ModalSelectContactSourceModule } from '@components/modal-select-contact-source/modal-select-contact-source.module'
 import { ContactService } from '@services/contact.service';
 
 import { CardContactAnnualWalletComponent } from './card-contact-annual-wallet.component';
@@ -21,6 +22,7 @@ import { CardContactAnnualWalletComponent } from './card-contact-annual-wallet.c
     ModalCreateSinisterModule,
     ModalConfirmCreateSinisterModule,
     ModalSearchContactPolicyModule,
+    ModalSelectContactSourceModule,
     LoadingContentModule
   ],
   providers: [

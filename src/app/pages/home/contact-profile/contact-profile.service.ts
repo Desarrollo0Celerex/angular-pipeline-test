@@ -38,6 +38,10 @@ export class ContactProfileService {
                     pageType = CONTACT_PROFILE_PAGE_TYPES.SINISTERS.ID;
                     break;
 
+                case pageUrl.includes(CONTACT_PROFILE_PAGE_TYPES.CONTACT_INFORMATION.ROUTE):
+                    pageType = CONTACT_PROFILE_PAGE_TYPES.CONTACT_INFORMATION.ID;
+                    break;
+
                 default:
                     pageType = 0;
             }

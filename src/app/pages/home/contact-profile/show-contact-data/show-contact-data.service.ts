@@ -18,7 +18,6 @@ import { ContactJob } from '@interfaces/contact-job.interface';
 import { ContactCar } from '@interfaces/contact-car.interface';
 import { ContactHome } from '@interfaces/contact-home.interface';
 import { ContactSmartphone } from '@interfaces/contact-smartphone.interface';
-import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Gender } from '@interfaces/gender.interface';
 import { MainContactType } from '@interfaces/main-contact-type.interface';
@@ -117,64 +116,6 @@ export class ShowContactDataService {
         }
     }
 
-    /**
-     * Build the person form
-     */
-    buildPersonForm(): void {
-        if(!!this.contact) {
-            this.contactForm = this._formBuilder.group({
-                /* name: [this.contact.name || '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                namePaternal: [this.contact.namePaternal || '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                nameMaternal: [this.contact.nameMaternal || '', [Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                genderId: [this.contact.genderId || '', [Validators.required]],
-                birthdate: [this._getDateFormat(this.contact.birthdate) || '', [ValidatorsHelper.date]],
-                civilStatusId: [this.contact.civilStatusId || '', [ValidatorsHelper.number]],
-                offspringId: [this.contact.offspringId || '', [ValidatorsHelper.number]], */
-                //contactOccupationId: [this.contact.contactOccupationId || '', [ValidatorsHelper.number]],
-                //rfc: [this.contact.rfc || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                email: [this.contact.email || '', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                phoneCodeId: [this.contact.phoneCodeId || this.contact.workspaceCountryId, [ValidatorsHelper.number]],
-                phoneNumber: [this.contact.phoneNumber || '', [ValidatorsHelper.phoneNumber]],
-                //website: [this.contact.website || '', [Validators.minLength(WEB_LINK_LENGTH.MIN), Validators.maxLength(WEB_LINK_LENGTH.MAX), ValidatorsHelper.webLink]],
-                /* street: [this.contact.street || '', [Validators.minLength(FREE_TEXT_LENGTH), Validators.maxLength(FREE_TEXT_LENGTH), ValidatorsHelper.freeText]],
-                exteriorNumber: [this.contact.exteriorNumber || '', [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
-                interiorNumber: [this.contact.interiorNumber || '', [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
-                colony: [this.contact.colony || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                city: [this.contact.city || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                stateId: [this.contact.stateId || '', [Validators.required]],
-                postalCode: [this.contact.postalCode || '', [ValidatorsHelper.postalCode]],
-                countryId: [this.contact.countryId || '', [Validators.required]],
-                contactTypeId: [this.contact.contactTypeId] */
-            });
-        }
-    }
-
-    /**
-     * Build the company form
-     */
-    buildCompanyForm(): void {
-        if(!!this.contact) {
-            this.contactForm = this._formBuilder.group({
-                /* companyName: [this.contact.companyName || '', [Validators.required, Validators.minLength(BRAND_NAME_LENGTH.MIN), Validators.maxLength(BRAND_NAME_LENGTH.MAX), ValidatorsHelper.brandName]],
-                brandName: [this.contact.brandName || '', [Validators.required, Validators.minLength(BRAND_NAME_LENGTH.MIN), Validators.maxLength(BRAND_NAME_LENGTH.MAX), ValidatorsHelper.brandName]], 
-                rfc: [this.contact.rfc || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]], */
-                email: [this.contact.email || '', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                phoneCodeId: [this.contact.phoneCodeId || this.contact.workspaceCountryId, [ValidatorsHelper.number]],
-                phoneNumber: [this.contact.phoneNumber || '', [ValidatorsHelper.phoneNumber]],
-                //website: [this.contact.website || '', [Validators.minLength(WEB_LINK_LENGTH.MIN), Validators.maxLength(WEB_LINK_LENGTH.MAX), ValidatorsHelper.webLink]],
-                /* street: [this.contact.street || '', [Validators.minLength(FREE_TEXT_LENGTH), Validators.maxLength(FREE_TEXT_LENGTH), ValidatorsHelper.freeText]],
-                exteriorNumber: [this.contact.exteriorNumber || '', [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
-                interiorNumber: [this.contact.interiorNumber || '', [Validators.minLength(1), Validators.maxLength(30), ValidatorsHelper.alphanumeric]],
-                colony: [this.contact.colony || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                city: [this.contact.city || '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-                stateId: [this.contact.stateId || '', [Validators.required]],
-                postalCode: [this.contact.postalCode || '', [ValidatorsHelper.postalCode]],
-                countryId: [this.contact.countryId || '', [Validators.required]],
-                contactTypeId: [this.contact.contactTypeId] */
-            });
-        }
-    }
-
     loadCatalogs(): void {
         this.loadCountries();
         this.loadMainContactTypes();
@@ -250,10 +191,9 @@ export class ShowContactDataService {
      * @return           Notice of action done
      */
     loadContact(contactId: string): Observable<void> {
-        const fields: string = 'name,namePaternal,nameMaternal,genderId,birthdate,civilStatusId,contactStudyId,contactOccupationId,contactJobId,contactHomeId,contactCarId,contactSmartphoneId,offspringId,companyName,brandName,rfc,website,street,exteriorNumber,interiorNumber,colony,city,stateId,postalCode,countryId,phoneCodeId,workspaceCountryId,phoneNumber,email,contactTypeId,contactSourceId,contactSourceTypeId,partnerId,facebook,instagram,linkedin,twitter';
+        const fields: string = 'name,namePaternal,nameMaternal,genderId,birthdate,civilStatusId,contactStudyId,contactOccupationId,contactJobId,contactHomeId,contactCarId,contactSmartphoneId,offspringId,companyName,brandName,rfc,website,street,exteriorNumber,interiorNumber,colony,city,stateId,postalCode,countryId,phoneCodeId,workspaceCountryId,phoneNumber,email,contactTypeId,facebook,instagram,linkedin,twitter';
         return this._contactService.getContact(contactId, fields).pipe(
             tap((res: HttpResponse) => {
-                res.data.contactSourceTypeId = (res.data.contactSourceId == CONTACT_SOURCE_TYPES.PARTNERS) ? res.data.partnerId : res.data.contactSourceTypeId;
                 this.contact = res.data;
                 this.loadCountryStates(res.data.countryId);
             }),
@@ -323,15 +263,6 @@ export class ShowContactDataService {
     updateContact(contactId: string): Observable<void> {
         const requestBody: UpdateContactDataSend = {...this.contactForm.value};
         return this._contactService.updateContact(contactId, requestBody);
-    }
-
-    /**
-     * Update the contact source data
-     * @param  contactId    The contact ID
-     * @return              Notification of action done
-     */
-    updateContactSource(contactId: string, data: SelectContactSourceData): Observable<void> {
-        return this._contactService.updateContactSource(contactId, data);
     }
 
     private _buildFormContactInformations(contactInformations: ContactInformation[]): void {

@@ -13,6 +13,7 @@ export class PolicyReceiptsPaidPage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
     DEFAULT_CONTENT_FILTER_ID: number = DEFAULT_CONTENT_FILTER_ID;
     contactId: string = '';
+    message: string = 'Valida los recibos pagados de la póliza';
     policyId: string = '';
     paymentId: string = '';
     private _subParams: any;

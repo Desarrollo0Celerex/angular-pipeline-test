@@ -413,6 +413,10 @@ export const CONTACT_PROFILE_PAGE_TYPES: any = {
     SINISTERS: {
         ID: 3,
         ROUTE: 'list-sinisters'
+    },
+    CONTACT_INFORMATION: {
+        ID: 4,
+        ROUTE: 'show-contact-data'
     }
 }
 export const SINISTER_RECORD_TYPES: any = {
