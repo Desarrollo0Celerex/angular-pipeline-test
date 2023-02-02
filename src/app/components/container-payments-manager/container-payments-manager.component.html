@@ -1,58 +1,63 @@
-<div class="row mt-3">
-	<div class="col-lg-12">
+<!-- AGENTHOS - PAYMENTS CONTROL -->
+<div class="row mt-5">
+	<!-- AGENTHOS - POLICY OWNER -->
+	<div class="col-sm-12 col-md-12 col-lg-4 col-xl-3">
 		<div class="card">
+			<!-- AGENTHOS - PAYMENTS CONTROL HEADER -->
+			<div class="card-header">
+				<h3 class="card-title">Detalles de Póliza</h3>
+			</div>
+			<!-- AGENTHOS - PAYMENTS CONTROL HEADER -->
+			<!-- AGENTHOS - PAYMENTS CONTROL BODY -->
+			<div class="card-body">
+				<div class="btn-list">
+					<!-- AGENTHOS - POLICY DETAILS -->
+					<button type="button" class="btn btn-block btn-primary" (click)="goToPolicyHistory()"><strong>VER DETALLES</strong></button>
+				</div>
+			</div>
+			<!-- //AGENTHOS - PAYMENTS CONTROL BODY -->
+		</div>
+	</div>
+	<!-- //AGENTHOS - POLICY OWNER -->
+	<div class="col-sm-12 col-md-12 col-lg-8 col-xl-9">
+		<div class="card">
+			<!-- AGENTHOS - PAYMENTS CONTROL HEADER -->
 			<div class="card-header">
 				<h3 class="card-title">Gestión de Pagos</h3>
 			</div>
-			<ng-container *ngIf="!!model.payment; else loadingContent">
-                <div class="card-body">
-    				<ol class="breadcrumb1 mb-0" *ngIf="!!model.payment.paymentDate; else noPendingReceipts">
-    					<li class="breadcrumb-item1">El siguiente pago para esta póliza es el <strong>{{model.payment.paymentDate | date: 'dd/MM/yyyy'}}</strong>.</li>
-    				</ol>
-    			</div>
-    			<div class="card-footer">
-    				<div class="btn-list mt-3">
-    					<button type="button" class="btn btn-secondary" (click)="showPolicy()"><strong>VER PÓLIZA</strong></button>
-						<button type="button" class="btn btn-primary" (click)="showModalToConfirmShowPolicyHistory()"><strong>VER HISTORIAL</strong></button>
-                        <ng-container *ngIf="!!model.payment.paymentDate">
-                            <button type="button" class="btn btn-primary" (click)="showModalToChangePaymentDate()"><strong>CAMBIAR FECHA</strong></button>
-                            <button type="button" class="btn btn-primary" *ngIf="model.payment.policyStatusId == POLICY_STATUS.CURRENT" (click)="confirmSuspendPayments()"><strong>SUSPENDER PAGOS</strong></button>
-        					<button type="button" class="btn btn-primary" *ngIf="model.payment.policyStatusId == POLICY_STATUS.SUSPENDED" (click)="confirmActivatePayments()"><strong>ACTIVAR PAGOS</strong></button>
-        					<button type="button" class="btn btn-primary" *ngIf="canShowPendingReceipts; else paymenHistory" (click)="showModalToConfirmShowPendingPayments()"><strong>PAGOS PENDIENTES</strong></button>
-        					<ng-template #paymenHistory>
-								<button type="button" class="btn btn-primary" (click)="showModalToConfirmShowPaymentHistory()"><strong>PAGOS APLICADOS</strong></button>
-							</ng-template>
-						</ng-container>
-                    </div>
-    			</div>
-            </ng-container>
+			<!-- AGENTHOS - PAYMENTS CONTROL HEADER -->
+			<!-- AGENTHOS - PAYMENTS CONTROL BODY -->
+			<div class="card-body">
+				<div class="btn-list">
+					<!-- AGENTHOS - POLICY PAYMENTS RECORD -->
+					<button type="button" class="btn {{(selectedPaymentAction === PAYMENT_ACTIONS.SHOW_HISTORY) ? 'btn-secondary' : 'btn-outline-primary' }}" (click)="showModalToConfirmShowPaymentHistory()"><strong>VER HISTORIAL</strong></button>
+					<!-- AGENTHOS - POLICY PAYMENTS APPLIED -->
+					<button type="button" class="btn {{(selectedPaymentAction === PAYMENT_ACTIONS.RECEIPTS_PAID) ? 'btn-secondary' : 'btn-outline-primary' }}" (click)="showModalToConfirmShowReceiptsPaid()"><strong>RECIBOS PAGADOS</strong></button>
+					<!-- AGENTHOS - POLICY PAYMENTS PENDING -->
+					<button type="button" class="btn {{(selectedPaymentAction === PAYMENT_ACTIONS.PENDING_RECEIPTS) ? 'btn-secondary' : 'btn-outline-primary' }}" (click)="showModalToConfirmShowPendingReceipts()"><strong>RECIBOS PENDIENTES</strong></button>
+					<!-- AGENTHOS - PAYMENT PAUSE -->
+					<ng-container *ngIf="model.payment !== null">
+						<!-- (JUST IF PAYMENTS ACTIVATED) -->
+						<button type="button" class="btn btn-outline-primary" *ngIf="model.payment.policyStatusId == POLICY_STATUS.CURRENT" (click)="confirmSuspendPayments()"><strong>SUSPENDER PAGOS</strong></button>
+						<!-- AGENTHOS - PAYMENT ACTIVE -->
+						<!-- (JUST IF PAYMENTS PAUSED) -->
+						<button type="button" class="btn btn-outline-primary" *ngIf="model.payment.policyStatusId == POLICY_STATUS.SUSPENDED" (click)="confirmActivatePayments()"><strong>ACTIVAR PAGOS</strong></button>
+					</ng-container>
+				</div>
+			</div>
+			<!-- //AGENTHOS - PAYMENTS CONTROL BODY -->
 		</div>
 	</div>
 </div>
+<!-- //AGENTHOS - PAYMENTS CONTROL -->
 
-<ng-template #loadingContent>
-    <agt-loading-content [isLoadingContent]="true" [height]="174"></agt-loading-content>
-</ng-template>
-
-<ng-template #noPendingReceipts>
-    <ol class="breadcrumb1 mb-0">
-        <li class="breadcrumb-item1"><strong>Sin recibos pendientes</strong>. Esta póliza ya cuenta con todos los pagos aplicados.</li>
-    </ol>
-</ng-template>
-<agt-modal-confirm-show-history-policy
-    [modalId]="modalIdConfirmShowHistoryPolicy"
-    [contactId]="contactId"
-    [policyId]="policyId"
-></agt-modal-confirm-show-history-policy>
 <ng-container *ngIf="!!model.payment">
-    <agt-modal-show-policy-file [modalId]="modalIdShowPolicyFile" [policyUrl]="model.payment.policyUrl"></agt-modal-show-policy-file>
-    <agt-modal-change-payment-date [modalId]="modalIdChangePaymentDate" [paymentId]="paymentId" (paymenDateUpdated)="reloadPage()"></agt-modal-change-payment-date>
-	<agt-modal-confirm-suspend-payments [modalId]="modalIdConfirmSuspendPayments" (actionConfirmed)="suspendPayments()"></agt-modal-confirm-suspend-payments>
+    <agt-modal-confirm-suspend-payments [modalId]="modalIdConfirmSuspendPayments" (actionConfirmed)="suspendPayments()"></agt-modal-confirm-suspend-payments>
 	<agt-modal-confirm-activate-payments [modalId]="modalIdConfirmActivatePayments" (actionConfirmed)="activatePayments()"></agt-modal-confirm-activate-payments>
 </ng-container>
 
 <agt-modal-confirm-show-pending-payments
-	[modalId]="modalIdConfirmShowPendingPayments"
+	[modalId]="modalIdConfirmShowPendingReceipts"
 	[contactId]="contactId"
     [policyId]="policyId"
     [paymentId]="paymentId"
@@ -64,3 +69,10 @@
     [policyId]="policyId"
     [paymentId]="paymentId"
 ></agt-modal-confirm-show-payment-history>
+
+<agt-modal-confirm-show-policy-receipts-paid
+	[modalId]="modalIdConfirmShowReceiptsPaid"
+	[contactId]="contactId"
+    [policyId]="policyId"
+    [paymentId]="paymentId"
+></agt-modal-confirm-show-policy-receipts-paid>

@@ -182,6 +182,27 @@ export class ReceiptPaidService {
         )
     }
 
+    getPolicyReceiptsPaid(contactId: string, policyId: string, paymentId: string, page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt'): Observable<HttpResponse> {
+        const route: string = routes.paymentReceiptsPaid(this._workspaceId, contactId, policyId, paymentId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!query) params = params.append('search', query);
+        params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const payments: Payment[] = res.data.items.map( (payment: Payment) => {
+                        return this._calculatePaymentLifeTime(payment);
+                    })
+                    res.data.items = payments;
+                }
+                return res;
+            })
+        )
+    }
+
     getWorkspaceReceiptsPaid(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
         const route: string = routes.workspaceReceiptsPaid(this._workspaceId);
         let params: HttpParams = new HttpParams();

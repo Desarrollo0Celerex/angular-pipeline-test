@@ -9,7 +9,7 @@ import { ButtonSendWhatsappModule } from '@components/button-send-whatsapp/butto
 import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone-code/dropdown-select-phone-code.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalIncompleteContactDataModule } from '@components/modal-incomplete-contact-data/modal-incomplete-contact-data.module';
-import { ModalSelectContactSourceModule } from '@components/modal-select-contact-source/modal-select-contact-source.module';
+import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 
 import { CivilStatusService } from '@services/civil-status.service';
 import { ContactService } from '@services/contact.service';
@@ -36,7 +36,7 @@ import { ShowContactDataPage } from './show-contact-data.page';
     FormsModule,
     LoadingContentModule,
     ModalIncompleteContactDataModule,
-    ModalSelectContactSourceModule,
+    ModalShowContactDataModule,
     ReactiveFormsModule,
     ShowContactDataRoutingModule
   ],

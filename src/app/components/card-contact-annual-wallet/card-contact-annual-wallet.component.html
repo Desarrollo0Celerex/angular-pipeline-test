@@ -37,6 +37,9 @@
             <ng-container *ngSwitchCase="CONTACT_PROFILE_PAGE_TYPES.SINISTERS.ID">
                 <button type="button" class="btn btn-block btn-primary" (click)="createSinister()"><strong>REPORTAR SINIESTRO</strong></button>
             </ng-container>
+            <ng-container *ngSwitchCase="CONTACT_PROFILE_PAGE_TYPES.CONTACT_INFORMATION.ID">
+                <button type="button" class="btn btn-block btn-primary" (click)="showModelToSelectContactSource()"><strong>CAMBIAR ORIGEN</strong></button>
+            </ng-container>
             <ng-container *ngSwitchDefault>
                 <button type="button" class="btn btn-block btn-primary" disabled><strong>MUY PRONTO</strong></button>
             </ng-container>
@@ -62,3 +65,12 @@
     [policyId]="policyId"
     [insuranceId]="insuranceId"
 ></agt-modal-create-sinister>
+
+<ng-container *ngIf="!!model.contact">
+    <agt-modal-select-contact-source
+        [modalId]="modalIdSelectContactSource"
+        [contactSourceId]="model.contact.contactSourceId"
+        [contactSourceTypeId]="model.contact.contactSourceTypeId"
+        (contactSourceIdSelected)="updateContactSource($event)"
+    ></agt-modal-select-contact-source>
+</ng-container>

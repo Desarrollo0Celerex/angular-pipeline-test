@@ -54,7 +54,7 @@ export class ContainerListInsurancesService {
     }
 
     loadMostUsedInsurances(contactTypeId: number): void {
-        const fields: string = 'insuranceId,name,description,background,icon';
+        const fields: string = 'insuranceId,name,title,description,background,icon';
         this._insuranceService.getMostUsedInsurances(contactTypeId, fields).subscribe((res: HttpResponse) => {
             this.mostUsedInsurances = res.data;
         });
@@ -67,7 +67,7 @@ export class ContainerListInsurancesService {
      */
     private _getRequestToGetCategoryInsurances(insuranceCategories: InsuranceCategory[]): Observable<HttpResponse[]> {
         let requests: Observable<HttpResponse>[] = [];
-        const fields: string = 'insuranceId,name,description,background,icon';
+        const fields: string = 'insuranceId,name,title,description,background,icon';
         const sortBy: string = 'sorting';
         for(let insuranceCategory of insuranceCategories) {
             let request: Observable<HttpResponse> = this._insuranceService.getCategoryInsurances(insuranceCategory.insuranceCategoryId, fields, sortBy);

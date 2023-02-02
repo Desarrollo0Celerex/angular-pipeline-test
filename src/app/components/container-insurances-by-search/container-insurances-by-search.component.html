@@ -1,0 +1,45 @@
+<div class="row mt-3">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Resultados</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-container *ngIf="model.insurancesFound.length > 0; else emptyResults">
+    <div class="row">
+        <!-- AGENTHOS - INSURANCE -->
+        <div class="col-md-3 col-xl-3" *ngFor="let insurance of model.insurancesFound">
+            <agt-card-insurance 
+                [insurance]="insurance" 
+                (insuranceSelected)="selectInsurance($event)"
+            ></agt-card-insurance>
+        </div>
+        <!-- //AGENTHOS - INSURANCE -->
+    </div>
+</ng-container>
+
+<ng-template #emptyResults>
+    <ng-container *ngIf="!model.isInsurancesLoaded; else withoutResults">
+        <agt-loading-content
+            [isLoadingContent]="true"
+            [height]="120"
+        ></agt-loading-content>
+    </ng-container>
+
+    <ng-template #withoutResults>
+        <div class="row mt-3">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">Sin resultados.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</ng-template>
+

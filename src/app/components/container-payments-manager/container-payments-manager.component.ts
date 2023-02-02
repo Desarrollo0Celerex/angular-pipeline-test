@@ -10,6 +10,12 @@ import { ContainerPaymentsManagerService } from './container-payments-manager.se
 
 declare var ModalPlugin: any;
 
+const PAYMENT_ACTIONS: any = {
+    SHOW_HISTORY: 1,
+    RECEIPTS_PAID: 2,
+    PENDING_RECEIPTS: 3
+}
+
 @Component({
   selector: 'agt-container-payments-manager',
   templateUrl: './container-payments-manager.component.html',
@@ -22,14 +28,17 @@ export class ContainerPaymentsManagerComponent implements OnInit {
     @Input() policyId: string = '';
     @Input() paymentId: string = '';
     @Input() canShowPendingReceipts: boolean = true;
+    PAYMENT_ACTIONS: any = PAYMENT_ACTIONS;
     POLICY_STATUS: any = POLICY_STATUS;
     modalIdChangePaymentDate: string = 'cpm-modal-change-payment-date';
     modalIdShowPolicyFile: string = 'cpm-modal-show-policy-file';
     modalIdConfirmShowHistoryPolicy: string = 'cpm-confirm-show-history-policy';
     modalIdConfirmSuspendPayments: string = 'cpm-modal-confirm-suspend-payments';
     modalIdConfirmActivatePayments: string = 'cpm-modal-confirm-activate-payments';
-    modalIdConfirmShowPendingPayments: string = 'cpm-modal-confirm-show-pending-payments';
+    modalIdConfirmShowPendingReceipts: string = 'cpm-modal-confirm-show-pending-payments';
+    modalIdConfirmShowReceiptsPaid: string = 'cpm-modal-confirm-show-payments-paid';
     modalIdConfirmShowPaymentHistory: string = 'cpm-modal-confirm-show-payment-history';
+    selectedPaymentAction: number = 0;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -40,6 +49,11 @@ export class ContainerPaymentsManagerComponent implements OnInit {
 
     ngOnInit(): void {
         this.model.loadPayment(this.paymentId);
+        /* this.policyData = {
+            contactId: this.contactId,
+            policyId: this.policyId
+        } */
+        this._selectPaymentAction();
     }
 
     get model(): ContainerPaymentsManagerService {
@@ -54,6 +68,10 @@ export class ContainerPaymentsManagerComponent implements OnInit {
         ModalPlugin.show(this.modalIdConfirmActivatePayments);
     }
 
+    goToPolicyHistory(): void {
+        this._router.navigateByUrl(ROUTES_NAME.showHistoryPolicy(this.contactId, this.policyId))
+    }
+
     goToPaymentHistory(): void {
         this._router.navigateByUrl(ROUTES_NAME.paymentHistory(this.contactId, this.policyId, this.paymentId));
     }
@@ -62,27 +80,21 @@ export class ContainerPaymentsManagerComponent implements OnInit {
         this._router.navigateByUrl(ROUTES_NAME.pendingReceipts(this.contactId, this.policyId, this.paymentId));
     }
 
-    showModalToChangePaymentDate(): void {
-        if(!!this.model.payment) {
-            ModalPlugin.show(this.modalIdChangePaymentDate);
+    showModalToConfirmShowPaymentHistory(): void {
+        if(this.selectedPaymentAction !== PAYMENT_ACTIONS.SHOW_HISTORY) {
+            ModalPlugin.show(this.modalIdConfirmShowPaymentHistory);
         }
     }
 
-    showModalToConfirmShowPolicyHistory(): void {
-        ModalPlugin.show(this.modalIdConfirmShowHistoryPolicy);
+    showModalToConfirmShowReceiptsPaid(): void {
+        if(this.selectedPaymentAction !== PAYMENT_ACTIONS.RECEIPTS_PAID) {
+            ModalPlugin.show(this.modalIdConfirmShowReceiptsPaid);
+        }
     }
 
-    showModalToConfirmShowPendingPayments(): void {
-        ModalPlugin.show(this.modalIdConfirmShowPendingPayments);
-    }
-
-    showModalToConfirmShowPaymentHistory(): void {
-        ModalPlugin.show(this.modalIdConfirmShowPaymentHistory);
-    }
-
-    showPolicy(): void {
-        if(!!this.model.payment) {
-            ModalPlugin.show(this.modalIdShowPolicyFile);
+    showModalToConfirmShowPendingReceipts(): void {
+        if(this.selectedPaymentAction !== PAYMENT_ACTIONS.PENDING_RECEIPTS) {
+            ModalPlugin.show(this.modalIdConfirmShowPendingReceipts);
         }
     }
 
@@ -116,5 +128,16 @@ export class ContainerPaymentsManagerComponent implements OnInit {
         this._router.routeReuseStrategy.shouldReuseRoute = () => false;
         this._router.onSameUrlNavigation = 'reload';
         this._router.navigate(['/' + this._router.url], { relativeTo: this._activatedRoute });
+    }
+    
+    private _selectPaymentAction(): void {
+        const currentUrl: string = this._router.url;
+        if(currentUrl.includes('payment-history')) {
+            this.selectedPaymentAction = PAYMENT_ACTIONS.SHOW_HISTORY;
+        } else if(currentUrl.includes('receipts-paid')) {
+            this.selectedPaymentAction = PAYMENT_ACTIONS.RECEIPTS_PAID;
+        } else if(currentUrl.includes('pending-receipts')) {
+            this.selectedPaymentAction = PAYMENT_ACTIONS.PENDING_RECEIPTS;
+        }
     }
 }

@@ -16,6 +16,7 @@ export class ShowPolicySinistersPage implements OnInit {
     contentTypeName: string = CONTENT_TYPES.POLICY_SINISTERS.NAME;
     contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
     contentSubtypeName: string = 'Confirmado';
+    message: string = 'Valida el historial de siniestros de la póliza';
 
     constructor(private _activatedRoute: ActivatedRoute) { }
 

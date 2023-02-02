@@ -331,6 +331,22 @@ export const CONTENT_TYPES: any = {
         ID: 42,
         NAME: 'Renovación'
     },
+    INSURANCE: {
+        ID: 43,
+        NAME: 'Seguro'
+    },
+    POLICY_OPEN_SINISTERS: {
+        ID: 44,
+        NAME: 'Siniestro'
+    },
+    POLICY_CLOSED_SINISTERS: {
+        ID: 45,
+        NAME: 'Siniestro'
+    },
+    POLICY_RECEIPTS_PAID: {
+        ID: 46,
+        NAME: 'Recibo'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,
@@ -367,6 +383,11 @@ export const ACTION_TYPES: any = {
     RENEW_POLICY: 4,
     REISSUE_POLICY: 5
 }
+export const INSURANCE_LIST_TYPES: any = {
+    BY_CATEGORY: 1,
+    BY_GROUP: 2,
+    BY_SEARCH: 3
+}
 export const POLICY_RECORD_TYPES: any = {
     REGISTER: 1,
     UPLOAD: 2,
@@ -392,6 +413,10 @@ export const CONTACT_PROFILE_PAGE_TYPES: any = {
     SINISTERS: {
         ID: 3,
         ROUTE: 'list-sinisters'
+    },
+    CONTACT_INFORMATION: {
+        ID: 4,
+        ROUTE: 'show-contact-data'
     }
 }
 export const SINISTER_RECORD_TYPES: any = {

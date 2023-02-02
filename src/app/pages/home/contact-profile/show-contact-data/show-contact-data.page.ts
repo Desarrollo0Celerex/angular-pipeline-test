@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { AbstractControl, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AbstractControl } from '@angular/forms';
 
 import { BUTTON_TYPES, CONTACT_TYPES, CONTACT_INFORMATION_TYPES } from '@constants/global';
+import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { ShowContactDataService } from './show-contact-data.service';
@@ -27,13 +27,14 @@ export class ShowContactDataPage implements OnInit {
     calendarIdBirthdate: string = 'birthdate';
     contactId: string = '';
     modalIdIncompleteContactData: string = 'agt-incomplete-contact-data';
-    modalIdSelectContactSource: string = 'agt-select-contact-source';
+    modalIdShowContactData: string = 'agt-show-contact-data';
     private _isFormSubmitted: boolean = false;
 
     constructor(
         public showContactDataService: ShowContactDataService,
         private _activatedRoute: ActivatedRoute,
-        private _loadingService: LoadingService
+        private _loadingService: LoadingService,
+        private _router: Router
     ) { }
 
     ngOnInit(): void {
@@ -134,27 +135,17 @@ export class ShowContactDataPage implements OnInit {
             this.showContactDataService.updateContact(this.contactId).subscribe( () => {
                 this._loadingService.hide();
                 AlertHelper.contactUpdated();
+                this._router.navigateByUrl(ROUTES_NAME.contactResume(this.contactId));
             });
         }
-    }
-
-    /**
-     * Click event to transfer contact
-     */
-    selectContactSource(): void {
-        ModalPlugin.show(this.modalIdSelectContactSource);
     }
 
     selectPhoneCodeId(phoneCodeId: number, index: number): void {
         this.showContactDataService.contactInformations.at(index).patchValue({phoneCodeId})
     }
 
-    updateContactSource(data: SelectContactSourceData): void {
-        this._loadingService.show();
-        this.showContactDataService.updateContactSource(this.contactId, data).subscribe(() => {
-            this._loadingService.hide();
-            AlertHelper.contactSourceUpdated();
-        });
+    showModalToDownloadContact(): void {
+        ModalPlugin.show(this.modalIdShowContactData)
     }
 
     /**

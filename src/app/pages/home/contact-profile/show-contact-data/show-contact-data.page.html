@@ -18,11 +18,11 @@
     <div class="col-md-4 col-lg-4">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Canal de Adquisición</h3>
+                <h3 class="card-title">Acciones Disponibles</h3>
             </div>
             <div class="card-body">
                 <!-- AGENTHOS - EXPLORE HISTORY -->
-                <button type="button" class="btn btn-block btn-secondary" (click)="selectContactSource()"><strong>CAMBIAR CANAL</strong></button>
+                <button type="button" class="btn btn-block btn-secondary" (click)="showModalToDownloadContact()"><strong>DESCARGAR CONTACTO</strong></button>
             </div>
         </div>
     </div>
@@ -636,14 +636,11 @@
     <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
 </ng-template>
 
-<agt-modal-incomplete-contact-data [modalId]="modalIdIncompleteContactData"></agt-modal-incomplete-contact-data>
+<agt-modal-incomplete-contact-data 
+    [modalId]="modalIdIncompleteContactData"
+></agt-modal-incomplete-contact-data>
 
-<ng-container *ngIf="!!showContactDataService.contact">
-    <agt-modal-select-contact-source
-        [modalId]="modalIdSelectContactSource"
-        [contactSourceId]="showContactDataService.contact.contactSourceId"
-        [contactSourceTypeId]="showContactDataService.contact.contactSourceTypeId"
-        (contactSourceIdSelected)="updateContactSource($event)"
-    >
-    </agt-modal-select-contact-source>
-</ng-container>
+<agt-modal-show-contact-data 
+    [modalId]="modalIdShowContactData"
+    [contactId]="contactId"
+></agt-modal-show-contact-data>

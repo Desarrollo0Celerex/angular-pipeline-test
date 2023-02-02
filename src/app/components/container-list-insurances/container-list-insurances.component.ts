@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 
+import { CONTENT_TYPES } from '@constants/global';
 import { HttpResponse } from '@interfaces/http-response.interface';
 
 import { ContainerListInsurancesService } from './container-list-insurances.service';
@@ -13,7 +14,8 @@ import { ContainerListInsurancesService } from './container-list-insurances.serv
 })
 export class ContainerListInsurancesComponent implements OnInit {
     @Input() contactId: string = '';
-    @Output() insuranceSelected: EventEmitter<number> = new EventEmitter<number>();;
+    @Output() insuranceSelected: EventEmitter<number> = new EventEmitter<number>();
+    CONTENT_TYPES: any = CONTENT_TYPES;
 
     constructor(public model: ContainerListInsurancesService) { }
 

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ModalConfirmShowHistoryPolicyModule } from '@components/modal-confirm-show-history-policy/modal-confirm-show-history-policy.module';
-import { ModalCreateSinisterModule } from '@components/modal-create-sinister/modal-create-sinister.module';
-import { ModalShowPolicyFileModule } from '@components/modal-show-policy-file/modal-show-policy-file.module';
+import { ModalConfirmShowPolicySinistersModule } from '@components/modal-confirm-show-policy-sinisters/modal-confirm-show-policy-sinisters.module';
+import { ModalConfirmShowPolicyClosedSinistersModule } from '@components/modal-confirm-show-policy-closed-sinisters/modal-confirm-show-policy-closed-sinisters.module';
+import { ModalConfirmShowPolicyOpenSinistersModule } from '@components/modal-confirm-show-policy-open-sinisters/modal-confirm-show-policy-open-sinisters.module';
 
 import { ContainerSinistersManagerComponent } from './container-sinisters-manager.component';
 
@@ -16,9 +16,9 @@ import { ContainerSinistersManagerComponent } from './container-sinisters-manage
   ],
   imports: [
     CommonModule,
-    ModalConfirmShowHistoryPolicyModule,
-    ModalCreateSinisterModule,
-    ModalShowPolicyFileModule,
+    ModalConfirmShowPolicySinistersModule,
+    ModalConfirmShowPolicyClosedSinistersModule,
+    ModalConfirmShowPolicyOpenSinistersModule
   ]
 })
 export class ContainerSinistersManagerModule { }

@@ -95,6 +95,7 @@ const HOME_PAYMENTS_ROUTES = {
     listPayments: `workspace/payments/list-payments`,
     paymentHistory: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/payment-history/${contactId}/${policyId}/${paymentId}`,
     pendingReceipts: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/pending-receipts/${contactId}/${policyId}/${paymentId}`,
+    policyReceiptsPaid: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/policy-receipts-paid/${contactId}/${policyId}/${paymentId}`,
     paymentCalendar: `workspace/payments/calendar`,
     listPendingPaymentsByRange: `workspace/payments/list-pending-payments-by-range`,
     listPendingPaymentsByRangeWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/payments/list-pending-payments-by-range/${rangeStart}/${rangeEnd}`,
@@ -140,6 +141,8 @@ const HOME_QUOTATIONS_ROUTES = {
 const HOME_SINISTERS_ROUTES = {
     listSinisters: `workspace/sinisters/list-sinisters`,
     showSinisterHistory: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/sinister-history/${contactId}/${policyId}/${sinisterId}`,
+    showPolicyOpenSinisters: (contactId: string, policyId: string) => `workspace/sinisters/policy-open-sinisters/${contactId}/${policyId}`,
+    showPolicyClosedSinisters: (contactId: string, policyId: string) => `workspace/sinisters/policy-closed-sinisters/${contactId}/${policyId}`,
     finalizeSinister: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/finalize-sinister/${contactId}/${policyId}/${sinisterId}`,
     reactivateSinister: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/reactivate-sinister/${contactId}/${policyId}/${sinisterId}`,
     listOpenedSinistersByRange: `workspace/sinisters/list-opened-sinisters-by-range`,

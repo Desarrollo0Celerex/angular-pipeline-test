@@ -1,0 +1,25 @@
+<!-- //AGENTHOS - POLICY PANEL -->
+<ng-container *ngFor="let insurancesBySubcategory of model.insurancesBySubcategories">
+    <div class="row mt-3">
+        <div class="col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">{{insurancesBySubcategory.name}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- AGENTHOS - INSURANCE -->
+        <div class="col-md-3 col-xl-3" *ngFor="let insurance of insurancesBySubcategory.insurances">
+            <agt-card-insurance [insurance]="insurance" (insuranceSelected)="selectInsurance($event)"></agt-card-insurance>
+        </div>
+        <!-- //AGENTHOS - INSURANCE -->
+    </div>
+</ng-container>
+
+<agt-loading-content
+    [isLoadingContent]="model.insurancesBySubcategories.length === 0"
+    [height]="120"
+></agt-loading-content>
+<!-- //AGENTHOS - INSURANCE CATEGORIES -->

@@ -24,6 +24,29 @@
     </div>
     <!-- //AGENTHOS - SEGUROS RECOMENDADOS -->
 </ng-container>
+
+<!-- AGENTHOS - POLICY PANEL -->
+<div class="row mt-5">
+    <!-- AGENTHOS - SMART SEARCH -->
+    <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
+        <agt-content-search-engine
+            [contentType]="CONTENT_TYPES.INSURANCE.ID"
+            [contentTypeName]="CONTENT_TYPES.INSURANCE.NAME"
+            [contactId]="contactId"
+        ></agt-content-search-engine>
+    </div>
+    <!-- //AGENTHOS - SMART SEARCH -->
+    <!-- AGENTHOS - POLICY LIST -->
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+        <agt-content-main-action
+            [contentType]="CONTENT_TYPES.INSURANCE.ID"
+            [contentTypeName]="CONTENT_TYPES.INSURANCE.NAME"
+        ></agt-content-main-action>
+    </div>
+    <!-- //AGENTHOS - POLICY LIST -->
+</div>
+
+<!-- //AGENTHOS - POLICY PANEL -->
 <ng-container *ngFor="let insurancesByCategory of model.insurancesByCategories">
     <div class="row">
         <div class="col-md-12 col-lg-12">
@@ -42,6 +65,7 @@
         <!-- //AGENTHOS - INSURANCE -->
     </div>
 </ng-container>
+
 <agt-loading-content
     [isLoadingContent]="model.insurancesByCategories.length === 0"
     [height]="120"

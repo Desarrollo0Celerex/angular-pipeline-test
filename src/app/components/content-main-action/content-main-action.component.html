@@ -100,3 +100,9 @@
         [groupId]="groupId"
     ></agt-modal-search-client>
 </ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.INSURANCE.ID">
+    <agt-modal-select-insurance-list-type
+        [modalId]="modalIdSelectInsuranceListType"
+        (listTypeSelected)="selectInsuranceListType($event)"
+    ></agt-modal-select-insurance-list-type>
+</ng-container>

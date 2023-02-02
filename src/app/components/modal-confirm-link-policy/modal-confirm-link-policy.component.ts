@@ -38,9 +38,9 @@ export class ModalConfirmLinkPolicyComponent {
     createPolicy(): void {
         ModalPlugin.hide(this.modalId);
         this._loadingService.show();
-        this.model.createPolicy(this.contactId, this.insuranceId, this.insuranceTypeId, this.tracker).subscribe( (res: HttpResponse) => {
+        this.model.createPolicy(this.contactId, this.insuranceId, this.insuranceTypeId, this.tracker).subscribe( (policyId: string) => {
             this._loadingService.hide();
-            this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(this.contactId, res.data));
+            this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(this.contactId, policyId));
         })
     }
 }

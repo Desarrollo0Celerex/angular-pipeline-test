@@ -16,6 +16,7 @@ export class PolicyEndorsementsHistoryPage implements OnInit, OnDestroy {
     contentTypeName: string = CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.NAME;
     contentSubtype: number = DEFAULT_CONTENT_FILTER_ID;
     contentSubtypeName: string = 'Aplicado';
+    message: string = 'Valida el historial de endosos de la póliza';
     private _subParams: any;
 
     constructor(private _activatedRoute: ActivatedRoute) { }

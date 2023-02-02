@@ -17,7 +17,7 @@ export class ModalConfirmLinkPolicyService {
      * @param  insuranceTypeId The insurance type ID
      * @return                 The created policy ID
      */
-    createPolicy(contactId: string, insuranceId: number, insuranceTypeId: number, tracker: string): Observable<HttpResponse> {
+    createPolicy(contactId: string, insuranceId: number, insuranceTypeId: number, tracker: string): Observable<string> {
         const requestBody: CreatePolicyData = { insuranceId, insuranceTypeId, tracker }
         return this._policyService.createPolicy(contactId, requestBody);
     }

@@ -121,9 +121,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     }
 
     blockSelectFile(event: any): void {
-        console.log('Paso 1');
         event.preventDefault();
-        console.log('Paso 2');
     }
 
     private setPreview(file: File): void {

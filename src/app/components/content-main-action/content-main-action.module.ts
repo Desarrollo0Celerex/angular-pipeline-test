@@ -12,6 +12,7 @@ import { ModalSearchClientModule } from '@components/modal-search-client/modal-s
 import { ModalSearchPaymentModule } from '@components/modal-search-payment/modal-search-payment.module';
 import { ModalSearchPolicyModule } from '@components/modal-search-policy/modal-search-policy.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
+import { ModalSelectInsuranceListTypeModule } from '@components/modal-select-insurance-list-type/modal-select-insurance-list-type.module';
 import { ModalSelectPolicyStatusModule } from '@components/modal-select-policy-status/modal-select-policy-status.module';
 import { ModalSelectQuotationStatusModule } from '@components/modal-select-quotation-status/modal-select-quotation-status.module';
 import { ModalSelectSinisterStatusModule } from '@components/modal-select-sinister-status/modal-select-sinister-status.module';
@@ -36,6 +37,7 @@ import { ContentMainActionComponent } from './content-main-action.component';
     ModalSearchPaymentModule,
     ModalSearchPolicyModule,
     ModalSelectContactTypeModule,
+    ModalSelectInsuranceListTypeModule,
     ModalSelectPolicyStatusModule,
     ModalSelectQuotationStatusModule,
     ModalSelectSinisterStatusModule,

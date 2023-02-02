@@ -2,13 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
-import { ModalChangePaymentDateModule } from '@components/modal-change-payment-date/modal-change-payment-date.module';
-import { ModalShowPolicyFileModule } from '@components/modal-show-policy-file/modal-show-policy-file.module';
 import { ModalConfirmSuspendPaymentsModule } from '@components/modal-confirm-suspend-payments/modal-confirm-suspend-payments.module';
 import { ModalConfirmActivatePaymentsModule } from '@components/modal-confirm-activate-payments/modal-confirm-activate-payments.module';
-import { ModalConfirmShowHistoryPolicyModule } from '@components/modal-confirm-show-history-policy/modal-confirm-show-history-policy.module';
 import { ModalConfirmShowPendingPaymentsModule } from '@components/modal-confirm-show-pending-payments/modal-confirm-show-pending-payments.module';
 import { ModalConfirmShowPaymentHistoryModule } from '@components/modal-confirm-show-payment-history/modal-confirm-show-payment-history.module';
+import { ModalConfirmShowPolicyReceiptsPaidModule } from '@components/modal-confirm-show-policy-receipts-paid/modal-confirm-show-policy-receipts-paid.module';
 import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';
 
@@ -24,11 +22,9 @@ import { ContainerPaymentsManagerComponent } from './container-payments-manager.
   imports: [
     CommonModule,
     LoadingContentModule,
-    ModalShowPolicyFileModule,
-    ModalChangePaymentDateModule,
     ModalConfirmSuspendPaymentsModule,
     ModalConfirmActivatePaymentsModule,
-    ModalConfirmShowHistoryPolicyModule,
+    ModalConfirmShowPolicyReceiptsPaidModule,
     ModalConfirmShowPendingPaymentsModule,
     ModalConfirmShowPaymentHistoryModule
   ],

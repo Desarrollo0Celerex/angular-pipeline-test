@@ -23,12 +23,14 @@ export class ContentMainActionComponent implements OnInit {
     @Input() contentSubtype: number;
     @Input() groupId: string = '';
     @Output() contentSubtypeNameSelected: EventEmitter<string>;
+    @Output() insuranceListTypeSelected: EventEmitter<number> = new EventEmitter<number>();
     @Output() groupCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() partnerCreated: EventEmitter<void> = new EventEmitter<void>();
     @Output() paymentSelected: EventEmitter<Payment> = new EventEmitter<Payment>();
     @Output() showPolicyInsuredActions: EventEmitter<void> = new EventEmitter<void>();
     CONTENT_TYPES: any;
     modalIdSelectClient: string = 'agt-modal-select-client';
+    modalIdSelectInsuranceListType: string = 'agt-modal-select-insurance-list-type';
     modalIdConfirmAddClient: string = 'agt-modal-confirm-add-client';
     modalIdConfirmCreatePartner: string = 'agt-confirm-create-partner';
     modalIdConfirmCreateGroup: string = 'agt-confirm-create-group';
@@ -108,6 +110,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.SINISTER.ID: title = 'Nuevo '+this.contentTypeName; break;
             case CONTENT_TYPES.CONTACT_SINISTER.ID: title = 'Historial ' + this._pluralNameFormatPipe.transform(this.contentTypeName); break;
             case CONTENT_TYPES.INCOMPLETE_POLICIES.ID: title = 'Nueva ' + this.contentTypeName; break;
+            case CONTENT_TYPES.INSURANCE.ID: title = 'Mostrar Listado'; break;
         }
         return title;
     }
@@ -142,6 +145,7 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.SINISTER.ID: title = 'REPORTAR '+this.contentTypeName; break;
             case CONTENT_TYPES.INCOMPLETE_POLICIES.ID: title = 'CARGAR '+this.contentTypeName; break;
             case CONTENT_TYPES.POLICY_INSURED.ID: title = 'MOSTRAR ACCIONES'; break;
+            case CONTENT_TYPES.INSURANCE.ID: title = 'CAMBIAR LISTADO'; break;
         }
         return title;
     }
@@ -188,6 +192,10 @@ export class ContentMainActionComponent implements OnInit {
             case CONTENT_TYPES.POLICY_INSURED.ID:
                 this.showPolicyInsuredActions.emit();
             break;
+
+            case CONTENT_TYPES.INSURANCE.ID:
+                ModalPlugin.show(this.modalIdSelectInsuranceListType);
+            break;
         }
     }
 
@@ -226,6 +234,10 @@ export class ContentMainActionComponent implements OnInit {
 
     notifyGroupCreated(): void {
         this.groupCreated.emit();
+    }
+
+    selectInsuranceListType(listType: number): void {
+        this.insuranceListTypeSelected.emit(listType);
     }
 
     showModalPartnerHasCoincidences(name: string): void {
