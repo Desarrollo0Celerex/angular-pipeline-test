@@ -5,7 +5,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { PolicyService } from '@services/policy.service';
 
 @Injectable()
-export class ContainerPolicyTrackerManagerService {
+export class ContainerPolicyRenewalManagerService {
     policy: Policy | null = null;
 
     constructor(private _policyService: PolicyService) { }

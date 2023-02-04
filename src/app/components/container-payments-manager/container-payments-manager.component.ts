@@ -49,10 +49,6 @@ export class ContainerPaymentsManagerComponent implements OnInit {
 
     ngOnInit(): void {
         this.model.loadPayment(this.paymentId);
-        /* this.policyData = {
-            contactId: this.contactId,
-            policyId: this.policyId
-        } */
         this._selectPaymentAction();
     }
 

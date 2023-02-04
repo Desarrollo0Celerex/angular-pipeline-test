@@ -1,7 +1,8 @@
-<agt-container-policy-details
+<agt-container-contact-details
     [contactId]="contactId"
-    [policyId]="policyId">
-</agt-container-policy-details>
+    [policyId]="policyId"
+    [message]="message"
+></agt-container-contact-details>
 
 <!-- AGENTHOS - POLICY INSIGHTS HEADER -->
 <div class="row mt-3">
@@ -49,10 +50,10 @@
 </agt-container-policy-renewal-manager>
 
 <agt-content-list
-    [contentType]="CONTENT_TYPES.POLICY_TRACKER.ID"
-    [contentTypeName]="CONTENT_TYPES.POLICY_TRACKER.NAME"
+    [contentType]="CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID"
+    [contentTypeName]="CONTENT_TYPES.POLICY_RENEWAL_HISTORY.NAME"
     [contactId]="contactId"
     [policyId]="policyId"
     [contentSubtype]="DEFAULT_CONTENT_FILTER_ID"
-    contentSubtypeName="Registrada">
+    contentSubtypeName="Aplicada">
 </agt-content-list>

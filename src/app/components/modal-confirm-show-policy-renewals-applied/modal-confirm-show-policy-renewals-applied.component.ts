@@ -6,20 +6,20 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-show-policy-tracker',
-  templateUrl: './modal-confirm-show-policy-tracker.component.html',
+  selector: 'agt-modal-confirm-show-policy-renewals-applied',
+  templateUrl: './modal-confirm-show-policy-renewals-applied.component.html',
   styles: [
   ]
 })
-export class ModalConfirmShowPolicyTrackerComponent {
+export class ModalConfirmShowPolicyRenewalsAppliedComponent {
     @Input() modalId: string = '';
     @Input() contactId: string = '';
     @Input() policyId: string = '';
 
     constructor(private _router: Router) { }
 
-    goToPolicyTracker(): void {
+    goToPolicyRenewals(): void {
         ModalPlugin.hide(this.modalId);
-        this._router.navigateByUrl(ROUTES_NAME.policyTracker(this.contactId, this.policyId));
+        this._router.navigateByUrl(ROUTES_NAME.policyRenewalsApplied(this.contactId, this.policyId));
     }
 }

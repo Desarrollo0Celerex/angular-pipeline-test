@@ -1,0 +1,68 @@
+<!-- AGENTHOS - TRACKER CONTROL -->
+<div class="row mt-5">
+    <!-- AGENTHOS - POLICY OWNER -->
+    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-3">
+        <div class="card">
+            <!-- AGENTHOS - TRACKER CONTROL HEADER -->
+            <div class="card-header">
+                <h3 class="card-title">Detalles de Póliza</h3>
+            </div>
+            <!-- AGENTHOS - TRACKER CONTROL HEADER -->
+            <!-- AGENTHOS - TRACKER CONTROL BODY -->
+            <div class="card-body">
+                <div class="btn-list">
+                    <!-- AGENTHOS - POLICY DETAILS -->
+                    <button type="button" class="btn btn-block btn-primary" (click)="goToPolicyHistory()"><strong>VER DETALLES</strong></button>
+                </div>
+            </div>
+            <!-- //AGENTHOS - TRACKER CONTROL BODY -->
+        </div>
+    </div>
+    <!-- //AGENTHOS - POLICY OWNER -->
+    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-9">
+        <div class="card">
+            <!-- AGENTHOS - TRACKER CONTROL HEADER -->
+            <div class="card-header">
+                <h3 class="card-title">Gestión de Renovaciones</h3>
+            </div>
+            <!-- AGENTHOS - TRACKER CONTROL HEADER -->
+            <!-- AGENTHOS - TRACKER CONTROL BODY -->
+            <div class="card-body">
+                <div class="btn-list">
+                    <!-- AGENTHOS - POLICY TRACKER RECORD -->
+                    <button type="button" class="btn {{(selectedRenewalAction === RENEWAL_ACTIONS.RENEWAL_HISTORY) ? 'btn-secondary' : 'btn-outline-primary' }}" (click)="showModalToConfirmShowPolicyRenewalHistory()"><strong>VER HISTORIAL</strong></button>
+                    <!-- AGENTHOS - POLICY TRACKER OPENED -->
+                    <button type="button" class="btn {{(selectedRenewalAction === RENEWAL_ACTIONS.RENEWALS) ? 'btn-secondary' : 'btn-outline-primary' }}" (click)="showModalToConfirmShowPolicyRenewals()"><strong>RENOVACIONES</strong></button>
+                    <!-- AGENTHOS - POLICY TRACKER CLOSED -->
+                    <button type="button" class="btn btn-outline-primary" (click)="showModalToConfirmLinkPolicy()"><strong>ENLAZAR PÓLIZA</strong></button>
+                </div>
+            </div>
+            <!-- //AGENTHOS - TRACKER CONTROL BODY -->
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - TRACKER CONTROL -->
+
+<ng-container *ngIf="!!model.policy">
+
+    <agt-modal-confirm-link-policy
+        [modalId]="modalIdConfirmLinkPolicy"
+        [contactId]="contactId"
+        [insuranceId]="model.policy.insuranceId"
+        [insuranceTypeId]="model.policy.insuranceTypeId"
+        [tracker]="model.policy.tracker"
+    ></agt-modal-confirm-link-policy>
+
+</ng-container>
+
+<agt-modal-confirm-show-policy-renewal-history
+    [modalId]="modalIdConfirmShowPolicyRenewalHistory"
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-modal-confirm-show-policy-renewal-history>
+
+<agt-modal-confirm-show-policy-renewals-applied
+    [modalId]="modalIdConfirmShowPolicyRenewals"
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-modal-confirm-show-policy-renewals-applied>

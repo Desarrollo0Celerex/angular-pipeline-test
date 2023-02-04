@@ -9,6 +9,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.40.0',
+            launchDate: '03/02/2023',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se agrego contenedor al dashboard para mostrar las primeras 4 pólizas pendientes del espacio de trabajo.',
+                        'Se agrego página para listar todas las pólizas pendientes del espacio de trabajo.',
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.39.0',
             launchDate: '02/02/2023',
             changes: [
