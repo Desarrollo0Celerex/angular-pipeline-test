@@ -15,6 +15,7 @@ import { ChartQuotesVsEmissionsModule } from '@components/chart-quotes-vs-emissi
 import { ContainerLastContactsModule } from '@components/container-last-contacts/container-last-contacts.module';
 import { ContainerWalletIncompleteExternalPoliciesModule } from '@components/container-wallet-incomplete-external-policies/container-wallet-incomplete-external-policies.module';
 import { ContainerWorkspaceIncompletePoliciesModule } from '@components/container-workspace-incomplete-policies/container-workspace-incomplete-policies.module';
+import { ContainerWorkspacePoliciesPendingModule } from '@components/container-workspace-policies-pending/container-workspace-policies-pending.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { PolicyService } from '@services/policy.service';
 
@@ -39,6 +40,7 @@ import { DashboardPage } from './dashboard.page';
     ContainerLastContactsModule,
     ContainerWalletIncompleteExternalPoliciesModule,
     ContainerWorkspaceIncompletePoliciesModule,
+    ContainerWorkspacePoliciesPendingModule,
     DashboardRoutingModule,
     ModalSelectContactTypeModule
   ],

@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-12">
+        <agt-card-content-title
+            title="Pólizas Pendientes"
+            description="Mostrando pólizas cargadas con información pendiente."
+        ></agt-card-content-title>
+    </div>
+</div>
+
+<agt-container-charts-workspace-policies-pending
+    (specialFilterChanged)="applySpecialFilter($event)"
+></agt-container-charts-workspace-policies-pending>
+
+<agt-content-list
+    [contentType]="CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID"
+    [contentTypeName]="CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.NAME"
+    [contentSubtype]="DEFAULT_CONTENT_FILTER_ID"
+    contentSubtypeName="Pendiente"
+    [contentSpecialFilter]="specialFilter"
+></agt-content-list>

@@ -790,6 +790,20 @@ export class ContentListService {
         )
     }
 
+    loadWorkspacePoliciesPending(page: number, specialFilter: string): Observable<void> {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.PENDING]);
+        const sortBy: string = '-createdAt';
+        return this._policyService.getPolicies(page, fields, filters, '', sortBy, '', '', '', DEFAULT_PER_PAGE, specialFilter).pipe(
+            tap((res: HttpResponse) => {
+                const policies: Policy[] = res.data.items;
+                this.contents = this.contents.concat(policies);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
     getPolicyTrackerPos(policyId: string): number {
         let policyPosition: number = this._getPolicyPosition(policyId);
         if(policyPosition < 0) {

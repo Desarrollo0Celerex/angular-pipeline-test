@@ -351,6 +351,10 @@ export const CONTENT_TYPES: any = {
         ID: 47,
         NAME: 'Renovación'
     },
+    WORKSPACE_POLICIES_PENDING: {
+        ID: 48,
+        NAME: 'Póliza'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

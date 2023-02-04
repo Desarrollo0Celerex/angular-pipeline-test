@@ -54,6 +54,7 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID" class="card-title">Siniestros Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.LAST_CANCELLED_POLICY.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.INCOMPLETE_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.EXTERNAL_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
@@ -190,6 +191,7 @@
                 <agt-card-policy
                     *ngSwitchCase="(
                         contentType === CONTENT_TYPES.POLICY.ID ||
+                        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
                         contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
                         contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
                         contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
@@ -382,6 +384,7 @@
 </ng-container>
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
@@ -419,6 +422,7 @@
     <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="selectedContactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
@@ -438,6 +442,7 @@
     <agt-modal-confirm-delete-renewed-policy [modalId]="modalIdConfirmDeleteRenewedPolicy" (actionConfirmed)="deleteRenewedPolicy()"></agt-modal-confirm-delete-renewed-policy>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
@@ -472,6 +477,7 @@
     contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
     contentType === CONTENT_TYPES.POLICY.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||

@@ -116,6 +116,7 @@ const HOME_POLICIES_ROUTES = {
     policyTracker: (contactId: string, policyId: string) => `workspace/policies/policy-tracker/${contactId}/${policyId}`,
     listActivePoliciesByRange: `workspace/policies/list-active-policies-by-range`,
     listIncompletePolicies: `workspace/policies/list-incomplete-policies`,
+    workspacePoliciesPending: `workspace/policies/workspace-policies-pending`,
     renewals: 'workspace/policies/renewals',
     renewalsWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/policies/renewals/${rangeStart}/${rangeEnd}`,
     contactPendingRenewalsByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/policies/contact-pending-renewals-by-range/${contactId}/${rangeStart}/${rangeEnd}`,

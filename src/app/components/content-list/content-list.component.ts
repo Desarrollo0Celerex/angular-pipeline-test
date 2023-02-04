@@ -781,12 +781,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show modal to confirm update policy
      */
     onUpdatePolicy(data: ContactPolicyData): void {
-        console.log('data: ',data);
-        
         this.contactId = data.contactId;
         this.selectedPolicyId = data.policyId;
-        console.log('this.selectedPolicyId: ',this.selectedPolicyId);
-        
         ModalPlugin.show(this.modalIdConfirmUpdatePolicy);
     }
 
@@ -957,6 +953,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.POLICY.ID:
+            case CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID:
             case CONTENT_TYPES.POLICY_INSURED.ID:
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.GROUP.ID:
@@ -1049,6 +1046,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case CONTENT_TYPES.POLICY.ID:
                 this.contentListService.loadContactPolicies(this.contactId, this.page, this.contentSubtype).subscribe( () => {
+                    this._contentLoaded();
+                })
+            break;
+
+            case CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID:
+                this.contentListService.loadWorkspacePoliciesPending(this.page, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
                 })
             break;
@@ -1445,6 +1448,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.PAYMENT.ID:
                 case CONTENT_TYPES.PAYMENT_HISTORY.ID:
                 case CONTENT_TYPES.POLICY.ID:
+                case CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID:
                 case CONTENT_TYPES.POLICY_INSURED.ID:
                 case CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID:
                 case CONTENT_TYPES.POLICY_SINISTERS.ID:
@@ -1478,6 +1482,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID:
                 case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
                 case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:
+                case CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID:
                 case CONTENT_TYPES.EXTERNAL_POLICIES.ID:
                 case CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID:
                 case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
