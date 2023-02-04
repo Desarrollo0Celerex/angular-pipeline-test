@@ -138,6 +138,11 @@ const HOME_QUOTATIONS_ROUTES = {
     listQuotationsByRange: `workspace/quotations/list-quotations-by-range`,
 }
 
+const HOME_RENEWALS_ROUTES = {
+    policyRenewalHistory: (contactId: string, policyId: string) => `workspace/renewals/policy-renewal-history/${contactId}/${policyId}`,
+    policyRenewalsApplied: (contactId: string, policyId: string) => `workspace/renewals/policy-renewals-applied/${contactId}/${policyId}`,
+}
+
 const HOME_SINISTERS_ROUTES = {
     listSinisters: `workspace/sinisters/list-sinisters`,
     showSinisterHistory: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/sinister-history/${contactId}/${policyId}/${sinisterId}`,
@@ -211,6 +216,7 @@ export const ROUTES_NAME = {
     ...HOME_POLICY_ENDORSEMENTS_ROUTES,
     ...HOME_QUOTATIONS_ROUTES,
     ...HOME_SINISTERS_ROUTES,
+    ...HOME_RENEWALS_ROUTES,
     ...HOME_STATS_ROUTES,
     ...HOME_WALLET_ROUTES,
     ...INVITATIONS_ROUTES,

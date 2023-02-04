@@ -5,7 +5,7 @@ import { ModalShowPolicyFileModule } from '@components/modal-show-policy-file/mo
 import { ModalConfirmShowPolicyEndorsementsModule } from '@components/modal-confirm-show-policy-endorsements/modal-confirm-show-policy-endorsements.module';
 import { ModalConfirmShowPaymentHistoryModule } from '@components/modal-confirm-show-payment-history/modal-confirm-show-payment-history.module';
 import { ModalConfirmShowPolicySinistersModule } from '@components/modal-confirm-show-policy-sinisters/modal-confirm-show-policy-sinisters.module';
-import { ModalConfirmShowPolicyTrackerModule } from '@components/modal-confirm-show-policy-tracker/modal-confirm-show-policy-tracker.module';
+import { ModalConfirmShowPolicyRenewalHistoryModule } from '@components/modal-confirm-show-policy-renewal-history/modal-confirm-show-policy-renewal-history.module';
 import { PolicyService } from '@services/policy.service';
 
 import { ContainerPolicyManagerComponent } from './container-policy-manager.component';
@@ -23,7 +23,7 @@ import { ContainerPolicyManagerComponent } from './container-policy-manager.comp
     ModalConfirmShowPolicyEndorsementsModule,
     ModalConfirmShowPaymentHistoryModule,
     ModalConfirmShowPolicySinistersModule,
-    ModalConfirmShowPolicyTrackerModule
+    ModalConfirmShowPolicyRenewalHistoryModule
   ],
   providers: [
       PolicyService

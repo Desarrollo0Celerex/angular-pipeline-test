@@ -347,6 +347,10 @@ export const CONTENT_TYPES: any = {
         ID: 46,
         NAME: 'Recibo'
     },
+    POLICY_RENEWAL_HISTORY: {
+        ID: 47,
+        NAME: 'Renovación'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

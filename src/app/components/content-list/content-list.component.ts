@@ -108,59 +108,59 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdAcceptQuotation: string;
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
-    modalIdConfirmCancelPolicyInsured: string = 'agt-confirm-cancel-policy-insured';
-    modalIdConfirmDeletePolicyInsured: string = 'agt-confirm-delete-policy-insured';
-    modalIdConfirmDeleteContact: string = 'agt-confirm-delete-contact';
-    modalIdConfirmDeleteContactFile: string = 'agt-confirm-delete-contact-file';
-    modalIdConfirmDeleteCompletePolicy: string = 'agt-confirm-delete-complete-policy';
-    modalIdConfirmDeleteGroupMember: string = 'agt-confirm-delete-group-member';
-    modalIdConfirmDeleteIncompletePolicy: string = 'agt-confirm-delete-incomplete-policy';
+    modalIdConfirmCancelPolicyInsured: string = 'xyz-confirm-cancel-policy-insured';
+    modalIdConfirmDeletePolicyInsured: string = 'xyz-confirm-delete-policy-insured';
+    modalIdConfirmDeleteContact: string = 'xyz-confirm-delete-contact';
+    modalIdConfirmDeleteContactFile: string = 'xyz-confirm-delete-contact-file';
+    modalIdConfirmDeleteCompletePolicy: string = 'xyz-confirm-delete-complete-policy';
+    modalIdConfirmDeleteGroupMember: string = 'xyz-confirm-delete-group-member';
+    modalIdConfirmDeleteIncompletePolicy: string = 'xyz-confirm-delete-incomplete-policy';
     modalIdConfirmDeleteReceiptPaid: string;
-    modalIdConfirmDeleteRenewedPolicy: string = 'agt-confirm-delete-renewed-policy';
-    modalIdConfirmDeleteSinisterEvent: string = 'agt-confirm-delete-sinister-event';
+    modalIdConfirmDeleteRenewedPolicy: string = 'xyz-confirm-delete-renewed-policy';
+    modalIdConfirmDeleteSinisterEvent: string = 'xyz-confirm-delete-sinister-event';
     modalIdConfirmEndorsePolicy: string;
     modalIdConfirmFinalizeSinister: string;
     modalIdConfirmReissuePolicy: string;
     modalIdConfirmReactivateSinister: string;
     modalIdConfirmRenewPolicy: string;
-    modalIdConfirmSelectGroup: string = 'agt-confirm-select-group';
+    modalIdConfirmSelectGroup: string = 'xyz-confirm-select-group';
     modalIdConfirmShowHistoryPolicy: string;
     modalIdConfirmShowPaymentHistory: string;
-    modalIdConfirmShowSinister: string = 'agt-confirm-show-sinister';
+    modalIdConfirmShowSinister: string = 'xyz-confirm-show-sinister';
     modalIdConfirmShowSinisterHistory: string;
-    modalIdConfirmUpdateContactFile: string = 'agt-confirm-update-contact-file';
+    modalIdConfirmUpdateContactFile: string = 'xyz-confirm-update-contact-file';
     modalIdConfirmUpdateExternalPolicy: string = 'modal-confirm-update-external-policy';
     modalIdConfirmUpdatePolicy: string;
-    modalIdConfirmUpdatePolicyInsured: string = 'agt-confirm-update-policy-insured';
+    modalIdConfirmUpdatePolicyInsured: string = 'xyz-confirm-update-policy-insured';
     modalIdConfirmValidateExternalPolicy: string = 'modal-confirm-validate-external-policy';
     modalIdFinalizeSinisterEvent: string = 'modal-finalize-sinister-event';
     modalIdRejectQuotation: string;
     modalIdSelectContact: string;
     modalIdSelectContactType: string;
-    modalIdSelectPaymentRegistrationType: string = 'agt-select-payment-registration-type';
-    modalIdShowCancellationEvidence: string = 'agt-show-cancellation-evidence';
+    modalIdSelectPaymentRegistrationType: string = 'xyz-select-payment-registration-type';
+    modalIdShowCancellationEvidence: string = 'xyz-show-cancellation-evidence';
     modalIdShowContactData: string;
-    modalIdShowContactFileDetails: string = 'agt-show-contact-file-details';
+    modalIdShowContactFileDetails: string = 'xyz-show-contact-file-details';
     modalIdShowEndorsement: string;
-    modalIdShowGroupDetails: string = 'agt-show-group-details';
-    modalIdShowPaymentEvidenceFile: string = 'agt-show-payment-evidence-file';
+    modalIdShowGroupDetails: string = 'xyz-show-group-details';
+    modalIdShowPaymentEvidenceFile: string = 'xyz-show-payment-evidence-file';
     modalIdShowPolicy: string;
     modalIdShowPolicyDetails: string;
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
     modalIdShowPolicyInsuredFile: string = 'modal-show-policy-insured-file';
-    modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
-    modalIdSelectReportFormat: string = 'agt-select-report-format';
+    modalIdConfirmShowPolicySinisters: string = 'xyz-confirm-show-policy-sinisters';
+    modalIdSelectReportFormat: string = 'xyz-select-report-format';
     modalIdShowExternalPolicyDetails: string = 'modal-show-external-policy-details';
-    modalIdShowPartnerDetails: string = 'agt-show-partner-details';
+    modalIdShowPartnerDetails: string = 'xyz-show-partner-details';
     modalIdShowQuotationDetails: string;
-    modalIdShowReactivationEvidence: string = 'agt-show-reactivation-evidence';
-    modalIdShowReceiptAppliedDetails: string = 'agt-show-receipt-applied-details';
-    modalIdShowResolutionEvidence: string = 'agt-show-resolution-evidence';
-    modalIdShowSinisterDetails: string = 'agt-show-sinister-details';
-    modalIdShowSinisterEventEvidence: string = 'agt-show-sinister-event-evidence';
-    modalIdTransferContactFile: string = 'agt-transfer-contact-file';
-    modalIdUpdateReceiptPaid: string = 'agt-update-receipt-paid';
-    modalIdUpdateSinisterEvent: string = 'agt-update-sinister-event';
+    modalIdShowReactivationEvidence: string = 'xyz-show-reactivation-evidence';
+    modalIdShowReceiptAppliedDetails: string = 'xyz-show-receipt-applied-details';
+    modalIdShowResolutionEvidence: string = 'xyz-show-resolution-evidence';
+    modalIdShowSinisterDetails: string = 'xyz-show-sinister-details';
+    modalIdShowSinisterEventEvidence: string = 'xyz-show-sinister-event-evidence';
+    modalIdTransferContactFile: string = 'xyz-transfer-contact-file';
+    modalIdUpdateReceiptPaid: string = 'xyz-update-receipt-paid';
+    modalIdUpdateSinisterEvent: string = 'xyz-update-sinister-event';
     totalResults: number;
     private subParams: any;
 
@@ -193,27 +193,27 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.selectedPolicyId = '';
         this.selectedQuotationId = '';
         this.selectedReceiptPaidId = '';
-        this.modalIdAcceptQuotation = 'agt-accept-quotation';
-        this.modalIdApplyPayment = 'agt-apply-payment';
-        this.modalIdConfirmCancelPolicy = 'agt-confirm-cancel-policy';
-        this.modalIdConfirmDeleteReceiptPaid = 'agt-confirm-delete-receipt-paid';
-        this.modalIdConfirmEndorsePolicy = 'agt-confirm-endorse-policy';
-        this.modalIdConfirmFinalizeSinister = 'agt-confirm-finalize-sinister';
-        this.modalIdConfirmReissuePolicy = 'agt-confirm-reissue-policy';
-        this.modalIdConfirmReactivateSinister = 'agt-confirm-reactivate-sinister';
-        this.modalIdConfirmRenewPolicy = 'agt-confirm-renew-policy';
-        this.modalIdConfirmShowHistoryPolicy = 'agt-confitm-show-history-policy';
-        this.modalIdConfirmShowPaymentHistory = 'agt-confitm-show-payment-history';
-        this.modalIdConfirmShowSinisterHistory = 'agt-confitm-show-sinister-history';
-        this.modalIdConfirmUpdatePolicy = 'agt-confirm-update-policy';
-        this.modalIdRejectQuotation = 'agt-reject-quotation';
-        this.modalIdSelectContact = 'agt-select-contact';
-        this.modalIdSelectContactType = 'agt-select-contact-type';
-        this.modalIdShowContactData = 'agt-contact-data';
-        this.modalIdShowEndorsement = 'agt-show-endorsement';
-        this.modalIdShowPolicy = 'agt-show-policy';
-        this.modalIdShowPolicyDetails = 'agt-show-policy-details';
-        this.modalIdShowQuotationDetails = 'agt-show-quotation-details';
+        this.modalIdAcceptQuotation = 'xyz-accept-quotation';
+        this.modalIdApplyPayment = 'xyz-apply-payment';
+        this.modalIdConfirmCancelPolicy = 'xyz-confirm-cancel-policy';
+        this.modalIdConfirmDeleteReceiptPaid = 'xyz-confirm-delete-receipt-paid';
+        this.modalIdConfirmEndorsePolicy = 'xyz-confirm-endorse-policy';
+        this.modalIdConfirmFinalizeSinister = 'xyz-confirm-finalize-sinister';
+        this.modalIdConfirmReissuePolicy = 'xyz-confirm-reissue-policy';
+        this.modalIdConfirmReactivateSinister = 'xyz-confirm-reactivate-sinister';
+        this.modalIdConfirmRenewPolicy = 'xyz-confirm-renew-policy';
+        this.modalIdConfirmShowHistoryPolicy = 'xyz-confitm-show-history-policy';
+        this.modalIdConfirmShowPaymentHistory = 'xyz-confitm-show-payment-history';
+        this.modalIdConfirmShowSinisterHistory = 'xyz-confitm-show-sinister-history';
+        this.modalIdConfirmUpdatePolicy = 'xyz-confirm-update-policy';
+        this.modalIdRejectQuotation = 'xyz-reject-quotation';
+        this.modalIdSelectContact = 'xyz-select-contact';
+        this.modalIdSelectContactType = 'xyz-select-contact-type';
+        this.modalIdShowContactData = 'xyz-contact-data';
+        this.modalIdShowEndorsement = 'xyz-show-endorsement';
+        this.modalIdShowPolicy = 'xyz-show-policy';
+        this.modalIdShowPolicyDetails = 'xyz-show-policy-details';
+        this.modalIdShowQuotationDetails = 'xyz-show-quotation-details';
         this.originContactId = '';
         this.originPolicyId = '';
         this.paymentId = '';
@@ -781,8 +781,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show modal to confirm update policy
      */
     onUpdatePolicy(data: ContactPolicyData): void {
+        console.log('data: ',data);
+        
         this.contactId = data.contactId;
         this.selectedPolicyId = data.policyId;
+        console.log('this.selectedPolicyId: ',this.selectedPolicyId);
+        
         ModalPlugin.show(this.modalIdConfirmUpdatePolicy);
     }
 
@@ -978,6 +982,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             break;
 
             case CONTENT_TYPES.HISTORY_POLICY.ID:
+            case CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID:
             case CONTENT_TYPES.PAYMENT_HISTORY.ID:
             case CONTENT_TYPES.SINISTER_HISTORY.ID:
             case CONTENT_TYPES.POLICY_SINISTERS.ID:
@@ -1178,6 +1183,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 this.contentListService.loadPolicyTracker(this.contactId, this.policyId, this.page).subscribe( () => {
                     this._contentLoaded();
                     this.selectedPolicyPos = this.contentListService.getPolicyTrackerPos(this.policyId);
+                })
+            break;
+
+            case CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID:
+                this.contentListService.loadPolicyTracker(this.contactId, this.policyId, this.page).subscribe( () => {
+                    this._contentLoaded();
+                    //this.selectedPolicyPos = this.contentListService.getPolicyTrackerPos(this.policyId);
                 })
             break;
 
@@ -1445,6 +1457,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         // Special contents
         switch(this.contentType) {
             case CONTENT_TYPES.POLICY_TRACKER.ID:
+            //case CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID:
             case CONTENT_TYPES.PENDING_RECEIP.ID:
                 canShow = true;
             break;

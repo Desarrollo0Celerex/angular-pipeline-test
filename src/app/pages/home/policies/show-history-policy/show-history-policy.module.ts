@@ -15,7 +15,7 @@ import { ContentListModule } from '@components/content-list/content-list.module'
 import { ModalConfirmShowPaymentHistoryModule } from '@components/modal-confirm-show-payment-history/modal-confirm-show-payment-history.module';
 import { ModalConfirmShowPolicyEndorsementsModule } from '@components/modal-confirm-show-policy-endorsements/modal-confirm-show-policy-endorsements.module';
 import { ModalConfirmShowPolicySinistersModule } from '@components/modal-confirm-show-policy-sinisters/modal-confirm-show-policy-sinisters.module';
-import { ModalConfirmShowPolicyTrackerModule } from '@components/modal-confirm-show-policy-tracker/modal-confirm-show-policy-tracker.module';
+import { ModalConfirmShowPolicyRenewalHistoryModule } from '@components/modal-confirm-show-policy-renewal-history/modal-confirm-show-policy-renewal-history.module';
 
 import { ShowHistoryPolicyRoutingModule } from './show-history-policy-routing.module';
 import { ShowHistoryPolicyPage } from './show-history-policy.page';
@@ -38,7 +38,7 @@ import { ShowHistoryPolicyPage } from './show-history-policy.page';
     ModalConfirmShowPaymentHistoryModule,
     ModalConfirmShowPolicyEndorsementsModule,
     ModalConfirmShowPolicySinistersModule,
-    ModalConfirmShowPolicyTrackerModule,
+    ModalConfirmShowPolicyRenewalHistoryModule,
     ShowHistoryPolicyRoutingModule
   ]
 })

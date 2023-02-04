@@ -23,7 +23,7 @@ export class ContainerPolicyManagerComponent implements OnChanges {
     modalIdConfirmShowPolicyEndorsements: string = 'modal-confirm-show-policy-endorsements';
     modalIdConfirmShowPolicyPayments: string = 'modal-confirm-show-policy-payments';
     modalIdConfirmShowPolicySinisters: string = 'modal-confirm-show-policy-sinisters';
-    modalIdConfirmShowPolicyTracker: string = 'modal-confirm-show-policy-tracker';
+    modalIdConfirmShowPolicyTracker: string = 'modal-confirm-show-policy-renewal-history';
 
     constructor(
         private _router: Router,

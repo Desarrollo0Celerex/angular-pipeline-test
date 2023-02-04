@@ -97,7 +97,11 @@ const routes: Routes = [
             // Quotations routes
             { path: ROUTES_NAME.createQuotation(':contactId'), loadChildren: () => import('@pages/home/quotations/create-quotation/create-quotation.module').then(mod => mod.CreateQuotationModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.listQuotationsByRange, loadChildren: () => import('@pages/home/quotations/list-quotations-by-range/list-quotations-by-range.module').then(mod => mod.ListQuotationsByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-
+            
+            // Renewals routes
+            { path: ROUTES_NAME.policyRenewalHistory(':contactId', ':policyId'), loadChildren: () => import('@pages/home/renewals/policy-renewal-history/policy-renewal-history.module').then(mod => mod.PolicyRenewalHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.policyRenewalsApplied(':contactId', ':policyId'), loadChildren: () => import('@pages/home/renewals/policy-renewals-applied/policy-renewals-applied.module').then(mod => mod.PolicyRenewalsAppliedModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            
             // Sinisters routes
             { path: ROUTES_NAME.listSinisters, loadChildren: () => import('@pages/home/sinisters/list-sinisters/list-sinisters.module').then(mod => mod.ListSinistersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.showSinisterHistory(':contactId', ':policyId', ':sinisterId'), loadChildren: () => import('@pages/home/sinisters/show-sinister-history/show-sinister-history.module').then(mod => mod.ShowSinisterHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

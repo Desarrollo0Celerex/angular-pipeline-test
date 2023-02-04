@@ -62,6 +62,7 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID" class="card-title">Recibos Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID" class="card-title">Recibos Pagados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_TRACKER.ID" class="card-title">Registro de Renovaciones</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID" class="card-title">Historial de Renovaciones</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.HISTORY_POLICY.ID" class="card-title">Historial de Póliza</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_SINISTERS.ID" class="card-title">Historial de Siniestros</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID" class="card-title">Historial de Endosos</h3>
@@ -183,6 +184,9 @@
                     (acceptQuotation)="onAcceptQuotation($event)"
                     (rejectQuotation)="onRejectQuotation($event)">
                 </agt-card-quotation>
+                <!-- <h1 *ngIf="contentType === CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID">
+                    Renovación Aplicada
+                </h1> -->
                 <agt-card-policy
                     *ngSwitchCase="(
                         contentType === CONTENT_TYPES.POLICY.ID ||
@@ -304,13 +308,6 @@
                     (updateContactFile)="onUpdateContactFile($event)"
                     (deleteContactFile)="onDeleteContactFile($event)"
                 ></agt-card-contact-file>
-                <!--<agt-card-policy-tracker *ngSwitchCase="CONTENT_TYPES.POLICY_TRACKER.ID"
-                    [policy]="content"
-                    [selectedPolicyPos]="selectedPolicyPos"
-                    [policyPos]="index"
-                    (showPolicyDetails)="onShowPolicyDetailsTracker($event)"
-                    (showPolicy)="onShowPolicy($event)"
-                ></agt-card-policy-tracker>-->
             </ng-container>
         </div>
     </ng-template>
@@ -410,6 +407,7 @@
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID ||
+    contentType === CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID ||
     contentType === CONTENT_TYPES.POLICY_TRACKER.ID">
     <agt-modal-show-policy-details
         [modalId]="modalIdShowPolicyDetails"
