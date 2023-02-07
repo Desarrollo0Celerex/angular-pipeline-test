@@ -18,6 +18,7 @@ import { CardPolicyRecordModule } from '@components/card-policy-record/card-poli
 import { CardPolicyTrackerModule } from '@components/card-policy-tracker/card-policy-tracker.module';
 import { CardQuotationModule } from '@components/card-quotation/card-quotation.module';
 import { CardReceiptAppliedModule } from '@components/card-receipt-applied/card-receipt-applied.module';
+import { CardRenewalAppliedModule } from '@components/card-renewal-applied/card-renewal-applied.module';
 import { CardReceiptPaidRecordModule } from '@components/card-receipt-paid-record/card-receipt-paid-record.module';
 import { CardReportedSinisterModule } from '@components/card-reported-sinister/card-reported-sinister.module';
 import { CardSinisterModule } from '@components/card-sinister/card-sinister.module';
@@ -135,6 +136,7 @@ import { ContentListService } from './content-list.service';
     CardPolicyTrackerModule,
     CardQuotationModule,
     CardReceiptAppliedModule,
+    CardRenewalAppliedModule,
     CardReceiptPaidRecordModule,
     CardReportedSinisterModule,
     CardSinisterModule,

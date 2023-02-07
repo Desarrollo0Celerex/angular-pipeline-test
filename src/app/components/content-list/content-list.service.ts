@@ -19,6 +19,7 @@ import { Policy } from '@interfaces/policy.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
 import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
+import { Renewal } from '@interfaces/renewal.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterLog } from '@interfaces/sinister-log.interface';
@@ -46,6 +47,7 @@ export class ContentListService {
     contents: any[];
     contentResultData: ContentResultData;
     nextPaymentDate: string = '';
+    renewals: Renewal[] = [];
 
     constructor(
         private _clientService: ClientService,
@@ -770,6 +772,29 @@ export class ContentListService {
         )
     }
 
+    loadPolicyRenewals(contactId: string, policyId: string, page: number): Observable<void> {
+        const fields: string = 'contactId,policyId,createdByName,insurerName,policyNumber,createdAt';
+        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED, POLICY_STATUS.CANCELLED]);
+        const perPage: number = 12;
+        return this._policyService.getPolicyTracker(contactId, policyId, fields, filters, page, perPage).pipe(
+            tap((res: HttpResponse) => {
+                const totalItemsLoaded: number = this.renewals.length;
+                this.renewals = this.renewals.concat(res.data.items);
+                const renewals: Renewal[] = res.data.items;
+                if(page === 1 && renewals.length > 0) {
+                    renewals.shift();
+                }
+                for(let index in renewals) {
+                    renewals[index].previousPolicyNumber = this.renewals[totalItemsLoaded + parseInt(index)].policyNumber;
+                }
+                this.contents = this.contents.concat(renewals);
+                const totalItems: number = (res.data.totalItems > 0) ? res.data.totalItems - 1 : 0;
+                this._loadContentResultData(totalItems);
+            }),
+            map( () => { })
+        )
+    }
+
     /**
      * Load the policy tracker
      * @param  contactId      The contact ID
@@ -784,7 +809,8 @@ export class ContentListService {
             tap((res: HttpResponse) => {
                 const policies: Policy[] = res.data.items;
                 this.contents = this.contents.concat(policies);
-                this._loadContentResultData(res.data.totalItems);
+                const totalItems: number = (res.data.totalItems > 0) ? res.data.totalItems - 1 : 0;
+                this._loadContentResultData(totalItems, true);
             }),
             map( () => { })
         )
@@ -1324,9 +1350,10 @@ export class ContentListService {
      * Load the content result data
      * @param totalItems   The total items
      */
-    private _loadContentResultData(totalItems: number): void {
+    private _loadContentResultData(totalItems: number, isTracker: boolean = false): void {
+        const loadedItems: number = (isTracker) ? this.contents.length - 1 : this.contents.length
         this.contentResultData = {
-            loadedItems: this.contents.length,
+            loadedItems: loadedItems,
             totalItems
         }
     }

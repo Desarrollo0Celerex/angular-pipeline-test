@@ -100,7 +100,8 @@
             <ul class="cbp_tmtimeline">
                 <ng-container *ngFor="let content of contentListService.contents; let index = index">
                     <ng-container [ngSwitch]="contentType">
-                        <agt-card-policy-record *ngSwitchCase="CONTENT_TYPES.HISTORY_POLICY.ID"
+                        <agt-card-policy-record 
+                            *ngSwitchCase="CONTENT_TYPES.HISTORY_POLICY.ID"
                             [policyRecord]="content"
                             (completePolicy)="onCompletePolicyRecord($event)"
                             (showEndorsement)="onShowEndorsementFromRecord($event)"
@@ -110,14 +111,16 @@
                             (showSinister)="onShowSinister($event)"
                             (showSinisterDetails)="onShowSinisterDetails($event)"
                         ></agt-card-policy-record>
-                        <agt-card-receipt-paid-record *ngSwitchCase="CONTENT_TYPES.PAYMENT_HISTORY.ID"
+                        <agt-card-receipt-paid-record 
+                            *ngSwitchCase="CONTENT_TYPES.PAYMENT_HISTORY.ID"
                             [receiptPaid]="content"
                             [index]="index"
                             (deleteReceiptPaid)="onDeleteReceiptPaid($event)"
                             (updateReceiptPaid)="updateReceiptPaid($event)"
                             (showPaymentEvidence)="showPaymentEvidence($event)"
                         ></agt-card-receipt-paid-record>
-                        <agt-card-sinister-log *ngSwitchCase="CONTENT_TYPES.SINISTER_HISTORY.ID"
+                        <agt-card-sinister-log 
+                            *ngSwitchCase="CONTENT_TYPES.SINISTER_HISTORY.ID"
                             [sinisterLog]="content"
                             (updateSinisterEvent)="onUpdateSinisterEvent($event)"
                             (deleteSinisterEvent)="onDeleteSinisterEvent($event)"
@@ -126,15 +129,23 @@
                             (showReactivationEvidence)="onShowReactivationEvidence($event)"
                             (showSinisterEventEvidence)="onShowSinisterEventEvidence($event)"
                         ></agt-card-sinister-log>
-                        <agt-card-reported-sinister *ngSwitchCase="CONTENT_TYPES.POLICY_SINISTERS.ID"
+                        <agt-card-reported-sinister 
+                            *ngSwitchCase="CONTENT_TYPES.POLICY_SINISTERS.ID"
                             [sinister]="content"
                             (showSinister)="onShowSinister($event)"
                             (showSinisterDetails)="onShowSinisterDetails($event)"
                         ></agt-card-reported-sinister>
-                        <agt-card-policy-record *ngSwitchCase="CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID"
+                        <agt-card-policy-record 
+                            *ngSwitchCase="CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID"
                             [policyRecord]="content"
                             (showEndorsement)="onShowEndorsementFromRecord($event)"
                         ></agt-card-policy-record>
+                        <agt-card-renewal-applied 
+                            *ngSwitchCase="CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID"
+                            [renewal]="content"
+                            (showPolicy)="onShowPolicy($event)"
+                            (showPolicyDetails)="onShowPolicyDetails($event)"
+                        ></agt-card-renewal-applied>
                     </ng-container>
                 </ng-container>
             </ul>
@@ -185,9 +196,6 @@
                     (acceptQuotation)="onAcceptQuotation($event)"
                     (rejectQuotation)="onRejectQuotation($event)">
                 </agt-card-quotation>
-                <!-- <h1 *ngIf="contentType === CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID">
-                    Renovación Aplicada
-                </h1> -->
                 <agt-card-policy
                     *ngSwitchCase="(
                         contentType === CONTENT_TYPES.POLICY.ID ||

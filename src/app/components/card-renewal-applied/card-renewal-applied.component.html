@@ -1,0 +1,12 @@
+<li *ngIf="renewal !== null">
+    <time class="cbp_tmtime"><span>{{renewal.createdAt | date: 'dd/MM/yyyy'}}</span><span>{{renewal.createdAt | date: 'h:mm a'}}</span></time>
+    <div class="cbp_tmicon bg-success"><i class="fa fa-refresh"></i></div>
+    <div class="cbp_tmlabel">
+        <h2>Renovación Aplicada</h2>
+        <p class="text-sm"><strong>{{renewal.createdByName}}</strong> renovó la póliza con <strong>{{renewal.insurerName}}</strong>. Póliza Previa: <strong>{{renewal.previousPolicyNumber}}</strong>. Renovación: <strong>{{renewal.policyNumber}}</strong>.</p>
+        <div class="btn-list mt-3">
+            <button type="button" class="btn btn-primary" (click)="onShowPolicy()"><strong>VER PÓLIZA</strong></button>
+            <button type="button" class="btn btn-secondary" (click)="onShowPolicyDetails()"><strong>VER DETALLES</strong></button>
+        </div>
+    </div>
+</li>
