@@ -979,6 +979,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             break;
 
             case CONTENT_TYPES.HISTORY_POLICY.ID:
+            case CONTENT_TYPES.HISTORY_POLICY.ID:
             case CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID:
             case CONTENT_TYPES.PAYMENT_HISTORY.ID:
             case CONTENT_TYPES.SINISTER_HISTORY.ID:
@@ -1190,9 +1191,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             break;
 
             case CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID:
-                this.contentListService.loadPolicyTracker(this.contactId, this.policyId, this.page).subscribe( () => {
+                this.contentListService.loadPolicyRenewals(this.contactId, this.policyId, this.page).subscribe( () => {
                     this._contentLoaded();
-                    //this.selectedPolicyPos = this.contentListService.getPolicyTrackerPos(this.policyId);
                 })
             break;
 
@@ -1451,6 +1451,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID:
                 case CONTENT_TYPES.POLICY_INSURED.ID:
                 case CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID:
+                case CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID:
                 case CONTENT_TYPES.POLICY_SINISTERS.ID:
                 case CONTENT_TYPES.SINISTER.ID:
                     canShow = true;
@@ -1461,7 +1462,6 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         // Special contents
         switch(this.contentType) {
             case CONTENT_TYPES.POLICY_TRACKER.ID:
-            //case CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID:
             case CONTENT_TYPES.PENDING_RECEIP.ID:
                 canShow = true;
             break;

@@ -31,6 +31,7 @@ export class UtilitiesHelper {
             case CONTENT_TYPES.SINISTER_HISTORY.ID:
             case CONTENT_TYPES.POLICY_SINISTERS.ID:
             case CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID:
+            case CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID:
                 isHistoryContent = true;
                 break;
             default:

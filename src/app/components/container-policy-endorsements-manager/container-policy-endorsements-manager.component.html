@@ -31,6 +31,7 @@
                 <div class="btn-list">
                     <!-- AGENTHOS - POLICY ENDORSEMENTS RECORD -->
                     <button type="button" class="btn btn-secondary"><strong>VER HISTORIAL</strong></button>
+                    <button type="button" class="btn btn-outline-primary" (click)="showModalToConfirmEndorsePolicy()"><strong>APLICAR ENDOSO</strong></button>
                 </div>
             </div>
             <!-- //AGENTHOS - ENDORSEMENTS CONTROL BODY -->
@@ -38,3 +39,9 @@
     </div>
 </div>
 <!-- //AGENTHOS - ENDORSEMENTS CONTROL -->
+
+<agt-modal-confirm-endorse-policy
+    [modalId]="modalIdConfirmEndorsePolicy"
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-modal-confirm-endorse-policy>
