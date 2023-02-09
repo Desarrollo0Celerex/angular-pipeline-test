@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 
 import { ChartPolicyRenewalProcessService } from './chart-policy-renewal-process.service'
 
@@ -14,7 +14,7 @@ declare var StatsPoliciesPlugin: any;
   providers: [ChartPolicyRenewalProcessService]
 })
 export class ChartPolicyRenewalProcessComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(public model: ChartPolicyRenewalProcessService) { }
 
@@ -27,7 +27,7 @@ export class ChartPolicyRenewalProcessComponent implements OnChanges {
         return (this.model.renewalProcessStatsData.length > 0) ? true : false;
     }
 
-    private _loadRenewalProcessStats(range: RangeData): void {
+    private _loadRenewalProcessStats(range: ComparisonRangeData): void {
         this.model.getRenewalProcessStats(range).subscribe((renewalProcessStats: number[]) => {
             this.model.loadRenewalProcessStatsData(renewalProcessStats);
             StatsPoliciesPlugin.drawChartRenewalProcess(this.model.renewalProcessStatsData);

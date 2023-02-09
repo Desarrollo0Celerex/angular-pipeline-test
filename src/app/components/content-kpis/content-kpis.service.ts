@@ -237,7 +237,7 @@ export class ContentKpisService {
             const fields: string = 'sinisterStatusId,name,background,icon';
             this._sinisterStatusService.getSinisterStatus(fields).subscribe( (res: HttpResponse) => {
                 const sinisterStatus: SinisterStatus[] = res.data;
-                this._sinisterService.getTotalSinisters().subscribe( (res: number) => {
+                this._sinisterService.getTotalWorkspaceSinisters().subscribe( (res: number) => {
                     const totalSinisters: number = res;
                     this._getTotalSinistersByStatus(sinisterStatus).subscribe( (res: number[]) => {
                         this.kpis = [];
@@ -358,7 +358,7 @@ export class ContentKpisService {
         let requests: Observable<number>[] = [];
         for(let status of sinisterStatus) {
             const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [status.sinisterStatusId]);
-            requests.push(this._sinisterService.getTotalSinisters(filters));
+            requests.push(this._sinisterService.getTotalWorkspaceSinisters(filters));
         }
         return forkJoin(requests);
     }

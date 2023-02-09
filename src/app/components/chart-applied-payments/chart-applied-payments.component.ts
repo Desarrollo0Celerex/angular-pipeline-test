@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 
 import { ChartAppliedPaymentsService } from './chart-applied-payments.service';
 
@@ -15,7 +15,7 @@ declare var StatsCollectionPlugin: any;
   providers: [ChartAppliedPaymentsService]
 })
 export class ChartAppliedPaymentsComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(public model: ChartAppliedPaymentsService) { }
 
@@ -32,8 +32,8 @@ export class ChartAppliedPaymentsComponent implements OnChanges {
         return (this.model.appliedPaymentsStatsData.length > 0) ? true : false;
     }
 
-    private _loadAppliedPaymentsStats(range: RangeData): void {
-        this.model.getAppliedPaymentsStats(range).subscribe((appliedPaymentsStats: RangeStat[][]) => {
+    private _loadAppliedPaymentsStats(range: ComparisonRangeData): void {
+        this.model.getAppliedPaymentsStats(range).subscribe((appliedPaymentsStats: StatRangeData[][]) => {
             this.model.loadAppliedPaymentsStatsData(appliedPaymentsStats);
             StatsCollectionPlugin.drawChartAppliedPayments(this.model.appliedPaymentsStatsData);
         });

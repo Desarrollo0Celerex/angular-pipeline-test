@@ -7,7 +7,7 @@ import { DEFAULT_PER_PAGE } from '@constants/global';
 import { environment } from '@env/environment';
 import { CoverageStat } from '@interfaces/coverage-stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
@@ -73,7 +73,7 @@ export class ClientService {
         );
     }
 
-    getTotalClientsStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+    getTotalClientsStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<StatRangeData[]> {
         const route: string = routes.totalClientsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
@@ -85,7 +85,7 @@ export class ClientService {
         );
     }
 
-    getClientsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+    getClientsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<StatRangeData[]> {
         const route: string = routes.clientsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);

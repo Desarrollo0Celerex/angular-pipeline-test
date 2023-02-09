@@ -3,7 +3,7 @@ import { forkJoin, Observable } from 'rxjs';
 import * as moment from 'moment';
 
 import { ChartHelper } from '@helpers/chart.helper';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { ClientService } from '@services/client.service';
 import { LeadService } from '@services/lead.service';
 
@@ -18,25 +18,25 @@ export class ChartLeadsVsClientsService {
         private _leadService: LeadService
     ) { }
 
-    getStats(): Observable<RangeStat[][]> {
+    getStats(): Observable<StatRangeData[][]> {
         this.statsData = [];
-        let requests: Observable<RangeStat[]>[] = [];
+        let requests: Observable<StatRangeData[]>[] = [];
         requests.push(this._getTotalGeneratedLeads());
         requests.push(this._getTotalGeneratedClients());
         return forkJoin(requests);
     }
 
-    loadStatsData(stats: RangeStat[][]): void {
+    loadStatsData(stats: StatRangeData[][]): void {
         const headerData: any[] = [['', 'Prospectos', 'Clientes']];
         this.statsData = ChartHelper.generateChartDataByRanges(stats, headerData, false);
     }
 
-    private _getTotalGeneratedClients(): Observable<RangeStat[]> {
+    private _getTotalGeneratedClients(): Observable<StatRangeData[]> {
         const rangeField: string = 'clientConversionDate';
         return this._clientService.getClientsStats(rangeField, this._rangeStart, this._rangeEnd);
     }
 
-    private _getTotalGeneratedLeads(): Observable<RangeStat[]> {
+    private _getTotalGeneratedLeads(): Observable<StatRangeData[]> {
         const rangeField: string = 'leadConversionDate';
         return this._leadService.getLeadsGeneratedStats(rangeField, this._rangeStart, this._rangeEnd);
     }

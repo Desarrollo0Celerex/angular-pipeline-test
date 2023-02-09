@@ -17,7 +17,7 @@ export class CardKpiTotalLastRenewalsService {
     loadTotalRenewals(): void {
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
         const rangeField: string = 'validityEndDate';
-        this._policyService.getTotalWorkspacePoliciesToRenew(filters, rangeField, this.rangeStart, this.rangeEnd).subscribe((res: number) => {
+        this._policyService.getTotalWorkspaceRenewalsPending(filters, rangeField, this.rangeStart, this.rangeEnd).subscribe((res: number) => {
             this.totalRenewals = res;
         })
     }

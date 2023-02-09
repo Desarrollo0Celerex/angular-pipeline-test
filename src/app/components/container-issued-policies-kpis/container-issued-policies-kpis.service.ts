@@ -4,7 +4,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { PERIOD_STATUS, POLICY_SOURCES } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { KpiOne } from '@interfaces/kpi-one.interface';
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { PolicyService } from '@services/policy.service';
 
 const NEW_POLICIES: number = 0;
@@ -52,16 +52,16 @@ export class ContainerIssuedPoliciesKpisService {
         return this._policyService.getTotalWorkspacePolicies();
     }
 
-    getTotalWorkspacePolicies(range: RangeData): Observable<number[]> {
+    getTotalWorkspacePolicies(range: ComparisonRangeData): Observable<number[]> {
         return this._getWorkspacePolicies(range, '');
     }
 
-    getTotalWorkspaceNewPolicies(range: RangeData): Observable<number[]> {
+    getTotalWorkspaceNewPolicies(range: ComparisonRangeData): Observable<number[]> {
         const filters: string = UtilitiesHelper.generateHttpFilter('policySourceId', [POLICY_SOURCES.NEW])
         return this._getWorkspacePolicies(range, filters);
     }
 
-    getTotalWorkspaceRenewedPolicies(range: RangeData): Observable<number[]> {
+    getTotalWorkspaceRenewalsApplied(range: ComparisonRangeData): Observable<number[]> {
         const filters: string = UtilitiesHelper.generateHttpFilter('policySourceId', [POLICY_SOURCES.RENEWAL, POLICY_SOURCES.REISSUE, POLICY_SOURCES.HISTORY])
         return this._getWorkspacePolicies(range, filters);
     }
@@ -87,7 +87,7 @@ export class ContainerIssuedPoliciesKpisService {
         this.kpis[TOTAL_POLICIES].comparedValue = totalPolicies[PERIOD_STATUS.COMPARED];
     }
 
-    resetKpis(range: RangeData): void {
+    resetKpis(range: ComparisonRangeData): void {
         for (let index in this.kpis) {
             this.kpis[index].selectedValue = 0;
             this.kpis[index].selectedRange = range.selectedRangeStart + ' - ' + range.selectedRangeEnd;
@@ -96,7 +96,7 @@ export class ContainerIssuedPoliciesKpisService {
         }
     }
 
-    private _getWorkspacePolicies(range: RangeData, filters: string = ''): Observable<number[]> {
+    private _getWorkspacePolicies(range: ComparisonRangeData, filters: string = ''): Observable<number[]> {
         const rangeField: string = 'validityStartDate';
         let requests: Observable<number>[] = [];
         requests.push(this._policyService.getTotalWorkspacePolicies(filters, rangeField, range.selectedRangeStart, range.selectedRangeEnd));

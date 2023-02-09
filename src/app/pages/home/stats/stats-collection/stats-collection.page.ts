@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
 @Component({
@@ -13,7 +13,7 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
   ]
 })
 export class StatsCollectionPage {
-    range: RangeData | null = null;
+    range: ComparisonRangeData | null = null;
 
     constructor(private _router: Router) { }
 

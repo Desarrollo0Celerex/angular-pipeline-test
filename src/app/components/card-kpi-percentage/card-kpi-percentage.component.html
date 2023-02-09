@@ -1,0 +1,24 @@
+<div class="card-body text-center" *ngIf="isContentLoaded === true; else containerLoadingContent">
+    <h6 class="mb-0">{{title}}</h6>
+    <h2 class="number-font mt-2 mb-2"><span class="counter">{{value}}</span>
+        <a href="../listings/quotes_closed.php">
+            <i class="fe fe-log-in fs-20 ml-1"></i>
+        </a>
+    </h2>
+    <p class="mb-2 text-muted">
+        <span class="mb-0 text-{{kpiClass}} fs-13">
+            <i class="fe {{kpiIcon}} mr-2"></i>
+            {{percentage}}%
+        </span> Productividad
+    </p>
+    <div class="progress h-1">
+        <div class="progress-bar progress-bar-sm agt-progress-bar-{{kpiClass}} w-{{percentage}}" role="progressbar"></div>
+    </div>
+</div>
+<ng-template #containerLoadingContent>
+    <agt-loading-content
+        [isLoadingContent]="true"
+        [height]="145"
+    ></agt-loading-content>
+</ng-template>
+

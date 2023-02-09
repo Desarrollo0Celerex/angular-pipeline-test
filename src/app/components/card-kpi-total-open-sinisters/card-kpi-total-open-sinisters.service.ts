@@ -12,7 +12,7 @@ export class CardKpiTotalOpenSinistersService {
 
     loadTotalOpenSinisters(): void {
         const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE]);
-        this._sinisterService.getTotalSinisters(filters).subscribe((res: number) => {
+        this._sinisterService.getTotalWorkspaceSinisters(filters).subscribe((res: number) => {
             this.totalOpenSinisters = res;
         })
     }

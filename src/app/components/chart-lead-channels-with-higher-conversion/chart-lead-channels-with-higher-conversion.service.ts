@@ -3,7 +3,7 @@ import { forkJoin, Observable } from 'rxjs';
 
 import { QUOTATION_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 import { QuotationService } from '@services/quotation.service';
 
@@ -13,7 +13,7 @@ export class ChartLeadChannelsWithHigherConversionService {
 
     constructor(private _quotationService: QuotationService) { }
 
-    getContactSourcesQuotationsStats(range: RangeData): Observable<Stat[][]> {
+    getContactSourcesQuotationsStats(range: ComparisonRangeData): Observable<Stat[][]> {
         this.contactSourcesQuotationsStatsData = [];
         const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.ACCEPTED]);
         const rangeField: string = 'closedAt';

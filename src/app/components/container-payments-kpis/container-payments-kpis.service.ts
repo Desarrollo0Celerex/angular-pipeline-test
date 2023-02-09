@@ -5,7 +5,7 @@ import { PAYMENT_STATUS, PERIOD_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { KpiOne } from '@interfaces/kpi-one.interface';
 import { PaymentService } from '@services/payment.service';
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 
 const INTIME: number = 0;
 const PENDING: number = 1;
@@ -64,7 +64,7 @@ export class ContainerPaymentsKpisService {
         return this._paymentService.getTotalPayments(filters);
     }
 
-    getIntimePayments(range: RangeData): Observable<number[]> {
+    getIntimePayments(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'paymentDate';
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME]);
         let requests: Observable<number>[] = [];
@@ -73,7 +73,7 @@ export class ContainerPaymentsKpisService {
         return forkJoin(requests);
     }
 
-    getPendingPayments(range: RangeData): Observable<number[]> {
+    getPendingPayments(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'paymentDate';
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.PENDING]);
         let requests: Observable<number>[] = [];
@@ -82,7 +82,7 @@ export class ContainerPaymentsKpisService {
         return forkJoin(requests);
     }
 
-    getLatePayments(range: RangeData): Observable<number[]> {
+    getLatePayments(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'paymentDate';
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.LATE]);
         let requests: Observable<number>[] = [];
@@ -91,7 +91,7 @@ export class ContainerPaymentsKpisService {
         return forkJoin(requests);
     }
 
-    getOverduePayments(range: RangeData): Observable<number[]> {
+    getOverduePayments(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'paymentDate';
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.OVERDUE]);
         let requests: Observable<number>[] = [];
@@ -127,7 +127,7 @@ export class ContainerPaymentsKpisService {
         this.channelKpis[OVERDUE].comparedValue = data[PERIOD_STATUS.COMPARED];
     }
 
-    loadRangeDates(range: RangeData): void {
+    loadRangeDates(range: ComparisonRangeData): void {
         for (let index in this.channelKpis) {
             this.channelKpis[index].selectedRange = range.selectedRangeStart + ' - ' + range.selectedRangeEnd;
             this.channelKpis[index].comparedRange = range.comparedRangeStart + ' - ' + range.comparedRangeEnd;

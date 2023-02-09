@@ -3,8 +3,8 @@ import { forkJoin, Observable } from 'rxjs';
 
 import { ChartHelper } from '@helpers/chart.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { RangeData } from '@interfaces/range-data.interface';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
 import { WorkspaceService } from '@services/workspace.service';
 
@@ -25,16 +25,16 @@ export class ChartAppliedPaymentsService {
         })
     }
 
-    getAppliedPaymentsStats(range: RangeData): Observable<RangeStat[][]> {
+    getAppliedPaymentsStats(range: ComparisonRangeData): Observable<StatRangeData[][]> {
         this.appliedPaymentsStatsData = [];
         const rangeField: string = 'applicationDate';
-        let requests: Observable<RangeStat[]>[] = [];
+        let requests: Observable<StatRangeData[]>[] = [];
         requests.push(this._receiptPaidService.getAppliedPaymentsStats(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
         requests.push(this._receiptPaidService.getAppliedPaymentsStats(rangeField, range.comparedRangeStart, range.comparedRangeEnd));
         return forkJoin(requests);
     }
 
-    loadAppliedPaymentsStatsData(appliedPaymentsStats: RangeStat[][]): void {
+    loadAppliedPaymentsStatsData(appliedPaymentsStats: StatRangeData[][]): void {
         const headerData: any[] = [['Cobranza', 'Periodo Seleccionado', 'Periodo Comparación']];
         this.appliedPaymentsStatsData = ChartHelper.generateChartDataByRanges(appliedPaymentsStats, headerData);
     }

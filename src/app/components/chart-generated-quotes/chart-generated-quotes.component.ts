@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 
 import { ChartGeneratedQuotesService } from './chart-generated-quotes.service';
 
@@ -15,7 +15,7 @@ declare var StatsLeadsPlugin: any;
   providers: [ChartGeneratedQuotesService]
 })
 export class ChartGeneratedQuotesComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _chartGeneratedQuotesService: ChartGeneratedQuotesService) { }
 
@@ -35,8 +35,8 @@ export class ChartGeneratedQuotesComponent implements OnChanges {
         return (this.model.quotationsStatsData.length > 0) ? true : false;
     }
 
-    private _loadQuotationsStats(range: RangeData): void {
-        this.model.getQuotationsStats(range).subscribe((quotationsStats: RangeStat[][]) => {
+    private _loadQuotationsStats(range: ComparisonRangeData): void {
+        this.model.getQuotationsStats(range).subscribe((quotationsStats: StatRangeData[][]) => {
             this.model.loadQuotationsStatsData(quotationsStats);
             StatsLeadsPlugin.drawChartQuotations(this.model.quotationsStatsData);
         });

@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 
 import { ChartInsurancesPaymentsService } from './chart-insurances-payments.service';
@@ -15,7 +15,7 @@ declare var StatsCollectionPlugin: any;
   providers: [ChartInsurancesPaymentsService]
 })
 export class ChartInsurancesPaymentsComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _hartPaymentsInsurancesService: ChartInsurancesPaymentsService) { }
 
@@ -32,7 +32,7 @@ export class ChartInsurancesPaymentsComponent implements OnChanges {
         return (this.model.insurancesPaymentsStatsData.length > 0) ? true : false;
     }
 
-    private _loadInsurancesPaymentsStats(range: RangeData): void {
+    private _loadInsurancesPaymentsStats(range: ComparisonRangeData): void {
         this.model.getInsurancesPaymentsStats(range).subscribe((res: Stat[][]) => {
             this.model.loadInsurancesPaymentsStatsData(res);
             StatsCollectionPlugin.drawChartInsurancesPayments(this.model.insurancesPaymentsStatsData);

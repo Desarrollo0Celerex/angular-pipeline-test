@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 
 import { ChartQuotesVsEmissionsService } from './chart-quotes-vs-emissions.service';
 
@@ -42,7 +42,7 @@ export class ChartQuotesVsEmissionsComponent implements OnInit {
     }
 
     private _loadStats(): void {
-        this.model.getStats().subscribe((stats: RangeStat[][]) => {
+        this.model.getStats().subscribe((stats: StatRangeData[][]) => {
             this.model.loadStatsData(stats);
             StatsDashboardPlugin.drawChartQuotesVsEmissions(this.model.statsData);
         });

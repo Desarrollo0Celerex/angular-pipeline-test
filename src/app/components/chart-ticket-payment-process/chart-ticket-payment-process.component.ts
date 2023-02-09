@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 
 import { ChartTicketPaymentProcessService } from './chart-ticket-payment-process.service'
 
@@ -16,7 +16,7 @@ declare var StatsCollectionPlugin: any;
   ]
 })
 export class ChartTicketPaymentProcessComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(public model: ChartTicketPaymentProcessService) { }
 
@@ -29,7 +29,7 @@ export class ChartTicketPaymentProcessComponent implements OnChanges {
         return (this.model.paymentProcessStatsData.length > 0) ? true : false;
     }
 
-    private _loadPaymentProcessStats(range: RangeData): void {
+    private _loadPaymentProcessStats(range: ComparisonRangeData): void {
         this.model.getPaymentProcessStats(range).subscribe((paymentProcessStats: number[]) => {
             this.model.loadPaymentProcessStatsData(paymentProcessStats);
             StatsCollectionPlugin.drawChartPaymentProcess(this.model.paymentProcessStatsData);

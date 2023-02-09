@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 
 import { ContainerPaymentsKpisService } from './container-payments-kpis.service'
 
@@ -12,7 +12,7 @@ import { ContainerPaymentsKpisService } from './container-payments-kpis.service'
   providers: [ContainerPaymentsKpisService]
 })
 export class ContainerPaymentsKpisComponent implements OnInit, OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _containerPaymentsKpisService: ContainerPaymentsKpisService) { }
 
@@ -32,25 +32,25 @@ export class ContainerPaymentsKpisComponent implements OnInit, OnChanges {
         return this._containerPaymentsKpisService;
     }
 
-    private _loadIntimePayments(range: RangeData): void {
+    private _loadIntimePayments(range: ComparisonRangeData): void {
         this.model.getIntimePayments(range).subscribe((intimePayments: number[]) => {
             this.model.loadIntimePayments(intimePayments);
         });
     }
 
-    private _loadPendingPayments(range: RangeData): void {
+    private _loadPendingPayments(range: ComparisonRangeData): void {
         this.model.getPendingPayments(range).subscribe((pendingPayments: number[]) => {
             this.model.loadPendingPayments(pendingPayments);
         });
     }
 
-    private _loadLatePayments(range: RangeData): void {
+    private _loadLatePayments(range: ComparisonRangeData): void {
         this.model.getLatePayments(range).subscribe((latePayments: number[]) => {
             this.model.loadLatePayments(latePayments);
         });
     }
 
-    private _loadOverduePayments(range: RangeData): void {
+    private _loadOverduePayments(range: ComparisonRangeData): void {
         this.model.getOverduePayments(range).subscribe((overduePayments: number[]) => {
             this.model.loadOverduePayments(overduePayments);
         });

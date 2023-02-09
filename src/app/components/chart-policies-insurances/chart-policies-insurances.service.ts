@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 import { PolicyService } from '@services/policy.service';
 
@@ -11,7 +11,7 @@ export class ChartPoliciesInsurancesService {
 
     constructor(private _policyService: PolicyService) { }
 
-    getInsurancesPoliciesStats(range: RangeData): Observable<Stat[][]> {
+    getInsurancesPoliciesStats(range: ComparisonRangeData): Observable<Stat[][]> {
         this.insurancesPoliciesStatsData = [];
         const rangeField: string = 'validityStartDate';
         let requests: Observable<Stat[]>[] = [];

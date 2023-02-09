@@ -4,7 +4,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { QUOTATION_STATUS, PERIOD_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { KpiOne } from '@interfaces/kpi-one.interface';
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 import { QuotationService } from '@services/quotation.service';
 
@@ -64,7 +64,7 @@ export class ContainerLeadConversionKpisService {
 
     constructor(private _quotationService: QuotationService) { }
 
-    resetKpis(range: RangeData): void {
+    resetKpis(range: ComparisonRangeData): void {
         for (let index in this.kpis) {
             this.kpis[index].selectedValue = 0;
             this.kpis[index].selectedRange = range.selectedRangeStart + ' - ' + range.selectedRangeEnd;
@@ -73,16 +73,16 @@ export class ContainerLeadConversionKpisService {
         }
     }
 
-    getTotalWorkspaceGeneratedQuotes(range: RangeData): Observable<number[]> {
+    getTotalWorkspaceGeneratedQuotes(range: ComparisonRangeData): Observable<number[]> {
         return this._getWorkspaceQuotes(range, '');
     }
 
-    getTotalWorkspaceAcceptedQuotes(range: RangeData): Observable<number[]> {
+    getTotalWorkspaceAcceptedQuotes(range: ComparisonRangeData): Observable<number[]> {
         const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.ACCEPTED])
         return this._getWorkspaceQuotes(range, filters);
     }
 
-    getTotalChannelAcceptedQuotes(range: RangeData): Observable<Stat[][]> {
+    getTotalChannelAcceptedQuotes(range: ComparisonRangeData): Observable<Stat[][]> {
         const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.ACCEPTED]);
         const rangeField: string = 'createdAt';
         let requests: Observable<Stat[]>[] = [];
@@ -91,7 +91,7 @@ export class ContainerLeadConversionKpisService {
         return forkJoin(requests);
     }
 
-    getTotalWorkspaceRejectedQuotes(range: RangeData): Observable<number[]> {
+    getTotalWorkspaceRejectedQuotes(range: ComparisonRangeData): Observable<number[]> {
         const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.REJECTED])
         return this._getWorkspaceQuotes(range, filters);
     }
@@ -146,7 +146,7 @@ export class ContainerLeadConversionKpisService {
         this.kpis[REJECTION_RATE].comparedValue = (totalQuotations[PERIOD_STATUS.COMPARED] > 0) ? Math.round(rejectedQuotations[PERIOD_STATUS.COMPARED] * 100 / totalQuotations[PERIOD_STATUS.COMPARED]) : 0;
     }
 
-    private _getWorkspaceQuotes(range: RangeData, filters: string = ''): Observable<number[]> {
+    private _getWorkspaceQuotes(range: ComparisonRangeData, filters: string = ''): Observable<number[]> {
         const rangeField: string = 'createdAt';
         let requests: Observable<number>[] = [];
         requests.push(this._quotationService.getTotalWorkspaceQuotations(filters, rangeField, range.selectedRangeStart, range.selectedRangeEnd));

@@ -3,7 +3,7 @@ import { forkJoin, Observable } from 'rxjs';
 
 import { PERIOD_STATUS } from '@constants/global';
 import { KpiTwo } from '@interfaces/kpi-two.interface';
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { PartnerQuotationStat } from '@interfaces/partner-quotation-stat.interface';
 
 import { QuotationService } from '@services/quotation.service';
@@ -14,7 +14,7 @@ export class ContainerLeadUsersKpisService {
 
     constructor(private _quotationService: QuotationService) { }
 
-    getUsersQuotationsStats(range: RangeData): Observable<PartnerQuotationStat[][]> {
+    getUsersQuotationsStats(range: ComparisonRangeData): Observable<PartnerQuotationStat[][]> {
         const rangeField: string = 'createdAt';
         let requests: Observable<PartnerQuotationStat[]>[] = [];
         requests.push(this._quotationService.getUsersQuotationsStats(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
@@ -22,7 +22,7 @@ export class ContainerLeadUsersKpisService {
         return forkJoin(requests);
     }
 
-    loadUsersQuotationsStatsData(data: PartnerQuotationStat[][], range: RangeData): void {
+    loadUsersQuotationsStatsData(data: PartnerQuotationStat[][], range: ComparisonRangeData): void {
         data = this._removeEmptyValues(data);
         for (let key in data[PERIOD_STATUS.SELECTED]) {
             const kpi: KpiTwo = {

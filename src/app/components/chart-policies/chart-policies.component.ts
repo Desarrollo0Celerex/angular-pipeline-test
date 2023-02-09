@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 
 import { ChartPoliciesService } from './chart-policies.service';
 
@@ -15,7 +15,7 @@ declare var StatsPoliciesPlugin: any;
   providers: [ChartPoliciesService]
 })
 export class ChartPoliciesComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _chartPoliciesService: ChartPoliciesService) { }
 
@@ -32,8 +32,8 @@ export class ChartPoliciesComponent implements OnChanges {
         return (this.model.policiesStatsData.length > 0) ? true : false;
     }
 
-    private _loadPoliciesStats(range: RangeData): void {
-        this.model.getPoliciesStats(range).subscribe((policiesStats: RangeStat[][]) => {
+    private _loadPoliciesStats(range: ComparisonRangeData): void {
+        this.model.getPoliciesStats(range).subscribe((policiesStats: StatRangeData[][]) => {
             this.model.loadPoliciesStatsData(policiesStats);
             StatsPoliciesPlugin.drawChartPolicies(this.model.policiesStatsData);
         });

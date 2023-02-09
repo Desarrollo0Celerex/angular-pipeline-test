@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 
 import { ChartLeadChannelsWithHigherConversionService } from './chart-lead-channels-with-higher-conversion.service';
@@ -15,7 +15,7 @@ declare var StatsLeadsPlugin: any;
   providers: [ChartLeadChannelsWithHigherConversionService]
 })
 export class ChartLeadChannelsWithHigherConversionComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _chartLeadChannelsWithHigherConversionService: ChartLeadChannelsWithHigherConversionService) { }
 
@@ -32,7 +32,7 @@ export class ChartLeadChannelsWithHigherConversionComponent implements OnChanges
         return (this.model.contactSourcesQuotationsStatsData.length > 0) ? true : false;
     }
 
-    private _loadContactSourcesQuotationsStats(range: RangeData): void {
+    private _loadContactSourcesQuotationsStats(range: ComparisonRangeData): void {
         this.model.getContactSourcesQuotationsStats(range).subscribe((res: Stat[][]) => {
             this.model.loadContactSourcesQuotationsStatsData(res);
             StatsLeadsPlugin.drawChartContactSourcesQuotations(this.model.contactSourcesQuotationsStatsData);

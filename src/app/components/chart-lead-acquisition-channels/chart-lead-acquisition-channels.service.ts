@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 import { ContactSourceService } from '@services/contact-source.service';
 
@@ -11,7 +11,7 @@ export class ChartLeadAcquisitionChannelsService {
 
     constructor(private _contactSourceService: ContactSourceService) { }
 
-    getContactSourcesStats(range: RangeData): Observable<Stat[][]> {
+    getContactSourcesStats(range: ComparisonRangeData): Observable<Stat[][]> {
         this.contactSourcesStatsData = [];
         const rangeField: string = 'leadConversionDate';
         let requests: Observable<Stat[]>[] = [];

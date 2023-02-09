@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 
 import { ContainerLeadConversionKpisService } from './container-lead-conversion-kpis.service';
@@ -13,7 +13,7 @@ import { ContainerLeadConversionKpisService } from './container-lead-conversion-
   providers: [ContainerLeadConversionKpisService]
 })
 export class ContainerLeadConversionKpisComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _containerLeadConversionKpisService: ContainerLeadConversionKpisService) { }
 
@@ -26,7 +26,7 @@ export class ContainerLeadConversionKpisComponent implements OnChanges {
         return this._containerLeadConversionKpisService;
     }
 
-    private _loadTotalWorkspaceGeneratedQuotes(range: RangeData): void {
+    private _loadTotalWorkspaceGeneratedQuotes(range: ComparisonRangeData): void {
         this.model.getTotalWorkspaceGeneratedQuotes(range).subscribe((res: number[]) => {
             this._loadTotalWorkspaceAccceptedQuotes(res, range);
             this._loadTotalChannelAcceptedQuotes(res, range);
@@ -34,13 +34,13 @@ export class ContainerLeadConversionKpisComponent implements OnChanges {
         })
     }
 
-    private _loadTotalWorkspaceAccceptedQuotes(totalQuotations: number[], range: RangeData): void {
+    private _loadTotalWorkspaceAccceptedQuotes(totalQuotations: number[], range: ComparisonRangeData): void {
         this.model.getTotalWorkspaceAcceptedQuotes(range).subscribe((res: number[]) => {
             this.model.loadConversionRate(totalQuotations, res);
         })
     }
 
-    private _loadTotalChannelAcceptedQuotes(totalQuotations: number[], range: RangeData): void {
+    private _loadTotalChannelAcceptedQuotes(totalQuotations: number[], range: ComparisonRangeData): void {
         this.model.getTotalChannelAcceptedQuotes(range).subscribe((res: Stat[][]) => {
             const sortedAcceptedQuotesByChannel: any[] = this.model.sortAcceptedQuotesByChannel(res);
             this.model.loadHighestRate(totalQuotations, sortedAcceptedQuotesByChannel);
@@ -48,7 +48,7 @@ export class ContainerLeadConversionKpisComponent implements OnChanges {
         })
     }
 
-    private _loadTotalWorkspaceRejectedQuotes(totalQuotations: number[], range: RangeData): void {
+    private _loadTotalWorkspaceRejectedQuotes(totalQuotations: number[], range: ComparisonRangeData): void {
         this.model.getTotalWorkspaceRejectedQuotes(range).subscribe((res: number[]) => {
             this.model.loadRejectionRate(totalQuotations, res);
         })

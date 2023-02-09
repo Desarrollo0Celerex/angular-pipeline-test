@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 
 import { ChartLeadsVsClientsService } from './chart-leads-vs-clients.service';
 
@@ -26,7 +26,7 @@ export class ChartLeadsVsClientsComponent implements OnInit {
     }
 
     private _loadStats(): void {
-        this.model.getStats().subscribe((stats: RangeStat[][]) => {
+        this.model.getStats().subscribe((stats: StatRangeData[][]) => {
             this.model.loadStatsData(stats);
             StatsDashboardPlugin.drawChartLeadsVsClients(this.model.statsData);
         });

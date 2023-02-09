@@ -4,7 +4,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { PERIOD_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { KpiOne } from '@interfaces/kpi-one.interface';
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 
 import { ClientService } from '@services/client.service';
 import { InsuranceService } from '@services/insurance.service';
@@ -70,7 +70,7 @@ export class ContainerClientClientsKpisService {
         return this._insuranceService.getTotalActiveInsurances();
     }
 
-    getTotalActiveInsurances(range: RangeData): Observable<number[]> {
+    getTotalActiveInsurances(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'validityStartDate';
         let requests: Observable<number>[] = [];
         requests.push(this._insuranceService.getTotalActiveInsurances(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
@@ -82,7 +82,7 @@ export class ContainerClientClientsKpisService {
         return this._insurerService.getTotalActiveInsurers();
     }
 
-    getTotalActiveInsurers(range: RangeData): Observable<number[]> {
+    getTotalActiveInsurers(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'validityStartDate';
         let requests: Observable<number>[] = [];
         requests.push(this._insurerService.getTotalActiveInsurers(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
@@ -95,7 +95,7 @@ export class ContainerClientClientsKpisService {
         return this._clientService.getTotalClients(filters);
     }
 
-    getTotalGeneratedClients(range: RangeData): Observable<number[]> {
+    getTotalGeneratedClients(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'clientConversionDate';
         let requests: Observable<number>[] = [];
         requests.push(this._clientService.getTotalClients('', rangeField, range.selectedRangeStart, range.selectedRangeEnd));
@@ -131,14 +131,14 @@ export class ContainerClientClientsKpisService {
         this.kpis[DAILY_AVERAGE].totalContents = total;
     }
 
-    loadDailyAverage(data: number[], range: RangeData): void {
+    loadDailyAverage(data: number[], range: ComparisonRangeData): void {
         const selectedDays: number = UtilitiesHelper.getRangeDays(range.selectedRangeStart, range.selectedRangeEnd);
         const comparedDays: number = UtilitiesHelper.getRangeDays(range.comparedRangeStart, range.comparedRangeEnd);
         this.kpis[DAILY_AVERAGE].selectedValue = data[PERIOD_STATUS.SELECTED] / selectedDays;
         this.kpis[DAILY_AVERAGE].comparedValue = data[PERIOD_STATUS.COMPARED] / comparedDays;
     }
 
-    loadRangeDates(range: RangeData): void {
+    loadRangeDates(range: ComparisonRangeData): void {
         for (let index in this.kpis) {
             this.kpis[index].selectedRange = range.selectedRangeStart + ' - ' + range.selectedRangeEnd;
             this.kpis[index].comparedRange = range.comparedRangeStart + ' - ' + range.comparedRangeEnd;

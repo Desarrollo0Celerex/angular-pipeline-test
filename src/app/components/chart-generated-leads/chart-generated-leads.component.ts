@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 
 import { ChartGeneratedLeadsService } from './chart-generated-leads.service';
 
@@ -15,7 +15,7 @@ declare var StatsLeadsPlugin: any;
   providers: [ChartGeneratedLeadsService]
 })
 export class ChartGeneratedLeadsComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _chartGeneratedLeadsService: ChartGeneratedLeadsService) { }
 
@@ -32,8 +32,8 @@ export class ChartGeneratedLeadsComponent implements OnChanges {
         return (this.model.leadsGeneratedStatsData.length > 0) ? true : false;
     }
 
-    private _loadLeadsGeneratedStats(range: RangeData): void {
-        this.model.getLeadsGeneratedStats(range).subscribe((leadsGeneratedStats: RangeStat[][]) => {
+    private _loadLeadsGeneratedStats(range: ComparisonRangeData): void {
+        this.model.getLeadsGeneratedStats(range).subscribe((leadsGeneratedStats: StatRangeData[][]) => {
             this.model.loadLeadsGeneratedStatsData(leadsGeneratedStats);
             StatsLeadsPlugin.drawChartLeadsGenerated(this.model.leadsGeneratedStatsData);
         });

@@ -1,8 +1,8 @@
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 
 export class ChartHelper {
 
-    static generateChartDataByRanges(stats: RangeStat[][], headerData: string[][], isComparedRange: boolean = true): any[][] {
+    static generateChartDataByRanges(stats: StatRangeData[][], headerData: string[][], isComparedRange: boolean = true): any[][] {
         let statsData: any[] = headerData;
         for (let index in stats[0]) {
             statsData.push([]);

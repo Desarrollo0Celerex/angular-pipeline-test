@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 
 import { ChartPendingRenovationsService } from './chart-pending-renovations.service';
 
@@ -15,7 +15,7 @@ declare var StatsPoliciesPlugin: any;
   providers: [ChartPendingRenovationsService]
 })
 export class ChartPendingRenovationsComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _chartPendingRenovationsService: ChartPendingRenovationsService) { }
 
@@ -32,8 +32,8 @@ export class ChartPendingRenovationsComponent implements OnChanges {
         return (this.model.pendingRenovationsStatsData.length > 0) ? true : false;
     }
 
-    private _loadPendingRenovationsStats(range: RangeData): void {
-        this.model.getPendingRenovationsStats(range).subscribe((pendingRenovationsStats: RangeStat[][]) => {
+    private _loadPendingRenovationsStats(range: ComparisonRangeData): void {
+        this.model.getPendingRenovationsStats(range).subscribe((pendingRenovationsStats: StatRangeData[][]) => {
             this.model.loadPendingRenovationsStatsData(pendingRenovationsStats);
             StatsPoliciesPlugin.drawChartPendingRenovations(this.model.pendingRenovationsStatsData);
         });

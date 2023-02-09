@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 
 import { ContainerIssuedPoliciesKpisService } from './container-issued-policies-kpis.service';
 
@@ -12,7 +12,7 @@ import { ContainerIssuedPoliciesKpisService } from './container-issued-policies-
   providers: [ContainerIssuedPoliciesKpisService]
 })
 export class ContainerIssuedPoliciesKpisComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _containerPolicyEmissionKpisService: ContainerIssuedPoliciesKpisService) { }
 
@@ -34,20 +34,20 @@ export class ContainerIssuedPoliciesKpisComponent implements OnChanges {
         })
     }
 
-    private _loadTotalWorkspacePolicies(range: RangeData): void {
+    private _loadTotalWorkspacePolicies(range: ComparisonRangeData): void {
         this.model.getTotalWorkspacePolicies(range).subscribe((res: number[]) => {
             this.model.loadTotalWorkspacePolicies(res);
         })
     }
 
-    private _loadTotalWorkspaceNewPolicies(range: RangeData): void {
+    private _loadTotalWorkspaceNewPolicies(range: ComparisonRangeData): void {
         this.model.getTotalWorkspaceNewPolicies(range).subscribe((res: number[]) => {
             this.model.loadTotalWorkspaceNewPolicies(res);
         })
     }
 
-    private _loadTotalWorkspaceRenewedPolicies(range: RangeData): void {
-        this.model.getTotalWorkspaceRenewedPolicies(range).subscribe((res: number[]) => {
+    private _loadTotalWorkspaceRenewedPolicies(range: ComparisonRangeData): void {
+        this.model.getTotalWorkspaceRenewalsApplied(range).subscribe((res: number[]) => {
             this.model.loadTotalWorkspaceRenewedPolicies(res);
         })
     }
