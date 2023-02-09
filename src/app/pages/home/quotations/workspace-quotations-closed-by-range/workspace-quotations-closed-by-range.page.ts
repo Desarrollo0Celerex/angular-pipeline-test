@@ -6,12 +6,12 @@ import { CONTENT_TYPES } from '@constants/global';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
 @Component({
-  selector: 'agt-quotations-closed-by-range',
-  templateUrl: './quotations-closed-by-range.page.html',
+  selector: 'agt-workspace-quotations-closed-by-range',
+  templateUrl: './workspace-quotations-closed-by-range.page.html',
   styles: [
   ]
 })
-export class QuotationsClosedByRangePage implements OnInit {
+export class WorkspaceQuotationsClosedByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
     rangeField: string = 'createdAt';
     statsPeriodData: StatsPeriodData | null = null;

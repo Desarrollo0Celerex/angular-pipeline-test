@@ -14,7 +14,7 @@ import { CardKpiWorkspaceQuotationsClosedService } from './card-kpi-workspace-qu
 export class CardKpiWorkspaceQuotationsClosedComponent implements OnChanges {
     @Input() rangeData: RangeData | null = null;
     rangeField: string = 'createdAt';
-    route: string = ROUTES_NAME.quotationsClosedByRange;
+    route: string = ROUTES_NAME.workspaceQuotationsClosedByRange;
 
     constructor(public model: CardKpiWorkspaceQuotationsClosedService) { }
 

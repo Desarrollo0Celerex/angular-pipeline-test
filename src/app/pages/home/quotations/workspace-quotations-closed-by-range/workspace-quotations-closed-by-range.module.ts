@@ -6,12 +6,12 @@ import { ContainerChartsWorkspaceQuotationsClosedModule } from '@components/cont
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
 import { ContentListModule } from '@components/content-list/content-list.module';
 
-import { QuotationsClosedByRangeRoutingModule } from './quotations-closed-by-range-routing.module';
-import { QuotationsClosedByRangePage } from './quotations-closed-by-range.page';
+import { WorkspaceQuotationsClosedByRangeRoutingModule } from './workspace-quotations-closed-by-range-routing.module';
+import { WorkspaceQuotationsClosedByRangePage } from './workspace-quotations-closed-by-range.page';
 
 @NgModule({
   declarations: [
-    QuotationsClosedByRangePage
+    WorkspaceQuotationsClosedByRangePage
   ],
   imports: [
     CardContentTitleModule,
@@ -19,7 +19,7 @@ import { QuotationsClosedByRangePage } from './quotations-closed-by-range.page';
     ContainerChartsWorkspaceQuotationsClosedModule,
     ContainerSelectStatsPeriodModule,
     ContentListModule,
-    QuotationsClosedByRangeRoutingModule
+    WorkspaceQuotationsClosedByRangeRoutingModule
   ]
 })
-export class QuotationsClosedByRangeModule { }
+export class WorkspaceQuotationsClosedByRangeModule { }
