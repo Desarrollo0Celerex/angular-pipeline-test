@@ -8,12 +8,13 @@ import { CardContentTitleModule } from '@components/card-content-title/card-cont
 import { ContentListModule } from '@components/content-list/content-list.module';
 import { PolicyService } from '@services/policy.service';
 
-import { ListRenewedPoliciesByRangeRoutingModule } from './list-renewed-policies-by-range-routing.module';
-import { ListRenewedPoliciesByRangePage } from './list-renewed-policies-by-range.page';
+import { WorkspaceRenewalsAppliedByRangeRoutingModule } from './workspace-renewals-applied-by-range-routing.module';
+import { WorkspaceRenewalsAppliedByRangePage } from './workspace-renewals-applied-by-range.page';
+
 
 @NgModule({
   declarations: [
-    ListRenewedPoliciesByRangePage
+    WorkspaceRenewalsAppliedByRangePage
   ],
   imports: [
     CardContentTitleModule,
@@ -22,10 +23,10 @@ import { ListRenewedPoliciesByRangePage } from './list-renewed-policies-by-range
     ContainerChartsRenewedPoliciesModule,
     ContainerSelectStatsPeriodModule,
     ContentListModule,
-    ListRenewedPoliciesByRangeRoutingModule
+    WorkspaceRenewalsAppliedByRangeRoutingModule
   ],
   providers: [
     PolicyService
   ]
 })
-export class ListRenewedPoliciesByRangeModule { }
+export class WorkspaceRenewalsAppliedByRangeModule { }

@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
 
 import { CONTENT_TYPES } from '@constants/global';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
+import * as moment from 'moment';
+
 @Component({
-  selector: 'agt-quotations-closed-by-range',
-  templateUrl: './quotations-closed-by-range.page.html',
+  selector: 'agt-workspace-renewals-applied-by-range',
+  templateUrl: './workspace-renewals-applied-by-range.page.html',
   styles: [
   ]
 })
-export class QuotationsClosedByRangePage implements OnInit {
+export class WorkspaceRenewalsAppliedByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
-    rangeField: string = 'createdAt';
+    rangeField: string = 'validityEndDate';
     statsPeriodData: StatsPeriodData | null = null;
     specialFilter: string = '';
 
