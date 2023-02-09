@@ -5,6 +5,7 @@ import { CardKpiPercentageModule } from '@components/card-kpi-percentage/card-kp
 import { QuotationService } from '@services/quotation.service';
 
 import { CardKpiWorkspaceQuotationsClosedComponent } from './card-kpi-workspace-quotations-closed.component';
+import { CardKpiWorkspaceQuotationsClosedService } from './card-kpi-workspace-quotations-closed.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { CardKpiWorkspaceQuotationsClosedComponent } from './card-kpi-workspace-
     CommonModule
   ],
   providers: [
+    CardKpiWorkspaceQuotationsClosedService,
     QuotationService
   ]
 })

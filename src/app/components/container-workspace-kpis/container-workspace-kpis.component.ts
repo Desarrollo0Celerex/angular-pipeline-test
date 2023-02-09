@@ -10,7 +10,7 @@ import { RangeData } from '@interfaces/range-data.interface';
   ]
 })
 export class ContainerWorkspaceKpisComponent {
-    range: RangeData = {
+    rangeData: RangeData = {
         rangeStart: moment().subtract(300, 'days').format('DD/MM/YYYY'),
         rangeEnd: moment().format('DD/MM/YYYY'),
         rangeField: ''

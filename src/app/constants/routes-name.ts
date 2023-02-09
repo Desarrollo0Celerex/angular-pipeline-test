@@ -137,6 +137,7 @@ const HOME_POLICY_ENDORSEMENTS_ROUTES = {
 const HOME_QUOTATIONS_ROUTES = {
     createQuotation: (contactId: string) => `workspace/quotations/create-quotation/${contactId}`,
     listQuotationsByRange: `workspace/quotations/list-quotations-by-range`,
+    quotationsClosedByRange: `workspace/quotations/quotations-closed-by-range`,
 }
 
 const HOME_RENEWALS_ROUTES = {

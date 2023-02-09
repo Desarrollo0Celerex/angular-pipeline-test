@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
+import { ROUTES_NAME } from '@constants/routes-name';
 import { RangeData } from '@interfaces/range-data.interface';
 
 import { CardKpiWorkspaceQuotationsClosedService } from './card-kpi-workspace-quotations-closed.service';
@@ -8,20 +9,20 @@ import { CardKpiWorkspaceQuotationsClosedService } from './card-kpi-workspace-qu
   selector: 'agt-card-kpi-workspace-quotations-closed',
   templateUrl: './card-kpi-workspace-quotations-closed.component.html',
   styles: [
-  ],
-  providers: [CardKpiWorkspaceQuotationsClosedService]
+  ]
 })
 export class CardKpiWorkspaceQuotationsClosedComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() rangeData: RangeData | null = null;
     rangeField: string = 'createdAt';
+    route: string = ROUTES_NAME.quotationsClosedByRange;
 
     constructor(public model: CardKpiWorkspaceQuotationsClosedService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(typeof changes.range != 'undefined' && changes.range.currentValue !== null) {
-            changes.range.currentValue.rangeField = this.rangeField;
-            this.model.loadTotalWorkspaceQuotations(changes.range.currentValue);
-            this.model.loadTotalWorkspaceQuotationsClosed(changes.range.currentValue);
+        if(typeof changes.rangeData != 'undefined' && changes.rangeData.currentValue !== null) {
+            changes.rangeData.currentValue.rangeField = this.rangeField;
+            this.model.loadTotalWorkspaceQuotations(changes.rangeData.currentValue);
+            this.model.loadTotalWorkspaceQuotationsClosed(changes.rangeData.currentValue);
         }
     }
 

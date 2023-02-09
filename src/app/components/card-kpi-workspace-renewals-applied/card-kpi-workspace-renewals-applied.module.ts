@@ -5,6 +5,7 @@ import { CardKpiPercentageModule } from '@components/card-kpi-percentage/card-kp
 import { PolicyService } from '@services/policy.service';
 
 import { CardKpiWorkspaceRenewalsAppliedComponent } from './card-kpi-workspace-renewals-applied.component';
+import { CardKpiWorkspaceRenewalsAppliedService } from './card-kpi-workspace-renewals-applied.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { CardKpiWorkspaceRenewalsAppliedComponent } from './card-kpi-workspace-r
     CommonModule
   ],
   providers: [
+    CardKpiWorkspaceRenewalsAppliedService,
     PolicyService
   ]
 })

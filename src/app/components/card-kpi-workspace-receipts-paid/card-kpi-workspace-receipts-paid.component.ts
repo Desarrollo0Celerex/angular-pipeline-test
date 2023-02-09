@@ -8,20 +8,19 @@ import { CardKpiWorkspaceReceiptsPaidService } from './card-kpi-workspace-receip
   selector: 'agt-card-kpi-workspace-receipts-paid',
   templateUrl: './card-kpi-workspace-receipts-paid.component.html',
   styles: [
-  ],
-  providers: [CardKpiWorkspaceReceiptsPaidService]
+  ]
 })
 export class CardKpiWorkspaceReceiptsPaidComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() rangeData: RangeData | null = null;
     rangeField: string = 'paymentDate';
 
     constructor(public model: CardKpiWorkspaceReceiptsPaidService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(typeof changes.range != 'undefined' && changes.range.currentValue !== null) {
-            changes.range.currentValue.rangeField = this.rangeField;
-            this.model.loadTotalWorkspaceReceipts(changes.range.currentValue);
-            this.model.loadTotalWorkspaceReceiptsPaid(changes.range.currentValue);
+        if(typeof changes.rangeData != 'undefined' && changes.rangeData.currentValue !== null) {
+            changes.rangeData.currentValue.rangeField = this.rangeField;
+            this.model.loadTotalWorkspaceReceipts(changes.rangeData.currentValue);
+            this.model.loadTotalWorkspaceReceiptsPaid(changes.rangeData.currentValue);
         }
     }
 

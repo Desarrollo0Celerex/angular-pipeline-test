@@ -8,20 +8,19 @@ import { CardKpiWorkspaceRenewalsAppliedService } from './card-kpi-workspace-ren
   selector: 'agt-card-kpi-workspace-renewals-applied',
   templateUrl: './card-kpi-workspace-renewals-applied.component.html',
   styles: [
-  ],
-  providers: [CardKpiWorkspaceRenewalsAppliedService]
+  ]
 })
 export class CardKpiWorkspaceRenewalsAppliedComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() rangeData: RangeData | null = null;
     rangeField: string = 'validityEndDate';
 
     constructor(public model: CardKpiWorkspaceRenewalsAppliedService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(typeof changes.range != 'undefined' && changes.range.currentValue !== null) {
-            changes.range.currentValue.rangeField = this.rangeField;
-            this.model.loadTotalWorkspaceRenewals(changes.range.currentValue);
-            this.model.loadTotalWorkspaceRenewalsApplied(changes.range.currentValue);
+        if(typeof changes.rangeData != 'undefined' && changes.rangeData.currentValue !== null) {
+            changes.rangeData.currentValue.rangeField = this.rangeField;
+            this.model.loadTotalWorkspaceRenewals(changes.rangeData.currentValue);
+            this.model.loadTotalWorkspaceRenewalsApplied(changes.rangeData.currentValue);
         }
     }
 }

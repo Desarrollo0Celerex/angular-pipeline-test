@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { RangeData } from '@interfaces/range-data.interface';
 
 @Component({
   selector: 'agt-card-kpi-percentage',
@@ -10,6 +11,8 @@ export class CardKpiPercentageComponent implements  OnChanges {
     @Input() title: string = '';
     @Input() total: number | null = null;
     @Input() value: number | null = null;
+    @Input() rangeData: RangeData | null = null;
+    @Input() route: string = '';
     isContentLoaded: boolean = false;
     kpiClass: string = '';
     kpiIcon: string = '';

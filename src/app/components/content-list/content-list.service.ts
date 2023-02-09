@@ -6,7 +6,8 @@ import * as moment from 'moment';
 import { CLIENT_STATUS, EXTERNAL_POLICY_STATUS, LEAD_STATUS, PARTNER_STATUS, 
     PAYMENT_STATUS, POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, 
     SINISTER_STATUS, SINISTER_STATUS_OPEN, DEFAULT_PER_PAGE, SINISTER_RECORD_TYPES,
-    POLICY_INSURED_STATUS 
+    POLICY_INSURED_STATUS, 
+    QUOTATION_STATUS
 } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { SinisterEventHelper } from '@helpers/sinister-event.helper';
@@ -892,6 +893,19 @@ export class ContentListService {
         const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
         const sortBy: string = '-createdAt';
         return this._quotationService.getQuotations(page, fields, '', '', sortBy, rangeField, rangeStart, rangeEnd).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    loadWorkspaceQuotationsClosedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
+        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+        const sortBy: string = '-createdAt';
+        const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.ACCEPTED, QUOTATION_STATUS.REJECTED]);
+        return this._quotationService.getQuotations(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);

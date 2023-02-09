@@ -355,6 +355,10 @@ export const CONTENT_TYPES: any = {
         ID: 48,
         NAME: 'Póliza'
     },
+    WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE: {
+        ID: 49,
+        NAME: 'Cotización'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

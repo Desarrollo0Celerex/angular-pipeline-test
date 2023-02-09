@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 
@@ -14,7 +15,8 @@ import { CardKpiPercentageComponent } from './card-kpi-percentage.component';
   ],
   imports: [
     CommonModule,
-    LoadingContentModule
+    LoadingContentModule,
+    RouterModule
   ]
 })
 export class CardKpiPercentageModule { }

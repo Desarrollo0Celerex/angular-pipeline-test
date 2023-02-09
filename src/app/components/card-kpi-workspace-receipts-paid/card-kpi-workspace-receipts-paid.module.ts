@@ -6,6 +6,7 @@ import { PaymentService } from '@services/payment.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
 
 import { CardKpiWorkspaceReceiptsPaidComponent } from './card-kpi-workspace-receipts-paid.component';
+import { CardKpiWorkspaceReceiptsPaidService } from './card-kpi-workspace-receipts-paid.service';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CardKpiWorkspaceReceiptsPaidComponent } from './card-kpi-workspace-rece
     CommonModule
   ],
   providers: [
+    CardKpiWorkspaceReceiptsPaidService,
     PaymentService,
     ReceiptPaidService
   ]

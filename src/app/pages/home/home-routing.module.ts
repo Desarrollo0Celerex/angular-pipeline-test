@@ -97,6 +97,7 @@ const routes: Routes = [
             // Quotations routes
             { path: ROUTES_NAME.createQuotation(':contactId'), loadChildren: () => import('@pages/home/quotations/create-quotation/create-quotation.module').then(mod => mod.CreateQuotationModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.listQuotationsByRange, loadChildren: () => import('@pages/home/quotations/list-quotations-by-range/list-quotations-by-range.module').then(mod => mod.ListQuotationsByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.quotationsClosedByRange, loadChildren: () => import('@pages/home/quotations/quotations-closed-by-range/quotations-closed-by-range.module').then(mod => mod.QuotationsClosedByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             
             // Renewals routes
             { path: ROUTES_NAME.policyRenewalHistory(':contactId', ':policyId'), loadChildren: () => import('@pages/home/renewals/policy-renewal-history/policy-renewal-history.module').then(mod => mod.PolicyRenewalHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

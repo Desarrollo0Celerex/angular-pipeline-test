@@ -5,6 +5,7 @@ import { SinisterService } from '@services/sinister.service';
 
 import { CardKpiPercentageModule } from '@components/card-kpi-percentage/card-kpi-percentage.module';
 import { CardKpiWorkspaceSinistersClosedComponent } from './card-kpi-workspace-sinisters-closed.component';
+import { CardKpiWorkspaceSinistersClosedService } from './card-kpi-workspace-sinisters-closed.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { CardKpiWorkspaceSinistersClosedComponent } from './card-kpi-workspace-s
     CommonModule
   ],
   providers: [
+    CardKpiWorkspaceSinistersClosedService,
     SinisterService
   ]
 })

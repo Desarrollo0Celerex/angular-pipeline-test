@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
+import { ContainerCharts } from '@interfaces/container-charts.interface';
 import { CreateQuotationDataSend } from '@interfaces/create-quotation-data-send.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { StatRangeData } from '@interfaces/stat-range-data.interface';
@@ -23,7 +24,8 @@ const routes: any = {
     contactSourcesQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/contact-sources/quotations',
     partnersQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/partners/quotations',
     usersQuotationsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/users/quotations',
-    quotations: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/quotations'
+    quotations: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/quotations',
+    workspaceQuotationsSmartInsights: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/quotations/smart-insights',
 }
 
 @Injectable()
@@ -137,7 +139,7 @@ export class QuotationService {
      * @param  search    The search to do
      * @return           The quotations
      */
-    getQuotations(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
+    getQuotations(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
         const route: string = routes.quotations(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
@@ -147,6 +149,7 @@ export class QuotationService {
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         params = params.append('sortBy', sortBy);
         return this._httpClient.get<HttpResponse>(route, {params});
     }
@@ -203,6 +206,19 @@ export class QuotationService {
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getWorkspaceQuotationsSmartInsights(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<ContainerCharts> {
+        const route: string = routes.workspaceQuotationsSmartInsights(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
             map((res: HttpResponse) => res.data )
         );

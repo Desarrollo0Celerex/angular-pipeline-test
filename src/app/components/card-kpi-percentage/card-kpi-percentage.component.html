@@ -1,7 +1,7 @@
 <div class="card-body text-center" *ngIf="isContentLoaded === true; else containerLoadingContent">
     <h6 class="mb-0">{{title}}</h6>
     <h2 class="number-font mt-2 mb-2"><span class="counter">{{value}}</span>
-        <a href="../listings/quotes_closed.php">
+        <a *ngIf="rangeData !== null" routerLink="{{'/' + route}}" [queryParams]="{ rangeStart: rangeData.rangeStart, rangeEnd: rangeData.rangeEnd }">
             <i class="fe fe-log-in fs-20 ml-1"></i>
         </a>
     </h2>
