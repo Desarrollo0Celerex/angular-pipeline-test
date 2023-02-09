@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -7,20 +8,22 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'agt-list-receipts-applied-by-range',
-  templateUrl: './list-receipts-applied-by-range.page.html',
+  selector: 'agt-workspace-receipts-paid-by-range',
+  templateUrl: './workspace-receipts-paid-by-range.page.html',
   styles: [
   ]
 })
-export class ListReceiptsAppliedByRangePage implements OnInit {
+export class WorkspaceReceiptsPaidByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
     pageUrl: string = '/' + ROUTES_NAME.listPayments;
     rangeField: string = 'paymentDate';
     statsPeriodData: StatsPeriodData | null = null;
     specialFilter: string = '';
 
+    constructor(private _activatedRoute: ActivatedRoute) { }
+
     ngOnInit(): void {
-        this._catchPeriodData();
+        this.statsPeriodData = this._generatePeriodData();
     }
 
     applySpecialFilter(specialFilter: string): void {
@@ -32,21 +35,13 @@ export class ListReceiptsAppliedByRangePage implements OnInit {
         this.statsPeriodData = statsPeriodData;
     }
 
-    private _catchPeriodData(): void {
-        // If there is saved data
-        if(!!history.state.periodData) {
-            this.statsPeriodData = {
-                startDate: history.state.periodData.startDate,
-                endDate: history.state.periodData.endDate,
-                periodId: 0
-            }
-        } else {
-            // Else, set default data.
-            this.statsPeriodData = {
-                startDate: moment().subtract(1, 'month').format('DD/MM/YYYY'),
-                endDate: moment().add(1, 'month').format('DD/MM/YYYY'),
-                periodId: 0
-            }
+    private _generatePeriodData(): StatsPeriodData {
+        const startDate: string = this._activatedRoute.snapshot.queryParamMap.get('rangeStart') || moment().subtract(30, 'days').format('DD/MM/YYYY');
+        const endDate: string = this._activatedRoute.snapshot.queryParamMap.get('rangeEnd') || moment().format('DD/MM/YYYY');
+        return {
+            startDate,
+            endDate,
+            periodId: 0
         }
     }
 }

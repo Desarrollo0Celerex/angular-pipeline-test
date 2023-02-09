@@ -7,12 +7,12 @@ import { ContainerChartsReceiptsAppliedModule } from '@components/container-char
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
 import { ContentListModule } from '@components/content-list/content-list.module';
 
-import { ListReceiptsAppliedByRangeRoutingModule } from './list-receipts-applied-by-range-routing.module';
-import { ListReceiptsAppliedByRangePage } from './list-receipts-applied-by-range.page';
+import { WorkspaceReceiptsPaidByRangeRoutingModule } from './workspace-receipts-paid-by-range-routing.module';
+import { WorkspaceReceiptsPaidByRangePage } from './workspace-receipts-paid-by-range.page';
 
 @NgModule({
   declarations: [
-    ListReceiptsAppliedByRangePage
+    WorkspaceReceiptsPaidByRangePage
   ],
   imports: [
     CardContentTitleModule,
@@ -21,7 +21,7 @@ import { ListReceiptsAppliedByRangePage } from './list-receipts-applied-by-range
     ContainerChartsReceiptsAppliedModule,
     ContainerSelectStatsPeriodModule,
     ContentListModule,
-    ListReceiptsAppliedByRangeRoutingModule,
+    WorkspaceReceiptsPaidByRangeRoutingModule,
   ]
 })
-export class ListReceiptsAppliedByRangeModule { }
+export class WorkspaceReceiptsPaidByRangeModule { }

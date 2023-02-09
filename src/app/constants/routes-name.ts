@@ -99,9 +99,9 @@ const HOME_PAYMENTS_ROUTES = {
     paymentCalendar: `workspace/payments/calendar`,
     listPendingPaymentsByRange: `workspace/payments/list-pending-payments-by-range`,
     listPendingPaymentsByRangeWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/payments/list-pending-payments-by-range/${rangeStart}/${rangeEnd}`,
-    listReceiptsAppliedByRange: `workspace/payments/list-receipts-applied-by-range`,
     contactPendingPaymentsByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/payments/contact-pending-payments-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
     contactReceiptsAppliedByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/payments/contact-receipts-applied-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
+    workspaceReceiptsPaidByRange: `workspace-receipts-paid-by-range`,
 }
 
 const HOME_POLICIES_ROUTES = {

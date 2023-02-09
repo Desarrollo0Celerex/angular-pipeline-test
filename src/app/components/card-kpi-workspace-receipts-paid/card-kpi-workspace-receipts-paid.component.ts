@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
+import { ROUTES_NAME } from '@constants/routes-name';
 import { RangeData } from '@interfaces/range-data.interface';
 
 import { CardKpiWorkspaceReceiptsPaidService } from './card-kpi-workspace-receipts-paid.service';
@@ -13,6 +14,7 @@ import { CardKpiWorkspaceReceiptsPaidService } from './card-kpi-workspace-receip
 export class CardKpiWorkspaceReceiptsPaidComponent implements OnChanges {
     @Input() rangeData: RangeData | null = null;
     rangeField: string = 'paymentDate';
+    route: string = ROUTES_NAME.workspaceReceiptsPaidByRange;
 
     constructor(public model: CardKpiWorkspaceReceiptsPaidService) { }
 

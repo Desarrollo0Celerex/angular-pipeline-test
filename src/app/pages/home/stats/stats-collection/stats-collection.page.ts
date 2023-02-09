@@ -25,16 +25,14 @@ export class StatsCollectionPage {
         this._router.navigateByUrl(ROUTES_NAME.paymentCalendar);
     }
 
-    goToListReceiptsAppliedByRange(): void {
+    goToWorkspaceReceiptsPaidByRange(): void {
         if(!!this.range) {
-            this._router.navigateByUrl(
-                ROUTES_NAME.listReceiptsAppliedByRange,
+            this._router.navigate(
+                [ROUTES_NAME.workspaceReceiptsPaidByRange],
                 {
-                    state: {
-                        periodData: {
-                            startDate: this.range.selectedRangeStart,
-                            endDate: this.range.selectedRangeEnd
-                        }
+                    queryParams: {
+                        rangeStart: this.range.selectedRangeStart,
+                        rangeEnd: this.range.selectedRangeEnd
                     }
                 }
             );
