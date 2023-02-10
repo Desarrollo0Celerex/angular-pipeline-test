@@ -7,12 +7,12 @@ import { ContainerChartsOpenedSinistersModule } from '@components/container-char
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
 import { ContentListModule } from '@components/content-list/content-list.module';
 
-import { ListOpenedSinistersByRangeRoutingModule } from './list-opened-sinisters-by-range-routing.module';
-import { ListOpenedSinistersByRangePage } from './list-opened-sinisters-by-range.page';
+import { WorkspaceSinistersOpenedByRangeRoutingModule } from './workspace-sinisters-opened-by-range-routing.module';
+import { WorkspaceSinistersOpenedByRangePage } from './workspace-sinisters-opened-by-range.page';
 
 @NgModule({
   declarations: [
-    ListOpenedSinistersByRangePage
+    WorkspaceSinistersOpenedByRangePage
   ],
   imports: [
     ButtonDownloadReportOpenSinistersModule,
@@ -21,7 +21,7 @@ import { ListOpenedSinistersByRangePage } from './list-opened-sinisters-by-range
     ContainerChartsOpenedSinistersModule,
     ContainerSelectStatsPeriodModule,
     ContentListModule,
-    ListOpenedSinistersByRangeRoutingModule
+    WorkspaceSinistersOpenedByRangeRoutingModule
   ]
 })
-export class ListOpenedSinistersByRangeModule { }
+export class WorkspaceSinistersOpenedByRangeModule { }
