@@ -97,6 +97,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.createQuotation(':contactId'), loadChildren: () => import('@pages/home/quotations/create-quotation/create-quotation.module').then(mod => mod.CreateQuotationModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.listQuotationsByRange, loadChildren: () => import('@pages/home/quotations/list-quotations-by-range/list-quotations-by-range.module').then(mod => mod.ListQuotationsByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.workspaceQuotationsClosedByRange, loadChildren: () => import('@pages/home/quotations/workspace-quotations-closed-by-range/workspace-quotations-closed-by-range.module').then(mod => mod.WorkspaceQuotationsClosedByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.workspaceQuotationsOpenedByRange, loadChildren: () => import('@pages/home/quotations/workspace-quotations-opened-by-range/workspace-quotations-opened-by-range.module').then(mod => mod.WorkspaceQuotationsOpenedByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             
             // Renewals routes
             { path: ROUTES_NAME.policyRenewalHistory(':contactId', ':policyId'), loadChildren: () => import('@pages/home/renewals/policy-renewal-history/policy-renewal-history.module').then(mod => mod.PolicyRenewalHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
