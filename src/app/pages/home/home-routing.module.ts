@@ -112,6 +112,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.reactivateSinister(':contactId', ':policyId', ':sinisterId'), loadChildren: () => import('@pages/home/sinisters/reactivate-sinister/reactivate-sinister.module').then(mod => mod.ReactivateSinisterModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.listOpenedSinistersByRange, loadChildren: () => import('@pages/home/sinisters/list-opened-sinisters-by-range/list-opened-sinisters-by-range.module').then(mod => mod.ListOpenedSinistersByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.insuranceSinistersByRange, loadChildren: () => import('@pages/home/sinisters/insurance-sinisters-by-range/insurance-sinisters-by-range.module').then(mod => mod.InsuranceSinistersByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.workspaceSinistersClosedByRange, loadChildren: () => import('@pages/home/sinisters/workspace-sinisters-closed-by-range/workspace-sinisters-closed-by-range.module').then(mod => mod.WorkspaceSinistersClosedByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Stats routes
             { path: '', loadChildren: () => import('@pages/home/stats/stats.module').then(mod => mod.StatsModule) },

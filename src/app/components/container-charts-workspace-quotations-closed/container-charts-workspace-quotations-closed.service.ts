@@ -20,12 +20,8 @@ export class ContainerChartsWorkspaceQuotationsClosedService {
         const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.ACCEPTED, QUOTATION_STATUS.REJECTED]);
         this._quotationService.getWorkspaceQuotationsSmartInsights(filters, rangeField, rangeStart, rangeEnd, this.specialFilter).subscribe((res: ContainerCharts) => {
             this.chartsData = res;
-            if(this.filtersData === null) {
-                this.filtersData = FiltersHelper.generateFiltersData(res);
-                this.specialFilter = this.filtersData!.insurances.specialFilter + ';' + this.filtersData!.insurers.specialFilter + ';' + this.filtersData!.contactTypes.specialFilter;
-            } else {
-                this.filtersData = FiltersHelper.updateFiltersData(res, this.filtersData);
-            }
+            this.filtersData = FiltersHelper.generateFiltersData(res);
+            this.specialFilter = this.filtersData!.insurances.specialFilter + ';' + this.filtersData!.insurers.specialFilter + ';' + this.filtersData!.contactTypes.specialFilter;
         });
     }
 

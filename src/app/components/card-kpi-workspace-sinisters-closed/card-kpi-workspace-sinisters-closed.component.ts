@@ -1,4 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+
+import { ROUTES_NAME } from '@constants/routes-name';
 import { RangeData } from '@interfaces/range-data.interface';
 
 import { CardKpiWorkspaceSinistersClosedService } from './card-kpi-workspace-sinisters-closed.service';
@@ -12,6 +14,7 @@ import { CardKpiWorkspaceSinistersClosedService } from './card-kpi-workspace-sin
 export class CardKpiWorkspaceSinistersClosedComponent implements OnChanges {
     @Input() rangeData: RangeData | null = null;
     rangeField: string = 'sinisterDate';
+    route: string = ROUTES_NAME.workspaceSinistersClosedByRange;
 
     constructor(public model: CardKpiWorkspaceSinistersClosedService) { }
 

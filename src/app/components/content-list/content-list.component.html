@@ -51,6 +51,7 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID" class="card-title">Recibos Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID" class="card-title">Recibos Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID" class="card-title">Siniestros Encontrados</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID" class="card-title">Siniestros Resueltos</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID" class="card-title">Siniestros Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.LAST_CANCELLED_POLICY.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.INCOMPLETE_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
@@ -304,6 +305,7 @@
                         contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
                         contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
                         contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+                        contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
                         contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID
                     ) ? contentType : ''"
                     [sinister]="content"
@@ -374,6 +376,7 @@
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
@@ -421,6 +424,7 @@
     contentType === CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID ||
     contentType === CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
@@ -475,6 +479,7 @@
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
@@ -556,6 +561,7 @@
     contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PARTNER_SINISTER.ID">
     <agt-modal-show-sinister-details [modalId]="modalIdShowSinisterDetails" [sinister]="selectedSinister"></agt-modal-show-sinister-details>

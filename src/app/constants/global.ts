@@ -359,6 +359,10 @@ export const CONTENT_TYPES: any = {
         ID: 49,
         NAME: 'Cotización'
     },
+    WORKSPACE_SINISTERS_CLOSED_BY_RANGE: {
+        ID: 50,
+        NAME: 'Siniestro'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

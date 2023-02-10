@@ -105,28 +105,28 @@
                                     <div class="form-group">
                                         <!-- AGENTHOS - SINISTER DATE -->
                                         <label class="form-label">Fecha del Siniestro</label>
-                                        <input type="text" class="form-control" [placeholder]="reactivateSinisterService.sinister.sinisterDate | date: 'dd/MM/yyyy'" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="(!!reactivateSinisterService.sinister.sinisterDate) ? reactivateSinisterService.sinister.sinisterDate : ''" readonly="">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <!-- AGENTHOS - SINISTER NUMBER -->
                                         <label class="form-label">No. de Siniestro</label>
-                                        <input type="text" class="form-control" [placeholder]="reactivateSinisterService.sinister.sinisterNumber" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="(!!reactivateSinisterService.sinister.sinisterNumber) ? reactivateSinisterService.sinister.sinisterNumber : ''" readonly="">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <!-- AGENTHOS - SINISTER INVOICE -->
                                         <label class="form-label">No. de Folio</label>
-                                        <input type="text" class="form-control" [placeholder]="reactivateSinisterService.sinister.invoice" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="(!!reactivateSinisterService.sinister.invoice) ? reactivateSinisterService.sinister.invoice : ''" readonly="">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <!-- AGENTHOS - SINISTER CERTIFICATE -->
                                         <label class="form-label">No. de Certificado</label>
-                                        <input type="text" class="form-control" [placeholder]="reactivateSinisterService.sinister.certificate" readonly="">
+                                        <input type="text" class="form-control" [placeholder]="(!!reactivateSinisterService.sinister.certificate) ? reactivateSinisterService.sinister.certificate : ''" readonly="">
                                     </div>
                                 </div>
                             </div>

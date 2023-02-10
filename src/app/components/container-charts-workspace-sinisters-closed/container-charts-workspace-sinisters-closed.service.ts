@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 
-import { POLICY_STATUS } from '@constants/global';
+import { SINISTER_STATUS } from '@constants/global';
 import { FiltersHelper } from '@helpers/filters.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ContainerCharts } from '@interfaces/container-charts.interface';
 import { ContainerFilters } from '@interfaces/container-filters.interface';
-import { PolicyService } from '@services/policy.service';
+import { SinisterService } from '@services/sinister.service';
 
 @Injectable()
-export class ContainerChartsWorkspacePoliciesPendingService {
+export class ContainerChartsWorkspaceSinistersClosedService {
     chartsData: ContainerCharts = this._getDefaultChartsData();
     filtersData: ContainerFilters | null = null;
     specialFilter: string = '';
 
-    constructor(private _policyService: PolicyService) { }
+    constructor(private _sinisterService: SinisterService) { }
 
-    loadData(): void {
+    loadData(rangeField: string, rangeStart: string, rangeEnd: string): void {
         this.chartsData = this._getDefaultChartsData();
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.PENDING]);
-        this._policyService.getPolicyStats(filters, '', '', '', this.specialFilter).subscribe((res: ContainerCharts) => {
+        const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.FINISHED]);
+        this._sinisterService.getSinisterStats(filters, rangeField, rangeStart, rangeEnd, this.specialFilter).subscribe((res: ContainerCharts) => {
             this.chartsData = res;
             this.filtersData = FiltersHelper.generateFiltersData(res);
             this.specialFilter = this.filtersData!.insurances.specialFilter + ';' + this.filtersData!.insurers.specialFilter + ';' + this.filtersData!.contactTypes.specialFilter;

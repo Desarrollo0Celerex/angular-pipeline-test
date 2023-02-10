@@ -55,36 +55,4 @@ export class FiltersHelper {
 
         return filtersData;
     }
-
-    static updateFiltersData(containerCharts: ContainerCharts, filters: ContainerFilters): ContainerFilters {
-        const filtersData: ContainerFilters = {
-            insurances: filters!.insurances,
-            insurers: {
-                filters: [],
-                specialFilter: filters!.insurers.specialFilter
-            },
-            contactTypes: {
-                filters: [],
-                specialFilter: filters!.contactTypes.specialFilter
-            }
-        };
-
-        for(let insurerData of containerCharts.insurers) {
-            filtersData.insurers.filters.push({
-                id: insurerData.id,
-                name: insurerData.name,
-                selected: true
-            });
-        }
-
-        for(let contactTypeData of containerCharts.contactTypes) {
-            filtersData.contactTypes.filters.push({
-                id: contactTypeData.id,
-                name: contactTypeData.name,
-                selected: true
-            });
-        }
-
-        return filtersData;
-    }
 }
