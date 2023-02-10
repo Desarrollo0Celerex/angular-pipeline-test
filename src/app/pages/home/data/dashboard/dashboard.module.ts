@@ -6,7 +6,6 @@ import { CardKpiTotalActiveClientsModule } from '@components/card-kpi-total-acti
 import { CardKpiTotalActiveLeadsModule } from '@components/card-kpi-total-active-leads/card-kpi-total-active-leads.module';
 import { CardKpiTotalActivePoliciesModule } from '@components/card-kpi-total-active-policies/card-kpi-total-active-policies.module';
 import { CardKpiTotalLastCancelledPoliciesModule } from '@components/card-kpi-total-last-cancelled-policies/card-kpi-total-last-cancelled-policies.module';
-import { CardKpiTotalLastRenewalsModule } from '@components/card-kpi-total-last-renewals/card-kpi-total-last-renewals.module';
 import { CardKpiTotalOpenSinistersModule } from '@components/card-kpi-total-open-sinisters/card-kpi-total-open-sinisters.module';
 import { CardKpiTotalPendingPaymentsModule } from '@components/card-kpi-total-pending-payments/card-kpi-total-pending-payments.module';
 import { CardKpiTotalQuotesModule } from '@components/card-kpi-total-quotes/card-kpi-total-quotes.module';
@@ -34,7 +33,6 @@ import { DashboardPage } from './dashboard.page';
     CardKpiTotalLastCancelledPoliciesModule,
     CardKpiTotalOpenSinistersModule,
     CardKpiTotalPendingPaymentsModule,
-    CardKpiTotalLastRenewalsModule,
     CardKpiTotalQuotesModule,
     CommonModule,
     ChartLeadsVsClientsModule,

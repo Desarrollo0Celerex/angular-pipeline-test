@@ -41,14 +41,12 @@ export class StatsPoliciesPage {
 
     goToPoliciesToRenew(): void {
         if(!!this.range) {
-            this._router.navigateByUrl(
-                ROUTES_NAME.renewals,
+            this._router.navigate(
+                [ROUTES_NAME.workspaceRenewalsPendingByRange],
                 {
-                    state: {
-                        periodData: {
-                            startDate: this.range.selectedRangeStart,
-                            endDate: this.range.selectedRangeEnd
-                        }
+                    queryParams: {
+                        rangeStart: this.range.selectedRangeStart,
+                        rangeEnd: this.range.selectedRangeEnd
                     }
                 }
             );

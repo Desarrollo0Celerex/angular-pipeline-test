@@ -144,6 +144,7 @@ const HOME_RENEWALS_ROUTES = {
     policyRenewalHistory: (contactId: string, policyId: string) => `workspace/renewals/policy-renewal-history/${contactId}/${policyId}`,
     policyRenewalsApplied: (contactId: string, policyId: string) => `workspace/renewals/policy-renewals-applied/${contactId}/${policyId}`,
     workspaceRenewalsAppliedByRange: `workspace-renewals-applied-by-range`,
+    workspaceRenewalsPendingByRange: `workspace-renewals-pending-by-range`,
 }
 
 const HOME_SINISTERS_ROUTES = {
