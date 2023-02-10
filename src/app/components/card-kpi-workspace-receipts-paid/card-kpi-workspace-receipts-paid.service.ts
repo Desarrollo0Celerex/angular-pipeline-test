@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { POLICY_STATUS } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { RangeData } from '@interfaces/range-data.interface';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
 import { PaymentService } from '@services/payment.service';

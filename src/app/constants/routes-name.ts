@@ -97,11 +97,10 @@ const HOME_PAYMENTS_ROUTES = {
     pendingReceipts: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/pending-receipts/${contactId}/${policyId}/${paymentId}`,
     policyReceiptsPaid: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/policy-receipts-paid/${contactId}/${policyId}/${paymentId}`,
     paymentCalendar: `workspace/payments/calendar`,
-    listPendingPaymentsByRange: `workspace/payments/list-pending-payments-by-range`,
-    listPendingPaymentsByRangeWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/payments/list-pending-payments-by-range/${rangeStart}/${rangeEnd}`,
     contactPendingPaymentsByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/payments/contact-pending-payments-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
     contactReceiptsAppliedByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/payments/contact-receipts-applied-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
     workspaceReceiptsPaidByRange: `workspace-receipts-paid-by-range`,
+    workspaceReceiptsPendingByRange: `workspace-receipts-pending-by-range`,
 }
 
 const HOME_POLICIES_ROUTES = {

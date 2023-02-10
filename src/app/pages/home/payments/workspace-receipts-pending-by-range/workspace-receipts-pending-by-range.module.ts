@@ -7,13 +7,13 @@ import { ContainerChartsPendingPaymentsModule } from '@components/container-char
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
 import { ContentListModule } from '@components/content-list/content-list.module';
 
-import { ListPendingPaymentsByRangeRoutingModule } from './list-pending-payments-by-range-routing.module';
-import { ListPendingPaymentsByRangePage } from './list-pending-payments-by-range.page';
+import { WorkspaceReceiptsPendingByRangeRoutingModule } from './workspace-receipts-pending-by-range-routing.module';
+import { WorkspaceReceiptsPendingByRangePage } from './workspace-receipts-pending-by-range.page';
 
 
 @NgModule({
   declarations: [
-    ListPendingPaymentsByRangePage
+    WorkspaceReceiptsPendingByRangePage
   ],
   imports: [
     CardContentTitleModule,
@@ -22,7 +22,7 @@ import { ListPendingPaymentsByRangePage } from './list-pending-payments-by-range
     ContainerChartsPendingPaymentsModule,
     ContainerSelectStatsPeriodModule,
     ContentListModule,
-    ListPendingPaymentsByRangeRoutingModule
+    WorkspaceReceiptsPendingByRangeRoutingModule
   ]
 })
-export class ListPendingPaymentsByRangeModule { }
+export class WorkspaceReceiptsPendingByRangeModule { }
