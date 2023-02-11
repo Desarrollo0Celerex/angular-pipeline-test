@@ -25,14 +25,12 @@ export class StatsPoliciesPage {
 
     goToCancelledPolicies(): void {
         if(!!this.range) {
-            this._router.navigateByUrl(
-                ROUTES_NAME.cancelledPolicies,
+            this._router.navigate(
+                [ROUTES_NAME.workspacePoliciesCanceledByRange],
                 {
-                    state: {
-                        periodData: {
-                            startDate: this.range.selectedRangeStart,
-                            endDate: this.range.selectedRangeEnd
-                        }
+                    queryParams: {
+                        startDate: this.range.selectedRangeStart,
+                        endDate: this.range.selectedRangeEnd
                     }
                 }
             );

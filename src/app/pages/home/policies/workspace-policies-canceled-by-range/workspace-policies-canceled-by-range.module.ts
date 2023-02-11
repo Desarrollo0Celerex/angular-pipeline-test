@@ -6,13 +6,13 @@ import { ContainerChartsCancelledPoliciesModule } from '@components/container-ch
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
 import { ContentListModule } from '@components/content-list/content-list.module';
 
-import { CancelledPoliciesRoutingModule } from './cancelled-policies-routing.module';
-import { CancelledPoliciesPage } from './cancelled-policies.page';
+import { WorkspacePoliciesCanceledByRangeRoutingModule } from './workspace-policies-canceled-by-range-routing.module';
+import { WorkspacePoliciesCanceledByRangePage } from './workspace-policies-canceled-by-range.page';
 
 
 @NgModule({
   declarations: [
-    CancelledPoliciesPage
+    WorkspacePoliciesCanceledByRangePage
   ],
   imports: [
     CommonModule,
@@ -20,7 +20,7 @@ import { CancelledPoliciesPage } from './cancelled-policies.page';
     CardContentTitleModule,
     ContainerChartsCancelledPoliciesModule,
     ContentListModule,
-    CancelledPoliciesRoutingModule
+    WorkspacePoliciesCanceledByRangeRoutingModule
   ]
 })
-export class CancelledPoliciesModule { }
+export class WorkspacePoliciesCanceledByRangeModule { }

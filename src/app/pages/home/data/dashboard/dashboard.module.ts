@@ -5,12 +5,12 @@ import { CardContentTitleModule } from '@components/card-content-title/card-cont
 import { CardKpiTotalActiveClientsModule } from '@components/card-kpi-total-active-clients/card-kpi-total-active-clients.module';
 import { CardKpiTotalActiveLeadsModule } from '@components/card-kpi-total-active-leads/card-kpi-total-active-leads.module';
 import { CardKpiTotalActivePoliciesModule } from '@components/card-kpi-total-active-policies/card-kpi-total-active-policies.module';
-import { CardKpiTotalLastCancelledPoliciesModule } from '@components/card-kpi-total-last-cancelled-policies/card-kpi-total-last-cancelled-policies.module';
 import { ChartLeadsVsClientsModule } from '@components/chart-leads-vs-clients/chart-leads-vs-clients.module';
 import { ChartQuotesVsEmissionsModule } from '@components/chart-quotes-vs-emissions/chart-quotes-vs-emissions.module';
 import { ContainerLastContactsModule } from '@components/container-last-contacts/container-last-contacts.module';
 import { ContainerWalletIncompleteExternalPoliciesModule } from '@components/container-wallet-incomplete-external-policies/container-wallet-incomplete-external-policies.module';
 import { ContainerWalletKpisModule } from '@components/container-wallet-kpis/container-wallet-kpis.module';
+import { ContainerWalletResumeModule } from '@components/container-wallet-resume/container-wallet-resume.module';
 import { ContainerWorkspaceKpisModule } from '@components/container-workspace-kpis/container-workspace-kpis.module';
 import { ContainerWorkspaceIncompletePoliciesModule } from '@components/container-workspace-incomplete-policies/container-workspace-incomplete-policies.module';
 import { ContainerWorkspacePoliciesPendingModule } from '@components/container-workspace-policies-pending/container-workspace-policies-pending.module';
@@ -27,7 +27,6 @@ import { DashboardPage } from './dashboard.page';
     CardKpiTotalActiveClientsModule,
     CardKpiTotalActiveLeadsModule,
     CardKpiTotalActivePoliciesModule,
-    CardKpiTotalLastCancelledPoliciesModule,
     CommonModule,
     ChartLeadsVsClientsModule,
     ChartQuotesVsEmissionsModule,
@@ -35,6 +34,7 @@ import { DashboardPage } from './dashboard.page';
     ContainerLastContactsModule,
     ContainerWalletIncompleteExternalPoliciesModule,
     ContainerWalletKpisModule,
+    ContainerWalletResumeModule,
     ContainerWorkspaceIncompletePoliciesModule,
     ContainerWorkspacePoliciesPendingModule,
     DashboardRoutingModule,

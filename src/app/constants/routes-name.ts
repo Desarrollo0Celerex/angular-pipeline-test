@@ -120,12 +120,11 @@ const HOME_POLICIES_ROUTES = {
     renewalsWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/policies/renewals/${rangeStart}/${rangeEnd}`,
     contactPendingRenewalsByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/policies/contact-pending-renewals-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
     contactAppliedRenewalsByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/policies/contact-applied-renewals-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
-    cancelledPolicies: 'workspace/policies/cancelled',
-    cancelledPoliciesWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/policies/cancelled/${rangeStart}/${rangeEnd}`,
     listPolicyInsureds: (contactId: string, policyId: string) => `workspace/policy-insureds/list-policy-insureds/${contactId}/${policyId}`,
     updatePolicyInsured: (contactId: string, policyId: string, policyInsuredId: string) => `workspace/policy-insureds/update-policy-insured/${contactId}/${policyId}/${policyInsuredId}`,
     createPolicyInsured: (contactId: string, policyId: string) => `workspace/policy-insureds/create-policy-insured/${contactId}/${policyId}`,
     importPolicyInsureds: (contactId: string, policyId: string) => `workspace/policy-insureds/import-policy-insureds/${contactId}/${policyId}`,
+    workspacePoliciesCanceledByRange: 'workspace-policies-canceled-by-range',
 }
 
 const HOME_POLICY_ENDORSEMENTS_ROUTES = {
