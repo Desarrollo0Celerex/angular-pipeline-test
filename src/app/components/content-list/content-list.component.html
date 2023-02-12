@@ -71,6 +71,7 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID" class="card-title">Historial de Endosos</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.PAYMENT_HISTORY.ID" class="card-title">Historial de Pagos</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.SINISTER_HISTORY.ID" class="card-title">Eventos del Siniestro</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID" class="card-title">Prospectos Generados</h3>
                     <h3 *ngSwitchDefault class="card-title">{{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}</h3>
                 </ng-container>
             </div>
@@ -182,7 +183,11 @@
                     [client]="content"
                     (deleteGroupMemberRequested)="confirmDeleteGroupMember($event)">
                 </agt-card-group-member>
-                <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD.ID"
+                <agt-card-lead 
+                    *ngSwitchCase="(
+                        contentType === CONTENT_TYPES.LEAD.ID || 
+                        contentType === CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID
+                    ) ? contentType : ''"
                     [lead]="content"
                     (showContactData)="onShowContactData($event)">
                 </agt-card-lead>
@@ -365,6 +370,7 @@
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.CONTACT.ID ||
     contentType === CONTENT_TYPES.LEAD.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.CLIENT.ID ||
     contentType === CONTENT_TYPES.PARTNER_CLIENT.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||

@@ -597,6 +597,19 @@ export class ContentListService {
         );
     }
 
+    loadWorkspaceLeadsConvertedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string): Observable<void> {
+        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName';
+        const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED])
+        const query: string = '';
+        return this._leadService.getLeads(page, fields, filters, query, rangeField, rangeStart, rangeEnd).pipe(
+            tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
     loadContactPendingRenewalsByRange(contactId: string, page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
         const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])

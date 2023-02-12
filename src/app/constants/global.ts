@@ -367,6 +367,10 @@ export const CONTENT_TYPES: any = {
         ID: 51,
         NAME: 'Póliza'
     },
+    WORKSPACE_LEADS_CONVERTED_BY_RANGE: {
+        ID: 52,
+        NAME: 'Prospecto'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

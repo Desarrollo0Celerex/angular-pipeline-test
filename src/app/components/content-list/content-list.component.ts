@@ -951,6 +951,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         switch(this.contentType) {
             case CONTENT_TYPES.CONTACT.ID:
             case CONTENT_TYPES.LEAD.ID:
+            case CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID:
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.POLICY.ID:
             case CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID:
@@ -1312,6 +1313,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 });
             break;
 
+            case CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID:
+                this.contentListService.loadWorkspaceLeadsConvertedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
             case CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID:
                 this.contentListService.loadInsuranceSinistersByRange(this.insuranceId, this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
@@ -1512,6 +1519,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID:
                 case CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID:
                 case CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID:
+                case CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID:
                     canShow = true;
                 break;
             }

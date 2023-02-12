@@ -48,6 +48,7 @@ const routes: Routes = [
 
             // Leads routes
             { path: ROUTES_NAME.listLeads, loadChildren: () => import('@pages/home/leads/list-leads/list-leads.module').then(mod => mod.ListLeadsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            { path: ROUTES_NAME.workspaceLeadsConvertedByRange, loadChildren: () => import('@pages/home/leads/workspace-leads-converted-by-range/workspace-leads-converted-by-range.module').then(mod => mod.WorkspaceLeadsConvertedByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: '', loadChildren: () => import('@pages/home/leads/leads.module').then(mod => mod.LeadsModule) },
 
             // Partners routes

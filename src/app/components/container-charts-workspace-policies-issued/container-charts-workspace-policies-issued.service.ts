@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { POLICY_STATUS } from '@constants/global';
 import { FiltersHelper } from '@helpers/filters.helper';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ContainerCharts } from '@interfaces/container-charts.interface';
 import { ContainerFilters } from '@interfaces/container-filters.interface';
 import { PolicyService } from '@services/policy.service';
