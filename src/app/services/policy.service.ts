@@ -654,9 +654,10 @@ export class PolicyService {
         );
     }
 
-    getTotalPoliciesStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<StatRangeData[]> {
+    getTotalPoliciesStats(filters: string, rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<StatRangeData[]> {
         const route: string = routes.totalPoliciesStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);

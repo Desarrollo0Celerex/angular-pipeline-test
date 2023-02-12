@@ -24,8 +24,9 @@ export class ChartQuotesVsEmissionsService {
         let requests: Observable<StatRangeData[]>[] = [];
         const rangeFieldEmissions: string = 'emissionDate';
         const rangeFieldQuotes: string = 'createdAt';
+        const filterEmissions: string = '';
         requests.push(this._quotationService.getTotalQuotationsStats(rangeFieldQuotes, this.rangeStart, this.rangeEnd));
-        requests.push(this._policyService.getTotalPoliciesStats(rangeFieldEmissions, this.rangeStart, this.rangeEnd));
+        requests.push(this._policyService.getTotalPoliciesStats(filterEmissions, rangeFieldEmissions, this.rangeStart, this.rangeEnd));
         return forkJoin(requests);
     }
 

@@ -29,7 +29,7 @@ var StatsDashboardPlugin = function() {
         document.getElementById('agt-stats-dashboard-leads-vs-clients').innerHTML = '';
     }
 
-    function drawChartQuotesVsEmissions(chartData) {
+    function drawChartWorkspaceCancellationsVsEmissions(chartData) {
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(function() {
             drawChart(chartData);
@@ -38,7 +38,7 @@ var StatsDashboardPlugin = function() {
         function drawChart(chartData) {
             var data = google.visualization.arrayToDataTable(chartData);
             var options = {
-              height: 154,
+              height: 180,
               fontSize:12,
               bubble: {textStyle: {fontSize: 12}},
               crosshair:{"trigger":"both","color":"#8b0d88","opacity":0.8},
@@ -48,19 +48,19 @@ var StatsDashboardPlugin = function() {
               colors:["#ec4178","#6c5ce8","#262258","#a13678","#543888"],
             };
 
-            var chart = new google.visualization.AreaChart(document.getElementById('agt-stats-dashboard-quotes-vs-emissions'));
+            var chart = new google.visualization.AreaChart(document.getElementById('agt-chart-workspace-cancellations-vs-emissions'));
             chart.draw(data, options);
         }
     }
 
-    function removeChartQuotesVsEmissions() {
-        document.getElementById('agt-stats-dashboard-quotes-vs-emissions').innerHTML = '';
+    function removeChartWorkspaceCancellationsVsEmissions() {
+        document.getElementById('agt-chart-workspace-cancellations-vs-emissions').innerHTML = '';
     }
 
     return {
         drawChartLeadsVsClients,
         removeChartLeadsVsClients,
-        drawChartQuotesVsEmissions,
-        removeChartQuotesVsEmissions,
+        drawChartWorkspaceCancellationsVsEmissions,
+        removeChartWorkspaceCancellationsVsEmissions,
     }
 }();
