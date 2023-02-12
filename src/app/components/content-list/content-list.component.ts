@@ -952,6 +952,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.CONTACT.ID:
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID:
+            case CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID:
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
             case CONTENT_TYPES.POLICY.ID:
             case CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID:
@@ -1314,7 +1315,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             break;
 
             case CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID:
-                this.contentListService.loadWorkspaceLeadsConvertedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd).subscribe( () => {
+                this.contentListService.loadWorkspaceLeadsConvertedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
+            case CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID:
+                this.contentListService.loadWorkspaceClientsConvertedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
                 });
             break;

@@ -371,6 +371,10 @@ export const CONTENT_TYPES: any = {
         ID: 52,
         NAME: 'Prospecto'
     },
+    WORKSPACE_CLIENTS_CONVERTED_BY_RANGE: {
+        ID: 53,
+        NAME: 'Cliente'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

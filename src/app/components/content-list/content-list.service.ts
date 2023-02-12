@@ -597,11 +597,27 @@ export class ContentListService {
         );
     }
 
-    loadWorkspaceLeadsConvertedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string): Observable<void> {
+    loadWorkspaceLeadsConvertedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
         const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName';
         const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED])
         const query: string = '';
-        return this._leadService.getLeads(page, fields, filters, query, rangeField, rangeStart, rangeEnd).pipe(
+        return this._leadService.getLeads(page, fields, filters, query, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
+            tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    loadWorkspaceClientsConvertedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName,createdAt';
+        const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL])
+        const query: string = '';
+        const perPage: number = DEFAULT_PER_PAGE;
+        console.log('paso 1');
+        
+        return this._clientService.getClients(page, fields, filters, query, perPage, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
             tap((res: HttpResponse) => {
                     this.contents = this.contents.concat(res.data.items);
                     this._loadContentResultData(res.data.totalItems);

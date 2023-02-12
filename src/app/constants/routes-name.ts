@@ -20,7 +20,8 @@ const EXPRESS_ROUTES = {
 }
 
 const HOME_CLIENTS_ROUTES = {
-    listClients: 'workspace/clients/list-clients'
+    listClients: 'workspace/clients/list-clients',
+    workspaceClientsConvertedByRange: 'workspace-clients-converted-by-range',
 }
 
 const HOME_CONTACTS_ROUTES = {

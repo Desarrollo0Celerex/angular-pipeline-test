@@ -34,7 +34,7 @@ export class LeadService {
       * @param  query           The search to do
       * @return                 The leads
       */
-    getLeads(page: number = 1, fields: string = '', filters: string = '', query: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<HttpResponse> {
+    getLeads(page: number = 1, fields: string = '', filters: string = '', query: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
         const route: string = routes.leads(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
@@ -44,6 +44,7 @@ export class LeadService {
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);
         if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, { params });
     }
