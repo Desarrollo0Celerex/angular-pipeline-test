@@ -58,6 +58,7 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.EXTERNAL_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID" class="card-title">Pólizas Emitidas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID" class="card-title">Recibos Encontradas</h3>
@@ -213,6 +214,7 @@
                         contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
                         contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
                         contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+                        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
                         contentType === CONTENT_TYPES.POLICY_TRACKER.ID
                     ) ? contentType : ''"
                     [policy]="content"
@@ -404,6 +406,7 @@
     *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
@@ -443,6 +446,7 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
@@ -463,6 +467,7 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
@@ -499,6 +504,7 @@
     contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||

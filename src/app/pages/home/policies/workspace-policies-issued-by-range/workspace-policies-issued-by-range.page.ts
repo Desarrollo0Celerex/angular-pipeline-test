@@ -7,14 +7,14 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'agt-workspace-policies-canceled-by-range',
-  templateUrl: './workspace-policies-canceled-by-range.page.html',
+  selector: 'agt-workspace-policies-issued-by-range',
+  templateUrl: './workspace-policies-issued-by-range.page.html',
   styles: [
   ]
 })
-export class WorkspacePoliciesCanceledByRangePage implements OnInit {
+export class WorkspacePoliciesIssuedByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
-    rangeField: string = 'updatedAt';
+    rangeField: string = 'emissionDate';
     statsPeriodData: StatsPeriodData | null = null;
     specialFilter: string = '';
 

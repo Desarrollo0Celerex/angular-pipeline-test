@@ -9,7 +9,7 @@
     </div>
     <div class="card-footer">
         <a *ngIf="rangeData !== null" routerLink="{{'/' + route}}" [queryParams]="{ rangeStart: rangeData.rangeStart, rangeEnd: rangeData.rangeEnd }">
-            <button type="button" class="btn btn-block agt-btn-secondary"><strong>VER COTIZACIONES</strong></button>
+            <button type="button" class="btn btn-block" [ngClass]="{ 'agt-btn-primary': isButtonPrimary, 'agt-btn-secondary': !isButtonPrimary }"><strong>{{buttonLabel}}</strong></button>
         </a>
     </div>
 </div>

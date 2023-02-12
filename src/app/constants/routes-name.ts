@@ -125,6 +125,7 @@ const HOME_POLICIES_ROUTES = {
     createPolicyInsured: (contactId: string, policyId: string) => `workspace/policy-insureds/create-policy-insured/${contactId}/${policyId}`,
     importPolicyInsureds: (contactId: string, policyId: string) => `workspace/policy-insureds/import-policy-insureds/${contactId}/${policyId}`,
     workspacePoliciesCanceledByRange: 'workspace-policies-canceled-by-range',
+    workspacePoliciesIssuedByRange: 'workspace-policies-issued-by-range',
 }
 
 const HOME_POLICY_ENDORSEMENTS_ROUTES = {

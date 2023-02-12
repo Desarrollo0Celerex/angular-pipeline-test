@@ -363,6 +363,10 @@ export const CONTENT_TYPES: any = {
         ID: 50,
         NAME: 'Siniestro'
     },
+    WORKSPACE_POLICIES_ISSUED_BY_RANGE: {
+        ID: 51,
+        NAME: 'Póliza'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,
