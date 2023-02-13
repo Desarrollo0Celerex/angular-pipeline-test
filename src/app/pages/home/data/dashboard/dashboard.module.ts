@@ -5,7 +5,6 @@ import { CardContentTitleModule } from '@components/card-content-title/card-cont
 import { CardKpiTotalActiveClientsModule } from '@components/card-kpi-total-active-clients/card-kpi-total-active-clients.module';
 import { CardKpiTotalActiveLeadsModule } from '@components/card-kpi-total-active-leads/card-kpi-total-active-leads.module';
 import { CardKpiTotalActivePoliciesModule } from '@components/card-kpi-total-active-policies/card-kpi-total-active-policies.module';
-import { ChartLeadsVsClientsModule } from '@components/chart-leads-vs-clients/chart-leads-vs-clients.module';
 import { ContainerLastContactsModule } from '@components/container-last-contacts/container-last-contacts.module';
 import { ContainerWalletIncompleteExternalPoliciesModule } from '@components/container-wallet-incomplete-external-policies/container-wallet-incomplete-external-policies.module';
 import { ContainerWalletKpisModule } from '@components/container-wallet-kpis/container-wallet-kpis.module';
@@ -27,7 +26,6 @@ import { DashboardPage } from './dashboard.page';
     CardKpiTotalActiveLeadsModule,
     CardKpiTotalActivePoliciesModule,
     CommonModule,
-    ChartLeadsVsClientsModule,
     ContainerWorkspaceKpisModule,
     ContainerLastContactsModule,
     ContainerWalletIncompleteExternalPoliciesModule,

@@ -6,6 +6,7 @@ import { CardKpiWorkspacePoliciesIssuedModule } from '@components/card-kpi-works
 import { ChartWorkspaceCancellationsVsEmissionsModule } from '@components/chart-workspace-cancellations-vs-emissions/chart-workspace-cancellations-vs-emissions.module';
 import { CardKpiWorkspaceLeadsConvertedModule } from '@components/card-kpi-workspace-leads-converted/card-kpi-workspace-leads-converted.module';
 import { CardKpiWorkspaceClientsConvertedModule } from '@components/card-kpi-workspace-clients-converted/card-kpi-workspace-clients-converted.module';
+import { ChartWorkspaceLeadsVsClientsModule } from '@components/chart-workspace-leads-vs-clients/chart-workspace-leads-vs-clients.module';
 
 import { ContainerWalletResumeComponent } from './container-wallet-resume.component';
 
@@ -22,6 +23,7 @@ import { ContainerWalletResumeComponent } from './container-wallet-resume.compon
     ChartWorkspaceCancellationsVsEmissionsModule,
     CardKpiWorkspaceLeadsConvertedModule,
     CardKpiWorkspaceClientsConvertedModule,
+    ChartWorkspaceLeadsVsClientsModule,
     CommonModule
   ]
 })

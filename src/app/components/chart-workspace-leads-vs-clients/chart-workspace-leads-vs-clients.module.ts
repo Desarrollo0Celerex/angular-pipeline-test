@@ -5,14 +5,14 @@ import { LoadingContentModule } from '@components/loading-content/loading-conten
 import { ClientService } from '@services/client.service';
 import { LeadService } from '@services/lead.service';
 
-import { ChartLeadsVsClientsComponent } from './chart-leads-vs-clients.component';
+import { ChartWorkspaceLeadsVsClientsComponent } from './chart-workspace-leads-vs-clients.component';
 
 @NgModule({
   declarations: [
-    ChartLeadsVsClientsComponent
+    ChartWorkspaceLeadsVsClientsComponent
   ],
   exports: [
-      ChartLeadsVsClientsComponent
+      ChartWorkspaceLeadsVsClientsComponent
   ],
   imports: [
     CommonModule,
@@ -23,4 +23,4 @@ import { ChartLeadsVsClientsComponent } from './chart-leads-vs-clients.component
       LeadService
   ]
 })
-export class ChartLeadsVsClientsModule { }
+export class ChartWorkspaceLeadsVsClientsModule { }
