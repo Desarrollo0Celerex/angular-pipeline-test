@@ -2,12 +2,16 @@
 <!-- (JUST IF INCOMPLETE POLICIES DETECTED) -->
 <div class="row mt-3" *ngIf="model.externalPolicies.length > 0">
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Pólizas Externas</h3>
-            </div>
-        </div>
+        <agt-card-content-title
+            title="Pólizas Externas"
+            description="Pólizas cargadas por clientes."
+        ></agt-card-content-title>
     </div>
+
+    <div class="row agt-width-100">
+        <agt-alert-workspace-external-policies class="agt-width-100"></agt-alert-workspace-external-policies> 
+    </div>
+
     <!-- AGENTHOS - POLICY CARD -->
     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngFor="let externalPolicy of model.externalPolicies">
         <agt-card-external-policy

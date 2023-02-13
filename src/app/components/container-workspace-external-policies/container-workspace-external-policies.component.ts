@@ -4,18 +4,18 @@ import { Router } from '@angular/router'
 import { ROUTES_NAME } from '@constants/routes-name';
 import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 
-import { ContainerWalletIncompleteExternalPoliciesService } from './container-wallet-incomplete-external-policies.service';
+import { ContainerWorkspaceExternalPoliciesService } from './container-workspace-external-policies.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-wallet-incomplete-external-policies',
-  templateUrl: './container-wallet-incomplete-external-policies.component.html',
+  selector: 'agt-container-workspace-external-policies',
+  templateUrl: './container-workspace-external-policies.component.html',
   styles: [
   ],
-  providers: [ContainerWalletIncompleteExternalPoliciesService]
+  providers: [ContainerWorkspaceExternalPoliciesService]
 })
-export class ContainerWalletIncompleteExternalPoliciesComponent implements OnInit {
+export class ContainerWorkspaceExternalPoliciesComponent implements OnInit {
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
     modalIdConfirmValidateExternalPolicy: string = 'modal-confirm-validate-external-policy';
     modalIdConfirmUpdateExternalPolicy: string = 'modal-confirm-update-external-policy';
@@ -25,7 +25,7 @@ export class ContainerWalletIncompleteExternalPoliciesComponent implements OnIni
     selectedExternalPolicyUrl: string = '';
 
     constructor(
-        public model: ContainerWalletIncompleteExternalPoliciesService,
+        public model: ContainerWorkspaceExternalPoliciesService,
         private _router: Router
     ) { }
 

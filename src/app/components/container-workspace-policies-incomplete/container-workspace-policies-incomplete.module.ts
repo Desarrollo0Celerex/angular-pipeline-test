@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AlertWorkspacePoliciesIncompleteModule } from '@components/alert-workspace-policies-incomplete/alert-workspace-policies-incomplete.module';
 import { CardContentTitleModule } from '@components/card-content-title/card-content-title.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { ModalConfirmDeletePolicyModule } from '@components/modal-confirm-delete-policy/modal-confirm-delete-policy.module';
@@ -9,16 +10,17 @@ import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-
 import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
 import { PolicyService } from '@services/policy.service';
 
-import { ContainerWorkspaceIncompletePoliciesComponent } from './container-workspace-incomplete-policies.component';
+import { ContainerWorkspacePoliciesIncompleteComponent } from './container-workspace-policies-incomplete.component';
 
 @NgModule({
   declarations: [
-    ContainerWorkspaceIncompletePoliciesComponent
+    ContainerWorkspacePoliciesIncompleteComponent
   ],
   exports: [
-      ContainerWorkspaceIncompletePoliciesComponent
+      ContainerWorkspacePoliciesIncompleteComponent
   ],
   imports: [
+    AlertWorkspacePoliciesIncompleteModule,
     CommonModule,
     CardContentTitleModule,
     CardPolicyModule,
@@ -31,4 +33,4 @@ import { ContainerWorkspaceIncompletePoliciesComponent } from './container-works
     PolicyService
   ]
 })
-export class ContainerWorkspaceIncompletePoliciesModule { }
+export class ContainerWorkspacePoliciesIncompleteModule { }

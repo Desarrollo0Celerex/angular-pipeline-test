@@ -7,7 +7,7 @@ import { Policy } from '@interfaces/policy.interface';
 import { PolicyService } from '@services/policy.service';
 
 @Injectable()
-export class ContainerWorkspaceIncompletePoliciesService {
+export class ContainerWorkspacePoliciesIncompleteService {
     policies: Policy[] = [];
     totalPolicies: number = 0;
 

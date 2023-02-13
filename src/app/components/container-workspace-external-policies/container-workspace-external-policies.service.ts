@@ -7,7 +7,7 @@ import { HttpResponse } from '@interfaces/http-response.interface';
 import { ExternalPolicyService } from '@services/external-policy.service';
 
 @Injectable()
-export class ContainerWalletIncompleteExternalPoliciesService {
+export class ContainerWorkspaceExternalPoliciesService {
     externalPolicies: ExternalPolicy[] = [];
     totalExternalPolicies: number = 0;
 

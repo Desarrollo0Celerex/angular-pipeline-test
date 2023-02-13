@@ -5,10 +5,13 @@
     <div class="col-12">
         <agt-card-content-title
             title="Pólizas Pendientes"
-            description="Mostrando pólizas cargadas con información pendiente."
+            description="Pólizas con procesos pendientes."
         ></agt-card-content-title>
     </div>
-
+    <div class="row agt-width-100">
+        <agt-alert-workspace-policies-pending class="agt-width-100"></agt-alert-workspace-policies-pending> 
+    </div>
+    
     <!-- AGENTHOS - POLICY CARD -->
     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngFor="let policy of model.policies">
         <agt-card-policy

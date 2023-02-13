@@ -16,6 +16,7 @@ const routes: any = {
     contactExternalPolicy: (workspaceId: string, contactId: string, externalPolicyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/external-policies/' + externalPolicyId,
     groupExternalPolicies: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/external-policies',
     partnerExternalPolicies: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/external-policies',
+    totalWorkspaceExternalPolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/external-policies/count',
     workspaceExternalPolicies: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/external-policies',
     workspaceExternalPolicyStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/external-policies/stats',
 }
@@ -167,6 +168,18 @@ export class ExternalPolicyService {
                 return res;
             })
         )
+    }
+
+    getTotalWorkspaceExternalPolicies(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
+        const route: string = routes.totalWorkspaceExternalPolicies(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => res.data )
+        );
     }
 
     updateExternalPolicy(contactId: string, externalPolicyId: string, requestBody: UpdateExternalPolicyDataSend): Observable<void> {

@@ -5,18 +5,18 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 
-import { ContainerWorkspaceIncompletePoliciesService } from './container-workspace-incomplete-policies.service';
+import { ContainerWorkspacePoliciesIncompleteService } from './container-workspace-policies-incomplete.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-workspace-incomplete-policies',
-  templateUrl: './container-workspace-incomplete-policies.component.html',
+  selector: 'agt-container-workspace-policies-incomplete',
+  templateUrl: './container-workspace-policies-incomplete.component.html',
   styles: [
   ],
-  providers: [ContainerWorkspaceIncompletePoliciesService]
+  providers: [ContainerWorkspacePoliciesIncompleteService]
 })
-export class ContainerWorkspaceIncompletePoliciesComponent implements OnInit {
+export class ContainerWorkspacePoliciesIncompleteComponent implements OnInit {
     modalIdConfirmDeletePolicy: string = 'agt-confirm-delete-policy';
     modalIdConfirmShowHistoryPolicy: string = 'agt-confirm-show-history-policy';
     modalIdShowPolicy: string = 'agt-show-policy';
@@ -25,7 +25,7 @@ export class ContainerWorkspaceIncompletePoliciesComponent implements OnInit {
     selectedPolicyId: string = '';
 
     constructor(
-        public model: ContainerWorkspaceIncompletePoliciesService,
+        public model: ContainerWorkspacePoliciesIncompleteService,
         private _activatedRoute: ActivatedRoute,
         private _router: Router
     ) { }
