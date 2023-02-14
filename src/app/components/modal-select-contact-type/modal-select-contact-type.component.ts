@@ -18,9 +18,10 @@ export class ModalSelectContactTypeComponent implements OnInit {
     @Input() contactId: string;
     @Input() modalId: string;
     @Input() policyId: string;
+    @Input() title: string = 'Tipo de Contacto';
+    @Input() description: string = '';
     CONTACT_TYPES: any;
     ROUTES_NAME: any;
-    description: string;
     message: string;
 
     constructor(private _router: Router) {
@@ -30,7 +31,6 @@ export class ModalSelectContactTypeComponent implements OnInit {
         this.policyId = '';
         this.CONTACT_TYPES = CONTACT_TYPES;
         this.ROUTES_NAME = ROUTES_NAME;
-        this.description = '';
         this.message = '';
     }
 

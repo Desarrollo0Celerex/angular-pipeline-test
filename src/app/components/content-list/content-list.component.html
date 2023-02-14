@@ -73,6 +73,8 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.SINISTER_HISTORY.ID" class="card-title">Eventos del Siniestro</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID" class="card-title">Prospectos Generados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID" class="card-title">Clientes Convertidos</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID" class="card-title">Cotizaciones Encontradas</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID" class="card-title">Cotizaciones Encontradas</h3>
                     <h3 *ngSwitchDefault class="card-title">{{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}</h3>
                 </ng-container>
             </div>
@@ -201,6 +203,7 @@
                     *ngSwitchCase="(
                         contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID || 
                         contentType === CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID ||
+                        contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID ||
                         contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID
                     ) ? contentType : ''"
                     [quotation]="content"
@@ -398,6 +401,7 @@
 <ng-container *ngIf="
     contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID || 
     contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID || 
+    contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID || 
     contentType === CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID">
     <agt-modal-show-quotation-details [modalId]="modalIdShowQuotationDetails" [contactId]="selectedContactId" [quotationId]="selectedQuotationId"></agt-modal-show-quotation-details>
     <agt-modal-confirm-accept-quotation [modalId]="modalIdAcceptQuotation" [contactId]="selectedContactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-accept-quotation>

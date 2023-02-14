@@ -375,6 +375,10 @@ export const CONTENT_TYPES: any = {
         ID: 53,
         NAME: 'Cliente'
     },
+    WORKSPACE_QUOTATIONS_OPENED_BY_RANGE: {
+        ID: 54,
+        NAME: 'Cotización'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

@@ -911,6 +911,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _doActionToSelectedContact(contactId: string): void {
         switch(this.actionType) {
+            case ACTION_TYPES.CREATE_QUOTATION:
+                this._router.navigateByUrl(ROUTES_NAME.createQuotation(contactId));
+                break;
+
+            case ACTION_TYPES.CREATE_POLICY:
+                this._router.navigateByUrl(ROUTES_NAME.createPolicy(contactId));
+                break;
+
             case ACTION_TYPES.SELECT_CONTACT:
                 this.selectedContactId = contactId;
                 ModalPlugin.show(this.modalIdSelectContact);
@@ -1260,6 +1268,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 });
             break;
 
+            case CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID:
+                this.contentListService.loadWorkspaceQuotationsOpenedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
             case CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID:
                 this.contentListService.loadActivePoliciesByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
@@ -1521,6 +1535,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID:
                 case CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID:
                 case CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID:
+                case CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID:
                 case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
                 case CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID:
                 case CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID:

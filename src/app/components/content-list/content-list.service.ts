@@ -956,6 +956,19 @@ export class ContentListService {
         );
     }
 
+    loadWorkspaceQuotationsOpenedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
+        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+        const sortBy: string = '-createdAt';
+        const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.PENDING]);
+        return this._quotationService.getQuotations(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
     /**
      * Load the sinisters
      * @param  page           The page number to get
