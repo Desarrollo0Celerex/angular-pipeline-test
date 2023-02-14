@@ -156,6 +156,17 @@
 }
 
 /* -- AGENTHOS - BUTTON LIBRARY -- */
+.agt-btn-default {
+  color: #282828;
+  background: #e6e9f8 !important;
+  border-color: #eef1f8; }
+.agt-btn-default:hover {
+    color: #ffffff;
+    background-color: #b8c4e8 !important;
+    border-color: #b8c4e8; }
+.agt-btn-default:focus, .agt-btn-default.focus {
+    box-shadow: 0 0 0 2px #744f88; }
+
 .agt-btn-primary {
   color: #fbfbfb;
   background: #825898 !important;
