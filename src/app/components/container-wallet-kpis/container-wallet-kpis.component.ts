@@ -1,0 +1,18 @@
+import { Component } from '@angular/core';
+import * as moment from 'moment';
+
+import { RangeData } from '@interfaces/range-data.interface';
+
+@Component({
+  selector: 'agt-container-wallet-kpis',
+  templateUrl: './container-wallet-kpis.component.html',
+  styles: [
+  ]
+})
+export class ContainerWalletKpisComponent {
+    rangeData: RangeData = {
+        rangeStart: moment().subtract(30, 'days').format('DD/MM/YYYY'),
+        rangeEnd: moment().format('DD/MM/YYYY'),
+        rangeField: ''
+    }
+}

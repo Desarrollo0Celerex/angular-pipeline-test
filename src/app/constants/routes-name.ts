@@ -20,7 +20,8 @@ const EXPRESS_ROUTES = {
 }
 
 const HOME_CLIENTS_ROUTES = {
-    listClients: 'workspace/clients/list-clients'
+    listClients: 'workspace/clients/list-clients',
+    workspaceClientsConvertedByRange: 'workspace-clients-converted-by-range',
 }
 
 const HOME_CONTACTS_ROUTES = {
@@ -77,6 +78,7 @@ const HOME_INVITATIONS_ROUTES = {
 const HOME_LEADS_ROUTES = {
     listLeads: 'workspace/leads/list-leads',
     channels: 'workspace/leads/channels',
+    workspaceLeadsConvertedByRange: 'workspace-leads-converted-by-range',
 }
 
 const HOME_PARTNER_ROUTES = {
@@ -97,11 +99,10 @@ const HOME_PAYMENTS_ROUTES = {
     pendingReceipts: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/pending-receipts/${contactId}/${policyId}/${paymentId}`,
     policyReceiptsPaid: (contactId: string, policyId: string, paymentId: string) => `workspace/payments/policy-receipts-paid/${contactId}/${policyId}/${paymentId}`,
     paymentCalendar: `workspace/payments/calendar`,
-    listPendingPaymentsByRange: `workspace/payments/list-pending-payments-by-range`,
-    listPendingPaymentsByRangeWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/payments/list-pending-payments-by-range/${rangeStart}/${rangeEnd}`,
-    listReceiptsAppliedByRange: `workspace/payments/list-receipts-applied-by-range`,
     contactPendingPaymentsByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/payments/contact-pending-payments-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
     contactReceiptsAppliedByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/payments/contact-receipts-applied-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
+    workspaceReceiptsPaidByRange: `workspace-receipts-paid-by-range`,
+    workspaceReceiptsPendingByRange: `workspace-receipts-pending-by-range`,
 }
 
 const HOME_POLICIES_ROUTES = {
@@ -121,13 +122,12 @@ const HOME_POLICIES_ROUTES = {
     renewalsWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/policies/renewals/${rangeStart}/${rangeEnd}`,
     contactPendingRenewalsByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/policies/contact-pending-renewals-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
     contactAppliedRenewalsByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/policies/contact-applied-renewals-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
-    cancelledPolicies: 'workspace/policies/cancelled',
-    cancelledPoliciesWithRanges: (rangeStart: string, rangeEnd: string) => `workspace/policies/cancelled/${rangeStart}/${rangeEnd}`,
-    listRenewedPoliciesByRange: `workspace/policies/list-renewed-policies-by-range`,
     listPolicyInsureds: (contactId: string, policyId: string) => `workspace/policy-insureds/list-policy-insureds/${contactId}/${policyId}`,
     updatePolicyInsured: (contactId: string, policyId: string, policyInsuredId: string) => `workspace/policy-insureds/update-policy-insured/${contactId}/${policyId}/${policyInsuredId}`,
     createPolicyInsured: (contactId: string, policyId: string) => `workspace/policy-insureds/create-policy-insured/${contactId}/${policyId}`,
     importPolicyInsureds: (contactId: string, policyId: string) => `workspace/policy-insureds/import-policy-insureds/${contactId}/${policyId}`,
+    workspacePoliciesCanceledByRange: 'workspace-policies-canceled-by-range',
+    workspacePoliciesIssuedByRange: 'workspace-policies-issued-by-range',
 }
 
 const HOME_POLICY_ENDORSEMENTS_ROUTES = {
@@ -137,11 +137,15 @@ const HOME_POLICY_ENDORSEMENTS_ROUTES = {
 const HOME_QUOTATIONS_ROUTES = {
     createQuotation: (contactId: string) => `workspace/quotations/create-quotation/${contactId}`,
     listQuotationsByRange: `workspace/quotations/list-quotations-by-range`,
+    workspaceQuotationsClosedByRange: `workspace-quotations-closed-by-range`,
+    workspaceQuotationsOpenedByRange: `workspace-quotations-opened-by-range`,
 }
 
 const HOME_RENEWALS_ROUTES = {
     policyRenewalHistory: (contactId: string, policyId: string) => `workspace/renewals/policy-renewal-history/${contactId}/${policyId}`,
     policyRenewalsApplied: (contactId: string, policyId: string) => `workspace/renewals/policy-renewals-applied/${contactId}/${policyId}`,
+    workspaceRenewalsAppliedByRange: `workspace-renewals-applied-by-range`,
+    workspaceRenewalsPendingByRange: `workspace-renewals-pending-by-range`,
 }
 
 const HOME_SINISTERS_ROUTES = {
@@ -151,8 +155,9 @@ const HOME_SINISTERS_ROUTES = {
     showPolicyClosedSinisters: (contactId: string, policyId: string) => `workspace/sinisters/policy-closed-sinisters/${contactId}/${policyId}`,
     finalizeSinister: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/finalize-sinister/${contactId}/${policyId}/${sinisterId}`,
     reactivateSinister: (contactId: string, policyId: string, sinisterId: string) => `workspace/sinisters/reactivate-sinister/${contactId}/${policyId}/${sinisterId}`,
-    listOpenedSinistersByRange: `workspace/sinisters/list-opened-sinisters-by-range`,
-    insuranceSinistersByRange: `workspace/sinisters/insurance-sinisters-by-range`
+    insuranceSinistersByRange: `workspace/sinisters/insurance-sinisters-by-range`,
+    workspaceSinistersClosedByRange: `workspace-sinisters-closed-by-range`,
+    workspaceSinistersOpenedByRange: `workspace-sinisters-opened-by-range`,
 }
 
 const HOME_STATS_ROUTES = {

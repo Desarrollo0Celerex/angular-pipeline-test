@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 
 import { ChartHelper } from '@helpers/chart.helper';
-import { RangeStat } from '@interfaces/range-stat.interface';
-import { RangeData } from '@interfaces/range-data.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { QuotationService } from '@services/quotation.service';
 
 @Injectable()
@@ -12,16 +12,16 @@ export class ChartGeneratedQuotesService {
 
     constructor(private _quotationService: QuotationService) { }
 
-    getQuotationsStats(range: RangeData): Observable<RangeStat[][]> {
+    getQuotationsStats(range: ComparisonRangeData): Observable<StatRangeData[][]> {
         this.quotationsStatsData = [];
         const rangeField: string = 'createdAt';
-        let requests: Observable<RangeStat[]>[] = [];
+        let requests: Observable<StatRangeData[]>[] = [];
         requests.push(this._quotationService.getQuotationsStats(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
         requests.push(this._quotationService.getQuotationsStats(rangeField, range.comparedRangeStart, range.comparedRangeEnd));
         return forkJoin(requests);
     }
 
-    loadQuotationsStatsData(quotationsStats: RangeStat[][]): void {
+    loadQuotationsStatsData(quotationsStats: StatRangeData[][]): void {
         const headerData: any[] = [['Cotizaciones', 'Periodo Seleccionado', 'Periodo Comparación']];
         this.quotationsStatsData = ChartHelper.generateChartDataByRanges(quotationsStats, headerData);
     }

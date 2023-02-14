@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 
 import { ChartLostClientsService } from './chart-lost-clients.service';
 
@@ -15,7 +15,7 @@ declare var StatsClientsPlugin: any;
   providers: [ChartLostClientsService]
 })
 export class ChartLostClientsComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _chartLostClientsService: ChartLostClientsService) { }
 
@@ -32,8 +32,8 @@ export class ChartLostClientsComponent implements OnChanges {
         return (this.model.lostClientsStatsData.length > 0) ? true : false;
     }
 
-    private _loadLostClientsStats(range: RangeData): void {
-        this.model.getLostClientsStats(range).subscribe((lostClientsStats: RangeStat[][]) => {
+    private _loadLostClientsStats(range: ComparisonRangeData): void {
+        this.model.getLostClientsStats(range).subscribe((lostClientsStats: StatRangeData[][]) => {
             this.model.loadLostClientsStatsData(lostClientsStats);
             StatsClientsPlugin.drawChartLostClients(this.model.lostClientsStatsData);
         });

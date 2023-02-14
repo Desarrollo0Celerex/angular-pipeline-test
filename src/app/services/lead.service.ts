@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
@@ -34,13 +34,17 @@ export class LeadService {
       * @param  query           The search to do
       * @return                 The leads
       */
-    getLeads(page: number = 1, fields: string = '', filters: string = '', query: string = ''): Observable<HttpResponse> {
+    getLeads(page: number = 1, fields: string = '', filters: string = '', query: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
         const route: string = routes.leads(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());
         if(!!fields) params = params.append('fields', fields);
         if(!!filters) params = params.append('filter', filters);
         if(!!query) params = params.append('search', 'contactName:' + query);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
         params = params.append('sortBy', '-createdAt');
         return this._httpClient.get<HttpResponse>(route, { params });
     }
@@ -62,7 +66,7 @@ export class LeadService {
         );
     }
 
-    getTotalLeadsStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+    getTotalLeadsStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<StatRangeData[]> {
         const route: string = routes.totalLeadsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
@@ -74,7 +78,7 @@ export class LeadService {
         );
     }
 
-    getLeadsGeneratedStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+    getLeadsGeneratedStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<StatRangeData[]> {
         const route: string = routes.leadsGeneratedStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);

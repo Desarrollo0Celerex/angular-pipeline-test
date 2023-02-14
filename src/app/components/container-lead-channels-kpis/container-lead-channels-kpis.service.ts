@@ -4,7 +4,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { CONTACT_SOURCE_TYPES, PERIOD_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { KpiOne } from '@interfaces/kpi-one.interface';
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 
 import { ContactSourceService } from '@services/contact-source.service';
@@ -67,7 +67,7 @@ export class ContainerLeadChannelsKpisService {
         private _leadService: LeadService
     ) { }
 
-    getContactSourcesStats(range: RangeData): Observable<Stat[][]> {
+    getContactSourcesStats(range: ComparisonRangeData): Observable<Stat[][]> {
         const rangeField: string = 'leadConversionDate';
         let requests: Observable<Stat[]>[] = [];
         requests.push(this._contactSourceService.getContactSourcesStats('', rangeField, range.selectedRangeStart, range.selectedRangeEnd));
@@ -75,7 +75,7 @@ export class ContainerLeadChannelsKpisService {
         return forkJoin(requests);
     }
 
-    getPartners(range: RangeData): Observable<Stat[][]> {
+    getPartners(range: ComparisonRangeData): Observable<Stat[][]> {
         const contactSourceId: number = CONTACT_SOURCE_TYPES.PARTNERS;
         const rangeField: string = 'leadConversionDate';
         let requests: Observable<Stat[]>[] = [];
@@ -84,7 +84,7 @@ export class ContainerLeadChannelsKpisService {
         return forkJoin(requests);
     }
 
-    getTotalGeneratedLeads(range: RangeData): Observable<number[]> {
+    getTotalGeneratedLeads(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'leadConversionDate';
         let requests: Observable<number>[] = [];
         requests.push(this._leadService.getTotalLeads('', rangeField, range.selectedRangeStart, range.selectedRangeEnd));
@@ -149,7 +149,7 @@ export class ContainerLeadChannelsKpisService {
         this.channelKpis[TOTAL_GENERATED_LEADS].comparedValue = data[PERIOD_STATUS.COMPARED];
     }
 
-    loadDailyAverage(data: number[], range: RangeData): void {
+    loadDailyAverage(data: number[], range: ComparisonRangeData): void {
         const selectedDays: number = UtilitiesHelper.getRangeDays(range.selectedRangeStart, range.selectedRangeEnd);
         const comparedDays: number = UtilitiesHelper.getRangeDays(range.comparedRangeStart, range.comparedRangeEnd);
         this.channelKpis[DAILY_AVERAGE].selectedValue = data[PERIOD_STATUS.SELECTED] / selectedDays;
@@ -161,7 +161,7 @@ export class ContainerLeadChannelsKpisService {
         this.channelKpis[DAILY_AVERAGE].totalContents = totalLeads;
     }
 
-    loadRangeDates(range: RangeData): void {
+    loadRangeDates(range: ComparisonRangeData): void {
         for (let index in this.channelKpis) {
             this.channelKpis[index].selectedRange = range.selectedRangeStart + ' - ' + range.selectedRangeEnd;
             this.channelKpis[index].comparedRange = range.comparedRangeStart + ' - ' + range.comparedRangeEnd;

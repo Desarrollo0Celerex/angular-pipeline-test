@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
 @Component({
@@ -13,7 +13,7 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
   ]
 })
 export class StatsCollectionPage {
-    range: RangeData | null = null;
+    range: ComparisonRangeData | null = null;
 
     constructor(private _router: Router) { }
 
@@ -25,32 +25,28 @@ export class StatsCollectionPage {
         this._router.navigateByUrl(ROUTES_NAME.paymentCalendar);
     }
 
-    goToListReceiptsAppliedByRange(): void {
+    goToWorkspaceReceiptsPaidByRange(): void {
         if(!!this.range) {
-            this._router.navigateByUrl(
-                ROUTES_NAME.listReceiptsAppliedByRange,
+            this._router.navigate(
+                [ROUTES_NAME.workspaceReceiptsPaidByRange],
                 {
-                    state: {
-                        periodData: {
-                            startDate: this.range.selectedRangeStart,
-                            endDate: this.range.selectedRangeEnd
-                        }
+                    queryParams: {
+                        rangeStart: this.range.selectedRangeStart,
+                        rangeEnd: this.range.selectedRangeEnd
                     }
                 }
             );
         }
     }
 
-    goToListPendingPaymentsByRange(): void {
+    goToWorkspaceReceiptsPendingByRange(): void {
         if(!!this.range) {
-            this._router.navigateByUrl(
-                ROUTES_NAME.listPendingPaymentsByRange,
+            this._router.navigate(
+                [ROUTES_NAME.workspaceReceiptsPendingByRange],
                 {
-                    state: {
-                        periodData: {
-                            startDate: this.range.selectedRangeStart,
-                            endDate: this.range.selectedRangeEnd
-                        }
+                    queryParams: {
+                        startDate: this.range.selectedRangeStart,
+                        endDate: this.range.selectedRangeEnd
                     }
                 }
             );

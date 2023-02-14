@@ -20,12 +20,8 @@ export class ContainerChartsExternalPoliciesService {
         const filters: string = UtilitiesHelper.generateHttpFilter('externalPolicyStatusId', [EXTERNAL_POLICY_STATUS.INCOMPLETE, EXTERNAL_POLICY_STATUS.CURRENT]);
         this._externalPolicyService.getExternalPolicyStats(filters, '', '', '', this.specialFilter).subscribe((res: ContainerCharts) => {
             this.chartsData = res;
-            if(this.filtersData === null) {
-                this.filtersData = FiltersHelper.generateFiltersData(res);
-                this.specialFilter = this.filtersData!.insurances.specialFilter + ';' + this.filtersData!.insurers.specialFilter + ';' + this.filtersData!.contactTypes.specialFilter;
-            } else {
-                this.filtersData = FiltersHelper.updateFiltersData(res, this.filtersData);
-            }
+            this.filtersData = FiltersHelper.generateFiltersData(res);
+            this.specialFilter = this.filtersData!.insurances.specialFilter + ';' + this.filtersData!.insurers.specialFilter + ';' + this.filtersData!.contactTypes.specialFilter;
         });
     }
 

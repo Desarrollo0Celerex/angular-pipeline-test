@@ -9,6 +9,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.41.0',
+            launchDate: '13/02/2023',
+            changes: [
+                {
+                    title: 'Dashboard',
+                    items: [
+                        'Se actualizo dashboard para reorganizar los Kpis del espacio de trabajo.',
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.40.0',
             launchDate: '03/02/2023',
             changes: [

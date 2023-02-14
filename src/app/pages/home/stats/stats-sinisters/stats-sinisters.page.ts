@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { INSURANCES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
 @Component({
@@ -15,7 +15,7 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 })
 export class StatsSinistersPage {
     INSURANCES: any = INSURANCES;
-    range: RangeData | null = null;
+    range: ComparisonRangeData | null = null;
     statsPeriodData: StatsPeriodData | null = null;
 
     constructor(private _router: Router) { }

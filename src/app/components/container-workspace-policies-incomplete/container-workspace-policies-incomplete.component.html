@@ -1,0 +1,67 @@
+<div class="row mt-3" *ngIf="model.policies.length > 0">
+    <div class="col-12">
+        <agt-card-content-title
+            title="Pólizas Incompletas"
+            description="Pólizas con procesos pendientes."
+        ></agt-card-content-title>
+    </div>
+
+    <div class="row agt-width-100">
+        <agt-alert-workspace-policies-incomplete class="agt-width-100"></agt-alert-workspace-policies-incomplete> 
+    </div>
+
+    <!-- AGENTHOS - POLICY CARD -->
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngFor="let policy of model.policies">
+        <agt-card-policy
+            [policy]="policy"
+            (showPolicyDetails)="onShowPolicyDetails($event)"
+            (showPolicy)="onShowPolicy($event)"
+            (completePolicy)="onCompletePolicy($event)"
+            (deletePolicy)="onDeletePolicy($event)"
+            (showHistoryPolicy)="onShowHistoryPolicy($event)"
+        >
+        </agt-card-policy>
+    </div>
+    <!-- AGENTHOS - POLICY CARD -->
+
+    <!-- AGENTHOS - SHOW MORE -->
+    <div class="col-12" *ngIf="model.totalPolicies > 4">
+        <div class="card">
+            <div class="card-body">
+                <!-- AGENTHOS - LOAD MORE (ONLY IF PENDING ITEMS) -->
+                <div class="btn-list text-center">
+                    <button type="button" class="btn btn-block btn-primary" (click)="goToListIncompletePolicies()"><strong>MOSTRAR TODAS</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - SHOW MORE -->
+</div>
+<!-- AGENTHOS - INCOMPLETE POLICIES -->
+
+<agt-modal-confirm-delete-policy
+    [modalId]="modalIdConfirmDeletePolicy"
+    [contactId]="selectedContactId"
+    [policyId]="selectedPolicyId"
+    (policyDeleted)="onPolicyDeleted()">
+</agt-modal-confirm-delete-policy>
+
+<agt-modal-confirm-show-history-policy
+    [modalId]="modalIdConfirmShowHistoryPolicy"
+    [contactId]="selectedContactId"
+    [policyId]="selectedPolicyId">
+</agt-modal-confirm-show-history-policy>
+
+<agt-modal-show-policy-details
+    [modalId]="modalIdShowPolicyDetails"
+    [contactId]="selectedContactId"
+    [policyId]="selectedPolicyId"
+    [isHistoryContent]="false"
+    (showPolicy)="onShowPolicy($event)"
+></agt-modal-show-policy-details>
+
+<agt-modal-show-policy
+    [modalId]="modalIdShowPolicy"
+    [contactId]="selectedContactId"
+    [policyId]="selectedPolicyId"
+></agt-modal-show-policy>

@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="card-body text-center">
+        <i class="fa {{icon}} agt-icon-primary fa-3x"></i>
+        <h6 class="mt-4 mb-2">{{title}}</h6>
+        <h2 class="number-font mb-3"><span class="counter">{{value}}</span></h2>
+        <ol class="breadcrumb1">
+            <li class="breadcrumb-item1">{{description}} del <strong *ngIf="rangeData !== null">{{rangeData.rangeStart}}</strong> al <strong *ngIf="rangeData !== null">{{rangeData.rangeEnd}}</strong> </li>
+        </ol>
+    </div>
+    <div class="card-footer">
+        <a *ngIf="rangeData !== null" routerLink="{{'/' + route}}" [queryParams]="{ rangeStart: rangeData.rangeStart, rangeEnd: rangeData.rangeEnd }">
+            <button type="button" class="btn btn-block" [ngClass]="{ 'agt-btn-primary': isButtonPrimary, 'agt-btn-secondary': !isButtonPrimary }"><strong>{{buttonLabel}}</strong></button>
+        </a>
+    </div>
+</div>

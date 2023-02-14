@@ -3,30 +3,28 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tipo de Contacto</h5>
+                <h5 class="modal-title">{{title}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="col-md-12" *ngIf="!!description">
-							<p class="text-justify">{{description}} <strong>{{message}}</strong></p>
-						</div>
-                        <!-- AGENTHOS - PERSONAL CLIENT -->
-                        <div class="col-md-12 mt-5">
-                            <button type="button" class="btn btn-primary btn-block" (click)="onClickCreateContact(CONTACT_TYPES.PERSON)"><i class="fe fe-user mr-2"></i><strong>PERSONA</strong></button>
-                        </div>
-                        <!-- AGENTHOS - COMPANY CLIENT -->
-                        <div class="col-md-12 mt-5">
-                            <button type="button" class="btn btn-primary btn-block" (click)="onClickCreateContact(CONTACT_TYPES.COMPANY)"><i class="fe fe-briefcase mr-2"></i><strong>EMPRESA</strong></button>
-                        </div>
+                <ol class="breadcrumb1" *ngIf="!!description">
+                    <li class="breadcrumb-item1">{{description}} <strong *ngIf="!!message">{{message}}</strong></li>
+                </ol>
+                <div class="row">
+                    <!-- AGENTHOS - PERSONAL CLIENT -->
+                    <div class="col-md-12 mt-3">
+                        <button type="button" class="btn btn-block agt-btn-default" (click)="onClickCreateContact(CONTACT_TYPES.PERSON)"><i class="fa fa-user mr-2"></i><strong>PERSONA</strong></button>
                     </div>
-                </form>
+                    <!-- AGENTHOS - COMPANY CLIENT -->
+                    <div class="col-md-12 mt-3">
+                        <button type="button" class="btn btn-block agt-btn-default" (click)="onClickCreateContact(CONTACT_TYPES.COMPANY)"><i class="fa fa-industry mr-2"></i><strong>EMPRESA</strong></button>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+                <button type="button" class="btn btn-block agt-btn-secondary-outline" data-dismiss="modal">CANCELAR</button>
             </div>
         </div>
     </div>

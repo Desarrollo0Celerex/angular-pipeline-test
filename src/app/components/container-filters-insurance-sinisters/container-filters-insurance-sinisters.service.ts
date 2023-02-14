@@ -20,12 +20,8 @@ export class ContainerFiltersInsuranceSinistersService {
         const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE, SINISTER_STATUS.FINISHED]);
         this._sinisterService.getInsuranceSinisterFilters(insuranceId, filters, rangeField, rangeStart, rangeEnd, this.specialFilter).subscribe((res: ContainerCharts) => {
             this.chartsData = res;
-            if(this.filtersData === null) {
-                this.filtersData = FiltersHelper.generateFiltersData(res);
-                this.specialFilter = this.filtersData!.insurances.specialFilter + ';' + this.filtersData!.insurers.specialFilter + ';' + this.filtersData!.contactTypes.specialFilter;
-            } else {
-                this.filtersData = FiltersHelper.updateFiltersData(res, this.filtersData);
-            }
+            this.filtersData = FiltersHelper.generateFiltersData(res);
+            this.specialFilter = this.filtersData!.insurances.specialFilter + ';' + this.filtersData!.insurers.specialFilter + ';' + this.filtersData!.contactTypes.specialFilter;
         });
     }
 

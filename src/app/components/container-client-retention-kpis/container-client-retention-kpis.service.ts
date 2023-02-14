@@ -4,7 +4,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { CLIENT_STATUS, PERIOD_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { KpiOne } from '@interfaces/kpi-one.interface';
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { ClientService } from '@services/client.service';
 import { WorkspaceService } from '@services/workspace.service';
 
@@ -67,7 +67,7 @@ export class ContainerClientRetentionKpisService {
         private _workspaceService: WorkspaceService
     ) { }
 
-    getWorkspaceRetentionRate(range: RangeData): Observable<number[]> {
+    getWorkspaceRetentionRate(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'createdAt';
         let requests: Observable<number>[] = [];
         requests.push(this._workspaceService.getWorkspaceRetentionRate(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
@@ -75,7 +75,7 @@ export class ContainerClientRetentionKpisService {
         return forkJoin(requests);
     }
 
-    getWorkspaceHigherRetentionRate(range: RangeData): Observable<number[]> {
+    getWorkspaceHigherRetentionRate(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'createdAt';
         let requests: Observable<number>[] = [];
         requests.push(this._workspaceService.getWorkspaceHigherRetentionRate(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
@@ -83,7 +83,7 @@ export class ContainerClientRetentionKpisService {
         return forkJoin(requests);
     }
 
-    getWorkspaceLowerRetentionRate(range: RangeData): Observable<number[]> {
+    getWorkspaceLowerRetentionRate(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'createdAt';
         let requests: Observable<number>[] = [];
         requests.push(this._workspaceService.getWorkspaceLowerRetentionRate(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
@@ -96,7 +96,7 @@ export class ContainerClientRetentionKpisService {
         return this._clientService.getTotalClients(filters);
     }
 
-    getTotalLossClients(range: RangeData): Observable<number[]> {
+    getTotalLossClients(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'clientLossDate';
         let requests: Observable<number>[] = [];
         requests.push(this._clientService.getTotalClients('', rangeField, range.selectedRangeStart, range.selectedRangeEnd));
@@ -128,7 +128,7 @@ export class ContainerClientRetentionKpisService {
         this.kpis[LOSS_RATE].totalContents = 100;
     }
 
-    loadRangeDates(range: RangeData): void {
+    loadRangeDates(range: ComparisonRangeData): void {
         for (let index in this.kpis) {
             this.kpis[index].selectedRange = range.selectedRangeStart + ' - ' + range.selectedRangeEnd;
             this.kpis[index].comparedRange = range.comparedRangeStart + ' - ' + range.comparedRangeEnd;

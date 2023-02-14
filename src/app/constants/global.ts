@@ -355,6 +355,30 @@ export const CONTENT_TYPES: any = {
         ID: 48,
         NAME: 'Póliza'
     },
+    WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE: {
+        ID: 49,
+        NAME: 'Cotización'
+    },
+    WORKSPACE_SINISTERS_CLOSED_BY_RANGE: {
+        ID: 50,
+        NAME: 'Siniestro'
+    },
+    WORKSPACE_POLICIES_ISSUED_BY_RANGE: {
+        ID: 51,
+        NAME: 'Póliza'
+    },
+    WORKSPACE_LEADS_CONVERTED_BY_RANGE: {
+        ID: 52,
+        NAME: 'Prospecto'
+    },
+    WORKSPACE_CLIENTS_CONVERTED_BY_RANGE: {
+        ID: 53,
+        NAME: 'Cliente'
+    },
+    WORKSPACE_QUOTATIONS_OPENED_BY_RANGE: {
+        ID: 54,
+        NAME: 'Cotización'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

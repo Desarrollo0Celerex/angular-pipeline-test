@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
 @Component({
@@ -13,7 +13,7 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
   ]
 })
 export class StatsPoliciesPage {
-    range: RangeData | null = null;
+    range: ComparisonRangeData | null = null;
     statsPeriodData: StatsPeriodData | null = null;
 
     constructor(private _router: Router) { }
@@ -25,14 +25,12 @@ export class StatsPoliciesPage {
 
     goToCancelledPolicies(): void {
         if(!!this.range) {
-            this._router.navigateByUrl(
-                ROUTES_NAME.cancelledPolicies,
+            this._router.navigate(
+                [ROUTES_NAME.workspacePoliciesCanceledByRange],
                 {
-                    state: {
-                        periodData: {
-                            startDate: this.range.selectedRangeStart,
-                            endDate: this.range.selectedRangeEnd
-                        }
+                    queryParams: {
+                        startDate: this.range.selectedRangeStart,
+                        endDate: this.range.selectedRangeEnd
                     }
                 }
             );
@@ -41,14 +39,12 @@ export class StatsPoliciesPage {
 
     goToPoliciesToRenew(): void {
         if(!!this.range) {
-            this._router.navigateByUrl(
-                ROUTES_NAME.renewals,
+            this._router.navigate(
+                [ROUTES_NAME.workspaceRenewalsPendingByRange],
                 {
-                    state: {
-                        periodData: {
-                            startDate: this.range.selectedRangeStart,
-                            endDate: this.range.selectedRangeEnd
-                        }
+                    queryParams: {
+                        rangeStart: this.range.selectedRangeStart,
+                        rangeEnd: this.range.selectedRangeEnd
                     }
                 }
             );
@@ -57,14 +53,11 @@ export class StatsPoliciesPage {
 
     goToRenewedPoliciesByRange(): void {
         if(!!this.range) {
-            this._router.navigateByUrl(
-                ROUTES_NAME.listRenewedPoliciesByRange,
+            this._router.navigate([ROUTES_NAME.workspaceRenewalsAppliedByRange],
                 {
-                    state: {
-                        periodData: {
-                            startDate: this.range.selectedRangeStart,
-                            endDate: this.range.selectedRangeEnd
-                        }
+                    queryParams: {
+                        rangeStart: this.range.selectedRangeStart,
+                        rangeEnd: this.range.selectedRangeEnd
                     }
                 }
             );

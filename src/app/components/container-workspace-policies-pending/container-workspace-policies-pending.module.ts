@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AlertWorkspacePoliciesPendingModule } from '@components/alert-workspace-policies-pending/alert-workspace-policies-pending.module';
 import { CardContentTitleModule } from '@components/card-content-title/card-content-title.module';
 import { CardPolicyModule } from '@components/card-policy/card-policy.module';
 import { ModalConfirmReissuePolicyModule } from '@components/modal-confirm-reissue-policy/modal-confirm-reissue-policy.module';
@@ -24,6 +25,7 @@ import { ContainerWorkspacePoliciesPendingComponent } from './container-workspac
     ContainerWorkspacePoliciesPendingComponent
   ],
   imports: [
+    AlertWorkspacePoliciesPendingModule,
     CardContentTitleModule,
     CardPolicyModule,
     CommonModule,

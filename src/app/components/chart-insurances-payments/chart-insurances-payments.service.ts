@@ -3,7 +3,7 @@ import { forkJoin, Observable } from 'rxjs';
 
 import { PAYMENT_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 import { PaymentService } from '@services/payment.service';
 
@@ -13,7 +13,7 @@ export class ChartInsurancesPaymentsService {
 
     constructor(private _paymentService: PaymentService) { }
 
-    getInsurancesPaymentsStats(range: RangeData): Observable<Stat[][]> {
+    getInsurancesPaymentsStats(range: ComparisonRangeData): Observable<Stat[][]> {
         this.insurancesPaymentsStatsData = [];
         const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE]);
         const rangeField: string = 'paymentDate';

@@ -51,12 +51,14 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID" class="card-title">Recibos Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID" class="card-title">Recibos Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID" class="card-title">Siniestros Encontrados</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID" class="card-title">Siniestros Resueltos</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID" class="card-title">Siniestros Encontrados</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.LAST_CANCELLED_POLICY.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.INCOMPLETE_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.EXTERNAL_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID" class="card-title">Pólizas Emitidas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID" class="card-title">Recibos Encontradas</h3>
@@ -69,6 +71,10 @@
                     <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID" class="card-title">Historial de Endosos</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.PAYMENT_HISTORY.ID" class="card-title">Historial de Pagos</h3>
                     <h3 *ngSwitchCase="CONTENT_TYPES.SINISTER_HISTORY.ID" class="card-title">Eventos del Siniestro</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID" class="card-title">Prospectos Generados</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID" class="card-title">Clientes Convertidos</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID" class="card-title">Cotizaciones Encontradas</h3>
+                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID" class="card-title">Cotizaciones Encontradas</h3>
                     <h3 *ngSwitchDefault class="card-title">{{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}</h3>
                 </ng-container>
             </div>
@@ -180,17 +186,26 @@
                     [client]="content"
                     (deleteGroupMemberRequested)="confirmDeleteGroupMember($event)">
                 </agt-card-group-member>
-                <agt-card-lead *ngSwitchCase="CONTENT_TYPES.LEAD.ID"
+                <agt-card-lead 
+                    *ngSwitchCase="(
+                        contentType === CONTENT_TYPES.LEAD.ID || 
+                        contentType === CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID
+                    ) ? contentType : ''"
                     [lead]="content"
                     (showContactData)="onShowContactData($event)">
                 </agt-card-lead>
                 <agt-card-client
-                    *ngIf="contentType === CONTENT_TYPES.CLIENT.ID"
+                    *ngIf="contentType === CONTENT_TYPES.CLIENT.ID || contentType === CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID"
                     [client]="content"
                     (showContactData)="onShowContactData($event)">
                 </agt-card-client>
                 <agt-card-quotation
-                    *ngSwitchCase="(contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID || contentType === CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID) ? contentType : ''"
+                    *ngSwitchCase="(
+                        contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID || 
+                        contentType === CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID ||
+                        contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID ||
+                        contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID
+                    ) ? contentType : ''"
                     [quotation]="content"
                     (showQuotationDetails)="onShowQuotationDetails($event)"
                     (acceptQuotation)="onAcceptQuotation($event)"
@@ -208,6 +223,7 @@
                         contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
                         contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
                         contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+                        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
                         contentType === CONTENT_TYPES.POLICY_TRACKER.ID
                     ) ? contentType : ''"
                     [policy]="content"
@@ -300,6 +316,7 @@
                         contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
                         contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
                         contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+                        contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
                         contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID
                     ) ? contentType : ''"
                     [sinister]="content"
@@ -357,7 +374,9 @@
 <ng-container
     *ngIf="contentType === CONTENT_TYPES.CONTACT.ID ||
     contentType === CONTENT_TYPES.LEAD.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.CLIENT.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PARTNER_CLIENT.ID ||
     contentType === CONTENT_TYPES.PAYMENT.ID ||
     contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
@@ -370,6 +389,7 @@
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
@@ -378,7 +398,11 @@
     <agt-modal-show-contact-data [modalId]="modalIdShowContactData" [contactId]="selectedContactId"></agt-modal-show-contact-data>
     <agt-modal-select-contact [modalId]="modalIdSelectContact" [contactId]="selectedContactId"></agt-modal-select-contact>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID || contentType === CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID">
+<ng-container *ngIf="
+    contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID || 
+    contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID || 
+    contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID || 
+    contentType === CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID">
     <agt-modal-show-quotation-details [modalId]="modalIdShowQuotationDetails" [contactId]="selectedContactId" [quotationId]="selectedQuotationId"></agt-modal-show-quotation-details>
     <agt-modal-confirm-accept-quotation [modalId]="modalIdAcceptQuotation" [contactId]="selectedContactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-accept-quotation>
     <agt-modal-confirm-reject-quotation [modalId]="modalIdRejectQuotation" [contactId]="selectedContactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-reject-quotation>
@@ -394,6 +418,7 @@
     *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
@@ -414,6 +439,7 @@
     contentType === CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID ||
     contentType === CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
@@ -432,6 +458,7 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
@@ -452,6 +479,7 @@
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
@@ -468,6 +496,7 @@
     contentType === CONTENT_TYPES.SINISTER.ID ||
     contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
@@ -487,6 +516,7 @@
     contentType === CONTENT_TYPES.POLICY.ID ||
     contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
     contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
     contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
@@ -549,6 +579,7 @@
     contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
     contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
     contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+    contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
     contentType === CONTENT_TYPES.PARTNER_SINISTER.ID">
     <agt-modal-show-sinister-details [modalId]="modalIdShowSinisterDetails" [sinister]="selectedSinister"></agt-modal-show-sinister-details>

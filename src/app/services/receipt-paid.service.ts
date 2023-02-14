@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
@@ -18,7 +18,7 @@ const routes: any = {
     totalContactReceiptsPaid: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/receipts-paid/count',
     totalGroupReceiptsPaid: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/receipts-paid/count',
     totalPartnerReceiptsPaid: (workspaceId: string, partnerId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/receipts-paid/count',
-    totalReceiptsPaid: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid/count',
+    totalWorkspaceReceiptsPaid: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid/count',
     appliedPaymentsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/applied-payments',
     receiptsPaidStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/receipts-paid',
     contactReceiptsPaid: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' +contactId+ '/receipts-paid',
@@ -228,7 +228,7 @@ export class ReceiptPaidService {
         )
     }
 
-    getAppliedPaymentsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+    getAppliedPaymentsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<StatRangeData[]> {
         const route: string = routes.appliedPaymentsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);
@@ -263,7 +263,7 @@ export class ReceiptPaidService {
         );
     }
 
-    getReceiptsPaidStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+    getReceiptsPaidStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<StatRangeData[]> {
         const route: string = routes.receiptsPaidStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);
@@ -296,8 +296,8 @@ export class ReceiptPaidService {
         );
     }
 
-    getTotalReceiptsPaid(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
-        const route: string = routes.totalReceiptsPaid(this._workspaceId);
+    getTotalWorkspaceReceiptsPaid(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
+        const route: string = routes.totalWorkspaceReceiptsPaid(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);
         if(!!rangeStart) params = params.append('rangeStart', rangeStart);

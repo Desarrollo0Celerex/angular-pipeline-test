@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { PartnerQuotationStat } from '@interfaces/partner-quotation-stat.interface';
 
 import { ContainerLeadPartnerKpisService } from './container-lead-partner-kpis.service';
@@ -13,7 +13,7 @@ import { ContainerLeadPartnerKpisService } from './container-lead-partner-kpis.s
   providers: [ContainerLeadPartnerKpisService]
 })
 export class ContainerLeadPartnerKpisComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _containerLeadPartnerKpisService: ContainerLeadPartnerKpisService) { }
 
@@ -26,7 +26,7 @@ export class ContainerLeadPartnerKpisComponent implements OnChanges {
         this._loadPartnersQuotationsStats(changes.range.currentValue)
     }
 
-    private _loadPartnersQuotationsStats(range: RangeData): void {
+    private _loadPartnersQuotationsStats(range: ComparisonRangeData): void {
         this.model.getPartnersQuotationsStats(range).subscribe((res: PartnerQuotationStat[][]) => {
             this.model.loadPartnersQuotationsStatsData(res, range);
         });

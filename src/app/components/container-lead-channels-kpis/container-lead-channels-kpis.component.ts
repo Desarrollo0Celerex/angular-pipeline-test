@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 
 import { ContainerLeadChannelsKpisService } from './container-lead-channels-kpis.service';
@@ -13,7 +13,7 @@ import { ContainerLeadChannelsKpisService } from './container-lead-channels-kpis
   providers: [ContainerLeadChannelsKpisService]
 })
 export class ContainerLeadChannelsKpisComponent implements OnChanges, OnInit {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _containerLeadChannelsKpisService: ContainerLeadChannelsKpisService) { }
 
@@ -32,19 +32,19 @@ export class ContainerLeadChannelsKpisComponent implements OnChanges, OnInit {
         return this._containerLeadChannelsKpisService;
     }
 
-    private _loadContactSourcesStats(range: RangeData): void {
+    private _loadContactSourcesStats(range: ComparisonRangeData): void {
         this.model.getContactSourcesStats(range).subscribe((contactSourcesStats: Stat[][]) => {
             this.model.loadActiveChannelsData(contactSourcesStats);
         });
     }
 
-    private _loadActivePartners(range: RangeData): void {
+    private _loadActivePartners(range: ComparisonRangeData): void {
         this.model.getPartners(range).subscribe((stats: Stat[][]) => {
             this.model.loadActivePartnersData(stats);
         });
     }
 
-    private _loadTotalGeneratedLeads(range: RangeData): void {
+    private _loadTotalGeneratedLeads(range: ComparisonRangeData): void {
         this.model.getTotalGeneratedLeads(range).subscribe((res: number[]) => {
             this.model.loadTotalGeneratedLeads(res);
             this.model.loadDailyAverage(res, range);

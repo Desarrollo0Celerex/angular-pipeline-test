@@ -7,7 +7,7 @@ import { DEFAULT_PER_PAGE } from '@constants/global';
 import { environment } from '@env/environment';
 import { CoverageStat } from '@interfaces/coverage-stat.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
@@ -37,14 +37,18 @@ export class ClientService {
      * @param  query             The search to do
      * @return                   The clients
      */
-   public getClients(page: number = 1, fields: string = '', filters: string = '', query: string = '', perPage: number = DEFAULT_PER_PAGE): Observable<HttpResponse> {
-       const route: string = routes.clients(this._workspaceId);
-       let params: HttpParams = new HttpParams();
-       params = params.append('page', page.toString());
-       params = params.append('perPage', perPage.toString());
-       if(!!fields) params = params.append('fields', fields);
-       if(!!filters) params = params.append('filter', filters);
-       if(!!query) params = params.append('search', 'multiple:' + query);
+   public getClients(page: number = 1, fields: string = '', filters: string = '', query: string = '', perPage: number = DEFAULT_PER_PAGE, rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
+        const route: string = routes.clients(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        params = params.append('perPage', perPage.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!query) params = params.append('search', 'multiple:' + query);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
        params = params.append('sortBy', '-createdAt');
        return this._httpClient.get<HttpResponse>(route, { params });
    }
@@ -73,7 +77,7 @@ export class ClientService {
         );
     }
 
-    getTotalClientsStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+    getTotalClientsStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<StatRangeData[]> {
         const route: string = routes.totalClientsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
@@ -85,7 +89,7 @@ export class ClientService {
         );
     }
 
-    getClientsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<RangeStat[]> {
+    getClientsStats(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<StatRangeData[]> {
         const route: string = routes.clientsStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!rangeField) params = params.append('rangeField', rangeField);

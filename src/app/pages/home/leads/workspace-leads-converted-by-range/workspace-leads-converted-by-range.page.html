@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-12">
+        <agt-card-content-title
+            title="Prospectos Generados"
+            description="Prospectos generados por periodo."
+        ></agt-card-content-title>
+    </div>
+</div>
+
+<!-- AGENTHOS - LISTING FILTERS  -->
+<div class="row mt-3">
+    <!-- AGENTHOS - DATA SUITE STATS -->
+    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+        <!-- AGENTHOS - PERIOD FILTERS -->
+        <agt-container-select-stats-period
+            [statsPeriodData]="statsPeriodData"
+            [canShowComparisonPeriod]="false"
+            (statsPeriodSelected)="loadContent($event)">
+        </agt-container-select-stats-period>
+        <!-- //AGENTHOS - PERIOD FILTERS -->
+    </div>
+    <!-- //AGENTHOS - DATA SUITE STATS -->
+    <!-- AGENTHOS - DATA SUITE REPORT -->
+    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Generar Reporte</h3>
+            </div>
+            <!-- AGENTHOS - DATA SUITE REPORT GENERATOR -->
+            <div class="card-body">
+                <ol class="breadcrumb1 mt-2">
+                    <li class="breadcrumb-item1">Genera un reporte inmediato de <strong>Prospectos Generados</strong>.</li>
+                </ol>
+                <button type="button" class="btn btn-block btn-primary mt-5" disabled><strong>MUY PRONTO</strong></button>
+            </div>
+            <!-- //AGENTHOS - DATA SUITE REPORT GENERATOR -->
+        </div>
+    </div>
+    <!-- //AGENTHOS - DATA SUITE REPORT -->
+</div>
+<!-- //AGENTHOS - LISTING FILTERS  -->
+
+<agt-content-list
+    *ngIf="!!statsPeriodData"
+    [contentType]="CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID"
+    [contentTypeName]="CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.NAME"
+    contentSubtypeName="Generado"
+    [rangeField]="rangeField"
+    [rangeStart]="statsPeriodData.startDate"
+    [rangeEnd]="statsPeriodData.endDate"
+    [contentSpecialFilter]="specialFilter"
+></agt-content-list>

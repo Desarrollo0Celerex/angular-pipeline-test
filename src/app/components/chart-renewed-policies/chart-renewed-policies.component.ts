@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 
 import { ChartRenewedPoliciesService } from './chart-renewed-policies.service';
 
@@ -15,7 +15,7 @@ declare var StatsPoliciesPlugin: any;
   providers: [ChartRenewedPoliciesService]
 })
 export class ChartRenewedPoliciesComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(public model: ChartRenewedPoliciesService) { }
 
@@ -28,8 +28,8 @@ export class ChartRenewedPoliciesComponent implements OnChanges {
         return (this.model.renewedPoliciesStatsData.length > 0) ? true : false;
     }
 
-    private _loadRenewedPoliciesStats(range: RangeData): void {
-        this.model.getRenewedPoliciesStats(range).subscribe((renewedPoliciesStats: RangeStat[][]) => {
+    private _loadRenewedPoliciesStats(range: ComparisonRangeData): void {
+        this.model.getRenewedPoliciesStats(range).subscribe((renewedPoliciesStats: StatRangeData[][]) => {
             this.model.loadRenewedPoliciesStatsData(renewedPoliciesStats);
             StatsPoliciesPlugin.drawChartRenewedPolicies(this.model.renewedPoliciesStatsData);
         });

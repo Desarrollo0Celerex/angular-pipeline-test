@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
-import { RangeStat } from '@interfaces/range-stat.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
+import { StatRangeData } from '@interfaces/stat-range-data.interface';
 
 declare var StatsClientsPlugin: any;
 
@@ -15,7 +15,7 @@ import { ChartGeneratedClientsService } from './chart-generated-clients.service'
   providers: [ChartGeneratedClientsService]
 })
 export class ChartGeneratedClientsComponent implements OnChanges {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _chartGeneratedClientsService: ChartGeneratedClientsService) { }
 
@@ -32,8 +32,8 @@ export class ChartGeneratedClientsComponent implements OnChanges {
         return (this.model.clientsGeneratedStatsData.length > 0) ? true : false;
     }
 
-    private _loadClientsGeneratedStats(range: RangeData): void {
-        this.model.getClientsGeneratedStats(range).subscribe((clientsGeneratedStats: RangeStat[][]) => {
+    private _loadClientsGeneratedStats(range: ComparisonRangeData): void {
+        this.model.getClientsGeneratedStats(range).subscribe((clientsGeneratedStats: StatRangeData[][]) => {
             this.model.loadClientsGeneratedStatsData(clientsGeneratedStats);
             StatsClientsPlugin.drawChartClientsGenerated(this.model.clientsGeneratedStatsData);
         });

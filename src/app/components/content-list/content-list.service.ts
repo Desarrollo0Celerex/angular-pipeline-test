@@ -6,7 +6,8 @@ import * as moment from 'moment';
 import { CLIENT_STATUS, EXTERNAL_POLICY_STATUS, LEAD_STATUS, PARTNER_STATUS, 
     PAYMENT_STATUS, POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, 
     SINISTER_STATUS, SINISTER_STATUS_OPEN, DEFAULT_PER_PAGE, SINISTER_RECORD_TYPES,
-    POLICY_INSURED_STATUS 
+    POLICY_INSURED_STATUS, 
+    QUOTATION_STATUS
 } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { SinisterEventHelper } from '@helpers/sinister-event.helper';
@@ -596,6 +597,35 @@ export class ContentListService {
         );
     }
 
+    loadWorkspaceLeadsConvertedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
+        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName';
+        const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED])
+        const query: string = '';
+        return this._leadService.getLeads(page, fields, filters, query, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
+            tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    loadWorkspaceClientsConvertedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
+        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName,createdAt';
+        const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL])
+        const query: string = '';
+        const perPage: number = DEFAULT_PER_PAGE;
+        console.log('paso 1');
+        
+        return this._clientService.getClients(page, fields, filters, query, perPage, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
+            tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
     loadContactPendingRenewalsByRange(contactId: string, page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
         const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
@@ -663,6 +693,19 @@ export class ContentListService {
         const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId,paymentId,policyCancellationReasonId';
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.CANCELLED])
         const sortBy: string = '-updatedAt';
+        return this._policyService.getPolicies(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, DEFAULT_PER_PAGE, specialFilter).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    loadWorkspacePoliciesIssued(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
+        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+        const filters: string = '';
+        const sortBy: string = 'emissionDate';
         return this._policyService.getPolicies(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, DEFAULT_PER_PAGE, specialFilter).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
@@ -900,6 +943,32 @@ export class ContentListService {
         );
     }
 
+    loadWorkspaceQuotationsClosedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
+        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+        const sortBy: string = '-createdAt';
+        const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.ACCEPTED, QUOTATION_STATUS.REJECTED]);
+        return this._quotationService.getQuotations(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    loadWorkspaceQuotationsOpenedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
+        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+        const sortBy: string = '-createdAt';
+        const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.PENDING]);
+        return this._quotationService.getQuotations(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
     /**
      * Load the sinisters
      * @param  page           The page number to get
@@ -958,6 +1027,19 @@ export class ContentListService {
     loadOpenedSinistersByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
         const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE]);
+        const sortBy: string = 'sinisterDate';
+        return this._sinisterService.getSinisters(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
+            tap((res: HttpResponse) => {
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
+            }),
+            map(() => { })
+        );
+    }
+
+    loadWorkspaceSinistersClosedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
+        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.FINISHED]);
         const sortBy: string = 'sinisterDate';
         return this._sinisterService.getSinisters(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
             tap((res: HttpResponse) => {

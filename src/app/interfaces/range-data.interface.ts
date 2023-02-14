@@ -1,6 +1,5 @@
 export interface RangeData {
-    selectedRangeStart: string,
-    selectedRangeEnd: string,
-    comparedRangeStart: string,
-    comparedRangeEnd: string
+    rangeField: string,
+    rangeStart: string,
+    rangeEnd: string
 }

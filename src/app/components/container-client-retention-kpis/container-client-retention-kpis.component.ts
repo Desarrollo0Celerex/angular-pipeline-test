@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
-import { RangeData } from '@interfaces/range-data.interface';
+import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 
 import { ContainerClientRetentionKpisService } from './container-client-retention-kpis.service';
 
@@ -12,7 +12,7 @@ import { ContainerClientRetentionKpisService } from './container-client-retentio
   providers: [ContainerClientRetentionKpisService]
 })
 export class ContainerClientRetentionKpisComponent implements OnChanges, OnInit {
-    @Input() range: RangeData | null = null;
+    @Input() range: ComparisonRangeData | null = null;
 
     constructor(private _containerClientRetentionKpisService: ContainerClientRetentionKpisService) { }
 
@@ -31,25 +31,25 @@ export class ContainerClientRetentionKpisComponent implements OnChanges, OnInit 
         return this._containerClientRetentionKpisService;
     }
 
-    private _loadWorkspaceRetentionRate(range: RangeData): void {
+    private _loadWorkspaceRetentionRate(range: ComparisonRangeData): void {
         this.model.getWorkspaceRetentionRate(range).subscribe((res: number[]) => {
             this.model.loadWorkspaceRetentionRate(res);
         });
     }
 
-    private _loadWorkspaceHigherRetentionRate(range: RangeData): void {
+    private _loadWorkspaceHigherRetentionRate(range: ComparisonRangeData): void {
         this.model.getWorkspaceHigherRetentionRate(range).subscribe((res: number[]) => {
             this.model.loadWorkspaceHigherRetentionRate(res);
         });
     }
 
-    private _loadWorkspaceLowerRetentionRate(range: RangeData): void {
+    private _loadWorkspaceLowerRetentionRate(range: ComparisonRangeData): void {
         this.model.getWorkspaceLowerRetentionRate(range).subscribe((res: number[]) => {
             this.model.loadWorkspaceLowerRetentionRate(res);
         });
     }
 
-    private _loadTotalLossClients(range: RangeData): void {
+    private _loadTotalLossClients(range: ComparisonRangeData): void {
         this.model.getTotalClients().subscribe((totalClients: number) => {
             this.model.getTotalLossClients(range).subscribe((res: number[]) => {
                 this.model.loadTotalLossClients(totalClients, res);
