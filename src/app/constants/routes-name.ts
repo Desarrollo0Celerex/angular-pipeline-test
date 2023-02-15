@@ -35,6 +35,7 @@ const HOME_CONTACTS_ROUTES = {
 const HOME_CONTACT_CENTER_ROUTES = {
     contactCenterResume: 'contact-center/resume',
     contactCenterAdvisory: 'contact-center/advisory',
+    contactCenterPayments: 'contact-center/payments',
 }
 
 const HOME_CONTACT_FILES_ROUTES = {

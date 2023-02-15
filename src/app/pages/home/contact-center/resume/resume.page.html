@@ -17,7 +17,7 @@
             <li class="list-group-item">
                 <strong>2. Pagos</strong>
                 <!-- AGENTHOS - CONTACT CENTER CHANNEL STATUS -->
-                <a href="../contact/payments.php" *ngIf="model.isCompletedPayments !== null">
+                <a routerLink="{{'/' + ROUTES_NAME.contactCenterPayments}}" *ngIf="model.isCompletedPayments !== null">
                     <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedPayments)}}"><i class="fe {{getStatusIcon(model.isCompletedPayments)}} mr-2"></i>{{getStatusLabel(model.isCompletedPayments)}}</span>
                 </a>
             </li>

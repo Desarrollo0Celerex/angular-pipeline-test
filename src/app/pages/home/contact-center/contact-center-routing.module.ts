@@ -13,6 +13,7 @@ const routes: Routes = [{
     children: [
       { path: ROUTES_NAME.contactCenterResume, loadChildren: () => import('@pages/home/contact-center/resume/resume.module').then(mod => mod.ResumeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
       { path: ROUTES_NAME.contactCenterAdvisory, loadChildren: () => import('@pages/home/contact-center/advisory/advisory.module').then(mod => mod.AdvisoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+      { path: ROUTES_NAME.contactCenterPayments, loadChildren: () => import('@pages/home/contact-center/payments/payments.module').then(mod => mod.PaymentsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
     ]
 }];
 
