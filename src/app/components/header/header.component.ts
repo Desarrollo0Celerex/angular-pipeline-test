@@ -16,7 +16,6 @@ declare var ScreenPlugin: any;
 })
 export class HeaderComponent implements OnInit {
     ROUTES_NAME: any;
-    atomAccountUrl: string = environment.atomAccountUrl;
 
     constructor(
         public headerService: HeaderService

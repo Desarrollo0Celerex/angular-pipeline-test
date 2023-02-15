@@ -318,6 +318,11 @@ body {
     background: #FC427B !important;
     border-color: #FC427B !important;
 }
+.agt-button-active:hover {
+    color: #ffffff;
+    background-color: #ce0e68 !important;
+    border-color: #ce0e68 !important;
+}
 .agt-button-active:not(:disabled):not(.disabled):active:focus {
     box-shadow: 0 0 0 2px rgb(253, 89, 27,0.9) !important;
 }

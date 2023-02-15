@@ -25,6 +25,9 @@ const routes: Routes = [
             { path: ROUTES_NAME.listContacts, loadChildren: () => import('@pages/home/contacts/list-contacts/list-contacts.module').then( mod => mod.ListContactsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: '', loadChildren: () => import('@pages/home/contact-profile/contact-profile.module').then(mod => mod.ContactProfileModule) },
 
+            // Contact center routes
+            { path: '', loadChildren: () => import('@pages/home/contact-center/contact-center.module').then(mod => mod.ContactCenterModule) },
+
             // Data routes
             { path: ROUTES_NAME.dashboard, loadChildren: () => import('@pages/home/data/dashboard/dashboard.module').then( mod => mod.DashboardModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
@@ -123,6 +126,9 @@ const routes: Routes = [
             { path: ROUTES_NAME.launchApp(':walletId'), loadChildren: () => import('@pages/home/wallet/launch-app/launch-app.module').then(mod => mod.LaunchAppModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: '', loadChildren: () => import('@pages/home/wallet/wallet.module').then(mod => mod.WalletModule) },
 
+            // Welcome routes
+            { path: ROUTES_NAME.workspaceWelcome, loadChildren: () => import('@pages/home/welcome/welcome.module').then(mod => mod.WelcomeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+            
             // Searches routes
             { path: ROUTES_NAME.listSearchResults, loadChildren: () => import('@pages/home/searches/list-search-results/list-search-results.module').then(mod => mod.ListSearchResultsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] }
         ]

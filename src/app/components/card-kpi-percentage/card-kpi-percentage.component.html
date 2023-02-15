@@ -12,7 +12,7 @@
         </span> Productividad
     </p>
     <div class="progress h-1">
-        <div class="progress-bar progress-bar-sm agt-progress-bar-{{kpiClass}} w-{{percentage}}" role="progressbar"></div>
+        <div class="progress-bar progress-bar-sm agt-progress-bar-{{kpiClass}}" [ngStyle]="{'width': percentage+'%'}" role="progressbar"></div>
     </div>
 </div>
 <ng-template #containerLoadingContent>

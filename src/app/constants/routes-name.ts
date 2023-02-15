@@ -32,6 +32,11 @@ const HOME_CONTACTS_ROUTES = {
     listContacts: `workspace/contacts/list-contacts`
 }
 
+const HOME_CONTACT_CENTER_ROUTES = {
+    contactCenterResume: 'contact-center/resume',
+    contactCenterAdvisory: 'contact-center/advisory',
+}
+
 const HOME_CONTACT_FILES_ROUTES = {
     uploadContactFile: (contactId: string) => `workspace/files/upload-contact-file/${contactId}`,
     updateContactFile: (contactId: string, contactFileId: string) => `workspace/files/upload-contact-file/${contactId}/${contactFileId}`,
@@ -190,6 +195,10 @@ const SEARCHES_ROUTES = {
     listSearchResults: 'workspace/searches/search-results'
 }
 
+const WELCOME_ROUTES = {
+    workspaceWelcome: 'welcome'
+}
+
 const WORKSPACES_ROUTES = {
     checkWorkspaceStatus: 'workspaces/check-workspace-status',
     welcome: 'workspaces/welcome',
@@ -206,6 +215,7 @@ export const ROUTES_NAME = {
     ...EXPRESS_ROUTES,
     ...HOME_CLIENTS_ROUTES,
     ...HOME_CONTACTS_ROUTES,
+    ...HOME_CONTACT_CENTER_ROUTES,
     ...HOME_CONTACT_PROFILE_ROUTES,
     ...HOME_DATA_ROUTES,
     ...HOME_ERRORS_ROUTES,
@@ -228,5 +238,6 @@ export const ROUTES_NAME = {
     ...INVITATIONS_ROUTES,
     ...POLICY_SEARCH_ENGINE_ROUTES,
     ...SEARCHES_ROUTES,
+    ...WELCOME_ROUTES,
     ...WORKSPACES_ROUTES
 }
