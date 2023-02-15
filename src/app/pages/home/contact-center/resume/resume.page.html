@@ -33,7 +33,7 @@
             <li class="list-group-item">
                 <strong>4. Soporte</strong>
                 <!-- AGENTHOS - CONTACT CENTER CHANNEL STATUS -->
-                <a href="../contact/support.php" *ngIf="model.isCompletedSupport !== null">
+                <a routerLink="{{'/' + ROUTES_NAME.contactCenterSupport}}" *ngIf="model.isCompletedSupport !== null">
                     <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedSupport)}}"><i class="fe {{getStatusIcon(model.isCompletedSupport)}} mr-2"></i>{{getStatusLabel(model.isCompletedSupport)}}</span>
                 </a>
             </li>

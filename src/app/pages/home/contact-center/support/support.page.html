@@ -1,0 +1,94 @@
+<ng-container *ngIf="model.isBuiltForm; else containerLoadingContent">
+
+    <form [formGroup]="model.form" (submit)="validateForm()">
+        <ng-container formArrayName="workspaceDirectories">
+            <ng-container *ngFor="let directory of model.workspaceDirectories.controls; let index = index">
+                <ng-container [formGroupName]="index">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Soporte & Ayuda</h3>
+                        </div>
+                        <div class="card-body">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">Ingresa los datos para atención personalizada con soporte y ayuda.</li>
+                            </ol>
+                            <div class="row">
+                                <!-- AGENTHOS - CONTACT CENTER MAIL -->
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <!-- AGENTHOS - CONTACT MAIL * -->
+                                        <label class="form-label">Correo Electrónico</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fe fe-mail tx-16 lh-0 op-6"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control {{getValidationClass('email', index)}}" placeholder="Ingresa el correo electrónico" formControlName="email">
+                                            <div class="invalid-feedback">{{getErrorMessage('email', index)}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- //AGENTHOS - CONTACT CENTER MAIL -->
+                                <!-- AGENTHOS - CONTACT CENTER WHATSAPP -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-label">WhatsApp Business</label>
+                                    <div class="input-group"> 
+                                        <agt-dropdown-select-phone-code [phoneCodeId]="directory.get('whatsappCodeId')!.value" (phoneCodeIdSelected)="selectWhatsappCodeId($event, index)"></agt-dropdown-select-phone-code>
+                                        <input type="text" class="form-control {{getValidationClass('whatsappNumber', index)}}" formControlName="whatsappNumber" placeholder="Ingresa el número de teléfono">
+                                        <div class="invalid-feedback">{{getErrorMessage('whatsappNumber', index)}}</div>
+                                    </div>
+                                </div>
+                                <!-- //AGENTHOS - CONTACT CENTER WHATSAPP -->
+                                <!-- AGENTHOS - CONTACT CENTER PHONE -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-label">Línea Directa</label>
+                                    <div class="input-group"> 
+                                        <agt-dropdown-select-phone-code [phoneCodeId]="directory.get('phoneCodeId')!.value" (phoneCodeIdSelected)="selectPhoneCodeId($event, index)"></agt-dropdown-select-phone-code>
+                                        <input type="text" class="form-control {{getValidationClass('phoneNumber', index)}}" formControlName="phoneNumber" placeholder="Ingresa el número de teléfono">
+                                        <div class="invalid-feedback">{{getErrorMessage('phoneNumber', index)}}</div>
+                                    </div>
+                                </div>
+                                <!-- //AGENTHOS - CONTACT CENTER PHONE -->
+
+                                <!-- AGENTHOS - CONTACT CENTER DETAILS -->
+                                <div class="col-md-12 mt-5">
+                                    <div class="card shadow">
+                                        <div class="card-body">
+                                            Agenthos usará estos datos de contacto para canalizar a los prospectos y clientes que soliciten soporte técnico o necesiten ayuda para el uso de canales digitales. 
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- //AGENTHOS - CONTACT CENTER DETAILS -->
+
+                            </div>
+                            <!-- //AGENTHOS - APP CREATOR NAME -->
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+        <!-- AGENTHOS - CONTACT CENTER UPDATE -->
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-block agt-btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - CONTACT CENTER UPDATE -->
+    </form>
+</ng-container>
+
+<ng-template #containerLoadingContent>
+    <agt-loading-content
+        [isLoadingContent]="true"
+    ></agt-loading-content>
+</ng-template>
+
+<agt-model-confirm-save-workspace-directories
+    [modalId]="modalIdConfirmSaveWorkspaceDirectories"
+    (confirmedAction)="saveWorkspaceDirectories()"
+></agt-model-confirm-save-workspace-directories>
