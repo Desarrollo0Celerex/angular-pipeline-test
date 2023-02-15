@@ -25,7 +25,7 @@
             <li class="list-group-item">
                 <strong>3. Siniestros</strong>
                 <!-- AGENTHOS - CONTACT CENTER CHANNEL STATUS -->
-                <a href="../contact/sinisters.php" *ngIf="model.isCompletedSinisters !== null">
+                <a routerLink="{{'/' + ROUTES_NAME.contactCenterSinisters}}" *ngIf="model.isCompletedSinisters !== null">
                     <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedSinisters)}}"><i class="fe {{getStatusIcon(model.isCompletedSinisters)}} mr-2"></i>{{getStatusLabel(model.isCompletedSinisters)}}</span>
                 </a>
             </li>
