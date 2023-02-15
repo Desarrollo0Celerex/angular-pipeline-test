@@ -158,6 +158,12 @@ export const GROUP_STATUS: any = {
     MIXED: 3,
     INCOMPLETE: 4
 }
+export const WORKSPACE_DIRECTORY_TYPES: any = {
+    ADVISORY: 1,
+    PAYMENTS: 2,
+    SINISTERS: 3,
+    SUPPORT: 4
+}
 
 // Types
 export const CONTENT_TYPES: any = {

@@ -1,8 +1,8 @@
 <ng-container *ngIf="model.isBuiltForm; else containerLoadingContent">
 
-    <form [formGroup]="model.form" (submit)="saveDirectories()">
-        <ng-container formArrayName="directories">
-            <ng-container *ngFor="let directory of model.directories.controls; let index = index">
+    <form [formGroup]="model.form" (submit)="validateForm()">
+        <ng-container formArrayName="workspaceDirectories">
+            <ng-container *ngFor="let directory of model.workspaceDirectories.controls; let index = index">
                 <ng-container [formGroupName]="index">
                     <div class="card">
                         <div class="card-header">
@@ -87,3 +87,8 @@
         [isLoadingContent]="true"
     ></agt-loading-content>
 </ng-template>
+
+<agt-model-confirm-save-workspace-directories
+    [modalId]="modalIdConfirmSaveWorkspaceDirectories"
+    (confirmedAction)="saveWorkspaceDirectories()"
+></agt-model-confirm-save-workspace-directories>

@@ -757,4 +757,14 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static workspaceDirectoriesSaved(): void {
+        const alertData: Alert = {
+            title: 'Datos Actualizados',
+            text: 'Los datos de contacto se actualizaron con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
 }

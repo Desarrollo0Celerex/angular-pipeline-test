@@ -3,21 +3,24 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { DEFAULT_COUNTRY_ID, EMAIL_LENGTH } from '@constants/global';
+import { DEFAULT_COUNTRY_ID, EMAIL_LENGTH, WORKSPACE_DIRECTORY_TYPES } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { WorkspaceDirectory } from '@interfaces/workspace-directory.interface';
 import { Workspace } from '@interfaces/workspace.interface';
 import { WorkspaceService } from '@services/workspace.service';
 import { WorkspaceDirectoryService } from '@services/workspace-directory.service';
 import { HttpResponse } from '@interfaces/http-response.interface';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { SaveWorkspaceDirectoriesDataSend } from '@interfaces/save-workspace-directories-data-send.interface';
 
 @Injectable()
 export class AdvisoryService {
     form: FormGroup = this._formBuilder.group({
-        directories: this._formBuilder.array([])
+        workspaceDirectories: this._formBuilder.array([])
     });
     isBuiltForm: boolean = false;
     workspace: Workspace | null = null;
+    private _workspaceDirectoryTypeId: number = WORKSPACE_DIRECTORY_TYPES.ADVISORY;
 
     constructor(
         private _formBuilder: FormBuilder,
@@ -25,17 +28,17 @@ export class AdvisoryService {
         private _workspaceDirectoryService: WorkspaceDirectoryService
     ) { }
 
-    get directories(): FormArray {
-        return this.form.get('directories') as FormArray;
+    get workspaceDirectories(): FormArray {
+        return this.form.get('workspaceDirectories') as FormArray;
     }
 
     addDirectory(directory: WorkspaceDirectory | null = null): void {
-        this.directories.push(this.newDirectory(directory));
+        this.workspaceDirectories.push(this.newDirectory(directory));
     }
 
-    buildForm(directories: WorkspaceDirectory[]): void {
-        if(directories.length > 0) {
-            for(let directory of directories) {
+    buildForm(workspaceDirectories: WorkspaceDirectory[]): void {
+        if(workspaceDirectories.length > 0) {
+            for(let directory of workspaceDirectories) {
               this.addDirectory(directory);
             }
         } else {
@@ -56,7 +59,8 @@ export class AdvisoryService {
 
     loadWorkspaceDirectories(): Observable<WorkspaceDirectory[]> {
         const fields: string = 'workspaceDirectoryId,email,whatsappCodeId,whatsappNumber,phoneCodeId,phoneNumber';
-        return this._workspaceDirectoryService.getWorkspaceDirectories(fields);
+        const filters: string = UtilitiesHelper.generateHttpFilter('workspaceDirectoryTypeId', [this._workspaceDirectoryTypeId]);
+        return this._workspaceDirectoryService.getWorkspaceDirectories(fields, filters);
     }
 
     newDirectory(directory: WorkspaceDirectory | null): FormGroup {
@@ -69,5 +73,13 @@ export class AdvisoryService {
             phoneCodeId: [(!!directory && !!directory.phoneCodeId) ? directory.phoneCodeId : codeId, [Validators.required, ValidatorsHelper.number]],
             phoneNumber: [(!!directory && !!directory.phoneNumber) ? directory.phoneNumber : '', [Validators.required, ValidatorsHelper.phoneNumber]],
         });
+    }
+
+    saveWorkspaceDirectories(): Observable<void> {
+        const requestBody: SaveWorkspaceDirectoriesDataSend = {
+            workspaceDirectoryTypeId: this._workspaceDirectoryTypeId,
+            workspaceDirectories: this.workspaceDirectories.value
+        }
+        return this._workspaceDirectoryService.saveWorkspaceDirectories(requestBody);
     }
 }
