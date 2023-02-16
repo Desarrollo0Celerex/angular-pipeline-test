@@ -12,4 +12,17 @@ export class CardModuleComponent {
     @Input() icon: string = '';
     @Input() description: string = '';
     @Input() route: string = '';
+    @Input() isCompleted: boolean | null = null;
+
+    get buttonClass(): string {
+        return (this.isCompleted) ? 'agt-btn-success-light' : 'agt-btn-warning-light'
+    }
+
+    get buttonIcon(): string {
+        return (this.isCompleted) ? 'fe-check-circle' : 'fe-settings'
+    }
+
+    get buttonLabel(): string {
+        return (this.isCompleted) ? 'COMPLETADO	' : 'CONFIGURAR'
+    }
 }

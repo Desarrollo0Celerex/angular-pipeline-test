@@ -6,9 +6,9 @@
             <li class="breadcrumb-item1">Configura tus <strong>{{subtitle}}</strong> {{description}}</li>
         </ol>
     </div>
-    <div class="card-footer">
+    <div class="card-footer" *ngIf="isCompleted !== null">
         <a [routerLink]="'/' + route">
-            <button type="button" class="btn btn-block agt-btn-warning-light"><i class="fe fe-settings mr-2"></i><strong>CONFIGURAR</strong></button>
+            <button type="button" class="btn btn-block {{buttonClass}}"><i class="fe {{buttonIcon}} mr-2"></i><strong>{{buttonLabel}}</strong></button>
         </a>
     </div>
 </div>

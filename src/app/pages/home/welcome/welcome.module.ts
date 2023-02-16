@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { CardContentTitleModule } from '@components/card-content-title/card-content-title.module';
 import { CardModuleModule } from '@components/card-module/card-module.module';
+import { WorkspaceDirectoryService } from '@services/workspace-directory.service';
 
 import { WelcomeRoutingModule } from './welcome-routing.module';
 import { WelcomePage } from './welcome.page';
+import { WelcomeService } from './welcome.service';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,10 @@ import { WelcomePage } from './welcome.page';
     CardModuleModule,
     CommonModule,
     WelcomeRoutingModule
+  ],
+  providers: [
+    WelcomeService,
+    WorkspaceDirectoryService
   ]
 })
 export class WelcomeModule { }

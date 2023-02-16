@@ -11,6 +11,7 @@ import { SaveWorkspaceDirectoriesDataSend } from '@interfaces/save-workspace-dir
 
 const ROUTES = {
     workspaceDirectories: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/directories`,
+    workspaceDirectoriesIsCompleted: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/directories/is-completed`,
 }
 
 @Injectable({
@@ -23,6 +24,13 @@ export class WorkspaceDirectoryService {
         private _authService: AuthService,
         private _httpClient: HttpClient
     ) { }
+
+    checkWorkspaceDirectoriesIsCompleted(): Observable<boolean> {
+        const route: string = ROUTES.workspaceDirectoriesIsCompleted(this._workspaceId);
+        return this._httpClient.get<HttpResponse>(route).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
 
     getWorkspaceDirectories(fields: string = '', filters: string = ''): Observable<WorkspaceDirectory[]> {
         const route: string = ROUTES.workspaceDirectories(this._workspaceId);
