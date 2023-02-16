@@ -31,9 +31,9 @@ export class WalletColorsService {
         this.isBuiltForm = true;
     }
 
-    loadWallet(walletId: string):Observable<Wallet> {
+    loadWallet():Observable<Wallet> {
         const fields: string = 'iconsUrl,themeId';
-        return this._walletService.getWallet(walletId, fields);
+        return this._walletService.getWallet(fields);
     }
 
     updateWallet(walletId: string): Observable<void> {

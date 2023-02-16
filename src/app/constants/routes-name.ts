@@ -19,6 +19,14 @@ const EXPRESS_ROUTES = {
     expressContact: (expressToken: string) => `express/express-contact/${expressToken}`
 }
 
+const HOME_APP_CREATOR_ROUTES = {
+    appCreator: 'app-creator',
+    appCreatorResume: 'app-creator/resume',
+    appCreatorIdentity: 'app-creator/identity',
+    appCreatorTheme: 'app-creator/theme',
+    appCreatorProducts: 'app-creator/products'
+}
+
 const HOME_CLIENTS_ROUTES = {
     listClients: 'workspace/clients/list-clients',
     workspaceClientsConvertedByRange: 'workspace-clients-converted-by-range',
@@ -33,6 +41,7 @@ const HOME_CONTACTS_ROUTES = {
 }
 
 const HOME_CONTACT_CENTER_ROUTES = {
+    contactCenter: 'contact-center',
     contactCenterResume: 'contact-center/resume',
     contactCenterAdvisory: 'contact-center/advisory',
     contactCenterPayments: 'contact-center/payments',
@@ -216,6 +225,7 @@ export const ROUTES_NAME = {
     ...CHANGELOG_ROUTES,
     ...ERRORS_ROUTES,
     ...EXPRESS_ROUTES,
+    ...HOME_APP_CREATOR_ROUTES,
     ...HOME_CLIENTS_ROUTES,
     ...HOME_CONTACTS_ROUTES,
     ...HOME_CONTACT_CENTER_ROUTES,

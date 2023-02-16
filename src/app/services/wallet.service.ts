@@ -10,9 +10,8 @@ import { Wallet } from '@interfaces/wallet.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
-    walletId: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallet-id',
     wallets: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets',
-    wallet: (workspaceId: string, walletId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/' + walletId,
+    walletId: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallet-id',
 }
 
 @Injectable()
@@ -46,14 +45,8 @@ export class WalletService {
          );
      }
 
-    /**
-     * Get the wallet
-     * @param  walletId  The wallet ID
-     * @param  fields    The fields to get
-     * @return           The wallet contacts
-     */
-     getWallet(walletId: string, fields: string = ''): Observable<Wallet> {
-         const route: string = routes.wallet(this._workspaceId, walletId);
+    getWallet(fields: string = ''): Observable<Wallet> {
+         const route: string = routes.wallets(this._workspaceId);
          let params: HttpParams = new HttpParams();
          if(!!fields) params = params.append('fields', fields);
          return this._httpClient.get<HttpResponse>(route, {params}).pipe(
@@ -63,13 +56,13 @@ export class WalletService {
          );
      }
 
-     updateWallet(walletId: string, requestBody: UpdateWalletDataSend): Observable<void> {
-         const route: string = routes.wallet(this._workspaceId, walletId);
+     updateWallet(requestBody: UpdateWalletDataSend): Observable<void> {
+         const route: string = routes.wallets(this._workspaceId);
          return this._httpClient.put<void>(route, requestBody);
      }
 
      updateWalletTheme(walletId: string, requestBody: FormData): Observable<void> {
-         const route: string = routes.wallet(this._workspaceId, walletId);
+         const route: string = routes.wallets(this._workspaceId);
          return this._httpClient.post<void>(route, requestBody);
      }
 }

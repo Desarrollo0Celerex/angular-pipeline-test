@@ -9,9 +9,9 @@ export class WalletLayoutService {
 
     constructor(private _walletService: WalletService) { }
 
-    loadWallet(walletId: string): void {
+    loadWallet(): void {
         const fields: string = 'walletKey,name,themeId,iconsUrl,createdAt,updatedAt,coveragesPhoneNumberWhatsapp';
-        this._walletService.getWallet(walletId, fields).subscribe((res: Wallet) => {
+        this._walletService.getWallet(fields).subscribe((res: Wallet) => {
             this.wallet = res;
         })
     }

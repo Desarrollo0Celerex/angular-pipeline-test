@@ -14,6 +14,9 @@ const routes: Routes = [
         path: '',
         component: HomePage,
         children: [
+            // App creator routes
+            { path: '', loadChildren: () => import('@pages/home/app-creator/app-creator.module').then(mod => mod.AppCreatorModule) },
+            
             // Clients routes
             { path: ROUTES_NAME.listClients, loadChildren: () => import('@pages/home/clients/list-clients/list-clients.module').then( mod => mod.ListClientsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.workspaceClientsConvertedByRange, loadChildren: () => import('@pages/home/clients/workspace-clients-converted-by-range/workspace-clients-converted-by-range.module').then( mod => mod.WorkspaceClientsConvertedByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

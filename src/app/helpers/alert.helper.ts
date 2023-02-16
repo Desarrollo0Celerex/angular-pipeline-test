@@ -711,14 +711,12 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
-    static walletUpdated(callBack: any, context: any): void {
+    static walletUpdated(): void {
         const alertData: Alert = {
             title: 'App Actualizada',
             text: 'La App se actualizó con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR',
-            callBack: callBack,
-            context: context
+            confirmButtonText: 'CONTINUAR'
         }
         SweetAlertPlugin.showAlert(alertData);
     }

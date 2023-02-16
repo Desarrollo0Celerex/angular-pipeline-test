@@ -10,7 +10,7 @@ import { WalletService } from '@services/wallet.service';
 import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
-export class WalletIdentityService {
+export class IdentityService {
     form: UntypedFormGroup = this._formBuilder.group({});
     isBuiltForm: boolean = false;
 
