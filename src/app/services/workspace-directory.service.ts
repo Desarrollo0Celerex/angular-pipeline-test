@@ -25,9 +25,11 @@ export class WorkspaceDirectoryService {
         private _httpClient: HttpClient
     ) { }
 
-    checkWorkspaceDirectoriesIsCompleted(): Observable<boolean> {
+    checkWorkspaceDirectoriesIsCompleted(filters: string = ''): Observable<boolean> {
         const route: string = ROUTES.workspaceDirectoriesIsCompleted(this._workspaceId);
-        return this._httpClient.get<HttpResponse>(route).pipe(
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
             map((res: HttpResponse) => res.data )
         );
     }

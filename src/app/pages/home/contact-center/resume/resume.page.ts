@@ -16,7 +16,10 @@ export class ResumePage implements OnInit {
     constructor(public model: ResumeService) { }
 
     ngOnInit(): void {
-        this.model.loadWorkspaceDirectories();
+        this.model.loadWorkspaceDirectoryAdvisoryStatus();
+        this.model.loadWorkspaceDirectoryPaymentsStatus();
+        this.model.loadWorkspaceDirectorySinistersStatus();
+        this.model.loadWorkspaceDirectorySupportStatus();
     }
 
     getStatusClass(isCompleted: boolean): string {

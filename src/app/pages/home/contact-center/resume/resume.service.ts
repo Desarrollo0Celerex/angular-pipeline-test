@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { WORKSPACE_DIRECTORY_TYPES } from '@constants/global';
-import { WorkspaceDirectory } from '@interfaces/workspace-directory.interface';
+import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { WorkspaceDirectoryService } from '@services/workspace-directory.service';
 
 @Injectable()
@@ -14,20 +14,31 @@ export class ResumeService {
 
     constructor(private _workspaceDirectoryService: WorkspaceDirectoryService) { }
 
-    loadWorkspaceDirectories(): void {
-        const fields: string = 'workspaceDirectoryTypeId';
-        this._workspaceDirectoryService.getWorkspaceDirectories(fields).subscribe((workspaceDirectories: WorkspaceDirectory[]) => {
-            const directoryAdvisory: WorkspaceDirectory | undefined = workspaceDirectories.find((element: WorkspaceDirectory) => element.workspaceDirectoryTypeId === WORKSPACE_DIRECTORY_TYPES.ADVISORY);
-            const directoryPayments: WorkspaceDirectory | undefined = workspaceDirectories.find((element: WorkspaceDirectory) => element.workspaceDirectoryTypeId === WORKSPACE_DIRECTORY_TYPES.PAYMENTS);
-            const directorySinisters: WorkspaceDirectory | undefined = workspaceDirectories.find((element: WorkspaceDirectory) => element.workspaceDirectoryTypeId === WORKSPACE_DIRECTORY_TYPES.SINISTERS);
-            const directorySupport: WorkspaceDirectory | undefined = workspaceDirectories.find((element: WorkspaceDirectory) => element.workspaceDirectoryTypeId === WORKSPACE_DIRECTORY_TYPES.SUPPORT);
-            
-            this.isCompletedAdvisory = (typeof directoryAdvisory !== 'undefined') ? true : false;
-            this.isCompletedPayments = (typeof directoryPayments !== 'undefined') ? true : false;
-            this.isCompletedSinisters = (typeof directorySinisters !== 'undefined') ? true : false;
-            this.isCompletedSupport = (typeof directorySupport !== 'undefined') ? true : false;
+    loadWorkspaceDirectoryAdvisoryStatus(): void {
+        const filters: string = UtilitiesHelper.generateHttpFilter('workspaceDirectoryTypeId', [WORKSPACE_DIRECTORY_TYPES.ADVISORY]);
+        this._workspaceDirectoryService.checkWorkspaceDirectoriesIsCompleted(filters).subscribe((isCompleted: boolean) => {
+            this.isCompletedAdvisory = isCompleted;
+        });
+    }
 
-            this.isContentLoaded = true;
+    loadWorkspaceDirectoryPaymentsStatus(): void {
+        const filters: string = UtilitiesHelper.generateHttpFilter('workspaceDirectoryTypeId', [WORKSPACE_DIRECTORY_TYPES.PAYMENTS]);
+        this._workspaceDirectoryService.checkWorkspaceDirectoriesIsCompleted(filters).subscribe((isCompleted: boolean) => {
+            this.isCompletedPayments = isCompleted;
+        });
+    }
+
+    loadWorkspaceDirectorySinistersStatus(): void {
+        const filters: string = UtilitiesHelper.generateHttpFilter('workspaceDirectoryTypeId', [WORKSPACE_DIRECTORY_TYPES.SINISTERS]);
+        this._workspaceDirectoryService.checkWorkspaceDirectoriesIsCompleted(filters).subscribe((isCompleted: boolean) => {
+            this.isCompletedSinisters = isCompleted;
+        });
+    }
+
+    loadWorkspaceDirectorySupportStatus(): void {
+        const filters: string = UtilitiesHelper.generateHttpFilter('workspaceDirectoryTypeId', [WORKSPACE_DIRECTORY_TYPES.SUPPORT]);
+        this._workspaceDirectoryService.checkWorkspaceDirectoriesIsCompleted(filters).subscribe((isCompleted: boolean) => {
+            this.isCompletedSupport = isCompleted;
         });
     }
 }
