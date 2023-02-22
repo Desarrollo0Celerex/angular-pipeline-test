@@ -7,11 +7,13 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { UpdateWalletDataSend } from '@interfaces/update-wallet-data-send.interface';
 import { Wallet } from '@interfaces/wallet.interface';
+import { WalletTheme } from '@interfaces/wallet-theme.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     wallets: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets',
-    walletId: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallet-id',
+    walletTheme: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/theme',
+    walletThemes: environment.apiUrl + '/wallet-themes',
 }
 
 @Injectable()
@@ -32,37 +34,35 @@ export class WalletService {
         );
     }
 
-    /**
-     * Get the wallet ID
-     * @return The wallet ID
-     */
-     getWalletId(): Observable<string> {
-         const route: string = routes.walletId(this._workspaceId);
-         return this._httpClient.get<HttpResponse>(route).pipe(
-             map((res: HttpResponse) => {
-                 return res.data;
-             })
-         );
-     }
-
     getWallet(fields: string = ''): Observable<Wallet> {
-         const route: string = routes.wallets(this._workspaceId);
-         let params: HttpParams = new HttpParams();
-         if(!!fields) params = params.append('fields', fields);
-         return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+        const route: string = routes.wallets(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
              map((res: HttpResponse) => {
                  return res.data;
-             })
-         );
-     }
+            })
+        );
+    }
 
-     updateWallet(requestBody: UpdateWalletDataSend): Observable<void> {
-         const route: string = routes.wallets(this._workspaceId);
-         return this._httpClient.put<void>(route, requestBody);
-     }
+    getWalletThemes(fields: string = ''): Observable<WalletTheme[]> {
+        const route: string = routes.walletThemes;
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+             map((res: HttpResponse) => {
+                 return res.data;
+            })
+        );
+    }
 
-     updateWalletTheme(walletId: string, requestBody: FormData): Observable<void> {
-         const route: string = routes.wallets(this._workspaceId);
-         return this._httpClient.post<void>(route, requestBody);
-     }
+    updateWallet(requestBody: UpdateWalletDataSend): Observable<void> {
+        const route: string = routes.wallets(this._workspaceId);
+        return this._httpClient.put<void>(route, requestBody);
+    }
+
+    updateWalletTheme(requestBody: FormData): Observable<void> {
+        const route: string = routes.walletTheme(this._workspaceId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
 }

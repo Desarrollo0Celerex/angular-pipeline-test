@@ -54,9 +54,9 @@ export class IdentityPage implements OnInit {
     updateWallet(): void {
         this._loadingService.show();
         this.model.updateWallet().subscribe(() => {
+            this._loadingService.hide();
             this._router.navigateByUrl(ROUTES_NAME.appCreatorResume);
             AlertHelper.walletUpdated();
-            this._loadingService.hide();
         });
     }
 

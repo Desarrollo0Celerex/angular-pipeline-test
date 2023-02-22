@@ -16,7 +16,7 @@ declare var ModalPlugin: any;
   ],
   providers: [CreateWalletService]
 })
-export class CreateWalletPage implements OnInit {
+export class CreateWalletPage {
     isWalletIdLoaded: boolean = false;
     modalIdConfirmCreateWallet: string = 'modal-confirm-create-wallet';
     private _walletId: string = '';
@@ -26,10 +26,6 @@ export class CreateWalletPage implements OnInit {
         private _loadingService: LoadingService,
         private _router: Router
     ) { }
-
-    ngOnInit(): void {
-        this._getWalletId();
-    }
 
     get model(): CreateWalletService {
         return this._createWalletService;
@@ -44,15 +40,6 @@ export class CreateWalletPage implements OnInit {
         this.model.createWallet().subscribe((walletId: string) => {
             this._loadingService.hide();
             this._router.navigateByUrl(ROUTES_NAME.walletIdentity(walletId));
-        });
-    }
-
-    private _getWalletId(): void {
-        this.model.getWalletId().subscribe((walletId: string) => {
-            this._walletId = walletId;
-            this._goToWalletIdentity(this);
-        }, () => {
-            this.isWalletIdLoaded = true;
         });
     }
 

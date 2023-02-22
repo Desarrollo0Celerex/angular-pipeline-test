@@ -17,5 +17,6 @@ export class WelcomePage implements OnInit {
 
     ngOnInit(): void {
         this.model.loadContactCenterStatus();
+        this.model.loadAppCreatorStatus();
     }
 }

@@ -1,1 +1,21 @@
-<p>resume works!</p>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Resumen de Configuración</h3>
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <strong>1. Identidad</strong>
+                <a routerLink="{{'/' + ROUTES_NAME.appCreatorIdentity}}" *ngIf="model.isCompletedIdentity !== null">
+                    <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedIdentity)}}"><i class="fe {{getStatusIcon(model.isCompletedIdentity)}} mr-2"></i>{{getStatusLabel(model.isCompletedIdentity)}}</span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <strong>2. Colores</strong>
+                <a routerLink="{{'/' + ROUTES_NAME.appCreatorTheme}}" *ngIf="model.isCompletedTheme !== null">
+                    <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedTheme)}}"><i class="fe {{getStatusIcon(model.isCompletedTheme)}} mr-2"></i>{{getStatusLabel(model.isCompletedTheme)}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

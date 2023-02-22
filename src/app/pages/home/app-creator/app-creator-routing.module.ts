@@ -15,7 +15,6 @@ const routes: Routes = [{
       { path: ROUTES_NAME.appCreatorResume, loadChildren: () => import('@pages/home/app-creator/resume/resume.module').then(mod => mod.ResumeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
       { path: ROUTES_NAME.appCreatorIdentity, loadChildren: () => import('@pages/home/app-creator/identity/identity.module').then(mod => mod.IdentityModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
       { path: ROUTES_NAME.appCreatorTheme, loadChildren: () => import('@pages/home/app-creator/theme/theme.module').then(mod => mod.ThemeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-      { path: ROUTES_NAME.appCreatorProducts, loadChildren: () => import('@pages/home/app-creator/products/products.module').then(mod => mod.ProductsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
     ]
 }];
 

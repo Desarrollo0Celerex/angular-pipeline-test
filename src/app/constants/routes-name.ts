@@ -23,8 +23,7 @@ const HOME_APP_CREATOR_ROUTES = {
     appCreator: 'app-creator',
     appCreatorResume: 'app-creator/resume',
     appCreatorIdentity: 'app-creator/identity',
-    appCreatorTheme: 'app-creator/theme',
-    appCreatorProducts: 'app-creator/products'
+    appCreatorTheme: 'app-creator/theme'
 }
 
 const HOME_CLIENTS_ROUTES = {

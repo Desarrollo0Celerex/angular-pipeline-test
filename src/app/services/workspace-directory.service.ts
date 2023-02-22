@@ -14,9 +14,7 @@ const ROUTES = {
     workspaceDirectoriesIsCompleted: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/directories/is-completed`,
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class WorkspaceDirectoryService {
     private _workspaceId: string = this._authService.workspaceId;
 

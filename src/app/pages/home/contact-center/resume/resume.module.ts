@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { WorkspaceDirectoryService } from '@services/workspace-directory.service';
+
 import { ResumeRoutingModule } from './resume-routing.module';
 import { ResumePage } from './resume.page';
 import { ResumeService } from './resume.service';
@@ -13,6 +15,9 @@ import { ResumeService } from './resume.service';
     CommonModule,
     ResumeRoutingModule
   ],
-  providers: [ResumeService]
+  providers: [
+    ResumeService,
+    WorkspaceDirectoryService
+  ]
 })
 export class ResumeModule { }

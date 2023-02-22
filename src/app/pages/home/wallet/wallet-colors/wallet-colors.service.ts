@@ -38,7 +38,7 @@ export class WalletColorsService {
 
     updateWallet(walletId: string): Observable<void> {
         const requestBody: FormData = this._getRequestBody();
-        return this._walletService.updateWalletTheme(walletId, requestBody);
+        return this._walletService.updateWalletTheme(requestBody);
     }
 
     private _getRequestBody(): FormData {
