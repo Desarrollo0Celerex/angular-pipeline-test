@@ -98,7 +98,7 @@ export class ShowContactDataService {
             if(!!this.contact.contactTypeId && this.contact.contactTypeId == CONTACT_TYPES.PERSON) {
                 this.contactForm.addControl('name', new FormControl(this.contact.name || '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]))
                 this.contactForm.addControl('namePaternal', new FormControl(this.contact.namePaternal || '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]))
-                this.contactForm.addControl('nameMaternal', new FormControl(this.contact.nameMaternal || '', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]))
+                this.contactForm.addControl('nameMaternal', new FormControl(this.contact.nameMaternal || '', [Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]))
                 this.contactForm.addControl('genderId', new FormControl(this.contact.genderId || '', [Validators.required, ValidatorsHelper.number]))
                 this.contactForm.addControl('birthdate', new FormControl(this._getDateFormat(this.contact.birthdate) || '', [ValidatorsHelper.date]))
                 this.contactForm.addControl('civilStatusId', new FormControl(this.contact.civilStatusId || '', [ValidatorsHelper.number]))
