@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CardKpiWorkspaceQuotationsClosedModule } from '@components/card-kpi-workspace-quotations-closed/card-kpi-workspace-quotations-closed.module';
-import { CardKpiWorkspaceRenewalsAppliedModule } from '@components/card-kpi-workspace-renewals-applied/card-kpi-workspace-renewals-applied.module';
+import { CardKpiWorkspacePoliciesRenewedModule } from '@components/card-kpi-workspace-policies-renewed/card-kpi-workspace-policies-renewed.module';
 import { CardKpiWorkspaceReceiptsPaidModule } from '@components/card-kpi-workspace-receipts-paid/card-kpi-workspace-receipts-paid.module';
 import { CardKpiWorkspaceSinistersClosedModule } from '@components/card-kpi-workspace-sinisters-closed/card-kpi-workspace-sinisters-closed.module';
 
@@ -17,7 +17,7 @@ import { ContainerWorkspaceKpisComponent } from './container-workspace-kpis.comp
   ],
   imports: [
     CardKpiWorkspaceQuotationsClosedModule,
-    CardKpiWorkspaceRenewalsAppliedModule,
+    CardKpiWorkspacePoliciesRenewedModule,
     CardKpiWorkspaceReceiptsPaidModule,
     CardKpiWorkspaceSinistersClosedModule,
     CommonModule

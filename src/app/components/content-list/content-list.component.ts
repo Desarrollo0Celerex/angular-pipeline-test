@@ -1280,6 +1280,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 });
             break;
 
+            case CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID:
+                this.contentListService.loadWorkspacePoliciesRenewedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
+                    this._contentLoaded();
+                });
+            break;
+
             case CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID:
                 this.contentListService.loadReceiptsAppliedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
                     this._contentLoaded();
@@ -1533,6 +1539,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID:
                 case CONTENT_TYPES.EXTERNAL_POLICIES.ID:
                 case CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID:
+                case CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID:
                 case CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID:
                 case CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID:
                 case CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID:

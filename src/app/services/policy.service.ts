@@ -78,9 +78,12 @@ const routes: any = {
     reportGroupPendingRenewals: (workspaceId: string, groupId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/groups/' + groupId + '/pending-renewals/report',
     reportPartnerAppliedRenewals: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/applied-renewals/report',
     reportPartnerPendingRenewals: (workspaceId: string, partnerId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/partners/' + partnerId + '/pending-renewals/report',
+    totalWorkspacePoliciesRenewed: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewed/count',
     totalWorkspaceRenewals: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/count',
     totalWorkspaceRenewalsApplied: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/renewed/count',
     totalWorkspaceRenewalsPending: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending/count',
+    workspacePoliciesRenewed: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewed',
+    workspacePoliciesRenewedSmartInsights: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewed/smart-insights',
 }
 
 @Injectable()
@@ -792,6 +795,43 @@ export class PolicyService {
         )
     }
 
+    getWorkspacePoliciesRenewed(page: number = 1, fields: string = '', filters: string = '', query: string = '', sortBy: string = '-createdAt', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<HttpResponse> {
+        const route: string = routes.workspacePoliciesRenewed(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if(!!fields) params = params.append('fields', fields);
+        if(!!filters) params = params.append('filter', filters);
+        if(!!query) params = params.append('search', 'policyNumber:' + query);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => {
+                if(fields.includes('lifeTime')) {
+                    const policies: Policy[] = res.data.items.map( (policy: Policy) => {
+                        return this._calculatePolicyLifeTime(policy);
+                    })
+                    res.data.items = policies;
+                }
+                return res;
+            })
+        )
+    }
+
+    getWorkspacePoliciesRenewedSmartInsights(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = '', specialFilter: string = ''): Observable<ContainerCharts> {
+        const route: string = routes.workspacePoliciesRenewedSmartInsights(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if(!!specialFilter) params = params.append('specialFilter', specialFilter);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
 
     /**
      * Get the history policy
@@ -935,6 +975,18 @@ export class PolicyService {
 
     getTotalWorkspaceRenewalsApplied(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
         const route: string = routes.totalWorkspaceRenewalsApplied(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!filters) params = params.append('filter', filters);
+        if(!!rangeField) params = params.append('rangeField', rangeField);
+        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+            map((res: HttpResponse) => res.data )
+        );
+    }
+
+    getTotalWorkspacePoliciesRenewed(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
+        const route: string = routes.totalWorkspacePoliciesRenewed(this._workspaceId);
         let params: HttpParams = new HttpParams();
         if(!!filters) params = params.append('filter', filters);
         if(!!rangeField) params = params.append('rangeField', rangeField);

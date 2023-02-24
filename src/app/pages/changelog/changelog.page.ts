@@ -9,6 +9,22 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.41.1',
+            launchDate: '23/02/2023',
+            changes: [
+                {
+                    title: 'Dashboard',
+                    items: [
+                        'Se agrego opción para que se puedan arrastrar también archivos en la carga de archivos.',
+                        'Se actualizo perfil del contacto para agregar el campo apellido materno como opcional.',
+                        'Se resolvio bug al mostrar las coincidencias de contactos encontradas por email y/o teléfono.',
+                        'Se corrigio código para mostrar correctamente el nombre de un contacto aun cuando solo sea nombre y apellido paterno.',
+                        'Se agrego KPI e interfaz para mostrar las pólizas renovadas.',
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.41.0',
             launchDate: '13/02/2023',
             changes: [

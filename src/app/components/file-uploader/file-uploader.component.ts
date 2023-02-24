@@ -79,6 +79,7 @@ export class FileUploaderComponent implements OnInit {
         
         this.uploader = new plupload.Uploader({
             runtimes : 'html5',
+            drop_element: 'pick',
             browse_button : 'pick',
             url : environment.apiUrl + '/workspaces/'+this._workspaceId+'/contacts/'+this.contactId+'/policies/'+this.policyId+'/upload-file',
             chunk_size: '1mb',

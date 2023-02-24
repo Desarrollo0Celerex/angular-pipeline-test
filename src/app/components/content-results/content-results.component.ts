@@ -86,6 +86,7 @@ export class ContentResultsComponent {
                 break;
 
             case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
+            case CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID:
             case CONTENT_TYPES.POLICY_TO_RENEW.ID:
             case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
             case CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID:
@@ -105,6 +106,7 @@ export class ContentResultsComponent {
                 break;
 
             case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
+            case CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID:
             case CONTENT_TYPES.POLICY_TO_RENEW.ID:
             case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
             case CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID:
