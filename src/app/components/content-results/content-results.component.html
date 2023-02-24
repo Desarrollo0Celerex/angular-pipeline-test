@@ -14,6 +14,7 @@
                 contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
                 contentType === CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID ||
                 contentType === CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID ||
+                contentType === CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID ||
                 contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID
             ); else containerResultData
         ">
@@ -27,6 +28,9 @@
                             <li class="breadcrumb-item1">No cuentas con Cotizaciones Abiertas en el periodo seleccionado.. <strong>Selecciona otro periodo o crea una nueva cotización para continuar</strong>.</li>
                         </ng-container>
                         <ng-container *ngSwitchCase="CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID">
+                            <li class="breadcrumb-item1">No cuentas con Pólizas Renovadas en el periodo seleccionado. <strong>Selecciona otro periodo o carga una nueva póliza para continuar</strong>.</li>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID">
                             <li class="breadcrumb-item1">No cuentas con Pólizas Renovadas en el periodo seleccionado. <strong>Selecciona otro periodo o carga una nueva póliza para continuar</strong>.</li>
                         </ng-container>
                         <ng-container *ngSwitchCase="CONTENT_TYPES.POLICY_TO_RENEW.ID">
@@ -89,6 +93,7 @@
                             <ng-container *ngSwitchCase="
                                 (
                                     contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
+                                    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID ||
                                     contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
                                     contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
                                     contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||

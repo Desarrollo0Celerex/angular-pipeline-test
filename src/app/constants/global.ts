@@ -379,6 +379,10 @@ export const CONTENT_TYPES: any = {
         ID: 54,
         NAME: 'Cotización'
     },
+    WORKSPACE_POLICIES_RENEWED_BY_RANGE: {
+        ID: 55,
+        NAME: 'Póliza'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,
