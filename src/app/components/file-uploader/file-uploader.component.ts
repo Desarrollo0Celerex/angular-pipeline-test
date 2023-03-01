@@ -1,35 +1,30 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { environment } from '@env/environment';
-import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertHelper } from '@helpers/alert.helper';
-import { AuthService } from '@services/auth.service';
+import { FileParam } from '@interfaces/file-param.interface';
 import { LoadingService } from '@services/loading.service';
 import { StorageService } from '@services/storage.service';
 
 declare let plupload: any;
 
+const ERROR_FILE_SIZE = -600;
+
 @Component({
   selector: 'agt-file-uploader',
-  templateUrl: './file-uploader.component.html',
+  template: '',
   styles: [
   ]
 })
 export class FileUploaderComponent implements OnInit {
-    @Input() contactId: string = '';
-    @Input() policyId: string = '';
-    @Input() extensions: string[] = [];
-    @Output() fileSelected: EventEmitter<File> = new EventEmitter<File>();
+    @Input() endpoint: string = '';
+    @Input() allowedFileExtensions: string[] = [];
+    @Input() maxFileSize: string = '';
+    @Output() fileSelected: EventEmitter<string> = new EventEmitter<string>();
+    @Output() fileUploaded: EventEmitter<void> = new EventEmitter<void>();
     uploader: any;
-    fileList: any[] = [];
     private _pluploadSrc: string = 'https://cdnjs.cloudflare.com/ajax/libs/plupload/3.1.5/plupload.full.min.js';
-    private _workspaceId: string = this._authService.workspaceId;
-
+    
     constructor(
-        private _authService: AuthService,
         private _loadingService: LoadingService,
-        private _router: Router,
         private _storageService: StorageService
     ) { }
 
@@ -39,10 +34,16 @@ export class FileUploaderComponent implements OnInit {
         });
     }
 
-    uploadFile(insurerId: string): void {
+    uploadFile(params: FileParam[]): void {
         this._loadingService.show();
-        this.uploader.settings.multipart_params["insurerId"] = insurerId;
+        this._loadParams(params);
         this.uploader.start();
+    }
+
+    private _loadParams(params: FileParam[]): void {
+        for(let param of params) {
+            this.uploader.settings.multipart_params[param.name] = param.value;
+        }
     }
 
     private _loadPluploadScript(): Promise<void> {
@@ -74,60 +75,71 @@ export class FileUploaderComponent implements OnInit {
 
     initPlupload() {
         const userToken: string | null = this._storageService.getUserToken();
-        const extensions: string = this.extensions.join(',');
-        console.log('extensions: ',extensions);
+        const allowedFileExtensions: string = this.allowedFileExtensions.join(',');
         
         this.uploader = new plupload.Uploader({
             runtimes : 'html5',
-            drop_element: 'pick',
-            browse_button : 'pick',
-            url : environment.apiUrl + '/workspaces/'+this._workspaceId+'/contacts/'+this.contactId+'/policies/'+this.policyId+'/upload-file',
+            drop_element: 'agt-file-container',
+            browse_button : 'agt-file-container',
+            url : this.endpoint,
             chunk_size: '1mb',
             multi_selection: false,
             filters: {
-                max_file_size : '10mb',
-                mime_types: [
-                    { title: 'File Types', extensions }
-                ]
+                max_file_size : this.maxFileSize,
+                mime_types: [{ 
+                    title: 'Allowed File Extensions', 
+                    extensions: allowedFileExtensions 
+                }]
             },
             headers: {
                 Authorization: `Bearer ${userToken}`
             },
             init: {
-                PostInit: () => {
-                    this.fileList = [];
-                },
                 FilesAdded: (up: any, files: any) => {
                     plupload.each(files, (file: any) => {
-                        const fileAux: File = file.getSource().getSource();
-                        this.fileSelected.emit(fileAux);
-                        this.fileList.push({
-                            id: file.id,
-                            name: file.name,
-                            size: plupload.formatSize(file.size),
-                            percent: 0
-                        });
+                        const baseFile: File = file.getSource().getSource();
+                        this._setFilePreview(baseFile);
+                        this.fileSelected.emit('1');
                     });
-                },
-                UploadProgress: (up: any, file: any) => {
-                    const index = this.fileList.findIndex(f => f.id == file.id);
-                    this.fileList[index].percent = file.percent;
                 },
                 UploadComplete: (up: any, files: any) => {
                     this._loadingService.hide();
-                    AlertHelper.policyUploaded(this._goToCompletePolicy, this);
+                    this.fileUploaded.emit();
                 },
                 Error: (up: any, err: any) => {
-                    console.error(err);
-                    this._loadingService.hide();
+                    this._handleError(err);
                 }
             }
         });
         this.uploader.init();
     }
 
-    private _goToCompletePolicy(context: FileUploaderComponent): void {
-        context._router.navigateByUrl(ROUTES_NAME.completePolicy(context.contactId, context.policyId));
+    private _handleError(error: any): void {
+        switch (error.code) {
+            case ERROR_FILE_SIZE:
+                const baseFile: File = error.file.getSource();
+                this._setFilePreview(baseFile);
+                break;
+        
+            default:
+                console.error('fileError: ', error);
+                break;
+        }
+        
+        this.fileSelected.emit('');
+        this._loadingService.hide();           
+    }
+
+    private _setFilePreview(file: File): void {
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        const fileInput: any = document.getElementById('dropify');
+        fileInput.files = dataTransfer.files;
+        fileInput.dispatchEvent(new Event('change'))
+        // Help Safari out
+        if (fileInput.webkitEntries.length) {
+            fileInput.dataset.file = `${dataTransfer.files[0].name}`;
+        }
     }
 
 }

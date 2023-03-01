@@ -1,4 +1,7 @@
-<agt-container-contact-details [contactId]="contactId" [message]="message"></agt-container-contact-details>
+<agt-container-contact-details 
+    [contactId]="contactId" 
+    message="Selecciona la póliza digital que deseas cargar para"
+></agt-container-contact-details>
 
 <!-- AGENTHOS - NEW POLICY -->
 <div class="row" [hidden]="isLoadingContent">
@@ -14,23 +17,14 @@
                         <!-- AGENTHOS - POLICY ORIGIN -->
 
                         <div class="col-md-12">
-                            <div id="pick">
-                                <div class="form-group {{getValidationClass('policyFile')}}">
-                                    <input id="dropify" class="form-control dropify" type="file" (click)="blockSelectFile($event)" />
-                                    <input type="hidden" name="fileHidden" formControlName="policyFile"/>
-                                    <div class="invalid-feedback">{{getErrorMessage('policyFile')}}</div>
+                            <div id="agt-file-container">
+                                <div class="form-group {{getValidationClass('file')}}">
+                                    <input id="dropify" type="file" class="form-control dropify" (click)="$event.preventDefault()" />
+                                    <input type="hidden" name="fileHidden" formControlName="file"/>
+                                    <div class="invalid-feedback">{{getErrorMessage('file')}}</div>
                                 </div>
                             </div>
-                            
                         </div>
-
-                        <!-- <input id="pick" type="button" value="Cargar Archivo"> -->
-                        <!-- <div class="col-md-12">
-                            <div class="form-group {{getValidationClass('policyFile')}}">
-                                <input id="pick" class="form-control dropify" type="button" formControlName="policyFile"/>
-                                <div class="invalid-feedback">{{getErrorMessage('policyFile')}}</div>
-                            </div>
-                        </div> -->
                         <div class="col-md-12">
                             <!-- AGENTHOS - INSURANCE COMPANY -->
                             <div class="form-group">
@@ -72,9 +66,10 @@
 
 <agt-file-uploader
     #fileUploader
-    [contactId]="contactId"
-    [policyId]="policyId"
-    [extensions]="allowedFileTypes"
-    (fileSelected)="setPolicyFile($event)"
+    [endpoint]="fileEndpoint"
+    [maxFileSize]="maxFileSize"
+    [allowedFileExtensions]="allowedFileExtensions"
+    (fileSelected)="patchFileValue($event)"
+    (fileUploaded)="policyUploaded()"
 ></agt-file-uploader>
 <agt-loading-content [isLoadingContent]="isLoadingContent"></agt-loading-content>

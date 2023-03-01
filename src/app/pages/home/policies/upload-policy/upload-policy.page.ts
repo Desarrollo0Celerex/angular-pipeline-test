@@ -2,12 +2,14 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { FILE_TYPES } from '@constants/global';
+import { FILE_SIZES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { FileParam } from '@interfaces/file-param.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { LoadingService } from '@services/loading.service';
+import { AuthService } from '@services/auth.service';
+import { POLICY_ENDPOINTS } from '@services/policy.service';
 
 import { UploadPolicyService } from './upload-policy.service';
 
@@ -22,38 +24,31 @@ declare var Select2Plugin: any;
 })
 export class UploadPolicyPage implements OnInit, OnDestroy {
     @ViewChild('fileUploader') fileUploader: any;
-    ROUTES_NAME: any;
-    contactId: string;
-    isLoadingContent: boolean;
-    message: string;
-    policy: { policyUrl: string, insurerId: number, insurerName: string, workspaceCountryId: number };
-    policyId: string;
-    allowedFileTypes: string[] = ['pdf'];
+    ROUTES_NAME: any = ROUTES_NAME;
+    allowedFileExtensions: string[] = ['pdf'];
+    contactId: string = '';
+    fileEndpoint: string = '';
+    isLoadingContent: boolean = true;
+    maxFileSize: string = FILE_SIZES.LARGE;
+    policy: { policyUrl: string, insurerId: number, insurerName: string, workspaceCountryId: number } = { policyUrl: '', insurerId: 0, insurerName: '', workspaceCountryId: 0 };
+    policyId: string = '';
     searchIdInsurers: string = 'insurerId';
     private _comesFromRenewalPolicy: boolean = false;
-    private _isFormSubmitted: boolean;
+    private _isFormSubmitted: boolean = false;
     private _subParams: any;
-    private _canShowPreview: boolean = true;
-    private _maxFileSize: string = '10M';
+    private _workspaceId: string = this._authService.workspaceId;
 
     constructor(
         public uploadPolicyService: UploadPolicyService,
         private _activatedRoute: ActivatedRoute,
-        private _loadingService: LoadingService,
+        private _authService: AuthService,
         private _router: Router
-    ) {
-        this.ROUTES_NAME = ROUTES_NAME;
-        this.contactId = '';
-        this.isLoadingContent = true;
-        this.message = 'Selecciona la póliza digital que deseas cargar para';
-        this.policy = { policyUrl: '', insurerId: 0, insurerName: '', workspaceCountryId: 0 };
-        this.policyId = '';
-        this._isFormSubmitted = false;
-    }
+    ) { }
 
     ngOnInit(): void {
         this._catchParams();
-        DropifyPlugin.init(this.allowedFileTypes, this._canShowPreview, this._maxFileSize);
+        this.fileEndpoint = POLICY_ENDPOINTS.uploadContactPolicy(this._workspaceId, this.contactId, this.policyId);
+        DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
         this.uploadPolicyService.buildPolicyForm();
         this._getContactPolicy();
         this._comesFromRenewalPolicy = (!!history.state && !!history.state.comesFromRenewalPolicy) ? true : false;
@@ -81,21 +76,10 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     getValidationClass(constrolName: string): string {
         const control: AbstractControl | null = this.uploadPolicyService.policyForm.get(constrolName);
         const validationClass: string = InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
-        if(constrolName === 'policyFile') {
+        if(constrolName === 'file') {
             return (validationClass === 'is-valid') ? 'agt-is-valid' : (validationClass === 'is-invalid') ? 'agt-is-invalid' : '';
         }
         return validationClass;
-    }
-
-    /**
-     * Change event to catch the file selected
-     * @param event The event lounched
-     */
-    onChangePolicyFile(event: any): void {
-        if (event.target.files.length > 0) {
-            const policyFile = event.target.files[0];
-            this.uploadPolicyService.policyForm.patchValue({policyFile});
-        }
     }
 
     /**
@@ -104,50 +88,33 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     onSubmitUploadPolicy(): void {
         this._isFormSubmitted = true;
         if(this.uploadPolicyService.policyForm.valid) {
-            this.fileUploader.uploadFile(this.uploadPolicyService.f.insurerId.value);
-
-
-            /*this._loadingService.show();
-            this.uploadPolicyService.uploadContactPolicy(this.contactId, this.policyId).subscribe( () => {
-                this._loadingService.hide();
-                AlertHelper.policyUploaded(this._goToCompletePolicy, this);
-            });*/
+            const fileParams: FileParam[] = this._generateFileParams();
+            this.fileUploader.uploadFile(fileParams);
         }
     }
 
-    setPolicyFile(file: File): void {
-        this.setPreview(file);
-        this.uploadPolicyService.policyForm.patchValue({policyFile: file});
+    patchFileValue(value: string): void {
+        this.uploadPolicyService.policyForm.patchValue({file: value});
     }
 
-    blockSelectFile(event: any): void {
-        event.preventDefault();
+    policyUploaded(): void {
+        AlertHelper.policyUploaded(this._goToCompletePolicy, this);
     }
 
-    private setPreview(file: File): void {
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);
-        const fileInput: any = document.getElementById('dropify');
-        fileInput.files = dataTransfer.files;
-        fileInput.dispatchEvent(new Event('change'))
-        // Help Safari out
-        if (fileInput.webkitEntries.length) {
-            fileInput.dataset.file = `${dataTransfer.files[0].name}`;
-        }
-    }
-
-    /**
-     * Catch the params
-     */
     private _catchParams(): void {
-        // Params
         this.contactId = this._activatedRoute.snapshot.params.contactId;
         this.policyId = this._activatedRoute.snapshot.params.policyId;
     }
 
-    /**
-     * Get the contact policy
-     */
+    private _generateFileParams(): FileParam[] {
+        return [
+            { 
+                name: 'insurerId', 
+                value: this.uploadPolicyService.f.insurerId.value 
+            }
+        ];
+    }
+
     private _getContactPolicy(): void {
         this.uploadPolicyService.getContactPolicy(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
             this.isLoadingContent = false;
@@ -166,29 +133,16 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
         })
     }
 
-    /**
-     * Navigates to complete the contact policy
-     * @param context The app context
-     * @param data    The data to do the action
-     */
     private _goToCompletePolicy(context: UploadPolicyPage): void {
         context._router.navigateByUrl(ROUTES_NAME.completePolicy(context.contactId, context.policyId));
     }
 
-    /**
-     * Load the insurers
-     */
     private _loadCountryInsurers(countryId: number): void {
         this.uploadPolicyService.loadCountryInsurers(countryId).subscribe( () => {
             Select2Plugin.initSearch(this.searchIdInsurers, this._onItemSelected, this);
         });
     }
 
-    /**
-     * Event to update the selected insurer
-     * @param  context      The app context
-     * @param  selectedItem The selected item
-     */
     private _onItemSelected(context: UploadPolicyPage, selectedItem: number, elementId: string): void {
         context.uploadPolicyService.policyForm.patchValue({[elementId]: selectedItem});
     }

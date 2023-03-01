@@ -31,7 +31,7 @@ export class UploadPolicyService {
      */
     buildPolicyForm(): void {
         this.policyForm = this._formBuilder.group({
-            policyFile: ['', [Validators.required] ],
+            file: ['', [Validators.required] ],
             insurerId: ['', [Validators.required] ]
         })
     }
@@ -71,18 +71,5 @@ export class UploadPolicyService {
             }),
             map( () => { })
         );
-    }
-
-    /**
-     * Upload the contact policy
-     * @param  contactId The contact ID
-     * @param  policyId  The policy ID
-     * @return           Notice of action done
-     */
-    uploadContactPolicy(contactId: string, policyId: string): Observable<void> {
-        const requestBody: FormData = new FormData();
-        requestBody.append('policyFile', this.f.policyFile.value);
-        requestBody.append('insurerId', this.f.insurerId.value);
-        return this._policyService.uploadContactPolicy(contactId, policyId, requestBody);
     }
 }
