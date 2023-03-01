@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { FILE_TYPES, } from '@constants/global';
+import { FILE_SIZES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
+import { AuthService } from '@services/auth.service';
+import { CONTACT_FILE_ENDPOINTS } from '@services/contact-file.service';
 import { LoadingService } from '@services/loading.service';
 
 import { UploadContactFileService } from './upload-contact-file.service';
+import { FileParam } from '@interfaces/file-param.interface';
 
 declare var DropifyPlugin: any;
 
@@ -21,24 +24,28 @@ declare var DropifyPlugin: any;
   providers: [UploadContactFileService]
 })
 export class UploadContactFilePage implements OnInit {
+    @ViewChild('fileUploader') fileUploader: any;
+    allowedFileExtensions: string[] = ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'doc', 'docx', 'txt', 'csv', 'xls', 'xlsx', 'zip', 'rar'];
     contactId: string = '';
     contactProfileMessage: string = 'Selecciona el archivo que deseas cargar en el expediente de';
-    private _allowedFileTypes: string[] = ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'mail', 'eml', 'doc', 'docx', 'txt', 'csv', 'xls', 'xlsx', 'zip', 'rar', 'sql'];
+    fileEndpoint: string = '';
+    maxFileSize: string = FILE_SIZES.LARGE;
     private _isFormSubmitted: boolean = false;
-    private _canShowPreview: boolean = true;
-    private _maxFileSize: string = '6M';
+    private _workspaceId: string = this._authService.workspaceId;
 
     constructor(
         public uploadFileService: UploadContactFileService,
         private _activatedRoute: ActivatedRoute,
+        private _authService: AuthService,
         private _loadingService: LoadingService,
         private _location: Location,
         private _router: Router
     ) { }
 
     ngOnInit(): void {
-        DropifyPlugin.init(this._allowedFileTypes, this._canShowPreview, this._maxFileSize);
         this._catchParams();
+        this.fileEndpoint = CONTACT_FILE_ENDPOINTS.contactFiles(this._workspaceId, this.contactId);
+        DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
         this.uploadFileService.loadContactFileTypes();
         this.uploadFileService.buildForm();
     }
@@ -84,11 +91,8 @@ export class UploadContactFilePage implements OnInit {
     onSubmitUploadContactFile(): void {
         this._isFormSubmitted = true;
         if(this.uploadFileService.fileForm.valid) {
-            this._loadingService.show();
-            this.uploadFileService.uploadFile(this.contactId).subscribe(() => {
-                this._loadingService.hide();
-                AlertHelper.fileUpdated(this._goToListContactFiles, this);
-            });
+            const fileParams: FileParam[] = this._generateFileParams();
+            this.fileUploader.uploadFile(fileParams);
         }
     }
 
@@ -99,11 +103,32 @@ export class UploadContactFilePage implements OnInit {
         this._location.back();
     }
 
+    patchFileValue(value: string): void {
+        this.uploadFileService.fileForm.patchValue({file: value});
+    }
+
+    contactFileUploaded(): void {
+        AlertHelper.fileUpdated(this._goToListContactFiles, this);
+    }
+
     /**
      * Catch the params
      */
     private _catchParams(): void {
         this.contactId = this._activatedRoute.snapshot.params.contactId;
+    }
+
+    private _generateFileParams(): FileParam[] {
+        return [
+            { 
+                name: 'fileName', 
+                value: this.uploadFileService.f.fileName.value 
+            },
+            { 
+                name: 'contactFileTypeId', 
+                value: this.uploadFileService.f.contactFileTypeId.value 
+            },
+        ];
     }
 
     /**

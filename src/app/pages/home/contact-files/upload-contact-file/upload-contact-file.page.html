@@ -11,9 +11,12 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group {{getValidationClass('file')}}">
-                                <input class="form-control dropify" type="file" data-max-file-size="6M" formControlName="file" (change)="onChangeFile($event)"/>
-                                <div class="invalid-feedback">{{getErrorMessage('file')}}</div>
+                            <div id="agt-file-container">
+                                <div class="form-group {{getValidationClass('file')}}">
+                                    <input id="dropify" type="file" class="form-control dropify" (click)="$event.preventDefault()" />
+                                    <input type="hidden" name="fileHidden" formControlName="file"/>
+                                    <div class="invalid-feedback">{{getErrorMessage('file')}}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,3 +73,12 @@
     </div>
     <!-- //AGENTHOS - UPDATE FILE -->
 </form>
+
+<agt-file-uploader
+    #fileUploader
+    [endpoint]="fileEndpoint"
+    [maxFileSize]="maxFileSize"
+    [allowedFileExtensions]="allowedFileExtensions"
+    (fileSelected)="patchFileValue($event)"
+    (fileUploaded)="contactFileUploaded()"
+></agt-file-uploader>

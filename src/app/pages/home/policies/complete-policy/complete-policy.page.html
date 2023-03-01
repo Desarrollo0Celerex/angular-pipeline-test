@@ -18,6 +18,7 @@
     <!-- (JUST IF AGENTHOS SCANNER FAILED) -->
     <agt-alert-scanner-failed
         *ngIf="!!model.policy && !!model.policy.contactName"
+        class="agt-width-100"
         [contactName]="model.policy.contactName"
     ></agt-alert-scanner-failed>
 </div>

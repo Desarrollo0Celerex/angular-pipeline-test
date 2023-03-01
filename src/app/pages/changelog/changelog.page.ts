@@ -9,6 +9,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.42.0',
+            launchDate: '01/03/2023',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se soluciono bug al eliminar una documento en el espediente de un contacto.',
+                        'Se agrego carga de archivos pesados en el espediente del archivo, hasta 10 MB.'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.41.1',
             launchDate: '23/02/2023',
             changes: [

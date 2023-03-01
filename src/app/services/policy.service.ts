@@ -22,7 +22,7 @@ const routes: any = {
     policyTitularInfo: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/titular-info',
     contactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId,
     updateContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/update',
-    uploadContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/upload',
+    uploadContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/upload-file',
     completeContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/complete',
     endorseContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorse',
     cancelContactPolicy: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/cancel',
@@ -84,6 +84,10 @@ const routes: any = {
     totalWorkspaceRenewalsPending: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewals/pending/count',
     workspacePoliciesRenewed: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewed',
     workspacePoliciesRenewedSmartInsights: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewed/smart-insights',
+}
+
+export const POLICY_ENDPOINTS: any = {
+    uploadContactPolicy: (workspaceId: string, contactId: string, policyId: string) => routes.uploadContactPolicy(workspaceId, contactId, policyId)
 }
 
 @Injectable()
@@ -1070,18 +1074,6 @@ export class PolicyService {
      */
     updateContactPolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.updateContactPolicy(this._workspaceId, contactId, policyId);
-        return this._httpClient.post<void>(route, requestBody);
-    }
-
-    /**
-     * Upload the contact policy in the API
-     * @param  contactId   The contact ID
-     * @param  policyId    The policy ID to update
-     * @param  requestBody The policy data
-     * @return             Notice of action done
-     */
-    uploadContactPolicy(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
-        const route: string = routes.uploadContactPolicy(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
     }
 
