@@ -12,6 +12,10 @@ const routes: any = {
     contactFile: (workspaceId: string, contactId: string, contactFileId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/files/' + contactFileId
 }
 
+export const CONTACT_FILE_ENDPOINTS: any = {
+    contactFiles: (workspaceId: string, contactId: string) => routes.contactFiles(workspaceId, contactId)
+}
+
 @Injectable()
 export class ContactFileService {
     private _workspaceId: string = this._authService.workspaceId;;
@@ -82,8 +86,8 @@ export class ContactFileService {
      * @param  requestBody The file data
      * @return             Notice of action done
      */
-    uploadContactFile(contactId: string, requestBody: FormData): Observable<void> {
+    /* uploadContactFile(contactId: string, requestBody: FormData): Observable<void> {
         const route: string = routes.contactFiles(this._workspaceId, contactId);
         return this._httpClient.post<void>(route, requestBody);
-    }
+    } */
 }

@@ -37,6 +37,8 @@ export class FileUploaderComponent implements OnInit {
     uploadFile(params: FileParam[]): void {
         this._loadingService.show();
         this._loadParams(params);
+        console.log('this.uploader: ',this.uploader);
+        
         this.uploader.start();
     }
 

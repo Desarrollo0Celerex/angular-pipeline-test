@@ -19,8 +19,6 @@ var DropifyPlugin = function() {
 			allowedFileExtensions: allowedFileTypes
 		}
 
-		console.log('settings: ',settings);
-
 		if(!canShowPreview) {
 			settings = {
 				...settings, 

@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 
 import { FILE_NAME_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { ContactFileType } from '@interfaces/contact-file-type.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { ContactFileService } from '@services/contact-file.service';
 import { ContactFileTypeService } from '@services/contact-file-type.service';
 
 @Injectable()
@@ -15,7 +13,6 @@ export class UploadContactFileService {
     fileForm: UntypedFormGroup = this._formBuilder.group({});
 
     constructor(
-        private _contactFileService: ContactFileService,
         private _contactFileTypeService: ContactFileTypeService,
         private _formBuilder: UntypedFormBuilder
     ) { }
@@ -43,26 +40,5 @@ export class UploadContactFileService {
         this._contactFileTypeService.getContactFileTypes(fields).subscribe((res: HttpResponse) => {
             this.contactFileTypes = res.data;
         })
-    }
-
-    /**
-     * Upload the file
-     * @return Notice of action done
-     */
-    uploadFile(contactId: string): Observable<void> {
-        const requestBody: FormData = this._getRequestBody();
-        return this._contactFileService.uploadContactFile(contactId, requestBody);
-    }
-
-    /**
-     * Get the request body
-     * @return The request body
-     */
-    private _getRequestBody(): FormData {
-        const requestBody: FormData = new FormData();
-        requestBody.append('file', this.f.file.value);
-        requestBody.append('fileName', this.f.fileName.value);
-        requestBody.append('contactFileTypeId', this.f.contactFileTypeId.value);
-        return requestBody;
     }
 }
