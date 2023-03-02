@@ -9,11 +9,13 @@ import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     contactFiles: (workspaceId: string, contactId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/files',
-    contactFile: (workspaceId: string, contactId: string, contactFileId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/files/' + contactFileId
+    contactFile: (workspaceId: string, contactId: string, contactFileId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/files/' + contactFileId,
+    updateContactFileWithoutFile: (workspaceId: string, contactId: string, contactFileId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/files/' + contactFileId + '/without-file'
 }
 
 export const CONTACT_FILE_ENDPOINTS: any = {
-    contactFiles: (workspaceId: string, contactId: string) => routes.contactFiles(workspaceId, contactId)
+    contactFiles: (workspaceId: string, contactId: string) => routes.contactFiles(workspaceId, contactId),
+    contactFile: (workspaceId: string, contactId: string, contactFileId: string) => routes.contactFile(workspaceId, contactId, contactFileId)
 }
 
 @Injectable()
@@ -75,19 +77,8 @@ export class ContactFileService {
      * @param  requestBody      The file data
      * @return                  Notice of action done
      */
-    updateContactFile(contactFileData: ContactFileDataSend, requestBody: FormData): Observable<void> {
-        const route: string = routes.contactFile(this._workspaceId, contactFileData.contactId, contactFileData.contactFileId);
+    updateContactFileWithoutFile(contactFileData: ContactFileDataSend, requestBody: FormData): Observable<void> {
+        const route: string = routes.updateContactFileWithoutFile(this._workspaceId, contactFileData.contactId, contactFileData.contactFileId);
         return this._httpClient.post<void>(route, requestBody);
     }
-
-    /**
-     * Upload the contact file in the API
-     * @param  contactId   The contact ID
-     * @param  requestBody The file data
-     * @return             Notice of action done
-     */
-    /* uploadContactFile(contactId: string, requestBody: FormData): Observable<void> {
-        const route: string = routes.contactFiles(this._workspaceId, contactId);
-        return this._httpClient.post<void>(route, requestBody);
-    } */
 }

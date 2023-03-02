@@ -61,9 +61,9 @@ export class UpdateContactFileService {
      * Upload the file
      * @return Notice of action done
      */
-    updateContactFile(contactFileData: ContactFileDataSend): Observable<void> {
+    updateContactFileWithoutFile(contactFileData: ContactFileDataSend): Observable<void> {
         const requestBody: FormData = this._getRequestBody();
-        return this._contactFileService.updateContactFile(contactFileData, requestBody);
+        return this._contactFileService.updateContactFileWithoutFile(contactFileData, requestBody);
     }
 
     /**
@@ -72,7 +72,6 @@ export class UpdateContactFileService {
      */
     private _getRequestBody(): FormData {
         const requestBody: FormData = new FormData();
-        requestBody.append('file', this.f.file.value);
         requestBody.append('fileName', this.f.fileName.value);
         requestBody.append('contactFileTypeId', this.f.contactFileTypeId.value);
         return requestBody;

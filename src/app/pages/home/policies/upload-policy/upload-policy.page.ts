@@ -128,7 +128,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
                 if(!!this._comesFromRenewalPolicy) {
                     this.uploadPolicyService.policyForm.patchValue({insurerId: this.policy.insurerId});
                 }
-                this._loadCountryInsurers(this.policy.workspaceCountryId);
+                this._loadCountryInsurers(this.policy.workspaceCountryId, this.policy.insurerId);
             }
         })
     }
@@ -137,9 +137,12 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
         context._router.navigateByUrl(ROUTES_NAME.completePolicy(context.contactId, context.policyId));
     }
 
-    private _loadCountryInsurers(countryId: number): void {
+    private _loadCountryInsurers(countryId: number, insurerId: number): void {
         this.uploadPolicyService.loadCountryInsurers(countryId).subscribe( () => {
             Select2Plugin.initSearch(this.searchIdInsurers, this._onItemSelected, this);
+            setTimeout(() => {
+                Select2Plugin.setValue(this.searchIdInsurers, insurerId);
+            }, 0)
         });
     }
 
