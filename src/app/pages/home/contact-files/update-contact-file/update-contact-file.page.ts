@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { FILE_TYPES, } from '@constants/global';
+import { FILE_SIZES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
+import { AuthService } from '@services/auth.service';
 import { LoadingService } from '@services/loading.service';
+import { CONTACT_FILE_ENDPOINTS } from '@services/contact-file.service';
 
 import { UpdateContactFileService } from './update-contact-file.service';
+import { FileParam } from '@interfaces/file-param.interface';
 
 declare var DropifyPlugin: any;
 
@@ -22,15 +25,18 @@ declare var DropifyPlugin: any;
   providers: [UpdateContactFileService]
 })
 export class UpdateContactFilePage implements OnInit {
+    @ViewChild('fileUploader') fileUploader: any;
+    allowedFileExtensions: string[] = ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'doc', 'docx', 'txt', 'csv', 'xls', 'xlsx', 'zip', 'rar'];
     contactFileData: ContactFileDataSend | null = null;
     contactProfileMessage: string = 'Selecciona el archivo que deseas cargar en el expediente de';
-    private _allowedFileTypes: string[] = ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'mail', 'eml', 'doc', 'docx', 'txt', 'csv', 'xls', 'xlsx', 'zip', 'rar'];
+    fileEndpoint: string = '';
+    maxFileSize: string = FILE_SIZES.LARGE;
     private _isFormSubmitted: boolean = false;
-    private _canShowPreview: boolean = true;
-    private _maxFileSize: string = '6M';
+    private _workspaceId: string = this._authService.workspaceId;
 
     constructor(
         public updateContactFileService: UpdateContactFileService,
+        private _authService: AuthService,
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _location: Location,
@@ -39,7 +45,8 @@ export class UpdateContactFilePage implements OnInit {
 
     ngOnInit(): void {
         this._catchParams();
-        DropifyPlugin.init(this._allowedFileTypes, this._canShowPreview, this._maxFileSize);
+        this.fileEndpoint = CONTACT_FILE_ENDPOINTS.contactFile(this._workspaceId, this.contactFileData!.contactId, this.contactFileData!.contactFileId);
+        DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
         this.updateContactFileService.buildForm();
         this.updateContactFileService.loadContactFileTypes();
         if(!!this.contactFileData) {
@@ -47,21 +54,11 @@ export class UpdateContactFilePage implements OnInit {
         }
     }
 
-    /**
-     * Get the error message
-     * @param  constrolName Control name
-     * @return              Error message
-     */
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null = this.updateContactFileService.fileForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
-    /**
-     * Get the validation class
-     * @param  constrolName Control name
-     * @return              Validation class
-     */
     getValidationClass(constrolName: string): string {
         const control: AbstractControl | null = this.updateContactFileService.fileForm.get(constrolName);
         const validationClass: string = InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
@@ -71,10 +68,6 @@ export class UpdateContactFilePage implements OnInit {
         return validationClass;
     }
 
-    /**
-     * Change event to catch the file selected
-     * @param event The event lounched
-     */
     onChangeFile(event: any): void {
         if (event.target.files.length > 0) {
             const file = event.target.files[0];
@@ -82,30 +75,30 @@ export class UpdateContactFilePage implements OnInit {
         }
     }
 
-    /**
-     * Submit event to upload the file
-     */
     onSubmitUpdateContactFile(): void {
         this._isFormSubmitted = true;
-        if(this.updateContactFileService.fileForm.valid && !!this.contactFileData) {
-            this._loadingService.show();
-            this.updateContactFileService.updateContactFile(this.contactFileData).subscribe(() => {
-                this._loadingService.hide();
-                AlertHelper.fileUpdated(this._goToListContactFiles, this);
-            });
+        if(this.updateContactFileService.fileForm.valid) {
+            if(this.updateContactFileService.f.file.value !== '') {
+                const fileParams: FileParam[] = this._generateFileParams();
+                this.fileUploader.uploadFile(fileParams);
+            } else {
+                this._updateContactFileWithoutFile();
+            }
         }
     }
 
-    /**
-     * Click event to cancel action
-     */
     onClickCancel(): void {
         this._location.back();
     }
 
-    /**
-     * Catch the params
-     */
+    patchFileValue(value: string): void {
+        this.updateContactFileService.fileForm.patchValue({file: value});
+    }
+
+    contactFileUploaded(): void {
+        AlertHelper.fileUpdated(this._goToListContactFiles, this);
+    }
+
     private _catchParams(): void {
         this.contactFileData = {
             contactId: this._activatedRoute.snapshot.params.contactId,
@@ -113,13 +106,32 @@ export class UpdateContactFilePage implements OnInit {
         };
     }
 
-    /**
-     * Navigate to list the contact files
-     * @param context The app context
-     */
+    private _generateFileParams(): FileParam[] {
+        return [
+            { 
+                name: 'fileName', 
+                value: this.updateContactFileService.f.fileName.value 
+            },
+            { 
+                name: 'contactFileTypeId', 
+                value: this.updateContactFileService.f.contactFileTypeId.value 
+            },
+        ];
+    }
+
     private _goToListContactFiles(context: UpdateContactFilePage): void {
         if(!!context.contactFileData) {
             context._router.navigateByUrl(ROUTES_NAME.listContactFiles(context.contactFileData.contactId));
+        }
+    }
+
+    private _updateContactFileWithoutFile(): void {
+        if(this.contactFileData !== null) {
+            this._loadingService.show();
+            this.updateContactFileService.updateContactFileWithoutFile(this.contactFileData).subscribe(() => {
+                this._loadingService.hide();
+                AlertHelper.fileUpdated(this._goToListContactFiles, this);
+            });
         }
     }
 

@@ -39,7 +39,7 @@ const HOME_CONTACT_CENTER_ROUTES = {
 
 const HOME_CONTACT_FILES_ROUTES = {
     uploadContactFile: (contactId: string) => `workspace/files/upload-contact-file/${contactId}`,
-    updateContactFile: (contactId: string, contactFileId: string) => `workspace/files/upload-contact-file/${contactId}/${contactFileId}`,
+    updateContactFile: (contactId: string, contactFileId: string) => `workspace/files/update-contact-file/${contactId}/${contactFileId}`,
 }
 
 const HOME_CONTACT_PROFILE_ROUTES = {

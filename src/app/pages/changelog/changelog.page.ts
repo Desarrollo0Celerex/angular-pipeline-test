@@ -9,6 +9,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.42.1',
+            launchDate: '01/03/2023',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se agrego carga de archivos pesados al actualizar un archivo en el espediente del cliente, hasta 10 MB.',
+                        'Se soluciono bug al renovar una póliza, la aseguradora de la póliza anterior no aparecia seleccionada por default.'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.42.0',
             launchDate: '01/03/2023',
             changes: [
