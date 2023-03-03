@@ -8,7 +8,6 @@ import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Wallet } from '@interfaces/wallet.interface';
 import { LoadingService } from '@services/loading.service';
 
-declare var DropifyPlugin: any;
 declare var ModalPlugin: any;
 
 import { ThemeService } from './theme.service';
@@ -22,9 +21,7 @@ import { ThemeService } from './theme.service';
 })
 export class ThemePage implements OnInit {
     modalIdConfirmUpdateWallet: string = 'agt-confirm-update-wallet';
-    iconsUrl: string = '';
     private _isFormSubmitted: boolean = false;
-    private _allowedFileTypes: string[] = ['png', 'jpg', 'jpeg'];
 
     constructor(
         public model: ThemeService,
@@ -36,42 +33,17 @@ export class ThemePage implements OnInit {
         this._loadWallet();
     }
 
-    get backgroundImage(): string {
-        return 'url("https://webkit.atombits.xyz/agenthos/mockups/agenthos_wallet_'+this.model.selectedColorName+'.png")';
-    }
-
-    /**
-     * Get the error message
-     * @param  constrolName Control name
-     * @return              Error message
-     */
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null = this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
-    /**
-     * Get the validation class
-     * @param  constrolName Control name
-     * @return              Validation class
-     */
     getValidationClass(constrolName: string): string {
         const control: AbstractControl | null = this.model.form.get(constrolName);
-        const validationClass: string = InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
-        if(constrolName === 'icon') {
-            return (validationClass === 'is-valid') ? 'agt-is-valid' : (validationClass === 'is-invalid') ? 'agt-is-invalid' : '';
-        }
-        return validationClass;
+        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
-    selectLogo(event: any) {
-        if (event.target.files.length > 0) {
-            const icon = event.target.files[0];
-            this.model.form.patchValue({icon});
-        }
-    }
-
-    confirmUpdateWallet(): void {
+    showModalToConfirmUpdateWallet(): void {
         this._isFormSubmitted = true;
         if(this.model.form.valid) {
             ModalPlugin.show(this.modalIdConfirmUpdateWallet);
@@ -94,12 +66,8 @@ export class ThemePage implements OnInit {
     private _loadWallet(): void {
         this.model.loadWallet().subscribe((wallet: Wallet) => {
             this.model.loadWalletThemes().subscribe(() => {
-                this.iconsUrl = (!!wallet.iconsUrl) ? wallet.iconsUrl + '384x384.png' : '';
                 this.model.buildForm(wallet);
                 this.model.selectTheme(parseInt(this.model.f.themeId.value));
-                setTimeout(() => {
-                    DropifyPlugin.init(this._allowedFileTypes);
-                }, 0);
             });
         });
     }

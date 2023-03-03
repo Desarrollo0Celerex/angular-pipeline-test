@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalConfirmUpdateWalletModule } from '@components/modal-confirm-update-wallet/modal-confirm-update-wallet.module';
+import { PhonePreviewWalletModule } from '@components/phone-preview-wallet/phone-preview-wallet.module';
 import { WalletService } from '@services/wallet.service';
 import { WorkspaceService } from '@services/workspace.service';
 
@@ -20,6 +21,7 @@ import { ThemePage } from './theme.page';
     FormsModule,
     ModalConfirmUpdateWalletModule,
     LoadingContentModule,
+    PhonePreviewWalletModule,
     ReactiveFormsModule,
     ThemeRoutingModule
   ],

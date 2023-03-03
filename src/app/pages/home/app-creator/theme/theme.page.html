@@ -1,100 +1,81 @@
-<form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="confirmUpdateWallet()">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Colores de la App</h3>
-            <div class="card-options">
-                <i class="fe fe-smartphone mr-1 text-primary fs-30"></i>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card shadow">
-                        <div class="card-body {{getValidationClass('icon')}}">
-                            <input type="file" class="dropify" accept="image/x-png;image/jpeg" data-height="140" (change)="selectLogo($event)" [attr.data-default-file]="iconsUrl"/>
-                        </div>
-                        <div class="invalid-feedback">{{getErrorMessage('icon')}}</div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            Selecciona el ícono de la App.<br/>
-                            El ícono seleccionado se mostrará en los dispositivos de los asegurados.
-                        </div>
-                        <div class="card-footer">
-                            <strong>JPG o PNG transparente<br/>
-                            300px por 300px<br/>
-                            Tamaño máximo de 2 MB</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="showModalToConfirmUpdateWallet()">
+    <!-- AGENTHOS - APP CREATOR PREVIEW -->
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Colores de la App</h3>
         </div>
+        <!-- AGENTHOS - APP CREATOR CONFIG -->
         <div class="card-body">
+            <!-- AGENTHOS - APP CREATOR COLOR -->
             <div class="row">
+                <!-- AGENTHOS - APP CREATOR MOCKUP -->
                 <div class="col-md-6">
-                    <div class="temp-wrapper">
-                      <div class="px">
-                        <div class="px__body">
-                          <div class="px__body__cut"></div>
-                          <div class="px__body__speaker"></div>
-                          <div class="px__body__sensor"></div>
-                          <div class="px__body__mute"></div>
-                          <div class="px__body__up"></div>
-                          <div class="px__body__down"></div>
-                          <div class="px__body__right"></div>
-                        </div>
-                        <div class="px__screen">
-                          <div class="px__screen__">
-                            <div class="px__screen__frame" [ngStyle]="{'background-image': backgroundImage}">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <agt-phone-preview-wallet
+                        [themeName]="model.selectedColorName"
+                    ></agt-phone-preview-wallet>
                 </div>
                 <!-- //AGENTHOS - APP CREATOR MOCKUP -->
-                <!-- AGENTHOS - APP CREATOR COLOR SELECTOR -->
+                <!-- AGENTHOS - APP CREATOR CONFIG -->
                 <div class="col-md-6">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            Selecciona el color de la App.<br/>
-                            El color seleccionado se mostrará en los dispositivos de los asegurados.
-                        </div>
-                        <div class="card-footer">
-                            <div class="form-group m-0">
-                                <div class="row gutters-xs">
-                                    <div class="col-auto" *ngFor="let walletTheme of model.walletThemes">
-                                        <label class="colorinput">
-                                            <input name="color" type="checkbox" class="colorinput-input" id="walletTheme{{walletTheme.themeId}}" (click)="selectTheme(walletTheme.themeId)" />
-                                            <span class="colorinput-color bg-{{walletTheme.name}}"></span>
-                                        </label>
+                    <div class="row">
+                        <!-- AGENTHOS - APP CREATOR NAME -->
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <ol class="breadcrumb1">
+                                        <li class="breadcrumb-item1">Selecciona el color que deseas para tu App.</li>
+                                    </ol>
+                                    <div class="row">
+                                        <div class="form-group m-0">
+                                            <div class="row gutters-xs">
+                                                <div class="col-auto" *ngFor="let walletTheme of model.walletThemes">
+                                                    <label class="colorinput">
+                                                        <input name="color" type="checkbox" class="colorinput-input" id="walletTheme{{walletTheme.themeId}}" (click)="selectTheme(walletTheme.themeId)" />
+                                                        <span class="colorinput-color bg-{{walletTheme.name}}"></span>
+                                                    </label>
+                                                </div>                                                <!-- //AGENTHOS - APP CREATOR TEAL COLOR -->
+                                            </div>
+                                        </div>
+                                        <!-- //AGENTHOS - APP CREATOR ICON -->
+                                        <!-- AGENTHOS - CONTACT CENTER DETAILS -->
+                                        <div class="col-md-12 mt-5">
+                                            <div class="card shadow">
+                                                <div class="card-body">
+                                                    Agenthos usará este color para crear y desplegar la instalación de la App con tus prospectos y clientes.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- //AGENTHOS - CONTACT CENTER DETAILS -->
                                     </div>
+                                    <!-- //AGENTHOS - APP CREATOR NAME -->
                                 </div>
                             </div>
                         </div>
+                        <!-- //AGENTHOS - APP CREATOR NAME -->
+                        <!-- AGENTHOS - APP CREATOR UPDATE -->
+                        <div class="col-12">
+                            <!-- AGENTHOS - APP CREATOR UPDATE -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-block agt-btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - APP CREATOR UPDATE -->
+                        </div>
+                        <!-- //AGENTHOS - APP CREATOR UPDATE -->
                     </div>
                 </div>
-                <!-- //AGENTHOS - APP CREATOR COLOR SELECTOR -->
+                <!-- //AGENTHOS - APP CREATOR CONFIG -->
             </div>
-            <!-- //AGENTHOS - APP CREATOR COLOR PREVIEW -->
+            <!-- //AGENTHOS - APP CREATOR COLOR -->
         </div>
+        <!-- //AGENTHOS - APP CREATOR CONFIG -->
     </div>
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-icon btn-block btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- //AGENTHOS - APP CREATOR PREVIEW -->
 </form>
 
 <ng-template #loadingContent>

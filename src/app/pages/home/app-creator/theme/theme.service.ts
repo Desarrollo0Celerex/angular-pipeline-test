@@ -25,14 +25,13 @@ export class ThemeService {
 
     buildForm(wallet: Wallet): void {
         this.form = this._formBuilder.group({
-            icon: (!!wallet.iconsUrl) ? [''] : ['', [Validators.required]],
             themeId: [(wallet.themeId) ? wallet.themeId : '1', [Validators.required]]
         })
         this.isBuiltForm = true;
     }
 
     loadWallet():Observable<Wallet> {
-        const fields: string = 'iconsUrl,themeId';
+        const fields: string = 'themeId';
         return this._walletService.getWallet(fields);
     }
 
@@ -59,7 +58,6 @@ export class ThemeService {
 
     private _getRequestBody(): FormData {
         const requestBody: FormData = new FormData();
-        requestBody.append('icon', this.f.icon.value);
         requestBody.append('themeId', this.f.themeId.value);
         return requestBody;
     }
