@@ -3,31 +3,29 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
-import { ModalConfirmUpdateWalletModule } from '@components/modal-confirm-update-wallet/modal-confirm-update-wallet.module';
 import { PhonePreviewWalletModule } from '@components/phone-preview-wallet/phone-preview-wallet.module';
+import { ModalConfirmUpdateWalletModule } from '@components/modal-confirm-update-wallet/modal-confirm-update-wallet.module';
 import { WalletService } from '@services/wallet.service';
-import { WorkspaceService } from '@services/workspace.service';
 
-import { IdentityRoutingModule } from './identity-routing.module';
-import { IdentityPage } from './identity.page';
+import { IconRoutingModule } from './icon-routing.module';
+import { IconPage } from './icon.page';
 
 
 @NgModule({
   declarations: [
-    IdentityPage
+    IconPage
   ],
   imports: [
     CommonModule,
     FormsModule,
-    IdentityRoutingModule,
-    ReactiveFormsModule,
+    IconRoutingModule,
     LoadingContentModule,
     ModalConfirmUpdateWalletModule,
-    PhonePreviewWalletModule
+    PhonePreviewWalletModule,
+    ReactiveFormsModule
   ],
   providers: [
-      WalletService,
-      WorkspaceService
+    WalletService
   ]
 })
-export class IdentityModule { }
+export class IconModule { }

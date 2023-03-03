@@ -12,6 +12,7 @@ import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     wallets: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets',
+    walletIcon: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/icon',
     walletTheme: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/theme',
     walletThemes: environment.apiUrl + '/wallet-themes',
 }
@@ -59,6 +60,11 @@ export class WalletService {
     updateWallet(requestBody: UpdateWalletDataSend): Observable<void> {
         const route: string = routes.wallets(this._workspaceId);
         return this._httpClient.put<void>(route, requestBody);
+    }
+
+    updateWalletIcon(requestBody: FormData): Observable<void> {
+        const route: string = routes.walletIcon(this._workspaceId);
+        return this._httpClient.post<void>(route, requestBody);
     }
 
     updateWalletTheme(requestBody: FormData): Observable<void> {

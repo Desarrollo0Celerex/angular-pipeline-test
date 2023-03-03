@@ -2,6 +2,7 @@ export interface Wallet {
     walletKey: string,
     name: string,
     themeId: number,
+    themeName: string,
     iconsUrl: string,
     coveragesPhoneNumberWhatsapp: string,
     createdAt: string,

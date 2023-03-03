@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
@@ -8,26 +8,28 @@ import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Wallet } from '@interfaces/wallet.interface';
 import { LoadingService } from '@services/loading.service';
 
-import { IdentityService } from './identity.service';
+import { IconService } from './icon.service';
 
+declare var DropifyPlugin: any;
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-identity',
-  templateUrl: './identity.page.html',
+  selector: 'agt-icon',
+  templateUrl: './icon.page.html',
   styles: [
   ],
-  providers: [IdentityService]
+  providers: [IconService]
 })
-export class IdentityPage implements OnInit {
-    modalIdConfirmUpdateWallet: string = 'modal-confirm-update-wallet';
+export class IconPage implements OnInit {
+    iconsUrl: string = '';
+    modalIdConfirmUpdateWallet: string = 'agt-confirm-update-wallet';
+    private _allowedFileTypes: string[] = ['png', 'jpg', 'jpeg'];
     private _isFormSubmitted: boolean = false;
 
     constructor(
-        public model: IdentityService,
-        private _activatedRoute: ActivatedRoute,
+        public model: IconService,
         private _loadingService: LoadingService,
-        private _router: Router
+        private _router: Router,
     ) { }
 
     ngOnInit(): void {
@@ -41,10 +43,21 @@ export class IdentityPage implements OnInit {
 
     getValidationClass(constrolName: string): string {
         const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const validationClass: string = InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        if(constrolName === 'icon') {
+            return (validationClass === 'is-valid') ? 'agt-is-valid' : (validationClass === 'is-invalid') ? 'agt-is-invalid' : '';
+        }
+        return validationClass;
     }
 
-    confirmUpdateWallet(): void {
+    selectLogo(event: any) {
+        if (event.target.files.length > 0) {
+            const icon = event.target.files[0];
+            this.model.form.patchValue({icon});
+        }
+    }
+
+    showModalToConfirmUpdateWallet(): void {
         this._isFormSubmitted = true;
         if(this.model.form.valid) {
             ModalPlugin.show(this.modalIdConfirmUpdateWallet);
@@ -62,9 +75,12 @@ export class IdentityPage implements OnInit {
 
     private _loadWallet(): void {
         this.model.loadWallet().subscribe((wallet: Wallet) => {
-            console.log('wallet: ',wallet);
-            
-            this.model.buildForm(wallet);
-        })
+            this.iconsUrl = (!!wallet.iconsUrl) ? wallet.iconsUrl + '384x384.png' : '';
+            this.model.buildForm();
+            setTimeout(() => {
+                DropifyPlugin.init(this._allowedFileTypes);
+            }, 0);
+        });
     }
+
 }

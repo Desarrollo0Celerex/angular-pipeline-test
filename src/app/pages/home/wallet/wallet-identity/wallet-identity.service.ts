@@ -53,8 +53,7 @@ export class WalletIdentityService {
 
     private _getRequestBody(): UpdateWalletDataSend {
         const requestBody: UpdateWalletDataSend = {
-            name: this.f.name.value,
-            walletKey: this.f.walletKey.value
+            name: this.f.name.value
         }
         return requestBody;
     }

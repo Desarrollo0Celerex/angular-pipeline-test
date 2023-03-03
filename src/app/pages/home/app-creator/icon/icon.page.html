@@ -1,8 +1,8 @@
-<form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="confirmUpdateWallet()">
+<form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="showModalToConfirmUpdateWallet()">
     <!-- AGENTHOS - APP CREATOR PREVIEW -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Identidad de la App</h3>
+            <h3 class="card-title">Ícono de la App</h3>
         </div>
         <!-- AGENTHOS - APP CREATOR CONFIG -->
         <div class="card-body">
@@ -23,31 +23,39 @@
                             <div class="card">
                                 <div class="card-body">
                                     <ol class="breadcrumb1">
-                                        <li class="breadcrumb-item1">Ingresa el nombre que deseas para tu App.</li>
+                                        <li class="breadcrumb-item1">Selecciona el ícono que deseas para tu App.</li>
                                     </ol>
                                     <div class="row">
-                                        <!-- AGENTHOS - CONTACT CENTER MAIL -->
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                            <div class="form-group">
-                                                <!-- AGENTHOS - CONTACT MAIL * -->
-                                                <label class="form-label">Nombre de la App</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                            <i class="fe fe-smartphone tx-16 lh-0 op-6"></i>
+                                        <!-- AGENTHOS - APP CREATOR ICON -->
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <!-- AGENTHOS - APP CREATOR ICON SELECTOR -->
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card-body {{getValidationClass('icon')}}">
+                                                            <input type="file" class="dropify" accept="image/x-png;image/jpeg" data-height="140" (change)="selectLogo($event)" [attr.data-default-file]="iconsUrl"/>
+                                                        </div>
+                                                        <div class="invalid-feedback">{{getErrorMessage('icon')}}</div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="card shadow">
+                                                            <div class="card-footer">
+                                                                <strong>JPG o PNG transparente</strong><br/>
+                                                                <strong>300px por 300px</strong><br/>
+                                                                <strong>Tamaño máximo de 2 MB.</strong>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <input type="text" class="form-control {{getValidationClass('name')}}" placeholder="Ingresa un nombre." formControlName="name">
-                                                    <div class="invalid-feedback">{{getErrorMessage('name')}}</div>
                                                 </div>
+                                                <!-- //AGENTHOS - APP CREATOR ICON SELECTOR -->
                                             </div>
                                         </div>
-                                        <!-- //AGENTHOS - CONTACT CENTER MAIL -->
+                                        <!-- //AGENTHOS - APP CREATOR ICON -->
                                         <!-- AGENTHOS - CONTACT CENTER DETAILS -->
                                         <div class="col-md-12 mt-5">
                                             <div class="card shadow">
                                                 <div class="card-body">
-                                                    Agenthos usará este nombre para crear y desplegar la instalación de la App con tus prospectos y clientes.
+                                                    Agenthos usará este icono para crear y desplegar la instalación de la App con tus prospectos y clientes.
                                                 </div>
                                             </div>
                                         </div>
