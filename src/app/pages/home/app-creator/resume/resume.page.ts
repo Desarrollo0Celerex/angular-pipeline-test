@@ -19,6 +19,10 @@ export class ResumePage implements OnInit {
         this.model.loadWallet();
     }
 
+    get appImageUrl(): string {
+        return (this.model.wallet !== null) ? this.model.wallet.iconsUrl + '96x96.png' : '';
+    }
+
     getStatusClass(isCompleted: boolean): string {
         return (isCompleted) ? 'agt-badge-success-gradient' : 'agt-badge-danger-gradient';
     }

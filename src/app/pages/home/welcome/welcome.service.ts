@@ -18,9 +18,9 @@ export class WelcomeService {
     ) { }
 
     loadAppCreatorStatus(): void {
-        const fields: string = 'name,themeId';
+        const fields: string = 'name,iconsUrl,themeId';
         this._walletService.getWallet(fields).subscribe((res: Wallet) => {
-            this.appCreatorIsCompleted = (res.name !== null && res.themeId !== null) ? true : false;
+            this.appCreatorIsCompleted = (res.name !== null && res.iconsUrl !== null && res.themeId !== null) ? true : false;
         });
     }
 
