@@ -10,6 +10,7 @@ export class CardModuleComponent {
     @Input() title: string = '';
     @Input() subtitle: string = '';
     @Input() icon: string = '';
+    @Input() subdescription: string = '';
     @Input() description: string = '';
     @Input() route: string = '';
     @Input() isCompleted: boolean | null = null;

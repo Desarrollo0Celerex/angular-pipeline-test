@@ -177,6 +177,14 @@ const HOME_SINISTERS_ROUTES = {
     workspaceSinistersOpenedByRange: `workspace-sinisters-opened-by-range`,
 }
 
+const HOME_SITE_CREATOR_ROUTES = {
+    siteCreator: 'site-creator',
+    siteCreatorResume: 'site-creator/resume',
+    siteCreatorIdentity: 'site-creator/identity',
+    siteCreatorIcon: 'site-creator/icon',
+    siteCreatorTheme: 'site-creator/theme'
+}
+
 const HOME_STATS_ROUTES = {
     statsSnapshot: `workspace/stats/snapshot`,
     statsLeads: `workspace/stats/leads`,
@@ -246,6 +254,7 @@ export const ROUTES_NAME = {
     ...HOME_QUOTATIONS_ROUTES,
     ...HOME_SINISTERS_ROUTES,
     ...HOME_RENEWALS_ROUTES,
+    ...HOME_SITE_CREATOR_ROUTES,
     ...HOME_STATS_ROUTES,
     ...HOME_WALLET_ROUTES,
     ...INVITATIONS_ROUTES,

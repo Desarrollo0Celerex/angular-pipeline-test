@@ -120,7 +120,10 @@ const routes: Routes = [
             { path: ROUTES_NAME.insuranceSinistersByRange, loadChildren: () => import('@pages/home/sinisters/insurance-sinisters-by-range/insurance-sinisters-by-range.module').then(mod => mod.InsuranceSinistersByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.workspaceSinistersClosedByRange, loadChildren: () => import('@pages/home/sinisters/workspace-sinisters-closed-by-range/workspace-sinisters-closed-by-range.module').then(mod => mod.WorkspaceSinistersClosedByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.workspaceSinistersOpenedByRange, loadChildren: () => import('@pages/home/sinisters/workspace-sinisters-opened-by-range/workspace-sinisters-opened-by-range.module').then(mod => mod.WorkspaceSinistersOpenedByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-
+            
+            // Site creator routes
+            { path: '', loadChildren: () => import('@pages/home/site-creator/site-creator.module').then(mod => mod.SiteCreatorModule) },
+            
             // Stats routes
             { path: '', loadChildren: () => import('@pages/home/stats/stats.module').then(mod => mod.StatsModule) },
 

@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
-import { ModalConfirmUpdateWalletModule } from '@components/modal-confirm-update-wallet/modal-confirm-update-wallet.module';
-import { PhonePreviewWalletModule } from '@components/phone-preview-wallet/phone-preview-wallet.module';
-import { WalletService } from '@services/wallet.service';
+import { ModalConfirmUpdateSiteModule } from '@components/modal-confirm-update-site/modal-confirm-update-site.module';
+import { SiteService } from '@services/site.service';
 
 import { IdentityRoutingModule } from './identity-routing.module';
 import { IdentityPage } from './identity.page';
+
 
 @NgModule({
   declarations: [
@@ -18,13 +18,12 @@ import { IdentityPage } from './identity.page';
     CommonModule,
     FormsModule,
     IdentityRoutingModule,
-    ReactiveFormsModule,
     LoadingContentModule,
-    ModalConfirmUpdateWalletModule,
-    PhonePreviewWalletModule
+    ModalConfirmUpdateSiteModule,
+    ReactiveFormsModule
   ],
   providers: [
-      WalletService
+    SiteService
   ]
 })
 export class IdentityModule { }

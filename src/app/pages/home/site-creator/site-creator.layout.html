@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-12">
+        <agt-card-content-title
+            title="Site Creator"
+            description="Configuración de sitio web."
+        ></agt-card-content-title>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Panel de Control</h3>
+            </div>
+            <div class="card-body">
+                <a [routerLink]="ROUTES_NAME.siteCreatorIdentity">
+                    <button type="button" class="btn btn-block agt-btn-primary-outline mt-3" routerLinkActive="agt-button-active"><strong>IDENTIDAD</strong></button>
+                </a>
+                <a [routerLink]="ROUTES_NAME.siteCreatorIcon">
+                    <button type="button" class="btn btn-block agt-btn-primary-outline mt-3" routerLinkActive="agt-button-active"><strong>LOGOTIPO</strong></button>
+                </a>
+                <a [routerLink]="ROUTES_NAME.siteCreatorTheme">
+                    <button type="button" class="btn btn-block agt-btn-primary-outline mt-3" routerLinkActive="agt-button-active"><strong>COLORES</strong></button>
+                </a>
+            </div>
+            <div class="card-footer">
+                <a [routerLink]="ROUTES_NAME.siteCreatorResume">
+                    <button type="button" class="btn btn-block agt-btn-success-light" routerLinkActive="agt-button-active"><i class="fe fe-list mr-2"></i><strong>RESUMEN</strong></button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+        <router-outlet></router-outlet>
+    </div>
+</div>

@@ -14,6 +14,7 @@
         <agt-card-module
             title="Contact Center"
             subtitle="Datos de Contacto"
+            subdescription="Configura tus"
             description="para enlazar a prospectos y clientes."
             icon="fa-comments-o"
             [route]="ROUTES_NAME.contactCenterResume"
@@ -26,6 +27,7 @@
         <agt-card-module
             title="App Creator"
             subtitle="Wallet de Pólizas"
+            subdescription="Configura tu"
             description="para que tus prospectos y clientes puedan instalarla."
             icon="fa-mobile"
             [route]="ROUTES_NAME.appCreatorResume"
@@ -35,7 +37,15 @@
     <!-- //AGENTHOS - APP CREATOR -->
     <!-- AGENTHOS - SITE CREATOR -->
     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
-        
+        <agt-card-module
+            title="Site Creator"
+            subtitle="Landing Pages"
+            subdescription="Configura tus"
+            description="para que tus prospectos y clientes puedan visitarlas."
+            icon="fa-laptop"
+            [route]="ROUTES_NAME.siteCreatorResume"
+            [isCompleted]="model.siteCreatorIsCompleted"
+        ></agt-card-module>
     </div>
     <!-- //AGENTHOS - SITE CREATOR -->
     <!-- AGENTHOS - ADS STUDIO -->

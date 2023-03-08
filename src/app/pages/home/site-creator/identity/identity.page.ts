@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
-
+import { Router } from '@angular/router';
+import { ERROR_CODES } from '@constants/error-codes';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { Wallet } from '@interfaces/wallet.interface';
+import { HttpError } from '@interfaces/http-error.interface';
+import { Site } from '@interfaces/site.interface';
+
 import { LoadingService } from '@services/loading.service';
 
 import { IdentityService } from './identity.service';
@@ -20,7 +22,7 @@ declare var ModalPlugin: any;
   providers: [IdentityService]
 })
 export class IdentityPage implements OnInit {
-    modalIdConfirmUpdateWallet: string = 'modal-confirm-update-wallet';
+    modalIdConfirmUpdateSite: string = 'modal-confirm-update-site';
     private _isFormSubmitted: boolean = false;
 
     constructor(
@@ -30,7 +32,7 @@ export class IdentityPage implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this._loadWallet();
+        this._loadSite();
     }
 
     getErrorMessage(constrolName: string): string {
@@ -43,25 +45,32 @@ export class IdentityPage implements OnInit {
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
-    confirmUpdateWallet(): void {
+    showModalToConfirmUpdateSite(): void {
         this._isFormSubmitted = true;
         if(this.model.form.valid) {
-            ModalPlugin.show(this.modalIdConfirmUpdateWallet);
+            ModalPlugin.show(this.modalIdConfirmUpdateSite);
         }
     }
 
-    updateWallet(): void {
+    updateSite(): void {
         this._loadingService.show();
-        this.model.updateWallet().subscribe(() => {
+        this.model.updateSite().subscribe(() => {
             this._loadingService.hide();
             this._router.navigateByUrl(ROUTES_NAME.appCreatorResume);
-            AlertHelper.walletUpdated();
+            AlertHelper.siteUpdated();
         });
     }
 
-    private _loadWallet(): void {
-        this.model.loadWallet().subscribe((wallet: Wallet) => {
-            this.model.buildForm(wallet);
+    private _loadSite(): void {
+        this.model.loadSite().subscribe((site: Site) => {
+            this.model.buildForm(site);
+        },
+        (error: HttpError) => {
+            switch (error.error) {
+              case ERROR_CODES.siteNotFound:
+                  this.model.buildForm();
+                break;
+            }
         })
     }
 }

@@ -5,10 +5,8 @@ import { tap } from 'rxjs/operators';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Wallet } from '@interfaces/wallet.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
 import { UpdateWalletDataSend } from '@interfaces/update-wallet-data-send.interface';
 import { WalletService } from '@services/wallet.service';
-import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
 export class IdentityService {
@@ -18,8 +16,7 @@ export class IdentityService {
 
     constructor(
         private _formBuilder: UntypedFormBuilder,
-        private _walletService: WalletService,
-        private _workspaceService: WorkspaceService
+        private _walletService: WalletService
     ) { }
 
     /**
@@ -42,11 +39,6 @@ export class IdentityService {
         return this._walletService.getWallet(fields).pipe(
             tap((res: Wallet) => { this.themeName = res.themeName })
         );
-    }
-
-    loadWorkspace(): Observable<HttpResponse> {
-        const fields: string = 'brandName';
-        return this._workspaceService.getWorkspace(fields);
     }
 
     updateWallet(): Observable<void> {
