@@ -3,9 +3,10 @@ import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } fro
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+import { LICENSES } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Wallet } from '@interfaces/wallet.interface';
-import { UpdateWalletDataSend } from '@interfaces/update-wallet-data-send.interface';
+import { UpdateWalletIdentityDataSend } from '@interfaces/update-wallet-identity-data-send.interface';
 import { WalletService } from '@services/wallet.service';
 
 @Injectable()
@@ -19,36 +20,39 @@ export class IdentityService {
         private _walletService: WalletService
     ) { }
 
-    /**
-     * Get the form controls
-     * @return Form controls
-     */
     get f(): { [key: string]: AbstractControl; }  {
         return this.form.controls;
     }
 
     buildForm(wallet: Wallet): void {
         this.form = this._formBuilder.group({
-            name: [(!!wallet.name) ? wallet.name : '', [Validators.required, Validators.minLength(3), Validators.maxLength(15), ValidatorsHelper.brandName]]
+            name: [(!!wallet.name) ? wallet.name : '', [Validators.required, Validators.minLength(3), Validators.maxLength(15), ValidatorsHelper.brandName]],
+            canShowCertificate: [(wallet.canShowCertificate === '1') ? true : false ]
         })
+
+        // Update canShowCertificate only if your license allows it
+        if(wallet.licenseId < LICENSES.PRO) {
+            this.f.canShowCertificate.disable();
+        }
         this.isBuiltForm = true;
     }
 
     loadWallet():Observable<Wallet> {
-        const fields: string = 'name,themeName';
+        const fields: string = 'name,themeName,canShowCertificate,licenseId';
         return this._walletService.getWallet(fields).pipe(
             tap((res: Wallet) => { this.themeName = res.themeName })
         );
     }
 
     updateWallet(): Observable<void> {
-        const requestBody: UpdateWalletDataSend = this._getRequestBody();
-        return this._walletService.updateWallet(requestBody);
+        const requestBody: UpdateWalletIdentityDataSend = this._getRequestBody();
+        return this._walletService.updateWalletIdentity(requestBody);
     }
 
-    private _getRequestBody(): UpdateWalletDataSend {
-        const requestBody: UpdateWalletDataSend = {
-            name: this.f.name.value
+    private _getRequestBody(): UpdateWalletIdentityDataSend {
+        const requestBody: UpdateWalletIdentityDataSend = {
+            name: this.f.name.value,
+            canShowCertificate: (this.f.canShowCertificate.value === true) ? '1' : '0'
         }
         return requestBody;
     }

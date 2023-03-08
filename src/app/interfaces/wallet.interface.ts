@@ -6,5 +6,7 @@ export interface Wallet {
     iconsUrl: string,
     coveragesPhoneNumberWhatsapp: string,
     createdAt: string,
-    updatedAt: string
+    updatedAt: string,
+    canShowCertificate: string,
+    licenseId: number
 }

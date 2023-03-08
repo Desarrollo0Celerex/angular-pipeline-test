@@ -5,13 +5,14 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { UpdateWalletDataSend } from '@interfaces/update-wallet-data-send.interface';
+import { UpdateWalletIdentityDataSend } from '@interfaces/update-wallet-identity-data-send.interface';
 import { Wallet } from '@interfaces/wallet.interface';
 import { WalletTheme } from '@interfaces/wallet-theme.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
     wallets: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets',
+    walletIdentity: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/identity',
     walletIcon: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/icon',
     walletTheme: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/theme',
     walletThemes: environment.apiUrl + '/wallet-themes',
@@ -57,8 +58,8 @@ export class WalletService {
         );
     }
 
-    updateWallet(requestBody: UpdateWalletDataSend): Observable<void> {
-        const route: string = routes.wallets(this._workspaceId);
+    updateWalletIdentity(requestBody: UpdateWalletIdentityDataSend): Observable<void> {
+        const route: string = routes.walletIdentity(this._workspaceId);
         return this._httpClient.put<void>(route, requestBody);
     }
 
