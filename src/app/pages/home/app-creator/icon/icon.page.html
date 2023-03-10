@@ -32,8 +32,8 @@
                                                 <!-- AGENTHOS - APP CREATOR ICON SELECTOR -->
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="card-body {{getValidationClass('icon')}}">
-                                                            <input type="file" class="dropify" accept="image/x-png;image/jpeg" data-height="140" (change)="selectLogo($event)" [attr.data-default-file]="iconsUrl"/>
+                                                        <div class="card-body agt-p0 {{getValidationClass('icon')}}">
+                                                            <input type="file" class="dropify" accept="image/x-png;image/jpeg" data-height="140" (change)="selectIcon($event)" [attr.data-default-file]="iconsUrl"/>
                                                         </div>
                                                         <div class="invalid-feedback">{{getErrorMessage('icon')}}</div>
                                                     </div>

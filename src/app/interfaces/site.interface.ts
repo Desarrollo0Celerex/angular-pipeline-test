@@ -6,4 +6,6 @@ export interface Site {
     siteKey: string,
     createdAt: string,
     updatedAt: string,
+    canShowCertificate: string,
+    licenseId: number
 }

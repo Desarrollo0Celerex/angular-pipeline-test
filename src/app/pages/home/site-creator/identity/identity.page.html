@@ -1,87 +1,119 @@
 <form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="showModalToConfirmUpdateSite()">
-    <!-- AGENTHOS - APP CREATOR PREVIEW -->
+    <!-- AGENTHOS - SITE CREATOR PREVIEW -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Identidad de la App</h3>
+            <h3 class="card-title">Identidad del Sitio Web</h3>
         </div>
-        <!-- AGENTHOS - APP CREATOR CONFIG -->
+        <!-- AGENTHOS - SITE CREATOR CONFIG -->
         <div class="card-body">
-            <!-- AGENTHOS - APP CREATOR COLOR -->
+            <!-- AGENTHOS - SITE CREATOR COLOR -->
             <div class="row">
-                <!-- AGENTHOS - APP CREATOR MOCKUP -->
-                <div class="col-md-6">
-                    <!-- <agt-phone-preview-wallet
-                        [themeName]="model.themeName"
-                    ></agt-phone-preview-wallet> -->
+                <!-- AGENTHOS - SITE CREATOR MOCKUP -->
+                <div class="col-md-12">
+                    <!-- <div class="device device-macbook-pro">
+                        <div class="device-frame"><img class="device-screen" src="assets/img/bg-10.jpg" loading="lazy"></div>
+                        <div class="device-stripe"></div>
+                        <div class="device-header"></div>
+                        <div class="device-sensors"></div>
+                        <div class="device-btns"></div>
+                        <div class="device-power"></div>
+                        <div class="device-home"></div>
+                    </div> -->
                 </div>
-                <!-- //AGENTHOS - APP CREATOR MOCKUP -->
-                <!-- AGENTHOS - APP CREATOR CONFIG -->
-                <div class="col-md-6">
-                    <div class="row">
-                        <!-- AGENTHOS - APP CREATOR NAME -->
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <ol class="breadcrumb1">
-                                        <li class="breadcrumb-item1">Ingresa el nombre que deseas para tu App.</li>
-                                    </ol>
-                                    <div class="row">
-                                        <!-- AGENTHOS - CONTACT CENTER MAIL -->
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                            <div class="form-group">
-                                                <!-- AGENTHOS - CONTACT MAIL * -->
-                                                <label class="form-label">Nombre de la App</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                            <i class="fe fe-smartphone tx-16 lh-0 op-6"></i>
-                                                        </div>
-                                                    </div>
-                                                    <input type="text" class="form-control {{getValidationClass('name')}}" placeholder="Ingresa un nombre." formControlName="name">
-                                                    <div class="invalid-feedback">{{getErrorMessage('name')}}</div>
-                                                </div>
+                <!-- //AGENTHOS - SITE CREATOR MOCKUP -->
+                <!-- AGENTHOS - SITE CREATOR CONFIG -->
+                <div class="col-md-12 mt-5">
+                            
+                    <!-- AGENTHOS - SITE CREATOR NAME -->
+                    <div class="card">
+                        <div class="card-body">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">Ingresa el nombre que deseas para tu Sitio Web.</li>
+                            </ol>
+                            <!-- AGENTHOS - SITE CREATOR SETTINGS -->
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SITE NAME * -->
+                                    <label class="form-label">Nombre del Sitio Web</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fe fe-monitor tx-16 lh-0 op-6"></i>
                                             </div>
                                         </div>
-                                        <!-- //AGENTHOS - CONTACT CENTER MAIL -->
-                                        <!-- AGENTHOS - CONTACT CENTER DETAILS -->
-                                        <div class="col-md-12 mt-5">
-                                            <div class="card shadow">
-                                                <div class="card-body">
-                                                    Agenthos usará este nombre para crear y desplegar la instalación de la App con tus prospectos y clientes.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- //AGENTHOS - CONTACT CENTER DETAILS -->
-                                    </div>
-                                    <!-- //AGENTHOS - APP CREATOR NAME -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- //AGENTHOS - APP CREATOR NAME -->
-                        <!-- AGENTHOS - APP CREATOR UPDATE -->
-                        <div class="col-12">
-                            <!-- AGENTHOS - APP CREATOR UPDATE -->
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="submit" class="btn btn-block agt-btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
-                                        </div>
+                                        <input type="text" class="form-control {{getValidationClass('name')}}" placeholder="Ingresa un nombre." formControlName="name">
+                                        <div class="invalid-feedback">{{getErrorMessage('name')}}</div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- //AGENTHOS - APP CREATOR UPDATE -->
+                            <!-- //AGENTHOS - SITE CREATOR SETTINGS -->
+                            <!-- AGENTHOS - SITE CREATOR DETAILS -->
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-5">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        Agenthos usará este nombre para crear y desplegar el Sitio Web con tus prospectos y clientes.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - SITE CREATOR DETAILS -->
                         </div>
-                        <!-- //AGENTHOS - APP CREATOR UPDATE -->
                     </div>
+                    <!-- //AGENTHOS - SITE CREATOR NAME -->
+
+                    <!-- AGENTHOS - SITE CREATOR BRAND -->
+                    <div class="card">
+                        <div class="card-body">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">Mostrar certificado de Agenthos.</li>
+                            </ol>
+                            <ul class="list-group">
+                                <!-- AGENTHOS - SITE CREATOR CERTIFICATE * -->
+                                <li class="list-group-item">
+                                    Certificado de Agenthos
+                                    <div class="material-switch pull-right">
+                                        <input id="canShowCertificate" type="checkbox" formControlName="canShowCertificate"/>
+                                        <label for="canShowCertificate" class="label-success"></label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- AGENTHOS - SITE CRATOR CERTIFICATE -->
+                            <div class="text-center mt-5">
+                                <agt-image-agenthos-certificate></agt-image-agenthos-certificate>
+                            </div>
+                            <!-- //AGENTHOS - APP CREATOR CERTIFICATE -->
+                            <!-- AGENTHOS - SITE CREATOR DETAILS -->
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-5">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        Agenthos colocará un certificado para mostrar la seguridad del Sitio Web con tus prospectos y clientes.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - SITE CREATOR DETAILS -->
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - SITE CREATOR BRAND -->
+
+                    <!-- AGENTHOS - SITE CREATOR UPDATE -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-block agt-btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - SITE CREATOR UPDATE -->
+
                 </div>
-                <!-- //AGENTHOS - APP CREATOR CONFIG -->
+                <!-- //AGENTHOS - SITE CREATOR CONFIG -->
             </div>
-            <!-- //AGENTHOS - APP CREATOR COLOR -->
+            <!-- //AGENTHOS - SITE CREATOR COLOR -->
         </div>
-        <!-- //AGENTHOS - APP CREATOR CONFIG -->
+        <!-- //AGENTHOS - SITE CREATOR CONFIG -->
     </div>
-    <!-- //AGENTHOS - APP CREATOR PREVIEW -->
+    <!-- //AGENTHOS - SITE CREATOR PREVIEW -->
 </form>
 
 <ng-template #loadingContent>

@@ -5,26 +5,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalConfirmUpdateSiteModule } from '@components/modal-confirm-update-site/modal-confirm-update-site.module';
 import { SiteService } from '@services/site.service';
-import { WorkspaceService } from '@services/workspace.service';
 
-import { ThemeRoutingModule } from './theme-routing.module';
-import { ThemePage } from './theme.page';
+import { LogoRoutingModule } from './logo-routing.module';
+import { LogoPage } from './logo.page';
+
 
 @NgModule({
   declarations: [
-    ThemePage
+    LogoPage
   ],
   imports: [
     CommonModule,
     FormsModule,
     LoadingContentModule,
+    LogoRoutingModule,
     ModalConfirmUpdateSiteModule,
-    ThemeRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
-    SiteService,
-    WorkspaceService
+    SiteService
   ]
 })
-export class ThemeModule { }
+export class LogoModule { }

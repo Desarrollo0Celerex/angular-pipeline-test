@@ -1,8 +1,8 @@
-<form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="showModalToConfirmUpdateSite()">
+<form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="showModalToConfirmUpdateSite()">    
     <!-- AGENTHOS - SITE CREATOR PREVIEW -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Colores del Sitio Web</h3>
+            <h3 class="card-title">Logo del Sitio Web</h3>
         </div>
         <!-- AGENTHOS - SITE CREATOR CONFIG -->
         <div class="card-body">
@@ -18,24 +18,28 @@
                     <div class="card">
                         <div class="card-body">
                             <ol class="breadcrumb1">
-                                <li class="breadcrumb-item1">Selecciona el color que deseas para tu Sitio Web.</li>
+                                <li class="breadcrumb-item1">Selecciona el ícono que deseas para tu App.</li>
                             </ol>
-
-                            <div class="form-group">
-                                <div class="row gutters-xs">
-                                    <div class="col-auto" *ngFor="let siteTheme of model.siteThemes">
-                                        <label class="colorinput">
-                                            <input name="color" type="checkbox" class="colorinput-input" id="siteTheme{{siteTheme.siteThemeId}}" (click)="selectTheme(siteTheme.siteThemeId)" />
-                                            <span class="colorinput-color bg-{{siteTheme.name}}"></span>
-                                        </label>
-                                    </div> 
+                            
+                            <div class="col-md-12">
+                                <div class="card-body agt-p0 {{getValidationClass('logo')}}">
+                                    <input type="file" class="dropify" accept="image/x-png;image/jpeg" data-height="140" (change)="selectLogo($event)" [attr.data-default-file]="logoUrl"/>
+                                </div>
+                                <div class="invalid-feedback">{{getErrorMessage('logo')}}</div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        <strong>Se recomienda usar una imagen de 440px x 220px para una presentación óptima.</strong>
+                                    </div>
                                 </div>
                             </div>
 
+                            <!-- AGENTHOS - CONTACT CENTER DETAILS -->
                             <div class="col-md-12 mt-5">
                                 <div class="card shadow">
                                     <div class="card-body">
-                                        Agenthos usará este color para crear y desplegar el Sitio Web con tus prospectos y clientes.
+                                        Agenthos usará este logoo para crear y desplegar el Sitio Web con tus prospectos y clientes.
                                     </div>
                                 </div>
                             </div>
@@ -51,6 +55,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- //AGENTHOS - SITE CREATOR UPDATE -->
                 </div>
                 <!-- //AGENTHOS - SITE CREATOR CONFIG -->
             </div>

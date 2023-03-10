@@ -181,7 +181,7 @@ const HOME_SITE_CREATOR_ROUTES = {
     siteCreator: 'site-creator',
     siteCreatorResume: 'site-creator/resume',
     siteCreatorIdentity: 'site-creator/identity',
-    siteCreatorIcon: 'site-creator/icon',
+    siteCreatorLogo: 'site-creator/logo',
     siteCreatorTheme: 'site-creator/theme'
 }
 

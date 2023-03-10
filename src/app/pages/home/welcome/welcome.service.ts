@@ -42,12 +42,8 @@ export class WelcomeService {
         this._siteService.getSite(fields).subscribe((res: Site) => {
             this.siteCreatorIsCompleted = (res.name !== null && res.logoUrl !== null && res.siteThemeId !== null) ? true : false;
         },
-        (error: HttpError) => {
-            switch (error.error) {
-                case ERROR_CODES.siteNotFound:
-                    this.siteCreatorIsCompleted = false;
-                    break;
-            }
+        () => {
+            this.siteCreatorIsCompleted = false;
         });
     }
 }

@@ -1,77 +1,99 @@
-<!-- AGENTHOS - APP CREATOR PREVIEW -->
-<div class="card" *ngIf="model.isContentLoaded; else loadingContent">
-    <div class="card-header">
-        <h3 class="card-title">Resumen</h3>
-    </div>
-    <!-- AGENTHOS - APP CREATOR CONFIG -->
-    <div class="card-body">
-        <!-- AGENTHOS - APP CREATOR COLOR -->
-        <div class="row">
-            <!-- AGENTHOS - APP CREATOR MOCKUP -->
-            <div class="col-md-6">
-                <!-- <agt-phone-preview-site
-                    [themeName]="model.site.themeName"
-                ></agt-phone-preview-site> -->
-            </div>
-            <!-- //AGENTHOS - APP CREATOR MOCKUP -->
-            <!-- AGENTHOS - APP CREATOR RESUME -->
-            <div class="col-md-6">
-                <div class="card shadow">
-                    <!-- AGENTHOS - APP CREATOR ACTUAL COLOR -->
-                    <div class="card-body">
-                        <div class="card-order">
-                            <h6 class="text-right">
-                                <!-- AGENTHOS - APP CREATOR - WALLET ICON -->
-                                <!-- (USE DEFAULT JUST IF NO APP ICON UPLOADED) -->
-                                <span class="avatar avatar-xxl bradius cover-image float-left" data-image-src="https://webkit.atombits.xyz/agenthos/app/agenthos_wallet_icon.png"></span>
-								<!-- //AGENTHOS - APP CREATOR - WALLET ICON -->
-                                <!-- AGENTHOS - APP CREATOR WALLET NAME -->
-                                <strong *ngIf="model.site !== null">{{model.site.name}}</strong><br/>
-                            </h6>
-                            <p class="text-right" *ngIf="model.site !== null">
-                                <!-- AGENTHOS - APP CREATOR - WALLET KEY -->
-                                ID: <ng-container *ngIf="model.site.siteKey !== null">{{model.site.siteKey}}</ng-container><br/>
-                                <!-- AGENTHOS - APP CREATOR - WALLET CREATED AT -->
-                                Publicada: <ng-container *ngIf="model.site.createdAt !== null">{{model.site.createdAt | date: 'dd/MM/yyyy'}}</ng-container><br/>
-                                <!-- AGENTHOS - APP CREATOR - WALLET LAST UPATE -->
-                                <ng-container *ngIf="model.site.updatedAt !== null">Actualizada: {{model.site.updatedAt | date: 'dd/MM/yyyy'}}</ng-container>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- //AGENTHOS - APP CREATOR ACTUAL COLOR -->
-                    <!-- AGENTHOS - APP CREATOR STATUS CARD -->
-                    <div class="card-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <strong>1. Identidad</strong>
-                                <a routerLink="{{'/' + ROUTES_NAME.siteCreatorIdentity}}">
-                                    <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedIdentity)}}"><i class="fe {{getStatusIcon(model.isCompletedIdentity)}} mr-2"></i>{{getStatusLabel(model.isCompletedIdentity)}}</span>
-                                </a>
-                            </li>
-                            <li class="list-group-item">
-                                <strong>2. Logo</strong>
-                                <a routerLink="{{'/' + ROUTES_NAME.siteCreatorIcon}}">
-                                    <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedLogo)}}"><i class="fe {{getStatusIcon(model.isCompletedLogo)}} mr-2"></i>{{getStatusLabel(model.isCompletedLogo)}}</span>
-                                </a>
-                            </li>
-                            <li class="list-group-item">
-                                <strong>3. Colores</strong>
-                                <a routerLink="{{'/' + ROUTES_NAME.siteCreatorTheme}}">
-                                    <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedTheme)}}"><i class="fe {{getStatusIcon(model.isCompletedTheme)}} mr-2"></i>{{getStatusLabel(model.isCompletedTheme)}}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- //AGENTHOS - APP CREATOR STATUS CARD -->
-                </div>
-            </div>
-            <!-- //AGENTHOS - APP CREATOR RESUME -->
+<ng-container *ngIf="model.isContentLoaded; else loadingContent">
+    <!-- AGENTHOS - SITE CREATOR PREVIEW -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Resumen del Sitio Web</h3>
         </div>
-        <!-- //AGENTHOS - APP CREATOR COLOR -->
+        <!-- AGENTHOS - SITE CREATOR CONFIG -->
+        <div class="card-body">
+            <!-- AGENTHOS - SITE CREATOR COLOR -->
+            <div class="row">
+                <!-- AGENTHOS - SITE CREATOR RESUME -->
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <!-- AGENTHOS - SITE CREATOR ACTUAL COLOR -->
+                        <div class="card-body">
+                            <div class="card-order">
+                                <h6 class="text-right">
+                                    <!-- AGENTHOS - SITE CREATOR - WALLET ICON -->
+                                    <span class="avatar avatar-xxl bradius cover-image float-left" [ngStyle]="{'background': logoUrl}"></span>
+                                    <!-- AGENTHOS - SITE CREATOR WALLET NAME -->
+                                    <strong *ngIf="model.site !== null">{{model.site.name}}</strong><br/>
+                                </h6>
+                                <p class="text-right" *ngIf="model.site !== null">
+                                    <!-- AGENTHOS - APP CREATOR - WALLET KEY -->
+                                    ID: <ng-container *ngIf="model.site.siteKey !== null">{{model.site.siteKey}}</ng-container><br/>
+                                    <!-- AGENTHOS - APP CREATOR - WALLET CREATED AT -->
+                                    Publicada: <ng-container *ngIf="model.site.createdAt !== null">{{model.site.createdAt | date: 'dd/MM/yyyy'}}</ng-container><br/>
+                                    <!-- AGENTHOS - APP CREATOR - WALLET LAST UPATE -->
+                                    <ng-container *ngIf="model.site.updatedAt !== null">Actualizada: {{model.site.updatedAt | date: 'dd/MM/yyyy'}}</ng-container>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- //AGENTHOS - SITE CREATOR ACTUAL COLOR -->
+                        <!-- AGENTHOS - SITE CREATOR STATUS CARD -->
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <strong>1. Identidad</strong>
+                                    <a routerLink="{{'/' + ROUTES_NAME.siteCreatorIdentity}}">
+                                        <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedIdentity)}}"><i class="fe {{getStatusIcon(model.isCompletedIdentity)}} mr-2"></i>{{getStatusLabel(model.isCompletedIdentity)}}</span>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>2. Logo</strong>
+                                    <a routerLink="{{'/' + ROUTES_NAME.siteCreatorLogo}}">
+                                        <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedLogo)}}"><i class="fe {{getStatusIcon(model.isCompletedLogo)}} mr-2"></i>{{getStatusLabel(model.isCompletedLogo)}}</span>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>3. Colores</strong>
+                                    <a routerLink="{{'/' + ROUTES_NAME.siteCreatorTheme}}">
+                                        <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedTheme)}}"><i class="fe {{getStatusIcon(model.isCompletedTheme)}} mr-2"></i>{{getStatusLabel(model.isCompletedTheme)}}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- //AGENTHOS - SITE CREATOR STATUS CARD -->
+                    </div>
+                </div>
+                <!-- //AGENTHOS - SITE CREATOR RESUME -->
+            </div>
+            <!-- //AGENTHOS - SITE CREATOR COLOR -->
+        </div>
+        <!-- //AGENTHOS - SITE CREATOR CONFIG -->
     </div>
-    <!-- //AGENTHOS - APP CREATOR CONFIG -->
-</div>
-<!-- //AGENTHOS - APP CREATOR PREVIEW -->
+    <!-- //AGENTHOS - SITE CREATOR PREVIEW -->
+
+    <!-- AGENTHOS - SITE CREATOR LAUNCH -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Lanzamiento del Sitio Web</h3>
+        </div>
+        <!-- AGENTHOS - SITE CREATOR CONFIG -->
+        <div class="card-body">
+            <!-- AGENTHOS - SITE CREATOR COLOR -->
+            <div class="row">
+                <!-- AGENTHOS - SITE CREATOR PHONE -->
+                <div class="col-md-6">
+                    <div class="device device-macbook-pro">
+                        <div class="device-frame"><img class="device-screen" src="assets/img/bg-10.jpg" loading="lazy"></div>
+                        <div class="device-stripe"></div>
+                        <div class="device-header"></div>
+                        <div class="device-sensors"></div>
+                        <div class="device-btns"></div>
+                        <div class="device-power"></div>
+                        <div class="device-home"></div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - SITE CREATOR PHONE -->
+            </div>
+            <!-- //AGENTHOS - SITE CREATOR COLOR -->
+        </div>
+        <!-- //AGENTHOS - SITE CREATOR CONFIG -->
+    </div>
+    <!-- //AGENTHOS - SITE CREATOR LAUNCH -->
+</ng-container>
 
 <ng-template #loadingContent>
     <agt-loading-content [isLoadingContent]="true" ></agt-loading-content>

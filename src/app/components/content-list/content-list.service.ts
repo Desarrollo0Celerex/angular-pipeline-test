@@ -615,8 +615,6 @@ export class ContentListService {
         const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL])
         const query: string = '';
         const perPage: number = DEFAULT_PER_PAGE;
-        console.log('paso 1');
-        
         return this._clientService.getClients(page, fields, filters, query, perPage, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
             tap((res: HttpResponse) => {
                     this.contents = this.contents.concat(res.data.items);

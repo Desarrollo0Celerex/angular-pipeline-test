@@ -7,6 +7,7 @@ import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Site } from '@interfaces/site.interface';
 import { UpdateSiteIdentityDataSend } from '@interfaces/update-site-identity-data-send.interface';
 import { SiteService } from '@services/site.service';
+import { LICENSES } from '@constants/global';
 
 @Injectable()
 export class IdentityService {
@@ -25,13 +26,19 @@ export class IdentityService {
 
     buildForm(site: Site | null = null): void {
         this.form = this._formBuilder.group({
-            name: [(site !== null && site.name !== null) ? site.name : '', [Validators.required, Validators.minLength(3), Validators.maxLength(15), ValidatorsHelper.brandName]]
+            name: [(site !== null && site.name !== null) ? site.name : '', [Validators.required, Validators.minLength(3), Validators.maxLength(15), ValidatorsHelper.brandName]],
+            canShowCertificate: [{ value: (site !== null && site.canShowCertificate === '0') ? false : true, disabled: true } ]
         })
+
+        // Update canShowCertificate only if your license allows it
+        if(site !== null && site.licenseId > LICENSES.LITE) {
+            this.f.canShowCertificate.enable();
+        }
         this.isBuiltForm = true;
     }
 
     loadSite():Observable<Site> {
-        const fields: string = 'name,siteThemeName';
+        const fields: string = 'name,siteThemeName,canShowCertificate,licenseId';
         return this._siteService.getSite(fields).pipe(
             tap((res: Site) => { 
                 if(res.siteThemeName !== null) {
@@ -48,7 +55,8 @@ export class IdentityService {
 
     private _getRequestBody(): UpdateSiteIdentityDataSend {
         const requestBody: UpdateSiteIdentityDataSend = {
-            name: this.f.name.value
+            name: this.f.name.value,
+            canShowCertificate: (this.f.canShowCertificate.value === true) ? '1' : '0'
         }
         return requestBody;
     }

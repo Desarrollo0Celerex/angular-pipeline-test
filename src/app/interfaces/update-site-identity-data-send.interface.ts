@@ -1,3 +1,4 @@
 export interface UpdateSiteIdentityDataSend {
-    name: string
+    name: string,
+    canShowCertificate: string
 }

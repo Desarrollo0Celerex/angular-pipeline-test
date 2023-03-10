@@ -19,6 +19,11 @@ export class ResumePage implements OnInit {
         this.model.loadSite();
     }
 
+    get logoUrl(): string {
+        const logoUrl: string = (this.model.site !== null && this.model.site.logoUrl !== null) ? this.model.site.logoUrl : 'https://webkit.atombits.xyz/agenthos/app/agenthos_wallet_icon.png';
+        return 'url('+logoUrl+')';
+    }
+
     getStatusClass(isCompleted: boolean): string {
         return (isCompleted) ? 'agt-badge-success-gradient' : 'agt-badge-danger-gradient';
     }

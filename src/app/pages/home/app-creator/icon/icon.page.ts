@@ -50,7 +50,7 @@ export class IconPage implements OnInit {
         return validationClass;
     }
 
-    selectLogo(event: any) {
+    selectIcon(event: any) {
         if (event.target.files.length > 0) {
             const icon = event.target.files[0];
             this.model.form.patchValue({icon});

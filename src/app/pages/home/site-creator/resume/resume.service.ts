@@ -16,16 +16,14 @@ export class ResumeService {
     loadSite(): void {
         const fields: string = 'name,logoUrl,siteThemeId,siteKey,createdAt,updatedAt';
         this._siteService.getSite(fields).subscribe((res: Site) => {
-          this.isCompletedIdentity = (res.name !== null) ? true : false;
-          this.isCompletedLogo = (res.logoUrl !== null) ? true : false;
-          this.isCompletedTheme = (res.siteThemeId !== null) ? true : false;
-          this.site = res;
-          this.isContentLoaded = true;
-        },
-        (error: any) => {
+            this.isCompletedIdentity = (res.name !== null) ? true : false;
+            this.isCompletedLogo = (res.logoUrl !== null) ? true : false;
+            this.isCompletedTheme = (res.siteThemeId !== null) ? true : false;
+            this.site = res;
             this.isContentLoaded = true;
-            console.log('error: ',error);
-            
+        },
+        () => {
+            this.isContentLoaded = true;
         });
     }
 
