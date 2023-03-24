@@ -5,5 +5,11 @@ export interface Workspace {
     avatarUrl: string,
     isActiveWorkspace: boolean,
     countryId: number,
-    payLink: string
+    payLink: string,
+    cardiumUrl: string,
+    facebookUrl: string,
+    instagramUrl: string,
+    twitterUrl: string,
+    linkedinUrl: string,
+    tiktokUrl: string,
 }

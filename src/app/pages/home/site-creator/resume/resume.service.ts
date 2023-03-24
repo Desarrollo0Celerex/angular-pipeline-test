@@ -26,6 +26,4 @@ export class ResumeService {
             this.isContentLoaded = true;
         });
     }
-
-
 }

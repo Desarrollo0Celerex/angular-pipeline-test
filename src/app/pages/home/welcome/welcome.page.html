@@ -1,4 +1,63 @@
+<!-- AGENTHOS - WORKSPACE WELLCOME -->
 <div class="row">
+    <div class="col-12"> 
+        <div class="card agt-card-primary shadow"> 
+            <div class="card-body"> 
+                <h2>Hola <strong>{{model.username}}</strong></h2> 
+                <h4>Hoy es un buen día para crecer tu negocio con la ayuda de Agenthos.</h4>
+            </div> 
+        </div> 
+    </div>
+</div>
+<!-- //AGENTHOS - WORKSPACE WELLCOME -->
+
+<!-- AGENTHOS - WORKSPACE SOLUTIONS -->
+<div class="row mt-3">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <div class="card agt-card-info shadow">
+            <div class="card-body text-center">
+                <a href="#" data-toggle="modal" data-target="#agtAgenthosHub">
+                <img src="https://webkit.atombits.xyz/agenthos/app/agenthos_hub_card.png" height="148px"></a>
+                <h3 class="agt-text-dark mt-3 mb-3"><strong>Agenthos Hub</strong></h3>
+                <p class="agt-text-dark">Visita la comunidad online más grande de aseguradoras y agentes de seguros en el mundo.</p>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-block agt-btn-info-light" (click)="showModalToConfirmGoToAgenthosHub()"><i class="fe fe-users mr-2"></i><strong>VISITAR COMUNIDAD</strong></button>
+            </div>
+        </div> 
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <div class="card agt-card-success shadow">
+            <div class="card-body text-center">
+                <a href="#" data-toggle="modal" data-target="#agtAgenthosAcademy">
+                <img src="https://webkit.atombits.xyz/agenthos/app/agenthos_academy_card.png" height="148px"></a>
+                <h3 class="agt-text-dark mt-3 mb-3"><strong>Agenthos Academy</strong></h3>
+                <p class="agt-text-dark">Aprende a tu propio ritmo para volverte un Agente Pro y llevar tu cartera de clientes al siguiente nivel.</p>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-block agt-btn-success-light" (click)="showModalToConfirmGoToAgenthosAcademy()"><i class="fe fe-book mr-2"></i><strong>EXPLORAR ACADEMIA</strong></button>
+            </div>
+        </div> 
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div class="card agt-card-warning shadow">
+            <div class="card-body text-center">
+                <a href="#" data-toggle="modal" data-target="#agtAgenthosSupport">
+                <img src="https://webkit.atombits.xyz/agenthos/app/agenthos_support_card.png" height="148px"></a>
+                <h3 class="agt-text-dark mt-3 mb-3"><strong>Agenthos Support</strong></h3>
+                <p class="agt-text-dark">Solicita un especialista para implementar el sistema en tus operaciones de la manera correcta.</p>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-block agt-btn-warning-light" (click)="showModalToConfirmGoToAgenthosSupport()"><i class="fe fe-message-circle mr-2"></i><strong>SOLICITAR SOPORTE</strong></button>
+            </div>
+        </div> 
+    </div>
+</div>
+<!-- //AGENTHOS - WORKSPACE SOLUTIONS -->
+
+<div class="row mt-5">
     <div class="col-12">
         <agt-card-content-title
             title="Canales Digitales"
@@ -22,6 +81,19 @@
         ></agt-card-module>
     </div>
     <!-- //AGENTHOS - CONTACT CENTER -->
+    <!-- AGENTHOS - SOCIAL CONNECT -->
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+        <agt-card-module
+            title="Social Connect"
+            subtitle="Redes Sociales"
+            subdescription="Configura tus"
+            description="para que tus prospectos y clientes reciban campañas."
+            icon="fa-globe"
+            [route]="ROUTES_NAME.socialConnectResume"
+            [isCompleted]="model.socialConnectIsCompleted"
+        ></agt-card-module>
+    </div>
+    <!-- //AGENTHOS - SOCIAL CONNECT -->
     <!-- AGENTHOS - APP CREATOR -->
     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
         <agt-card-module
@@ -55,3 +127,15 @@
     <!-- //AGENTHOS - ADS STUDIO -->
 </div>
 <!-- //AGENTHOS - WORKSPACE MODULES -->
+
+<agt-modal-confirm-go-to-agenthos-hub
+    [modalId]="modalIdConfirmGoToAgenthosHub"
+></agt-modal-confirm-go-to-agenthos-hub>
+
+<agt-modal-confirm-go-to-agenthos-academy
+    [modalId]="modalIdConfirmGoToAgenthosAcademy"
+></agt-modal-confirm-go-to-agenthos-academy>
+
+<agt-modal-confirm-go-to-agenthos-support
+    [modalId]="modalIdConfirmGoToAgenthosSupport"
+></agt-modal-confirm-go-to-agenthos-support>

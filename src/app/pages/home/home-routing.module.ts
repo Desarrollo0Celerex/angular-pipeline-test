@@ -124,6 +124,9 @@ const routes: Routes = [
             // Site creator routes
             { path: '', loadChildren: () => import('@pages/home/site-creator/site-creator.module').then(mod => mod.SiteCreatorModule) },
             
+            // Social connect routes
+            { path: '', loadChildren: () => import('@pages/home/social-connect/social-connect.module').then(mod => mod.SocialConnectModule) },
+            
             // Stats routes
             { path: '', loadChildren: () => import('@pages/home/stats/stats.module').then(mod => mod.StatsModule) },
 

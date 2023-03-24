@@ -185,6 +185,17 @@ const HOME_SITE_CREATOR_ROUTES = {
     siteCreatorTheme: 'site-creator/theme'
 }
 
+const HOME_SOCIAL_CONNECT_ROUTES = {
+    socialConnect: 'social-connect',
+    socialConnectCardium: 'social-connect/cardium',
+    socialConnectFacebook: 'social-connect/facebook',
+    socialConnectInstagram: 'social-connect/instagram',
+    socialConnectLinkedin: 'social-connect/linkedin',
+    socialConnectResume: 'social-connect/resume',
+    socialConnectTiktok: 'social-connect/tiktok',
+    socialConnectTwitter: 'social-connect/twitter',
+}
+
 const HOME_STATS_ROUTES = {
     statsSnapshot: `workspace/stats/snapshot`,
     statsLeads: `workspace/stats/leads`,
@@ -255,6 +266,7 @@ export const ROUTES_NAME = {
     ...HOME_SINISTERS_ROUTES,
     ...HOME_RENEWALS_ROUTES,
     ...HOME_SITE_CREATOR_ROUTES,
+    ...HOME_SOCIAL_CONNECT_ROUTES,
     ...HOME_STATS_ROUTES,
     ...HOME_WALLET_ROUTES,
     ...INVITATIONS_ROUTES,

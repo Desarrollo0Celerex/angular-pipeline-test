@@ -3,24 +3,31 @@ import { Injectable } from '@angular/core';
 import { WORKSPACE_DIRECTORY_TYPES } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 
-import { ERROR_CODES } from '@constants/error-codes';
-import { HttpError } from '@interfaces/http-error.interface';
+import { HttpResponse } from '@interfaces/http-response.interface';
 import { Site } from '@interfaces/site.interface';
 import { Wallet } from '@interfaces/wallet.interface';
 import { SiteService } from '@services/site.service';
 import { WalletService } from '@services/wallet.service';
+import { AuthService } from '@services/auth.service';
+import { WorkspaceService } from '@services/workspace.service';
 import { WorkspaceDirectoryService } from '@services/workspace-directory.service';
+import { WorkspaceUserService } from '@services/workspace-user.service';
 
 @Injectable()
 export class WelcomeService {
-    contactCenterIsCompleted: boolean | null = null;
     appCreatorIsCompleted: boolean | null = null;
+    contactCenterIsCompleted: boolean | null = null;
     siteCreatorIsCompleted: boolean | null = null;
+    socialConnectIsCompleted: boolean | null = null;
+    username: string = '';
 
     constructor(
+        private _authService: AuthService,
         private _siteService: SiteService,
         private _walletService: WalletService,
+        private _workspaceService: WorkspaceService,
         private _workspaceDirectoryService: WorkspaceDirectoryService,
+        private _workspaceUserService: WorkspaceUserService,
     ) { }
 
     loadAppCreatorStatus(): void {
@@ -45,5 +52,27 @@ export class WelcomeService {
         () => {
             this.siteCreatorIsCompleted = false;
         });
+    }
+
+    loadSocialConnectStatus(): void {
+        const fields: string = 'cardiumUrl,facebookUrl,instagramUrl,twitterUrl,linkedinUrl,tiktokUrl';
+        this._workspaceService.getWorkspace(fields).subscribe((res: HttpResponse) => {
+            this.socialConnectIsCompleted = (
+                res.data.cardiumUrl !== null && 
+                res.data.facebookUrl !== null && 
+                res.data.instagramUrl !== null &&
+                res.data.twitterUrl !== null &&
+                res.data.linkedinUrl !== null &&
+                res.data.tiktokUrl !== null
+            ) ? true : false;
+        });
+    }
+
+    loadUser(): void {
+        const userId: string = this._authService.userId;
+        const fields: string = 'shortName';
+        this._workspaceUserService.getWorkspaceUser(userId, fields).subscribe( (res: HttpResponse) => {
+            this.username = res.data.shortName;
+        })
     }
 }
