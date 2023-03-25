@@ -1,0 +1,84 @@
+<ng-container *ngIf="model.isContentLoaded; else loadingContent">
+    <!-- AGENTHOS - SITE CREATOR PREVIEW -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Resumen del Sitio Web</h3>
+        </div>
+        <!-- AGENTHOS - SITE CREATOR CONFIG -->
+        <div class="card-body">
+            <!-- AGENTHOS - SITE CREATOR DEVICE -->
+            <div class="row">
+                <!-- AGENTHOS - SITE CREATOR LAPTOP -->
+                <div class="col-md-12">
+                    <agt-device-macbook-pro
+                        [themeName]="themeName"
+                    ></agt-device-macbook-pro>
+                </div>
+                <!-- //AGENTHOS - SITE CREATOR LAPTOP -->
+                <!-- AGENTHOS - SITE CREATOR RESUME -->
+                <div class="col-md-12">
+                    <div class="row">
+                        <!-- AGENTHOS - SITE CREATOR PREVIEW -->
+                        <div class="col-md-6">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <div class="card-order">
+                                        <h6 class="text-left">
+                                            <strong>{{(model.site !== null && model.site.name !== null) ? model.site.name : ''}}</strong><br/>
+                                        </h6>
+                                        <p class="text-left mb-1">
+                                            <!-- AGENTHOS - SITE CREATOR - SITE KEY -->
+                                            Site Key: {{(model.site !== null && model.site.siteKey !== null) ? model.site.siteKey : ''}}<br/>
+                                            <!-- AGENTHOS - SITE CREATOR - CREATED AT -->
+                                            Generado: {{(model.site !== null && model.site.createdAt !== null) ? (model.site.createdAt | date: 'dd/MM/yyyy') : ''}}<br/>
+                                            <!-- AGENTHOS - SITE CREATOR - LAST UPATE -->
+                                            Actualizado: {{(model.site !== null && model.site.updatedAt !== null) ? (model.site.updatedAt | date: 'dd/MM/yyyy') : ''}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- //AGENTHOS - APP CREATOR ACTUAL COLOR -->
+                        </div>
+                        <!-- //AGENTHOS - SITE CREATOR PREVIEW -->
+                        <!-- AGENTHOS - SITE CREATOR SETTINGS -->
+                        <div class="col-md-6">
+                            <!-- AGENTHOS - SITE CREATOR STATUS CARD -->
+                            <div class="card-body p-0">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <strong>1. Identidad</strong>
+                                        <a routerLink="{{'/' + ROUTES_NAME.siteCreatorIdentity}}">
+                                            <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedIdentity)}}"><i class="fe {{getStatusIcon(model.isCompletedIdentity)}} mr-2"></i>{{getStatusLabel(model.isCompletedIdentity)}}</span>
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <strong>2. Logo</strong>
+                                        <a routerLink="{{'/' + ROUTES_NAME.siteCreatorLogo}}">
+                                            <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedLogo)}}"><i class="fe {{getStatusIcon(model.isCompletedLogo)}} mr-2"></i>{{getStatusLabel(model.isCompletedLogo)}}</span>
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <strong>3. Colores</strong>
+                                        <a routerLink="{{'/' + ROUTES_NAME.siteCreatorTheme}}">
+                                            <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedTheme)}}"><i class="fe {{getStatusIcon(model.isCompletedTheme)}} mr-2"></i>{{getStatusLabel(model.isCompletedTheme)}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- //AGENTHOS - SITE CREATOR STATUS CARD -->
+                        </div>
+                        <!-- //AGENTHOS - SITE CREATOR SETTINGS -->
+                    </div>
+                </div>
+                <!-- //AGENTHOS - SITE CREATOR RESUME -->
+            </div>
+            <!-- //AGENTHOS - SITE CREATOR DEVICE -->
+        </div>
+        <!-- //AGENTHOS - SITE CREATOR CONFIG -->
+    </div>
+    <!-- //AGENTHOS - SITE CREATOR PREVIEW -->
+</ng-container>
+
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true" ></agt-loading-content>
+</ng-template>

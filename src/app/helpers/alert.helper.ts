@@ -677,6 +677,26 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static siteUpdated(): void {
+        const alertData: Alert = {
+            title: 'Sitio Actualizado',
+            text: 'El sitio se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static socialConnectUpdated(): void {
+        const alertData: Alert = {
+            title: 'Red Actualizada',
+            text: 'La red social se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static trialStarted(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Acceso Permitido',
@@ -711,14 +731,12 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
-    static walletUpdated(callBack: any, context: any): void {
+    static walletUpdated(): void {
         const alertData: Alert = {
             title: 'App Actualizada',
             text: 'La App se actualizó con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR',
-            callBack: callBack,
-            context: context
+            confirmButtonText: 'CONTINUAR'
         }
         SweetAlertPlugin.showAlert(alertData);
     }
@@ -753,6 +771,16 @@ export class AlertHelper {
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
             context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static workspaceDirectoriesSaved(): void {
+        const alertData: Alert = {
+            title: 'Datos Actualizados',
+            text: 'Los datos de contacto se actualizaron con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
         }
         SweetAlertPlugin.showAlert(alertData);
     }

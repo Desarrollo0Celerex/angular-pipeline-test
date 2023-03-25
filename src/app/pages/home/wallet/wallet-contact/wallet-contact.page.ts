@@ -75,7 +75,7 @@ export class WalletContactPage implements OnInit {
         this._loadingService.show();
         this.model.updateWalletContact(this._walletId).subscribe(() => {
             this._loadingService.hide();
-            AlertHelper.walletUpdated(this._reloadPage, this);
+            AlertHelper.walletUpdated();
         })
     }
 

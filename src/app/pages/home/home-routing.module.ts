@@ -14,6 +14,9 @@ const routes: Routes = [
         path: '',
         component: HomePage,
         children: [
+            // App creator routes
+            { path: '', loadChildren: () => import('@pages/home/app-creator/app-creator.module').then(mod => mod.AppCreatorModule) },
+            
             // Clients routes
             { path: ROUTES_NAME.listClients, loadChildren: () => import('@pages/home/clients/list-clients/list-clients.module').then( mod => mod.ListClientsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.workspaceClientsConvertedByRange, loadChildren: () => import('@pages/home/clients/workspace-clients-converted-by-range/workspace-clients-converted-by-range.module').then( mod => mod.WorkspaceClientsConvertedByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
@@ -118,7 +121,13 @@ const routes: Routes = [
             { path: ROUTES_NAME.insuranceSinistersByRange, loadChildren: () => import('@pages/home/sinisters/insurance-sinisters-by-range/insurance-sinisters-by-range.module').then(mod => mod.InsuranceSinistersByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.workspaceSinistersClosedByRange, loadChildren: () => import('@pages/home/sinisters/workspace-sinisters-closed-by-range/workspace-sinisters-closed-by-range.module').then(mod => mod.WorkspaceSinistersClosedByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.workspaceSinistersOpenedByRange, loadChildren: () => import('@pages/home/sinisters/workspace-sinisters-opened-by-range/workspace-sinisters-opened-by-range.module').then(mod => mod.WorkspaceSinistersOpenedByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
-
+            
+            // Site creator routes
+            { path: '', loadChildren: () => import('@pages/home/site-creator/site-creator.module').then(mod => mod.SiteCreatorModule) },
+            
+            // Social connect routes
+            { path: '', loadChildren: () => import('@pages/home/social-connect/social-connect.module').then(mod => mod.SocialConnectModule) },
+            
             // Stats routes
             { path: '', loadChildren: () => import('@pages/home/stats/stats.module').then(mod => mod.StatsModule) },
 

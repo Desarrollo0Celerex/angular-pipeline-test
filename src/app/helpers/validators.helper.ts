@@ -319,6 +319,60 @@ export class ValidatorsHelper {
         }
         return null;
     }
+    
+    static webLinkCardium(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^(https:\/\/my\.cardium\.io\/)([\/\w \.-]+)+\/?$/;
+            let value = control.value;
+            return (!regex.test(value)) ? {webLink: true} : null;
+        }
+        return null;
+    }
+    
+    static webLinkFacebook(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^(https:\/\/facebook\.com\/)([\/\w \.-]+)+\/?$/;
+            let value = control.value;
+            return (!regex.test(value)) ? {webLink: true} : null;
+        }
+        return null;
+    }
+    
+    static webLinkInstagram(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^(https:\/\/instagram\.com\/)([\/\w \.-]+)+\/?$/;
+            let value = control.value;
+            return (!regex.test(value)) ? {webLink: true} : null;
+        }
+        return null;
+    }
+    
+    static webLinkTwitter(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^(https:\/\/twitter\.com\/)([\/\w \.-]+)+\/?$/;
+            let value = control.value;
+            return (!regex.test(value)) ? {webLink: true} : null;
+        }
+        return null;
+    }
+    
+    static webLinkLinkedin(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^(https:\/\/linkedin\.com\/)([\/\w \.-]+)+\/?$/;
+            let value = control.value;
+            return (!regex.test(value)) ? {webLink: true} : null;
+        }
+        return null;
+    }
+    
+    static webLinkTiktok(control: AbstractControl): ValidationErrors | null {
+        if(ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex = /^(https:\/\/tiktok\.com\/)([\/\w \.-]+)+\/?$/;
+            let value = control.value;
+            return (!regex.test(value)) ? {webLink: true} : null;
+        }
+        return null;
+    }
 
     /**
      * Check if a control can be validated

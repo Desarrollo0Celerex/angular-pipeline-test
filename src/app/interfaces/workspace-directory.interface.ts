@@ -5,4 +5,5 @@ export interface WorkspaceDirectory {
     whatsappNumber: string,
     phoneCodeId: number,
     phoneNumber: string,
+    workspaceDirectoryTypeId: number,
 }

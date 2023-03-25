@@ -1,0 +1,46 @@
+<ng-container *ngIf="model.wallet !== null; else loadingContent"> 
+<!-- AGENTHOS - APP CREATOR LAUNCH -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Publicar App</h3>
+        </div>
+        <!-- AGENTHOS - APP CREATOR CONFIG -->
+        <div class="card-body">
+            <!-- AGENTHOS - APP CREATOR COLOR -->
+            <div class="row">
+                <!-- AGENTHOS - APP CREATOR PHONE -->
+                <div class="col-md-6">
+                    <agt-device-iphone
+                        [themeName]="model.wallet.themeName"
+                    ></agt-device-iphone>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR PHONE -->
+                <!-- AGENTHOS - APP CREATOR CHANNELS -->
+                <div class="col-md-6">
+                    <agt-card-share-link-by-facebook
+                        description="Agenthos creará un post para publicar la App con tus seguidores en Facebook."
+                        [link]="model.wallet.link"
+                    ></agt-card-share-link-by-facebook>
+                    
+                    <agt-card-share-link-by-whatsapp
+                        description="Agenthos creará un mensaje para enviar la App con tus contactos en WhatsApp."
+                        [link]="model.wallet.link"
+                    ></agt-card-share-link-by-whatsapp>
+
+                    <agt-card-share-link-by-direct-link
+                        description="Agenthos creará un enlace directo para compartir la App en canales digitales."
+                        [link]="model.wallet.link"
+                    ></agt-card-share-link-by-direct-link>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR CHANNELS -->
+            </div>
+            <!-- //AGENTHOS - APP CREATOR COLOR -->
+        </div>
+        <!-- //AGENTHOS - APP CREATOR CONFIG -->
+    </div>
+    <!-- //AGENTHOS - APP CREATOR LAUNCH -->
+</ng-container>
+
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true" ></agt-loading-content>
+</ng-template>

@@ -1,0 +1,73 @@
+<form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="showModalToConfirmUpdateSite()">
+    <!-- AGENTHOS - SITE CREATOR PREVIEW -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Colores del Sitio Web</h3>
+        </div>
+        <!-- AGENTHOS - SITE CREATOR CONFIG -->
+        <div class="card-body">
+            <!-- AGENTHOS - SITE CREATOR COLOR -->
+            <div class="row">
+                <!-- AGENTHOS - SITE CREATOR MOCKUP -->
+                <div class="col-md-12">
+                    <agt-device-macbook-pro
+                        [themeName]="model.selectedColorName"
+                    ></agt-device-macbook-pro>
+                </div>
+                <!-- //AGENTHOS - SITE CREATOR MOCKUP -->
+                <!-- AGENTHOS - SITE CREATOR CONFIG -->
+                <div class="col-md-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">Selecciona el color que deseas para tu Sitio Web.</li>
+                            </ol>
+
+                            <div class="form-group">
+                                <div class="row gutters-xs">
+                                    <div class="col-auto" *ngFor="let siteTheme of model.siteThemes">
+                                        <label class="colorinput">
+                                            <input name="color" type="checkbox" class="colorinput-input" id="siteTheme{{siteTheme.siteThemeId}}" (click)="selectTheme(siteTheme.siteThemeId)" />
+                                            <span class="colorinput-color bg-{{siteTheme.name}}"></span>
+                                        </label>
+                                    </div> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mt-5">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        Agenthos usará este color para crear y desplegar el Sitio Web con tus prospectos y clientes.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - CONTACT CENTER DETAILS -->
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-block agt-btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - SITE CREATOR CONFIG -->
+            </div>
+            <!-- //AGENTHOS - SITE CREATOR COLOR -->
+        </div>
+        <!-- //AGENTHOS - SITE CREATOR CONFIG -->
+    </div>
+    <!-- //AGENTHOS - SITE CREATOR PREVIEW -->
+</form>
+
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true" ></agt-loading-content>
+</ng-template>
+
+<agt-modal-confirm-update-site 
+    [modalId]="modalIdConfirmUpdateSite" 
+    (actionConfirmed)="updateSite()"
+></agt-modal-confirm-update-site>

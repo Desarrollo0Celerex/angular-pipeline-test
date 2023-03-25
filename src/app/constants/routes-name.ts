@@ -19,6 +19,15 @@ const EXPRESS_ROUTES = {
     expressContact: (expressToken: string) => `express/express-contact/${expressToken}`
 }
 
+const HOME_APP_CREATOR_ROUTES = {
+    appCreator: 'app-creator',
+    appCreatorResume: 'app-creator/resume',
+    appCreatorIdentity: 'app-creator/identity',
+    appCreatorIcon: 'app-creator/icon',
+    appCreatorTheme: 'app-creator/theme',
+    appCreatorLaunch: 'app-creator/launch',
+}
+
 const HOME_CLIENTS_ROUTES = {
     listClients: 'workspace/clients/list-clients',
     workspaceClientsConvertedByRange: 'workspace-clients-converted-by-range',
@@ -33,8 +42,12 @@ const HOME_CONTACTS_ROUTES = {
 }
 
 const HOME_CONTACT_CENTER_ROUTES = {
+    contactCenter: 'contact-center',
     contactCenterResume: 'contact-center/resume',
     contactCenterAdvisory: 'contact-center/advisory',
+    contactCenterPayments: 'contact-center/payments',
+    contactCenterSinisters: 'contact-center/sinisters',
+    contactCenterSupport: 'contact-center/support',
 }
 
 const HOME_CONTACT_FILES_ROUTES = {
@@ -166,6 +179,26 @@ const HOME_SINISTERS_ROUTES = {
     workspaceSinistersOpenedByRange: `workspace-sinisters-opened-by-range`,
 }
 
+const HOME_SITE_CREATOR_ROUTES = {
+    siteCreator: 'site-creator',
+    siteCreatorResume: 'site-creator/resume',
+    siteCreatorIdentity: 'site-creator/identity',
+    siteCreatorLogo: 'site-creator/logo',
+    siteCreatorTheme: 'site-creator/theme',
+    siteCreatorLaunch: 'site-creator/launch',
+}
+
+const HOME_SOCIAL_CONNECT_ROUTES = {
+    socialConnect: 'social-connect',
+    socialConnectCardium: 'social-connect/cardium',
+    socialConnectFacebook: 'social-connect/facebook',
+    socialConnectInstagram: 'social-connect/instagram',
+    socialConnectLinkedin: 'social-connect/linkedin',
+    socialConnectResume: 'social-connect/resume',
+    socialConnectTiktok: 'social-connect/tiktok',
+    socialConnectTwitter: 'social-connect/twitter',
+}
+
 const HOME_STATS_ROUTES = {
     statsSnapshot: `workspace/stats/snapshot`,
     statsLeads: `workspace/stats/leads`,
@@ -214,6 +247,7 @@ export const ROUTES_NAME = {
     ...CHANGELOG_ROUTES,
     ...ERRORS_ROUTES,
     ...EXPRESS_ROUTES,
+    ...HOME_APP_CREATOR_ROUTES,
     ...HOME_CLIENTS_ROUTES,
     ...HOME_CONTACTS_ROUTES,
     ...HOME_CONTACT_CENTER_ROUTES,
@@ -234,6 +268,8 @@ export const ROUTES_NAME = {
     ...HOME_QUOTATIONS_ROUTES,
     ...HOME_SINISTERS_ROUTES,
     ...HOME_RENEWALS_ROUTES,
+    ...HOME_SITE_CREATOR_ROUTES,
+    ...HOME_SOCIAL_CONNECT_ROUTES,
     ...HOME_STATS_ROUTES,
     ...HOME_WALLET_ROUTES,
     ...INVITATIONS_ROUTES,

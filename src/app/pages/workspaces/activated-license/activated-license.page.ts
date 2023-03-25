@@ -46,6 +46,6 @@ export class ActivatedLicensePage implements OnInit {
     }
 
     private _goToDashboard(context: any): void {
-        context._router.navigateByUrl(ROUTES_NAME.dashboard);
+        context._router.navigateByUrl(ROUTES_NAME.workspaceWelcome);
     }
 }

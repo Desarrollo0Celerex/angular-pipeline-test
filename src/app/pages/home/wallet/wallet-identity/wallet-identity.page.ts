@@ -73,10 +73,10 @@ export class WalletIdentityPage implements OnInit {
 
     updateWallet(): void {
         this._loadingService.show();
-        this.model.updateWallet(this.walletId).subscribe(() => {
+        this.model.updateWallet().subscribe(() => {
             this._loadingService.hide();
             this.model.form.controls['walletKey'].disable();
-            AlertHelper.walletUpdated(this._reloadPage, this);
+            AlertHelper.walletUpdated();
         });
     }
 
@@ -85,7 +85,7 @@ export class WalletIdentityPage implements OnInit {
     }
 
     private _loadWallet(): void {
-        this.model.loadWallet(this.walletId).subscribe((wallet: Wallet) => {
+        this.model.loadWallet().subscribe((wallet: Wallet) => {
             this.model.buildForm(wallet);
         })
     }

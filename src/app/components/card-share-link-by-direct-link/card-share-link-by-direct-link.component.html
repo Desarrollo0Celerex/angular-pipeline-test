@@ -1,0 +1,24 @@
+<div class="card mb-5">
+    <div class="card-body">
+        <div class="card-order">
+            <h6 class="text-right">
+                <img class="avatar avatar-xxl bradius cover-image float-left" src="https://webkit.atombits.xyz/agenthos/app/agenthos_agent_userpic.png"/>
+                <strong>Generar Enlace Directo</strong><br/>
+            </h6>
+            <p class="text-right">
+                {{description}}
+            </p>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-block agt-btn-primary" (click)="showModalToGenerateDirectLink()"><strong>GENERAR ENLACE DIRECTO</strong></button>
+    </div>
+</div>
+
+<agt-modal-share-link-by-direct-link
+    [modalId]="modalIdShareLinkByDirectLink"
+    title="App Creator"
+    subtitle="Enlace de Instalación"
+    description="Copia el enlace directo para la instalación de tu App."
+    [link]="link"
+></agt-modal-share-link-by-direct-link>
