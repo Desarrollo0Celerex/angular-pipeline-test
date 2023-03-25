@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 import { CardShareLinkByDirectLinkModule } from '@components/card-share-link-by-direct-link/card-share-link-by-direct-link.module';
 import { CardShareLinkByFacebookModule } from '@components/card-share-link-by-facebook/card-share-link-by-facebook.module';
 import { CardShareLinkByWhatsappModule } from '@components/card-share-link-by-whatsapp/card-share-link-by-whatsapp.module';
-import { DeviceMacbookProModule } from '@components/device-macbook-pro/device-macbook-pro.module';
+import { DeviceIphoneModule } from '@components/device-iphone/device-iphone.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
-import { SiteService } from '@services/site.service';
+import { WalletService } from '@services/wallet.service';
 
 import { LaunchRoutingModule } from './launch-routing.module';
 import { LaunchPage } from './launch.page';
@@ -20,12 +20,12 @@ import { LaunchPage } from './launch.page';
     CardShareLinkByFacebookModule,
     CardShareLinkByWhatsappModule,
     CommonModule,
-    DeviceMacbookProModule,
+    DeviceIphoneModule,
     LaunchRoutingModule,
-    LoadingContentModule
+    LoadingContentModule,
   ],
   providers: [
-    SiteService
+    WalletService
   ]
 })
 export class LaunchModule { }

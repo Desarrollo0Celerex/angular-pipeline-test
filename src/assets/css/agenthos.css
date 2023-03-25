@@ -410,3 +410,23 @@
     background: rgb(117 127 239 / 8%) !important;
     border-color: rgb(117 127 239 / 18%) !important;
 }
+
+/* -- AGENTHOS - DEVICE LIBRARY -- */
+.agt-device-macbook-pro-container {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  padding-bottom: 1.5rem !important;
+}
+
+.agt-device-iphone-14-pro-container {
+  display: flex !important;
+  justify-content: center !important;
+  height: 650px !important;
+}
+
+.device-iphone-14-pro {
+    margin-top: -110px !important;
+    transform: scale(0.75) !important;
+    z-index: 0 !important;
+}

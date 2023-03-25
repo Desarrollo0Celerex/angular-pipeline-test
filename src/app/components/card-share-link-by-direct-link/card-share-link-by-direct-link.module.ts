@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ModalShareLinkByDirectLinkModule } from '@components/modal-share-link-by-direct-link/modal-share-link-by-direct-link.module';
+
 import { CardShareLinkByDirectLinkComponent } from './card-share-link-by-direct-link.component';
 
 @NgModule({
@@ -11,7 +13,8 @@ import { CardShareLinkByDirectLinkComponent } from './card-share-link-by-direct-
     CardShareLinkByDirectLinkComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ModalShareLinkByDirectLinkModule
   ]
 })
 export class CardShareLinkByDirectLinkModule { }

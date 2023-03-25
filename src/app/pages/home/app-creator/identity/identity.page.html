@@ -10,9 +10,9 @@
             <div class="row">
                 <!-- AGENTHOS - APP CREATOR MOCKUP -->
                 <div class="col-md-6">
-                    <agt-phone-preview-wallet
+                    <agt-device-iphone
                         [themeName]="model.themeName"
-                    ></agt-phone-preview-wallet>
+                    ></agt-device-iphone>
                 </div>
                 <!-- //AGENTHOS - APP CREATOR MOCKUP -->
                 <!-- AGENTHOS - APP CREATOR CONFIG -->
@@ -63,12 +63,23 @@
                                 <!-- AGENTHOS - APP CREATOR CERTIFICATE * -->
                                 <li class="list-group-item">
                                     Certificado de Agenthos
-                                    <div class="material-switch pull-right">
+                                    <div class="material-switch pull-right" (click)="checkCanShowContainerShowCertificate()">
                                         <input id="canShowCertificate" type="checkbox" formControlName="canShowCertificate"/>
                                         <label for="canShowCertificate" class="label-success"></label>
                                     </div>
                                 </li>
                             </ul>
+
+                            <!-- AGENTHOS - UPGRADE TO AGENTHOS PRO -->
+                            <!-- (JUST IF NO ACTIVE AGENTHOS PRO) -->
+                            <div class="card-body mt-5 p-0" *ngIf="model.canShowContainerShowCertificate">
+                                <div class="alert agt-alert-info mb-3" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><i class="fe fe-award mr-2" aria-hidden="true"></i>Solo disponible para cuentas con <strong>Agenthos Pro</strong>.
+                                </div>
+                                <button type="button" class="btn btn-block agt-btn-primary mb-3" (click)="showModalToUpgradeLicenseToPro()"><strong>MEJORA TU CUENTA AQUÍ</strong></button>
+                            </div>
+                            <!-- //AGENTHOS - UPGRADE TO AGENTHOS PRO -->
+
                             <!-- AGENTHOS - APP CRATOR CERTIFICATE -->
                             <div class="text-center mt-5">
                                 <agt-image-agenthos-certificate></agt-image-agenthos-certificate>
@@ -116,3 +127,7 @@
     [modalId]="modalIdConfirmUpdateWallet" 
     (actionConfirmed)="updateWallet()"
 ></agt-modal-confirm-update-wallet>
+
+<agt-modal-upgrade-license-to-pro 
+    [modalId]="modalIdUpgradeLicenseToPro" 
+></agt-modal-upgrade-license-to-pro>

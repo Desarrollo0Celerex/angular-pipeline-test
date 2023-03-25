@@ -11,8 +11,10 @@ import { WalletService } from '@services/wallet.service';
 
 @Injectable()
 export class IdentityService {
+    canShowContainerShowCertificate: boolean = false;
     form: UntypedFormGroup = this._formBuilder.group({});
     isBuiltForm: boolean = false;
+    licenseId: number = 0;
     themeName: string = '';
 
     constructor(
@@ -31,16 +33,25 @@ export class IdentityService {
         })
 
         // Update canShowCertificate only if your license allows it
-        if(wallet.licenseId < LICENSES.PRO) {
+        if(wallet.licenseId !== LICENSES.PRO) {
             this.f.canShowCertificate.disable();
         }
         this.isBuiltForm = true;
     }
 
+    checkCanShowContainerShowCertificate(): void {
+        if(this.licenseId !== LICENSES.PRO) {
+            this.canShowContainerShowCertificate = true;
+        }
+    }
+
     loadWallet():Observable<Wallet> {
         const fields: string = 'name,themeName,canShowCertificate,licenseId';
         return this._walletService.getWallet(fields).pipe(
-            tap((res: Wallet) => { this.themeName = res.themeName })
+            tap((res: Wallet) => { 
+                this.licenseId = res.licenseId;
+                this.themeName = res.themeName;
+            })
         );
     }
 

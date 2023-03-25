@@ -24,7 +24,8 @@ const HOME_APP_CREATOR_ROUTES = {
     appCreatorResume: 'app-creator/resume',
     appCreatorIdentity: 'app-creator/identity',
     appCreatorIcon: 'app-creator/icon',
-    appCreatorTheme: 'app-creator/theme'
+    appCreatorTheme: 'app-creator/theme',
+    appCreatorLaunch: 'app-creator/launch',
 }
 
 const HOME_CLIENTS_ROUTES = {

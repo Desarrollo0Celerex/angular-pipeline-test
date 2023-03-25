@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'agt-device-macbook-pro-site',
-  templateUrl: './device-macbook-pro-site.component.html',
+  selector: 'agt-device-macbook-pro',
+  templateUrl: './device-macbook-pro.component.html',
   styles: [
   ]
 })
-export class DeviceMacbookProSiteComponent {
+export class DeviceMacbookProComponent {
     @Input() themeName: string = '';
 
     get backgroundImage(): string {

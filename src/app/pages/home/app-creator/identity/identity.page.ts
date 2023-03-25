@@ -21,6 +21,7 @@ declare var ModalPlugin: any;
 })
 export class IdentityPage implements OnInit {
     modalIdConfirmUpdateWallet: string = 'modal-confirm-update-wallet';
+    modalIdUpgradeLicenseToPro: string = 'modal-upgrade-license-to-pro';
     private _isFormSubmitted: boolean = false;
 
     constructor(
@@ -33,6 +34,17 @@ export class IdentityPage implements OnInit {
         this._loadWallet();
     }
 
+    checkCanShowContainerShowCertificate(): void {
+        this.model.checkCanShowContainerShowCertificate();
+    }
+
+    confirmUpdateWallet(): void {
+        this._isFormSubmitted = true;
+        if(this.model.form.valid) {
+            ModalPlugin.show(this.modalIdConfirmUpdateWallet);
+        }
+    }
+
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null = this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
@@ -43,11 +55,8 @@ export class IdentityPage implements OnInit {
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
-    confirmUpdateWallet(): void {
-        this._isFormSubmitted = true;
-        if(this.model.form.valid) {
-            ModalPlugin.show(this.modalIdConfirmUpdateWallet);
-        }
+    showModalToUpgradeLicenseToPro(): void {
+        ModalPlugin.show(this.modalIdUpgradeLicenseToPro);
     }
 
     updateWallet(): void {

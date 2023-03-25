@@ -14,3 +14,11 @@
         <button type="button" class="btn btn-block agt-btn-primary" (click)="showModalToGenerateDirectLink()"><strong>GENERAR ENLACE DIRECTO</strong></button>
     </div>
 </div>
+
+<agt-modal-share-link-by-direct-link
+    [modalId]="modalIdShareLinkByDirectLink"
+    title="App Creator"
+    subtitle="Enlace de Instalación"
+    description="Copia el enlace directo para la instalación de tu App."
+    [link]="link"
+></agt-modal-share-link-by-direct-link>

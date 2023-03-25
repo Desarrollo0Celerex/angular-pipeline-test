@@ -26,7 +26,10 @@
             </div>
             <div class="card-footer">
                 <a [routerLink]="ROUTES_NAME.appCreatorResume">
-                    <button type="button" class="btn btn-block agt-btn-success-light" routerLinkActive="agt-button-active"><i class="fe fe-list mr-2"></i><strong>RESUMEN</strong></button>
+                    <button type="button" class="btn btn-block agt-btn-warning-light" routerLinkActive="agt-button-active"><i class="fe fe-list mr-2"></i><strong>RESUMEN</strong></button>
+                </a>
+                <a [routerLink]="ROUTES_NAME.appCreatorLaunch" *ngIf="model.appCreatorIsCompleted">
+                    <button type="button" class="btn btn-block agt-btn-success-light mt-3" routerLinkActive="agt-button-active"><i class="fe fe-share-2 mr-2"></i><strong>PUBLICAR</strong></button>
                 </a>
             </div>
         </div>

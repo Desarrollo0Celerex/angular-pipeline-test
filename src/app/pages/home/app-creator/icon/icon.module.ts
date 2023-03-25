@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
-import { PhonePreviewWalletModule } from '@components/phone-preview-wallet/phone-preview-wallet.module';
+import { DeviceIphoneModule } from '@components/device-iphone/device-iphone.module';
 import { ModalConfirmUpdateWalletModule } from '@components/modal-confirm-update-wallet/modal-confirm-update-wallet.module';
 import { WalletService } from '@services/wallet.service';
 
@@ -21,7 +21,7 @@ import { IconPage } from './icon.page';
     IconRoutingModule,
     LoadingContentModule,
     ModalConfirmUpdateWalletModule,
-    PhonePreviewWalletModule,
+    DeviceIphoneModule,
     ReactiveFormsModule
   ],
   providers: [

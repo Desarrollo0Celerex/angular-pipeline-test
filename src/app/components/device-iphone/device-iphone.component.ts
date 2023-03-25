@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'agt-phone-preview-wallet',
-  templateUrl: './phone-preview-wallet.component.html',
+  selector: 'agt-device-iphone',
+  templateUrl: './device-iphone.component.html',
   styles: [
   ]
 })
-export class PhonePreviewWalletComponent {
+export class DeviceIphoneComponent {
     @Input() themeName: string = '';
 
     get backgroundImage(): string {

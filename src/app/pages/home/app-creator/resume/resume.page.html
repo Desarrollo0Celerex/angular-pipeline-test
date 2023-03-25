@@ -9,9 +9,9 @@
         <div class="row">
             <!-- AGENTHOS - APP CREATOR MOCKUP -->
             <div class="col-md-6">
-                <agt-phone-preview-wallet
+                <agt-device-iphone
                     [themeName]="model.wallet.themeName"
-                ></agt-phone-preview-wallet>
+                ></agt-device-iphone>
             </div>
             <!-- //AGENTHOS - APP CREATOR MOCKUP -->
             <!-- AGENTHOS - APP CREATOR RESUME -->
@@ -30,9 +30,9 @@
                             </h6>
                             <p class="text-right">
                                 <!-- AGENTHOS - APP CREATOR - WALLET KEY -->
-                                ID: <ng-container *ngIf="model.wallet.walletKey !== null">{{model.wallet.walletKey}}</ng-container><br/>
+                                Wallet Key: <ng-container *ngIf="model.wallet.walletKey !== null">{{model.wallet.walletKey}}</ng-container><br/>
                                 <!-- AGENTHOS - APP CREATOR - WALLET CREATED AT -->
-                                Publicada: <ng-container *ngIf="model.wallet.createdAt !== null">{{model.wallet.createdAt | date: 'dd/MM/yyyy'}}</ng-container><br/>
+                                Generada: <ng-container *ngIf="model.wallet.createdAt !== null">{{model.wallet.createdAt | date: 'dd/MM/yyyy'}}</ng-container><br/>
                                 <!-- AGENTHOS - APP CREATOR - WALLET LAST UPATE -->
                                 <ng-container *ngIf="model.wallet.updatedAt !== null">Actualizada: {{model.wallet.updatedAt | date: 'dd/MM/yyyy'}}</ng-container>
                             </p>

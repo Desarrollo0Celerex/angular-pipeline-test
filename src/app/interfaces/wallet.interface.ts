@@ -8,5 +8,6 @@ export interface Wallet {
     createdAt: string,
     updatedAt: string,
     canShowCertificate: string,
-    licenseId: number
+    licenseId: number,
+    link: string
 }

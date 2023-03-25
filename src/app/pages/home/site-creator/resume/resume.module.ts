@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DeviceMacbookProSiteModule } from '@components/device-macbook-pro-site/device-macbook-pro-site.module';
+import { DeviceMacbookProModule } from '@components/device-macbook-pro/device-macbook-pro.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { SiteService } from '@services/site.service';
 
@@ -15,7 +15,7 @@ import { ResumeService } from './resume.service';
   ],
   imports: [
     CommonModule,
-    DeviceMacbookProSiteModule,
+    DeviceMacbookProModule,
     LoadingContentModule,
     ResumeRoutingModule
   ],
