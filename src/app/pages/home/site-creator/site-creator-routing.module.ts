@@ -16,6 +16,7 @@ const routes: Routes = [{
         { path: ROUTES_NAME.siteCreatorIdentity, loadChildren: () => import('@pages/home/site-creator/identity/identity.module').then( mod => mod.IdentityModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
         { path: ROUTES_NAME.siteCreatorLogo, loadChildren: () => import('@pages/home/site-creator/logo/logo.module').then( mod => mod.LogoModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
         { path: ROUTES_NAME.siteCreatorTheme, loadChildren: () => import('@pages/home/site-creator/theme/theme.module').then( mod => mod.ThemeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+        { path: ROUTES_NAME.siteCreatorLaunch, loadChildren: () => import('@pages/home/site-creator/launch/launch.module').then( mod => mod.LaunchModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
     ]
 }];
 

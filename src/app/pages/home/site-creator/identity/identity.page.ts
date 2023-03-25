@@ -21,6 +21,7 @@ declare var ModalPlugin: any;
 })
 export class IdentityPage implements OnInit {
     modalIdConfirmUpdateSite: string = 'modal-confirm-update-site';
+    modalIdUpgradeLicenseToPro: string = 'modal-upgrade-license-to-pro';
     private _isFormSubmitted: boolean = false;
 
     constructor(
@@ -30,7 +31,25 @@ export class IdentityPage implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this._loadSite();
+        this.model.loadWorkspaceLicenseId().subscribe(() => {
+            this._loadSite();
+        })
+    }
+
+    get themeName(): string {
+        return (this.model.site !== null && this.model.site.siteThemeName !== null) ? this.model.site.siteThemeName : '';
+    }
+
+    checkCanShowContainerEditDomain(): void {
+        this.model.checkCanShowContainerEditDomain();
+    }
+
+    checkCanShowContainerShowCertificate(): void {
+        this.model.checkCanShowContainerShowCertificate();
+    }
+
+    checkDomainInputStatus(): void {
+        this.model.checkDomainInputStatus();
     }
 
     getErrorMessage(constrolName: string): string {
@@ -48,6 +67,10 @@ export class IdentityPage implements OnInit {
         if(this.model.form.valid) {
             ModalPlugin.show(this.modalIdConfirmUpdateSite);
         }
+    }
+
+    showModalToUpgradeLicenseToPro(): void {
+        ModalPlugin.show(this.modalIdUpgradeLicenseToPro);
     }
 
     updateSite(): void {

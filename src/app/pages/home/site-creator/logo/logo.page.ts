@@ -35,6 +35,10 @@ export class LogoPage implements OnInit {
     ngOnInit(): void {
         this._loadSite();
     }
+    
+    get themeName(): string {
+        return (this.model.siteThemeName !== null) ? this.model.siteThemeName : '';
+    }
 
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null = this.model.form.get(constrolName);

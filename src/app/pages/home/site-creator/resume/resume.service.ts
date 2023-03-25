@@ -14,7 +14,7 @@ export class ResumeService {
     constructor(private _siteService: SiteService) { }
 
     loadSite(): void {
-        const fields: string = 'name,logoUrl,siteThemeId,siteKey,createdAt,updatedAt';
+        const fields: string = 'name,logoUrl,siteThemeId,siteThemeName,siteKey,createdAt,updatedAt';
         this._siteService.getSite(fields).subscribe((res: Site) => {
             this.isCompletedIdentity = (res.name !== null) ? true : false;
             this.isCompletedLogo = (res.logoUrl !== null) ? true : false;

@@ -24,6 +24,10 @@ export class ResumePage implements OnInit {
         return 'url('+logoUrl+')';
     }
 
+    get themeName(): string {
+        return (this.model.site !== null && this.model.site.siteThemeName !== null) ? this.model.site.siteThemeName : '';
+    }
+
     getStatusClass(isCompleted: boolean): string {
         return (isCompleted) ? 'agt-badge-success-gradient' : 'agt-badge-danger-gradient';
     }

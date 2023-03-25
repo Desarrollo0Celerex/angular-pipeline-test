@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { DeviceMacbookProSiteModule } from '@components/device-macbook-pro-site/device-macbook-pro-site.module';
 import { ImageAgenthosCertificateModule } from '@components/image-agenthos-certificate/image-agenthos-certificate.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalConfirmUpdateSiteModule } from '@components/modal-confirm-update-site/modal-confirm-update-site.module';
+import { ModalUpgradeLicenseToProModule } from '@components/modal-upgrade-license-to-pro/modal-upgrade-license-to-pro.module';
 import { SiteService } from '@services/site.service';
+import { WorkspaceService } from '@services/workspace.service';
 
 import { IdentityRoutingModule } from './identity-routing.module';
 import { IdentityPage } from './identity.page';
@@ -17,15 +20,18 @@ import { IdentityPage } from './identity.page';
   ],
   imports: [
     CommonModule,
+    DeviceMacbookProSiteModule,
     FormsModule,
     IdentityRoutingModule,
     ImageAgenthosCertificateModule,
     LoadingContentModule,
     ModalConfirmUpdateSiteModule,
+    ModalUpgradeLicenseToProModule,
     ReactiveFormsModule
   ],
   providers: [
-    SiteService
+    SiteService,
+    WorkspaceService
   ]
 })
 export class IdentityModule { }

@@ -143,6 +143,15 @@
 	}
 }
 
+/* -- AGENTHOS - FONT LIBRARY -- */
+.agt-text-dark {
+    color: #536d98;
+}
+
+.agt-text-light {
+    color: #fbfbfb;
+}
+
 
 /* -- AGENTHOS - CARD LIBRARY -- */
 .card-header:before, .resp-tabs-list li.active:before{
@@ -150,8 +159,50 @@
 }
 
 .agt-card-primary {
-	background: #f5fcf8;
-    border: 1px solid #e5f4f8;
+    color: #757fe8;
+	background: #d6e0f8;
+    border-style: solid;
+    border-color: #c6d4f8;
+    box-sizing: border-box;
+}
+
+.agt-card-secondary {
+    color: #3f4658;
+    background: #e4e7e8;
+    border-style: solid;
+    border-color: #d9dde8;
+    box-sizing: border-box;
+}
+
+.agt-card-info {
+    color: #73B8D8 !important;
+    background: #E1F0F8;
+    border-style: solid;
+    border-color: #73B8D8;
+    box-sizing: border-box;
+}
+
+.agt-card-success {
+    color: #92D268 !important;
+    background: #E6F2E8;
+    border-style: solid;
+    border-color: #92D268;
+    box-sizing: border-box;
+}
+
+.agt-card-warning {
+    color: #E6AA68 !important;
+    background: #F8F0E8;
+    border-style: solid;
+    border-color: #E6AA68;
+    box-sizing: border-box;
+}
+
+.agt-card-danger {
+    color: #b02a38 !important;
+    background: #f8d7d8;
+    border-style: solid;
+    border-color: #f1aeb8;
     box-sizing: border-box;
 }
 
@@ -352,4 +403,10 @@
 	color: #fbfbfb;
     background: linear-gradient(to bottom,#564498,#4c3c88) !important;
     border-color: #fbfbfb !important;
+}
+
+.agt-alert-info {
+    color: #757fe8;
+    background: rgb(117 127 239 / 8%) !important;
+    border-color: rgb(117 127 239 / 18%) !important;
 }

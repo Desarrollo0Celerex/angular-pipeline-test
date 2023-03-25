@@ -182,7 +182,8 @@ const HOME_SITE_CREATOR_ROUTES = {
     siteCreatorResume: 'site-creator/resume',
     siteCreatorIdentity: 'site-creator/identity',
     siteCreatorLogo: 'site-creator/logo',
-    siteCreatorTheme: 'site-creator/theme'
+    siteCreatorTheme: 'site-creator/theme',
+    siteCreatorLaunch: 'site-creator/launch',
 }
 
 const HOME_SOCIAL_CONNECT_ROUTES = {
