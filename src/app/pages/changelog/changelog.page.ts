@@ -9,6 +9,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.43.0',
+            launchDate: '24/03/2023',
+            changes: [
+                {
+                    title: 'Welcome',
+                    items: [
+                        'Se agregaron módulos contact center, social conect, site creator y app creator.'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.42.1',
             launchDate: '01/03/2023',
             changes: [
