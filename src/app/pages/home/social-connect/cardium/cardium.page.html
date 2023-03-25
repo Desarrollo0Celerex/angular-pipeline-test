@@ -1,0 +1,75 @@
+<form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="showModalToConfirmUpdateSocialConnect()">    
+    <!-- AGENTHOS - SOCIAL CONNECT CHANNEL -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Conectar Cardium</h3>
+        </div>
+        <div class="card-body">
+            <ol class="breadcrumb1">
+                <li class="breadcrumb-item1">Ingresa el link completo de tu tarjeta digital de Cardium.</li>
+            </ol>
+            <div class="row">
+                <!-- AGENTHOS - SOCIAL CONNECT -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <!-- AGENTHOS - SOCIAL CONNECT Cardium * -->
+                        <label class="form-label">Cardium</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fe fe-user-check tx-16 lh-0 op-6"></i>
+                                </div>
+                            </div>
+                            <!-- AGENTHOS - DATA VALIDATION -->
+                            <!-- (https://cardium.io/) -->
+                            <input type="text" class="form-control {{getValidationClass('cardiumUrl')}}" placeholder="https://my.cardium.io/dann.arenas" formControlName="cardiumUrl">
+                            <div class="invalid-feedback">{{getErrorMessage('cardiumUrl')}}</div>
+                        </div>
+                        <a href="javascript://" (click)="showModalToConfirmCreateCardiumAccount()">
+                            <p class="mt-3 text-center"><strong>Aún no cuento con tarjeta digital de Cardium</strong></p>
+                        </a>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - SOCIAL CONNECT -->
+
+                <!-- AGENTHOS - SOCIAL CONNECT DETAILS -->
+                <div class="col-md-12 mt-5">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            Agenthos usará este link para conectar tu tarjeta digital de Cardium dentro de tu app, sitio web y todos tus canales digitales.
+                        </div>
+                    </div>
+                </div>
+                <!-- //AGENTHOS - SOCIAL CONNECT DETAILS -->
+
+            </div>
+            <!-- //AGENTHOS - APP CREATOR NAME -->
+        </div>
+    </div>
+    <!-- //AGENTHOS - SOCIAL CONNECT CHANNEL -->
+
+    <!-- AGENTHOS - SOCIAL CONNECT UPDATE -->
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-block agt-btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - SOCIAL CONNECT UPDATE -->
+</form>
+
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true" ></agt-loading-content>
+</ng-template>
+
+<agt-modal-confirm-create-cardium-account
+    [modalId]="modalIdConfirmCreateCardiumAccount"
+></agt-modal-confirm-create-cardium-account>
+
+<agt-modal-confirm-update-social-connect
+    [modalId]="modalIdConfirmUpdateSocialConnect"
+    (actionConfirmed)="updateSocialConnect()"
+></agt-modal-confirm-update-social-connect>

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Wallet } from '@interfaces/wallet.interface';
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { UpdateWalletDataSend } from '@interfaces/update-wallet-data-send.interface';
+import { UpdateWalletIdentityDataSend } from '@interfaces/update-wallet-identity-data-send.interface';
 import { WalletService } from '@services/wallet.service';
 import { WorkspaceService } from '@services/workspace.service';
 
@@ -36,9 +36,9 @@ export class WalletIdentityService {
         this.isBuiltForm = true;
     }
 
-    loadWallet(walletId: string):Observable<Wallet> {
+    loadWallet():Observable<Wallet> {
         const fields: string = 'walletKey,name';
-        return this._walletService.getWallet(walletId, fields);
+        return this._walletService.getWallet(fields);
     }
 
     loadWorkspace(): Observable<HttpResponse> {
@@ -46,15 +46,15 @@ export class WalletIdentityService {
         return this._workspaceService.getWorkspace(fields);
     }
 
-    updateWallet(walletId: string): Observable<void> {
-        const requestBody: UpdateWalletDataSend = this._getRequestBody();
-        return this._walletService.updateWallet(walletId, requestBody);
+    updateWallet(): Observable<void> {
+        const requestBody: UpdateWalletIdentityDataSend = this._getRequestBody();
+        return this._walletService.updateWalletIdentity(requestBody);
     }
 
-    private _getRequestBody(): UpdateWalletDataSend {
-        const requestBody: UpdateWalletDataSend = {
+    private _getRequestBody(): UpdateWalletIdentityDataSend {
+        const requestBody: UpdateWalletIdentityDataSend = {
             name: this.f.name.value,
-            walletKey: this.f.walletKey.value
+            canShowCertificate: '1'
         }
         return requestBody;
     }

@@ -31,7 +31,7 @@ export class WalletResumePage implements OnInit {
 
     ngOnInit(): void {
         this._catchParams();
-        this.model.loadWallet(this.walletId);
+        this.model.loadWallet();
     }
 
     get model(): WalletResumeService {

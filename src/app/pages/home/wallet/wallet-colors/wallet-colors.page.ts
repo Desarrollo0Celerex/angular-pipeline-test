@@ -104,7 +104,7 @@ export class WalletColorsPage implements OnInit {
         this._loadingService.show();
         this.model.updateWallet(this.walletId).subscribe(() => {
             this._loadingService.hide();
-            AlertHelper.walletUpdated(this._reloadPage, this);
+            AlertHelper.walletUpdated();
         });
     }
 
@@ -113,7 +113,7 @@ export class WalletColorsPage implements OnInit {
     }
 
     private _loadWallet(): void {
-        this.model.loadWallet(this.walletId).subscribe((wallet: Wallet) => {
+        this.model.loadWallet().subscribe((wallet: Wallet) => {
             this.iconsUrl = (!!wallet.iconsUrl) ? wallet.iconsUrl + '384x384.png' : '';
             this.model.buildForm(wallet);
             this.selectTheme(parseInt(this.model.f.themeId.value));

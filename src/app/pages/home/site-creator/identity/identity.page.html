@@ -1,0 +1,220 @@
+<form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="showModalToConfirmUpdateSite()">
+    <!-- AGENTHOS - SITE CREATOR PREVIEW -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Identidad del Sitio Web</h3>
+        </div>
+        <!-- AGENTHOS - SITE CREATOR CONFIG -->
+        <div class="card-body">
+            <!-- AGENTHOS - SITE CREATOR COLOR -->
+            <div class="row">
+                <!-- AGENTHOS - SITE CREATOR MOCKUP -->
+                <div class="col-md-12">
+                    <agt-device-macbook-pro
+                        [themeName]="themeName"
+                    ></agt-device-macbook-pro>
+                </div>
+                <!-- //AGENTHOS - SITE CREATOR MOCKUP -->
+                <!-- AGENTHOS - SITE CREATOR CONFIG -->
+                <div class="col-md-12 mt-5">
+                    <!-- AGENTHOS - SITE CREATOR DOMAIN -->
+                    <div class="card">
+                        <div class="card-body">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">Ingresa el dominio que deseas para tu Sitio Web.</li>
+                            </ol>
+                            <!-- AGENTHOS - SITE CREATOR SETTINGS -->
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SITE DOMAIN * -->
+                                    <label class="form-label">Dominio del Sitio Web</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fe fe-globe tx-16 lh-0 op-6"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control {{getValidationClass('domain')}}" formControlName="domain">
+                                        <div class="invalid-feedback">{{getErrorMessage('domain')}}</div>
+                                    </div>
+                                </div>
+
+                                <ul class="list-group">
+                                    <!-- AGENTHOS - SITE CREATOR CERTIFICATE * -->
+                                    <li class="list-group-item">
+                                        Dominio Personalizado
+                                        <div class="material-switch pull-right" (click)="checkCanShowContainerEditDomain()">
+                                            <input id="canEditDomain" type="checkbox" formControlName="canEditDomain" (change)="checkDomainInputStatus()">
+                                            <label for="canEditDomain" class="label-success"></label>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <!-- AGENTHOS - UPGRADE TO AGENTHOS PRO -->
+                                <!-- (JUST IF NO ACTIVE AGENTHOS PRO) -->
+                                <div class="card-body mt-5 p-0" *ngIf="model.canShowContainerEditDomain">
+                                    <div class="alert agt-alert-info mb-3" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><i class="fe fe-award mr-2" aria-hidden="true"></i>Solo disponible para cuentas con <strong>Agenthos Pro</strong>.
+                                    </div>
+                                    <button type="button" class="btn btn-block agt-btn-primary mb-3" (click)="showModalToUpgradeLicenseToPro()"><strong>MEJORA TU CUENTA AQUÍ</strong></button>
+                                </div>
+                                <!-- //AGENTHOS - UPGRADE TO AGENTHOS PRO -->
+
+                            </div>
+                            <!-- //AGENTHOS - SITE CREATOR SETTINGS -->
+                            <!-- AGENTHOS - SITE CREATOR DETAILS -->
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-5">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        Agenthos usará este dominio para crear y desplegar el Sitio Web con tus prospectos y clientes.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - SITE CREATOR DETAILS -->
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - SITE CREATOR DOMAIN -->		
+                    <!-- AGENTHOS - SITE CREATOR NAME -->
+                    <div class="card">
+                        <div class="card-body">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">Ingresa el nombre que deseas para tu Sitio Web.</li>
+                            </ol>
+                            <!-- AGENTHOS - SITE CREATOR SETTINGS -->
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SITE NAME * -->
+                                    <label class="form-label">Nombre del Sitio Web</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fe fe-monitor tx-16 lh-0 op-6"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control {{getValidationClass('name')}}" placeholder="Ingresa un nombre." formControlName="name">
+                                        <div class="invalid-feedback">{{getErrorMessage('name')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - SITE CREATOR SETTINGS -->
+                            <!-- AGENTHOS - SITE CREATOR DETAILS -->
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-5">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        Agenthos usará este nombre para crear y desplegar el Sitio Web con tus prospectos y clientes.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - SITE CREATOR DETAILS -->
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - SITE CREATOR NAME -->
+                    <!-- AGENTHOS - SITE CREATOR DESCRIPTION -->
+                    <div class="card">
+                        <div class="card-body">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">Ingresa la descripción que deseas para tu Sitio Web.</li>
+                            </ol>
+                            <!-- AGENTHOS - SITE CREATOR SETTINGS -->
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SITE DESCRIPTION * -->
+                                    <label class="form-label">Descripción del Sitio Web</label>
+                                    <textarea class="form-control {{getValidationClass('description')}}" formControlName="description" rows="3"></textarea>
+                                    <div class="invalid-feedback">{{getErrorMessage('description')}}</div>
+                                    <p class="mt-3">(Máximo 148 carácteres)</p>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - SITE CREATOR SETTINGS -->
+                            <!-- AGENTHOS - SITE CREATOR DETAILS -->
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-5">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        Agenthos usará esta descripción para crear y desplegar el Sitio Web con tus prospectos y clientes.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - SITE CREATOR DETAILS -->
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - SITE CREATOR DESCRIPTION -->
+
+                    <!-- AGENTHOS - SITE CREATOR BRAND -->
+                    <div class="card">
+                        <div class="card-body">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">Mostrar certificado de Agenthos.</li>
+                            </ol>
+                            <ul class="list-group">
+                                <!-- AGENTHOS - SITE CREATOR CERTIFICATE * -->
+                                <li class="list-group-item">
+                                    Certificado de Agenthos
+                                    <div class="material-switch pull-right" (click)="checkCanShowContainerShowCertificate()">
+                                        <input id="canShowCertificate" type="checkbox" formControlName="canShowCertificate"/>
+                                        <label for="canShowCertificate" class="label-success"></label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- AGENTHOS - SITE CRATOR CERTIFICATE -->
+
+                            <!-- AGENTHOS - UPGRADE TO AGENTHOS PRO -->
+                            <!-- (JUST IF NO ACTIVE AGENTHOS PRO) -->
+                            <div class="card-body mt-5 p-0" *ngIf="model.canShowContainerShowCertificate">
+                                <div class="alert agt-alert-info mb-3" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><i class="fe fe-award mr-2" aria-hidden="true"></i>Solo disponible para cuentas con <strong>Agenthos Pro</strong>.
+                                </div>
+                                <button type="button" class="btn btn-block agt-btn-primary mb-3" (click)="showModalToUpgradeLicenseToPro()"><strong>MEJORA TU CUENTA AQUÍ</strong></button>
+                            </div>
+                            <!-- //AGENTHOS - UPGRADE TO AGENTHOS PRO -->
+
+                            <div class="text-center mt-5">
+                                <agt-image-agenthos-certificate></agt-image-agenthos-certificate>
+                            </div>
+                            <!-- //AGENTHOS - APP CREATOR CERTIFICATE -->
+                            <!-- AGENTHOS - SITE CREATOR DETAILS -->
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-5">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        Agenthos colocará un certificado para mostrar la seguridad del Sitio Web con tus prospectos y clientes.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - SITE CREATOR DETAILS -->
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - SITE CREATOR BRAND -->
+
+                    <!-- AGENTHOS - SITE CREATOR UPDATE -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-block agt-btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - SITE CREATOR UPDATE -->
+
+                </div>
+                <!-- //AGENTHOS - SITE CREATOR CONFIG -->
+            </div>
+            <!-- //AGENTHOS - SITE CREATOR COLOR -->
+        </div>
+        <!-- //AGENTHOS - SITE CREATOR CONFIG -->
+    </div>
+    <!-- //AGENTHOS - SITE CREATOR PREVIEW -->
+</form>
+
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true" ></agt-loading-content>
+</ng-template>
+
+<agt-modal-confirm-update-site 
+    [modalId]="modalIdConfirmUpdateSite" 
+    (actionConfirmed)="updateSite()"
+></agt-modal-confirm-update-site>
+
+<agt-modal-upgrade-license-to-pro 
+    [modalId]="modalIdUpgradeLicenseToPro" 
+></agt-modal-upgrade-license-to-pro>

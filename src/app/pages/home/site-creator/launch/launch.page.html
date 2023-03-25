@@ -1,0 +1,46 @@
+<ng-container *ngIf="model.site !== null; else loadingContent"> 
+    <!-- AGENTHOS - SITE CREATOR LAUNCH -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Publicar Sitio Web</h3>
+        </div>
+        <!-- AGENTHOS - SITE CREATOR CONFIG -->
+        <div class="card-body">
+            <!-- AGENTHOS - SITE CREATOR DEVICE -->
+            <div class="row">
+                <!-- AGENTHOS - SITE CREATOR LAPTOP -->
+                <div class="col-md-12">
+                    <agt-device-macbook-pro
+                        [themeName]="model.site.siteThemeName"
+                    ></agt-device-macbook-pro>
+                </div>
+                <!-- //AGENTHOS - SITE CREATOR LAPTOP -->
+                <!-- AGENTHOS - SITE CREATOR CHANNELS -->
+                <div class="col-md-12">
+                    <agt-card-share-link-by-facebook
+                        description="Agenthos creará un post para publicar el Sitio Web con tus seguidores en Facebook."
+                        [link]="model.site.domain"
+                    ></agt-card-share-link-by-facebook>
+
+                    <agt-card-share-link-by-whatsapp
+                        description="Agenthos creará un mensaje para enviar el Sitio Web con tus contactos en WhatsApp."
+                        [link]="model.site.domain"
+                    ></agt-card-share-link-by-whatsapp>
+
+                    <agt-card-share-link-by-direct-link
+                        description="Agenthos creará un enlace directo para compartir el Sitio Web en canales digitales."
+                        [link]="model.site.domain"
+                    ></agt-card-share-link-by-direct-link>
+                </div>
+                <!-- //AGENTHOS - SITE CREATOR CHANNELS -->
+            </div>
+            <!-- //AGENTHOS - SITE CREATOR DEVICE -->
+        </div>
+        <!-- //AGENTHOS - SITE CREATOR CONFIG -->
+    </div>
+    <!-- //AGENTHOS - SITE CREATOR LAUNCH -->
+</ng-container>
+
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true" ></agt-loading-content>
+</ng-template>

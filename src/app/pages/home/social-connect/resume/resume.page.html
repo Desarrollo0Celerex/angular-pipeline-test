@@ -1,0 +1,65 @@
+<ng-container *ngIf="model.isContentLoaded; else loadingContent">   
+    <!-- AGENTHOS - SOCIAL LINK CHANNEL -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Resumen de Redes Sociales</h3>
+        </div>
+        <!-- AGENTHOS - APP CREATOR STATUS CARD -->
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <strong>1. Cardium</strong>
+                    <!-- AGENTHOS - SOCIAL LINK CHANNEL STATUS -->
+                    <a routerLink="{{'/' + ROUTES_NAME.socialConnectCardium}}">
+                        <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedCardium)}}"><i class="fe {{getStatusIcon(model.isCompletedCardium)}} mr-2"></i>{{getStatusLabel(model.isCompletedCardium)}}</span>
+                    </a>
+                </li>
+                <!-- AGENTHOS - SOCIAL LINK CHANNEL STATUS -->
+                <li class="list-group-item">
+                    <strong>2. Facebook</strong>
+                    <!-- AGENTHOS - SOCIAL LINK CHANNEL STATUS -->
+                    <a routerLink="{{'/' + ROUTES_NAME.socialConnectFacebook}}">
+                        <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedFacebook)}}"><i class="fe {{getStatusIcon(model.isCompletedFacebook)}} mr-2"></i>{{getStatusLabel(model.isCompletedFacebook)}}</span>
+                    </a>
+                </li>
+                <!-- AGENTHOS - SOCIAL LINK CHANNEL STATUS -->
+                <li class="list-group-item">
+                    <strong>3. Instagram</strong>
+                    <!-- AGENTHOS - SOCIAL LINK CHANNEL STATUS -->
+                    <a routerLink="{{'/' + ROUTES_NAME.socialConnectInstagram}}">
+                        <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedInstagram)}}"><i class="fe {{getStatusIcon(model.isCompletedInstagram)}} mr-2"></i>{{getStatusLabel(model.isCompletedInstagram)}}</span>
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <strong>4. Twitter</strong>
+                    <!-- AGENTHOS - SOCIAL LINK CHANNEL STATUS -->
+                    <a routerLink="{{'/' + ROUTES_NAME.socialConnectTwitter}}">
+                        <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedTwitter)}}"><i class="fe {{getStatusIcon(model.isCompletedTwitter)}} mr-2"></i>{{getStatusLabel(model.isCompletedTwitter)}}</span>
+                    </a>
+                </li>
+                <!-- AGENTHOS - SOCIAL LINK CHANNEL STATUS -->
+                <li class="list-group-item">
+                    <strong>5. Linkedin</strong>
+                    <!-- AGENTHOS - SOCIAL LINK CHANNEL STATUS -->
+                    <a routerLink="{{'/' + ROUTES_NAME.socialConnectLinkedin}}">
+                        <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedLinkedin)}}"><i class="fe {{getStatusIcon(model.isCompletedLinkedin)}} mr-2"></i>{{getStatusLabel(model.isCompletedLinkedin)}}</span>
+                    </a>
+                </li>
+                <!-- AGENTHOS - SOCIAL LINK CHANNEL STATUS -->
+                <li class="list-group-item">
+                    <strong>6. TikTok</strong>
+                    <!-- AGENTHOS - SOCIAL LINK CHANNEL STATUS -->
+                    <a routerLink="{{'/' + ROUTES_NAME.socialConnectTiktok}}">
+                        <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedTiktok)}}"><i class="fe {{getStatusIcon(model.isCompletedTiktok)}} mr-2"></i>{{getStatusLabel(model.isCompletedTiktok)}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- //AGENTHOS - APP CREATOR STATUS CARD -->
+    </div>
+    <!-- //AGENTHOS - SOCIAL LINK CHANNEL -->
+</ng-container>
+
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true" ></agt-loading-content>
+</ng-template>

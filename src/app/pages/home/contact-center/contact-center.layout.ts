@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 
@@ -8,12 +8,6 @@ import { ROUTES_NAME } from '@constants/routes-name';
   styles: [
   ]
 })
-export class ContactCenterLayout implements OnInit {
+export class ContactCenterLayout {
     ROUTES_NAME: any = ROUTES_NAME;
-    
-    constructor() { }
-
-    ngOnInit(): void {
-    }
-
 }

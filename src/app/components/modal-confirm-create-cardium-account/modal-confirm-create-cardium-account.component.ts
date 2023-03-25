@@ -1,0 +1,17 @@
+import { Component, Input } from '@angular/core';
+
+declare var ModalPlugin: any;
+
+@Component({
+  selector: 'agt-modal-confirm-create-cardium-account',
+  templateUrl: './modal-confirm-create-cardium-account.component.html',
+  styles: [
+  ]
+})
+export class ModalConfirmCreateCardiumAccountComponent {
+    @Input() modalId: string = '';
+
+    closeModal(): void {
+        ModalPlugin.hide(this.modalId);
+    }
+}

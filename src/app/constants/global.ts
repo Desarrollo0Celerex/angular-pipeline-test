@@ -55,7 +55,11 @@ export const FORMAT_TYPES: any = {
     XLSX: 2
 }
 
-
+export const LICENSES: any = {
+    LITE: 1,
+    MAX: 2,
+    PRO: 3,
+}
 
 // Dropify
 export const IMAGE_FORMATS: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
@@ -157,6 +161,12 @@ export const GROUP_STATUS: any = {
     FAMILY: 2,
     MIXED: 3,
     INCOMPLETE: 4
+}
+export const WORKSPACE_DIRECTORY_TYPES: any = {
+    ADVISORY: 1,
+    PAYMENTS: 2,
+    SINISTERS: 3,
+    SUPPORT: 4
 }
 
 // Types

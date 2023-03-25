@@ -5,14 +5,17 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
-import { UpdateWalletDataSend } from '@interfaces/update-wallet-data-send.interface';
+import { UpdateWalletIdentityDataSend } from '@interfaces/update-wallet-identity-data-send.interface';
 import { Wallet } from '@interfaces/wallet.interface';
+import { WalletTheme } from '@interfaces/wallet-theme.interface';
 import { AuthService } from '@services/auth.service';
 
 const routes: any = {
-    walletId: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallet-id',
     wallets: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets',
-    wallet: (workspaceId: string, walletId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/' + walletId,
+    walletIdentity: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/identity',
+    walletIcon: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/icon',
+    walletTheme: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/theme',
+    walletThemes: environment.apiUrl + '/wallet-themes',
 }
 
 @Injectable()
@@ -33,43 +36,40 @@ export class WalletService {
         );
     }
 
-    /**
-     * Get the wallet ID
-     * @return The wallet ID
-     */
-     getWalletId(): Observable<string> {
-         const route: string = routes.walletId(this._workspaceId);
-         return this._httpClient.get<HttpResponse>(route).pipe(
+    getWallet(fields: string = ''): Observable<Wallet> {
+        const route: string = routes.wallets(this._workspaceId);
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
              map((res: HttpResponse) => {
                  return res.data;
-             })
-         );
-     }
+            })
+        );
+    }
 
-    /**
-     * Get the wallet
-     * @param  walletId  The wallet ID
-     * @param  fields    The fields to get
-     * @return           The wallet contacts
-     */
-     getWallet(walletId: string, fields: string = ''): Observable<Wallet> {
-         const route: string = routes.wallet(this._workspaceId, walletId);
-         let params: HttpParams = new HttpParams();
-         if(!!fields) params = params.append('fields', fields);
-         return this._httpClient.get<HttpResponse>(route, {params}).pipe(
+    getWalletThemes(fields: string = ''): Observable<WalletTheme[]> {
+        const route: string = routes.walletThemes;
+        let params: HttpParams = new HttpParams();
+        if(!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
              map((res: HttpResponse) => {
                  return res.data;
-             })
-         );
-     }
+            })
+        );
+    }
 
-     updateWallet(walletId: string, requestBody: UpdateWalletDataSend): Observable<void> {
-         const route: string = routes.wallet(this._workspaceId, walletId);
-         return this._httpClient.put<void>(route, requestBody);
-     }
+    updateWalletIdentity(requestBody: UpdateWalletIdentityDataSend): Observable<void> {
+        const route: string = routes.walletIdentity(this._workspaceId);
+        return this._httpClient.put<void>(route, requestBody);
+    }
 
-     updateWalletTheme(walletId: string, requestBody: FormData): Observable<void> {
-         const route: string = routes.wallet(this._workspaceId, walletId);
-         return this._httpClient.post<void>(route, requestBody);
-     }
+    updateWalletIcon(requestBody: FormData): Observable<void> {
+        const route: string = routes.walletIcon(this._workspaceId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
+
+    updateWalletTheme(requestBody: FormData): Observable<void> {
+        const route: string = routes.walletTheme(this._workspaceId);
+        return this._httpClient.post<void>(route, requestBody);
+    }
 }

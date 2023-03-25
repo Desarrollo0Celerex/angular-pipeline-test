@@ -31,14 +31,14 @@ export class WalletColorsService {
         this.isBuiltForm = true;
     }
 
-    loadWallet(walletId: string):Observable<Wallet> {
+    loadWallet():Observable<Wallet> {
         const fields: string = 'iconsUrl,themeId';
-        return this._walletService.getWallet(walletId, fields);
+        return this._walletService.getWallet(fields);
     }
 
     updateWallet(walletId: string): Observable<void> {
         const requestBody: FormData = this._getRequestBody();
-        return this._walletService.updateWalletTheme(walletId, requestBody);
+        return this._walletService.updateWalletTheme(requestBody);
     }
 
     private _getRequestBody(): FormData {

@@ -14,6 +14,12 @@ const ROUTES = {
     workspaceAvailablePlaces: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/available-places`,
     workspaceAvatar: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/avatar`,
     workspaceActivation: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/activate',
+    workspaceCardiumUrl: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/cardium-url',
+    workspaceFacebookUrl: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/facebook-url',
+    workspaceInstagramUrl: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/instagram-url',
+    workspaceTwitterUrl: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/twitter-url',
+    workspaceLinkedinUrl: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/linkedin-url',
+    workspaceTiktokUrl: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/tiktok-url',
     workspaceRetentionRate: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/retention-rate',
     workspaceHigherRetentionRate: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/retention-rate/higher',
     workspaceLowerRetentionRate: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/retention-rate/lower'
@@ -135,5 +141,35 @@ export class WorkspaceService {
     uploadWorkspaceAvatar(image: string | null): Observable<HttpResponse> {
         const route: string = ROUTES.workspaceAvatar(this._workspaceId);
         return this._httpClient.post<HttpResponse>(route, {image});
+    }
+
+    updateWorkspaceCardiumUrl(cardiumUrl: string): Observable<void> {
+        const route: string = ROUTES.workspaceCardiumUrl(this._workspaceId);
+        return this._httpClient.put<void>(route, {cardiumUrl});
+    }
+
+    updateWorkspaceFacebookUrl(facebookUrl: string): Observable<void> {
+        const route: string = ROUTES.workspaceFacebookUrl(this._workspaceId);
+        return this._httpClient.put<void>(route, {facebookUrl});
+    }
+
+    updateWorkspaceInstagramUrl(instagramUrl: string): Observable<void> {
+        const route: string = ROUTES.workspaceInstagramUrl(this._workspaceId);
+        return this._httpClient.put<void>(route, {instagramUrl});
+    }
+
+    updateWorkspaceTwitterUrl(twitterUrl: string): Observable<void> {
+        const route: string = ROUTES.workspaceTwitterUrl(this._workspaceId);
+        return this._httpClient.put<void>(route, {twitterUrl});
+    }
+
+    updateWorkspaceLinkedinUrl(linkedinUrl: string): Observable<void> {
+        const route: string = ROUTES.workspaceLinkedinUrl(this._workspaceId);
+        return this._httpClient.put<void>(route, {linkedinUrl});
+    }
+
+    updateWorkspaceTiktokUrl(tiktokUrl: string): Observable<void> {
+        const route: string = ROUTES.workspaceTiktokUrl(this._workspaceId);
+        return this._httpClient.put<void>(route, {tiktokUrl});
     }
 }

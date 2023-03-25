@@ -33,7 +33,7 @@ export class WalletLayout implements OnInit {
         if(!!this._activatedRoute.firstChild) {
             this._activatedRoute.firstChild.paramMap.subscribe((res: any) => {
                 this.walletId = res.get('walletId');
-                this.model.loadWallet(this.walletId);
+                this.model.loadWallet();
             });
         }
     }

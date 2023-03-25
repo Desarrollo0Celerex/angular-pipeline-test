@@ -1,1 +1,44 @@
-<p>resume works!</p>
+<!-- AGENTHOS - CONTACT CENTER CHANNEL -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Resumen de Canales</h3>
+    </div>
+    <!-- AGENTHOS - APP CREATOR STATUS CARD -->
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <strong>1. Cotizaciones</strong>
+                <!-- AGENTHOS - CONTACT CENTER CHANNEL STATUS -->
+                <a routerLink="{{'/' + ROUTES_NAME.contactCenterAdvisory}}" *ngIf="model.isCompletedAdvisory !== null">
+                    <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedAdvisory)}}"><i class="fe {{getStatusIcon(model.isCompletedAdvisory)}} mr-2"></i>{{getStatusLabel(model.isCompletedAdvisory)}}</span>
+                </a>
+            </li>
+            <!-- AGENTHOS - CONTACT CENTER CHANNEL STATUS -->
+            <li class="list-group-item">
+                <strong>2. Pagos</strong>
+                <!-- AGENTHOS - CONTACT CENTER CHANNEL STATUS -->
+                <a routerLink="{{'/' + ROUTES_NAME.contactCenterPayments}}" *ngIf="model.isCompletedPayments !== null">
+                    <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedPayments)}}"><i class="fe {{getStatusIcon(model.isCompletedPayments)}} mr-2"></i>{{getStatusLabel(model.isCompletedPayments)}}</span>
+                </a>
+            </li>
+            <!-- AGENTHOS - CONTACT CENTER CHANNEL STATUS -->
+            <li class="list-group-item">
+                <strong>3. Siniestros</strong>
+                <!-- AGENTHOS - CONTACT CENTER CHANNEL STATUS -->
+                <a routerLink="{{'/' + ROUTES_NAME.contactCenterSinisters}}" *ngIf="model.isCompletedSinisters !== null">
+                    <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedSinisters)}}"><i class="fe {{getStatusIcon(model.isCompletedSinisters)}} mr-2"></i>{{getStatusLabel(model.isCompletedSinisters)}}</span>
+                </a>
+            </li>
+            <!-- AGENTHOS - CONTACT CENTER CHANNEL STATUS -->
+            <li class="list-group-item">
+                <strong>4. Soporte</strong>
+                <!-- AGENTHOS - CONTACT CENTER CHANNEL STATUS -->
+                <a routerLink="{{'/' + ROUTES_NAME.contactCenterSupport}}" *ngIf="model.isCompletedSupport !== null">
+                    <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedSupport)}}"><i class="fe {{getStatusIcon(model.isCompletedSupport)}} mr-2"></i>{{getStatusLabel(model.isCompletedSupport)}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- //AGENTHOS - APP CREATOR STATUS CARD -->
+</div>
+<!-- //AGENTHOS - CONTACT CENTER CHANNEL -->

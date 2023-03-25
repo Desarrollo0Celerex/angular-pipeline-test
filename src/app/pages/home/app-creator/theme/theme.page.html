@@ -1,0 +1,88 @@
+<form *ngIf="model.isBuiltForm; else loadingContent" [formGroup]="model.form" (submit)="showModalToConfirmUpdateWallet()">
+    <!-- AGENTHOS - APP CREATOR PREVIEW -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Colores de la App</h3>
+        </div>
+        <!-- AGENTHOS - APP CREATOR CONFIG -->
+        <div class="card-body">
+            <!-- AGENTHOS - APP CREATOR COLOR -->
+            <div class="row">
+                <!-- AGENTHOS - APP CREATOR MOCKUP -->
+                <div class="col-md-6">
+                    <agt-device-iphone
+                        [themeName]="model.selectedColorName"
+                    ></agt-device-iphone>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR MOCKUP -->
+                <!-- AGENTHOS - APP CREATOR CONFIG -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <!-- AGENTHOS - APP CREATOR NAME -->
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <ol class="breadcrumb1">
+                                        <li class="breadcrumb-item1">Selecciona el color que deseas para tu App.</li>
+                                    </ol>
+                                    <div class="row">
+                                        <div class="form-group m-0">
+                                            <div class="row gutters-xs">
+                                                <div class="col-auto" *ngFor="let walletTheme of model.walletThemes">
+                                                    <label class="colorinput">
+                                                        <input name="color" type="checkbox" class="colorinput-input" id="walletTheme{{walletTheme.themeId}}" (click)="selectTheme(walletTheme.themeId)" />
+                                                        <span class="colorinput-color bg-{{walletTheme.name}}"></span>
+                                                    </label>
+                                                </div>                                                <!-- //AGENTHOS - APP CREATOR TEAL COLOR -->
+                                            </div>
+                                        </div>
+                                        <!-- //AGENTHOS - APP CREATOR ICON -->
+                                        <!-- AGENTHOS - CONTACT CENTER DETAILS -->
+                                        <div class="col-md-12 mt-5">
+                                            <div class="card shadow">
+                                                <div class="card-body">
+                                                    Agenthos usará este color para crear y desplegar la instalación de la App con tus prospectos y clientes.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- //AGENTHOS - CONTACT CENTER DETAILS -->
+                                    </div>
+                                    <!-- //AGENTHOS - APP CREATOR NAME -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //AGENTHOS - APP CREATOR NAME -->
+                        <!-- AGENTHOS - APP CREATOR UPDATE -->
+                        <div class="col-12">
+                            <!-- AGENTHOS - APP CREATOR UPDATE -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-block agt-btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - APP CREATOR UPDATE -->
+                        </div>
+                        <!-- //AGENTHOS - APP CREATOR UPDATE -->
+                    </div>
+                </div>
+                <!-- //AGENTHOS - APP CREATOR CONFIG -->
+            </div>
+            <!-- //AGENTHOS - APP CREATOR COLOR -->
+        </div>
+        <!-- //AGENTHOS - APP CREATOR CONFIG -->
+    </div>
+    <!-- //AGENTHOS - APP CREATOR PREVIEW -->
+</form>
+
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true" ></agt-loading-content>
+</ng-template>
+
+<agt-modal-confirm-update-wallet 
+    [modalId]="modalIdConfirmUpdateWallet" 
+    (actionConfirmed)="updateWallet()"
+></agt-modal-confirm-update-wallet>

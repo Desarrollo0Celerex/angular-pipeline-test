@@ -11,8 +11,4 @@ export class CreateWalletService {
     createWallet(): Observable<string> {
         return this._walletService.createWallet();
     }
-
-    getWalletId(): Observable<string> {
-        return this._walletService.getWalletId();
-    }
 }

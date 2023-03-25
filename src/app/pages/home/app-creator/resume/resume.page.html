@@ -1,0 +1,78 @@
+<!-- AGENTHOS - APP CREATOR PREVIEW -->
+<div class="card" *ngIf="!!model.wallet; else loadingContent">
+    <div class="card-header">
+        <h3 class="card-title">Resumen</h3>
+    </div>
+    <!-- AGENTHOS - APP CREATOR CONFIG -->
+    <div class="card-body">
+        <!-- AGENTHOS - APP CREATOR COLOR -->
+        <div class="row">
+            <!-- AGENTHOS - APP CREATOR MOCKUP -->
+            <div class="col-md-6">
+                <agt-device-iphone
+                    [themeName]="model.wallet.themeName"
+                ></agt-device-iphone>
+            </div>
+            <!-- //AGENTHOS - APP CREATOR MOCKUP -->
+            <!-- AGENTHOS - APP CREATOR RESUME -->
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <!-- AGENTHOS - APP CREATOR ACTUAL COLOR -->
+                    <div class="card-body">
+                        <div class="card-order">
+                            <h6 class="text-right">
+                                <!-- AGENTHOS - APP CREATOR - WALLET ICON -->
+                                <!-- (USE DEFAULT JUST IF NO APP ICON UPLOADED) -->
+                                <img class="avatar avatar-xxl bradius cover-image float-left" [src]="appImageUrl">
+                                <!-- //AGENTHOS - APP CREATOR - WALLET ICON -->
+                                <!-- AGENTHOS - APP CREATOR WALLET NAME -->
+                                <strong *ngIf="model.wallet.name !== null">{{model.wallet.name}}</strong><br/>
+                            </h6>
+                            <p class="text-right">
+                                <!-- AGENTHOS - APP CREATOR - WALLET KEY -->
+                                Wallet Key: <ng-container *ngIf="model.wallet.walletKey !== null">{{model.wallet.walletKey}}</ng-container><br/>
+                                <!-- AGENTHOS - APP CREATOR - WALLET CREATED AT -->
+                                Generada: <ng-container *ngIf="model.wallet.createdAt !== null">{{model.wallet.createdAt | date: 'dd/MM/yyyy'}}</ng-container><br/>
+                                <!-- AGENTHOS - APP CREATOR - WALLET LAST UPATE -->
+                                <ng-container *ngIf="model.wallet.updatedAt !== null">Actualizada: {{model.wallet.updatedAt | date: 'dd/MM/yyyy'}}</ng-container>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - APP CREATOR ACTUAL COLOR -->
+                    <!-- AGENTHOS - APP CREATOR STATUS CARD -->
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <strong>1. Identidad</strong>
+                                <a *ngIf="model.isCompletedIdentity !== null" routerLink="{{'/' + ROUTES_NAME.appCreatorIdentity}}">
+                                    <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedIdentity)}}"><i class="fe {{getStatusIcon(model.isCompletedIdentity)}} mr-2"></i>{{getStatusLabel(model.isCompletedIdentity)}}</span>
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>2. Ícono</strong>
+                                <a *ngIf="model.isCompletedIcon !== null" routerLink="{{'/' + ROUTES_NAME.appCreatorIcon}}">
+                                    <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedIcon)}}"><i class="fe {{getStatusIcon(model.isCompletedIcon)}} mr-2"></i>{{getStatusLabel(model.isCompletedIcon)}}</span>
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>3. Colores</strong>
+                                <a *ngIf="model.isCompletedTheme !== null" routerLink="{{'/' + ROUTES_NAME.appCreatorTheme}}">
+                                    <span class="badgetext badge badge-pill {{getStatusClass(model.isCompletedTheme)}}"><i class="fe {{getStatusIcon(model.isCompletedTheme)}} mr-2"></i>{{getStatusLabel(model.isCompletedTheme)}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- //AGENTHOS - APP CREATOR STATUS CARD -->
+                </div>
+            </div>
+            <!-- //AGENTHOS - APP CREATOR RESUME -->
+        </div>
+        <!-- //AGENTHOS - APP CREATOR COLOR -->
+    </div>
+    <!-- //AGENTHOS - APP CREATOR CONFIG -->
+</div>
+<!-- //AGENTHOS - APP CREATOR PREVIEW -->
+
+<ng-template #loadingContent>
+    <agt-loading-content [isLoadingContent]="true" ></agt-loading-content>
+</ng-template>

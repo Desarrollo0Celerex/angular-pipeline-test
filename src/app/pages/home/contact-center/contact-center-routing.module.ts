@@ -11,8 +11,12 @@ const routes: Routes = [{
     path: '',
     component: ContactCenterLayout,
     children: [
+      { path: ROUTES_NAME.contactCenter, redirectTo: ROUTES_NAME.contactCenterResume, pathMatch: 'full' },
       { path: ROUTES_NAME.contactCenterResume, loadChildren: () => import('@pages/home/contact-center/resume/resume.module').then(mod => mod.ResumeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
       { path: ROUTES_NAME.contactCenterAdvisory, loadChildren: () => import('@pages/home/contact-center/advisory/advisory.module').then(mod => mod.AdvisoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+      { path: ROUTES_NAME.contactCenterPayments, loadChildren: () => import('@pages/home/contact-center/payments/payments.module').then(mod => mod.PaymentsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+      { path: ROUTES_NAME.contactCenterSinisters, loadChildren: () => import('@pages/home/contact-center/sinisters/sinisters.module').then(mod => mod.SinistersModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
+      { path: ROUTES_NAME.contactCenterSupport, loadChildren: () => import('@pages/home/contact-center/support/support.module').then(mod => mod.SupportModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
     ]
 }];
 
