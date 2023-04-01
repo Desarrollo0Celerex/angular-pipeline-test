@@ -11,12 +11,12 @@ declare var ModalPlugin: any;
 })
 export class modalConfirmApplyEndorsementWithIncrementComponent {
     @Input() currencyName: string = "";
-    @Input() capturedFractionalReceiptAmount: number = 0;
+    @Input() fractionalReceiptAmount: number = 0;
     @Input() endorsementAmount: number = 0;
-    @Input() endorsementEmissionDate: string = '';
+    @Input() endorsementValidityStartDate: string = '';
     @Input() modalId: string = "";
     @Input() policyAmount: number = 0;
-    @Input() selectedEndorsementPaymentMethod: number = 0;
+    @Input() endorsementPaymentMethodId: number = 0;
     @Output() actionConfirmed: EventEmitter<void> = new EventEmitter<void>();
     ENDORSEMENT_PAYMENT_METHODS: any = ENDORSEMENT_PAYMENT_METHODS;
 

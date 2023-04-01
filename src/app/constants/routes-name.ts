@@ -150,6 +150,7 @@ const HOME_POLICIES_ROUTES = {
 }
 
 const HOME_POLICY_ENDORSEMENTS_ROUTES = {
+    createEndorsement: (contactId: string, policyId: string) => `workspace/policies/create-endorsement/${contactId}/${policyId}`,
     policyEndorsementsHistory: (contactId: string, policyId: string) => `workspace/policies/endorsements/history/${contactId}/${policyId}`,
 }
 

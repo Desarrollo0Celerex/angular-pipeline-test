@@ -106,6 +106,9 @@ export const PAYMENT_STATUS: any = {
     PAID: 5,
     STANDBY: 6
 }
+export const PAYMENT_SOURCE_TYPES: any = {
+    POLICY: 1
+}
 export const PAYMENT_PLANS: any = {
     SINGLE_PAYMENT: 1,
     ANNUAL: 5,

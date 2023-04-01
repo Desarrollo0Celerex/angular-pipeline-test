@@ -38,5 +38,6 @@ export interface Payment {
     discount: number,
     paymentPlanReceips: number,
     paymentPlanId: number,
-    isPreauthorizedPayment: string
+    isPreauthorizedPayment: string,
+    paymentSourceTypeId: number
 }

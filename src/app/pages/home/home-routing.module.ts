@@ -97,6 +97,7 @@ const routes: Routes = [
             { path: ROUTES_NAME.workspacePoliciesRenewedByRange, loadChildren: () => import('@pages/home/policies/workspace-policies-renewed-by-range/workspace-policies-renewed-by-range.module').then( mod => mod.WorkspacePoliciesRenewedByRangeModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Policy endorsements routes
+            { path: ROUTES_NAME.createEndorsement(':contactId', ':policyId'), loadChildren: () => import('@pages/home/endorsements/create-endorsement/create-endorsement.module').then(mod => mod.CreateEndorsementModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
             { path: ROUTES_NAME.policyEndorsementsHistory(':contactId', ':policyId'), loadChildren: () => import('@pages/home/endorsements/policy-endorsements-history/policy-endorsements-history.module').then(mod => mod.PolicyEndorsementsHistoryModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },
 
             // Quotations routes

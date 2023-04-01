@@ -454,10 +454,10 @@
     [modalId]="modalIdConfirmApplyEndorsementWithIncrement"
     [policyAmount]="policyAmount"
     [endorsementAmount]="endorsementAmount"
-    [capturedFractionalReceiptAmount]="capturedFractionalReceiptAmount"
-    [selectedEndorsementPaymentMethod]="selectedEndorsementPaymentMethod"
+    [fractionalReceiptAmount]="capturedFractionalReceiptAmount"
+    [endorsementPaymentMethodId]="selectedEndorsementPaymentMethod"
     [currencyName]="currencyName"
-    [endorsementEmissionDate]="selectedEndorsementEmissionDate"
+    [endorsementValidityStartDate]="selectedEndorsementEmissionDate"
     (actionConfirmed)="applyEndorsementWithIncrement()"
 ></agt-modal-confirm-apply-endorsement-with-increment>
 <agt-modal-notify-endorsement-cannot-be-applied
