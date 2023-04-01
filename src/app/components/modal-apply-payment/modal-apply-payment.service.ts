@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { PAYMENT_PLANS } from '@constants/global';
+import { PAYMENT_PLANS, PAYMENT_SOURCE_TYPES } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
@@ -64,7 +64,7 @@ export class ModalApplyPaymentService {
      * @return           Notice of action done
      */
     loadPayment(paymentId: string): Observable<void> {
-        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay,discount,paymentPlanReceips,paymentPlanId';
+        const fields: string = 'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay,discount,paymentPlanReceips,paymentPlanId,paymentSourceTypeId';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap( (res: HttpResponse) => {
                 this.payment = res.data;
@@ -99,7 +99,7 @@ export class ModalApplyPaymentService {
         let formattedPaymentAmount: string = '';
         if(!!this.payment) {
             let receiptsAmount: number = 0;
-            receiptsAmount = (this.payment.tickets === 0 && this.payment.paymentPlanId != PAYMENT_PLANS.SINGLE_PAYMENT && this.payment.paymentPlanId != PAYMENT_PLANS.ANNUAL)
+            receiptsAmount = (this.payment.paymentSourceTypeId === PAYMENT_SOURCE_TYPES.POLICY &&  this.payment.tickets === 0 && this.payment.paymentPlanId != PAYMENT_PLANS.SINGLE_PAYMENT && this.payment.paymentPlanId != PAYMENT_PLANS.ANNUAL)
                 ? this._calculateFirstPaymentAmount(this.payment.paymentPlanReceips, this.payment.netPay, this.payment.feePay, this.payment.coverPay, this.payment.extraPay, this.payment.taxPay, this.payment.discount)
                 : this.payment.pendingAmount / this.payment.pendingReceipts;
             formattedPaymentAmount = this._currencyPipe.transform(receiptsAmount, '', '', '0.2-2') || '';

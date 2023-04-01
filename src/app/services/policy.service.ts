@@ -65,10 +65,10 @@ const routes: any = {
     insurancesPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/insurances/policies',
     policiesRenewsStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/renews',
     cancelledPoliciesStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies/cancelled',
-    endorsePolicyWithCancellation: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-cancellation',
-    endorsePolicyWithChanges: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-changes',
-    endorsePolicyWithDecrement: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-decrement',
-    endorsePolicyWithIncrement: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-increment',
+    createEndorsementWithCancellation: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-cancellation',
+    createEndorsementWithChanges: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-changes',
+    createEndorsementWithDecrement: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-decrement',
+    createEndorsementWithIncrement: (workspaceId: string, contactId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/contacts/' + contactId + '/policies/' + policyId + '/endorsements/with-increment',
     workspaceActivePoliciesReport: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/reports/actives',
     workspacePolicyStats: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/stats',
     workspacePolicy: (workspaceId: string, policyId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/policies/policies/' + policyId,
@@ -370,23 +370,23 @@ export class PolicyService {
         return this._httpClient.post<void>(route, requestBody);
     }
 
-    endorsePolicyWithCancellation(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
-        const route: string = routes.endorsePolicyWithCancellation(this._workspaceId, contactId, policyId);
+    createEndorsementWithCancellation(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.createEndorsementWithCancellation(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
     }
 
-    endorsePolicyWithChanges(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
-        const route: string = routes.endorsePolicyWithChanges(this._workspaceId, contactId, policyId);
+    createEndorsementWithChanges(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.createEndorsementWithChanges(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
     }
 
-    endorsePolicyWithDecrement(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
-        const route: string = routes.endorsePolicyWithDecrement(this._workspaceId, contactId, policyId);
+    createEndorsementWithDecrement(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.createEndorsementWithDecrement(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
     }
 
-    endorsePolicyWithIncrement(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
-        const route: string = routes.endorsePolicyWithIncrement(this._workspaceId, contactId, policyId);
+    createEndorsementWithIncrement(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
+        const route: string = routes.createEndorsementWithIncrement(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
     }
 

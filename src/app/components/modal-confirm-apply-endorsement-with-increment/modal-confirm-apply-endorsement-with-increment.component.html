@@ -15,7 +15,7 @@
 						<p class="text-justify">
 							La prima actual de <strong>{{policyAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> incrementará a <strong>{{policyAmount + endorsementAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong>.
 						</p>
-						<ng-container [ngSwitch]="selectedEndorsementPaymentMethod">
+						<ng-container [ngSwitch]="endorsementPaymentMethodId">
 
 							<ng-container *ngSwitchCase="ENDORSEMENT_PAYMENT_METHODS.POLICY_RECEIPTS">
 								<ng-container *ngTemplateOutlet="policyReceipts"></ng-container>
@@ -43,8 +43,8 @@
 <!-- //AGENTHOS - ENDORSEMENT GENERATE TICKET -->
 
 <ng-template #policyReceipts>
-	<p class="text-justify" *ngIf="!!capturedFractionalReceiptAmount; else noFractionalReceiptAmountPolicyReceipts">
-		Existe un recibo fraccionado de <strong>{{capturedFractionalReceiptAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> y el monto restante se cobrará junto con los recibos pendientes de la póliza. <strong>Por favor confirma si deseas continuar</strong>.
+	<p class="text-justify" *ngIf="!!fractionalReceiptAmount; else noFractionalReceiptAmountPolicyReceipts">
+		Existe un recibo fraccionado de <strong>{{fractionalReceiptAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> y el monto restante se cobrará junto con los recibos pendientes de la póliza. <strong>Por favor confirma si deseas continuar</strong>.
 	</p>
 	<ng-template #noFractionalReceiptAmountPolicyReceipts>
 		<p class="text-justify">
@@ -54,8 +54,8 @@
 </ng-template>
 
 <ng-template #independentReceipts>
-	<p class="text-justify" *ngIf="!!capturedFractionalReceiptAmount; else noFractionalReceiptAmountIndependentReceipts">
-		Existe un recibo fraccionado de <strong>{{capturedFractionalReceiptAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> y el monto restante se cobrará junto con los recibos independientes de la póliza. <strong>Por favor confirma si deseas continuar</strong>.
+	<p class="text-justify" *ngIf="!!fractionalReceiptAmount; else noFractionalReceiptAmountIndependentReceipts">
+		Existe un recibo fraccionado de <strong>{{fractionalReceiptAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> y el monto restante se cobrará junto con los recibos independientes de la póliza. <strong>Por favor confirma si deseas continuar</strong>.
 	</p>
 	<ng-template #noFractionalReceiptAmountIndependentReceipts>
 		<p class="text-justify">
@@ -65,5 +65,5 @@
 </ng-template>
 
 <ng-template #singleReceipt>
-	<p class="text-justify">El incremento de prima será cobrado con un recibo único de <strong>{{endorsementAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> con fecha de pago para el <strong>{{endorsementEmissionDate}}</strong>. <strong>Por favor confirma si deseas continuar</strong>.</p>
+	<p class="text-justify">El incremento de prima será cobrado con un recibo único de <strong>{{endorsementAmount | currency: '': '$': '0.2-2'}} {{currencyName}}</strong> con fecha de pago para el <strong>{{endorsementValidityStartDate}}</strong>. <strong>Por favor confirma si deseas continuar</strong>.</p>
 </ng-template>

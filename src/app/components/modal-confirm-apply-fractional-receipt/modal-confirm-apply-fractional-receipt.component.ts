@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
 export class modalConfirmApplyFractionalReceiptComponent implements OnChanges {
     @Input() modalId: string = '';
     @Input() maxAmount: number = 0;
+    @Input() fractionalReceiptAmount: number = 0;
     @Output() actionCancelled: EventEmitter<void> = new EventEmitter<void>();
     @Output() actionConfirmed: EventEmitter<number> = new EventEmitter<number>();
     private _isFormSubmitted: boolean = false;
@@ -25,8 +26,11 @@ export class modalConfirmApplyFractionalReceiptComponent implements OnChanges {
     constructor(public model: modalConfirmApplyFractionalReceiptService) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.maxAmount.currentValue) {
+        if(!!changes.maxAmount && !!changes.maxAmount.currentValue) {
             this.model.buildForm(this.maxAmount);
+        }
+        if(!!changes.fractionalReceiptAmount && !!changes.fractionalReceiptAmount.currentValue) {
+            this.model.form.patchValue({fractionalReceiptAmount: changes.fractionalReceiptAmount.currentValue});
         }
     }
 

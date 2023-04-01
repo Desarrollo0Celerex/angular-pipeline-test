@@ -6,6 +6,7 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 import * as moment from 'moment';
 
 export class UtilitiesHelper {
+    static specialSimbols: string[] = ['-', '[', ']', '/', '{', '}', '(', ')', '*', '+', '?', '.', '^', '$', '|']
 
     static calculateNextPaymentDate(paymentDate: string, paymentPlanMonths: string, paymentDay: number): string {
         let nextPaymentDate: string = moment(paymentDate).add(paymentPlanMonths, 'months').format('YYYY-MM-DD');
@@ -38,6 +39,40 @@ export class UtilitiesHelper {
                 isHistoryContent = false;
         }
         return isHistoryContent;
+    }
+
+    static days360(startDate: string, endDate: string) {
+        let d1 = new Date(startDate);
+        let d2 = new Date(endDate);
+        let d1_y = d1.getFullYear();
+        let d2_y = d2.getFullYear();
+        let dy = 0;
+        let d1_m = d1.getMonth();
+        let d2_m = d2.getMonth();
+        let dm = 0;
+        let d1_d = d1.getDate();
+        let d2_d = d2.getDate();
+        let dd = 0;
+        if (d1_d == 31) d1_d = 30;
+        if (d2_d == 31) {
+            if (d1_d < 30) {
+                if (d2_m == 11) {
+                    d2_y = d2_y + 1;
+                    d2_m = 0;
+                    d2_d = 1;
+                } else {
+                    d2_m = d2_m + 1;
+                    d2_d = 1;
+                }
+            } else {
+                d2_d = 30;
+            }
+        }
+        dy = d2_y - d1_y;
+        dm = d2_m - d1_m;
+        dd = d2_d - d1_d;
+        const result = dy * 360 + dm * 30 + dd;
+        return parseFloat(result.toString());
     }
 
     /**
@@ -120,11 +155,11 @@ export class UtilitiesHelper {
     static removeCommasFromQuantity(quantity: string): string {
         quantity = quantity.toString();
         if(ValidatorsHelper.isValidAmounSpanish(quantity)) {
-            quantity = quantity.replace('.', '&');
-            quantity = quantity.replace(',', '.');
-            quantity = quantity.replace('&', ',');
+            quantity = this._replaceAll('.', '&', quantity);
+            quantity = this._replaceAll(',', '.', quantity);
+            quantity = this._replaceAll('&', ',', quantity);
         }
-        return quantity.replace(',', '');
+        return this._replaceAll(',', '', quantity);
     }
 
     static generateKey(length: number = 5): string {
@@ -135,6 +170,14 @@ export class UtilitiesHelper {
           key += characters.charAt(Math.floor(Math.random() * charactersLength));
        }
        return key;
+    }
+
+    private static _replaceAll(search: string, replace: string, cad: string): string {
+        if(this.specialSimbols.includes(search)) {
+            search = '\\'+search;
+        }
+        const searchRegExp = new RegExp(search, 'g');
+        return cad.replace(searchRegExp, replace);
     }
 
 }

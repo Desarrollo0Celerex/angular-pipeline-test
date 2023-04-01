@@ -9,6 +9,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.43.1',
+            launchDate: '31/03/2023',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se actualizo interfaz de aplicación de endosos para integrar nueva UI, nuevos campos de vigencia y montos del endoso, así como también el calculo automático del recibo fraccionado en los montos de incremento de prima.',
+                        'Se resolvio bug al capturar cantidades grandes con el simbolo "," (coma)'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.43.0',
             launchDate: '24/03/2023',
             changes: [

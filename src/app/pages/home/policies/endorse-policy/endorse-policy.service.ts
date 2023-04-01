@@ -210,22 +210,22 @@ export class EndorsePolicyService {
 
     endorsePolicyWithCancellation(contactId: string, policyId: string): Observable<void> {
         const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithCancellation();
-        return this._policyService.endorsePolicyWithCancellation(contactId, policyId, requestBody);
+        return this._policyService.createEndorsementWithCancellation(contactId, policyId, requestBody);
     }
 
     endorsePolicyWithChanges(contactId: string, policyId: string): Observable<void> {
         const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithChanges();
-        return this._policyService.endorsePolicyWithChanges(contactId, policyId, requestBody);
+        return this._policyService.createEndorsementWithChanges(contactId, policyId, requestBody);
     }
 
     endorsePolicyWithDecrement(contactId: string, policyId: string): Observable<void> {
         const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithDecrement();
-        return this._policyService.endorsePolicyWithDecrement(contactId, policyId, requestBody);
+        return this._policyService.createEndorsementWithDecrement(contactId, policyId, requestBody);
     }
 
     endorsePolicyWithIncrement(contactId: string, policyId: string, fractionalReceiptAmount: number, endorsementPaymentMethodId: number): Observable<void> {
         const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithIncrement(fractionalReceiptAmount, endorsementPaymentMethodId);
-        return this._policyService.endorsePolicyWithIncrement(contactId, policyId, requestBody);
+        return this._policyService.createEndorsementWithIncrement(contactId, policyId, requestBody);
     }
 
     /**

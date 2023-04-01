@@ -73,5 +73,7 @@ export interface Policy {
     policyCommission: number,
     policyCommissionAmount: number,
     workspaceCommission: number,
-    workspaceAgentNumber: string
+    workspaceAgentNumber: string,
+    paymentAmount: number,
+    paymentAmountPaid: number,
 }
