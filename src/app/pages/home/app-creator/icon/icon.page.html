@@ -17,71 +17,50 @@
                 <!-- //AGENTHOS - APP CREATOR MOCKUP -->
                 <!-- AGENTHOS - APP CREATOR CONFIG -->
                 <div class="col-md-6">
-                    <div class="row">
-                        <!-- AGENTHOS - APP CREATOR NAME -->
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <ol class="breadcrumb1">
-                                        <li class="breadcrumb-item1">Selecciona el ícono que deseas para tu App.</li>
-                                    </ol>
-                                    <div class="row">
-                                        <!-- AGENTHOS - APP CREATOR ICON -->
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <!-- AGENTHOS - APP CREATOR ICON SELECTOR -->
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card-body agt-p0 {{getValidationClass('icon')}}">
-                                                            <input type="file" class="dropify" accept="image/x-png;image/jpeg" data-height="140" (change)="selectIcon($event)" [attr.data-default-file]="iconsUrl"/>
-                                                        </div>
-                                                        <div class="invalid-feedback">{{getErrorMessage('icon')}}</div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="card shadow">
-                                                            <div class="card-footer">
-                                                                <strong>JPG o PNG transparente</strong><br/>
-                                                                <strong>300px por 300px</strong><br/>
-                                                                <strong>Tamaño máximo de 2 MB.</strong>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- //AGENTHOS - APP CREATOR ICON SELECTOR -->
-                                            </div>
-                                        </div>
-                                        <!-- //AGENTHOS - APP CREATOR ICON -->
-                                        <!-- AGENTHOS - CONTACT CENTER DETAILS -->
-                                        <div class="col-md-12 mt-5">
-                                            <div class="card shadow">
-                                                <div class="card-body">
-                                                    Agenthos usará este icono para crear y desplegar la instalación de la App con tus prospectos y clientes.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- //AGENTHOS - CONTACT CENTER DETAILS -->
-                                    </div>
-                                    <!-- //AGENTHOS - APP CREATOR NAME -->
+                    <div class="card">
+                        <div class="card-body">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">Selecciona el ícono que deseas para tu App.</li>
+                            </ol>
+                            
+                            <div class="col-md-12">
+                                <!-- AGENTHOS - APP ICON * -->
+                                <div class="{{getValidationClass('icon')}}">
+                                    <input type="file" class="dropify" accept="image/x-png;image/jpeg" data-height="140" (change)="selectIcon($event)" [attr.data-default-file]="iconsUrl"/>
                                 </div>
+                                <div class="invalid-feedback">{{getErrorMessage('icon')}}</div>
                             </div>
-                        </div>
-                        <!-- //AGENTHOS - APP CREATOR NAME -->
-                        <!-- AGENTHOS - APP CREATOR UPDATE -->
-                        <div class="col-12">
-                            <!-- AGENTHOS - APP CREATOR UPDATE -->
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="submit" class="btn btn-block agt-btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
-                                        </div>
+                            <div class="col-md-12 mt-3">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        <strong>JPG o PNG transparente</strong><br/>
+                                        <strong>300px por 300px</strong><br/>
+                                        <strong>Tamaño máximo de 2 MB.</strong>
                                     </div>
                                 </div>
                             </div>
-                            <!-- //AGENTHOS - APP CREATOR UPDATE -->
+
+                            <!-- AGENTHOS - CONTACT CENTER DETAILS -->
+                            <div class="col-md-12 mt-5">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        Agenthos usará este icono para crear y desplegar la instalación de la App con tus prospectos y clientes.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - CONTACT CENTER DETAILS -->
                         </div>
-                        <!-- //AGENTHOS - APP CREATOR UPDATE -->
                     </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-block agt-btn-primary"><strong>GUARDAR CAMBIOS</strong></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - APP CREATOR UPDATE -->
                 </div>
                 <!-- //AGENTHOS - APP CREATOR CONFIG -->
             </div>

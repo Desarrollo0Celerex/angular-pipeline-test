@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { AlertHelper } from '@helpers/alert.helper';
+
 declare var ModalPlugin: any;
 
 @Component({
@@ -18,6 +20,7 @@ export class ModalShareLinkByDirectLinkComponent {
     copyLink(): void {
         navigator.clipboard.writeText(this.link);
         ModalPlugin.hide(this.modalId);
+        AlertHelper.linkCopied();
     }
 
 }

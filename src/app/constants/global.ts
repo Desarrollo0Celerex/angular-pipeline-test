@@ -57,8 +57,8 @@ export const FORMAT_TYPES: any = {
 
 export const LICENSES: any = {
     LITE: 1,
-    MAX: 2,
-    PRO: 3,
+    PRO: 2,
+    ULTRA: 3,
 }
 
 // Dropify

@@ -33,14 +33,14 @@ export class IdentityService {
         })
 
         // Update canShowCertificate only if your license allows it
-        if(wallet.licenseId !== LICENSES.PRO) {
+        if(wallet.licenseId < LICENSES.PRO) {
             this.f.canShowCertificate.disable();
         }
         this.isBuiltForm = true;
     }
 
     checkCanShowContainerShowCertificate(): void {
-        if(this.licenseId !== LICENSES.PRO) {
+        if(this.licenseId < LICENSES.PRO) {
             this.canShowContainerShowCertificate = true;
         }
     }
