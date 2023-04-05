@@ -238,6 +238,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static linkCopied(): void {
+        const alertData: Alert = {
+            title: 'Enlace Copiado',
+            text: 'El enlace se copió con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static partnerCreated(): void {
         const alertData: Alert = {
             title: 'Socio Creado',

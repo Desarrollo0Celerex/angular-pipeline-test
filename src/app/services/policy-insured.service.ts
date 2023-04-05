@@ -13,15 +13,18 @@ import { UpdatePolicyInsuredStatus } from '@interfaces/update-policy-insured-sta
 import { AuthService } from '@services/auth.service';
 
 const ROUTES = {
-    analyzeInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/analyze`,
-    downloadErrors: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/errors`,
-    exportInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/export`,
-    importInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/import`,
     policyInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds`,
     policyInsured: (workspaceId: string, contactId: string, policyId: string, policyInsuredId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds/${policyInsuredId}`,
     policyInsuredStatus: (workspaceId: string, contactId: string, policyId: string, policyInsuredId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds/${policyInsuredId}/status`,
     reportFlotilla: (workspaceId: string, contactId: string, policyId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/reports/flotilla`,
     reportFlotillas: (workspaceId: string, contactId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/reports/flotillas`
+}
+
+const ROUTES_IMPORTER = {
+    analyzeInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.importerApiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/analyze`,
+    downloadErrors: (workspaceId: string, contactId: string, policyId: string) => `${environment.importerApiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/errors`,
+    exportInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.importerApiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/export`,
+    importInsureds: (workspaceId: string, contactId: string, policyId: string) => `${environment.importerApiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insured-actions/import`,
 }
 
 @Injectable()
@@ -34,7 +37,7 @@ export class PolicyInsuredService {
     ) { }
 
     analyzeInsureds(contactId: string, policyId: string, requestBody: FormData): Observable<AnalizeInsuredsResponse> {
-        const route: string = ROUTES.analyzeInsureds(this._workspaceId, contactId, policyId);
+        const route: string = ROUTES_IMPORTER.analyzeInsureds(this._workspaceId, contactId, policyId);
         return this._httpClient.post<HttpResponse>(route, requestBody).pipe(
             map((res: HttpResponse) => res.data)
         );
@@ -58,7 +61,7 @@ export class PolicyInsuredService {
     }
 
     downloadErrorsFile(contactId: string, policyId: string, requestBody: FormData) {
-        const route: string = ROUTES.downloadErrors(this._workspaceId, contactId, policyId);
+        const route: string = ROUTES_IMPORTER.downloadErrors(this._workspaceId, contactId, policyId);
         let params: HttpParams = new HttpParams();
         params.append('observe', 'response');
         params.append('responseType', 'arraybuffer');
@@ -99,7 +102,7 @@ export class PolicyInsuredService {
     }
 
     exportInsureds(contactId: string, policyId: string) {
-        const route: string = ROUTES.exportInsureds(this._workspaceId, contactId, policyId);
+        const route: string = ROUTES_IMPORTER.exportInsureds(this._workspaceId, contactId, policyId);
         let params: HttpParams = new HttpParams();
         params.append('observe', 'response');
         params.append('responseType', 'arraybuffer');
@@ -176,7 +179,7 @@ export class PolicyInsuredService {
     }
 
     importInsureds(contactId: string, policyId: string, requestBody: FormData): Observable<void> {
-        const route: string = ROUTES.importInsureds(this._workspaceId, contactId, policyId);
+        const route: string = ROUTES_IMPORTER.importInsureds(this._workspaceId, contactId, policyId);
         return this._httpClient.post<void>(route, requestBody);
     }
 

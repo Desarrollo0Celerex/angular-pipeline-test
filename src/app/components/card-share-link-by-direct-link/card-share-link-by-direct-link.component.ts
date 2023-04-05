@@ -10,6 +10,9 @@ declare var ModalPlugin: any;
 })
 export class CardShareLinkByDirectLinkComponent {
     @Input() description: string = '';
+    @Input() copyTitle: string = '';
+    @Input() copySubtitle: string = '';
+    @Input() copyDescription: string = '';
     @Input() link: string = '';
     modalIdShareLinkByDirectLink: string = 'agt-share-link-by-direct-link';
 

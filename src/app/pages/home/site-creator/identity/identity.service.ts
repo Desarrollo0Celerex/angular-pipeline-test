@@ -48,13 +48,13 @@ export class IdentityService {
     }
 
     checkCanShowContainerEditDomain(): void {
-        if(this.licenseId !== LICENSES.PRO) {
+        if(this.licenseId < LICENSES.PRO) {
             this.canShowContainerEditDomain = true;
         }
     }
 
     checkCanShowContainerShowCertificate(): void {
-        if(this.licenseId !== LICENSES.PRO) {
+        if(this.licenseId < LICENSES.PRO) {
             this.canShowContainerShowCertificate = true;
         }
     }

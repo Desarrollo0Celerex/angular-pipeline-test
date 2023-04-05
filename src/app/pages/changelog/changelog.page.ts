@@ -9,6 +9,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.43.2',
+            launchDate: '04/04/2023',
+            changes: [
+                {
+                    title: 'Welcome',
+                    items: [
+                        'Se actualizo modulo Welcome para arreglar unos detalles pendientes.',
+                        'Se integro conexión a nueva API que gestionara el analisis, importación y exportación de asegurados de una póliza'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.43.1',
             launchDate: '31/03/2023',
             changes: [
