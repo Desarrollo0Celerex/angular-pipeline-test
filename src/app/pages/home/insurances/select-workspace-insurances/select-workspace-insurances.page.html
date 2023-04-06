@@ -1,0 +1,61 @@
+<!-- AGENTHOS - LEAD GENERATOR BOT -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Lead Generator</h3>
+                <div class="card-options">
+                    <i data-toggle="popover" data-placement="left" class="fe fe-help-circle fs-20 agt-help-mark" data-content="Activación de generador de prospectos."></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <ol class="breadcrumb1">
+                    <li class="breadcrumb-item1">Activa el generador de prospectos para los seguros que deseas promover en tus canales digitales.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - LEAD GENERATOR BOT -->
+
+<!-- AGENTHOS - LEAD GENERATOR PRODUCTS -->
+<ng-container *ngIf="model.contentLoaded === true; else containerLoadingContent">
+    <ng-container *ngFor="let license of model.licenseInsurances">
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Seguros {{license.shortName}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AGENTHOS - LEAD GENERATOR PRODUCTS LITE -->
+        <div class="row">
+            <!-- AGENTHOS - AUTOS -->
+            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3" *ngFor="let licenseInsurance of license.insurances">
+                <agt-card-license-insurance 
+                    [licenseInsurance]="licenseInsurance"
+                    [insuranceLicenseId]="license.licenseId"
+                    [workspaceLicenseId]="model.workspaceLicenseId"
+                    (actionNotAllowed)="showAlertUpgradeLicense()"
+                    (addWorkspaceInsurance)="addWorkspaceInsurance($event)"
+                    (removeWorkspaceInsurance)="removeWorkspaceInsurance($event)"
+                ></agt-card-license-insurance>
+            </div>
+            <!-- //AGENTHOS - AUTOS -->
+        </div>
+        <!-- //AGENTHOS - LEAD GENERATOR PRODUCTS LITE -->
+    </ng-container>
+</ng-container>
+<!-- //AGENTHOS - LEAD GENERATOR PRODUCTS -->
+
+<ng-template #containerLoadingContent>
+    <div class="card-body">
+        <agt-loading-content
+            [isLoadingContent]="true"
+            [height]="150"
+        ></agt-loading-content>
+    </div>
+</ng-template>

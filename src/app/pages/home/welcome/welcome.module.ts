@@ -6,6 +6,7 @@ import { CardModuleModule } from '@components/card-module/card-module.module';
 import { ModalConfirmGoToAgenthosAcademyModule } from '@components/modal-confirm-go-to-agenthos-academy/modal-confirm-go-to-agenthos-academy.module';
 import { ModalConfirmGoToAgenthosHubModule } from '@components/modal-confirm-go-to-agenthos-hub/modal-confirm-go-to-agenthos-hub.module';
 import { ModalConfirmGoToAgenthosSupportModule } from '@components/modal-confirm-go-to-agenthos-support/modal-confirm-go-to-agenthos-support.module';
+import { WorkspaceInsuranceService } from '@services/workspace-insurance.service';
 import { SiteService } from '@services/site.service';
 import { WalletService } from '@services/wallet.service';
 import { WorkspaceService } from '@services/workspace.service';
@@ -35,6 +36,7 @@ import { WelcomeService } from './welcome.service';
     WelcomeService,
     WorkspaceService,
     WorkspaceDirectoryService,
+    WorkspaceInsuranceService,
     WorkspaceUserService
   ]
 })

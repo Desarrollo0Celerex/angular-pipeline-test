@@ -14,6 +14,8 @@ export class CardModuleComponent {
     @Input() description: string = '';
     @Input() route: string = '';
     @Input() isCompleted: boolean | null = null;
+    @Input() labelStatusCompleted: string = 'Completado';
+    @Input() labelStatusIncomplete: string = 'Configurar';
 
     get buttonClass(): string {
         return (this.isCompleted) ? 'agt-btn-success-light' : 'agt-btn-warning-light'
@@ -24,6 +26,6 @@ export class CardModuleComponent {
     }
 
     get buttonLabel(): string {
-        return (this.isCompleted) ? 'COMPLETADO	' : 'CONFIGURAR'
+        return (this.isCompleted) ? this.labelStatusCompleted : this.labelStatusIncomplete;
     }
 }

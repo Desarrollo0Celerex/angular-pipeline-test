@@ -6,13 +6,15 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { AuthService } from '@services/auth.service';
+import { Insurance } from '@interfaces/insurance.interface';
 
 const routes = {
-    insurances: environment.apiUrl + '/insurances',
-    mostUsedInsurances: (workspaceId: string, contactTypeId: number) => environment.apiUrl + '/workspaces/'+workspaceId+'/contact-types/'+contactTypeId+'/insurances',
     activeInsurances: (workspaceId: string) => environment.apiUrl + '/workspaces/'+workspaceId+'/insurances/active',
     categoryInsurances: (insuranceCategoryId: number) => environment.apiUrl + '/insurance-categories/' + insuranceCategoryId + '/insurances',
-    subcategoryInsurances: (insuranceSubcategoryId: number) => environment.apiUrl + '/insurance-subcategories/' + insuranceSubcategoryId + '/insurances'
+    licenseInsurances: (licenseId: number) => environment.apiUrl + '/licenses/' + licenseId + '/insurances',
+    insurances: environment.apiUrl + '/insurances',
+    mostUsedInsurances: (workspaceId: string, contactTypeId: number) => environment.apiUrl + '/workspaces/'+workspaceId+'/contact-types/'+contactTypeId+'/insurances',
+    subcategoryInsurances: (insuranceSubcategoryId: number) => environment.apiUrl + '/insurance-subcategories/' + insuranceSubcategoryId + '/insurances',
 }
 
 @Injectable()
@@ -34,6 +36,14 @@ export class InsuranceService {
         let params: HttpParams = new HttpParams();
         if(!!fields) params = params.append('fields', fields);
         params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, {params});
+    }
+
+    getLicenseInsurances(licenseId: number, fields: string = '', sortBy: string = ''): Observable<HttpResponse> {
+        const route = routes.licenseInsurances(licenseId);
+        let params: HttpParams = new HttpParams();
+        params = params.append('fields', fields);
+        if(!!sortBy) params = params.append('sortBy', sortBy);
         return this._httpClient.get<HttpResponse>(route, {params});
     }
 

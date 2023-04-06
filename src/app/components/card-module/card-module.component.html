@@ -8,7 +8,7 @@
     </div>
     <div class="card-footer" *ngIf="isCompleted !== null">
         <a [routerLink]="'/' + route">
-            <button type="button" class="btn btn-block {{buttonClass}}"><i class="fe {{buttonIcon}} mr-2"></i><strong>{{buttonLabel}}</strong></button>
+            <button type="button" class="btn btn-block {{buttonClass}}"><i class="fe {{buttonIcon}} mr-2"></i><strong>{{buttonLabel | uppercase}}</strong></button>
         </a>
     </div>
 </div>

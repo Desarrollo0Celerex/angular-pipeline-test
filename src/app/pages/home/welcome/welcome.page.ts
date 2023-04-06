@@ -26,6 +26,7 @@ export class WelcomePage implements OnInit {
         this.model.loadSocialConnectStatus();
         this.model.loadAppCreatorStatus();
         this.model.loadSiteCreatorStatus();
+        this.model.loadLeadGeneratorStatus();
     }
     
     showModalToConfirmGoToAgenthosAcademy(): void {

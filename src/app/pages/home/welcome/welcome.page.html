@@ -123,6 +123,35 @@
 </div>
 <!-- //AGENTHOS - WORKSPACE MODULES -->
 
+<div class="row mt-5">
+    <div class="col-12">
+        <agt-card-content-title
+            title="Prospección Automática"
+            description="Activación de Prospección Automática."
+        ></agt-card-content-title>
+    </div>
+</div>
+
+<!-- AGENTHOS - WORKSPACE LEAD GENERATION -->
+<div class="row">
+    <!-- AGENTHOS - LEAD GENERATOR -->
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <agt-card-module
+            title="Lead Generator"
+            subtitle="Generador de Prospectos"
+            subdescription="Activa el"
+            description="y selecciona los seguros que deseas promover en tus canales digitales."
+            icon="fa-address-card-o"
+            [route]="ROUTES_NAME.selectWorkspaceInsurances"
+            [isCompleted]="model.leadGeneratorIsCompleted"
+            labelStatusCompleted="Activado"
+            labelStatusIncomplete="Activar"
+        ></agt-card-module>
+    </div>
+    <!-- //AGENTHOS - LEAD GENERATOR -->
+</div>
+<!-- //AGENTHOS - WORKSPACE MODULES -->
+
 <agt-modal-confirm-go-to-agenthos-hub
     [modalId]="modalIdConfirmGoToAgenthosHub"
 ></agt-modal-confirm-go-to-agenthos-hub>

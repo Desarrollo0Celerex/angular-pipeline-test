@@ -795,4 +795,34 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static workspaceInsuranceAdded(): void {
+        const alertData: Alert = {
+            title: 'Producto Activado',
+            text: 'El producto fue activado con éxito.',
+            type: 'success',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static workspaceInsuranceRemoved(): void {
+        const alertData: Alert = {
+            title: 'Producto Desactivado',
+            text: 'El producto fue desactivado con éxito.',
+            type: 'success',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static upgradeLicense(): void {
+        const alertData: Alert = {
+            title: 'Lo Sentimos',
+            text: 'La acción no puede ser realizada, es necesario actualizar tu licencia a un plan superior.',
+            type: 'warning',
+            confirmButtonText: 'ENTENDIDO'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
 }
