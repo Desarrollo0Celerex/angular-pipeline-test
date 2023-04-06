@@ -6,6 +6,7 @@ import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Site } from '@interfaces/site.interface';
 import { Wallet } from '@interfaces/wallet.interface';
+import { WorkspaceInsuranceService } from '@services/workspace-insurance.service';
 import { SiteService } from '@services/site.service';
 import { WalletService } from '@services/wallet.service';
 import { AuthService } from '@services/auth.service';
@@ -17,12 +18,14 @@ import { WorkspaceUserService } from '@services/workspace-user.service';
 export class WelcomeService {
     appCreatorIsCompleted: boolean | null = null;
     contactCenterIsCompleted: boolean | null = null;
+    leadGeneratorIsCompleted: boolean | null = null;
     siteCreatorIsCompleted: boolean | null = null;
     socialConnectIsCompleted: boolean | null = null;
     username: string = '';
 
     constructor(
         private _authService: AuthService,
+        private _workspaceInsuranceService: WorkspaceInsuranceService,
         private _siteService: SiteService,
         private _walletService: WalletService,
         private _workspaceService: WorkspaceService,
@@ -42,6 +45,12 @@ export class WelcomeService {
         this._workspaceDirectoryService.checkWorkspaceDirectoriesIsCompleted(filters).subscribe((isCompleted: boolean) => {
             this.contactCenterIsCompleted = isCompleted;
         });
+    }
+
+    loadLeadGeneratorStatus(): void {
+        this._workspaceInsuranceService.getTotalWorkspaceInsurances().subscribe((total: number) => {
+            this.leadGeneratorIsCompleted = (total > 0) ? true : false;
+        })
     }
 
     loadSiteCreatorStatus(): void {

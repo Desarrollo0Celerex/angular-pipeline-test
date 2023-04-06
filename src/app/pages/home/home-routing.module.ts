@@ -52,6 +52,9 @@ const routes: Routes = [
 
             // Invitations routes
             { path: ROUTES_NAME.listInvitations, loadChildren: () => import('@pages/home/invitations/list-invitations/list-invitations.module').then(mod => mod.ListInvitationsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard, UserAuthorizedGuard], data: { roles: [ROLES.GLOBAL_ADMIN, ROLES.WALLET_MANAGER] } },
+            
+            // Insurances routes
+            { path: ROUTES_NAME.selectWorkspaceInsurances, loadChildren: () => import('@pages/home/insurances/select-workspace-insurances/select-workspace-insurances.module').then(mod => mod.SelectWorkspaceInsurancesModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard, UserAuthorizedGuard], data: { roles: [ROLES.GLOBAL_ADMIN, ROLES.WALLET_MANAGER] } },
 
             // Leads routes
             { path: ROUTES_NAME.listLeads, loadChildren: () => import('@pages/home/leads/list-leads/list-leads.module').then(mod => mod.ListLeadsModule), canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard] },

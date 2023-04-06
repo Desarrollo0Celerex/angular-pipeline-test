@@ -1,0 +1,27 @@
+<div class="card" *ngIf="licenseInsurance !== null">
+    <div class="card-body text-center">
+        <!-- AGENTHOS - INSURANCE TYPE -->
+        <span class="{{licenseInsurance.background}} iconInsurance">
+            <i class="{{licenseInsurance.icon}}"></i>
+        </span>
+        <!-- AGENTHOS - INSURANCE NAME -->
+        <h4 class="h4 mb-3 mt-3">{{licenseInsurance.name | uppercase}}</h4>
+        <!-- AGENTHOS - INSURANCE DETAIL -->
+        <button type="button" class="btn btn-pill btn-default-light mb-5" data-container="body" data-toggle="popover" data-popover-color="default" data-placement="top" [attr.data-content]="licenseInsurance.description" [attr.data-original-title]="licenseInsurance.title">DETALLES</button>
+        <ol class="breadcrumb1">
+            <li class="breadcrumb-item1">Generador de Prospectos <strong> {{(licenseInsurance.hasActiveLeadGenerator === true) ? 'Activado' : 'Desactivado' }}</strong>.</li>
+        </ol>
+    </div>
+    <div class="card-footer">
+        <ul class="list-group">
+            <!-- AGENTHOS - LEAD GENERATOR BOT ACTIVATION * -->
+            <li class="list-group-item">
+                Lead Generator
+                <div class="material-switch pull-right" (click)="validateAction()">
+                    <input id="option{{licenseInsurance.insuranceId}}" type="checkbox" [checked]="licenseInsurance.hasActiveLeadGenerator" (change)="updateLeadGeneratorStatus($event)" [disabled]="insuranceLicenseId > workspaceLicenseId">
+                    <label for="option{{licenseInsurance.insuranceId}}" class="label-success"></label>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

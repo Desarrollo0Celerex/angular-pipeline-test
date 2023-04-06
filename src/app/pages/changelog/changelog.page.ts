@@ -9,6 +9,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.44.0',
+            launchDate: '06/04/2023',
+            changes: [
+                {
+                    title: 'Lead Generator',
+                    items: [
+                        'Se agrego página para gestionar la activación y desactivación del productos en el Lead Generator.'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.43.2',
             launchDate: '04/04/2023',
             changes: [
