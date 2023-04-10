@@ -117,10 +117,10 @@ export class CreateEndorsementPage implements OnInit {
     }
 
     createEndorsement(): void {
-        this.endorsementTotalAmount = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.endorsementTotalAmount.value));
         const selectedEndorsementTypeId: number = parseInt(this.model.f.endorsementTypeId.value);
         switch (selectedEndorsementTypeId) {
             case ENDORSEMENT_TYPES.A:
+                this.endorsementTotalAmount = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.endorsementTotalAmount.value));
                 if(this.model.checkHasPolicyPendingReceipts()) {
                     this._showModalToSelectEndorsementPaymentMethod();
                 } else {
@@ -139,6 +139,7 @@ export class CreateEndorsementPage implements OnInit {
                 break;
 
             case ENDORSEMENT_TYPES.D:
+                this.endorsementTotalAmount = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.endorsementTotalAmount.value));
                 const policyPendingAmount: number = this.model.policy!.paymentAmount - this.model.policy!.paymentAmountPaid;
                 if(this.model.checkHasPolicyPendingReceipts() && policyPendingAmount > this.endorsementTotalAmount) {
                     this._showModalToConfirmApplyEndorsementWithDecrement();
