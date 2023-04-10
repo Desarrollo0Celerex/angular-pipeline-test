@@ -9,6 +9,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.44.1',
+            launchDate: '10/04/2023',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se resolvio bug al aplicar endosos de actualización de datos o cancelación'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.44.0',
             launchDate: '06/04/2023',
             changes: [
