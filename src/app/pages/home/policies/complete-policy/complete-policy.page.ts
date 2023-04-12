@@ -462,8 +462,8 @@ export class CompletePolicyPage implements OnInit {
     private _handleScanError(error: HttpError, policyUrl: string): void {
         this.isScannerFailed = true;
         this._reviewPolicyData(policyUrl);
-        switch(error.error) {
-            case ERROR_CODES.scanFileError:
+        /* switch(error.error) {
+            case ERROR_CODES.scanFileError: */
                 if(!!this.model.policy && (this.model.policy.policySourceId === POLICY_SOURCES.RENEWAL || this.model.policy.policySourceId === POLICY_SOURCES.REISSUE) ) {
                     this.model.getContactBasePolicy(this.model.policy.baseContactId, this.model.policy.basePolicyId).subscribe((res: HttpResponse) => {
                         this.model.buildPolicyForm(res.data);
@@ -478,14 +478,14 @@ export class CompletePolicyPage implements OnInit {
                         ModalPlugin.show(this.modalIdScanningPolicyFailed);
                     }, 1000);
                 }
-            break;
+            /* break;
 
             default:
                 setTimeout(() => {
                     this._scanningService.hide();
                     ModalPlugin.show(this.modalIdScanningPolicyFailed);
                 }, 1000);
-        }
+        } */
     }
 
     /**
