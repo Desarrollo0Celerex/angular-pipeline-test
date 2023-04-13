@@ -85,6 +85,7 @@ export class CompletePolicyService {
     buildPolicyForm(policy: Policy | null = null): void {
         const canDisableBills: boolean = (!!this.policy && !!this.policy.policySourceId && this.policy.policySourceId == POLICY_SOURCES.HISTORY) ? true : false;
         const currencyId: string | number = (!!policy && !!policy.currencyId) ? policy.currencyId : (!!this.policy && !!this.policy.workspaceCurrencyId) ? this.policy.workspaceCurrencyId : '';
+        const titularPhoneCodeId: number = (!!policy && policy.titularPhoneCodeId) ? policy.titularPhoneCodeId : (!!this.policy && !!this.policy.workspaceCountryId) ? this.policy.workspaceCountryId : 0;
         this.policyForm = this._formBuilder.group({
             policyFile: [''],
             policyNumber: [(!!policy && !!policy.policyNumber) ? policy.policyNumber : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
@@ -93,7 +94,7 @@ export class CompletePolicyService {
             titularRfc: [(!!policy && !!policy.titularRfc) ? policy.titularRfc : '', [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
             titularEmail: [(!!policy && !!policy.titularEmail) ? policy.titularEmail : '', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)] ],
             titularPostalCode: [(!!policy && !!policy.titularPostalCode) ? policy.titularPostalCode : '', [ValidatorsHelper.postalCode ] ],
-            titularPhoneCodeId: [(!!this.policy && !!this.policy.workspaceCountryId) ? this.policy.workspaceCountryId : ''],
+            titularPhoneCodeId: [titularPhoneCodeId],
             titularPhoneNumber: [(!!policy && !!policy.titularPhoneNumber) ? policy.titularPhoneNumber : '', [ValidatorsHelper.phoneNumber] ],
             emissionDate: [(!!policy && !!policy.emissionDate) ? policy.emissionDate : '', [Validators.required, ValidatorsHelper.date] ],
             validityStartDate: [(!!policy && !!policy.validityStartDate) ? policy.validityStartDate : '', [Validators.required, ValidatorsHelper.date] ],
@@ -351,7 +352,7 @@ export class CompletePolicyService {
      * @return          The policy data
      */
     getContactBasePolicy(contactId: string, policyId: string): Observable<HttpResponse> {
-        const fields: string = 'policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber';
+        const fields: string = 'policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularGenderId,titularAge,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,insuranceGroupId,insuranceTypeId,insureds';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             map(( res: HttpResponse) => {
                     res.data.emissionDate = moment(res.data.emissionDate, 'YYYY-MM-DD').add(1, 'years').format('DD/MM/YYYY');

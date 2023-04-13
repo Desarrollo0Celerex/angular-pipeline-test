@@ -141,7 +141,8 @@ export class ListContactCoincidencesPage implements OnInit, OnDestroy {
     private _createSpecialQuery(): void {
         if(!!this.contact) {
             this.searchContactData = {
-                contactName: (this.contactTypeId === CONTACT_TYPES.PERSON) ? (this.contact.name+' '+this.contact.namePaternal+' '+this.contact.nameMaternal).trim() : this.contact.companyName,
+                contactName: (this.contactTypeId === CONTACT_TYPES.PERSON) ? (this.contact.name+' '+this.contact.namePaternal+' '+this.contact.nameMaternal).trim() : this.contact.companyName!.trim(),
+                brandName: (this.contactTypeId === CONTACT_TYPES.COMPANY) ? this.contact.brandName!.trim() : '',
                 email: this.contact.email || '',
                 phoneNumber: this.contact.phoneNumber || ''
             }
