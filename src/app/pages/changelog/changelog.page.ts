@@ -9,6 +9,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.44.2',
+            launchDate: '12/04/2023',
+            changes: [
+                {
+                    title: 'Lead Manager',
+                    items: [
+                        'Se resolvieron bugs en motor de coincidencias al crear un contacto.',
+                        'Se agrego logica para buscar coincidencias en la razón social y en el nombre comercial al crear un contacto tipo empresa.'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.44.1',
             launchDate: '10/04/2023',
             changes: [
