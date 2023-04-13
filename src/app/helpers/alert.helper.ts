@@ -158,6 +158,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static invalidActivationCode(): void {
+        const alertData: Alert = {
+            title: 'Error',
+            text: 'El código de activación es invalido.',
+            type: 'error',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static invalidAuthToken(): void {
         const alertData: Alert = {
             title: 'Error',
@@ -757,6 +767,18 @@ export class AlertHelper {
             text: 'Los datos de contacto han sido actualizados con éxito.',
             type: 'success',
             confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static workspaceActivated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Licencia Activada',
+            text: 'Tu licencia se activó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
         }
         SweetAlertPlugin.showAlert(alertData);
     }

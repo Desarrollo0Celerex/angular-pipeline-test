@@ -6,7 +6,7 @@
             <div class="col-md-8 col-xl-8">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Datos del Agente</h3>
+                        <h3 class="card-title">Resumen del Agente</h3>
                     </div>
                     <div class="card-body text-center">
                         <!-- AGENTHOS - AGENT LOGO -->
@@ -16,14 +16,14 @@
                         <!-- AGENTHOS - AGENT REAL NAME -->
                         <p class="card-text">{{activateWorkspaceService.workspace.realName}}</p>
                         <!-- AGENTHOS - ATOM PASS -->
-                        <!--<div class="col-md-12 mt-5">
-                            <button type="button" class="btn btn-secondary btn-block" (click)="onClickShowModalActivateWorkspace()"><strong>INGRESAR CÓDIGO DE LICENCIA</strong></button>
-                        </div>-->
+                        <div class="col-md-12 mt-5">
+                            <button type="button" class="btn btn-secondary btn-block" (click)="showModalToCaptureActivationCode()"><strong>INGRESAR CÓDIGO DE ACTIVACIÓN</strong></button>
+                        </div>
                     </div>
                     <div class="card-footer text-center">
                         <!-- AGENTHOS - START FREE TRIAL -->
                         <a [href]="activateWorkspaceService.workspace.payLink">
-                            <button type="button" class="btn btn-primary btn-block"><strong>INICIAR PERIODO DE PRUEBA</strong></button>
+                            <button type="button" class="btn btn-primary btn-block"><strong>INICIAR NUEVA SUSCRIPCIÓN</strong></button>
                         </a>
                     </div>
                 </div>
@@ -33,4 +33,6 @@
     </div>
 </div>
 
-<agt-modal-activate-workspace [modalId]="activateWorkspaceModalId"></agt-modal-activate-workspace>
+<agt-modal-capture-activation-code 
+    [modalId]="modalIdCaptureActivationCode"
+></agt-modal-capture-activation-code>

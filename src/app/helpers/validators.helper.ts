@@ -153,11 +153,11 @@ export class ValidatorsHelper {
      * @param  control The control to evaluate
      * @return         Error object if validation failed, otherwise null.
      */
-    static licenseCode(control: AbstractControl): ValidationErrors | null {
+    static activationCode(control: AbstractControl): ValidationErrors | null {
         if(ValidatorsHelper._checkCanValidate(control) === true) {
-            const regex = /^[0-9]{16}$/;
+            const regex = /^[A-Z0-9]{5,30}$/;
             const value = control.value;
-            return (!regex.test(value)) ? {licenseCode: true} : null;
+            return (!regex.test(value)) ? {activationCode: true} : null;
         }
         return null;
     }
