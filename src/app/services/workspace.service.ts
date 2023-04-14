@@ -36,21 +36,11 @@ export class WorkspaceService {
         this._workspaceId = this._authService.workspaceId;
     }
 
-    /**
-     * Activate the workspace
-     * @param  code License code
-     * @return      New user token
-     */
-    activateWorkspace(code: string | null): Observable<HttpResponse> {
+    activateWorkspace(activationCode: string | null): Observable<HttpResponse> {
         const route: string = ROUTES.workspaceActivation(this._workspaceId);
-        return this._httpClient.post<HttpResponse>(route, {code});
+        return this._httpClient.post<HttpResponse>(route, {activationCode});
     }
 
-    /**
-     * Create a workspace in the API
-     * @param  requestBody Request body
-     * @return             New user token data
-     */
     createWorkspace(requestBody: CreateWorkspaceDataSend): Observable<HttpResponse> {
         const route: string = ROUTES.workspaces;
         return this._httpClient.post<HttpResponse>(route, requestBody);

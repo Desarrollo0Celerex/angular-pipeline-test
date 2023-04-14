@@ -9,6 +9,20 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.45.0',
+            launchDate: '13/04/2023',
+            changes: [
+                {
+                    title: 'Workspace',
+                    items: [
+                        'Se agrego funcionalidad para activar un espacio de trabajo con un código de activación.',
+                        'Se agregaron modals y alerts al activar o desactivar un producto en el lead generator.',
+                        'Se actualizo modal que se muestra al fallar el escaneo al cargar una póliza, pero por ser una renovación se extrae data de la póliza anterior.'
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.44.2',
             launchDate: '12/04/2023',
             changes: [

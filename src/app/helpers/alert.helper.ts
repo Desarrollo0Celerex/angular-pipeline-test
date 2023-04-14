@@ -158,6 +158,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static invalidActivationCode(): void {
+        const alertData: Alert = {
+            title: 'Error',
+            text: 'El código de activación es invalido.',
+            type: 'error',
+            confirmButtonText: 'OK'
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static invalidAuthToken(): void {
         const alertData: Alert = {
             title: 'Error',
@@ -761,6 +771,18 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static workspaceActivated(callBack: any, context: any): void {
+        const alertData: Alert = {
+            title: 'Licencia Activada',
+            text: 'Tu licencia se activó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+            callBack: callBack,
+            context: context
+        }
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static workspaceAvatarUploaded(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Imagen Cargada',
@@ -798,9 +820,9 @@ export class AlertHelper {
     static workspaceInsuranceAdded(): void {
         const alertData: Alert = {
             title: 'Producto Activado',
-            text: 'El producto fue activado con éxito.',
+            text: 'El generador de prospectos se activó con éxito.',
             type: 'success',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'CONTINUAR'
         }
         SweetAlertPlugin.showAlert(alertData);
     }
@@ -808,9 +830,9 @@ export class AlertHelper {
     static workspaceInsuranceRemoved(): void {
         const alertData: Alert = {
             title: 'Producto Desactivado',
-            text: 'El producto fue desactivado con éxito.',
+            text: 'El generador de prospectos se desactivó con éxito.',
             type: 'success',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'CONTINUAR'
         }
         SweetAlertPlugin.showAlert(alertData);
     }

@@ -18,25 +18,20 @@ declare var ModalPlugin: any;
   ]
 })
 export class ActivateWorkspacePage implements OnInit {
-    activateWorkspaceModalId: string;
+    modalIdCaptureActivationCode: string = 'agt-modal-capture-activation-code';
 
     constructor(
         public activateWorkspaceService: ActivateWorkspaceService,
         private _loadingService: LoadingService,
         private _router: Router
-    ) {
-        this.activateWorkspaceModalId = 'agt-modal-activate-workspace';
-    }
+    ) { }
 
     ngOnInit(): void {
         this.activateWorkspaceService.loadWorkspace();
     }
 
-    /**
-     * Click event to show the modal to activate workspace
-     */
-    onClickShowModalActivateWorkspace(): void {
-        ModalPlugin.show(this.activateWorkspaceModalId);
+    showModalToCaptureActivationCode(): void {
+        ModalPlugin.show(this.modalIdCaptureActivationCode);
     }
 
     /**

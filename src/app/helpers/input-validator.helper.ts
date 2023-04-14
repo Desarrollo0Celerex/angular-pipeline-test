@@ -62,8 +62,8 @@ export class InputValidatorHelper {
                     case (typeof error.email !== 'undefined'):
                         message = 'Por favor ingresa un correo válido.';
                         break;
-                    case (typeof error.licenseCode !== 'undefined'):
-                        message = 'Por favor ingresa un código de licensia válido.';
+                    case (typeof error.activationCode !== 'undefined'):
+                        message = 'Por favor ingresa un código de activación válido.';
                         break;
                     case (typeof error.date !== 'undefined'):
                         message = 'Por favor ingresa una fecha válida.';

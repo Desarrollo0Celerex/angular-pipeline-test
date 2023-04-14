@@ -20,7 +20,7 @@
 
 <!-- AGENTHOS - LEAD GENERATOR PRODUCTS -->
 <ng-container *ngIf="model.contentLoaded === true; else containerLoadingContent">
-    <ng-container *ngFor="let license of model.licenseInsurances">
+    <ng-container *ngFor="let license of model.licenseInsurances; let licenseIndex = index">
         <div class="row mt-5">
             <div class="col-md-12">
                 <div class="card">
@@ -34,14 +34,16 @@
         <!-- AGENTHOS - LEAD GENERATOR PRODUCTS LITE -->
         <div class="row">
             <!-- AGENTHOS - AUTOS -->
-            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3" *ngFor="let licenseInsurance of license.insurances">
+            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3" *ngFor="let licenseInsurance of license.insurances; let insuranceIndex = index">
                 <agt-card-license-insurance 
+                    [licenseIndex]="licenseIndex"
+                    [insuranceIndex]="insuranceIndex"
                     [licenseInsurance]="licenseInsurance"
                     [insuranceLicenseId]="license.licenseId"
                     [workspaceLicenseId]="model.workspaceLicenseId"
                     (actionNotAllowed)="showAlertUpgradeLicense()"
-                    (addWorkspaceInsurance)="addWorkspaceInsurance($event)"
-                    (removeWorkspaceInsurance)="removeWorkspaceInsurance($event)"
+                    (addWorkspaceInsurance)="showModalToConfirmAddWorkspaceInsurance($event)"
+                    (removeWorkspaceInsurance)="showModalToConfirmRemoveWorkspaceInsurance($event)"
                 ></agt-card-license-insurance>
             </div>
             <!-- //AGENTHOS - AUTOS -->
@@ -59,3 +61,13 @@
         ></agt-loading-content>
     </div>
 </ng-template>
+
+<agt-modal-confirm-add-workspace-insurance
+    [modalId]="modalIdConfirmAddWorkspaceInsurance"
+    (actionConfirmed)="addWorkspaceInsurance()"
+></agt-modal-confirm-add-workspace-insurance>
+
+<agt-modal-confirm-remove-workspace-insurance
+    [modalId]="modalIdConfirmRemoveWorkspaceInsurance"
+    (actionConfirmed)="removeWorkspaceInsurance()"
+></agt-modal-confirm-remove-workspace-insurance>

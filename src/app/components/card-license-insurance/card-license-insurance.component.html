@@ -18,7 +18,8 @@
             <li class="list-group-item">
                 Lead Generator
                 <div class="material-switch pull-right" (click)="validateAction()">
-                    <input id="option{{licenseInsurance.insuranceId}}" type="checkbox" [checked]="licenseInsurance.hasActiveLeadGenerator" (change)="updateLeadGeneratorStatus($event)" [disabled]="insuranceLicenseId > workspaceLicenseId">
+                    <!-- <input id="option{{licenseInsurance.insuranceId}}" type="checkbox" [checked]="licenseInsurance.hasActiveLeadGenerator" (change)="updateLeadGeneratorStatus($event)" [disabled]="insuranceLicenseId > workspaceLicenseId"> -->
+                    <input id="option{{licenseInsurance.insuranceId}}" type="checkbox" [checked]="licenseInsurance.hasActiveLeadGenerator" disabled="true">
                     <label for="option{{licenseInsurance.insuranceId}}" class="label-success"></label>
                 </div>
             </li>

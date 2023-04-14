@@ -30,4 +30,5 @@ export const ERROR_CODES: any = {
     sinisterEvidenceMissing: 'SinisterEvidenceMissing',
     importFailed: 'ImportFailed',
     siteNotFound: 'SiteNotFound',
+    invalidActivationCode: 'InvalidActivationCode',
 }

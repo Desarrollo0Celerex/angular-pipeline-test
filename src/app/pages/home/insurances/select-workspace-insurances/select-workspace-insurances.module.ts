@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { CardLicenseInsuranceModule } from '@components/card-license-insurance/card-license-insurance.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
+import { ModalConfirmAddWorkspaceInsuranceModule } from '@components/modal-confirm-add-workspace-insurance/modal-confirm-add-workspace-insurance.module';
+import { ModalConfirmRemoveWorkspaceInsuranceModule } from '@components/modal-confirm-remove-workspace-insurance/modal-confirm-remove-workspace-insurance.module';
 import { InsuranceService } from '@services/insurance.service';
 import { LicenseService } from '@services/license.service';
 import { WorkspaceService } from '@services/workspace.service';
@@ -19,6 +21,8 @@ import { SelectWorkspaceInsurancesPage } from './select-workspace-insurances.pag
     CardLicenseInsuranceModule,
     CommonModule,
     LoadingContentModule,
+    ModalConfirmAddWorkspaceInsuranceModule,
+    ModalConfirmRemoveWorkspaceInsuranceModule,
     SelectWorkspaceInsurancesRoutingModule
   ],
   providers: [
