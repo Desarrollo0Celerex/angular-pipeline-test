@@ -820,9 +820,9 @@ export class AlertHelper {
     static workspaceInsuranceAdded(): void {
         const alertData: Alert = {
             title: 'Producto Activado',
-            text: 'El producto fue activado con éxito.',
+            text: 'El generador de prospectos se activó con éxito.',
             type: 'success',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'CONTINUAR'
         }
         SweetAlertPlugin.showAlert(alertData);
     }
@@ -830,9 +830,9 @@ export class AlertHelper {
     static workspaceInsuranceRemoved(): void {
         const alertData: Alert = {
             title: 'Producto Desactivado',
-            text: 'El producto fue desactivado con éxito.',
+            text: 'El generador de prospectos se desactivó con éxito.',
             type: 'success',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'CONTINUAR'
         }
         SweetAlertPlugin.showAlert(alertData);
     }

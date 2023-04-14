@@ -4,6 +4,9 @@ import { AlertHelper } from '@helpers/alert.helper';
 import { LoadingService } from '@services/loading.service';
 
 import { SelectWorkspaceInsurancesService } from './select-workspace-insurances.service';
+import { ActionWorkspaceInsuranceData } from '@interfaces/action-workspace-insurance-data.interface';
+
+declare var ModalPlugin: any;
 
 @Component({
   selector: 'agt-select-workspace-insurances',
@@ -13,6 +16,11 @@ import { SelectWorkspaceInsurancesService } from './select-workspace-insurances.
   providers: [SelectWorkspaceInsurancesService]
 })
 export class SelectWorkspaceInsurancesPage implements OnInit {
+    modalIdConfirmAddWorkspaceInsurance: string = 'agt-confirm-add-workspace-insurace';
+    modalIdConfirmRemoveWorkspaceInsurance: string = 'agt-confirm-remove-workspace-insurace';
+    selectedInsuranceId: number = 0;
+    selectedInsuranceIndex: number | null = null;
+    selectedLicenseIndex: number | null = null;
 
     constructor(
         public model: SelectWorkspaceInsurancesService,
@@ -23,17 +31,19 @@ export class SelectWorkspaceInsurancesPage implements OnInit {
         this._loadWorkspaceLicenseId();
     }
 
-    addWorkspaceInsurance(insuranceId: number): void {
+    addWorkspaceInsurance(): void {
         this._loadingService.show();
-        this.model.addWorkspaceInsurance(insuranceId).subscribe(() => {
+        this.model.addWorkspaceInsurance(this.selectedInsuranceId).subscribe(() => {
+            this.model.licenseInsurances[this.selectedLicenseIndex!].insurances[this.selectedInsuranceIndex!].hasActiveLeadGenerator = true;
             this._loadingService.hide();
             AlertHelper.workspaceInsuranceAdded();
         });
     }
 
-    removeWorkspaceInsurance(insuranceId: number): void {
+    removeWorkspaceInsurance(): void {
         this._loadingService.show();
-        this.model.removeWorkspaceInsurance(insuranceId).subscribe(() => {
+        this.model.removeWorkspaceInsurance(this.selectedInsuranceId).subscribe(() => {
+            this.model.licenseInsurances[this.selectedLicenseIndex!].insurances[this.selectedInsuranceIndex!].hasActiveLeadGenerator = false;
             this._loadingService.hide();
             AlertHelper.workspaceInsuranceRemoved();
         });
@@ -41,6 +51,20 @@ export class SelectWorkspaceInsurancesPage implements OnInit {
 
     showAlertUpgradeLicense(): void {
         AlertHelper.upgradeLicense();
+    }
+
+    showModalToConfirmAddWorkspaceInsurance(data: ActionWorkspaceInsuranceData): void {
+        this.selectedInsuranceId = data.insuranceId;
+        this.selectedLicenseIndex = data.licenseIndex;
+        this.selectedInsuranceIndex = data.insuranceIndex;
+        ModalPlugin.show(this.modalIdConfirmAddWorkspaceInsurance);
+    }
+
+    showModalToConfirmRemoveWorkspaceInsurance(data: ActionWorkspaceInsuranceData): void {
+        this.selectedInsuranceId = data.insuranceId;
+        this.selectedLicenseIndex = data.licenseIndex;
+        this.selectedInsuranceIndex = data.insuranceIndex;
+        ModalPlugin.show(this.modalIdConfirmRemoveWorkspaceInsurance);
     }
 
     private _loadWorkspaceLicenseId(): void {
