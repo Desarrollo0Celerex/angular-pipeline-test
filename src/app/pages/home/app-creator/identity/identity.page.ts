@@ -9,6 +9,7 @@ import { Wallet } from '@interfaces/wallet.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { IdentityService } from './identity.service';
+import { LICENSES } from '@constants/global';
 
 declare var ModalPlugin: any;
 
@@ -21,7 +22,8 @@ declare var ModalPlugin: any;
 })
 export class IdentityPage implements OnInit {
     modalIdConfirmUpdateWallet: string = 'modal-confirm-update-wallet';
-    modalIdUpgradeLicenseToPro: string = 'modal-upgrade-license-to-pro';
+    modalIdUpgradeLicense: string = 'modal-upgrade-license';
+    licenseName: string = LICENSES.PRO.NAME;
     private _isFormSubmitted: boolean = false;
 
     constructor(
@@ -55,8 +57,8 @@ export class IdentityPage implements OnInit {
         return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
     }
 
-    showModalToUpgradeLicenseToPro(): void {
-        ModalPlugin.show(this.modalIdUpgradeLicenseToPro);
+    showModalToUpgradeLicense(): void {
+        ModalPlugin.show(this.modalIdUpgradeLicense);
     }
 
     updateWallet(): void {

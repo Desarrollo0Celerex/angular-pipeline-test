@@ -40,7 +40,7 @@ export class IdentityService {
         })
 
         // Update canShowCertificate only if your license allows it
-        if(this.licenseId === LICENSES.PRO) {
+        if(this.licenseId === LICENSES.PRO.ID) {
             this.f.canEditDomain.enable();
             this.f.canShowCertificate.enable();
         }
@@ -48,13 +48,13 @@ export class IdentityService {
     }
 
     checkCanShowContainerEditDomain(): void {
-        if(this.licenseId < LICENSES.PRO) {
+        if(this.licenseId < LICENSES.PRO.ID) {
             this.canShowContainerEditDomain = true;
         }
     }
 
     checkCanShowContainerShowCertificate(): void {
-        if(this.licenseId < LICENSES.PRO) {
+        if(this.licenseId < LICENSES.PRO.ID) {
             this.canShowContainerShowCertificate = true;
         }
     }
