@@ -7,7 +7,7 @@ import * as moment from 'moment';
 
 import { FREE_TEXT_LENGTH, TITULAR_NAME_LENGTH, POLICY_SOURCES, ROLES, SLACK_DAYS_TO_RENEW_OR_REISSUE_A_POLICY,
     SLACK_DAYS_TO_LOAD_A_EXPIRED_POLICY, DEFAULT_PAYMENT_METHOD_ID, INSURANCE_TYPES, SHORT_ALPHANUMERIC_LENGTH,
-    LONG_ALPHANUMERIC_LENGTH, FILE_TYPES, INSURANCE_GROUPS, CONTACT_TYPES, EMAIL_LENGTH, AGENT_NUMBER_LENGTH
+    LONG_ALPHANUMERIC_LENGTH, INSURANCE_GROUPS, CONTACT_TYPES, EMAIL_LENGTH, AGENT_NUMBER_LENGTH
 } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
@@ -26,6 +26,7 @@ import { Policy } from '@interfaces/policy.interface';
 
 import { AuthService } from '@services/auth.service';
 import { AtomScannService } from '@services/atom-scann.service';
+import { ContactService } from '@services/contact.service';
 import { CurrencyService } from '@services/currency.service';
 import { GendersService } from '@services/genders.service';
 import { PartnerService } from '@services/partner.service';
@@ -34,6 +35,7 @@ import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
 import { PolicyInsuredService } from '@services/policy-insured.service';
 import { ScannerLogService } from '@services/scanner-log.service';
+import { Contact } from '@interfaces/contact.interface';
 
 declare var DropifyPlugin: any;
 
@@ -54,6 +56,7 @@ export class CompletePolicyService {
     constructor(
         private _authService: AuthService,
         private _atomScannService: AtomScannService,
+        private _contactService: ContactService,
         private _currencyService: CurrencyService,
         private _datePipe: DatePipe,
         private _formBuilder: FormBuilder,
@@ -86,6 +89,7 @@ export class CompletePolicyService {
         const canDisableBills: boolean = (!!this.policy && !!this.policy.policySourceId && this.policy.policySourceId == POLICY_SOURCES.HISTORY) ? true : false;
         const currencyId: string | number = (!!policy && !!policy.currencyId) ? policy.currencyId : (!!this.policy && !!this.policy.workspaceCurrencyId) ? this.policy.workspaceCurrencyId : '';
         const titularPhoneCodeId: number = (!!policy && policy.titularPhoneCodeId) ? policy.titularPhoneCodeId : (!!this.policy && !!this.policy.workspaceCountryId) ? this.policy.workspaceCountryId : 0;
+        
         this.policyForm = this._formBuilder.group({
             policyFile: [''],
             policyNumber: [(!!policy && !!policy.policyNumber) ? policy.policyNumber : '', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
@@ -322,6 +326,31 @@ export class CompletePolicyService {
      */
     downloadPolicy(policyUrl: string): Observable<any> {
         return this._policyService.downloadPolicy(policyUrl);
+    }
+
+    getContact(contactId: string): Observable<Policy> {
+        const fields: string = 'contactName,birthdate,genderId,postalCode,email,phoneCodeId,phoneNumber,rfc';
+        return this._contactService.getContact(contactId, fields).pipe(
+            map((res: HttpResponse) => {
+                const contact: Contact = res.data;
+                let policy: any = {
+                    titularName: contact.contactName,
+                    titularRfc: contact.rfc,
+                    titularPostalCode: contact.postalCode,
+                    titularEmail: contact.email,
+                    titularPhoneCodeId: contact.phoneCodeId,
+                    titularPhoneNumber: contact.phoneNumber,
+                };
+                if(this.policy !== null && this.policy.contactTypeId === CONTACT_TYPES.PERSON) {
+                    policy = {
+                        ...policy, 
+                        titularAge: UtilitiesHelper.calculateAge(contact.birthdate), 
+                        titularGenderId: contact.genderId 
+                    };
+                }
+                return policy;
+            })
+        );
     }
 
     /**
