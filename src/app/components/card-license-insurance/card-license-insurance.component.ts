@@ -15,8 +15,9 @@ export class CardLicenseInsuranceComponent implements OnInit {
     @Input() licenseIndex: number | null = null;
     @Input() insuranceIndex: number | null = null;
     @Input() insuranceLicenseId: number = 0;
+    @Input() insuranceLicenseName: string = '';
     @Input() workspaceLicenseId: number = 0;
-    @Output() actionNotAllowed: EventEmitter<void> = new EventEmitter<void>();
+    @Output() actionNotAllowed: EventEmitter<string> = new EventEmitter<string>();
     @Output() addWorkspaceInsurance: EventEmitter<ActionWorkspaceInsuranceData> = new EventEmitter<ActionWorkspaceInsuranceData>();
     @Output() removeWorkspaceInsurance: EventEmitter<ActionWorkspaceInsuranceData> = new EventEmitter<ActionWorkspaceInsuranceData>();
 
@@ -26,7 +27,7 @@ export class CardLicenseInsuranceComponent implements OnInit {
 
     validateAction(): void {
         if(this.insuranceLicenseId > this.workspaceLicenseId) {
-            this.actionNotAllowed.emit();
+            this.actionNotAllowed.emit(this.insuranceLicenseName);
         } else {
             const data: ActionWorkspaceInsuranceData = {
                 insuranceId: this.licenseInsurance!.insuranceId,

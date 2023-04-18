@@ -1,0 +1,33 @@
+<!-- AGENTHOS - UPGRADE PLAN -->
+<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Mejorar Cuenta</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="text-justify"><strong>¿Deseas activar esta función?</strong></p>
+						<p class="text-justify">Activa esta y más funciones avanzadas al mejorar tu plan de Agenthos.</p>
+					</div>
+				</div>
+				<div class="alert agt-alert-info mt-3 mb-3" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><i class="fe fe-award mr-2" aria-hidden="true"></i>Mejora tu cuenta a <strong>Agenthos {{licenseName}}</strong>.
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="col-md-12">
+					<!-- AGENTHOS - UPGRADE PLAN -->
+					<!-- (TARGET: IF PRO #agtUpgradePro) -->
+					<!-- (TARGET: IF ULTRA #agtUpgradeUltra) -->
+					<button type="button" class="btn btn-block agt-btn-primary" (click)="confirmAction()"><strong>MEJORA TU CUENTA AHORA</strong></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //AGENTHOS - UPGRADE PRO -->

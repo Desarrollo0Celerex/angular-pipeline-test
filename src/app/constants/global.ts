@@ -56,9 +56,18 @@ export const FORMAT_TYPES: any = {
 }
 
 export const LICENSES: any = {
-    LITE: 1,
-    PRO: 2,
-    ULTRA: 3,
+    LITE: {
+        ID: 1,
+        NAME: 'Lite'
+    },
+    PRO: {
+        ID: 2,
+        NAME: 'Pro'
+    },
+    ULTRA: {
+        ID: 3,
+        NAME: 'Ultra'
+    }
 }
 
 // Dropify

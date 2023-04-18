@@ -4,21 +4,21 @@ import { CommonModule } from '@angular/common';
 import { WorkspaceService } from '@services/workspace.service';
 import { WorkspaceUserService } from '@services/workspace-user.service';
 
-import { ModalUpgradeLicenseToProComponent } from './modal-upgrade-license-to-pro.component';
+import { ModalUpgradeLicenseComponent } from './modal-upgrade-license.component';
 
 @NgModule({
   declarations: [
-    ModalUpgradeLicenseToProComponent
+    ModalUpgradeLicenseComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    ModalUpgradeLicenseToProComponent
+    ModalUpgradeLicenseComponent
   ],
   providers: [
     WorkspaceService,
     WorkspaceUserService
   ]
 })
-export class ModalUpgradeLicenseToProModule { }
+export class ModalUpgradeLicenseModule { }

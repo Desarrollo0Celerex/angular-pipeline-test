@@ -6,7 +6,7 @@ import { DeviceMacbookProModule } from '@components/device-macbook-pro/device-ma
 import { ImageAgenthosCertificateModule } from '@components/image-agenthos-certificate/image-agenthos-certificate.module';
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalConfirmUpdateSiteModule } from '@components/modal-confirm-update-site/modal-confirm-update-site.module';
-import { ModalUpgradeLicenseToProModule } from '@components/modal-upgrade-license-to-pro/modal-upgrade-license-to-pro.module';
+import { ModalUpgradeLicenseModule } from '@components/modal-upgrade-license/modal-upgrade-license.module';
 import { SiteService } from '@services/site.service';
 import { WorkspaceService } from '@services/workspace.service';
 
@@ -26,7 +26,7 @@ import { IdentityPage } from './identity.page';
     ImageAgenthosCertificateModule,
     LoadingContentModule,
     ModalConfirmUpdateSiteModule,
-    ModalUpgradeLicenseToProModule,
+    ModalUpgradeLicenseModule,
     ReactiveFormsModule
   ],
   providers: [

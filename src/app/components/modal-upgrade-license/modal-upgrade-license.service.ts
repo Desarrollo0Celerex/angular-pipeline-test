@@ -6,7 +6,7 @@ import { WorkspaceService } from '@services/workspace.service';
 import { WorkspaceUserService } from '@services/workspace-user.service';
 
 @Injectable()
-export class ModalUpgradeLicenseToProService {
+export class ModalUpgradeLicenseService {
     username: string = '';
     workspaceName: string = '';
 

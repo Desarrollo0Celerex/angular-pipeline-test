@@ -473,10 +473,13 @@ export class CompletePolicyPage implements OnInit {
                         }, 1000);
                     })
                 } else {
-                    setTimeout(() => {
-                        this._scanningService.hide();
-                        ModalPlugin.show(this.modalIdScanningPolicyFailed);
-                    }, 1000);
+                    this.model.getContact(this.contactId).subscribe((policy: Policy) => {
+                        this.model.buildPolicyForm(policy);
+                        setTimeout(() => {
+                            this._scanningService.hide();
+                            ModalPlugin.show(this.modalIdScanningPolicyFailed);
+                        }, 1000);
+                    });
                 }
             /* break;
 

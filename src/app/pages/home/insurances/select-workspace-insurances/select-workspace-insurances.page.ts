@@ -18,7 +18,10 @@ declare var ModalPlugin: any;
 export class SelectWorkspaceInsurancesPage implements OnInit {
     modalIdConfirmAddWorkspaceInsurance: string = 'agt-confirm-add-workspace-insurace';
     modalIdConfirmRemoveWorkspaceInsurance: string = 'agt-confirm-remove-workspace-insurace';
+    modalIdConfirmUpgradeLicense: string = 'agt-confirm-upgrade-license';
+    modalIdUpgradeLicense: string = 'agt-upgrade-license';
     selectedInsuranceId: number = 0;
+    selectedLicenseName: string = '';
     selectedInsuranceIndex: number | null = null;
     selectedLicenseIndex: number | null = null;
 
@@ -49,8 +52,9 @@ export class SelectWorkspaceInsurancesPage implements OnInit {
         });
     }
 
-    showAlertUpgradeLicense(): void {
-        AlertHelper.upgradeLicense();
+    showModalToConfirmUpgradeLicense(licenseName: string): void {
+        this.selectedLicenseName = licenseName;
+        ModalPlugin.show(this.modalIdConfirmUpgradeLicense);
     }
 
     showModalToConfirmAddWorkspaceInsurance(data: ActionWorkspaceInsuranceData): void {
@@ -65,6 +69,10 @@ export class SelectWorkspaceInsurancesPage implements OnInit {
         this.selectedLicenseIndex = data.licenseIndex;
         this.selectedInsuranceIndex = data.insuranceIndex;
         ModalPlugin.show(this.modalIdConfirmRemoveWorkspaceInsurance);
+    }
+
+    showModalToUpgradeLicense(): void {
+        ModalPlugin.show(this.modalIdUpgradeLicense);
     }
 
     private _loadWorkspaceLicenseId(): void {

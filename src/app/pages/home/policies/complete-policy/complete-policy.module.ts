@@ -16,6 +16,7 @@ import { ModalScanningPolicySuccessModule } from '@components/modal-scanning-pol
 import { ModalScanningPolicyFailedModule } from '@components/modal-scanning-policy-failed/modal-scanning-policy-failed.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { AtomScannService } from '@services/atom-scann.service';
+import { ContactService } from '@services/contact.service';
 import { CurrencyService } from '@services/currency.service';
 import { GendersService } from '@services/genders.service';
 import { PartnerService } from '@services/partner.service';
@@ -53,6 +54,7 @@ import { CompletePolicyService } from './complete-policy.service';
   providers: [
       AtomScannService,
       CompletePolicyService,
+      ContactService,
       CurrencyService,
       DatePipe,
       GendersService,

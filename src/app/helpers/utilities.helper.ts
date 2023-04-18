@@ -8,6 +8,14 @@ import * as moment from 'moment';
 export class UtilitiesHelper {
     static specialSimbols: string[] = ['-', '[', ']', '/', '{', '}', '(', ')', '*', '+', '?', '.', '^', '$', '|']
 
+    static calculateAge(birthdate: string | null): number | null {
+        let age: number | null = null;
+        if(birthdate !== null) {
+            age = moment().diff(moment(birthdate).format('YYYY-MM-DD'), 'years');
+        }
+        return age;
+    }
+
     static calculateNextPaymentDate(paymentDate: string, paymentPlanMonths: string, paymentDay: number): string {
         let nextPaymentDate: string = moment(paymentDate).add(paymentPlanMonths, 'months').format('YYYY-MM-DD');
         const nextPaymentDay: number = parseInt(moment(nextPaymentDate).format('D'));

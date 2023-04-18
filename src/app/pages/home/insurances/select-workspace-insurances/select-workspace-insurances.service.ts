@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { LICENSES } from '@constants/global';
 import { HttpResponse } from '@interfaces/http-response.interface';
 import { Insurance } from '@interfaces/insurance.interface';
 import { LicenseInsurance } from '@interfaces/license-insurance.interface';

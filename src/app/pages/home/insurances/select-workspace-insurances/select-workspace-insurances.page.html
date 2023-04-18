@@ -40,8 +40,9 @@
                     [insuranceIndex]="insuranceIndex"
                     [licenseInsurance]="licenseInsurance"
                     [insuranceLicenseId]="license.licenseId"
+                    [insuranceLicenseName]="license.shortName"
                     [workspaceLicenseId]="model.workspaceLicenseId"
-                    (actionNotAllowed)="showAlertUpgradeLicense()"
+                    (actionNotAllowed)="showModalToConfirmUpgradeLicense($event)"
                     (addWorkspaceInsurance)="showModalToConfirmAddWorkspaceInsurance($event)"
                     (removeWorkspaceInsurance)="showModalToConfirmRemoveWorkspaceInsurance($event)"
                 ></agt-card-license-insurance>
@@ -71,3 +72,14 @@
     [modalId]="modalIdConfirmRemoveWorkspaceInsurance"
     (actionConfirmed)="removeWorkspaceInsurance()"
 ></agt-modal-confirm-remove-workspace-insurance>
+
+<agt-modal-confirm-upgrade-license
+    [modalId]="modalIdConfirmUpgradeLicense"
+    [licenseName]="selectedLicenseName"
+    (actionConfirmed)="showModalToUpgradeLicense()"
+></agt-modal-confirm-upgrade-license>
+
+<agt-modal-upgrade-license
+    [modalId]="modalIdUpgradeLicense"
+    [licenseName]="selectedLicenseName"
+></agt-modal-upgrade-license>

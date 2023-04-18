@@ -9,6 +9,7 @@ import { Site } from '@interfaces/site.interface';
 import { LoadingService } from '@services/loading.service';
 
 import { IdentityService } from './identity.service';
+import { LICENSES } from '@constants/global';
 
 declare var ModalPlugin: any;
 
@@ -21,7 +22,8 @@ declare var ModalPlugin: any;
 })
 export class IdentityPage implements OnInit {
     modalIdConfirmUpdateSite: string = 'modal-confirm-update-site';
-    modalIdUpgradeLicenseToPro: string = 'modal-upgrade-license-to-pro';
+    modalIdUpgradeLicense: string = 'modal-upgrade-license';
+    licenseName: string = LICENSES.PRO.NAME;
     private _isFormSubmitted: boolean = false;
 
     constructor(
@@ -69,8 +71,8 @@ export class IdentityPage implements OnInit {
         }
     }
 
-    showModalToUpgradeLicenseToPro(): void {
-        ModalPlugin.show(this.modalIdUpgradeLicenseToPro);
+    showModalToUpgradeLicense(): void {
+        ModalPlugin.show(this.modalIdUpgradeLicense);
     }
 
     updateSite(): void {
