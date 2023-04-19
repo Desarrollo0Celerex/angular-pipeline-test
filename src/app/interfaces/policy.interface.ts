@@ -76,4 +76,11 @@ export interface Policy {
     workspaceAgentNumber: string,
     paymentAmount: number,
     paymentAmountPaid: number,
+    contactRfc: string,
+    contactPostalCode: string,
+    contactEmail: string,
+    contactPhoneCodeId: number,
+    contactPhoneNumber: string,
+    contactBirthdate: string,
+    contactGenderId: number,
 }

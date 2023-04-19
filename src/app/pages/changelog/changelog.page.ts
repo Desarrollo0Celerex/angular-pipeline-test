@@ -9,6 +9,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.45.2',
+            launchDate: '18/04/2023',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se actualizo página para completar póliza para que cuando el scanner falle y no se pueda extraer info de una póliza anterior (en caso de renovación) se extraiga los datos cargados en el perfil del contacto.',
+                    ]
+                }
+            ]
+        },
+        {
             version: '1.45.1',
             launchDate: '17/04/2023',
             changes: [
@@ -16,7 +28,7 @@ export class ChangelogPage {
                     title: 'Smart Wallet',
                     items: [
                         'Se agrego modal para actualizar la licencia de Agenthos para poder activar más productos en el Lead manager.',
-                        'Se actualizo página para completar póliza para que cuando el scanner falle y no se pueda extraer info de una póliza anterior (en caso de renovación) se extraiga los datos cargados en el perfil del contacto.',
+                        'Se actualizo página para completar póliza para que cuando el scanner falle y no se pueda extraer info de una póliza anterior se extraiga los datos cargados en el perfil del contacto.',
                     ]
                 }
             ]

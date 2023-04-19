@@ -380,15 +380,34 @@ export class CompletePolicyService {
      * @param policyId  The policy ID
      * @return          The policy data
      */
-    getContactBasePolicy(contactId: string, policyId: string): Observable<HttpResponse> {
-        const fields: string = 'policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularGenderId,titularAge,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,insuranceGroupId,insuranceTypeId,insureds';
+    getContactBasePolicy(contactId: string, policyId: string): Observable<Policy> {
+        const fields: string = 'policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularGenderId,titularAge,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,insuranceGroupId,insuranceTypeId,insureds,contactName,contactRfc,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber,contactBirthdate,contactGenderId';
         return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
             map(( res: HttpResponse) => {
-                    res.data.emissionDate = moment(res.data.emissionDate, 'YYYY-MM-DD').add(1, 'years').format('DD/MM/YYYY');
-                    res.data.validityStartDate = moment(res.data.validityStartDate, 'YYYY-MM-DD').add(1, 'years').format('DD/MM/YYYY');
-                    res.data.validityEndDate = moment(res.data.validityEndDate, 'YYYY-MM-DD').add(1, 'years').format('DD/MM/YYYY');
-                    res.data.policyNumber = this._calculateNewPolicyNumber(res.data.policyNumber);
-                return res;
+                const policy: Policy = res.data;
+                policy.emissionDate = moment(policy.emissionDate, 'YYYY-MM-DD').add(1, 'years').format('DD/MM/YYYY');
+                policy.validityStartDate = moment(policy.validityStartDate, 'YYYY-MM-DD').add(1, 'years').format('DD/MM/YYYY');
+                policy.validityEndDate = moment(policy.validityEndDate, 'YYYY-MM-DD').add(1, 'years').format('DD/MM/YYYY');
+                policy.policyNumber = this._calculateNewPolicyNumber(policy.policyNumber);
+                
+                policy.titularName = (!!policy.titularName) ? policy.titularName : (!!policy.contactName) ? policy.contactName : '';
+                policy.titularRfc = (!!policy.titularRfc) ? policy.titularRfc : (!!policy.contactRfc) ? policy.contactRfc : '';
+                policy.titularPostalCode = (!!policy.titularPostalCode) ? policy.titularPostalCode : (!!policy.contactPostalCode) ? policy.contactPostalCode : '';
+                policy.titularEmail = (!!policy.titularEmail) ? policy.titularEmail : (!!policy.contactEmail) ? policy.contactEmail : '';
+                policy.titularPhoneCodeId = (!!policy.titularPhoneCodeId) ? policy.titularPhoneCodeId : (!!policy.contactPhoneCodeId) ? policy.contactPhoneCodeId : 0;
+                policy.titularPhoneNumber = (!!policy.titularPhoneNumber) ? policy.titularPhoneNumber : (!!policy.contactPhoneNumber) ? policy.contactPhoneNumber : '';
+                
+                if(this.policy !== null && this.policy.contactTypeId === CONTACT_TYPES.PERSON) {
+                    if(!(!!policy.titularAge)) {
+                        const contactAge: number | null = (!!policy.contactBirthdate) ? UtilitiesHelper.calculateAge(policy.contactBirthdate) : null;
+                        policy.titularAge = (contactAge !== null) ? contactAge : 0;
+                    }
+
+                    if(!(!!policy.titularGenderId)) {
+                        policy.titularGenderId = (!!policy.contactGenderId) ? policy.contactGenderId : 0;
+                    }
+                }
+                return policy;
             })
         )
     }

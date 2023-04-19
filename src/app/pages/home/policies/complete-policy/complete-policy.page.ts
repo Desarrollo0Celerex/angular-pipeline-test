@@ -465,8 +465,8 @@ export class CompletePolicyPage implements OnInit {
         /* switch(error.error) {
             case ERROR_CODES.scanFileError: */
                 if(!!this.model.policy && (this.model.policy.policySourceId === POLICY_SOURCES.RENEWAL || this.model.policy.policySourceId === POLICY_SOURCES.REISSUE) ) {
-                    this.model.getContactBasePolicy(this.model.policy.baseContactId, this.model.policy.basePolicyId).subscribe((res: HttpResponse) => {
-                        this.model.buildPolicyForm(res.data);
+                    this.model.getContactBasePolicy(this.model.policy.baseContactId, this.model.policy.basePolicyId).subscribe((res: Policy) => {
+                        this.model.buildPolicyForm(res);
                         setTimeout(() => {
                             this._scanningService.hide();
                             ModalPlugin.show(this.modalIdBasePoliciDataLoaded);
