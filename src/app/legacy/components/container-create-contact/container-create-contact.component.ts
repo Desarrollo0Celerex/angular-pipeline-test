@@ -10,7 +10,7 @@ import { ContactSource } from '@interfaces/contact-source.interface';
 import { HttpError } from '@interfaces/http-error.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ContainerCreateContactService } from './container-create-contact.service';
 

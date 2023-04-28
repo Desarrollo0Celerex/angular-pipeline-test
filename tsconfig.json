@@ -1,76 +1,47 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./src",
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "ES2022",
-    "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
-    "paths": {
-      // NEW
-      "@core/*": [
-        "app/core/*"
-      ],
-      "@modules/*": [
-        "app/modules/*"
-      ],
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "outDir": "./dist/out-tsc",
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "sourceMap": true,
+        "declaration": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "ES2022",
+        "module": "es2020",
+        "lib": ["es2018", "dom"],
+        "paths": {
+            // NEW
+            "@configs/*": ["app/configs/*"],
+            "@core/*": ["app/core/*"],
+            "@modules/*": ["app/modules/*"],
 
-
-      // LEGACY
-      "@components/*": [
-        "app/legacy/components/*"
-      ],
-      "@constants/*": [
-        "app/legacy/constants/*"
-      ],
-      "@directives/*": [
-        "app/legacy/directives/*"
-      ],
-      "@guards/*": [
-        "app/legacy/guards/*"
-      ],
-      "@helpers/*": [
-        "app/legacy/helpers/*"
-      ],
-      "@interceptors/*": [
-        "app/legacy/interceptors/*"
-      ],
-      "@interfaces/*": [
-        "app/legacy/interfaces/*"
-      ],
-      "@pages/*": [
-        "app/legacy/pages/*"
-      ],
-      "@pipes/*": [
-        "app/legacy/pipes/*"
-      ],
-      "@services/*": [
-        "app/legacy/services/*"
-      ],
-      "@env/*": [
-        "environments/*"
-      ]
+            // LEGACY
+            "@components/*": ["app/legacy/components/*"],
+            "@constants/*": ["app/legacy/constants/*"],
+            "@directives/*": ["app/legacy/directives/*"],
+            "@guards/*": ["app/legacy/guards/*"],
+            "@helpers/*": ["app/legacy/helpers/*"],
+            "@interceptors/*": ["app/legacy/interceptors/*"],
+            "@interfaces/*": ["app/legacy/interfaces/*"],
+            "@pages/*": ["app/legacy/pages/*"],
+            "@pipes/*": ["app/legacy/pipes/*"],
+            "@services/*": ["app/legacy/services/*"],
+            "@env/*": ["environments/*"]
+        },
+        "useDefineForClassFields": false
     },
-    "useDefineForClassFields": false
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  }
+    "angularCompilerOptions": {
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": true,
+        "strictInputAccessModifiers": true,
+        "strictTemplates": true
+    }
 }

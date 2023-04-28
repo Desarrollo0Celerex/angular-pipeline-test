@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 
 const routes: any = {
     expressTokens: (workspaceId: string, contactId: string) =>

@@ -7,7 +7,7 @@ import { environment } from '@env/environment';
 import { ContactType } from '@interfaces/contact-type.interface';
 import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 
 const ROUTES = {
     contactTypes: () => `${environment.apiUrl}/contact-types`,

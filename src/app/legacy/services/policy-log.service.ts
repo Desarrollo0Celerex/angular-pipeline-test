@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 
 const ROUTES = {
     policyLogs: (workspaceId: string, contactId: string, policyId: string) =>

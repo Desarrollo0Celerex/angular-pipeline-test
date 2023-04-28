@@ -5,7 +5,7 @@ import { ACTION_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalConfirmReissuePolicyService } from './modal-confirm-reissue-policy.service';
 

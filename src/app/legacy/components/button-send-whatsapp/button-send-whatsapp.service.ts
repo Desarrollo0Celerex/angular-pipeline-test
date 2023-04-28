@@ -6,8 +6,8 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { WorkspaceUser } from '@interfaces/workspace-user.interface';
 import { ContactService } from '@services/contact.service';
 import { ExpressTokenService } from '@services/express-token.service';
-import { AuthService } from '@core/services/auth.service';
-import { JwtService } from '@core/services/jwt.service';
+import { AuthService } from '@core/services/auth/auth.service';
+import { JwtService } from '@core/services/jwt/jwt.service';
 import { WorkspaceUserService } from '@services/workspace-user.service';
 
 @Injectable()

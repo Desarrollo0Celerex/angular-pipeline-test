@@ -11,7 +11,7 @@ import { AbstractControl } from '@angular/forms';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Payment } from '@interfaces/payment.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalChangePaymentDateService } from './modal-change-payment-date.service';
 

@@ -18,7 +18,7 @@ import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { HttpError } from '@interfaces/http-error.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalUpdateReceiptPaidService } from './modal-update-receipt-paid.service';
 

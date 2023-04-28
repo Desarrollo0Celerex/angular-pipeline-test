@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { WorkspaceDirectory } from '@interfaces/workspace-directory.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 import { SaveWorkspaceDirectoriesDataSend } from '@interfaces/save-workspace-directories-data-send.interface';
 
 const ROUTES = {

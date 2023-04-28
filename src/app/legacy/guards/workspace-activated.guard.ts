@@ -9,7 +9,7 @@ import {
 import { Observable } from 'rxjs';
 
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 
 @Injectable({
     providedIn: 'root',

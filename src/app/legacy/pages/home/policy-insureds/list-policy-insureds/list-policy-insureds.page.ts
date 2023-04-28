@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { CONTENT_TYPES, FORMAT_TYPES } from '@constants/global';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ListPolicyInsuredsService } from './list-policy-insureds.service';
 

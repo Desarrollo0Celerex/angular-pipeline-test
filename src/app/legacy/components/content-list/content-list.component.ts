@@ -38,7 +38,7 @@ import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.inte
 import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
 import { WrapperDownloadSinisterEventEvidenceComponent } from '@components/wrapper-download-sinister-event-evidence/wrapper-download-sinister-event-evidence.component';
 
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ContentListService } from './content-list.service';
 

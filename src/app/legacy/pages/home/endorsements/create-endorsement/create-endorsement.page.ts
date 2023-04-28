@@ -16,7 +16,7 @@ import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { CreateEndorsementService } from './create-endorsement.service';
 

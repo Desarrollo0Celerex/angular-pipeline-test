@@ -8,7 +8,7 @@ import { AlertHelper } from '@helpers/alert.helper';
 import { HttpError } from '@interfaces/http-error.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { WrapperUploadSinisterEvidenceService } from './wrapper-upload-sinister-evidence.service';
 

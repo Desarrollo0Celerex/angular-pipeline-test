@@ -1,21 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { ROUTES_NAME } from '@constants/routes-name';
+import { AUTH_ROUTES } from '@configs/routes.config';
 
 @Component({
-  selector: 'agt-not-authenticated',
-  templateUrl: './not-authenticated.page.html',
-  styles: [
-  ]
+    selector: 'agt-not-authenticated',
+    templateUrl: './not-authenticated.page.html',
+    styles: [],
 })
-export class NotAuthenticatedPage implements OnInit {
-    ROUTES_NAME: any;
-
-    constructor() {
-        this.ROUTES_NAME = ROUTES_NAME;
-    }
-
-    ngOnInit(): void {
-    }
-
+export class NotAuthenticatedPage {
+    loginLink: string = `/${AUTH_ROUTES.MODULE}/${AUTH_ROUTES.LOGIN}`;
 }

@@ -9,7 +9,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UpdateExternalPolicyDataSend } from '@interfaces/update-external-policy-data-send.interface';
 import { Policy } from '@interfaces/policy.interface';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 
 const routes: any = {
     contactExternalPolicies: (workspaceId: string, contactId: string) =>

@@ -7,7 +7,7 @@ import { SINISTER_STATUS, SINISTER_STATUS_OPEN } from '@constants/global';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { SinisterStatus } from '@interfaces/sinister-status.interface';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 
 const ROUTES = {
     sinisterStatus: `${environment.apiUrl}/sinister-status`,

@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
-import { AuthService } from '@core/services/auth.service';
-import { FirebaseService } from '@core/services/firebase.service';
+import { AuthService } from '@core/services/auth/auth.service';
+import { FirebaseService } from '@core/services/firebase/firebase.service';
 import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()

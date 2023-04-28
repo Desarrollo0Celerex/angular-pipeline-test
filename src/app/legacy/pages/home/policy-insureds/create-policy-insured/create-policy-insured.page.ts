@@ -7,7 +7,7 @@ import { FILE_TYPES, INSURANCE_GROUPS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { CreatePolicyInsuredService } from './create-policy-insured.service';
 

@@ -4,7 +4,7 @@ import { Contact } from '@interfaces/contact.interface';
 import { ExpressTokenData } from '@interfaces/express-token-data.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ExpressTokenService } from '@services/express-token.service';
-import { JwtService } from '@core/services/jwt.service';
+import { JwtService } from '@core/services/jwt/jwt.service';
 
 @Injectable()
 export class ExpressContactService {

@@ -8,7 +8,7 @@ import { AlertHelper } from '@helpers/alert.helper';
 import { AnalizeInsuredsResponse } from '@interfaces/analize-insureds-response.interface';
 import { HttpError } from '@interfaces/http-error.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 import { ScanningService } from '@services/scanning.service';
 
 import { ImportPolicyInsuredsService } from './import-policy-insureds.service';

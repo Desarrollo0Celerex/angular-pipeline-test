@@ -1,27 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { AUTH_ROUTES } from '@configs/routes.config';
 import { environment } from '@env/environment';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
-
-import { FirebaseService } from '@core/services/firebase.service';
-import { HttpService } from '@core/services/http.service';
-import { JwtService } from '@core/services/jwt.service';
-import { LoadingService } from '@core/services/loading.service';
-import { RoutingHistoryService } from '@core/services/routing-history.service';
-import { StorageService } from '@core/services/storage.service';
-
-const ENDPOINTS: any = {
-    users: environment.apiUrl + '/users',
-    userToken: (workspaceId: string, userId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/users/${userId}/token`,
-};
+import { FirebaseService } from '@core/services/firebase/firebase.service';
+import { AuthHttp } from '@core/http/auth/auth.http';
+import { JwtService } from '@core/services/jwt/jwt.service';
+import { LoadingService } from '@core/services/loading/loading.service';
+import { RoutingHistoryService } from '@core/services/routing-history/routing-history.service';
+import { StorageService } from '@core/services/storage/storage.service';
 
 @Injectable()
 export class AuthService {
     constructor(
         private _firebaseService: FirebaseService,
-        private _httpService: HttpService,
+        private _authHttp: AuthHttp,
         private _jwtService: JwtService,
         private _loadingService: LoadingService,
         private _routingHistoryService: RoutingHistoryService,
@@ -83,16 +77,14 @@ export class AuthService {
     }
 
     getNewUserToken(): Observable<string> {
-        const route: string = ENDPOINTS.userToken(
-            this.workspaceId,
-            this.userId
-        );
-        return this._httpService.get(route);
+        return this._authHttp.getNewUserToken(this.workspaceId, this.userId);
     }
 
     goToAtomAccount(): void {
         const atomAccountLoginUrl: string = `${environment.atomAccountUrl}/auth/identifier`;
-        const returnUrl: string = `${environment.appAgenthosUrl}/auth/identify-user`;
+        const returnUrl: string = `${environment.appAgenthosUrl}/${
+            AUTH_ROUTES.MODULE
+        }/${AUTH_ROUTES.IDENTIFY_USER('')}`;
         let loginUrl = `${atomAccountLoginUrl}?serviceName=Agenthos&returnUrl=${returnUrl}`;
         const redirectUrl: string = this._getRedirectUrl();
         if (!!redirectUrl) {
@@ -102,8 +94,7 @@ export class AuthService {
     }
 
     identifyUser(authToken: string): Observable<string> {
-        const route: string = ENDPOINTS.users;
-        return this._httpService.post(route, { authToken });
+        return this._authHttp.identifyUser(authToken);
     }
 
     logout(restartSession: boolean = false): void {

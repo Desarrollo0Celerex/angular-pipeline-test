@@ -2,7 +2,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 import { AlertHelper } from '@helpers/alert.helper';
 import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalSelectPaymentRegistrationTypeService } from './modal-select-payment-registration-type.service';
 

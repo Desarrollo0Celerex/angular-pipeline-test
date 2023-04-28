@@ -10,7 +10,7 @@ import { AbstractControl } from '@angular/forms';
 
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { AlertHelper } from '@helpers/alert.helper';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalUpdatePartnerService } from './modal-update-partner.service';
 

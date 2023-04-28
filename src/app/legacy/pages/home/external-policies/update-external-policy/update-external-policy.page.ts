@@ -6,7 +6,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { ExternalPolicy } from '@interfaces/external-policy.interface';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 declare var DatePickerPlugin: any;
 declare var PopoverPlugin: any;

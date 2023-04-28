@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { AlertHelper } from '@helpers/alert.helper';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { PartnerProfileService } from './partner-profile.service';
 import { ActivatedRoute } from '@angular/router';

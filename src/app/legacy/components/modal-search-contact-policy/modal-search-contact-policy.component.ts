@@ -4,7 +4,7 @@ import { AbstractControl } from '@angular/forms';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Policy } from '@interfaces/policy.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalSearchContactPolicyService } from './modal-search-contact-policy.service';
 

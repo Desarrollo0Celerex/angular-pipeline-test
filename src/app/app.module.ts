@@ -21,7 +21,7 @@ import { environment } from '@env/environment';
 import { AUTH_INTERCEPTOR_PROVIDER } from '@interceptors/auth.interceptor';
 import { ERROR_INTERCEPTOR_PROVIDER } from '@interceptors/error.interceptor';
 import { MANAGE_HTTP_INTERCEPTOR_PROVIDER } from '@interceptors/manage-http.interceptor';
-import { RoutingHistoryService } from '@core/services/routing-history.service';
+import { RoutingHistoryService } from '@core/services/routing-history/routing-history.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

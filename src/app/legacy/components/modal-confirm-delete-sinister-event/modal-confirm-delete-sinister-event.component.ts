@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalConfirmDeleteSinisterEventService } from './modal-confirm-delete-sinister-event.service';
 

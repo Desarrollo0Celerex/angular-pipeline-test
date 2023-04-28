@@ -8,7 +8,7 @@ import {
 } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { PolicyDetailsData } from '@interfaces/policy-details-data.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ContainerInsurancesService } from './container-insurances.service';
 

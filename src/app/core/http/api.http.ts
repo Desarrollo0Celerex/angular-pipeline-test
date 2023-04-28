@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 @Injectable()
-export class HttpService {
+export class ApiHttp {
     constructor(private _httpClient: HttpClient) {}
 
     delete(endpoint: string): Observable<any> {

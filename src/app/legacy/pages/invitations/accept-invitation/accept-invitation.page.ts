@@ -7,7 +7,7 @@ import { environment } from '@env/environment';
 import { AlertHelper } from '@helpers/alert.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { AcceptInvitationService } from './accept-invitation.service';
 

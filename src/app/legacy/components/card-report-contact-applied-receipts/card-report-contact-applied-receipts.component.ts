@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { CardReportContactAppliedReceiptsService } from './card-report-contact-applied-receipts.service';
 

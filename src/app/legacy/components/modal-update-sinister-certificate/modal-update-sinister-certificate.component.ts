@@ -8,7 +8,7 @@ import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { HttpError } from '@interfaces/http-error.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalUpdateSinisterCertificateService } from './modal-update-sinister-certificate.service';
 

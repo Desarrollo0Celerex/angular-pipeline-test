@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ChangeContactService } from './change-contact.service';
 

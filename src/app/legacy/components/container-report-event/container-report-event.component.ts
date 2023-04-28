@@ -16,7 +16,7 @@ import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interfac
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { SinisterEventType } from '@interfaces/sinister-event-type.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ContainerReportEventService } from './container-report-event.service';
 

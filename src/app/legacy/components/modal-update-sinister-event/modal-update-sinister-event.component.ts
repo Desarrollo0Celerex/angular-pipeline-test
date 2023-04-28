@@ -14,7 +14,7 @@ import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { SinisterEvent } from '@interfaces/sinister-event.interface';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalUpdateSinisterEventService } from './modal-update-sinister-event.service';
 

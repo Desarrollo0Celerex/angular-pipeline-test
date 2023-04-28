@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AlertHelper } from '@helpers/alert.helper';
 import { UserRole } from '@interfaces/user-role.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ContainerWorkspaceUsersService } from './container-workspace-users.service';
 

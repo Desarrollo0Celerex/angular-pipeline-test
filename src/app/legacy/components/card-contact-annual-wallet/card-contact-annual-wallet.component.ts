@@ -7,7 +7,7 @@ import { AlertHelper } from '@helpers/alert.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { Policy } from '@interfaces/policy.interface';
 import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { CardContactAnnualWalletService } from './card-contact-annual-wallet.service';
 

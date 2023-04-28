@@ -8,7 +8,7 @@ import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
 import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ContainerPolicyDetailsService } from './container-policy-details.service';
 

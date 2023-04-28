@@ -7,7 +7,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContactSourceType } from '@interfaces/contact-source-type.interface';
 import { Stat } from '@interfaces/stat.interface';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 
 const ROUTES = {
     contactSourceTypes: (contactSourceId: number) =>

@@ -3,7 +3,7 @@ import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ContactProfileService } from './contact-profile.service';
 

@@ -20,7 +20,7 @@ import { HttpError } from '@interfaces/http-error.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { Policy } from '@interfaces/policy.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 import { ScanningService } from '@services/scanning.service';
 
 import { CompletePolicyService } from './complete-policy.service';

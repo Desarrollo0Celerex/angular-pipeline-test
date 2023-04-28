@@ -14,7 +14,7 @@ import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Invitation } from '@interfaces/invitation.interface';
 import { Role } from '@interfaces/role.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { SendInvitationsService } from './send-invitations.service';
 

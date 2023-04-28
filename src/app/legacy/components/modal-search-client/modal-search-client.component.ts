@@ -6,7 +6,7 @@ import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Client } from '@interfaces/client.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalSearchClientService } from './modal-search-client.service';
 

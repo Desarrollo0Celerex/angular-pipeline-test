@@ -8,7 +8,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PaymentStatus } from '@interfaces/payment-status.interface';
 import { PaymentStatusStat } from '@interfaces/payment-status-stat.interface';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 
 const ROUTES = {
     paymentStatus: `${environment.apiUrl}/payment-status`,

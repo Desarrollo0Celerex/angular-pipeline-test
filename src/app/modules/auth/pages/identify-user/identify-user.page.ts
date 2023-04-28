@@ -1,25 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { ROUTES_NAME } from '@constants/routes-name';
-import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
-import { LoadingService } from '@core/services/loading.service';
 
-import { IdentifyUserService } from './identify-user.service';
+import { AuthService } from '@core/services/auth/auth.service';
+import { FirebaseService } from '@core/services/firebase/firebase.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 @Component({
     selector: 'agt-identify-user',
     template: '',
     styles: [],
 })
-export class IdentifyUserPage implements OnInit {
+export class IdentifyUserPage {
     private _authToken: string;
     private _redirectUrl: string;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
-        private _identifyUserService: IdentifyUserService,
+        private _authService: AuthService,
+        private _firebaseService: FirebaseService,
         private _loadingService: LoadingService,
         private _router: Router
     ) {
@@ -28,7 +28,7 @@ export class IdentifyUserPage implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this._identifyUserService.checkIsLoggedIn()) {
+        if (this._authService.checkIsLoggedIn()) {
             this._router.navigateByUrl(ROUTES_NAME.workspaceWelcome);
         } else {
             this._catchParams();
@@ -51,20 +51,20 @@ export class IdentifyUserPage implements OnInit {
      */
     private _identifyUser(): void {
         this._loadingService.show();
-        this._identifyUserService
+        this._authService
             .identifyUser(this._authToken)
             .subscribe((res: string) => {
                 const userTokenData: UserTokenData =
-                    this._identifyUserService.startSessionInAgenthos(res);
+                    this._authService.startSessionInAgenthos(res);
                 // If the user has active workspace then login to firebase
-                if (this._identifyUserService.checkHasActiveWorkspace()) {
-                    this._identifyUserService
+                if (this._authService.checkHasActiveWorkspace()) {
+                    this._firebaseService
                         .getFirebaseToken(
                             userTokenData.workspaceId,
                             userTokenData.userId
                         )
                         .subscribe((res: string) => {
-                            this._identifyUserService
+                            this._firebaseService
                                 .startSessionInFirebase(res)
                                 .then(() => {
                                     this._loadingService.hide();
@@ -74,7 +74,7 @@ export class IdentifyUserPage implements OnInit {
                                 })
                                 .catch(() => {
                                     this._loadingService.hide();
-                                    this._identifyUserService.logout();
+                                    this._authService.logout();
                                 });
                         });
                 } else {

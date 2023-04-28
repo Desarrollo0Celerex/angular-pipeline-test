@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalConfirmLinkPolicyService } from './modal-confirm-link-policy.service';
 

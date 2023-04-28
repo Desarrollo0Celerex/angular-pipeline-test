@@ -14,7 +14,7 @@ import { UpdateSinisterCertificateDataSend } from '@interfaces/update-sinister-c
 import { UpdateSinisterDetailsDataSend } from '@interfaces/update-sinister-details-data-send.interface';
 import { UpdateSinisterReportDataSend } from '@interfaces/update-sinister-report-data-send.interface';
 import { UpdateSinisterTrackingDataSend } from '@interfaces/update-sinister-tracking-data-send.interface';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 
 import * as moment from 'moment';
 

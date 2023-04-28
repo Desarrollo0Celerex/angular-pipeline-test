@@ -6,7 +6,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { CreateContactDataSend } from '@interfaces/create-contact-data-send.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ListContactCoincidencesService } from './list-contact-coincidences.service';
 

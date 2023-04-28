@@ -7,7 +7,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { WalletContact } from '@interfaces/wallet-contact.interface';
 import { UpdateWalletContactDataSend } from '@interfaces/update-wallet-contact-data-send.interface';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 
 const routes: any = {
     walletContacts: (workspaceId: string, walletId: string) =>

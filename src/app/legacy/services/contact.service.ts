@@ -8,7 +8,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
 import { UpdateContactDataSend } from '@interfaces/update-contact-data-send.interface';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 
 const routes: any = {
     contact: (workspaceId: string, contactId: string) =>

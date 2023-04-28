@@ -2,24 +2,17 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
 
-import { environment } from '@env/environment';
-import { HttpService } from '@core/services/http.service';
-
-const ENDPOINTS = {
-    firebaseToken: (workspaceId: string, userId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/users/${userId}/firebase-token`,
-};
+import { AuthHttp } from '@core/http/auth/auth.http';
 
 @Injectable()
 export class FirebaseService {
     constructor(
         private _angularFireAuth: AngularFireAuth,
-        private _httpService: HttpService
+        private _authHttp: AuthHttp
     ) {}
 
     getFirebaseToken(workspaceId: string, userId: string): Observable<string> {
-        const route: string = ENDPOINTS.firebaseToken(workspaceId, userId);
-        return this._httpService.get(route);
+        return this._authHttp.getFirebaseToken(workspaceId, userId);
     }
 
     startSessionInFirebase(firebaseToken: string): Promise<any> {

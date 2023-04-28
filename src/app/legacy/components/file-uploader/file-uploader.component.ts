@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { FileParam } from '@interfaces/file-param.interface';
-import { LoadingService } from '@core/services/loading.service';
-import { StorageService } from '@core/services/storage.service';
+import { LoadingService } from '@core/services/loading/loading.service';
+import { StorageService } from '@core/services/storage/storage.service';
 
 declare let plupload: any;
 

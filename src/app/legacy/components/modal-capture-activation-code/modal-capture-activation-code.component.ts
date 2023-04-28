@@ -3,7 +3,7 @@ import { AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalCaptureActivationCodeService } from './modal-capture-activation-code.service';
 import { HttpResponse } from '@core/interfaces/http-response.interface';

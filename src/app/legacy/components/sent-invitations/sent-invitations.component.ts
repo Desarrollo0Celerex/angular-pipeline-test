@@ -13,7 +13,7 @@ import { AlertHelper } from '@helpers/alert.helper';
 import { DeleteInvitationData } from '@interfaces/delete-invitation-data.interface';
 import { Invitation } from '@interfaces/invitation.interface';
 import { Role } from '@interfaces/role.interface';
-import { LoadingService } from '@core/services/loading.service';
+import { LoadingService } from '@core/services/loading/loading.service';
 
 import { SentInvitationsService } from './sent-invitations.service';
 

@@ -6,8 +6,8 @@ import { INVITATION_STATUS } from '@constants/global';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { InvitationByToken } from '@interfaces/invitation-by-token.interface';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
-import { AuthService } from '@core/services/auth.service';
-import { FirebaseService } from '@core/services/firebase.service';
+import { AuthService } from '@core/services/auth/auth.service';
+import { FirebaseService } from '@core/services/firebase/firebase.service';
 import { InvitationService } from '@services/invitation.service';
 
 @Injectable()

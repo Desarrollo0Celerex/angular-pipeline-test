@@ -11,7 +11,7 @@ import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 import { TotalPaymentsAmountData } from '@interfaces/total-payments-amount-data.interface';
 import { UpdatePaymentDateDataSend } from '@interfaces/update-payment-date-data-send.interface';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 
 const routes: any = {
     payment: (workspaceId: string, paymentId: string) =>
