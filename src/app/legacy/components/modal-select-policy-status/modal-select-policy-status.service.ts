@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicyStatus } from '@interfaces/policy-status.interface';
 import { PolicyStatusService } from '@services/policy-status.service';
 
@@ -20,8 +20,10 @@ export class ModalSelectPolicyStatusService {
      * @return                The policy status name
      */
     getPolicyStatusName(contentSubtype: number): string {
-        const policyStatus: PolicyStatus | undefined = this.policyStatus.find( (element: PolicyStatus) => element.policyStatusId === contentSubtype)
-        return (!!policyStatus) ? policyStatus.name : '';
+        const policyStatus: PolicyStatus | undefined = this.policyStatus.find(
+            (element: PolicyStatus) => element.policyStatusId === contentSubtype
+        );
+        return !!policyStatus ? policyStatus.name : '';
     }
 
     /**
@@ -33,7 +35,7 @@ export class ModalSelectPolicyStatusService {
             tap((res: HttpResponse) => {
                 this.policyStatus = res.data;
             }),
-            map( () => { })
-        )
+            map(() => {})
+        );
     }
 }

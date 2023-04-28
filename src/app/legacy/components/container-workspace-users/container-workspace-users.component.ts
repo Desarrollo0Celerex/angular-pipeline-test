@@ -2,18 +2,17 @@ import { Component, OnInit } from '@angular/core';
 
 import { AlertHelper } from '@helpers/alert.helper';
 import { UserRole } from '@interfaces/user-role.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ContainerWorkspaceUsersService } from './container-workspace-users.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-workspace-users',
-  templateUrl: './container-workspace-users.component.html',
-  styles: [
-  ],
-  providers: [ContainerWorkspaceUsersService]
+    selector: 'agt-container-workspace-users',
+    templateUrl: './container-workspace-users.component.html',
+    styles: [],
+    providers: [ContainerWorkspaceUsersService],
 })
 export class ContainerWorkspaceUsersComponent implements OnInit {
     modalIdChangeRole: string = 'modal-change-role';
@@ -24,7 +23,7 @@ export class ContainerWorkspaceUsersComponent implements OnInit {
     constructor(
         private _containerWorkspaceUsersService: ContainerWorkspaceUsersService,
         private _loadingService: LoadingService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.model.loadUserRoles();
@@ -50,5 +49,4 @@ export class ContainerWorkspaceUsersComponent implements OnInit {
             AlertHelper.userRoleUpdated();
         });
     }
-
 }

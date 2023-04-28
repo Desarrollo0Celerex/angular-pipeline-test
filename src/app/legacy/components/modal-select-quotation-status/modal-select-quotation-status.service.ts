@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { QuotationStatus } from '@interfaces/quotation-status.interface';
 import { QuotationStatusService } from '@services/quotation-status.service';
 
@@ -19,8 +19,12 @@ export class ModalSelectQuotationStatusService {
      * @return                The quotation status name
      */
     getQuotationStatusName(contentSubtype: number): string {
-        const quotationStatus: QuotationStatus | undefined = this.quotationStatus.find( (element: QuotationStatus) => element.quotationStatusId === contentSubtype)
-        return (!!quotationStatus) ? quotationStatus.name : '';
+        const quotationStatus: QuotationStatus | undefined =
+            this.quotationStatus.find(
+                (element: QuotationStatus) =>
+                    element.quotationStatusId === contentSubtype
+            );
+        return !!quotationStatus ? quotationStatus.name : '';
     }
 
     /**
@@ -29,12 +33,14 @@ export class ModalSelectQuotationStatusService {
      */
     loadQuotationStatus(): Observable<void> {
         const fields: string = 'quotationStatusId,name';
-        return new Observable( observer => {
-            this.quotationStatusService.getQuotationStatus(fields).subscribe( (res: HttpResponse) => {
-                this.quotationStatus = res.data;
-                observer.next();
-                observer.complete();
-            });
+        return new Observable((observer) => {
+            this.quotationStatusService
+                .getQuotationStatus(fields)
+                .subscribe((res: HttpResponse) => {
+                    this.quotationStatus = res.data;
+                    observer.next();
+                    observer.complete();
+                });
         });
     }
 }

@@ -6,7 +6,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalFinalizeSinisterEventService } from './modal-finalize-sinister-event.service';
 
@@ -14,11 +14,10 @@ declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-finalize-sinister-event',
-  templateUrl: './modal-finalize-sinister-event.component.html',
-  styles: [
-  ],
-  providers: [ModalFinalizeSinisterEventService]
+    selector: 'agt-modal-finalize-sinister-event',
+    templateUrl: './modal-finalize-sinister-event.component.html',
+    styles: [],
+    providers: [ModalFinalizeSinisterEventService],
 })
 export class ModalFinalizeSinisterEventComponent implements OnInit {
     @Input() modalId: string = '';
@@ -31,7 +30,7 @@ export class ModalFinalizeSinisterEventComponent implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._initCalendars();
@@ -43,7 +42,8 @@ export class ModalFinalizeSinisterEventComponent implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -53,19 +53,25 @@ export class ModalFinalizeSinisterEventComponent implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     finalizeSinisterEvent(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid && !!this.sinisterEventData) {
+        if (this.model.form.valid && !!this.sinisterEventData) {
             this._loadingService.show();
-            this.model.finalizeSinisterEvent(this.sinisterEventData).subscribe(() => {
-                this._loadingService.hide();
-                this._closeModal();
-                AlertHelper.sinisterEventFinalized(this._reloadPage, this)
-            })
+            this.model
+                .finalizeSinisterEvent(this.sinisterEventData)
+                .subscribe(() => {
+                    this._loadingService.hide();
+                    this._closeModal();
+                    AlertHelper.sinisterEventFinalized(this._reloadPage, this);
+                });
         }
     }
 
@@ -75,19 +81,36 @@ export class ModalFinalizeSinisterEventComponent implements OnInit {
 
     private _initCalendars(): void {
         DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdFinishDate, this._onChangeDate, this);
+        DatePickerPlugin.initElement(
+            this.calendarIdFinishDate,
+            this._onChangeDate,
+            this
+        );
     }
 
-    private _onChangeDate(selectorId: string, changedValue: string, context: ModalFinalizeSinisterEventComponent): void {
-        context.model.form.patchValue({[selectorId]: changedValue});
+    private _onChangeDate(
+        selectorId: string,
+        changedValue: string,
+        context: ModalFinalizeSinisterEventComponent
+    ): void {
+        context.model.form.patchValue({ [selectorId]: changedValue });
     }
 
     private _reloadPage(context: ModalFinalizeSinisterEventComponent): void {
         context._router.routeReuseStrategy.shouldReuseRoute = () => false;
         context._router.onSameUrlNavigation = 'reload';
-        if(!!context.sinisterEventData) {
-            context._router.navigate(['/' + ROUTES_NAME.showSinisterHistory(context.sinisterEventData.contactId, context.sinisterEventData.policyId, context.sinisterEventData.sinisterId)], { relativeTo: context._activatedRoute });
+        if (!!context.sinisterEventData) {
+            context._router.navigate(
+                [
+                    '/' +
+                        ROUTES_NAME.showSinisterHistory(
+                            context.sinisterEventData.contactId,
+                            context.sinisterEventData.policyId,
+                            context.sinisterEventData.sinisterId
+                        ),
+                ],
+                { relativeTo: context._activatedRoute }
+            );
         }
     }
-
 }

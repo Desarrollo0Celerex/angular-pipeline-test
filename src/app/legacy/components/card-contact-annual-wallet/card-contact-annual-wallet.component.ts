@@ -7,18 +7,17 @@ import { AlertHelper } from '@helpers/alert.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { Policy } from '@interfaces/policy.interface';
 import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { CardContactAnnualWalletService } from './card-contact-annual-wallet.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-card-contact-annual-wallet',
-  templateUrl: './card-contact-annual-wallet.component.html',
-  styles: [
-  ],
-  providers: [CardContactAnnualWalletService]
+    selector: 'agt-card-contact-annual-wallet',
+    templateUrl: './card-contact-annual-wallet.component.html',
+    styles: [],
+    providers: [CardContactAnnualWalletService],
 })
 export class CardContactAnnualWalletComponent implements OnChanges {
     @Input() contactId: string = '';
@@ -30,7 +29,8 @@ export class CardContactAnnualWalletComponent implements OnChanges {
     modalIdSearchContactPolicy: string = 'ccaw-search-contact-policy';
     modalIdSelectContactSource: string = 'ccaw-select-contact-source';
     policyId: string = '';
-    searchContactPolicyMessage: string = 'Ingresa la póliza a la que deseas reportar el siniestro.';
+    searchContactPolicyMessage: string =
+        'Ingresa la póliza a la que deseas reportar el siniestro.';
     year: number = UtilitiesHelper.getCurrentYear();
 
     constructor(
@@ -38,12 +38,15 @@ export class CardContactAnnualWalletComponent implements OnChanges {
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.contactId && !!changes.contactId.currentValue) {
+        if (!!changes.contactId && !!changes.contactId.currentValue) {
             this.model.loadContact(changes.contactId.currentValue);
-            this.model.loadContactAnnualWallet(changes.contactId.currentValue, this.year);
+            this.model.loadContactAnnualWallet(
+                changes.contactId.currentValue,
+                this.year
+            );
         }
     }
 
@@ -88,7 +91,9 @@ export class CardContactAnnualWalletComponent implements OnChanges {
     private _reloadComponent(): void {
         this._router.routeReuseStrategy.shouldReuseRoute = () => false;
         this._router.onSameUrlNavigation = 'reload';
-        this._router.navigate([ROUTES_NAME.listContactSinisters(this.contactId)], { relativeTo: this._activatedRoute });
+        this._router.navigate(
+            [ROUTES_NAME.listContactSinisters(this.contactId)],
+            { relativeTo: this._activatedRoute }
+        );
     }
-
 }

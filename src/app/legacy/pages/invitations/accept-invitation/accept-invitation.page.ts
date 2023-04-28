@@ -5,17 +5,16 @@ import { INVITATION_STATUS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { environment } from '@env/environment';
 import { AlertHelper } from '@helpers/alert.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { UserTokenData } from '@interfaces/user-token-data.interface';
-import { LoadingService } from '@services/loading.service';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { UserTokenData } from '@core/interfaces/user-token-data.interface';
+import { LoadingService } from '@core/services/loading.service';
 
 import { AcceptInvitationService } from './accept-invitation.service';
 
 @Component({
-  selector: 'agt-accept-invitation',
-  templateUrl: './accept-invitation.page.html',
-  styles: [
-  ]
+    selector: 'agt-accept-invitation',
+    templateUrl: './accept-invitation.page.html',
+    styles: [],
 })
 export class AcceptInvitationPage implements OnInit {
     invitationToken: string;
@@ -47,10 +46,12 @@ export class AcceptInvitationPage implements OnInit {
      */
     onClickRejectInvitation(): void {
         this._loadingService.show();
-        this.acceptInvitationService.rejectInvitation(this.invitationToken).subscribe( () => {
-            this._loadingService.hide();
-            AlertHelper.invitationRejected();
-        })
+        this.acceptInvitationService
+            .rejectInvitation(this.invitationToken)
+            .subscribe(() => {
+                this._loadingService.hide();
+                AlertHelper.invitationRejected();
+            });
     }
 
     /**
@@ -58,28 +59,44 @@ export class AcceptInvitationPage implements OnInit {
      */
     onClickAcceptInvitation(): void {
         this._loadingService.show();
-        this.acceptInvitationService.acceptInvitation(this.invitationToken).subscribe( (res: HttpResponse) => {
-            const userTokenData: UserTokenData = this.acceptInvitationService.startSessionInAgenthos(res.data);
-            // If the user has active workspace then login to firebase
-            if(this.acceptInvitationService.checkHasActiveWorkspace()) {
-                this.acceptInvitationService.getFirebaseToken(userTokenData.workspaceId, userTokenData.userId).subscribe( (res: HttpResponse) => {
-                    this.acceptInvitationService.startSessionInFirebase(res.data).then( () => {
-                        this._loadingService.hide();
-                        this._router.navigateByUrl(ROUTES_NAME.dashboard);
-                    }).catch(() => {
-                        this._loadingService.hide();
-                        this.acceptInvitationService.logout();
-                    })
-                })
-            }
-        })
+        this.acceptInvitationService
+            .acceptInvitation(this.invitationToken)
+            .subscribe((res: HttpResponse) => {
+                const userTokenData: UserTokenData =
+                    this.acceptInvitationService.startSessionInAgenthos(
+                        res.data
+                    );
+                // If the user has active workspace then login to firebase
+                if (this.acceptInvitationService.checkHasActiveWorkspace()) {
+                    this.acceptInvitationService
+                        .getFirebaseToken(
+                            userTokenData.workspaceId,
+                            userTokenData.userId
+                        )
+                        .subscribe((res: string) => {
+                            this.acceptInvitationService
+                                .startSessionInFirebase(res)
+                                .then(() => {
+                                    this._loadingService.hide();
+                                    this._router.navigateByUrl(
+                                        ROUTES_NAME.dashboard
+                                    );
+                                })
+                                .catch(() => {
+                                    this._loadingService.hide();
+                                    this.acceptInvitationService.logout();
+                                });
+                        });
+                }
+            });
     }
 
     /**
      * Catch the params
      */
     private _catchParams(): void {
-        this.invitationToken = this._activatedRoute.snapshot.params.invitationToken;
+        this.invitationToken =
+            this._activatedRoute.snapshot.params.invitationToken;
     }
 
     /**
@@ -87,16 +104,21 @@ export class AcceptInvitationPage implements OnInit {
      */
     private _loadInvitation(): void {
         this._loadingService.show();
-        this.acceptInvitationService.loadInvitation(this.invitationToken).subscribe( () => {
-            this._loadingService.hide();
-            if(this.acceptInvitationService.checkComesActiveWorkspace()) {
-                if(this.acceptInvitationService.checkIsInvitationAccepted()) {
-                    this._router.navigateByUrl(ROUTES_NAME.dashboard);
+        this.acceptInvitationService
+            .loadInvitation(this.invitationToken)
+            .subscribe(() => {
+                this._loadingService.hide();
+                if (this.acceptInvitationService.checkComesActiveWorkspace()) {
+                    if (
+                        this.acceptInvitationService.checkIsInvitationAccepted()
+                    ) {
+                        this._router.navigateByUrl(ROUTES_NAME.dashboard);
+                    }
+                } else {
+                    this._router.navigateByUrl(
+                        ROUTES_NAME.workspaceNotActivated
+                    );
                 }
-            } else {
-                this._router.navigateByUrl(ROUTES_NAME.workspaceNotActivated);
-            }
-        })
+            });
     }
-
 }

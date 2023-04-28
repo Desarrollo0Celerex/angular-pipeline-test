@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Quotation } from '@interfaces/quotation.interface';
 import { QuotationService } from '@services/quotation.service';
 
@@ -17,10 +17,13 @@ export class ModalShowQuotationDetailsService {
      * @param  quotationId The quotation ID to load
      */
     loadQuotation(contactId: string, quotationId: string): void {
-        const fields: string = 'description,insuranceName,insuranceTypeName,createdAt,createdByName';
-        this._quotationService.getContactQuotation(contactId, quotationId, fields).subscribe( (res: HttpResponse) => {
-            this.quotation = res.data;
-        })
+        const fields: string =
+            'description,insuranceName,insuranceTypeName,createdAt,createdByName';
+        this._quotationService
+            .getContactQuotation(contactId, quotationId, fields)
+            .subscribe((res: HttpResponse) => {
+                this.quotation = res.data;
+            });
     }
 
     /**
@@ -47,7 +50,7 @@ export class ModalShowQuotationDetailsService {
             quotationStatusBackground: '',
             insuranceTypeName: '',
             createdByName: '',
-            contactId: ''
-        }
+            contactId: '',
+        };
     }
 }

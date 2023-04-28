@@ -3,18 +3,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ContainerLastContactsService } from './container-last-contacts.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-last-contacts',
-  templateUrl: './container-last-contacts.component.html',
-  styles: [
-  ],
-  providers: [ContainerLastContactsService]
+    selector: 'agt-container-last-contacts',
+    templateUrl: './container-last-contacts.component.html',
+    styles: [],
+    providers: [ContainerLastContactsService],
 })
 export class ContainerLastContactsComponent implements OnInit {
     modalIdConfirmDeleteContact: string = 'agt-confirm-delete-contact';
@@ -27,7 +26,7 @@ export class ContainerLastContactsComponent implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.containerLastContactsService.loadLastContacts();
@@ -35,11 +34,13 @@ export class ContainerLastContactsComponent implements OnInit {
 
     deleteContact(): void {
         this._loadingService.show();
-        this.containerLastContactsService.deleteContact(this.selectedContactIdToDelete).subscribe(() => {
-            this._loadingService.hide();
-            this._reloadPage(ROUTES_NAME.dashboard);
-            AlertHelper.contactDeleted();
-        })
+        this.containerLastContactsService
+            .deleteContact(this.selectedContactIdToDelete)
+            .subscribe(() => {
+                this._loadingService.hide();
+                this._reloadPage(ROUTES_NAME.dashboard);
+                AlertHelper.contactDeleted();
+            });
     }
 
     goToContactProfile(contactId: string): void {
@@ -63,6 +64,8 @@ export class ContainerLastContactsComponent implements OnInit {
     private _reloadPage(pageUrl: string): void {
         this._router.routeReuseStrategy.shouldReuseRoute = () => false;
         this._router.onSameUrlNavigation = 'reload';
-        this._router.navigate(['/' + pageUrl], { relativeTo: this._activatedRoute });
+        this._router.navigate(['/' + pageUrl], {
+            relativeTo: this._activatedRoute,
+        });
     }
 }

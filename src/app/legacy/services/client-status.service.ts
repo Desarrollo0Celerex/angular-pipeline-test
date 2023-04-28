@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { AuthService } from '@services/auth.service';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { AuthService } from '@core/services/auth.service';
 
 const ROUTES = {
     clientsStatus: `${environment.apiUrl}/client-status`,
-    clientStatusStats: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/stats/client-status`,
-}
+    clientStatusStats: (workspaceId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/stats/client-status`,
+};
 
 @Injectable()
 export class ClientStatusService {
@@ -18,7 +19,7 @@ export class ClientStatusService {
     constructor(
         private _authService: AuthService,
         private _httpClient: HttpClient
-    ) { }
+    ) {}
 
     /**
      * Get the clients status from the API
@@ -27,8 +28,8 @@ export class ClientStatusService {
      */
     getClientStatus(fields: string = ''): Observable<HttpResponse> {
         const route: string = ROUTES.clientsStatus;
-        let params: HttpParams = new HttpParams;
-        if(!!fields) params = params.append('fields', fields);
+        let params: HttpParams = new HttpParams();
+        if (!!fields) params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, { params });
     }
 
@@ -39,9 +40,8 @@ export class ClientStatusService {
      */
     getClientStatusStats(filters: string = ''): Observable<HttpResponse> {
         const route: string = ROUTES.clientStatusStats(this._workspaceId);
-        let params: HttpParams = new HttpParams;
-        if(!!filters) params = params.append('filter', filters);
+        let params: HttpParams = new HttpParams();
+        if (!!filters) params = params.append('filter', filters);
         return this._httpClient.get<HttpResponse>(route, { params });
     }
-
 }

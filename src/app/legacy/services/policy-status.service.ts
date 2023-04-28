@@ -5,15 +5,16 @@ import { map } from 'rxjs/operators';
 
 import { POLICY_STATUS, POLICY_STATUS_ACTIVE } from '@constants/global';
 import { environment } from '@env/environment';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicyStatus } from '@interfaces/policy-status.interface';
 import { PolicyStatusStat } from '@interfaces/policy-status-stat.interface';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@core/services/auth.service';
 
 const ROUTES = {
     policyStatus: `${environment.apiUrl}/policy-status`,
-    policyStatusStats: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/stats/policy-status`,
-}
+    policyStatusStats: (workspaceId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/stats/policy-status`,
+};
 
 @Injectable()
 export class PolicyStatusService {
@@ -22,7 +23,7 @@ export class PolicyStatusService {
     constructor(
         private _authService: AuthService,
         private _httpClient: HttpClient
-    ) { }
+    ) {}
 
     /**
      * Get the policy status from the API
@@ -32,9 +33,9 @@ export class PolicyStatusService {
     getPolicyStatus(fields: string = ''): Observable<HttpResponse> {
         const route: string = ROUTES.policyStatus;
         let params: HttpParams = new HttpParams();
-        if(!!fields) params = params.append('fields', fields);
-        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
-            map( (res: HttpResponse) => {
+        if (!!fields) params = params.append('fields', fields);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
                 let policyStatus: PolicyStatus[] = [];
                 let statusToIgnore: PolicyStatus[] = [
                     POLICY_STATUS.INCOMPLETE,
@@ -45,16 +46,16 @@ export class PolicyStatusService {
                 ];
                 policyStatus.push({
                     policyStatusId: POLICY_STATUS_ACTIVE,
-                    name: 'Activa'
+                    name: 'Activa',
                 });
-                for(let status of res.data) {
-                    if(!statusToIgnore.includes(status.policyStatusId) ) {
+                for (let status of res.data) {
+                    if (!statusToIgnore.includes(status.policyStatusId)) {
                         policyStatus.push(status);
                     }
                 }
                 return {
-                    data: policyStatus
-                }
+                    data: policyStatus,
+                };
             })
         );
     }
@@ -66,10 +67,10 @@ export class PolicyStatusService {
      */
     getPolicyStatusStats(filters: string = ''): Observable<PolicyStatusStat[]> {
         const route: string = ROUTES.policyStatusStats(this._workspaceId);
-        let params: HttpParams = new HttpParams;
-        if(!!filters) params = params.append('filter', filters);
-        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
-            map((res: HttpResponse) => res.data )
-        );
+        let params: HttpParams = new HttpParams();
+        if (!!filters) params = params.append('filter', filters);
+        return this._httpClient
+            .get<HttpResponse>(route, { params })
+            .pipe(map((res: HttpResponse) => res.data));
     }
 }

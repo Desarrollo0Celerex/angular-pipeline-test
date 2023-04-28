@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { UserTokenData } from '@interfaces/user-token-data.interface';
-import { AuthService } from '@services/auth.service';
-import { FirebaseService } from '@services/firebase.service';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { UserTokenData } from '@core/interfaces/user-token-data.interface';
+import { AuthService } from '@core/services/auth.service';
+import { FirebaseService } from '@core/services/firebase.service';
 import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
 export class ActivatedLicenseService {
-
     constructor(
         private _authService: AuthService,
         private _firebaseService: FirebaseService,
         private _workspaceService: WorkspaceService
-    ) { }
+    ) {}
 
     /**
      * Activate the workspace
@@ -31,7 +30,7 @@ export class ActivatedLicenseService {
      * @param  userId      User id
      * @return             Firebase token
      */
-    getFirebaseToken(workspaceId: string, userId: string): Observable<HttpResponse> {
+    getFirebaseToken(workspaceId: string, userId: string): Observable<string> {
         return this._firebaseService.getFirebaseToken(workspaceId, userId);
     }
 

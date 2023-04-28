@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
 export class UploadWorkspaceAvatarService {
-    constructor(
-        private _workspaceService: WorkspaceService,
-    ) { }
+    constructor(private _workspaceService: WorkspaceService) {}
 
     /**
      * Upload the workspace avatar
@@ -18,5 +16,4 @@ export class UploadWorkspaceAvatarService {
     uploadWorkspaceAvatar(image: string | null): Observable<HttpResponse> {
         return this._workspaceService.uploadWorkspaceAvatar(image);
     }
-
 }

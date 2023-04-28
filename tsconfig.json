@@ -21,6 +21,16 @@
       "dom"
     ],
     "paths": {
+      // NEW
+      "@core/*": [
+        "app/core/*"
+      ],
+      "@modules/*": [
+        "app/modules/*"
+      ],
+
+
+      // LEGACY
       "@components/*": [
         "app/legacy/components/*"
       ],

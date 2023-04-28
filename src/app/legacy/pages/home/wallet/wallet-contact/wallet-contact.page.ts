@@ -6,18 +6,17 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { WalletContact } from '@interfaces/wallet-contact.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { WalletContactSService } from './wallet-contact-s.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-wallet-contact',
-  templateUrl: './wallet-contact.page.html',
-  styles: [
-  ],
-  providers: [WalletContactSService]
+    selector: 'agt-wallet-contact',
+    templateUrl: './wallet-contact.page.html',
+    styles: [],
+    providers: [WalletContactSService],
 })
 export class WalletContactPage implements OnInit {
     modalIdConfirmUpdateWallet: string = 'modal-confirm-update-wallet';
@@ -29,7 +28,7 @@ export class WalletContactPage implements OnInit {
         private _loadingService: LoadingService,
         private _router: Router,
         private _walletContactSService: WalletContactSService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._catchParams();
@@ -46,7 +45,8 @@ export class WalletContactPage implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -56,17 +56,21 @@ export class WalletContactPage implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     phoneCodeIdSelected(field: string, phoneCodeId: number): void {
-        this.model.form.patchValue({[field]: phoneCodeId});
+        this.model.form.patchValue({ [field]: phoneCodeId });
     }
 
     confirmUpdateWallet(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             ModalPlugin.show(this.modalIdConfirmUpdateWallet);
         }
     }
@@ -76,7 +80,7 @@ export class WalletContactPage implements OnInit {
         this.model.updateWalletContact(this._walletId).subscribe(() => {
             this._loadingService.hide();
             AlertHelper.walletUpdated();
-        })
+        });
     }
 
     private _catchParams(): void {
@@ -84,15 +88,19 @@ export class WalletContactPage implements OnInit {
     }
 
     private _loadWalletContacts(): void {
-        this.model.loadWalletContacts(this._walletId).subscribe((res: WalletContact) => {
-            this.model.buildForm(res);
-        })
+        this.model
+            .loadWalletContacts(this._walletId)
+            .subscribe((res: WalletContact) => {
+                this.model.buildForm(res);
+            });
     }
 
     private _reloadPage(context: WalletContactPage): void {
         context._router.routeReuseStrategy.shouldReuseRoute = () => false;
         context._router.onSameUrlNavigation = 'reload';
-        context._router.navigate(['/' + ROUTES_NAME.walletResume(context._walletId)], { relativeTo: context._activatedRoute });
+        context._router.navigate(
+            ['/' + ROUTES_NAME.walletResume(context._walletId)],
+            { relativeTo: context._activatedRoute }
+        );
     }
-
 }

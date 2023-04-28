@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    OnChanges,
+    Output,
+    SimpleChanges,
+    ViewChild,
+} from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 import { ModalSelectEvidenceComponent } from '@components/modal-select-evidence/modal-select-evidence.component';
@@ -9,7 +18,7 @@ import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { HttpError } from '@interfaces/http-error.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalUpdateReceiptPaidService } from './modal-update-receipt-paid.service';
 
@@ -17,11 +26,10 @@ declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-update-receipt-paid',
-  templateUrl: './modal-update-receipt-paid.component.html',
-  styles: [
-  ],
-  providers: [ModalUpdateReceiptPaidService]
+    selector: 'agt-modal-update-receipt-paid',
+    templateUrl: './modal-update-receipt-paid.component.html',
+    styles: [],
+    providers: [ModalUpdateReceiptPaidService],
 })
 export class ModalUpdateReceiptPaidComponent implements OnChanges, OnInit {
     @Input() modalId: string = '';
@@ -29,27 +37,30 @@ export class ModalUpdateReceiptPaidComponent implements OnChanges, OnInit {
     @Input() policyId: string = '';
     @Input() paymentId: string = '';
     @Input() receiptPaidId: string = '';
-    @Output() receiptPaidUpdated: EventEmitter<UpdateReceiptPaidDataSend> = new EventEmitter<UpdateReceiptPaidDataSend>();
-    @ViewChild('modalSelectEvidence') private _modalSelectEvidence!: ModalSelectEvidenceComponent;
+    @Output() receiptPaidUpdated: EventEmitter<UpdateReceiptPaidDataSend> =
+        new EventEmitter<UpdateReceiptPaidDataSend>();
+    @ViewChild('modalSelectEvidence')
+    private _modalSelectEvidence!: ModalSelectEvidenceComponent;
     calendarIdApplicationDate: string = 'applicationDate';
-    modalIdErrorUpdatingPaidReceipt: string = 'murp-error-updating-paid-receipt';
+    modalIdErrorUpdatingPaidReceipt: string =
+        'murp-error-updating-paid-receipt';
     modalIdSelectPaymentEvidence: string = 'murp-upload-payment-evidence';
     modalSelectEvidenceData: ModalSelectFileData = {
         title: 'Cargar Evidencia',
         description: 'Selecciona el formato digital de la evidencia del pago.',
         buttonLabel: 'Cargar evidencia',
         formats: IMAGE_AND_DOCUMENT_FORMATS,
-        fileType: FILE_TYPES.IMAGE_AND_DOCUMENT
+        fileType: FILE_TYPES.IMAGE_AND_DOCUMENT,
     };
     private _isFormSubmitted: boolean = false;
 
     constructor(
         public model: ModalUpdateReceiptPaidService,
         private _loadingService: LoadingService
-    ) { }
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.receiptPaidId && !!changes.receiptPaidId.currentValue) {
+        if (!!changes.receiptPaidId && !!changes.receiptPaidId.currentValue) {
             this._loadReceiptPaid(changes.receiptPaidId.currentValue);
         }
     }
@@ -60,7 +71,7 @@ export class ModalUpdateReceiptPaidComponent implements OnChanges, OnInit {
 
     addPaymentEvidence(file: File): void {
         this.showModalUpdateReceiptPaid();
-        this.model.form.patchValue({ paymentEvidence: file})
+        this.model.form.patchValue({ paymentEvidence: file });
     }
 
     /**
@@ -69,7 +80,8 @@ export class ModalUpdateReceiptPaidComponent implements OnChanges, OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -79,8 +91,12 @@ export class ModalUpdateReceiptPaidComponent implements OnChanges, OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     selectPaymentEvidence(): void {
@@ -94,26 +110,38 @@ export class ModalUpdateReceiptPaidComponent implements OnChanges, OnInit {
 
     updateReceipPaid(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             this._loadingService.show();
-            this.model.updateReceipPaid(this.contactId, this.policyId, this.paymentId, this.receiptPaidId).subscribe(() => {
-                ModalPlugin.hide(this.modalId);
-                this.receiptPaidUpdated.emit(this.model.form.value);
-                setTimeout(() => {
-                    this._loadingService.hide();
-                    AlertHelper.receiptPaidUpdated();
-                },500);
-            }, (error: HttpError) => {
-                switch(error.error) {
-                    case ERROR_CODES.receiptsAmountExceeded:
-                    case ERROR_CODES.receiptsNumberExceeded:
-                    case ERROR_CODES.pendingAmount:
-                    case ERROR_CODES.pendingReceipts:
+            this.model
+                .updateReceipPaid(
+                    this.contactId,
+                    this.policyId,
+                    this.paymentId,
+                    this.receiptPaidId
+                )
+                .subscribe(
+                    () => {
                         ModalPlugin.hide(this.modalId);
-                        ModalPlugin.show(this.modalIdErrorUpdatingPaidReceipt);
-                    break;
-                }
-            })
+                        this.receiptPaidUpdated.emit(this.model.form.value);
+                        setTimeout(() => {
+                            this._loadingService.hide();
+                            AlertHelper.receiptPaidUpdated();
+                        }, 500);
+                    },
+                    (error: HttpError) => {
+                        switch (error.error) {
+                            case ERROR_CODES.receiptsAmountExceeded:
+                            case ERROR_CODES.receiptsNumberExceeded:
+                            case ERROR_CODES.pendingAmount:
+                            case ERROR_CODES.pendingReceipts:
+                                ModalPlugin.hide(this.modalId);
+                                ModalPlugin.show(
+                                    this.modalIdErrorUpdatingPaidReceipt
+                                );
+                                break;
+                        }
+                    }
+                );
         }
     }
 
@@ -122,7 +150,11 @@ export class ModalUpdateReceiptPaidComponent implements OnChanges, OnInit {
      */
     private _initCalendars(): void {
         DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdApplicationDate, this._onChangeDate, this);
+        DatePickerPlugin.initElement(
+            this.calendarIdApplicationDate,
+            this._onChangeDate,
+            this
+        );
     }
 
     private _loadReceiptPaid(receiptPaidId: string): void {
@@ -139,7 +171,11 @@ export class ModalUpdateReceiptPaidComponent implements OnChanges, OnInit {
      * @param changedValue The changed value
      * @param context      The app context
      */
-    private _onChangeDate(selectorId: string, changedValue: string, context: ModalUpdateReceiptPaidComponent): void {
-        context.model.form.patchValue({[selectorId]: changedValue});
+    private _onChangeDate(
+        selectorId: string,
+        changedValue: string,
+        context: ModalUpdateReceiptPaidComponent
+    ): void {
+        context.model.form.patchValue({ [selectorId]: changedValue });
     }
 }

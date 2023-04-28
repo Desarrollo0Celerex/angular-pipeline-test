@@ -2,19 +2,18 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Policy } from '@interfaces/policy.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalSearchPolicyService } from './modal-search-policy.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-search-policy',
-  templateUrl: './modal-search-policy.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-search-policy',
+    templateUrl: './modal-search-policy.component.html',
+    styles: [],
 })
 export class ModalSearchPolicyComponent {
     @Input() message: string = '';
@@ -28,7 +27,7 @@ export class ModalSearchPolicyComponent {
     constructor(
         public modalSearchPolicyService: ModalSearchPolicyService,
         private _loadingService: LoadingService
-    ) { }
+    ) {}
 
     /**
      * Get the error message
@@ -36,7 +35,8 @@ export class ModalSearchPolicyComponent {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.modalSearchPolicyService.searchForm.get(constrolName);
+        const control: AbstractControl | null =
+            this.modalSearchPolicyService.searchForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -46,8 +46,12 @@ export class ModalSearchPolicyComponent {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.modalSearchPolicyService.searchForm.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.modalSearchPolicyService.searchForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     /**
@@ -72,32 +76,36 @@ export class ModalSearchPolicyComponent {
      */
     onSubmitSearchPolicy(): void {
         this._isFormSubmitted = true;
-        if(this.modalSearchPolicyService.searchForm.valid) {
+        if (this.modalSearchPolicyService.searchForm.valid) {
             this._loadingService.show();
-            this.modalSearchPolicyService.searchPolicy().subscribe( (res: HttpResponse) => {
-                const totalFoundPolicies: number = res.data.items.length;
-                // If there are no policies
-                if(totalFoundPolicies === 0) {
-                    this.isNoResults = true;
-                    this._resetSearchForm(this.modalSearchPolicyService.f.policyNumber.value);
-                } else {
-                    this.isNoResults = false;
-                    ModalPlugin.hide(this.modalId);
-                    this._resetSearchForm();
-                    // If the policy was found
-                    if(totalFoundPolicies === 1) {
-                        this.policyFound.emit(res.data.items[0]);
+            this.modalSearchPolicyService
+                .searchPolicy()
+                .subscribe((res: HttpResponse) => {
+                    const totalFoundPolicies: number = res.data.items.length;
+                    // If there are no policies
+                    if (totalFoundPolicies === 0) {
+                        this.isNoResults = true;
+                        this._resetSearchForm(
+                            this.modalSearchPolicyService.f.policyNumber.value
+                        );
+                    } else {
+                        this.isNoResults = false;
+                        ModalPlugin.hide(this.modalId);
+                        this._resetSearchForm();
+                        // If the policy was found
+                        if (totalFoundPolicies === 1) {
+                            this.policyFound.emit(res.data.items[0]);
+                        }
+                        // If there are multiple policies
+                        else {
+                            this.foundPolicies = res.data.items;
+                            ModalPlugin.show(this.modalIdSelectPolicy);
+                        }
                     }
-                    // If there are multiple policies
-                    else {
-                        this.foundPolicies = res.data.items;
-                        ModalPlugin.show(this.modalIdSelectPolicy);
-                    }
-                }
-                setTimeout(() => {
-                    this._loadingService.hide();
-                }, 250);
-            });
+                    setTimeout(() => {
+                        this._loadingService.hide();
+                    }, 250);
+                });
         }
     }
 
@@ -106,6 +114,6 @@ export class ModalSearchPolicyComponent {
      */
     private _resetSearchForm(policyNumber: string = ''): void {
         this._isFormSubmitted = false;
-        this.modalSearchPolicyService.searchForm.reset({policyNumber});
+        this.modalSearchPolicyService.searchForm.reset({ policyNumber });
     }
 }

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
@@ -11,10 +11,10 @@ export class InstagramService {
     form: FormGroup = this._formBuilder.group({});
     isBuiltForm: boolean = false;
 
-    constructor( 
-      private _formBuilder: FormBuilder,
-      private _workspaceService: WorkspaceService,
-    ) { }
+    constructor(
+        private _formBuilder: FormBuilder,
+        private _workspaceService: WorkspaceService
+    ) {}
 
     loadWorkspace(): Observable<HttpResponse> {
         const fields: string = 'instagramUrl';
@@ -23,12 +23,17 @@ export class InstagramService {
 
     buildForm(instagramUrl: string | null): void {
         this.form = this._formBuilder.group({
-            instagramUrl: [(instagramUrl !== null) ? instagramUrl : '', [Validators.required, ValidatorsHelper.webLinkInstagram ]]
+            instagramUrl: [
+                instagramUrl !== null ? instagramUrl : '',
+                [Validators.required, ValidatorsHelper.webLinkInstagram],
+            ],
         });
         this.isBuiltForm = true;
     }
 
     updateInstagramUrl(): Observable<void> {
-        return this._workspaceService.updateWorkspaceInstagramUrl(this.form.get('instagramUrl')!.value);
+        return this._workspaceService.updateWorkspaceInstagramUrl(
+            this.form.get('instagramUrl')!.value
+        );
     }
 }

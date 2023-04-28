@@ -3,18 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
     groupStatus: `${environment.apiUrl}/group-status`,
-}
+};
 
 @Injectable()
 export class GroupStatusService {
-
-    constructor(
-        private _httpClient: HttpClient
-    ) { }
+    constructor(private _httpClient: HttpClient) {}
 
     /**
      * Get the group status from the API
@@ -23,8 +20,8 @@ export class GroupStatusService {
      */
     getGroupStatus(fields: string = ''): Observable<HttpResponse> {
         const route: string = ROUTES.groupStatus;
-        let params: HttpParams = new HttpParams;
-        if(!!fields) params = params.append('fields', fields);
+        let params: HttpParams = new HttpParams();
+        if (!!fields) params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, { params });
     }
 }

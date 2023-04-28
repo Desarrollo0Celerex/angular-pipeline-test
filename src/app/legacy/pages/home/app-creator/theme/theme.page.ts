@@ -6,18 +6,17 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Wallet } from '@interfaces/wallet.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 declare var ModalPlugin: any;
 
 import { ThemeService } from './theme.service';
 
 @Component({
-  selector: 'agt-theme',
-  templateUrl: './theme.page.html',
-  styles: [
-  ],
-  providers: [ThemeService]
+    selector: 'agt-theme',
+    templateUrl: './theme.page.html',
+    styles: [],
+    providers: [ThemeService],
 })
 export class ThemePage implements OnInit {
     modalIdConfirmUpdateWallet: string = 'agt-confirm-update-wallet';
@@ -27,25 +26,30 @@ export class ThemePage implements OnInit {
         public model: ThemeService,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._loadWallet();
     }
 
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     showModalToConfirmUpdateWallet(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             ModalPlugin.show(this.modalIdConfirmUpdateWallet);
         }
     }

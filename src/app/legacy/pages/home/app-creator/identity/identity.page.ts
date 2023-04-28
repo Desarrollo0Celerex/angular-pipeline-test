@@ -6,7 +6,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Wallet } from '@interfaces/wallet.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { IdentityService } from './identity.service';
 import { LICENSES } from '@constants/global';
@@ -14,11 +14,10 @@ import { LICENSES } from '@constants/global';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-identity',
-  templateUrl: './identity.page.html',
-  styles: [
-  ],
-  providers: [IdentityService]
+    selector: 'agt-identity',
+    templateUrl: './identity.page.html',
+    styles: [],
+    providers: [IdentityService],
 })
 export class IdentityPage implements OnInit {
     modalIdConfirmUpdateWallet: string = 'modal-confirm-update-wallet';
@@ -30,7 +29,7 @@ export class IdentityPage implements OnInit {
         public model: IdentityService,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._loadWallet();
@@ -42,19 +41,24 @@ export class IdentityPage implements OnInit {
 
     confirmUpdateWallet(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             ModalPlugin.show(this.modalIdConfirmUpdateWallet);
         }
     }
 
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     showModalToUpgradeLicense(): void {
@@ -73,6 +77,6 @@ export class IdentityPage implements OnInit {
     private _loadWallet(): void {
         this.model.loadWallet().subscribe((wallet: Wallet) => {
             this.model.buildForm(wallet);
-        })
+        });
     }
 }

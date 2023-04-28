@@ -3,19 +3,18 @@ import { Router } from '@angular/router';
 
 import { ACTION_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalConfirmReissuePolicyService } from './modal-confirm-reissue-policy.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-reissue-policy',
-  templateUrl: './modal-confirm-reissue-policy.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-reissue-policy',
+    templateUrl: './modal-confirm-reissue-policy.component.html',
+    styles: [],
 })
 export class ModalConfirmReissuePolicyComponent {
     @Input() contactId: string;
@@ -26,7 +25,7 @@ export class ModalConfirmReissuePolicyComponent {
     constructor(
         private _modalConfirmReissuePolicyService: ModalConfirmReissuePolicyService,
         private _loadingService: LoadingService,
-        private _router: Router,
+        private _router: Router
     ) {
         this.contactId = '';
         this.modalId = '';
@@ -40,10 +39,14 @@ export class ModalConfirmReissuePolicyComponent {
     onClickReissuePolicyToSameClient(): void {
         ModalPlugin.hide(this.modalId);
         this._loadingService.show();
-        this._modalConfirmReissuePolicyService.rissuePolicy(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
-            this._loadingService.hide();
-            this._router.navigate([ROUTES_NAME.uploadPolicy(this.contactId, res.data)]);
-        })
+        this._modalConfirmReissuePolicyService
+            .rissuePolicy(this.contactId, this.policyId)
+            .subscribe((res: HttpResponse) => {
+                this._loadingService.hide();
+                this._router.navigate([
+                    ROUTES_NAME.uploadPolicy(this.contactId, res.data),
+                ]);
+            });
     }
 
     /**
@@ -53,9 +56,8 @@ export class ModalConfirmReissuePolicyComponent {
         ModalPlugin.hide(this.modalId);
         const data: SelectActionTypeData = {
             policyId: this.policyId,
-            actionType: ACTION_TYPES.REISSUE_POLICY
-        }
-        this.actionTypeSelected.emit(data)
+            actionType: ACTION_TYPES.REISSUE_POLICY,
+        };
+        this.actionTypeSelected.emit(data);
     }
-
 }

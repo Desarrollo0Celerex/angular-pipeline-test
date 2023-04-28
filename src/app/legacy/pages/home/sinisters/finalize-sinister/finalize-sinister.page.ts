@@ -2,13 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
-import { SINISTER_STATUS, FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
+import {
+    SINISTER_STATUS,
+    FILE_ALL_FORMATS,
+    FILE_TYPES,
+} from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { FinalizeSinisterService } from './finalize-sinister.service';
 
@@ -16,21 +20,22 @@ declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-finalize-sinister',
-  templateUrl: './finalize-sinister.page.html',
-  styles: [
-  ]
+    selector: 'agt-finalize-sinister',
+    templateUrl: './finalize-sinister.page.html',
+    styles: [],
 })
 export class FinalizeSinisterPage implements OnInit {
     calendarIdResolutionDate: string = 'resolutionDate';
-    contactDetailsMessage: string = 'Confirma los datos para finalizar el siniestro de';
+    contactDetailsMessage: string =
+        'Confirma los datos para finalizar el siniestro de';
     modalIdUploadEvidence: string = 'agt-upload-evidence';
     modalSelectFileData: ModalSelectFileData = {
         title: 'Adjuntar Evidencia',
-        description: 'Selecciona el formato digital de la evidencia del siniestro.',
+        description:
+            'Selecciona el formato digital de la evidencia del siniestro.',
         buttonLabel: 'Cargar evidencia',
         formats: FILE_ALL_FORMATS,
-        fileType: FILE_TYPES.MIXED
+        fileType: FILE_TYPES.MIXED,
     };
     sinisterData: SinisterDataSend | null = null;
     private _isFormSubmitted: boolean = false;
@@ -40,7 +45,7 @@ export class FinalizeSinisterPage implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._catchParams();
@@ -53,7 +58,8 @@ export class FinalizeSinisterPage implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.finalizeSinisterService.sinisterForm.get(constrolName);
+        const control: AbstractControl | null =
+            this.finalizeSinisterService.sinisterForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -63,8 +69,12 @@ export class FinalizeSinisterPage implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.finalizeSinisterService.sinisterForm.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.finalizeSinisterService.sinisterForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     /**
@@ -79,7 +89,9 @@ export class FinalizeSinisterPage implements OnInit {
      * @param file The selected file
      */
     onFileSelected(file: File): void {
-        this.finalizeSinisterService.sinisterForm.patchValue({ evidenceFile: file});
+        this.finalizeSinisterService.sinisterForm.patchValue({
+            evidenceFile: file,
+        });
     }
 
     /**
@@ -87,12 +99,20 @@ export class FinalizeSinisterPage implements OnInit {
      */
     onSubmitFinalizeSinister(): void {
         this._isFormSubmitted = true;
-        if(this.finalizeSinisterService.sinisterForm.valid && !!this.sinisterData) {
+        if (
+            this.finalizeSinisterService.sinisterForm.valid &&
+            !!this.sinisterData
+        ) {
             this._loadingService.show();
-            this.finalizeSinisterService.finalizeSinister(this.sinisterData).subscribe(() => {
-                this._loadingService.hide();
-                AlertHelper.sinisterFinished(this._goToContactFinishedSinisters, this);
-            });
+            this.finalizeSinisterService
+                .finalizeSinister(this.sinisterData)
+                .subscribe(() => {
+                    this._loadingService.hide();
+                    AlertHelper.sinisterFinished(
+                        this._goToContactFinishedSinisters,
+                        this
+                    );
+                });
         }
     }
 
@@ -103,8 +123,8 @@ export class FinalizeSinisterPage implements OnInit {
         this.sinisterData = {
             contactId: this._activatedRoute.snapshot.params.contactId || '',
             policyId: this._activatedRoute.snapshot.params.policyId || '',
-            sinisterId: this._activatedRoute.snapshot.params.sinisterId || ''
-        }
+            sinisterId: this._activatedRoute.snapshot.params.sinisterId || '',
+        };
     }
 
     /**
@@ -112,8 +132,16 @@ export class FinalizeSinisterPage implements OnInit {
      * @param context The app context
      */
     private _goToContactFinishedSinisters(context: FinalizeSinisterPage): void {
-        if(!!context.sinisterData) {
-            context._router.navigate(['/' + ROUTES_NAME.listContactSinisters(context.sinisterData.contactId)], { queryParams: { contentSubtype: SINISTER_STATUS.FINISHED } });
+        if (!!context.sinisterData) {
+            context._router.navigate(
+                [
+                    '/' +
+                        ROUTES_NAME.listContactSinisters(
+                            context.sinisterData.contactId
+                        ),
+                ],
+                { queryParams: { contentSubtype: SINISTER_STATUS.FINISHED } }
+            );
         }
     }
 
@@ -122,17 +150,23 @@ export class FinalizeSinisterPage implements OnInit {
      */
     private _initCalendars(): void {
         DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdResolutionDate, this._onChangeDate, this);
+        DatePickerPlugin.initElement(
+            this.calendarIdResolutionDate,
+            this._onChangeDate,
+            this
+        );
     }
 
     /**
      * Load the sinister
      */
     private _loadSinister(): void {
-        if(!!this.sinisterData) {
-            this.finalizeSinisterService.loadSinister(this.sinisterData).subscribe(() => {
-                this._initCalendars();
-            });
+        if (!!this.sinisterData) {
+            this.finalizeSinisterService
+                .loadSinister(this.sinisterData)
+                .subscribe(() => {
+                    this._initCalendars();
+                });
         }
     }
 
@@ -142,8 +176,13 @@ export class FinalizeSinisterPage implements OnInit {
      * @param changedValue The changed value
      * @param context      The app context
      */
-    private _onChangeDate(selectorId: string, changedValue: string, context: FinalizeSinisterPage): void {
-        context.finalizeSinisterService.sinisterForm.patchValue({[selectorId]: changedValue});
+    private _onChangeDate(
+        selectorId: string,
+        changedValue: string,
+        context: FinalizeSinisterPage
+    ): void {
+        context.finalizeSinisterService.sinisterForm.patchValue({
+            [selectorId]: changedValue,
+        });
     }
-
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PhoneCode } from '@interfaces/phone-code.interface';
 import { CountryService } from '@services/country.service';
 
@@ -21,7 +21,7 @@ export class DropdownSelectPhoneCodeService {
     loadPhoneCodes(): Observable<HttpResponse> {
         const fields: string = 'countryId,name,abbreviation,flag,code';
         return this._countryService.getCountries(fields).pipe(
-            tap( (res:HttpResponse) => {
+            tap((res: HttpResponse) => {
                 this.phoneCodes = res.data;
             })
         );
@@ -33,7 +33,9 @@ export class DropdownSelectPhoneCodeService {
      * @return             Phone code position
      */
     getSelectedPhoneCodePosition(countryId: number): number {
-        const position: number = this.phoneCodes.findIndex( (element: PhoneCode) => element.countryId === countryId);
-        return (position !== -1) ? position : 0;
+        const position: number = this.phoneCodes.findIndex(
+            (element: PhoneCode) => element.countryId === countryId
+        );
+        return position !== -1 ? position : 0;
     }
 }

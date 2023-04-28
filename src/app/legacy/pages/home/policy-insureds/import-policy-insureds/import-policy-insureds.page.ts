@@ -8,7 +8,7 @@ import { AlertHelper } from '@helpers/alert.helper';
 import { AnalizeInsuredsResponse } from '@interfaces/analize-insureds-response.interface';
 import { HttpError } from '@interfaces/http-error.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 import { ScanningService } from '@services/scanning.service';
 
 import { ImportPolicyInsuredsService } from './import-policy-insureds.service';
@@ -16,11 +16,10 @@ import { ImportPolicyInsuredsService } from './import-policy-insureds.service';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-import-policy-insureds',
-  templateUrl: './import-policy-insureds.page.html',
-  styles: [
-  ],
-  providers: [ImportPolicyInsuredsService]
+    selector: 'agt-import-policy-insureds',
+    templateUrl: './import-policy-insureds.page.html',
+    styles: [],
+    providers: [ImportPolicyInsuredsService],
 })
 export class ImportPolicyInsuredsPage implements OnInit {
     contactId: string = '';
@@ -30,21 +29,21 @@ export class ImportPolicyInsuredsPage implements OnInit {
     modalIdSelectFile: string = 'agt-select-file';
     modalIdImportFailed: string = 'agt-import-failed';
     modalSelectFileData: ModalSelectFileData = {
-      title: 'Cargar Formato',
-      description: 'Selecciona el formato con los certificados actualizados.',
-      buttonLabel: 'Cargar formato',
-      formats: ['xls', 'xlsx'],
-      fileType: FILE_TYPES.DOCUMENT
-    }
+        title: 'Cargar Formato',
+        description: 'Selecciona el formato con los certificados actualizados.',
+        buttonLabel: 'Cargar formato',
+        formats: ['xls', 'xlsx'],
+        fileType: FILE_TYPES.DOCUMENT,
+    };
     private _selectedFile: File | null = null;
-    
+
     constructor(
         public model: ImportPolicyInsuredsService,
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router,
-        private _scanningService: ScanningService,
-    ) { }
+        private _scanningService: ScanningService
+    ) {}
 
     ngOnInit(): void {
         this._catchParams();
@@ -53,27 +52,37 @@ export class ImportPolicyInsuredsPage implements OnInit {
     analyzePolicyInsureds(file: File): void {
         this._scanningService.show();
         this._selectedFile = file;
-        this.model.analyzeInsureds(this.contactId, this.policyId, file).subscribe((res: AnalizeInsuredsResponse) => {
-            this._scanningService.hide();
-            this.analizeInsuredResponse = res;
-            ModalPlugin.show(this.modalIdConfirmPolicyInsureds);
-        },
-        (error: HttpError) => {
-            this._scanningService.hide();
-            switch (error.error) {
-                case ERROR_CODES.importFailed:
-                    ModalPlugin.show(this.modalIdImportFailed);
-                    break;
-            }
-        });
+        this.model
+            .analyzeInsureds(this.contactId, this.policyId, file)
+            .subscribe(
+                (res: AnalizeInsuredsResponse) => {
+                    this._scanningService.hide();
+                    this.analizeInsuredResponse = res;
+                    ModalPlugin.show(this.modalIdConfirmPolicyInsureds);
+                },
+                (error: HttpError) => {
+                    this._scanningService.hide();
+                    switch (error.error) {
+                        case ERROR_CODES.importFailed:
+                            ModalPlugin.show(this.modalIdImportFailed);
+                            break;
+                    }
+                }
+            );
     }
 
     downloadPolicyInsuredErrorsFile(): void {
-        if(this._selectedFile !== null) {
+        if (this._selectedFile !== null) {
             this._loadingService.show();
-            this.model.downloadErrorsFile(this.contactId, this.policyId, this._selectedFile).then(() => {
-                this._loadingService.hide();
-            });
+            this.model
+                .downloadErrorsFile(
+                    this.contactId,
+                    this.policyId,
+                    this._selectedFile
+                )
+                .then(() => {
+                    this._loadingService.hide();
+                });
         }
     }
 
@@ -85,13 +94,19 @@ export class ImportPolicyInsuredsPage implements OnInit {
     }
 
     importPolicyInsureds(): void {
-        if(this._selectedFile !== null) {
+        if (this._selectedFile !== null) {
             this._loadingService.show();
-            this.model.importInsureds(this.contactId, this.policyId, this._selectedFile).subscribe(() => {
-                this._loadingService.hide();
-                this._goToListPolicyInsureds();
-                AlertHelper.importedInsureds();
-            });
+            this.model
+                .importInsureds(
+                    this.contactId,
+                    this.policyId,
+                    this._selectedFile
+                )
+                .subscribe(() => {
+                    this._loadingService.hide();
+                    this._goToListPolicyInsureds();
+                    AlertHelper.importedInsureds();
+                });
         }
     }
 
@@ -105,7 +120,8 @@ export class ImportPolicyInsuredsPage implements OnInit {
     }
 
     private _goToListPolicyInsureds(): void {
-        this._router.navigateByUrl(ROUTES_NAME.listPolicyInsureds(this.contactId, this.policyId));
+        this._router.navigateByUrl(
+            ROUTES_NAME.listPolicyInsureds(this.contactId, this.policyId)
+        );
     }
-
 }

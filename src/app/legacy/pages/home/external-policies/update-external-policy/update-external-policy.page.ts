@@ -6,7 +6,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { ExternalPolicy } from '@interfaces/external-policy.interface';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 declare var DatePickerPlugin: any;
 declare var PopoverPlugin: any;
@@ -15,13 +15,10 @@ declare var ModalPlugin: any;
 import { UpdateExternalPolicyService } from './update-external-policy.service';
 
 @Component({
-  selector: 'agt-update-external-policy',
-  templateUrl: './update-external-policy.page.html',
-  styles: [
-  ],
-  providers: [
-      UpdateExternalPolicyService
-  ]
+    selector: 'agt-update-external-policy',
+    templateUrl: './update-external-policy.page.html',
+    styles: [],
+    providers: [UpdateExternalPolicyService],
 })
 export class UpdateExternalPolicyPage implements OnInit {
     calendarIdEmissionDate: string = 'emissionDate';
@@ -37,7 +34,7 @@ export class UpdateExternalPolicyPage implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._catchParams();
@@ -54,7 +51,8 @@ export class UpdateExternalPolicyPage implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -64,8 +62,12 @@ export class UpdateExternalPolicyPage implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     reloadInsuranceTypes(): void {
@@ -79,18 +81,24 @@ export class UpdateExternalPolicyPage implements OnInit {
 
     updateExternalPolicy(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             this._loadingService.show();
-            this.model.updateExternalPolicy(this.contactId, this.externalPolicyId).subscribe(() => {
-                this._loadingService.hide();
-                AlertHelper.policyUpdated(this._goToListContactPolicies, this);
-            })
+            this.model
+                .updateExternalPolicy(this.contactId, this.externalPolicyId)
+                .subscribe(() => {
+                    this._loadingService.hide();
+                    AlertHelper.policyUpdated(
+                        this._goToListContactPolicies,
+                        this
+                    );
+                });
         }
     }
 
     private _catchParams(): void {
         this.contactId = this._activatedRoute.snapshot.params.contactId;
-        this.externalPolicyId = this._activatedRoute.snapshot.params.externalPolicyId;
+        this.externalPolicyId =
+            this._activatedRoute.snapshot.params.externalPolicyId;
     }
 
     /**
@@ -98,7 +106,9 @@ export class UpdateExternalPolicyPage implements OnInit {
      * @param context The app context
      */
     private _goToListContactPolicies(context: UpdateExternalPolicyPage): void {
-        context._router.navigateByUrl(ROUTES_NAME.listContactPolicies(context.contactId));
+        context._router.navigateByUrl(
+            ROUTES_NAME.listContactPolicies(context.contactId)
+        );
     }
 
     /**
@@ -106,22 +116,36 @@ export class UpdateExternalPolicyPage implements OnInit {
      */
     private _initCalendars(): void {
         DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdEmissionDate, this._onChangeDate, this);
-        DatePickerPlugin.initElement(this.calendarIdValidityStartDate, this._onChangeDate, this);
-        DatePickerPlugin.initElement(this.calendarIdValidityEndDate, this._onChangeDate, this);
+        DatePickerPlugin.initElement(
+            this.calendarIdEmissionDate,
+            this._onChangeDate,
+            this
+        );
+        DatePickerPlugin.initElement(
+            this.calendarIdValidityStartDate,
+            this._onChangeDate,
+            this
+        );
+        DatePickerPlugin.initElement(
+            this.calendarIdValidityEndDate,
+            this._onChangeDate,
+            this
+        );
     }
 
     private _loadExternalPolicy(): void {
-        this.model.loadExternalPolicy(this.contactId, this.externalPolicyId).subscribe((externalPolicy: ExternalPolicy) => {
-            PopoverPlugin.init();
-            this.model.buildForm(externalPolicy);
-            this.model.loadInsurers();
-            this._loadInsurances();
-            this._initCalendars();
-            this.model.loadCurrencies();
-            this.model.loadPaymentMethods();
-            this.model.loadPaymentPlans();
-        })
+        this.model
+            .loadExternalPolicy(this.contactId, this.externalPolicyId)
+            .subscribe((externalPolicy: ExternalPolicy) => {
+                PopoverPlugin.init();
+                this.model.buildForm(externalPolicy);
+                this.model.loadInsurers();
+                this._loadInsurances();
+                this._initCalendars();
+                this.model.loadCurrencies();
+                this.model.loadPaymentMethods();
+                this.model.loadPaymentPlans();
+            });
     }
 
     /**
@@ -130,7 +154,7 @@ export class UpdateExternalPolicyPage implements OnInit {
     private _loadInsurances(): void {
         this.model.loadInsurances().subscribe(() => {
             this._loadInsuranceTypes();
-        })
+        });
     }
 
     /**
@@ -147,8 +171,11 @@ export class UpdateExternalPolicyPage implements OnInit {
      * @param changedValue The changed value
      * @param context      The app context
      */
-    private _onChangeDate(selectorId: string, changedValue: string, context: UpdateExternalPolicyPage): void {
-        context.model.form.patchValue({[selectorId]: changedValue});
+    private _onChangeDate(
+        selectorId: string,
+        changedValue: string,
+        context: UpdateExternalPolicyPage
+    ): void {
+        context.model.form.patchValue({ [selectorId]: changedValue });
     }
-
 }

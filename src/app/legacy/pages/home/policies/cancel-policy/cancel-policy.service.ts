@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { DEFAULT_POLICY_CANCELLATION_REASON_ID } from '@constants/global';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicyComplete } from '@interfaces/policy-complete.interface';
 import { PolicyCancellationReason } from '@interfaces/policy-cancellation-reason.interface';
 import { PolicyService } from '@services/policy.service';
@@ -35,9 +40,12 @@ export class CancelPolicyService {
      */
     buildCancellationForm(): void {
         this.cancellationForm = this._formBuilder.group({
-            policyCancellationReasonId: [DEFAULT_POLICY_CANCELLATION_REASON_ID, [Validators.required]],
-            evidenceFile: ['']
-        })
+            policyCancellationReasonId: [
+                DEFAULT_POLICY_CANCELLATION_REASON_ID,
+                [Validators.required],
+            ],
+            evidenceFile: [''],
+        });
     }
 
     /**
@@ -47,7 +55,11 @@ export class CancelPolicyService {
      */
     cancelPolicy(contactId: string, policyId: string): Observable<void> {
         const requestBody: FormData = this._getRequestBody();
-        return this._policyService.cancelPolicy(contactId, policyId, requestBody);
+        return this._policyService.cancelPolicy(
+            contactId,
+            policyId,
+            requestBody
+        );
     }
 
     deleteActivePolicy(contactId: string, policyId: string): Observable<void> {
@@ -61,13 +73,16 @@ export class CancelPolicyService {
      * @return          Notice of action done
      */
     loadPolicy(contactId: string, policyId: string): Observable<void> {
-        const fields: string = 'policyId,policyStatusName,policyStatusBackground,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,coveredProperty,policyNumber,clientNumber,insurerName,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodName,paymentPlanName,bills';
-        return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
-            tap((res: HttpResponse) => {
-                this.policy = res.data;
-            }),
-            map(() => {})
-        )
+        const fields: string =
+            'policyId,policyStatusName,policyStatusBackground,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,coveredProperty,policyNumber,clientNumber,insurerName,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodName,paymentPlanName,bills';
+        return this._policyService
+            .getContactPolicy(contactId, policyId, fields)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.policy = res.data;
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -75,12 +90,14 @@ export class CancelPolicyService {
      * @return The policy cancellation reasons
      */
     loadPolicyCancellationReasons(): Observable<void> {
-        return this._policyCancellationReasonService.getPolicyCancellationReasons().pipe(
-            tap( (res: HttpResponse) => {
-                this.policyCancellationReasons = res.data;
-            }),
-            map( () => { })
-        )
+        return this._policyCancellationReasonService
+            .getPolicyCancellationReasons()
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.policyCancellationReasons = res.data;
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -89,7 +106,10 @@ export class CancelPolicyService {
      */
     private _getRequestBody(): FormData {
         const requestBody: FormData = new FormData();
-        requestBody.append('policyCancellationReasonId', this.f.policyCancellationReasonId.value);
+        requestBody.append(
+            'policyCancellationReasonId',
+            this.f.policyCancellationReasonId.value
+        );
         requestBody.append('evidenceFile', this.f.evidenceFile.value);
         return requestBody;
     }

@@ -1,16 +1,27 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 
-import { DEFAULT_PHONE_CODE_ID, DEFAULT_COUNTRY_ID, REAL_NAME_LENGTH, BRAND_NAME_LENGTH, EMAIL_LENGTH } from '@constants/global';
+import {
+    DEFAULT_PHONE_CODE_ID,
+    DEFAULT_COUNTRY_ID,
+    REAL_NAME_LENGTH,
+    BRAND_NAME_LENGTH,
+    EMAIL_LENGTH,
+} from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Country } from '@interfaces/country.interface';
 import { CreateWorkspaceDataSend } from '@interfaces/create-workspace-data-send.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { State } from '@interfaces/state.interface';
-import { UserTokenData } from '@interfaces/user-token-data.interface';
-import { AuthService } from '@services/auth.service';
+import { UserTokenData } from '@core/interfaces/user-token-data.interface';
+import { AuthService } from '@core/services/auth.service';
 import { CountryService } from '@services/country.service';
 import { StateService } from '@services/state.service';
 import { WorkspaceService } from '@services/workspace.service';
@@ -37,7 +48,7 @@ export class CreateWorkspaceService {
      * Get the form controls
      * @return Form controls
      */
-    get f(): { [key: string]: AbstractControl; } {
+    get f(): { [key: string]: AbstractControl } {
         return this.workspaceForm.controls;
     }
 
@@ -48,8 +59,8 @@ export class CreateWorkspaceService {
     createWorkspace(): Observable<HttpResponse> {
         const requestBody: CreateWorkspaceDataSend = {
             ...this.workspaceForm.value,
-            countryId: this.f.countryId.value // Remove if the field is not disabled
-        }
+            countryId: this.f.countryId.value, // Remove if the field is not disabled
+        };
         return this._workspaceService.createWorkspace(requestBody);
     }
 
@@ -59,15 +70,17 @@ export class CreateWorkspaceService {
      */
     loadCatalogs(): Observable<HttpResponse> {
         return this._countryService.getCountries().pipe(
-            mergeMap( (resCountries: HttpResponse) => {
+            mergeMap((resCountries: HttpResponse) => {
                 this.countries = resCountries.data;
-                return this._stateService.getCountryStates(this.f.countryId.value).pipe(
-                    tap( (resCountryStates: HttpResponse) => {
-                        this.countryStates = resCountryStates.data;
-                    })
-                );
+                return this._stateService
+                    .getCountryStates(this.f.countryId.value)
+                    .pipe(
+                        tap((resCountryStates: HttpResponse) => {
+                            this.countryStates = resCountryStates.data;
+                        })
+                    );
             })
-        )
+        );
     }
 
     /**
@@ -75,9 +88,11 @@ export class CreateWorkspaceService {
      * @param countryId Country id
      */
     loadCountryStates(countryId: number): void {
-        this._stateService.getCountryStates(countryId).subscribe( (res: HttpResponse) => {
-            this.countryStates = res.data;
-        })
+        this._stateService
+            .getCountryStates(countryId)
+            .subscribe((res: HttpResponse) => {
+                this.countryStates = res.data;
+            });
     }
 
     /**
@@ -95,14 +110,40 @@ export class CreateWorkspaceService {
      */
     private _buildWorkspaceForm(): UntypedFormGroup {
         return this._formBuilder.group({
-            realName: ['', [Validators.required, Validators.minLength(REAL_NAME_LENGTH.MIN), Validators.maxLength(REAL_NAME_LENGTH.MAX), ValidatorsHelper.realName]],
-            brandName: ['', [Validators.required, Validators.minLength(BRAND_NAME_LENGTH.MIN), Validators.maxLength(BRAND_NAME_LENGTH.MAX), ValidatorsHelper.brandName]],
+            realName: [
+                '',
+                [
+                    Validators.required,
+                    Validators.minLength(REAL_NAME_LENGTH.MIN),
+                    Validators.maxLength(REAL_NAME_LENGTH.MAX),
+                    ValidatorsHelper.realName,
+                ],
+            ],
+            brandName: [
+                '',
+                [
+                    Validators.required,
+                    Validators.minLength(BRAND_NAME_LENGTH.MIN),
+                    Validators.maxLength(BRAND_NAME_LENGTH.MAX),
+                    ValidatorsHelper.brandName,
+                ],
+            ],
             phoneCodeId: [DEFAULT_PHONE_CODE_ID],
-            phoneNumber: ['', [Validators.required, ValidatorsHelper.phoneNumber]],
-            email: ['', [Validators.required, Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
+            phoneNumber: [
+                '',
+                [Validators.required, ValidatorsHelper.phoneNumber],
+            ],
+            email: [
+                '',
+                [
+                    Validators.required,
+                    Validators.email,
+                    Validators.minLength(EMAIL_LENGTH.MIN),
+                    Validators.maxLength(EMAIL_LENGTH.MAX),
+                ],
+            ],
             countryId: [DEFAULT_COUNTRY_ID, [Validators.required]],
-            stateId: ['', [Validators.required]]
+            stateId: ['', [Validators.required]],
         });
     }
-
 }

@@ -5,13 +5,14 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { Stat } from '@interfaces/stat.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { AuthService } from '@services/auth.service';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { AuthService } from '@core/services/auth.service';
 
 const ROUTES = {
     contactSources: `${environment.apiUrl}/contact-sources`,
-    contactSourcesStats: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/stats/contact-sources`
-}
+    contactSourcesStats: (workspaceId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/stats/contact-sources`,
+};
 
 @Injectable()
 export class ContactSourceService {
@@ -20,7 +21,7 @@ export class ContactSourceService {
     constructor(
         private _authService: AuthService,
         private _httpClient: HttpClient
-    ) { }
+    ) {}
 
     /**
      * Get the contact sources from the API
@@ -31,7 +32,7 @@ export class ContactSourceService {
         const route: string = ROUTES.contactSources;
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
-        return this._httpClient.get<HttpResponse>(route, {params});
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 
     /**
@@ -39,15 +40,22 @@ export class ContactSourceService {
      * @param  filters The filters to apply
      * @return         The contact sources stats
      */
-    getContactSourcesStats(filters: string = '', rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<Stat[]> {
+    getContactSourcesStats(
+        filters: string = '',
+        rangeField: string = '',
+        rangeStart: string = '',
+        rangeEnd: string = ''
+    ): Observable<Stat[]> {
         const route: string = ROUTES.contactSourcesStats(this._workspaceId);
         let params: HttpParams = new HttpParams();
-        if(!!filters) params = params.append('filter', filters);
-        if(!!rangeField) params = params.append('rangeField', rangeField);
-        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
-        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if (!!filters) params = params.append('filter', filters);
+        if (!!rangeField) params = params.append('rangeField', rangeField);
+        if (!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if (!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         return this._httpClient.get<HttpResponse>(route, { params }).pipe(
-            map((res: HttpResponse) => { return res.data })
+            map((res: HttpResponse) => {
+                return res.data;
+            })
         );
     }
 }

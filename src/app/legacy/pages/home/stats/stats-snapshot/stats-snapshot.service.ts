@@ -2,7 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { LEAD_STATUS, CLIENT_STATUS, POLICY_SOURCES, POLICY_STATUS, PAYMENT_STATUS, SINISTER_STATUS } from '@constants/global';
+import {
+    LEAD_STATUS,
+    CLIENT_STATUS,
+    POLICY_SOURCES,
+    POLICY_STATUS,
+    PAYMENT_STATUS,
+    SINISTER_STATUS,
+} from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
 
@@ -11,7 +18,7 @@ import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
 import { CoverageStat } from '@interfaces/coverage-stat.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
 import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicySourceStat } from '@interfaces/policy-source-stat.interface';
 import { PolicyStatusStat } from '@interfaces/policy-status-stat.interface';
 import { PaymentStat } from '@interfaces/payment-stat.interface';
@@ -35,14 +42,20 @@ import { WorkspaceService } from '@services/workspace.service';
 @Injectable()
 export class StatsSnapshotService {
     activeClientsStatsData: any[] = [['Tipo', 'Total']];
-    clientStatusStatsData: any[] = [['Estatus', 'Ocasionales', 'Frecuentes', 'Influyentes']];
-    contactSourcesStatsData: any[] = [['Canal', 'Prospectos', { role: 'style' }]];
+    clientStatusStatsData: any[] = [
+        ['Estatus', 'Ocasionales', 'Frecuentes', 'Influyentes'],
+    ];
+    contactSourcesStatsData: any[] = [
+        ['Canal', 'Prospectos', { role: 'style' }],
+    ];
     coveragesStatsData: any[] = [['Estado', 'Clientes', 'Pólizas']];
-    insurersStatsData: any[] = [['ID', 'Pólizas Activas', 'Clientes', 'Clasificación', 'Prima Total']];
+    insurersStatsData: any[] = [
+        ['ID', 'Pólizas Activas', 'Clientes', 'Clasificación', 'Prima Total'],
+    ];
     leadStatusStatsData: any[] = [['Ramos', 'Pólizas']];
     policySourcesStatsData: any[] = [['Ramos', 'Pólizas']];
-    policyStatusStatsData: any[] = [['Pólizas', 'Estatus', { role: "style" }]];
-    paymentStatusStatsData: any[] = [['Recibos', 'Estatus', { role: "style" }]];
+    policyStatusStatsData: any[] = [['Pólizas', 'Estatus', { role: 'style' }]];
+    paymentStatusStatsData: any[] = [['Recibos', 'Estatus', { role: 'style' }]];
     paymentsStatsData: any[] = [['Tipo', 'Total']];
     sinistersStatsData: any[] = [['Tipo', 'Total']];
     sinisterStatusStatsData: any[] = [['Origen', 'Personas', 'Empresas']];
@@ -61,15 +74,22 @@ export class StatsSnapshotService {
         private _paymentStatusService: PaymentStatusService,
         private _sinisterService: SinisterService,
         private _sinisterStatusService: SinisterStatusService,
-        private _workspaceService: WorkspaceService,
-    ) { }
+        private _workspaceService: WorkspaceService
+    ) {}
 
     /**
      * Get the active clients stats
      * @return The active clients
      */
     getActiveClientsStats(): Observable<ContactTypeStat[]> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL]);
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'clientStatusId',
+            [
+                CLIENT_STATUS.OCCASIONAL,
+                CLIENT_STATUS.FREQUENT,
+                CLIENT_STATUS.INFLUENTIAL,
+            ]
+        );
         return this._contactTypeService.getContactTypesStats(filters);
     }
 
@@ -78,7 +98,10 @@ export class StatsSnapshotService {
      * @return The contact sources
      */
     getContactSourcesStats(): Observable<Stat[]> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED]);
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'leadStatusId',
+            [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED]
+        );
         return this._contactSourceService.getContactSourcesStats(filters);
     }
 
@@ -88,7 +111,7 @@ export class StatsSnapshotService {
             map((res: HttpResponse) => {
                 return res.data.countryAbbreviation;
             })
-        )
+        );
     }
 
     getCoveragesStats(): Observable<CoverageStat[]> {
@@ -108,7 +131,10 @@ export class StatsSnapshotService {
      * @return The lead status stats
      */
     getLeadStatusStats(): Observable<LeadStatusStat[]> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED]);
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'leadStatusId',
+            [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED]
+        );
         return this._leadStatusService.getLeadStatusStats(filters);
     }
 
@@ -117,7 +143,14 @@ export class StatsSnapshotService {
      * @return The lead status stats
      */
     getClientStatusStats(): Observable<HttpResponse> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL]);
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'clientStatusId',
+            [
+                CLIENT_STATUS.OCCASIONAL,
+                CLIENT_STATUS.FREQUENT,
+                CLIENT_STATUS.INFLUENTIAL,
+            ]
+        );
         return this._clientStatusService.getClientStatusStats(filters);
     }
 
@@ -126,7 +159,10 @@ export class StatsSnapshotService {
      * @return The policy sources stats
      */
     getPolicySourcesStats(): Observable<PolicySourceStat[]> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('policySourceId', [POLICY_SOURCES.NEW, POLICY_SOURCES.RENEWAL, POLICY_SOURCES.REISSUE]);
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policySourceId',
+            [POLICY_SOURCES.NEW, POLICY_SOURCES.RENEWAL, POLICY_SOURCES.REISSUE]
+        );
         return this._policySourceService.getPolicySourcesStats(filters);
     }
 
@@ -135,7 +171,14 @@ export class StatsSnapshotService {
      * @return The policy status stats
      */
     getPolicyStatusStats(): Observable<PolicyStatusStat[]> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.SUSPENDED]);
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [
+                POLICY_STATUS.ISSUED,
+                POLICY_STATUS.CURRENT,
+                POLICY_STATUS.SUSPENDED,
+            ]
+        );
         return this._policyStatusService.getPolicyStatusStats(filters);
     }
 
@@ -152,7 +195,15 @@ export class StatsSnapshotService {
      * @return The payment status stats
      */
     getPaymentStatusStats(): Observable<PaymentStatusStat[]> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE]);
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'paymentStatusId',
+            [
+                PAYMENT_STATUS.INTIME,
+                PAYMENT_STATUS.PENDING,
+                PAYMENT_STATUS.LATE,
+                PAYMENT_STATUS.OVERDUE,
+            ]
+        );
         return this._paymentStatusService.getPaymentStatusStats(filters);
     }
 
@@ -169,7 +220,15 @@ export class StatsSnapshotService {
      * @return The sinister status stats
      */
     getSinisterStatusStats(): Observable<SinisterStat[]> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE]);
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'sinisterStatusId',
+            [
+                SINISTER_STATUS.RECENT,
+                SINISTER_STATUS.PENDING,
+                SINISTER_STATUS.UNFINISHED,
+                SINISTER_STATUS.CONFLICTIVE,
+            ]
+        );
         return this._sinisterStatusService.getSinisterStatusStats(filters);
     }
 
@@ -178,7 +237,7 @@ export class StatsSnapshotService {
      * @param insurersStats The insurers stats
      */
     loadInsurersStatsData(insurersStats: InsurerStat[]): void {
-        if(insurersStats.length > 0) {
+        if (insurersStats.length > 0) {
             let currencyName = '';
             for (let insurerStats of insurersStats) {
                 let insurerData: any[] = [
@@ -186,12 +245,14 @@ export class StatsSnapshotService {
                     insurerStats.totalPolicies,
                     insurerStats.totalClients,
                     insurerStats.category,
-                    UtilitiesHelper.getQuantityWithOnlyTwoDecimals(insurerStats.totalAmount)
+                    UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
+                        insurerStats.totalAmount
+                    ),
                 ];
                 this.insurersStatsData.push(insurerData);
                 currencyName = insurerStats.currencyName;
             }
-            this.insurersStatsData[0][4] = 'Prima Total ('+currencyName+')';
+            this.insurersStatsData[0][4] = 'Prima Total (' + currencyName + ')';
         } else {
             this.insurersStatsData.push(['', 0, 0, '', 0]);
         }
@@ -203,12 +264,13 @@ export class StatsSnapshotService {
      */
     loadContactSourcesStatsData(contactSourcesStats: Stat[]): void {
         for (let index in contactSourcesStats) {
-            const contactSourceStats: Stat = contactSourcesStats[index]
-            const color: string = ((parseInt(index) % 2) === 0) ? '#543888' : '#262258';
+            const contactSourceStats: Stat = contactSourcesStats[index];
+            const color: string =
+                parseInt(index) % 2 === 0 ? '#543888' : '#262258';
             let data: any[] = [
                 contactSourceStats.name,
                 contactSourceStats.value,
-                'fill-color: '+color+'; opacity: 0.8'
+                'fill-color: ' + color + '; opacity: 0.8',
             ];
             this.contactSourcesStatsData.push(data);
         }
@@ -222,7 +284,7 @@ export class StatsSnapshotService {
         for (let insurerStats of leadStatusStats) {
             let data: any[] = [
                 this._pluralNameFormatPipe.transform(insurerStats.name),
-                insurerStats.totalLeads
+                insurerStats.totalLeads,
             ];
             this.leadStatusStatsData.push(data);
         }
@@ -258,7 +320,7 @@ export class StatsSnapshotService {
             let data: any[] = [
                 coverageStats.name,
                 coverageStats.totalActiveClients,
-                coverageStats.totalActivePolicies
+                coverageStats.totalActivePolicies,
             ];
             this.coveragesStatsData.push(data);
         }
@@ -272,7 +334,7 @@ export class StatsSnapshotService {
         for (let policySourceStats of policySourcesStats) {
             let data: any[] = [
                 this._pluralNameFormatPipe.transform(policySourceStats.name),
-                policySourceStats.totalPolicies
+                policySourceStats.totalPolicies,
             ];
             this.policySourcesStatsData.push(data);
         }
@@ -289,7 +351,7 @@ export class StatsSnapshotService {
             let data: any[] = [
                 this._pluralNameFormatPipe.transform(policyStatus.name),
                 policyStatus.totalPolicies,
-                'fill-color: '+colors[index]+'; opacity: 0.8'
+                'fill-color: ' + colors[index] + '; opacity: 0.8',
             ];
             this.policyStatusStatsData.push(data);
         }
@@ -301,10 +363,7 @@ export class StatsSnapshotService {
      */
     loadPaymentsStatsData(paymentsStats: PaymentStat[]): void {
         for (let paymentStat of paymentsStats) {
-            let data: any[] = [
-                paymentStat.name,
-                paymentStat.totalReceipts,
-            ];
+            let data: any[] = [paymentStat.name, paymentStat.totalReceipts];
             this.paymentsStatsData.push(data);
         }
     }
@@ -316,11 +375,12 @@ export class StatsSnapshotService {
     loadPaymentStatusStatsData(paymentStatusStats: PaymentStatusStat[]): void {
         for (let index in paymentStatusStats) {
             const paymentStatus: PaymentStatusStat = paymentStatusStats[index];
-            const color: string = ((parseInt(index) % 2) === 0) ? '#543888' : '#262258';
+            const color: string =
+                parseInt(index) % 2 === 0 ? '#543888' : '#262258';
             let data: any[] = [
                 this._pluralNameFormatPipe.transform(paymentStatus.name),
                 paymentStatus.totalPayments,
-                'fill-color: '+color+'; opacity: 0.8'
+                'fill-color: ' + color + '; opacity: 0.8',
             ];
             this.paymentStatusStatsData.push(data);
         }
@@ -334,7 +394,7 @@ export class StatsSnapshotService {
         for (let sinisterStat of sinistersStats) {
             let data: any[] = [
                 this._pluralNameFormatPipe.transform(sinisterStat.name),
-                sinisterStat.totalSinisters
+                sinisterStat.totalSinisters,
             ];
             this.sinistersStatsData.push(data);
         }
@@ -348,11 +408,15 @@ export class StatsSnapshotService {
         for (let sinisterStatusStat of sinisterStatusStats) {
             let data: any[] = [];
             for (let key in sinisterStatusStat) {
-                const value = (parseInt(key) === 0) ? this._pluralNameFormatPipe.transform(sinisterStatusStat[key]) : sinisterStatusStat[key];
-                data.push(value)
+                const value =
+                    parseInt(key) === 0
+                        ? this._pluralNameFormatPipe.transform(
+                              sinisterStatusStat[key]
+                          )
+                        : sinisterStatusStat[key];
+                data.push(value);
             }
             this.sinisterStatusStatsData.push(data);
         }
     }
-
 }

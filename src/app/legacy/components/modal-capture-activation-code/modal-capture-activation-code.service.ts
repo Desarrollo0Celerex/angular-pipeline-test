@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { UserTokenData } from '@interfaces/user-token-data.interface';
-import { AuthService } from '@services/auth.service';
-import { FirebaseService } from '@services/firebase.service';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { UserTokenData } from '@core/interfaces/user-token-data.interface';
+import { AuthService } from '@core/services/auth.service';
+import { FirebaseService } from '@core/services/firebase.service';
 import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
@@ -26,7 +30,7 @@ export class ModalCaptureActivationCodeService {
         return this._workspaceService.activateWorkspace(activationCode);
     }
 
-    getFirebaseToken(workspaceId: string, userId: string): Observable<HttpResponse> {
+    getFirebaseToken(workspaceId: string, userId: string): Observable<string> {
         return this._firebaseService.getFirebaseToken(workspaceId, userId);
     }
 
@@ -44,7 +48,10 @@ export class ModalCaptureActivationCodeService {
 
     private _buildLicenseForm(): UntypedFormGroup {
         return this._formBuilder.group({
-            activationCode: ['', [Validators.required, ValidatorsHelper.activationCode]]
-        })
+            activationCode: [
+                '',
+                [Validators.required, ValidatorsHelper.activationCode],
+            ],
+        });
     }
 }

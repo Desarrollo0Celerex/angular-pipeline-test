@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { POLICY_STATUS } from '@constants/global';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { PolicyService } from '@services/policy.service';
 
@@ -10,7 +10,7 @@ import { PolicyService } from '@services/policy.service';
 export class ChartGroupPreferredInsurersService {
     chartData: any[] = [];
 
-    constructor(private _policyService: PolicyService) { }
+    constructor(private _policyService: PolicyService) {}
 
     /**
      * Load the chart data
@@ -20,19 +20,37 @@ export class ChartGroupPreferredInsurersService {
     loadChartData(groupId: string): Observable<void> {
         this.chartData = [];
         return new Observable((observer: any) => {
-            const filter: number[] = [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.SUSPENDED];
-            this._policyService.getTotalGroupPolicies(groupId, filter).subscribe((res: HttpResponse) => {
-                const page: number = 1;
-                const perPage: number = res.data;
-                const fields: string = 'insurerShortName';
-                const filters: number [] = [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.SUSPENDED];
-                this._policyService.getGroupPolicies(groupId, page, fields, filters, '', perPage).subscribe((res: HttpResponse) => {
-                    this._populateChartData(res.data.items);
-                    observer.next();
-                    observer.complete();
+            const filter: number[] = [
+                POLICY_STATUS.ISSUED,
+                POLICY_STATUS.CURRENT,
+                POLICY_STATUS.SUSPENDED,
+            ];
+            this._policyService
+                .getTotalGroupPolicies(groupId, filter)
+                .subscribe((res: HttpResponse) => {
+                    const page: number = 1;
+                    const perPage: number = res.data;
+                    const fields: string = 'insurerShortName';
+                    const filters: number[] = [
+                        POLICY_STATUS.ISSUED,
+                        POLICY_STATUS.CURRENT,
+                        POLICY_STATUS.SUSPENDED,
+                    ];
+                    this._policyService
+                        .getGroupPolicies(
+                            groupId,
+                            page,
+                            fields,
+                            filters,
+                            '',
+                            perPage
+                        )
+                        .subscribe((res: HttpResponse) => {
+                            this._populateChartData(res.data.items);
+                            observer.next();
+                            observer.complete();
+                        });
                 });
-            })
-
         });
     }
 
@@ -42,15 +60,15 @@ export class ChartGroupPreferredInsurersService {
      */
     private _populateChartData(policies: Policy[]): void {
         let preferredInsurers: any = {};
-        for(const policy of policies) {
-            if(!!preferredInsurers[policy.insurerShortName]) {
+        for (const policy of policies) {
+            if (!!preferredInsurers[policy.insurerShortName]) {
                 preferredInsurers[policy.insurerShortName] += 1;
             } else {
                 preferredInsurers[policy.insurerShortName] = 1;
             }
         }
-        for(const index in preferredInsurers) {
-            this.chartData.push([index, preferredInsurers[index]])
+        for (const index in preferredInsurers) {
+            this.chartData.push([index, preferredInsurers[index]]);
         }
     }
 }

@@ -1,21 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CONTENT_TYPES, INSURANCE_LIST_TYPES, ACTION_TYPES } from '@constants/global';
+import {
+    CONTENT_TYPES,
+    INSURANCE_LIST_TYPES,
+    ACTION_TYPES,
+} from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { PolicyDetailsData } from '@interfaces/policy-details-data.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ContainerInsurancesService } from './container-insurances.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-insurances',
-  templateUrl: './container-insurances.component.html',
-  styles: [
-  ],
-  providers: [ContainerInsurancesService]
+    selector: 'agt-container-insurances',
+    templateUrl: './container-insurances.component.html',
+    styles: [],
+    providers: [ContainerInsurancesService],
 })
 export class ContainerInsurancesComponent implements OnInit {
     @Input() actionType: number = 0;
@@ -31,16 +34,15 @@ export class ContainerInsurancesComponent implements OnInit {
     constructor(
         public model: ContainerInsurancesService,
         private _loadingService: LoadingService,
-        private _router: Router,
-    ) { }
+        private _router: Router
+    ) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     doAction(data: PolicyDetailsData) {
         switch (this.actionType) {
             case ACTION_TYPES.CREATE_QUOTATION:
-                    this._createQuotation(data);
+                this._createQuotation(data);
                 break;
 
             case ACTION_TYPES.CREATE_POLICY:
@@ -53,7 +55,7 @@ export class ContainerInsurancesComponent implements OnInit {
         this.selectedListType = INSURANCE_LIST_TYPES.BY_SEARCH;
         this.query = query;
     }
-    
+
     showModalToSelectInsuranceType(insuranceId: number): void {
         this.selectedInsuranceId = insuranceId;
         ModalPlugin.show(this.modalIdGetPolicyDetails);
@@ -63,21 +65,36 @@ export class ContainerInsurancesComponent implements OnInit {
         this.query = '';
         this.selectedListType = listType;
     }
-    
+
     private _createPolicy(insuranceTypeId: number): void {
         this._loadingService.show();
-        this.model.createPolicy(this.contactId, this.selectedInsuranceId, insuranceTypeId).subscribe( (policyId: string) => {
-            this._loadingService.hide();
-            this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(this.contactId, policyId));
-        })
+        this.model
+            .createPolicy(
+                this.contactId,
+                this.selectedInsuranceId,
+                insuranceTypeId
+            )
+            .subscribe((policyId: string) => {
+                this._loadingService.hide();
+                this._router.navigateByUrl(
+                    ROUTES_NAME.uploadPolicy(this.contactId, policyId)
+                );
+            });
     }
 
     private _createQuotation(quotationData: PolicyDetailsData): void {
         this._loadingService.show();
-        this.model.createQuotation(this.contactId, this.selectedInsuranceId, quotationData).subscribe( () => {
-            this._loadingService.hide();
-            this._router.navigateByUrl(ROUTES_NAME.listContactQuotations(this.contactId));
-        })
+        this.model
+            .createQuotation(
+                this.contactId,
+                this.selectedInsuranceId,
+                quotationData
+            )
+            .subscribe(() => {
+                this._loadingService.hide();
+                this._router.navigateByUrl(
+                    ROUTES_NAME.listContactQuotations(this.contactId)
+                );
+            });
     }
-
 }

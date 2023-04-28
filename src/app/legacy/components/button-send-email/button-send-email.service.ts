@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { ExpressTokenData } from '@interfaces/express-token-data.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContactService } from '@services/contact.service';
 import { ExpressTokenService } from '@services/express-token.service';
-import { JwtService } from '@services/jwt.service';
+import { JwtService } from '@core/services/jwt.service';
 
 @Injectable()
 export class ButtonSendEmailService {
@@ -25,9 +25,11 @@ export class ButtonSendEmailService {
     loadContact(contactId: string): void {
         this.email = '';
         const fields: string = 'email';
-        this._contactService.getContact(contactId, fields).subscribe( (res: HttpResponse) => {
-            this.email = res.data.email;
-        })
+        this._contactService
+            .getContact(contactId, fields)
+            .subscribe((res: HttpResponse) => {
+                this.email = res.data.email;
+            });
     }
 
     /**
@@ -37,10 +39,18 @@ export class ButtonSendEmailService {
     loadExpressContact(expressToken: string): void {
         this.email = '';
         const fields: string = 'email';
-        const expressTokenData: ExpressTokenData = this._decodeExpressToken(expressToken);
-        this._expressTokenService.getExpressContact(expressTokenData.workspaceId, expressTokenData.contactId, expressToken, fields).subscribe( (res: HttpResponse) => {
-            this.email = res.data.email;
-        });
+        const expressTokenData: ExpressTokenData =
+            this._decodeExpressToken(expressToken);
+        this._expressTokenService
+            .getExpressContact(
+                expressTokenData.workspaceId,
+                expressTokenData.contactId,
+                expressToken,
+                fields
+            )
+            .subscribe((res: HttpResponse) => {
+                this.email = res.data.email;
+            });
     }
 
     /**

@@ -1,15 +1,26 @@
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 
-import { FREE_TEXT_LENGTH, MULTITEXT_LENGTH, SHORT_ALPHANUMERIC_LENGTH, TITULAR_NAME_LENGTH, ENDORSEMENT_TYPES } from '@constants/global';
+import {
+    FREE_TEXT_LENGTH,
+    MULTITEXT_LENGTH,
+    SHORT_ALPHANUMERIC_LENGTH,
+    TITULAR_NAME_LENGTH,
+    ENDORSEMENT_TYPES,
+} from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { EndorsementType } from '@interfaces/endorsement-type.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
 import { PolicyComplete } from '@interfaces/policy-complete.interface';
@@ -85,9 +96,13 @@ export class EndorsePolicyService {
 
     // NOTA: Solución deribada de la cancelación de la función anterior
     calculateMonthsLeftToPay(): void {
-        if(this.policy) {
+        if (this.policy) {
             const startDate = moment(this.policy.validityStartDate);
-            const endDate = moment(UtilitiesHelper.getOriginalDateFormat(this.f.validityEndDate.value));
+            const endDate = moment(
+                UtilitiesHelper.getOriginalDateFormat(
+                    this.f.validityEndDate.value
+                )
+            );
             const totalMonths = endDate.diff(startDate, 'months');
             this.monthsLeftToPay = totalMonths - this.policy.monthsPaid;
         }
@@ -97,23 +112,31 @@ export class EndorsePolicyService {
      * Calculate the new bills
      */
     calculateNewBills(): void {
-        if(this.policy) {
-            const selectedPaymentPlanId: number = parseInt(this.f.paymentPlanId.value);
-            const selectedPaymentPlanMonths = this._getPaymentPlanMonths(selectedPaymentPlanId);
-            const newBills = (!!selectedPaymentPlanMonths) ? Math.floor(this.monthsLeftToPay / selectedPaymentPlanMonths) : 1;
+        if (this.policy) {
+            const selectedPaymentPlanId: number = parseInt(
+                this.f.paymentPlanId.value
+            );
+            const selectedPaymentPlanMonths = this._getPaymentPlanMonths(
+                selectedPaymentPlanId
+            );
+            const newBills = !!selectedPaymentPlanMonths
+                ? Math.floor(this.monthsLeftToPay / selectedPaymentPlanMonths)
+                : 1;
             const newTotalBills: number = this.policy.receiptsPaid + newBills;
             this.f.bills.setValue(newTotalBills);
         }
     }
 
     checkAmountFields(): void {
-        const endorsementType: number = parseInt(this.f.endorsementTypeId.value);
-        switch(endorsementType) {
+        const endorsementType: number = parseInt(
+            this.f.endorsementTypeId.value
+        );
+        switch (endorsementType) {
             case ENDORSEMENT_TYPES.B:
             case ENDORSEMENT_TYPES.C:
                 this.f.endorsementAmount.setValue('');
                 this.f.finalPolicyAmount.setValue(this.policy!.policyAmount);
-            break;
+                break;
         }
     }
 
@@ -122,30 +145,38 @@ export class EndorsePolicyService {
      * @return True if it was changed, otherwise false
      */
     checkPolicyDataWasChanged(): boolean {
-        if(!!this.policy) {
+        if (!!this.policy) {
             const fieldsToEvaluate: string[] = [
-                "coveredProperty",
-                "policyNumber",
-                "clientNumber",
-                "titularName",
-                "titularRfc",
-                "titularPostalCode",
-                "titularPhoneNumber",
-                "validityEndDate",
-                "endorsementAmount",
-                "paymentMethodId",
-                "paymentPlanId"
+                'coveredProperty',
+                'policyNumber',
+                'clientNumber',
+                'titularName',
+                'titularRfc',
+                'titularPostalCode',
+                'titularPhoneNumber',
+                'validityEndDate',
+                'endorsementAmount',
+                'paymentMethodId',
+                'paymentPlanId',
             ];
-            const policyAux: any = {...this.policy};
+            const policyAux: any = { ...this.policy };
             const formAux: any = this.form.value;
-            for(let field of fieldsToEvaluate) {
-                if(field === 'validityEndDate') {
+            for (let field of fieldsToEvaluate) {
+                if (field === 'validityEndDate') {
                     policyAux[field] = this._getDateFormat(policyAux[field]);
                 }
-                if((typeof formAux[field] !== 'undefined') && (typeof policyAux[field] !== 'undefined') && (formAux[field] !== policyAux[field])) {
+                if (
+                    typeof formAux[field] !== 'undefined' &&
+                    typeof policyAux[field] !== 'undefined' &&
+                    formAux[field] !== policyAux[field]
+                ) {
                     return true;
                 }
-                if(field === 'endorsementAmount' && typeof formAux[field] !== 'undefined' && formAux[field] !== '') {
+                if (
+                    field === 'endorsementAmount' &&
+                    typeof formAux[field] !== 'undefined' &&
+                    formAux[field] !== ''
+                ) {
                     return true;
                 }
             }
@@ -158,9 +189,11 @@ export class EndorsePolicyService {
      */
     disableFormFields(): void {
         this._disableAllFormFields();
-        const endorsementType: number = parseInt(this.f.endorsementTypeId.value);
+        const endorsementType: number = parseInt(
+            this.f.endorsementTypeId.value
+        );
 
-        switch(endorsementType) {
+        switch (endorsementType) {
             case ENDORSEMENT_TYPES.A:
                 this.f.titularName.enable();
                 this.f.titularRfc.enable();
@@ -208,24 +241,61 @@ export class EndorsePolicyService {
         }
     }
 
-    endorsePolicyWithCancellation(contactId: string, policyId: string): Observable<void> {
-        const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithCancellation();
-        return this._policyService.createEndorsementWithCancellation(contactId, policyId, requestBody);
+    endorsePolicyWithCancellation(
+        contactId: string,
+        policyId: string
+    ): Observable<void> {
+        const requestBody: FormData =
+            this._getRequestBodyToEndorsePolicyWithCancellation();
+        return this._policyService.createEndorsementWithCancellation(
+            contactId,
+            policyId,
+            requestBody
+        );
     }
 
-    endorsePolicyWithChanges(contactId: string, policyId: string): Observable<void> {
-        const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithChanges();
-        return this._policyService.createEndorsementWithChanges(contactId, policyId, requestBody);
+    endorsePolicyWithChanges(
+        contactId: string,
+        policyId: string
+    ): Observable<void> {
+        const requestBody: FormData =
+            this._getRequestBodyToEndorsePolicyWithChanges();
+        return this._policyService.createEndorsementWithChanges(
+            contactId,
+            policyId,
+            requestBody
+        );
     }
 
-    endorsePolicyWithDecrement(contactId: string, policyId: string): Observable<void> {
-        const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithDecrement();
-        return this._policyService.createEndorsementWithDecrement(contactId, policyId, requestBody);
+    endorsePolicyWithDecrement(
+        contactId: string,
+        policyId: string
+    ): Observable<void> {
+        const requestBody: FormData =
+            this._getRequestBodyToEndorsePolicyWithDecrement();
+        return this._policyService.createEndorsementWithDecrement(
+            contactId,
+            policyId,
+            requestBody
+        );
     }
 
-    endorsePolicyWithIncrement(contactId: string, policyId: string, fractionalReceiptAmount: number, endorsementPaymentMethodId: number): Observable<void> {
-        const requestBody: FormData = this._getRequestBodyToEndorsePolicyWithIncrement(fractionalReceiptAmount, endorsementPaymentMethodId);
-        return this._policyService.createEndorsementWithIncrement(contactId, policyId, requestBody);
+    endorsePolicyWithIncrement(
+        contactId: string,
+        policyId: string,
+        fractionalReceiptAmount: number,
+        endorsementPaymentMethodId: number
+    ): Observable<void> {
+        const requestBody: FormData =
+            this._getRequestBodyToEndorsePolicyWithIncrement(
+                fractionalReceiptAmount,
+                endorsementPaymentMethodId
+            );
+        return this._policyService.createEndorsementWithIncrement(
+            contactId,
+            policyId,
+            requestBody
+        );
     }
 
     /**
@@ -234,8 +304,11 @@ export class EndorsePolicyService {
      */
     getSelectedPaymentPlanName(): string {
         const paymentPlanId: number = parseInt(this.f.paymentPlanId.value);
-        const selectedPaymentPlan: PaymentPlan | undefined = this.paymentPlans.find( (element: PaymentPlan) => element.paymentPlanId == paymentPlanId);
-        return (!!selectedPaymentPlan) ? selectedPaymentPlan.name : '';
+        const selectedPaymentPlan: PaymentPlan | undefined =
+            this.paymentPlans.find(
+                (element: PaymentPlan) => element.paymentPlanId == paymentPlanId
+            );
+        return !!selectedPaymentPlan ? selectedPaymentPlan.name : '';
     }
 
     /**
@@ -244,9 +317,11 @@ export class EndorsePolicyService {
      */
     loadEndorsementTypes(): void {
         const fields: string = 'endorsementTypeId,name';
-        this._endorsementTypeService.getEndorsementTypes(fields).subscribe((res: HttpResponse) => {
-            this.endorsementTypes = res.data;
-        })
+        this._endorsementTypeService
+            .getEndorsementTypes(fields)
+            .subscribe((res: HttpResponse) => {
+                this.endorsementTypes = res.data;
+            });
     }
 
     /**
@@ -256,14 +331,17 @@ export class EndorsePolicyService {
      * @return          Notice of action done
      */
     loadPolicy(contactId: string, policyId: string): Observable<void> {
-        const fields: string = 'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,coveredProperty,policyNumber,clientNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements,paymentAmount,paymentAmountPaid';
-        return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
-            tap((res: HttpResponse) => {
-                this.policy = res.data;
-                this._buildForm();
-            }),
-            map(() => {})
-        )
+        const fields: string =
+            'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,coveredProperty,policyNumber,clientNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements,paymentAmount,paymentAmountPaid';
+        return this._policyService
+            .getContactPolicy(contactId, policyId, fields)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.policy = res.data;
+                    this._buildForm();
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -272,9 +350,11 @@ export class EndorsePolicyService {
      */
     loadPaymentMethods(): void {
         const fields: string = 'paymentMethodId,name';
-        this._paymentMethodService.getPaymentMethods(fields).subscribe((res: HttpResponse) => {
-            this.paymentMethods = res.data;
-        });
+        this._paymentMethodService
+            .getPaymentMethods(fields)
+            .subscribe((res: HttpResponse) => {
+                this.paymentMethods = res.data;
+            });
     }
 
     /**
@@ -287,7 +367,7 @@ export class EndorsePolicyService {
             tap((res: HttpResponse) => {
                 this.paymentPlans = res.data;
             }),
-            map(() => { })
+            map(() => {})
         );
     }
 
@@ -295,36 +375,130 @@ export class EndorsePolicyService {
      * Build the policy form
      */
     private _buildForm(): void {
-        if(!!this.policy) {
+        if (!!this.policy) {
             this.form = this._formBuilder.group({
                 endorsementFile: ['', [Validators.required]],
-                evidenceFile: ['', ],
-                endorsementNumber: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric] ],
-                endorsementEmissionDate: ['', [Validators.required, ValidatorsHelper.date] ],
-                endorsementTypeId: ['', [Validators.required] ],
-                endorsementComments: ['', [Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext] ],
-                endorsementAmount: ['', [Validators.required, ValidatorsHelper.amount, ValidatorsHelper.amountWithoutZero] ],
-                coveredProperty: [this.policy.coveredProperty, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-                policyNumber: [this.policy.policyNumber, [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-                clientNumber: [this.policy.clientNumber, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-                titularName: [this.policy.titularName, [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownName] ],
-                titularRfc: [this.policy.titularRfc, [Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText] ],
-                titularPostalCode: [this.policy.titularPostalCode, [ValidatorsHelper.postalCode ] ],
-                titularPhoneNumber: [this.policy.titularPhoneNumber, [ValidatorsHelper.phoneNumber] ],
-                validityEndDate: [this._getDateFormat(this.policy.validityEndDate) || 0, [Validators.required, ValidatorsHelper.date, ValidatorsHelper.dateGreaterThan(this.policy.validityEndDate)] ],
-                finalPolicyAmount: [this.policy.policyAmount, [Validators.required, ValidatorsHelper.amount] ],
-                paymentMethodId: [this.policy.paymentMethodId || '', [Validators.required]],
-                paymentPlanId: [this.policy.paymentPlanId || '', [Validators.required]],
-                bills: [this.policy.bills || 0]
-            })
+                evidenceFile: [''],
+                endorsementNumber: [
+                    '',
+                    [
+                        Validators.required,
+                        Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN),
+                        Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX),
+                        ValidatorsHelper.alphanumeric,
+                    ],
+                ],
+                endorsementEmissionDate: [
+                    '',
+                    [Validators.required, ValidatorsHelper.date],
+                ],
+                endorsementTypeId: ['', [Validators.required]],
+                endorsementComments: [
+                    '',
+                    [
+                        Validators.minLength(MULTITEXT_LENGTH.MIN),
+                        Validators.maxLength(MULTITEXT_LENGTH.MAX),
+                        ValidatorsHelper.multitext,
+                    ],
+                ],
+                endorsementAmount: [
+                    '',
+                    [
+                        Validators.required,
+                        ValidatorsHelper.amount,
+                        ValidatorsHelper.amountWithoutZero,
+                    ],
+                ],
+                coveredProperty: [
+                    this.policy.coveredProperty,
+                    [
+                        Validators.required,
+                        Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                        Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                        ValidatorsHelper.freeText,
+                    ],
+                ],
+                policyNumber: [
+                    this.policy.policyNumber,
+                    [
+                        Validators.required,
+                        Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                        Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                        ValidatorsHelper.freeText,
+                    ],
+                ],
+                clientNumber: [
+                    this.policy.clientNumber,
+                    [
+                        Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                        Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                        ValidatorsHelper.freeText,
+                    ],
+                ],
+                titularName: [
+                    this.policy.titularName,
+                    [
+                        Validators.required,
+                        Validators.minLength(TITULAR_NAME_LENGTH.MIN),
+                        Validators.maxLength(TITULAR_NAME_LENGTH.MAX),
+                        ValidatorsHelper.ownName,
+                    ],
+                ],
+                titularRfc: [
+                    this.policy.titularRfc,
+                    [
+                        Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                        Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                        ValidatorsHelper.freeText,
+                    ],
+                ],
+                titularPostalCode: [
+                    this.policy.titularPostalCode,
+                    [ValidatorsHelper.postalCode],
+                ],
+                titularPhoneNumber: [
+                    this.policy.titularPhoneNumber,
+                    [ValidatorsHelper.phoneNumber],
+                ],
+                validityEndDate: [
+                    this._getDateFormat(this.policy.validityEndDate) || 0,
+                    [
+                        Validators.required,
+                        ValidatorsHelper.date,
+                        ValidatorsHelper.dateGreaterThan(
+                            this.policy.validityEndDate
+                        ),
+                    ],
+                ],
+                finalPolicyAmount: [
+                    this.policy.policyAmount,
+                    [Validators.required, ValidatorsHelper.amount],
+                ],
+                paymentMethodId: [
+                    this.policy.paymentMethodId || '',
+                    [Validators.required],
+                ],
+                paymentPlanId: [
+                    this.policy.paymentPlanId || '',
+                    [Validators.required],
+                ],
+                bills: [this.policy.bills || 0],
+            });
         }
     }
 
     private _disableAllFormFields(): void {
-        const fieldsToIgnore: string [] = ['endorsementFile', 'endorsementNumber', 'endorsementEmissionDate', 'endorsementTypeId', 'endorsementComments', 'evidenceFile'];
+        const fieldsToIgnore: string[] = [
+            'endorsementFile',
+            'endorsementNumber',
+            'endorsementEmissionDate',
+            'endorsementTypeId',
+            'endorsementComments',
+            'evidenceFile',
+        ];
         const controls: { [key: string]: AbstractControl } = this.f;
-        for(const name in controls) {
-            if(!fieldsToIgnore.includes(name)) {
+        for (const name in controls) {
+            if (!fieldsToIgnore.includes(name)) {
                 controls[name].disable();
             }
         }
@@ -337,9 +511,12 @@ export class EndorsePolicyService {
      */
     private _getDateFormat(date: string | null): string {
         let dateFormat: string = '';
-        if(!!date) {
-            const formattedDate: string | null = this._datePipe.transform(date, 'dd/MM/yyyy');
-            dateFormat = (!!formattedDate) ? formattedDate : '';
+        if (!!date) {
+            const formattedDate: string | null = this._datePipe.transform(
+                date,
+                'dd/MM/yyyy'
+            );
+            dateFormat = !!formattedDate ? formattedDate : '';
         }
         return dateFormat;
     }
@@ -350,8 +527,10 @@ export class EndorsePolicyService {
      * @return               The months
      */
     private _getPaymentPlanMonths(paymentPlanId: number): number {
-        const paymentPlan: PaymentPlan | undefined = this.paymentPlans.find((element: PaymentPlan) => element.paymentPlanId == paymentPlanId);
-        return (!!paymentPlan) ? paymentPlan.months : 0;
+        const paymentPlan: PaymentPlan | undefined = this.paymentPlans.find(
+            (element: PaymentPlan) => element.paymentPlanId == paymentPlanId
+        );
+        return !!paymentPlan ? paymentPlan.months : 0;
     }
 
     private _getRequestBodyToEndorsePolicyWithCancellation(): FormData {
@@ -359,9 +538,15 @@ export class EndorsePolicyService {
         requestBody.append('endorsementFile', this.f.endorsementFile.value);
         requestBody.append('evidenceFile', this.f.evidenceFile.value);
         requestBody.append('endorsementNumber', this.f.endorsementNumber.value);
-        requestBody.append('endorsementEmissionDate', this.f.endorsementEmissionDate.value);
+        requestBody.append(
+            'endorsementEmissionDate',
+            this.f.endorsementEmissionDate.value
+        );
         requestBody.append('endorsementTypeId', this.f.endorsementTypeId.value);
-        requestBody.append('endorsementComments', this.f.endorsementComments.value);
+        requestBody.append(
+            'endorsementComments',
+            this.f.endorsementComments.value
+        );
         requestBody.append('coveredProperty', this.f.coveredProperty.value);
         return requestBody;
     }
@@ -371,13 +556,22 @@ export class EndorsePolicyService {
         requestBody.append('endorsementFile', this.f.endorsementFile.value);
         requestBody.append('evidenceFile', this.f.evidenceFile.value);
         requestBody.append('endorsementNumber', this.f.endorsementNumber.value);
-        requestBody.append('endorsementEmissionDate', this.f.endorsementEmissionDate.value);
+        requestBody.append(
+            'endorsementEmissionDate',
+            this.f.endorsementEmissionDate.value
+        );
         requestBody.append('endorsementTypeId', this.f.endorsementTypeId.value);
-        requestBody.append('endorsementComments', this.f.endorsementComments.value);
+        requestBody.append(
+            'endorsementComments',
+            this.f.endorsementComments.value
+        );
         requestBody.append('titularName', this.f.titularName.value);
         requestBody.append('titularRfc', this.f.titularRfc.value);
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
-        requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
+        requestBody.append(
+            'titularPhoneNumber',
+            this.f.titularPhoneNumber.value
+        );
         requestBody.append('coveredProperty', this.f.coveredProperty.value);
         requestBody.append('policyNumber', this.f.policyNumber.value);
         requestBody.append('clientNumber', this.f.clientNumber.value);
@@ -386,19 +580,33 @@ export class EndorsePolicyService {
     }
 
     private _getRequestBodyToEndorsePolicyWithDecrement(): FormData {
-        let endorsementAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.endorsementAmount.value));
-        endorsementAmount = (endorsementAmount < 0) ? endorsementAmount * (-1) : endorsementAmount;
+        let endorsementAmount: number = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(
+                this.f.endorsementAmount.value
+            )
+        );
+        endorsementAmount =
+            endorsementAmount < 0 ? endorsementAmount * -1 : endorsementAmount;
         const requestBody: FormData = new FormData();
         requestBody.append('endorsementFile', this.f.endorsementFile.value);
         requestBody.append('evidenceFile', this.f.evidenceFile.value);
         requestBody.append('endorsementNumber', this.f.endorsementNumber.value);
-        requestBody.append('endorsementEmissionDate', this.f.endorsementEmissionDate.value);
+        requestBody.append(
+            'endorsementEmissionDate',
+            this.f.endorsementEmissionDate.value
+        );
         requestBody.append('endorsementTypeId', this.f.endorsementTypeId.value);
-        requestBody.append('endorsementComments', this.f.endorsementComments.value);
+        requestBody.append(
+            'endorsementComments',
+            this.f.endorsementComments.value
+        );
         requestBody.append('titularName', this.f.titularName.value);
         requestBody.append('titularRfc', this.f.titularRfc.value);
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
-        requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
+        requestBody.append(
+            'titularPhoneNumber',
+            this.f.titularPhoneNumber.value
+        );
         requestBody.append('coveredProperty', this.f.coveredProperty.value);
         requestBody.append('policyNumber', this.f.policyNumber.value);
         requestBody.append('clientNumber', this.f.clientNumber.value);
@@ -411,20 +619,37 @@ export class EndorsePolicyService {
         return requestBody;
     }
 
-    private _getRequestBodyToEndorsePolicyWithIncrement(fractionalReceiptAmount: number, endorsementPaymentMethodId: number): FormData {
-        let endorsementAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.endorsementAmount.value));
-        endorsementAmount = (endorsementAmount < 0) ? endorsementAmount * (-1) : endorsementAmount;
+    private _getRequestBodyToEndorsePolicyWithIncrement(
+        fractionalReceiptAmount: number,
+        endorsementPaymentMethodId: number
+    ): FormData {
+        let endorsementAmount: number = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(
+                this.f.endorsementAmount.value
+            )
+        );
+        endorsementAmount =
+            endorsementAmount < 0 ? endorsementAmount * -1 : endorsementAmount;
         const requestBody: FormData = new FormData();
         requestBody.append('endorsementFile', this.f.endorsementFile.value);
         requestBody.append('evidenceFile', this.f.evidenceFile.value);
         requestBody.append('endorsementNumber', this.f.endorsementNumber.value);
-        requestBody.append('endorsementEmissionDate', this.f.endorsementEmissionDate.value);
+        requestBody.append(
+            'endorsementEmissionDate',
+            this.f.endorsementEmissionDate.value
+        );
         requestBody.append('endorsementTypeId', this.f.endorsementTypeId.value);
-        requestBody.append('endorsementComments', this.f.endorsementComments.value);
+        requestBody.append(
+            'endorsementComments',
+            this.f.endorsementComments.value
+        );
         requestBody.append('titularName', this.f.titularName.value);
         requestBody.append('titularRfc', this.f.titularRfc.value);
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
-        requestBody.append('titularPhoneNumber', this.f.titularPhoneNumber.value);
+        requestBody.append(
+            'titularPhoneNumber',
+            this.f.titularPhoneNumber.value
+        );
         requestBody.append('coveredProperty', this.f.coveredProperty.value);
         requestBody.append('policyNumber', this.f.policyNumber.value);
         requestBody.append('clientNumber', this.f.clientNumber.value);
@@ -433,10 +658,15 @@ export class EndorsePolicyService {
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);
-        requestBody.append('fractionalReceiptAmount', fractionalReceiptAmount.toString());
-        requestBody.append('endorsementPaymentMethodId', endorsementPaymentMethodId.toString());
+        requestBody.append(
+            'fractionalReceiptAmount',
+            fractionalReceiptAmount.toString()
+        );
+        requestBody.append(
+            'endorsementPaymentMethodId',
+            endorsementPaymentMethodId.toString()
+        );
 
         return requestBody;
     }
-
 }

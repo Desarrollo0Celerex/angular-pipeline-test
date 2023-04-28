@@ -1,10 +1,17 @@
-import { Component, EventEmitter, Input, OnChanges, SimpleChanges, Output } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    SimpleChanges,
+    Output,
+} from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Payment } from '@interfaces/payment.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalChangePaymentDateService } from './modal-change-payment-date.service';
 
@@ -12,11 +19,10 @@ declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-change-payment-date',
-  templateUrl: './modal-change-payment-date.component.html',
-  styles: [
-  ],
-  providers: [ModalChangePaymentDateService]
+    selector: 'agt-modal-change-payment-date',
+    templateUrl: './modal-change-payment-date.component.html',
+    styles: [],
+    providers: [ModalChangePaymentDateService],
 })
 export class ModalChangePaymentDateComponent implements OnChanges {
     @Input() modalId: string = '';
@@ -28,10 +34,10 @@ export class ModalChangePaymentDateComponent implements OnChanges {
     constructor(
         private _modalChangePaymentDateService: ModalChangePaymentDateService,
         private _loadingService: LoadingService
-    ) { }
+    ) {}
 
     ngOnChanges(changes: SimpleChanges) {
-        if(changes.paymentId.currentValue) {
+        if (changes.paymentId.currentValue) {
             this._loadPayment(changes.paymentId.currentValue);
         }
     }
@@ -50,7 +56,8 @@ export class ModalChangePaymentDateComponent implements OnChanges {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -60,13 +67,17 @@ export class ModalChangePaymentDateComponent implements OnChanges {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     updatePaymentDate(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             this._loadingService.show();
             this.closeModal();
             this.model.updatePaymentDate(this.paymentId).subscribe(() => {
@@ -81,7 +92,7 @@ export class ModalChangePaymentDateComponent implements OnChanges {
         this.model.loadPayment(paymentId).subscribe((res: Payment) => {
             this.model.buildForm(res.paymentDate);
             this._initCalendars();
-        })
+        });
     }
 
     /**
@@ -89,7 +100,11 @@ export class ModalChangePaymentDateComponent implements OnChanges {
      */
     private _initCalendars(): void {
         DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdPaymentDate, this._onChangeDate, this);
+        DatePickerPlugin.initElement(
+            this.calendarIdPaymentDate,
+            this._onChangeDate,
+            this
+        );
     }
 
     /**
@@ -98,8 +113,11 @@ export class ModalChangePaymentDateComponent implements OnChanges {
      * @param changedValue The changed value
      * @param context      The app context
      */
-    private _onChangeDate(selectorId: string, changedValue: string, context: ModalChangePaymentDateComponent): void {
-        context.model.form.patchValue({[selectorId]: changedValue});
+    private _onChangeDate(
+        selectorId: string,
+        changedValue: string,
+        context: ModalChangePaymentDateComponent
+    ): void {
+        context.model.form.patchValue({ [selectorId]: changedValue });
     }
-
 }

@@ -5,48 +5,54 @@ import { Router } from '@angular/router';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { LoadingService } from '@services/loading.service';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { LoadingService } from '@core/services/loading.service';
 
 import { TwitterService } from './twitter.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-twitter',
-  templateUrl: './twitter.page.html',
-  styles: [
-  ],
-  providers: [TwitterService]
+    selector: 'agt-twitter',
+    templateUrl: './twitter.page.html',
+    styles: [],
+    providers: [TwitterService],
 })
 export class TwitterPage implements OnInit {
-    modalIdConfirmCreateTwitterAccount: string = 'agt-confirm-create-twitter-account';
-    modalIdConfirmUpdateSocialConnect: string = 'agt-confirm-update-social-connect';
+    modalIdConfirmCreateTwitterAccount: string =
+        'agt-confirm-create-twitter-account';
+    modalIdConfirmUpdateSocialConnect: string =
+        'agt-confirm-update-social-connect';
     private _isFormSubmitted: boolean = false;
 
     constructor(
         public model: TwitterService,
         private _loadingService: LoadingService,
-        private _router: Router,
-    ) { }
+        private _router: Router
+    ) {}
 
     ngOnInit(): void {
         this._loadWorkspace();
     }
 
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     showModalToConfirmUpdateSocialConnect(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             ModalPlugin.show(this.modalIdConfirmUpdateSocialConnect);
         }
     }
@@ -61,13 +67,12 @@ export class TwitterPage implements OnInit {
             this._loadingService.hide();
             this._router.navigateByUrl(ROUTES_NAME.socialConnectResume);
             AlertHelper.socialConnectUpdated();
-        })
+        });
     }
 
     private _loadWorkspace(): void {
         this.model.loadWorkspace().subscribe((res: HttpResponse) => {
             this.model.buildForm(res.data.twitterUrl);
-        })
+        });
     }
-
 }

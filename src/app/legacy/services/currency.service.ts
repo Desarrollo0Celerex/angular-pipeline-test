@@ -3,16 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    currencies: `${environment.apiUrl}/currencies`
-}
+    currencies: `${environment.apiUrl}/currencies`,
+};
 
 @Injectable()
 export class CurrencyService {
-
-    constructor(private _httpClient: HttpClient) { }
+    constructor(private _httpClient: HttpClient) {}
 
     /**
      * Get the currencies from the API
@@ -21,8 +20,8 @@ export class CurrencyService {
      */
     getCurrencies(fields: string = ''): Observable<HttpResponse> {
         const route: string = ROUTES.currencies;
-        let params: HttpParams = new HttpParams;
-        if(!!fields) params = params.append('fields', fields);
+        let params: HttpParams = new HttpParams();
+        if (!!fields) params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, { params });
     }
 }

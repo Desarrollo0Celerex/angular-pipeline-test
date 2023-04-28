@@ -2,20 +2,19 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalSearchPaymentService } from './modal-search-payment.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-search-payment',
-  templateUrl: './modal-search-payment.component.html',
-  styles: [
-  ],
-  providers: [ModalSearchPaymentService]
+    selector: 'agt-modal-search-payment',
+    templateUrl: './modal-search-payment.component.html',
+    styles: [],
+    providers: [ModalSearchPaymentService],
 })
 export class ModalSearchPaymentComponent {
     @Input() modalId: string = '';
@@ -28,10 +27,9 @@ export class ModalSearchPaymentComponent {
     constructor(
         private _loadingService: LoadingService,
         private _modalSearchPaymentsService: ModalSearchPaymentService
-    ) { }
+    ) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     get model(): ModalSearchPaymentService {
         return this._modalSearchPaymentsService;
@@ -43,7 +41,8 @@ export class ModalSearchPaymentComponent {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -53,8 +52,12 @@ export class ModalSearchPaymentComponent {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     closeModal(): void {
@@ -72,12 +75,12 @@ export class ModalSearchPaymentComponent {
      */
     searchPayment(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             this._loadingService.show();
-            this.model.searchPayment().subscribe( (res: HttpResponse) => {
+            this.model.searchPayment().subscribe((res: HttpResponse) => {
                 const totalFoundPayments: number = res.data.items.length;
                 // If there are no policies
-                if(totalFoundPayments === 0) {
+                if (totalFoundPayments === 0) {
                     this.isNoResults = true;
                     this._resetForm(this.model.f.policyNumber.value);
                 } else {
@@ -85,7 +88,7 @@ export class ModalSearchPaymentComponent {
                     ModalPlugin.hide(this.modalId);
                     this._resetForm();
                     // If the payment was found
-                    if(totalFoundPayments === 1) {
+                    if (totalFoundPayments === 1) {
                         this.paymentFound.emit(res.data.items[0]);
                     }
                     // If there are multiple policies
@@ -106,7 +109,6 @@ export class ModalSearchPaymentComponent {
      */
     private _resetForm(policyNumber: string = ''): void {
         this._isFormSubmitted = false;
-        this.model.form.reset({policyNumber});
+        this.model.form.reset({ policyNumber });
     }
-
 }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { WorkspaceUser } from '@interfaces/workspace-user.interface';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@core/services/auth.service';
 import { WorkspaceUserService } from '@services/workspace-user.service';
 
 @Injectable()
@@ -22,9 +22,11 @@ export class HeaderService {
     loadUser(): void {
         const userId: string = this._authService.userId;
         const fields: string = 'shortName,avatarUrl,roleName';
-        this._workspaceUserService.getWorkspaceUser(userId, fields).subscribe( (res: HttpResponse) => {
-            this.user = res.data;
-        })
+        this._workspaceUserService
+            .getWorkspaceUser(userId, fields)
+            .subscribe((res: HttpResponse) => {
+                this.user = res.data;
+            });
     }
 
     /**

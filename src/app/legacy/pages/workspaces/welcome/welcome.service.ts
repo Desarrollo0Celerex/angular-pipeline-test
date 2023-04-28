@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { User } from '@interfaces/user.interface';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@core/services/auth.service';
 import { UserService } from '@services/user.service';
 
 @Injectable()
@@ -21,11 +21,13 @@ export class WelcomeService {
      */
     loadUser(): void {
         const userId: string | null = this._authService.userId;
-        if(userId !== null) {
+        if (userId !== null) {
             const fields: string = 'avatarUrl,shortName';
-            this._userService.getUser(userId, fields).subscribe( (res: HttpResponse) => {
-                this.user = res.data;
-            })
+            this._userService
+                .getUser(userId, fields)
+                .subscribe((res: HttpResponse) => {
+                    this.user = res.data;
+                });
         }
     }
 }

@@ -3,10 +3,10 @@ import { VCard } from 'ngx-vcard';
 
 import { Contact } from '@interfaces/contact.interface';
 import { ExpressTokenData } from '@interfaces/express-token-data.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContactService } from '@services/contact.service';
 import { ExpressTokenService } from '@services/express-token.service';
-import { JwtService } from '@services/jwt.service';
+import { JwtService } from '@core/services/jwt.service';
 
 @Injectable()
 export class ButtonDownloadContactService {
@@ -28,9 +28,11 @@ export class ButtonDownloadContactService {
     loadContact(contactId: string): void {
         this.vCard = {};
         const fields: string = 'contactName,phoneNumber,email';
-        this._contactService.getContact(contactId, fields).subscribe( (res: HttpResponse) => {
-            this._generateVcard(res.data);
-        })
+        this._contactService
+            .getContact(contactId, fields)
+            .subscribe((res: HttpResponse) => {
+                this._generateVcard(res.data);
+            });
     }
 
     /**
@@ -40,10 +42,18 @@ export class ButtonDownloadContactService {
     loadExpressContact(expressToken: string): void {
         this.vCard = {};
         const fields: string = 'contactName,phoneNumber,email';
-        const expressTokenData: ExpressTokenData = this._decodeExpressToken(expressToken);
-        this._expressTokenService.getExpressContact(expressTokenData.workspaceId, expressTokenData.contactId, expressToken, fields).subscribe( (res: HttpResponse) => {
-            this._generateVcard(res.data);
-        });
+        const expressTokenData: ExpressTokenData =
+            this._decodeExpressToken(expressToken);
+        this._expressTokenService
+            .getExpressContact(
+                expressTokenData.workspaceId,
+                expressTokenData.contactId,
+                expressToken,
+                fields
+            )
+            .subscribe((res: HttpResponse) => {
+                this._generateVcard(res.data);
+            });
     }
 
     /**
@@ -54,16 +64,16 @@ export class ButtonDownloadContactService {
         this.vCard = {
             name: {
                 firstNames: contact.contactName,
-                lastNames: ''
+                lastNames: '',
             },
             email: [contact.email],
             telephone: [contact.phoneNumber],
             organization: 'Agenthos',
             url: {
                 work: 'https://agenthos.com',
-                home: ''
-            }
-        }
+                home: '',
+            },
+        };
     }
 
     /**

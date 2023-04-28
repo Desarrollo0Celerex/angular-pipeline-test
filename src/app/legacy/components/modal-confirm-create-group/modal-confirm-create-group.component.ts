@@ -1,18 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { AlertHelper } from '@helpers/alert.helper';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalConfirmCreateGroupService } from './modal-confirm-create-group.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-create-group',
-  templateUrl: './modal-confirm-create-group.component.html',
-  styles: [
-  ],
-  providers: [ModalConfirmCreateGroupService]
+    selector: 'agt-modal-confirm-create-group',
+    templateUrl: './modal-confirm-create-group.component.html',
+    styles: [],
+    providers: [ModalConfirmCreateGroupService],
 })
 export class ModalConfirmCreateGroupComponent {
     @Input() modalId: string = '';
@@ -23,7 +22,7 @@ export class ModalConfirmCreateGroupComponent {
     constructor(
         private _loadingService: LoadingService,
         private _modalConfirmCreateGroupService: ModalConfirmCreateGroupService
-    ) { }
+    ) {}
 
     get model(): ModalConfirmCreateGroupService {
         return this._modalConfirmCreateGroupService;
@@ -32,11 +31,12 @@ export class ModalConfirmCreateGroupComponent {
     createGroup(): void {
         this._loadingService.show();
         ModalPlugin.hide(this.modalId);
-        this.model.createGroup(this.groupName, this.ignoreMatches).subscribe(() => {
-            this._loadingService.hide();
-            AlertHelper.groupCreated();
-            this.groupCreated.emit();
-        });
+        this.model
+            .createGroup(this.groupName, this.ignoreMatches)
+            .subscribe(() => {
+                this._loadingService.hide();
+                AlertHelper.groupCreated();
+                this.groupCreated.emit();
+            });
     }
-
 }

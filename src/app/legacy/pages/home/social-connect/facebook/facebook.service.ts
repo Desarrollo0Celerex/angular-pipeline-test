@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
@@ -11,10 +11,10 @@ export class FacebookService {
     form: FormGroup = this._formBuilder.group({});
     isBuiltForm: boolean = false;
 
-    constructor( 
-      private _formBuilder: FormBuilder,
-      private _workspaceService: WorkspaceService,
-    ) { }
+    constructor(
+        private _formBuilder: FormBuilder,
+        private _workspaceService: WorkspaceService
+    ) {}
 
     loadWorkspace(): Observable<HttpResponse> {
         const fields: string = 'facebookUrl';
@@ -23,12 +23,17 @@ export class FacebookService {
 
     buildForm(facebookUrl: string | null): void {
         this.form = this._formBuilder.group({
-            facebookUrl: [(facebookUrl !== null) ? facebookUrl : '', [Validators.required, ValidatorsHelper.webLinkFacebook ]]
+            facebookUrl: [
+                facebookUrl !== null ? facebookUrl : '',
+                [Validators.required, ValidatorsHelper.webLinkFacebook],
+            ],
         });
         this.isBuiltForm = true;
     }
 
     updateFacebookUrl(): Observable<void> {
-        return this._workspaceService.updateWorkspaceFacebookUrl(this.form.get('facebookUrl')!.value);
+        return this._workspaceService.updateWorkspaceFacebookUrl(
+            this.form.get('facebookUrl')!.value
+        );
     }
 }

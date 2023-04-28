@@ -5,18 +5,17 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { FILE_TYPES, IMAGE_FORMATS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { LoadingService } from '@services/loading.service';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { LoadingService } from '@core/services/loading.service';
 
 import { UploadWorkspaceAvatarService } from './upload-workspace-avatar.service';
 
 declare var DropifyPlugin: any;
 
 @Component({
-  selector: 'agt-upload-workspace-avatar',
-  templateUrl: './upload-workspace-avatar.page.html',
-  styles: [
-  ]
+    selector: 'agt-upload-workspace-avatar',
+    templateUrl: './upload-workspace-avatar.page.html',
+    styles: [],
 })
 export class UploadWorkspaceAvatarPage implements OnInit {
     imageChangedEvent: any;
@@ -90,11 +89,13 @@ export class UploadWorkspaceAvatarPage implements OnInit {
      */
     private _uploadWorkspaceAvatar(image: string | null): void {
         this._loadingService.show();
-        this._uploadWorkspaceAvatarService.uploadWorkspaceAvatar(image).subscribe( (res: HttpResponse) => {
-            this._loadingService.hide();
-            const hasImage: boolean = (!!image) ? true : false;
-            this._handleWorkspaceAvatarUploaded(hasImage);
-        })
+        this._uploadWorkspaceAvatarService
+            .uploadWorkspaceAvatar(image)
+            .subscribe((res: HttpResponse) => {
+                this._loadingService.hide();
+                const hasImage: boolean = !!image ? true : false;
+                this._handleWorkspaceAvatarUploaded(hasImage);
+            });
     }
 
     /**
@@ -102,8 +103,11 @@ export class UploadWorkspaceAvatarPage implements OnInit {
      * @param hasImage  Flag has image
      */
     private _handleWorkspaceAvatarUploaded(hasImage: boolean | null): void {
-        if(hasImage) {
-            AlertHelper.workspaceAvatarUploaded(this._goToActivateWorkspace, this);
+        if (hasImage) {
+            AlertHelper.workspaceAvatarUploaded(
+                this._goToActivateWorkspace,
+                this
+            );
         } else {
             this._goToActivateWorkspace(this);
         }
@@ -116,5 +120,4 @@ export class UploadWorkspaceAvatarPage implements OnInit {
     private _goToActivateWorkspace(context: any): void {
         context._router.navigateByUrl(ROUTES_NAME.activateWorkspace);
     }
-
 }

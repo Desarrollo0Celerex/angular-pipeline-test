@@ -6,18 +6,17 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Site } from '@interfaces/site.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 declare var ModalPlugin: any;
 
 import { ThemeService } from './theme.service';
 
 @Component({
-  selector: 'agt-theme',
-  templateUrl: './theme.page.html',
-  styles: [
-  ],
-  providers: [ThemeService]
+    selector: 'agt-theme',
+    templateUrl: './theme.page.html',
+    styles: [],
+    providers: [ThemeService],
 })
 export class ThemePage implements OnInit {
     modalIdConfirmUpdateSite: string = 'agt-confirm-update-site';
@@ -27,25 +26,30 @@ export class ThemePage implements OnInit {
         public model: ThemeService,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._loadSite();
     }
 
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     showModalToConfirmUpdateSite(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             ModalPlugin.show(this.modalIdConfirmUpdateSite);
         }
     }
@@ -64,12 +68,14 @@ export class ThemePage implements OnInit {
     }
 
     private _loadSite(): void {
-        this.model.loadSite().subscribe((site: Site) => {
-            this._loadSiteThemes(site);
-        },
-        () => {
-            this._loadSiteThemes();
-        });
+        this.model.loadSite().subscribe(
+            (site: Site) => {
+                this._loadSiteThemes(site);
+            },
+            () => {
+                this._loadSiteThemes();
+            }
+        );
     }
 
     private _loadSiteThemes(site: Site | null = null): void {

@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { ACTION_TYPES, FREE_TEXT_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { InsuranceType } from '@interfaces/insurance-type.interface';
 import { InsuranceTypeService } from '@services/insurance-type.service';
 
@@ -17,7 +21,7 @@ export class ModalGetPolicyDetailsService {
     constructor(
         private _formBuilder: UntypedFormBuilder,
         private _insuranceTypeService: InsuranceTypeService
-    ) { }
+    ) {}
 
     get f() {
         return this.policyDetailsForm.controls;
@@ -28,14 +32,14 @@ export class ModalGetPolicyDetailsService {
      * @param actionType The action type
      */
     buildPolicyDetailsForm(actionType: number): void {
-        switch(actionType) {
+        switch (actionType) {
             case ACTION_TYPES.CREATE_QUOTATION:
                 this._buildPolicyDetailsFormToCreateQuotation();
-            break;
+                break;
 
             case ACTION_TYPES.CREATE_POLICY:
                 this._buildPolicyDetailsFormToCreatePolicy();
-            break;
+                break;
         }
     }
 
@@ -46,13 +50,19 @@ export class ModalGetPolicyDetailsService {
      */
     loadInsuranceTypes(insuranceId: number): Observable<void> {
         const fields: string = 'insuranceTypeId,name';
-        return this._insuranceTypeService.getInsuranceTypes(insuranceId, fields).pipe(
-            tap((res: HttpResponse) => {
-                this.insuranceTypes = res.data;
-                this.policyDetailsForm.patchValue({insuranceTypeId: this.insuranceTypes[0].insuranceTypeId})
-            }),
-            map( () => { return; })
-        )
+        return this._insuranceTypeService
+            .getInsuranceTypes(insuranceId, fields)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.insuranceTypes = res.data;
+                    this.policyDetailsForm.patchValue({
+                        insuranceTypeId: this.insuranceTypes[0].insuranceTypeId,
+                    });
+                }),
+                map(() => {
+                    return;
+                })
+            );
     }
 
     /**
@@ -60,8 +70,8 @@ export class ModalGetPolicyDetailsService {
      */
     private _buildPolicyDetailsFormToCreatePolicy(): void {
         this.policyDetailsForm = this._formBuilder.group({
-            insuranceTypeId: ['', [Validators.required] ]
-        })
+            insuranceTypeId: ['', [Validators.required]],
+        });
     }
 
     /**
@@ -69,8 +79,16 @@ export class ModalGetPolicyDetailsService {
      */
     private _buildPolicyDetailsFormToCreateQuotation(): void {
         this.policyDetailsForm = this._formBuilder.group({
-            description: ['', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]],
-            insuranceTypeId: ['', [Validators.required] ]
-        })
+            description: [
+                '',
+                [
+                    Validators.required,
+                    Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                    Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                    ValidatorsHelper.freeText,
+                ],
+            ],
+            insuranceTypeId: ['', [Validators.required]],
+        });
     }
 }

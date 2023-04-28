@@ -4,17 +4,16 @@ import { Router } from '@angular/router';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { QUOTATION_STATUS } from '@constants/global';
 import { AlertHelper } from '@helpers/alert.helper';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalConfirmRejectQuotationService } from './modal-confirm-reject-quotation.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-reject-quotation',
-  templateUrl: './modal-confirm-reject-quotation.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-reject-quotation',
+    templateUrl: './modal-confirm-reject-quotation.component.html',
+    styles: [],
 })
 export class ModalConfirmRejectQuotationComponent {
     @Input() contactId: string;
@@ -37,10 +36,16 @@ export class ModalConfirmRejectQuotationComponent {
     onClickRejectQuotation(): void {
         ModalPlugin.hide(this.modalId);
         this._loadingService.show();
-        this._modalConfirmRejectQuotationService.rejectQuotation(this.contactId, this.quotationId).subscribe( () => {
-            this._loadingService.hide();
-            AlertHelper.quotationRejected(this._goToQuotationsRejected, this, this.contactId);
-        })
+        this._modalConfirmRejectQuotationService
+            .rejectQuotation(this.contactId, this.quotationId)
+            .subscribe(() => {
+                this._loadingService.hide();
+                AlertHelper.quotationRejected(
+                    this._goToQuotationsRejected,
+                    this,
+                    this.contactId
+                );
+            });
     }
 
     /**
@@ -48,7 +53,13 @@ export class ModalConfirmRejectQuotationComponent {
      * @param context   The app context
      * @param contactId The contact ID
      */
-    private _goToQuotationsRejected(context: ModalConfirmRejectQuotationComponent, contactId: string): void {
-        context._router.navigate([ROUTES_NAME.listContactQuotations(contactId)], { queryParams: { contentSubtype: QUOTATION_STATUS.REJECTED } });
+    private _goToQuotationsRejected(
+        context: ModalConfirmRejectQuotationComponent,
+        contactId: string
+    ): void {
+        context._router.navigate(
+            [ROUTES_NAME.listContactQuotations(contactId)],
+            { queryParams: { contentSubtype: QUOTATION_STATUS.REJECTED } }
+        );
     }
 }

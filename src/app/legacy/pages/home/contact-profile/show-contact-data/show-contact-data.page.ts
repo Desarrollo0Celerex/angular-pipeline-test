@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
-import { BUTTON_TYPES, CONTACT_TYPES, CONTACT_INFORMATION_TYPES } from '@constants/global';
+import {
+    BUTTON_TYPES,
+    CONTACT_TYPES,
+    CONTACT_INFORMATION_TYPES,
+} from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ShowContactDataService } from './show-contact-data.service';
 
@@ -14,11 +18,10 @@ declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-show-contact-data',
-  templateUrl: './show-contact-data.page.html',
-  styles: [
-  ],
-  providers: [ShowContactDataService]
+    selector: 'agt-show-contact-data',
+    templateUrl: './show-contact-data.page.html',
+    styles: [],
+    providers: [ShowContactDataService],
 })
 export class ShowContactDataPage implements OnInit {
     BUTTON_TYPES: any = BUTTON_TYPES;
@@ -35,35 +38,42 @@ export class ShowContactDataPage implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._catchParams();
         this._loadContact();
-        let aux = this.showContactDataService.contactInformations
+        let aux = this.showContactDataService.contactInformations;
     }
 
     getContactInformationDescription(control: AbstractControl): string {
-        const contactInformationTypeId: number = control.get('contactInformationTypeId')!.value;
+        const contactInformationTypeId: number = control.get(
+            'contactInformationTypeId'
+        )!.value;
         let description: string = '';
         switch (contactInformationTypeId) {
             case CONTACT_INFORMATION_TYPES.ISSUES:
-                description = 'Ingresa los datos para notificar sobre emisiones, renovaciones y vencimiento de pólizas.';
+                description =
+                    'Ingresa los datos para notificar sobre emisiones, renovaciones y vencimiento de pólizas.';
                 break;
 
             case CONTACT_INFORMATION_TYPES.PAYMENTS:
-                description = 'Ingresa los datos para notificar sobre aplicaciones de pago y recibos pendientes.';
+                description =
+                    'Ingresa los datos para notificar sobre aplicaciones de pago y recibos pendientes.';
                 break;
 
             case CONTACT_INFORMATION_TYPES.SINISTERS:
-                description = 'Ingresa los datos para notificar sobre reportes y actualización de siniestros.';
+                description =
+                    'Ingresa los datos para notificar sobre reportes y actualización de siniestros.';
                 break;
         }
         return description;
     }
 
     getContactInformationTitle(control: AbstractControl): string {
-        const contactInformationTypeId: number = control.get('contactInformationTypeId')!.value;
+        const contactInformationTypeId: number = control.get(
+            'contactInformationTypeId'
+        )!.value;
         let title: string = '';
         switch (contactInformationTypeId) {
             case CONTACT_INFORMATION_TYPES.MAIN:
@@ -86,28 +96,44 @@ export class ShowContactDataPage implements OnInit {
     }
 
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.showContactDataService.contactForm.get(constrolName);
+        const control: AbstractControl | null =
+            this.showContactDataService.contactForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
     getErrorMessageAux(constrolName: string, index: number): string {
-        const control: AbstractControl | null = this.showContactDataService.contactInformations.at(index).get(constrolName);
+        const control: AbstractControl | null =
+            this.showContactDataService.contactInformations
+                .at(index)
+                .get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.showContactDataService.contactForm.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.showContactDataService.contactForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     getValidationClassAux(constrolName: string, index: number): string {
-        const control: AbstractControl | null = this.showContactDataService.contactInformations.at(index).get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.showContactDataService.contactInformations
+                .at(index)
+                .get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     loadCountryStates(): void {
         this.showContactDataService.f.stateId.setValue(null);
-        this.showContactDataService.loadCountryStates(this.showContactDataService.f.countryId.value);
+        this.showContactDataService.loadCountryStates(
+            this.showContactDataService.f.countryId.value
+        );
     }
 
     /**
@@ -122,7 +148,7 @@ export class ShowContactDataPage implements OnInit {
      * @param phoneCodeId The selected contact ID
      */
     onPhoneCodeIdSelected(phoneCodeId: number): void {
-        this.showContactDataService.contactForm.patchValue({phoneCodeId});
+        this.showContactDataService.contactForm.patchValue({ phoneCodeId });
     }
 
     /**
@@ -130,22 +156,31 @@ export class ShowContactDataPage implements OnInit {
      */
     onSubmitUpdateContact(): void {
         this._isFormSubmitted = true;
-        if(!!this.showContactDataService.contactForm && this.showContactDataService.contactForm.valid) {
+        if (
+            !!this.showContactDataService.contactForm &&
+            this.showContactDataService.contactForm.valid
+        ) {
             this._loadingService.show();
-            this.showContactDataService.updateContact(this.contactId).subscribe( () => {
-                this._loadingService.hide();
-                AlertHelper.contactUpdated();
-                this._router.navigateByUrl(ROUTES_NAME.contactResume(this.contactId));
-            });
+            this.showContactDataService
+                .updateContact(this.contactId)
+                .subscribe(() => {
+                    this._loadingService.hide();
+                    AlertHelper.contactUpdated();
+                    this._router.navigateByUrl(
+                        ROUTES_NAME.contactResume(this.contactId)
+                    );
+                });
         }
     }
 
     selectPhoneCodeId(phoneCodeId: number, index: number): void {
-        this.showContactDataService.contactInformations.at(index).patchValue({phoneCodeId})
+        this.showContactDataService.contactInformations
+            .at(index)
+            .patchValue({ phoneCodeId });
     }
 
     showModalToDownloadContact(): void {
-        ModalPlugin.show(this.modalIdShowContactData)
+        ModalPlugin.show(this.modalIdShowContactData);
     }
 
     /**
@@ -160,7 +195,11 @@ export class ShowContactDataPage implements OnInit {
      */
     private _initCalendars(): void {
         DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdBirthdate, this._onChangeDate, this);
+        DatePickerPlugin.initElement(
+            this.calendarIdBirthdate,
+            this._onChangeDate,
+            this
+        );
     }
 
     /**
@@ -168,12 +207,16 @@ export class ShowContactDataPage implements OnInit {
      * Build the contact form
      */
     private _loadContact(): void {
-        this.showContactDataService.loadContact(this.contactId).subscribe( () => {
-            this.showContactDataService.loadCatalogs();
-            this.showContactDataService.buildForm();
-            this.showContactDataService.loadContactInformations(this.contactId);
-            this._initCalendars();
-        })
+        this.showContactDataService
+            .loadContact(this.contactId)
+            .subscribe(() => {
+                this.showContactDataService.loadCatalogs();
+                this.showContactDataService.buildForm();
+                this.showContactDataService.loadContactInformations(
+                    this.contactId
+                );
+                this._initCalendars();
+            });
     }
 
     /**
@@ -182,8 +225,13 @@ export class ShowContactDataPage implements OnInit {
      * @param changedValue The changed value
      * @param context      The app context
      */
-    private _onChangeDate(selectorId: string, changedValue: string, context: ShowContactDataPage): void {
-        context.showContactDataService.contactForm.patchValue({[selectorId]: changedValue});
+    private _onChangeDate(
+        selectorId: string,
+        changedValue: string,
+        context: ShowContactDataPage
+    ): void {
+        context.showContactDataService.contactForm.patchValue({
+            [selectorId]: changedValue,
+        });
     }
-
 }

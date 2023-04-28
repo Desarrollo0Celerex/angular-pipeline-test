@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { LoadingService } from '@services/loading.service';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { LoadingService } from '@core/services/loading.service';
 
 import { CreateWorkspaceService } from './create-workspace.service';
 
@@ -14,10 +14,9 @@ declare var $: any;
 declare var Select2Plugin: any;
 
 @Component({
-  selector: 'agt-create-workspace',
-  templateUrl: './create-workspace.page.html',
-  styles: [
-  ]
+    selector: 'agt-create-workspace',
+    templateUrl: './create-workspace.page.html',
+    styles: [],
 })
 export class CreateWorkspacePage implements OnInit {
     selectCountriesId: string;
@@ -44,7 +43,8 @@ export class CreateWorkspacePage implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.createWorkspaceService.workspaceForm.get(constrolName);
+        const control: AbstractControl | null =
+            this.createWorkspaceService.workspaceForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -54,13 +54,19 @@ export class CreateWorkspacePage implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.createWorkspaceService.workspaceForm.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.createWorkspaceService.workspaceForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     loadCountryStates(): void {
         this.createWorkspaceService.f.stateId.setValue(null);
-        this.createWorkspaceService.loadCountryStates(this.createWorkspaceService.f.countryId.value);
+        this.createWorkspaceService.loadCountryStates(
+            this.createWorkspaceService.f.countryId.value
+        );
     }
 
     /**
@@ -68,7 +74,7 @@ export class CreateWorkspacePage implements OnInit {
      * @param phoneCodeId Phone code id
      */
     onPhoneCodeIdSelected(phoneCodeId: number): void {
-        this.createWorkspaceService.workspaceForm.patchValue({phoneCodeId})
+        this.createWorkspaceService.workspaceForm.patchValue({ phoneCodeId });
     }
 
     /**
@@ -76,13 +82,20 @@ export class CreateWorkspacePage implements OnInit {
      */
     onSubmitCreateWorkspace(): void {
         this._isFormSubmitted = true;
-        if(this.createWorkspaceService.workspaceForm.valid) {
+        if (this.createWorkspaceService.workspaceForm.valid) {
             this._loadingService.show();
-            this.createWorkspaceService.createWorkspace().subscribe( (res: HttpResponse) => {
-                this._loadingService.hide();
-                this.createWorkspaceService.startSessionInAgenthos(res.data);
-                AlertHelper.workspaceCreated(this._goToActivateWorkspace, this);
-            })
+            this.createWorkspaceService
+                .createWorkspace()
+                .subscribe((res: HttpResponse) => {
+                    this._loadingService.hide();
+                    this.createWorkspaceService.startSessionInAgenthos(
+                        res.data
+                    );
+                    AlertHelper.workspaceCreated(
+                        this._goToActivateWorkspace,
+                        this
+                    );
+                });
         }
     }
 
@@ -98,11 +111,11 @@ export class CreateWorkspacePage implements OnInit {
      * Load catalogs data
      */
     private _loadCatalogs(): void {
-        this.createWorkspaceService.loadCatalogs().subscribe( () => {
+        this.createWorkspaceService.loadCatalogs().subscribe(() => {
             Select2Plugin.init();
             this._onChange(this.selectCountriesId);
             this._onChange(this.selectCountryStatesId);
-        })
+        });
     }
 
     /**
@@ -110,10 +123,14 @@ export class CreateWorkspacePage implements OnInit {
      * @param selectId Select id
      */
     private _onChange(selectId: string): void {
-        $('select#'+selectId).on('change', (element: any) => {
-            switch(selectId) {
-                case this.selectCountriesId: this._onChangeCountryId(element.currentTarget.value); break;
-                case this.selectCountryStatesId: this._onChangeStateId(element.currentTarget.value); break;
+        $('select#' + selectId).on('change', (element: any) => {
+            switch (selectId) {
+                case this.selectCountriesId:
+                    this._onChangeCountryId(element.currentTarget.value);
+                    break;
+                case this.selectCountryStatesId:
+                    this._onChangeStateId(element.currentTarget.value);
+                    break;
             }
         });
     }
@@ -123,8 +140,10 @@ export class CreateWorkspacePage implements OnInit {
      * @param value Country id
      */
     private _onChangeCountryId(value: number): void {
-        this.createWorkspaceService.workspaceForm.patchValue({countryId: value});
-        this.createWorkspaceService.workspaceForm.patchValue({stateId: ''});
+        this.createWorkspaceService.workspaceForm.patchValue({
+            countryId: value,
+        });
+        this.createWorkspaceService.workspaceForm.patchValue({ stateId: '' });
         this.createWorkspaceService.loadCountryStates(value);
     }
 
@@ -133,6 +152,8 @@ export class CreateWorkspacePage implements OnInit {
      * @param  value State id
      */
     private _onChangeStateId(value: number): void {
-        this.createWorkspaceService.workspaceForm.patchValue({stateId: value});
+        this.createWorkspaceService.workspaceForm.patchValue({
+            stateId: value,
+        });
     }
 }

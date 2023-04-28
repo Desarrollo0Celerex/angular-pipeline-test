@@ -6,18 +6,17 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Wallet } from '@interfaces/wallet.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { WalletIdentityService } from './wallet-identity.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-wallet-identity',
-  templateUrl: './wallet-identity.page.html',
-  styles: [
-  ],
-  providers: [WalletIdentityService]
+    selector: 'agt-wallet-identity',
+    templateUrl: './wallet-identity.page.html',
+    styles: [],
+    providers: [WalletIdentityService],
 })
 export class WalletIdentityPage implements OnInit {
     walletId: string = '';
@@ -29,7 +28,7 @@ export class WalletIdentityPage implements OnInit {
         private _loadingService: LoadingService,
         private _router: Router,
         private _walletIdentityService: WalletIdentityService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._catchParams();
@@ -46,7 +45,8 @@ export class WalletIdentityPage implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -56,17 +56,25 @@ export class WalletIdentityPage implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        const validationClass: string = InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
-        if(constrolName === 'icon') {
-            return (validationClass === 'is-valid') ? 'agt-is-valid' : (validationClass === 'is-invalid') ? 'agt-is-invalid' : '';
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        const validationClass: string = InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
+        if (constrolName === 'icon') {
+            return validationClass === 'is-valid'
+                ? 'agt-is-valid'
+                : validationClass === 'is-invalid'
+                ? 'agt-is-invalid'
+                : '';
         }
         return validationClass;
     }
 
     confirmUpdateWallet(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             ModalPlugin.show(this.modalIdConfirmUpdateWallet);
         }
     }
@@ -87,12 +95,15 @@ export class WalletIdentityPage implements OnInit {
     private _loadWallet(): void {
         this.model.loadWallet().subscribe((wallet: Wallet) => {
             this.model.buildForm(wallet);
-        })
+        });
     }
 
     private _reloadPage(context: WalletIdentityPage): void {
         context._router.routeReuseStrategy.shouldReuseRoute = () => false;
         context._router.onSameUrlNavigation = 'reload';
-        context._router.navigate(['/' + ROUTES_NAME.walletResume(context.walletId)], { relativeTo: context._activatedRoute });
+        context._router.navigate(
+            ['/' + ROUTES_NAME.walletResume(context.walletId)],
+            { relativeTo: context._activatedRoute }
+        );
     }
 }

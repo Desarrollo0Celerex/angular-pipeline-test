@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Insurance } from '@interfaces/insurance.interface';
 import { InsuranceService } from '@services/insurance.service';
 
@@ -12,28 +12,32 @@ export class ContainerInsurancesBySearchService {
     insurancesFound: Insurance[] = [];
     isInsurancesLoaded: boolean = false;
 
-    constructor(private _insuranceService: InsuranceService) { }
+    constructor(private _insuranceService: InsuranceService) {}
 
     loadInsurances(): Observable<void> {
         this.isInsurancesLoaded = false;
-        const fields: string = 'insuranceId,name,title,description,background,icon';
+        const fields: string =
+            'insuranceId,name,title,description,background,icon';
         return this._insuranceService.getInsurances(fields).pipe(
             tap((res: HttpResponse) => {
                 this.allInsurances = res.data;
                 this.isInsurancesLoaded = true;
             }),
-            map(() => { })
-        )
+            map(() => {})
+        );
     }
 
     searchInsurance(query: string): void {
         query = query.toLocaleLowerCase().trim();
-        this.insurancesFound = this.allInsurances.filter((insurance: any) => Object.keys(insurance).some((property: string) => {
-            if(property === 'name' || property === 'description') {
-                const value: string = insurance[property].toLocaleLowerCase();
-                return (value.includes(query)) ? true : false
-            }
-            return false;
-        }));
+        this.insurancesFound = this.allInsurances.filter((insurance: any) =>
+            Object.keys(insurance).some((property: string) => {
+                if (property === 'name' || property === 'description') {
+                    const value: string =
+                        insurance[property].toLocaleLowerCase();
+                    return value.includes(query) ? true : false;
+                }
+                return false;
+            })
+        );
     }
 }

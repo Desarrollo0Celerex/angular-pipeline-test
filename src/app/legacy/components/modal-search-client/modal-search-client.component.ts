@@ -5,19 +5,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Client } from '@interfaces/client.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { LoadingService } from '@services/loading.service';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalSearchClientService } from './modal-search-client.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-search-client',
-  templateUrl: './modal-search-client.component.html',
-  styles: [
-  ],
-  providers: [ModalSearchClientService]
+    selector: 'agt-modal-search-client',
+    templateUrl: './modal-search-client.component.html',
+    styles: [],
+    providers: [ModalSearchClientService],
 })
 export class ModalSearchClientComponent implements OnChanges {
     @Input() modalId: string = '';
@@ -37,10 +36,10 @@ export class ModalSearchClientComponent implements OnChanges {
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.groupId && !!changes.groupId.currentValue) {
+        if (!!changes.groupId && !!changes.groupId.currentValue) {
             this.model.loadGroupMembers(changes.groupId.currentValue);
         }
     }
@@ -60,7 +59,8 @@ export class ModalSearchClientComponent implements OnChanges {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -70,30 +70,39 @@ export class ModalSearchClientComponent implements OnChanges {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     searchClient(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             this._loadingService.show();
             this.model.getClients().subscribe((res: HttpResponse) => {
                 const totalFoundClients: number = res.data.items.length;
                 // If there are no clients
-                if(totalFoundClients === 0) {
+                if (totalFoundClients === 0) {
                     this.isNoResults = true;
                     this._resetSearchForm(this.model.f.name.value);
                 } else {
                     // If the client was found and already member
-                    if(totalFoundClients === 1 && this._checkClientAlreadyMember(res.data.items[0].contactId)) {
+                    if (
+                        totalFoundClients === 1 &&
+                        this._checkClientAlreadyMember(
+                            res.data.items[0].contactId
+                        )
+                    ) {
                         this.clientIsAlreadyMember = true;
                     } else {
                         this.isNoResults = false;
                         ModalPlugin.hide(this.modalId);
                         this._resetSearchForm();
                         // If the client was found
-                        if(totalFoundClients === 1) {
+                        if (totalFoundClients === 1) {
                             this.showModalToConfirmAddClient(res.data.items[0]);
                         }
                         // If there are multiple clients
@@ -106,7 +115,7 @@ export class ModalSearchClientComponent implements OnChanges {
                 setTimeout(() => {
                     this._loadingService.hide();
                 }, 250);
-            })
+            });
         }
     }
 
@@ -116,8 +125,8 @@ export class ModalSearchClientComponent implements OnChanges {
     }
 
     selectClient(): void {
-        if(!!this._selectedClient) {
-            this._addClient(this._selectedClient)
+        if (!!this._selectedClient) {
+            this._addClient(this._selectedClient);
         }
     }
 
@@ -127,18 +136,20 @@ export class ModalSearchClientComponent implements OnChanges {
 
     private _addClient(client: Client): void {
         this._loadingService.show();
-        this.model.addGroupMember(this.groupId, client.contactId).subscribe(() => {
-            this._loadingService.hide();
-            AlertHelper.groupMemberAdded();
-            this._reloadPage();
-        })
+        this.model
+            .addGroupMember(this.groupId, client.contactId)
+            .subscribe(() => {
+                this._loadingService.hide();
+                AlertHelper.groupMemberAdded();
+                this._reloadPage();
+            });
     }
 
     private _reloadPage(): void {
         this._router.routeReuseStrategy.shouldReuseRoute = () => false;
         this._router.onSameUrlNavigation = 'reload';
-        const url: string = this._router.url.split('?')[0] ;
-        this._router.navigate([url], { relativeTo: this._activatedRoute } );
+        const url: string = this._router.url.split('?')[0];
+        this._router.navigate([url], { relativeTo: this._activatedRoute });
     }
 
     /**
@@ -147,7 +158,6 @@ export class ModalSearchClientComponent implements OnChanges {
     private _resetSearchForm(name: string = ''): void {
         this.clientIsAlreadyMember = false;
         this._isFormSubmitted = false;
-        this.model.form.reset({name});
+        this.model.form.reset({ name });
     }
-
 }

@@ -3,15 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    users: (userId: string) => `${environment.apiUrl}/users/${userId}`
-}
+    users: (userId: string) => `${environment.apiUrl}/users/${userId}`,
+};
 
 @Injectable()
 export class UserService {
-    constructor(private _httpClient: HttpClient) { }
+    constructor(private _httpClient: HttpClient) {}
 
     /**
      * Get user from API

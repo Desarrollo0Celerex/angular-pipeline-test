@@ -1,11 +1,19 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+} from '@angular/core';
 
 import { environment } from '@env/environment';
 import { AlertHelper } from '@helpers/alert.helper';
 import { DeleteInvitationData } from '@interfaces/delete-invitation-data.interface';
 import { Invitation } from '@interfaces/invitation.interface';
 import { Role } from '@interfaces/role.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { SentInvitationsService } from './sent-invitations.service';
 
@@ -14,10 +22,9 @@ declare var PopoverPlugin: any;
 declare var TooltipPlugin: any;
 
 @Component({
-  selector: 'agt-sent-invitations',
-  templateUrl: './sent-invitations.component.html',
-  styles: [
-  ]
+    selector: 'agt-sent-invitations',
+    templateUrl: './sent-invitations.component.html',
+    styles: [],
 })
 export class SentInvitationsComponent implements OnInit, OnChanges {
     @Input() invitation: Invitation | null;
@@ -41,8 +48,10 @@ export class SentInvitationsComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.invitation.currentValue) {
-            this.containerListSentInvitationsService.addInvitationSent(changes.invitation.currentValue);
+        if (!!changes.invitation.currentValue) {
+            this.containerListSentInvitationsService.addInvitationSent(
+                changes.invitation.currentValue
+            );
         }
     }
 
@@ -52,8 +61,11 @@ export class SentInvitationsComponent implements OnInit, OnChanges {
      * @return        Role name
      */
     getRoleName(roleId: number): string {
-        const selectedRole: Role | undefined = this.containerListSentInvitationsService.roles.find( (element: Role) => element.roleId == roleId);
-        return (!!selectedRole) ? selectedRole.name : '';
+        const selectedRole: Role | undefined =
+            this.containerListSentInvitationsService.roles.find(
+                (element: Role) => element.roleId == roleId
+            );
+        return !!selectedRole ? selectedRole.name : '';
     }
 
     /**
@@ -61,9 +73,19 @@ export class SentInvitationsComponent implements OnInit, OnChanges {
      * @param invitationId      The invitation id
      * @param invitationIndex   The invitation index
      */
-    onClickDeleteInvitation(invitationId: number, invitationIndex: number): void {
-        const deleteInvitationData: DeleteInvitationData = { invitationId, invitationIndex };
-        AlertHelper.requestDeleteInvitation(this._deleteInvitation, this, deleteInvitationData);
+    onClickDeleteInvitation(
+        invitationId: number,
+        invitationIndex: number
+    ): void {
+        const deleteInvitationData: DeleteInvitationData = {
+            invitationId,
+            invitationIndex,
+        };
+        AlertHelper.requestDeleteInvitation(
+            this._deleteInvitation,
+            this,
+            deleteInvitationData
+        );
     }
 
     /**
@@ -72,10 +94,12 @@ export class SentInvitationsComponent implements OnInit, OnChanges {
      */
     onClickResendInvitation(invitationId: number): void {
         this._loadingService.show();
-        this.containerListSentInvitationsService.resendInvitation(invitationId).subscribe( () => {
-            this._loadingService.hide();
-            AlertHelper.invitationSent();
-        })
+        this.containerListSentInvitationsService
+            .resendInvitation(invitationId)
+            .subscribe(() => {
+                this._loadingService.hide();
+                AlertHelper.invitationSent();
+            });
     }
 
     /**
@@ -92,24 +116,32 @@ export class SentInvitationsComponent implements OnInit, OnChanges {
      * @param context              App context
      * @param deleteInvitationData Data of the invitation to delete
      */
-    private _deleteInvitation(context: SentInvitationsComponent, deleteInvitationData: DeleteInvitationData): void {
+    private _deleteInvitation(
+        context: SentInvitationsComponent,
+        deleteInvitationData: DeleteInvitationData
+    ): void {
         context._loadingService.show();
-        context.containerListSentInvitationsService.deleteInvitation(deleteInvitationData.invitationId).subscribe( () => {
-            context._loadingService.hide();
-            context.containerListSentInvitationsService.deleteInvitationSent(deleteInvitationData.invitationIndex);
-            context.invitationDeleted.emit();
-            AlertHelper.invitationDeleted();
-        });
+        context.containerListSentInvitationsService
+            .deleteInvitation(deleteInvitationData.invitationId)
+            .subscribe(() => {
+                context._loadingService.hide();
+                context.containerListSentInvitationsService.deleteInvitationSent(
+                    deleteInvitationData.invitationIndex
+                );
+                context.invitationDeleted.emit();
+                AlertHelper.invitationDeleted();
+            });
     }
 
     /**
      * Load the invitations sent
      */
     private _loadInvitationsSent(): void {
-        this.containerListSentInvitationsService.loadInvitationsSent().subscribe(() => {
-            TooltipPlugin.init();
-            PopoverPlugin.init();
-        })
+        this.containerListSentInvitationsService
+            .loadInvitationsSent()
+            .subscribe(() => {
+                TooltipPlugin.init();
+                PopoverPlugin.init();
+            });
     }
-
 }

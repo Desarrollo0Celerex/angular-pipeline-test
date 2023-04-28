@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { FILE_NAME_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
 import { ContactFileType } from '@interfaces/contact-file-type.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContactFileService } from '@services/contact-file.service';
 import { ContactFileTypeService } from '@services/contact-file-type.service';
 
@@ -19,9 +24,9 @@ export class UpdateContactFileService {
         private _contactFileService: ContactFileService,
         private _contactFileTypeService: ContactFileTypeService,
         private _formBuilder: UntypedFormBuilder
-    ) { }
+    ) {}
 
-    get f(): { [key: string]: AbstractControl; }  {
+    get f(): { [key: string]: AbstractControl } {
         return this.fileForm.controls;
     }
 
@@ -31,8 +36,16 @@ export class UpdateContactFileService {
     buildForm(): void {
         this.fileForm = this._formBuilder.group({
             file: [''],
-            fileName: ['', [Validators.required, Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
-            contactFileTypeId: ['', [Validators.required]]
+            fileName: [
+                '',
+                [
+                    Validators.required,
+                    Validators.minLength(FILE_NAME_LENGTH.MIN),
+                    Validators.maxLength(FILE_NAME_LENGTH.MAX),
+                    ValidatorsHelper.fileName,
+                ],
+            ],
+            contactFileTypeId: ['', [Validators.required]],
         });
     }
 
@@ -42,9 +55,14 @@ export class UpdateContactFileService {
      */
     loadContactFile(contactFileData: ContactFileDataSend): void {
         const fields: string = 'fileName,contactFileTypeId';
-        this._contactFileService.getContactFile(contactFileData, fields).subscribe((res: HttpResponse) => {
-            this._updateFileForm(res.data.fileName, res.data.contactFileTypeId);
-        })
+        this._contactFileService
+            .getContactFile(contactFileData, fields)
+            .subscribe((res: HttpResponse) => {
+                this._updateFileForm(
+                    res.data.fileName,
+                    res.data.contactFileTypeId
+                );
+            });
     }
 
     /**
@@ -52,18 +70,25 @@ export class UpdateContactFileService {
      */
     loadContactFileTypes(): void {
         const fields: string = 'contactFileTypeId,name';
-        this._contactFileTypeService.getContactFileTypes(fields).subscribe((res: HttpResponse) => {
-            this.contactFileTypes = res.data;
-        })
+        this._contactFileTypeService
+            .getContactFileTypes(fields)
+            .subscribe((res: HttpResponse) => {
+                this.contactFileTypes = res.data;
+            });
     }
 
     /**
      * Upload the file
      * @return Notice of action done
      */
-    updateContactFileWithoutFile(contactFileData: ContactFileDataSend): Observable<void> {
+    updateContactFileWithoutFile(
+        contactFileData: ContactFileDataSend
+    ): Observable<void> {
         const requestBody: FormData = this._getRequestBody();
-        return this._contactFileService.updateContactFileWithoutFile(contactFileData, requestBody);
+        return this._contactFileService.updateContactFileWithoutFile(
+            contactFileData,
+            requestBody
+        );
     }
 
     /**
@@ -81,7 +106,7 @@ export class UpdateContactFileService {
         fileName = fileName.replace(/_/g, ' ');
         this.fileForm.patchValue({
             fileName,
-            contactFileTypeId
+            contactFileTypeId,
         });
     }
 }

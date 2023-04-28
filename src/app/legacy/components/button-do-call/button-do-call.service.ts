@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { Phone } from '@interfaces/phone.interface';
 import { ExpressTokenData } from '@interfaces/express-token-data.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContactService } from '@services/contact.service';
 import { ExpressTokenService } from '@services/express-token.service';
-import { JwtService } from '@services/jwt.service';
+import { JwtService } from '@core/services/jwt.service';
 
 @Injectable()
 export class ButtonDoCallService {
@@ -18,7 +18,7 @@ export class ButtonDoCallService {
     ) {
         this.phone = {
             phoneCode: '',
-            phoneNumber: ''
+            phoneNumber: '',
         };
     }
 
@@ -30,9 +30,11 @@ export class ButtonDoCallService {
     loadContact(contactId: string): void {
         this._initPhone();
         const fields: string = 'phoneCode,phoneNumber';
-        this._contactService.getContact(contactId, fields).subscribe( (res: HttpResponse) => {
-            this.phone = res.data;
-        })
+        this._contactService
+            .getContact(contactId, fields)
+            .subscribe((res: HttpResponse) => {
+                this.phone = res.data;
+            });
     }
 
     /**
@@ -42,10 +44,18 @@ export class ButtonDoCallService {
     loadExpressContact(expressToken: string): void {
         this._initPhone();
         const fields: string = 'phoneCode,phoneNumber';
-        const expressTokenData: ExpressTokenData = this._decodeExpressToken(expressToken);
-        this._expressTokenService.getExpressContact(expressTokenData.workspaceId, expressTokenData.contactId, expressToken, fields).subscribe( (res: HttpResponse) => {
-            this.phone = res.data;
-        });
+        const expressTokenData: ExpressTokenData =
+            this._decodeExpressToken(expressToken);
+        this._expressTokenService
+            .getExpressContact(
+                expressTokenData.workspaceId,
+                expressTokenData.contactId,
+                expressToken,
+                fields
+            )
+            .subscribe((res: HttpResponse) => {
+                this.phone = res.data;
+            });
     }
 
     /**
@@ -60,7 +70,7 @@ export class ButtonDoCallService {
     private _initPhone(): void {
         this.phone = {
             phoneCode: '',
-            phoneNumber: ''
+            phoneNumber: '',
         };
     }
 }

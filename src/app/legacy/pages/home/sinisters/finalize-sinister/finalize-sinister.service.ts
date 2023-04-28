@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Currency } from '@interfaces/currency.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { SinisterResolution } from '@interfaces/sinister-resolution.interface';
@@ -25,7 +30,7 @@ export class FinalizeSinisterService {
         private _formBuilder: UntypedFormBuilder,
         private _sinisterService: SinisterService,
         private _sinisterResolutionService: SinisterResolutionService
-    ) { }
+    ) {}
 
     get f(): { [key: string]: AbstractControl } {
         return this.sinisterForm.controls;
@@ -38,22 +43,35 @@ export class FinalizeSinisterService {
      */
     finalizeSinister(sinisterData: SinisterDataSend): Observable<void> {
         const requestBody: FormData = this._getRequestBody();
-        return this._sinisterService.finalizeSinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, requestBody);
+        return this._sinisterService.finalizeSinister(
+            sinisterData.contactId,
+            sinisterData.policyId,
+            sinisterData.sinisterId,
+            requestBody
+        );
     }
 
-     /**
+    /**
      * Load the sinister data
      * @param sinisterData The sinister data
      * @return             Notification of action done
      */
     loadSinister(sinisterData: SinisterDataSend): Observable<void> {
-        const fields: string = 'coveredProperty,policyNumber,clientNumber,insurerName,sinisterDate,sinisterNumber,invoice,certificate';
-        return this._sinisterService.getPolicySinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, fields).pipe(
-            tap((res: Sinister) => {
-                this.sinister = res;
-            }),
-            map(() => { })
-        )
+        const fields: string =
+            'coveredProperty,policyNumber,clientNumber,insurerName,sinisterDate,sinisterNumber,invoice,certificate';
+        return this._sinisterService
+            .getPolicySinister(
+                sinisterData.contactId,
+                sinisterData.policyId,
+                sinisterData.sinisterId,
+                fields
+            )
+            .pipe(
+                tap((res: Sinister) => {
+                    this.sinister = res;
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -63,7 +81,7 @@ export class FinalizeSinisterService {
     private _buildSinisterForm(): UntypedFormGroup {
         return this._formBuilder.group({
             evidenceFile: [''],
-            resolutionDate: ['', [Validators.required, ValidatorsHelper.date]]
+            resolutionDate: ['', [Validators.required, ValidatorsHelper.date]],
         });
     }
 

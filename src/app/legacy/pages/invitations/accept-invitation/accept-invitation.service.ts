@@ -3,11 +3,11 @@ import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 
 import { INVITATION_STATUS } from '@constants/global';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { InvitationByToken } from '@interfaces/invitation-by-token.interface';
-import { UserTokenData } from '@interfaces/user-token-data.interface';
-import { AuthService } from '@services/auth.service';
-import { FirebaseService } from '@services/firebase.service';
+import { UserTokenData } from '@core/interfaces/user-token-data.interface';
+import { AuthService } from '@core/services/auth.service';
+import { FirebaseService } from '@core/services/firebase.service';
 import { InvitationService } from '@services/invitation.service';
 
 @Injectable()
@@ -36,7 +36,9 @@ export class AcceptInvitationService {
      * @return True if it comes, otherwise false
      */
     checkComesActiveWorkspace(): boolean {
-        return (!!this.invitation && !!this.invitation.isActiveWorkspace) ? true : false;
+        return !!this.invitation && !!this.invitation.isActiveWorkspace
+            ? true
+            : false;
     }
 
     /**
@@ -52,7 +54,10 @@ export class AcceptInvitationService {
      * @return True if it is, otherwise false
      */
     checkIsInvitationAccepted(): boolean {
-        return (!!this.invitation && this.invitation.invitationStatusId === INVITATION_STATUS.ACCEPTED) ? true : false;
+        return !!this.invitation &&
+            this.invitation.invitationStatusId === INVITATION_STATUS.ACCEPTED
+            ? true
+            : false;
     }
 
     /**
@@ -61,7 +66,7 @@ export class AcceptInvitationService {
      * @param  userId      User id
      * @return             Firebase token
      */
-    getFirebaseToken(workspaceId: string, userId: string): Observable<HttpResponse> {
+    getFirebaseToken(workspaceId: string, userId: string): Observable<string> {
         return this._firebaseService.getFirebaseToken(workspaceId, userId);
     }
 
@@ -71,13 +76,18 @@ export class AcceptInvitationService {
      * @return                 Notice of action done
      */
     loadInvitation(invitationToken: string): Observable<void> {
-        const fields: string = 'invitationId,invitationStatusId,roleId,workspaceId,workspaceBrandName,workspaceAvatarUrl,isActiveWorkspace';
-        return this._invitationService.getInvitationByToken(invitationToken, fields).pipe(
-            tap( (res: HttpResponse) => {
-                this.invitation = res.data;
-            }),
-            map( () => { return; })
-        )
+        const fields: string =
+            'invitationId,invitationStatusId,roleId,workspaceId,workspaceBrandName,workspaceAvatarUrl,isActiveWorkspace';
+        return this._invitationService
+            .getInvitationByToken(invitationToken, fields)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.invitation = res.data;
+                }),
+                map(() => {
+                    return;
+                })
+            );
     }
 
     /**
@@ -95,8 +105,9 @@ export class AcceptInvitationService {
     rejectInvitation(invitationToken: string): Observable<void> {
         return this._invitationService.rejectInvitation(invitationToken).pipe(
             tap(() => {
-                if(!!this.invitation) {
-                    this.invitation.invitationStatusId = INVITATION_STATUS.REJECTED;
+                if (!!this.invitation) {
+                    this.invitation.invitationStatusId =
+                        INVITATION_STATUS.REJECTED;
                 }
             })
         );
@@ -118,5 +129,4 @@ export class AcceptInvitationService {
     startSessionInFirebase(firebaseToken: string): Promise<any> {
         return this._firebaseService.startSessionInFirebase(firebaseToken);
     }
-
 }

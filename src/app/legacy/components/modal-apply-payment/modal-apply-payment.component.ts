@@ -1,13 +1,26 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+    ViewChild,
+} from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
-import { SLACK_UNITS, IMAGE_AND_DOCUMENT_FORMATS, FILE_TYPES } from '@constants/global';
+import {
+    SLACK_UNITS,
+    IMAGE_AND_DOCUMENT_FORMATS,
+    FILE_TYPES,
+} from '@constants/global';
 import { ModalSelectEvidenceComponent } from '@components/modal-select-evidence/modal-select-evidence.component';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalApplyPaymentService } from './modal-apply-payment.service';
 
@@ -16,11 +29,10 @@ declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
 
 @Component({
-  selector: 'agt-modal-apply-payment',
-  templateUrl: './modal-apply-payment.component.html',
-  styles: [
-  ],
-  providers: [ModalApplyPaymentService]
+    selector: 'agt-modal-apply-payment',
+    templateUrl: './modal-apply-payment.component.html',
+    styles: [],
+    providers: [ModalApplyPaymentService],
 })
 export class ModalApplyPaymentComponent implements OnChanges, OnInit {
     @Input() modalId: string = '';
@@ -30,15 +42,19 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
     @Input() canReloadApplyPayment: boolean = false;
     @Output() receiptPaid: EventEmitter<void> = new EventEmitter<void>();
     @Output() showModalAgain: EventEmitter<void> = new EventEmitter<void>();
-    @Output() applyPaymentReloaded: EventEmitter<void> = new EventEmitter<void>();
-    @ViewChild('modalSelectEvidence') private _modalSelectEvidence!: ModalSelectEvidenceComponent;
+    @Output() applyPaymentReloaded: EventEmitter<void> =
+        new EventEmitter<void>();
+    @ViewChild('modalSelectEvidence')
+    private _modalSelectEvidence!: ModalSelectEvidenceComponent;
     amountExceeded: number = 0;
     calendarIdApplicationDate: string = 'applicationDate';
     calendarIdNextPaymentDate: string = 'nextPaymentDate';
     missingAmount: number = 0;
     missingReceipts: number = 0;
-    modalIdConfirmApplyPaymentWithBalanceOutstanding: string = 'agt-confirm-apply-payment-with-balance-outstanding'
-    modalIdConfirmApplyPaymentWithBalanceRemaining: string = 'agt-confirm-apply-payment-with-balance-remaining'
+    modalIdConfirmApplyPaymentWithBalanceOutstanding: string =
+        'agt-confirm-apply-payment-with-balance-outstanding';
+    modalIdConfirmApplyPaymentWithBalanceRemaining: string =
+        'agt-confirm-apply-payment-with-balance-remaining';
     modalIdNotifyAmountExceeded: string = 'agt-notify-amount-exceeded';
     modalIdNotifyReceiptsExceeded: string = 'agt-notify-receipts-exceeded';
     modalIdNotifyMissingReceipts: string = 'agt-notify-missing-receipts';
@@ -49,7 +65,7 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
         description: 'Selecciona el formato digital de la evidencia del pago.',
         buttonLabel: 'Cargar evidencia',
         formats: IMAGE_AND_DOCUMENT_FORMATS,
-        fileType: FILE_TYPES.IMAGE_AND_DOCUMENT
+        fileType: FILE_TYPES.IMAGE_AND_DOCUMENT,
     };
     receiptsExceeded: number = 0;
     private _isFormSubmitted: boolean = false;
@@ -59,15 +75,14 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
     constructor(
         public model: ModalApplyPaymentService,
         private _loadingService: LoadingService
-    ) { }
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(
+        if (
             (!!changes.paymentId && !!changes.paymentId.currentValue) ||
-            (
-                (!!changes.canReloadApplyPayment && !!changes.canReloadApplyPayment) &&
-                !!this.paymentId
-            )
+            (!!changes.canReloadApplyPayment &&
+                !!changes.canReloadApplyPayment &&
+                !!this.paymentId)
         ) {
             this._canIgnoreAmountExceeded = false;
             this._canIgnoreMissingAmount = false;
@@ -85,7 +100,7 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
 
     addPaymentEvidence(file: File): void {
         this.showModalApplyPayment();
-        this.model.paymentForm.patchValue({ paymentEvidence: file})
+        this.model.paymentForm.patchValue({ paymentEvidence: file });
     }
 
     /**
@@ -94,7 +109,8 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.paymentForm.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.paymentForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -104,33 +120,46 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.paymentForm.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.paymentForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     applyPayment(): void {
         this._isFormSubmitted = true;
-        if(this.model.paymentForm.valid && !!this.model.payment) {
+        if (this.model.paymentForm.valid && !!this.model.payment) {
             this.receiptsExceeded = 0;
             this.amountExceeded = 0;
             this.missingReceipts = 0;
             this.missingReceipts = 0;
             const receiptsToPay: number = parseInt(this.model.f.receipts.value);
-            const pendingReceipts: number = parseInt(this.model.payment.pendingReceipts.toString());
-            const amountToPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.model.f.amount.value));
-            let pendingAmount: number = parseFloat(this.model.payment.pendingAmount.toString());
-            pendingAmount = (pendingAmount >= 0) ? pendingAmount : pendingAmount * -1;
+            const pendingReceipts: number = parseInt(
+                this.model.payment.pendingReceipts.toString()
+            );
+            const amountToPay: number = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(
+                    this.model.f.amount.value
+                )
+            );
+            let pendingAmount: number = parseFloat(
+                this.model.payment.pendingAmount.toString()
+            );
+            pendingAmount =
+                pendingAmount >= 0 ? pendingAmount : pendingAmount * -1;
             // If the receipts to pay are greater than the pending receipts
-            if(receiptsToPay > pendingReceipts) {
+            if (receiptsToPay > pendingReceipts) {
                 this.receiptsExceeded = receiptsToPay - pendingReceipts;
                 ModalPlugin.hide(this.modalId);
                 ModalPlugin.show(this.modalIdNotifyReceiptsExceeded);
                 throw new Error('Receipts exceeded');
             }
             // If you can't ignore the amount excceded
-            if(!this._canIgnoreAmountExceeded) {
+            if (!this._canIgnoreAmountExceeded) {
                 // If the payment to pay is grater than the pending amount
-                if(amountToPay > (pendingAmount + SLACK_UNITS)) {
+                if (amountToPay > pendingAmount + SLACK_UNITS) {
                     this.amountExceeded = amountToPay - pendingAmount;
                     ModalPlugin.hide(this.modalId);
                     ModalPlugin.show(this.modalIdNotifyAmountExceeded);
@@ -139,8 +168,8 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
             }
             // If the amount to pay covers the total payment
             // And the recipts to pay are less than the total receipts
-            if(
-                (amountToPay > (pendingAmount - SLACK_UNITS)) &&
+            if (
+                amountToPay > pendingAmount - SLACK_UNITS &&
                 receiptsToPay < pendingReceipts
             ) {
                 this.missingReceipts = pendingReceipts - receiptsToPay;
@@ -149,12 +178,12 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
                 throw new Error('Missing receipts');
             }
             // If you can't ignore the missing amount
-            if(!this._canIgnoreMissingAmount) {
+            if (!this._canIgnoreMissingAmount) {
                 // If the receipts to pay covers the total receipts
                 // And the amount to pay is less than the total amount
-                if(
+                if (
                     receiptsToPay === pendingReceipts &&
-                    amountToPay < (pendingAmount - SLACK_UNITS)
+                    amountToPay < pendingAmount - SLACK_UNITS
                 ) {
                     this.missingAmount = pendingAmount - amountToPay;
                     ModalPlugin.hide(this.modalId);
@@ -196,11 +225,13 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
     private _createReceiptPaid(): void {
         this._loadingService.show();
         ModalPlugin.hide(this.modalId);
-        this.model.createReceiptPaid(this.contactId, this.policyId,this.paymentId).subscribe( () => {
-            this._loadingService.hide();
-            AlertHelper.receiptPaid(this._notifyReceiptPaid, this);
-            this.model.payment = null;
-        });
+        this.model
+            .createReceiptPaid(this.contactId, this.policyId, this.paymentId)
+            .subscribe(() => {
+                this._loadingService.hide();
+                AlertHelper.receiptPaid(this._notifyReceiptPaid, this);
+                this.model.payment = null;
+            });
     }
 
     /**
@@ -208,8 +239,16 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
      */
     private _initCalendars(): void {
         DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdApplicationDate, this._onChangeDate, this);
-        DatePickerPlugin.initElement(this.calendarIdNextPaymentDate, this._onChangeDate, this);
+        DatePickerPlugin.initElement(
+            this.calendarIdApplicationDate,
+            this._onChangeDate,
+            this
+        );
+        DatePickerPlugin.initElement(
+            this.calendarIdNextPaymentDate,
+            this._onChangeDate,
+            this
+        );
     }
 
     /**
@@ -220,10 +259,10 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
             PopoverPlugin.init();
             this._initCalendars();
             this.model.buildPaymentForm();
-            if(!!this._modalSelectEvidence) {
+            if (!!this._modalSelectEvidence) {
                 this._modalSelectEvidence.resetEvidenceValue();
             }
-        })
+        });
     }
 
     /**
@@ -232,8 +271,12 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
      * @param changedValue The changed value
      * @param context      The app context
      */
-    private _onChangeDate(selectorId: string, changedValue: string, context: ModalApplyPaymentComponent): void {
-        context.model.paymentForm.patchValue({[selectorId]: changedValue});
+    private _onChangeDate(
+        selectorId: string,
+        changedValue: string,
+        context: ModalApplyPaymentComponent
+    ): void {
+        context.model.paymentForm.patchValue({ [selectorId]: changedValue });
     }
 
     /**

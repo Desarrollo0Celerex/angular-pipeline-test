@@ -1,17 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalConfirmDeletePolicyCompleteService } from './modal-confirm-delete-policy-complete.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-delete-policy-complete',
-  templateUrl: './modal-confirm-delete-policy-complete.component.html',
-  styles: [
-  ],
-  providers: [ModalConfirmDeletePolicyCompleteService]
+    selector: 'agt-modal-confirm-delete-policy-complete',
+    templateUrl: './modal-confirm-delete-policy-complete.component.html',
+    styles: [],
+    providers: [ModalConfirmDeletePolicyCompleteService],
 })
 export class ModalConfirmDeletePolicyCompleteComponent {
     @Input() contactId: string;
@@ -35,9 +34,11 @@ export class ModalConfirmDeletePolicyCompleteComponent {
     onClickConfirmDeletePolicy(): void {
         ModalPlugin.hide(this.modalId);
         this._loadingService.show();
-        this._modalConfirmDeletePolicyService.deleteActivePolicy(this.contactId, this.policyId).subscribe( () => {
-            this._loadingService.hide();
-            this.policyCompleteDeleted.emit(this.policyId);
-        });
+        this._modalConfirmDeletePolicyService
+            .deleteActivePolicy(this.contactId, this.policyId)
+            .subscribe(() => {
+                this._loadingService.hide();
+                this.policyCompleteDeleted.emit(this.policyId);
+            });
     }
 }

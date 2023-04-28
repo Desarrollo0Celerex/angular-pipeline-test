@@ -6,7 +6,7 @@ import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Site } from '@interfaces/site.interface';
 
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { IdentityService } from './identity.service';
 import { LICENSES } from '@constants/global';
@@ -14,11 +14,10 @@ import { LICENSES } from '@constants/global';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-identity',
-  templateUrl: './identity.page.html',
-  styles: [
-  ],
-  providers: [IdentityService]
+    selector: 'agt-identity',
+    templateUrl: './identity.page.html',
+    styles: [],
+    providers: [IdentityService],
 })
 export class IdentityPage implements OnInit {
     modalIdConfirmUpdateSite: string = 'modal-confirm-update-site';
@@ -30,16 +29,19 @@ export class IdentityPage implements OnInit {
         public model: IdentityService,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.model.loadWorkspaceLicenseId().subscribe(() => {
             this._loadSite();
-        })
+        });
     }
 
     get themeName(): string {
-        return (this.model.site !== null && this.model.site.siteThemeName !== null) ? this.model.site.siteThemeName : '';
+        return this.model.site !== null &&
+            this.model.site.siteThemeName !== null
+            ? this.model.site.siteThemeName
+            : '';
     }
 
     checkCanShowContainerEditDomain(): void {
@@ -55,18 +57,23 @@ export class IdentityPage implements OnInit {
     }
 
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     showModalToConfirmUpdateSite(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             ModalPlugin.show(this.modalIdConfirmUpdateSite);
         }
     }
@@ -85,11 +92,13 @@ export class IdentityPage implements OnInit {
     }
 
     private _loadSite(): void {
-        this.model.loadSite().subscribe((site: Site) => {
-            this.model.buildForm(site);
-        },
-        () => {
-            this.model.buildForm();
-        })
+        this.model.loadSite().subscribe(
+            (site: Site) => {
+                this.model.buildForm(site);
+            },
+            () => {
+                this.model.buildForm();
+            }
+        );
     }
 }

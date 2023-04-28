@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { UpdatePaymentDateDataSend } from '@interfaces/update-payment-date-data-send.interface';
 import { PaymentService } from '@services/payment.service';
@@ -18,29 +23,35 @@ export class ModalChangePaymentDateService {
 
     constructor(
         private _formBuilder: UntypedFormBuilder,
-        private _paymentService: PaymentService,
-    ) { }
+        private _paymentService: PaymentService
+    ) {}
 
-    get f(): { [key: string]: AbstractControl; }  {
+    get f(): { [key: string]: AbstractControl } {
         return this.form.controls;
     }
 
     buildForm(paymentDate: string): void {
         paymentDate = moment(paymentDate).format('DD/MM/YYYY');
         this.form = this._formBuilder.group({
-            paymentDate: [paymentDate, [Validators.required, ValidatorsHelper.date]]
+            paymentDate: [
+                paymentDate,
+                [Validators.required, ValidatorsHelper.date],
+            ],
         });
         this.isBuiltForm = true;
     }
 
     loadPayment(paymentId: string): Observable<Payment> {
-        const fields: string = 'policyNumber,paymentPlanName,validityStartDate,validityEndDate,paymentAmountPaid,paymentDate,currencyName';
+        const fields: string =
+            'policyNumber,paymentPlanName,validityStartDate,validityEndDate,paymentAmountPaid,paymentDate,currencyName';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.payment = res.data;
             }),
-            map((res: HttpResponse) => { return res.data })
-        )
+            map((res: HttpResponse) => {
+                return res.data;
+            })
+        );
     }
 
     updatePaymentDate(paymentId: string): Observable<void> {

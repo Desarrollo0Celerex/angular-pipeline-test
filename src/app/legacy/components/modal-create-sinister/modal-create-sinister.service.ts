@@ -1,17 +1,26 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { CreateSinister } from '@interfaces/create-sinister.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { SinisterType } from '@interfaces/sinister-type.interface';
 
-import { SHORT_ALPHANUMERIC_LENGTH, LONG_ALPHANUMERIC_LENGTH, FREE_TEXT_LENGTH } from '@constants/global';
+import {
+    SHORT_ALPHANUMERIC_LENGTH,
+    LONG_ALPHANUMERIC_LENGTH,
+    FREE_TEXT_LENGTH,
+} from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@core/services/auth.service';
 import { PolicyService } from '@services/policy.service';
 import { SinisterService } from '@services/sinister.service';
 import { SinisterTypeService } from '@services/sinister-type.service';
@@ -28,10 +37,10 @@ export class ModalCreateSinisterService {
         private _policyService: PolicyService,
         private _sinisterService: SinisterService,
         private _sinisterTypeService: SinisterTypeService,
-        private _workspaceUserService: WorkspaceUserService,
-    ) { }
+        private _workspaceUserService: WorkspaceUserService
+    ) {}
 
-    get f(): { [key: string]: AbstractControl; }  {
+    get f(): { [key: string]: AbstractControl } {
         return this.sinisterForm.controls;
     }
 
@@ -41,9 +50,16 @@ export class ModalCreateSinisterService {
      * @param  policyId  The policy ID
      * @return           Notice of action done
      */
-    createSinister(contactId: string, policyId: string): Observable<HttpResponse> {
+    createSinister(
+        contactId: string,
+        policyId: string
+    ): Observable<HttpResponse> {
         const requestBody: CreateSinister = this.sinisterForm.value;
-        return this._sinisterService.createSinister(contactId, policyId, requestBody);
+        return this._sinisterService.createSinister(
+            contactId,
+            policyId,
+            requestBody
+        );
     }
 
     getPolicyContactId(policyId: string): Observable<string> {
@@ -52,16 +68,21 @@ export class ModalCreateSinisterService {
             map((res: HttpResponse) => {
                 return res.data.contactId;
             })
-        )
+        );
     }
 
-    getPolicyInsuranceId(contactId: string, policyId: string): Observable<number> {
+    getPolicyInsuranceId(
+        contactId: string,
+        policyId: string
+    ): Observable<number> {
         const fields: string = 'insuranceId';
-        return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
-            map((res: HttpResponse) => {
-                return res.data.insuranceId;
-            })
-        )
+        return this._policyService
+            .getContactPolicy(contactId, policyId, fields)
+            .pipe(
+                map((res: HttpResponse) => {
+                    return res.data.insuranceId;
+                })
+            );
     }
 
     /**
@@ -70,17 +91,21 @@ export class ModalCreateSinisterService {
      */
     loadSinisterTypes(insuranceId: number): void {
         const fields: string = 'sinisterTypeId,name';
-        this._sinisterTypeService.getSinisterTypes(insuranceId, fields).subscribe( (res: HttpResponse) => {
-            this.sinisterTypes = res.data;
-        })
+        this._sinisterTypeService
+            .getSinisterTypes(insuranceId, fields)
+            .subscribe((res: HttpResponse) => {
+                this.sinisterTypes = res.data;
+            });
     }
 
     loadWorkspaceUser(): void {
         const userId: string = this._authService.userId;
         const fields: string = 'shortName';
-        this._workspaceUserService.getWorkspaceUser(userId, fields).subscribe( (res: HttpResponse) => {
-            this.sinisterForm.patchValue({'manager': res.data.shortName});
-        })
+        this._workspaceUserService
+            .getWorkspaceUser(userId, fields)
+            .subscribe((res: HttpResponse) => {
+                this.sinisterForm.patchValue({ manager: res.data.shortName });
+            });
     }
 
     /**
@@ -89,19 +114,62 @@ export class ModalCreateSinisterService {
      */
     private _buildSinisterForm(): UntypedFormGroup {
         return this._formBuilder.group({
-            internalNumber: [this._generateInternalNumber(), [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX)]],
-            manager: ['', [Validators.required, ValidatorsHelper.freeText, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX)]],
-            sinisterNumber: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
-            invoice: ['', [Validators.required, ValidatorsHelper.alphanumericWithHyphens, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
+            internalNumber: [
+                this._generateInternalNumber(),
+                [
+                    Validators.required,
+                    ValidatorsHelper.alphanumericWithHyphens,
+                    Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN),
+                    Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX),
+                ],
+            ],
+            manager: [
+                '',
+                [
+                    Validators.required,
+                    ValidatorsHelper.freeText,
+                    Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                    Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                ],
+            ],
+            sinisterNumber: [
+                '',
+                [
+                    Validators.required,
+                    ValidatorsHelper.alphanumericWithHyphens,
+                    Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN),
+                    Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX),
+                ],
+            ],
+            invoice: [
+                '',
+                [
+                    Validators.required,
+                    ValidatorsHelper.alphanumericWithHyphens,
+                    Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN),
+                    Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX),
+                ],
+            ],
             sinisterDate: ['', [Validators.required, ValidatorsHelper.date]],
-            notificationDate: ['', [Validators.required, ValidatorsHelper.date]],
+            notificationDate: [
+                '',
+                [Validators.required, ValidatorsHelper.date],
+            ],
             sinisterTypeId: ['', [Validators.required]],
-            location: ['', [Validators.required, ValidatorsHelper.freeText, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX)]],
+            location: [
+                '',
+                [
+                    Validators.required,
+                    ValidatorsHelper.freeText,
+                    Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                    Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                ],
+            ],
         });
     }
 
     private _generateInternalNumber(): string {
         const currentDate: string = moment().format('DDMMYY');
-        return 'SIN-'+currentDate+'-'+UtilitiesHelper.generateKey(6);
+        return 'SIN-' + currentDate + '-' + UtilitiesHelper.generateKey(6);
     }
 }

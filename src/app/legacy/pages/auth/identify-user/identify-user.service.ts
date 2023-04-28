@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { UserTokenData } from '@interfaces/user-token-data.interface';
-import { AuthService } from '@services/auth.service';
-import { FirebaseService } from '@services/firebase.service';
+import { UserTokenData } from '@core/interfaces/user-token-data.interface';
+import { AuthService } from '@core/services/auth.service';
+import { FirebaseService } from '@core/services/firebase.service';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 @Injectable()
 export class IdentifyUserService {
-
     constructor(
         private _authService: AuthService,
         private _firebaseService: FirebaseService
-    ) { }
+    ) {}
 
     /**
      * Check if the user has an active workspace
@@ -37,7 +36,7 @@ export class IdentifyUserService {
      * @param  userId      User id
      * @return             Firebase token
      */
-    getFirebaseToken(workspaceId: string, userId: string): Observable<HttpResponse> {
+    getFirebaseToken(workspaceId: string, userId: string): Observable<string> {
         return this._firebaseService.getFirebaseToken(workspaceId, userId);
     }
 
@@ -46,7 +45,7 @@ export class IdentifyUserService {
      * @param  authToken Auth token
      * @return           Access token
      */
-    identifyUser(authToken: string): Observable<HttpResponse> {
+    identifyUser(authToken: string): Observable<string> {
         return this._authService.identifyUser(authToken);
     }
 

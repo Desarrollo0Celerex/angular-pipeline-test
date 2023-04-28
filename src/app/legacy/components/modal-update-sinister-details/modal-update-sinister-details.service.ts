@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { FREE_TEXT_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterType } from '@interfaces/sinister-type.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
@@ -23,19 +27,27 @@ export class ModalUpdateSinisterDetailsService {
         private _formBuilder: UntypedFormBuilder,
         private _sinisterService: SinisterService,
         private _sinisterTypeService: SinisterTypeService
-    ) { }
+    ) {}
 
     /**
      * Load the sinister
      * @param sinisterData The sinister data
      */
     loadSinister(sinisterData: SinisterDataSend): Observable<Sinister> {
-        const fields: string = 'sinisterId,sinisterTypeId,affectedCoverage,location,affectedName,insuranceId,timeReport,timeResponse,sinisterCause';
-        return this._sinisterService.getPolicySinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, fields).pipe(
-            tap((res: Sinister) => {
-                this.sinister = res;
-            })
-        )
+        const fields: string =
+            'sinisterId,sinisterTypeId,affectedCoverage,location,affectedName,insuranceId,timeReport,timeResponse,sinisterCause';
+        return this._sinisterService
+            .getPolicySinister(
+                sinisterData.contactId,
+                sinisterData.policyId,
+                sinisterData.sinisterId,
+                fields
+            )
+            .pipe(
+                tap((res: Sinister) => {
+                    this.sinister = res;
+                })
+            );
     }
 
     /**
@@ -51,7 +63,7 @@ export class ModalUpdateSinisterDetailsService {
             affectedCoverage: sinister.affectedCoverage,
             affectedName: sinister.affectedName,
             location: sinister.location,
-        })
+        });
     }
 
     /**
@@ -61,9 +73,11 @@ export class ModalUpdateSinisterDetailsService {
      */
     loadSinisterTypes(insuranceId: number): void {
         const fields: string = 'sinisterTypeId,name';
-        this._sinisterTypeService.getSinisterTypes(insuranceId, fields).subscribe((res: HttpResponse) => {
-            this.sinisterTypes = res.data;
-        });
+        this._sinisterTypeService
+            .getSinisterTypes(insuranceId, fields)
+            .subscribe((res: HttpResponse) => {
+                this.sinisterTypes = res.data;
+            });
     }
 
     /**
@@ -73,7 +87,10 @@ export class ModalUpdateSinisterDetailsService {
      */
     updateSinisterDetails(sinisterData: SinisterDataSend): Observable<void> {
         const requestBody: UpdateSinisterDetailsDataSend = this.form.value;
-        return this._sinisterService.updatePolicySinisterDetails(sinisterData, requestBody);
+        return this._sinisterService.updatePolicySinisterDetails(
+            sinisterData,
+            requestBody
+        );
     }
 
     /**
@@ -85,10 +102,42 @@ export class ModalUpdateSinisterDetailsService {
             timeReport: ['', [ValidatorsHelper.time]],
             timeResponse: ['', [ValidatorsHelper.time]],
             sinisterTypeId: ['', [Validators.required]],
-            sinisterCause: ['', [Validators.required, ValidatorsHelper.freeText, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(75)]],
-            affectedCoverage: ['', [Validators.required, ValidatorsHelper.freeText, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX)]],
-            affectedName: ['', [Validators.required, ValidatorsHelper.freeText, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX)]],
-            location: ['', [Validators.required, ValidatorsHelper.freeText, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX)]],
+            sinisterCause: [
+                '',
+                [
+                    Validators.required,
+                    ValidatorsHelper.freeText,
+                    Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                    Validators.maxLength(75),
+                ],
+            ],
+            affectedCoverage: [
+                '',
+                [
+                    Validators.required,
+                    ValidatorsHelper.freeText,
+                    Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                    Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                ],
+            ],
+            affectedName: [
+                '',
+                [
+                    Validators.required,
+                    ValidatorsHelper.freeText,
+                    Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                    Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                ],
+            ],
+            location: [
+                '',
+                [
+                    Validators.required,
+                    ValidatorsHelper.freeText,
+                    Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                    Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                ],
+            ],
         });
     }
 }

@@ -1,18 +1,17 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { FileParam } from '@interfaces/file-param.interface';
-import { LoadingService } from '@services/loading.service';
-import { StorageService } from '@services/storage.service';
+import { LoadingService } from '@core/services/loading.service';
+import { StorageService } from '@core/services/storage.service';
 
 declare let plupload: any;
 
 const ERROR_FILE_SIZE = -600;
 
 @Component({
-  selector: 'agt-file-uploader',
-  template: '',
-  styles: [
-  ]
+    selector: 'agt-file-uploader',
+    template: '',
+    styles: [],
 })
 export class FileUploaderComponent implements OnInit {
     @Input() endpoint: string = '';
@@ -21,12 +20,13 @@ export class FileUploaderComponent implements OnInit {
     @Output() fileSelected: EventEmitter<string> = new EventEmitter<string>();
     @Output() fileUploaded: EventEmitter<void> = new EventEmitter<void>();
     uploader: any;
-    private _pluploadSrc: string = 'https://cdnjs.cloudflare.com/ajax/libs/plupload/3.1.5/plupload.full.min.js';
-    
+    private _pluploadSrc: string =
+        'https://cdnjs.cloudflare.com/ajax/libs/plupload/3.1.5/plupload.full.min.js';
+
     constructor(
         private _loadingService: LoadingService,
         private _storageService: StorageService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._loadPluploadScript().then(() => {
@@ -41,7 +41,7 @@ export class FileUploaderComponent implements OnInit {
     }
 
     private _loadParams(params: FileParam[]): void {
-        for(let param of params) {
+        for (let param of params) {
             this.uploader.settings.multipart_params[param.name] = param.value;
         }
     }
@@ -52,8 +52,9 @@ export class FileUploaderComponent implements OnInit {
             if (document.getElementById(id)) {
                 resolve();
             }
-            let js, fjs = document.getElementsByTagName('script')[0];
-            js = document.createElement('script'); 
+            let js,
+                fjs = document.getElementsByTagName('script')[0];
+            js = document.createElement('script');
             js.id = id;
             js.src = this._pluploadSrc;
             fjs.parentNode!.insertBefore(js, fjs);
@@ -65,7 +66,7 @@ export class FileUploaderComponent implements OnInit {
     private _waitUntilScripLoaded(resolve: any): void {
         const windowAux: any = window;
         setTimeout(() => {
-            if(!(!!windowAux.plupload)) {
+            if (!!!windowAux.plupload) {
                 this._waitUntilScripLoaded(resolve);
             } else {
                 resolve();
@@ -75,24 +76,27 @@ export class FileUploaderComponent implements OnInit {
 
     initPlupload() {
         const userToken: string | null = this._storageService.getUserToken();
-        const allowedFileExtensions: string = this.allowedFileExtensions.join(',');
-        
+        const allowedFileExtensions: string =
+            this.allowedFileExtensions.join(',');
+
         this.uploader = new plupload.Uploader({
-            runtimes : 'html5',
+            runtimes: 'html5',
             drop_element: 'agt-file-container',
-            browse_button : 'agt-file-container',
-            url : this.endpoint,
+            browse_button: 'agt-file-container',
+            url: this.endpoint,
             chunk_size: '1mb',
             multi_selection: false,
             filters: {
-                max_file_size : this.maxFileSize,
-                mime_types: [{ 
-                    title: 'Allowed File Extensions', 
-                    extensions: allowedFileExtensions 
-                }]
+                max_file_size: this.maxFileSize,
+                mime_types: [
+                    {
+                        title: 'Allowed File Extensions',
+                        extensions: allowedFileExtensions,
+                    },
+                ],
             },
             headers: {
-                Authorization: `Bearer ${userToken}`
+                Authorization: `Bearer ${userToken}`,
             },
             init: {
                 FilesAdded: (up: any, files: any) => {
@@ -108,8 +112,8 @@ export class FileUploaderComponent implements OnInit {
                 },
                 Error: (up: any, err: any) => {
                     this._handleError(err);
-                }
-            }
+                },
+            },
         });
         this.uploader.init();
     }
@@ -120,14 +124,14 @@ export class FileUploaderComponent implements OnInit {
                 const baseFile: File = error.file.getSource();
                 this._setFilePreview(baseFile);
                 break;
-        
+
             default:
                 console.error('fileError: ', error);
                 break;
         }
-        
+
         this.fileSelected.emit('');
-        this._loadingService.hide();           
+        this._loadingService.hide();
     }
 
     private _setFilePreview(file: File): void {
@@ -135,11 +139,10 @@ export class FileUploaderComponent implements OnInit {
         dataTransfer.items.add(file);
         const fileInput: any = document.getElementById('dropify');
         fileInput.files = dataTransfer.files;
-        fileInput.dispatchEvent(new Event('change'))
+        fileInput.dispatchEvent(new Event('change'));
         // Help Safari out
         if (fileInput.webkitEntries.length) {
             fileInput.dataset.file = `${dataTransfer.files[0].name}`;
         }
     }
-
 }

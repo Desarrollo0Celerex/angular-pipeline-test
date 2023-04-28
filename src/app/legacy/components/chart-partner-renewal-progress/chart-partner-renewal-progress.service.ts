@@ -4,29 +4,50 @@ import { tap, map } from 'rxjs/operators';
 
 import { POLICY_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { StatisticService } from '@services/statistic.service';
 
 @Injectable()
 export class ChartPartnerRenewalProgressService {
     chartData: any = null;
 
-    constructor(private _statisticService: StatisticService) { }
+    constructor(private _statisticService: StatisticService) {}
 
     /**
      * Load the chart data
      * @param  partnerId The partner ID
      * @return           The chart data
      */
-    loadChartData(partnerId: number, rangeStart: string, rangeEnd: string): Observable<void> {
+    loadChartData(
+        partnerId: number,
+        rangeStart: string,
+        rangeEnd: string
+    ): Observable<void> {
         this.chartData = null;
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
-        const rangeField: string = 'validityEndDate';
-        return this._statisticService.getPartnerRenewalStatistics(partnerId, filters, rangeField, rangeStart, rangeEnd).pipe(
-            tap((res: HttpResponse) => {
-                this.chartData = res.data;
-            }),
-            map(() => { })
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [
+                POLICY_STATUS.ISSUED,
+                POLICY_STATUS.CURRENT,
+                POLICY_STATUS.PENDING,
+                POLICY_STATUS.SUSPENDED,
+                POLICY_STATUS.FINISHED,
+            ]
         );
+        const rangeField: string = 'validityEndDate';
+        return this._statisticService
+            .getPartnerRenewalStatistics(
+                partnerId,
+                filters,
+                rangeField,
+                rangeStart,
+                rangeEnd
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.chartData = res.data;
+                }),
+                map(() => {})
+            );
     }
 }

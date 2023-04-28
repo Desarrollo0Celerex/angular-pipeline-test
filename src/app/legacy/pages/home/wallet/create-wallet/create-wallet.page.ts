@@ -3,18 +3,17 @@ import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { CreateWalletService } from './create-wallet.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-create-wallet',
-  templateUrl: './create-wallet.page.html',
-  styles: [
-  ],
-  providers: [CreateWalletService]
+    selector: 'agt-create-wallet',
+    templateUrl: './create-wallet.page.html',
+    styles: [],
+    providers: [CreateWalletService],
 })
 export class CreateWalletPage {
     isWalletIdLoaded: boolean = false;
@@ -25,7 +24,7 @@ export class CreateWalletPage {
         private _createWalletService: CreateWalletService,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     get model(): CreateWalletService {
         return this._createWalletService;
@@ -44,7 +43,8 @@ export class CreateWalletPage {
     }
 
     private _goToWalletIdentity(context: CreateWalletPage): void {
-        context._router.navigateByUrl(ROUTES_NAME.walletResume(context._walletId));
+        context._router.navigateByUrl(
+            ROUTES_NAME.walletResume(context._walletId)
+        );
     }
-
 }

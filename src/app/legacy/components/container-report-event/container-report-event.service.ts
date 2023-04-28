@@ -1,13 +1,25 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { EMAIL_LENGTH, FILE_NAME_LENGTH, LONG_ALPHANUMERIC_LENGTH, MULTITEXT_LENGTH, 
-    SINISTER_EVENT_TYPES, OWN_NAME_LENGTH, INSURANCE_GROUPS } from '@constants/global';
+import {
+    EMAIL_LENGTH,
+    FILE_NAME_LENGTH,
+    LONG_ALPHANUMERIC_LENGTH,
+    MULTITEXT_LENGTH,
+    SINISTER_EVENT_TYPES,
+    OWN_NAME_LENGTH,
+    INSURANCE_GROUPS,
+} from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Currency } from '@interfaces/currency.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
@@ -37,10 +49,10 @@ export class ContainerReportEventService {
         private _sinisterService: SinisterService,
         private _sinisterEventService: SinisterEventService,
         private _sinisterEventTypeService: SinisterEventTypeService,
-        private _sinisterResolutionService: SinisterResolutionService,
-    ) { }
+        private _sinisterResolutionService: SinisterResolutionService
+    ) {}
 
-    get f(): { [key: string]: AbstractControl; } {
+    get f(): { [key: string]: AbstractControl } {
         return this.form.controls;
     }
 
@@ -50,15 +62,36 @@ export class ContainerReportEventService {
      */
     buildForm(sinisterEventTypeId: number, providerPhoneCodeId: number): void {
         sinisterEventTypeId = parseInt(sinisterEventTypeId.toString());
-        switch(sinisterEventTypeId) {
+        switch (sinisterEventTypeId) {
             case SINISTER_EVENT_TYPES.WORKSHOP_AND_SERVICE:
                 this.form = this._formBuilder.group({
-                    sinisterEventTypeId: [sinisterEventTypeId, [Validators.required]],
+                    sinisterEventTypeId: [
+                        sinisterEventTypeId,
+                        [Validators.required],
+                    ],
                     canNotifyInsured: [0, [Validators.required]],
-                    evidenceName: ['', [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
+                    evidenceName: [
+                        '',
+                        [
+                            Validators.minLength(FILE_NAME_LENGTH.MIN),
+                            Validators.maxLength(FILE_NAME_LENGTH.MAX),
+                            ValidatorsHelper.fileName,
+                        ],
+                    ],
                     evidenceFile: [''],
-                    providerName: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                    providerDate: ['', [Validators.required, ValidatorsHelper.date]],
+                    providerName: [
+                        '',
+                        [
+                            Validators.required,
+                            Validators.minLength(OWN_NAME_LENGTH.MIN),
+                            Validators.maxLength(OWN_NAME_LENGTH.MAX),
+                            ValidatorsHelper.ownName,
+                        ],
+                    ],
+                    providerDate: [
+                        '',
+                        [Validators.required, ValidatorsHelper.date],
+                    ],
                     valuationDate: ['', [ValidatorsHelper.date]],
                     authorizationDate: ['', [ValidatorsHelper.date]],
                     insuredNoticeDate: ['', [ValidatorsHelper.date]],
@@ -67,84 +100,239 @@ export class ContainerReportEventService {
                     repairDate: ['', [ValidatorsHelper.date]],
                     deliveryDate: ['', [ValidatorsHelper.date]],
                     readmissionDate: ['', [ValidatorsHelper.date]],
-                    providerFolio: ['', [ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
+                    providerFolio: [
+                        '',
+                        [
+                            ValidatorsHelper.alphanumeric,
+                            Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN),
+                            Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX),
+                        ],
+                    ],
                     providerBill: ['', [ValidatorsHelper.amount]],
                     providerPhoneCodeId: [providerPhoneCodeId],
                     providerPhoneNumber: ['', [ValidatorsHelper.phoneNumber]],
-                    providerEmail: ['', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                    observations: ['', [Validators.required, Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]]
+                    providerEmail: [
+                        '',
+                        [
+                            Validators.email,
+                            Validators.minLength(EMAIL_LENGTH.MIN),
+                            Validators.maxLength(EMAIL_LENGTH.MAX),
+                        ],
+                    ],
+                    observations: [
+                        '',
+                        [
+                            Validators.required,
+                            Validators.minLength(MULTITEXT_LENGTH.MIN),
+                            Validators.maxLength(MULTITEXT_LENGTH.MAX),
+                            ValidatorsHelper.multitext,
+                        ],
+                    ],
                 });
-            break;
+                break;
 
             case SINISTER_EVENT_TYPES.CIVIL_WORK:
             case SINISTER_EVENT_TYPES.CRANES_AND_TRANSFER:
             case SINISTER_EVENT_TYPES.LEGAL_PROCESS:
                 this.form = this._formBuilder.group({
-                    sinisterEventTypeId: [sinisterEventTypeId, [Validators.required]],
+                    sinisterEventTypeId: [
+                        sinisterEventTypeId,
+                        [Validators.required],
+                    ],
                     canNotifyInsured: [0, [Validators.required]],
-                    evidenceName: ['', [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
+                    evidenceName: [
+                        '',
+                        [
+                            Validators.minLength(FILE_NAME_LENGTH.MIN),
+                            Validators.maxLength(FILE_NAME_LENGTH.MAX),
+                            ValidatorsHelper.fileName,
+                        ],
+                    ],
                     evidenceFile: [''],
-                    providerName: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                    providerDate: ['', [Validators.required, ValidatorsHelper.date]],
-                    providerFolio: ['', [Validators.required, ValidatorsHelper.alphanumeric, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX)]],
+                    providerName: [
+                        '',
+                        [
+                            Validators.required,
+                            Validators.minLength(OWN_NAME_LENGTH.MIN),
+                            Validators.maxLength(OWN_NAME_LENGTH.MAX),
+                            ValidatorsHelper.ownName,
+                        ],
+                    ],
+                    providerDate: [
+                        '',
+                        [Validators.required, ValidatorsHelper.date],
+                    ],
+                    providerFolio: [
+                        '',
+                        [
+                            Validators.required,
+                            ValidatorsHelper.alphanumeric,
+                            Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN),
+                            Validators.maxLength(LONG_ALPHANUMERIC_LENGTH.MAX),
+                        ],
+                    ],
                     providerBill: ['', [ValidatorsHelper.amount]],
                     providerPhoneCodeId: [providerPhoneCodeId],
                     providerPhoneNumber: ['', [ValidatorsHelper.phoneNumber]],
-                    providerEmail: ['', [Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-                    observations: ['', [Validators.required, Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]]
+                    providerEmail: [
+                        '',
+                        [
+                            Validators.email,
+                            Validators.minLength(EMAIL_LENGTH.MIN),
+                            Validators.maxLength(EMAIL_LENGTH.MAX),
+                        ],
+                    ],
+                    observations: [
+                        '',
+                        [
+                            Validators.required,
+                            Validators.minLength(MULTITEXT_LENGTH.MIN),
+                            Validators.maxLength(MULTITEXT_LENGTH.MAX),
+                            ValidatorsHelper.multitext,
+                        ],
+                    ],
                 });
-            break;
+                break;
 
-            case SINISTER_EVENT_TYPES.INDEMNIFICATION: 
-
+            case SINISTER_EVENT_TYPES.INDEMNIFICATION:
                 switch (this.sinister!.insuranceGroupId) {
                     case INSURANCE_GROUPS.VEHICLES:
                         this.form = this._formBuilder.group({
-                            sinisterEventTypeId: [sinisterEventTypeId, [Validators.required]],
+                            sinisterEventTypeId: [
+                                sinisterEventTypeId,
+                                [Validators.required],
+                            ],
                             canNotifyInsured: [0, [Validators.required]],
-                            evidenceName: ['', [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
+                            evidenceName: [
+                                '',
+                                [
+                                    Validators.minLength(FILE_NAME_LENGTH.MIN),
+                                    Validators.maxLength(FILE_NAME_LENGTH.MAX),
+                                    ValidatorsHelper.fileName,
+                                ],
+                            ],
                             evidenceFile: [''],
                             sinisterResolutionId: ['', [Validators.required]],
-                            providerDate: ['', [Validators.required, ValidatorsHelper.date]],
-                            valuationDate: ['', [Validators.required, ValidatorsHelper.date]],
-                            sumInsuredChassis: ['', [Validators.required, ValidatorsHelper.amount]],
-                            deductibleChassis: ['', [Validators.required, ValidatorsHelper.amount]],
-                            sumInsuredAdaptation: ['', [Validators.required, ValidatorsHelper.amount]],
-                            deductibleAdaptation: ['', [Validators.required, ValidatorsHelper.amount]],
-                            providerBill: ['', [Validators.required, ValidatorsHelper.amount]],
+                            providerDate: [
+                                '',
+                                [Validators.required, ValidatorsHelper.date],
+                            ],
+                            valuationDate: [
+                                '',
+                                [Validators.required, ValidatorsHelper.date],
+                            ],
+                            sumInsuredChassis: [
+                                '',
+                                [Validators.required, ValidatorsHelper.amount],
+                            ],
+                            deductibleChassis: [
+                                '',
+                                [Validators.required, ValidatorsHelper.amount],
+                            ],
+                            sumInsuredAdaptation: [
+                                '',
+                                [Validators.required, ValidatorsHelper.amount],
+                            ],
+                            deductibleAdaptation: [
+                                '',
+                                [Validators.required, ValidatorsHelper.amount],
+                            ],
+                            providerBill: [
+                                '',
+                                [Validators.required, ValidatorsHelper.amount],
+                            ],
                             currencyId: ['', [Validators.required]],
                             paymentMethodId: ['', [Validators.required]],
-                            observations: ['', [Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]]
+                            observations: [
+                                '',
+                                [
+                                    Validators.minLength(MULTITEXT_LENGTH.MIN),
+                                    Validators.maxLength(MULTITEXT_LENGTH.MAX),
+                                    ValidatorsHelper.multitext,
+                                ],
+                            ],
                         });
-                    break;
-                
+                        break;
+
                     default:
                         this.form = this._formBuilder.group({
-                            sinisterEventTypeId: [sinisterEventTypeId, [Validators.required]],
+                            sinisterEventTypeId: [
+                                sinisterEventTypeId,
+                                [Validators.required],
+                            ],
                             canNotifyInsured: [0, [Validators.required]],
-                            evidenceName: ['', [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
+                            evidenceName: [
+                                '',
+                                [
+                                    Validators.minLength(FILE_NAME_LENGTH.MIN),
+                                    Validators.maxLength(FILE_NAME_LENGTH.MAX),
+                                    ValidatorsHelper.fileName,
+                                ],
+                            ],
                             evidenceFile: [''],
                             sinisterResolutionId: ['', [Validators.required]],
-                            providerDate: ['', [Validators.required, ValidatorsHelper.date]],
-                            providerBill: ['', [Validators.required, ValidatorsHelper.amount]],
+                            providerDate: [
+                                '',
+                                [Validators.required, ValidatorsHelper.date],
+                            ],
+                            providerBill: [
+                                '',
+                                [Validators.required, ValidatorsHelper.amount],
+                            ],
                             currencyId: ['', [Validators.required]],
                             paymentMethodId: ['', [Validators.required]],
-                            observations: ['', [Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]]
+                            observations: [
+                                '',
+                                [
+                                    Validators.minLength(MULTITEXT_LENGTH.MIN),
+                                    Validators.maxLength(MULTITEXT_LENGTH.MAX),
+                                    ValidatorsHelper.multitext,
+                                ],
+                            ],
                         });
-                    break;
+                        break;
                 }
 
-            break;
+                break;
 
             default:
                 this.form = this._formBuilder.group({
-                    sinisterEventTypeId: [sinisterEventTypeId, [Validators.required]],
+                    sinisterEventTypeId: [
+                        sinisterEventTypeId,
+                        [Validators.required],
+                    ],
                     canNotifyInsured: [0, [Validators.required]],
-                    evidenceName: ['', [Validators.minLength(FILE_NAME_LENGTH.MIN), Validators.maxLength(FILE_NAME_LENGTH.MAX), ValidatorsHelper.fileName]],
+                    evidenceName: [
+                        '',
+                        [
+                            Validators.minLength(FILE_NAME_LENGTH.MIN),
+                            Validators.maxLength(FILE_NAME_LENGTH.MAX),
+                            ValidatorsHelper.fileName,
+                        ],
+                    ],
                     evidenceFile: [''],
-                    providerName: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-                    providerDate: ['', [Validators.required, ValidatorsHelper.date]],
-                    observations: ['', [Validators.required, Validators.minLength(MULTITEXT_LENGTH.MIN), Validators.maxLength(MULTITEXT_LENGTH.MAX), ValidatorsHelper.multitext]]
+                    providerName: [
+                        '',
+                        [
+                            Validators.required,
+                            Validators.minLength(OWN_NAME_LENGTH.MIN),
+                            Validators.maxLength(OWN_NAME_LENGTH.MAX),
+                            ValidatorsHelper.ownName,
+                        ],
+                    ],
+                    providerDate: [
+                        '',
+                        [Validators.required, ValidatorsHelper.date],
+                    ],
+                    observations: [
+                        '',
+                        [
+                            Validators.required,
+                            Validators.minLength(MULTITEXT_LENGTH.MIN),
+                            Validators.maxLength(MULTITEXT_LENGTH.MAX),
+                            ValidatorsHelper.multitext,
+                        ],
+                    ],
                 });
         }
         this.isBuiltForm = true;
@@ -152,119 +340,246 @@ export class ContainerReportEventService {
 
     createSinisterEvent(sinisterData: SinisterDataSend): Observable<void> {
         const requestBody: FormData = this._generateRequestBody();
-        return this._sinisterEventService.createSinisterEvent(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, requestBody);
+        return this._sinisterEventService.createSinisterEvent(
+            sinisterData.contactId,
+            sinisterData.policyId,
+            sinisterData.sinisterId,
+            requestBody
+        );
     }
 
     loadCurrencies(): void {
-        if(this.currencies.length === 0) {
+        if (this.currencies.length === 0) {
             const fields: string = 'currencyId,name';
-            this._currencyService.getCurrencies(fields).subscribe((res: HttpResponse) => {
-                this.currencies = res.data;
-            });
+            this._currencyService
+                .getCurrencies(fields)
+                .subscribe((res: HttpResponse) => {
+                    this.currencies = res.data;
+                });
         }
     }
 
     loadPaymentMethods(): void {
-        if(this.paymentMethods.length === 0) {
+        if (this.paymentMethods.length === 0) {
             const fields: string = 'paymentMethodId,name';
-            this._paymentMethodService.getPaymentMethods(fields).subscribe((res: HttpResponse) => {
-                this.paymentMethods = res.data;
-            });
+            this._paymentMethodService
+                .getPaymentMethods(fields)
+                .subscribe((res: HttpResponse) => {
+                    this.paymentMethods = res.data;
+                });
         }
     }
 
     loadSinisterResolutions(): void {
-        if(this.sinisterResolutions.length === 0) {
+        if (this.sinisterResolutions.length === 0) {
             const fields: string = 'sinisterResolutionId,name';
-            this._sinisterResolutionService.getSinisterResolutions(fields).subscribe((res: HttpResponse) => {
-                this.sinisterResolutions = res.data;
-            });
+            this._sinisterResolutionService
+                .getSinisterResolutions(fields)
+                .subscribe((res: HttpResponse) => {
+                    this.sinisterResolutions = res.data;
+                });
         }
     }
 
     private _generateRequestBody(): FormData {
         const requestBody: FormData = new FormData();
-        const sinisterEventTypeId: number = parseInt(this.f.sinisterEventTypeId.value);
-        switch(sinisterEventTypeId) {
+        const sinisterEventTypeId: number = parseInt(
+            this.f.sinisterEventTypeId.value
+        );
+        switch (sinisterEventTypeId) {
             case SINISTER_EVENT_TYPES.WORKSHOP_AND_SERVICE:
-                requestBody.set('sinisterEventTypeId', this.f.sinisterEventTypeId.value);
-                requestBody.set('canNotifyInsured', this.f.canNotifyInsured.value);
+                requestBody.set(
+                    'sinisterEventTypeId',
+                    this.f.sinisterEventTypeId.value
+                );
+                requestBody.set(
+                    'canNotifyInsured',
+                    this.f.canNotifyInsured.value
+                );
                 requestBody.set('evidenceName', this.f.evidenceName.value);
                 requestBody.set('evidenceFile', this.f.evidenceFile.value);
                 requestBody.set('providerName', this.f.providerName.value);
                 requestBody.set('providerDate', this.f.providerDate.value);
                 requestBody.set('valuationDate', this.f.valuationDate.value);
-                requestBody.set('authorizationDate', this.f.authorizationDate.value);
-                requestBody.set('insuredNoticeDate', this.f.insuredNoticeDate.value);
-                requestBody.set('insuredAuthorizationDate', this.f.insuredAuthorizationDate.value);
-                requestBody.set('estimatedDeliveryDate', this.f.estimatedDeliveryDate.value);
+                requestBody.set(
+                    'authorizationDate',
+                    this.f.authorizationDate.value
+                );
+                requestBody.set(
+                    'insuredNoticeDate',
+                    this.f.insuredNoticeDate.value
+                );
+                requestBody.set(
+                    'insuredAuthorizationDate',
+                    this.f.insuredAuthorizationDate.value
+                );
+                requestBody.set(
+                    'estimatedDeliveryDate',
+                    this.f.estimatedDeliveryDate.value
+                );
                 requestBody.set('repairDate', this.f.repairDate.value);
                 requestBody.set('deliveryDate', this.f.deliveryDate.value);
-                requestBody.set('readmissionDate', this.f.readmissionDate.value);
+                requestBody.set(
+                    'readmissionDate',
+                    this.f.readmissionDate.value
+                );
                 requestBody.set('providerFolio', this.f.providerFolio.value);
                 requestBody.set('providerBill', this.f.providerBill.value);
-                requestBody.set('providerPhoneCodeId', this.f.providerPhoneCodeId.value);
-                requestBody.set('providerPhoneNumber', this.f.providerPhoneNumber.value);
+                requestBody.set(
+                    'providerPhoneCodeId',
+                    this.f.providerPhoneCodeId.value
+                );
+                requestBody.set(
+                    'providerPhoneNumber',
+                    this.f.providerPhoneNumber.value
+                );
                 requestBody.set('providerEmail', this.f.providerEmail.value);
                 requestBody.set('observations', this.f.observations.value);
-            break;
+                break;
 
             case SINISTER_EVENT_TYPES.CIVIL_WORK:
             case SINISTER_EVENT_TYPES.CRANES_AND_TRANSFER:
             case SINISTER_EVENT_TYPES.LEGAL_PROCESS:
-                requestBody.set('sinisterEventTypeId', this.f.sinisterEventTypeId.value);
-                requestBody.set('canNotifyInsured', this.f.canNotifyInsured.value);
+                requestBody.set(
+                    'sinisterEventTypeId',
+                    this.f.sinisterEventTypeId.value
+                );
+                requestBody.set(
+                    'canNotifyInsured',
+                    this.f.canNotifyInsured.value
+                );
                 requestBody.set('evidenceName', this.f.evidenceName.value);
                 requestBody.set('evidenceFile', this.f.evidenceFile.value);
                 requestBody.set('providerName', this.f.providerName.value);
                 requestBody.set('providerDate', this.f.providerDate.value);
                 requestBody.set('providerFolio', this.f.providerFolio.value);
                 requestBody.set('providerBill', this.f.providerBill.value);
-                requestBody.set('providerPhoneCodeId', this.f.providerPhoneCodeId.value);
-                requestBody.set('providerPhoneNumber', this.f.providerPhoneNumber.value);
+                requestBody.set(
+                    'providerPhoneCodeId',
+                    this.f.providerPhoneCodeId.value
+                );
+                requestBody.set(
+                    'providerPhoneNumber',
+                    this.f.providerPhoneNumber.value
+                );
                 requestBody.set('providerEmail', this.f.providerEmail.value);
                 requestBody.set('observations', this.f.observations.value);
-            break;
+                break;
 
             case SINISTER_EVENT_TYPES.INDEMNIFICATION:
                 switch (this.sinister!.insuranceGroupId) {
                     case INSURANCE_GROUPS.VEHICLES:
-                        requestBody.set('sinisterEventTypeId', this.f.sinisterEventTypeId.value);
-                        requestBody.set('canNotifyInsured', this.f.canNotifyInsured.value);
-                        requestBody.set('evidenceName', this.f.evidenceName.value);
-                        requestBody.set('evidenceFile', this.f.evidenceFile.value);
-                        requestBody.set('sinisterResolutionId', this.f.sinisterResolutionId.value);
-                        requestBody.set('providerDate', this.f.providerDate.value);
-                        requestBody.set('valuationDate', this.f.valuationDate.value);
-                        requestBody.set('sumInsuredChassis', this.f.sumInsuredChassis.value);
-                        requestBody.set('deductibleChassis', this.f.deductibleChassis.value);
-                        requestBody.set('sumInsuredAdaptation', this.f.sumInsuredAdaptation.value);
-                        requestBody.set('deductibleAdaptation', this.f.deductibleAdaptation.value);
-                        requestBody.set('providerBill', this.f.providerBill.value);
+                        requestBody.set(
+                            'sinisterEventTypeId',
+                            this.f.sinisterEventTypeId.value
+                        );
+                        requestBody.set(
+                            'canNotifyInsured',
+                            this.f.canNotifyInsured.value
+                        );
+                        requestBody.set(
+                            'evidenceName',
+                            this.f.evidenceName.value
+                        );
+                        requestBody.set(
+                            'evidenceFile',
+                            this.f.evidenceFile.value
+                        );
+                        requestBody.set(
+                            'sinisterResolutionId',
+                            this.f.sinisterResolutionId.value
+                        );
+                        requestBody.set(
+                            'providerDate',
+                            this.f.providerDate.value
+                        );
+                        requestBody.set(
+                            'valuationDate',
+                            this.f.valuationDate.value
+                        );
+                        requestBody.set(
+                            'sumInsuredChassis',
+                            this.f.sumInsuredChassis.value
+                        );
+                        requestBody.set(
+                            'deductibleChassis',
+                            this.f.deductibleChassis.value
+                        );
+                        requestBody.set(
+                            'sumInsuredAdaptation',
+                            this.f.sumInsuredAdaptation.value
+                        );
+                        requestBody.set(
+                            'deductibleAdaptation',
+                            this.f.deductibleAdaptation.value
+                        );
+                        requestBody.set(
+                            'providerBill',
+                            this.f.providerBill.value
+                        );
                         requestBody.set('currencyId', this.f.currencyId.value);
-                        requestBody.set('paymentMethodId', this.f.paymentMethodId.value);
-                        requestBody.set('observations', this.f.observations.value);
-                    break;
-                
+                        requestBody.set(
+                            'paymentMethodId',
+                            this.f.paymentMethodId.value
+                        );
+                        requestBody.set(
+                            'observations',
+                            this.f.observations.value
+                        );
+                        break;
+
                     default:
-                        requestBody.set('sinisterEventTypeId', this.f.sinisterEventTypeId.value);
-                        requestBody.set('canNotifyInsured', this.f.canNotifyInsured.value);
-                        requestBody.set('evidenceName', this.f.evidenceName.value);
-                        requestBody.set('evidenceFile', this.f.evidenceFile.value);
-                        requestBody.set('sinisterResolutionId', this.f.sinisterResolutionId.value);
-                        requestBody.set('providerDate', this.f.providerDate.value);
-                        requestBody.set('providerBill', this.f.providerBill.value);
+                        requestBody.set(
+                            'sinisterEventTypeId',
+                            this.f.sinisterEventTypeId.value
+                        );
+                        requestBody.set(
+                            'canNotifyInsured',
+                            this.f.canNotifyInsured.value
+                        );
+                        requestBody.set(
+                            'evidenceName',
+                            this.f.evidenceName.value
+                        );
+                        requestBody.set(
+                            'evidenceFile',
+                            this.f.evidenceFile.value
+                        );
+                        requestBody.set(
+                            'sinisterResolutionId',
+                            this.f.sinisterResolutionId.value
+                        );
+                        requestBody.set(
+                            'providerDate',
+                            this.f.providerDate.value
+                        );
+                        requestBody.set(
+                            'providerBill',
+                            this.f.providerBill.value
+                        );
                         requestBody.set('currencyId', this.f.currencyId.value);
-                        requestBody.set('paymentMethodId', this.f.paymentMethodId.value);
-                        requestBody.set('observations', this.f.observations.value);
-                    break;
+                        requestBody.set(
+                            'paymentMethodId',
+                            this.f.paymentMethodId.value
+                        );
+                        requestBody.set(
+                            'observations',
+                            this.f.observations.value
+                        );
+                        break;
                 }
 
-            break;
+                break;
 
             default:
-                requestBody.set('sinisterEventTypeId', this.f.sinisterEventTypeId.value);
-                requestBody.set('canNotifyInsured', this.f.canNotifyInsured.value);
+                requestBody.set(
+                    'sinisterEventTypeId',
+                    this.f.sinisterEventTypeId.value
+                );
+                requestBody.set(
+                    'canNotifyInsured',
+                    this.f.canNotifyInsured.value
+                );
                 requestBody.set('evidenceName', this.f.evidenceName.value);
                 requestBody.set('evidenceFile', this.f.evidenceFile.value);
                 requestBody.set('providerName', this.f.providerName.value);
@@ -279,26 +594,37 @@ export class ContainerReportEventService {
      * @param sinisterData The sinister data
      */
     loadSinister(sinisterData: SinisterDataSend): Observable<Sinister> {
-        const fields: string = 'sinisterStatusId,insuranceGroupId,workspaceCountryId';
-        return this._sinisterService.getPolicySinister(sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, fields).pipe(
-            tap((sinister: Sinister) => {
-                this.sinister = sinister;
-            })
-        )
+        const fields: string =
+            'sinisterStatusId,insuranceGroupId,workspaceCountryId';
+        return this._sinisterService
+            .getPolicySinister(
+                sinisterData.contactId,
+                sinisterData.policyId,
+                sinisterData.sinisterId,
+                fields
+            )
+            .pipe(
+                tap((sinister: Sinister) => {
+                    this.sinister = sinister;
+                })
+            );
     }
 
     /**
      * Load the sinister event types
      */
-    loadSinisterEventTypes(sinisterData: SinisterDataSend, insuranceGroupId: number): Observable<SinisterEventType> {
+    loadSinisterEventTypes(
+        sinisterData: SinisterDataSend,
+        insuranceGroupId: number
+    ): Observable<SinisterEventType> {
         const fields: string = 'sinisterEventTypeId,name,isUnique';
         return this._sinisterEventTypeService
-          .getSinisterEventTypes(sinisterData, insuranceGroupId, fields)
-          .pipe(
-            tap((res: SinisterEventType[]) => {
-              this.sinisterEventTypes = res;
-            }),
-            map((res: SinisterEventType[]) => res[0])
-          );
+            .getSinisterEventTypes(sinisterData, insuranceGroupId, fields)
+            .pipe(
+                tap((res: SinisterEventType[]) => {
+                    this.sinisterEventTypes = res;
+                }),
+                map((res: SinisterEventType[]) => res[0])
+            );
     }
 }

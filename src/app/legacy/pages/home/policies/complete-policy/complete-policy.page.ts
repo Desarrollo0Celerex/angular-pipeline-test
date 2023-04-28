@@ -4,17 +4,23 @@ import { AbstractControl } from '@angular/forms';
 import * as moment from 'moment';
 
 import { ERROR_CODES } from '@constants/error-codes';
-import { DOCUMENT_FORMATS, FILE_TYPES, POLICY_SOURCES, INSURANCE_GROUPS, 
-    INSURANCE_TYPES, CONTACT_TYPES } from '@constants/global';
+import {
+    DOCUMENT_FORMATS,
+    FILE_TYPES,
+    POLICY_SOURCES,
+    INSURANCE_GROUPS,
+    INSURANCE_TYPES,
+    CONTACT_TYPES,
+} from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
 import { HttpError } from '@interfaces/http-error.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { Policy } from '@interfaces/policy.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 import { ScanningService } from '@services/scanning.service';
 
 import { CompletePolicyService } from './complete-policy.service';
@@ -24,10 +30,9 @@ declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
 
 @Component({
-  selector: 'agt-complete-policy',
-  templateUrl: './complete-policy.page.html',
-  styles: [
-  ]
+    selector: 'agt-complete-policy',
+    templateUrl: './complete-policy.page.html',
+    styles: [],
 })
 export class CompletePolicyPage implements OnInit {
     CONTACT_TYPES: any = CONTACT_TYPES;
@@ -36,13 +41,14 @@ export class CompletePolicyPage implements OnInit {
     contactId: string;
     existingContactId: string = '';
     existingPolicyId: string = '';
-    isScannerFailed : boolean = false;
+    isScannerFailed: boolean = false;
     message: string = 'Valida los datos de la nueva póliza de';
     policyId: string;
     modalIdBasePoliciDataLoaded: string = 'agt-base-policy-data-loaded';
     modalIdInvalidExpiredPolicy: string = 'agt-invalid-expired-policy';
     modalIdInvalidHistoryPolicy: string = 'agt-invalid-history-policy';
-    modalIdNotifyPolicyAlreadyExists: string = 'agt-notify-policy-already-exists';
+    modalIdNotifyPolicyAlreadyExists: string =
+        'agt-notify-policy-already-exists';
     modalIdPolicyAmountsDifferent: string = 'agt-policy-amounts-different';
     modalIdSelectFile: string;
     modalIdScanningPolicy: string;
@@ -76,8 +82,8 @@ export class CompletePolicyPage implements OnInit {
             description: 'Selecciona el formato digital de la póliza.',
             buttonLabel: 'Cargar poliza',
             formats: DOCUMENT_FORMATS,
-            fileType: FILE_TYPES.DOCUMENT
-        }
+            fileType: FILE_TYPES.DOCUMENT,
+        };
         this.validityEndDateCalendarId = 'validityEndDate';
         this.validityStartDateCalendarId = 'validityStartDate';
         this._isFormSubmitted = false;
@@ -89,15 +95,17 @@ export class CompletePolicyPage implements OnInit {
     }
 
     get areSeveralInsured(): boolean {
-        if(this.model.policy !== null && !!this.model.policy.insuranceTypeId) {
-            return PolicyInsuredHelper.checkAreSeveralInsured(this.model.policy.insuranceTypeId)
+        if (this.model.policy !== null && !!this.model.policy.insuranceTypeId) {
+            return PolicyInsuredHelper.checkAreSeveralInsured(
+                this.model.policy.insuranceTypeId
+            );
         }
         return false;
     }
 
     get labelPolicyCommissionCurrency(): string {
         const currencyId: number = parseInt(this.model.f.currencyId.value);
-        if(!!currencyId && this.model.currencies.length > 0) {
+        if (!!currencyId && this.model.currencies.length > 0) {
             return this.model.currencies[currencyId - 1].name;
         }
         return '';
@@ -105,11 +113,15 @@ export class CompletePolicyPage implements OnInit {
 
     get objectNameLabel(): string {
         let label: string = '';
-        if(!!this.model.policy && !!this.model.policy.insuranceGroupId) {
-            switch(this.model.policy.insuranceGroupId) {
+        if (!!this.model.policy && !!this.model.policy.insuranceGroupId) {
+            switch (this.model.policy.insuranceGroupId) {
                 case INSURANCE_GROUPS.OBJECTS:
-                case INSURANCE_GROUPS.MERCHANDISE: label = 'Nombre del Bien Asegurado'; break;
-                case INSURANCE_GROUPS.RC: label = 'Nombre de la Persona o Bien Asegurado'; break;
+                case INSURANCE_GROUPS.MERCHANDISE:
+                    label = 'Nombre del Bien Asegurado';
+                    break;
+                case INSURANCE_GROUPS.RC:
+                    label = 'Nombre de la Persona o Bien Asegurado';
+                    break;
             }
         }
         return label;
@@ -117,11 +129,17 @@ export class CompletePolicyPage implements OnInit {
 
     get objectUsageLabel(): string {
         let label: string = '';
-        if(!!this.model.policy && !!this.model.policy.insuranceGroupId) {
-            switch(this.model.policy.insuranceGroupId) {
-                case INSURANCE_GROUPS.OBJECTS: label = 'Marca del Bien Asegurado'; break;
-                case INSURANCE_GROUPS.MERCHANDISE: label = 'Uso del Bien Asegurado'; break;
-                case INSURANCE_GROUPS.RC: label = 'Actividad Asegurada'; break;
+        if (!!this.model.policy && !!this.model.policy.insuranceGroupId) {
+            switch (this.model.policy.insuranceGroupId) {
+                case INSURANCE_GROUPS.OBJECTS:
+                    label = 'Marca del Bien Asegurado';
+                    break;
+                case INSURANCE_GROUPS.MERCHANDISE:
+                    label = 'Uso del Bien Asegurado';
+                    break;
+                case INSURANCE_GROUPS.RC:
+                    label = 'Actividad Asegurada';
+                    break;
             }
         }
         return label;
@@ -129,11 +147,17 @@ export class CompletePolicyPage implements OnInit {
 
     get objectDescriptionLabel(): string {
         let label: string = '';
-        if(!!this.model.policy && !!this.model.policy.insuranceGroupId) {
-            switch(this.model.policy.insuranceGroupId) {
-                case INSURANCE_GROUPS.OBJECTS: label = 'Características del Bien Asegurado'; break;
-                case INSURANCE_GROUPS.MERCHANDISE: label = 'Descripción del Bien Asegurado'; break;
-                case INSURANCE_GROUPS.RC: label = 'Descripción'; break;
+        if (!!this.model.policy && !!this.model.policy.insuranceGroupId) {
+            switch (this.model.policy.insuranceGroupId) {
+                case INSURANCE_GROUPS.OBJECTS:
+                    label = 'Características del Bien Asegurado';
+                    break;
+                case INSURANCE_GROUPS.MERCHANDISE:
+                    label = 'Descripción del Bien Asegurado';
+                    break;
+                case INSURANCE_GROUPS.RC:
+                    label = 'Descripción';
+                    break;
             }
         }
         return label;
@@ -157,12 +181,15 @@ export class CompletePolicyPage implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.policyForm.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.policyForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
     getErrorMessageInsured(constrolName: string, insuredIndex: number): string {
-        const control: AbstractControl | null = this.model.insureds.at(insuredIndex).get(constrolName);
+        const control: AbstractControl | null = this.model.insureds
+            .at(insuredIndex)
+            .get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -172,15 +199,31 @@ export class CompletePolicyPage implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.policyForm.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.policyForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
-    getValidationClassInsured(constrolName: string, insuredIndex: number): string {
-        const control: AbstractControl | null = this.model.insureds.at(insuredIndex).get(constrolName);
-        const validationClass: string = InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
-        if(constrolName === 'insuredPolicyFile') {
-            return (validationClass === 'is-valid') ? 'agt-is-valid' : (validationClass === 'is-invalid') ? 'agt-is-invalid' : '';
+    getValidationClassInsured(
+        constrolName: string,
+        insuredIndex: number
+    ): string {
+        const control: AbstractControl | null = this.model.insureds
+            .at(insuredIndex)
+            .get(constrolName);
+        const validationClass: string = InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
+        if (constrolName === 'insuredPolicyFile') {
+            return validationClass === 'is-valid'
+                ? 'agt-is-valid'
+                : validationClass === 'is-invalid'
+                ? 'agt-is-invalid'
+                : '';
         }
         return validationClass;
     }
@@ -210,7 +253,12 @@ export class CompletePolicyPage implements OnInit {
         this._loadingService.show();
         this.model.deletePolicy(this.contactId, this.policyId).subscribe(() => {
             this._loadingService.hide();
-            this._router.navigateByUrl(ROUTES_NAME.showHistoryPolicy(this.existingContactId, this.existingPolicyId));
+            this._router.navigateByUrl(
+                ROUTES_NAME.showHistoryPolicy(
+                    this.existingContactId,
+                    this.existingPolicyId
+                )
+            );
         });
     }
 
@@ -226,7 +274,7 @@ export class CompletePolicyPage implements OnInit {
      * Event to update the form policy file
      */
     onPolicySelected(policyFile: File): void {
-        this.model.policyForm.patchValue({policyFile: policyFile});
+        this.model.policyForm.patchValue({ policyFile: policyFile });
         this._scannPolicy(policyFile);
     }
 
@@ -235,12 +283,12 @@ export class CompletePolicyPage implements OnInit {
      */
     onSubmitSavePolicy(): void {
         this._isFormSubmitted = true;
-        if(!this.model.policyForm.valid) {
+        if (!this.model.policyForm.valid) {
             AlertHelper.invalidForm();
             return;
         }
         // Check the policy amounts
-        if(!this.model.checkPolicyAmounts()) {
+        if (!this.model.checkPolicyAmounts()) {
             ModalPlugin.show(this.modalIdPolicyAmountsDifferent);
             return;
         }
@@ -254,11 +302,12 @@ export class CompletePolicyPage implements OnInit {
                     return;
                 }
             }
-        }*/ else {
+        }*/
+        else {
             // Check if the policy is a history policy
-            if(this.model.checkIsHistoryPolicy()) {
+            if (this.model.checkIsHistoryPolicy()) {
                 // Check if it is a valid history policy
-                if(!this.model.checkIsValidHistoryPolicy()) {
+                if (!this.model.checkIsValidHistoryPolicy()) {
                     ModalPlugin.show(this.modalIdInvalidHistoryPolicy);
                     return;
                 }
@@ -266,16 +315,31 @@ export class CompletePolicyPage implements OnInit {
         }
         // Complete the policy
         this._loadingService.show();
-        this.model.completePolicy(this.contactId, this.policyId, this._scannedPolicyData).subscribe( () => {
-            this._loadingService.hide();
-            if(this.areSeveralInsured) {
-                AlertHelper.policyCompleted(this._goToListPolicyInsureds, this);
-            } else {
-                AlertHelper.policyCompleted(this._goToListContactPolicies, this);
-            }
-        }, (error: HttpError) => {
-            this._handleCompletePolicyError(error);
-        });
+        this.model
+            .completePolicy(
+                this.contactId,
+                this.policyId,
+                this._scannedPolicyData
+            )
+            .subscribe(
+                () => {
+                    this._loadingService.hide();
+                    if (this.areSeveralInsured) {
+                        AlertHelper.policyCompleted(
+                            this._goToListPolicyInsureds,
+                            this
+                        );
+                    } else {
+                        AlertHelper.policyCompleted(
+                            this._goToListContactPolicies,
+                            this
+                        );
+                    }
+                },
+                (error: HttpError) => {
+                    this._handleCompletePolicyError(error);
+                }
+            );
     }
 
     removeInsured(insuredIndex: number): void {
@@ -285,18 +349,21 @@ export class CompletePolicyPage implements OnInit {
     selectInsuredPolicyFile(event: any, index: number): void {
         if (event.target.files.length > 0) {
             const insuredPolicyFile = event.target.files[0];
-            this.model.insureds.at(index).patchValue({insuredPolicyFile});
-            this.model.insureds.at(index).get('insuredPolicyFile')!.updateValueAndValidity();
+            this.model.insureds.at(index).patchValue({ insuredPolicyFile });
+            this.model.insureds
+                .at(index)
+                .get('insuredPolicyFile')!
+                .updateValueAndValidity();
         }
     }
 
     titularPhoneCodeIdSelected(titularPhoneCodeId: number): void {
-        this.model.policyForm.patchValue({titularPhoneCodeId});
+        this.model.policyForm.patchValue({ titularPhoneCodeId });
     }
 
     tryCalculatePolicyCommissionAmount(): void {
         const policyCommission: string = this.model.f.policyCommission.value;
-        if(!!policyCommission) {
+        if (!!policyCommission) {
             this.model.calculatePolicyCommissionAmount(policyCommission);
         }
     }
@@ -317,13 +384,15 @@ export class CompletePolicyPage implements OnInit {
     }
 
     private _downloadPolicy(policyUrl: string): void {
-        this.model.downloadPolicy(policyUrl).subscribe( (res: any) => {
-            this._scannPolicy(res, policyUrl);
-        },
-        (error: any) =>{
-            this._scanningService.hide();
-            ModalPlugin.show(this.modalIdScanningPolicyFailed);
-        });
+        this.model.downloadPolicy(policyUrl).subscribe(
+            (res: any) => {
+                this._scannPolicy(res, policyUrl);
+            },
+            (error: any) => {
+                this._scanningService.hide();
+                ModalPlugin.show(this.modalIdScanningPolicyFailed);
+            }
+        );
     }
 
     /**
@@ -331,11 +400,15 @@ export class CompletePolicyPage implements OnInit {
      * @param context The app context
      */
     private _goToListContactPolicies(context: CompletePolicyPage): void {
-        context._router.navigateByUrl(ROUTES_NAME.listContactPolicies(context.contactId));
+        context._router.navigateByUrl(
+            ROUTES_NAME.listContactPolicies(context.contactId)
+        );
     }
 
     private _goToListPolicyInsureds(context: CompletePolicyPage): void {
-        context._router.navigateByUrl(ROUTES_NAME.listPolicyInsureds(context.contactId, context.policyId));
+        context._router.navigateByUrl(
+            ROUTES_NAME.listPolicyInsureds(context.contactId, context.policyId)
+        );
     }
 
     /**
@@ -343,9 +416,21 @@ export class CompletePolicyPage implements OnInit {
      */
     private _initCalendars(): void {
         DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.emissionDateCalendarId, this._onChangeDate, this);
-        DatePickerPlugin.initElement(this.validityStartDateCalendarId, this._onChangeDate, this);
-        DatePickerPlugin.initElement(this.validityEndDateCalendarId, this._onChangeDate, this);
+        DatePickerPlugin.initElement(
+            this.emissionDateCalendarId,
+            this._onChangeDate,
+            this
+        );
+        DatePickerPlugin.initElement(
+            this.validityStartDateCalendarId,
+            this._onChangeDate,
+            this
+        );
+        DatePickerPlugin.initElement(
+            this.validityEndDateCalendarId,
+            this._onChangeDate,
+            this
+        );
     }
 
     /**
@@ -353,26 +438,28 @@ export class CompletePolicyPage implements OnInit {
      */
     private _loadContactPolicy(): void {
         this._scanningService.show();
-        this.model.getContactPolicy(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
-            this._downloadPolicy(res.data.policyUrl);
-            this.model.buildPolicyForm(res.data);
-            this._initCalendars();
-            this.model.loadCurrencies();
-            this.model.loadGenders();
-            this.model.loadPartners(res.data.workspaceRealName);
-            this.model.loadPaymentMethods();
-            this._loadPaymentPlans();
-            PopoverPlugin.init();
-        })
+        this.model
+            .getContactPolicy(this.contactId, this.policyId)
+            .subscribe((res: HttpResponse) => {
+                this._downloadPolicy(res.data.policyUrl);
+                this.model.buildPolicyForm(res.data);
+                this._initCalendars();
+                this.model.loadCurrencies();
+                this.model.loadGenders();
+                this.model.loadPartners(res.data.workspaceRealName);
+                this.model.loadPaymentMethods();
+                this._loadPaymentPlans();
+                PopoverPlugin.init();
+            });
     }
 
     /**
      * Load the payment plans
      */
     private _loadPaymentPlans(): void {
-        this.model.loadPaymentPlans().subscribe( () => {
+        this.model.loadPaymentPlans().subscribe(() => {
             this._calculateBills();
-        })
+        });
     }
 
     /**
@@ -381,32 +468,49 @@ export class CompletePolicyPage implements OnInit {
      * @param changedValue The changed value
      * @param context      The app context
      */
-    private _onChangeDate(selectorId: string, changedValue: string, context: CompletePolicyPage): void {
-        context.model.policyForm.patchValue({[selectorId]: changedValue});
+    private _onChangeDate(
+        selectorId: string,
+        changedValue: string,
+        context: CompletePolicyPage
+    ): void {
+        context.model.policyForm.patchValue({ [selectorId]: changedValue });
         context.model.calculateBills();
-        if(selectorId === 'validityStartDate' || selectorId === 'validityEndDate') {
+        if (
+            selectorId === 'validityStartDate' ||
+            selectorId === 'validityEndDate'
+        ) {
             let validityStartDate: string = '';
             let validityEndDate: string = '';
-            switch(selectorId){
+            switch (selectorId) {
                 case 'validityStartDate':
                     validityStartDate = changedValue;
                     validityEndDate = context.model.f.validityEndDate.value;
-                break;
+                    break;
 
                 case 'validityEndDate':
                     validityStartDate = context.model.f.validityStartDate.value;
                     validityEndDate = changedValue;
-                break;
+                    break;
             }
-            context._validValidityEndDate(context, validityStartDate, validityEndDate);
+            context._validValidityEndDate(
+                context,
+                validityStartDate,
+                validityEndDate
+            );
         }
     }
 
-    private _validValidityEndDate(context: CompletePolicyPage, validityStartDate: string, validityEndDate: string): void {
+    private _validValidityEndDate(
+        context: CompletePolicyPage,
+        validityStartDate: string,
+        validityEndDate: string
+    ): void {
         const validityStartDateAux = moment(validityStartDate, 'DD/MM/YYYY');
         const validityEndDateAux = moment(validityEndDate, 'DD/MM/YYYY');
-        if(validityEndDateAux.isBefore(validityStartDateAux)) {
-            context.model.f.validityEndDate.setErrors({invalidValidityEndDate: true});
+        if (validityEndDateAux.isBefore(validityStartDateAux)) {
+            context.model.f.validityEndDate.setErrors({
+                invalidValidityEndDate: true,
+            });
         }
     }
 
@@ -416,30 +520,33 @@ export class CompletePolicyPage implements OnInit {
      */
     private _scannPolicy(policyFile: any, policyUrl: string = ''): void {
         this._scanningService.show();
-        this.model.scannPolicy(policyFile).subscribe( (res: HttpResponse) => {
-            this._scanningService.hide();
-            ModalPlugin.show(this.modalIdScanningPolicySuccess);
-            this._scannedPolicyData = res.data;
-            this._reviewPolicyData(policyUrl);
-            this._reviewTitularData();
-        }, (error: HttpError) => {
-            this._handleScanError(error, policyUrl);
-        });
+        this.model.scannPolicy(policyFile).subscribe(
+            (res: HttpResponse) => {
+                this._scanningService.hide();
+                ModalPlugin.show(this.modalIdScanningPolicySuccess);
+                this._scannedPolicyData = res.data;
+                this._reviewPolicyData(policyUrl);
+                this._reviewTitularData();
+            },
+            (error: HttpError) => {
+                this._handleScanError(error, policyUrl);
+            }
+        );
     }
 
     private _getTitularMissingFields(): string[] {
         let titularMissingFields: string[] = [];
         const data: any = this._scannedPolicyData;
-        for(const field in data) {
-            if(
-                field === 'titularName' || 
-                field === 'titularRfc' || 
-                field === 'titularAge' || 
-                field === 'titularGenderId' || 
-                field === 'titularPostalCode' || 
+        for (const field in data) {
+            if (
+                field === 'titularName' ||
+                field === 'titularRfc' ||
+                field === 'titularAge' ||
+                field === 'titularGenderId' ||
+                field === 'titularPostalCode' ||
                 field === 'titularPhoneNumber'
             ) {
-                if(data[field] == '') {
+                if (data[field] == '') {
                     titularMissingFields.push(field);
                 }
             }
@@ -449,13 +556,15 @@ export class CompletePolicyPage implements OnInit {
 
     private _reviewTitularData(): void {
         const titularMissingFields: string[] = this._getTitularMissingFields();
-        if(titularMissingFields.length > 0) {
-            this.model.getPolicyTitularInfo(this.contactId, titularMissingFields).subscribe((res: HttpResponse) => {
-                this._scannedPolicyData = {
-                    ...this._scannedPolicyData,
-                    ...res.data
-                };
-            });
+        if (titularMissingFields.length > 0) {
+            this.model
+                .getPolicyTitularInfo(this.contactId, titularMissingFields)
+                .subscribe((res: HttpResponse) => {
+                    this._scannedPolicyData = {
+                        ...this._scannedPolicyData,
+                        ...res.data,
+                    };
+                });
         }
     }
 
@@ -464,24 +573,35 @@ export class CompletePolicyPage implements OnInit {
         this._reviewPolicyData(policyUrl);
         /* switch(error.error) {
             case ERROR_CODES.scanFileError: */
-                if(!!this.model.policy && (this.model.policy.policySourceId === POLICY_SOURCES.RENEWAL || this.model.policy.policySourceId === POLICY_SOURCES.REISSUE) ) {
-                    this.model.getContactBasePolicy(this.model.policy.baseContactId, this.model.policy.basePolicyId).subscribe((res: Policy) => {
-                        this.model.buildPolicyForm(res);
-                        setTimeout(() => {
-                            this._scanningService.hide();
-                            ModalPlugin.show(this.modalIdBasePoliciDataLoaded);
-                        }, 1000);
-                    })
-                } else {
-                    this.model.getContact(this.contactId).subscribe((policy: Policy) => {
-                        this.model.buildPolicyForm(policy);
-                        setTimeout(() => {
-                            this._scanningService.hide();
-                            ModalPlugin.show(this.modalIdScanningPolicyFailed);
-                        }, 1000);
-                    });
-                }
-            /* break;
+        if (
+            !!this.model.policy &&
+            (this.model.policy.policySourceId === POLICY_SOURCES.RENEWAL ||
+                this.model.policy.policySourceId === POLICY_SOURCES.REISSUE)
+        ) {
+            this.model
+                .getContactBasePolicy(
+                    this.model.policy.baseContactId,
+                    this.model.policy.basePolicyId
+                )
+                .subscribe((res: Policy) => {
+                    this.model.buildPolicyForm(res);
+                    setTimeout(() => {
+                        this._scanningService.hide();
+                        ModalPlugin.show(this.modalIdBasePoliciDataLoaded);
+                    }, 1000);
+                });
+        } else {
+            this.model
+                .getContact(this.contactId)
+                .subscribe((policy: Policy) => {
+                    this.model.buildPolicyForm(policy);
+                    setTimeout(() => {
+                        this._scanningService.hide();
+                        ModalPlugin.show(this.modalIdScanningPolicyFailed);
+                    }, 1000);
+                });
+        }
+        /* break;
 
             default:
                 setTimeout(() => {
@@ -497,9 +617,16 @@ export class CompletePolicyPage implements OnInit {
     private _reviewPolicyData(policyUrl: string): void {
         const missingFields: string[] = this._getMissingFields();
         const totalMissingFields: number = missingFields.length;
-        if(totalMissingFields > 0) {
-            this.model.createScannerLog(this.contactId, this.policyId, policyUrl, totalMissingFields, missingFields.join(',')).subscribe(() => {
-            });
+        if (totalMissingFields > 0) {
+            this.model
+                .createScannerLog(
+                    this.contactId,
+                    this.policyId,
+                    policyUrl,
+                    totalMissingFields,
+                    missingFields.join(',')
+                )
+                .subscribe(() => {});
         }
     }
 
@@ -509,25 +636,25 @@ export class CompletePolicyPage implements OnInit {
      */
     private _getMissingFields(): string[] {
         let missingFields: string[] = [];
-        if(!!this._scannedPolicyData) {
+        if (!!this._scannedPolicyData) {
             const data: any = this._scannedPolicyData;
-            for(const field in data) {
-                if(field === 'insureds') {
-                    for(const fieldAux in data[field][0]) {
-                        if(data[field][0][fieldAux] == '') {
-                            switch(this.model.policy!.insuranceGroupId) {
+            for (const field in data) {
+                if (field === 'insureds') {
+                    for (const fieldAux in data[field][0]) {
+                        if (data[field][0][fieldAux] == '') {
+                            switch (this.model.policy!.insuranceGroupId) {
                                 case INSURANCE_GROUPS.PEOPLE:
-                                    switch(fieldAux){
+                                    switch (fieldAux) {
                                         case 'personName':
                                         case 'personGenderId':
                                         case 'personAge':
                                             missingFields.push(fieldAux);
-                                        break;
+                                            break;
                                     }
-                                break;
+                                    break;
 
                                 case INSURANCE_GROUPS.VEHICLES:
-                                    switch(fieldAux){
+                                    switch (fieldAux) {
                                         case 'vehicleMaker':
                                         case 'vehicleVersion':
                                         case 'vehicleModel':
@@ -535,36 +662,36 @@ export class CompletePolicyPage implements OnInit {
                                         case 'vehicleSerial':
                                         case 'vehicleMotor':
                                             missingFields.push(fieldAux);
-                                        break;
+                                            break;
                                     }
-                                break;
+                                    break;
 
                                 case INSURANCE_GROUPS.BUILDINGS:
-                                    switch(fieldAux){
+                                    switch (fieldAux) {
                                         case 'buildingName':
                                         case 'buildingUsage':
                                         case 'buildingLocation':
                                             missingFields.push(fieldAux);
-                                        break;
+                                            break;
                                     }
-                                break;
+                                    break;
 
                                 case INSURANCE_GROUPS.MERCHANDISE:
                                 case INSURANCE_GROUPS.OBJECTS:
                                 case INSURANCE_GROUPS.RC:
-                                    switch(fieldAux){
+                                    switch (fieldAux) {
                                         case 'objectName':
                                         case 'objectUsage':
                                         case 'objectDescription':
                                             missingFields.push(fieldAux);
-                                        break;
+                                            break;
                                     }
-                                break;
+                                    break;
                             }
                         }
                     }
                 } else {
-                    if(data[field] == '') {
+                    if (data[field] == '') {
                         missingFields.push(field);
                     }
                 }
@@ -594,14 +721,14 @@ export class CompletePolicyPage implements OnInit {
                 'policyAmount',
                 'currencyId',
                 'paymentMethodId',
-                'paymentPlanId'
+                'paymentPlanId',
             ];
-            switch(this.model.policy!.insuranceGroupId) {
+            switch (this.model.policy!.insuranceGroupId) {
                 case INSURANCE_GROUPS.PEOPLE:
                     missingFields.push('personName');
                     missingFields.push('personGenderId');
                     missingFields.push('personAge');
-                break;
+                    break;
 
                 case INSURANCE_GROUPS.VEHICLES:
                     missingFields.push('vehicleMaker');
@@ -610,13 +737,13 @@ export class CompletePolicyPage implements OnInit {
                     missingFields.push('vehiclePlates');
                     missingFields.push('vehicleSerial');
                     missingFields.push('vehicleMotor');
-                break;
+                    break;
 
                 case INSURANCE_GROUPS.BUILDINGS:
                     missingFields.push('buildingName');
                     missingFields.push('buildingUsage');
                     missingFields.push('buildingLocation');
-                break;
+                    break;
 
                 case INSURANCE_GROUPS.MERCHANDISE:
                 case INSURANCE_GROUPS.OBJECTS:
@@ -624,24 +751,27 @@ export class CompletePolicyPage implements OnInit {
                     missingFields.push('objectName');
                     missingFields.push('objectUsage');
                     missingFields.push('objectDescription');
-                break;
+                    break;
             }
         }
         return missingFields;
     }
 
     private _handleCompletePolicyError(error: HttpError): void {
-        const arrError: string [] = error.error.split(' ');
-        switch(arrError[0]) {
+        const arrError: string[] = error.error.split(' ');
+        switch (arrError[0]) {
             case ERROR_CODES.policyAlreadyExists:
                 this.existingContactId = arrError[1];
                 this.existingPolicyId = arrError[2];
                 ModalPlugin.show(this.modalIdNotifyPolicyAlreadyExists);
-            break;
+                break;
 
             case ERROR_CODES.policyAlreadyConfirmed:
-                AlertHelper.policyCompleted(this._goToListContactPolicies, this);
-            break;
+                AlertHelper.policyCompleted(
+                    this._goToListContactPolicies,
+                    this
+                );
+                break;
         }
     }
 }

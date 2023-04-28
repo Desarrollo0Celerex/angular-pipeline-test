@@ -2,18 +2,17 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { LoadingService } from '@services/loading.service';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalConfirmAcceptQuotationService } from './modal-confirm-accept-quotation.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-accept-quotation',
-  templateUrl: './modal-confirm-accept-quotation.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-accept-quotation',
+    templateUrl: './modal-confirm-accept-quotation.component.html',
+    styles: [],
 })
 export class ModalConfirmAcceptQuotationComponent {
     @Input() contactId: string;
@@ -36,10 +35,13 @@ export class ModalConfirmAcceptQuotationComponent {
     onClickAcceptQuotation(): void {
         ModalPlugin.hide(this.modalId);
         this._loadingService.show();
-        this._modalAcceptQuotationService.acceptQuotation(this.contactId, this.quotationId).subscribe( (res: HttpResponse) => {
-            this._loadingService.hide();
-            this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(this.contactId, res.data));
-        })
+        this._modalAcceptQuotationService
+            .acceptQuotation(this.contactId, this.quotationId)
+            .subscribe((res: HttpResponse) => {
+                this._loadingService.hide();
+                this._router.navigateByUrl(
+                    ROUTES_NAME.uploadPolicy(this.contactId, res.data)
+                );
+            });
     }
-
 }

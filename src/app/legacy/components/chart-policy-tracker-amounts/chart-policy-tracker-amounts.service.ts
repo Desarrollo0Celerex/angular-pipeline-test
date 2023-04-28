@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicyService } from '@services/policy.service';
 import { WorkspaceService } from '@services/workspace.service';
 
@@ -13,8 +13,8 @@ export class ChartPolicyTrackerAmountsService {
 
     constructor(
         private _policyService: PolicyService,
-        private _workspaceService: WorkspaceService,
-    ) { }
+        private _workspaceService: WorkspaceService
+    ) {}
 
     loadWorkspaceCurrencyName(): Observable<void> {
         const fields: string = 'currencyName';
@@ -22,17 +22,25 @@ export class ChartPolicyTrackerAmountsService {
             tap((res: HttpResponse) => {
                 this.workspaceCurrencyName = res.data.currencyName;
             }),
-            map(() => { })
-        )
+            map(() => {})
+        );
     }
 
-    loadPolicyTrackerAmounts(contactId: string, policyId: string): Observable<void> {
-        return this._policyService.getPolicyTrackerAmounts(contactId, policyId).pipe(
-            tap((res: HttpResponse) => {
-                this.amounts = res.data;
-                this.amounts.unshift(['AÑO', 'Prima Total ('+this.workspaceCurrencyName+')']);
-            }),
-            map(() => { })
-        )
+    loadPolicyTrackerAmounts(
+        contactId: string,
+        policyId: string
+    ): Observable<void> {
+        return this._policyService
+            .getPolicyTrackerAmounts(contactId, policyId)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.amounts = res.data;
+                    this.amounts.unshift([
+                        'AÑO',
+                        'Prima Total (' + this.workspaceCurrencyName + ')',
+                    ]);
+                }),
+                map(() => {})
+            );
     }
 }

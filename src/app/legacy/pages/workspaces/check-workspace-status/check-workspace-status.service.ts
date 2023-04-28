@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { AuthService } from '@services/auth.service';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { AuthService } from '@core/services/auth.service';
 import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
 export class CheckWorkspaceStatusService {
-
     constructor(
         private _authService: AuthService,
         private _workspaceService: WorkspaceService
-    ) { }
+    ) {}
 
     /**
      * Check if the user has a workspace

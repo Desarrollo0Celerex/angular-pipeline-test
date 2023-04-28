@@ -1,12 +1,20 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+} from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { LoadingService } from '@services/loading.service';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalCreateSinisterService } from './modal-create-sinister.service';
 
@@ -14,11 +22,10 @@ declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-create-sinister',
-  templateUrl: './modal-create-sinister.component.html',
-  styles: [
-  ],
-  providers: [ModalCreateSinisterService]
+    selector: 'agt-modal-create-sinister',
+    templateUrl: './modal-create-sinister.component.html',
+    styles: [],
+    providers: [ModalCreateSinisterService],
 })
 export class ModalCreateSinisterComponent implements OnChanges, OnInit {
     @Input() modalId: string = '';
@@ -34,17 +41,22 @@ export class ModalCreateSinisterComponent implements OnChanges, OnInit {
     constructor(
         public modalCreateSinisterService: ModalCreateSinisterService,
         private _loadingService: LoadingService,
-        private _router: Router,
-    ) { }
+        private _router: Router
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.insuranceId && !!changes.insuranceId.currentValue) {
-            this.modalCreateSinisterService.loadSinisterTypes(changes.insuranceId.currentValue);
-        } else if(!!this.policyId) {
+        if (!!changes.insuranceId && !!changes.insuranceId.currentValue) {
+            this.modalCreateSinisterService.loadSinisterTypes(
+                changes.insuranceId.currentValue
+            );
+        } else if (!!this.policyId) {
             this._loadPolicyInsuranceId();
         }
 
-        if(!(!!changes.contactId) || !(!!changes.contactId.currentValue) && !!this.policyId) {
+        if (
+            !!!changes.contactId ||
+            (!!!changes.contactId.currentValue && !!this.policyId)
+        ) {
             this._loadPolicyCotactId();
         }
     }
@@ -62,7 +74,8 @@ export class ModalCreateSinisterComponent implements OnChanges, OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.modalCreateSinisterService.sinisterForm.get(constrolName);
+        const control: AbstractControl | null =
+            this.modalCreateSinisterService.sinisterForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -72,8 +85,12 @@ export class ModalCreateSinisterComponent implements OnChanges, OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.modalCreateSinisterService.sinisterForm.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.modalCreateSinisterService.sinisterForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     /**
@@ -89,15 +106,20 @@ export class ModalCreateSinisterComponent implements OnChanges, OnInit {
      */
     onSubmitCreateSinister(): void {
         this._isFormSubmitted = true;
-        if(this.modalCreateSinisterService.sinisterForm.valid) {
+        if (this.modalCreateSinisterService.sinisterForm.valid) {
             ModalPlugin.hide(this.modalId);
             this._loadingService.show();
-            this.modalCreateSinisterService.createSinister(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
-                this._resetSinisterForm();
-                this._loadingService.hide();
-                this._sinisterId = res.data;
-                AlertHelper.sinisterCreated(this._notifySinisterCreated, this);
-            });
+            this.modalCreateSinisterService
+                .createSinister(this.contactId, this.policyId)
+                .subscribe((res: HttpResponse) => {
+                    this._resetSinisterForm();
+                    this._loadingService.hide();
+                    this._sinisterId = res.data;
+                    AlertHelper.sinisterCreated(
+                        this._notifySinisterCreated,
+                        this
+                    );
+                });
         }
     }
 
@@ -106,28 +128,48 @@ export class ModalCreateSinisterComponent implements OnChanges, OnInit {
      */
     private _initCalendars(): void {
         DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdSinisterDate, this._onChangeDate, this);
-        DatePickerPlugin.initElement(this.calendarIdResolutionDate, this._onChangeDate, this);
+        DatePickerPlugin.initElement(
+            this.calendarIdSinisterDate,
+            this._onChangeDate,
+            this
+        );
+        DatePickerPlugin.initElement(
+            this.calendarIdResolutionDate,
+            this._onChangeDate,
+            this
+        );
     }
 
     private _loadPolicyCotactId(): void {
-        this.modalCreateSinisterService.getPolicyContactId(this.policyId).subscribe((contactId: string) => {
-            this.contactId = contactId;
-        });
+        this.modalCreateSinisterService
+            .getPolicyContactId(this.policyId)
+            .subscribe((contactId: string) => {
+                this.contactId = contactId;
+            });
     }
 
     private _loadPolicyInsuranceId(): void {
-        this.modalCreateSinisterService.getPolicyInsuranceId(this.contactId, this.policyId).subscribe((insuranceId: number) => {
-            this.modalCreateSinisterService.loadSinisterTypes(insuranceId);
-        });
+        this.modalCreateSinisterService
+            .getPolicyInsuranceId(this.contactId, this.policyId)
+            .subscribe((insuranceId: number) => {
+                this.modalCreateSinisterService.loadSinisterTypes(insuranceId);
+            });
     }
 
     /**
      * Notify that a sinister was created
      * @param context The app context
      */
-    private _notifySinisterCreated(context: ModalCreateSinisterComponent): void {
-        context._router.navigateByUrl(ROUTES_NAME.showSinisterHistory(context.contactId, context.policyId, context._sinisterId));
+    private _notifySinisterCreated(
+        context: ModalCreateSinisterComponent
+    ): void {
+        context._router.navigateByUrl(
+            ROUTES_NAME.showSinisterHistory(
+                context.contactId,
+                context.policyId,
+                context._sinisterId
+            )
+        );
     }
 
     /**
@@ -136,8 +178,14 @@ export class ModalCreateSinisterComponent implements OnChanges, OnInit {
      * @param changedValue The changed value
      * @param context      The app context
      */
-    private _onChangeDate(selectorId: string, changedValue: string, context: ModalCreateSinisterComponent): void {
-        context.modalCreateSinisterService.sinisterForm.patchValue({[selectorId]: changedValue});
+    private _onChangeDate(
+        selectorId: string,
+        changedValue: string,
+        context: ModalCreateSinisterComponent
+    ): void {
+        context.modalCreateSinisterService.sinisterForm.patchValue({
+            [selectorId]: changedValue,
+        });
     }
 
     /**

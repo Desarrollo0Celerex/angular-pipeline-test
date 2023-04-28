@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
@@ -11,10 +11,10 @@ export class TwitterService {
     form: FormGroup = this._formBuilder.group({});
     isBuiltForm: boolean = false;
 
-    constructor( 
-      private _formBuilder: FormBuilder,
-      private _workspaceService: WorkspaceService,
-    ) { }
+    constructor(
+        private _formBuilder: FormBuilder,
+        private _workspaceService: WorkspaceService
+    ) {}
 
     loadWorkspace(): Observable<HttpResponse> {
         const fields: string = 'twitterUrl';
@@ -23,12 +23,17 @@ export class TwitterService {
 
     buildForm(twitterUrl: string | null): void {
         this.form = this._formBuilder.group({
-            twitterUrl: [(twitterUrl !== null) ? twitterUrl : '', [Validators.required, ValidatorsHelper.webLinkTwitter ]]
+            twitterUrl: [
+                twitterUrl !== null ? twitterUrl : '',
+                [Validators.required, ValidatorsHelper.webLinkTwitter],
+            ],
         });
         this.isBuiltForm = true;
     }
 
     updateTwitterUrl(): Observable<void> {
-        return this._workspaceService.updateWorkspaceTwitterUrl(this.form.get('twitterUrl')!.value);
+        return this._workspaceService.updateWorkspaceTwitterUrl(
+            this.form.get('twitterUrl')!.value
+        );
     }
 }

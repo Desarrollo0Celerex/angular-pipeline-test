@@ -2,13 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
-import { SINISTER_STATUS_OPEN, FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
+import {
+    SINISTER_STATUS_OPEN,
+    FILE_ALL_FORMATS,
+    FILE_TYPES,
+} from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ReactivateSinisterService } from './reactivate-sinister.service';
 
@@ -16,21 +20,22 @@ declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-reactivate-sinister',
-  templateUrl: './reactivate-sinister.page.html',
-  styles: [
-  ]
+    selector: 'agt-reactivate-sinister',
+    templateUrl: './reactivate-sinister.page.html',
+    styles: [],
 })
 export class ReactivateSinisterPage implements OnInit {
     calendarIdReactivationDate: string = 'reactivationDate';
-    contactDetailsMessage: string = 'Confirma los datos para reactivar el siniestro de';
+    contactDetailsMessage: string =
+        'Confirma los datos para reactivar el siniestro de';
     modalIdUploadEvidence: string = 'agt-upload-evidence';
     modalSelectFileData: ModalSelectFileData = {
         title: 'Adjuntar Evidencia',
-        description: 'Selecciona el formato digital de la evidencia del siniestro.',
+        description:
+            'Selecciona el formato digital de la evidencia del siniestro.',
         buttonLabel: 'Cargar evidencia',
         formats: FILE_ALL_FORMATS,
-        fileType: FILE_TYPES.MIXED
+        fileType: FILE_TYPES.MIXED,
     };
     sinisterData: SinisterDataSend | null = null;
     private _isFormSubmitted: boolean = false;
@@ -40,7 +45,7 @@ export class ReactivateSinisterPage implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._catchParams();
@@ -54,7 +59,8 @@ export class ReactivateSinisterPage implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.reactivateSinisterService.sinisterForm.get(constrolName);
+        const control: AbstractControl | null =
+            this.reactivateSinisterService.sinisterForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -64,8 +70,12 @@ export class ReactivateSinisterPage implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.reactivateSinisterService.sinisterForm.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.reactivateSinisterService.sinisterForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     /**
@@ -80,7 +90,9 @@ export class ReactivateSinisterPage implements OnInit {
      * @param file The selected file
      */
     onFileSelected(file: File): void {
-        this.reactivateSinisterService.sinisterForm.patchValue({ evidenceFile: file});
+        this.reactivateSinisterService.sinisterForm.patchValue({
+            evidenceFile: file,
+        });
     }
 
     /**
@@ -88,12 +100,20 @@ export class ReactivateSinisterPage implements OnInit {
      */
     onSubmitReactivateSinister(): void {
         this._isFormSubmitted = true;
-        if(this.reactivateSinisterService.sinisterForm.valid && !!this.sinisterData) {
+        if (
+            this.reactivateSinisterService.sinisterForm.valid &&
+            !!this.sinisterData
+        ) {
             this._loadingService.show();
-            this.reactivateSinisterService.reactivateSinister(this.sinisterData).subscribe(() => {
-                this._loadingService.hide();
-                AlertHelper.sinisterReactivated(this._goToContactActiveSinisters, this);
-            });
+            this.reactivateSinisterService
+                .reactivateSinister(this.sinisterData)
+                .subscribe(() => {
+                    this._loadingService.hide();
+                    AlertHelper.sinisterReactivated(
+                        this._goToContactActiveSinisters,
+                        this
+                    );
+                });
         }
     }
 
@@ -104,8 +124,8 @@ export class ReactivateSinisterPage implements OnInit {
         this.sinisterData = {
             contactId: this._activatedRoute.snapshot.params.contactId || '',
             policyId: this._activatedRoute.snapshot.params.policyId || '',
-            sinisterId: this._activatedRoute.snapshot.params.sinisterId || ''
-        }
+            sinisterId: this._activatedRoute.snapshot.params.sinisterId || '',
+        };
     }
 
     /**
@@ -113,8 +133,16 @@ export class ReactivateSinisterPage implements OnInit {
      * @param context The app context
      */
     private _goToContactActiveSinisters(context: ReactivateSinisterPage): void {
-        if(!!context.sinisterData) {
-            context._router.navigate(['/' + ROUTES_NAME.listContactSinisters(context.sinisterData.contactId)], { queryParams: { contentSubtype: SINISTER_STATUS_OPEN } });
+        if (!!context.sinisterData) {
+            context._router.navigate(
+                [
+                    '/' +
+                        ROUTES_NAME.listContactSinisters(
+                            context.sinisterData.contactId
+                        ),
+                ],
+                { queryParams: { contentSubtype: SINISTER_STATUS_OPEN } }
+            );
         }
     }
 
@@ -123,17 +151,23 @@ export class ReactivateSinisterPage implements OnInit {
      */
     private _initCalendars(): void {
         DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdReactivationDate, this._onChangeDate, this);
+        DatePickerPlugin.initElement(
+            this.calendarIdReactivationDate,
+            this._onChangeDate,
+            this
+        );
     }
 
     /**
      * Load the sinister
      */
     private _loadSinister(): void {
-        if(!!this.sinisterData) {
-            this.reactivateSinisterService.loadSinister(this.sinisterData).subscribe(() => {
-                this._initCalendars();
-            });
+        if (!!this.sinisterData) {
+            this.reactivateSinisterService
+                .loadSinister(this.sinisterData)
+                .subscribe(() => {
+                    this._initCalendars();
+                });
         }
     }
 
@@ -143,8 +177,13 @@ export class ReactivateSinisterPage implements OnInit {
      * @param changedValue The changed value
      * @param context      The app context
      */
-    private _onChangeDate(selectorId: string, changedValue: string, context: ReactivateSinisterPage): void {
-        context.reactivateSinisterService.sinisterForm.patchValue({[selectorId]: changedValue});
+    private _onChangeDate(
+        selectorId: string,
+        changedValue: string,
+        context: ReactivateSinisterPage
+    ): void {
+        context.reactivateSinisterService.sinisterForm.patchValue({
+            [selectorId]: changedValue,
+        });
     }
-
 }

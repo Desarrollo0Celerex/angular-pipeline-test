@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { Contact } from '@interfaces/contact.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Insurance } from '@interfaces/insurance.interface';
 import { ContactService } from '@services/contact.service';
 import { InsuranceService } from '@services/insurance.service';
@@ -14,13 +14,13 @@ export class ContainerInsurancesMostUsedService {
     insurances: Insurance[] = [];
 
     constructor(
-      private _contactService: ContactService,
-      private _insuranceService: InsuranceService
-      ) { }
-    
+        private _contactService: ContactService,
+        private _insuranceService: InsuranceService
+    ) {}
+
     loadContact(contactId: string): Observable<number> {
         const fields: string = 'contactName,contactTypeId';
-        return this._contactService.getContact(contactId,fields).pipe(
+        return this._contactService.getContact(contactId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.contact = res.data;
             }),
@@ -29,9 +29,12 @@ export class ContainerInsurancesMostUsedService {
     }
 
     loadInsurancesMostUsed(contactTypeId: number): void {
-        const fields: string = 'insuranceId,name,title,description,background,icon';
-        this._insuranceService.getMostUsedInsurances(contactTypeId, fields).subscribe((res: HttpResponse) => {
-            this.insurances = res.data;
-        });
+        const fields: string =
+            'insuranceId,name,title,description,background,icon';
+        this._insuranceService
+            .getMostUsedInsurances(contactTypeId, fields)
+            .subscribe((res: HttpResponse) => {
+                this.insurances = res.data;
+            });
     }
 }

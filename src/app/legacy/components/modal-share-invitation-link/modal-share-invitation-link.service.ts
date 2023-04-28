@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Workspace } from '@interfaces/workspace.interface';
 import { WorkspaceService } from '@services/workspace.service';
 
@@ -17,8 +17,10 @@ export class ModalShareInvitationLinkService {
      */
     loadWorkspace(): void {
         const fields: string = 'brandName';
-        this._workspaceService.getWorkspace(fields).subscribe( (res: HttpResponse) => {
-            this.workspace = res.data;
-        })
+        this._workspaceService
+            .getWorkspace(fields)
+            .subscribe((res: HttpResponse) => {
+                this.workspace = res.data;
+            });
     }
 }

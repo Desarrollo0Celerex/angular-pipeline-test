@@ -1,18 +1,20 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { NgxQrcodeErrorCorrectionLevels, NgxQrcodeElementTypes } from '@techiediaries/ngx-qrcode';
+import {
+    NgxQrcodeErrorCorrectionLevels,
+    NgxQrcodeElementTypes,
+} from '@techiediaries/ngx-qrcode';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 
-import { ModalShowPolicyFileService } from './modal-show-policy-file.service'
+import { ModalShowPolicyFileService } from './modal-show-policy-file.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-show-policy-file',
-  templateUrl: './modal-show-policy-file.component.html',
-  styles: [
-  ],
-  providers: [ModalShowPolicyFileService]
+    selector: 'agt-modal-show-policy-file',
+    templateUrl: './modal-show-policy-file.component.html',
+    styles: [],
+    providers: [ModalShowPolicyFileService],
 })
 export class ModalShowPolicyFileComponent implements OnChanges {
     @Input() modalId: string = '';
@@ -22,14 +24,19 @@ export class ModalShowPolicyFileComponent implements OnChanges {
     correctionLevel: any = NgxQrcodeErrorCorrectionLevels.HIGH;
     elementType: any = NgxQrcodeElementTypes.URL;
 
-    constructor(public _model: ModalShowPolicyFileService) { }
+    constructor(public _model: ModalShowPolicyFileService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(
-            (!!changes.contactId && !!changes.contactId.currentValue) &&
-            (!!changes.policyId && !!changes.policyId.currentValue)
+        if (
+            !!changes.contactId &&
+            !!changes.contactId.currentValue &&
+            !!changes.policyId &&
+            !!changes.policyId.currentValue
         ) {
-            this.loadPolicyUrl(changes.contactId.currentValue, changes.policyId.currentValue);
+            this.loadPolicyUrl(
+                changes.contactId.currentValue,
+                changes.policyId.currentValue
+            );
         }
     }
 
@@ -38,8 +45,10 @@ export class ModalShowPolicyFileComponent implements OnChanges {
     }
 
     private loadPolicyUrl(contactId: string, policyId: string): void {
-        this._model.getPolicy(contactId, policyId).subscribe((res: HttpResponse) => {
-            this.policyUrl = res.data.policyUrl;
-        })
+        this._model
+            .getPolicy(contactId, policyId)
+            .subscribe((res: HttpResponse) => {
+                this.policyUrl = res.data.policyUrl;
+            });
     }
 }

@@ -3,16 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    quotationStatus: `${environment.apiUrl}/quotation-status`
-}
+    quotationStatus: `${environment.apiUrl}/quotation-status`,
+};
 
 @Injectable()
 export class QuotationStatusService {
-
-    constructor(private _httpClient: HttpClient) { }
+    constructor(private _httpClient: HttpClient) {}
 
     /**
      * Get the quotation status from the API
@@ -23,6 +22,6 @@ export class QuotationStatusService {
         const route: string = ROUTES.quotationStatus;
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
-        return this._httpClient.get<HttpResponse>(route, {params});
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 }

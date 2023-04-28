@@ -3,18 +3,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { AlertHelper } from '@helpers/alert.helper';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { GroupProfileService } from './group-profile.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-group-profile',
-  templateUrl: './group-profile.layout.html',
-  styles: [
-  ],
-  providers: [GroupProfileService]
+    selector: 'agt-group-profile',
+    templateUrl: './group-profile.layout.html',
+    styles: [],
+    providers: [GroupProfileService],
 })
 export class GroupProfileLayout implements OnInit, OnDestroy {
     ROUTES_NAME: any = ROUTES_NAME;
@@ -33,14 +32,14 @@ export class GroupProfileLayout implements OnInit, OnDestroy {
         private _groupProfileService: GroupProfileService,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._catchParams();
     }
 
     ngOnDestroy(): void {
-        if(this._subParams) this._subParams.unsubscribe();
+        if (this._subParams) this._subParams.unsubscribe();
     }
 
     get model(): GroupProfileService {
@@ -84,12 +83,14 @@ export class GroupProfileLayout implements OnInit, OnDestroy {
      * Catch the params
      */
     private _catchParams(): void {
-        if(!!this._activatedRoute.firstChild) {
-            this._subParams = this._activatedRoute.firstChild.paramMap.subscribe((res: any) => {
-                this.groupId = res.get('groupId');
-                this.model.loadGroup(this.groupId);
-            });
+        if (!!this._activatedRoute.firstChild) {
+            this._subParams =
+                this._activatedRoute.firstChild.paramMap.subscribe(
+                    (res: any) => {
+                        this.groupId = res.get('groupId');
+                        this.model.loadGroup(this.groupId);
+                    }
+                );
         }
     }
-
 }

@@ -3,16 +3,26 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { CLIENT_STATUS, EXTERNAL_POLICY_STATUS, LEAD_STATUS, PARTNER_STATUS, 
-    PAYMENT_STATUS, POLICY_RECORD_TYPES, POLICY_STATUS, POLICY_STATUS_ACTIVE, 
-    SINISTER_STATUS, SINISTER_STATUS_OPEN, DEFAULT_PER_PAGE, SINISTER_RECORD_TYPES,
-    POLICY_INSURED_STATUS, 
-    QUOTATION_STATUS
+import {
+    CLIENT_STATUS,
+    EXTERNAL_POLICY_STATUS,
+    LEAD_STATUS,
+    PARTNER_STATUS,
+    PAYMENT_STATUS,
+    POLICY_RECORD_TYPES,
+    POLICY_STATUS,
+    POLICY_STATUS_ACTIVE,
+    SINISTER_STATUS,
+    SINISTER_STATUS_OPEN,
+    DEFAULT_PER_PAGE,
+    SINISTER_RECORD_TYPES,
+    POLICY_INSURED_STATUS,
+    QUOTATION_STATUS,
 } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { SinisterEventHelper } from '@helpers/sinister-event.helper';
 import { Contact } from '@interfaces/contact.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { Insured } from '@interfaces/insured.interface';
 import { Payment } from '@interfaces/payment.interface';
@@ -72,11 +82,20 @@ export class ContentListService {
         this.contentResultData = this._initContentResultData();
     }
 
-    cancelPolicyInsured(contactId: string, policyId: string, policyInsuredId: string): Observable<void> {
+    cancelPolicyInsured(
+        contactId: string,
+        policyId: string,
+        policyInsuredId: string
+    ): Observable<void> {
         const requestBody: UpdatePolicyInsuredStatus = {
-            insuredStatusId: POLICY_INSURED_STATUS.CANCELLED
-        }
-        return this._policyInsuredService.updatePolicyInsuredStatus(contactId, policyId, policyInsuredId, requestBody);
+            insuredStatusId: POLICY_INSURED_STATUS.CANCELLED,
+        };
+        return this._policyInsuredService.updatePolicyInsuredStatus(
+            contactId,
+            policyId,
+            policyInsuredId,
+            requestBody
+        );
     }
 
     deleteContact(contactId: string): Observable<void> {
@@ -89,7 +108,7 @@ export class ContentListService {
 
     deleteGroupMemberCard(contactId: string): void {
         const contactPosition: number = this._getContactPosition(contactId);
-        if(contactPosition > -1) {
+        if (contactPosition > -1) {
             this.contents.splice(contactPosition, 1);
         }
     }
@@ -104,18 +123,27 @@ export class ContentListService {
      */
     deletePolicyCard(policyId: string): void {
         const policyPosition: number = this._getPolicyPosition(policyId);
-        if(policyPosition > -1) {
+        if (policyPosition > -1) {
             this.contents.splice(policyPosition, 1);
         }
     }
 
-    deletePolicyInsured(contactId: string, policyId: string, policyInsuredId: string): Observable<void> {
-        return this._policyInsuredService.deletePolicyInsured(contactId, policyId, policyInsuredId);
+    deletePolicyInsured(
+        contactId: string,
+        policyId: string,
+        policyInsuredId: string
+    ): Observable<void> {
+        return this._policyInsuredService.deletePolicyInsured(
+            contactId,
+            policyId,
+            policyInsuredId
+        );
     }
 
     deletePolicyInsuredCard(policyInsuredId: string): void {
-        const policyInsuredPosition: number = this._getPolicyInsuredPosition(policyInsuredId);
-        if(policyInsuredPosition > -1) {
+        const policyInsuredPosition: number =
+            this._getPolicyInsuredPosition(policyInsuredId);
+        if (policyInsuredPosition > -1) {
             this.contents.splice(policyInsuredPosition, 1);
         }
     }
@@ -125,8 +153,14 @@ export class ContentListService {
      * @param paymentId     The payment ID
      * @param receiptPaidId The receipt paid ID to delete
      */
-    deleteReceiptPaid(paymentId: string, receiptPaidId: string): Observable<void> {
-        return this._receiptPaidService.deleteReceiptPaid(paymentId,receiptPaidId);
+    deleteReceiptPaid(
+        paymentId: string,
+        receiptPaidId: string
+    ): Observable<void> {
+        return this._receiptPaidService.deleteReceiptPaid(
+            paymentId,
+            receiptPaidId
+        );
     }
 
     /**
@@ -135,13 +169,26 @@ export class ContentListService {
      * @return           The content position found
      */
     getContentPosition(contentId: string, fieldName: string): number {
-        return this.contents.findIndex((value: any) => value[fieldName] == contentId)
+        return this.contents.findIndex(
+            (value: any) => value[fieldName] == contentId
+        );
     }
 
-    getPolicyLogs(contactId: string, policyId: string): Observable<PolicyLog[]> {
+    getPolicyLogs(
+        contactId: string,
+        policyId: string
+    ): Observable<PolicyLog[]> {
         const fields: string = 'sourceId';
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyRecordTypeId', [POLICY_RECORD_TYPES.RENEWED]);
-        return this._policyLogService.getPolicyLogs(contactId, policyId, fields, filters);
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyRecordTypeId',
+            [POLICY_RECORD_TYPES.RENEWED]
+        );
+        return this._policyLogService.getPolicyLogs(
+            contactId,
+            policyId,
+            fields,
+            filters
+        );
     }
 
     /**
@@ -150,102 +197,266 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadActivePoliciesByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.SUSPENDED]);
+    loadActivePoliciesByRange(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [
+                POLICY_STATUS.ISSUED,
+                POLICY_STATUS.CURRENT,
+                POLICY_STATUS.SUSPENDED,
+            ]
+        );
         const sortBy: string = 'validityStartDate';
-        return this._policyService.getPolicies(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, DEFAULT_PER_PAGE, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+        return this._policyService
+            .getPolicies(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                DEFAULT_PER_PAGE,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadContactReceiptsAppliedByRange(contactId: string, page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
+    loadContactReceiptsAppliedByRange(
+        contactId: string,
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
         const filters: string = '';
         const sortBy: string = 'applicationDate';
-        return this._receiptPaidService.getContactReceiptsPaid(contactId, page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+        return this._receiptPaidService
+            .getContactReceiptsPaid(
+                contactId,
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadPolicyReceiptsPaid(contactId: string, policyId: string, paymentId: string, page: number): Observable<void> {
-        const fields: string = 'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
+    loadPolicyReceiptsPaid(
+        contactId: string,
+        policyId: string,
+        paymentId: string,
+        page: number
+    ): Observable<void> {
+        const fields: string =
+            'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
         const filters: string = '';
         const sortBy: string = 'applicationDate';
-        return this._receiptPaidService.getPolicyReceiptsPaid(contactId, policyId, paymentId, page, fields, filters, '', sortBy).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+        return this._receiptPaidService
+            .getPolicyReceiptsPaid(
+                contactId,
+                policyId,
+                paymentId,
+                page,
+                fields,
+                filters,
+                '',
+                sortBy
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadReceiptsAppliedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
+    loadReceiptsAppliedByRange(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
         const filters: string = '';
         const sortBy: string = 'applicationDate';
-        return this._receiptPaidService.getWorkspaceReceiptsPaid(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+        return this._receiptPaidService
+            .getWorkspaceReceiptsPaid(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadWorkspacePoliciesRenewedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [
-            POLICY_STATUS.ISSUED, 
-            POLICY_STATUS.CURRENT, 
-            POLICY_STATUS.PENDING, 
-            POLICY_STATUS.SUSPENDED, 
-            POLICY_STATUS.FINISHED, 
-            POLICY_STATUS.CANCELLED
-        ]);
+    loadWorkspacePoliciesRenewedByRange(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [
+                POLICY_STATUS.ISSUED,
+                POLICY_STATUS.CURRENT,
+                POLICY_STATUS.PENDING,
+                POLICY_STATUS.SUSPENDED,
+                POLICY_STATUS.FINISHED,
+                POLICY_STATUS.CANCELLED,
+            ]
+        );
         const sortBy: string = 'emissionDate';
-        return this._policyService.getWorkspacePoliciesRenewed(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+        return this._policyService
+            .getWorkspacePoliciesRenewed(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadRenewedPoliciesByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
-        const sortBy: string = 'validityEndDate';
-        return this._policyService.getRenewedPolicies(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+    loadRenewedPoliciesByRange(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [
+                POLICY_STATUS.ISSUED,
+                POLICY_STATUS.CURRENT,
+                POLICY_STATUS.PENDING,
+                POLICY_STATUS.SUSPENDED,
+                POLICY_STATUS.FINISHED,
+            ]
         );
+        const sortBy: string = 'validityEndDate';
+        return this._policyService
+            .getRenewedPolicies(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadContactAppliedRenewalsByRange(contactId: string, page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
-        const sortBy: string = 'validityEndDate';
-        return this._policyService.getContactAppliedRenewals(contactId, page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+    loadContactAppliedRenewalsByRange(
+        contactId: string,
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [
+                POLICY_STATUS.ISSUED,
+                POLICY_STATUS.CURRENT,
+                POLICY_STATUS.PENDING,
+                POLICY_STATUS.SUSPENDED,
+                POLICY_STATUS.FINISHED,
+            ]
         );
+        const sortBy: string = 'validityEndDate';
+        return this._policyService
+            .getContactAppliedRenewals(
+                contactId,
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -254,17 +465,36 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadExternalPolicies(page: number, specialFilter: string): Observable<void> {
-        const fields: string = 'externalPolicyId,isChecked,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyAmount,policyNumber,insurerImageUrl,insuranceName,insuranceIcon,insuranceBackground,paymentMethodName,insuranceTypeName,currencyName,externalPolicyStatusId,externalPolicyStatusName,externalPolicyStatusDescription,lifeTime,contactId,contactName,externalPolicyStatusBackground';
-        const filters: string = UtilitiesHelper.generateHttpFilter('externalPolicyStatusId', [EXTERNAL_POLICY_STATUS.INCOMPLETE, EXTERNAL_POLICY_STATUS.CURRENT]);
-        const sortBy: string = '-createdAt';
-        return this._externalPolicyService.getWorkspaceExternalPolicies(fields, filters, page, 12, sortBy, '', '', '', specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+    loadExternalPolicies(
+        page: number,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'externalPolicyId,isChecked,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyAmount,policyNumber,insurerImageUrl,insuranceName,insuranceIcon,insuranceBackground,paymentMethodName,insuranceTypeName,currencyName,externalPolicyStatusId,externalPolicyStatusName,externalPolicyStatusDescription,lifeTime,contactId,contactName,externalPolicyStatusBackground';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'externalPolicyStatusId',
+            [EXTERNAL_POLICY_STATUS.INCOMPLETE, EXTERNAL_POLICY_STATUS.CURRENT]
         );
+        const sortBy: string = '-createdAt';
+        return this._externalPolicyService
+            .getWorkspaceExternalPolicies(
+                fields,
+                filters,
+                page,
+                12,
+                sortBy,
+                '',
+                '',
+                '',
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -273,17 +503,37 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadIncompletePolicies(page: number, specialFilter: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,contactName,insurerImageUrl,policyUrl';
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.INCOMPLETE]);
-        const sortBy: string = '-createdAt';
-        return this._policyService.getPolicies(page, fields, filters, '', sortBy, '', '', '', DEFAULT_PER_PAGE, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+    loadIncompletePolicies(
+        page: number,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,contactName,insurerImageUrl,policyUrl';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [POLICY_STATUS.INCOMPLETE]
         );
+        const sortBy: string = '-createdAt';
+        return this._policyService
+            .getPolicies(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                '',
+                '',
+                '',
+                DEFAULT_PER_PAGE,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -293,14 +543,18 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadClients(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
-        const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [contentSubtype]);
+        const fields: string =
+            'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'clientStatusId',
+            [contentSubtype]
+        );
         return this._clientService.getClients(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
             }),
-            map(() => { })
+            map(() => {})
         );
     }
 
@@ -311,14 +565,17 @@ export class ContentListService {
      * @return                The contact quotations
      */
     loadContactFiles(contactId: string, page: number): Observable<void> {
-        const fields: string = 'contactFileId,fileName,fileExtension,fileSize,fileUrl,createdAt,updatedAt,contactFileTypeName,createdByName,contactId';
-        return this._contactFileService.getContactFiles(contactId, page, fields).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+        const fields: string =
+            'contactFileId,fileName,fileExtension,fileSize,fileUrl,createdAt,updatedAt,contactFileTypeName,createdByName,contactId';
+        return this._contactFileService
+            .getContactFiles(contactId, page, fields)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -328,16 +585,23 @@ export class ContentListService {
      * @param  page           The page number
      * @return                Notice of action done
      */
-    loadContactHistoryPolicy(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeShortName,endorsementNumber,insurerName,policyNumber,policyCancellationReasonName,sourceContactId,sinisterTypeName,sinisterNumber,contactId,policyId,titularName,invoice,certificate,sinisterDate,dateLastEvent,totalEvents,endorsementComments,cancellationEvidenceUrl,sinisterResolutionName,sinisterResolutionCurrencyName,sinisterResolutionIndemnificationAmount,sinisterStatusId,endorsementAmount,endorsementPaymentMethodName,endorsementTypeId';
-        return this._policyService.getContactHistoryPolicy(contactId, policyId, page, fields).pipe(
-            tap((res: HttpResponse) => {
-                const policies: Policy[] = res.data.items;
-                this.contents = this.contents.concat(policies);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    loadContactHistoryPolicy(
+        contactId: string,
+        policyId: string,
+        page: number
+    ): Observable<void> {
+        const fields: string =
+            'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeShortName,endorsementNumber,insurerName,policyNumber,policyCancellationReasonName,sourceContactId,sinisterTypeName,sinisterNumber,contactId,policyId,titularName,invoice,certificate,sinisterDate,dateLastEvent,totalEvents,endorsementComments,cancellationEvidenceUrl,sinisterResolutionName,sinisterResolutionCurrencyName,sinisterResolutionIndemnificationAmount,sinisterStatusId,endorsementAmount,endorsementPaymentMethodName,endorsementTypeId';
+        return this._policyService
+            .getContactHistoryPolicy(contactId, policyId, page, fields)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const policies: Policy[] = res.data.items;
+                    this.contents = this.contents.concat(policies);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -347,15 +611,22 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                The contact quotations
      */
-    loadContactQuotations(contactId: string, page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
-        return this._quotationService.getContactQuotations(contactId, page, fields, contentSubtype).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+    loadContactQuotations(
+        contactId: string,
+        page: number,
+        contentSubtype: number
+    ): Observable<void> {
+        const fields: string =
+            'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+        return this._quotationService
+            .getContactQuotations(contactId, page, fields, contentSubtype)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -365,17 +636,31 @@ export class ContentListService {
      * @param  contentSubtype The content subtype
      * @return                Notice of action done
      */
-    loadContactPolicies(contactId: string, page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
-        const filters: number [] = (contentSubtype === POLICY_STATUS_ACTIVE) ? [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.SUSPENDED] : [contentSubtype];
-        return this._policyService.getContactPolicies(contactId, page, fields, filters).pipe(
-            tap((res: HttpResponse) => {
-                const policies: Policy[] = res.data.items;
-                this.contents = this.contents.concat(policies);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    loadContactPolicies(
+        contactId: string,
+        page: number,
+        contentSubtype: number
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+        const filters: number[] =
+            contentSubtype === POLICY_STATUS_ACTIVE
+                ? [
+                      POLICY_STATUS.ISSUED,
+                      POLICY_STATUS.CURRENT,
+                      POLICY_STATUS.SUSPENDED,
+                  ]
+                : [contentSubtype];
+        return this._policyService
+            .getContactPolicies(contactId, page, fields, filters)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const policies: Policy[] = res.data.items;
+                    this.contents = this.contents.concat(policies);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -385,16 +670,31 @@ export class ContentListService {
      * @param  contentSubtype The content subtype
      * @return                Notice of action done
      */
-    loadContactSinisters(contactId: string, page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
-        const filters: number [] = (contentSubtype === SINISTER_STATUS_OPEN) ? [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE] : [contentSubtype];
-        return this._sinisterService.getContactSinisters(contactId, page, fields, filters).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    loadContactSinisters(
+        contactId: string,
+        page: number,
+        contentSubtype: number
+    ): Observable<void> {
+        const fields: string =
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        const filters: number[] =
+            contentSubtype === SINISTER_STATUS_OPEN
+                ? [
+                      SINISTER_STATUS.RECENT,
+                      SINISTER_STATUS.PENDING,
+                      SINISTER_STATUS.UNFINISHED,
+                      SINISTER_STATUS.CONFLICTIVE,
+                  ]
+                : [contentSubtype];
+        return this._sinisterService
+            .getContactSinisters(contactId, page, fields, filters)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -403,14 +703,15 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadContacts(page: number): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        const fields: string =
+            'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
         return this._contactService.getContacts(page, fields).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
             }),
-            map( () => { })
-        )
+            map(() => {})
+        );
     }
 
     /**
@@ -420,14 +721,18 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadGroups(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground,totalMembers,totalGlobalWallet,totalGlobalWalletPaid,currencyName,totalActivePolicies,createdAt,totalOpenSinisters,createdByName';
-        const filters: string = UtilitiesHelper.generateHttpFilter('groupStatusId', [contentSubtype])
+        const fields: string =
+            'groupId,name,groupStatusName,groupStatusBackground,totalMembers,totalGlobalWallet,totalGlobalWalletPaid,currencyName,totalActivePolicies,createdAt,totalOpenSinisters,createdByName';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'groupStatusId',
+            [contentSubtype]
+        );
         return this._groupService.getGroups(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
-                    this.contents = this.contents.concat(res.data.items);
-                    this._loadContentResultData(res.data.totalItems);
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
             }),
-            map(() => { })
+            map(() => {})
         );
     }
 
@@ -438,14 +743,17 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadGroupMembers(groupId: string, page: number): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
-        return this._groupMemberService.getGroupMembers(groupId, fields, page).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+        const fields: string =
+            'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        return this._groupMemberService
+            .getGroupMembers(groupId, fields, page)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -455,17 +763,31 @@ export class ContentListService {
      * @param  contentSubtype The content subtype
      * @return                Notice of action done
      */
-    loadGroupPolicies(groupId: string, page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,groupId,paymentId,policyCancellationReasonId,contactId';
-        const filters: number [] = (contentSubtype === POLICY_STATUS_ACTIVE) ? [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.SUSPENDED] : [contentSubtype];
-        return this._policyService.getGroupPolicies(groupId, page, fields, filters).pipe(
-            tap((res: HttpResponse) => {
-                const policies: Policy[] = res.data.items;
-                this.contents = this.contents.concat(policies);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    loadGroupPolicies(
+        groupId: string,
+        page: number,
+        contentSubtype: number
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,groupId,paymentId,policyCancellationReasonId,contactId';
+        const filters: number[] =
+            contentSubtype === POLICY_STATUS_ACTIVE
+                ? [
+                      POLICY_STATUS.ISSUED,
+                      POLICY_STATUS.CURRENT,
+                      POLICY_STATUS.SUSPENDED,
+                  ]
+                : [contentSubtype];
+        return this._policyService
+            .getGroupPolicies(groupId, page, fields, filters)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const policies: Policy[] = res.data.items;
+                    this.contents = this.contents.concat(policies);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -475,16 +797,31 @@ export class ContentListService {
      * @param  contentSubtype The content subtype
      * @return                Notice of action done
      */
-    loadGroupSinisters(groupId: string, page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
-        const filters: number [] = (contentSubtype === SINISTER_STATUS_OPEN) ? [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE] : [contentSubtype];
-        return this._sinisterService.getGroupSinisters(groupId, page, fields, filters).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    loadGroupSinisters(
+        groupId: string,
+        page: number,
+        contentSubtype: number
+    ): Observable<void> {
+        const fields: string =
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        const filters: number[] =
+            contentSubtype === SINISTER_STATUS_OPEN
+                ? [
+                      SINISTER_STATUS.RECENT,
+                      SINISTER_STATUS.PENDING,
+                      SINISTER_STATUS.UNFINISHED,
+                      SINISTER_STATUS.CONFLICTIVE,
+                  ]
+                : [contentSubtype];
+        return this._sinisterService
+            .getGroupSinisters(groupId, page, fields, filters)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -494,14 +831,18 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadLeads(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName';
-        const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [contentSubtype])
+        const fields: string =
+            'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'leadStatusId',
+            [contentSubtype]
+        );
         return this._leadService.getLeads(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
-                    this.contents = this.contents.concat(res.data.items);
-                    this._loadContentResultData(res.data.totalItems);
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
             }),
-            map(() => { })
+            map(() => {})
         );
     }
 
@@ -512,14 +853,18 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPartners(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'partnerId,name,createdAt,partnerStatusName,partnerStatusBackground,totalClients,totalPolicies,wallet,walletPaid,currencyName,totalSinisters,createdByName';
-        const filters: string = UtilitiesHelper.generateHttpFilter('partnerStatusId', [contentSubtype])
+        const fields: string =
+            'partnerId,name,createdAt,partnerStatusName,partnerStatusBackground,totalClients,totalPolicies,wallet,walletPaid,currencyName,totalSinisters,createdByName';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'partnerStatusId',
+            [contentSubtype]
+        );
         return this._partnerService.getPartners(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
-                    this.contents = this.contents.concat(res.data.items);
-                    this._loadContentResultData(res.data.totalItems);
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
             }),
-            map(() => { })
+            map(() => {})
         );
     }
 
@@ -530,14 +875,17 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPartnerClients(partnerId: string, page: number): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalPartnerWallet,totalActivePartnerPolicies,currencyName';
-        return this._partnerService.getPartnerClients(partnerId, fields, page).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+        const fields: string =
+            'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalPartnerWallet,totalActivePartnerPolicies,currencyName';
+        return this._partnerService
+            .getPartnerClients(partnerId, fields, page)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -547,17 +895,31 @@ export class ContentListService {
      * @param  contentSubtype The content subtype
      * @return                Notice of action done
      */
-    loadPartnerPolicies(partnerId: string, page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,partnerId,paymentId,policyCancellationReasonId,contactId';
-        const filters: number [] = (contentSubtype === POLICY_STATUS_ACTIVE) ? [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.SUSPENDED] : [contentSubtype];
-        return this._policyService.getPartnerPolicies(partnerId, page, fields, filters).pipe(
-            tap((res: HttpResponse) => {
-                const policies: Policy[] = res.data.items;
-                this.contents = this.contents.concat(policies);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    loadPartnerPolicies(
+        partnerId: string,
+        page: number,
+        contentSubtype: number
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,partnerId,paymentId,policyCancellationReasonId,contactId';
+        const filters: number[] =
+            contentSubtype === POLICY_STATUS_ACTIVE
+                ? [
+                      POLICY_STATUS.ISSUED,
+                      POLICY_STATUS.CURRENT,
+                      POLICY_STATUS.SUSPENDED,
+                  ]
+                : [contentSubtype];
+        return this._policyService
+            .getPartnerPolicies(partnerId, page, fields, filters)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const policies: Policy[] = res.data.items;
+                    this.contents = this.contents.concat(policies);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -567,16 +929,31 @@ export class ContentListService {
      * @param  contentSubtype The content subtype
      * @return                Notice of action done
      */
-    loadPartnerSinisters(partnerId: string, page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
-        const filters: number [] = (contentSubtype === SINISTER_STATUS_OPEN) ? [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE] : [contentSubtype];
-        return this._sinisterService.getPartnerSinisters(partnerId, page, fields, filters).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    loadPartnerSinisters(
+        partnerId: string,
+        page: number,
+        contentSubtype: number
+    ): Observable<void> {
+        const fields: string =
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        const filters: number[] =
+            contentSubtype === SINISTER_STATUS_OPEN
+                ? [
+                      SINISTER_STATUS.RECENT,
+                      SINISTER_STATUS.PENDING,
+                      SINISTER_STATUS.UNFINISHED,
+                      SINISTER_STATUS.CONFLICTIVE,
+                  ]
+                : [contentSubtype];
+        return this._sinisterService
+            .getPartnerSinisters(partnerId, page, fields, filters)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -586,16 +963,22 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPayments(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
-        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [contentSubtype]);
-        const sortBy: string = 'paymentDate';
-        return this._paymentService.getPayments(page, fields, filters, '', sortBy).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+        const fields: string =
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'paymentStatusId',
+            [contentSubtype]
         );
+        const sortBy: string = 'paymentDate';
+        return this._paymentService
+            .getPayments(page, fields, filters, '', sortBy)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -604,69 +987,181 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadPoliciesToRenew(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
-        const sortBy: string = 'validityEndDate';
-        return this._policyService.getPoliciesToRenew(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+    loadPoliciesToRenew(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [
+                POLICY_STATUS.ISSUED,
+                POLICY_STATUS.CURRENT,
+                POLICY_STATUS.PENDING,
+                POLICY_STATUS.SUSPENDED,
+                POLICY_STATUS.FINISHED,
+            ]
         );
-    }
-
-    loadWorkspaceLeadsConvertedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName';
-        const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED])
-        const query: string = '';
-        return this._leadService.getLeads(page, fields, filters, query, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
+        const sortBy: string = 'validityEndDate';
+        return this._policyService
+            .getPoliciesToRenew(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
                     this.contents = this.contents.concat(res.data.items);
                     this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+                }),
+                map(() => {})
+            );
     }
 
-    loadWorkspaceClientsConvertedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName,createdAt';
-        const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL])
+    loadWorkspaceLeadsConvertedByRange(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'leadStatusId',
+            [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED]
+        );
+        const query: string = '';
+        return this._leadService
+            .getLeads(
+                page,
+                fields,
+                filters,
+                query,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
+    }
+
+    loadWorkspaceClientsConvertedByRange(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName,createdAt';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'clientStatusId',
+            [
+                CLIENT_STATUS.OCCASIONAL,
+                CLIENT_STATUS.FREQUENT,
+                CLIENT_STATUS.INFLUENTIAL,
+            ]
+        );
         const query: string = '';
         const perPage: number = DEFAULT_PER_PAGE;
-        return this._clientService.getClients(page, fields, filters, query, perPage, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
+        return this._clientService
+            .getClients(
+                page,
+                fields,
+                filters,
+                query,
+                perPage,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
                     this.contents = this.contents.concat(res.data.items);
                     this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+                }),
+                map(() => {})
+            );
     }
 
-    loadContactPendingRenewalsByRange(contactId: string, page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
+    loadContactPendingRenewalsByRange(
+        contactId: string,
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [
+                POLICY_STATUS.ISSUED,
+                POLICY_STATUS.CURRENT,
+                POLICY_STATUS.PENDING,
+                POLICY_STATUS.SUSPENDED,
+                POLICY_STATUS.FINISHED,
+            ]
+        );
         const sortBy: string = 'validityEndDate';
-        return this._policyService.getContactPendingRenewals(contactId, page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+        return this._policyService
+            .getContactPendingRenewals(
+                contactId,
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadPolicyInsureds(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'policyInsuredId,insurerImageUrl,insuredStatusBackground,insuredStatusName,insuredStatusId,insuranceName,insuranceTypeName,insuranceBackground,insuranceIcon,currencyName,totalAmount,coveredProperty,certificate,contactId,policyId,validityStartDate,validityEndDate,lifeTime,fatherPolicyUrl,policyUrl';
-        return this._policyInsuredService.getPolicyInsureds(contactId, policyId, fields, page).pipe(
-            tap((res: HttpResponse) => {
-                const policyInsureds: Insured[] = res.data.items;
-                this.contents = this.contents.concat(policyInsureds);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    loadPolicyInsureds(
+        contactId: string,
+        policyId: string,
+        page: number
+    ): Observable<void> {
+        const fields: string =
+            'policyInsuredId,insurerImageUrl,insuredStatusBackground,insuredStatusName,insuredStatusId,insuranceName,insuranceTypeName,insuranceBackground,insuranceIcon,currencyName,totalAmount,coveredProperty,certificate,contactId,policyId,validityStartDate,validityEndDate,lifeTime,fatherPolicyUrl,policyUrl';
+        return this._policyInsuredService
+            .getPolicyInsureds(contactId, policyId, fields, page)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const policyInsureds: Insured[] = res.data.items;
+                    this.contents = this.contents.concat(policyInsureds);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -675,30 +1170,88 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadPendingPaymentsByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
-        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE, PAYMENT_STATUS.STANDBY]);
-        const sortBy: string = 'paymentDate';
-        return this._paymentService.getPayments(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+    loadPendingPaymentsByRange(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'paymentStatusId',
+            [
+                PAYMENT_STATUS.INTIME,
+                PAYMENT_STATUS.PENDING,
+                PAYMENT_STATUS.LATE,
+                PAYMENT_STATUS.OVERDUE,
+                PAYMENT_STATUS.STANDBY,
+            ]
         );
+        const sortBy: string = 'paymentDate';
+        return this._paymentService
+            .getPayments(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadContactPendingPaymentsByRange(contactId: string, page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
-        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE, PAYMENT_STATUS.STANDBY]);
-        const sortBy: string = 'paymentDate';
-        return this._paymentService.getContactPayments(contactId, page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+    loadContactPendingPaymentsByRange(
+        contactId: string,
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'paymentStatusId',
+            [
+                PAYMENT_STATUS.INTIME,
+                PAYMENT_STATUS.PENDING,
+                PAYMENT_STATUS.LATE,
+                PAYMENT_STATUS.OVERDUE,
+                PAYMENT_STATUS.STANDBY,
+            ]
         );
+        const sortBy: string = 'paymentDate';
+        return this._paymentService
+            .getContactPayments(
+                contactId,
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -707,30 +1260,73 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadCancelledPolicies(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId,paymentId,policyCancellationReasonId';
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.CANCELLED])
-        const sortBy: string = '-updatedAt';
-        return this._policyService.getPolicies(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, DEFAULT_PER_PAGE, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+    loadCancelledPolicies(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId,paymentId,policyCancellationReasonId';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [POLICY_STATUS.CANCELLED]
         );
+        const sortBy: string = '-updatedAt';
+        return this._policyService
+            .getPolicies(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                DEFAULT_PER_PAGE,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadWorkspacePoliciesIssued(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+    loadWorkspacePoliciesIssued(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
         const filters: string = '';
         const sortBy: string = 'emissionDate';
-        return this._policyService.getPolicies(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, DEFAULT_PER_PAGE, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+        return this._policyService
+            .getPolicies(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                DEFAULT_PER_PAGE,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -739,17 +1335,26 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadCalendarPayments(page: number, specialFilter: number | string): Observable<void> {
-        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
-        const filters: string = UtilitiesHelper.generateHttpFilter('paymentDate', [specialFilter]);
-        const sortBy: string = 'paymentDate';
-        return this._paymentService.getPayments(page, fields, filters, '', sortBy).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+    loadCalendarPayments(
+        page: number,
+        specialFilter: number | string
+    ): Observable<void> {
+        const fields: string =
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'paymentDate',
+            [specialFilter]
         );
+        const sortBy: string = 'paymentDate';
+        return this._paymentService
+            .getPayments(page, fields, filters, '', sortBy)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -759,15 +1364,18 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPaymentHistory(paymentId: string, page: number): Observable<void> {
-        const fields: string = 'receiptPaidId,createdAt,applicationDate,receiptsAmount,receiptsNumber,createdByName,currencyName,paymentId,paymentEvidenceUrl';
-        return this._receiptPaidService.getReceiptsPaid(paymentId, page, fields).pipe(
-            tap((res: HttpResponse) => {
-                const receiptsPaid: ReceiptPaid[] = res.data.items;
-                this.contents = this.contents.concat(receiptsPaid);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+        const fields: string =
+            'receiptPaidId,createdAt,applicationDate,receiptsAmount,receiptsNumber,createdByName,currencyName,paymentId,paymentEvidenceUrl';
+        return this._receiptPaidService
+            .getReceiptsPaid(paymentId, page, fields)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const receiptsPaid: ReceiptPaid[] = res.data.items;
+                    this.contents = this.contents.concat(receiptsPaid);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -777,39 +1385,57 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadPendingReceipts(paymentId: string, page: number): Observable<void> {
-        const fields: string = 'pendingReceipts,paymentPlanMonths,paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,validityStartDate';
+        const fields: string =
+            'pendingReceipts,paymentPlanMonths,paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,validityStartDate';
         const perPage: number = DEFAULT_PER_PAGE;
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap((res: HttpResponse) => {
                 const payment: Payment = res.data;
-                if(page === 1) this.nextPaymentDate = payment.paymentDate;
+                if (page === 1) this.nextPaymentDate = payment.paymentDate;
                 let items: number = 0;
-                const start: number = payment.tickets + ((page - 1) * DEFAULT_PER_PAGE);
-                const paymentDay: number = parseInt(moment(payment.validityStartDate).format('D'));
-                for(let i = start; i<payment.bills; i++) {
+                const start: number =
+                    payment.tickets + (page - 1) * DEFAULT_PER_PAGE;
+                const paymentDay: number = parseInt(
+                    moment(payment.validityStartDate).format('D')
+                );
+                for (let i = start; i < payment.bills; i++) {
                     items++;
-                    const paymentAux: Payment = {...payment};
+                    const paymentAux: Payment = { ...payment };
                     paymentAux.tickets = i;
                     paymentAux.paymentDate = this.nextPaymentDate;
                     this.contents.push(paymentAux);
-                    this.nextPaymentDate = this._calculateNextPaymentDate(this.nextPaymentDate, payment.paymentPlanMonths, paymentDay);
-                    if(items === perPage) {
+                    this.nextPaymentDate = this._calculateNextPaymentDate(
+                        this.nextPaymentDate,
+                        payment.paymentPlanMonths,
+                        paymentDay
+                    );
+                    if (items === perPage) {
                         break;
                     }
                 }
                 this._loadContentResultData(res.data.pendingReceipts);
             }),
-            map( () => { })
-        )
+            map(() => {})
+        );
     }
 
-    private _calculateNextPaymentDate(paymentDate: string, paymentPlanMonths: string, paymentDay: number): string {
-        let nextPaymentDate: string = moment(paymentDate).add(paymentPlanMonths, 'months').format('YYYY-MM-DD');
-        const nextPaymentDay: number = parseInt(moment(nextPaymentDate).format('D'));
+    private _calculateNextPaymentDate(
+        paymentDate: string,
+        paymentPlanMonths: string,
+        paymentDay: number
+    ): string {
+        let nextPaymentDate: string = moment(paymentDate)
+            .add(paymentPlanMonths, 'months')
+            .format('YYYY-MM-DD');
+        const nextPaymentDay: number = parseInt(
+            moment(nextPaymentDate).format('D')
+        );
         const daysInMonth: number = moment(nextPaymentDate).daysInMonth();
-        if(nextPaymentDay < daysInMonth) {
+        if (nextPaymentDay < daysInMonth) {
             const leftDays: number = paymentDay - nextPaymentDay;
-            nextPaymentDate = moment(nextPaymentDate).add(leftDays, 'days').format('YYYY-MM-DD');
+            nextPaymentDate = moment(nextPaymentDate)
+                .add(leftDays, 'days')
+                .format('YYYY-MM-DD');
         }
         return nextPaymentDate;
     }
@@ -821,39 +1447,74 @@ export class ContentListService {
      * @param  page           The page number
      * @return                Notice of action done
      */
-    loadPolicyEndorsements(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeShortName,endorsementNumber,contactId,policyId,titularName,endorsementComments';
-        return this._endorsementService.getPolicyEndorsements(contactId, policyId, page, fields).pipe(
-            tap((res: HttpResponse) => {
-                const policies: Policy[] = res.data.items;
-                this.contents = this.contents.concat(policies);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    loadPolicyEndorsements(
+        contactId: string,
+        policyId: string,
+        page: number
+    ): Observable<void> {
+        const fields: string =
+            'createdAt,sourceId,policyRecordTypeId,policyRecordTypeName,policyRecordTypeDescription,policyRecordTypeBackground,policyRecordTypeIcon,createdByName,endorsementTypeShortName,endorsementNumber,contactId,policyId,titularName,endorsementComments';
+        return this._endorsementService
+            .getPolicyEndorsements(contactId, policyId, page, fields)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const policies: Policy[] = res.data.items;
+                    this.contents = this.contents.concat(policies);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadPolicyRenewals(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'contactId,policyId,createdByName,insurerName,policyNumber,createdAt';
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED, POLICY_STATUS.CANCELLED]);
+    loadPolicyRenewals(
+        contactId: string,
+        policyId: string,
+        page: number
+    ): Observable<void> {
+        const fields: string =
+            'contactId,policyId,createdByName,insurerName,policyNumber,createdAt';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [
+                POLICY_STATUS.ISSUED,
+                POLICY_STATUS.CURRENT,
+                POLICY_STATUS.PENDING,
+                POLICY_STATUS.SUSPENDED,
+                POLICY_STATUS.FINISHED,
+                POLICY_STATUS.CANCELLED,
+            ]
+        );
         const perPage: number = 12;
-        return this._policyService.getPolicyTracker(contactId, policyId, fields, filters, page, perPage).pipe(
-            tap((res: HttpResponse) => {
-                const totalItemsLoaded: number = this.renewals.length;
-                this.renewals = this.renewals.concat(res.data.items);
-                const renewals: Renewal[] = res.data.items;
-                if(page === 1 && renewals.length > 0) {
-                    renewals.shift();
-                }
-                for(let index in renewals) {
-                    renewals[index].previousPolicyNumber = this.renewals[totalItemsLoaded + parseInt(index)].policyNumber;
-                }
-                this.contents = this.contents.concat(renewals);
-                const totalItems: number = (res.data.totalItems > 0) ? res.data.totalItems - 1 : 0;
-                this._loadContentResultData(totalItems);
-            }),
-            map( () => { })
-        )
+        return this._policyService
+            .getPolicyTracker(
+                contactId,
+                policyId,
+                fields,
+                filters,
+                page,
+                perPage
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const totalItemsLoaded: number = this.renewals.length;
+                    this.renewals = this.renewals.concat(res.data.items);
+                    const renewals: Renewal[] = res.data.items;
+                    if (page === 1 && renewals.length > 0) {
+                        renewals.shift();
+                    }
+                    for (let index in renewals) {
+                        renewals[index].previousPolicyNumber =
+                            this.renewals[
+                                totalItemsLoaded + parseInt(index)
+                            ].policyNumber;
+                    }
+                    this.contents = this.contents.concat(renewals);
+                    const totalItems: number =
+                        res.data.totalItems > 0 ? res.data.totalItems - 1 : 0;
+                    this._loadContentResultData(totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -863,37 +1524,75 @@ export class ContentListService {
      * @param  page           The page number
      * @return                Notice of action done
      */
-    loadPolicyTracker(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,groupId,paymentId,policyCancellationReasonId,contactId';
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED, POLICY_STATUS.CANCELLED]);
-        return this._policyService.getPolicyTracker(contactId, policyId, fields, filters, page).pipe(
-            tap((res: HttpResponse) => {
-                const policies: Policy[] = res.data.items;
-                this.contents = this.contents.concat(policies);
-                const totalItems: number = (res.data.totalItems > 0) ? res.data.totalItems - 1 : 0;
-                this._loadContentResultData(totalItems, true);
-            }),
-            map( () => { })
-        )
+    loadPolicyTracker(
+        contactId: string,
+        policyId: string,
+        page: number
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,groupId,paymentId,policyCancellationReasonId,contactId';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [
+                POLICY_STATUS.ISSUED,
+                POLICY_STATUS.CURRENT,
+                POLICY_STATUS.PENDING,
+                POLICY_STATUS.SUSPENDED,
+                POLICY_STATUS.FINISHED,
+                POLICY_STATUS.CANCELLED,
+            ]
+        );
+        return this._policyService
+            .getPolicyTracker(contactId, policyId, fields, filters, page)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const policies: Policy[] = res.data.items;
+                    this.contents = this.contents.concat(policies);
+                    const totalItems: number =
+                        res.data.totalItems > 0 ? res.data.totalItems - 1 : 0;
+                    this._loadContentResultData(totalItems, true);
+                }),
+                map(() => {})
+            );
     }
 
-    loadWorkspacePoliciesPending(page: number, specialFilter: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.PENDING]);
+    loadWorkspacePoliciesPending(
+        page: number,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [POLICY_STATUS.PENDING]
+        );
         const sortBy: string = '-createdAt';
-        return this._policyService.getPolicies(page, fields, filters, '', sortBy, '', '', '', DEFAULT_PER_PAGE, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                const policies: Policy[] = res.data.items;
-                this.contents = this.contents.concat(policies);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+        return this._policyService
+            .getPolicies(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                '',
+                '',
+                '',
+                DEFAULT_PER_PAGE,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const policies: Policy[] = res.data.items;
+                    this.contents = this.contents.concat(policies);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     getPolicyTrackerPos(policyId: string): number {
         let policyPosition: number = this._getPolicyPosition(policyId);
-        if(policyPosition < 0) {
+        if (policyPosition < 0) {
             policyPosition = this.contentResultData.totalItems;
         }
         return policyPosition;
@@ -905,42 +1604,74 @@ export class ContentListService {
      * @param  page           The page number
      * @return                Notice of action done
      */
-    loadPolicySinisters(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'sinisterId,createdByName,sinisterNumber,sinisterTypeName,sinisterDate,titularName,policyNumber,invoice,certificate,dateLastEvent,totalEvents,createdAt,createdByName,policyId,contactId,sinisterStatusId,sinisterResolutionName,sinisterResolutionCurrencyName,sinisterResolutionIndemnificationAmount';
-        return this._policyService.getPolicySinisters(contactId, policyId, page, fields).pipe(
-            tap((res: HttpResponse) => {
-                const sinisters: Sinister[] = res.data.items;
-                this.contents = this.contents.concat(sinisters);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    loadPolicySinisters(
+        contactId: string,
+        policyId: string,
+        page: number
+    ): Observable<void> {
+        const fields: string =
+            'sinisterId,createdByName,sinisterNumber,sinisterTypeName,sinisterDate,titularName,policyNumber,invoice,certificate,dateLastEvent,totalEvents,createdAt,createdByName,policyId,contactId,sinisterStatusId,sinisterResolutionName,sinisterResolutionCurrencyName,sinisterResolutionIndemnificationAmount';
+        return this._policyService
+            .getPolicySinisters(contactId, policyId, page, fields)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const sinisters: Sinister[] = res.data.items;
+                    this.contents = this.contents.concat(sinisters);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadPolicyClosedSinisters(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
-        const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.FINISHED]);
-        return this._policyService.getPolicySinisters(contactId, policyId, page, fields, filters).pipe(
-            tap((res: HttpResponse) => {
-                const sinisters: Sinister[] = res.data.items;
-                this.contents = this.contents.concat(sinisters);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    loadPolicyClosedSinisters(
+        contactId: string,
+        policyId: string,
+        page: number
+    ): Observable<void> {
+        const fields: string =
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'sinisterStatusId',
+            [SINISTER_STATUS.FINISHED]
+        );
+        return this._policyService
+            .getPolicySinisters(contactId, policyId, page, fields, filters)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const sinisters: Sinister[] = res.data.items;
+                    this.contents = this.contents.concat(sinisters);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadPolicyOpenSinisters(contactId: string, policyId: string, page: number): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
-        const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE]);
-        return this._policyService.getPolicySinisters(contactId, policyId, page, fields, filters).pipe(
-            tap((res: HttpResponse) => {
-                const sinisters: Sinister[] = res.data.items;
-                this.contents = this.contents.concat(sinisters);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    loadPolicyOpenSinisters(
+        contactId: string,
+        policyId: string,
+        page: number
+    ): Observable<void> {
+        const fields: string =
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'sinisterStatusId',
+            [
+                SINISTER_STATUS.RECENT,
+                SINISTER_STATUS.PENDING,
+                SINISTER_STATUS.UNFINISHED,
+                SINISTER_STATUS.CONFLICTIVE,
+            ]
+        );
+        return this._policyService
+            .getPolicySinisters(contactId, policyId, page, fields, filters)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const sinisters: Sinister[] = res.data.items;
+                    this.contents = this.contents.concat(sinisters);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -949,42 +1680,103 @@ export class ContentListService {
      * @param  contentSubtype The filter to apply
      * @return                Notice of action done
      */
-    loadQuotationsByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string): Observable<void> {
-        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+    loadQuotationsByRange(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string
+    ): Observable<void> {
+        const fields: string =
+            'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
         const sortBy: string = '-createdAt';
-        return this._quotationService.getQuotations(page, fields, '', '', sortBy, rangeField, rangeStart, rangeEnd).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
-        );
+        return this._quotationService
+            .getQuotations(
+                page,
+                fields,
+                '',
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadWorkspaceQuotationsClosedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+    loadWorkspaceQuotationsClosedByRange(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
         const sortBy: string = '-createdAt';
-        const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.ACCEPTED, QUOTATION_STATUS.REJECTED]);
-        return this._quotationService.getQuotations(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'quotationStatusId',
+            [QUOTATION_STATUS.ACCEPTED, QUOTATION_STATUS.REJECTED]
         );
+        return this._quotationService
+            .getQuotations(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadWorkspaceQuotationsOpenedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+    loadWorkspaceQuotationsOpenedByRange(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
         const sortBy: string = '-createdAt';
-        const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.PENDING]);
-        return this._quotationService.getQuotations(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'quotationStatusId',
+            [QUOTATION_STATUS.PENDING]
         );
+        return this._quotationService
+            .getQuotations(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -994,14 +1786,18 @@ export class ContentListService {
      * @return                Notice of action done
      */
     loadSinisters(page: number, contentSubtype: number): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
-        const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [contentSubtype])
+        const fields: string =
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'sinisterStatusId',
+            [contentSubtype]
+        );
         return this._sinisterService.getSinisters(page, fields, filters).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
             }),
-            map(() => { })
+            map(() => {})
         );
     }
 
@@ -1011,61 +1807,161 @@ export class ContentListService {
      * @param  page           The page number
      * @return                Notice of action done
      */
-    loadSinisterLogs(contactId: string, policyId: string, sinisterId: string, page: number): Observable<void> {
-        const fields: string = 'sinisterLogId,sinisterRecordTypeId,sinisterRecordTypeName,providerDate,observations,sinisterResolutionName,indemnificationAmount,resolutionDate,sinisterReactivationName,reactivationDate,createdAt,createdByName,contactId,policyId,sinisterId,logSourceId,finishedEvidenceUrl,reactivatedEvidenceUrl,sinisterEventTypeName,sinisterEventFinishDate,sinisterEventFinishAmount,sinisterEventFinishFolio,sinisterEventTypeId,providerName,providerFolio,providerPhoneNumber,providerEmail,providerBill,sinisterEventEvidenceUrl,currencyName,paymentMethodName';
+    loadSinisterLogs(
+        contactId: string,
+        policyId: string,
+        sinisterId: string,
+        page: number
+    ): Observable<void> {
+        const fields: string =
+            'sinisterLogId,sinisterRecordTypeId,sinisterRecordTypeName,providerDate,observations,sinisterResolutionName,indemnificationAmount,resolutionDate,sinisterReactivationName,reactivationDate,createdAt,createdByName,contactId,policyId,sinisterId,logSourceId,finishedEvidenceUrl,reactivatedEvidenceUrl,sinisterEventTypeName,sinisterEventFinishDate,sinisterEventFinishAmount,sinisterEventFinishFolio,sinisterEventTypeId,providerName,providerFolio,providerPhoneNumber,providerEmail,providerBill,sinisterEventEvidenceUrl,currencyName,paymentMethodName';
         const sortBy: string = '-createdAt';
-        return this._sinisterService.getSinisterLogs(contactId, policyId, sinisterId, page, fields, sortBy).pipe(
-            tap((res: HttpResponse) => {
-                const sinisterLogs: SinisterLog[] = res.data.items;
-                for(let sinisterLog of sinisterLogs) {
-                    if(sinisterLog.sinisterRecordTypeId === SINISTER_RECORD_TYPES.NEW_EVENT) {
-                        sinisterLog.sinisterEventDetails = SinisterEventHelper.generateSinisterEventDetails({...sinisterLog});
+        return this._sinisterService
+            .getSinisterLogs(
+                contactId,
+                policyId,
+                sinisterId,
+                page,
+                fields,
+                sortBy
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    const sinisterLogs: SinisterLog[] = res.data.items;
+                    for (let sinisterLog of sinisterLogs) {
+                        if (
+                            sinisterLog.sinisterRecordTypeId ===
+                            SINISTER_RECORD_TYPES.NEW_EVENT
+                        ) {
+                            sinisterLog.sinisterEventDetails =
+                                SinisterEventHelper.generateSinisterEventDetails(
+                                    { ...sinisterLog }
+                                );
+                        }
                     }
-                }
-                this.contents = this.contents.concat(sinisterLogs);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+                    this.contents = this.contents.concat(sinisterLogs);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadInsuranceSinistersByRange(insuranceId: number, page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
-        const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE, SINISTER_STATUS.FINISHED]);
-        const sortBy: string = 'sinisterDate';
-        return this._sinisterService.getInsuranceSinisters(insuranceId, page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+    loadInsuranceSinistersByRange(
+        insuranceId: number,
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'sinisterStatusId',
+            [
+                SINISTER_STATUS.RECENT,
+                SINISTER_STATUS.PENDING,
+                SINISTER_STATUS.UNFINISHED,
+                SINISTER_STATUS.CONFLICTIVE,
+                SINISTER_STATUS.FINISHED,
+            ]
         );
+        const sortBy: string = 'sinisterDate';
+        return this._sinisterService
+            .getInsuranceSinisters(
+                insuranceId,
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadOpenedSinistersByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
-        const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.RECENT, SINISTER_STATUS.PENDING, SINISTER_STATUS.UNFINISHED, SINISTER_STATUS.CONFLICTIVE]);
-        const sortBy: string = 'sinisterDate';
-        return this._sinisterService.getSinisters(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+    loadOpenedSinistersByRange(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'sinisterStatusId',
+            [
+                SINISTER_STATUS.RECENT,
+                SINISTER_STATUS.PENDING,
+                SINISTER_STATUS.UNFINISHED,
+                SINISTER_STATUS.CONFLICTIVE,
+            ]
         );
+        const sortBy: string = 'sinisterDate';
+        return this._sinisterService
+            .getSinisters(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    loadWorkspaceSinistersClosedByRange(page: number, rangeField: string, rangeStart: string, rangeEnd: string, specialFilter: string): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
-        const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [SINISTER_STATUS.FINISHED]);
-        const sortBy: string = 'sinisterDate';
-        return this._sinisterService.getSinisters(page, fields, filters, '', sortBy, rangeField, rangeStart, rangeEnd, specialFilter).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map(() => { })
+    loadWorkspaceSinistersClosedByRange(
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'sinisterStatusId',
+            [SINISTER_STATUS.FINISHED]
         );
+        const sortBy: string = 'sinisterDate';
+        return this._sinisterService
+            .getSinisters(
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1083,9 +1979,17 @@ export class ContentListService {
      * @param  contactId       The contact ID
      * @return                 The reissued policy ID
      */
-    reissuePolicy(originContactId: string, originPolicyId: string, contactId: string): Observable<HttpResponse> {
-        const requestBody: RenewContactPolicyDataSend = { contactId }
-        return this._policyService.reissueContactPolicy(originContactId, originPolicyId, requestBody);
+    reissuePolicy(
+        originContactId: string,
+        originPolicyId: string,
+        contactId: string
+    ): Observable<HttpResponse> {
+        const requestBody: RenewContactPolicyDataSend = { contactId };
+        return this._policyService.reissueContactPolicy(
+            originContactId,
+            originPolicyId,
+            requestBody
+        );
     }
 
     /**
@@ -1095,9 +1999,17 @@ export class ContentListService {
      * @param  contactId       The contact ID
      * @return                 The renewed policy ID
      */
-    renewPolicy(originContactId: string, originPolicyId: string, contactId: string): Observable<HttpResponse> {
-        const requestBody: RenewContactPolicyDataSend = { contactId }
-        return this._policyService.renewContactPolicy(originContactId, originPolicyId, requestBody);
+    renewPolicy(
+        originContactId: string,
+        originPolicyId: string,
+        contactId: string
+    ): Observable<HttpResponse> {
+        const requestBody: RenewContactPolicyDataSend = { contactId };
+        return this._policyService.renewContactPolicy(
+            originContactId,
+            originPolicyId,
+            requestBody
+        );
     }
 
     /**
@@ -1107,15 +2019,26 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchClients(page: number, query: string): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName,createdAt';
-        const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL, CLIENT_STATUS.LOST])
-        return this._clientService.getClients(page, fields, filters, query).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+        const fields: string =
+            'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName,createdAt';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'clientStatusId',
+            [
+                CLIENT_STATUS.OCCASIONAL,
+                CLIENT_STATUS.FREQUENT,
+                CLIENT_STATUS.INFLUENTIAL,
+                CLIENT_STATUS.LOST,
+            ]
+        );
+        return this._clientService
+            .getClients(page, fields, filters, query)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1124,15 +2047,22 @@ export class ContentListService {
      * @param  query The query to search
      * @return       Notice of action done
      */
-    searchContacts(page: number, query: string, specialQuery: SearchContactData | null): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
-        return this._contactService.getContacts(page, fields, query, specialQuery).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    searchContacts(
+        page: number,
+        query: string,
+        specialQuery: SearchContactData | null
+    ): Observable<void> {
+        const fields: string =
+            'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        return this._contactService
+            .getContacts(page, fields, query, specialQuery)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1142,15 +2072,22 @@ export class ContentListService {
      * @param  query     The query to search
      * @return           Notice of action done
      */
-    searchContactFiles(contactId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'contactFileId,fileName,fileExtension,fileSize,fileUrl,createdAt,updatedAt,contactFileTypeName,createdByName,contactId';
-        return this._contactFileService.getContactFiles(contactId, page, fields, query).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    searchContactFiles(
+        contactId: string,
+        page: number,
+        query: string
+    ): Observable<void> {
+        const fields: string =
+            'contactFileId,fileName,fileExtension,fileSize,fileUrl,createdAt,updatedAt,contactFileTypeName,createdByName,contactId';
+        return this._contactFileService
+            .getContactFiles(contactId, page, fields, query)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1160,16 +2097,23 @@ export class ContentListService {
      * @param  query     The query to search
      * @return           Notice of action done
      */
-    searchContactPolicies(contactId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,createdAt,paymentId,policyCancellationReasonId';
-        query = 'multiple:'+query;
-        return this._policyService.getContactPolicies(contactId, page, fields, [], query).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    searchContactPolicies(
+        contactId: string,
+        page: number,
+        query: string
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,createdAt,paymentId,policyCancellationReasonId';
+        query = 'multiple:' + query;
+        return this._policyService
+            .getContactPolicies(contactId, page, fields, [], query)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1178,15 +2122,22 @@ export class ContentListService {
      * @param  query The query to search
      * @return       Notice of action done
      */
-    searchContactQuotations(contactId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
-        return this._quotationService.getContactQuotations(contactId, page, fields, 0, query).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    searchContactQuotations(
+        contactId: string,
+        page: number,
+        query: string
+    ): Observable<void> {
+        const fields: string =
+            'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+        return this._quotationService
+            .getContactQuotations(contactId, page, fields, 0, query)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1196,15 +2147,22 @@ export class ContentListService {
      * @param  query     The query to search
      * @return           Notice of action done
      */
-    searchContactSinisters(contactId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
-        return this._sinisterService.getContactSinisters(contactId, page, fields, [], query).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    searchContactSinisters(
+        contactId: string,
+        page: number,
+        query: string
+    ): Observable<void> {
+        const fields: string =
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        return this._sinisterService
+            .getContactSinisters(contactId, page, fields, [], query)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1214,25 +2172,33 @@ export class ContentListService {
      * @return           Notice of action done
      */
     searchGroups(page: number, query: string): Observable<void> {
-        const fields: string = 'groupId,name,groupStatusName,groupStatusBackground,totalMembers,totalGlobalWallet,totalGlobalWalletPaid,currencyName,totalActivePolicies,createdAt,totalOpenSinisters,createdByName';
+        const fields: string =
+            'groupId,name,groupStatusName,groupStatusBackground,totalMembers,totalGlobalWallet,totalGlobalWalletPaid,currencyName,totalActivePolicies,createdAt,totalOpenSinisters,createdByName';
         return this._groupService.getGroups(page, fields, '', query).pipe(
             tap((res: HttpResponse) => {
-                    this.contents = this.contents.concat(res.data.items);
-                    this._loadContentResultData(res.data.totalItems);
+                this.contents = this.contents.concat(res.data.items);
+                this._loadContentResultData(res.data.totalItems);
             }),
-            map(() => { })
+            map(() => {})
         );
     }
 
-    searchGroupMembers(groupId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
-        return this._groupMemberService.getGroupMembers(groupId, fields, page, query).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    searchGroupMembers(
+        groupId: string,
+        page: number,
+        query: string
+    ): Observable<void> {
+        const fields: string =
+            'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+        return this._groupMemberService
+            .getGroupMembers(groupId, fields, page, query)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1242,15 +2208,22 @@ export class ContentListService {
      * @param  query     The query to search
      * @return           Notice of action done
      */
-    searchGroupPolicies(groupId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId';
-        return this._policyService.getGroupPolicies(groupId, page, fields, [], query).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    searchGroupPolicies(
+        groupId: string,
+        page: number,
+        query: string
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId';
+        return this._policyService
+            .getGroupPolicies(groupId, page, fields, [], query)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1260,15 +2233,22 @@ export class ContentListService {
      * @param  query     The query to search
      * @return           Notice of action done
      */
-    searchGroupSinisters(groupId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
-        return this._sinisterService.getGroupSinisters(groupId, page, fields, [], query).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    searchGroupSinisters(
+        groupId: string,
+        page: number,
+        query: string
+    ): Observable<void> {
+        const fields: string =
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        return this._sinisterService
+            .getGroupSinisters(groupId, page, fields, [], query)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1278,15 +2258,24 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchLeads(page: number, query: string): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactScoreName';
-        const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED, LEAD_STATUS.DISCARDED])
+        const fields: string =
+            'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,contactSourceName,contactScoreName';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'leadStatusId',
+            [
+                LEAD_STATUS.NEW,
+                LEAD_STATUS.RECURRENT,
+                LEAD_STATUS.RECOVERED,
+                LEAD_STATUS.DISCARDED,
+            ]
+        );
         return this._leadService.getLeads(page, fields, filters, query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
             }),
-            map( () => { })
-        )
+            map(() => {})
+        );
     }
 
     /**
@@ -1296,27 +2285,44 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchPartners(page: number, query: string): Observable<void> {
-        const fields: string = 'partnerId,name,createdAt,partnerStatusName,partnerStatusBackground,totalClients,totalPolicies,wallet,walletPaid,currencyName,totalSinisters,createdByName';
-        const filters: string = UtilitiesHelper.generateHttpFilter('partnerStatusId', [PARTNER_STATUS.OCCASIONAL, PARTNER_STATUS.FREQUENT, PARTNER_STATUS.INFLUENTIAL, PARTNER_STATUS.INACTIVE])
-        return this._partnerService.getPartners(page, fields, filters, query).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+        const fields: string =
+            'partnerId,name,createdAt,partnerStatusName,partnerStatusBackground,totalClients,totalPolicies,wallet,walletPaid,currencyName,totalSinisters,createdByName';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'partnerStatusId',
+            [
+                PARTNER_STATUS.OCCASIONAL,
+                PARTNER_STATUS.FREQUENT,
+                PARTNER_STATUS.INFLUENTIAL,
+                PARTNER_STATUS.INACTIVE,
+            ]
+        );
+        return this._partnerService
+            .getPartners(page, fields, filters, query)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-
-    searchPartnerClients(partnerId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalPartnerWallet,totalActivePartnerPolicies,currencyName';
-        return this._partnerService.getPartnerClients(partnerId, fields, page, query).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    searchPartnerClients(
+        partnerId: string,
+        page: number,
+        query: string
+    ): Observable<void> {
+        const fields: string =
+            'contactId,contactName,avatarUrl,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalPartnerWallet,totalActivePartnerPolicies,currencyName';
+        return this._partnerService
+            .getPartnerClients(partnerId, fields, page, query)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1326,15 +2332,22 @@ export class ContentListService {
      * @param  query     The query to search
      * @return           Notice of action done
      */
-    searchPartnerPolicies(partnerId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,partnerId,paymentId,policyCancellationReasonId,contactId';
-        return this._policyService.getPartnerPolicies(partnerId, page, fields, [], query).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    searchPartnerPolicies(
+        partnerId: string,
+        page: number,
+        query: string
+    ): Observable<void> {
+        const fields: string =
+            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,partnerId,paymentId,policyCancellationReasonId,contactId';
+        return this._policyService
+            .getPartnerPolicies(partnerId, page, fields, [], query)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1344,15 +2357,22 @@ export class ContentListService {
      * @param  query     The query to search
      * @return           Notice of action done
      */
-    searchPartnerSinisters(partnerId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
-        return this._sinisterService.getPartnerSinisters(partnerId, page, fields, [], query).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+    searchPartnerSinisters(
+        partnerId: string,
+        page: number,
+        query: string
+    ): Observable<void> {
+        const fields: string =
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        return this._sinisterService
+            .getPartnerSinisters(partnerId, page, fields, [], query)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1362,29 +2382,48 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchPayments(page: number, query: string): Observable<void> {
-        const fields: string = 'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
+        const fields: string =
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
         query = 'multiple:' + query;
         const sortBy: string = 'paymentDate';
-        return this._paymentService.getPayments(page, fields, '', query, sortBy).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+        return this._paymentService
+            .getPayments(page, fields, '', query, sortBy)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
-    searchPolicyInsureds(contactId: string, policyId: string, page: number, query: string): Observable<void> {
-        const fields: string = 'policyInsuredId,insurerImageUrl,insuredStatusBackground,insuredStatusName,insuredStatusId,insuranceName,insuranceTypeName,insuranceBackground,insuranceIcon,currencyName,totalAmount,coveredProperty,certificate,contactId,policyId,validityStartDate,validityEndDate,lifeTime,fatherPolicyUrl,policyUrl';
-        query = 'certificate:'+query;
+    searchPolicyInsureds(
+        contactId: string,
+        policyId: string,
+        page: number,
+        query: string
+    ): Observable<void> {
+        const fields: string =
+            'policyInsuredId,insurerImageUrl,insuredStatusBackground,insuredStatusName,insuredStatusId,insuranceName,insuranceTypeName,insuranceBackground,insuranceIcon,currencyName,totalAmount,coveredProperty,certificate,contactId,policyId,validityStartDate,validityEndDate,lifeTime,fatherPolicyUrl,policyUrl';
+        query = 'certificate:' + query;
         const sortBy: string = 'insuredNumber';
-        return this._policyInsuredService.getPolicyInsureds(contactId, policyId, fields, page, DEFAULT_PER_PAGE, sortBy, query).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
-            }),
-            map( () => { })
-        )
+        return this._policyInsuredService
+            .getPolicyInsureds(
+                contactId,
+                policyId,
+                fields,
+                page,
+                DEFAULT_PER_PAGE,
+                sortBy,
+                query
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
     }
 
     /**
@@ -1394,24 +2433,27 @@ export class ContentListService {
      * @return       Notice of action done
      */
     searchSinisters(page: number, query: string): Observable<void> {
-        const fields: string = 'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
-        query = 'multiple:'+query;
+        const fields: string =
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+        query = 'multiple:' + query;
         return this._sinisterService.getSinisters(page, fields, '', query).pipe(
             tap((res: HttpResponse) => {
                 this.contents = this.contents.concat(res.data.items);
                 this._loadContentResultData(res.data.totalItems);
             }),
-            map( () => { })
-        )
+            map(() => {})
+        );
     }
 
     updateContentResultData(): void {
-        this.contentResultData.loadedItems -= 1; 
-        this.contentResultData.totalItems -= 1; 
+        this.contentResultData.loadedItems -= 1;
+        this.contentResultData.totalItems -= 1;
     }
 
     private _getContactPosition(contactId: string): number {
-        return this.contents.findIndex((value: Contact) => value.contactId == contactId)
+        return this.contents.findIndex(
+            (value: Contact) => value.contactId == contactId
+        );
     }
 
     /**
@@ -1420,11 +2462,15 @@ export class ContentListService {
      * @return          The policy position found
      */
     private _getPolicyPosition(policyId: string): number {
-        return this.contents.findIndex((value: Policy) => value.policyId == policyId)
+        return this.contents.findIndex(
+            (value: Policy) => value.policyId == policyId
+        );
     }
 
     private _getPolicyInsuredPosition(policyInsuredId: string): number {
-        return this.contents.findIndex((value: Insured) => value.policyInsuredId == policyInsuredId)
+        return this.contents.findIndex(
+            (value: Insured) => value.policyInsuredId == policyInsuredId
+        );
     }
 
     /**
@@ -1442,20 +2488,24 @@ export class ContentListService {
     private _initContentResultData(): ContentResultData {
         return {
             loadedItems: 0,
-            totalItems: 0
-        }
+            totalItems: 0,
+        };
     }
 
     /**
      * Load the content result data
      * @param totalItems   The total items
      */
-    private _loadContentResultData(totalItems: number, isTracker: boolean = false): void {
-        const loadedItems: number = (isTracker) ? this.contents.length - 1 : this.contents.length
+    private _loadContentResultData(
+        totalItems: number,
+        isTracker: boolean = false
+    ): void {
+        const loadedItems: number = isTracker
+            ? this.contents.length - 1
+            : this.contents.length;
         this.contentResultData = {
             loadedItems: loadedItems,
-            totalItems
-        }
+            totalItems,
+        };
     }
-
 }

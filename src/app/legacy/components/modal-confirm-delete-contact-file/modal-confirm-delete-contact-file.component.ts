@@ -4,18 +4,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalConfirmDeleteContactFileService } from './modal-confirm-delete-contact-file.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-delete-contact-file',
-  templateUrl: './modal-confirm-delete-contact-file.component.html',
-  styles: [
-  ],
-  providers: [ModalConfirmDeleteContactFileService]
+    selector: 'agt-modal-confirm-delete-contact-file',
+    templateUrl: './modal-confirm-delete-contact-file.component.html',
+    styles: [],
+    providers: [ModalConfirmDeleteContactFileService],
 })
 export class ModalConfirmDeleteContactFileComponent implements OnInit {
     @Input() modalId: string = '';
@@ -26,22 +25,23 @@ export class ModalConfirmDeleteContactFileComponent implements OnInit {
         private _loadingService: LoadingService,
         private _modalConfirmDeleteContactFileService: ModalConfirmDeleteContactFileService,
         private _router: Router
-    ) { }
+    ) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     /**
      * Event to confirm delete the contact file
      */
     onConfirmAction(): void {
-        if(!!this.contactFileData) {
+        if (!!this.contactFileData) {
             ModalPlugin.hide(this.modalId);
             this._loadingService.show();
-            this._modalConfirmDeleteContactFileService.deleteContactFile(this.contactFileData).subscribe(() => {
-                this._loadingService.hide();
-                AlertHelper.fileDeleted(this._reloadPage, this)
-            });
+            this._modalConfirmDeleteContactFileService
+                .deleteContactFile(this.contactFileData)
+                .subscribe(() => {
+                    this._loadingService.hide();
+                    AlertHelper.fileDeleted(this._reloadPage, this);
+                });
         }
     }
 
@@ -52,9 +52,16 @@ export class ModalConfirmDeleteContactFileComponent implements OnInit {
     private _reloadPage(context: ModalConfirmDeleteContactFileComponent): void {
         context._router.routeReuseStrategy.shouldReuseRoute = () => false;
         context._router.onSameUrlNavigation = 'reload';
-        if(!!context.contactFileData) {
-            context._router.navigate(['/' + ROUTES_NAME.listContactFiles(context.contactFileData.contactId)], { relativeTo: context._activatedRoute });
+        if (!!context.contactFileData) {
+            context._router.navigate(
+                [
+                    '/' +
+                        ROUTES_NAME.listContactFiles(
+                            context.contactFileData.contactId
+                        ),
+                ],
+                { relativeTo: context._activatedRoute }
+            );
         }
     }
-
 }

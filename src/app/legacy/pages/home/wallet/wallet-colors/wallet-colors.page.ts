@@ -7,7 +7,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Wallet } from '@interfaces/wallet.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 declare var DropifyPlugin: any;
 declare var ModalPlugin: any;
@@ -15,11 +15,10 @@ declare var ModalPlugin: any;
 import { WalletColorsService } from './wallet-colors.service';
 
 @Component({
-  selector: 'agt-wallet-colors',
-  templateUrl: './wallet-colors.page.html',
-  styles: [
-  ],
-  providers: [WalletColorsService]
+    selector: 'agt-wallet-colors',
+    templateUrl: './wallet-colors.page.html',
+    styles: [],
+    providers: [WalletColorsService],
 })
 export class WalletColorsPage implements OnInit {
     walletId: string = '';
@@ -32,7 +31,7 @@ export class WalletColorsPage implements OnInit {
         { themeId: 6, background: 'bg-lime', preview: 'lime' },
         { themeId: 7, background: 'bg-green', preview: 'green' },
         { themeId: 8, background: 'bg-teal', preview: 'teal' },
-        { themeId: 9, background: 'bg-blue-dark', preview: 'blue-dark' }
+        { themeId: 9, background: 'bg-blue-dark', preview: 'blue-dark' },
     ];
     selectedColorName: string = '';
     modalIdConfirmUpdateWallet: string = 'modal-confirm-update-wallet';
@@ -45,7 +44,7 @@ export class WalletColorsPage implements OnInit {
         private _loadingService: LoadingService,
         private _router: Router,
         private _walletColorsService: WalletColorsService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._catchParams();
@@ -62,7 +61,8 @@ export class WalletColorsPage implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -72,10 +72,18 @@ export class WalletColorsPage implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        const validationClass: string = InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
-        if(constrolName === 'icon') {
-            return (validationClass === 'is-valid') ? 'agt-is-valid' : (validationClass === 'is-invalid') ? 'agt-is-invalid' : '';
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        const validationClass: string = InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
+        if (constrolName === 'icon') {
+            return validationClass === 'is-valid'
+                ? 'agt-is-valid'
+                : validationClass === 'is-invalid'
+                ? 'agt-is-invalid'
+                : '';
         }
         return validationClass;
     }
@@ -83,19 +91,19 @@ export class WalletColorsPage implements OnInit {
     selectLogo(event: any) {
         if (event.target.files.length > 0) {
             const icon = event.target.files[0];
-            this.model.form.patchValue({icon});
+            this.model.form.patchValue({ icon });
         }
     }
 
     selectTheme(themeId: number): void {
-        this.model.form.patchValue({themeId});
-        this.selectedColorName = this.themeColors[themeId-1].preview;
+        this.model.form.patchValue({ themeId });
+        this.selectedColorName = this.themeColors[themeId - 1].preview;
         this._paintSelectedCheckbox(themeId);
     }
 
     confirmUpdateWallet(): void {
         this._isFormSubmitted = true;
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             ModalPlugin.show(this.modalIdConfirmUpdateWallet);
         }
     }
@@ -114,35 +122,43 @@ export class WalletColorsPage implements OnInit {
 
     private _loadWallet(): void {
         this.model.loadWallet().subscribe((wallet: Wallet) => {
-            this.iconsUrl = (!!wallet.iconsUrl) ? wallet.iconsUrl + '384x384.png' : '';
+            this.iconsUrl = !!wallet.iconsUrl
+                ? wallet.iconsUrl + '384x384.png'
+                : '';
             this.model.buildForm(wallet);
             this.selectTheme(parseInt(this.model.f.themeId.value));
             setTimeout(() => {
                 DropifyPlugin.init(this._allowedFileTypes);
             }, 0);
-        })
+        });
     }
 
     private _paintSelectedCheckbox(selectedElement: number): void {
         const totalCheckbox: number = 8;
-        for(let i=0; i<totalCheckbox; i++) {
-            const selectedCheckbox: any = document.getElementById('themeColor'+(i+1));
-            if(!!selectedCheckbox) {
+        for (let i = 0; i < totalCheckbox; i++) {
+            const selectedCheckbox: any = document.getElementById(
+                'themeColor' + (i + 1)
+            );
+            if (!!selectedCheckbox) {
                 selectedCheckbox.checked = false;
             }
         }
         setTimeout(() => {
-            const selectedCheckbox: any = document.getElementById('themeColor'+selectedElement);
-            if(!!selectedCheckbox) {
+            const selectedCheckbox: any = document.getElementById(
+                'themeColor' + selectedElement
+            );
+            if (!!selectedCheckbox) {
                 selectedCheckbox.checked = true;
             }
-        },0);
+        }, 0);
     }
 
     private _reloadPage(context: WalletColorsPage): void {
         context._router.routeReuseStrategy.shouldReuseRoute = () => false;
         context._router.onSameUrlNavigation = 'reload';
-        context._router.navigate(['/' + ROUTES_NAME.walletResume(context.walletId)], { relativeTo: context._activatedRoute });
+        context._router.navigate(
+            ['/' + ROUTES_NAME.walletResume(context.walletId)],
+            { relativeTo: context._activatedRoute }
+        );
     }
-
 }

@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@core/services/auth.service';
 
 @Injectable()
 export class LoginService {
-
-    constructor(
-        private _authService: AuthService
-    ) { }
+    constructor(private _authService: AuthService) {}
 
     /**
      * Check if user is logged in
@@ -21,6 +18,6 @@ export class LoginService {
      * Go to Atom account login
      */
     goToAtomAccount(): void {
-        this._authService.goToAtomAccount();
+        //this._authService.goToAtomAccount();
     }
 }

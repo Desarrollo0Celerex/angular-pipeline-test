@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 
-import { CANCELLATION_REASONS, FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
+import {
+    CANCELLATION_REASONS,
+    FILE_ALL_FORMATS,
+    FILE_TYPES,
+} from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { CancelPolicyService } from './cancel-policy.service';
 
@@ -16,16 +20,16 @@ declare var ModalPlugin: any;
 declare var Select2Plugin: any;
 
 @Component({
-  selector: 'agt-cancel-policy',
-  templateUrl: './cancel-policy.page.html',
-  styles: [
-  ]
+    selector: 'agt-cancel-policy',
+    templateUrl: './cancel-policy.page.html',
+    styles: [],
 })
 export class CancelPolicyPage implements OnInit {
     contactId: string;
     message: string;
     modalIdConfirmAction: string;
-    modalIdConfirmDeletePolicyByCaptureError: string = 'agt-modal-confirm-delete-policy-by-capture-error';
+    modalIdConfirmDeletePolicyByCaptureError: string =
+        'agt-modal-confirm-delete-policy-by-capture-error';
     modalIdSelectFile: string;
     modalIdShowPolicy: string;
     modalSelectFileData: ModalSelectFileData;
@@ -46,11 +50,12 @@ export class CancelPolicyPage implements OnInit {
         this.modalIdShowPolicy = 'agt-show-policy';
         this.modalSelectFileData = {
             title: 'Adjuntar Evidencia',
-            description: 'Selecciona el formato digital de la evidencia de cancelación.',
+            description:
+                'Selecciona el formato digital de la evidencia de cancelación.',
             buttonLabel: 'Cargar evidencia',
             formats: FILE_ALL_FORMATS,
-            fileType: FILE_TYPES.MIXED
-        }
+            fileType: FILE_TYPES.MIXED,
+        };
         this.policyId = '';
         this.selectIdPolicyCancellationReason = 'policyCancellationReasonId';
         this._isFormSubmitted = false;
@@ -68,7 +73,8 @@ export class CancelPolicyPage implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.cancelPolicyService.cancellationForm.get(constrolName);
+        const control: AbstractControl | null =
+            this.cancelPolicyService.cancellationForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -78,8 +84,12 @@ export class CancelPolicyPage implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.cancelPolicyService.cancellationForm.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.cancelPolicyService.cancellationForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     /**
@@ -87,18 +97,28 @@ export class CancelPolicyPage implements OnInit {
      */
     onActionConfirmed(): void {
         this._loadingService.show();
-        this.cancelPolicyService.cancelPolicy(this.contactId, this.policyId).subscribe( () => {
-            this._loadingService.hide();
-            AlertHelper.policyCancelled(this._goToListContactPolicies, this);
-        })
+        this.cancelPolicyService
+            .cancelPolicy(this.contactId, this.policyId)
+            .subscribe(() => {
+                this._loadingService.hide();
+                AlertHelper.policyCancelled(
+                    this._goToListContactPolicies,
+                    this
+                );
+            });
     }
 
     deleteActivePolicy(): void {
         this._loadingService.show();
-        this.cancelPolicyService.deleteActivePolicy(this.contactId, this.policyId).subscribe( () => {
-            this._loadingService.hide();
-            AlertHelper.policyDeletedByCaptureError(this._goToListContactPolicies, this);
-        })
+        this.cancelPolicyService
+            .deleteActivePolicy(this.contactId, this.policyId)
+            .subscribe(() => {
+                this._loadingService.hide();
+                AlertHelper.policyDeletedByCaptureError(
+                    this._goToListContactPolicies,
+                    this
+                );
+            });
     }
 
     /**
@@ -120,7 +140,9 @@ export class CancelPolicyPage implements OnInit {
      * @param file The selected file
      */
     onFileSelected(file: File): void {
-        this.cancelPolicyService.cancellationForm.patchValue({ evidenceFile: file})
+        this.cancelPolicyService.cancellationForm.patchValue({
+            evidenceFile: file,
+        });
     }
 
     /**
@@ -128,8 +150,12 @@ export class CancelPolicyPage implements OnInit {
      */
     onSubmitCancelPolicy(): void {
         this._isFormSubmitted = true;
-        if(this.cancelPolicyService.cancellationForm.valid) {
-            const modalId: string = (this.cancelPolicyService.f.policyCancellationReasonId.value == CANCELLATION_REASONS.CAPTURE_ERROR) ? this.modalIdConfirmDeletePolicyByCaptureError : this.modalIdConfirmAction;
+        if (this.cancelPolicyService.cancellationForm.valid) {
+            const modalId: string =
+                this.cancelPolicyService.f.policyCancellationReasonId.value ==
+                CANCELLATION_REASONS.CAPTURE_ERROR
+                    ? this.modalIdConfirmDeletePolicyByCaptureError
+                    : this.modalIdConfirmAction;
             ModalPlugin.show(modalId);
         }
     }
@@ -147,35 +173,45 @@ export class CancelPolicyPage implements OnInit {
      * @param context The app context
      */
     private _goToListContactPolicies(context: CancelPolicyPage): void {
-        context._router.navigateByUrl(ROUTES_NAME.listContactPolicies(context.contactId));
+        context._router.navigateByUrl(
+            ROUTES_NAME.listContactPolicies(context.contactId)
+        );
     }
 
     /**
      * Load the policy data
      */
     private _loadPolicy(): void {
-        this.cancelPolicyService.loadPolicy(this.contactId, this.policyId).subscribe( () => {
-            this._loadPolicyCancellationReasons();
-        })
+        this.cancelPolicyService
+            .loadPolicy(this.contactId, this.policyId)
+            .subscribe(() => {
+                this._loadPolicyCancellationReasons();
+            });
     }
 
     /**
      * Load the policy cancellation reasons
      */
     private _loadPolicyCancellationReasons(): void {
-        this.cancelPolicyService.loadPolicyCancellationReasons().subscribe( () => {
-            Select2Plugin.initSelect();
-            this._onChangePolicyCancellationReasonId();
-        })
+        this.cancelPolicyService
+            .loadPolicyCancellationReasons()
+            .subscribe(() => {
+                Select2Plugin.initSelect();
+                this._onChangePolicyCancellationReasonId();
+            });
     }
 
     /**
      * Event to change the currency ID value
      */
     private _onChangePolicyCancellationReasonId(): void {
-        $('select#'+this.selectIdPolicyCancellationReason).on('change', (element: any) => {
-            this.cancelPolicyService.cancellationForm.patchValue({policyCancellationReasonId: element.currentTarget.value});
-        });
+        $('select#' + this.selectIdPolicyCancellationReason).on(
+            'change',
+            (element: any) => {
+                this.cancelPolicyService.cancellationForm.patchValue({
+                    policyCancellationReasonId: element.currentTarget.value,
+                });
+            }
+        );
     }
-
 }

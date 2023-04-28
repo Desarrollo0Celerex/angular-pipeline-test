@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicyDetails } from '@interfaces/policy-details.interface';
 import { PolicyService } from '@services/policy.service';
 
@@ -18,10 +18,13 @@ export class ModalShowPolicyDetailsService {
      * @param policyId  The policy ID
      */
     loadPolicyDetails(contactId: string, policyId: string): void {
-        const fields: string = 'policyNumber,totalAmount,totalAmountPaid,bills,emissionDate,validityStartDate,validityEndDate,totalSinisters,totalEndorsements,insurerName,titularName,totalRenewals,totalBills,totalTickets,totalOpenSinisters,paymentId';
-        this._policyService.getContactPolicy(contactId, policyId, fields).subscribe( (res: HttpResponse) => {
-            this.policyDetails = res.data;
-        })
+        const fields: string =
+            'policyNumber,totalAmount,totalAmountPaid,bills,emissionDate,validityStartDate,validityEndDate,totalSinisters,totalEndorsements,insurerName,titularName,totalRenewals,totalBills,totalTickets,totalOpenSinisters,paymentId';
+        this._policyService
+            .getContactPolicy(contactId, policyId, fields)
+            .subscribe((res: HttpResponse) => {
+                this.policyDetails = res.data;
+            });
     }
 
     /**
@@ -52,7 +55,7 @@ export class ModalShowPolicyDetailsService {
             totalBills: 0,
             totalTickets: 0,
             totalOpenSinisters: 0,
-            paymentId: ''
-        }
+            paymentId: '',
+        };
     }
 }

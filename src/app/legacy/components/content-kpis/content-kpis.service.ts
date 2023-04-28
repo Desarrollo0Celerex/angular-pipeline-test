@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 
-import { CLIENT_STATUS, GROUP_STATUS, LEAD_STATUS, PARTNER_STATUS } from '@constants/global';
+import {
+    CLIENT_STATUS,
+    GROUP_STATUS,
+    LEAD_STATUS,
+    PARTNER_STATUS,
+} from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ClientStatus } from '@interfaces/client-status.interface';
 import { GroupStatus } from '@interfaces/group-status.interface';
 import { LeadStatus } from '@interfaces/lead-status.interface';
@@ -53,8 +58,10 @@ export class ContentKpisService {
      * @return                The content subtype name
      */
     getContentSubtypeName(contentSubtype: number): string {
-        const selectedKpi: Kpi | undefined = this.kpis.find( (element: Kpi) => element.contentSubtype === contentSubtype)
-        return (!!selectedKpi) ? selectedKpi.name : '';
+        const selectedKpi: Kpi | undefined = this.kpis.find(
+            (element: Kpi) => element.contentSubtype === contentSubtype
+        );
+        return !!selectedKpi ? selectedKpi.name : '';
     }
 
     /**
@@ -69,32 +76,52 @@ export class ContentKpisService {
      * @return Notice of action done
      */
     loadGroupKpis(): Observable<void> {
-        return new Observable( observer => {
+        return new Observable((observer) => {
             const fields: string = 'groupStatusId,name,background,icon';
-            this._groupStatusService.getGroupStatus(fields).subscribe( (res: HttpResponse) => {
-                const groupStatus: GroupStatus[] = res.data;
-                const filters: string = UtilitiesHelper.generateHttpFilter('groupStatusId', [GROUP_STATUS.COPORATE, GROUP_STATUS.FAMILY, GROUP_STATUS.MIXED, GROUP_STATUS.INCOMPLETE])
-                this._groupService.getTotalGroups(filters).subscribe( (res: number) => {
-                    const totalGroups: number = res;
-                    this._getTotalGroupsByStatus(groupStatus).subscribe( (res: number[]) => {
-                        this.kpis = [];
-                        for(let index in res) {
-                            const kpi: Kpi = {
-                                contentSubtype: groupStatus[index].groupStatusId,
-                                name: groupStatus[index].name,
-                                background: groupStatus[index].background,
-                                icon: groupStatus[index].icon,
-                                total: res[index],
-                                percentage: (totalGroups > 0) ? res[index] / totalGroups : 0
-                            }
-                            this.kpis.push(kpi);
-                        }
-                        observer.next();
-                        observer.complete();
-                    })
+            this._groupStatusService
+                .getGroupStatus(fields)
+                .subscribe((res: HttpResponse) => {
+                    const groupStatus: GroupStatus[] = res.data;
+                    const filters: string = UtilitiesHelper.generateHttpFilter(
+                        'groupStatusId',
+                        [
+                            GROUP_STATUS.COPORATE,
+                            GROUP_STATUS.FAMILY,
+                            GROUP_STATUS.MIXED,
+                            GROUP_STATUS.INCOMPLETE,
+                        ]
+                    );
+                    this._groupService
+                        .getTotalGroups(filters)
+                        .subscribe((res: number) => {
+                            const totalGroups: number = res;
+                            this._getTotalGroupsByStatus(groupStatus).subscribe(
+                                (res: number[]) => {
+                                    this.kpis = [];
+                                    for (let index in res) {
+                                        const kpi: Kpi = {
+                                            contentSubtype:
+                                                groupStatus[index]
+                                                    .groupStatusId,
+                                            name: groupStatus[index].name,
+                                            background:
+                                                groupStatus[index].background,
+                                            icon: groupStatus[index].icon,
+                                            total: res[index],
+                                            percentage:
+                                                totalGroups > 0
+                                                    ? res[index] / totalGroups
+                                                    : 0,
+                                        };
+                                        this.kpis.push(kpi);
+                                    }
+                                    observer.next();
+                                    observer.complete();
+                                }
+                            );
+                        });
                 });
-            })
-        })
+        });
     }
 
     /**
@@ -102,32 +129,51 @@ export class ContentKpisService {
      * @return Notice of action done
      */
     loadLeadKpis(): Observable<void> {
-        return new Observable( observer => {
+        return new Observable((observer) => {
             const fields: string = 'leadStatusId,name,background,icon';
-            this._leadStatusService.getLeadStatus(fields).subscribe( (res: HttpResponse) => {
-                const leadStatus: LeadStatus[] = res.data;
-                const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED, LEAD_STATUS.DISCARDED])
-                this._leadService.getTotalLeads(filters).subscribe( (res: number) => {
-                    const totalLeads: number = res;
-                    this._getTotalLeadsByStatus(leadStatus).subscribe( (res: number[]) => {
-                        this.kpis = [];
-                        for(let index in res) {
-                            const kpi: Kpi = {
-                                contentSubtype: leadStatus[index].leadStatusId,
-                                name: leadStatus[index].name,
-                                background: leadStatus[index].background,
-                                icon: leadStatus[index].icon,
-                                total: res[index],
-                                percentage: (totalLeads > 0) ? res[index] / totalLeads : 0
-                            }
-                            this.kpis.push(kpi);
-                        }
-                        observer.next();
-                        observer.complete();
-                    })
+            this._leadStatusService
+                .getLeadStatus(fields)
+                .subscribe((res: HttpResponse) => {
+                    const leadStatus: LeadStatus[] = res.data;
+                    const filters: string = UtilitiesHelper.generateHttpFilter(
+                        'leadStatusId',
+                        [
+                            LEAD_STATUS.NEW,
+                            LEAD_STATUS.RECURRENT,
+                            LEAD_STATUS.RECOVERED,
+                            LEAD_STATUS.DISCARDED,
+                        ]
+                    );
+                    this._leadService
+                        .getTotalLeads(filters)
+                        .subscribe((res: number) => {
+                            const totalLeads: number = res;
+                            this._getTotalLeadsByStatus(leadStatus).subscribe(
+                                (res: number[]) => {
+                                    this.kpis = [];
+                                    for (let index in res) {
+                                        const kpi: Kpi = {
+                                            contentSubtype:
+                                                leadStatus[index].leadStatusId,
+                                            name: leadStatus[index].name,
+                                            background:
+                                                leadStatus[index].background,
+                                            icon: leadStatus[index].icon,
+                                            total: res[index],
+                                            percentage:
+                                                totalLeads > 0
+                                                    ? res[index] / totalLeads
+                                                    : 0,
+                                        };
+                                        this.kpis.push(kpi);
+                                    }
+                                    observer.next();
+                                    observer.complete();
+                                }
+                            );
+                        });
                 });
-            })
-        })
+        });
     }
 
     /**
@@ -135,32 +181,51 @@ export class ContentKpisService {
      * @return Notice of action done
      */
     loadClientKpis(): Observable<void> {
-        return new Observable( observer => {
+        return new Observable((observer) => {
             const fields: string = 'clientStatusId,name,background,icon';
-            this._clientStatusService.getClientStatus(fields).subscribe( (res: HttpResponse) => {
-                const clientStatus: ClientStatus[] = res.data;
-                const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL, CLIENT_STATUS.LOST])
-                this._clientService.getTotalClients(filters).subscribe( (res: number) => {
-                    const totalClients: number = res;
-                    this._getTotalClientsByStatus(clientStatus).subscribe( (res: number[]) => {
-                        this.kpis = [];
-                        for(let index in res) {
-                            const kpi: Kpi = {
-                                contentSubtype: clientStatus[index].clientStatusId,
-                                name: clientStatus[index].name,
-                                background: clientStatus[index].background,
-                                icon: clientStatus[index].icon,
-                                total: res[index],
-                                percentage: (totalClients > 0 ) ? res[index] / totalClients : 0
-                            }
-                            this.kpis.push(kpi);
-                        }
-                        observer.next();
-                        observer.complete();
-                    })
+            this._clientStatusService
+                .getClientStatus(fields)
+                .subscribe((res: HttpResponse) => {
+                    const clientStatus: ClientStatus[] = res.data;
+                    const filters: string = UtilitiesHelper.generateHttpFilter(
+                        'clientStatusId',
+                        [
+                            CLIENT_STATUS.OCCASIONAL,
+                            CLIENT_STATUS.FREQUENT,
+                            CLIENT_STATUS.INFLUENTIAL,
+                            CLIENT_STATUS.LOST,
+                        ]
+                    );
+                    this._clientService
+                        .getTotalClients(filters)
+                        .subscribe((res: number) => {
+                            const totalClients: number = res;
+                            this._getTotalClientsByStatus(
+                                clientStatus
+                            ).subscribe((res: number[]) => {
+                                this.kpis = [];
+                                for (let index in res) {
+                                    const kpi: Kpi = {
+                                        contentSubtype:
+                                            clientStatus[index].clientStatusId,
+                                        name: clientStatus[index].name,
+                                        background:
+                                            clientStatus[index].background,
+                                        icon: clientStatus[index].icon,
+                                        total: res[index],
+                                        percentage:
+                                            totalClients > 0
+                                                ? res[index] / totalClients
+                                                : 0,
+                                    };
+                                    this.kpis.push(kpi);
+                                }
+                                observer.next();
+                                observer.complete();
+                            });
+                        });
                 });
-            })
-        })
+        });
     }
 
     /**
@@ -168,32 +233,52 @@ export class ContentKpisService {
      * @return Notice of action done
      */
     loadPartnerKpis(): Observable<void> {
-        return new Observable( observer => {
+        return new Observable((observer) => {
             const fields: string = 'partnerStatusId,name,background,icon';
-            this._partnerStatusService.getPartnerStatus(fields).subscribe( (res: HttpResponse) => {
-                const partnerStatus: PartnerStatus[] = res.data;
-                const filters: string = UtilitiesHelper.generateHttpFilter('partnerStatusId', [PARTNER_STATUS.OCCASIONAL, PARTNER_STATUS.FREQUENT, PARTNER_STATUS.INFLUENTIAL, PARTNER_STATUS.INACTIVE])
-                this._partnerService.getTotalPartners(filters).subscribe( (res: number) => {
-                    const totalPartners: number = res;
-                    this._getTotalPartnersByStatus(partnerStatus).subscribe( (res: number[]) => {
-                        this.kpis = [];
-                        for(let index in res) {
-                            const kpi: Kpi = {
-                                contentSubtype: partnerStatus[index].partnerStatusId,
-                                name: partnerStatus[index].name,
-                                background: partnerStatus[index].background,
-                                icon: partnerStatus[index].icon,
-                                total: res[index],
-                                percentage: (totalPartners > 0) ? res[index] / totalPartners : 0
-                            }
-                            this.kpis.push(kpi);
-                        }
-                        observer.next();
-                        observer.complete();
-                    })
+            this._partnerStatusService
+                .getPartnerStatus(fields)
+                .subscribe((res: HttpResponse) => {
+                    const partnerStatus: PartnerStatus[] = res.data;
+                    const filters: string = UtilitiesHelper.generateHttpFilter(
+                        'partnerStatusId',
+                        [
+                            PARTNER_STATUS.OCCASIONAL,
+                            PARTNER_STATUS.FREQUENT,
+                            PARTNER_STATUS.INFLUENTIAL,
+                            PARTNER_STATUS.INACTIVE,
+                        ]
+                    );
+                    this._partnerService
+                        .getTotalPartners(filters)
+                        .subscribe((res: number) => {
+                            const totalPartners: number = res;
+                            this._getTotalPartnersByStatus(
+                                partnerStatus
+                            ).subscribe((res: number[]) => {
+                                this.kpis = [];
+                                for (let index in res) {
+                                    const kpi: Kpi = {
+                                        contentSubtype:
+                                            partnerStatus[index]
+                                                .partnerStatusId,
+                                        name: partnerStatus[index].name,
+                                        background:
+                                            partnerStatus[index].background,
+                                        icon: partnerStatus[index].icon,
+                                        total: res[index],
+                                        percentage:
+                                            totalPartners > 0
+                                                ? res[index] / totalPartners
+                                                : 0,
+                                    };
+                                    this.kpis.push(kpi);
+                                }
+                                observer.next();
+                                observer.complete();
+                            });
+                        });
                 });
-            })
-        })
+        });
     }
 
     /**
@@ -201,31 +286,43 @@ export class ContentKpisService {
      * @return Notice of action done
      */
     loadPaymentKpis(): Observable<void> {
-        return new Observable( observer => {
+        return new Observable((observer) => {
             const fields: string = 'paymentStatusId,name,background,icon';
-            this._paymentStatusService.getPaymentStatus(fields).subscribe( (res: HttpResponse) => {
-                const paymentStatus: PaymentStatus[] = res.data;
-                this._paymentService.getTotalPayments().subscribe( (res: number) => {
-                    const totalPayments: number = res;
-                    this._getTotalPaymentsByStatus(paymentStatus).subscribe( (res: number[]) => {
-                        this.kpis = [];
-                        for(let index in res) {
-                            const kpi: Kpi = {
-                                contentSubtype: paymentStatus[index].paymentStatusId,
-                                name: paymentStatus[index].name,
-                                background: paymentStatus[index].background,
-                                icon: paymentStatus[index].icon,
-                                total: res[index],
-                                percentage: (totalPayments > 0) ? res[index] / totalPayments : 0
-                            }
-                            this.kpis.push(kpi);
-                        }
-                        observer.next();
-                        observer.complete();
-                    })
+            this._paymentStatusService
+                .getPaymentStatus(fields)
+                .subscribe((res: HttpResponse) => {
+                    const paymentStatus: PaymentStatus[] = res.data;
+                    this._paymentService
+                        .getTotalPayments()
+                        .subscribe((res: number) => {
+                            const totalPayments: number = res;
+                            this._getTotalPaymentsByStatus(
+                                paymentStatus
+                            ).subscribe((res: number[]) => {
+                                this.kpis = [];
+                                for (let index in res) {
+                                    const kpi: Kpi = {
+                                        contentSubtype:
+                                            paymentStatus[index]
+                                                .paymentStatusId,
+                                        name: paymentStatus[index].name,
+                                        background:
+                                            paymentStatus[index].background,
+                                        icon: paymentStatus[index].icon,
+                                        total: res[index],
+                                        percentage:
+                                            totalPayments > 0
+                                                ? res[index] / totalPayments
+                                                : 0,
+                                    };
+                                    this.kpis.push(kpi);
+                                }
+                                observer.next();
+                                observer.complete();
+                            });
+                        });
                 });
-            })
-        })
+        });
     }
 
     /**
@@ -233,31 +330,43 @@ export class ContentKpisService {
      * @return Notice of action done
      */
     loadSinisterKpis(): Observable<void> {
-        return new Observable( observer => {
+        return new Observable((observer) => {
             const fields: string = 'sinisterStatusId,name,background,icon';
-            this._sinisterStatusService.getSinisterStatus(fields).subscribe( (res: HttpResponse) => {
-                const sinisterStatus: SinisterStatus[] = res.data;
-                this._sinisterService.getTotalWorkspaceSinisters().subscribe( (res: number) => {
-                    const totalSinisters: number = res;
-                    this._getTotalSinistersByStatus(sinisterStatus).subscribe( (res: number[]) => {
-                        this.kpis = [];
-                        for(let index in res) {
-                            const kpi: Kpi = {
-                                contentSubtype: sinisterStatus[index].sinisterStatusId,
-                                name: sinisterStatus[index].name,
-                                background: sinisterStatus[index].background,
-                                icon: sinisterStatus[index].icon,
-                                total: res[index],
-                                percentage: (totalSinisters > 0) ? res[index] / totalSinisters : 0
-                            }
-                            this.kpis.push(kpi);
-                        }
-                        observer.next();
-                        observer.complete();
-                    })
+            this._sinisterStatusService
+                .getSinisterStatus(fields)
+                .subscribe((res: HttpResponse) => {
+                    const sinisterStatus: SinisterStatus[] = res.data;
+                    this._sinisterService
+                        .getTotalWorkspaceSinisters()
+                        .subscribe((res: number) => {
+                            const totalSinisters: number = res;
+                            this._getTotalSinistersByStatus(
+                                sinisterStatus
+                            ).subscribe((res: number[]) => {
+                                this.kpis = [];
+                                for (let index in res) {
+                                    const kpi: Kpi = {
+                                        contentSubtype:
+                                            sinisterStatus[index]
+                                                .sinisterStatusId,
+                                        name: sinisterStatus[index].name,
+                                        background:
+                                            sinisterStatus[index].background,
+                                        icon: sinisterStatus[index].icon,
+                                        total: res[index],
+                                        percentage:
+                                            totalSinisters > 0
+                                                ? res[index] / totalSinisters
+                                                : 0,
+                                    };
+                                    this.kpis.push(kpi);
+                                }
+                                observer.next();
+                                observer.complete();
+                            });
+                        });
                 });
-            })
-        })
+        });
     }
 
     /**
@@ -266,14 +375,14 @@ export class ContentKpisService {
      */
     private _buildKpis(): Kpi[] {
         let kpis: Kpi[] = [];
-        for(let i=0; i<4; i++) {
+        for (let i = 0; i < 4; i++) {
             kpis.push({
                 contentSubtype: 0,
                 name: '',
                 background: '',
                 icon: '',
                 total: 0,
-                percentage: 0
+                percentage: 0,
             });
         }
         return kpis;
@@ -284,10 +393,15 @@ export class ContentKpisService {
      * @param  clientStatus The client status
      * @return            The requests
      */
-    private _getTotalClientsByStatus(clientStatus: ClientStatus[]): Observable<number[]> {
+    private _getTotalClientsByStatus(
+        clientStatus: ClientStatus[]
+    ): Observable<number[]> {
         let requests: Observable<number>[] = [];
-        for(let status of clientStatus) {
-            const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [status.clientStatusId])
+        for (let status of clientStatus) {
+            const filters: string = UtilitiesHelper.generateHttpFilter(
+                'clientStatusId',
+                [status.clientStatusId]
+            );
             requests.push(this._clientService.getTotalClients(filters));
         }
         return forkJoin(requests);
@@ -298,10 +412,15 @@ export class ContentKpisService {
      * @param  groupStatus The group status
      * @return            The requests
      */
-    private _getTotalGroupsByStatus(groupStatus: GroupStatus[]): Observable<number[]> {
+    private _getTotalGroupsByStatus(
+        groupStatus: GroupStatus[]
+    ): Observable<number[]> {
         let requests: Observable<number>[] = [];
-        for(let status of groupStatus) {
-            const filters: string = UtilitiesHelper.generateHttpFilter('groupStatusId', [status.groupStatusId])
+        for (let status of groupStatus) {
+            const filters: string = UtilitiesHelper.generateHttpFilter(
+                'groupStatusId',
+                [status.groupStatusId]
+            );
             requests.push(this._groupService.getTotalGroups(filters));
         }
         return forkJoin(requests);
@@ -312,10 +431,15 @@ export class ContentKpisService {
      * @param  leadStatus The lead status
      * @return            The requests
      */
-    private _getTotalLeadsByStatus(leadStatus: LeadStatus[]): Observable<number[]> {
+    private _getTotalLeadsByStatus(
+        leadStatus: LeadStatus[]
+    ): Observable<number[]> {
         let requests: Observable<number>[] = [];
-        for(let status of leadStatus) {
-            const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [status.leadStatusId])
+        for (let status of leadStatus) {
+            const filters: string = UtilitiesHelper.generateHttpFilter(
+                'leadStatusId',
+                [status.leadStatusId]
+            );
             requests.push(this._leadService.getTotalLeads(filters));
         }
         return forkJoin(requests);
@@ -326,10 +450,15 @@ export class ContentKpisService {
      * @param  partnerStatus The partner status
      * @return            The requests
      */
-    private _getTotalPartnersByStatus(partnerStatus: PartnerStatus[]): Observable<number[]> {
+    private _getTotalPartnersByStatus(
+        partnerStatus: PartnerStatus[]
+    ): Observable<number[]> {
         let requests: Observable<number>[] = [];
-        for(let status of partnerStatus) {
-            const filters: string = UtilitiesHelper.generateHttpFilter('partnerStatusId', [status.partnerStatusId])
+        for (let status of partnerStatus) {
+            const filters: string = UtilitiesHelper.generateHttpFilter(
+                'partnerStatusId',
+                [status.partnerStatusId]
+            );
             requests.push(this._partnerService.getTotalPartners(filters));
         }
         return forkJoin(requests);
@@ -340,10 +469,15 @@ export class ContentKpisService {
      * @param  leadStatus The payment status
      * @return            The requests
      */
-    private _getTotalPaymentsByStatus(paymentStatus: PaymentStatus[]): Observable<number[]> {
+    private _getTotalPaymentsByStatus(
+        paymentStatus: PaymentStatus[]
+    ): Observable<number[]> {
         let requests: Observable<number>[] = [];
-        for(let status of paymentStatus) {
-            const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [status.paymentStatusId]);
+        for (let status of paymentStatus) {
+            const filters: string = UtilitiesHelper.generateHttpFilter(
+                'paymentStatusId',
+                [status.paymentStatusId]
+            );
             requests.push(this._paymentService.getTotalPayments(filters));
         }
         return forkJoin(requests);
@@ -354,11 +488,18 @@ export class ContentKpisService {
      * @param  leadStatus The payment status
      * @return            The requests
      */
-    private _getTotalSinistersByStatus(sinisterStatus: SinisterStatus[]): Observable<number[]> {
+    private _getTotalSinistersByStatus(
+        sinisterStatus: SinisterStatus[]
+    ): Observable<number[]> {
         let requests: Observable<number>[] = [];
-        for(let status of sinisterStatus) {
-            const filters: string = UtilitiesHelper.generateHttpFilter('sinisterStatusId', [status.sinisterStatusId]);
-            requests.push(this._sinisterService.getTotalWorkspaceSinisters(filters));
+        for (let status of sinisterStatus) {
+            const filters: string = UtilitiesHelper.generateHttpFilter(
+                'sinisterStatusId',
+                [status.sinisterStatusId]
+            );
+            requests.push(
+                this._sinisterService.getTotalWorkspaceSinisters(filters)
+            );
         }
         return forkJoin(requests);
     }

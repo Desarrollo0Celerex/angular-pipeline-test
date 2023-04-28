@@ -3,19 +3,18 @@ import { Router } from '@angular/router';
 
 import { ACTION_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalConfirmRenewPolicyService } from './modal-confirm-renew-policy.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-renew-policy',
-  templateUrl: './modal-confirm-renew-policy.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-renew-policy',
+    templateUrl: './modal-confirm-renew-policy.component.html',
+    styles: [],
 })
 export class ModalConfirmRenewPolicyComponent {
     @Input() contactId: string;
@@ -26,7 +25,7 @@ export class ModalConfirmRenewPolicyComponent {
     constructor(
         private _loadingService: LoadingService,
         private _modalConfirmRenewPolicyService: ModalConfirmRenewPolicyService,
-        private _router: Router,
+        private _router: Router
     ) {
         this.contactId = '';
         this.modalId = '';
@@ -40,10 +39,15 @@ export class ModalConfirmRenewPolicyComponent {
     onClickRenewPolicyToSameClient(): void {
         ModalPlugin.hide(this.modalId);
         this._loadingService.show();
-        this._modalConfirmRenewPolicyService.renewPolicy(this.contactId, this.policyId).subscribe( (res: HttpResponse) => {
-            this._loadingService.hide();
-            this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(this.contactId, res.data), { state: { comesFromRenewalPolicy: true} });
-        })
+        this._modalConfirmRenewPolicyService
+            .renewPolicy(this.contactId, this.policyId)
+            .subscribe((res: HttpResponse) => {
+                this._loadingService.hide();
+                this._router.navigateByUrl(
+                    ROUTES_NAME.uploadPolicy(this.contactId, res.data),
+                    { state: { comesFromRenewalPolicy: true } }
+                );
+            });
     }
 
     /**
@@ -53,8 +57,8 @@ export class ModalConfirmRenewPolicyComponent {
         ModalPlugin.hide(this.modalId);
         const data: SelectActionTypeData = {
             policyId: this.policyId,
-            actionType: ACTION_TYPES.RENEW_POLICY
-        }
-        this.actionTypeSelected.emit(data)
+            actionType: ACTION_TYPES.RENEW_POLICY,
+        };
+        this.actionTypeSelected.emit(data);
     }
 }

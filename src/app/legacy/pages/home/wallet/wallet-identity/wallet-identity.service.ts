@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { Wallet } from '@interfaces/wallet.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UpdateWalletIdentityDataSend } from '@interfaces/update-wallet-identity-data-send.interface';
 import { WalletService } from '@services/wallet.service';
 import { WorkspaceService } from '@services/workspace.service';
@@ -18,25 +23,44 @@ export class WalletIdentityService {
         private _formBuilder: UntypedFormBuilder,
         private _walletService: WalletService,
         private _workspaceService: WorkspaceService
-    ) { }
+    ) {}
 
     /**
      * Get the form controls
      * @return Form controls
      */
-    get f(): { [key: string]: AbstractControl; }  {
+    get f(): { [key: string]: AbstractControl } {
         return this.form.controls;
     }
 
     buildForm(wallet: Wallet): void {
         this.form = this._formBuilder.group({
-            name: [(!!wallet.name) ? wallet.name : '', [Validators.required, Validators.minLength(3), Validators.maxLength(15), ValidatorsHelper.brandName]],
-            walletKey: [{ value: (!!wallet.walletKey) ? wallet.walletKey : '', disabled: (!!wallet.walletKey) ? true : false }, [Validators.required, Validators.minLength(3), Validators.maxLength(15), ValidatorsHelper.username]],
-        })
+            name: [
+                !!wallet.name ? wallet.name : '',
+                [
+                    Validators.required,
+                    Validators.minLength(3),
+                    Validators.maxLength(15),
+                    ValidatorsHelper.brandName,
+                ],
+            ],
+            walletKey: [
+                {
+                    value: !!wallet.walletKey ? wallet.walletKey : '',
+                    disabled: !!wallet.walletKey ? true : false,
+                },
+                [
+                    Validators.required,
+                    Validators.minLength(3),
+                    Validators.maxLength(15),
+                    ValidatorsHelper.username,
+                ],
+            ],
+        });
         this.isBuiltForm = true;
     }
 
-    loadWallet():Observable<Wallet> {
+    loadWallet(): Observable<Wallet> {
         const fields: string = 'walletKey,name';
         return this._walletService.getWallet(fields);
     }
@@ -47,15 +71,16 @@ export class WalletIdentityService {
     }
 
     updateWallet(): Observable<void> {
-        const requestBody: UpdateWalletIdentityDataSend = this._getRequestBody();
+        const requestBody: UpdateWalletIdentityDataSend =
+            this._getRequestBody();
         return this._walletService.updateWalletIdentity(requestBody);
     }
 
     private _getRequestBody(): UpdateWalletIdentityDataSend {
         const requestBody: UpdateWalletIdentityDataSend = {
             name: this.f.name.value,
-            canShowCertificate: '1'
-        }
+            canShowCertificate: '1',
+        };
         return requestBody;
     }
 }

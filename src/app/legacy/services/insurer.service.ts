@@ -4,16 +4,19 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { InsurerStat } from '@interfaces/insurer-stat.interface';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@core/services/auth.service';
 
 const routes = {
     insurers: environment.apiUrl + '/insurers',
-    insurersStats: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/stats/insurers`,
-    activeInsurers: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/insurers/active`,
-    countryInsurers: (countryId: number) => `${environment.apiUrl}/countries/${countryId}/insurers`
-}
+    insurersStats: (workspaceId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/stats/insurers`,
+    activeInsurers: (workspaceId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/insurers/active`,
+    countryInsurers: (countryId: number) =>
+        `${environment.apiUrl}/countries/${countryId}/insurers`,
+};
 
 @Injectable()
 export class InsurerService {
@@ -22,19 +25,23 @@ export class InsurerService {
     constructor(
         private _authService: AuthService,
         private _httpClient: HttpClient
-    ) { }
+    ) {}
 
     /**
      * Get the insurers from the API
      * @param  fields              The fields to get
      * @return                     The insurers
      */
-    getCountryInsurers(countryId: number, fields: string = '', sortBy: string = 'name'): Observable<HttpResponse> {
+    getCountryInsurers(
+        countryId: number,
+        fields: string = '',
+        sortBy: string = 'name'
+    ): Observable<HttpResponse> {
         const route = routes.countryInsurers(countryId);
         let params: HttpParams = new HttpParams();
-        if(!!fields) params = params.append('fields', fields);
+        if (!!fields) params = params.append('fields', fields);
         params = params.append('sortBy', sortBy);
-        return this._httpClient.get<HttpResponse>(route, {params});
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 
     /**
@@ -42,12 +49,15 @@ export class InsurerService {
      * @param  fields              The fields to get
      * @return                     The insurers
      */
-    getInsurers(fields: string = '', sortBy: string = 'name'): Observable<HttpResponse> {
+    getInsurers(
+        fields: string = '',
+        sortBy: string = 'name'
+    ): Observable<HttpResponse> {
         const route = routes.insurers;
         let params: HttpParams = new HttpParams();
-        if(!!fields) params = params.append('fields', fields);
-        if(!!sortBy) params = params.append('sortBy', sortBy);
-        return this._httpClient.get<HttpResponse>(route, {params});
+        if (!!fields) params = params.append('fields', fields);
+        if (!!sortBy) params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 
     /**
@@ -63,14 +73,20 @@ export class InsurerService {
         );
     }
 
-    getTotalActiveInsurers(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
+    getTotalActiveInsurers(
+        rangeField: string = '',
+        rangeStart: string = '',
+        rangeEnd: string = ''
+    ): Observable<number> {
         const route = routes.activeInsurers(this._workspaceId);
         let params: HttpParams = new HttpParams();
-        if(!!rangeField) params = params.append('rangeField', rangeField);
-        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
-        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
-        return this._httpClient.get<HttpResponse>(route, { params}).pipe(
-            map((res: HttpResponse) => { return res.data; })
+        if (!!rangeField) params = params.append('rangeField', rangeField);
+        if (!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if (!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
+                return res.data;
+            })
         );
     }
 }

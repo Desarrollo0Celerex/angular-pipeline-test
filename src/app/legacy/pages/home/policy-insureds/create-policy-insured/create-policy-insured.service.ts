@@ -1,11 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import {
+    AbstractControl,
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { SHORT_ALPHANUMERIC_LENGTH, LONG_ALPHANUMERIC_LENGTH, FREE_TEXT_LENGTH, 
-    INSURANCE_GROUPS, TITULAR_NAME_LENGTH 
+import {
+    SHORT_ALPHANUMERIC_LENGTH,
+    LONG_ALPHANUMERIC_LENGTH,
+    FREE_TEXT_LENGTH,
+    INSURANCE_GROUPS,
+    TITULAR_NAME_LENGTH,
 } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
@@ -39,27 +49,45 @@ export class CreatePolicyInsuredService {
         private _paymentPlanService: PaymentPlanService,
         private _policyService: PolicyService,
         private _policyInsuredService: PolicyInsuredService
-    ) { }
+    ) {}
 
-    get f(): { [key: string]: AbstractControl; } {
+    get f(): { [key: string]: AbstractControl } {
         return this.form.controls;
     }
 
     checkPolicyAmounts(): boolean {
-        let netPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value));
-        let taxPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.taxPay.value));
-        let feePay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.feePay.value));
-        let coverPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value));
-        let extraPay: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value));
-        let discount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.discount.value));
-        discount = (discount < 0) ? discount * (-1) : discount;
-        let totalPolicy: number = netPay + taxPay + feePay + coverPay + extraPay - discount;
-        let totalPolicyWithoutDiscount: number = netPay + taxPay + feePay + coverPay + extraPay;
-        const policyAmount: number = parseFloat(UtilitiesHelper.removeCommasFromQuantity(this.f.totalAmount.value));
+        let netPay: number = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value)
+        );
+        let taxPay: number = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.taxPay.value)
+        );
+        let feePay: number = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.feePay.value)
+        );
+        let coverPay: number = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value)
+        );
+        let extraPay: number = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value)
+        );
+        let discount: number = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.discount.value)
+        );
+        discount = discount < 0 ? discount * -1 : discount;
+        let totalPolicy: number =
+            netPay + taxPay + feePay + coverPay + extraPay - discount;
+        let totalPolicyWithoutDiscount: number =
+            netPay + taxPay + feePay + coverPay + extraPay;
+        const policyAmount: number = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.totalAmount.value)
+        );
 
-        if(
-            (totalPolicy >= (policyAmount - 1)) && (totalPolicy <= (policyAmount + 1)) ||
-            (totalPolicyWithoutDiscount >= (policyAmount - 1)) && (totalPolicyWithoutDiscount <= (policyAmount + 1))
+        if (
+            (totalPolicy >= policyAmount - 1 &&
+                totalPolicy <= policyAmount + 1) ||
+            (totalPolicyWithoutDiscount >= policyAmount - 1 &&
+                totalPolicyWithoutDiscount <= policyAmount + 1)
         ) {
             return true;
         }
@@ -68,100 +96,238 @@ export class CreatePolicyInsuredService {
 
     createPolicyInsured(contactId: string, policyId: string): Observable<void> {
         const requestBody: FormData = this._getRequestBody();
-        return this._policyInsuredService.createPolicyInsured(contactId, policyId, requestBody);
+        return this._policyInsuredService.createPolicyInsured(
+            contactId,
+            policyId,
+            requestBody
+        );
     }
 
     loadCurrencies(): void {
         const fields: string = 'currencyId,name';
-        this._currencyService.getCurrencies(fields).subscribe((res: HttpResponse) => {
-            this.currencies = res.data;
-        })
+        this._currencyService
+            .getCurrencies(fields)
+            .subscribe((res: HttpResponse) => {
+                this.currencies = res.data;
+            });
     }
 
     loadGenders(): void {
         const fields: string = 'genderId,name';
-        this._gendersService.getGenders(fields).subscribe((res: HttpResponse) => {
-            this.genders = res.data;
-        });
+        this._gendersService
+            .getGenders(fields)
+            .subscribe((res: HttpResponse) => {
+                this.genders = res.data;
+            });
     }
 
     loadPaymentMethods(): void {
         const fields: string = 'paymentMethodId,name';
-        this._paymentMethodService.getPaymentMethods(fields).subscribe((res: HttpResponse) => {
-            this.paymentMethods = res.data;
-        })
+        this._paymentMethodService
+            .getPaymentMethods(fields)
+            .subscribe((res: HttpResponse) => {
+                this.paymentMethods = res.data;
+            });
     }
 
     loadPaymentPlans(): void {
         const fields: string = 'paymentPlanId,name,months';
-        this._paymentPlanService.getPaymentPlans(fields).subscribe((res: HttpResponse) => {
-            this.paymentPlans = res.data;
-        })
+        this._paymentPlanService
+            .getPaymentPlans(fields)
+            .subscribe((res: HttpResponse) => {
+                this.paymentPlans = res.data;
+            });
     }
 
     loadPolicy(contactId: string, policyId: string): Observable<void> {
-        const fields: string = 'policyStatusBackground,policyStatusName,policyStatusDescription,insuranceName,insuranceTypeName,policyNumber,insuranceIcon,insuranceBackground,lifeTime,validityStartDate,validityEndDate,policyNumber,clientNumber,insurerName,insuranceName,insuranceTypeName,emissionDate,validityStartDate,validityEndDate,insuranceGroupId';
-        return this._policyService.getContactPolicy(contactId, policyId, fields).pipe(
-            tap((res: HttpResponse) => {
-                this.policy = res.data;
-            }),
-            map(_ => { })
-        )
+        const fields: string =
+            'policyStatusBackground,policyStatusName,policyStatusDescription,insuranceName,insuranceTypeName,policyNumber,insuranceIcon,insuranceBackground,lifeTime,validityStartDate,validityEndDate,policyNumber,clientNumber,insurerName,insuranceName,insuranceTypeName,emissionDate,validityStartDate,validityEndDate,insuranceGroupId';
+        return this._policyService
+            .getContactPolicy(contactId, policyId, fields)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.policy = res.data;
+                }),
+                map((_) => {})
+            );
     }
 
     buildForm(): void {
         this.form = this._formBuilder.group({
             insuredPolicyFile: [''],
-            certificate: ['', [Validators.required, Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]],
-            validityStartDate: ['', [Validators.required, ValidatorsHelper.date]],
+            certificate: [
+                '',
+                [
+                    Validators.required,
+                    Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN),
+                    Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX),
+                    ValidatorsHelper.alphanumeric,
+                ],
+            ],
+            validityStartDate: [
+                '',
+                [Validators.required, ValidatorsHelper.date],
+            ],
             validityEndDate: ['', [Validators.required, ValidatorsHelper.date]],
             netPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
-            feePay: ['0.00', [Validators.required,ValidatorsHelper.amount]],
+            feePay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
             coverPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
             extraPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
             taxPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
             discount: ['0.00', [Validators.required, ValidatorsHelper.amount]],
-            totalAmount: ['0.00', [Validators.required, ValidatorsHelper.amount]],
+            totalAmount: [
+                '0.00',
+                [Validators.required, ValidatorsHelper.amount],
+            ],
             currencyId: ['', [Validators.required]],
             paymentMethodId: ['', [Validators.required]],
-            paymentPlanId: ['', [Validators.required]]
+            paymentPlanId: ['', [Validators.required]],
         });
 
         switch (this.policy!.insuranceGroupId) {
             case INSURANCE_GROUPS.PEOPLE:
-                this.form.addControl('personName', new FormControl('', [Validators.required, Validators.minLength(TITULAR_NAME_LENGTH.MIN), Validators.maxLength(TITULAR_NAME_LENGTH.MAX), ValidatorsHelper.ownName]));
+                this.form.addControl(
+                    'personName',
+                    new FormControl('', [
+                        Validators.required,
+                        Validators.minLength(TITULAR_NAME_LENGTH.MIN),
+                        Validators.maxLength(TITULAR_NAME_LENGTH.MAX),
+                        ValidatorsHelper.ownName,
+                    ])
+                );
                 this.form.addControl('personGenderId', new FormControl(''));
-                this.form.addControl('personAge', new FormControl('', [ValidatorsHelper.number]));
+                this.form.addControl(
+                    'personAge',
+                    new FormControl('', [ValidatorsHelper.number])
+                );
                 break;
 
             case INSURANCE_GROUPS.VEHICLES:
-                this.form.addControl('vehicleMaker', new FormControl('', [Validators.required, Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(50), ValidatorsHelper.alphanumeric]));
-                this.form.addControl('vehicleVersion', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(100), ValidatorsHelper.freeText]));
-                this.form.addControl('vehicleModel', new FormControl('', [Validators.required, ValidatorsHelper.vehicleModel]));
-                this.form.addControl('vehiclePlates', new FormControl('', [Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX), ValidatorsHelper.alphanumeric]));
-                this.form.addControl('vehicleSerial', new FormControl('', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(100), ValidatorsHelper.alphanumeric]));
-                this.form.addControl('vehicleMotor', new FormControl('', [Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN), Validators.maxLength(100), ValidatorsHelper.alphanumeric]));
+                this.form.addControl(
+                    'vehicleMaker',
+                    new FormControl('', [
+                        Validators.required,
+                        Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN),
+                        Validators.maxLength(50),
+                        ValidatorsHelper.alphanumeric,
+                    ])
+                );
+                this.form.addControl(
+                    'vehicleVersion',
+                    new FormControl('', [
+                        Validators.required,
+                        Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                        Validators.maxLength(100),
+                        ValidatorsHelper.freeText,
+                    ])
+                );
+                this.form.addControl(
+                    'vehicleModel',
+                    new FormControl('', [
+                        Validators.required,
+                        ValidatorsHelper.vehicleModel,
+                    ])
+                );
+                this.form.addControl(
+                    'vehiclePlates',
+                    new FormControl('', [
+                        Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN),
+                        Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX),
+                        ValidatorsHelper.alphanumeric,
+                    ])
+                );
+                this.form.addControl(
+                    'vehicleSerial',
+                    new FormControl('', [
+                        Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN),
+                        Validators.maxLength(100),
+                        ValidatorsHelper.alphanumeric,
+                    ])
+                );
+                this.form.addControl(
+                    'vehicleMotor',
+                    new FormControl('', [
+                        Validators.minLength(LONG_ALPHANUMERIC_LENGTH.MIN),
+                        Validators.maxLength(100),
+                        ValidatorsHelper.alphanumeric,
+                    ])
+                );
                 break;
 
             case INSURANCE_GROUPS.BUILDINGS:
-                this.form.addControl('buildingName', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]));
-                this.form.addControl('buildingUsage', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]));
-                this.form.addControl('buildingLocation', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]));
+                this.form.addControl(
+                    'buildingName',
+                    new FormControl('', [
+                        Validators.required,
+                        Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                        Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                        ValidatorsHelper.freeText,
+                    ])
+                );
+                this.form.addControl(
+                    'buildingUsage',
+                    new FormControl('', [
+                        Validators.required,
+                        Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                        Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                        ValidatorsHelper.freeText,
+                    ])
+                );
+                this.form.addControl(
+                    'buildingLocation',
+                    new FormControl('', [
+                        Validators.required,
+                        Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                        Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                        ValidatorsHelper.freeText,
+                    ])
+                );
                 break;
 
             case INSURANCE_GROUPS.MERCHANDISE:
             case INSURANCE_GROUPS.OBJECTS:
             case INSURANCE_GROUPS.RC:
-                this.form.addControl('objectName', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]));
-                this.form.addControl('objectUsage', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]));
-                this.form.addControl('objectDescription', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]));
+                this.form.addControl(
+                    'objectName',
+                    new FormControl('', [
+                        Validators.required,
+                        Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                        Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                        ValidatorsHelper.freeText,
+                    ])
+                );
+                this.form.addControl(
+                    'objectUsage',
+                    new FormControl('', [
+                        Validators.required,
+                        Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                        Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                        ValidatorsHelper.freeText,
+                    ])
+                );
+                this.form.addControl(
+                    'objectDescription',
+                    new FormControl('', [
+                        Validators.required,
+                        Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                        Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                        ValidatorsHelper.freeText,
+                    ])
+                );
                 break;
 
             default:
-                this.form.addControl('policyDetails', new FormControl('', [Validators.required, Validators.minLength(FREE_TEXT_LENGTH.MIN), Validators.maxLength(FREE_TEXT_LENGTH.MAX), ValidatorsHelper.freeText]));
+                this.form.addControl(
+                    'policyDetails',
+                    new FormControl('', [
+                        Validators.required,
+                        Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                        Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                        ValidatorsHelper.freeText,
+                    ])
+                );
                 break;
         }
-        
     }
 
     private _getRequestBody(): FormData {
@@ -184,13 +350,19 @@ export class CreatePolicyInsuredService {
         switch (this.policy!.insuranceGroupId) {
             case INSURANCE_GROUPS.PEOPLE:
                 requestBody.append('personName', this.f.personName.value);
-                requestBody.append('personGenderId', this.f.personGenderId.value);
+                requestBody.append(
+                    'personGenderId',
+                    this.f.personGenderId.value
+                );
                 requestBody.append('personAge', this.f.personAge.value);
                 break;
 
             case INSURANCE_GROUPS.VEHICLES:
                 requestBody.append('vehicleMaker', this.f.vehicleMaker.value);
-                requestBody.append('vehicleVersion', this.f.vehicleVersion.value);
+                requestBody.append(
+                    'vehicleVersion',
+                    this.f.vehicleVersion.value
+                );
                 requestBody.append('vehicleModel', this.f.vehicleModel.value);
                 requestBody.append('vehiclePlates', this.f.vehiclePlates.value);
                 requestBody.append('vehicleSerial', this.f.vehicleSerial.value);
@@ -200,7 +372,10 @@ export class CreatePolicyInsuredService {
             case INSURANCE_GROUPS.BUILDINGS:
                 requestBody.append('buildingName', this.f.buildingName.value);
                 requestBody.append('buildingUsage', this.f.buildingUsage.value);
-                requestBody.append('buildingLocation', this.f.buildingLocation.value);
+                requestBody.append(
+                    'buildingLocation',
+                    this.f.buildingLocation.value
+                );
                 break;
 
             case INSURANCE_GROUPS.MERCHANDISE:
@@ -208,7 +383,10 @@ export class CreatePolicyInsuredService {
             case INSURANCE_GROUPS.RC:
                 requestBody.append('objectName', this.f.objectName.value);
                 requestBody.append('objectUsage', this.f.objectUsage.value);
-                requestBody.append('objectDescription', this.f.objectDescription.value);
+                requestBody.append(
+                    'objectDescription',
+                    this.f.objectDescription.value
+                );
                 break;
 
             default:

@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Insurer } from '@interfaces/insurer.interface';
 import { InsurerService } from '@services/insurer.service';
 import { PolicyService } from '@services/policy.service';
@@ -22,7 +27,7 @@ export class UploadPolicyService {
         this.policyForm = this._formBuilder.group({});
     }
 
-    get f(): { [key: string]: AbstractControl; }  {
+    get f(): { [key: string]: AbstractControl } {
         return this.policyForm.controls;
     }
 
@@ -31,9 +36,9 @@ export class UploadPolicyService {
      */
     buildPolicyForm(): void {
         this.policyForm = this._formBuilder.group({
-            file: ['', [Validators.required] ],
-            insurerId: ['', [Validators.required] ]
-        })
+            file: ['', [Validators.required]],
+            insurerId: ['', [Validators.required]],
+        });
     }
 
     /**
@@ -42,9 +47,17 @@ export class UploadPolicyService {
      * @param  policyId  The policy
      * @return           The contact policy data
      */
-    getContactPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
-        const fields: string = 'policyUrl,insurerId,insurerName,workspaceCountryId';
-        return this._policyService.getContactPolicy(contactId, policyId, fields);
+    getContactPolicy(
+        contactId: string,
+        policyId: string
+    ): Observable<HttpResponse> {
+        const fields: string =
+            'policyUrl,insurerId,insurerName,workspaceCountryId';
+        return this._policyService.getContactPolicy(
+            contactId,
+            policyId,
+            fields
+        );
     }
 
     /**
@@ -56,7 +69,7 @@ export class UploadPolicyService {
             tap((res: HttpResponse) => {
                 this.insurers = res.data;
             }),
-            map( () => { })
+            map(() => {})
         );
     }
 
@@ -69,7 +82,7 @@ export class UploadPolicyService {
             tap((res: HttpResponse) => {
                 this.insurers = res.data;
             }),
-            map( () => { })
+            map(() => {})
         );
     }
 }

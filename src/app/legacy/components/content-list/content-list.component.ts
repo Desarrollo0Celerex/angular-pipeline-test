@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnDestroy,
+    Output,
+    SimpleChanges,
+    ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 
@@ -12,7 +21,7 @@ import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.inte
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
 import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 import { ContactQuotation } from '@interfaces/contact-quotation.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Group } from '@interfaces/group.interface';
 import { Partner } from '@interfaces/partner.interface';
 import { Payment } from '@interfaces/payment.interface';
@@ -29,17 +38,16 @@ import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.inte
 import { UpdateReceiptPaidDataSend } from '@interfaces/update-receipt-paid-data-send.interface';
 import { WrapperDownloadSinisterEventEvidenceComponent } from '@components/wrapper-download-sinister-event-evidence/wrapper-download-sinister-event-evidence.component';
 
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ContentListService } from './content-list.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-content-list',
-  templateUrl: './content-list.component.html',
-  styles: [
-  ]
+    selector: 'agt-content-list',
+    templateUrl: './content-list.component.html',
+    styles: [],
 })
 export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() actionType: number;
@@ -68,7 +76,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @Output() contentReloaded: EventEmitter<void> = new EventEmitter<void>();
     @Output() receiptPaid: EventEmitter<void> = new EventEmitter<void>();
     @ViewChild('containerIncompletePolicies') containerIncompletePolicies: any;
-    @ViewChild('wrapperDownloadSinisterEventEvidence') wrapperDownloadSinisterEventEvidence!: WrapperDownloadSinisterEventEvidenceComponent;
+    @ViewChild('wrapperDownloadSinisterEventEvidence')
+    wrapperDownloadSinisterEventEvidence!: WrapperDownloadSinisterEventEvidenceComponent;
     CONTENT_TYPES: any;
     canReloadApplyPayment: boolean = false;
     canShowTotalResults: boolean;
@@ -108,16 +117,22 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdAcceptQuotation: string;
     modalIdApplyPayment: string;
     modalIdConfirmCancelPolicy: string;
-    modalIdConfirmCancelPolicyInsured: string = 'xyz-confirm-cancel-policy-insured';
-    modalIdConfirmDeletePolicyInsured: string = 'xyz-confirm-delete-policy-insured';
+    modalIdConfirmCancelPolicyInsured: string =
+        'xyz-confirm-cancel-policy-insured';
+    modalIdConfirmDeletePolicyInsured: string =
+        'xyz-confirm-delete-policy-insured';
     modalIdConfirmDeleteContact: string = 'xyz-confirm-delete-contact';
     modalIdConfirmDeleteContactFile: string = 'xyz-confirm-delete-contact-file';
-    modalIdConfirmDeleteCompletePolicy: string = 'xyz-confirm-delete-complete-policy';
+    modalIdConfirmDeleteCompletePolicy: string =
+        'xyz-confirm-delete-complete-policy';
     modalIdConfirmDeleteGroupMember: string = 'xyz-confirm-delete-group-member';
-    modalIdConfirmDeleteIncompletePolicy: string = 'xyz-confirm-delete-incomplete-policy';
+    modalIdConfirmDeleteIncompletePolicy: string =
+        'xyz-confirm-delete-incomplete-policy';
     modalIdConfirmDeleteReceiptPaid: string;
-    modalIdConfirmDeleteRenewedPolicy: string = 'xyz-confirm-delete-renewed-policy';
-    modalIdConfirmDeleteSinisterEvent: string = 'xyz-confirm-delete-sinister-event';
+    modalIdConfirmDeleteRenewedPolicy: string =
+        'xyz-confirm-delete-renewed-policy';
+    modalIdConfirmDeleteSinisterEvent: string =
+        'xyz-confirm-delete-sinister-event';
     modalIdConfirmEndorsePolicy: string;
     modalIdConfirmFinalizeSinister: string;
     modalIdConfirmReissuePolicy: string;
@@ -129,15 +144,19 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdConfirmShowSinister: string = 'xyz-confirm-show-sinister';
     modalIdConfirmShowSinisterHistory: string;
     modalIdConfirmUpdateContactFile: string = 'xyz-confirm-update-contact-file';
-    modalIdConfirmUpdateExternalPolicy: string = 'modal-confirm-update-external-policy';
+    modalIdConfirmUpdateExternalPolicy: string =
+        'modal-confirm-update-external-policy';
     modalIdConfirmUpdatePolicy: string;
-    modalIdConfirmUpdatePolicyInsured: string = 'xyz-confirm-update-policy-insured';
-    modalIdConfirmValidateExternalPolicy: string = 'modal-confirm-validate-external-policy';
+    modalIdConfirmUpdatePolicyInsured: string =
+        'xyz-confirm-update-policy-insured';
+    modalIdConfirmValidateExternalPolicy: string =
+        'modal-confirm-validate-external-policy';
     modalIdFinalizeSinisterEvent: string = 'modal-finalize-sinister-event';
     modalIdRejectQuotation: string;
     modalIdSelectContact: string;
     modalIdSelectContactType: string;
-    modalIdSelectPaymentRegistrationType: string = 'xyz-select-payment-registration-type';
+    modalIdSelectPaymentRegistrationType: string =
+        'xyz-select-payment-registration-type';
     modalIdShowCancellationEvidence: string = 'xyz-show-cancellation-evidence';
     modalIdShowContactData: string;
     modalIdShowContactFileDetails: string = 'xyz-show-contact-file-details';
@@ -148,16 +167,20 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     modalIdShowPolicyDetails: string;
     modalIdShowPolicyFile: string = 'modal-show-policy-file';
     modalIdShowPolicyInsuredFile: string = 'modal-show-policy-insured-file';
-    modalIdConfirmShowPolicySinisters: string = 'xyz-confirm-show-policy-sinisters';
+    modalIdConfirmShowPolicySinisters: string =
+        'xyz-confirm-show-policy-sinisters';
     modalIdSelectReportFormat: string = 'xyz-select-report-format';
-    modalIdShowExternalPolicyDetails: string = 'modal-show-external-policy-details';
+    modalIdShowExternalPolicyDetails: string =
+        'modal-show-external-policy-details';
     modalIdShowPartnerDetails: string = 'xyz-show-partner-details';
     modalIdShowQuotationDetails: string;
     modalIdShowReactivationEvidence: string = 'xyz-show-reactivation-evidence';
-    modalIdShowReceiptAppliedDetails: string = 'xyz-show-receipt-applied-details';
+    modalIdShowReceiptAppliedDetails: string =
+        'xyz-show-receipt-applied-details';
     modalIdShowResolutionEvidence: string = 'xyz-show-resolution-evidence';
     modalIdShowSinisterDetails: string = 'xyz-show-sinister-details';
-    modalIdShowSinisterEventEvidence: string = 'xyz-show-sinister-event-evidence';
+    modalIdShowSinisterEventEvidence: string =
+        'xyz-show-sinister-event-evidence';
     modalIdTransferContactFile: string = 'xyz-transfer-contact-file';
     modalIdUpdateReceiptPaid: string = 'xyz-update-receipt-paid';
     modalIdUpdateSinisterEvent: string = 'xyz-update-sinister-event';
@@ -196,15 +219,20 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.modalIdAcceptQuotation = 'xyz-accept-quotation';
         this.modalIdApplyPayment = 'xyz-apply-payment';
         this.modalIdConfirmCancelPolicy = 'xyz-confirm-cancel-policy';
-        this.modalIdConfirmDeleteReceiptPaid = 'xyz-confirm-delete-receipt-paid';
+        this.modalIdConfirmDeleteReceiptPaid =
+            'xyz-confirm-delete-receipt-paid';
         this.modalIdConfirmEndorsePolicy = 'xyz-confirm-endorse-policy';
         this.modalIdConfirmFinalizeSinister = 'xyz-confirm-finalize-sinister';
         this.modalIdConfirmReissuePolicy = 'xyz-confirm-reissue-policy';
-        this.modalIdConfirmReactivateSinister = 'xyz-confirm-reactivate-sinister';
+        this.modalIdConfirmReactivateSinister =
+            'xyz-confirm-reactivate-sinister';
         this.modalIdConfirmRenewPolicy = 'xyz-confirm-renew-policy';
-        this.modalIdConfirmShowHistoryPolicy = 'xyz-confitm-show-history-policy';
-        this.modalIdConfirmShowPaymentHistory = 'xyz-confitm-show-payment-history';
-        this.modalIdConfirmShowSinisterHistory = 'xyz-confitm-show-sinister-history';
+        this.modalIdConfirmShowHistoryPolicy =
+            'xyz-confitm-show-history-policy';
+        this.modalIdConfirmShowPaymentHistory =
+            'xyz-confitm-show-payment-history';
+        this.modalIdConfirmShowSinisterHistory =
+            'xyz-confitm-show-sinister-history';
         this.modalIdConfirmUpdatePolicy = 'xyz-confirm-update-policy';
         this.modalIdRejectQuotation = 'xyz-reject-quotation';
         this.modalIdSelectContact = 'xyz-select-contact';
@@ -226,17 +254,32 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * @return True if it is, otherwise false;
      */
     ngOnChanges(changes: SimpleChanges): void {
-        if(typeof changes.contentType !== 'undefined' && !!changes.contentType.currentValue) {
-            this.isHistoryContent = UtilitiesHelper.checkIsHistoryContent(this.contentType);
+        if (
+            typeof changes.contentType !== 'undefined' &&
+            !!changes.contentType.currentValue
+        ) {
+            this.isHistoryContent = UtilitiesHelper.checkIsHistoryContent(
+                this.contentType
+            );
             this._loadCardClasses();
         }
 
-        if(
-            (typeof changes.contentSubtype !== 'undefined' && !!changes.contentSubtype.currentValue) ||
-            (typeof changes.query !== 'undefined' && !!changes.query.currentValue) ||
-            (typeof changes.specialQuery !== 'undefined' && !!changes.specialQuery.currentValue) ||
-            (typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) && (typeof changes.policyId !== 'undefined' && !!changes.policyId.currentValue) && (!!this.contentSubtype || !!this.query || !!this.specialQuery) ||
-            (typeof changes.canReloadContent !== 'undefined' && !!changes.canReloadContent.currentValue) ||
+        if (
+            (typeof changes.contentSubtype !== 'undefined' &&
+                !!changes.contentSubtype.currentValue) ||
+            (typeof changes.query !== 'undefined' &&
+                !!changes.query.currentValue) ||
+            (typeof changes.specialQuery !== 'undefined' &&
+                !!changes.specialQuery.currentValue) ||
+            (typeof changes.contactId !== 'undefined' &&
+                !!changes.contactId.currentValue &&
+                typeof changes.policyId !== 'undefined' &&
+                !!changes.policyId.currentValue &&
+                (!!this.contentSubtype ||
+                    !!this.query ||
+                    !!this.specialQuery)) ||
+            (typeof changes.canReloadContent !== 'undefined' &&
+                !!changes.canReloadContent.currentValue) ||
             (!!changes.policyId && !!changes.policyId.currentValue) ||
             (!!changes.groupId && !!changes.groupId.currentValue) ||
             (!!changes.specialFilter && !!changes.specialFilter.currentValue) ||
@@ -244,7 +287,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             (!!changes.rangeStart && !!changes.rangeStart.currentValue) ||
             (!!changes.rangeEnd && !!changes.rangeEnd.currentValue) ||
             (!!changes.partnerId && !!changes.partnerId.currentValue) ||
-            (!!changes.contentSpecialFilter && !!changes.contentSpecialFilter.currentValue)
+            (!!changes.contentSpecialFilter &&
+                !!changes.contentSpecialFilter.currentValue)
         ) {
             this._initContent();
             setTimeout(() => {
@@ -254,7 +298,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        if(this.subParams) this.subParams.unsubscribe();
+        if (this.subParams) this.subParams.unsubscribe();
     }
 
     applyPayment(payment: Payment): void {
@@ -266,7 +310,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     confirmDeleteGroupMember(contactId: string): void {
         this.selectedContactId = contactId;
-        ModalPlugin.show(this.modalIdConfirmDeleteGroupMember)
+        ModalPlugin.show(this.modalIdConfirmDeleteGroupMember);
     }
 
     confirmUpdateExternalPolicy(data: ContactPolicyData): void {
@@ -283,38 +327,55 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     deleteContact(): void {
         this._loadingService.show();
-        this.contentListService.deleteContact(this.selectedContactId).subscribe(() => {
-            this._loadingService.hide();
-            AlertHelper.contactDeleted();
-            const url: string = this._router.url.split('?')[0] ;
-            const queryParams = this.sortParams(this._router.url);
-            this._reloadPage(url, queryParams);
-        })
+        this.contentListService
+            .deleteContact(this.selectedContactId)
+            .subscribe(() => {
+                this._loadingService.hide();
+                AlertHelper.contactDeleted();
+                const url: string = this._router.url.split('?')[0];
+                const queryParams = this.sortParams(this._router.url);
+                this._reloadPage(url, queryParams);
+            });
     }
 
     deleteGroupMember(): void {
         this._loadingService.show();
-        this.contentListService.deleteGroupMember(this.groupId, this.selectedContactId).subscribe(() => {
-            this._loadingService.hide();
-            AlertHelper.groupMemberDeleted();
-            this.contentListService.deleteGroupMemberCard(this.selectedContactId);
-            const url: string = this._router.url.split('?')[0] ;
-            this._reloadPage(url);
-        })
+        this.contentListService
+            .deleteGroupMember(this.groupId, this.selectedContactId)
+            .subscribe(() => {
+                this._loadingService.hide();
+                AlertHelper.groupMemberDeleted();
+                this.contentListService.deleteGroupMemberCard(
+                    this.selectedContactId
+                );
+                const url: string = this._router.url.split('?')[0];
+                this._reloadPage(url);
+            });
     }
 
     deleteRenewedPolicy(): void {
         this._loadingService.show();
-        this.contentListService.deleteRenewedPolicy(this.contactId, this.selectedPolicyIdToDelete).subscribe(() => {
-            this._loadingService.hide();
-            ModalPlugin.show(this.modalIdConfirmRenewPolicy);
-            this.containerIncompletePolicies.deletePolicyCard(this.selectedPolicyIdToDelete);
-            this.contentListService.deletePolicyCard(this.selectedPolicyIdToDelete);
-        });
+        this.contentListService
+            .deleteRenewedPolicy(this.contactId, this.selectedPolicyIdToDelete)
+            .subscribe(() => {
+                this._loadingService.hide();
+                ModalPlugin.show(this.modalIdConfirmRenewPolicy);
+                this.containerIncompletePolicies.deletePolicyCard(
+                    this.selectedPolicyIdToDelete
+                );
+                this.contentListService.deletePolicyCard(
+                    this.selectedPolicyIdToDelete
+                );
+            });
     }
 
     goToUpdateExternalPolicy(): void {
-        this._router.navigateByUrl(ROUTES_NAME.updateExternalPolicy(this.selectedContactId, this.selectedExternalPolicyId));
+        this._router.navigateByUrl(
+            ROUTES_NAME.updateExternalPolicy(
+                this.selectedContactId,
+                this.selectedExternalPolicyId
+            )
+        );
     }
 
     /**
@@ -353,12 +414,12 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to cancel a policy
      * @param policyId The policy ID
      */
-    onCancelPolicy(data: string| ContactPolicyData): void {
-        if(typeof data === 'string') {
+    onCancelPolicy(data: string | ContactPolicyData): void {
+        if (typeof data === 'string') {
             this.selectedPolicyId = data;
         } else {
             this.selectedPolicyId = data.policyId;
-            this.contactId = data.contactId
+            this.contactId = data.contactId;
         }
         ModalPlugin.show(this.modalIdConfirmCancelPolicy);
     }
@@ -368,7 +429,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * @param contactId The selected contact ID
      */
     onContactSelected(contactId: string): void {
-        if(!!this.actionType) {
+        if (!!this.actionType) {
             this._doActionToSelectedContact(contactId);
         } else {
             this._router.navigateByUrl(ROUTES_NAME.contactResume(contactId));
@@ -379,16 +440,20 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to complete the policy data
      * @param data The policy record data
      */
-     onCompletePolicy(data: ContactPolicyData): void {
-         this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.contactId, data.policyId));
-     }
+    onCompletePolicy(data: ContactPolicyData): void {
+        this._router.navigateByUrl(
+            ROUTES_NAME.uploadPolicy(data.contactId, data.policyId)
+        );
+    }
 
     /**
      * Event to complete the policy data
      * @param data The policy record data
      */
     onCompletePolicyRecord(data: PolicyRecordData): void {
-        this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.sourceContactId, data.sourceId));
+        this._router.navigateByUrl(
+            ROUTES_NAME.uploadPolicy(data.sourceContactId, data.sourceId)
+        );
     }
 
     /**
@@ -427,11 +492,24 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     onDeleteReceiptPaidConfirmed(): void {
         this._loadingService.show();
-        this.contentListService.deleteReceiptPaid(this.selectedPaymentId, this.selectedReceiptPaidId).subscribe(() => {
-            this._loadingService.hide();
-            const pageUrl = ROUTES_NAME.paymentHistory(this.contactId, this.policyId, this.paymentId)
-            AlertHelper.receiptPaidDeleted(this._reloadPageAux, this, pageUrl);
-        })
+        this.contentListService
+            .deleteReceiptPaid(
+                this.selectedPaymentId,
+                this.selectedReceiptPaidId
+            )
+            .subscribe(() => {
+                this._loadingService.hide();
+                const pageUrl = ROUTES_NAME.paymentHistory(
+                    this.contactId,
+                    this.policyId,
+                    this.paymentId
+                );
+                AlertHelper.receiptPaidDeleted(
+                    this._reloadPageAux,
+                    this,
+                    pageUrl
+                );
+            });
     }
 
     /**
@@ -479,11 +557,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to notify that the receipt has been paid
      */
     onReceiptPaid(): void {
-        switch(this.contentType) {
+        switch (this.contentType) {
             case CONTENT_TYPES.PENDING_RECEIP.ID:
-                const pageUrl: string = ROUTES_NAME.pendingReceipts(this.selectedContactId, this.selectedPolicyId, this.selectedPaymentId);
+                const pageUrl: string = ROUTES_NAME.pendingReceipts(
+                    this.selectedContactId,
+                    this.selectedPolicyId,
+                    this.selectedPaymentId
+                );
                 this._reloadPage(pageUrl);
-            break;
+                break;
 
             default:
                 this.receiptPaid.emit();
@@ -499,7 +581,9 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     onPreautorizedPayment(): void {
-        this.contentListService.contents[this.posContent].isPreauthorizedPayment = '1';
+        this.contentListService.contents[
+            this.posContent
+        ].isPreauthorizedPayment = '1';
     }
 
     /**
@@ -539,23 +623,28 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.contactId = data.contactId;
         this.selectedPolicyId = data.policyId;
         this._loadingService.show();
-        this.contentListService.getPolicyLogs(this.contactId, this.selectedPolicyId).subscribe((policyLogs: PolicyLog[]) => {
-            this._loadingService.hide();
-            // Check if the policy has already been renewed
-            if(policyLogs.length > 0) {
-                this.selectedPolicyIdToDelete = policyLogs[0].sourceId;
-                ModalPlugin.show(this.modalIdConfirmDeleteRenewedPolicy);
-            } else {
-                ModalPlugin.show(this.modalIdConfirmRenewPolicy);
-            }
-        })
+        this.contentListService
+            .getPolicyLogs(this.contactId, this.selectedPolicyId)
+            .subscribe((policyLogs: PolicyLog[]) => {
+                this._loadingService.hide();
+                // Check if the policy has already been renewed
+                if (policyLogs.length > 0) {
+                    this.selectedPolicyIdToDelete = policyLogs[0].sourceId;
+                    ModalPlugin.show(this.modalIdConfirmDeleteRenewedPolicy);
+                } else {
+                    ModalPlugin.show(this.modalIdConfirmRenewPolicy);
+                }
+            });
     }
 
     /**
      * Event to select the registration type
      * @param data The payment data
      */
-    onSelectRegistrationType(data: ShowPaymentHistoryData, posPayment: number): void {
+    onSelectRegistrationType(
+        data: ShowPaymentHistoryData,
+        posPayment: number
+    ): void {
         this.posContent = posPayment;
         this.selectedContactId = data.contactId;
         this.selectedPolicyId = data.policyId;
@@ -569,7 +658,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     onShowCancellationEvidence(data: PolicyRecordData): void {
         this.selectedCancelledPolicyId = data.sourceId;
-        ModalPlugin.show(this.modalIdShowCancellationEvidence)
+        ModalPlugin.show(this.modalIdShowCancellationEvidence);
     }
 
     /**
@@ -600,11 +689,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * @param policyId The selected policy ID
      */
     onShowHistoryPolicy(data: string | ContactPolicyData): void {
-        if(typeof data === 'string') {
+        if (typeof data === 'string') {
             this.selectedPolicyId = data;
         } else {
             this.selectedPolicyId = data.policyId;
-            this.contactId = data.contactId
+            this.contactId = data.contactId;
         }
         ModalPlugin.show(this.modalIdConfirmShowHistoryPolicy);
     }
@@ -613,7 +702,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to show the modal to confirm show the payment history
      * @param data The data to show the payment history
      */
-    onShowPaymentHistory(data : ShowPaymentHistoryData): void {
+    onShowPaymentHistory(data: ShowPaymentHistoryData): void {
         this.selectedContactId = data.contactId;
         this.selectedPolicyId = data.policyId;
         this.selectedPaymentId = data.paymentId;
@@ -650,7 +739,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * @param policyId The policy ID
      */
     onShowPolicy(data: string | ContactPolicyData): void {
-        if(typeof data === 'string') {
+        if (typeof data === 'string') {
             this.selectedPolicyId = data;
             this.selectedContactId = this.contactId;
         } else {
@@ -743,7 +832,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     onShowSinister(sinisterData: SinisterDataSend): void {
         this.selectedSinisterData = sinisterData;
-        ModalPlugin.show(this.modalIdConfirmShowSinister)
+        ModalPlugin.show(this.modalIdConfirmShowSinister);
     }
 
     /**
@@ -796,10 +885,18 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     reloadReceiptPaid(data: UpdateReceiptPaidDataSend): void {
-        const index: number = this.contentListService.getContentPosition(this.selectedReceiptPaidId, 'receiptPaidId');
-        this.contentListService.contents[index].receiptsAmount = data.receiptsAmount;
-        this.contentListService.contents[index].receiptsNumber = data.receiptsNumber;
-        this.contentListService.contents[index].applicationDate = moment(data.applicationDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
+        const index: number = this.contentListService.getContentPosition(
+            this.selectedReceiptPaidId,
+            'receiptPaidId'
+        );
+        this.contentListService.contents[index].receiptsAmount =
+            data.receiptsAmount;
+        this.contentListService.contents[index].receiptsNumber =
+            data.receiptsNumber;
+        this.contentListService.contents[index].applicationDate = moment(
+            data.applicationDate,
+            'DD/MM/YYYY'
+        ).format('YYYY-MM-DD');
     }
 
     /**
@@ -858,16 +955,22 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.selectedPolicyInsured = data;
         ModalPlugin.show(this.modalIdConfirmCancelPolicyInsured);
     }
-    
+
     cancelPolicyInsured(): void {
         this._loadingService.show();
-        this.contentListService.cancelPolicyInsured(this.selectedPolicyInsured!.contactId, this.selectedPolicyInsured!.policyId, this.selectedPolicyInsured!.policyInsuredId).subscribe(_ => {
-            const url: string = this._router.url.split('?')[0] ;
-            const queryParams = this.sortParams(this._router.url);
-            this._reloadPage(url, queryParams);
-            this._loadingService.hide();
-            AlertHelper.policyInsuredCancelled();
-        })
+        this.contentListService
+            .cancelPolicyInsured(
+                this.selectedPolicyInsured!.contactId,
+                this.selectedPolicyInsured!.policyId,
+                this.selectedPolicyInsured!.policyInsuredId
+            )
+            .subscribe((_) => {
+                const url: string = this._router.url.split('?')[0];
+                const queryParams = this.sortParams(this._router.url);
+                this._reloadPage(url, queryParams);
+                this._loadingService.hide();
+                AlertHelper.policyInsuredCancelled();
+            });
     }
 
     confirmDeleteInsured(data: PolicyInsuredData): void {
@@ -877,13 +980,19 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     deletePolicyInsured(): void {
         this._loadingService.show();
-        this.contentListService.deletePolicyInsured(this.selectedPolicyInsured!.contactId, this.selectedPolicyInsured!.policyId, this.selectedPolicyInsured!.policyInsuredId).subscribe(_ => {
-            const url: string = this._router.url.split('?')[0] ;
-            const queryParams = this.sortParams(this._router.url);
-            this._reloadPage(url, queryParams);
-            this._loadingService.hide();
-            AlertHelper.policyInsuredDeleted();
-        })
+        this.contentListService
+            .deletePolicyInsured(
+                this.selectedPolicyInsured!.contactId,
+                this.selectedPolicyInsured!.policyId,
+                this.selectedPolicyInsured!.policyInsuredId
+            )
+            .subscribe((_) => {
+                const url: string = this._router.url.split('?')[0];
+                const queryParams = this.sortParams(this._router.url);
+                this._reloadPage(url, queryParams);
+                this._loadingService.hide();
+                AlertHelper.policyInsuredDeleted();
+            });
     }
 
     showInsuredFile(insuredPolicyUrl: string): void {
@@ -902,7 +1011,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     goToUpdatePolicyInsured(): void {
-        this._router.navigateByUrl(ROUTES_NAME.updatePolicyInsured(this.selectedPolicyInsured!.contactId, this.selectedPolicyInsured!.policyId, this.selectedPolicyInsured!.policyInsuredId));
+        this._router.navigateByUrl(
+            ROUTES_NAME.updatePolicyInsured(
+                this.selectedPolicyInsured!.contactId,
+                this.selectedPolicyInsured!.policyId,
+                this.selectedPolicyInsured!.policyInsuredId
+            )
+        );
     }
 
     /**
@@ -910,9 +1025,11 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * @param contactId The selected contact ID
      */
     private _doActionToSelectedContact(contactId: string): void {
-        switch(this.actionType) {
+        switch (this.actionType) {
             case ACTION_TYPES.CREATE_QUOTATION:
-                this._router.navigateByUrl(ROUTES_NAME.createQuotation(contactId));
+                this._router.navigateByUrl(
+                    ROUTES_NAME.createQuotation(contactId)
+                );
                 break;
 
             case ACTION_TYPES.CREATE_POLICY:
@@ -926,18 +1043,35 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
             case ACTION_TYPES.RENEW_POLICY:
                 this._loadingService.show();
-                this.contentListService.renewPolicy(this.originContactId, this.originPolicyId, contactId).subscribe( (res: HttpResponse) => {
-                    this._loadingService.hide();
-                    this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(contactId, res.data), { state: { comesFromRenewalPolicy: true} });
-                });
+                this.contentListService
+                    .renewPolicy(
+                        this.originContactId,
+                        this.originPolicyId,
+                        contactId
+                    )
+                    .subscribe((res: HttpResponse) => {
+                        this._loadingService.hide();
+                        this._router.navigateByUrl(
+                            ROUTES_NAME.uploadPolicy(contactId, res.data),
+                            { state: { comesFromRenewalPolicy: true } }
+                        );
+                    });
                 break;
 
             case ACTION_TYPES.REISSUE_POLICY:
                 this._loadingService.show();
-                this.contentListService.reissuePolicy(this.originContactId, this.originPolicyId, contactId).subscribe( (res: HttpResponse) => {
-                    this._loadingService.hide();
-                    this._router.navigate([ROUTES_NAME.uploadPolicy(contactId, res.data)]);
-                });
+                this.contentListService
+                    .reissuePolicy(
+                        this.originContactId,
+                        this.originPolicyId,
+                        contactId
+                    )
+                    .subscribe((res: HttpResponse) => {
+                        this._loadingService.hide();
+                        this._router.navigate([
+                            ROUTES_NAME.uploadPolicy(contactId, res.data),
+                        ]);
+                    });
                 break;
         }
     }
@@ -948,7 +1082,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     private _initContent(): void {
         this.contentListService.resetData();
         this.page = 1;
-        this.isCoincidence = (this.contentSubtype == CONTENT_TYPES.COINCIDENCES.ID)
+        this.isCoincidence =
+            this.contentSubtype == CONTENT_TYPES.COINCIDENCES.ID;
         this._loadContents();
     }
 
@@ -956,7 +1091,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Load the classes of the card
      */
     private _loadCardClasses(): void {
-        switch(this.contentType) {
+        switch (this.contentType) {
             case CONTENT_TYPES.CONTACT.ID:
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID:
@@ -978,7 +1113,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:
             case CONTENT_TYPES.EXTERNAL_POLICIES.ID:
                 this.cardClasses = 'col-xl-3 col-lg-4 col-md-6 col-sm-12';
-            break;
+                break;
 
             case CONTENT_TYPES.CONTACT_FILE.ID:
             case CONTENT_TYPES.PAYMENT.ID:
@@ -987,7 +1122,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID:
             case CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID:
                 this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-3';
-            break;
+                break;
 
             case CONTENT_TYPES.HISTORY_POLICY.ID:
             case CONTENT_TYPES.HISTORY_POLICY.ID:
@@ -997,15 +1132,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case CONTENT_TYPES.POLICY_SINISTERS.ID:
             case CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID:
                 this.cardClasses = 'col-lg-12 mt-5';
-            break;
+                break;
 
             case CONTENT_TYPES.PAYMENT_CALENDAR.ID:
                 this.cardClasses = 'col-sm-12 col-md-6 col-lg-6 col-xl-4';
-            break;
+                break;
 
             default:
                 this.cardClasses = 'col-md-3 col-xl-3';
-            break;
+                break;
         }
     }
 
@@ -1014,15 +1149,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _loadContents(): void {
         this.isLoadingContent = true;
-        if(!!this.contentSubtype && !(!!this.query) && !(!!this.specialQuery)) {
+        if (!!this.contentSubtype && !!!this.query && !!!this.specialQuery) {
             this._loadContentsByFilter();
-        } else if(!!this.query) {
+        } else if (!!this.query) {
             this._loadContentsBySearch();
-        } else if(!!this.specialQuery) {
+        } else if (!!this.specialQuery) {
             this._loadContentsBySearch();
-        } else if(!!this.specialFilter) {
+        } else if (!!this.specialFilter) {
             this._loadContentsBySpecialFilter();
-        } else if(!!this.rangeField && !!this.rangeStart && !!this.rangeEnd) {
+        } else if (!!this.rangeField && !!this.rangeStart && !!this.rangeEnd) {
             this._loadContentsByRange();
         }
     }
@@ -1031,199 +1166,338 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Load the contents by filter
      */
     private _loadContentsByFilter(): void {
-        switch(this.contentType) {
+        switch (this.contentType) {
             case CONTENT_TYPES.CONTACT.ID:
-                this.contentListService.loadContacts(this.page).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadContacts(this.page)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.LEAD.ID:
-                this.contentListService.loadLeads(this.page, this.contentSubtype).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadLeads(this.page, this.contentSubtype)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.CLIENT.ID:
-                this.contentListService.loadClients(this.page, this.contentSubtype).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadClients(this.page, this.contentSubtype)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
-                this.contentListService.loadContactQuotations(this.contactId, this.page, this.contentSubtype).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadContactQuotations(
+                        this.contactId,
+                        this.page,
+                        this.contentSubtype
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.POLICY.ID:
-                this.contentListService.loadContactPolicies(this.contactId, this.page, this.contentSubtype).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadContactPolicies(
+                        this.contactId,
+                        this.page,
+                        this.contentSubtype
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID:
-                this.contentListService.loadWorkspacePoliciesPending(this.page, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadWorkspacePoliciesPending(
+                        this.page,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.POLICY_INSURED.ID:
-                this.contentListService.loadPolicyInsureds(this.contactId, this.policyId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadPolicyInsureds(
+                        this.contactId,
+                        this.policyId,
+                        this.page
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.GROUP.ID:
-                this.contentListService.loadGroups(this.page, this.contentSubtype).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadGroups(this.page, this.contentSubtype)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.GROUP_MEMBER.ID:
-                this.contentListService.loadGroupMembers(this.groupId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadGroupMembers(this.groupId, this.page)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.GROUP_POLICY.ID:
-                this.contentListService.loadGroupPolicies(this.groupId, this.page, this.contentSubtype).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadGroupPolicies(
+                        this.groupId,
+                        this.page,
+                        this.contentSubtype
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.GROUP_SINISTER.ID:
-                this.contentListService.loadGroupSinisters(this.groupId, this.page, this.contentSubtype).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadGroupSinisters(
+                        this.groupId,
+                        this.page,
+                        this.contentSubtype
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.HISTORY_POLICY.ID:
-                this.contentListService.loadContactHistoryPolicy(this.contactId, this.policyId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadContactHistoryPolicy(
+                        this.contactId,
+                        this.policyId,
+                        this.page
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.PARTNER.ID:
-                this.contentListService.loadPartners(this.page, this.contentSubtype).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadPartners(this.page, this.contentSubtype)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.PARTNER_CLIENT.ID:
-                this.contentListService.loadPartnerClients(this.partnerId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadPartnerClients(this.partnerId, this.page)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.PARTNER_POLICY.ID:
-                this.contentListService.loadPartnerPolicies(this.partnerId, this.page, this.contentSubtype).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadPartnerPolicies(
+                        this.partnerId,
+                        this.page,
+                        this.contentSubtype
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.PARTNER_SINISTER.ID:
-                this.contentListService.loadPartnerSinisters(this.partnerId, this.page, this.contentSubtype).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadPartnerSinisters(
+                        this.partnerId,
+                        this.page,
+                        this.contentSubtype
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.PAYMENT.ID:
-                this.contentListService.loadPayments(this.page, this.contentSubtype).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadPayments(this.page, this.contentSubtype)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.PAYMENT_HISTORY.ID:
-                this.contentListService.loadPaymentHistory(this.paymentId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadPaymentHistory(this.paymentId, this.page)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.SINISTER.ID:
-            this.contentListService.loadSinisters(this.page, this.contentSubtype).subscribe( () => {
-                this._contentLoaded();
-            });
-            break;
+                this.contentListService
+                    .loadSinisters(this.page, this.contentSubtype)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
-                this.contentListService.loadContactSinisters(this.contactId, this.page, this.contentSubtype).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadContactSinisters(
+                        this.contactId,
+                        this.page,
+                        this.contentSubtype
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.SINISTER_HISTORY.ID:
-                this.contentListService.loadSinisterLogs(this.contactId, this.policyId, this.sinisterId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadSinisterLogs(
+                        this.contactId,
+                        this.policyId,
+                        this.sinisterId,
+                        this.page
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.POLICY_SINISTERS.ID:
-                this.contentListService.loadPolicySinisters(this.contactId, this.policyId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadPolicySinisters(
+                        this.contactId,
+                        this.policyId,
+                        this.page
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID:
-                this.contentListService.loadPolicyOpenSinisters(this.contactId, this.policyId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadPolicyOpenSinisters(
+                        this.contactId,
+                        this.policyId,
+                        this.page
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID:
-                this.contentListService.loadPolicyClosedSinisters(this.contactId, this.policyId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadPolicyClosedSinisters(
+                        this.contactId,
+                        this.policyId,
+                        this.page
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.CONTACT_FILE.ID:
-                this.contentListService.loadContactFiles(this.contactId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadContactFiles(this.contactId, this.page)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.PENDING_RECEIP.ID:
-                this.contentListService.loadPendingReceipts(this.paymentId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadPendingReceipts(this.paymentId, this.page)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID:
-                this.contentListService.loadPolicyEndorsements(this.contactId, this.policyId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadPolicyEndorsements(
+                        this.contactId,
+                        this.policyId,
+                        this.page
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.POLICY_TRACKER.ID:
-                this.contentListService.loadPolicyTracker(this.contactId, this.policyId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                    this.selectedPolicyPos = this.contentListService.getPolicyTrackerPos(this.policyId);
-                })
-            break;
+                this.contentListService
+                    .loadPolicyTracker(this.contactId, this.policyId, this.page)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                        this.selectedPolicyPos =
+                            this.contentListService.getPolicyTrackerPos(
+                                this.policyId
+                            );
+                    });
+                break;
 
             case CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID:
-                this.contentListService.loadPolicyRenewals(this.contactId, this.policyId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadPolicyRenewals(
+                        this.contactId,
+                        this.policyId,
+                        this.page
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.INCOMPLETE_POLICIES.ID:
-                this.contentListService.loadIncompletePolicies(this.page, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadIncompletePolicies(
+                        this.page,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.EXTERNAL_POLICIES.ID:
-                this.contentListService.loadExternalPolicies(this.page, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .loadExternalPolicies(this.page, this.contentSpecialFilter)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID:
-                this.contentListService.loadPolicyReceiptsPaid(this.contactId, this.policyId, this.paymentId, this.page).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadPolicyReceiptsPaid(
+                        this.contactId,
+                        this.policyId,
+                        this.paymentId,
+                        this.page
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
         }
     }
 
@@ -1231,126 +1505,290 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Load the contents by range
      */
     private _loadContentsByRange(): void {
-        switch(this.contentType) {
+        switch (this.contentType) {
             case CONTENT_TYPES.POLICY_TO_RENEW.ID:
-                this.contentListService.loadPoliciesToRenew(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadPoliciesToRenew(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID:
-                this.contentListService.loadContactPendingRenewalsByRange(this.contactId, this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadContactPendingRenewalsByRange(
+                        this.contactId,
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.LAST_CANCELLED_POLICY.ID:
-                this.contentListService.loadCancelledPolicies(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadCancelledPolicies(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID:
-                this.contentListService.loadWorkspacePoliciesIssued(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadWorkspacePoliciesIssued(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID:
-                this.contentListService.loadQuotationsByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadQuotationsByRange(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID:
-                this.contentListService.loadWorkspaceQuotationsClosedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadWorkspaceQuotationsClosedByRange(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID:
-                this.contentListService.loadWorkspaceQuotationsOpenedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadWorkspaceQuotationsOpenedByRange(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID:
-                this.contentListService.loadActivePoliciesByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadActivePoliciesByRange(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID:
-                this.contentListService.loadWorkspacePoliciesRenewedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadWorkspacePoliciesRenewedByRange(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID:
-                this.contentListService.loadReceiptsAppliedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadReceiptsAppliedByRange(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID:
-                this.contentListService.loadContactReceiptsAppliedByRange(this.contactId, this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadContactReceiptsAppliedByRange(
+                        this.contactId,
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
-                this.contentListService.loadRenewedPoliciesByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadRenewedPoliciesByRange(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID:
-                this.contentListService.loadContactAppliedRenewalsByRange(this.contactId, this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadContactAppliedRenewalsByRange(
+                        this.contactId,
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
-                this.contentListService.loadPendingPaymentsByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadPendingPaymentsByRange(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID:
-                this.contentListService.loadContactPendingPaymentsByRange(this.contactId, this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadContactPendingPaymentsByRange(
+                        this.contactId,
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
-                this.contentListService.loadOpenedSinistersByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadOpenedSinistersByRange(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID:
-                this.contentListService.loadWorkspaceSinistersClosedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadWorkspaceSinistersClosedByRange(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID:
-                this.contentListService.loadWorkspaceLeadsConvertedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadWorkspaceLeadsConvertedByRange(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID:
-                this.contentListService.loadWorkspaceClientsConvertedByRange(this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadWorkspaceClientsConvertedByRange(
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID:
-                this.contentListService.loadInsuranceSinistersByRange(this.insuranceId, this.page, this.rangeField, this.rangeStart, this.rangeEnd, this.contentSpecialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadInsuranceSinistersByRange(
+                        this.insuranceId,
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
         }
     }
 
@@ -1358,12 +1796,14 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Load the contents by filter
      */
     private _loadContentsBySpecialFilter(): void {
-        switch(this.contentType) {
+        switch (this.contentType) {
             case CONTENT_TYPES.PAYMENT_CALENDAR.ID:
-                this.contentListService.loadCalendarPayments(this.page, this.specialFilter).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .loadCalendarPayments(this.page, this.specialFilter)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
         }
     }
 
@@ -1371,114 +1811,175 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Load the contents by search
      */
     private _loadContentsBySearch(): void {
-        switch(this.contentType) {
+        switch (this.contentType) {
             case CONTENT_TYPES.CONTACT.ID:
-                this.contentListService.searchContacts(this.page, this.query, this.specialQuery).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .searchContacts(this.page, this.query, this.specialQuery)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.LEAD.ID:
-                this.contentListService.searchLeads(this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .searchLeads(this.page, this.query)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.CLIENT.ID:
-                this.contentListService.searchClients(this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .searchClients(this.page, this.query)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.CONTACT_FILE.ID:
-                this.contentListService.searchContactFiles(this.contactId, this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchContactFiles(this.contactId, this.page, this.query)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.CONTACT_QUOTATION.ID:
-                this.contentListService.searchContactQuotations(this.contactId, this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchContactQuotations(
+                        this.contactId,
+                        this.page,
+                        this.query
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.POLICY.ID:
-                this.contentListService.searchContactPolicies(this.contactId, this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchContactPolicies(
+                        this.contactId,
+                        this.page,
+                        this.query
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.POLICY_INSURED.ID:
-                this.contentListService.searchPolicyInsureds(this.contactId, this.policyId, this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchPolicyInsureds(
+                        this.contactId,
+                        this.policyId,
+                        this.page,
+                        this.query
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.CONTACT_SINISTER.ID:
-                this.contentListService.searchContactSinisters(this.contactId, this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchContactSinisters(
+                        this.contactId,
+                        this.page,
+                        this.query
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.GROUP.ID:
-                this.contentListService.searchGroups(this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                });
-            break;
+                this.contentListService
+                    .searchGroups(this.page, this.query)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.GROUP_MEMBER.ID:
-                this.contentListService.searchGroupMembers(this.groupId, this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchGroupMembers(this.groupId, this.page, this.query)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.GROUP_POLICY.ID:
-                this.contentListService.searchGroupPolicies(this.groupId, this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchGroupPolicies(this.groupId, this.page, this.query)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.GROUP_SINISTER.ID:
-                this.contentListService.searchGroupSinisters(this.groupId, this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchGroupSinisters(this.groupId, this.page, this.query)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.PARTNER.ID:
-                this.contentListService.searchPartners(this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchPartners(this.page, this.query)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.PARTNER_CLIENT.ID:
-                this.contentListService.searchPartnerClients(this.partnerId, this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchPartnerClients(this.partnerId, this.page, this.query)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.PARTNER_POLICY.ID:
-                this.contentListService.searchPartnerPolicies(this.partnerId, this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchPartnerPolicies(
+                        this.partnerId,
+                        this.page,
+                        this.query
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.PARTNER_SINISTER.ID:
-                this.contentListService.searchPartnerSinisters(this.partnerId, this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchPartnerSinisters(
+                        this.partnerId,
+                        this.page,
+                        this.query
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.PAYMENT.ID:
-                this.contentListService.searchPayments(this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchPayments(this.page, this.query)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
 
             case CONTENT_TYPES.SINISTER.ID:
-                this.contentListService.searchSinisters(this.page, this.query).subscribe( () => {
-                    this._contentLoaded();
-                })
-            break;
+                this.contentListService
+                    .searchSinisters(this.page, this.query)
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
         }
     }
 
@@ -1488,8 +1989,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _checkCanShowTotalResults(): boolean {
         let canShow: boolean = false;
-        if(((!!this.query) || this.isHistoryContent) && (this.totalResults > 0) ) {
-            switch(this.contentType) {
+        if ((!!this.query || this.isHistoryContent) && this.totalResults > 0) {
+            switch (this.contentType) {
                 case CONTENT_TYPES.CONTACT_QUOTATION.ID:
                 case CONTENT_TYPES.CLIENT.ID:
                 case CONTENT_TYPES.GROUP.ID:
@@ -1508,16 +2009,16 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.POLICY_SINISTERS.ID:
                 case CONTENT_TYPES.SINISTER.ID:
                     canShow = true;
-                break;
+                    break;
             }
         }
 
         // Special contents
-        switch(this.contentType) {
+        switch (this.contentType) {
             case CONTENT_TYPES.POLICY_TRACKER.ID:
             case CONTENT_TYPES.PENDING_RECEIP.ID:
                 canShow = true;
-            break;
+                break;
         }
 
         return canShow;
@@ -1525,8 +2026,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
 
     private _checkCanShowContentResultsTop(): boolean {
         let canShow: boolean = false;
-        if(this.totalResults > 0 ) {
-            switch(this.contentType) {
+        if (this.totalResults > 0) {
+            switch (this.contentType) {
                 case CONTENT_TYPES.POLICY_TO_RENEW.ID:
                 case CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID:
                 case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
@@ -1550,7 +2051,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID:
                 case CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID:
                     canShow = true;
-                break;
+                    break;
             }
         }
         return canShow;
@@ -1561,7 +2062,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      */
     private _contentLoaded(): void {
         this.isLoadingContent = false;
-        this.totalResults = this.contentListService.contentResultData.totalItems;
+        this.totalResults =
+            this.contentListService.contentResultData.totalItems;
         this.canShowTotalResults = this._checkCanShowTotalResults();
         this.canShowContentResultsTop = this._checkCanShowContentResultsTop();
         this.totalResultsLoaded.emit(this.totalResults);
@@ -1578,25 +2080,32 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     private _reloadPage(pageUrl: string, queryParams: any = {}): void {
         this._router.routeReuseStrategy.shouldReuseRoute = () => false;
         this._router.onSameUrlNavigation = 'reload';
-        this._router.navigate(['/' + pageUrl], { relativeTo: this._activatedRoute, queryParams });
+        this._router.navigate(['/' + pageUrl], {
+            relativeTo: this._activatedRoute,
+            queryParams,
+        });
     }
 
-    private _reloadPageAux(context: ContentListComponent, pageUrl: string): void {
+    private _reloadPageAux(
+        context: ContentListComponent,
+        pageUrl: string
+    ): void {
         context._router.routeReuseStrategy.shouldReuseRoute = () => false;
         context._router.onSameUrlNavigation = 'reload';
-        context._router.navigate(['/' + pageUrl], { relativeTo: context._activatedRoute });
+        context._router.navigate(['/' + pageUrl], {
+            relativeTo: context._activatedRoute,
+        });
     }
 
     private sortParams(link: string) {
         let queryParams: string = link.split('?')[1];
-        let params = (!!queryParams) ? queryParams.split('&') : [];
+        let params = !!queryParams ? queryParams.split('&') : [];
         let pair = null;
         let data: any = {};
         params.forEach((d) => {
-          pair = d.split('=');
-          data[`${pair[0]}`] = pair[1].replace('%20', ' ');
+            pair = d.split('=');
+            data[`${pair[0]}`] = pair[1].replace('%20', ' ');
         });
         return data;
     }
-
 }

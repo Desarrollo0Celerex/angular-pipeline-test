@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AlertHelper } from '@helpers/alert.helper';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { SelectWorkspaceInsurancesService } from './select-workspace-insurances.service';
 import { ActionWorkspaceInsuranceData } from '@interfaces/action-workspace-insurance-data.interface';
@@ -9,15 +9,16 @@ import { ActionWorkspaceInsuranceData } from '@interfaces/action-workspace-insur
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-select-workspace-insurances',
-  templateUrl: './select-workspace-insurances.page.html',
-  styles: [
-  ],
-  providers: [SelectWorkspaceInsurancesService]
+    selector: 'agt-select-workspace-insurances',
+    templateUrl: './select-workspace-insurances.page.html',
+    styles: [],
+    providers: [SelectWorkspaceInsurancesService],
 })
 export class SelectWorkspaceInsurancesPage implements OnInit {
-    modalIdConfirmAddWorkspaceInsurance: string = 'agt-confirm-add-workspace-insurace';
-    modalIdConfirmRemoveWorkspaceInsurance: string = 'agt-confirm-remove-workspace-insurace';
+    modalIdConfirmAddWorkspaceInsurance: string =
+        'agt-confirm-add-workspace-insurace';
+    modalIdConfirmRemoveWorkspaceInsurance: string =
+        'agt-confirm-remove-workspace-insurace';
     modalIdConfirmUpgradeLicense: string = 'agt-confirm-upgrade-license';
     modalIdUpgradeLicense: string = 'agt-upgrade-license';
     selectedInsuranceId: number = 0;
@@ -28,7 +29,7 @@ export class SelectWorkspaceInsurancesPage implements OnInit {
     constructor(
         public model: SelectWorkspaceInsurancesService,
         private _loadingService: LoadingService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._loadWorkspaceLicenseId();
@@ -36,20 +37,32 @@ export class SelectWorkspaceInsurancesPage implements OnInit {
 
     addWorkspaceInsurance(): void {
         this._loadingService.show();
-        this.model.addWorkspaceInsurance(this.selectedInsuranceId).subscribe(() => {
-            this.model.licenseInsurances[this.selectedLicenseIndex!].insurances[this.selectedInsuranceIndex!].hasActiveLeadGenerator = true;
-            this._loadingService.hide();
-            AlertHelper.workspaceInsuranceAdded();
-        });
+        this.model
+            .addWorkspaceInsurance(this.selectedInsuranceId)
+            .subscribe(() => {
+                this.model.licenseInsurances[
+                    this.selectedLicenseIndex!
+                ].insurances[
+                    this.selectedInsuranceIndex!
+                ].hasActiveLeadGenerator = true;
+                this._loadingService.hide();
+                AlertHelper.workspaceInsuranceAdded();
+            });
     }
 
     removeWorkspaceInsurance(): void {
         this._loadingService.show();
-        this.model.removeWorkspaceInsurance(this.selectedInsuranceId).subscribe(() => {
-            this.model.licenseInsurances[this.selectedLicenseIndex!].insurances[this.selectedInsuranceIndex!].hasActiveLeadGenerator = false;
-            this._loadingService.hide();
-            AlertHelper.workspaceInsuranceRemoved();
-        });
+        this.model
+            .removeWorkspaceInsurance(this.selectedInsuranceId)
+            .subscribe(() => {
+                this.model.licenseInsurances[
+                    this.selectedLicenseIndex!
+                ].insurances[
+                    this.selectedInsuranceIndex!
+                ].hasActiveLeadGenerator = false;
+                this._loadingService.hide();
+                AlertHelper.workspaceInsuranceRemoved();
+            });
     }
 
     showModalToConfirmUpgradeLicense(licenseName: string): void {
@@ -57,14 +70,18 @@ export class SelectWorkspaceInsurancesPage implements OnInit {
         ModalPlugin.show(this.modalIdConfirmUpgradeLicense);
     }
 
-    showModalToConfirmAddWorkspaceInsurance(data: ActionWorkspaceInsuranceData): void {
+    showModalToConfirmAddWorkspaceInsurance(
+        data: ActionWorkspaceInsuranceData
+    ): void {
         this.selectedInsuranceId = data.insuranceId;
         this.selectedLicenseIndex = data.licenseIndex;
         this.selectedInsuranceIndex = data.insuranceIndex;
         ModalPlugin.show(this.modalIdConfirmAddWorkspaceInsurance);
     }
 
-    showModalToConfirmRemoveWorkspaceInsurance(data: ActionWorkspaceInsuranceData): void {
+    showModalToConfirmRemoveWorkspaceInsurance(
+        data: ActionWorkspaceInsuranceData
+    ): void {
         this.selectedInsuranceId = data.insuranceId;
         this.selectedLicenseIndex = data.licenseIndex;
         this.selectedInsuranceIndex = data.insuranceIndex;
@@ -84,5 +101,4 @@ export class SelectWorkspaceInsurancesPage implements OnInit {
             });
         });
     }
-
 }

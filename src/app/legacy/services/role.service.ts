@@ -3,16 +3,15 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const routes: any = {
-    roles:  environment.apiUrl + '/roles'
-}
+    roles: environment.apiUrl + '/roles',
+};
 
 @Injectable()
 export class RoleService {
-
-    constructor(private _httpClient: HttpClient) { }
+    constructor(private _httpClient: HttpClient) {}
 
     /**
      * Get the roles from API
@@ -23,6 +22,6 @@ export class RoleService {
         const route: string = routes.roles;
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
-        return this._httpClient.get<HttpResponse>(route, {params});
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 }

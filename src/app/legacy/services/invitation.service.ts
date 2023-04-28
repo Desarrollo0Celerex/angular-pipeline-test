@@ -3,15 +3,22 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { CreateInvitationDataSend } from '@interfaces/create-invitation-data-send.interface';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@core/services/auth.service';
 
 const routes: any = {
-    invitation: (workspaceId: string, invitationId: number) => environment.apiUrl + '/workspaces/' + workspaceId + '/invitations/' + invitationId,
-    invitations: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/invitations',
-    invitationToken: (invitationToken: string) => environment.apiUrl + '/invitations/' + invitationToken
-}
+    invitation: (workspaceId: string, invitationId: number) =>
+        environment.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/invitations/' +
+        invitationId,
+    invitations: (workspaceId: string) =>
+        environment.apiUrl + '/workspaces/' + workspaceId + '/invitations',
+    invitationToken: (invitationToken: string) =>
+        environment.apiUrl + '/invitations/' + invitationToken,
+};
 
 @Injectable()
 export class InvitationService {
@@ -39,7 +46,9 @@ export class InvitationService {
      * @param  requestBody Request body
      * @return             Invitation
      */
-    createInvitation(requestBody: CreateInvitationDataSend): Observable<HttpResponse> {
+    createInvitation(
+        requestBody: CreateInvitationDataSend
+    ): Observable<HttpResponse> {
         const route: string = routes.invitations(this._workspaceId);
         return this._httpClient.post<HttpResponse>(route, requestBody);
     }
@@ -50,7 +59,10 @@ export class InvitationService {
      * @return              Notice of action done
      */
     deleteInvitation(invitationId: number): Observable<void> {
-        const route: string = routes.invitation(this._workspaceId, invitationId);
+        const route: string = routes.invitation(
+            this._workspaceId,
+            invitationId
+        );
         return this._httpClient.delete<void>(route);
     }
 
@@ -59,11 +71,14 @@ export class InvitationService {
      * @param  invitationToken The invitation token
      * @return                 The invitation data
      */
-    getInvitationByToken(invitationToken: string, fields: string = ''): Observable<HttpResponse> {
+    getInvitationByToken(
+        invitationToken: string,
+        fields: string = ''
+    ): Observable<HttpResponse> {
         const route: string = routes.invitationToken(invitationToken);
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
-        return this._httpClient.get<HttpResponse>(route, {params});
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 
     /**
@@ -72,12 +87,18 @@ export class InvitationService {
      * @param  invitationStatusId Invitation status id
      * @return                    Invitations
      */
-    getInvitations(fields: string = '', invitationStatusId: string = ''): Observable<HttpResponse> {
+    getInvitations(
+        fields: string = '',
+        invitationStatusId: string = ''
+    ): Observable<HttpResponse> {
         const route: string = routes.invitations(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
-        params = params.append('filter', 'invitationStatusId[=]' + invitationStatusId);
-        return this._httpClient.get<HttpResponse>(route, {params});
+        params = params.append(
+            'filter',
+            'invitationStatusId[=]' + invitationStatusId
+        );
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 
     /**
@@ -96,7 +117,10 @@ export class InvitationService {
      * @return              Sent invitation notification
      */
     sendInvitation(invitationId: number): Observable<void> {
-        const route: string = routes.invitation(this._workspaceId, invitationId);
+        const route: string = routes.invitation(
+            this._workspaceId,
+            invitationId
+        );
         return this._httpClient.post<void>(route, null);
     }
 }

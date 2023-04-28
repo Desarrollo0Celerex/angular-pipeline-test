@@ -1,12 +1,20 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+} from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Invitation } from '@interfaces/invitation.interface';
 import { Role } from '@interfaces/role.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { SendInvitationsService } from './send-invitations.service';
 
@@ -14,10 +22,9 @@ declare var ModalPlugin: any;
 declare var TooltipPlugin: any;
 
 @Component({
-  selector: 'agt-send-invitations',
-  templateUrl: './send-invitations.component.html',
-  styles: [
-  ]
+    selector: 'agt-send-invitations',
+    templateUrl: './send-invitations.component.html',
+    styles: [],
 })
 export class SendInvitationsComponent implements OnInit, OnChanges {
     @Input() canAddInvitationForm: boolean;
@@ -32,7 +39,7 @@ export class SendInvitationsComponent implements OnInit, OnChanges {
     ) {
         this.canAddInvitationForm = false;
         this.invitationSent = new EventEmitter<Invitation>();
-        this.changeRoleModalId = 'agt-modal-select-role'
+        this.changeRoleModalId = 'agt-modal-select-role';
         this.selectedRoleId = null;
         this.selectedFormIndex = 0;
     }
@@ -44,7 +51,7 @@ export class SendInvitationsComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(changes.canAddInvitationForm.currentValue) {
+        if (changes.canAddInvitationForm.currentValue) {
             this.containerSendInvitationsService.addInvitationForm();
         }
     }
@@ -55,7 +62,10 @@ export class SendInvitationsComponent implements OnInit, OnChanges {
      * @return              Error message
      */
     getErrorMessage(constrolName: string, formIndex: number): string {
-        const control: AbstractControl | null = this.containerSendInvitationsService.invitationForms[formIndex].form.get(constrolName);
+        const control: AbstractControl | null =
+            this.containerSendInvitationsService.invitationForms[
+                formIndex
+            ].form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -65,8 +75,11 @@ export class SendInvitationsComponent implements OnInit, OnChanges {
      * @return        Role name
      */
     getRoleName(roleId: number): string {
-        const selectedRole: Role | undefined = this.containerSendInvitationsService.roles.find( (element: Role) => element.roleId == roleId);
-        return (!!selectedRole) ? selectedRole.name : '';
+        const selectedRole: Role | undefined =
+            this.containerSendInvitationsService.roles.find(
+                (element: Role) => element.roleId == roleId
+            );
+        return !!selectedRole ? selectedRole.name : '';
     }
 
     /**
@@ -75,8 +88,15 @@ export class SendInvitationsComponent implements OnInit, OnChanges {
      * @return              Validation class
      */
     getValidationClass(constrolName: string, formIndex: number): string {
-        const control: AbstractControl | null = this.containerSendInvitationsService.invitationForms[formIndex].form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this.containerSendInvitationsService.invitationForms[formIndex].isSubmitted);
+        const control: AbstractControl | null =
+            this.containerSendInvitationsService.invitationForms[
+                formIndex
+            ].form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this.containerSendInvitationsService.invitationForms[formIndex]
+                .isSubmitted
+        );
     }
 
     /**
@@ -85,7 +105,10 @@ export class SendInvitationsComponent implements OnInit, OnChanges {
      */
     onClickChangeRole(formIndex: number): void {
         this.selectedFormIndex = formIndex;
-        this.selectedRoleId =  this.containerSendInvitationsService.invitationForms[formIndex].form.controls.roleId.value;
+        this.selectedRoleId =
+            this.containerSendInvitationsService.invitationForms[
+                formIndex
+            ].form.controls.roleId.value;
         ModalPlugin.show(this.changeRoleModalId);
     }
 
@@ -94,7 +117,9 @@ export class SendInvitationsComponent implements OnInit, OnChanges {
      * @param roleId Role id
      */
     onRoleChanged(roleId: number): void {
-        this.containerSendInvitationsService.invitationForms[this.selectedFormIndex].form.patchValue({roleId});
+        this.containerSendInvitationsService.invitationForms[
+            this.selectedFormIndex
+        ].form.patchValue({ roleId });
     }
 
     /**
@@ -102,8 +127,13 @@ export class SendInvitationsComponent implements OnInit, OnChanges {
      * @param formIndex Form index
      */
     onSubmitCreateInvitation(formIndex: number): void {
-        this.containerSendInvitationsService.invitationForms[formIndex].isSubmitted = true;
-        if(this.containerSendInvitationsService.invitationForms[formIndex].form.valid) {
+        this.containerSendInvitationsService.invitationForms[
+            formIndex
+        ].isSubmitted = true;
+        if (
+            this.containerSendInvitationsService.invitationForms[formIndex].form
+                .valid
+        ) {
             this._createInvitation(formIndex);
         }
     }
@@ -112,9 +142,11 @@ export class SendInvitationsComponent implements OnInit, OnChanges {
      * Build the invitation forms
      */
     private _buildInvitationForms(): void {
-        this.containerSendInvitationsService.buildInvitationForms().subscribe( () => {
-            TooltipPlugin.init();
-        });
+        this.containerSendInvitationsService
+            .buildInvitationForms()
+            .subscribe(() => {
+                TooltipPlugin.init();
+            });
     }
 
     /**
@@ -123,11 +155,15 @@ export class SendInvitationsComponent implements OnInit, OnChanges {
      */
     private _createInvitation(formIndex: number): void {
         this._loadingService.show();
-        this.containerSendInvitationsService.createInvitation(formIndex).subscribe( (res: HttpResponse) => {
-            const invitation: Invitation = res.data;
-            this.containerSendInvitationsService.removeInvitationForm(formIndex);
-            this._sendInvitation(invitation);
-        })
+        this.containerSendInvitationsService
+            .createInvitation(formIndex)
+            .subscribe((res: HttpResponse) => {
+                const invitation: Invitation = res.data;
+                this.containerSendInvitationsService.removeInvitationForm(
+                    formIndex
+                );
+                this._sendInvitation(invitation);
+            });
     }
 
     /**
@@ -135,11 +171,12 @@ export class SendInvitationsComponent implements OnInit, OnChanges {
      * @param invitation Invitation
      */
     private _sendInvitation(invitation: Invitation): void {
-        this.containerSendInvitationsService.sendInvitation(invitation.invitationId).subscribe( () => {
-            this._loadingService.hide();
-            this.invitationSent.emit(invitation);
-            AlertHelper.invitationSent();
-        });
+        this.containerSendInvitationsService
+            .sendInvitation(invitation.invitationId)
+            .subscribe(() => {
+                this._loadingService.hide();
+                this.invitationSent.emit(invitation);
+                AlertHelper.invitationSent();
+            });
     }
-
 }

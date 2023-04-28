@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HTTP_INTERCEPTORS
+    HttpRequest,
+    HttpHandler,
+    HttpEvent,
+    HttpInterceptor,
+    HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@helpers/alert.helper';
 import { HttpError } from '@interfaces/http-error.interface';
 
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 import { ScanningService } from '@services/scanning.service';
 import { HttpCancelService } from '@services/http-cancel.service';
 
@@ -29,18 +29,21 @@ export class ErrorInterceptor implements HttpInterceptor {
         private _loadingService: LoadingService,
         private _router: Router,
         private _scanningService: ScanningService,
-        private _httpCancelService: HttpCancelService,
-    ) { }
+        private _httpCancelService: HttpCancelService
+    ) {}
 
-    intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-      return next.handle(request).pipe(
-              catchError( (error: any) => {
-                  this._loadingService.hide();
-                  const errorMessage = error.error || error.statusText;
-                  this._handlerHttpErrors(errorMessage);
-                  return throwError(errorMessage);
-              })
-          )
+    intercept(
+        request: HttpRequest<unknown>,
+        next: HttpHandler
+    ): Observable<HttpEvent<unknown>> {
+        return next.handle(request).pipe(
+            catchError((error: any) => {
+                this._loadingService.hide();
+                const errorMessage = error.error || error.statusText;
+                this._handlerHttpErrors(errorMessage);
+                return throwError(errorMessage);
+            })
+        );
     }
 
     private _handlerHttpErrors(error: HttpError): void {
@@ -60,7 +63,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this._loadingService.hide();
                 setTimeout(() => {
                     this._scanningService.hide();
-                },500);
+                }, 500);
                 AlertHelper.forbiddenAccess();
                 break;
 
@@ -69,7 +72,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 break;
 
             case ERROR_CODES.invalidUserToken:
-                if(!this._isModalShown) {
+                if (!this._isModalShown) {
                     this._isModalShown = true;
                     ModalPlugin.show('modal-session-expired');
                 }
@@ -99,4 +102,6 @@ export class ErrorInterceptor implements HttpInterceptor {
     }
 }
 
-export const ERROR_INTERCEPTOR_PROVIDER = [ { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true } ];
+export const ERROR_INTERCEPTOR_PROVIDER = [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+];

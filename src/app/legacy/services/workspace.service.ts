@@ -5,25 +5,47 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { CreateWorkspaceDataSend } from '@interfaces/create-workspace-data-send.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { AuthService } from '@services/auth.service';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { AuthService } from '@core/services/auth.service';
 
 const ROUTES = {
     workspaces: `${environment.apiUrl}/workspaces`,
-    workspace: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}`,
-    workspaceAvailablePlaces: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/available-places`,
-    workspaceAvatar: (workspaceId: string) => `${environment.apiUrl}/workspaces/${workspaceId}/avatar`,
-    workspaceActivation: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/activate',
-    workspaceCardiumUrl: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/cardium-url',
-    workspaceFacebookUrl: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/facebook-url',
-    workspaceInstagramUrl: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/instagram-url',
-    workspaceTwitterUrl: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/twitter-url',
-    workspaceLinkedinUrl: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/linkedin-url',
-    workspaceTiktokUrl: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/tiktok-url',
-    workspaceRetentionRate: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/retention-rate',
-    workspaceHigherRetentionRate: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/retention-rate/higher',
-    workspaceLowerRetentionRate: (workspaceId: string) => environment.apiUrl + '/workspaces/' + workspaceId + '/stats/retention-rate/lower'
-}
+    workspace: (workspaceId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}`,
+    workspaceAvailablePlaces: (workspaceId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/available-places`,
+    workspaceAvatar: (workspaceId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/avatar`,
+    workspaceActivation: (workspaceId: string) =>
+        environment.apiUrl + '/workspaces/' + workspaceId + '/activate',
+    workspaceCardiumUrl: (workspaceId: string) =>
+        environment.apiUrl + '/workspaces/' + workspaceId + '/cardium-url',
+    workspaceFacebookUrl: (workspaceId: string) =>
+        environment.apiUrl + '/workspaces/' + workspaceId + '/facebook-url',
+    workspaceInstagramUrl: (workspaceId: string) =>
+        environment.apiUrl + '/workspaces/' + workspaceId + '/instagram-url',
+    workspaceTwitterUrl: (workspaceId: string) =>
+        environment.apiUrl + '/workspaces/' + workspaceId + '/twitter-url',
+    workspaceLinkedinUrl: (workspaceId: string) =>
+        environment.apiUrl + '/workspaces/' + workspaceId + '/linkedin-url',
+    workspaceTiktokUrl: (workspaceId: string) =>
+        environment.apiUrl + '/workspaces/' + workspaceId + '/tiktok-url',
+    workspaceRetentionRate: (workspaceId: string) =>
+        environment.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/stats/retention-rate',
+    workspaceHigherRetentionRate: (workspaceId: string) =>
+        environment.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/stats/retention-rate/higher',
+    workspaceLowerRetentionRate: (workspaceId: string) =>
+        environment.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/stats/retention-rate/lower',
+};
 
 @Injectable()
 export class WorkspaceService {
@@ -38,10 +60,12 @@ export class WorkspaceService {
 
     activateWorkspace(activationCode: string | null): Observable<HttpResponse> {
         const route: string = ROUTES.workspaceActivation(this._workspaceId);
-        return this._httpClient.post<HttpResponse>(route, {activationCode});
+        return this._httpClient.post<HttpResponse>(route, { activationCode });
     }
 
-    createWorkspace(requestBody: CreateWorkspaceDataSend): Observable<HttpResponse> {
+    createWorkspace(
+        requestBody: CreateWorkspaceDataSend
+    ): Observable<HttpResponse> {
         const route: string = ROUTES.workspaces;
         return this._httpClient.post<HttpResponse>(route, requestBody);
     }
@@ -55,7 +79,7 @@ export class WorkspaceService {
         const route: string = ROUTES.workspace(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('fields', fields);
-        return this._httpClient.get<HttpResponse>(route, {params});
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 
     /**
@@ -63,7 +87,9 @@ export class WorkspaceService {
      * @return Workspace available places
      */
     getWorkspaceAvailablePlaces(): Observable<HttpResponse> {
-        const route: string = ROUTES.workspaceAvailablePlaces(this._workspaceId);
+        const route: string = ROUTES.workspaceAvailablePlaces(
+            this._workspaceId
+        );
         return this._httpClient.get<HttpResponse>(route);
     }
 
@@ -71,14 +97,20 @@ export class WorkspaceService {
      * Get the workspace ratention rate from the API
      * @return Workspace ratention rate
      */
-    getWorkspaceRetentionRate(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
+    getWorkspaceRetentionRate(
+        rangeField: string = '',
+        rangeStart: string = '',
+        rangeEnd: string = ''
+    ): Observable<number> {
         const route: string = ROUTES.workspaceRetentionRate(this._workspaceId);
         let params: HttpParams = new HttpParams();
-        if(!!rangeField) params = params.append('rangeField', rangeField);
-        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
-        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
-        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
-            map((res: HttpResponse) => { return res.data })
+        if (!!rangeField) params = params.append('rangeField', rangeField);
+        if (!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if (!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
+                return res.data;
+            })
         );
     }
 
@@ -86,14 +118,22 @@ export class WorkspaceService {
      * Get the workspace ratention rate from the API
      * @return Workspace ratention rate
      */
-    getWorkspaceHigherRetentionRate(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
-        const route: string = ROUTES.workspaceHigherRetentionRate(this._workspaceId);
+    getWorkspaceHigherRetentionRate(
+        rangeField: string = '',
+        rangeStart: string = '',
+        rangeEnd: string = ''
+    ): Observable<number> {
+        const route: string = ROUTES.workspaceHigherRetentionRate(
+            this._workspaceId
+        );
         let params: HttpParams = new HttpParams();
-        if(!!rangeField) params = params.append('rangeField', rangeField);
-        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
-        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
-        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
-            map((res: HttpResponse) => { return res.data })
+        if (!!rangeField) params = params.append('rangeField', rangeField);
+        if (!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if (!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
+                return res.data;
+            })
         );
     }
 
@@ -101,14 +141,22 @@ export class WorkspaceService {
      * Get the workspace ratention rate from the API
      * @return Workspace ratention rate
      */
-    getWorkspaceLowerRetentionRate(rangeField: string = '', rangeStart: string = '', rangeEnd: string = ''): Observable<number> {
-        const route: string = ROUTES.workspaceLowerRetentionRate(this._workspaceId);
+    getWorkspaceLowerRetentionRate(
+        rangeField: string = '',
+        rangeStart: string = '',
+        rangeEnd: string = ''
+    ): Observable<number> {
+        const route: string = ROUTES.workspaceLowerRetentionRate(
+            this._workspaceId
+        );
         let params: HttpParams = new HttpParams();
-        if(!!rangeField) params = params.append('rangeField', rangeField);
-        if(!!rangeStart) params = params.append('rangeStart', rangeStart);
-        if(!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
-        return this._httpClient.get<HttpResponse>(route, {params}).pipe(
-            map((res: HttpResponse) => { return res.data })
+        if (!!rangeField) params = params.append('rangeField', rangeField);
+        if (!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if (!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
+                return res.data;
+            })
         );
     }
 
@@ -120,7 +168,7 @@ export class WorkspaceService {
         const route: string = ROUTES.workspace(this._workspaceId);
         let params: HttpParams = new HttpParams();
         params = params.append('fields', 'workspaceStatusId');
-        return this._httpClient.get<HttpResponse>(route, {params});
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 
     /**
@@ -130,36 +178,36 @@ export class WorkspaceService {
      */
     uploadWorkspaceAvatar(image: string | null): Observable<HttpResponse> {
         const route: string = ROUTES.workspaceAvatar(this._workspaceId);
-        return this._httpClient.post<HttpResponse>(route, {image});
+        return this._httpClient.post<HttpResponse>(route, { image });
     }
 
     updateWorkspaceCardiumUrl(cardiumUrl: string): Observable<void> {
         const route: string = ROUTES.workspaceCardiumUrl(this._workspaceId);
-        return this._httpClient.put<void>(route, {cardiumUrl});
+        return this._httpClient.put<void>(route, { cardiumUrl });
     }
 
     updateWorkspaceFacebookUrl(facebookUrl: string): Observable<void> {
         const route: string = ROUTES.workspaceFacebookUrl(this._workspaceId);
-        return this._httpClient.put<void>(route, {facebookUrl});
+        return this._httpClient.put<void>(route, { facebookUrl });
     }
 
     updateWorkspaceInstagramUrl(instagramUrl: string): Observable<void> {
         const route: string = ROUTES.workspaceInstagramUrl(this._workspaceId);
-        return this._httpClient.put<void>(route, {instagramUrl});
+        return this._httpClient.put<void>(route, { instagramUrl });
     }
 
     updateWorkspaceTwitterUrl(twitterUrl: string): Observable<void> {
         const route: string = ROUTES.workspaceTwitterUrl(this._workspaceId);
-        return this._httpClient.put<void>(route, {twitterUrl});
+        return this._httpClient.put<void>(route, { twitterUrl });
     }
 
     updateWorkspaceLinkedinUrl(linkedinUrl: string): Observable<void> {
         const route: string = ROUTES.workspaceLinkedinUrl(this._workspaceId);
-        return this._httpClient.put<void>(route, {linkedinUrl});
+        return this._httpClient.put<void>(route, { linkedinUrl });
     }
 
     updateWorkspaceTiktokUrl(tiktokUrl: string): Observable<void> {
         const route: string = ROUTES.workspaceTiktokUrl(this._workspaceId);
-        return this._httpClient.put<void>(route, {tiktokUrl});
+        return this._httpClient.put<void>(route, { tiktokUrl });
     }
 }

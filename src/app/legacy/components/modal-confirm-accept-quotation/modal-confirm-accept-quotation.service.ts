@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { QuotationService } from '@services/quotation.service';
 
 @Injectable()
 export class ModalConfirmAcceptQuotationService {
-
-    constructor(private _quotationService: QuotationService) { }
+    constructor(private _quotationService: QuotationService) {}
 
     /**
      * Accept the quotation
@@ -15,7 +14,13 @@ export class ModalConfirmAcceptQuotationService {
      * @param  quotationId The quotation ID to accept
      * @return             The policy ID
      */
-    acceptQuotation(contactId: string, quotationId: string): Observable<HttpResponse> {
-        return this._quotationService.acceptContactQuotation(contactId, quotationId);
+    acceptQuotation(
+        contactId: string,
+        quotationId: string
+    ): Observable<HttpResponse> {
+        return this._quotationService.acceptContactQuotation(
+            contactId,
+            quotationId
+        );
     }
 }

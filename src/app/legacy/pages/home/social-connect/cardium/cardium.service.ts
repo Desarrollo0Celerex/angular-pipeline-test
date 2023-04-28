@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { WorkspaceService } from '@services/workspace.service';
 
 @Injectable()
@@ -12,9 +12,9 @@ export class CardiumService {
     isBuiltForm: boolean = false;
 
     constructor(
-      private _formBuilder: FormBuilder,
-      private _workspaceService: WorkspaceService,
-    ) { }
+        private _formBuilder: FormBuilder,
+        private _workspaceService: WorkspaceService
+    ) {}
 
     loadWorkspace(): Observable<HttpResponse> {
         const fields: string = 'cardiumUrl';
@@ -23,12 +23,17 @@ export class CardiumService {
 
     buildForm(cardiumUrl: string | null): void {
         this.form = this._formBuilder.group({
-            cardiumUrl: [(cardiumUrl !== null) ? cardiumUrl : '', [Validators.required, ValidatorsHelper.webLinkCardium ]]
+            cardiumUrl: [
+                cardiumUrl !== null ? cardiumUrl : '',
+                [Validators.required, ValidatorsHelper.webLinkCardium],
+            ],
         });
         this.isBuiltForm = true;
     }
 
     updateCardiumUrl(): Observable<void> {
-        return this._workspaceService.updateWorkspaceCardiumUrl(this.form.get('cardiumUrl')!.value);
+        return this._workspaceService.updateWorkspaceCardiumUrl(
+            this.form.get('cardiumUrl')!.value
+        );
     }
 }

@@ -7,18 +7,17 @@ import { AlertHelper } from '@helpers/alert.helper';
 import { Sinister } from '@interfaces/sinister.interface';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ModalUpdateSinisterReportService } from './modal-update-sinister-report.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-update-sinister-report',
-  templateUrl: './modal-update-sinister-report.component.html',
-  styles: [
-  ],
-  providers: [ModalUpdateSinisterReportService]
+    selector: 'agt-modal-update-sinister-report',
+    templateUrl: './modal-update-sinister-report.component.html',
+    styles: [],
+    providers: [ModalUpdateSinisterReportService],
 })
 export class ModalUpdateSinisterReportComponent implements OnInit {
     @Input() modalId: string = '';
@@ -30,7 +29,7 @@ export class ModalUpdateSinisterReportComponent implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._loadSinister();
@@ -42,7 +41,8 @@ export class ModalUpdateSinisterReportComponent implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.sinisterForm.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.sinisterForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -52,8 +52,12 @@ export class ModalUpdateSinisterReportComponent implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.sinisterForm.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.sinisterForm.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     /**
@@ -61,7 +65,7 @@ export class ModalUpdateSinisterReportComponent implements OnInit {
      */
     onSubmitUpdateSinister(): void {
         this._isFormSubmitted = true;
-        if(this.model.sinisterForm.valid && !!this.sinisterData) {
+        if (this.model.sinisterForm.valid && !!this.sinisterData) {
             this._loadingService.show();
             ModalPlugin.hide(this.modalId);
             this.model.updateSinister(this.sinisterData).subscribe(() => {
@@ -78,8 +82,18 @@ export class ModalUpdateSinisterReportComponent implements OnInit {
     private _reloadPage(context: ModalUpdateSinisterReportComponent): void {
         context._router.routeReuseStrategy.shouldReuseRoute = () => false;
         context._router.onSameUrlNavigation = 'reload';
-        if(!!context.sinisterData) {
-            context._router.navigate(['/' + ROUTES_NAME.showSinisterHistory(context.sinisterData.contactId, context.sinisterData.policyId, context.sinisterData.sinisterId)], { relativeTo: context._activatedRoute });
+        if (!!context.sinisterData) {
+            context._router.navigate(
+                [
+                    '/' +
+                        ROUTES_NAME.showSinisterHistory(
+                            context.sinisterData.contactId,
+                            context.sinisterData.policyId,
+                            context.sinisterData.sinisterId
+                        ),
+                ],
+                { relativeTo: context._activatedRoute }
+            );
         }
     }
 
@@ -87,11 +101,12 @@ export class ModalUpdateSinisterReportComponent implements OnInit {
      * Load the sinister
      */
     private _loadSinister(): void {
-        if(this.sinisterData) {
-            this.model.loadSinister(this.sinisterData).subscribe( (res: Sinister) => {
-                this.model.fillSinisterForm(res);
-            })
+        if (this.sinisterData) {
+            this.model
+                .loadSinister(this.sinisterData)
+                .subscribe((res: Sinister) => {
+                    this.model.fillSinisterForm(res);
+                });
         }
     }
-
 }

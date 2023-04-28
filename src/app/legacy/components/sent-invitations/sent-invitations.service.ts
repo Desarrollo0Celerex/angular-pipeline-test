@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { INVITATION_STATUS } from '@constants/global';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Invitation } from '@interfaces/invitation.interface';
 import { Role } from '@interfaces/role.interface';
 import { InvitationService } from '@services/invitation.service';
@@ -53,12 +53,16 @@ export class SentInvitationsService {
      */
     loadInvitationsSent(): Observable<void> {
         const fields: string = 'invitationId,name,email,roleId,invitationToken';
-        return this._invitationService.getInvitations(fields, INVITATION_STATUS.PENDING).pipe(
-            tap( (res: HttpResponse) => {
-                this.invitationsSent = res.data.items;
-            }),
-            map(() => { return; })
-        );
+        return this._invitationService
+            .getInvitations(fields, INVITATION_STATUS.PENDING)
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.invitationsSent = res.data.items;
+                }),
+                map(() => {
+                    return;
+                })
+            );
     }
 
     /**
@@ -66,7 +70,7 @@ export class SentInvitationsService {
      */
     loadRoles(): void {
         const fields: string = 'roleId,name';
-        this._roleService.getRoles(fields).subscribe( (res: HttpResponse) => {
+        this._roleService.getRoles(fields).subscribe((res: HttpResponse) => {
             this.roles = res.data;
         });
     }

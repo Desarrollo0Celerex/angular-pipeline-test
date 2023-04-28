@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { OWN_NAME_LENGTH, EMAIL_LENGTH, DEFAULT_ROLE_ID } from '@constants/global';
+import {
+    OWN_NAME_LENGTH,
+    EMAIL_LENGTH,
+    DEFAULT_ROLE_ID,
+} from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { CreateInvitationDataSend } from '@interfaces/create-invitation-data-send.interface';
-import { HttpResponse } from '@interfaces/http-response.interface';
-import { InvitationForm } from '@interfaces/invitation-form.interface'
+import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { InvitationForm } from '@interfaces/invitation-form.interface';
 import { Role } from '@interfaces/role.interface';
 import { Workspace } from '@interfaces/workspace.interface';
 import { InvitationService } from '@services/invitation.service';
@@ -37,8 +45,8 @@ export class SendInvitationsService {
     addInvitationForm(): void {
         const invitationForm: InvitationForm = {
             form: this._getInvitationForm(),
-            isSubmitted: false
-        }
+            isSubmitted: false,
+        };
         this.invitationForms.push(invitationForm);
     }
 
@@ -51,12 +59,14 @@ export class SendInvitationsService {
         return this._workspaceService.getWorkspaceAvailablePlaces().pipe(
             tap((res: HttpResponse) => {
                 const availablePlaces: number = res.data;
-                for(let i: number = 0; i<availablePlaces; i++) {
+                for (let i: number = 0; i < availablePlaces; i++) {
                     this.addInvitationForm();
                 }
             }),
-            map(() => { return; })
-        )
+            map(() => {
+                return;
+            })
+        );
     }
 
     /**
@@ -65,7 +75,8 @@ export class SendInvitationsService {
      * @return           Invitation
      */
     createInvitation(formIndex: number): Observable<HttpResponse> {
-        const requestBody: CreateInvitationDataSend = this.invitationForms[formIndex].form.value;
+        const requestBody: CreateInvitationDataSend =
+            this.invitationForms[formIndex].form.value;
         return this._invitationService.createInvitation(requestBody);
     }
 
@@ -74,7 +85,7 @@ export class SendInvitationsService {
      */
     loadRoles(): void {
         const fields: string = 'roleId,name';
-        this._roleService.getRoles(fields).subscribe( (res: HttpResponse) => {
+        this._roleService.getRoles(fields).subscribe((res: HttpResponse) => {
             this.roles = res.data;
         });
     }
@@ -84,9 +95,11 @@ export class SendInvitationsService {
      */
     loadWorkspace(): void {
         const fields: string = 'brandName';
-        this._workspaceService.getWorkspace(fields).subscribe( (res: HttpResponse) => {
-            this.workspace = res.data;
-        })
+        this._workspaceService
+            .getWorkspace(fields)
+            .subscribe((res: HttpResponse) => {
+                this.workspace = res.data;
+            });
     }
 
     /**
@@ -112,9 +125,25 @@ export class SendInvitationsService {
      */
     private _getInvitationForm(): UntypedFormGroup {
         return this._formBuilder.group({
-            name: ['', [Validators.required, Validators.minLength(OWN_NAME_LENGTH.MIN), Validators.maxLength(OWN_NAME_LENGTH.MAX), ValidatorsHelper.ownName]],
-            email: ['', [Validators.required, Validators.email, Validators.minLength(EMAIL_LENGTH.MIN), Validators.maxLength(EMAIL_LENGTH.MAX)]],
-            roleId: [DEFAULT_ROLE_ID, [Validators.required]]
-        })
+            name: [
+                '',
+                [
+                    Validators.required,
+                    Validators.minLength(OWN_NAME_LENGTH.MIN),
+                    Validators.maxLength(OWN_NAME_LENGTH.MAX),
+                    ValidatorsHelper.ownName,
+                ],
+            ],
+            email: [
+                '',
+                [
+                    Validators.required,
+                    Validators.email,
+                    Validators.minLength(EMAIL_LENGTH.MIN),
+                    Validators.maxLength(EMAIL_LENGTH.MAX),
+                ],
+            ],
+            roleId: [DEFAULT_ROLE_ID, [Validators.required]],
+        });
     }
 }

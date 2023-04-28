@@ -1,7 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { POLICY_STATUS, CANCELLATION_REASONS, INSURANCE_TYPES, CONTENT_TYPES } from '@constants/global';
+import {
+    POLICY_STATUS,
+    CANCELLATION_REASONS,
+    INSURANCE_TYPES,
+    CONTENT_TYPES,
+} from '@constants/global';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
@@ -9,15 +14,14 @@ import { Policy } from '@interfaces/policy.interface';
 import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 import { PaymentDataSend } from '@interfaces/payment-data-send.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@core/services/auth.service';
 
 declare var PopoverPlugin: any;
 
 @Component({
-  selector: 'agt-card-policy',
-  templateUrl: './card-policy.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-policy',
+    templateUrl: './card-policy.component.html',
+    styles: [],
 })
 export class CardPolicyComponent implements OnInit {
     @Input() policy: Policy | null;
@@ -26,19 +30,32 @@ export class CardPolicyComponent implements OnInit {
     @Input() isHistoryContent: boolean;
     @Input() selectedPolicyPos: number = 0;
     @Input() policyPos: number = 0;
-    @Output() cancelPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
-    @Output() completePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
-    @Output() deletePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
-    @Output() endorsePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
-    @Output() reissuePolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
-    @Output() renewPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
-    @Output() showContactProfile: EventEmitter<string> = new EventEmitter<string>();
-    @Output() showHistoryPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
-    @Output() showPaymentHistory: EventEmitter<PaymentDataSend> = new EventEmitter<PaymentDataSend>();
-    @Output() showPolicy: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
-    @Output() showPolicyDetails: EventEmitter<ContactPolicyData> = new EventEmitter<ContactPolicyData>();
-    @Output() showPolicySinisters: EventEmitter<PolicyDataSend> = new EventEmitter<PolicyDataSend>();
-    @Output() updatePolicy: EventEmitter<ContactPolicyData>  = new EventEmitter<ContactPolicyData>();;
+    @Output() cancelPolicy: EventEmitter<ContactPolicyData> =
+        new EventEmitter<ContactPolicyData>();
+    @Output() completePolicy: EventEmitter<ContactPolicyData> =
+        new EventEmitter<ContactPolicyData>();
+    @Output() deletePolicy: EventEmitter<ContactPolicyData> =
+        new EventEmitter<ContactPolicyData>();
+    @Output() endorsePolicy: EventEmitter<ContactPolicyData> =
+        new EventEmitter<ContactPolicyData>();
+    @Output() reissuePolicy: EventEmitter<ContactPolicyData> =
+        new EventEmitter<ContactPolicyData>();
+    @Output() renewPolicy: EventEmitter<ContactPolicyData> =
+        new EventEmitter<ContactPolicyData>();
+    @Output() showContactProfile: EventEmitter<string> =
+        new EventEmitter<string>();
+    @Output() showHistoryPolicy: EventEmitter<ContactPolicyData> =
+        new EventEmitter<ContactPolicyData>();
+    @Output() showPaymentHistory: EventEmitter<PaymentDataSend> =
+        new EventEmitter<PaymentDataSend>();
+    @Output() showPolicy: EventEmitter<ContactPolicyData> =
+        new EventEmitter<ContactPolicyData>();
+    @Output() showPolicyDetails: EventEmitter<ContactPolicyData> =
+        new EventEmitter<ContactPolicyData>();
+    @Output() showPolicySinisters: EventEmitter<PolicyDataSend> =
+        new EventEmitter<PolicyDataSend>();
+    @Output() updatePolicy: EventEmitter<ContactPolicyData> =
+        new EventEmitter<ContactPolicyData>();
     CANCELLATION_REASONS: any = CANCELLATION_REASONS;
     POLICY_STATUS: any = POLICY_STATUS;
     CONTENT_TYPES: any = CONTENT_TYPES;
@@ -57,15 +74,22 @@ export class CardPolicyComponent implements OnInit {
     }
 
     get areSeveralInsured(): boolean {
-        if(this.policy !== null && this.policy.insuranceTypeId) {
-            return PolicyInsuredHelper.checkAreSeveralInsured(this.policy.insuranceTypeId);
+        if (this.policy !== null && this.policy.insuranceTypeId) {
+            return PolicyInsuredHelper.checkAreSeveralInsured(
+                this.policy.insuranceTypeId
+            );
         }
-        return false
+        return false;
     }
 
     goToListPolicyInsureds(): void {
-        if(this.areSeveralInsured) {
-            this._router.navigateByUrl(ROUTES_NAME.listPolicyInsureds(this.policy!.contactId, this.policy!.policyId));
+        if (this.areSeveralInsured) {
+            this._router.navigateByUrl(
+                ROUTES_NAME.listPolicyInsureds(
+                    this.policy!.contactId,
+                    this.policy!.policyId
+                )
+            );
         }
     }
 
@@ -73,20 +97,21 @@ export class CardPolicyComponent implements OnInit {
      * Click event to cancel the policy
      */
     onClickCancelPolicy(): void {
-        if(!!this.policy) this.cancelPolicy.emit({
-            contactId: this.policy.contactId,
-            policyId: this.policy.policyId
-        });
+        if (!!this.policy)
+            this.cancelPolicy.emit({
+                contactId: this.policy.contactId,
+                policyId: this.policy.policyId,
+            });
     }
 
     /**
      * Click event to complete the policy
      */
     onClickCompletePolicy(): void {
-        if(!!this.policy)
+        if (!!this.policy)
             this.completePolicy.emit({
                 contactId: this.policy.contactId,
-                policyId: this.policy.policyId
+                policyId: this.policy.policyId,
             });
     }
 
@@ -94,76 +119,82 @@ export class CardPolicyComponent implements OnInit {
      * Click event to delete the policy
      */
     onClickDeletePolicy(): void {
-        if(!!this.policy) this.deletePolicy.emit({
-            contactId: this.policy.contactId,
-            policyId: this.policy.policyId
-        });
+        if (!!this.policy)
+            this.deletePolicy.emit({
+                contactId: this.policy.contactId,
+                policyId: this.policy.policyId,
+            });
     }
 
     /**
      * Click event to endorse the policy
      */
     onClickEndorsePolicy(): void {
-        if(!!this.policy) this.endorsePolicy.emit({
-            contactId: this.policy.contactId,
-            policyId: this.policy.policyId
-        });
+        if (!!this.policy)
+            this.endorsePolicy.emit({
+                contactId: this.policy.contactId,
+                policyId: this.policy.policyId,
+            });
     }
 
     /**
      * Click event to reissue the policy
      */
     onClickReissuePolicy(): void {
-        if(!!this.policy) this.reissuePolicy.emit({
-            contactId: this.policy.contactId,
-            policyId: this.policy.policyId
-        });
+        if (!!this.policy)
+            this.reissuePolicy.emit({
+                contactId: this.policy.contactId,
+                policyId: this.policy.policyId,
+            });
     }
 
     /**
      * Click event to endorse the policy
      */
     onClickRenewPolicy(): void {
-        if(!!this.policy) this.renewPolicy.emit({
-            contactId: this.policy.contactId,
-            policyId: this.policy.policyId
-        });
+        if (!!this.policy)
+            this.renewPolicy.emit({
+                contactId: this.policy.contactId,
+                policyId: this.policy.policyId,
+            });
     }
 
     onClickShowContactProfile(): void {
-        if(!!this.policy) this.showContactProfile.emit(this.policy.contactId);
+        if (!!this.policy) this.showContactProfile.emit(this.policy.contactId);
     }
 
     /**
      * Click event to show the history policcy
      */
     onClickShowHistoryPolicy(): void {
-        if(!!this.policy) this.showHistoryPolicy.emit({
-            contactId: this.policy.contactId,
-            policyId: this.policy.policyId
-        });
+        if (!!this.policy)
+            this.showHistoryPolicy.emit({
+                contactId: this.policy.contactId,
+                policyId: this.policy.policyId,
+            });
     }
 
     /**
      * Click event to show the policy
      */
     onClickShowPolicy(): void {
-        if(!!this.policy) this.showPolicy.emit({
-            contactId: this.policy.contactId,
-            policyId: this.policy.policyId
-        });
+        if (!!this.policy)
+            this.showPolicy.emit({
+                contactId: this.policy.contactId,
+                policyId: this.policy.policyId,
+            });
     }
 
     /**
      * Click event to show the payment history
      */
     onClickShowPaymentHistory(): void {
-        if(!!this.policy) {
+        if (!!this.policy) {
             const paymentData: PaymentDataSend = {
                 contactId: this.policy.contactId,
                 policyId: this.policy.policyId,
-                paymentId: this.policy.paymentId
-            }
+                paymentId: this.policy.paymentId,
+            };
             this.showPaymentHistory.emit(paymentData);
         }
     }
@@ -172,10 +203,10 @@ export class CardPolicyComponent implements OnInit {
      * Click event to show the policy details
      */
     onClickShowPolicyDetails(): void {
-        if(!!this.policy) {
+        if (!!this.policy) {
             this.showPolicyDetails.emit({
                 contactId: this.policy.contactId,
-                policyId: this.policy.policyId
+                policyId: this.policy.policyId,
             });
         }
     }
@@ -184,11 +215,11 @@ export class CardPolicyComponent implements OnInit {
      * Click event to show the policy sinisters
      */
     onClickShowPolicySinisters(): void {
-        if(!!this.policy) {
+        if (!!this.policy) {
             const policyData: PolicyDataSend = {
                 contactId: this.policy.contactId,
-                policyId: this.policy.policyId
-            }
+                policyId: this.policy.policyId,
+            };
             this.showPolicySinisters.emit(policyData);
         }
     }
@@ -197,10 +228,11 @@ export class CardPolicyComponent implements OnInit {
      * Click event to update the policy
      */
     onClickUpdatePolicy(): void {
-        if(!!this.policy) this.updatePolicy.emit({
-            contactId: this.policy.contactId,
-            policyId: this.policy.policyId
-        });
+        if (!!this.policy)
+            this.updatePolicy.emit({
+                contactId: this.policy.contactId,
+                policyId: this.policy.policyId,
+            });
     }
 
     /**

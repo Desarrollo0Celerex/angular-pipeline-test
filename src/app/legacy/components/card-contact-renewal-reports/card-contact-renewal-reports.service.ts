@@ -4,7 +4,7 @@ import { saveAs } from 'file-saver';
 
 import { POLICY_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicyService } from '@services/policy.service';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class CardContactRenewalReportsService {
     totalContactAppliedRenewals: number = 0;
     totalContactPendingRenewals: number = 0;
 
-    constructor(private _policyService: PolicyService) { }
+    constructor(private _policyService: PolicyService) {}
 
     /* downloadReport(contactId: string, rangeStart: string, rangeEnd: string, formatType: number): Promise<void> {
         const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
@@ -28,10 +28,20 @@ export class CardContactRenewalReportsService {
         }
     } */
 
-    loadTotalRenewals(parnerId: string, rangeStart: string, rangeEnd: string): void {
+    loadTotalRenewals(
+        parnerId: string,
+        rangeStart: string,
+        rangeEnd: string
+    ): void {
         this.loadedContent = false;
         const rangeField: string = 'validityEndDate';
-        const renewalRequests: Observable<HttpResponse[]> = this._generateRenewalRequests(parnerId, rangeField, rangeStart, rangeEnd);
+        const renewalRequests: Observable<HttpResponse[]> =
+            this._generateRenewalRequests(
+                parnerId,
+                rangeField,
+                rangeStart,
+                rangeEnd
+            );
         renewalRequests.subscribe((res: HttpResponse[]) => {
             this.totalContactAppliedRenewals = res[0].data;
             this.totalContactPendingRenewals = res[1].data;
@@ -61,11 +71,39 @@ export class CardContactRenewalReportsService {
         });
     } */
 
-    private _generateRenewalRequests(parnerId: string, rangeField: string, rangeStart: string, rangeEnd: string): Observable<HttpResponse[]> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('policyStatusId', [POLICY_STATUS.ISSUED, POLICY_STATUS.CURRENT, POLICY_STATUS.PENDING, POLICY_STATUS.SUSPENDED, POLICY_STATUS.FINISHED])
+    private _generateRenewalRequests(
+        parnerId: string,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string
+    ): Observable<HttpResponse[]> {
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policyStatusId',
+            [
+                POLICY_STATUS.ISSUED,
+                POLICY_STATUS.CURRENT,
+                POLICY_STATUS.PENDING,
+                POLICY_STATUS.SUSPENDED,
+                POLICY_STATUS.FINISHED,
+            ]
+        );
         let requests: Observable<HttpResponse>[] = [];
-        const requestTotalContactAppliedRenewals: Observable<HttpResponse> = this._policyService.getTotalContactAppliedRenewals(parnerId, filters, rangeField, rangeStart, rangeEnd);
-        const requestTotalContactPendingRenewals: Observable<HttpResponse> = this._policyService.getTotalContactPendingRenewals(parnerId, filters, rangeField, rangeStart, rangeEnd);
+        const requestTotalContactAppliedRenewals: Observable<HttpResponse> =
+            this._policyService.getTotalContactAppliedRenewals(
+                parnerId,
+                filters,
+                rangeField,
+                rangeStart,
+                rangeEnd
+            );
+        const requestTotalContactPendingRenewals: Observable<HttpResponse> =
+            this._policyService.getTotalContactPendingRenewals(
+                parnerId,
+                filters,
+                rangeField,
+                rangeStart,
+                rangeEnd
+            );
         requests.push(requestTotalContactAppliedRenewals);
         requests.push(requestTotalContactPendingRenewals);
         return forkJoin(requests);

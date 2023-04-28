@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { SinisterEventType } from '@interfaces/sinister-event-type.interface';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@core/services/auth.service';
 
 const ROUTES = {
     sinisterEventTypes: (
@@ -34,12 +34,22 @@ export class SinisterEventTypeService {
      * @param  fields      The fields to get
      * @return             The sinister event types
      */
-    getSinisterEventTypes(sinisterData: SinisterDataSend, insuranceGroupId: number, fields: string = ''): Observable<SinisterEventType[]> {
-        const route: string = ROUTES.sinisterEventTypes(this._workspaceId, sinisterData.contactId, sinisterData.policyId, sinisterData.sinisterId, insuranceGroupId);
+    getSinisterEventTypes(
+        sinisterData: SinisterDataSend,
+        insuranceGroupId: number,
+        fields: string = ''
+    ): Observable<SinisterEventType[]> {
+        const route: string = ROUTES.sinisterEventTypes(
+            this._workspaceId,
+            sinisterData.contactId,
+            sinisterData.policyId,
+            sinisterData.sinisterId,
+            insuranceGroupId
+        );
         let params: HttpParams = new HttpParams();
         if (!!fields) params = params.append('fields', fields);
-        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
-            map((res: HttpResponse) => res.data)
-        );
+        return this._httpClient
+            .get<HttpResponse>(route, { params })
+            .pipe(map((res: HttpResponse) => res.data));
     }
 }

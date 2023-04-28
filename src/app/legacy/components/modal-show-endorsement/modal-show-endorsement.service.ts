@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { EndorsementService } from '@services/endorsement.service';
-
 
 @Injectable()
 export class ModalShowEndorsementService {
@@ -18,11 +17,17 @@ export class ModalShowEndorsementService {
      * @param policyId The policy ID
      * @param endorsementId  The endorsement ID
      */
-    loadEndorsementUrl(contactId: string, policyId: string, endorsementId: string): void {
+    loadEndorsementUrl(
+        contactId: string,
+        policyId: string,
+        endorsementId: string
+    ): void {
         const fields: string = 'endorsementUrl';
-        this._endorsementService.getEndorsement(contactId, policyId, endorsementId, fields).subscribe( (res: HttpResponse) => {
-            this.endorsementUrl = res.data.endorsementUrl;
-        });
+        this._endorsementService
+            .getEndorsement(contactId, policyId, endorsementId, fields)
+            .subscribe((res: HttpResponse) => {
+                this.endorsementUrl = res.data.endorsementUrl;
+            });
     }
 
     /**

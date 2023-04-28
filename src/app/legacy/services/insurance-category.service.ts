@@ -3,27 +3,29 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const routes: any = {
-    insuranceCategories: environment.apiUrl + '/insurance-categories'
-}
+    insuranceCategories: environment.apiUrl + '/insurance-categories',
+};
 
 @Injectable()
 export class InsuranceCategoryService {
-
-    constructor(private _httpClient: HttpClient) { }
+    constructor(private _httpClient: HttpClient) {}
 
     /**
      * Get the insurance categories from the API
      * @param  fields  The fields to get
      * @return         The insurance categories
      */
-    getInsuranceCategories(fields: string = '', sortBy: string = ''): Observable<HttpResponse> {
+    getInsuranceCategories(
+        fields: string = '',
+        sortBy: string = ''
+    ): Observable<HttpResponse> {
         const route: string = routes.insuranceCategories;
         let params: HttpParams = new HttpParams();
-        if(!!fields) params = params.append('fields', fields);
-        if(!!sortBy) params = params.append('sortBy', sortBy);
-        return this._httpClient.get<HttpResponse>(route, {params});
+        if (!!fields) params = params.append('fields', fields);
+        if (!!sortBy) params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 }

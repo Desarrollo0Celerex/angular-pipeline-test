@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Workspace } from '@interfaces/workspace.interface';
 import { WorkspaceUser } from '@interfaces/workspace-user.interface';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@core/services/auth.service';
 import { WorkspaceService } from '@services/workspace.service';
 import { WorkspaceUserService } from '@services/workspace-user.service';
 
@@ -16,16 +16,18 @@ export class WorkspaceInfoService {
         private _authService: AuthService,
         private _workspaceService: WorkspaceService,
         private _workspaceUserService: WorkspaceUserService
-    ) { }
+    ) {}
 
     /**
      * Load the workspace data
      */
     loadWorkspace(): void {
         const fields: string = 'workspaceId,brandName,avatarUrl';
-        this._workspaceService.getWorkspace(fields).subscribe( (res: HttpResponse) => {
-            this.workspace = res.data;
-        })
+        this._workspaceService
+            .getWorkspace(fields)
+            .subscribe((res: HttpResponse) => {
+                this.workspace = res.data;
+            });
     }
 
     /**
@@ -34,8 +36,10 @@ export class WorkspaceInfoService {
     loadWorkspaceUser(): void {
         const userId: string = this._authService.userId;
         const fields: string = 'shortName';
-        this._workspaceUserService.getWorkspaceUser(userId, fields).subscribe( (res: HttpResponse) => {
-            this.user = res.data;
-        })
+        this._workspaceUserService
+            .getWorkspaceUser(userId, fields)
+            .subscribe((res: HttpResponse) => {
+                this.user = res.data;
+            });
     }
 }

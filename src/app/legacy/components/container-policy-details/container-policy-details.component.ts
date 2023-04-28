@@ -8,30 +8,33 @@ import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
 import { SelectActionTypeData } from '@interfaces/select-action-type-data.interface';
 import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.interface';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { ContainerPolicyDetailsService } from './container-policy-details.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-policy-details',
-  templateUrl: './container-policy-details.component.html',
-  styles: [
-  ]
+    selector: 'agt-container-policy-details',
+    templateUrl: './container-policy-details.component.html',
+    styles: [],
 })
 export class ContainerPolicyDetailsComponent implements OnChanges {
     @Input() contactId: string = '';
     @Input() policyId: string = '';
     modalIdConfirmCancelPolicy: string = 'agt-confirm-cancel-policy';
     modalIdConfirmDeletePolicy: string = 'agt-confirm-delete-policy';
-    modalIdConfirmDeleteRenewedPolicy: string = 'agt-confirm-delete-renewed-policy';
+    modalIdConfirmDeleteRenewedPolicy: string =
+        'agt-confirm-delete-renewed-policy';
     modalIdConfirmEndorsePolicy: string = 'agt-confirm-endorse-policy';
     modalIdConfirmReissuePolicy: string = 'agt-confirm-reissue-policy';
     modalIdConfirmRenewPolicy: string = 'agt-confirm-renew-policy';
-    modalIdConfirmShowHistoryPolicy: string = 'agt-confirm-show-history-policy-02';
-    modalIdConfirmShowPaymentHistory: string = 'agt-confirm-show-payment-history';
-    modalIdConfirmShowPolicySinisters: string = 'agt-confirm-show-policy-sinisters';
+    modalIdConfirmShowHistoryPolicy: string =
+        'agt-confirm-show-history-policy-02';
+    modalIdConfirmShowPaymentHistory: string =
+        'agt-confirm-show-payment-history';
+    modalIdConfirmShowPolicySinisters: string =
+        'agt-confirm-show-policy-sinisters';
     modalIdConfirmUpdatePolicy: string = 'agt-confirm-update-policy';
     modalIdSelectContactType: string = 'agt-select-contact-type';
     selectedActionType: number = 0;
@@ -45,11 +48,17 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
         public containerPolicyDetailsService: ContainerPolicyDetailsService,
         private _loadingService: LoadingService,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if((!!changes.contactId && !!changes.contactId.currentValue) || (!!changes.policyId && !!changes.policyId.currentValue)) {
-            this.containerPolicyDetailsService.loadPolicy(this.contactId, this.policyId);
+        if (
+            (!!changes.contactId && !!changes.contactId.currentValue) ||
+            (!!changes.policyId && !!changes.policyId.currentValue)
+        ) {
+            this.containerPolicyDetailsService.loadPolicy(
+                this.contactId,
+                this.policyId
+            );
         }
     }
 
@@ -68,7 +77,9 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
      * @param policyId The policy ID to complete
      */
     onCompletePolicy(data: ContactPolicyData): void {
-        this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.contactId, data.policyId));
+        this._router.navigateByUrl(
+            ROUTES_NAME.uploadPolicy(data.contactId, data.policyId)
+        );
     }
 
     /**
@@ -106,7 +117,9 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
      * @param policyId The deleted policy ID
      */
     onPolicyDeleted(): void {
-        this._router.navigateByUrl(ROUTES_NAME.listContactPolicies(this.contactId));
+        this._router.navigateByUrl(
+            ROUTES_NAME.listContactPolicies(this.contactId)
+        );
         AlertHelper.policyDeleted();
     }
 
@@ -128,16 +141,18 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
         this.contactId = data.contactId;
         this.selectedPolicyId = data.policyId;
         this._loadingService.show();
-        this.containerPolicyDetailsService.getPolicyLogs(this.contactId, this.selectedPolicyId).subscribe((policyLogs: PolicyLog[]) => {
-            this._loadingService.hide();
-            // Check if the policy has already been renewed
-            if(policyLogs.length > 0) {
-                this.selectedPolicyIdToDelete = policyLogs[0].sourceId;
-                ModalPlugin.show(this.modalIdConfirmDeleteRenewedPolicy);
-            } else {
-                ModalPlugin.show(this.modalIdConfirmRenewPolicy);
-            }
-        })
+        this.containerPolicyDetailsService
+            .getPolicyLogs(this.contactId, this.selectedPolicyId)
+            .subscribe((policyLogs: PolicyLog[]) => {
+                this._loadingService.hide();
+                // Check if the policy has already been renewed
+                if (policyLogs.length > 0) {
+                    this.selectedPolicyIdToDelete = policyLogs[0].sourceId;
+                    ModalPlugin.show(this.modalIdConfirmDeleteRenewedPolicy);
+                } else {
+                    ModalPlugin.show(this.modalIdConfirmRenewPolicy);
+                }
+            });
     }
 
     onShowContactProfile(contactId: string): void {
@@ -148,7 +163,7 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
      * Event to show the modal to confirm show the payment history
      * @param data The data to show the payment history
      */
-    onShowPaymentHistory(data : ShowPaymentHistoryData): void {
+    onShowPaymentHistory(data: ShowPaymentHistoryData): void {
         this.selectedContactId = data.contactId;
         this.selectedPolicyId = data.policyId;
         this.selectedPaymentId = data.paymentId;
@@ -185,10 +200,11 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
 
     deleteRenewedPolicy(): void {
         this._loadingService.show();
-        this.containerPolicyDetailsService.deleteRenewedPolicy(this.contactId, this.selectedPolicyIdToDelete).subscribe(() => {
-            this._loadingService.hide();
-            ModalPlugin.show(this.modalIdConfirmRenewPolicy);
-        });
+        this.containerPolicyDetailsService
+            .deleteRenewedPolicy(this.contactId, this.selectedPolicyIdToDelete)
+            .subscribe(() => {
+                this._loadingService.hide();
+                ModalPlugin.show(this.modalIdConfirmRenewPolicy);
+            });
     }
-
 }

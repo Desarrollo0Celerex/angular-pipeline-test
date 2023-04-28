@@ -3,16 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
-import { HttpResponse } from '@interfaces/http-response.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    offsprings: `${environment.apiUrl}/offsprings`
-}
+    offsprings: `${environment.apiUrl}/offsprings`,
+};
 
 @Injectable()
 export class OffspringService {
-
-    constructor(private _httpClient: HttpClient) { }
+    constructor(private _httpClient: HttpClient) {}
 
     /**
      * Get the offsprings from the API
@@ -21,8 +20,8 @@ export class OffspringService {
      */
     getOffsprings(fields: string = ''): Observable<HttpResponse> {
         const route: string = ROUTES.offsprings;
-        let params: HttpParams = new HttpParams;
-        if(!!fields) params = params.append('fields', fields);
+        let params: HttpParams = new HttpParams();
+        if (!!fields) params = params.append('fields', fields);
         return this._httpClient.get<HttpResponse>(route, { params });
     }
 }
