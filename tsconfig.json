@@ -22,34 +22,34 @@
     ],
     "paths": {
       "@components/*": [
-        "app/components/*"
+        "app/legacy/components/*"
       ],
       "@constants/*": [
-        "app/constants/*"
+        "app/legacy/constants/*"
       ],
       "@directives/*": [
-        "app/directives/*"
+        "app/legacy/directives/*"
       ],
       "@guards/*": [
-        "app/guards/*"
+        "app/legacy/guards/*"
       ],
       "@helpers/*": [
-        "app/helpers/*"
+        "app/legacy/helpers/*"
       ],
       "@interceptors/*": [
-        "app/interceptors/*"
+        "app/legacy/interceptors/*"
       ],
       "@interfaces/*": [
-        "app/interfaces/*"
+        "app/legacy/interfaces/*"
       ],
       "@pages/*": [
-        "app/pages/*"
+        "app/legacy/pages/*"
       ],
       "@pipes/*": [
-        "app/pipes/*"
+        "app/legacy/pipes/*"
       ],
       "@services/*": [
-        "app/services/*"
+        "app/legacy/services/*"
       ],
       "@env/*": [
         "environments/*"
