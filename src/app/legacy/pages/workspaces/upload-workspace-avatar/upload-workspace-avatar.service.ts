@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 
 @Injectable()
 export class UploadWorkspaceAvatarService {
@@ -13,7 +13,7 @@ export class UploadWorkspaceAvatarService {
      * @param  image Image to upload
      * @return       Empty
      */
-    uploadWorkspaceAvatar(image: string | null): Observable<HttpResponse> {
+    uploadWorkspaceAvatar(image: string | null): Observable<void> {
         return this._workspaceService.uploadWorkspaceAvatar(image);
     }
 }

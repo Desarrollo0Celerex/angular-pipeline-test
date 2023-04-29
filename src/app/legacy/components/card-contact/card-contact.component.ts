@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ROUTES_NAME } from '@constants/routes-name';
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 
 @Component({
-  selector: 'agt-card-contact',
-  templateUrl: './card-contact.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-contact',
+    templateUrl: './card-contact.component.html',
+    styles: [],
 })
 export class CardContactComponent {
     @Input() contact: Contact | null;
@@ -15,7 +14,8 @@ export class CardContactComponent {
     @Input() canDeleteContact: boolean = true;
     @Output() contactSelected: EventEmitter<string>;
     @Output() showContactData: EventEmitter<string>;
-    @Output() deleteContactRequested: EventEmitter<string> = new EventEmitter<string>();
+    @Output() deleteContactRequested: EventEmitter<string> =
+        new EventEmitter<string>();
     ROUTES_NAME: any;
 
     constructor() {
@@ -26,7 +26,12 @@ export class CardContactComponent {
     }
 
     get canShowDeleteContactButton(): boolean {
-        return (!!this.contact && !(!!this.contact.clientStatusName) && !(!!this.contact.leadStatusName) && !!this.canDeleteContact) ? true : false;
+        return !!this.contact &&
+            !!!this.contact.clientStatusName &&
+            !!!this.contact.leadStatusName &&
+            !!this.canDeleteContact
+            ? true
+            : false;
     }
 
     /**
@@ -46,9 +51,8 @@ export class CardContactComponent {
     }
 
     requestDeleteContact(): void {
-        if(!!this.contact) {
+        if (!!this.contact) {
             this.deleteContactRequested.emit(this.contact.contactId);
         }
     }
-
 }

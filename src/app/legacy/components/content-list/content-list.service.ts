@@ -21,7 +21,7 @@ import {
 } from '@constants/global';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { SinisterEventHelper } from '@helpers/sinister-event.helper';
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { Insured } from '@interfaces/insured.interface';
@@ -37,7 +37,7 @@ import { SinisterLog } from '@interfaces/sinister-log.interface';
 import { UpdatePolicyInsuredStatus } from '@interfaces/update-policy-insured-status.interface';
 
 import { ClientService } from '@services/client.service';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
 import { EndorsementService } from '@services/endorsement.service';
 import { ExternalPolicyService } from '@services/external-policy.service';
@@ -52,6 +52,7 @@ import { PolicyInsuredService } from '@services/policy-insured.service';
 import { QuotationService } from '@services/quotation.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
 import { SinisterService } from '@services/sinister.service';
+import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
 
 @Injectable()
 export class ContentListService {
@@ -706,9 +707,9 @@ export class ContentListService {
         const fields: string =
             'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
         return this._contactService.getContacts(page, fields).pipe(
-            tap((res: HttpResponse) => {
-                this.contents = this.contents.concat(res.data.items);
-                this._loadContentResultData(res.data.totalItems);
+            tap((res: HttpResponseItems) => {
+                this.contents = this.contents.concat(res.items);
+                this._loadContentResultData(res.totalItems);
             }),
             map(() => {})
         );
@@ -2057,9 +2058,9 @@ export class ContentListService {
         return this._contactService
             .getContacts(page, fields, query, specialQuery)
             .pipe(
-                tap((res: HttpResponse) => {
-                    this.contents = this.contents.concat(res.data.items);
-                    this._loadContentResultData(res.data.totalItems);
+                tap((res: HttpResponseItems) => {
+                    this.contents = this.contents.concat(res.items);
+                    this._loadContentResultData(res.totalItems);
                 }),
                 map(() => {})
             );

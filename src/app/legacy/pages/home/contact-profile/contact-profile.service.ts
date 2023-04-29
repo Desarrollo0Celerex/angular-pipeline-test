@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { CONTACT_PROFILE_PAGE_TYPES } from '@constants/global';
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 
 @Injectable()
 export class ContactProfileService {
@@ -57,8 +57,8 @@ export class ContactProfileService {
             'contactId,avatarUrl,contactName,contactSourceName,contactSourceTypeName,phoneCode,phoneNumber,currencyName,totalActivePolicies,totalOpenSinisters,contactScoreName,totalGlobalWallet,totalGlobalWalletPaid,createdAt,createdByName,leadStatusId,clientStatusId';
         this._contactService
             .getContact(contactId, fields)
-            .subscribe((res: HttpResponse) => {
-                this.contact = res.data;
+            .subscribe((res: Contact) => {
+                this.contact = res;
             });
     }
 }

@@ -6,7 +6,7 @@ import { AuthService } from '@core/services/auth/auth.service';
 import { PolicyService } from '@services/policy.service';
 import { SinisterService } from '@services/sinister.service';
 import { SinisterTypeService } from '@services/sinister-type.service';
-import { WorkspaceUserService } from '@services/workspace-user.service';
+import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 
 import { ModalCreateSinisterComponent } from './modal-create-sinister.component';
 

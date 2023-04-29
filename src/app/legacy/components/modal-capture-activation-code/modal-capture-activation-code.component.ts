@@ -72,9 +72,9 @@ export class ModalCaptureActivationCodeComponent {
     private _activateWorkspace(activationCode: string): void {
         this._loadingService.show();
         this.model.activateWorkspace(activationCode).subscribe(
-            (res: HttpResponse) => {
+            (res: string) => {
                 const userTokenData: UserTokenData =
-                    this.model.startSessionInAgenthos(res.data);
+                    this.model.startSessionInAgenthos(res);
                 // Login to firebase
                 this.model
                     .getFirebaseToken(

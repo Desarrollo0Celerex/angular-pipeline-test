@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Insurance } from '@interfaces/insurance.interface';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 import { InsuranceService } from '@services/insurance.service';
 
 @Injectable()
@@ -21,10 +21,10 @@ export class ContainerInsurancesMostUsedService {
     loadContact(contactId: string): Observable<number> {
         const fields: string = 'contactName,contactTypeId';
         return this._contactService.getContact(contactId, fields).pipe(
-            tap((res: HttpResponse) => {
-                this.contact = res.data;
+            tap((res: Contact) => {
+                this.contact = res;
             }),
-            map((res: HttpResponse) => res.data.contactTypeId)
+            map((res: Contact) => res.contactTypeId)
         );
     }
 

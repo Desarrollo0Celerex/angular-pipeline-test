@@ -12,7 +12,9 @@ const ENDPOINTS: any = {
         `${environment.apiUrl}/workspaces/${workspaceId}/users/${userId}/token`,
 };
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class AuthHttp {
     constructor(private _apiHttp: ApiHttp) {}
 

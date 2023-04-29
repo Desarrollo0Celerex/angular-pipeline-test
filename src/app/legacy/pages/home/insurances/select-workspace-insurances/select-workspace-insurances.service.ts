@@ -7,10 +7,11 @@ import { License } from '@interfaces/license.interface';
 
 import { InsuranceService } from '@services/insurance.service';
 import { LicenseService } from '@services/license.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 import { WorkspaceInsuranceService } from '@services/workspace-insurance.service';
 import { Observable, forkJoin } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 @Injectable()
 export class SelectWorkspaceInsurancesService {
@@ -69,8 +70,8 @@ export class SelectWorkspaceInsurancesService {
     loadWorkspaceLicenseId(): Observable<void> {
         const fields: string = 'licenseId';
         return this._workspaceService.getWorkspace(fields).pipe(
-            tap((res: HttpResponse) => {
-                this.workspaceLicenseId = res.data.licenseId;
+            tap((res: Workspace) => {
+                this.workspaceLicenseId = res.licenseId;
             }),
             map(() => {})
         );

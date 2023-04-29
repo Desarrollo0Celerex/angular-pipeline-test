@@ -9,6 +9,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { LoadingService } from '@core/services/loading/loading.service';
 
 import { CardiumService } from './cardium.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 declare var ModalPlugin: any;
 
@@ -71,8 +72,8 @@ export class CardiumPage implements OnInit {
     }
 
     private _loadWorkspace(): void {
-        this.model.loadWorkspace().subscribe((res: HttpResponse) => {
-            this.model.buildForm(res.data.cardiumUrl);
+        this.model.loadWorkspace().subscribe((res: Workspace) => {
+            this.model.buildForm(res.cardiumUrl);
         });
     }
 }

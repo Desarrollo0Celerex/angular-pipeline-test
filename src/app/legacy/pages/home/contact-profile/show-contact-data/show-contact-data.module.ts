@@ -12,7 +12,7 @@ import { ModalIncompleteContactDataModule } from '@components/modal-incomplete-c
 import { ModalShowContactDataModule } from '@components/modal-show-contact-data/modal-show-contact-data.module';
 
 import { CivilStatusService } from '@services/civil-status.service';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 import { ContactCatalogService } from '@services/contact-catalog.service';
 import { ContactInformationService } from '@services/contact-information.service';
 import { ContactOccupationService } from '@services/contact-occupation.service';
@@ -25,32 +25,32 @@ import { ShowContactDataRoutingModule } from './show-contact-data-routing.module
 import { ShowContactDataPage } from './show-contact-data.page';
 
 @NgModule({
-  declarations: [ShowContactDataPage],
-  imports: [
-    ButtonDoCallModule,
-    ButtonSendEmailModule,
-    ButtonSendTelegramModule,
-    ButtonSendWhatsappModule,
-    CommonModule,
-    DropdownSelectPhoneCodeModule,
-    FormsModule,
-    LoadingContentModule,
-    ModalIncompleteContactDataModule,
-    ModalShowContactDataModule,
-    ReactiveFormsModule,
-    ShowContactDataRoutingModule
-  ],
-  providers: [
-      CivilStatusService,
-      ContactService,
-      ContactCatalogService,
-      ContactInformationService,
-      ContactOccupationService,
-      DatePipe,
-      GendersService,
-      OffspringService,
-      CountryService,
-      StateService,
-  ]
+    declarations: [ShowContactDataPage],
+    imports: [
+        ButtonDoCallModule,
+        ButtonSendEmailModule,
+        ButtonSendTelegramModule,
+        ButtonSendWhatsappModule,
+        CommonModule,
+        DropdownSelectPhoneCodeModule,
+        FormsModule,
+        LoadingContentModule,
+        ModalIncompleteContactDataModule,
+        ModalShowContactDataModule,
+        ReactiveFormsModule,
+        ShowContactDataRoutingModule,
+    ],
+    providers: [
+        CivilStatusService,
+        ContactService,
+        ContactCatalogService,
+        ContactInformationService,
+        ContactOccupationService,
+        DatePipe,
+        GendersService,
+        OffspringService,
+        CountryService,
+        StateService,
+    ],
 })
-export class ShowContactDataModule { }
+export class ShowContactDataModule {}

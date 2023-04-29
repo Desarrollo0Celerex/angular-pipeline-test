@@ -4,11 +4,11 @@ import { tap } from 'rxjs/operators';
 
 import { CONTACT_TYPES } from '@constants/global';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 import { Insurance } from '@interfaces/insurance.interface';
 import { InsuranceCategory } from '@interfaces/insurance-category.interface';
 import { InsurancesByCategory } from '@interfaces/insurances-by-category.interface';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 import { InsuranceService } from '@services/insurance.service';
 import { InsuranceCategoryService } from '@services/insurance-category.service';
 
@@ -36,11 +36,11 @@ export class ContainerListInsurancesService {
         );
     }
 
-    loadContact(contactId: string): Observable<HttpResponse> {
+    loadContact(contactId: string): Observable<Contact> {
         const fields: string = 'contactTypeId,contactName';
         return this._contactService.getContact(contactId, fields).pipe(
-            tap((res: HttpResponse) => {
-                this.contact = res.data;
+            tap((res: Contact) => {
+                this.contact = res;
             })
         );
     }

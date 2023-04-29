@@ -9,31 +9,29 @@ import { ModalConfirmUpgradeLicenseModule } from '@components/modal-confirm-upgr
 import { ModalUpgradeLicenseModule } from '@components/modal-upgrade-license/modal-upgrade-license.module';
 import { InsuranceService } from '@services/insurance.service';
 import { LicenseService } from '@services/license.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 import { WorkspaceInsuranceService } from '@services/workspace-insurance.service';
 
 import { SelectWorkspaceInsurancesRoutingModule } from './select-workspace-insurances-routing.module';
 import { SelectWorkspaceInsurancesPage } from './select-workspace-insurances.page';
 
 @NgModule({
-  declarations: [
-    SelectWorkspaceInsurancesPage
-  ],
-  imports: [
-    CardLicenseInsuranceModule,
-    CommonModule,
-    LoadingContentModule,
-    ModalConfirmAddWorkspaceInsuranceModule,
-    ModalConfirmRemoveWorkspaceInsuranceModule,
-    ModalConfirmUpgradeLicenseModule,
-    ModalUpgradeLicenseModule,
-    SelectWorkspaceInsurancesRoutingModule
-  ],
-  providers: [
-    InsuranceService,
-    LicenseService,
-    WorkspaceService,
-    WorkspaceInsuranceService
-  ]
+    declarations: [SelectWorkspaceInsurancesPage],
+    imports: [
+        CardLicenseInsuranceModule,
+        CommonModule,
+        LoadingContentModule,
+        ModalConfirmAddWorkspaceInsuranceModule,
+        ModalConfirmRemoveWorkspaceInsuranceModule,
+        ModalConfirmUpgradeLicenseModule,
+        ModalUpgradeLicenseModule,
+        SelectWorkspaceInsurancesRoutingModule,
+    ],
+    providers: [
+        InsuranceService,
+        LicenseService,
+        WorkspaceService,
+        WorkspaceInsuranceService,
+    ],
 })
-export class SelectWorkspaceInsurancesModule { }
+export class SelectWorkspaceInsurancesModule {}

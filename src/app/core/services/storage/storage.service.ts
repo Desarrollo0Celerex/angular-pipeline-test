@@ -5,7 +5,9 @@ import { UserTokenData } from '@core/interfaces/user-token-data.interface';
 const USER_TOKEN_KEY: string = 'user-token';
 const USER_DATA_KEY: string = 'user-data';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class StorageService {
     constructor() {}
 

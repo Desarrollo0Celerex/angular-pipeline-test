@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { ContactRate } from '@interfaces/contact-rate.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
+import { Contact } from '@core/interfaces/contact.interface';
 
 @Injectable()
 export class CardContactSinistersRateService {
@@ -17,10 +18,10 @@ export class CardContactSinistersRateService {
         const fields: string = 'sinistersRate,workspaceSinistersRate';
         this._contactService
             .getContact(contactId, fields)
-            .subscribe((res: HttpResponse) => {
+            .subscribe((res: Contact) => {
                 this.sinistersRate = {
-                    contact: res.data.sinistersRate,
-                    workspace: res.data.workspaceSinistersRate,
+                    contact: res.sinistersRate,
+                    workspace: res.workspaceSinistersRate,
                 };
             });
     }

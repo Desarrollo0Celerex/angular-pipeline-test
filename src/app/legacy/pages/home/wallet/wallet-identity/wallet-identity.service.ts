@@ -12,7 +12,8 @@ import { Wallet } from '@interfaces/wallet.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UpdateWalletIdentityDataSend } from '@interfaces/update-wallet-identity-data-send.interface';
 import { WalletService } from '@services/wallet.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 @Injectable()
 export class WalletIdentityService {
@@ -65,7 +66,7 @@ export class WalletIdentityService {
         return this._walletService.getWallet(fields);
     }
 
-    loadWorkspace(): Observable<HttpResponse> {
+    loadWorkspace(): Observable<Workspace> {
         const fields: string = 'brandName';
         return this._workspaceService.getWorkspace(fields);
     }

@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { Phone } from '@interfaces/phone.interface';
 import { ExpressTokenData } from '@interfaces/express-token-data.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 import { ExpressTokenService } from '@services/express-token.service';
 import { JwtService } from '@core/services/jwt/jwt.service';
+import { Contact } from '@core/interfaces/contact.interface';
 
 @Injectable()
 export class ButtonDoCallService {
@@ -32,8 +33,8 @@ export class ButtonDoCallService {
         const fields: string = 'phoneCode,phoneNumber';
         this._contactService
             .getContact(contactId, fields)
-            .subscribe((res: HttpResponse) => {
-                this.phone = res.data;
+            .subscribe((res: Contact) => {
+                this.phone = res;
             });
     }
 

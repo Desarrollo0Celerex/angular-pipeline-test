@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
+import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
 
 @Injectable()
 export class ContainerLastContactsService {
@@ -22,8 +23,8 @@ export class ContainerLastContactsService {
         const perPage: number = 4;
         this._contactService
             .getContacts(page, fields, '', null, perPage)
-            .subscribe((res: HttpResponse) => {
-                this.lastContacts = res.data.items;
+            .subscribe((res: HttpResponseItems) => {
+                this.lastContacts = res.items;
             });
     }
 }

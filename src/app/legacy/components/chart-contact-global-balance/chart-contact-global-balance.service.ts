@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
+import { Contact } from '@core/interfaces/contact.interface';
 
 @Injectable()
 export class ChartContactGlobalBalanceService {
@@ -22,22 +23,23 @@ export class ChartContactGlobalBalanceService {
                 'totalGlobalWallet,totalGlobalWalletPaid,currencyName';
             this._contactService
                 .getContact(contactId, fields)
-                .subscribe((res: HttpResponse) => {
+                .subscribe((res: Contact) => {
                     const walletPaid: number = parseFloat(
-                        parseFloat(res.data.totalGlobalWalletPaid).toFixed(2)
+                        parseFloat(
+                            res.totalGlobalWalletPaid.toString()
+                        ).toFixed(2)
                     );
                     const walletPending: number = parseFloat(
                         (
-                            res.data.totalGlobalWallet -
-                            res.data.totalGlobalWalletPaid
+                            res.totalGlobalWallet - res.totalGlobalWalletPaid
                         ).toFixed(2)
                     );
                     this.chartData.push([
-                        'Pagado (' + res.data.currencyName + ')',
+                        'Pagado (' + res.currencyName + ')',
                         walletPaid,
                     ]);
                     this.chartData.push([
-                        'Pendiente (' + res.data.currencyName + ')',
+                        'Pendiente (' + res.currencyName + ')',
                         walletPending,
                     ]);
                     observer.next();

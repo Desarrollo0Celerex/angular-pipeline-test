@@ -4,7 +4,8 @@ import { map, tap } from 'rxjs/operators';
 
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicyService } from '@services/policy.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 @Injectable()
 export class ChartPolicyTrackerAmountsService {
@@ -19,8 +20,8 @@ export class ChartPolicyTrackerAmountsService {
     loadWorkspaceCurrencyName(): Observable<void> {
         const fields: string = 'currencyName';
         return this._workspaceService.getWorkspace(fields).pipe(
-            tap((res: HttpResponse) => {
-                this.workspaceCurrencyName = res.data.currencyName;
+            tap((res: Workspace) => {
+                this.workspaceCurrencyName = res.currencyName;
             }),
             map(() => {})
         );

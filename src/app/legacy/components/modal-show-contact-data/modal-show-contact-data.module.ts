@@ -5,21 +5,21 @@ import { ButtonDownloadContactModule } from '@components/button-download-contact
 import { ButtonSendWhatsappModule } from '@components/button-send-whatsapp/button-send-whatsapp.module';
 import { ButtonSendEmailModule } from '@components/button-send-email/button-send-email.module';
 import { QrcodeTransferContactModule } from '@components/qrcode-transfer-contact/qrcode-transfer-contact.module';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 
 import { ModalShowContactDataComponent } from './modal-show-contact-data.component';
 import { ModalShowContactDataService } from './modal-show-contact-data.service';
 
 @NgModule({
-  declarations: [ModalShowContactDataComponent],
-  exports: [ModalShowContactDataComponent],
-  imports: [
-    ButtonDownloadContactModule,
-    ButtonSendEmailModule,
-    ButtonSendWhatsappModule,
-    CommonModule,
-    QrcodeTransferContactModule
-  ],
-  providers: [ContactService, ModalShowContactDataService]
+    declarations: [ModalShowContactDataComponent],
+    exports: [ModalShowContactDataComponent],
+    imports: [
+        ButtonDownloadContactModule,
+        ButtonSendEmailModule,
+        ButtonSendWhatsappModule,
+        CommonModule,
+        QrcodeTransferContactModule,
+    ],
+    providers: [ContactService, ModalShowContactDataService],
 })
-export class ModalShowContactDataModule { }
+export class ModalShowContactDataModule {}

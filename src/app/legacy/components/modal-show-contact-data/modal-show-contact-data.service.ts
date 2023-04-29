@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 
 @Injectable()
 export class ModalShowContactDataService {
@@ -17,8 +17,8 @@ export class ModalShowContactDataService {
         const fields: string = 'contactName';
         this._contactService
             .getContact(contactId, fields)
-            .subscribe((res: HttpResponse) => {
-                this.contact = res.data;
+            .subscribe((res: Contact) => {
+                this.contact = res;
             });
     }
 }

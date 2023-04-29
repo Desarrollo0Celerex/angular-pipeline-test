@@ -37,7 +37,8 @@ import { PaymentService } from '@services/payment.service';
 import { PaymentStatusService } from '@services/payment-status.service';
 import { SinisterService } from '@services/sinister.service';
 import { SinisterStatusService } from '@services/sinister-status.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 @Injectable()
 export class StatsSnapshotService {
@@ -108,8 +109,8 @@ export class StatsSnapshotService {
     getWorkspaceCountry(): Observable<string> {
         const fields: string = 'countryAbbreviation';
         return this._workspaceService.getWorkspace(fields).pipe(
-            map((res: HttpResponse) => {
-                return res.data.countryAbbreviation;
+            map((res: Workspace) => {
+                return res.countryAbbreviation;
             })
         );
     }

@@ -91,7 +91,7 @@ export class UploadWorkspaceAvatarPage implements OnInit {
         this._loadingService.show();
         this._uploadWorkspaceAvatarService
             .uploadWorkspaceAvatar(image)
-            .subscribe((res: HttpResponse) => {
+            .subscribe(() => {
                 this._loadingService.hide();
                 const hasImage: boolean = !!image ? true : false;
                 this._handleWorkspaceAvatarUploaded(hasImage);

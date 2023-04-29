@@ -6,27 +6,22 @@ import { DeviceMacbookProModule } from '@components/device-macbook-pro/device-ma
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { ModalConfirmUpdateSiteModule } from '@components/modal-confirm-update-site/modal-confirm-update-site.module';
 import { SiteService } from '@services/site.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 
 import { ThemeRoutingModule } from './theme-routing.module';
 import { ThemePage } from './theme.page';
 
 @NgModule({
-  declarations: [
-    ThemePage
-  ],
-  imports: [
-    CommonModule,
-    DeviceMacbookProModule,
-    FormsModule,
-    LoadingContentModule,
-    ModalConfirmUpdateSiteModule,
-    ThemeRoutingModule,
-    ReactiveFormsModule
-  ],
-  providers: [
-    SiteService,
-    WorkspaceService
-  ]
+    declarations: [ThemePage],
+    imports: [
+        CommonModule,
+        DeviceMacbookProModule,
+        FormsModule,
+        LoadingContentModule,
+        ModalConfirmUpdateSiteModule,
+        ThemeRoutingModule,
+        ReactiveFormsModule,
+    ],
+    providers: [SiteService, WorkspaceService],
 })
-export class ThemeModule { }
+export class ThemeModule {}

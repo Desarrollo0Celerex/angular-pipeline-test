@@ -17,10 +17,10 @@ import { CreateInvitationDataSend } from '@interfaces/create-invitation-data-sen
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { InvitationForm } from '@interfaces/invitation-form.interface';
 import { Role } from '@interfaces/role.interface';
-import { Workspace } from '@interfaces/workspace.interface';
+import { Workspace } from '@core/interfaces/workspace.interface';
 import { InvitationService } from '@services/invitation.service';
 import { RoleService } from '@services/role.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 
 @Injectable()
 export class SendInvitationsService {
@@ -57,8 +57,8 @@ export class SendInvitationsService {
     buildInvitationForms(): Observable<void> {
         this.invitationForms = [];
         return this._workspaceService.getWorkspaceAvailablePlaces().pipe(
-            tap((res: HttpResponse) => {
-                const availablePlaces: number = res.data;
+            tap((res: number) => {
+                const availablePlaces: number = res;
                 for (let i: number = 0; i < availablePlaces; i++) {
                     this.addInvitationForm();
                 }
@@ -97,8 +97,8 @@ export class SendInvitationsService {
         const fields: string = 'brandName';
         this._workspaceService
             .getWorkspace(fields)
-            .subscribe((res: HttpResponse) => {
-                this.workspace = res.data;
+            .subscribe((res: Workspace) => {
+                this.workspace = res;
             });
     }
 

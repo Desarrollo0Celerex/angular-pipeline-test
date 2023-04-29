@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { ExpressTokenData } from '@interfaces/express-token-data.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 import { ExpressTokenService } from '@services/express-token.service';
 import { JwtService } from '@core/services/jwt/jwt.service';
+import { Contact } from '@core/interfaces/contact.interface';
 
 @Injectable()
 export class ButtonSendEmailService {
@@ -27,8 +28,8 @@ export class ButtonSendEmailService {
         const fields: string = 'email';
         this._contactService
             .getContact(contactId, fields)
-            .subscribe((res: HttpResponse) => {
-                this.email = res.data.email;
+            .subscribe((res: Contact) => {
+                this.email = res.email;
             });
     }
 

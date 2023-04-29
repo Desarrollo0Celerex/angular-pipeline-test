@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { CreateContactDataSend } from '@interfaces/create-contact-data-send.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 import { PolicyService } from '@services/policy.service';
 
 @Injectable()
@@ -19,9 +19,7 @@ export class ListContactCoincidencesService {
      * @param  requestBody The contact data
      * @return             The created contact ID
      */
-    createContact(
-        requestBody: CreateContactDataSend
-    ): Observable<HttpResponse> {
+    createContact(requestBody: CreateContactDataSend): Observable<string> {
         return this._contactService.createContact(requestBody);
     }
 

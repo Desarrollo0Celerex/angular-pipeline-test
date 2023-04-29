@@ -10,8 +10,8 @@ import {
 } from '@constants/global';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { WorkspaceDirectory } from '@interfaces/workspace-directory.interface';
-import { Workspace } from '@interfaces/workspace.interface';
-import { WorkspaceService } from '@services/workspace.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 import { WorkspaceDirectoryService } from '@services/workspace-directory.service';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
@@ -55,8 +55,8 @@ export class SinistersService {
     loadWorkspace(): Observable<void> {
         const fields: string = 'countryId';
         return this._workspaceService.getWorkspace(fields).pipe(
-            tap((res: HttpResponse) => {
-                this.workspace = res.data;
+            tap((res: Workspace) => {
+                this.workspace = res;
             }),
             map(() => {})
         );

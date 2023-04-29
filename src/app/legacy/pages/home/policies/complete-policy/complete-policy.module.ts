@@ -16,7 +16,7 @@ import { ModalScanningPolicySuccessModule } from '@components/modal-scanning-pol
 import { ModalScanningPolicyFailedModule } from '@components/modal-scanning-policy-failed/modal-scanning-policy-failed.module';
 import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
 import { AtomScannService } from '@services/atom-scann.service';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 import { CurrencyService } from '@services/currency.service';
 import { GendersService } from '@services/genders.service';
 import { PartnerService } from '@services/partner.service';
@@ -31,39 +31,39 @@ import { CompletePolicyPage } from './complete-policy.page';
 import { CompletePolicyService } from './complete-policy.service';
 
 @NgModule({
-  declarations: [CompletePolicyPage],
-  imports: [
-    AlertScannerFailedModule,
-    ContainerContactDetailsModule,
-    CommonModule,
-    CompletePolicyRoutingModule,
-    DropdownSelectPhoneCodeModule,
-    FormsModule,
-    LoadingContentModule,
-    ModalBasePolicyDataLoadedModule,
-    ModalInvalidExpiredPolicyModule,
-    ModalInvalidHistoryPolicyModule,
-    ModalNotifyPolicyAlreadyExistsModule,
-    ModalPolicyAmountsDifferentModule,
-    ModalSelectFileModule,
-    ModalScanningPolicySuccessModule,
-    ModalScanningPolicyFailedModule,
-    ModalShowPolicyModule,
-    ReactiveFormsModule
-  ],
-  providers: [
-      AtomScannService,
-      CompletePolicyService,
-      ContactService,
-      CurrencyService,
-      DatePipe,
-      GendersService,
-      PartnerService,
-      PaymentMethodService,
-      PaymentPlanService,
-      PolicyService,
-      PolicyInsuredService,
-      ScannerLogService
-  ]
+    declarations: [CompletePolicyPage],
+    imports: [
+        AlertScannerFailedModule,
+        ContainerContactDetailsModule,
+        CommonModule,
+        CompletePolicyRoutingModule,
+        DropdownSelectPhoneCodeModule,
+        FormsModule,
+        LoadingContentModule,
+        ModalBasePolicyDataLoadedModule,
+        ModalInvalidExpiredPolicyModule,
+        ModalInvalidHistoryPolicyModule,
+        ModalNotifyPolicyAlreadyExistsModule,
+        ModalPolicyAmountsDifferentModule,
+        ModalSelectFileModule,
+        ModalScanningPolicySuccessModule,
+        ModalScanningPolicyFailedModule,
+        ModalShowPolicyModule,
+        ReactiveFormsModule,
+    ],
+    providers: [
+        AtomScannService,
+        CompletePolicyService,
+        ContactService,
+        CurrencyService,
+        DatePipe,
+        GendersService,
+        PartnerService,
+        PaymentMethodService,
+        PaymentPlanService,
+        PolicyService,
+        PolicyInsuredService,
+        ScannerLogService,
+    ],
 })
-export class CompletePolicyModule { }
+export class CompletePolicyModule {}

@@ -6,6 +6,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 import { CheckWorkspaceStatusService } from './check-workspace-status.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 @Component({
     selector: 'agt-check-workspace-status',
@@ -31,9 +32,9 @@ export class CheckWorkspaceStatusPage implements OnInit {
      */
     private _checkWorkspaceStatus(): void {
         this._checkWorkspaceStatusService
-            .getWorkspaceStatusId()
-            .subscribe((res: HttpResponse) => {
-                const workspaceStatusId: number = res.data.workspaceStatusId;
+            .getWorkspace()
+            .subscribe((res: Workspace) => {
+                const workspaceStatusId: number = res.workspaceStatusId;
                 switch (workspaceStatusId) {
                     case WORKSPACE_STATUS.CREATED:
                         this._router.navigateByUrl(

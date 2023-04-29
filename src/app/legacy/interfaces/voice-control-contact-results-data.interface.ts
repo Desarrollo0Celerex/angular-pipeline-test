@@ -1,6 +1,6 @@
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 
 export interface VoiceControlContactResultsData {
-    canShowModal: boolean,
-    contacts: Contact[]
+    canShowModal: boolean;
+    contacts: Contact[];
 }

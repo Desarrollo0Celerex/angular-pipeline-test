@@ -18,13 +18,14 @@ import {
     LONG_ALPHANUMERIC_LENGTH,
     FREE_TEXT_LENGTH,
 } from '@constants/global';
+import { WorkspaceUser } from '@core/interfaces/workspace-user.interface';
 import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { AuthService } from '@core/services/auth/auth.service';
 import { PolicyService } from '@services/policy.service';
 import { SinisterService } from '@services/sinister.service';
 import { SinisterTypeService } from '@services/sinister-type.service';
-import { WorkspaceUserService } from '@services/workspace-user.service';
+import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 
 @Injectable()
 export class ModalCreateSinisterService {
@@ -102,9 +103,9 @@ export class ModalCreateSinisterService {
         const userId: string = this._authService.userId;
         const fields: string = 'shortName';
         this._workspaceUserService
-            .getWorkspaceUser(userId, fields)
-            .subscribe((res: HttpResponse) => {
-                this.sinisterForm.patchValue({ manager: res.data.shortName });
+            .getLoggedWorkspaceUser(fields)
+            .subscribe((res: WorkspaceUser) => {
+                this.sinisterForm.patchValue({ manager: res.shortName });
             });
     }
 

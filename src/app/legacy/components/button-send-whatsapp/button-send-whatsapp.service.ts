@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 import { ExpressTokenData } from '@interfaces/express-token-data.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { WorkspaceUser } from '@interfaces/workspace-user.interface';
-import { ContactService } from '@services/contact.service';
+import { WorkspaceUser } from '@core/interfaces/workspace-user.interface';
+import { ContactService } from '@core/services/contact/contact.service';
 import { ExpressTokenService } from '@services/express-token.service';
 import { AuthService } from '@core/services/auth/auth.service';
 import { JwtService } from '@core/services/jwt/jwt.service';
-import { WorkspaceUserService } from '@services/workspace-user.service';
+import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 
 @Injectable()
 export class ButtonSendWhatsappService {
@@ -33,8 +33,8 @@ export class ButtonSendWhatsappService {
         const fields: string = 'phoneCode,phoneNumber,shortName,workspaceName';
         this._contactService
             .getContact(contactId, fields)
-            .subscribe((res: HttpResponse) => {
-                this.contact = res.data;
+            .subscribe((res: Contact) => {
+                this.contact = res;
             });
     }
 
@@ -66,9 +66,9 @@ export class ButtonSendWhatsappService {
         const userId: string = this._authService.userId;
         const fields: string = 'shortName';
         this._workspaceUserService
-            .getWorkspaceUser(userId, fields)
-            .subscribe((res: HttpResponse) => {
-                this.user = res.data;
+            .getLoggedWorkspaceUser(fields)
+            .subscribe((res: WorkspaceUser) => {
+                this.user = res;
             });
     }
 

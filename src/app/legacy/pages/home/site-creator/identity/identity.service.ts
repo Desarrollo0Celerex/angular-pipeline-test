@@ -14,7 +14,8 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Site } from '@interfaces/site.interface';
 import { UpdateSiteIdentityDataSend } from '@interfaces/update-site-identity-data-send.interface';
 import { SiteService } from '@services/site.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 @Injectable()
 export class IdentityService {
@@ -133,8 +134,8 @@ export class IdentityService {
     loadWorkspaceLicenseId(): Observable<void> {
         const fields: string = 'licenseId';
         return this._workspaceService.getWorkspace(fields).pipe(
-            tap((res: HttpResponse) => {
-                this.licenseId = res.data.licenseId;
+            tap((res: Workspace) => {
+                this.licenseId = res.licenseId;
             }),
             map(() => {})
         );

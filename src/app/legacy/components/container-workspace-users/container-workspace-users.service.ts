@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Role } from '@interfaces/role.interface';
-import { User } from '@interfaces/user.interface';
+import { WorkspaceUser } from '@core/interfaces/workspace-user.interface';
 import { UpdateUserRoleDataSend } from '@interfaces/update-user-role-data-send.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { WorkspaceUserService } from '@services/workspace-user.service';
+import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 import { RoleService } from '@services/role.service';
 
 @Injectable()
 export class ContainerWorkspaceUsersService {
-    users: User[] = [];
+    users: WorkspaceUser[] = [];
     roles: Role[] = [];
 
     constructor(
@@ -32,8 +32,8 @@ export class ContainerWorkspaceUsersService {
         const perPage: number = 50;
         this._workspaceUserService
             .getWorkspaceUsers(fields, page, perPage)
-            .subscribe((res: HttpResponse) => {
-                this.users = res.data.items;
+            .subscribe((res: WorkspaceUser[]) => {
+                this.users = res;
             });
     }
 

@@ -40,11 +40,9 @@ export class ActivateWorkspacePage implements OnInit {
         this._loadingService.show();
         this.activateWorkspaceService
             .activateWorkspace(null)
-            .subscribe((res: HttpResponse) => {
+            .subscribe((res: string) => {
                 const userTokenData: UserTokenData =
-                    this.activateWorkspaceService.startSessionInAgenthos(
-                        res.data
-                    );
+                    this.activateWorkspaceService.startSessionInAgenthos(res);
                 // Login to firebase
                 this.activateWorkspaceService
                     .getFirebaseToken(

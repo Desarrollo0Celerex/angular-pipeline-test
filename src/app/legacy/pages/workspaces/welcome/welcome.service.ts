@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { User } from '@interfaces/user.interface';
+import { User } from '@core/interfaces/user.interface';
 import { AuthService } from '@core/services/auth/auth.service';
 import { UserService } from '@services/user.service';
 

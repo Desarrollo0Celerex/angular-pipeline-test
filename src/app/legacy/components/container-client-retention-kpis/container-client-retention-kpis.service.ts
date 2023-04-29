@@ -6,7 +6,7 @@ import { UtilitiesHelper } from '@helpers/utilities.helper';
 import { KpiOne } from '@interfaces/kpi-one.interface';
 import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { ClientService } from '@services/client.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 
 const RENTION_RATE: number = 0;
 const HIGHER_RATE: number = 1;
@@ -19,88 +19,156 @@ export class ContainerClientRetentionKpisService {
         {
             contentName: 'Rate de',
             subcontentName: 'Retención',
-            description: 'Permite identificar la efectividad en la retención de clientes.',
+            description:
+                'Permite identificar la efectividad en la retención de clientes.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',
             comparedValue: 0,
             comparedRange: '',
-            isPercentage: true
+            isPercentage: true,
         },
         {
             contentName: 'Rate más',
             subcontentName: 'Alto',
-            description: 'Permite identificar el porcentaje de retención más alto.',
+            description:
+                'Permite identificar el porcentaje de retención más alto.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',
             comparedValue: 0,
             comparedRange: '',
-            isPercentage: true
+            isPercentage: true,
         },
         {
             contentName: 'Rate más',
             subcontentName: 'Bajo',
-            description: 'Permite identificar el porcentaje de retención más bajo.',
+            description:
+                'Permite identificar el porcentaje de retención más bajo.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',
             comparedValue: 0,
             comparedRange: '',
-            isPercentage: true
+            isPercentage: true,
         },
         {
             contentName: 'Rate de',
             subcontentName: 'Pérdida',
-            description: 'Permite identificar la debilidad en la retención de clientes.',
+            description:
+                'Permite identificar la debilidad en la retención de clientes.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',
             comparedValue: 0,
             comparedRange: '',
-            isPercentage: true
+            isPercentage: true,
         },
     ];
 
     constructor(
         private _clientService: ClientService,
         private _workspaceService: WorkspaceService
-    ) { }
+    ) {}
 
-    getWorkspaceRetentionRate(range: ComparisonRangeData): Observable<number[]> {
+    getWorkspaceRetentionRate(
+        range: ComparisonRangeData
+    ): Observable<number[]> {
         const rangeField: string = 'createdAt';
         let requests: Observable<number>[] = [];
-        requests.push(this._workspaceService.getWorkspaceRetentionRate(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
-        requests.push(this._workspaceService.getWorkspaceRetentionRate(rangeField, range.comparedRangeStart, range.comparedRangeEnd));
+        requests.push(
+            this._workspaceService.getWorkspaceRetentionRate(
+                rangeField,
+                range.selectedRangeStart,
+                range.selectedRangeEnd
+            )
+        );
+        requests.push(
+            this._workspaceService.getWorkspaceRetentionRate(
+                rangeField,
+                range.comparedRangeStart,
+                range.comparedRangeEnd
+            )
+        );
         return forkJoin(requests);
     }
 
-    getWorkspaceHigherRetentionRate(range: ComparisonRangeData): Observable<number[]> {
+    getWorkspaceHigherRetentionRate(
+        range: ComparisonRangeData
+    ): Observable<number[]> {
         const rangeField: string = 'createdAt';
         let requests: Observable<number>[] = [];
-        requests.push(this._workspaceService.getWorkspaceHigherRetentionRate(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
-        requests.push(this._workspaceService.getWorkspaceHigherRetentionRate(rangeField, range.comparedRangeStart, range.comparedRangeEnd));
+        requests.push(
+            this._workspaceService.getWorkspaceHigherRetentionRate(
+                rangeField,
+                range.selectedRangeStart,
+                range.selectedRangeEnd
+            )
+        );
+        requests.push(
+            this._workspaceService.getWorkspaceHigherRetentionRate(
+                rangeField,
+                range.comparedRangeStart,
+                range.comparedRangeEnd
+            )
+        );
         return forkJoin(requests);
     }
 
-    getWorkspaceLowerRetentionRate(range: ComparisonRangeData): Observable<number[]> {
+    getWorkspaceLowerRetentionRate(
+        range: ComparisonRangeData
+    ): Observable<number[]> {
         const rangeField: string = 'createdAt';
         let requests: Observable<number>[] = [];
-        requests.push(this._workspaceService.getWorkspaceLowerRetentionRate(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
-        requests.push(this._workspaceService.getWorkspaceLowerRetentionRate(rangeField, range.comparedRangeStart, range.comparedRangeEnd));
+        requests.push(
+            this._workspaceService.getWorkspaceLowerRetentionRate(
+                rangeField,
+                range.selectedRangeStart,
+                range.selectedRangeEnd
+            )
+        );
+        requests.push(
+            this._workspaceService.getWorkspaceLowerRetentionRate(
+                rangeField,
+                range.comparedRangeStart,
+                range.comparedRangeEnd
+            )
+        );
         return forkJoin(requests);
     }
 
     getTotalClients(): Observable<number> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('clientStatusId', [CLIENT_STATUS.OCCASIONAL, CLIENT_STATUS.FREQUENT, CLIENT_STATUS.INFLUENTIAL, CLIENT_STATUS.LOST])
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'clientStatusId',
+            [
+                CLIENT_STATUS.OCCASIONAL,
+                CLIENT_STATUS.FREQUENT,
+                CLIENT_STATUS.INFLUENTIAL,
+                CLIENT_STATUS.LOST,
+            ]
+        );
         return this._clientService.getTotalClients(filters);
     }
 
     getTotalLossClients(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'clientLossDate';
         let requests: Observable<number>[] = [];
-        requests.push(this._clientService.getTotalClients('', rangeField, range.selectedRangeStart, range.selectedRangeEnd));
-        requests.push(this._clientService.getTotalClients('', rangeField, range.comparedRangeStart, range.comparedRangeEnd));
+        requests.push(
+            this._clientService.getTotalClients(
+                '',
+                rangeField,
+                range.selectedRangeStart,
+                range.selectedRangeEnd
+            )
+        );
+        requests.push(
+            this._clientService.getTotalClients(
+                '',
+                rangeField,
+                range.comparedRangeStart,
+                range.comparedRangeEnd
+            )
+        );
         return forkJoin(requests);
     }
 
@@ -123,15 +191,19 @@ export class ContainerClientRetentionKpisService {
     }
 
     loadTotalLossClients(totalClients: number, data: number[]) {
-        this.kpis[LOSS_RATE].selectedValue = data[PERIOD_STATUS.SELECTED] * 100 / totalClients;
-        this.kpis[LOSS_RATE].comparedValue = data[PERIOD_STATUS.COMPARED] * 100 / totalClients;
+        this.kpis[LOSS_RATE].selectedValue =
+            (data[PERIOD_STATUS.SELECTED] * 100) / totalClients;
+        this.kpis[LOSS_RATE].comparedValue =
+            (data[PERIOD_STATUS.COMPARED] * 100) / totalClients;
         this.kpis[LOSS_RATE].totalContents = 100;
     }
 
     loadRangeDates(range: ComparisonRangeData): void {
         for (let index in this.kpis) {
-            this.kpis[index].selectedRange = range.selectedRangeStart + ' - ' + range.selectedRangeEnd;
-            this.kpis[index].comparedRange = range.comparedRangeStart + ' - ' + range.comparedRangeEnd;
+            this.kpis[index].selectedRange =
+                range.selectedRangeStart + ' - ' + range.selectedRangeEnd;
+            this.kpis[index].comparedRange =
+                range.comparedRangeStart + ' - ' + range.comparedRangeEnd;
         }
     }
 }

@@ -28,9 +28,9 @@ export class ActivatedLicensePage implements OnInit {
 
     startTreal(): void {
         this._loadingService.show();
-        this._model.activateWorkspace(null).subscribe((res: HttpResponse) => {
+        this._model.activateWorkspace(null).subscribe((res: string) => {
             const userTokenData: UserTokenData =
-                this._model.startSessionInAgenthos(res.data);
+                this._model.startSessionInAgenthos(res);
             // Login to firebase
             this._model
                 .getFirebaseToken(

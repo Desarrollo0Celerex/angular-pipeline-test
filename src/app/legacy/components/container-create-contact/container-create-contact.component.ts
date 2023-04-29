@@ -138,9 +138,9 @@ export class ContainerCreateContactComponent implements OnInit {
         this._loadingService.show();
         this.model
             .createContact(IGNORE_MATCHES.YES)
-            .subscribe((res: HttpResponse) => {
+            .subscribe((res: string) => {
                 this._loadingService.hide();
-                this.contactCreated.emit(res.data);
+                this.contactCreated.emit(res);
             });
     }
 
@@ -152,9 +152,9 @@ export class ContainerCreateContactComponent implements OnInit {
         if (this.model.contactForm.valid) {
             this._loadingService.show();
             this.model.createContact(IGNORE_MATCHES.NO).subscribe(
-                (res: HttpResponse) => {
+                (res: string) => {
                     this._loadingService.hide();
-                    this.contactCreated.emit(res.data);
+                    this.contactCreated.emit(res);
                 },
                 (error: HttpError) => {
                     switch (error.error) {

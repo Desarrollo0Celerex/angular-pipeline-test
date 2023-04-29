@@ -6,6 +6,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { UserAuthenticatedGuard } from '@guards/user-authenticated.guard';
 
 const routes: Routes = [
+    // NEW ROUTES
     {
         path: '',
         redirectTo: `/${AUTH_ROUTES.MODULE}/${AUTH_ROUTES.LOGIN}`,
@@ -16,8 +17,13 @@ const routes: Routes = [
         loadChildren: () =>
             import('@modules/auth/auth.module').then((mod) => mod.AuthModule),
     },
+    {
+        path: '',
+        loadChildren: () =>
+            import('@modules/home/home.module').then((mod) => mod.HomeModule),
+    },
 
-    // LEGACY
+    // LEGACY ROUTES
 
     // Changelog routes
     {
@@ -72,13 +78,6 @@ const routes: Routes = [
             import(
                 '@pages/express/express-contact/express-contact.module'
             ).then((mod) => mod.ExpressContactModule),
-    },
-
-    // Home routes
-    {
-        path: '',
-        loadChildren: () =>
-            import('@pages/home/home.module').then((mod) => mod.HomeModule),
     },
 
     // Invitations routes

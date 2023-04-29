@@ -11,7 +11,9 @@ import { LoadingService } from '@core/services/loading/loading.service';
 import { RoutingHistoryService } from '@core/services/routing-history/routing-history.service';
 import { StorageService } from '@core/services/storage/storage.service';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class AuthService {
     constructor(
         private _firebaseService: FirebaseService,

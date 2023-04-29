@@ -5,7 +5,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
 import { AuthService } from '@core/services/auth/auth.service';
 import { FirebaseService } from '@core/services/firebase/firebase.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 
 @Injectable()
 export class ActivatedLicenseService {
@@ -20,7 +20,7 @@ export class ActivatedLicenseService {
      * @param  code License code
      * @return      New user token
      */
-    activateWorkspace(code: string | null): Observable<HttpResponse> {
+    activateWorkspace(code: string | null): Observable<string> {
         return this._workspaceService.activateWorkspace(code);
     }
 

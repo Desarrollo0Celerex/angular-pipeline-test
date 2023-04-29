@@ -10,9 +10,11 @@ import { WorkspaceInsuranceService } from '@services/workspace-insurance.service
 import { SiteService } from '@services/site.service';
 import { WalletService } from '@services/wallet.service';
 import { AuthService } from '@core/services/auth/auth.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 import { WorkspaceDirectoryService } from '@services/workspace-directory.service';
-import { WorkspaceUserService } from '@services/workspace-user.service';
+import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
+import { WorkspaceUser } from '@core/interfaces/workspace-user.interface';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 @Injectable()
 export class WelcomeService {
@@ -92,14 +94,14 @@ export class WelcomeService {
             'cardiumUrl,facebookUrl,instagramUrl,twitterUrl,linkedinUrl,tiktokUrl';
         this._workspaceService
             .getWorkspace(fields)
-            .subscribe((res: HttpResponse) => {
+            .subscribe((res: Workspace) => {
                 this.socialConnectIsCompleted =
-                    res.data.cardiumUrl !== null &&
-                    res.data.facebookUrl !== null &&
-                    res.data.instagramUrl !== null &&
-                    res.data.twitterUrl !== null &&
-                    res.data.linkedinUrl !== null &&
-                    res.data.tiktokUrl !== null
+                    res.cardiumUrl !== null &&
+                    res.facebookUrl !== null &&
+                    res.instagramUrl !== null &&
+                    res.twitterUrl !== null &&
+                    res.linkedinUrl !== null &&
+                    res.tiktokUrl !== null
                         ? true
                         : false;
             });
@@ -109,9 +111,9 @@ export class WelcomeService {
         const userId: string = this._authService.userId;
         const fields: string = 'shortName';
         this._workspaceUserService
-            .getWorkspaceUser(userId, fields)
-            .subscribe((res: HttpResponse) => {
-                this.username = res.data.shortName;
+            .getLoggedWorkspaceUser(fields)
+            .subscribe((res: WorkspaceUser) => {
+                this.username = res.shortName;
             });
     }
 }

@@ -4,9 +4,9 @@ import { map, tap } from 'rxjs/operators';
 
 import { CONTACT_SOURCE_TYPES } from '@constants/global';
 import { AnnualWallet } from '@interfaces/annual-wallet.interface';
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
 
 @Injectable()
@@ -21,12 +21,12 @@ export class CardContactAnnualWalletService {
         const fields: string = 'contactSourceId,contactSourceTypeId,partnerId';
         this._contactService
             .getContact(contactId, fields)
-            .subscribe((res: HttpResponse) => {
-                res.data.contactSourceTypeId =
-                    res.data.contactSourceId == CONTACT_SOURCE_TYPES.PARTNERS
-                        ? res.data.partnerId
-                        : res.data.contactSourceTypeId;
-                this.contact = res.data;
+            .subscribe((res: Contact) => {
+                res.contactSourceTypeId =
+                    res.contactSourceId == CONTACT_SOURCE_TYPES.PARTNERS
+                        ? res.partnerId
+                        : res.contactSourceTypeId;
+                this.contact = res;
             });
     }
 
@@ -35,8 +35,8 @@ export class CardContactAnnualWalletService {
             'issuedAnnualWallet,totalIssuedAnnualNewPolicies,totalIssuedAnnualRenewedPolicies,currencyName';
         this._contactService
             .getContactAnnualWallet(contactId, year, fields)
-            .subscribe((res: HttpResponse) => {
-                this.annualWallet = res.data;
+            .subscribe((res: AnnualWallet) => {
+                this.annualWallet = res;
                 this.loadedContent = true;
             });
     }

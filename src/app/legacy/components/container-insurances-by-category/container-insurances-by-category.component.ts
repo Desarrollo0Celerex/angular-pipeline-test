@@ -3,6 +3,7 @@ import { CONTENT_TYPES } from '@constants/global';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 import { ContainerInsurancesByCategoryService } from './container-insurances-by-category.service';
+import { Contact } from '@core/interfaces/contact.interface';
 
 @Component({
     selector: 'agt-container-insurances-by-category',
@@ -28,11 +29,9 @@ export class ContainerInsurancesByCategoryComponent implements OnInit {
     }
 
     private _loadContact(): void {
-        this.model
-            .loadContact(this.contactId)
-            .subscribe((res: HttpResponse) => {
-                this._loadCategories(res.data.contactTypeId);
-            });
+        this.model.loadContact(this.contactId).subscribe((res: Contact) => {
+            this._loadCategories(res.contactTypeId);
+        });
     }
 
     private _loadCategories(contactTypeId: number): void {

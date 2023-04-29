@@ -24,7 +24,7 @@ import { UserTokenData } from '@core/interfaces/user-token-data.interface';
 import { AuthService } from '@core/services/auth/auth.service';
 import { CountryService } from '@services/country.service';
 import { StateService } from '@services/state.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 
 @Injectable()
 export class CreateWorkspaceService {
@@ -56,7 +56,7 @@ export class CreateWorkspaceService {
      * Create a workspace
      * @return New user token data
      */
-    createWorkspace(): Observable<HttpResponse> {
+    createWorkspace(): Observable<string> {
         const requestBody: CreateWorkspaceDataSend = {
             ...this.workspaceForm.value,
             countryId: this.f.countryId.value, // Remove if the field is not disabled

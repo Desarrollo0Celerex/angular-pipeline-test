@@ -24,7 +24,7 @@ import {
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
 import { CivilStatus } from '@interfaces/civil-status.interface';
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 import { ContactInformation } from '@interfaces/contact-information.interface';
 import { ContactOccupation } from '@interfaces/contact-occupation.interface';
 import { ContactStudy } from '@interfaces/contact-study.interface';
@@ -41,7 +41,7 @@ import { Country } from '@interfaces/country.interface';
 import { State } from '@interfaces/state.interface';
 
 import { CivilStatusService } from '@services/civil-status.service';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 import { ContactCatalogService } from '@services/contact-catalog.service';
 import { ContactInformationService } from '@services/contact-information.service';
 import { ContactOccupationService } from '@services/contact-occupation.service';
@@ -403,9 +403,9 @@ export class ShowContactDataService {
         const fields: string =
             'name,namePaternal,nameMaternal,genderId,birthdate,civilStatusId,contactStudyId,contactOccupationId,contactJobId,contactHomeId,contactCarId,contactSmartphoneId,offspringId,companyName,brandName,rfc,website,street,exteriorNumber,interiorNumber,colony,city,stateId,postalCode,countryId,phoneCodeId,workspaceCountryId,phoneNumber,email,contactTypeId,facebook,instagram,linkedin,twitter';
         return this._contactService.getContact(contactId, fields).pipe(
-            tap((res: HttpResponse) => {
-                this.contact = res.data;
-                this.loadCountryStates(res.data.countryId);
+            tap((res: Contact) => {
+                this.contact = res;
+                this.loadCountryStates(res.countryId);
             }),
             map(() => {})
         );

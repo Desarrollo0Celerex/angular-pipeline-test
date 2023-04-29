@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { VCard } from 'ngx-vcard';
 
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 import { ExpressTokenData } from '@interfaces/express-token-data.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 import { ExpressTokenService } from '@services/express-token.service';
 import { JwtService } from '@core/services/jwt/jwt.service';
 
@@ -30,8 +30,8 @@ export class ButtonDownloadContactService {
         const fields: string = 'contactName,phoneNumber,email';
         this._contactService
             .getContact(contactId, fields)
-            .subscribe((res: HttpResponse) => {
-                this._generateVcard(res.data);
+            .subscribe((res: Contact) => {
+                this._generateVcard(res);
             });
     }
 

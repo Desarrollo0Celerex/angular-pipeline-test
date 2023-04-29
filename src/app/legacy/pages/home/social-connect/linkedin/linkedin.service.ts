@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 @Injectable()
 export class LinkedinService {
@@ -16,7 +17,7 @@ export class LinkedinService {
         private _workspaceService: WorkspaceService
     ) {}
 
-    loadWorkspace(): Observable<HttpResponse> {
+    loadWorkspace(): Observable<Workspace> {
         const fields: string = 'linkedinUrl';
         return this._workspaceService.getWorkspace(fields);
     }

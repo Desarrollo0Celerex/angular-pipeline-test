@@ -3,10 +3,10 @@ import { Observable } from 'rxjs';
 
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
-import { Workspace } from '@interfaces/workspace.interface';
+import { Workspace } from '@core/interfaces/workspace.interface';
 import { AuthService } from '@core/services/auth/auth.service';
 import { FirebaseService } from '@core/services/firebase/firebase.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 
 @Injectable()
 export class ActivateWorkspaceService {
@@ -25,7 +25,7 @@ export class ActivateWorkspaceService {
      * @param  code License code
      * @return      New user token
      */
-    activateWorkspace(code: string | null): Observable<HttpResponse> {
+    activateWorkspace(code: string | null): Observable<string> {
         return this._workspaceService.activateWorkspace(code);
     }
 
@@ -46,8 +46,8 @@ export class ActivateWorkspaceService {
         const fields: string = 'avatarUrl,brandName,realName,payLink';
         this._workspaceService
             .getWorkspace(fields)
-            .subscribe((res: HttpResponse) => {
-                this.workspace = res.data;
+            .subscribe((res: Workspace) => {
+                this.workspace = res;
             });
     }
 

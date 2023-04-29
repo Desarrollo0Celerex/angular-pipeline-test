@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 import { ExpressTokenData } from '@interfaces/express-token-data.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ExpressTokenService } from '@services/express-token.service';

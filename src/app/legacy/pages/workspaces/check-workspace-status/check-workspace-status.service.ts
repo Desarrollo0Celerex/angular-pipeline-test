@@ -3,7 +3,8 @@ import { Observable } from 'rxjs';
 
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { AuthService } from '@core/services/auth/auth.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 @Injectable()
 export class CheckWorkspaceStatusService {
@@ -24,7 +25,7 @@ export class CheckWorkspaceStatusService {
      * Get the workspace status id
      * @return Workspace status id
      */
-    getWorkspaceStatusId(): Observable<HttpResponse> {
-        return this._workspaceService.getWorkspaceStatusId();
+    getWorkspace(): Observable<Workspace> {
+        return this._workspaceService.getWorkspace('workspaceStatusId');
     }
 }

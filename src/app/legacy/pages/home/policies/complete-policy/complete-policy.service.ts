@@ -45,7 +45,7 @@ import { Policy } from '@interfaces/policy.interface';
 
 import { AuthService } from '@core/services/auth/auth.service';
 import { AtomScannService } from '@services/atom-scann.service';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 import { CurrencyService } from '@services/currency.service';
 import { GendersService } from '@services/genders.service';
 import { PartnerService } from '@services/partner.service';
@@ -54,7 +54,7 @@ import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
 import { PolicyInsuredService } from '@services/policy-insured.service';
 import { ScannerLogService } from '@services/scanner-log.service';
-import { Contact } from '@interfaces/contact.interface';
+import { Contact } from '@core/interfaces/contact.interface';
 
 declare var DropifyPlugin: any;
 
@@ -603,8 +603,8 @@ export class CompletePolicyService {
         const fields: string =
             'contactName,birthdate,genderId,postalCode,email,phoneCodeId,phoneNumber,rfc';
         return this._contactService.getContact(contactId, fields).pipe(
-            map((res: HttpResponse) => {
-                const contact: Contact = res.data;
+            map((res: Contact) => {
+                const contact: Contact = res;
                 let policy: any = {
                     titularName: contact.contactName,
                     titularRfc: contact.rfc,

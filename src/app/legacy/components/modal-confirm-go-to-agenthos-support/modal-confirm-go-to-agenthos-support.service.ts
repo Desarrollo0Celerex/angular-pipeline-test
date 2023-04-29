@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 
 import { HttpResponse } from '@core/interfaces/http-response.interface';
+import { WorkspaceUser } from '@core/interfaces/workspace-user.interface';
 import { AuthService } from '@core/services/auth/auth.service';
-import { WorkspaceService } from '@services/workspace.service';
-import { WorkspaceUserService } from '@services/workspace-user.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
+import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 @Injectable()
 export class ModalConfirmGoToAgenthosSupportService {
@@ -20,9 +22,9 @@ export class ModalConfirmGoToAgenthosSupportService {
         const userId: string = this._authService.userId;
         const fields: string = 'shortName';
         this._workspaceUserService
-            .getWorkspaceUser(userId, fields)
-            .subscribe((res: HttpResponse) => {
-                this.username = res.data.shortName;
+            .getLoggedWorkspaceUser(fields)
+            .subscribe((res: WorkspaceUser) => {
+                this.username = res.shortName;
             });
     }
 
@@ -30,8 +32,8 @@ export class ModalConfirmGoToAgenthosSupportService {
         const fields: string = 'brandName';
         this._workspaceService
             .getWorkspace(fields)
-            .subscribe((res: HttpResponse) => {
-                this.workspaceName = res.data.brandName;
+            .subscribe((res: Workspace) => {
+                this.workspaceName = res.brandName;
             });
     }
 }

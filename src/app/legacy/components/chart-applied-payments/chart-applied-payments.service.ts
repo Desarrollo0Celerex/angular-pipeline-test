@@ -6,7 +6,8 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 @Injectable()
 export class ChartAppliedPaymentsService {
@@ -22,8 +23,8 @@ export class ChartAppliedPaymentsService {
         const fields: string = 'currencyName';
         this._workspaceService
             .getWorkspace(fields)
-            .subscribe((res: HttpResponse) => {
-                this.workspaceCurrencyName = res.data.currencyName;
+            .subscribe((res: Workspace) => {
+                this.workspaceCurrencyName = res.currencyName;
             });
     }
 

@@ -22,6 +22,7 @@
             "@configs/*": ["app/configs/*"],
             "@core/*": ["app/core/*"],
             "@modules/*": ["app/modules/*"],
+            "@shared/*": ["app/shared/*"],
 
             // LEGACY
             "@components/*": ["app/legacy/components/*"],

@@ -11,7 +11,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
 import { AuthService } from '@core/services/auth/auth.service';
 import { FirebaseService } from '@core/services/firebase/firebase.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 
 @Injectable()
 export class ModalCaptureActivationCodeService {
@@ -26,7 +26,7 @@ export class ModalCaptureActivationCodeService {
         this.form = this._buildLicenseForm();
     }
 
-    activateWorkspace(activationCode: string): Observable<HttpResponse> {
+    activateWorkspace(activationCode: string): Observable<string> {
         return this._workspaceService.activateWorkspace(activationCode);
     }
 

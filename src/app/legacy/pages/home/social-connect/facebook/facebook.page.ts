@@ -9,6 +9,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { LoadingService } from '@core/services/loading/loading.service';
 
 import { FacebookService } from './facebook.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 declare var ModalPlugin: any;
 
@@ -71,8 +72,8 @@ export class FacebookPage implements OnInit {
     }
 
     private _loadWorkspace(): void {
-        this.model.loadWorkspace().subscribe((res: HttpResponse) => {
-            this.model.buildForm(res.data.facebookUrl);
+        this.model.loadWorkspace().subscribe((res: Workspace) => {
+            this.model.buildForm(res.facebookUrl);
         });
     }
 }

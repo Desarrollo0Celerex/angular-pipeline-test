@@ -9,35 +9,33 @@ import { ModalConfirmGoToAgenthosSupportModule } from '@components/modal-confirm
 import { WorkspaceInsuranceService } from '@services/workspace-insurance.service';
 import { SiteService } from '@services/site.service';
 import { WalletService } from '@services/wallet.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 import { WorkspaceDirectoryService } from '@services/workspace-directory.service';
-import { WorkspaceUserService } from '@services/workspace-user.service';
+import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 
 import { WelcomeRoutingModule } from './welcome-routing.module';
 import { WelcomePage } from './welcome.page';
 import { WelcomeService } from './welcome.service';
 
 @NgModule({
-  declarations: [
-    WelcomePage
-  ],
-  imports: [
-    CardContentTitleModule,
-    CardModuleModule,
-    CommonModule,
-    ModalConfirmGoToAgenthosAcademyModule,
-    ModalConfirmGoToAgenthosHubModule,
-    ModalConfirmGoToAgenthosSupportModule,
-    WelcomeRoutingModule
-  ],
-  providers: [
-    SiteService,
-    WalletService,
-    WelcomeService,
-    WorkspaceService,
-    WorkspaceDirectoryService,
-    WorkspaceInsuranceService,
-    WorkspaceUserService
-  ]
+    declarations: [WelcomePage],
+    imports: [
+        CardContentTitleModule,
+        CardModuleModule,
+        CommonModule,
+        ModalConfirmGoToAgenthosAcademyModule,
+        ModalConfirmGoToAgenthosHubModule,
+        ModalConfirmGoToAgenthosSupportModule,
+        WelcomeRoutingModule,
+    ],
+    providers: [
+        SiteService,
+        WalletService,
+        WelcomeService,
+        WorkspaceService,
+        WorkspaceDirectoryService,
+        WorkspaceInsuranceService,
+        WorkspaceUserService,
+    ],
 })
-export class WelcomeModule { }
+export class WelcomeModule {}

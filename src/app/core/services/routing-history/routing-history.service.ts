@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class RoutingHistoryService {
     private _currentUrl: string;
     private _ignoredRoutes: string[];

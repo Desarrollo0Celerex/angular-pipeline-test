@@ -7,12 +7,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from '@core/core.module';
 
 import { LoadingModule } from '@components/loading/loading.module';
-import { ModalVoiceControlContactResultsModule } from '@components/modal-voice-control-contact-results/modal-voice-control-contact-results.module';
-import { ModalVoiceControlTalkingModule } from '@components/modal-voice-control-talking/modal-voice-control-talking.module';
-import { ModalVoiceControlProcessingRequestModule } from '@components/modal-voice-control-processing-request/modal-voice-control-processing-request.module';
-import { ModalVoiceControlNotSupportedModule } from '@components/modal-voice-control-not-supported/modal-voice-control-not-supported.module';
-import { ModalVoiceControlCommandNotFoundModule } from '@components/modal-voice-control-command-not-found/modal-voice-control-command-not-found.module';
-import { ModalVoiceControlNoResultsModule } from '@components/modal-voice-control-no-results/modal-voice-control-no-results.module';
 import { ModalUserRoleUpdatedModule } from '@components/modal-user-role-updated/modal-user-role-updated.module';
 import { ModalSessionExpiredModule } from '@components/modal-session-expired/modal-session-expired.module';
 import { ModalWorkspaceUserNotFoundModule } from '@components/modal-workspace-user-not-found/modal-workspace-user-not-found.module';
@@ -36,12 +30,6 @@ import { AppComponent } from './app.component';
         BrowserModule,
         CoreModule,
         LoadingModule,
-        ModalVoiceControlContactResultsModule,
-        ModalVoiceControlTalkingModule,
-        ModalVoiceControlProcessingRequestModule,
-        ModalVoiceControlNotSupportedModule,
-        ModalVoiceControlCommandNotFoundModule,
-        ModalVoiceControlNoResultsModule,
         ModalUserRoleUpdatedModule,
         ModalSessionExpiredModule,
         ModalWorkspaceUserNotFoundModule,

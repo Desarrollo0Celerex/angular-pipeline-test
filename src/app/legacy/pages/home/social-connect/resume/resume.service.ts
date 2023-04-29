@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { Workspace } from '@interfaces/workspace.interface';
-import { WorkspaceService } from '@services/workspace.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 
 @Injectable()
 export class ResumeService {
@@ -21,8 +21,8 @@ export class ResumeService {
             'cardiumUrl,facebookUrl,instagramUrl,twitterUrl,linkedinUrl,tiktokUrl';
         this._workspaceService
             .getWorkspace(fields)
-            .subscribe((res: HttpResponse) => {
-                const workspace: Workspace = res.data;
+            .subscribe((res: Workspace) => {
+                const workspace: Workspace = res;
                 this.isCompletedCardium =
                     workspace.cardiumUrl !== null ? true : false;
                 this.isCompletedFacebook =

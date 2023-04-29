@@ -113,8 +113,8 @@ export class ListContactCoincidencesPage implements OnInit, OnDestroy {
             this._loadingService.show();
             this._listContactCoincidencesService
                 .createContact(requestBody)
-                .subscribe((res: HttpResponse) => {
-                    this._doActionToSavedContact(res.data);
+                .subscribe((res: string) => {
+                    this._doActionToSavedContact(res);
                 });
         }
     }

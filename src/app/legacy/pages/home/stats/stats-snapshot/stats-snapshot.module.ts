@@ -16,35 +16,33 @@ import { PaymentService } from '@services/payment.service';
 import { PaymentStatusService } from '@services/payment-status.service';
 import { SinisterService } from '@services/sinister.service';
 import { SinisterStatusService } from '@services/sinister-status.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
 
 import { StatsSnapshotRoutingModule } from './stats-snapshot-routing.module';
 import { StatsSnapshotPage } from './stats-snapshot.page';
 
 @NgModule({
-  declarations: [
-    StatsSnapshotPage
-  ],
-  imports: [
-    CommonModule,
-    LoadingContentModule,
-    StatsSnapshotRoutingModule,
-    MenuStatsModule
-  ],
-  providers: [
-      PluralNameFormatPipe,
-      InsurerService,
-      ContactSourceService,
-      ContactTypeService,
-      LeadStatusService,
-      ClientStatusService,
-      PolicySourceService,
-      PolicyStatusService,
-      PaymentService,
-      PaymentStatusService,
-      SinisterService,
-      SinisterStatusService,
-      WorkspaceService
-  ]
+    declarations: [StatsSnapshotPage],
+    imports: [
+        CommonModule,
+        LoadingContentModule,
+        StatsSnapshotRoutingModule,
+        MenuStatsModule,
+    ],
+    providers: [
+        PluralNameFormatPipe,
+        InsurerService,
+        ContactSourceService,
+        ContactTypeService,
+        LeadStatusService,
+        ClientStatusService,
+        PolicySourceService,
+        PolicyStatusService,
+        PaymentService,
+        PaymentStatusService,
+        SinisterService,
+        SinisterStatusService,
+        WorkspaceService,
+    ],
 })
-export class StatsSnapshotModule { }
+export class StatsSnapshotModule {}

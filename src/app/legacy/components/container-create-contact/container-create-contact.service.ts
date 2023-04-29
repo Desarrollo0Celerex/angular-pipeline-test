@@ -20,11 +20,12 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContactSource } from '@interfaces/contact-source.interface';
 import { Country } from '@interfaces/country.interface';
 import { State } from '@interfaces/state.interface';
-import { ContactService } from '@services/contact.service';
+import { ContactService } from '@core/services/contact/contact.service';
 import { ContactSourceService } from '@services/contact-source.service';
 import { CountryService } from '@services/country.service';
 import { StateService } from '@services/state.service';
-import { WorkspaceService } from '@services/workspace.service';
+import { WorkspaceService } from '@core/services/workspace/workspace.service';
+import { Workspace } from '@core/interfaces/workspace.interface';
 
 @Injectable()
 export class ContainerCreateContactService {
@@ -144,7 +145,7 @@ export class ContainerCreateContactService {
      * @param  ignoreMatches Flag to ignore the matches
      * @return               The created contact ID
      */
-    createContact(ignoreMatches: number): Observable<HttpResponse> {
+    createContact(ignoreMatches: number): Observable<string> {
         const requestBody: CreateContactDataSend = {
             ...this.contactForm.value,
             ignoreMatches: ignoreMatches,
@@ -186,8 +187,8 @@ export class ContainerCreateContactService {
         const fields: string = 'countryId';
         this._workspaceService
             .getWorkspace(fields)
-            .subscribe((res: HttpResponse) => {
-                const countryId: number = res.data.countryId;
+            .subscribe((res: Workspace) => {
+                const countryId: number = res.countryId;
                 this.contactForm.patchValue({
                     countryId,
                     phoneCodeId: countryId,
