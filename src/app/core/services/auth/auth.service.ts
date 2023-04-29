@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AUTH_ROUTES } from '@configs/routes.config';
+import { AUTH_ENDPOINTS } from '@configs/endpoints.config';
 import { environment } from '@env/environment';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
 import { FirebaseService } from '@core/services/firebase/firebase.service';
-import { AuthHttp } from '@core/http/auth/auth.http';
+import { ApiHttp } from '@core/http/api.http';
 import { JwtService } from '@core/services/jwt/jwt.service';
 import { LoadingService } from '@core/services/loading/loading.service';
 import { RoutingHistoryService } from '@core/services/routing-history/routing-history.service';
@@ -17,7 +18,7 @@ import { StorageService } from '@core/services/storage/storage.service';
 export class AuthService {
     constructor(
         private _firebaseService: FirebaseService,
-        private _authHttp: AuthHttp,
+        private _apiHttp: ApiHttp,
         private _jwtService: JwtService,
         private _loadingService: LoadingService,
         private _routingHistoryService: RoutingHistoryService,
@@ -78,8 +79,17 @@ export class AuthService {
             : false;
     }
 
+    getFirebaseToken(workspaceId: string, userId: string): Observable<string> {
+        const route: string = AUTH_ENDPOINTS.firebaseToken(workspaceId, userId);
+        return this._apiHttp.get(route);
+    }
+
     getNewUserToken(): Observable<string> {
-        return this._authHttp.getNewUserToken(this.workspaceId, this.userId);
+        const route: string = AUTH_ENDPOINTS.userToken(
+            this.workspaceId,
+            this.userId
+        );
+        return this._apiHttp.get(route);
     }
 
     goToAtomAccount(): void {
@@ -96,7 +106,8 @@ export class AuthService {
     }
 
     identifyUser(authToken: string): Observable<string> {
-        return this._authHttp.identifyUser(authToken);
+        const route: string = AUTH_ENDPOINTS.users;
+        return this._apiHttp.post(route, { authToken });
     }
 
     logout(restartSession: boolean = false): void {

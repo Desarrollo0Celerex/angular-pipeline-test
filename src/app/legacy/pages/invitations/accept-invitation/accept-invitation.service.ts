@@ -67,7 +67,7 @@ export class AcceptInvitationService {
      * @return             Firebase token
      */
     getFirebaseToken(workspaceId: string, userId: string): Observable<string> {
-        return this._firebaseService.getFirebaseToken(workspaceId, userId);
+        return this._authService.getFirebaseToken(workspaceId, userId);
     }
 
     /**

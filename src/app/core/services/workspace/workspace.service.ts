@@ -1,50 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from '@env/environment';
+import { WORKSPACE_ENDPOINTS } from '@configs/endpoints.config';
 import { CreateWorkspaceDataSend } from '@interfaces/create-workspace-data-send.interface';
 import { ApiHttp } from '@core/http/api.http';
 import { AuthService } from '@core/services/auth/auth.service';
 import { Workspace } from '@core/interfaces/workspace.interface';
-
-const ROUTES = {
-    workspaces: `${environment.apiUrl}/workspaces`,
-    workspace: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}`,
-    workspaceAvailablePlaces: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/available-places`,
-    workspaceAvatar: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/avatar`,
-    workspaceActivation: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/activate',
-    workspaceCardiumUrl: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/cardium-url',
-    workspaceFacebookUrl: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/facebook-url',
-    workspaceInstagramUrl: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/instagram-url',
-    workspaceTwitterUrl: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/twitter-url',
-    workspaceLinkedinUrl: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/linkedin-url',
-    workspaceTiktokUrl: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/tiktok-url',
-    workspaceRetentionRate: (workspaceId: string) =>
-        environment.apiUrl +
-        '/workspaces/' +
-        workspaceId +
-        '/stats/retention-rate',
-    workspaceHigherRetentionRate: (workspaceId: string) =>
-        environment.apiUrl +
-        '/workspaces/' +
-        workspaceId +
-        '/stats/retention-rate/higher',
-    workspaceLowerRetentionRate: (workspaceId: string) =>
-        environment.apiUrl +
-        '/workspaces/' +
-        workspaceId +
-        '/stats/retention-rate/lower',
-};
 
 @Injectable({
     providedIn: 'root',
@@ -55,24 +16,26 @@ export class WorkspaceService {
     constructor(private _apiHttp: ApiHttp, private _authService: AuthService) {}
 
     activateWorkspace(activationCode: string | null): Observable<string> {
-        const route: string = ROUTES.workspaceActivation(this._workspaceId);
+        const route: string = WORKSPACE_ENDPOINTS.workspaceActivation(
+            this._workspaceId
+        );
         return this._apiHttp.post(route, { activationCode });
     }
 
     createWorkspace(requestBody: CreateWorkspaceDataSend): Observable<string> {
-        const route: string = ROUTES.workspaces;
+        const route: string = WORKSPACE_ENDPOINTS.workspaces;
         return this._apiHttp.post(route, requestBody);
     }
 
     getWorkspace(fields: string = ''): Observable<Workspace> {
         return this._apiHttp
             .param('fields', fields)
-            .get(ROUTES.workspace(this._workspaceId));
+            .get(WORKSPACE_ENDPOINTS.workspace(this._workspaceId));
     }
 
     getWorkspaceAvailablePlaces(): Observable<number> {
         return this._apiHttp.get(
-            ROUTES.workspaceAvailablePlaces(this._workspaceId)
+            WORKSPACE_ENDPOINTS.workspaceAvailablePlaces(this._workspaceId)
         );
     }
 
@@ -85,7 +48,7 @@ export class WorkspaceService {
             .param('rangeField', rangeField)
             .param('rangeStart', rangeStart)
             .param('rangeEnd', rangeEnd)
-            .get(ROUTES.workspaceRetentionRate(this._workspaceId));
+            .get(WORKSPACE_ENDPOINTS.workspaceRetentionRate(this._workspaceId));
     }
 
     getWorkspaceHigherRetentionRate(
@@ -97,7 +60,11 @@ export class WorkspaceService {
             .param('rangeField', rangeField)
             .param('rangeStart', rangeStart)
             .param('rangeEnd', rangeEnd)
-            .get(ROUTES.workspaceHigherRetentionRate(this._workspaceId));
+            .get(
+                WORKSPACE_ENDPOINTS.workspaceHigherRetentionRate(
+                    this._workspaceId
+                )
+            );
     }
 
     getWorkspaceLowerRetentionRate(
@@ -109,52 +76,61 @@ export class WorkspaceService {
             .param('rangeField', rangeField)
             .param('rangeStart', rangeStart)
             .param('rangeEnd', rangeEnd)
-            .get(ROUTES.workspaceLowerRetentionRate(this._workspaceId));
+            .get(
+                WORKSPACE_ENDPOINTS.workspaceLowerRetentionRate(
+                    this._workspaceId
+                )
+            );
     }
 
     uploadWorkspaceAvatar(image: string | null): Observable<void> {
-        const route: string = ROUTES.workspaceAvatar(this._workspaceId);
+        const route: string = WORKSPACE_ENDPOINTS.workspaceAvatar(
+            this._workspaceId
+        );
         return this._apiHttp.post(route, { image });
     }
 
     updateWorkspaceCardiumUrl(cardiumUrl: string): Observable<void> {
         return this._apiHttp.put(
-            ROUTES.workspaceCardiumUrl(this._workspaceId),
+            WORKSPACE_ENDPOINTS.workspaceCardiumUrl(this._workspaceId),
             { cardiumUrl }
         );
     }
 
     updateWorkspaceFacebookUrl(facebookUrl: string): Observable<void> {
         return this._apiHttp.put(
-            ROUTES.workspaceFacebookUrl(this._workspaceId),
+            WORKSPACE_ENDPOINTS.workspaceFacebookUrl(this._workspaceId),
             { facebookUrl }
         );
     }
 
     updateWorkspaceInstagramUrl(instagramUrl: string): Observable<void> {
         return this._apiHttp.put(
-            ROUTES.workspaceInstagramUrl(this._workspaceId),
+            WORKSPACE_ENDPOINTS.workspaceInstagramUrl(this._workspaceId),
             { instagramUrl }
         );
     }
 
     updateWorkspaceTwitterUrl(twitterUrl: string): Observable<void> {
         return this._apiHttp.put(
-            ROUTES.workspaceTwitterUrl(this._workspaceId),
+            WORKSPACE_ENDPOINTS.workspaceTwitterUrl(this._workspaceId),
             { twitterUrl }
         );
     }
 
     updateWorkspaceLinkedinUrl(linkedinUrl: string): Observable<void> {
         return this._apiHttp.put(
-            ROUTES.workspaceLinkedinUrl(this._workspaceId),
+            WORKSPACE_ENDPOINTS.workspaceLinkedinUrl(this._workspaceId),
             { linkedinUrl }
         );
     }
 
     updateWorkspaceTiktokUrl(tiktokUrl: string): Observable<void> {
-        return this._apiHttp.put(ROUTES.workspaceTiktokUrl(this._workspaceId), {
-            tiktokUrl,
-        });
+        return this._apiHttp.put(
+            WORKSPACE_ENDPOINTS.workspaceTiktokUrl(this._workspaceId),
+            {
+                tiktokUrl,
+            }
+        );
     }
 }

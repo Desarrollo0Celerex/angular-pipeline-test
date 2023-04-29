@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from '@env/environment';
+import { CONTACT_ENDPOINTS } from '@configs/endpoints.config';
 import { CreateContactDataSend } from '@interfaces/create-contact-data-send.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
@@ -11,36 +11,6 @@ import { AuthService } from '@core/services/auth/auth.service';
 import { Contact } from '@core/interfaces/contact.interface';
 import { AnnualWallet } from '@interfaces/annual-wallet.interface';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
-
-const routes: any = {
-    contact: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
-        '/workspaces/' +
-        workspaceId +
-        '/contacts/' +
-        contactId,
-    contactSource: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
-        '/workspaces/' +
-        workspaceId +
-        '/contacts/' +
-        contactId +
-        '/contact-source',
-    contacts: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/contacts',
-    contactAnnualWallet: (
-        workspaceId: string,
-        contactId: string,
-        year: number
-    ) =>
-        environment.apiUrl +
-        '/workspaces/' +
-        workspaceId +
-        '/contacts/' +
-        contactId +
-        '/annual-wallet/' +
-        year,
-};
 
 @Injectable({
     providedIn: 'root',
@@ -54,21 +24,21 @@ export class ContactService {
 
     createContact(requestBody: CreateContactDataSend): Observable<string> {
         return this._apiHttp.post(
-            routes.contacts(this._workspaceId),
+            CONTACT_ENDPOINTS.contacts(this._workspaceId),
             requestBody
         );
     }
 
     deleteContact(contactId: string): Observable<void> {
         return this._apiHttp.delete(
-            routes.contact(this._workspaceId, contactId)
+            CONTACT_ENDPOINTS.contact(this._workspaceId, contactId)
         );
     }
 
     getContact(contactId: string, fields: string = ''): Observable<Contact> {
         return this._apiHttp
             .param('fields', fields)
-            .get(routes.contact(this._workspaceId, contactId));
+            .get(CONTACT_ENDPOINTS.contact(this._workspaceId, contactId));
     }
 
     getContactAnnualWallet(
@@ -79,7 +49,11 @@ export class ContactService {
         return this._apiHttp
             .param('fields', fields)
             .get(
-                routes.contactAnnualWallet(this._workspaceId, contactId, year)
+                CONTACT_ENDPOINTS.contactAnnualWallet(
+                    this._workspaceId,
+                    contactId,
+                    year
+                )
             );
     }
 
@@ -100,7 +74,7 @@ export class ContactService {
             .param('perPage', perPage.toString())
             .param('search', searchValue)
             .param('sortBy', sortBy)
-            .get(routes.contacts(this._workspaceId));
+            .get(CONTACT_ENDPOINTS.contacts(this._workspaceId));
     }
 
     updateContact(
@@ -108,7 +82,7 @@ export class ContactService {
         requestBody: UpdateContactDataSend
     ): Observable<void> {
         return this._apiHttp.put(
-            routes.contact(this._workspaceId, contactId),
+            CONTACT_ENDPOINTS.contact(this._workspaceId, contactId),
             requestBody
         );
     }
@@ -118,7 +92,7 @@ export class ContactService {
         requestBody: SelectContactSourceData
     ): Observable<void> {
         return this._apiHttp.put(
-            routes.contactSource(this._workspaceId, contactId),
+            CONTACT_ENDPOINTS.contactSource(this._workspaceId, contactId),
             requestBody
         );
     }
