@@ -152,6 +152,17 @@
     color: #fbfbfb;
 }
 
+.agt-text-success {
+    color: #2eb678 !important;
+}
+
+.agt-text-warning {
+    color: #f5a628 !important;
+}
+
+.agt-text-danger {
+    color: #ff1a18 !important;
+}
 
 /* -- AGENTHOS - CARD LIBRARY -- */
 .card-header:before, .resp-tabs-list li.active:before{
@@ -194,7 +205,7 @@
     color: #E6AA68 !important;
     background: #F8F0E8;
     border-style: solid;
-    border-color: #E6AA68;
+    border-color: #E6AA8;
     box-sizing: border-box;
 }
 
@@ -398,9 +409,36 @@
 }
 
 
+/* -- AGENTHOS - GRADIENT LIBRARY -- */
+.agt-primary-gradient {
+    color: #fbfbfb;
+    background: linear-gradient(to bottom right,#720b98,#c636f8) !important;
+}
+
+.agt-info-gradient {
+    color: #fbfbfb;
+    background: linear-gradient(to bottom right,#4481e8,#04bef8) !important;
+}
+
+.agt-success-gradient {
+    color: #fbfbfb;
+    background: linear-gradient(to bottom right,#1fa808,#3ce208) !important;
+}
+
+.agt-warning-gradient {
+    color: #fbfbfb;
+    background: linear-gradient(to bottom right,#f58028,#f5c848) !important;
+}
+
+.agt-danger-gradient {
+    color: #fbfbfb;
+    background: linear-gradient(to bottom right,#ba1d58,#ff0548) !important;
+}
+
+
 /* -- AGENTHOS - ALERT LIBRARY -- */
 .agt-alert-primary {
-	color: #fbfbfb;
+    color: #fbfbfb;
     background: linear-gradient(to bottom,#564498,#4c3c88) !important;
     border-color: #fbfbfb !important;
 }
@@ -411,22 +449,32 @@
     border-color: rgb(117 127 239 / 18%) !important;
 }
 
+.agt-alert-success {
+    color: #1f7558;
+    background: #d6f3e8 !important;
+    border-color: #c2edd8 !important;
+}
+
+.agt-alert-warning {
+    color: #916c28;
+    background: #fcf0d8 !important;
+    border-color: #fbe9c8 !important;
+}
+
+
 /* -- AGENTHOS - DEVICE LIBRARY -- */
-.agt-device-macbook-pro-container {
-  width: 100% !important;
-  display: flex !important;
-  justify-content: center !important;
-  padding-bottom: 1.5rem !important;
-}
-
-.agt-device-iphone-14-pro-container {
-  display: flex !important;
-  justify-content: center !important;
-  height: 650px !important;
-}
-
 .device-iphone-14-pro {
-    margin-top: -110px !important;
-    transform: scale(0.75) !important;
-    z-index: 0 !important;
+    margin-top: -88px;
+    margin-bottom: -58px;
+    position: relative;
+    transform: scale(0.8);
+    z-index: 0;
+}
+
+.device-macbook-pro {
+    margin-top: -18px;
+    margin-bottom: -18px;
+    margin-left: -48px;
+    transform: scale(0.8);
+    z-index: 0;
 }

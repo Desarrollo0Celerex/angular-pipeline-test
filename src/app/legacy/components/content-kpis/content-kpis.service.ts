@@ -7,7 +7,7 @@ import {
     LEAD_STATUS,
     PARTNER_STATUS,
 } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ClientStatus } from '@interfaces/client-status.interface';
 import { GroupStatus } from '@interfaces/group-status.interface';

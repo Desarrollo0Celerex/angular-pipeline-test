@@ -1,57 +1,63 @@
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ContainerCharts } from '@interfaces/container-charts.interface';
 import { ContainerFilters } from '@interfaces/container-filters.interface';
 
 export class FiltersHelper {
-
-    static generateFiltersData(containerCharts: ContainerCharts): ContainerFilters {
+    static generateFiltersData(
+        containerCharts: ContainerCharts
+    ): ContainerFilters {
         const filtersData: ContainerFilters = {
             insurances: {
                 filters: [],
-                specialFilter: ''
+                specialFilter: '',
             },
             insurers: {
                 filters: [],
-                specialFilter: ''
+                specialFilter: '',
             },
             contactTypes: {
                 filters: [],
-                specialFilter: ''
-            }
+                specialFilter: '',
+            },
         };
 
         const insuranceIds: number[] = [];
-        for(let insuranceData of containerCharts.insurances) {
+        for (let insuranceData of containerCharts.insurances) {
             filtersData.insurances.filters.push({
                 id: insuranceData.id,
                 name: insuranceData.name,
-                selected: true
+                selected: true,
             });
             insuranceIds.push(insuranceData.id);
         }
-        filtersData.insurances.specialFilter = UtilitiesHelper.generateHttpFilter('insuranceId', insuranceIds);
+        filtersData.insurances.specialFilter =
+            UtilitiesHelper.generateHttpFilter('insuranceId', insuranceIds);
 
         const insurerIds: number[] = [];
-        for(let insurerData of containerCharts.insurers) {
+        for (let insurerData of containerCharts.insurers) {
             filtersData.insurers.filters.push({
                 id: insurerData.id,
                 name: insurerData.name,
-                selected: true
+                selected: true,
             });
             insurerIds.push(insurerData.id);
         }
-        filtersData.insurers.specialFilter = UtilitiesHelper.generateHttpFilter('insurerId', insurerIds);
+        filtersData.insurers.specialFilter = UtilitiesHelper.generateHttpFilter(
+            'insurerId',
+            insurerIds
+        );
 
         const contactTypeIds: number[] = [];
-        for(let contactTypeData of containerCharts.contactTypes) {
+        for (let contactTypeData of containerCharts.contactTypes) {
             filtersData.contactTypes.filters.push({
                 id: contactTypeData.id,
                 name: contactTypeData.name,
-                selected: true
+                selected: true,
             });
             contactTypeIds.push(contactTypeData.id);
         }
-        filtersData.contactTypes.specialFilter = UtilitiesHelper.generateHttpFilter('contactTypeId', contactTypeIds);
+        filtersData.contactTypes.specialFilter =
+            UtilitiesHelper.generateHttpFilter('contactTypeId', contactTypeIds);
 
         return filtersData;
     }

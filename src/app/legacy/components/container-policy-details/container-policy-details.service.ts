@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { POLICY_RECORD_TYPES } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { PolicyComplete } from '@interfaces/policy-complete.interface';

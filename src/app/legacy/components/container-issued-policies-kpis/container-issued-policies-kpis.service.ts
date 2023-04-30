@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 
 import { PERIOD_STATUS, POLICY_SOURCES } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { KpiOne } from '@interfaces/kpi-one.interface';
 import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { PolicyService } from '@services/policy.service';
@@ -17,52 +17,71 @@ export class ContainerIssuedPoliciesKpisService {
         {
             contentName: 'Pólizas',
             subcontentName: 'Nuevas',
-            description: 'Permite identificar el número de pólizas emitidas por nuevos negocios.',
+            description:
+                'Permite identificar el número de pólizas emitidas por nuevos negocios.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',
             comparedValue: 0,
-            comparedRange: ''
+            comparedRange: '',
         },
         {
             contentName: 'Pólizas',
             subcontentName: 'Renovadas',
-            description: 'Permite identificar el número de pólizas emitidas por renovación.',
+            description:
+                'Permite identificar el número de pólizas emitidas por renovación.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',
             comparedValue: 0,
-            comparedRange: ''
+            comparedRange: '',
         },
         {
             contentName: 'Emisiones',
             subcontentName: 'Totales',
-            description: 'Permite identificar el número de pólizas emitidas en total.',
+            description:
+                'Permite identificar el número de pólizas emitidas en total.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',
             comparedValue: 0,
-            comparedRange: ''
-        }
+            comparedRange: '',
+        },
     ];
 
-    constructor(private _policyService: PolicyService) { }
+    constructor(private _policyService: PolicyService) {}
 
     getAllTotalWorkspacePolicies(): Observable<number> {
         return this._policyService.getTotalWorkspacePolicies();
     }
 
-    getTotalWorkspacePolicies(range: ComparisonRangeData): Observable<number[]> {
+    getTotalWorkspacePolicies(
+        range: ComparisonRangeData
+    ): Observable<number[]> {
         return this._getWorkspacePolicies(range, '');
     }
 
-    getTotalWorkspaceNewPolicies(range: ComparisonRangeData): Observable<number[]> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('policySourceId', [POLICY_SOURCES.NEW])
+    getTotalWorkspaceNewPolicies(
+        range: ComparisonRangeData
+    ): Observable<number[]> {
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policySourceId',
+            [POLICY_SOURCES.NEW]
+        );
         return this._getWorkspacePolicies(range, filters);
     }
 
-    getTotalWorkspaceRenewalsApplied(range: ComparisonRangeData): Observable<number[]> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('policySourceId', [POLICY_SOURCES.RENEWAL, POLICY_SOURCES.REISSUE, POLICY_SOURCES.HISTORY])
+    getTotalWorkspaceRenewalsApplied(
+        range: ComparisonRangeData
+    ): Observable<number[]> {
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'policySourceId',
+            [
+                POLICY_SOURCES.RENEWAL,
+                POLICY_SOURCES.REISSUE,
+                POLICY_SOURCES.HISTORY,
+            ]
+        );
         return this._getWorkspacePolicies(range, filters);
     }
 
@@ -73,34 +92,59 @@ export class ContainerIssuedPoliciesKpisService {
     }
 
     loadTotalWorkspaceNewPolicies(newPolicies: number[]): void {
-        this.kpis[NEW_POLICIES].selectedValue = newPolicies[PERIOD_STATUS.SELECTED];
-        this.kpis[NEW_POLICIES].comparedValue = newPolicies[PERIOD_STATUS.COMPARED];
+        this.kpis[NEW_POLICIES].selectedValue =
+            newPolicies[PERIOD_STATUS.SELECTED];
+        this.kpis[NEW_POLICIES].comparedValue =
+            newPolicies[PERIOD_STATUS.COMPARED];
     }
 
     loadTotalWorkspaceRenewedPolicies(renewedPolicies: number[]): void {
-        this.kpis[RENEWED_POLICIES].selectedValue = renewedPolicies[PERIOD_STATUS.SELECTED];
-        this.kpis[RENEWED_POLICIES].comparedValue = renewedPolicies[PERIOD_STATUS.COMPARED];
+        this.kpis[RENEWED_POLICIES].selectedValue =
+            renewedPolicies[PERIOD_STATUS.SELECTED];
+        this.kpis[RENEWED_POLICIES].comparedValue =
+            renewedPolicies[PERIOD_STATUS.COMPARED];
     }
 
     loadTotalWorkspacePolicies(totalPolicies: number[]): void {
-        this.kpis[TOTAL_POLICIES].selectedValue = totalPolicies[PERIOD_STATUS.SELECTED];
-        this.kpis[TOTAL_POLICIES].comparedValue = totalPolicies[PERIOD_STATUS.COMPARED];
+        this.kpis[TOTAL_POLICIES].selectedValue =
+            totalPolicies[PERIOD_STATUS.SELECTED];
+        this.kpis[TOTAL_POLICIES].comparedValue =
+            totalPolicies[PERIOD_STATUS.COMPARED];
     }
 
     resetKpis(range: ComparisonRangeData): void {
         for (let index in this.kpis) {
             this.kpis[index].selectedValue = 0;
-            this.kpis[index].selectedRange = range.selectedRangeStart + ' - ' + range.selectedRangeEnd;
+            this.kpis[index].selectedRange =
+                range.selectedRangeStart + ' - ' + range.selectedRangeEnd;
             this.kpis[index].comparedValue = 0;
-            this.kpis[index].comparedRange = range.comparedRangeStart + ' - ' + range.comparedRangeEnd;
+            this.kpis[index].comparedRange =
+                range.comparedRangeStart + ' - ' + range.comparedRangeEnd;
         }
     }
 
-    private _getWorkspacePolicies(range: ComparisonRangeData, filters: string = ''): Observable<number[]> {
+    private _getWorkspacePolicies(
+        range: ComparisonRangeData,
+        filters: string = ''
+    ): Observable<number[]> {
         const rangeField: string = 'validityStartDate';
         let requests: Observable<number>[] = [];
-        requests.push(this._policyService.getTotalWorkspacePolicies(filters, rangeField, range.selectedRangeStart, range.selectedRangeEnd));
-        requests.push(this._policyService.getTotalWorkspacePolicies(filters, rangeField, range.comparedRangeStart, range.comparedRangeEnd));
+        requests.push(
+            this._policyService.getTotalWorkspacePolicies(
+                filters,
+                rangeField,
+                range.selectedRangeStart,
+                range.selectedRangeEnd
+            )
+        );
+        requests.push(
+            this._policyService.getTotalWorkspacePolicies(
+                filters,
+                rangeField,
+                range.comparedRangeStart,
+                range.comparedRangeEnd
+            )
+        );
         return forkJoin(requests);
     }
 }

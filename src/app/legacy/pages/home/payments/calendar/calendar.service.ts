@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { TotalPaymentsAmountData } from '@interfaces/total-payments-amount-data.interface';

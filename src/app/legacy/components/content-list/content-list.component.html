@@ -1,30 +1,38 @@
 <agt-container-external-policies
-    *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_POLICY.ID"
+    *ngIf="
+        contentType === CONTENT_TYPES.POLICY.ID ||
+        contentType === CONTENT_TYPES.GROUP_POLICY.ID
+    "
     [contentType]="contentType"
     [contactId]="contactId"
     [groupId]="groupId"
     [partnerId]="partnerId"
     [policyStatusId]="contentSubtype"
-    [policyStatusName]="contentSubtypeName">
+    [policyStatusName]="contentSubtypeName"
+>
 </agt-container-external-policies>
 <agt-container-incomplete-policies
     #containerIncompletePolicies
-    *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_POLICY.ID"
+    *ngIf="
+        contentType === CONTENT_TYPES.POLICY.ID ||
+        contentType === CONTENT_TYPES.GROUP_POLICY.ID
+    "
     [contentType]="contentType"
     [contentTypeName]="contentTypeName"
     [contactId]="contactId"
     [groupId]="groupId"
     [partnerId]="partnerId"
     (policyDeleted)="onPolicyDeleted()"
-    (showHistoryPolicy)="onShowHistoryPolicy($event)">
+    (showHistoryPolicy)="onShowHistoryPolicy($event)"
+>
 </agt-container-incomplete-policies>
 <agt-container-pending-policies
     #containerPendingPolicies
-    *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
-    contentType === CONTENT_TYPES.PARTNER_POLICY.ID"
+    *ngIf="
+        contentType === CONTENT_TYPES.POLICY.ID ||
+        contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+        contentType === CONTENT_TYPES.PARTNER_POLICY.ID
+    "
     [contentType]="contentType"
     [contentTypeName]="contentTypeName"
     [contactId]="contactId"
@@ -46,37 +54,231 @@
         <div class="card">
             <div class="card-header">
                 <ng-container [ngSwitch]="contentType">
-                    <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_TO_RENEW.ID" class="card-title">Pólizas Encontradas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID" class="card-title">Recibos Encontrados</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID" class="card-title">Recibos Encontrados</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID" class="card-title">Siniestros Encontrados</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID" class="card-title">Siniestros Resueltos</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID" class="card-title">Siniestros Encontrados</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.LAST_CANCELLED_POLICY.ID" class="card-title">Pólizas Encontradas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.INCOMPLETE_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID" class="card-title">Pólizas Encontradas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.EXTERNAL_POLICIES.ID" class="card-title">Pólizas Encontradas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID" class="card-title">Pólizas Emitidas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID" class="card-title">Pólizas Encontradas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID" class="card-title">Recibos Encontradas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID" class="card-title">Recibos Encontradas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID" class="card-title">Recibos Pagados</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_TRACKER.ID" class="card-title">Registro de Renovaciones</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID" class="card-title">Historial de Renovaciones</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.HISTORY_POLICY.ID" class="card-title">Historial de Póliza</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_SINISTERS.ID" class="card-title">Historial de Siniestros</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID" class="card-title">Historial de Endosos</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.PAYMENT_HISTORY.ID" class="card-title">Historial de Pagos</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.SINISTER_HISTORY.ID" class="card-title">Eventos del Siniestro</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID" class="card-title">Prospectos Generados</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID" class="card-title">Clientes Convertidos</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID" class="card-title">Cotizaciones Encontradas</h3>
-                    <h3 *ngSwitchCase="CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID" class="card-title">Cotizaciones Encontradas</h3>
-                    <h3 *ngSwitchDefault class="card-title">{{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}</h3>
+                    <h3
+                        *ngSwitchCase="CONTENT_TYPES.POLICY_TO_RENEW.ID"
+                        class="card-title"
+                    >
+                        Pólizas Encontradas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Pólizas Encontradas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Recibos Encontrados
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Recibos Encontrados
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Siniestros Encontrados
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Siniestros Resueltos
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Siniestros Encontrados
+                    </h3>
+                    <h3
+                        *ngSwitchCase="CONTENT_TYPES.LAST_CANCELLED_POLICY.ID"
+                        class="card-title"
+                    >
+                        Pólizas Encontradas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="CONTENT_TYPES.INCOMPLETE_POLICIES.ID"
+                        class="card-title"
+                    >
+                        Pólizas Encontradas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID
+                        "
+                        class="card-title"
+                    >
+                        Pólizas Encontradas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="CONTENT_TYPES.EXTERNAL_POLICIES.ID"
+                        class="card-title"
+                    >
+                        Pólizas Encontradas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Pólizas Encontradas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Pólizas Emitidas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Pólizas Encontradas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Pólizas Encontradas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Pólizas Encontradas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Recibos Encontradas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Recibos Encontradas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID"
+                        class="card-title"
+                    >
+                        Recibos Pagados
+                    </h3>
+                    <h3
+                        *ngSwitchCase="CONTENT_TYPES.POLICY_TRACKER.ID"
+                        class="card-title"
+                    >
+                        Registro de Renovaciones
+                    </h3>
+                    <h3
+                        *ngSwitchCase="CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID"
+                        class="card-title"
+                    >
+                        Historial de Renovaciones
+                    </h3>
+                    <h3
+                        *ngSwitchCase="CONTENT_TYPES.HISTORY_POLICY.ID"
+                        class="card-title"
+                    >
+                        Historial de Póliza
+                    </h3>
+                    <h3
+                        *ngSwitchCase="CONTENT_TYPES.POLICY_SINISTERS.ID"
+                        class="card-title"
+                    >
+                        Historial de Siniestros
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID
+                        "
+                        class="card-title"
+                    >
+                        Historial de Endosos
+                    </h3>
+                    <h3
+                        *ngSwitchCase="CONTENT_TYPES.PAYMENT_HISTORY.ID"
+                        class="card-title"
+                    >
+                        Historial de Pagos
+                    </h3>
+                    <h3
+                        *ngSwitchCase="CONTENT_TYPES.SINISTER_HISTORY.ID"
+                        class="card-title"
+                    >
+                        Eventos del Siniestro
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID
+                        "
+                        class="card-title"
+                    >
+                        Prospectos Generados
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE
+                                .ID
+                        "
+                        class="card-title"
+                    >
+                        Clientes Convertidos
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE
+                                .ID
+                        "
+                        class="card-title"
+                    >
+                        Cotizaciones Encontradas
+                    </h3>
+                    <h3
+                        *ngSwitchCase="
+                            CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE
+                                .ID
+                        "
+                        class="card-title"
+                    >
+                        Cotizaciones Encontradas
+                    </h3>
+                    <h3 *ngSwitchDefault class="card-title">
+                        {{ contentTypeName | plural }}
+                        {{ contentSubtypeName | plural }}
+                    </h3>
                 </ng-container>
             </div>
             <agt-content-results-top
@@ -93,7 +295,8 @@
                 [query]="query"
                 [totalResults]="totalResults"
                 [contactId]="contactId"
-                [policyId]="policyId">
+                [policyId]="policyId"
+            >
             </agt-content-total-results>
         </div>
     </div>
@@ -105,20 +308,33 @@
     <ng-container *ngIf="isHistoryContent; else noHistoryContent">
         <div [class]="cardClasses">
             <ul class="cbp_tmtimeline">
-                <ng-container *ngFor="let content of contentListService.contents; let index = index">
+                <ng-container
+                    *ngFor="
+                        let content of contentListService.contents;
+                        let index = index
+                    "
+                >
                     <ng-container [ngSwitch]="contentType">
-                        <agt-card-policy-record 
+                        <agt-card-policy-record
                             *ngSwitchCase="CONTENT_TYPES.HISTORY_POLICY.ID"
                             [policyRecord]="content"
                             (completePolicy)="onCompletePolicyRecord($event)"
-                            (showEndorsement)="onShowEndorsementFromRecord($event)"
-                            (showCancellationEvidence)="onShowCancellationEvidence($event)"
+                            (showEndorsement)="
+                                onShowEndorsementFromRecord($event)
+                            "
+                            (showCancellationEvidence)="
+                                onShowCancellationEvidence($event)
+                            "
                             (showPolicy)="onShowPolicyFromRecord($event)"
-                            (showPolicyDetails)="onShowPolicyDetailsFromRecord($event)"
+                            (showPolicyDetails)="
+                                onShowPolicyDetailsFromRecord($event)
+                            "
                             (showSinister)="onShowSinister($event)"
-                            (showSinisterDetails)="onShowSinisterDetails($event)"
+                            (showSinisterDetails)="
+                                onShowSinisterDetails($event)
+                            "
                         ></agt-card-policy-record>
-                        <agt-card-receipt-paid-record 
+                        <agt-card-receipt-paid-record
                             *ngSwitchCase="CONTENT_TYPES.PAYMENT_HISTORY.ID"
                             [receiptPaid]="content"
                             [index]="index"
@@ -126,29 +342,49 @@
                             (updateReceiptPaid)="updateReceiptPaid($event)"
                             (showPaymentEvidence)="showPaymentEvidence($event)"
                         ></agt-card-receipt-paid-record>
-                        <agt-card-sinister-log 
+                        <agt-card-sinister-log
                             *ngSwitchCase="CONTENT_TYPES.SINISTER_HISTORY.ID"
                             [sinisterLog]="content"
-                            (updateSinisterEvent)="onUpdateSinisterEvent($event)"
-                            (deleteSinisterEvent)="onDeleteSinisterEvent($event)"
-                            (finalizeSinisterEvent)="onFinalizeSinisterEvent($event)"
-                            (showResolutionEvidence)="onShowResolutionEvidence($event)"
-                            (showReactivationEvidence)="onShowReactivationEvidence($event)"
-                            (showSinisterEventEvidence)="onShowSinisterEventEvidence($event)"
+                            (updateSinisterEvent)="
+                                onUpdateSinisterEvent($event)
+                            "
+                            (deleteSinisterEvent)="
+                                onDeleteSinisterEvent($event)
+                            "
+                            (finalizeSinisterEvent)="
+                                onFinalizeSinisterEvent($event)
+                            "
+                            (showResolutionEvidence)="
+                                onShowResolutionEvidence($event)
+                            "
+                            (showReactivationEvidence)="
+                                onShowReactivationEvidence($event)
+                            "
+                            (showSinisterEventEvidence)="
+                                onShowSinisterEventEvidence($event)
+                            "
                         ></agt-card-sinister-log>
-                        <agt-card-reported-sinister 
+                        <agt-card-reported-sinister
                             *ngSwitchCase="CONTENT_TYPES.POLICY_SINISTERS.ID"
                             [sinister]="content"
                             (showSinister)="onShowSinister($event)"
-                            (showSinisterDetails)="onShowSinisterDetails($event)"
+                            (showSinisterDetails)="
+                                onShowSinisterDetails($event)
+                            "
                         ></agt-card-reported-sinister>
-                        <agt-card-policy-record 
-                            *ngSwitchCase="CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID"
+                        <agt-card-policy-record
+                            *ngSwitchCase="
+                                CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID
+                            "
                             [policyRecord]="content"
-                            (showEndorsement)="onShowEndorsementFromRecord($event)"
+                            (showEndorsement)="
+                                onShowEndorsementFromRecord($event)
+                            "
                         ></agt-card-policy-record>
-                        <agt-card-renewal-applied 
-                            *ngSwitchCase="CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID"
+                        <agt-card-renewal-applied
+                            *ngSwitchCase="
+                                CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID
+                            "
                             [renewal]="content"
                             (showPolicy)="onShowPolicy($event)"
                             (showPolicyDetails)="onShowPolicyDetails($event)"
@@ -161,73 +397,125 @@
     <!-- // AGENTHOS - TIMELINE -->
     <!-- AGENTHOS - CONTENT LIST -->
     <ng-template #noHistoryContent>
-        <div [class]="cardClasses" *ngFor="let content of contentListService.contents; let index = index">
+        <div
+            [class]="cardClasses"
+            *ngFor="
+                let content of contentListService.contents;
+                let index = index
+            "
+        >
             <ng-container [ngSwitch]="contentType">
-                <agt-card-contact *ngSwitchCase="CONTENT_TYPES.CONTACT.ID"
+                <agt-card-contact
+                    *ngSwitchCase="CONTENT_TYPES.CONTACT.ID"
                     [contact]="content"
                     (showContactData)="onShowContactData($event)"
                     (contactSelected)="onContactSelected($event)"
-                    (deleteContactRequested)="showModalToConfirmDeleteContact($event)"
+                    (deleteContactRequested)="
+                        showModalToConfirmDeleteContact($event)
+                    "
                 ></agt-card-contact>
                 <agt-card-external-policy
                     *ngSwitchCase="CONTENT_TYPES.EXTERNAL_POLICIES.ID"
                     [externalPolicy]="content"
                     (showExternalPolicy)="showExternalPolicy($event)"
-                    (showExternalPolicyDetails)="showExternalPolicyDetails($event)"
-                    (confirmValidateExternalPolicy)="confirmValidateExternalPolicy($event)"
-                    (confirmUpdateExternalPolicy)="confirmUpdateExternalPolicy($event)"
+                    (showExternalPolicyDetails)="
+                        showExternalPolicyDetails($event)
+                    "
+                    (confirmValidateExternalPolicy)="
+                        confirmValidateExternalPolicy($event)
+                    "
+                    (confirmUpdateExternalPolicy)="
+                        confirmUpdateExternalPolicy($event)
+                    "
                 ></agt-card-external-policy>
-                <agt-card-group *ngSwitchCase="CONTENT_TYPES.GROUP.ID"
+                <agt-card-group
+                    *ngSwitchCase="CONTENT_TYPES.GROUP.ID"
                     [group]="content"
                     [isCoincidence]="isCoincidence"
                     (groupSelected)="showModalToConfirmSelectGroup($event)"
-                    (showGroupDetails)="showGroupDetails($event)">
+                    (showGroupDetails)="showGroupDetails($event)"
+                >
                 </agt-card-group>
-                <agt-card-group-member *ngSwitchCase="CONTENT_TYPES.GROUP_MEMBER.ID"
+                <agt-card-group-member
+                    *ngSwitchCase="CONTENT_TYPES.GROUP_MEMBER.ID"
                     [client]="content"
-                    (deleteGroupMemberRequested)="confirmDeleteGroupMember($event)">
+                    (deleteGroupMemberRequested)="
+                        confirmDeleteGroupMember($event)
+                    "
+                >
                 </agt-card-group-member>
-                <agt-card-lead 
-                    *ngSwitchCase="(
-                        contentType === CONTENT_TYPES.LEAD.ID || 
-                        contentType === CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID
-                    ) ? contentType : ''"
+                <agt-card-lead
+                    *ngSwitchCase="
+                        contentType === CONTENT_TYPES.LEAD.ID ||
+                        contentType ===
+                            CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID
+                            ? contentType
+                            : ''
+                    "
                     [lead]="content"
-                    (showContactData)="onShowContactData($event)">
+                    (showContactData)="onShowContactData($event)"
+                >
                 </agt-card-lead>
                 <agt-card-client
-                    *ngIf="contentType === CONTENT_TYPES.CLIENT.ID || contentType === CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID"
+                    *ngIf="
+                        contentType === CONTENT_TYPES.CLIENT.ID ||
+                        contentType ===
+                            CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE
+                                .ID
+                    "
                     [client]="content"
-                    (showContactData)="onShowContactData($event)">
+                    (showContactData)="onShowContactData($event)"
+                >
                 </agt-card-client>
                 <agt-card-quotation
-                    *ngSwitchCase="(
-                        contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID || 
+                    *ngSwitchCase="
+                        contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID ||
                         contentType === CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID ||
-                        contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID ||
-                        contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID
-                    ) ? contentType : ''"
+                        contentType ===
+                            CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE
+                                .ID ||
+                        contentType ===
+                            CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE
+                                .ID
+                            ? contentType
+                            : ''
+                    "
                     [quotation]="content"
                     (showQuotationDetails)="onShowQuotationDetails($event)"
                     (acceptQuotation)="onAcceptQuotation($event)"
-                    (rejectQuotation)="onRejectQuotation($event)">
+                    (rejectQuotation)="onRejectQuotation($event)"
+                >
                 </agt-card-quotation>
                 <agt-card-policy
-                    *ngSwitchCase="(
+                    *ngSwitchCase="
                         contentType === CONTENT_TYPES.POLICY.ID ||
-                        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
+                        contentType ===
+                            CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
                         contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
-                        contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
-                        contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
-                        contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
-                        contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
+                        contentType ===
+                            CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE
+                                .ID ||
+                        contentType ===
+                            CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
+                        contentType ===
+                            CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE
+                                .ID ||
+                        contentType ===
+                            CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
                         contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
                         contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
-                        contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
-                        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID ||
-                        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
+                        contentType ===
+                            CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+                        contentType ===
+                            CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE
+                                .ID ||
+                        contentType ===
+                            CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE
+                                .ID ||
                         contentType === CONTENT_TYPES.POLICY_TRACKER.ID
-                    ) ? contentType : ''"
+                            ? contentType
+                            : ''
+                    "
                     [policy]="content"
                     [contentType]="contentType"
                     [selectedPolicyPos]="selectedPolicyPos"
@@ -263,7 +551,8 @@
                     (showPolicyFile)="showPolicyFile($event)"
                     (updateInsured)="confirmUpdateInsured($event)"
                 ></agt-card-policy-insured>
-                <agt-card-partner *ngSwitchCase="CONTENT_TYPES.PARTNER.ID"
+                <agt-card-partner
+                    *ngSwitchCase="CONTENT_TYPES.PARTNER.ID"
                     [partner]="content"
                     [isCoincidence]="isCoincidence"
                     (showDetails)="showPartnerDetails($event)"
@@ -271,18 +560,25 @@
                 <agt-card-partner-client
                     *ngIf="contentType === CONTENT_TYPES.PARTNER_CLIENT.ID"
                     [partnerClient]="content"
-                    (showContactData)="onShowContactData($event)">
+                    (showContactData)="onShowContactData($event)"
+                >
                 </agt-card-partner-client>
                 <agt-card-payment
-                    *ngSwitchCase="(
+                    *ngSwitchCase="
                         contentType === CONTENT_TYPES.PAYMENT.ID ||
                         contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
-                        contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
-                        contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID
-                        ) ? contentType : ''"
+                        contentType ===
+                            CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
+                        contentType ===
+                            CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID
+                            ? contentType
+                            : ''
+                    "
                     [payment]="content"
                     (applyPayment)="onApplyPayment($event)"
-                    (selectRegistrationType)="onSelectRegistrationType($event, index)"
+                    (selectRegistrationType)="
+                        onSelectRegistrationType($event, index)
+                    "
                     (showContactData)="onShowContactData($event)"
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                     (cancelPolicy)="onCancelPolicy($event)"
@@ -297,30 +593,44 @@
                     (showContactData)="onShowContactData($event)"
                 ></agt-card-pending-receipt>
                 <agt-card-receipt-applied
-                    *ngSwitchCase="(
+                    *ngSwitchCase="
                         contentType === CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID ||
-                        contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
-                        contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID
-                    ) ? contentType : ''"
+                        contentType ===
+                            CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
+                        contentType ===
+                            CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID
+                            ? contentType
+                            : ''
+                    "
                     [receiptApplied]="content"
-                    (showReceiptAppliedDetails)="showReceiptAppliedDetails($event)"
+                    (showReceiptAppliedDetails)="
+                        showReceiptAppliedDetails($event)
+                    "
                     (showContactData)="onShowContactData($event)"
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                     (showPaymentHistory)="onShowPaymentHistory($event)"
                     (showPolicy)="onShowPolicyFromWorkspace($event)"
                 ></agt-card-receipt-applied>
                 <agt-card-sinister
-                    *ngSwitchCase="(
+                    *ngSwitchCase="
                         contentType === CONTENT_TYPES.SINISTER.ID ||
                         contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
-                        contentType === CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID ||
-                        contentType === CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID ||
+                        contentType ===
+                            CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID ||
+                        contentType ===
+                            CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID ||
                         contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
                         contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
-                        contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
-                        contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
-                        contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID
-                    ) ? contentType : ''"
+                        contentType ===
+                            CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+                        contentType ===
+                            CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE
+                                .ID ||
+                        contentType ===
+                            CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID
+                            ? contentType
+                            : ''
+                    "
                     [sinister]="content"
                     (showContactData)="onShowContactData($event)"
                     (showSinisterDetails)="onShowSinisterDetails($event)"
@@ -330,7 +640,8 @@
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
                     (reactivateSinister)="onReactivateSinister($event)"
                 ></agt-card-sinister>
-                <agt-card-contact-file *ngSwitchCase="CONTENT_TYPES.CONTACT_FILE.ID"
+                <agt-card-contact-file
+                    *ngSwitchCase="CONTENT_TYPES.CONTACT_FILE.ID"
                     [contactFile]="content"
                     (onShowContactFileDetails)="showContactFileDetails($event)"
                     (transferContactFile)="onTransferContactFile($event)"
@@ -343,14 +654,17 @@
     <!-- //AGENTHOS - CONTENT LIST -->
 </div>
 
-<agt-loading-content [isLoadingContent]="isLoadingContent"></agt-loading-content>
+<agt-loading-content
+    [isLoadingContent]="isLoadingContent"
+></agt-loading-content>
 <agt-content-results
     [contentType]="contentType"
     [isLoadingContent]="isLoadingContent"
     [contentResultData]="contentListService.contentResultData"
     [contentTypeName]="contentTypeName"
     [contentSubtypeName]="contentSubtypeName"
-    (loadMoreContents)="onLoadMoreContents()">
+    (loadMoreContents)="onLoadMoreContents()"
+>
 </agt-content-results>
 <agt-content-back
     *ngIf="!isHistoryContent"
@@ -369,86 +683,129 @@
     [contentResultData]="contentListService.contentResultData"
     [contentType]="contentType"
     [contentTypeName]="contentTypeName"
-    [contentSubtype]="contentSubtype">
+    [contentSubtype]="contentSubtype"
+>
 </agt-content-suggestions>
 
 <!-- AGENTHOS - CONTENT ACTIONS -->
 <ng-container
-    *ngIf="contentType === CONTENT_TYPES.CONTACT.ID ||
-    contentType === CONTENT_TYPES.LEAD.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.CLIENT.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.PARTNER_CLIENT.ID ||
-    contentType === CONTENT_TYPES.PAYMENT.ID ||
-    contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
-    contentType === CONTENT_TYPES.SINISTER.ID ||
-    contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
-    contentType === CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID ||
-    contentType === CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID ||
-    contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
-    contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
-    contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID ||
-    contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
-    <agt-modal-show-contact-data [modalId]="modalIdShowContactData" [contactId]="selectedContactId"></agt-modal-show-contact-data>
-    <agt-modal-select-contact [modalId]="modalIdSelectContact" [contactId]="selectedContactId"></agt-modal-select-contact>
-</ng-container>
-<ng-container *ngIf="
-    contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID || 
-    contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID || 
-    contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID || 
-    contentType === CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID">
-    <agt-modal-show-quotation-details [modalId]="modalIdShowQuotationDetails" [contactId]="selectedContactId" [quotationId]="selectedQuotationId"></agt-modal-show-quotation-details>
-    <agt-modal-confirm-accept-quotation [modalId]="modalIdAcceptQuotation" [contactId]="selectedContactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-accept-quotation>
-    <agt-modal-confirm-reject-quotation [modalId]="modalIdRejectQuotation" [contactId]="selectedContactId" [quotationId]="selectedQuotationId"></agt-modal-confirm-reject-quotation>
-</ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
-    <agt-modal-show-endorsement [modalId]="modalIdShowEndorsement" [contactId]="contactId" [policyId]="policyId" [endorsementId]="selectedEndorsementId"></agt-modal-show-endorsement>
-    <agt-modal-show-cancellation-evidence [modalId]="modalIdShowCancellationEvidence" [cancelledPolicyId]="selectedCancelledPolicyId"></agt-modal-show-cancellation-evidence>
-</ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID">
-    <agt-modal-show-endorsement [modalId]="modalIdShowEndorsement" [contactId]="contactId" [policyId]="policyId" [endorsementId]="selectedEndorsementId"></agt-modal-show-endorsement>
+    *ngIf="
+        contentType === CONTENT_TYPES.CONTACT.ID ||
+        contentType === CONTENT_TYPES.LEAD.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CLIENT.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.PARTNER_CLIENT.ID ||
+        contentType === CONTENT_TYPES.PAYMENT.ID ||
+        contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
+        contentType === CONTENT_TYPES.SINISTER.ID ||
+        contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
+        contentType === CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID ||
+        contentType === CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID ||
+        contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
+        contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
+        contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID ||
+        contentType === CONTENT_TYPES.PENDING_RECEIP.ID
+    "
+>
+    <agt-modal-show-contact-data
+        [modalId]="modalIdShowContactData"
+        [contactId]="selectedContactId"
+    ></agt-modal-show-contact-data>
+    <agt-modal-select-contact
+        [modalId]="modalIdSelectContact"
+        [contactId]="selectedContactId"
+    ></agt-modal-select-contact>
 </ng-container>
 <ng-container
-    *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
-    contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
-    contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
-    contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
-    contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
-    contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
-    contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
-    contentType === CONTENT_TYPES.PAYMENT.ID ||
-    contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
-    contentType === CONTENT_TYPES.SINISTER.ID ||
-    contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
-    contentType === CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID ||
-    contentType === CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID ||
-    contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID ||
-    contentType === CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID ||
-    contentType === CONTENT_TYPES.POLICY_TRACKER.ID">
+    *ngIf="
+        contentType === CONTENT_TYPES.CONTACT_QUOTATION.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.QUOTATIONS_BY_RANGE.ID
+    "
+>
+    <agt-modal-show-quotation-details
+        [modalId]="modalIdShowQuotationDetails"
+        [contactId]="selectedContactId"
+        [quotationId]="selectedQuotationId"
+    ></agt-modal-show-quotation-details>
+    <agt-modal-confirm-accept-quotation
+        [modalId]="modalIdAcceptQuotation"
+        [contactId]="selectedContactId"
+        [quotationId]="selectedQuotationId"
+    ></agt-modal-confirm-accept-quotation>
+    <agt-modal-confirm-reject-quotation
+        [modalId]="modalIdRejectQuotation"
+        [contactId]="selectedContactId"
+        [quotationId]="selectedQuotationId"
+    ></agt-modal-confirm-reject-quotation>
+</ng-container>
+<ng-container *ngIf="contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
+    <agt-modal-show-endorsement
+        [modalId]="modalIdShowEndorsement"
+        [contactId]="contactId"
+        [policyId]="policyId"
+        [endorsementId]="selectedEndorsementId"
+    ></agt-modal-show-endorsement>
+    <agt-modal-show-cancellation-evidence
+        [modalId]="modalIdShowCancellationEvidence"
+        [cancelledPolicyId]="selectedCancelledPolicyId"
+    ></agt-modal-show-cancellation-evidence>
+</ng-container>
+<ng-container
+    *ngIf="contentType === CONTENT_TYPES.POLICY_ENDORSEMENTS_HISTORY.ID"
+>
+    <agt-modal-show-endorsement
+        [modalId]="modalIdShowEndorsement"
+        [contactId]="contactId"
+        [policyId]="policyId"
+        [endorsementId]="selectedEndorsementId"
+    ></agt-modal-show-endorsement>
+</ng-container>
+<ng-container
+    *ngIf="
+        contentType === CONTENT_TYPES.POLICY.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
+        contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
+        contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
+        contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
+        contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+        contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
+        contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
+        contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
+        contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
+        contentType === CONTENT_TYPES.PAYMENT.ID ||
+        contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
+        contentType === CONTENT_TYPES.SINISTER.ID ||
+        contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
+        contentType === CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID ||
+        contentType === CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID ||
+        contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID ||
+        contentType === CONTENT_TYPES.POLICY_RENEWAL_HISTORY.ID ||
+        contentType === CONTENT_TYPES.POLICY_TRACKER.ID
+    "
+>
     <agt-modal-show-policy-details
         [modalId]="modalIdShowPolicyDetails"
         [contactId]="selectedContactId"
@@ -456,85 +813,142 @@
         [isHistoryContent]="isHistoryContent"
         (showPolicy)="onShowPolicy($event)"
     ></agt-modal-show-policy-details>
-    <agt-modal-show-policy [modalId]="modalIdShowPolicy" [contactId]="selectedContactId" [policyId]="selectedPolicyId"></agt-modal-show-policy>
-</ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
-    contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
-    contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
-    contentType === CONTENT_TYPES.POLICY_TRACKER.ID ||
-    contentType === CONTENT_TYPES.PARTNER_POLICY.ID">
-    <agt-modal-confirm-update-policy [modalId]="modalIdConfirmUpdatePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-update-policy>
-    <agt-modal-confirm-endorse-policy [modalId]="modalIdConfirmEndorsePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-endorse-policy>
-    <agt-modal-confirm-renew-policy [modalId]="modalIdConfirmRenewPolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-renew-policy>
-    <agt-modal-confirm-reissue-policy [modalId]="modalIdConfirmReissuePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-reissue-policy>
-    <agt-modal-select-contact-type [modalId]="modalIdSelectContactType" [actionType]="selectedActionType" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-select-contact-type>
-    <agt-modal-confirm-show-policy-sinisters [modalId]="modalIdConfirmShowPolicySinisters" [policyData]="selectedPolicyData"></agt-modal-confirm-show-policy-sinisters>
-    <agt-modal-confirm-delete-policy-complete [modalId]="modalIdConfirmDeleteCompletePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (policyCompleteDeleted)="onPolicyDeleted()"></agt-modal-confirm-delete-policy-complete>
-    <agt-modal-confirm-delete-renewed-policy [modalId]="modalIdConfirmDeleteRenewedPolicy" (actionConfirmed)="deleteRenewedPolicy()"></agt-modal-confirm-delete-renewed-policy>
-</ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.POLICY.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
-    contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
-    contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
-    contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
-    contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
-    contentType === CONTENT_TYPES.PAYMENT.ID ||
-    contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
-    contentType === CONTENT_TYPES.SINISTER.ID ||
-    contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
-    contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID ||
-    contentType === CONTENT_TYPES.POLICY_TRACKER.ID ||
-    contentType === CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID ||
-    contentType === CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID ||
-    contentType === CONTENT_TYPES.CONTACT_SINISTER.ID">
-    <agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
-    <agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
+    <agt-modal-show-policy
+        [modalId]="modalIdShowPolicy"
+        [contactId]="selectedContactId"
+        [policyId]="selectedPolicyId"
+    ></agt-modal-show-policy>
 </ng-container>
 <ng-container
-    *ngIf="contentType === CONTENT_TYPES.PAYMENT.ID ||
-    contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
-    contentType === CONTENT_TYPES.POLICY.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
-    contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
-    contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
-    contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
-    contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID ||
-    contentType === CONTENT_TYPES.POLICY_TRACKER.ID ||
-    contentType === CONTENT_TYPES.PENDING_RECEIP.ID">
+    *ngIf="
+        contentType === CONTENT_TYPES.POLICY.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
+        contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
+        contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
+        contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+        contentType === CONTENT_TYPES.POLICY_TRACKER.ID ||
+        contentType === CONTENT_TYPES.PARTNER_POLICY.ID
+    "
+>
+    <agt-modal-confirm-update-policy
+        [modalId]="modalIdConfirmUpdatePolicy"
+        [contactId]="contactId"
+        [policyId]="selectedPolicyId"
+    ></agt-modal-confirm-update-policy>
+    <agt-modal-confirm-endorse-policy
+        [modalId]="modalIdConfirmEndorsePolicy"
+        [contactId]="contactId"
+        [policyId]="selectedPolicyId"
+    ></agt-modal-confirm-endorse-policy>
+    <agt-modal-confirm-renew-policy
+        [modalId]="modalIdConfirmRenewPolicy"
+        [contactId]="contactId"
+        [policyId]="selectedPolicyId"
+        (actionTypeSelected)="onActionTypeSelected($event)"
+    ></agt-modal-confirm-renew-policy>
+    <agt-modal-confirm-reissue-policy
+        [modalId]="modalIdConfirmReissuePolicy"
+        [contactId]="contactId"
+        [policyId]="selectedPolicyId"
+        (actionTypeSelected)="onActionTypeSelected($event)"
+    ></agt-modal-confirm-reissue-policy>
+    <agt-modal-select-contact-type
+        [modalId]="modalIdSelectContactType"
+        [actionType]="selectedActionType"
+        [contactId]="contactId"
+        [policyId]="selectedPolicyId"
+    ></agt-modal-select-contact-type>
+    <agt-modal-confirm-show-policy-sinisters
+        [modalId]="modalIdConfirmShowPolicySinisters"
+        [policyData]="selectedPolicyData"
+    ></agt-modal-confirm-show-policy-sinisters>
+    <agt-modal-confirm-delete-policy-complete
+        [modalId]="modalIdConfirmDeleteCompletePolicy"
+        [contactId]="contactId"
+        [policyId]="selectedPolicyId"
+        (policyCompleteDeleted)="onPolicyDeleted()"
+    ></agt-modal-confirm-delete-policy-complete>
+    <agt-modal-confirm-delete-renewed-policy
+        [modalId]="modalIdConfirmDeleteRenewedPolicy"
+        (actionConfirmed)="deleteRenewedPolicy()"
+    ></agt-modal-confirm-delete-renewed-policy>
+</ng-container>
+<ng-container
+    *ngIf="
+        contentType === CONTENT_TYPES.POLICY.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
+        contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
+        contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
+        contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+        contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
+        contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
+        contentType === CONTENT_TYPES.PARTNER_SINISTER.ID ||
+        contentType === CONTENT_TYPES.PAYMENT.ID ||
+        contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
+        contentType === CONTENT_TYPES.SINISTER.ID ||
+        contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID ||
+        contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID ||
+        contentType === CONTENT_TYPES.POLICY_TRACKER.ID ||
+        contentType === CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID ||
+        contentType === CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID ||
+        contentType === CONTENT_TYPES.CONTACT_SINISTER.ID
+    "
+>
+    <agt-modal-confirm-cancel-policy
+        [modalId]="modalIdConfirmCancelPolicy"
+        [contactId]="contactId"
+        [policyId]="selectedPolicyId"
+    ></agt-modal-confirm-cancel-policy>
+    <agt-modal-confirm-show-history-policy
+        [modalId]="modalIdConfirmShowHistoryPolicy"
+        [contactId]="contactId"
+        [policyId]="selectedPolicyId"
+    ></agt-modal-confirm-show-history-policy>
+</ng-container>
+<ng-container
+    *ngIf="
+        contentType === CONTENT_TYPES.PAYMENT.ID ||
+        contentType === CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.PAYMENT_CALENDAR.ID ||
+        contentType === CONTENT_TYPES.POLICY.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_PENDING.ID ||
+        contentType === CONTENT_TYPES.ACTIVE_POLICIES_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_POLICIES_ISSUED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.POLICY_TO_RENEW.ID ||
+        contentType === CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CONTACT_APPLIED_RENEWALS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.LAST_CANCELLED_POLICY.ID ||
+        contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+        contentType === CONTENT_TYPES.PARTNER_POLICY.ID ||
+        contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID ||
+        contentType === CONTENT_TYPES.POLICY_TRACKER.ID ||
+        contentType === CONTENT_TYPES.PENDING_RECEIP.ID
+    "
+>
     <agt-modal-apply-payment
         [modalId]="modalIdApplyPayment"
         [contactId]="selectedContactId"
@@ -553,16 +967,30 @@
         (preauthorizedPayment)="onPreautorizedPayment()"
         (applyPayment)="onApplyPayment($event)"
     ></agt-modal-select-payment-registration-type>
-    <agt-modal-confirm-show-payment-history [modalId]="modalIdConfirmShowPaymentHistory" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [paymentId]="selectedPaymentId"></agt-modal-confirm-show-payment-history>
+    <agt-modal-confirm-show-payment-history
+        [modalId]="modalIdConfirmShowPaymentHistory"
+        [contactId]="selectedContactId"
+        [policyId]="selectedPolicyId"
+        [paymentId]="selectedPaymentId"
+    ></agt-modal-confirm-show-payment-history>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.GROUP_MEMBER.ID">
-    <agt-modal-confirm-delete-group-member [modalId]="modalIdConfirmDeleteGroupMember" (actionConfirmed)="deleteGroupMember()"></agt-modal-confirm-delete-group-member>
+    <agt-modal-confirm-delete-group-member
+        [modalId]="modalIdConfirmDeleteGroupMember"
+        (actionConfirmed)="deleteGroupMember()"
+    ></agt-modal-confirm-delete-group-member>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PARTNER.ID">
-    <agt-modal-show-partner-details [modalId]="modalIdShowPartnerDetails" [partner]="selectedPartner"></agt-modal-show-partner-details>
+    <agt-modal-show-partner-details
+        [modalId]="modalIdShowPartnerDetails"
+        [partner]="selectedPartner"
+    ></agt-modal-show-partner-details>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.PAYMENT_HISTORY.ID">
-    <agt-modal-confirm-delete-receipt-paid [modalId]="modalIdConfirmDeleteReceiptPaid" (deleteReceiptPaidConfimed)="onDeleteReceiptPaidConfirmed()"></agt-modal-confirm-delete-receipt-paid>
+    <agt-modal-confirm-delete-receipt-paid
+        [modalId]="modalIdConfirmDeleteReceiptPaid"
+        (deleteReceiptPaidConfimed)="onDeleteReceiptPaidConfirmed()"
+    ></agt-modal-confirm-delete-receipt-paid>
     <agt-modal-update-receipt-paid
         [modalId]="modalIdUpdateReceiptPaid"
         [contactId]="contactId"
@@ -577,61 +1005,132 @@
     ></agt-modal-show-payment-evidence-file>
 </ng-container>
 <ng-container
-    *ngIf="contentType === CONTENT_TYPES.SINISTER.ID ||
-    contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
-    contentType === CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID ||
-    contentType === CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID ||
-    contentType === CONTENT_TYPES.POLICY_SINISTERS.ID ||
-    contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
-    contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
-    contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.PARTNER_SINISTER.ID">
-    <agt-modal-show-sinister-details [modalId]="modalIdShowSinisterDetails" [sinister]="selectedSinister"></agt-modal-show-sinister-details>
-    <agt-modal-confirm-show-sinister-history [modalId]="modalIdConfirmShowSinisterHistory" [sinisterData]="selectedSinisterData"></agt-modal-confirm-show-sinister-history>
-    <agt-modal-confirm-finalize-sinister [modalId]="modalIdConfirmFinalizeSinister" [sinisterData]="selectedSinisterData"></agt-modal-confirm-finalize-sinister>
-    <agt-modal-confirm-reactivate-sinister [modalId]="modalIdConfirmReactivateSinister" [sinisterData]="selectedSinisterData"></agt-modal-confirm-reactivate-sinister>
+    *ngIf="
+        contentType === CONTENT_TYPES.SINISTER.ID ||
+        contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
+        contentType === CONTENT_TYPES.POLICY_OPEN_SINISTERS.ID ||
+        contentType === CONTENT_TYPES.POLICY_CLOSED_SINISTERS.ID ||
+        contentType === CONTENT_TYPES.POLICY_SINISTERS.ID ||
+        contentType === CONTENT_TYPES.HISTORY_POLICY.ID ||
+        contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
+        contentType === CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.PARTNER_SINISTER.ID
+    "
+>
+    <agt-modal-show-sinister-details
+        [modalId]="modalIdShowSinisterDetails"
+        [sinister]="selectedSinister"
+    ></agt-modal-show-sinister-details>
+    <agt-modal-confirm-show-sinister-history
+        [modalId]="modalIdConfirmShowSinisterHistory"
+        [sinisterData]="selectedSinisterData"
+    ></agt-modal-confirm-show-sinister-history>
+    <agt-modal-confirm-finalize-sinister
+        [modalId]="modalIdConfirmFinalizeSinister"
+        [sinisterData]="selectedSinisterData"
+    ></agt-modal-confirm-finalize-sinister>
+    <agt-modal-confirm-reactivate-sinister
+        [modalId]="modalIdConfirmReactivateSinister"
+        [sinisterData]="selectedSinisterData"
+    ></agt-modal-confirm-reactivate-sinister>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.SINISTER_HISTORY.ID">
-    <agt-modal-update-sinister-event [modalId]="modalIdUpdateSinisterEvent" [sinisterEventData]="selectedSinisterEventData"></agt-modal-update-sinister-event>
-    <agt-modal-confirm-delete-sinister-event [modalId]="modalIdConfirmDeleteSinisterEvent" [sinisterEventData]="selectedSinisterEventData"></agt-modal-confirm-delete-sinister-event>
-    <agt-modal-show-resolution-evidence [modalId]="modalIdShowResolutionEvidence" [evidenceUrl]="selectedEvidenceUrl"></agt-modal-show-resolution-evidence>
-    <agt-modal-show-reactivation-evidence [modalId]="modalIdShowReactivationEvidence" [evidenceUrl]="selectedEvidenceUrl"></agt-modal-show-reactivation-evidence>
-    <agt-modal-finalize-sinister-event [modalId]="modalIdFinalizeSinisterEvent" [sinisterEventData]="selectedSinisterEventData"></agt-modal-finalize-sinister-event>
-    <agt-wrapper-download-sinister-event-evidence #wrapperDownloadSinisterEventEvidence [fileUrl]="selectedEvidenceUrl"></agt-wrapper-download-sinister-event-evidence>
+    <agt-modal-update-sinister-event
+        [modalId]="modalIdUpdateSinisterEvent"
+        [sinisterEventData]="selectedSinisterEventData"
+    ></agt-modal-update-sinister-event>
+    <agt-modal-confirm-delete-sinister-event
+        [modalId]="modalIdConfirmDeleteSinisterEvent"
+        [sinisterEventData]="selectedSinisterEventData"
+    ></agt-modal-confirm-delete-sinister-event>
+    <agt-modal-show-resolution-evidence
+        [modalId]="modalIdShowResolutionEvidence"
+        [evidenceUrl]="selectedEvidenceUrl"
+    ></agt-modal-show-resolution-evidence>
+    <agt-modal-show-reactivation-evidence
+        [modalId]="modalIdShowReactivationEvidence"
+        [evidenceUrl]="selectedEvidenceUrl"
+    ></agt-modal-show-reactivation-evidence>
+    <agt-modal-finalize-sinister-event
+        [modalId]="modalIdFinalizeSinisterEvent"
+        [sinisterEventData]="selectedSinisterEventData"
+    ></agt-modal-finalize-sinister-event>
+    <agt-wrapper-download-sinister-event-evidence
+        #wrapperDownloadSinisterEventEvidence
+        [fileUrl]="selectedEvidenceUrl"
+    ></agt-wrapper-download-sinister-event-evidence>
 </ng-container>
-<ng-container *ngIf="contentType === CONTENT_TYPES.POLICY_SINISTERS.ID || contentType === CONTENT_TYPES.HISTORY_POLICY.ID">
-    <agt-modal-confirm-show-sinister [modalId]="modalIdConfirmShowSinister" [sinisterData]="selectedSinisterData"></agt-modal-confirm-show-sinister>
+<ng-container
+    *ngIf="
+        contentType === CONTENT_TYPES.POLICY_SINISTERS.ID ||
+        contentType === CONTENT_TYPES.HISTORY_POLICY.ID
+    "
+>
+    <agt-modal-confirm-show-sinister
+        [modalId]="modalIdConfirmShowSinister"
+        [sinisterData]="selectedSinisterData"
+    ></agt-modal-confirm-show-sinister>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT_FILE.ID">
-    <agt-modal-show-contact-file-details [modalId]="modalIdShowContactFileDetails" [contactFileData]="selectedContactFileData" (transferContactFile)="onTransferContactFile($event)"></agt-modal-show-contact-file-details>
-    <agt-modal-transfer-contact-file [modalId]="modalIdTransferContactFile" [contactFileData]="selectedContactFileData"></agt-modal-transfer-contact-file>
-    <agt-modal-confirm-update-contact-file [modalId]="modalIdConfirmUpdateContactFile" [contactFileData]="selectedContactFileData"></agt-modal-confirm-update-contact-file>
-    <agt-modal-confirm-delete-contact-file [modalId]="modalIdConfirmDeleteContactFile" [contactFileData]="selectedContactFileData"></agt-modal-confirm-delete-contact-file>
+    <agt-modal-show-contact-file-details
+        [modalId]="modalIdShowContactFileDetails"
+        [contactFileData]="selectedContactFileData"
+        (transferContactFile)="onTransferContactFile($event)"
+    ></agt-modal-show-contact-file-details>
+    <agt-modal-transfer-contact-file
+        [modalId]="modalIdTransferContactFile"
+        [contactFileData]="selectedContactFileData"
+    ></agt-modal-transfer-contact-file>
+    <agt-modal-confirm-update-contact-file
+        [modalId]="modalIdConfirmUpdateContactFile"
+        [contactFileData]="selectedContactFileData"
+    ></agt-modal-confirm-update-contact-file>
+    <agt-modal-confirm-delete-contact-file
+        [modalId]="modalIdConfirmDeleteContactFile"
+        [contactFileData]="selectedContactFileData"
+    ></agt-modal-confirm-delete-contact-file>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.GROUP.ID">
-    <agt-modal-show-group-details [modalId]="modalIdShowGroupDetails" [group]="selectedGroup"></agt-modal-show-group-details>
-    <agt-modal-confirm-select-group [modalId]="modalIdConfirmSelectGroup" [groupId]="selectedGroupId"></agt-modal-confirm-select-group>
+    <agt-modal-show-group-details
+        [modalId]="modalIdShowGroupDetails"
+        [group]="selectedGroup"
+    ></agt-modal-show-group-details>
+    <agt-modal-confirm-select-group
+        [modalId]="modalIdConfirmSelectGroup"
+        [groupId]="selectedGroupId"
+    ></agt-modal-confirm-select-group>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.INCOMPLETE_POLICIES.ID">
     <agt-modal-confirm-delete-policy
         [modalId]="modalIdConfirmDeleteIncompletePolicy"
         [contactId]="contactId"
         [policyId]="selectedPolicyId"
-        (policyDeleted)="onPolicyDeleted()">
+        (policyDeleted)="onPolicyDeleted()"
+    >
     </agt-modal-confirm-delete-policy>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.CONTACT.ID">
     <agt-modal-confirm-delete-contact
         [modalId]="modalIdConfirmDeleteContact"
-        (actionConfirmed)="deleteContact()">
+        (actionConfirmed)="deleteContact()"
+    >
     </agt-modal-confirm-delete-contact>
 </ng-container>
 <ng-container *ngIf="contentType === CONTENT_TYPES.EXTERNAL_POLICIES.ID">
-    <agt-modal-confirm-validate-external-policy [modalId]="modalIdConfirmValidateExternalPolicy" (actionConfirmed)="goToUpdateExternalPolicy()"></agt-modal-confirm-validate-external-policy>
-    <agt-modal-confirm-update-external-policy [modalId]="modalIdConfirmUpdateExternalPolicy" (actionConfirmed)="goToUpdateExternalPolicy()"></agt-modal-confirm-update-external-policy>
-    <agt-modal-show-policy-file [modalId]="modalIdShowPolicyFile" [policyUrl]="selectedExternalPolicyUrl"></agt-modal-show-policy-file>
+    <agt-modal-confirm-validate-external-policy
+        [modalId]="modalIdConfirmValidateExternalPolicy"
+        (actionConfirmed)="goToUpdateExternalPolicy()"
+    ></agt-modal-confirm-validate-external-policy>
+    <agt-modal-confirm-update-external-policy
+        [modalId]="modalIdConfirmUpdateExternalPolicy"
+        (actionConfirmed)="goToUpdateExternalPolicy()"
+    ></agt-modal-confirm-update-external-policy>
+    <agt-modal-show-policy-file
+        [modalId]="modalIdShowPolicyFile"
+        [policyUrl]="selectedExternalPolicyUrl"
+    ></agt-modal-show-policy-file>
     <agt-modal-show-external-policy-details
         [modalId]="modalIdShowExternalPolicyDetails"
         [contactId]="selectedContactId"
@@ -639,11 +1138,13 @@
         (showExternalPolicy)="showExternalPolicy($event)"
     ></agt-modal-show-external-policy-details>
 </ng-container>
-<ng-container *ngIf="
-    contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID || 
-    contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
-    contentType === CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID
-">
+<ng-container
+    *ngIf="
+        contentType === CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.CONTACT_RECEIPTS_APPLIED_BY_RANGE.ID ||
+        contentType === CONTENT_TYPES.POLICY_RECEIPTS_PAID.ID
+    "
+>
     <agt-modal-show-receipt-applied-details
         [modalId]="modalIdShowReceiptAppliedDetails"
         [receiptAppliedId]="selectedReceiptAppliedId"
@@ -652,8 +1153,8 @@
 </ng-container>
 
 <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY_INSURED.ID">
-    <agt-modal-show-policy-file 
-        [modalId]="modalIdShowPolicyFile" 
+    <agt-modal-show-policy-file
+        [modalId]="modalIdShowPolicyFile"
         [policyUrl]="selectedPolicyUrl"
     ></agt-modal-show-policy-file>
     <agt-modal-show-policy-insured-file

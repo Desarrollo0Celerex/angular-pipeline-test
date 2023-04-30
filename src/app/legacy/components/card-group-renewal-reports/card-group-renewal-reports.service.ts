@@ -3,7 +3,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { saveAs } from 'file-saver';
 
 import { POLICY_STATUS } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicyService } from '@services/policy.service';
 

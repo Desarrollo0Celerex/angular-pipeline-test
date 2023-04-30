@@ -17,7 +17,7 @@ import {
     TITULAR_NAME_LENGTH,
     ENDORSEMENT_TYPES,
 } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { EndorsementType } from '@interfaces/endorsement-type.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';

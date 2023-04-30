@@ -15,7 +15,7 @@ import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 
 import { AlertHelper } from '@helpers/alert.helper';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';

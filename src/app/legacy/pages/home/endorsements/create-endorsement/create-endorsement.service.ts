@@ -37,7 +37,7 @@ import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
 import { PolicyInsuredService } from '@services/policy-insured.service';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 
 @Injectable()
 export class CreateEndorsementService {

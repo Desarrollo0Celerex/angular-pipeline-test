@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { PAYMENT_STATUS } from '@constants/global';
 import { FiltersHelper } from '@helpers/filters.helper';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ContainerCharts } from '@interfaces/container-charts.interface';
 import { ContainerFilters } from '@interfaces/container-filters.interface';
 import { PaymentService } from '@services/payment.service';
@@ -13,23 +13,45 @@ export class ContainerChartsPendingPaymentsService {
     filtersData: ContainerFilters | null = null;
     specialFilter: string = '';
 
-    constructor(private _paymentService: PaymentService) { }
+    constructor(private _paymentService: PaymentService) {}
 
     loadData(rangeField: string, rangeStart: string, rangeEnd: string): void {
         this.chartsData = this._getDefaultChartsData();
-        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE, PAYMENT_STATUS.STANDBY]);
-        this._paymentService.getPendingPaymentStats(filters, rangeField, rangeStart, rangeEnd, this.specialFilter).subscribe((res: ContainerCharts) => {
-            this.chartsData = res;
-            this.filtersData = FiltersHelper.generateFiltersData(res);
-            this.specialFilter = this.filtersData!.insurances.specialFilter + ';' + this.filtersData!.insurers.specialFilter + ';' + this.filtersData!.contactTypes.specialFilter;
-        });
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'paymentStatusId',
+            [
+                PAYMENT_STATUS.INTIME,
+                PAYMENT_STATUS.PENDING,
+                PAYMENT_STATUS.LATE,
+                PAYMENT_STATUS.OVERDUE,
+                PAYMENT_STATUS.STANDBY,
+            ]
+        );
+        this._paymentService
+            .getPendingPaymentStats(
+                filters,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                this.specialFilter
+            )
+            .subscribe((res: ContainerCharts) => {
+                this.chartsData = res;
+                this.filtersData = FiltersHelper.generateFiltersData(res);
+                this.specialFilter =
+                    this.filtersData!.insurances.specialFilter +
+                    ';' +
+                    this.filtersData!.insurers.specialFilter +
+                    ';' +
+                    this.filtersData!.contactTypes.specialFilter;
+            });
     }
 
     private _getDefaultChartsData(): ContainerCharts {
         return {
             insurers: [],
             insurances: [],
-            contactTypes: []
+            contactTypes: [],
         };
     }
 }

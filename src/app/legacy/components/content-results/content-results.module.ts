@@ -6,21 +6,21 @@ import { ModalSelectContactTypeModule } from '@components/modal-select-contact-t
 import { ModalSearchContactModule } from '@components/modal-search-contact/modal-search-contact.module';
 import { ModalSearchPolicyModule } from '@components/modal-search-policy/modal-search-policy.module';
 import { ModalCreateSinisterModule } from '@components/modal-create-sinister/modal-create-sinister.module';
-import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module'
+import { SharedModule } from '@shared/shared.module';
 
 import { ContentResultsComponent } from './content-results.component';
 
 @NgModule({
-  declarations: [ContentResultsComponent],
-  exports: [ContentResultsComponent],
-  imports: [
-    CommonModule,
-    ModalSearchContactModule,
-    ModalSelectContactActionModule,
-    ModalSelectContactTypeModule,
-    ModalSearchPolicyModule,
-    ModalCreateSinisterModule,
-    PluralNameFormatModule
-  ]
+    declarations: [ContentResultsComponent],
+    exports: [ContentResultsComponent],
+    imports: [
+        CommonModule,
+        ModalSearchContactModule,
+        ModalSelectContactActionModule,
+        ModalSelectContactTypeModule,
+        ModalSearchPolicyModule,
+        ModalCreateSinisterModule,
+        SharedModule,
+    ],
 })
-export class ContentResultsModule { }
+export class ContentResultsModule {}

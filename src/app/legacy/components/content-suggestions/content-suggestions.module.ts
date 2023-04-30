@@ -2,16 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ImageAgenthosAssistantModule } from '@components/image-agenthos-assistant/image-agenthos-assistant.module';
-import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
+import { SharedModule } from '@shared/shared.module';
 import { ContentSuggestionsComponent } from './content-suggestions.component';
 
 @NgModule({
-  declarations: [ContentSuggestionsComponent],
-  exports: [ContentSuggestionsComponent],
-  imports: [
-    CommonModule,
-    ImageAgenthosAssistantModule,
-    PluralNameFormatModule
-  ]
+    declarations: [ContentSuggestionsComponent],
+    exports: [ContentSuggestionsComponent],
+    imports: [CommonModule, ImageAgenthosAssistantModule, SharedModule],
 })
-export class ContentSuggestionsModule { }
+export class ContentSuggestionsModule {}

@@ -14,7 +14,7 @@ import { Workspace } from '@core/interfaces/workspace.interface';
 import { WorkspaceService } from '@core/services/workspace/workspace.service';
 import { WorkspaceDirectoryService } from '@services/workspace-directory.service';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { SaveWorkspaceDirectoriesDataSend } from '@interfaces/save-workspace-directories-data-send.interface';
 
 @Injectable()

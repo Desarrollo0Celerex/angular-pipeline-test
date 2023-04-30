@@ -1,5 +1,6 @@
 <ng-container
-    *ngIf="contentType !== CONTENT_TYPES.PENDING_RECEIP.ID &&
+    *ngIf="
+        contentType !== CONTENT_TYPES.PENDING_RECEIP.ID &&
         contentType !== CONTENT_TYPES.POLICY_INSURED.ID &&
         contentType !== CONTENT_TYPES.POLICY_TRACKER.ID &&
         contentType !== CONTENT_TYPES.POLICY_TO_RENEW.ID &&
@@ -28,58 +29,116 @@
         contentType !== CONTENT_TYPES.WORKSPACE_LEADS_CONVERTED_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID &&
         contentType !== CONTENT_TYPES.WORKSPACE_POLICIES_RENEWED_BY_RANGE.ID &&
-        contentType !== CONTENT_TYPES.PAYMENT_CALENDAR.ID">
-    <div class="col-sm-12 col-md-12" *ngIf="!isLoadingContent && contentResultData.loadedItems === contentResultData.totalItems">
-        <div class="alert alert-avatar alert-primary alert-dismissible mt-5 mb-5">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        contentType !== CONTENT_TYPES.PAYMENT_CALENDAR.ID
+    "
+>
+    <div
+        class="col-sm-12 col-md-12"
+        *ngIf="
+            !isLoadingContent &&
+            contentResultData.loadedItems === contentResultData.totalItems
+        "
+    >
+        <div
+            class="alert alert-avatar alert-primary alert-dismissible mt-5 mb-5"
+        >
+            <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-hidden="true"
+            >
+                ×
+            </button>
             <ng-container [ngSwitch]="contentType">
                 <ng-container *ngSwitchCase="CONTENT_TYPES.CONTACT.ID">
-                    <ng-container *ngTemplateOutlet="contactSuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="contactSuggestion"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.LEAD.ID">
-                    <ng-container *ngTemplateOutlet="leadSuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="leadSuggestion"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.CLIENT.ID">
-                    <ng-container *ngTemplateOutlet="leadSuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="leadSuggestion"
+                    ></ng-container>
                 </ng-container>
-                <ng-container *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID">
-                    <ng-container *ngTemplateOutlet="contactQuotationSuggestion"></ng-container>
+                <ng-container
+                    *ngSwitchCase="CONTENT_TYPES.CONTACT_QUOTATION.ID"
+                >
+                    <ng-container
+                        *ngTemplateOutlet="contactQuotationSuggestion"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.POLICY.ID">
-                    <ng-container *ngTemplateOutlet="contactPolicySuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="contactPolicySuggestion"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.CONTACT_FILE.ID">
-                    <ng-container *ngTemplateOutlet="contactFileSuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="contactFileSuggestion"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.GROUP.ID">
-                    <ng-container *ngTemplateOutlet="groupSuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="groupSuggestion"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.GROUP_MEMBER.ID">
-                    <ng-container *ngTemplateOutlet="groupMemberSuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="groupMemberSuggestion"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.GROUP_POLICY.ID">
-                    <ng-container *ngTemplateOutlet="groupPolicySuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="groupPolicySuggestion"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.GROUP_SINISTER.ID">
-                    <ng-container *ngTemplateOutlet="groupSinisterSuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="groupSinisterSuggestion"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.PARTNER.ID">
-                    <ng-container *ngTemplateOutlet="partnerSuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="partnerSuggestion"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.PARTNER_POLICY.ID">
-                    <ng-container *ngTemplateOutlet="partnerPolicySuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="partnerPolicySuggestion"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.PARTNER_CLIENT.ID">
-                    <ng-container *ngTemplateOutlet="partnerClientSuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="partnerClientSuggestion"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.PARTNER_SINISTER.ID">
-                    <ng-container *ngTemplateOutlet="partnerSinisterSuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="partnerSinisterSuggestion"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="CONTENT_TYPES.PAYMENT.ID">
-                    <ng-container *ngTemplateOutlet="paymentSuggestion"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="paymentSuggestion"
+                    ></ng-container>
                 </ng-container>
-                <ng-container *ngSwitchCase="(contentType === CONTENT_TYPES.SINISTER.ID || contentType === CONTENT_TYPES.CONTACT_SINISTER.ID) ? contentType : ''">
-                    <ng-container *ngTemplateOutlet="sinisterSuggestion"></ng-container>
+                <ng-container
+                    *ngSwitchCase="
+                        contentType === CONTENT_TYPES.SINISTER.ID ||
+                        contentType === CONTENT_TYPES.CONTACT_SINISTER.ID
+                            ? contentType
+                            : ''
+                    "
+                >
+                    <ng-container
+                        *ngTemplateOutlet="sinisterSuggestion"
+                    ></ng-container>
                 </ng-container>
             </ng-container>
         </div>
@@ -87,105 +146,171 @@
 </ng-container>
 
 <ng-template #contactSuggestion>
-    <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <strong>¿No encuentras al {{ contentTypeName | lowercase }}?</strong>
+    <hr class="message-inner-separator" />
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-    <p>Intenta ingresando otros términos de búsqueda para lozalizar al contacto.</p>
+    <p>
+        Intenta ingresando otros términos de búsqueda para lozalizar al
+        contacto.
+    </p>
 </ng-template>
 
 <ng-template #leadSuggestion>
-    <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <strong>¿No encuentras al {{ contentTypeName | lowercase }}?</strong>
+    <hr class="message-inner-separator" />
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
     <p>Intenta localizarlo con el <strong>Buscador Inteligente</strong>.</p>
 </ng-template>
 
 <ng-template #contactQuotationSuggestion>
-    <strong>¿No encuentras la {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <strong>¿No encuentras la {{ contentTypeName | lowercase }}?</strong>
+    <hr class="message-inner-separator" />
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-    <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
+    <p>
+        Intenta explorar el
+        <strong>Historial de {{ contentTypeName | plural }}</strong
+        >.
+    </p>
 </ng-template>
 
 <ng-template #contactPolicySuggestion>
-    <strong>¿No encuentras la {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <strong>¿No encuentras la {{ contentTypeName | lowercase }}?</strong>
+    <hr class="message-inner-separator" />
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-    <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
+    <p>
+        Intenta explorar el
+        <strong>Historial de {{ contentTypeName | plural }}</strong
+        >.
+    </p>
 </ng-template>
 
 <ng-template #contactFileSuggestion>
-    <strong>¿No encuentras el {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <strong>¿No encuentras el {{ contentTypeName | lowercase }}?</strong>
+    <hr class="message-inner-separator" />
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
     <p>Intenta localizarlo con el <strong>Buscador Inteligente</strong>.</p>
 </ng-template>
 
 <ng-template #groupSuggestion>
-    <ng-container *ngIf="contentSubtype === CONTENT_TYPES.COINCIDENCES.ID; else searchGroup">
-        <strong>¿Las coincidencias son falsas?</strong> <hr class="message-inner-separator">
+    <ng-container
+        *ngIf="
+            contentSubtype === CONTENT_TYPES.COINCIDENCES.ID;
+            else searchGroup
+        "
+    >
+        <strong>¿Las coincidencias son falsas?</strong>
+        <hr class="message-inner-separator" />
         <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-        <p>Si has comprobado que no existe duplicidad de información, puedes crear el grupo y continuar.</p>
+        <p>
+            Si has comprobado que no existe duplicidad de información, puedes
+            crear el grupo y continuar.
+        </p>
     </ng-container>
     <ng-template #searchGroup>
-        <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+        <strong>¿No encuentras al {{ contentTypeName | lowercase }}?</strong>
+        <hr class="message-inner-separator" />
         <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
         <p>Intenta localizarlo con el <strong>Buscador Inteligente</strong>.</p>
     </ng-template>
 </ng-template>
 
 <ng-template #groupMemberSuggestion>
-    <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <strong>¿No encuentras al {{ contentTypeName | lowercase }}?</strong>
+    <hr class="message-inner-separator" />
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-    <p>Asegúrate de haberlo agregado como <strong>Miembro del Grupo</strong>.</p>
+    <p>
+        Asegúrate de haberlo agregado como <strong>Miembro del Grupo</strong>.
+    </p>
 </ng-template>
 
 <ng-template #groupPolicySuggestion>
-    <strong>¿No encuentras la {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <strong>¿No encuentras la {{ contentTypeName | lowercase }}?</strong>
+    <hr class="message-inner-separator" />
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-    <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
+    <p>
+        Intenta explorar el
+        <strong>Historial de {{ contentTypeName | plural }}</strong
+        >.
+    </p>
 </ng-template>
 
 <ng-template #groupSinisterSuggestion>
-    <strong>¿No encuentras el {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <strong>¿No encuentras el {{ contentTypeName | lowercase }}?</strong>
+    <hr class="message-inner-separator" />
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-    <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
+    <p>
+        Intenta explorar el
+        <strong>Historial de {{ contentTypeName | plural }}</strong
+        >.
+    </p>
 </ng-template>
 
 <ng-template #partnerSuggestion>
-    <ng-container *ngIf="contentSubtype === CONTENT_TYPES.COINCIDENCES.ID; else searchPartner">
-        <strong>¿Las coincidencias son falsas?</strong> <hr class="message-inner-separator">
+    <ng-container
+        *ngIf="
+            contentSubtype === CONTENT_TYPES.COINCIDENCES.ID;
+            else searchPartner
+        "
+    >
+        <strong>¿Las coincidencias son falsas?</strong>
+        <hr class="message-inner-separator" />
         <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-        <p>Si has comprobado que no existe duplicidad de información, puedes crear el socio y continuar.</p>
+        <p>
+            Si has comprobado que no existe duplicidad de información, puedes
+            crear el socio y continuar.
+        </p>
     </ng-container>
     <ng-template #searchPartner>
-        <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+        <strong>¿No encuentras al {{ contentTypeName | lowercase }}?</strong>
+        <hr class="message-inner-separator" />
         <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
         <p>Intenta localizarlo con el <strong>Buscador Inteligente</strong>.</p>
     </ng-template>
 </ng-template>
 
 <ng-template #partnerClientSuggestion>
-    <strong>¿No encuentras al {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <strong>¿No encuentras al {{ contentTypeName | lowercase }}?</strong>
+    <hr class="message-inner-separator" />
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
     <p>Asegúrate de haberlo agregado como <strong>Cliente del Socio</strong></p>
 </ng-template>
 
 <ng-template #partnerPolicySuggestion>
-    <strong>¿No encuentras la {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <strong>¿No encuentras la {{ contentTypeName | lowercase }}?</strong>
+    <hr class="message-inner-separator" />
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-    <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
+    <p>
+        Intenta explorar el
+        <strong>Historial de {{ contentTypeName | plural }}</strong
+        >.
+    </p>
 </ng-template>
 
 <ng-template #partnerSinisterSuggestion>
-    <strong>¿No encuentras el {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <strong>¿No encuentras el {{ contentTypeName | lowercase }}?</strong>
+    <hr class="message-inner-separator" />
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-    <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
+    <p>
+        Intenta explorar el
+        <strong>Historial de {{ contentTypeName | plural }}</strong
+        >.
+    </p>
 </ng-template>
 
 <ng-template #paymentSuggestion>
-    <strong>¿No encuentras el {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <strong>¿No encuentras el {{ contentTypeName | lowercase }}?</strong>
+    <hr class="message-inner-separator" />
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
     <p>Intenta aplicar el pago con el <strong>Número de Póliza</strong>.</p>
 </ng-template>
 
 <ng-template #sinisterSuggestion>
-    <strong>¿No encuentras el {{contentTypeName | lowercase}}?</strong> <hr class="message-inner-separator">
+    <strong>¿No encuentras el {{ contentTypeName | lowercase }}?</strong>
+    <hr class="message-inner-separator" />
     <agt-image-agenthos-assistant></agt-image-agenthos-assistant>
-    <p>Intenta explorar el <strong>Historial de {{contentTypeName | pluralNameFormat}}</strong>.</p>
+    <p>
+        Intenta explorar el
+        <strong>Historial de {{ contentTypeName | plural }}</strong
+        >.
+    </p>
 </ng-template>

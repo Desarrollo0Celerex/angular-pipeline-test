@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { LEAD_STATUS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ContentKpi } from '@interfaces/content-kpi.interface';
 import { LeadService } from '@services/lead.service';
 
@@ -18,7 +18,7 @@ export class LeadsService {
             subValue: '0',
             subValueLabel: 'Sobre el Total',
             icon: 'mdi mdi-account-plus',
-            iconBackgound: 'bg-success-gradient'
+            iconBackgound: 'bg-success-gradient',
         },
         {
             contentName: 'Prospectos',
@@ -28,7 +28,7 @@ export class LeadsService {
             subValue: '0',
             subValueLabel: 'Sobre el Total',
             icon: 'mdi mdi-account-check',
-            iconBackgound: 'bg-info-gradient'
+            iconBackgound: 'bg-info-gradient',
         },
         {
             contentName: 'Prospectos',
@@ -38,7 +38,7 @@ export class LeadsService {
             subValue: '0',
             subValueLabel: 'Sobre el Total',
             icon: 'mdi mdi-account-convert',
-            iconBackgound: 'bg-warning-gradient'
+            iconBackgound: 'bg-warning-gradient',
         },
         {
             contentName: 'Prospectos',
@@ -48,14 +48,22 @@ export class LeadsService {
             subValue: '0',
             subValueLabel: 'Sobre el Total',
             icon: 'mdi mdi-account-remove',
-            iconBackgound: 'bg-danger-gradient'
-        }
+            iconBackgound: 'bg-danger-gradient',
+        },
     ];
 
-    constructor(private _leadService: LeadService) { }
+    constructor(private _leadService: LeadService) {}
 
     getTotalLeads(): Observable<number> {
-        const filters: string = UtilitiesHelper.generateHttpFilter('leadStatusId', [LEAD_STATUS.NEW, LEAD_STATUS.RECURRENT, LEAD_STATUS.RECOVERED, LEAD_STATUS.DISCARDED])
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'leadStatusId',
+            [
+                LEAD_STATUS.NEW,
+                LEAD_STATUS.RECURRENT,
+                LEAD_STATUS.RECOVERED,
+                LEAD_STATUS.DISCARDED,
+            ]
+        );
         return this._leadService.getTotalLeads(filters);
     }
 }

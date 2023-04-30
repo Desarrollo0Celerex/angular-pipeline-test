@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { POLICY_STATUS } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { PolicyService } from '@services/policy.service';

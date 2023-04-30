@@ -10,8 +10,8 @@ import {
     PAYMENT_STATUS,
     SINISTER_STATUS,
 } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
-import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
+import { PluralPipe } from '@shared/pipes/plural/plural.pipe';
 
 import { Stat } from '@interfaces/stat.interface';
 import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';
@@ -68,7 +68,7 @@ export class StatsSnapshotService {
         private _leadStatusService: LeadStatusService,
         private _contactTypeService: ContactTypeService,
         private _clientStatusService: ClientStatusService,
-        private _pluralNameFormatPipe: PluralNameFormatPipe,
+        private _pluralPipe: PluralPipe,
         private _policySourceService: PolicySourceService,
         private _policyStatusService: PolicyStatusService,
         private _paymentService: PaymentService,
@@ -284,7 +284,7 @@ export class StatsSnapshotService {
     loadLeadStatusStatsData(leadStatusStats: LeadStatusStat[]): void {
         for (let insurerStats of leadStatusStats) {
             let data: any[] = [
-                this._pluralNameFormatPipe.transform(insurerStats.name),
+                this._pluralPipe.transform(insurerStats.name),
                 insurerStats.totalLeads,
             ];
             this.leadStatusStatsData.push(data);
@@ -298,7 +298,7 @@ export class StatsSnapshotService {
     loadActiveClientsStatsData(activeClientsStats: ContactTypeStat[]): void {
         for (let contactSourceStats of activeClientsStats) {
             let data: any[] = [
-                this._pluralNameFormatPipe.transform(contactSourceStats.name),
+                this._pluralPipe.transform(contactSourceStats.name),
                 contactSourceStats.totalContacts,
             ];
             this.activeClientsStatsData.push(data);
@@ -310,8 +310,8 @@ export class StatsSnapshotService {
      * @param insurersStats The lead status stats
      */
     loadClientStatusStatsData(data: any): void {
-        data[0][0] = this._pluralNameFormatPipe.transform(data[0][0]);
-        data[1][0] = this._pluralNameFormatPipe.transform(data[1][0]);
+        data[0][0] = this._pluralPipe.transform(data[0][0]);
+        data[1][0] = this._pluralPipe.transform(data[1][0]);
         this.clientStatusStatsData.push(data[0]);
         this.clientStatusStatsData.push(data[1]);
     }
@@ -334,7 +334,7 @@ export class StatsSnapshotService {
     loadPolicySourcesStatsData(policySourcesStats: PolicySourceStat[]): void {
         for (let policySourceStats of policySourcesStats) {
             let data: any[] = [
-                this._pluralNameFormatPipe.transform(policySourceStats.name),
+                this._pluralPipe.transform(policySourceStats.name),
                 policySourceStats.totalPolicies,
             ];
             this.policySourcesStatsData.push(data);
@@ -350,7 +350,7 @@ export class StatsSnapshotService {
         for (let index in policyStatusStats) {
             const policyStatus: PolicyStatusStat = policyStatusStats[index];
             let data: any[] = [
-                this._pluralNameFormatPipe.transform(policyStatus.name),
+                this._pluralPipe.transform(policyStatus.name),
                 policyStatus.totalPolicies,
                 'fill-color: ' + colors[index] + '; opacity: 0.8',
             ];
@@ -379,7 +379,7 @@ export class StatsSnapshotService {
             const color: string =
                 parseInt(index) % 2 === 0 ? '#543888' : '#262258';
             let data: any[] = [
-                this._pluralNameFormatPipe.transform(paymentStatus.name),
+                this._pluralPipe.transform(paymentStatus.name),
                 paymentStatus.totalPayments,
                 'fill-color: ' + color + '; opacity: 0.8',
             ];
@@ -394,7 +394,7 @@ export class StatsSnapshotService {
     loadSinistersStatsData(sinistersStats: SinisterStat[]): void {
         for (let sinisterStat of sinistersStats) {
             let data: any[] = [
-                this._pluralNameFormatPipe.transform(sinisterStat.name),
+                this._pluralPipe.transform(sinisterStat.name),
                 sinisterStat.totalSinisters,
             ];
             this.sinistersStatsData.push(data);
@@ -411,9 +411,7 @@ export class StatsSnapshotService {
             for (let key in sinisterStatusStat) {
                 const value =
                     parseInt(key) === 0
-                        ? this._pluralNameFormatPipe.transform(
-                              sinisterStatusStat[key]
-                          )
+                        ? this._pluralPipe.transform(sinisterStatusStat[key])
                         : sinisterStatusStat[key];
                 data.push(value);
             }

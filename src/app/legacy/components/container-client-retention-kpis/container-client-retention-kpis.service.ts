@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 
 import { CLIENT_STATUS, PERIOD_STATUS } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { KpiOne } from '@interfaces/kpi-one.interface';
 import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { ClientService } from '@services/client.service';

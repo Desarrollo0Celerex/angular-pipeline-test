@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 
 import { PAYMENT_STATUS } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { PaymentService } from '@services/payment.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
@@ -14,20 +14,51 @@ export class ChartTicketPaymentProcessService {
     constructor(
         private _paymentService: PaymentService,
         private _receiptPaidService: ReceiptPaidService
-    ) { }
+    ) {}
 
     getPaymentProcessStats(range: ComparisonRangeData): Observable<number[]> {
         this.paymentProcessStatsData = [];
         const rangeField: string = 'paymentDate';
-        const paymentsFilters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE]);
+        const paymentsFilters: string = UtilitiesHelper.generateHttpFilter(
+            'paymentStatusId',
+            [
+                PAYMENT_STATUS.INTIME,
+                PAYMENT_STATUS.PENDING,
+                PAYMENT_STATUS.LATE,
+                PAYMENT_STATUS.OVERDUE,
+            ]
+        );
         let requests: Observable<number>[] = [];
-        requests.push(this._receiptPaidService.getTotalWorkspaceReceiptsPaid(rangeField, range.selectedRangeStart, range.selectedRangeEnd));
-        requests.push(this._paymentService.getTotalPayments(paymentsFilters, rangeField, range.selectedRangeStart, range.selectedRangeEnd));
+        requests.push(
+            this._receiptPaidService.getTotalWorkspaceReceiptsPaid(
+                rangeField,
+                range.selectedRangeStart,
+                range.selectedRangeEnd
+            )
+        );
+        requests.push(
+            this._paymentService.getTotalPayments(
+                paymentsFilters,
+                rangeField,
+                range.selectedRangeStart,
+                range.selectedRangeEnd
+            )
+        );
         return forkJoin(requests);
     }
 
     loadPaymentProcessStatsData(paymentProcessStats: number[]): void {
-        this.paymentProcessStatsData.push(['Estatus', 'Recibos Aplicados', 'Recibos Pendientes', { role: 'annotation'} ]);
-        this.paymentProcessStatsData.push(['', paymentProcessStats[0], paymentProcessStats[1], '']);
+        this.paymentProcessStatsData.push([
+            'Estatus',
+            'Recibos Aplicados',
+            'Recibos Pendientes',
+            { role: 'annotation' },
+        ]);
+        this.paymentProcessStatsData.push([
+            '',
+            paymentProcessStats[0],
+            paymentProcessStats[1],
+            '',
+        ]);
     }
 }

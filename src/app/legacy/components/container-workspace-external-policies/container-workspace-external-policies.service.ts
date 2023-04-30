@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { EXTERNAL_POLICY_STATUS } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ExternalPolicy } from '@interfaces/external-policy.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ExternalPolicyService } from '@services/external-policy.service';

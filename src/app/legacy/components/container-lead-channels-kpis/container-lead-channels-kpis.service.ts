@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 
 import { CONTACT_SOURCE_TYPES, PERIOD_STATUS } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { KpiOne } from '@interfaces/kpi-one.interface';
 import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
@@ -27,37 +27,40 @@ export class ContainerLeadChannelsKpisService {
             selectedValue: 0,
             selectedRange: '',
             comparedValue: 0,
-            comparedRange: ''
+            comparedRange: '',
         },
         {
             contentName: 'Socios',
             subcontentName: 'Activos',
-            description: 'Permite identificar el número de socios comerciales activos.',
+            description:
+                'Permite identificar el número de socios comerciales activos.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',
             comparedValue: 0,
-            comparedRange: ''
+            comparedRange: '',
         },
         {
             contentName: 'Prospectos',
             subcontentName: 'Generados',
-            description: 'Permite identificar el número de prospectos generados.',
+            description:
+                'Permite identificar el número de prospectos generados.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',
             comparedValue: 0,
-            comparedRange: ''
+            comparedRange: '',
         },
         {
             contentName: 'Promedio',
             subcontentName: 'Diario',
-            description: 'Permite identificar el promedio de prospectos generados al día.',
+            description:
+                'Permite identificar el promedio de prospectos generados al día.',
             totalContents: 0,
             selectedValue: 0,
             selectedRange: '',
             comparedValue: 0,
-            comparedRange: ''
+            comparedRange: '',
         },
     ];
 
@@ -65,13 +68,27 @@ export class ContainerLeadChannelsKpisService {
         private _contactSourceService: ContactSourceService,
         private _contactSourceTypeService: ContactSourceTypeService,
         private _leadService: LeadService
-    ) { }
+    ) {}
 
     getContactSourcesStats(range: ComparisonRangeData): Observable<Stat[][]> {
         const rangeField: string = 'leadConversionDate';
         let requests: Observable<Stat[]>[] = [];
-        requests.push(this._contactSourceService.getContactSourcesStats('', rangeField, range.selectedRangeStart, range.selectedRangeEnd));
-        requests.push(this._contactSourceService.getContactSourcesStats('', rangeField, range.comparedRangeStart, range.comparedRangeEnd));
+        requests.push(
+            this._contactSourceService.getContactSourcesStats(
+                '',
+                rangeField,
+                range.selectedRangeStart,
+                range.selectedRangeEnd
+            )
+        );
+        requests.push(
+            this._contactSourceService.getContactSourcesStats(
+                '',
+                rangeField,
+                range.comparedRangeStart,
+                range.comparedRangeEnd
+            )
+        );
         return forkJoin(requests);
     }
 
@@ -79,19 +96,46 @@ export class ContainerLeadChannelsKpisService {
         const contactSourceId: number = CONTACT_SOURCE_TYPES.PARTNERS;
         const rangeField: string = 'leadConversionDate';
         let requests: Observable<Stat[]>[] = [];
-        requests.push(this._contactSourceTypeService.getContactSourceTypesStats(contactSourceId, rangeField, range.selectedRangeStart, range.selectedRangeEnd));
-        requests.push(this._contactSourceTypeService.getContactSourceTypesStats(contactSourceId, rangeField, range.comparedRangeStart, range.comparedRangeEnd));
+        requests.push(
+            this._contactSourceTypeService.getContactSourceTypesStats(
+                contactSourceId,
+                rangeField,
+                range.selectedRangeStart,
+                range.selectedRangeEnd
+            )
+        );
+        requests.push(
+            this._contactSourceTypeService.getContactSourceTypesStats(
+                contactSourceId,
+                rangeField,
+                range.comparedRangeStart,
+                range.comparedRangeEnd
+            )
+        );
         return forkJoin(requests);
     }
 
     getTotalGeneratedLeads(range: ComparisonRangeData): Observable<number[]> {
         const rangeField: string = 'leadConversionDate';
         let requests: Observable<number>[] = [];
-        requests.push(this._leadService.getTotalLeads('', rangeField, range.selectedRangeStart, range.selectedRangeEnd));
-        requests.push(this._leadService.getTotalLeads('', rangeField, range.comparedRangeStart, range.comparedRangeEnd));
+        requests.push(
+            this._leadService.getTotalLeads(
+                '',
+                rangeField,
+                range.selectedRangeStart,
+                range.selectedRangeEnd
+            )
+        );
+        requests.push(
+            this._leadService.getTotalLeads(
+                '',
+                rangeField,
+                range.comparedRangeStart,
+                range.comparedRangeEnd
+            )
+        );
         return forkJoin(requests);
     }
-
 
     getAllGeneratedLeads(): Observable<number> {
         const filters: string = 'leadConversionDate[!=]null';
@@ -102,9 +146,10 @@ export class ContainerLeadChannelsKpisService {
         // Selected content
         let totalActiveChannels: number = 0;
         let acquisitionChannels: Stat[] = stats[PERIOD_STATUS.SELECTED];
-        this.channelKpis[ACTIVE_CHANNELS].totalContents = acquisitionChannels.length;
+        this.channelKpis[ACTIVE_CHANNELS].totalContents =
+            acquisitionChannels.length;
         for (let acquisitionChannel of acquisitionChannels) {
-            if(acquisitionChannel.value > 0) {
+            if (acquisitionChannel.value > 0) {
                 totalActiveChannels++;
             }
         }
@@ -114,7 +159,7 @@ export class ContainerLeadChannelsKpisService {
         totalActiveChannels = 0;
         acquisitionChannels = stats[PERIOD_STATUS.COMPARED];
         for (let acquisitionChannel of acquisitionChannels) {
-            if(acquisitionChannel.value > 0) {
+            if (acquisitionChannel.value > 0) {
                 totalActiveChannels++;
             }
         }
@@ -127,7 +172,7 @@ export class ContainerLeadChannelsKpisService {
         let partnerStats: Stat[] = stats[PERIOD_STATUS.SELECTED];
         this.channelKpis[ACTIVE_PARTNERS].totalContents = partnerStats.length;
         for (let partnerStat of partnerStats) {
-            if(partnerStat.value > 0) {
+            if (partnerStat.value > 0) {
                 totalActivePartners++;
             }
         }
@@ -137,7 +182,7 @@ export class ContainerLeadChannelsKpisService {
         totalActivePartners = 0;
         partnerStats = stats[PERIOD_STATUS.COMPARED];
         for (let partnerStat of partnerStats) {
-            if(partnerStat.value > 0) {
+            if (partnerStat.value > 0) {
                 totalActivePartners++;
             }
         }
@@ -145,15 +190,25 @@ export class ContainerLeadChannelsKpisService {
     }
 
     loadTotalGeneratedLeads(data: number[]): void {
-        this.channelKpis[TOTAL_GENERATED_LEADS].selectedValue = data[PERIOD_STATUS.SELECTED];
-        this.channelKpis[TOTAL_GENERATED_LEADS].comparedValue = data[PERIOD_STATUS.COMPARED];
+        this.channelKpis[TOTAL_GENERATED_LEADS].selectedValue =
+            data[PERIOD_STATUS.SELECTED];
+        this.channelKpis[TOTAL_GENERATED_LEADS].comparedValue =
+            data[PERIOD_STATUS.COMPARED];
     }
 
     loadDailyAverage(data: number[], range: ComparisonRangeData): void {
-        const selectedDays: number = UtilitiesHelper.getRangeDays(range.selectedRangeStart, range.selectedRangeEnd);
-        const comparedDays: number = UtilitiesHelper.getRangeDays(range.comparedRangeStart, range.comparedRangeEnd);
-        this.channelKpis[DAILY_AVERAGE].selectedValue = data[PERIOD_STATUS.SELECTED] / selectedDays;
-        this.channelKpis[DAILY_AVERAGE].comparedValue = data[PERIOD_STATUS.COMPARED] / comparedDays;
+        const selectedDays: number = UtilitiesHelper.getRangeDays(
+            range.selectedRangeStart,
+            range.selectedRangeEnd
+        );
+        const comparedDays: number = UtilitiesHelper.getRangeDays(
+            range.comparedRangeStart,
+            range.comparedRangeEnd
+        );
+        this.channelKpis[DAILY_AVERAGE].selectedValue =
+            data[PERIOD_STATUS.SELECTED] / selectedDays;
+        this.channelKpis[DAILY_AVERAGE].comparedValue =
+            data[PERIOD_STATUS.COMPARED] / comparedDays;
     }
 
     loadAllGeneratedLeads(totalLeads: number): void {
@@ -163,8 +218,10 @@ export class ContainerLeadChannelsKpisService {
 
     loadRangeDates(range: ComparisonRangeData): void {
         for (let index in this.channelKpis) {
-            this.channelKpis[index].selectedRange = range.selectedRangeStart + ' - ' + range.selectedRangeEnd;
-            this.channelKpis[index].comparedRange = range.comparedRangeStart + ' - ' + range.comparedRangeEnd;
+            this.channelKpis[index].selectedRange =
+                range.selectedRangeStart + ' - ' + range.selectedRangeEnd;
+            this.channelKpis[index].comparedRange =
+                range.comparedRangeStart + ' - ' + range.comparedRangeEnd;
         }
     }
 }

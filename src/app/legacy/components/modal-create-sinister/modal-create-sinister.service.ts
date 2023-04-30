@@ -19,7 +19,7 @@ import {
     FREE_TEXT_LENGTH,
 } from '@constants/global';
 import { WorkspaceUser } from '@core/interfaces/workspace-user.interface';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { AuthService } from '@core/services/auth/auth.service';
 import { PolicyService } from '@services/policy.service';

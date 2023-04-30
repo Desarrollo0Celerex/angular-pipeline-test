@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 
 import { QUOTATION_STATUS } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 import { QuotationService } from '@services/quotation.service';
@@ -11,22 +11,43 @@ import { QuotationService } from '@services/quotation.service';
 export class ChartLeadChannelsWithHigherConversionService {
     contactSourcesQuotationsStatsData: any[] = [];
 
-    constructor(private _quotationService: QuotationService) { }
+    constructor(private _quotationService: QuotationService) {}
 
-    getContactSourcesQuotationsStats(range: ComparisonRangeData): Observable<Stat[][]> {
+    getContactSourcesQuotationsStats(
+        range: ComparisonRangeData
+    ): Observable<Stat[][]> {
         this.contactSourcesQuotationsStatsData = [];
-        const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.ACCEPTED]);
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'quotationStatusId',
+            [QUOTATION_STATUS.ACCEPTED]
+        );
         const rangeField: string = 'closedAt';
         let requests: Observable<Stat[]>[] = [];
-        requests.push(this._quotationService.getContactSourcesQuotationsStats(filters, rangeField, range.selectedRangeStart, range.selectedRangeEnd));
-        requests.push(this._quotationService.getContactSourcesQuotationsStats(filters, rangeField, range.comparedRangeStart, range.comparedRangeEnd));
+        requests.push(
+            this._quotationService.getContactSourcesQuotationsStats(
+                filters,
+                rangeField,
+                range.selectedRangeStart,
+                range.selectedRangeEnd
+            )
+        );
+        requests.push(
+            this._quotationService.getContactSourcesQuotationsStats(
+                filters,
+                rangeField,
+                range.comparedRangeStart,
+                range.comparedRangeEnd
+            )
+        );
         return forkJoin(requests);
     }
 
-    loadContactSourcesQuotationsStatsData(contactSourcesQuotationsStats: Stat[][]): void {
+    loadContactSourcesQuotationsStatsData(
+        contactSourcesQuotationsStats: Stat[][]
+    ): void {
         let data: any[] = [];
         for (let contactSourceStats of contactSourcesQuotationsStats[0]) {
-                data.push([contactSourceStats.name]);
+            data.push([contactSourceStats.name]);
         }
         for (let index in contactSourcesQuotationsStats[0]) {
             for (let contactSourceStats of contactSourcesQuotationsStats) {
@@ -34,7 +55,11 @@ export class ChartLeadChannelsWithHigherConversionService {
             }
         }
         this.contactSourcesQuotationsStatsData = this._calculateTop3(data);
-        this.contactSourcesQuotationsStatsData.unshift(['Canales', 'Periodo Seleccionado', 'Periodo Comparación']);
+        this.contactSourcesQuotationsStatsData.unshift([
+            'Canales',
+            'Periodo Seleccionado',
+            'Periodo Comparación',
+        ]);
     }
 
     private _calculateTop3(data: any[]): any[] {

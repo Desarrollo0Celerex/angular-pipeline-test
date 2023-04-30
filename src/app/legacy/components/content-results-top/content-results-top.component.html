@@ -1,5 +1,9 @@
 <div class="card-body">
     <ol class="breadcrumb1">
-        <li class="breadcrumb-item1">Mostrando <strong>{{contentResultData.loadedItems}}</strong> de <strong>{{contentResultData.totalItems}}</strong> {{contentTypeName | pluralNameFormat}} {{contentSubtypeName | pluralNameFormat}}.</li>
+        <li class="breadcrumb-item1">
+            Mostrando <strong>{{ contentResultData.loadedItems }}</strong> de
+            <strong>{{ contentResultData.totalItems }}</strong>
+            {{ contentTypeName | plural }} {{ contentSubtypeName | plural }}.
+        </li>
     </ol>
 </div>

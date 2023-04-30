@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { QUOTATION_STATUS } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { RangeData } from '@interfaces/range-data.interface';
 import { QuotationService } from '@services/quotation.service';
 
@@ -9,12 +9,22 @@ import { QuotationService } from '@services/quotation.service';
 export class CardKpiWorkspaceQuotationsOpenedService {
     totalWorkspaceQuotationsOpened: number = 0;
 
-    constructor(private _quotationService: QuotationService) { }
+    constructor(private _quotationService: QuotationService) {}
 
     loadTotalWorkspaceQuotationsOpened(range: RangeData): void {
-        const filters: string = UtilitiesHelper.generateHttpFilter('quotationStatusId', [QUOTATION_STATUS.PENDING]);
-        this._quotationService.getTotalWorkspaceQuotations(filters, range.rangeField, range.rangeStart, range.rangeEnd).subscribe((res: number) => {
-            this.totalWorkspaceQuotationsOpened = res;
-        });
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'quotationStatusId',
+            [QUOTATION_STATUS.PENDING]
+        );
+        this._quotationService
+            .getTotalWorkspaceQuotations(
+                filters,
+                range.rangeField,
+                range.rangeStart,
+                range.rangeEnd
+            )
+            .subscribe((res: number) => {
+                this.totalWorkspaceQuotationsOpened = res;
+            });
     }
 }

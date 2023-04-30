@@ -1,32 +1,53 @@
-<ng-container *ngIf="containerExternalPoliciesService.externalPolicies.length > 0">
+<ng-container
+    *ngIf="containerExternalPoliciesService.externalPolicies.length > 0"
+>
     <div class="row mt-3">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Pólizas Externas {{policyStatusName | pluralNameFormat}}</h3>
+                    <h3 class="card-title">
+                        Pólizas Externas {{ policyStatusName | plural }}
+                    </h3>
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3" *ngFor="let externalPolicy of containerExternalPoliciesService.externalPolicies">
+        <div
+            class="col-sm-12 col-md-6 col-lg-6 col-xl-3"
+            *ngFor="
+                let externalPolicy of containerExternalPoliciesService.externalPolicies
+            "
+        >
             <agt-card-external-policy
                 [externalPolicy]="externalPolicy"
                 (showExternalPolicy)="_showExternalPolicy($event)"
                 (showExternalPolicyDetails)="showExternalPolicyDetails($event)"
-                (confirmValidateExternalPolicy)="_confirmValidateExternalPolicy($event)"
-                (confirmUpdateExternalPolicy)="_confirmUpdateExternalPolicy($event)"
-                >
+                (confirmValidateExternalPolicy)="
+                    _confirmValidateExternalPolicy($event)
+                "
+                (confirmUpdateExternalPolicy)="
+                    _confirmUpdateExternalPolicy($event)
+                "
+            >
             </agt-card-external-policy>
         </div>
     </div>
 
-    <agt-modal-confirm-validate-external-policy [modalId]="modalIdConfirmValidateExternalPolicy" (actionConfirmed)="goToUpdateExternalPolicy()"></agt-modal-confirm-validate-external-policy>
-    <agt-modal-confirm-update-external-policy [modalId]="modalIdConfirmUpdateExternalPolicy" (actionConfirmed)="goToUpdateExternalPolicy()"></agt-modal-confirm-update-external-policy>
-    <agt-modal-show-policy-file [modalId]="modalIdShowPolicyFile" [policyUrl]="selectedExternalPolicyUrl"></agt-modal-show-policy-file>
+    <agt-modal-confirm-validate-external-policy
+        [modalId]="modalIdConfirmValidateExternalPolicy"
+        (actionConfirmed)="goToUpdateExternalPolicy()"
+    ></agt-modal-confirm-validate-external-policy>
+    <agt-modal-confirm-update-external-policy
+        [modalId]="modalIdConfirmUpdateExternalPolicy"
+        (actionConfirmed)="goToUpdateExternalPolicy()"
+    ></agt-modal-confirm-update-external-policy>
+    <agt-modal-show-policy-file
+        [modalId]="modalIdShowPolicyFile"
+        [policyUrl]="selectedExternalPolicyUrl"
+    ></agt-modal-show-policy-file>
     <agt-modal-show-external-policy-details
         [modalId]="modalIdShowExternalPolicyDetails"
         [contactId]="selectedContactId"
         [externalPolicyId]="selectedExternalPolicyId"
         (showExternalPolicy)="_showExternalPolicy($event)"
     ></agt-modal-show-external-policy-details>
-
 </ng-container>

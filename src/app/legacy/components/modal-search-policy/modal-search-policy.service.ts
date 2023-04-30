@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 
 import { POLICY_STATUS } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { PolicyService } from '@services/policy.service';
 
 import { FREE_TEXT_LENGTH } from '@constants/global';

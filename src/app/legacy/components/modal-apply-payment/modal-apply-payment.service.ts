@@ -11,7 +11,7 @@ import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { PAYMENT_PLANS, PAYMENT_SOURCE_TYPES } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Payment } from '@interfaces/payment.interface';
 import { PaymentType } from '@interfaces/payment-type.interface';

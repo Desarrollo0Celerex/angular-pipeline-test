@@ -93,7 +93,7 @@ import { ModalUpdateSinisterEventModule } from '@components/modal-update-siniste
 
 import { WrapperDownloadSinisterEventEvidenceModule } from '@components/wrapper-download-sinister-event-evidence/wrapper-download-sinister-event-evidence.module';
 
-import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
+import { SharedModule } from '@shared/shared.module';
 
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@core/services/contact/contact.service';
@@ -151,7 +151,7 @@ import { ContentListService } from './content-list.service';
         ContentSuggestionsModule,
         ContentTotalResultsModule,
         LoadingContentModule,
-        PluralNameFormatModule,
+        SharedModule,
         ModalApplyPaymentModule,
         ModalConfirmAcceptQuotationModule,
         ModalConfirmCancelPolicyModule,

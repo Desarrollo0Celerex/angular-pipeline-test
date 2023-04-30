@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 
 import { PAYMENT_STATUS } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 import { PaymentService } from '@services/payment.service';
@@ -11,22 +11,46 @@ import { PaymentService } from '@services/payment.service';
 export class ChartInsurancesPaymentsService {
     insurancesPaymentsStatsData: any[] = [];
 
-    constructor(private _paymentService: PaymentService) { }
+    constructor(private _paymentService: PaymentService) {}
 
-    getInsurancesPaymentsStats(range: ComparisonRangeData): Observable<Stat[][]> {
+    getInsurancesPaymentsStats(
+        range: ComparisonRangeData
+    ): Observable<Stat[][]> {
         this.insurancesPaymentsStatsData = [];
-        const filters: string = UtilitiesHelper.generateHttpFilter('paymentStatusId', [PAYMENT_STATUS.INTIME, PAYMENT_STATUS.PENDING, PAYMENT_STATUS.LATE, PAYMENT_STATUS.OVERDUE]);
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'paymentStatusId',
+            [
+                PAYMENT_STATUS.INTIME,
+                PAYMENT_STATUS.PENDING,
+                PAYMENT_STATUS.LATE,
+                PAYMENT_STATUS.OVERDUE,
+            ]
+        );
         const rangeField: string = 'paymentDate';
         let requests: Observable<Stat[]>[] = [];
-        requests.push(this._paymentService.getInsurancesPaymentsStats(filters, rangeField, range.selectedRangeStart, range.selectedRangeEnd));
-        requests.push(this._paymentService.getInsurancesPaymentsStats(filters, rangeField, range.comparedRangeStart, range.comparedRangeEnd));
+        requests.push(
+            this._paymentService.getInsurancesPaymentsStats(
+                filters,
+                rangeField,
+                range.selectedRangeStart,
+                range.selectedRangeEnd
+            )
+        );
+        requests.push(
+            this._paymentService.getInsurancesPaymentsStats(
+                filters,
+                rangeField,
+                range.comparedRangeStart,
+                range.comparedRangeEnd
+            )
+        );
         return forkJoin(requests);
     }
 
     loadInsurancesPaymentsStatsData(insurancesPaymentsStats: Stat[][]): void {
         let data: any[] = [];
         for (let contactSourceStats of insurancesPaymentsStats[0]) {
-                data.push([contactSourceStats.name]);
+            data.push([contactSourceStats.name]);
         }
         for (let index in insurancesPaymentsStats[0]) {
             for (let contactSourceStats of insurancesPaymentsStats) {
@@ -34,7 +58,11 @@ export class ChartInsurancesPaymentsService {
             }
         }
         this.insurancesPaymentsStatsData = this._calculateTop3(data);
-        this.insurancesPaymentsStatsData.unshift(['Canales', 'Periodo Seleccionado', 'Periodo Comparación']);
+        this.insurancesPaymentsStatsData.unshift([
+            'Canales',
+            'Periodo Seleccionado',
+            'Periodo Comparación',
+        ]);
     }
 
     private _calculateTop3(data: any[]): any[] {

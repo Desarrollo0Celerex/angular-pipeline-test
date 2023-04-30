@@ -19,7 +19,7 @@ import {
     POLICY_INSURED_STATUS,
     QUOTATION_STATUS,
 } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { SinisterEventHelper } from '@helpers/sinister-event.helper';
 import { Contact } from '@core/interfaces/contact.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';

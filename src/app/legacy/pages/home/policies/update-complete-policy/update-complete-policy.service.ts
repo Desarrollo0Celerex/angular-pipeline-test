@@ -25,7 +25,7 @@ import {
     EMAIL_LENGTH,
 } from '@constants/global';
 import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
 import { Currency } from '@interfaces/currency.interface';

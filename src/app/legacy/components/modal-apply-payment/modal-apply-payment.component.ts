@@ -18,7 +18,7 @@ import {
 import { ModalSelectEvidenceComponent } from '@components/modal-select-evidence/modal-select-evidence.component';
 import { AlertHelper } from '@helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { LoadingService } from '@core/services/loading/loading.service';
 

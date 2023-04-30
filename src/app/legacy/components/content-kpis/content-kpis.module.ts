@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
+import { SharedModule } from '@shared/shared.module';
 import { ClientService } from '@services/client.service';
 import { ClientStatusService } from '@services/client-status.service';
 import { GroupService } from '@services/group.service';
@@ -20,27 +20,23 @@ import { ContentKpisComponent } from './content-kpis.component';
 import { ContentKpisService } from './content-kpis.service';
 
 @NgModule({
-  declarations: [ContentKpisComponent],
-  exports: [ContentKpisComponent],
-  imports: [
-    CommonModule,
-    PluralNameFormatModule,
-    RouterModule
-  ],
-  providers: [
-      ClientService,
-      ClientStatusService,
-      GroupService,
-      GroupStatusService,
-      ContentKpisService,
-      LeadService,
-      LeadStatusService,
-      PartnerService,
-      PartnerStatusService,
-      PaymentService,
-      PaymentStatusService,
-      SinisterService,
-      SinisterStatusService
-  ]
+    declarations: [ContentKpisComponent],
+    exports: [ContentKpisComponent],
+    imports: [CommonModule, SharedModule, RouterModule],
+    providers: [
+        ClientService,
+        ClientStatusService,
+        GroupService,
+        GroupStatusService,
+        ContentKpisService,
+        LeadService,
+        LeadStatusService,
+        PartnerService,
+        PartnerStatusService,
+        PaymentService,
+        PaymentStatusService,
+        SinisterService,
+        SinisterStatusService,
+    ],
 })
-export class ContentKpisModule { }
+export class ContentKpisModule {}

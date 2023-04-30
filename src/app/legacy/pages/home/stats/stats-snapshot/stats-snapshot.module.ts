@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { MenuStatsModule } from '@components/menu-stats/menu-stats.module';
-import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
+import { PluralPipe } from '@shared/pipes/plural/plural.pipe';
 
 import { InsurerService } from '@services/insurer.service';
 import { ContactSourceService } from '@services/contact-source.service';
@@ -30,7 +30,7 @@ import { StatsSnapshotPage } from './stats-snapshot.page';
         MenuStatsModule,
     ],
     providers: [
-        PluralNameFormatPipe,
+        PluralPipe,
         InsurerService,
         ContactSourceService,
         ContactTypeService,

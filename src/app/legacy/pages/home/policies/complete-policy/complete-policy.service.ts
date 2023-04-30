@@ -28,7 +28,7 @@ import {
     EMAIL_LENGTH,
     AGENT_NUMBER_LENGTH,
 } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 
 import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';

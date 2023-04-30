@@ -23,6 +23,11 @@ export const CONTACT_ENDPOINTS: any = {
         `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/annual-wallet/${year}`,
 };
 
+export const PAYMENT_ENDPOINTS: any = {
+    totalWorkspacePayments: (workspaceId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/payments/count`,
+};
+
 export const WORKSPACE_ENDPOINTS: any = {
     workspaces: `${environment.apiUrl}/workspaces`,
     workspace: (workspaceId: string) =>

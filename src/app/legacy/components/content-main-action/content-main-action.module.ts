@@ -16,35 +16,33 @@ import { ModalSelectInsuranceListTypeModule } from '@components/modal-select-ins
 import { ModalSelectPolicyStatusModule } from '@components/modal-select-policy-status/modal-select-policy-status.module';
 import { ModalSelectQuotationStatusModule } from '@components/modal-select-quotation-status/modal-select-quotation-status.module';
 import { ModalSelectSinisterStatusModule } from '@components/modal-select-sinister-status/modal-select-sinister-status.module';
-import { PluralNameFormatModule } from '@pipes/plural-name-format/plural-name-format.module';
-import { PluralNameFormatPipe } from '@pipes/plural-name-format/plural-name-format.pipe';
+import { SharedModule } from '@shared/shared.module';
+import { PluralPipe } from '@shared/pipes/plural/plural.pipe';
 
 import { ContentMainActionComponent } from './content-main-action.component';
 
 @NgModule({
-  declarations: [ContentMainActionComponent],
-  exports: [ContentMainActionComponent],
-  imports: [
-    CommonModule,
-    ModalConfirmCreateGroupModule,
-    ModalConfirmCreatePartnerModule,
-    ModalCreateGroupModule,
-    ModalCreatePartnerModule,
-    ModalCreateSinisterModule,
-    ModalDuplicateGroupModule,
-    ModalDuplicatePartnerModule,
-    ModalSearchClientModule,
-    ModalSearchPaymentModule,
-    ModalSearchPolicyModule,
-    ModalSelectContactTypeModule,
-    ModalSelectInsuranceListTypeModule,
-    ModalSelectPolicyStatusModule,
-    ModalSelectQuotationStatusModule,
-    ModalSelectSinisterStatusModule,
-    PluralNameFormatModule
-  ],
-  providers: [
-    PluralNameFormatPipe
-  ]
+    declarations: [ContentMainActionComponent],
+    exports: [ContentMainActionComponent],
+    imports: [
+        CommonModule,
+        ModalConfirmCreateGroupModule,
+        ModalConfirmCreatePartnerModule,
+        ModalCreateGroupModule,
+        ModalCreatePartnerModule,
+        ModalCreateSinisterModule,
+        ModalDuplicateGroupModule,
+        ModalDuplicatePartnerModule,
+        ModalSearchClientModule,
+        ModalSearchPaymentModule,
+        ModalSearchPolicyModule,
+        ModalSelectContactTypeModule,
+        ModalSelectInsuranceListTypeModule,
+        ModalSelectPolicyStatusModule,
+        ModalSelectQuotationStatusModule,
+        ModalSelectSinisterStatusModule,
+        SharedModule,
+    ],
+    providers: [PluralPipe],
 })
-export class ContentMainActionModule { }
+export class ContentMainActionModule {}

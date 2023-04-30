@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 
 import { POLICY_STATUS } from '@constants/global';
-import { UtilitiesHelper } from '@helpers/utilities.helper';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { StatisticService } from '@services/statistic.service';
 
