@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">{{ title }}</h3>
+        <ng-container *ngIf="description">
+            <div class="card-options">
+                <i
+                    data-toggle="popover"
+                    data-placement="left"
+                    class="fe fe-help-circle fs-20 text-primary"
+                    [attr.data-content]="description"
+                ></i>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -1,1 +1,67 @@
-<agt-payments-kpis></agt-payments-kpis>
+<agt-payments-kpis
+    [selectedContentSubtype]="contentSubtype"
+></agt-payments-kpis>
+
+<div class="row mt-5">
+    <!-- AGENTHOS - SMART SEARCH -->
+    <div class="col-xl-9 col-lg-6 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Localizar Recibo</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="row gutters-xs">
+                        <div class="col">
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="agtSearchQuery"
+                                placeholder="Buscador de Recibos"
+                            />
+                        </div>
+                        <span class="col-auto">
+                            <a href="../payments/results.php">
+                                <button
+                                    type="button"
+                                    name="agtSmartSearch"
+                                    class="btn agt-btn-primary"
+                                >
+                                    <i class="fe fe-search"></i></button
+                            ></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - SMART SEARCH -->
+    <!-- AGENTHOS - PAYTRACKER ACTIONS -->
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Gestionar Cobranza</h3>
+            </div>
+            <div class="card-body">
+                <button
+                    type="button"
+                    name="agtPayTrackerActions"
+                    class="btn btn-block agt-btn-secondary"
+                    data-toggle="modal"
+                    data-target="#agtPayTrackerActions"
+                >
+                    <strong>ACCIONES DISPONIBLES</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- //AGENTHOS - PAYTRACKER ACTIONS -->
+</div>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <agt-card-content-title
+            title="{{contentType | contentTypeName | plural }} {{contentSubtype | paymentStatusName}}"
+        ></agt-card-content-title>
+    </div>
+</div>

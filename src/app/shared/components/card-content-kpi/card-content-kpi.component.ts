@@ -1,10 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ContentKpi } from '@core/interfaces/content-kpi.interface';
 import { DumbComponent } from '@core/classes/dumb-component';
 

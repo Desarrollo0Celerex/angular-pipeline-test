@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 
-import { SmartComponent } from '@core/classes/smart-component';
 import { CONTENT_TYPES, PAYMENT_STATUS } from '@configs/constants.config';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ContentKpi } from '@core/interfaces/content-kpi.interface';
 import { PaymentService } from '@core/services/payment/payment.service';
 
 import { PayTrackerService } from '../../services/pay-tracker/pay-tracker.service';
+import { SmartComponent } from '@core/classes/smart-component';
 
 declare var CounterPlugin: any;
 
@@ -17,7 +17,7 @@ declare var CounterPlugin: any;
     styles: [],
 })
 export class PaymentsKpisContainer extends SmartComponent implements OnInit {
-    selectedContentSubtype: number = 0;
+    @Input() selectedContentSubtype: number = 0;
     kpis: ContentKpi[] = [
         {
             contentType: CONTENT_TYPES.PAYMENTS,
@@ -50,11 +50,6 @@ export class PaymentsKpisContainer extends SmartComponent implements OnInit {
         private _payTrackerService: PayTrackerService
     ) {
         super();
-        this._payTrackerService.contentSubtype
-            .pipe(this.untilComponentDestroy())
-            .subscribe((contentSubtype) => {
-                this.selectedContentSubtype = contentSubtype;
-            });
     }
 
     ngOnInit(): void {
@@ -68,13 +63,14 @@ export class PaymentsKpisContainer extends SmartComponent implements OnInit {
     private _loadKpis(): void {
         this._paymentService
             .getTotalWorkspacePayments()
+            .pipe(this.untilComponentDestroy())
             .subscribe((total: number) => {
-                this._generateRequests().subscribe(
-                    (totalsByStatus: number[]) => {
+                this._generateRequests()
+                    .pipe(this.untilComponentDestroy())
+                    .subscribe((totalsByStatus: number[]) => {
                         this._loadData(total, totalsByStatus);
                         CounterPlugin.countUp();
-                    }
-                );
+                    });
             });
     }
 

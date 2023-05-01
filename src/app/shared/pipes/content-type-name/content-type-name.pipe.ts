@@ -10,7 +10,7 @@ export class ContentTypeNamePipe implements PipeTransform {
         let name: string;
         switch (contentType) {
             case CONTENT_TYPES.PAYMENTS:
-                name = 'Pago';
+                name = 'Recibo';
                 break;
 
             default:
