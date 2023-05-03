@@ -4,7 +4,10 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'plural',
 })
 export class PluralPipe implements PipeTransform {
-    transform(name: string): string {
+    transform(name: string, quantity?: number): string {
+        if (quantity && quantity === 1) {
+            return name;
+        }
         let pluralName: string;
         switch (name) {
             case 'Cotización':

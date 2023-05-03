@@ -1,5 +1,5 @@
 <agt-payments-kpis
-    [selectedContentSubtype]="contentSubtype"
+    [selectedPaymentStatusId]="paymentStatusId"
 ></agt-payments-kpis>
 
 <div class="row mt-5">
@@ -61,7 +61,12 @@
 <div class="row mt-3">
     <div class="col-12">
         <agt-card-content-title
-            title="{{contentType | contentTypeName | plural }} {{contentSubtype | paymentStatusName}}"
+            title="{{contentType | contentTypeName | plural }} {{paymentStatusId | paymentStatusName | plural}}"
         ></agt-card-content-title>
     </div>
 </div>
+
+<agt-payment-list
+    [contentType]="contentType"
+    [paymentStatusId]="paymentStatusId"
+></agt-payment-list>

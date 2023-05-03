@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { Payment } from '@interfaces/payment.interface';
+import { Payment } from '@core/interfaces/payment.interface';
 import { UpdatePolicyStatusDataSend } from '@interfaces/update-policy-status-data-send.interface';
 import { PaymentService } from '@services/payment.service';
 import { PolicyService } from '@services/policy.service';

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { Payment } from '@interfaces/payment.interface';
+import { Payment } from '@core/interfaces/payment.interface';
 import { TotalPaymentsAmountData } from '@interfaces/total-payments-amount-data.interface';
 import { PaymentService } from '@services/payment.service';
 

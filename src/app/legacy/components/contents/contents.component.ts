@@ -1,4 +1,12 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import {
+    Component,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+    Output,
+    EventEmitter,
+} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import {
@@ -7,21 +15,21 @@ import {
     POLICY_STATUS_ACTIVE,
     SINISTER_STATUS_OPEN,
     GROUP_STATUS,
-    PARTNER_STATUS
+    PARTNER_STATUS,
 } from '@constants/global';
-import { Payment } from '@interfaces/payment.interface';
+import { Payment } from '@core/interfaces/payment.interface';
 import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-format.pipe';
 
 @Component({
-  selector: 'agt-contents',
-  templateUrl: './contents.component.html',
-  styles: [
-  ]
+    selector: 'agt-contents',
+    templateUrl: './contents.component.html',
+    styles: [],
 })
 export class ContentsComponent implements OnInit, OnDestroy {
     @Input() contentType: number;
     @Input() contentTypeName: string;
-    @Output() showPolicyInsuredActions: EventEmitter<void> = new EventEmitter<void>();
+    @Output() showPolicyInsuredActions: EventEmitter<void> =
+        new EventEmitter<void>();
     @ViewChild('contentList') contentList: any;
     canReloadContent: boolean = false;
     canShowKpis: boolean;
@@ -57,11 +65,13 @@ export class ContentsComponent implements OnInit, OnDestroy {
         this.canShowKpis = this._checkCanShowKpis();
         this.mainActionWidth = this._getMainActionWidth();
         this.searchEngineWidth = this._getSearchEngineWidth();
-        this.contentSubtypeName = (!!this.contentSubtypeName) ? this.contentSubtypeName : this._generateContentSubtypeName();
+        this.contentSubtypeName = !!this.contentSubtypeName
+            ? this.contentSubtypeName
+            : this._generateContentSubtypeName();
     }
 
     ngOnDestroy(): void {
-        if(!!this._subParams) this._subParams.unsubscribe();
+        if (!!this._subParams) this._subParams.unsubscribe();
     }
 
     /**
@@ -109,20 +119,34 @@ export class ContentsComponent implements OnInit, OnDestroy {
      */
     private _catchParams(): void {
         // Static params
-        this.contactId = (!!this._activatedRoute.snapshot.params.contactId) ? this._activatedRoute.snapshot.params.contactId : '';
-        this.policyId = (!!this._activatedRoute.snapshot.params.policyId) ? this._activatedRoute.snapshot.params.policyId : '';
-        this.groupId = (!!this._activatedRoute.snapshot.params.groupId) ? this._activatedRoute.snapshot.params.groupId : '';
-        this.partnerId = (!!this._activatedRoute.snapshot.params.partnerId) ? this._activatedRoute.snapshot.params.partnerId : '';
+        this.contactId = !!this._activatedRoute.snapshot.params.contactId
+            ? this._activatedRoute.snapshot.params.contactId
+            : '';
+        this.policyId = !!this._activatedRoute.snapshot.params.policyId
+            ? this._activatedRoute.snapshot.params.policyId
+            : '';
+        this.groupId = !!this._activatedRoute.snapshot.params.groupId
+            ? this._activatedRoute.snapshot.params.groupId
+            : '';
+        this.partnerId = !!this._activatedRoute.snapshot.params.partnerId
+            ? this._activatedRoute.snapshot.params.partnerId
+            : '';
 
         // Dynamic params
-        this._subParams = this._activatedRoute.queryParams.subscribe( (params: Params) => {
-            this.contentSubtype = this._getContentSubtype(params.contentSubtype);
-            this.query = (typeof params.query !== 'undefined') ? params.query : '';
-            if(!!this.query) {
-                this.contentSubtype = 0;
-                this.contentSubtypeName = this._labelFoundFormatPipe.transform(this.contentType);
+        this._subParams = this._activatedRoute.queryParams.subscribe(
+            (params: Params) => {
+                this.contentSubtype = this._getContentSubtype(
+                    params.contentSubtype
+                );
+                this.query =
+                    typeof params.query !== 'undefined' ? params.query : '';
+                if (!!this.query) {
+                    this.contentSubtype = 0;
+                    this.contentSubtypeName =
+                        this._labelFoundFormatPipe.transform(this.contentType);
+                }
             }
-        })
+        );
     }
 
     /**
@@ -131,7 +155,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
      */
     private _checkCanShowKpis(): boolean {
         let canShow: boolean;
-        switch(this.contentType) {
+        switch (this.contentType) {
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.PAYMENT.ID:
@@ -139,7 +163,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
             case CONTENT_TYPES.PARTNER.ID:
             case CONTENT_TYPES.GROUP.ID:
                 canShow = true;
-            break;
+                break;
 
             default:
                 canShow = false;
@@ -154,20 +178,20 @@ export class ContentsComponent implements OnInit, OnDestroy {
      */
     private _getContentSubtype(param: string): number {
         let contentSubtype: number;
-        if(typeof param !== 'undefined') {
+        if (typeof param !== 'undefined') {
             contentSubtype = parseInt(param);
         } else {
-            if(
-                    this.contentType === CONTENT_TYPES.POLICY.ID ||
-                    this.contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
-                    this.contentType === CONTENT_TYPES.PARTNER_POLICY.ID
-                ) {
+            if (
+                this.contentType === CONTENT_TYPES.POLICY.ID ||
+                this.contentType === CONTENT_TYPES.GROUP_POLICY.ID ||
+                this.contentType === CONTENT_TYPES.PARTNER_POLICY.ID
+            ) {
                 contentSubtype = POLICY_STATUS_ACTIVE;
-            } else if(
-                    this.contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
-                    this.contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
-                    this.contentType === CONTENT_TYPES.PARTNER_SINISTER.ID
-                ) {
+            } else if (
+                this.contentType === CONTENT_TYPES.CONTACT_SINISTER.ID ||
+                this.contentType === CONTENT_TYPES.GROUP_SINISTER.ID ||
+                this.contentType === CONTENT_TYPES.PARTNER_SINISTER.ID
+            ) {
                 contentSubtype = SINISTER_STATUS_OPEN;
             } else {
                 contentSubtype = DEFAULT_CONTENT_FILTER_ID;
@@ -182,14 +206,14 @@ export class ContentsComponent implements OnInit, OnDestroy {
      */
     private _getMainActionWidth(): number {
         let width: number;
-        switch(this.contentType) {
+        switch (this.contentType) {
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
             case CONTENT_TYPES.PARTNER.ID:
                 width = 3;
-            break;
+                break;
 
             default:
                 width = 4;
@@ -203,14 +227,14 @@ export class ContentsComponent implements OnInit, OnDestroy {
      */
     private _getSearchEngineWidth(): number {
         let width: number;
-        switch(this.contentType) {
+        switch (this.contentType) {
             case CONTENT_TYPES.LEAD.ID:
             case CONTENT_TYPES.CLIENT.ID:
             case CONTENT_TYPES.PAYMENT.ID:
             case CONTENT_TYPES.SINISTER.ID:
             case CONTENT_TYPES.PARTNER.ID:
                 width = 9;
-            break;
+                break;
 
             default:
                 width = 8;
@@ -221,29 +245,31 @@ export class ContentsComponent implements OnInit, OnDestroy {
     private _reloadPage(): void {
         this._router.routeReuseStrategy.shouldReuseRoute = () => false;
         this._router.onSameUrlNavigation = 'reload';
-        const url: string = this._router.url.split('?')[0] ;
-        if(!!this.contentSubtype) {
-            this._router.navigate([url], { relativeTo: this._activatedRoute, queryParams: { contentSubtype: this.contentSubtype } } );
+        const url: string = this._router.url.split('?')[0];
+        if (!!this.contentSubtype) {
+            this._router.navigate([url], {
+                relativeTo: this._activatedRoute,
+                queryParams: { contentSubtype: this.contentSubtype },
+            });
         } else {
-            this._router.navigate([url], { relativeTo: this._activatedRoute } );
+            this._router.navigate([url], { relativeTo: this._activatedRoute });
         }
     }
 
     private _generateContentSubtypeName(): string {
         let contentSubtypeName: string = '';
-        switch(this.contentType) {
+        switch (this.contentType) {
             case CONTENT_TYPES.PARTNER_CLIENT.ID:
                 contentSubtypeName = 'del Socio';
-            break;
+                break;
             case CONTENT_TYPES.GROUP_MEMBER.ID:
                 contentSubtypeName = 'del Grupo';
-            break;
-            
+                break;
+
             case CONTENT_TYPES.POLICY_INSURED.ID:
                 contentSubtypeName = 'Registrado';
-            break;
+                break;
         }
         return contentSubtypeName;
     }
-
 }

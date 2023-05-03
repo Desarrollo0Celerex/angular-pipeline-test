@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { PAY_TRACKER_ROUTES } from '@configs/routes.config';
 
-import { PaymentListPage } from './pages/payment-list/payment-list.page';
+import { PaymentsPage } from './pages/payments/payments.page';
 
 const routes: Routes = [
     {
@@ -13,7 +13,7 @@ const routes: Routes = [
     },
     {
         path: PAY_TRACKER_ROUTES.PAYMENTS,
-        component: PaymentListPage,
+        component: PaymentsPage,
     },
 ];
 

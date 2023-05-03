@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { Payment } from '@interfaces/payment.interface';
+import { Payment } from '@core/interfaces/payment.interface';
 import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { AuthService } from '@core/services/auth/auth.service';
 

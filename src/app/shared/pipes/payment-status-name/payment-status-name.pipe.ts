@@ -16,10 +16,10 @@ export class PaymentStatusNamePipe implements PipeTransform {
                 name = 'En Tiempo';
                 break;
             case PAYMENT_STATUS.LATE:
-                name = 'Atrasados';
+                name = 'Atrasado';
                 break;
             case PAYMENT_STATUS.OVERDUE:
-                name = 'Vencidos';
+                name = 'Vencido';
                 break;
             default:
                 name = '';

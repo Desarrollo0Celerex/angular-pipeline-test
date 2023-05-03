@@ -13,7 +13,7 @@ import * as moment from 'moment';
 import { PAYMENT_PLANS, PAYMENT_SOURCE_TYPES } from '@constants/global';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { Payment } from '@interfaces/payment.interface';
+import { Payment } from '@core/interfaces/payment.interface';
 import { PaymentType } from '@interfaces/payment-type.interface';
 import { PaymentService } from '@services/payment.service';
 import { PaymentTypeService } from '@services/payment-type.service';

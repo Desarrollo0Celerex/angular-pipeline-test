@@ -1,0 +1,240 @@
+<ng-container *ngIf="payment">
+    <div class="card">
+        <!-- AGENTHOS - PAYCARD HEADER -->
+        <div class="card-header">
+            <!-- AGENTHOS - INSURANCE COMPANY -->
+            <img [src]="payment.insurerImageUrl" width="38px" />
+            <!-- AGENTHOS - PAYCARD MENU -->
+            <div class="card-options">
+                <a
+                    href=""
+                    class="mr-2 text-default"
+                    data-toggle="dropdown"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="true"
+                >
+                    <span class="fa fa-bars"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <div class="dropdown-plus-title">Acciones Disponibles</div>
+                    <!-- AGENTHOS - PAYTRACKER PAYMET EDIT -->
+                    <button
+                        type="button"
+                        name="agtPayTrackerPaymentEdit"
+                        class="dropdown-item"
+                        data-toggle="modal"
+                        data-target="#agtPayTrackerPaymentEdit"
+                    >
+                        <i class="fa fa-edit mr-2"></i>Editar Recibo
+                    </button>
+                    <div class="dropdown-divider"></div>
+                    <!-- AGENTHOS - SMARTWALLET POLICY PAYMENTS APPLIED -->
+                    <button
+                        type="button"
+                        name="agtPayTrackerPaymentApplied"
+                        class="dropdown-item"
+                        data-toggle="modal"
+                        data-target="#agtPayTrackerPaymentApplied"
+                    >
+                        <i class="fa fa-calendar-check-o mr-2"></i>Recibos
+                        Pagados
+                    </button>
+                    <!-- AGENTHOS - SMARTWALLET POLICY PAYMENTS PENDING -->
+                    <button
+                        type="button"
+                        name="agtPayTrackerPaymentPending"
+                        class="dropdown-item"
+                        data-toggle="modal"
+                        data-target="#agtPayTrackerPaymentPending"
+                    >
+                        <i class="fa fa-calendar-minus-o mr-2"></i>Recibos
+                        Pendientes
+                    </button>
+                    <div class="dropdown-divider"></div>
+                    <!-- AGENTHOS - SWARTWALLET POLICY DETAILS -->
+                    <button
+                        type="button"
+                        name="agtSmartWalletPolicyDetails"
+                        class="dropdown-item"
+                        data-toggle="modal"
+                        data-target="#agtSmartWalletPolicyDetails"
+                    >
+                        <i class="fa fa-file-text mr-2"></i>Validar Póliza
+                    </button>
+                    <!-- AGENTHOS - SWARTWALLET POLICY VIEW -->
+                    <button
+                        type="button"
+                        name="agtSmartWalletPolicyView"
+                        class="dropdown-item"
+                        data-toggle="modal"
+                        data-target="#agtSmartWalletPolicyView"
+                    >
+                        <i class="fa fa-cloud-download mr-2"></i>Descargar
+                        Póliza
+                    </button>
+                    <!-- AGENTHOS - SWARTWALLET POLICY CANCEL -->
+                    <button
+                        type="button"
+                        name="agtSmartWalletPolicyCancel"
+                        class="dropdown-item"
+                        data-toggle="modal"
+                        data-target="#agtSmartWalletPolicyCancel"
+                    >
+                        <i class="fa fa-exclamation-circle mr-2"></i>Cancelar
+                        Póliza
+                    </button>
+                </div>
+            </div>
+            <!-- //AGENTHOS - PAYCARD MENU -->
+        </div>
+        <!-- //AGENTHOS - PAYCARD HEADER -->
+        <div class="card-header border-bottom-0">
+            <div class="text-left">
+                <!-- AGENTHOS - PAYCARD SOURCE -->
+                <div class="badge agt-badge-primary-gradient mr-1 mt-3">
+                    {{
+                        payment.paymentSourceTypeId
+                            | paymentSourceTypeName
+                            | uppercase
+                    }}
+                </div>
+                <!-- AGENTHOS - PAYCARD STATUS -->
+                <div
+                    class="badge agt-badge-{{
+                        payment.paymentStatusId | paymentStatusBackground
+                    }}-gradient mr-1 mt-3"
+                >
+                    {{
+                        payment.paymentStatusId | paymentStatusName | uppercase
+                    }}
+                </div>
+                <!-- AGENTHOS - PAYCARD TYPE-->
+                <p class="text-muted mt-3">
+                    <span
+                        class="agt-text-{{
+                            payment.isAutoPayment | paymentTypeClass
+                        }} fs-13"
+                        ><i
+                            data-toggle="popover"
+                            data-placement="left"
+                            class="fe {{
+                                payment.isAutoPayment | paymentTypeIcon
+                            }} mr-2"
+                            attr.data-content="{{
+                                payment.isAutoPayment | paymentTypeDescription
+                            }}"
+                        ></i></span
+                    >{{ payment.isAutoPayment | paymentTypeName }}
+                </p>
+            </div>
+            <div class="card-options">
+                <button
+                    type="button"
+                    class="btn {{
+                        payment.insuranceId | insuranceBackground
+                    }} mr-3"
+                >
+                    <i
+                        class="{{ payment.insuranceId | insuranceIcon }} mb-0"
+                    ></i>
+                </button>
+            </div>
+        </div>
+        <!-- AGENTHOS - PAYCARD BODY -->
+        <div class="card-body pt-0">
+            <div class="row">
+                <div class="col-8">
+                    <span class="text-muted">{{
+                        payment.paymentSourceTypeId | paymentTypeLabel
+                    }}</span>
+                    <h6>
+                        <span class="agt-icon-primary"
+                            ><i class="fe fe-file-text mr-2"></i></span
+                        >{{
+                            payment.paymentSourceTypeId
+                                | paymentTypeValue
+                                    : payment.policyNumber
+                                    : payment.endorsementNumber
+                        }}
+                    </h6>
+                </div>
+                <div class="col-4">
+                    <span class="text-muted">Plan</span>
+                    <h6 class="text-justify">
+                        <span class="agt-icon-primary"
+                            ><i class="fe fe-credit-card mr-2"></i></span
+                        >{{ payment.paymentPlanName | uppercase }}
+                    </h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <span class="text-muted">Monto Recibo</span>
+                    <h6 class="text-justify">
+                        <span class="agt-icon-primary"
+                            ><i class="fe fe-dollar-sign mr-2"></i></span
+                        >{{ paymentAmount | currency : "" : "" : "0.2-2" }}
+                        {{ payment.currencyName }}
+                    </h6>
+                </div>
+                <div class="col-4">
+                    <span class="text-muted">No. Recibo</span>
+                    <h6 class="text-justify">
+                        <span class="agt-icon-primary"
+                            ><i class="fe fe-clipboard mr-2"></i></span
+                        >{{ payment.tickets + 1 }} DE {{ payment.bills }}
+                    </h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <span class="text-muted">Fecha Recibo</span>
+                    <h6>
+                        <span class="agt-icon-primary"
+                            ><i class="fe fe-calendar mr-2"></i></span
+                        >{{ payment.paymentDate | date : "dd/MM/yyyy" }}
+                    </h6>
+                </div>
+                <div class="col-4">
+                    <span class="text-muted">Restante</span>
+                    <h6 class="text-justify">
+                        <span class="agt-icon-primary"
+                            ><i class="fe fe-credit-card mr-2"></i></span
+                        >{{ remainingDays }}
+                        {{ "día" | plural : remainingDays | uppercase }}
+                    </h6>
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - PAYCARD BODY -->
+        <!-- AGENTHOS - PAYCARD FOOTER -->
+        <div class="card-footer text-center">
+            <div class="row user-social-detail">
+                <div class="col-6">
+                    <button
+                        type="button"
+                        name="agtPayTrackerPaymentDetails"
+                        class="btn btn-block agt-btn-primary"
+                        data-toggle="modal"
+                        data-target="#agtPayTrackerPaymentDetails"
+                    >
+                        <strong>VER DETALLES</strong>
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button
+                        type="button"
+                        name="agtPayTrackerPaymentActions"
+                        class="btn btn-block agt-btn-secondary"
+                        data-toggle="modal"
+                        data-target="#agtPayTrackerPaymentActions"
+                    >
+                        <strong>GESTIONAR PAGO</strong>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - PAYCARD FOOTER -->
+    </div>
+</ng-container>

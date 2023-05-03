@@ -17,7 +17,7 @@ declare var CounterPlugin: any;
     styles: [],
 })
 export class PaymentsKpisContainer extends SmartComponent implements OnInit {
-    @Input() selectedContentSubtype: number = 0;
+    @Input() selectedPaymentStatusId: number = 0;
     kpis: ContentKpi[] = [
         {
             contentType: CONTENT_TYPES.PAYMENTS,
@@ -27,7 +27,7 @@ export class PaymentsKpisContainer extends SmartComponent implements OnInit {
         },
         {
             contentType: CONTENT_TYPES.PAYMENTS,
-            contentSubtype: PAYMENT_STATUS.IN_TIME,
+            contentSubtype: 7,
             value: 0,
             total: 0,
         },
@@ -56,8 +56,8 @@ export class PaymentsKpisContainer extends SmartComponent implements OnInit {
         this._loadKpis();
     }
 
-    selectContentSubtype(contectSubtype: number): void {
-        this._payTrackerService.selectContentSubtype(contectSubtype);
+    selectPaymentStatusId(contectSubtype: number): void {
+        this._payTrackerService.setPaymentStatusId(contectSubtype);
     }
 
     private _loadKpis(): void {

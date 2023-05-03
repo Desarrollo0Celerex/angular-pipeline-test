@@ -11,7 +11,7 @@ import * as moment from 'moment';
 
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { Payment } from '@interfaces/payment.interface';
+import { Payment } from '@core/interfaces/payment.interface';
 import { UpdatePaymentDateDataSend } from '@interfaces/update-payment-date-data-send.interface';
 import { PaymentService } from '@services/payment.service';
 

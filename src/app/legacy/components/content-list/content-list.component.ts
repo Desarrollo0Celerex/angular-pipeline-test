@@ -24,7 +24,7 @@ import { ContactQuotation } from '@interfaces/contact-quotation.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Group } from '@interfaces/group.interface';
 import { Partner } from '@interfaces/partner.interface';
-import { Payment } from '@interfaces/payment.interface';
+import { Payment } from '@core/interfaces/payment.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { PolicyInsuredData } from '@interfaces/policy-insured-data.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';

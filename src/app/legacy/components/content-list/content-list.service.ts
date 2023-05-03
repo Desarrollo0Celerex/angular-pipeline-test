@@ -25,7 +25,7 @@ import { Contact } from '@core/interfaces/contact.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 import { Insured } from '@interfaces/insured.interface';
-import { Payment } from '@interfaces/payment.interface';
+import { Payment } from '@core/interfaces/payment.interface';
 import { Policy } from '@interfaces/policy.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';

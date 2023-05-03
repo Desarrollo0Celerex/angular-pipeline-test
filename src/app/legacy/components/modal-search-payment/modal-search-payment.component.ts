@@ -3,7 +3,7 @@ import { AbstractControl } from '@angular/forms';
 
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { Payment } from '@interfaces/payment.interface';
+import { Payment } from '@core/interfaces/payment.interface';
 import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalSearchPaymentService } from './modal-search-payment.service';

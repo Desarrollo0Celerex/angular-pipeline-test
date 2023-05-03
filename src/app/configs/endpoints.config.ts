@@ -26,6 +26,8 @@ export const CONTACT_ENDPOINTS: any = {
 export const PAYMENT_ENDPOINTS: any = {
     totalWorkspacePayments: (workspaceId: string) =>
         `${environment.apiUrl}/workspaces/${workspaceId}/payments/count`,
+    workspacePayments: (workspaceId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/payments`,
 };
 
 export const WORKSPACE_ENDPOINTS: any = {

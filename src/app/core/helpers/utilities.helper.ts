@@ -1,30 +1,81 @@
+import { PAYMENT_PLANS, PAYMENT_SOURCE_TYPES } from '@configs/constants.config';
 import { CONTENT_TYPES } from '@constants/global';
 import { PERIODS } from '@constants/global';
+import { CalculateFirstPaymentAmount } from '@core/interfaces/calculate-first-payment-amount.interface';
+import { CalculatePaymentAmount } from '@core/interfaces/calculate-payment-amount.interface';
 import { ValidatorsHelper } from '@helpers/validators.helper';
 import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 import * as moment from 'moment';
 
 export class UtilitiesHelper {
-    static specialSimbols: string[] = ['-', '[', ']', '/', '{', '}', '(', ')', '*', '+', '?', '.', '^', '$', '|']
+    static specialSimbols: string[] = [
+        '-',
+        '[',
+        ']',
+        '/',
+        '{',
+        '}',
+        '(',
+        ')',
+        '*',
+        '+',
+        '?',
+        '.',
+        '^',
+        '$',
+        '|',
+    ];
 
     static calculateAge(birthdate: string | null): number | null {
         let age: number | null = null;
-        if(birthdate !== null) {
-            age = moment().diff(moment(birthdate).format('YYYY-MM-DD'), 'years');
+        if (birthdate !== null) {
+            age = moment().diff(
+                moment(birthdate).format('YYYY-MM-DD'),
+                'years'
+            );
         }
         return age;
     }
 
-    static calculateNextPaymentDate(paymentDate: string, paymentPlanMonths: string, paymentDay: number): string {
-        let nextPaymentDate: string = moment(paymentDate).add(paymentPlanMonths, 'months').format('YYYY-MM-DD');
-        const nextPaymentDay: number = parseInt(moment(nextPaymentDate).format('D'));
+    static calculateNextPaymentDate(
+        paymentDate: string,
+        paymentPlanMonths: string,
+        paymentDay: number
+    ): string {
+        let nextPaymentDate: string = moment(paymentDate)
+            .add(paymentPlanMonths, 'months')
+            .format('YYYY-MM-DD');
+        const nextPaymentDay: number = parseInt(
+            moment(nextPaymentDate).format('D')
+        );
         const daysInMonth: number = moment(nextPaymentDate).daysInMonth();
-        if(nextPaymentDay < daysInMonth) {
+        if (nextPaymentDay < daysInMonth) {
             const leftDays: number = paymentDay - nextPaymentDay;
-            nextPaymentDate = moment(nextPaymentDate).add(leftDays, 'days').format('YYYY-MM-DD');
+            nextPaymentDate = moment(nextPaymentDate)
+                .add(leftDays, 'days')
+                .format('YYYY-MM-DD');
         }
         return nextPaymentDate;
+    }
+
+    static calculatePaymentAmount(data: CalculatePaymentAmount): number {
+        const receiptsAmount =
+            data.paymentSourceTypeId === PAYMENT_SOURCE_TYPES.POLICY &&
+            data.tickets === 0 &&
+            data.paymentPlanId != PAYMENT_PLANS.SINGLE_PAYMENT &&
+            data.paymentPlanId != PAYMENT_PLANS.ANNUAL
+                ? this._calculateFirstPaymentAmount({
+                      paymentPlanReceips: data.paymentPlanReceips,
+                      netPay: data.netPay,
+                      feePay: data.feePay,
+                      coverPay: data.coverPay,
+                      extraPay: data.extraPay,
+                      taxPay: data.taxPay,
+                      discount: data.discount,
+                  })
+                : data.pendingAmount / data.pendingReceipts;
+        return receiptsAmount;
     }
 
     /**
@@ -34,7 +85,7 @@ export class UtilitiesHelper {
      */
     static checkIsHistoryContent(contentType: number): boolean {
         let isHistoryContent: boolean;
-        switch(contentType) {
+        switch (contentType) {
             case CONTENT_TYPES.HISTORY_POLICY.ID:
             case CONTENT_TYPES.PAYMENT_HISTORY.ID:
             case CONTENT_TYPES.SINISTER_HISTORY.ID:
@@ -94,7 +145,7 @@ export class UtilitiesHelper {
 
     static getYearFromDate(date: string): number {
         const arrDate: string[] = date.split('-');
-        return (arrDate.length === 3) ? parseInt(arrDate[0]) : 0;
+        return arrDate.length === 3 ? parseInt(arrDate[0]) : 0;
     }
 
     /**
@@ -104,7 +155,7 @@ export class UtilitiesHelper {
      */
     static getOriginalDateFormat(date: string): string {
         const arrDate: string[] = date.split('/');
-        return arrDate[2]+'-'+arrDate[1]+'-'+arrDate[0];
+        return arrDate[2] + '-' + arrDate[1] + '-' + arrDate[0];
     }
 
     /**
@@ -129,29 +180,46 @@ export class UtilitiesHelper {
      * @param  filters    The filters to apply
      * @return            The HTTP Filter
      */
-    static generateHttpFilter(filterName: string, filters: number[] | (number | string)[]) {
-        const filterIds: string[] = filters.map( (element: number | string) => {
+    static generateHttpFilter(
+        filterName: string,
+        filters: number[] | (number | string)[]
+    ) {
+        const filterIds: string[] = filters.map((element: number | string) => {
             return filterName + '[=]' + element;
         });
         return filterIds.join(',');
     }
 
     static generateHttpSpecialFilter(filterName: string, filters: number[]) {
-        const specialFilter: string = filterName+'[=]'+filters.join(',')+';';
+        const specialFilter: string =
+            filterName + '[=]' + filters.join(',') + ';';
         return specialFilter;
     }
 
-    static generateRange(statsPeriodData: StatsPeriodData): ComparisonRangeData {
-        const startDateAux: any = moment(statsPeriodData.startDate, 'DD/MM/YYYY');
+    static generateRange(
+        statsPeriodData: StatsPeriodData
+    ): ComparisonRangeData {
+        const startDateAux: any = moment(
+            statsPeriodData.startDate,
+            'DD/MM/YYYY'
+        );
         const endDateAux: any = moment(statsPeriodData.endDate, 'DD/MM/YYYY');
-        const comparedPeriodRangeStart: string = ((statsPeriodData.periodId == PERIODS.LAST_YEAR) ? startDateAux.subtract(1, 'years') : startDateAux.subtract(1, 'months')).format('DD/MM/YYYY');
-        const comparedPeriodRangeEnd: string = ((statsPeriodData.periodId == PERIODS.LAST_YEAR) ?  endDateAux.subtract(1, 'years') : endDateAux.subtract(1, 'months')).format('DD/MM/YYYY');
+        const comparedPeriodRangeStart: string = (
+            statsPeriodData.periodId == PERIODS.LAST_YEAR
+                ? startDateAux.subtract(1, 'years')
+                : startDateAux.subtract(1, 'months')
+        ).format('DD/MM/YYYY');
+        const comparedPeriodRangeEnd: string = (
+            statsPeriodData.periodId == PERIODS.LAST_YEAR
+                ? endDateAux.subtract(1, 'years')
+                : endDateAux.subtract(1, 'months')
+        ).format('DD/MM/YYYY');
         const range: ComparisonRangeData = {
             selectedRangeStart: statsPeriodData.startDate,
             selectedRangeEnd: statsPeriodData.endDate,
             comparedRangeStart: comparedPeriodRangeStart,
-            comparedRangeEnd: comparedPeriodRangeEnd
-        }
+            comparedRangeEnd: comparedPeriodRangeEnd,
+        };
         return range;
     }
 
@@ -162,7 +230,7 @@ export class UtilitiesHelper {
      */
     static removeCommasFromQuantity(quantity: string): string {
         quantity = quantity.toString();
-        if(ValidatorsHelper.isValidAmounSpanish(quantity)) {
+        if (ValidatorsHelper.isValidAmounSpanish(quantity)) {
             quantity = this._replaceAll('.', '&', quantity);
             quantity = this._replaceAll(',', '.', quantity);
             quantity = this._replaceAll('&', ',', quantity);
@@ -174,18 +242,38 @@ export class UtilitiesHelper {
         const characters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         const charactersLength: number = characters.length;
         let key: string = '';
-        for ( let i = 0; i < length; i++ ) {
-          key += characters.charAt(Math.floor(Math.random() * charactersLength));
-       }
-       return key;
+        for (let i = 0; i < length; i++) {
+            key += characters.charAt(
+                Math.floor(Math.random() * charactersLength)
+            );
+        }
+        return key;
     }
 
-    private static _replaceAll(search: string, replace: string, cad: string): string {
-        if(this.specialSimbols.includes(search)) {
-            search = '\\'+search;
+    private static _calculateFirstPaymentAmount(
+        data: CalculateFirstPaymentAmount
+    ): number {
+        let sumPayments: number =
+            (parseFloat(data.netPay.toString()) -
+                parseFloat(data.discount.toString())) /
+                data.paymentPlanReceips +
+            parseFloat(data.feePay.toString()) / data.paymentPlanReceips +
+            parseFloat(data.extraPay.toString()) / data.paymentPlanReceips +
+            parseFloat(data.coverPay.toString());
+        const taxes: number = data.taxPay != 0 ? sumPayments * 0.16 : 0;
+        const firstPaymentAmount = sumPayments + taxes;
+        return firstPaymentAmount;
+    }
+
+    private static _replaceAll(
+        search: string,
+        replace: string,
+        cad: string
+    ): string {
+        if (this.specialSimbols.includes(search)) {
+            search = '\\' + search;
         }
         const searchRegExp = new RegExp(search, 'g');
         return cad.replace(searchRegExp, replace);
     }
-
 }
