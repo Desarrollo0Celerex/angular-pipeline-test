@@ -6,11 +6,14 @@ import { Payment } from '@core/interfaces/payment.interface';
 import { PaymentService } from '@core/services/payment/payment.service';
 
 @Component({
-    selector: 'agt-payment-list',
-    templateUrl: './payment-list.container.html',
+    selector: 'agt-workspace-payment-list',
+    templateUrl: './workspace-payment-list.container.html',
     styles: [],
 })
-export class PaymentListContainer extends SmartComponent implements OnChanges {
+export class WorkspacePaymentListContainer
+    extends SmartComponent
+    implements OnChanges
+{
     @Input() contentType: number = 0;
     @Input() paymentStatusId: number = 0;
     isLoadedContent: boolean = false;
@@ -19,7 +22,6 @@ export class PaymentListContainer extends SmartComponent implements OnChanges {
     page: number = 1;
     perPage: number = 12;
     totalItems: number = 0;
-    totalItemsLoaded: number = 0;
 
     constructor(private _paymentService: PaymentService) {
         super();
@@ -34,17 +36,9 @@ export class PaymentListContainer extends SmartComponent implements OnChanges {
         }
     }
 
-    get hasResults(): boolean {
-        return this.payments.length > 0;
-    }
-
     loadMoreContents(): void {
         this.page++;
         this._loadPayments();
-    }
-
-    showModalToSelectContactAction(): void {
-        console.log('Mostrar modal para seleccionar la acción del contacto.');
     }
 
     private _loadPayments(): void {
@@ -68,7 +62,6 @@ export class PaymentListContainer extends SmartComponent implements OnChanges {
             .subscribe((res: HttpResponseItems) => {
                 this.payments = this.payments.concat(res.items);
                 this.totalItems = res.totalItems;
-                this.totalItemsLoaded = this.payments.length;
                 this.isLoadingContent = false;
                 this.isLoadedContent = true;
             });

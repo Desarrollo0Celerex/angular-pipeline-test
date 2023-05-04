@@ -27,7 +27,7 @@ export class PaymentsKpisContainer extends SmartComponent implements OnInit {
         },
         {
             contentType: CONTENT_TYPES.PAYMENTS,
-            contentSubtype: 7,
+            contentSubtype: PAYMENT_STATUS.IN_TIME,
             value: 0,
             total: 0,
         },

@@ -2,17 +2,18 @@
     <div class="card-body">
         <ol class="breadcrumb1">
             <li class="breadcrumb-item1">
-                {{ message }}. <strong>{{ details }}</strong
-                >.
+                {{ message }} <strong>{{ details }}</strong>
             </li>
         </ol>
-        <div class="btn-list text-center">
-            <button
-                class="btn btn-block agt-btn-primary"
-                (click)="requestDoAction()"
-            >
-                <strong>CARGAR PÓLIZA</strong>
-            </button>
-        </div>
+        <ng-container *ngIf="canShowNoResultsAction">
+            <div class="btn-list text-center">
+                <button
+                    class="btn btn-block agt-btn-primary"
+                    (click)="requestDoAction()"
+                >
+                    <strong>CARGAR PÓLIZA</strong>
+                </button>
+            </div>
+        </ng-container>
     </div>
 </div>

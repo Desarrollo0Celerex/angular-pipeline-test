@@ -17,11 +17,11 @@
         ></agt-loading-content>
         <ng-container *ngIf="hasResults">
             <agt-card-content-results
-                contentName="{{ contentType | contentTypeName | plural: totalItemsLoaded}} {{paymentStatusId | paymentStatusName | plural: totalItemsLoaded}}"
+                [contentName]="contentName"
                 [isLoadingContent]="isLoadingContent"
                 [totalItems]="totalItems"
-                [totalItemsLoaded]="totalItemsLoaded"
-                (loadMoreContents)="loadMoreContents()"
+                [totalItemsLoaded]="payments.length"
+                (loadMoreContents)="requestLoadMoreContents()"
             ></agt-card-content-results>
         </ng-container>
     </div>
@@ -31,8 +31,9 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <agt-card-content-no-results
-                message="No se encontraron {{contentType | contentTypeName | plural}} pendientes"
-                details="Por favor carga una póliza para detectar sus {{contentType | contentTypeName | plural}}"
+                [message]="noResultsMessage"
+                [details]="noResultsDetails"
+                [canShowNoResultsAction]="canShowNoResultsAction"
                 (doAction)="showModalToSelectContactAction()"
             ></agt-card-content-no-results>
         </div>

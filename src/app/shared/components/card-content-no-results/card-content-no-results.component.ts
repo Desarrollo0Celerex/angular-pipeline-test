@@ -14,6 +14,7 @@ import { DumbComponent } from '@core/classes/dumb-component';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardContentNoResultsComponent extends DumbComponent {
+    @Input() canShowNoResultsAction: boolean = false;
     @Input() details: string = '';
     @Input() message: string = '';
     @Output() doAction: EventEmitter<void> = new EventEmitter<void>();
