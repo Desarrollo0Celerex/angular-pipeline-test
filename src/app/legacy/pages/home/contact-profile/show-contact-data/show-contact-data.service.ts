@@ -21,7 +21,7 @@ import {
     CONTACT_TYPES,
     CONTACT_INFORMATION_TYPES,
 } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 
 import { CivilStatus } from '@interfaces/civil-status.interface';
 import { Contact } from '@core/interfaces/contact.interface';

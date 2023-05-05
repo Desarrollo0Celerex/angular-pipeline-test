@@ -34,7 +34,7 @@ export class PaymentService {
         fields: string = '',
         filter: string = '',
         sortBy: string = '',
-        query: string = '',
+        search: string = '',
         rangeField: string = '',
         rangeStart: string = '',
         rangeEnd: string = '',
@@ -46,7 +46,7 @@ export class PaymentService {
             .param('fields', fields)
             .param('filter', filter)
             .param('sortBy', sortBy)
-            .param('query', query)
+            .param('search', search)
             .param('rangeField', rangeField)
             .param('rangeStart', rangeStart)
             .param('rangeEnd', rangeEnd)

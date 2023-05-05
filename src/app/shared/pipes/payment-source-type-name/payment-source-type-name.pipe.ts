@@ -14,7 +14,7 @@ export class PaymentSourceTypeNamePipe implements PipeTransform {
             case PAYMENT_SOURCE_TYPES.ENDORSEMENT:
                 name = 'Recibo de endoso';
                 break;
-            case PAYMENT_SOURCE_TYPES.POLICY:
+            case PAYMENT_SOURCE_TYPES.FRACTION:
                 name = 'Recibo fraccionado';
                 break;
             default:

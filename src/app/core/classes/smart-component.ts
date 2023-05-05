@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { MonoTypeOperatorFunction, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
     template: '',
@@ -14,6 +14,10 @@ export abstract class SmartComponent implements OnDestroy {
 
     protected untilComponentDestroy(): MonoTypeOperatorFunction<any> {
         return takeUntil(this.unsubscribe$);
+    }
+
+    protected takeOne(): MonoTypeOperatorFunction<any> {
+        return take(1);
     }
 
     private unsubscribe() {

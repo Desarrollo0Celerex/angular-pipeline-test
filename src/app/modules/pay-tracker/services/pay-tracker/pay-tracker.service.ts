@@ -8,8 +8,18 @@ export class PayTrackerService {
     paymentStatusId: BehaviorSubject<number> = new BehaviorSubject<number>(
         PAYMENT_STATUS.IN_TRANSIT
     );
+    query: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    totalResults: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
 
     setPaymentStatusId(paymentStatusId: number): void {
         this.paymentStatusId.next(paymentStatusId);
+    }
+
+    setQuery(query: string): void {
+        this.query.next(query);
+    }
+
+    setTotalResults(totalResults: number): void {
+        this.totalResults.next(totalResults);
     }
 }

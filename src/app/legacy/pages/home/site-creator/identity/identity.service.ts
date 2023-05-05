@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 
 import { LICENSES, WEB_LINK_LENGTH } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Site } from '@interfaces/site.interface';
 import { UpdateSiteIdentityDataSend } from '@interfaces/update-site-identity-data-send.interface';

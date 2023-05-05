@@ -20,7 +20,7 @@ import {
 } from '@constants/global';
 import { WorkspaceUser } from '@core/interfaces/workspace-user.interface';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { AuthService } from '@core/services/auth/auth.service';
 import { PolicyService } from '@services/policy.service';
 import { SinisterService } from '@services/sinister.service';

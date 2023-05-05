@@ -11,4 +11,5 @@ export const HOME_ROUTES: any = {
 export const PAY_TRACKER_ROUTES: any = {
     MODULE: 'pay-tracker',
     PAYMENTS: 'payments',
+    SEARCH_RESULTS: 'search-results',
 };

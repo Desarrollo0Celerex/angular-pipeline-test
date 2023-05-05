@@ -18,7 +18,7 @@ import {
     TITULAR_NAME_LENGTH,
 } from '@constants/global';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 
 import { Currency } from '@interfaces/currency.interface';
 import { Gender } from '@interfaces/gender.interface';

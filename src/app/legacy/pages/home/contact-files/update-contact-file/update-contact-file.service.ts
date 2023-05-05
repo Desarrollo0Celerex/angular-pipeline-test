@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 
 import { FILE_NAME_LENGTH } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
 import { ContactFileType } from '@interfaces/contact-file-type.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';

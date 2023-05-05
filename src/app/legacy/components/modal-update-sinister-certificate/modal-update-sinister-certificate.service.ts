@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { SHORT_ALPHANUMERIC_LENGTH } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Insured } from '@interfaces/insured.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';

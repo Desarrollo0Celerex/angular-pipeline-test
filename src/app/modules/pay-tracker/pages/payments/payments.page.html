@@ -2,11 +2,7 @@
 
 <div class="row mt-5">
     <div class="col-xl-9 col-lg-6 col-md-6 col-sm-12">
-        <agt-card-content-search-engine
-            title="Localizar Recibo"
-            placeholder="Buscador de Recibos"
-            (searchContent)="searchContent($event)"
-        ></agt-card-content-search-engine>
+        <agt-search-engine></agt-search-engine>
     </div>
     <!-- AGENTHOS - PAYTRACKER ACTIONS -->
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
@@ -32,9 +28,7 @@
 
 <div class="row mt-3">
     <div class="col-12">
-        <agt-card-content-title
-            title="Recibos {{paymentStatusId | paymentStatusName | plural}}"
-        ></agt-card-content-title>
+        <agt-payments-title></agt-payments-title>
     </div>
 </div>
 

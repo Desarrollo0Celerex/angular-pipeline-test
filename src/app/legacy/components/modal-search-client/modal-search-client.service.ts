@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 import { OWN_NAME_LENGTH, CLIENT_STATUS } from '@constants/global';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { AddGroupMemberDataSend } from '@interfaces/add-group-member-data-send.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ClientService } from '@services/client.service';

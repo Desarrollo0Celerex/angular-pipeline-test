@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { FREE_TEXT_LENGTH } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterType } from '@interfaces/sinister-type.interface';

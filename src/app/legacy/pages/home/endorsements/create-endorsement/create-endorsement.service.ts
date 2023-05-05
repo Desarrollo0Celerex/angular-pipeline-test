@@ -23,7 +23,7 @@ import {
     TITULAR_NAME_LENGTH,
 } from '@constants/global';
 import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { EndorsementType } from '@interfaces/endorsement-type.interface';
 import { Gender } from '@interfaces/gender.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';

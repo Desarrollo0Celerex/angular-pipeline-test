@@ -29,7 +29,7 @@ import {
     AGENT_NUMBER_LENGTH,
 } from '@constants/global';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 
 import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
 import { Currency } from '@interfaces/currency.interface';

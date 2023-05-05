@@ -21,6 +21,18 @@
                     </span>
                 </div>
             </div>
+            <ol class="breadcrumb1" *ngIf="canShowResults">
+                <li
+                    class="breadcrumb-item1"
+                    [class.agt-hide-content]="totalResults === -1"
+                >
+                    Se {{ resultsLabel }} encontrado
+                    <strong>{{ totalResults }}</strong>
+                    {{ "resultado" | plural : totalResults }} con
+                    <strong>{{ queryLabel }}</strong
+                    >.
+                </li>
+            </ol>
         </div>
     </div>
 </form>

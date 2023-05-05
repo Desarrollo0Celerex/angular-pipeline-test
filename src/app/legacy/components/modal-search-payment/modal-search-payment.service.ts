@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { PaymentService } from '@services/payment.service';
 
 import { FREE_TEXT_LENGTH } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 @Injectable()

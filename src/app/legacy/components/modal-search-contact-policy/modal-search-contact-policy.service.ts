@@ -11,7 +11,7 @@ import { POLICY_STATUS } from '@constants/global';
 import { PolicyService } from '@services/policy.service';
 
 import { FREE_TEXT_LENGTH } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 @Injectable()

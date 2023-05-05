@@ -15,7 +15,7 @@ import {
     BRAND_NAME_LENGTH,
     EMAIL_LENGTH,
 } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { Country } from '@interfaces/country.interface';
 import { CreateWorkspaceDataSend } from '@interfaces/create-workspace-data-send.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';

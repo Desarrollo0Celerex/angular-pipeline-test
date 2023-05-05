@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Payment } from '@core/interfaces/payment.interface';
 import { UpdatePaymentDateDataSend } from '@interfaces/update-payment-date-data-send.interface';

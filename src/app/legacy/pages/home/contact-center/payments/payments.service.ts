@@ -8,7 +8,7 @@ import {
     EMAIL_LENGTH,
     WORKSPACE_DIRECTORY_TYPES,
 } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { WorkspaceDirectory } from '@interfaces/workspace-directory.interface';
 import { Workspace } from '@core/interfaces/workspace.interface';
 import { WorkspaceService } from '@core/services/workspace/workspace.service';

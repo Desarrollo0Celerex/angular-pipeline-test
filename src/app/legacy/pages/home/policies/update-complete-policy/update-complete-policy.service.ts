@@ -26,7 +26,7 @@ import {
 } from '@constants/global';
 import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 
 import { Currency } from '@interfaces/currency.interface';
 import { Gender } from '@interfaces/gender.interface';

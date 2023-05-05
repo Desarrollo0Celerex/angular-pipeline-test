@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { Wallet } from '@interfaces/wallet.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UpdateWalletIdentityDataSend } from '@interfaces/update-wallet-identity-data-send.interface';

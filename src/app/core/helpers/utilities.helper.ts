@@ -3,7 +3,7 @@ import { CONTENT_TYPES } from '@constants/global';
 import { PERIODS } from '@constants/global';
 import { CalculateFirstPaymentAmount } from '@core/interfaces/calculate-first-payment-amount.interface';
 import { CalculatePaymentAmount } from '@core/interfaces/calculate-payment-amount.interface';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 import * as moment from 'moment';

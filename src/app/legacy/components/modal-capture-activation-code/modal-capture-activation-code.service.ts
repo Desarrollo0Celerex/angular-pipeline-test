@@ -6,7 +6,7 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
 import { AuthService } from '@core/services/auth/auth.service';

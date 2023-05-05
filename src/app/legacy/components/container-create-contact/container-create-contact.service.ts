@@ -14,7 +14,7 @@ import {
     EMAIL_LENGTH,
     OWN_NAME_LENGTH,
 } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { CreateContactDataSend } from '@interfaces/create-contact-data-send.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContactSource } from '@interfaces/contact-source.interface';

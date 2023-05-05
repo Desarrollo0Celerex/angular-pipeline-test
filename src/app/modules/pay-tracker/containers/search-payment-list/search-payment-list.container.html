@@ -1,0 +1,10 @@
+<agt-payment-list
+    contentName="{{'Recibo' | plural: payments.length}} {{'Encontrado' | plural: payments.length}}"
+    noResultsMessage="No se encontraron recibos."
+    noResultsDetails="Usa otro termino de búsqueda."
+    [isLoadedContent]="isLoadedContent"
+    [isLoadingContent]="isLoadingContent"
+    [payments]="payments"
+    [totalItems]="totalItems"
+    (loadMoreContents)="loadMoreContents()"
+></agt-payment-list>

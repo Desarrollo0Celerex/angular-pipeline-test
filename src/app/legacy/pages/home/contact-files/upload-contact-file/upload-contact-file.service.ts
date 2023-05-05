@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 
 import { FILE_NAME_LENGTH } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { ContactFileType } from '@interfaces/contact-file-type.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContactFileTypeService } from '@services/contact-file-type.service';

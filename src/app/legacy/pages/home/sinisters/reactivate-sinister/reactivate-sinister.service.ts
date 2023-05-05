@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';

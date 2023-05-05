@@ -17,7 +17,7 @@ import {
     OWN_NAME_LENGTH,
     INSURANCE_GROUPS,
 } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { Currency } from '@interfaces/currency.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';

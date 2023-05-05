@@ -12,7 +12,7 @@ import {
     EMAIL_LENGTH,
     DEFAULT_ROLE_ID,
 } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { CreateInvitationDataSend } from '@interfaces/create-invitation-data-send.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { InvitationForm } from '@interfaces/invitation-form.interface';

@@ -1,17 +1,25 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from '@angular/forms';
 
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 
 @Injectable()
 export class modalConfirmApplyFractionalReceiptService {
     form: UntypedFormGroup = this._formBuilder.group({
-        fractionalReceiptAmount: ['',[Validators.required, ValidatorsHelper.amount]]
+        fractionalReceiptAmount: [
+            '',
+            [Validators.required, ValidatorsHelper.amount],
+        ],
     });
 
-    constructor(private _formBuilder: UntypedFormBuilder) { }
+    constructor(private _formBuilder: UntypedFormBuilder) {}
 
-    get f(): {[key: string]: AbstractControl} {
+    get f(): { [key: string]: AbstractControl } {
         return this.form.controls;
     }
 
@@ -21,7 +29,14 @@ export class modalConfirmApplyFractionalReceiptService {
      */
     buildForm(maxAmount: number): void {
         this.form = this._formBuilder.group({
-            fractionalReceiptAmount: ['',[Validators.required, Validators.max(maxAmount), ValidatorsHelper.amount]]
-        })
+            fractionalReceiptAmount: [
+                '',
+                [
+                    Validators.required,
+                    Validators.max(maxAmount),
+                    ValidatorsHelper.amount,
+                ],
+            ],
+        });
     }
 }

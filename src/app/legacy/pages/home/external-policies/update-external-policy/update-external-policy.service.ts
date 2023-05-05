@@ -10,7 +10,7 @@ import {
 import * as moment from 'moment';
 
 import { FREE_TEXT_LENGTH, TITULAR_NAME_LENGTH } from '@constants/global';
-import { ValidatorsHelper } from '@helpers/validators.helper';
+import { ValidatorsHelper } from '@core/helpers/validators.helper';
 
 import { Currency } from '@interfaces/currency.interface';
 import { ExternalPolicy } from '@interfaces/external-policy.interface';
