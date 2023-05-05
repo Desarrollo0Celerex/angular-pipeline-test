@@ -1,9 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SmartComponent } from '@core/classes/smart-component';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
 import { Payment } from '@core/interfaces/payment.interface';
 import { PaymentService } from '@core/services/payment/payment.service';
+import { PayTrackerService } from '@modules/pay-tracker/services/pay-tracker/pay-tracker.service';
 
 @Component({
     selector: 'agt-workspace-payment-list',
@@ -12,28 +13,37 @@ import { PaymentService } from '@core/services/payment/payment.service';
 })
 export class WorkspacePaymentListContainer
     extends SmartComponent
-    implements OnChanges
+    implements OnInit
 {
-    @Input() contentType: number = 0;
-    @Input() paymentStatusId: number = 0;
     isLoadedContent: boolean = false;
     isLoadingContent: boolean = false;
+    paymentStatusId: number = 0;
     payments: Payment[] = [];
     page: number = 1;
     perPage: number = 12;
     totalItems: number = 0;
 
-    constructor(private _paymentService: PaymentService) {
+    constructor(
+        private _paymentService: PaymentService,
+        private _payTrackerService: PayTrackerService
+    ) {
         super();
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.paymentStatusId && changes.paymentStatusId.currentValue) {
-            this.page = 1;
-            this.payments = [];
-            this.isLoadedContent = false;
-            this._loadPayments();
-        }
+    ngOnInit(): void {
+        this._payTrackerService.paymentStatusId
+            .pipe(this.untilComponentDestroy())
+            .subscribe((paymentStatusId: number) => {
+                this.paymentStatusId = paymentStatusId;
+                this.initData();
+            });
+    }
+
+    initData(): void {
+        this.page = 1;
+        this.payments = [];
+        this.isLoadedContent = false;
+        this._loadPayments();
     }
 
     loadMoreContents(): void {

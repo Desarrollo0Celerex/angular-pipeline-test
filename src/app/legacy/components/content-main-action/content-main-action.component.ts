@@ -5,7 +5,7 @@ import { CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { Policy } from '@interfaces/policy.interface';
 import { Payment } from '@core/interfaces/payment.interface';
-import { PluralPipe } from '@shared/pipes/plural/plural.pipe';
+import { PluralPipe } from '@pipes/plural/plural.pipe';
 
 declare var ModalPlugin: any;
 

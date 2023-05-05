@@ -1,41 +1,13 @@
-<agt-payments-kpis
-    [selectedPaymentStatusId]="paymentStatusId"
-></agt-payments-kpis>
+<agt-payments-kpis></agt-payments-kpis>
 
 <div class="row mt-5">
-    <!-- AGENTHOS - SMART SEARCH -->
     <div class="col-xl-9 col-lg-6 col-md-6 col-sm-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Localizar Recibo</h3>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <div class="row gutters-xs">
-                        <div class="col">
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="agtSearchQuery"
-                                placeholder="Buscador de Recibos"
-                            />
-                        </div>
-                        <span class="col-auto">
-                            <a href="../payments/results.php">
-                                <button
-                                    type="button"
-                                    name="agtSmartSearch"
-                                    class="btn agt-btn-primary"
-                                >
-                                    <i class="fe fe-search"></i></button
-                            ></a>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <agt-card-content-search-engine
+            title="Localizar Recibo"
+            placeholder="Buscador de Recibos"
+            (searchContent)="searchContent($event)"
+        ></agt-card-content-search-engine>
     </div>
-    <!-- //AGENTHOS - SMART SEARCH -->
     <!-- AGENTHOS - PAYTRACKER ACTIONS -->
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="card">
@@ -61,12 +33,9 @@
 <div class="row mt-3">
     <div class="col-12">
         <agt-card-content-title
-            title="{{contentType | contentTypeName | plural }} {{paymentStatusId | paymentStatusName | plural}}"
+            title="Recibos {{paymentStatusId | paymentStatusName | plural}}"
         ></agt-card-content-title>
     </div>
 </div>
 
-<agt-workspace-payment-list
-    [contentType]="contentType"
-    [paymentStatusId]="paymentStatusId"
-></agt-workspace-payment-list>
+<agt-workspace-payment-list></agt-workspace-payment-list>

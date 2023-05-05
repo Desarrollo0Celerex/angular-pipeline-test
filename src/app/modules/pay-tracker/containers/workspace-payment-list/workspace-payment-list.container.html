@@ -1,8 +1,8 @@
 <agt-payment-list
-    contentName="{{contentType | contentTypeName | plural: payments.length}} {{paymentStatusId | paymentStatusName | plural: payments.length}}"
-    noResultsMessage="No se encontraron {{contentType | contentTypeName | plural}} {{paymentStatusId | paymentStatusName | plural: payments.length}}."
-    noResultsDetails="Por favor carga una póliza para detectar sus {{contentType | contentTypeName | plural}}."
-    [canShowNoResultsAction]="true"
+    contentName="{{'Recibo' | plural: payments.length}} {{paymentStatusId | paymentStatusName | plural: payments.length}}"
+    noResultsMessage="No se encontraron recibos {{paymentStatusId | paymentStatusName | plural | lowercase}}."
+    noResultsDetails="Por favor carga una póliza para detectar sus recibos."
+    noResultsButtonLabel="Cargar Póliza"
     [isLoadedContent]="isLoadedContent"
     [isLoadingContent]="isLoadingContent"
     [payments]="payments"

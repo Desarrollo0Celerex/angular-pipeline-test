@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CardContentKpiComponent } from './components/card-content-kpi/card-content-kpi.component';
 import { CardContentTitleComponent } from './components/card-content-title/card-content-title.component';
 import { ContactStatusNamePipe } from './pipes/contact-status-name/contact-status-name.pipe';
-import { ContentTypeNamePipe } from './pipes/content-type-name/content-type-name.pipe';
 import { PluralPipe } from './pipes/plural/plural.pipe';
 import { PaymentStatusNamePipe } from './pipes/payment-status-name/payment-status-name.pipe';
 import { PaymentStatusBackgroundPipe } from './pipes/payment-status-background/payment-status-background.pipe';
@@ -23,19 +23,20 @@ import { PaymentTypeValuePipe } from './pipes/payment-type-value/payment-type-va
 import { LoadingContentComponent } from './components/loading-content/loading-content.component';
 import { CardContentResultsComponent } from './components/card-content-results/card-content-results.component';
 import { CardContentNoResultsComponent } from './components/card-content-no-results/card-content-no-results.component';
+import { CardContentSearchEngineComponent } from './components/card-content-search-engine/card-content-search-engine.component';
 
 @NgModule({
     declarations: [
         CardContentKpiComponent,
         CardContentNoResultsComponent,
         CardContentResultsComponent,
+        CardContentSearchEngineComponent,
         CardContentTitleComponent,
+        LoadingContentComponent,
         CardPaymentComponent,
         ContactStatusNamePipe,
-        ContentTypeNamePipe,
         InsuranceIconPipe,
         InsuranceBackgroundPipe,
-        LoadingContentComponent,
         PaymentStatusBackgroundPipe,
         PaymentStatusIconPipe,
         PaymentStatusNamePipe,
@@ -52,14 +53,14 @@ import { CardContentNoResultsComponent } from './components/card-content-no-resu
         CardContentKpiComponent,
         CardContentNoResultsComponent,
         CardContentResultsComponent,
+        CardContentSearchEngineComponent,
         CardContentTitleComponent,
+        LoadingContentComponent,
         CardPaymentComponent,
         ContactStatusNamePipe,
-        ContentTypeNamePipe,
-        LoadingContentComponent,
         PaymentStatusNamePipe,
         PluralPipe,
     ],
-    imports: [CommonModule, RouterModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
 })
 export class SharedModule {}

@@ -1,7 +1,3 @@
-export enum CONTENT_TYPES {
-    PAYMENTS = 1,
-}
-
 export enum GENDERS {
     MALE = 1,
     FEMALE = 2,
@@ -55,11 +51,7 @@ export enum INSURANCES {
 
 export enum PAYMENT_PLANS {
     SINGLE_PAYMENT = 1,
-    MONTHLY = 2,
-    QUARTERLY = 3,
-    BIANNUAL = 4,
     ANNUAL = 5,
-    FOUR_MONTHLY = 6,
 }
 
 export enum PAYMENT_SOURCE_TYPES {

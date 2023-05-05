@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { LoadingContentModule } from '@components/loading-content/loading-content.module';
 import { MenuStatsModule } from '@components/menu-stats/menu-stats.module';
-import { PluralPipe } from '@shared/pipes/plural/plural.pipe';
+import { PluralModule } from '@pipes/plural/plural.module';
+import { PluralPipe } from '@pipes/plural/plural.pipe';
 
 import { InsurerService } from '@services/insurer.service';
 import { ContactSourceService } from '@services/contact-source.service';
@@ -28,6 +29,7 @@ import { StatsSnapshotPage } from './stats-snapshot.page';
         LoadingContentModule,
         StatsSnapshotRoutingModule,
         MenuStatsModule,
+        PluralModule,
     ],
     providers: [
         PluralPipe,

@@ -6,9 +6,9 @@ import { ModalSelectContactTypeModule } from '@components/modal-select-contact-t
 import { ModalSearchContactModule } from '@components/modal-search-contact/modal-search-contact.module';
 import { ModalSearchPolicyModule } from '@components/modal-search-policy/modal-search-policy.module';
 import { ModalCreateSinisterModule } from '@components/modal-create-sinister/modal-create-sinister.module';
-import { SharedModule } from '@shared/shared.module';
 
 import { ContentResultsComponent } from './content-results.component';
+import { PluralModule } from '@pipes/plural/plural.module';
 
 @NgModule({
     declarations: [ContentResultsComponent],
@@ -20,7 +20,7 @@ import { ContentResultsComponent } from './content-results.component';
         ModalSelectContactTypeModule,
         ModalSearchPolicyModule,
         ModalCreateSinisterModule,
-        SharedModule,
+        PluralModule,
     ],
 })
 export class ContentResultsModule {}

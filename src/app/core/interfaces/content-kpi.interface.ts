@@ -1,5 +1,5 @@
 export interface ContentKpi {
-    contentType: number;
+    contentTypeName: string;
     contentSubtype: number;
     value: number;
     total: number;

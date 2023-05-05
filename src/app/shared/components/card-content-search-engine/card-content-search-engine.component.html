@@ -1,0 +1,26 @@
+<form [formGroup]="form" (submit)="requestSearchContent()">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">{{ title }}</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <div class="row gutters-xs">
+                    <div class="col">
+                        <input
+                            type="text"
+                            class="form-control"
+                            [placeholder]="placeholder"
+                            formControlName="query"
+                        />
+                    </div>
+                    <span class="col-auto">
+                        <button type="submit" class="btn agt-btn-primary">
+                            <i class="fe fe-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

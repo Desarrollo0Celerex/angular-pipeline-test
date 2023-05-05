@@ -11,7 +11,7 @@ import {
     SINISTER_STATUS,
 } from '@constants/global';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
-import { PluralPipe } from '@shared/pipes/plural/plural.pipe';
+import { PluralPipe } from '@pipes/plural/plural.pipe';
 
 import { Stat } from '@interfaces/stat.interface';
 import { ContactTypeStat } from '@interfaces/contact-type-stat.interface';

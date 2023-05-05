@@ -8,10 +8,10 @@ import { Payment } from '@core/interfaces/payment.interface';
     styles: [],
 })
 export class PaymentListComponent extends DumbComponent {
-    @Input() canShowNoResultsAction: boolean = false;
     @Input() contentName: string = '';
     @Input() isLoadedContent: boolean = false;
     @Input() isLoadingContent: boolean = false;
+    @Input() noResultsButtonLabel: string = '';
     @Input() noResultsDetails: string = '';
     @Input() noResultsMessage: string = '';
     @Input() payments: Payment[] = [];
@@ -32,5 +32,9 @@ export class PaymentListComponent extends DumbComponent {
 
     showModalToSelectContactAction(): void {
         console.log('Mostrar modal para seleccionar la acción del contacto.');
+    }
+
+    trackByPayments(index: number, payment: Payment): string {
+        return payment.paymentId;
     }
 }

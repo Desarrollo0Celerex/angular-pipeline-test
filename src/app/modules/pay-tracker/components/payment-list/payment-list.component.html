@@ -1,7 +1,9 @@
 <ng-container *ngIf="isLoadedContent">
     <ng-container *ngIf="hasResults; else noResultsContainer">
         <div class="row">
-            <ng-container *ngFor="let payment of payments">
+            <ng-container
+                *ngFor="let payment of payments; trackBy: trackByPayments"
+            >
                 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
                     <agt-card-payment [payment]="payment"></agt-card-payment>
                 </div>
@@ -33,7 +35,7 @@
             <agt-card-content-no-results
                 [message]="noResultsMessage"
                 [details]="noResultsDetails"
-                [canShowNoResultsAction]="canShowNoResultsAction"
+                [buttonLabel]="noResultsButtonLabel"
                 (doAction)="showModalToSelectContactAction()"
             ></agt-card-content-no-results>
         </div>

@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '@shared/shared.module';
-
 import { CardContactComponent } from './card-contact.component';
+import { ContactStatusNameModule } from '@pipes/contact-status-name/contact-status-name.module';
 
 @NgModule({
     declarations: [CardContactComponent],
     exports: [CardContactComponent],
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, ContactStatusNameModule],
 })
 export class CardContactModule {}

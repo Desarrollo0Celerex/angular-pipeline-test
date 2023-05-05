@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 
-import { CONTENT_TYPES, PAYMENT_STATUS } from '@configs/constants.config';
+import { PAYMENT_STATUS } from '@configs/constants.config';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ContentKpi } from '@core/interfaces/content-kpi.interface';
 import { PaymentService } from '@core/services/payment/payment.service';
@@ -17,33 +17,33 @@ declare var CounterPlugin: any;
     styles: [],
 })
 export class PaymentsKpisContainer extends SmartComponent implements OnInit {
-    @Input() selectedPaymentStatusId: number = 0;
     kpis: ContentKpi[] = [
         {
-            contentType: CONTENT_TYPES.PAYMENTS,
+            contentTypeName: 'Recibos',
             contentSubtype: PAYMENT_STATUS.IN_TRANSIT,
             value: 0,
             total: 0,
         },
         {
-            contentType: CONTENT_TYPES.PAYMENTS,
+            contentTypeName: 'Recibos',
             contentSubtype: PAYMENT_STATUS.IN_TIME,
             value: 0,
             total: 0,
         },
         {
-            contentType: CONTENT_TYPES.PAYMENTS,
+            contentTypeName: 'Recibos',
             contentSubtype: PAYMENT_STATUS.LATE,
             value: 0,
             total: 0,
         },
         {
-            contentType: CONTENT_TYPES.PAYMENTS,
+            contentTypeName: 'Recibos',
             contentSubtype: PAYMENT_STATUS.OVERDUE,
             value: 0,
             total: 0,
         },
     ];
+    selectedPaymentStatusId: number = 0;
 
     constructor(
         private _paymentService: PaymentService,
@@ -54,6 +54,11 @@ export class PaymentsKpisContainer extends SmartComponent implements OnInit {
 
     ngOnInit(): void {
         this._loadKpis();
+        this._payTrackerService.paymentStatusId
+            .pipe(this.untilComponentDestroy())
+            .subscribe((paymentStatusId) => {
+                this.selectedPaymentStatusId = paymentStatusId;
+            });
     }
 
     selectPaymentStatusId(contectSubtype: number): void {

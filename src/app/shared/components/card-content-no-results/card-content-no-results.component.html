@@ -5,13 +5,13 @@
                 {{ message }} <strong>{{ details }}</strong>
             </li>
         </ol>
-        <ng-container *ngIf="canShowNoResultsAction">
+        <ng-container *ngIf="canShowAction">
             <div class="btn-list text-center">
                 <button
                     class="btn btn-block agt-btn-primary"
                     (click)="requestDoAction()"
                 >
-                    <strong>CARGAR PÓLIZA</strong>
+                    <strong>buttonLabel</strong>
                 </button>
             </div>
         </ng-container>

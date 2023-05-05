@@ -16,8 +16,8 @@ import { ModalSelectInsuranceListTypeModule } from '@components/modal-select-ins
 import { ModalSelectPolicyStatusModule } from '@components/modal-select-policy-status/modal-select-policy-status.module';
 import { ModalSelectQuotationStatusModule } from '@components/modal-select-quotation-status/modal-select-quotation-status.module';
 import { ModalSelectSinisterStatusModule } from '@components/modal-select-sinister-status/modal-select-sinister-status.module';
-import { SharedModule } from '@shared/shared.module';
-import { PluralPipe } from '@shared/pipes/plural/plural.pipe';
+import { PluralModule } from '@pipes/plural/plural.module';
+import { PluralPipe } from '@pipes/plural/plural.pipe';
 
 import { ContentMainActionComponent } from './content-main-action.component';
 
@@ -41,7 +41,7 @@ import { ContentMainActionComponent } from './content-main-action.component';
         ModalSelectPolicyStatusModule,
         ModalSelectQuotationStatusModule,
         ModalSelectSinisterStatusModule,
-        SharedModule,
+        PluralModule,
     ],
     providers: [PluralPipe],
 })

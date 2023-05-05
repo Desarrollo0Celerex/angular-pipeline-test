@@ -93,8 +93,6 @@ import { ModalUpdateSinisterEventModule } from '@components/modal-update-siniste
 
 import { WrapperDownloadSinisterEventEvidenceModule } from '@components/wrapper-download-sinister-event-evidence/wrapper-download-sinister-event-evidence.module';
 
-import { SharedModule } from '@shared/shared.module';
-
 import { ClientService } from '@services/client.service';
 import { ContactService } from '@core/services/contact/contact.service';
 import { ContactFileService } from '@services/contact-file.service';
@@ -114,6 +112,7 @@ import { SinisterService } from '@services/sinister.service';
 
 import { ContentListComponent } from './content-list.component';
 import { ContentListService } from './content-list.service';
+import { PluralModule } from '@pipes/plural/plural.module';
 
 @NgModule({
     declarations: [ContentListComponent],
@@ -151,7 +150,6 @@ import { ContentListService } from './content-list.service';
         ContentSuggestionsModule,
         ContentTotalResultsModule,
         LoadingContentModule,
-        SharedModule,
         ModalApplyPaymentModule,
         ModalConfirmAcceptQuotationModule,
         ModalConfirmCancelPolicyModule,
@@ -208,6 +206,7 @@ import { ContentListService } from './content-list.service';
         ModalUpdateReceiptPaidModule,
         ModalUpdateSinisterEventModule,
         WrapperDownloadSinisterEventEvidenceModule,
+        PluralModule,
     ],
     providers: [
         ClientService,
