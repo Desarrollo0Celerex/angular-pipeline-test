@@ -24,19 +24,21 @@ import { LoadingContentComponent } from './components/loading-content/loading-co
 import { CardContentResultsComponent } from './components/card-content-results/card-content-results.component';
 import { CardContentNoResultsComponent } from './components/card-content-no-results/card-content-no-results.component';
 import { CardContentSearchEngineComponent } from './components/card-content-search-engine/card-content-search-engine.component';
+import { CardContentMainActionComponent } from './components/card-content-main-action/card-content-main-action.component';
 
 @NgModule({
     declarations: [
         CardContentKpiComponent,
+        CardContentMainActionComponent,
         CardContentNoResultsComponent,
         CardContentResultsComponent,
         CardContentSearchEngineComponent,
         CardContentTitleComponent,
-        LoadingContentComponent,
         CardPaymentComponent,
         ContactStatusNamePipe,
         InsuranceIconPipe,
         InsuranceBackgroundPipe,
+        LoadingContentComponent,
         PaymentStatusBackgroundPipe,
         PaymentStatusIconPipe,
         PaymentStatusNamePipe,
@@ -51,13 +53,14 @@ import { CardContentSearchEngineComponent } from './components/card-content-sear
     ],
     exports: [
         CardContentKpiComponent,
+        CardContentMainActionComponent,
         CardContentNoResultsComponent,
         CardContentResultsComponent,
         CardContentSearchEngineComponent,
         CardContentTitleComponent,
-        LoadingContentComponent,
         CardPaymentComponent,
         ContactStatusNamePipe,
+        LoadingContentComponent,
         PaymentStatusNamePipe,
         PluralPipe,
     ],

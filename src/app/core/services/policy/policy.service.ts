@@ -1,32 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-import { PAYMENT_ENDPOINTS } from '@configs/endpoints.config';
-import { AuthService } from '@core/services/auth/auth.service';
+import { POLICY_ENDPOINTS } from '@configs/endpoints.config';
 import { ApiHttp } from '@core/http/api.http';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
+import { AuthService } from '@core/services/auth/auth.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class PaymentService {
+export class PolicyService {
     private _workspaceId: string = this._authService.workspaceId;
 
     constructor(private _apiHttp: ApiHttp, private _authService: AuthService) {}
-
-    getTotalWorkspacePayments(
-        filters: string = '',
-        rangeField: string = '',
-        rangeStart: string = '',
-        rangeEnd: string = ''
-    ): Observable<number> {
-        return this._apiHttp
-            .param('filter', filters)
-            .param('rangeField', rangeField)
-            .param('rangeStart', rangeStart)
-            .param('rangeEnd', rangeEnd)
-            .get(PAYMENT_ENDPOINTS.totalWorkspacePayments(this._workspaceId));
-    }
 
     getWorkspacePayments(
         page: number = 1,
@@ -51,6 +36,6 @@ export class PaymentService {
             .param('rangeStart', rangeStart)
             .param('rangeEnd', rangeEnd)
             .param('specialFilter', specialFilter)
-            .get(PAYMENT_ENDPOINTS.workspacePayments(this._workspaceId));
+            .get(POLICY_ENDPOINTS.workspacePolicies(this._workspaceId));
     }
 }

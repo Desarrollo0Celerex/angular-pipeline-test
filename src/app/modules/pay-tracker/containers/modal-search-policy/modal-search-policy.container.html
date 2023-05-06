@@ -1,0 +1,90 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{modalTitle}}</h5>
+                <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="closeModal()"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ol class="breadcrumb1">
+                    <li class="breadcrumb-item1">{{modalMessage}}</li>
+                </ol>
+                <form [formGroup]="form" (submit)="validateForm()">
+                    <div class="form-group">
+                        <div class="row gutters-xs">
+                            <div class="col">
+                                <input
+                                    type="text"
+                                    class="form-control {{getValidationClass('policyNumber')}}"
+                                    placeholder="Número de póliza"
+                                    formControlName="policyNumber"
+                                    (keyup)="resetSelectedAction()"
+                                />
+                                <div class="invalid-feedback">
+                                    {{getErrorMessage('policyNumber')}}
+                                </div>
+                            </div>
+                            <span class="col-auto">
+                                <button
+                                    type="submit"
+                                    class="btn agt-btn-primary"
+                                >
+                                    <i class="fe fe-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+                <ng-container *ngIf="canShowResponseContainer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-left">
+                                {{modalDescription}}
+                                <strong>{{modalDetails}}</strong>.
+                            </p>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <a [routerLink]="routeLink">
+                                <button
+                                    type="button"
+                                    class="btn btn-block agt-btn-default"
+                                    (click)="doAction()"
+                                >
+                                    <i
+                                        class="fa {{modalActionButtonIcon}} mr-2"
+                                    ></i
+                                    ><strong
+                                        >{{modalActionButtonLabel |
+                                        uppercase}}</strong
+                                    >
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    (click)="closeModal()"
+                >
+                    <strong>CANCELAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

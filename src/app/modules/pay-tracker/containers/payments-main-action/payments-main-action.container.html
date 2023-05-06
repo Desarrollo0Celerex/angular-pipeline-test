@@ -1,0 +1,20 @@
+<agt-card-content-main-action
+    title="Gestionar Cobranza"
+    buttonLabel="Acciones Disponibles"
+    (doAction)="showModalToSelectPaymentsActions()"
+></agt-card-content-main-action>
+
+<agt-modal-select-payments-actions
+    [modalId]="modalIdSelectPaymentsActions"
+    (generateReport)="showModalToSelectReportType()"
+    (applyPayment)="showModalToSearchPolicy()"
+></agt-modal-select-payments-actions>
+
+<agt-modal-select-payments-report-type
+    [modalId]="modalIdSelectPaymentsReportType"
+></agt-modal-select-payments-report-type>
+
+<agt-modal-search-policy
+    [modalId]="modalIdSearchPolicy"
+    (loadPolicy)="showModalToSelectContactType()"
+></agt-modal-search-policy>

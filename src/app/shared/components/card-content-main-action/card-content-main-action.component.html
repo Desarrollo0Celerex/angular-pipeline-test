@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">{{ title }}</h3>
+    </div>
+    <div class="card-body">
+        <button
+            type="button"
+            class="btn btn-block agt-btn-secondary"
+            (click)="requestDoAction()"
+        >
+            <strong>{{ buttonLabel | uppercase }}</strong>
+        </button>
+    </div>
+</div>

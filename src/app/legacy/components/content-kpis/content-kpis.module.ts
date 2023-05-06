@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { SharedModule } from '@shared/shared.module';
+import { PluralModule } from '@pipes/plural/plural.module';
 import { ClientService } from '@services/client.service';
 import { ClientStatusService } from '@services/client-status.service';
 import { GroupService } from '@services/group.service';
@@ -22,7 +22,7 @@ import { ContentKpisService } from './content-kpis.service';
 @NgModule({
     declarations: [ContentKpisComponent],
     exports: [ContentKpisComponent],
-    imports: [CommonModule, SharedModule, RouterModule],
+    imports: [CommonModule, RouterModule, PluralModule],
     providers: [
         ClientService,
         ClientStatusService,

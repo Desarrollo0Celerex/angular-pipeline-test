@@ -30,6 +30,11 @@ export const PAYMENT_ENDPOINTS: any = {
         `${environment.apiUrl}/workspaces/${workspaceId}/payments`,
 };
 
+export const POLICY_ENDPOINTS: any = {
+    workspacePolicies: (workspaceId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/policies`,
+};
+
 export const WORKSPACE_ENDPOINTS: any = {
     workspaces: `${environment.apiUrl}/workspaces`,
     workspace: (workspaceId: string) =>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '@shared/shared.module';
 
@@ -14,6 +15,10 @@ import { SearchEngineContainer } from './containers/search-engine/search-engine.
 import { PaymentsSearchEngineContainer } from './containers/payments-search-engine/payments-search-engine.container';
 import { SearchPaymentListContainer } from './containers/search-payment-list/search-payment-list.container';
 import { PaymentsTitleContainer } from './containers/payments-title/payments-title.container';
+import { PaymentsMainActionContainer } from './containers/payments-main-action/payments-main-action.container';
+import { ModalSelectPaymentsActionsComponent } from './components/modal-select-payments-actions/modal-select-payments-actions.component';
+import { ModalSelectPaymentsReportTypeComponent } from './components/modal-select-payments-report-type/modal-select-payments-report-type.component';
+import { ModalSearchPolicyContainer } from './containers/modal-search-policy/modal-search-policy.container';
 
 @NgModule({
     declarations: [
@@ -26,8 +31,18 @@ import { PaymentsTitleContainer } from './containers/payments-title/payments-tit
         PaymentsSearchEngineContainer,
         SearchPaymentListContainer,
         PaymentsTitleContainer,
+        PaymentsMainActionContainer,
+        ModalSelectPaymentsActionsComponent,
+        ModalSelectPaymentsReportTypeComponent,
+        ModalSearchPolicyContainer,
     ],
-    imports: [CommonModule, PayTracketRoutingModule, SharedModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        PayTracketRoutingModule,
+        ReactiveFormsModule,
+        SharedModule,
+    ],
     providers: [PayTrackerService],
 })
 export class PayTracketModule {}
