@@ -1,0 +1,188 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalles de Recibo</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <ng-container *ngIf="model.payment; else loadingContent">
+                <div class="modal-body">
+                    <!-- AGENTHOS - SMART ALERTS -->
+                    <div class="row" *ngIf="totalExpiredDays > 0">
+                        <div class="col-md-12 mb-3">
+                            <a
+                                routerLink="/{{
+                                    ROUTES_NAME.pendingReceipts(
+                                        contactId,
+                                        policyId,
+                                        paymentId
+                                    )
+                                }}"
+                            >
+                                <div
+                                    class="alert agt-alert-warning alert-dismissible fade show"
+                                    role="alert"
+                                >
+                                    <span class="alert-inner--icon"
+                                        ><i class="fe fe-credit-card mr-2"></i
+                                    ></span>
+                                    <span class="alert-inner--text"
+                                        >Recibo con
+                                        <strong>{{ totalExpiredDays }}</strong>
+                                        Días de
+                                        {{
+                                            totalExpiredDays > 8
+                                                ? "Retraso"
+                                                : "Gracia"
+                                        }}
+                                        .</span
+                                    >
+                                </div></a
+                            >
+                        </div>
+                    </div>
+                    <!-- //AGENTHOS - SMART ALERTS -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Titular</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.payment.titularName"
+                                    readonly=""
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Bien Asegurado</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="
+                                        model.payment.coveredProperty
+                                    "
+                                    readonly=""
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Seguro</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="{{
+                                        model.payment.insuranceName | uppercase
+                                    }}"
+                                    readonly=""
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Tipo</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="{{
+                                        model.payment.insuranceTypeName
+                                            | uppercase
+                                    }}"
+                                    readonly=""
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">No. Póliza</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.payment.policyNumber"
+                                    readonly=""
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">No. Recibo</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="{{
+                                        model.payment.tickets + 1
+                                    }} DE {{ model.payment.bills }}"
+                                    readonly=""
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Fecha Recibo</label>
+                                <input
+                                    type="text"
+                                    name="agtPolicyValidityIni"
+                                    class="form-control"
+                                    placeholder="{{
+                                        model.payment.paymentDate
+                                            | date : 'dd/MM/yyyy'
+                                    }}"
+                                    readonly=""
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label"
+                                    >Monto Recibo ({{
+                                        model.payment.currencyName
+                                    }})</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="{{
+                                        paymentAmount
+                                            | currency : '' : '$' : '0.2-2'
+                                    }}"
+                                    readonly=""
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-block agt-btn-primary"
+                        (click)="requestPayReceipt()"
+                    >
+                        <strong>APLICAR PAGO</strong>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #loadingContent>
+    <agt-loading-content
+        [isLoadingContent]="true"
+        [height]="464"
+    ></agt-loading-content>
+</ng-template>

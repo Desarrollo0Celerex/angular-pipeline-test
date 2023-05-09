@@ -8,7 +8,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Aplicar Pago</h5>
+                <h5 class="modal-title">Cancelar Póliza</h5>
                 <button
                     type="button"
                     class="close"
@@ -21,28 +21,42 @@
             <div class="modal-body">
                 <ol class="breadcrumb1">
                     <li class="breadcrumb-item1">
-                        Selecciona el tipo de pago que deseas aplicar.
+                        Selecciona cómo deseas cancelar la póliza.
                     </li>
                 </ol>
                 <div class="row">
                     <div class="col-md-12 mt-3">
+                        <!-- AGENTHOS - SMART WALLET POLICY CANCEL DIRECT -->
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
-                            (click)="requestPreauthorizePayment()"
+                            (click)="cancelPolicy()"
                         >
-                            <i class="fa fa-check-circle-o mr-2"></i
-                            ><strong>PAGO PRE AUTORIZADO</strong>
+                            <i class="fa fa-exclamation-triangle mr-2"></i
+                            ><strong>CANCELACIÓN DIRECTA</strong>
                         </button>
                     </div>
                     <div class="col-md-12 mt-3">
+                        <!-- AGENTHOS - SMART WALLET POLICY CANCEL ENDORSEMENT -->
+                        <button
+                            type="button"
+                            (click)="endorsePolicy()"
+                            class="btn btn-block agt-btn-default"
+                            data-dismiss="modal"
+                        >
+                            <i class="fa fa-files-o mr-2"></i
+                            ><strong>CANCELACIÓN CON ENDOSO</strong>
+                        </button>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <!-- AGENTHOS - SMART WALLET POLICY CANCEL REQUEST -->
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
-                            (click)="requsetApplyPayment()"
+                            disabled
                         >
-                            <i class="fa fa-check-square mr-2"></i
-                            ><strong>PAGO DEFINITIVO</strong>
+                            <i class="fa fa-vcard-o mr-2"></i
+                            ><strong>SOLICTAR CANCELACIÓN (MUY PRONTO)</strong>
                         </button>
                     </div>
                 </div>
@@ -50,6 +64,7 @@
             <div class="modal-footer">
                 <button
                     type="button"
+                    name="agtCancelAction"
                     class="btn btn-block agt-btn-secondary-outline"
                     data-dismiss="modal"
                 >

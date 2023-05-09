@@ -19,7 +19,7 @@ export class ModalShowPolicyDetailsService {
      */
     loadPolicyDetails(contactId: string, policyId: string): void {
         const fields: string =
-            'policyNumber,totalAmount,totalAmountPaid,bills,emissionDate,validityStartDate,validityEndDate,totalSinisters,totalEndorsements,insurerName,titularName,totalRenewals,totalBills,totalTickets,totalOpenSinisters,paymentId';
+            'policyNumber,totalAmount,totalAmountPaid,bills,emissionDate,validityStartDate,validityEndDate,totalSinisters,totalEndorsements,insurerName,titularName,totalRenewals,totalBills,totalTickets,totalOpenSinisters,paymentId,coveredProperty';
         this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .subscribe((res: HttpResponse) => {
@@ -56,6 +56,7 @@ export class ModalShowPolicyDetailsService {
             totalTickets: 0,
             totalOpenSinisters: 0,
             paymentId: '',
+            coveredProperty: '',
         };
     }
 }

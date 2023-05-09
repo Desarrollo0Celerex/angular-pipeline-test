@@ -19,6 +19,20 @@ import { PaymentsMainActionContainer } from './containers/payments-main-action/p
 import { ModalSelectPaymentsActionsComponent } from './components/modal-select-payments-actions/modal-select-payments-actions.component';
 import { ModalSelectPaymentsReportTypeComponent } from './components/modal-select-payments-report-type/modal-select-payments-report-type.component';
 import { ModalSearchPolicyContainer } from './containers/modal-search-policy/modal-search-policy.container';
+import { ModalHandlePaymentComponent } from './components/modal-handle-payment/modal-handle-payment.component';
+
+import { ModalSelectContactActionModule } from '@components/modal-select-contact-action/modal-select-contact-action.module';
+import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
+import { ModalSearchContactModule } from '@components/modal-search-contact/modal-search-contact.module';
+import { ModalConfirmShowPolicyReceiptsPaidModule } from '@components/modal-confirm-show-policy-receipts-paid/modal-confirm-show-policy-receipts-paid.module';
+import { ModalConfirmShowPendingPaymentsModule } from '@components/modal-confirm-show-pending-payments/modal-confirm-show-pending-payments.module';
+import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-details/modal-show-policy-details.module';
+import { ModalShowPolicyFileModule } from '@components/modal-show-policy-file/modal-show-policy-file.module';
+import { ModalSelectCancellationTypeModule } from '@components/modal-select-cancellation-type/modal-select-cancellation-type.module';
+import { ModalShowPaymentDetailsModule } from '@components/modal-show-payment-details/modal-show-payment-details.module';
+import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/modal-show-endorsement.module';
+import { ModalSelectPaymentRegistrationTypeModule } from '@components/modal-select-payment-registration-type/modal-select-payment-registration-type.module';
+import { ModalApplyPaymentModule } from '@components/modal-apply-payment/modal-apply-payment.module';
 
 @NgModule({
     declarations: [
@@ -35,6 +49,7 @@ import { ModalSearchPolicyContainer } from './containers/modal-search-policy/mod
         ModalSelectPaymentsActionsComponent,
         ModalSelectPaymentsReportTypeComponent,
         ModalSearchPolicyContainer,
+        ModalHandlePaymentComponent,
     ],
     imports: [
         CommonModule,
@@ -42,6 +57,19 @@ import { ModalSearchPolicyContainer } from './containers/modal-search-policy/mod
         PayTracketRoutingModule,
         ReactiveFormsModule,
         SharedModule,
+        // REFACTORIZED
+        ModalSelectContactActionModule,
+        ModalSelectContactTypeModule,
+        ModalSearchContactModule,
+        ModalConfirmShowPolicyReceiptsPaidModule,
+        ModalConfirmShowPendingPaymentsModule,
+        ModalShowPolicyDetailsModule,
+        ModalShowPolicyFileModule,
+        ModalSelectCancellationTypeModule,
+        ModalShowPaymentDetailsModule,
+        ModalShowEndorsementModule,
+        ModalSelectPaymentRegistrationTypeModule,
+        ModalApplyPaymentModule,
     ],
     providers: [PayTrackerService],
 })

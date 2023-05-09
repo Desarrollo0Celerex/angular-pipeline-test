@@ -43,4 +43,5 @@ export interface Payment {
     isAutoPayment: string;
     insuranceId: number;
     endorsementNumber: string;
+    paymentSource: string;
 }

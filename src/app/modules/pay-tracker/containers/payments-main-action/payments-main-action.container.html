@@ -8,6 +8,7 @@
     [modalId]="modalIdSelectPaymentsActions"
     (generateReport)="showModalToSelectReportType()"
     (applyPayment)="showModalToSearchPolicy()"
+    (loadPolicy)="requestLoadPolicy()"
 ></agt-modal-select-payments-actions>
 
 <agt-modal-select-payments-report-type
@@ -16,5 +17,5 @@
 
 <agt-modal-search-policy
     [modalId]="modalIdSearchPolicy"
-    (loadPolicy)="showModalToSelectContactType()"
+    (loadPolicy)="requestLoadPolicy()"
 ></agt-modal-search-policy>

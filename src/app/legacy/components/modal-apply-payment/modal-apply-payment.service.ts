@@ -88,7 +88,7 @@ export class ModalApplyPaymentService {
      */
     loadPayment(paymentId: string): Observable<void> {
         const fields: string =
-            'policyNumber,paymentPlanName,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay,discount,paymentPlanReceips,paymentPlanId,paymentSourceTypeId';
+            'policyNumber,bills,tickets,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay,discount,paymentPlanReceips,paymentPlanId,paymentSourceTypeId';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.payment = res.data;

@@ -29,7 +29,7 @@ export class ModalSelectPaymentRegistrationTypeComponent {
         private _loadingService: LoadingService
     ) {}
 
-    onClickPreauthorizePayment(): void {
+    requestPreauthorizePayment(): void {
         ModalPlugin.hide(this.modalId);
         this._loadingService.show();
         this._model.preauthorizePayment(this.paymentId).subscribe(() => {
@@ -39,10 +39,7 @@ export class ModalSelectPaymentRegistrationTypeComponent {
         });
     }
 
-    /**
-     * Click event to request apply the payment
-     */
-    onClickApplyPayment(): void {
+    requsetApplyPayment(): void {
         ModalPlugin.hide(this.modalId);
         this.applyPayment.emit({
             policyId: this.policyId,

@@ -47,6 +47,10 @@ export class SearchPaymentListContainer
         this._loadPayments();
     }
 
+    notifyPaymentApplied(): void {
+        this.initData();
+    }
+
     loadMoreContents(): void {
         this.page++;
         this._loadPayments();
@@ -55,7 +59,7 @@ export class SearchPaymentListContainer
     private _loadPayments(): void {
         this.isLoadingContent = true;
         const fields: string =
-            'paymentId,contactId,insurerImageUrl,paymentSourceTypeId,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceId,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment,isAutoPayment,paymentPlanId,pendingReceipts,paymentPlanReceips,netPay,feePay,coverPay,extraPay,taxPay,discount,endorsementNumber';
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeId,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceId,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment,isAutoPayment,paymentPlanId,pendingReceipts,paymentPlanReceips,netPay,feePay,coverPay,extraPay,taxPay,discount,endorsementNumber,paymentSource';
         const filter: string = UtilitiesHelper.generateHttpFilter(
             'paymentStatusId',
             [

@@ -19,7 +19,7 @@
                 <div class="dropdown-menu dropdown-menu-right" role="menu">
                     <div class="dropdown-plus-title">Acciones Disponibles</div>
                     <!-- AGENTHOS - PAYTRACKER PAYMET EDIT -->
-                    <button
+                    <!-- <button
                         type="button"
                         name="agtPayTrackerPaymentEdit"
                         class="dropdown-item"
@@ -28,25 +28,19 @@
                     >
                         <i class="fa fa-edit mr-2"></i>Editar Recibo
                     </button>
-                    <div class="dropdown-divider"></div>
-                    <!-- AGENTHOS - SMARTWALLET POLICY PAYMENTS APPLIED -->
+                    <div class="dropdown-divider"></div> -->
                     <button
                         type="button"
-                        name="agtPayTrackerPaymentApplied"
                         class="dropdown-item"
-                        data-toggle="modal"
-                        data-target="#agtPayTrackerPaymentApplied"
+                        (click)="requestGoToPaymentReceiptsPaid()"
                     >
                         <i class="fa fa-calendar-check-o mr-2"></i>Recibos
                         Pagados
                     </button>
-                    <!-- AGENTHOS - SMARTWALLET POLICY PAYMENTS PENDING -->
                     <button
                         type="button"
-                        name="agtPayTrackerPaymentPending"
                         class="dropdown-item"
-                        data-toggle="modal"
-                        data-target="#agtPayTrackerPaymentPending"
+                        (click)="requestGoToPaymentReceiptsPending()"
                     >
                         <i class="fa fa-calendar-minus-o mr-2"></i>Recibos
                         Pendientes
@@ -55,31 +49,25 @@
                     <!-- AGENTHOS - SWARTWALLET POLICY DETAILS -->
                     <button
                         type="button"
-                        name="agtSmartWalletPolicyDetails"
                         class="dropdown-item"
-                        data-toggle="modal"
-                        data-target="#agtSmartWalletPolicyDetails"
+                        (click)="requestShowPolicyDetails()"
                     >
                         <i class="fa fa-file-text mr-2"></i>Validar Póliza
                     </button>
                     <!-- AGENTHOS - SWARTWALLET POLICY VIEW -->
                     <button
                         type="button"
-                        name="agtSmartWalletPolicyView"
                         class="dropdown-item"
-                        data-toggle="modal"
-                        data-target="#agtSmartWalletPolicyView"
+                        (click)="requestDownloadPolicy()"
                     >
-                        <i class="fa fa-cloud-download mr-2"></i>Descargar
-                        Póliza
+                        <i class="fa fa-cloud-download mr-2"></i
+                        >{{ downloadLabel }}
                     </button>
                     <!-- AGENTHOS - SWARTWALLET POLICY CANCEL -->
                     <button
                         type="button"
-                        name="agtSmartWalletPolicyCancel"
                         class="dropdown-item"
-                        data-toggle="modal"
-                        data-target="#agtSmartWalletPolicyCancel"
+                        (click)="requestCancelPolicy()"
                     >
                         <i class="fa fa-exclamation-circle mr-2"></i>Cancelar
                         Póliza
@@ -214,10 +202,8 @@
                 <div class="col-6">
                     <button
                         type="button"
-                        name="agtPayTrackerPaymentDetails"
                         class="btn btn-block agt-btn-primary"
-                        data-toggle="modal"
-                        data-target="#agtPayTrackerPaymentDetails"
+                        (click)="requestShowPaymentDetails()"
                     >
                         <strong>VER DETALLES</strong>
                     </button>
@@ -225,10 +211,8 @@
                 <div class="col-6">
                     <button
                         type="button"
-                        name="agtPayTrackerPaymentActions"
                         class="btn btn-block agt-btn-secondary"
-                        data-toggle="modal"
-                        data-target="#agtPayTrackerPaymentActions"
+                        (click)="requestHandlePayment()"
                     >
                         <strong>GESTIONAR PAGO</strong>
                     </button>

@@ -8,7 +8,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Aplicar Pago</h5>
+                <h5 class="modal-title">Gestionar Pago</h5>
                 <button
                     type="button"
                     class="close"
@@ -21,7 +21,7 @@
             <div class="modal-body">
                 <ol class="breadcrumb1">
                     <li class="breadcrumb-item1">
-                        Selecciona el tipo de pago que deseas aplicar.
+                        Selecciona la acción que deseas realizar.
                     </li>
                 </ol>
                 <div class="row">
@@ -29,20 +29,30 @@
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
-                            (click)="requestPreauthorizePayment()"
+                            (click)="requestApplyPayment()"
                         >
-                            <i class="fa fa-check-circle-o mr-2"></i
-                            ><strong>PAGO PRE AUTORIZADO</strong>
+                            <i class="fa fa-credit-card-alt mr-2"></i
+                            ><strong>{{ applyPaymentLabel }}</strong>
                         </button>
                     </div>
-                    <div class="col-md-12 mt-3">
+                    <div class="col-md-6 mt-3">
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
-                            (click)="requsetApplyPayment()"
+                            (click)="requestSendReminder()"
                         >
-                            <i class="fa fa-check-square mr-2"></i
-                            ><strong>PAGO DEFINITIVO</strong>
+                            <i class="fa fa-send mr-2"></i
+                            ><strong>ENVIAR RECORDATORIO</strong>
+                        </button>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <button
+                            type="button"
+                            class="btn btn-block agt-btn-default"
+                            (click)="requestScheduleTracking()"
+                        >
+                            <i class="fa fa-calendar-plus-o mr-2"></i
+                            ><strong>AGENDAR SEGUIMIENTO</strong>
                         </button>
                     </div>
                 </div>

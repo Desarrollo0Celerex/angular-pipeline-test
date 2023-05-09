@@ -10,6 +10,13 @@ export class PayTrackerService {
     );
     query: BehaviorSubject<string> = new BehaviorSubject<string>('');
     totalResults: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
+    isPaymentApplied: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+        false
+    );
+
+    notifyPaymentApplied(): void {
+        this.isPaymentApplied.next(true);
+    }
 
     setPaymentStatusId(paymentStatusId: number): void {
         this.paymentStatusId.next(paymentStatusId);

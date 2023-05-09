@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { PAYMENT_SOURCE_TYPES } from '@configs/constants.config';
 import { DumbComponent } from '@core/classes/dumb-component';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { Payment } from '@core/interfaces/payment.interface';
@@ -11,9 +12,29 @@ import * as moment from 'moment';
 })
 export class CardPaymentComponent extends DumbComponent {
     @Input() payment: Payment | undefined = undefined;
+    @Output() goToPaymentReceiptsPaid: EventEmitter<any> =
+        new EventEmitter<any>();
+    @Output() goToPaymentReceiptsPending: EventEmitter<any> =
+        new EventEmitter<any>();
+    @Output() showPolicyDetails: EventEmitter<any> = new EventEmitter<any>();
+    @Output() downloadPolicy: EventEmitter<any> = new EventEmitter<any>();
+    @Output() downloadEndorsement: EventEmitter<any> = new EventEmitter<any>();
+    @Output() cancelPolicy: EventEmitter<any> = new EventEmitter<any>();
+    @Output() showPaymentDetails: EventEmitter<any> = new EventEmitter<any>();
+    @Output() handlePayment: EventEmitter<any> = new EventEmitter<any>();
 
     constructor() {
         super();
+    }
+
+    get downloadLabel(): string {
+        if (this.payment) {
+            return this.payment.paymentSourceTypeId ===
+                PAYMENT_SOURCE_TYPES.POLICY
+                ? 'Descargar Póliza'
+                : 'Descargar Endoso';
+        }
+        return '';
     }
 
     get paymentAmount(): number {
@@ -41,5 +62,67 @@ export class CardPaymentComponent extends DumbComponent {
             'days'
         );
         return remainingDays > 0 ? remainingDays : 0;
+    }
+
+    requestGoToPaymentReceiptsPaid(): void {
+        this.goToPaymentReceiptsPaid.emit({
+            contactId: this.payment?.contactId,
+            policyId: this.payment?.policyId,
+            paymentId: this.payment?.paymentId,
+        });
+    }
+
+    requestGoToPaymentReceiptsPending(): void {
+        this.goToPaymentReceiptsPending.emit({
+            contactId: this.payment?.contactId,
+            policyId: this.payment?.policyId,
+            paymentId: this.payment?.paymentId,
+        });
+    }
+
+    requestShowPolicyDetails(): void {
+        this.showPolicyDetails.emit({
+            contactId: this.payment?.contactId,
+            policyId: this.payment?.policyId,
+        });
+    }
+
+    requestDownloadPolicy(): void {
+        if (this.payment!.paymentSourceTypeId === PAYMENT_SOURCE_TYPES.POLICY) {
+            this.downloadPolicy.emit({
+                contactId: this.payment?.contactId,
+                policyId: this.payment?.policyId,
+            });
+        } else {
+            this.downloadEndorsement.emit({
+                contactId: this.payment?.contactId,
+                policyId: this.payment?.policyId,
+                endorsementId: this.payment?.paymentSource,
+            });
+        }
+    }
+
+    requestCancelPolicy(): void {
+        this.cancelPolicy.emit({
+            contactId: this.payment?.contactId,
+            policyId: this.payment?.policyId,
+        });
+    }
+
+    requestShowPaymentDetails(): void {
+        this.showPaymentDetails.emit({
+            contactId: this.payment?.contactId,
+            policyId: this.payment?.policyId,
+            paymentId: this.payment?.paymentId,
+        });
+    }
+
+    requestHandlePayment(): void {
+        this.handlePayment.emit({
+            contactId: this.payment?.contactId,
+            policyId: this.payment?.policyId,
+            paymentId: this.payment?.paymentId,
+            isPreauthorizedPayment: this.payment?.isPreauthorizedPayment,
+        });
     }
 }

@@ -17,32 +17,7 @@ declare var CounterPlugin: any;
     styles: [],
 })
 export class PaymentsKpisContainer extends SmartComponent implements OnInit {
-    kpis: ContentKpi[] = [
-        {
-            contentTypeName: 'Recibos',
-            contentSubtype: PAYMENT_STATUS.IN_TRANSIT,
-            value: 0,
-            total: 0,
-        },
-        {
-            contentTypeName: 'Recibos',
-            contentSubtype: PAYMENT_STATUS.IN_TIME,
-            value: 0,
-            total: 0,
-        },
-        {
-            contentTypeName: 'Recibos',
-            contentSubtype: PAYMENT_STATUS.LATE,
-            value: 0,
-            total: 0,
-        },
-        {
-            contentTypeName: 'Recibos',
-            contentSubtype: PAYMENT_STATUS.OVERDUE,
-            value: 0,
-            total: 0,
-        },
-    ];
+    kpis: ContentKpi[] = this._initKpis();
     selectedPaymentStatusId: number = 0;
 
     constructor(
@@ -59,10 +34,47 @@ export class PaymentsKpisContainer extends SmartComponent implements OnInit {
             .subscribe((paymentStatusId) => {
                 this.selectedPaymentStatusId = paymentStatusId;
             });
+        this._payTrackerService.isPaymentApplied
+            .pipe(this.untilComponentDestroy())
+            .subscribe((isPaymentApplied: boolean) => {
+                if (isPaymentApplied) {
+                    this.kpis = this._initKpis();
+                    this._loadKpis();
+                }
+            });
     }
 
     selectPaymentStatusId(contectSubtype: number): void {
         this._payTrackerService.setPaymentStatusId(contectSubtype);
+    }
+
+    private _initKpis(): ContentKpi[] {
+        return [
+            {
+                contentTypeName: 'Recibos',
+                contentSubtype: PAYMENT_STATUS.IN_TRANSIT,
+                value: 0,
+                total: 0,
+            },
+            {
+                contentTypeName: 'Recibos',
+                contentSubtype: PAYMENT_STATUS.IN_TIME,
+                value: 0,
+                total: 0,
+            },
+            {
+                contentTypeName: 'Recibos',
+                contentSubtype: PAYMENT_STATUS.LATE,
+                value: 0,
+                total: 0,
+            },
+            {
+                contentTypeName: 'Recibos',
+                contentSubtype: PAYMENT_STATUS.OVERDUE,
+                value: 0,
+                total: 0,
+            },
+        ];
     }
 
     private _loadKpis(): void {

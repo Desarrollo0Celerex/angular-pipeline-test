@@ -8,4 +8,6 @@
     [payments]="payments"
     [totalItems]="totalItems"
     (loadMoreContents)="loadMoreContents()"
+    (loadPolicy)="requestLoadPolicy()"
+    (paymentApplied)="notifyPaymentApplied()"
 ></agt-payment-list>

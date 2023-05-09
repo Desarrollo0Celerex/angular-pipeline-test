@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 declare var ModalPlugin: any;
 
@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     styles: [],
 })
 export class PaymentsMainActionContainer {
+    @Output() loadPolicy: EventEmitter<void> = new EventEmitter<void>();
     modalIdSearchPolicy: string = 'pma-modal-search-policy';
     modalIdSelectPaymentsActions: string = 'pma-modal-select-payments-actions';
     modalIdSelectPaymentsReportType: string =
@@ -17,8 +18,8 @@ export class PaymentsMainActionContainer {
         ModalPlugin.show(this.modalIdSearchPolicy);
     }
 
-    showModalToSelectContactType(): void {
-        console.log('Mostar modal para cargar póliza!');
+    requestLoadPolicy(): void {
+        this.loadPolicy.emit();
     }
 
     showModalToSelectPaymentsActions(): void {
