@@ -38,10 +38,10 @@ export class WorkspacePaymentListContainer
                 this.paymentStatusId = paymentStatusId;
                 this.initData();
             });
-        this._payTrackerService.isPaymentApplied
+        this._payTrackerService.canReloadContent
             .pipe(this.untilComponentDestroy())
-            .subscribe((isPaymentApplied: boolean) => {
-                if (isPaymentApplied) {
+            .subscribe((canReloadContent: boolean) => {
+                if (canReloadContent) {
                     this.initData();
                 }
             });
@@ -59,8 +59,8 @@ export class WorkspacePaymentListContainer
         this._loadPayments();
     }
 
-    notifyPaymentApplied(): void {
-        this._payTrackerService.notifyPaymentApplied();
+    reloadContent(): void {
+        this._payTrackerService.reloadContent();
     }
 
     requestLoadPolicy(): void {
@@ -70,7 +70,7 @@ export class WorkspacePaymentListContainer
     private _loadPayments(): void {
         this.isLoadingContent = true;
         const fields: string =
-            'paymentId,contactId,insurerImageUrl,paymentSourceTypeId,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceId,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment,isAutoPayment,paymentPlanId,pendingReceipts,paymentPlanReceips,netPay,feePay,coverPay,extraPay,taxPay,discount,endorsementNumber,paymentSource';
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeId,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceId,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment,isAutoPayment,paymentPlanId,pendingReceipts,paymentPlanReceips,netPay,feePay,coverPay,extraPay,taxPay,discount,endorsementNumber,paymentSource,lastReminderDate,lastReminderTypeId,totalReminders,licenseId';
         const filter: string = UtilitiesHelper.generateHttpFilter(
             'paymentStatusId',
             [this.paymentStatusId]

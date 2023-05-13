@@ -41,7 +41,7 @@ import { Insured } from '@interfaces/insured.interface';
 import { Partner } from '@interfaces/partner.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 
 import { AuthService } from '@core/services/auth/auth.service';
 import { AtomScannService } from '@services/atom-scann.service';

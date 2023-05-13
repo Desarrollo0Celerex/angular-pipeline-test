@@ -25,7 +25,7 @@ import { Gender } from '@interfaces/gender.interface';
 import { Insured } from '@interfaces/insured.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 
 import { CurrencyService } from '@services/currency.service';
 import { GendersService } from '@services/genders.service';

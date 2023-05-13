@@ -1,14 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-policy',
-  templateUrl: './modal-select-policy.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-policy',
+    templateUrl: './modal-select-policy.component.html',
+    styles: [],
 })
 export class ModalSelectPolicyComponent {
     @Input() modalId: string = '';
@@ -23,5 +22,4 @@ export class ModalSelectPolicyComponent {
         ModalPlugin.hide(this.modalId);
         this.policySelected.emit(policy);
     }
-
 }

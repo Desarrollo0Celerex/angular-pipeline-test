@@ -8,7 +8,7 @@ import { DEFAULT_PER_PAGE, EXTERNAL_POLICY_STATUS } from '@constants/global';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UpdateExternalPolicyDataSend } from '@interfaces/update-external-policy-data-send.interface';
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 import { AuthService } from '@core/services/auth/auth.service';
 
 const routes: any = {

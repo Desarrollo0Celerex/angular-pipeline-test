@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicyService } from '@services/policy.service';
 

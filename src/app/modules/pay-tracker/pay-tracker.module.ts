@@ -8,6 +8,7 @@ import { PayTracketRoutingModule } from './pay-tracker-routing.module';
 import { PaymentsPage } from './pages/payments/payments.page';
 import { PaymentsKpisContainer } from './containers/payments-kpis/payments-kpis.container';
 import { PayTrackerService } from './services/pay-tracker/pay-tracker.service';
+import { PaymentReminderService } from './services/payment-reminder/payment-reminder.service';
 import { PaymentListComponent } from './components/payment-list/payment-list.component';
 import { WorkspacePaymentListContainer } from './containers/workspace-payment-list/workspace-payment-list.container';
 import { SearchResultsPage } from './pages/search-results/search-results.page';
@@ -20,6 +21,8 @@ import { ModalSelectPaymentsActionsComponent } from './components/modal-select-p
 import { ModalSelectPaymentsReportTypeComponent } from './components/modal-select-payments-report-type/modal-select-payments-report-type.component';
 import { ModalSearchPolicyContainer } from './containers/modal-search-policy/modal-search-policy.container';
 import { ModalHandlePaymentComponent } from './components/modal-handle-payment/modal-handle-payment.component';
+import { ModalSelectChannelsToSendReminderComponent } from './components/modal-select-channels-to-send-reminder/modal-select-channels-to-send-reminder.component';
+import { ModalRequestReminderDataComponent } from './components/modal-request-reminder-data/modal-request-reminder-data.component';
 
 import { ModalSelectContactActionModule } from '@components/modal-select-contact-action/modal-select-contact-action.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
@@ -33,6 +36,7 @@ import { ModalShowPaymentDetailsModule } from '@components/modal-show-payment-de
 import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/modal-show-endorsement.module';
 import { ModalSelectPaymentRegistrationTypeModule } from '@components/modal-select-payment-registration-type/modal-select-payment-registration-type.module';
 import { ModalApplyPaymentModule } from '@components/modal-apply-payment/modal-apply-payment.module';
+import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone-code/dropdown-select-phone-code.module';
 
 @NgModule({
     declarations: [
@@ -50,6 +54,8 @@ import { ModalApplyPaymentModule } from '@components/modal-apply-payment/modal-a
         ModalSelectPaymentsReportTypeComponent,
         ModalSearchPolicyContainer,
         ModalHandlePaymentComponent,
+        ModalSelectChannelsToSendReminderComponent,
+        ModalRequestReminderDataComponent,
     ],
     imports: [
         CommonModule,
@@ -70,7 +76,8 @@ import { ModalApplyPaymentModule } from '@components/modal-apply-payment/modal-a
         ModalShowEndorsementModule,
         ModalSelectPaymentRegistrationTypeModule,
         ModalApplyPaymentModule,
+        DropdownSelectPhoneCodeModule,
     ],
-    providers: [PayTrackerService],
+    providers: [PayTrackerService, PaymentReminderService],
 })
 export class PayTracketModule {}

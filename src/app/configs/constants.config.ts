@@ -54,6 +54,10 @@ export enum PAYMENT_PLANS {
     ANNUAL = 5,
 }
 
+export enum PAYMENT_REMINDER_TYPES {
+    MANUAL = 1,
+}
+
 export enum PAYMENT_SOURCE_TYPES {
     POLICY = 1,
     ENDORSEMENT = 2,

@@ -84,4 +84,5 @@ export interface Policy {
     contactGenderId: number;
     totalBills: number;
     totalTickets: number;
+    titularPhoneCode: string;
 }

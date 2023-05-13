@@ -8,7 +8,7 @@ import { environment } from '@env/environment';
 import { ContainerCharts } from '@interfaces/container-charts.interface';
 import { CreatePolicyData } from '@interfaces/create-policy-data.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
 import { UpdatePolicyStatusDataSend } from '@interfaces/update-policy-status-data-send.interface';

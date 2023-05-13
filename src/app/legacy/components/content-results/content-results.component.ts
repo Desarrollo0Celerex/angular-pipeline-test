@@ -2,15 +2,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 
-declare var ModalPlugin: any; 
+declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-content-results',
-  templateUrl: './content-results.component.html',
-  styles: [
-  ]
+    selector: 'agt-content-results',
+    templateUrl: './content-results.component.html',
+    styles: [],
 })
 export class ContentResultsComponent {
     @Input() contentResultData: ContentResultData;
@@ -37,7 +36,7 @@ export class ContentResultsComponent {
     constructor() {
         this.contentResultData = {
             loadedItems: 0,
-            totalItems: 0
+            totalItems: 0,
         };
         this.contentTypeName = '';
         this.contentSubtypeName = '';
@@ -102,7 +101,8 @@ export class ContentResultsComponent {
             case CONTENT_TYPES.WORKSPACE_QUOTATIONS_CLOSED_BY_RANGE.ID:
             case CONTENT_TYPES.WORKSPACE_QUOTATIONS_OPENED_BY_RANGE.ID:
                 this.contactActionTitle = 'Cotizar Seguro';
-                this.contactActionDescription = 'Selecciona a quién le deseas cotizar un nuevo seguro.';
+                this.contactActionDescription =
+                    'Selecciona a quién le deseas cotizar un nuevo seguro.';
                 break;
 
             case CONTENT_TYPES.RENEWED_POLICIES_BY_RANGE.ID:
@@ -113,14 +113,22 @@ export class ContentResultsComponent {
             case CONTENT_TYPES.RECEIPTS_APPLIED_BY_RANGE.ID:
             case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
                 this.contactActionTitle = 'Cargar Póliza';
-                this.contactActionDescription = 'Selecciona a quién le deseas cargar la póliza.';
+                this.contactActionDescription =
+                    'Selecciona a quién le deseas cargar la póliza.';
                 break;
         }
     }
 
     private _selectContactTypeTitle(): void {
-        this.contactTypeTitle = (this.contentType === CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID) ? 'Crear Cliente' : 'Crear Prospecto';
-        this.contactTypeDescription = (this.contentType === CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID) ? 'Selecciona el tipo de cliente que deseas crear.' : 'Selecciona el tipo de prospecto que deseas crear.';
+        this.contactTypeTitle =
+            this.contentType ===
+            CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID
+                ? 'Crear Cliente'
+                : 'Crear Prospecto';
+        this.contactTypeDescription =
+            this.contentType ===
+            CONTENT_TYPES.WORKSPACE_CLIENTS_CONVERTED_BY_RANGE.ID
+                ? 'Selecciona el tipo de cliente que deseas crear.'
+                : 'Selecciona el tipo de prospecto que deseas crear.';
     }
-
 }

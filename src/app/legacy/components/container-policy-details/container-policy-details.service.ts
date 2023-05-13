@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { POLICY_RECORD_TYPES } from '@constants/global';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 import { PolicyComplete } from '@interfaces/policy-complete.interface';
 import { PolicyLog } from '@interfaces/policy-log.interface';
 import { PolicyService } from '@services/policy.service';

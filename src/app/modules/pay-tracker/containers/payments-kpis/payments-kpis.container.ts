@@ -34,10 +34,10 @@ export class PaymentsKpisContainer extends SmartComponent implements OnInit {
             .subscribe((paymentStatusId) => {
                 this.selectedPaymentStatusId = paymentStatusId;
             });
-        this._payTrackerService.isPaymentApplied
+        this._payTrackerService.canReloadContent
             .pipe(this.untilComponentDestroy())
-            .subscribe((isPaymentApplied: boolean) => {
-                if (isPaymentApplied) {
+            .subscribe((canReloadContent: boolean) => {
+                if (canReloadContent) {
                     this.kpis = this._initKpis();
                     this._loadKpis();
                 }

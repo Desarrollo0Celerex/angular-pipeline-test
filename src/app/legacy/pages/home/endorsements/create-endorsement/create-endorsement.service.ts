@@ -30,7 +30,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Insured } from '@interfaces/insured.interface';
 import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 import { EndorsementTypeService } from '@services/endorsement-type.service';
 import { GendersService } from '@services/genders.service';
 import { PaymentMethodService } from '@services/payment-method.service';

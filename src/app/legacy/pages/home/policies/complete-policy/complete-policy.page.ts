@@ -19,7 +19,7 @@ import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
 import { HttpError } from '@interfaces/http-error.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 import { LoadingService } from '@core/services/loading/loading.service';
 import { ScanningService } from '@services/scanning.service';
 

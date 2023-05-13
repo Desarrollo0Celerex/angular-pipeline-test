@@ -10,7 +10,7 @@ import {
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 import { PaymentDataSend } from '@interfaces/payment-data-send.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';

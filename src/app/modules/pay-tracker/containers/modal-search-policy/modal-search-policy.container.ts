@@ -11,7 +11,7 @@ import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
 import { PolicyService } from '@core/services/policy/policy.service';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 declare var ModalPlugin: any;
 
 enum ACTIONS {
@@ -223,7 +223,7 @@ export class ModalSearchPolicyContainer extends SmartComponent {
         const sortBy: string = '-validityStartDate';
         const search: string = `policyNumber:${this.form.controls.policyNumber.value}`;
         this._policyService
-            .getWorkspacePayments(
+            .getWorkspacePolicies(
                 page,
                 perPage,
                 fields,

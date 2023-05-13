@@ -5,7 +5,7 @@ import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { HttpError } from '@interfaces/http-error.interface';
 
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 
 import { PolicySearchEngineService } from './policy-search-engine.service';
 

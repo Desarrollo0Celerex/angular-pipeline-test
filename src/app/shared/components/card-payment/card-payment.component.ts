@@ -122,6 +122,11 @@ export class CardPaymentComponent extends DumbComponent {
             contactId: this.payment?.contactId,
             policyId: this.payment?.policyId,
             paymentId: this.payment?.paymentId,
+            lastReminderDate: this.payment?.lastReminderDate,
+            lastReminderTypeId: this.payment?.lastReminderTypeId,
+            totalReminders: this.payment?.totalReminders,
+            licenseId: this.payment?.licenseId,
+            receiptNumber: this.payment!.tickets + 1,
             isPreauthorizedPayment: this.payment?.isPreauthorizedPayment,
         });
     }

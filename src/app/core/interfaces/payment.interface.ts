@@ -44,4 +44,17 @@ export interface Payment {
     insuranceId: number;
     endorsementNumber: string;
     paymentSource: string;
+    titularPhoneCode: string;
+    titularPhoneNumber: string;
+    titularEmail: string;
+    paymentsPhoneCode: string;
+    paymentsPhoneNumber: string;
+    paymentsEmail: string;
+    contactShortName: string;
+    workspaceName: string;
+    insurerName: string;
+    lastReminderDate: string;
+    lastReminderTypeId: number;
+    totalReminders: number;
+    licenseId: number;
 }

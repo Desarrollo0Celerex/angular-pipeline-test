@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { POLICY_STATUS } from '@constants/global';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { Policy } from '@interfaces/policy.interface';
+import { Policy } from '@core/interfaces/policy.interface';
 import { PolicyService } from '@services/policy.service';
 
 @Injectable()

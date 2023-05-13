@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DumbComponent } from '@core/classes/dumb-component';
 import { Payment } from '@core/interfaces/payment.interface';
+import { RequestReminderData } from '@modules/pay-tracker/interfaces/request-reminder-data.interface';
 
 declare var ModalPlugin: any;
 
@@ -21,6 +22,8 @@ export class PaymentListComponent extends DumbComponent {
     @Output() loadMoreContents: EventEmitter<void> = new EventEmitter<void>();
     @Output() loadPolicy: EventEmitter<void> = new EventEmitter<void>();
     @Output() paymentApplied: EventEmitter<void> = new EventEmitter<void>();
+    canRequestEmail: boolean = false;
+    canRequestPhoneNumber: boolean = false;
     data: any = { contactId: '', policyId: '', paymentId: '' };
     modalIdApplyPayment: string = 'agt-modal-apply-payment';
     modalIdConfirmGoToPaymentReceiptsPaid: string =
@@ -31,8 +34,11 @@ export class PaymentListComponent extends DumbComponent {
     modalIdDownloadPolicy: string = 'agt-modal-download-policy';
     modalIdDownloadEndorsement: string = 'agt-modal-download-endorsement';
     modalIdHandlePayment: string = 'agt-modal-handle-payment';
+    modalIdRequestReminderData: string = 'agt-modal-request-reminder-data';
     modalIdSelectCancellationType: string =
         'agt-modal-select-cancellation-type';
+    modalIdSelectChannelsToSendReminder: string =
+        'agt-modal-select-channels-to-send-reminder';
     modalIdSelectPaymentType: string = 'agt-modal-select-payment-type';
     modalIdShowPaymentDetails: string = 'agt-modal-show-payment-details';
 
@@ -44,7 +50,7 @@ export class PaymentListComponent extends DumbComponent {
         return this.payments.length > 0;
     }
 
-    notifyPaymentApplied(): void {
+    reloadContent(): void {
         this.paymentApplied.emit();
     }
 
@@ -94,9 +100,21 @@ export class PaymentListComponent extends DumbComponent {
         ModalPlugin.show(this.modalIdHandlePayment);
     }
 
+    showModalToRequestReminderData(data: RequestReminderData): void {
+        this.canRequestEmail = data.canRequestEmail;
+        this.canRequestPhoneNumber = data.canRequestPhoneNumber;
+        ModalPlugin.show(this.modalIdRequestReminderData);
+    }
+
     showModalToSelectCancellationType(data: any): void {
         this.data = data;
         ModalPlugin.show(this.modalIdSelectCancellationType);
+    }
+
+    showModalToSelectChannelsToSendReminder(): void {
+        this.canRequestEmail = false;
+        this.canRequestPhoneNumber = false;
+        ModalPlugin.show(this.modalIdSelectChannelsToSendReminder);
     }
 
     showModalToShowPaymentDetails(data: any): void {

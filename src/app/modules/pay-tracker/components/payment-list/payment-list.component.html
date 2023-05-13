@@ -69,7 +69,28 @@
     [isPreauthorizedPayment]="data.isPreauthorizedPayment"
     (selectPaymentType)="showModalToSelectPaymentType()"
     (applyPayment)="showModalToApplyPayment()"
+    (sendReminder)="showModalToSelectChannelsToSendReminder()"
 ></agt-modal-handle-payment>
+<agt-modal-select-channels-to-send-reminder
+    [modalId]="modalIdSelectChannelsToSendReminder"
+    [contactId]="data.contactId"
+    [policyId]="data.policyId"
+    [paymentId]="data.paymentId"
+    [lastReminderDate]="data.lastReminderDate"
+    [lastReminderTypeId]="data.lastReminderTypeId"
+    [totalReminders]="data.totalReminders"
+    [licenseId]="data.licenseId"
+    [receiptNumber]="data.receiptNumber"
+    (requestReminderData)="showModalToRequestReminderData($event)"
+></agt-modal-select-channels-to-send-reminder>
+<agt-modal-request-reminder-data
+    [modalId]="modalIdRequestReminderData"
+    [contactId]="data.contactId"
+    [policyId]="data.policyId"
+    [paymentId]="data.paymentId"
+    [canRequestEmail]="canRequestEmail"
+    [canRequestPhoneNumber]="canRequestPhoneNumber"
+></agt-modal-request-reminder-data>
 
 <!-- REFACTORIZED -->
 <agt-modal-confirm-show-policy-receipts-paid
@@ -125,6 +146,6 @@
     [policyId]="data.policyId"
     [paymentId]="data.paymentId"
     [canReloadApplyPayment]="true"
-    (receiptPaid)="notifyPaymentApplied()"
+    (receiptPaid)="reloadContent()"
     (showModalAgain)="showModalToApplyPayment()"
 ></agt-modal-apply-payment>

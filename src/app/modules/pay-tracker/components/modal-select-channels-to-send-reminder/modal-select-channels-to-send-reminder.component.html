@@ -1,0 +1,175 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Recordatorio de Pago</h5>
+                <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="closeModal()"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ng-container *ngIf="canShowAlert">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <a href="../policy/payments.php">
+                                <div
+                                    class="alert agt-alert-warning alert-dismissible fade show"
+                                    role="alert"
+                                >
+                                    <span class="alert-inner--icon"
+                                        ><i class="fe {{ alertIcon }} mr-2"></i
+                                    ></span>
+                                    <span class="alert-inner--text"
+                                        >{{ alertMessage }}
+                                        <ng-container
+                                            *ngIf="
+                                                alertElapsedDays > 0;
+                                                else todayContainer
+                                            "
+                                        >
+                                            hace
+                                            <strong>{{
+                                                alertElapsedDays
+                                            }}</strong>
+                                            {{
+                                                "día"
+                                                    | plural : alertElapsedDays
+                                            }}.</ng-container
+                                        ></span
+                                    >
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ng-container>
+                <form [formGroup]="form" (submit)="validChannels()">
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1">
+                            Selecciona los canales para enviar el recordatorio
+                            de pago.
+                        </li>
+                    </ol>
+                    <div class="row">
+                        <div class="col-md-12 mt-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    WhatsApp
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="right"
+                                            data-content="Se enviará un mensaje personalizado por WhatsApp."
+                                            >?</span
+                                        >
+                                    </span>
+                                    <div class="material-switch pull-right">
+                                        <input
+                                            id="agtPayTrackerPaymentNotificationWhatsApp"
+                                            type="checkbox"
+                                            formControlName="whatsapp"
+                                        />
+                                        <label
+                                            for="agtPayTrackerPaymentNotificationWhatsApp"
+                                            class="label-success"
+                                        ></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    Correo Electrónico
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="right"
+                                            data-content="Se enviará un recordatorio personalizado por correo eletrónico."
+                                            >?</span
+                                        >
+                                    </span>
+                                    <div class="material-switch pull-right">
+                                        <input
+                                            id="agtPayTrackerPaymentNotificationMail"
+                                            type="checkbox"
+                                            formControlName="email"
+                                        />
+                                        <label
+                                            for="agtPayTrackerPaymentNotificationMail"
+                                            class="label-success"
+                                        ></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="canShowAlertUpgradePlan">
+                        <div class="col-md-12 mt-3">
+                            <div class="alert agt-alert-info mb-3" role="alert">
+                                <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="alert"
+                                    aria-hidden="true"
+                                >
+                                    ×</button
+                                ><i
+                                    class="fe fe-award mr-2"
+                                    aria-hidden="true"
+                                ></i
+                                >Para otro recordatorio necesitas
+                                <strong>Agenthos Pro</strong>.
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-primary mb-3"
+                                (click)="requestUpgradePlan()"
+                            >
+                                <strong>MEJORA TU CUENTA AQUÍ</strong>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mt-3">
+                            <!-- AGENTHOS - PAYTRACKER PAYMENTH REMINDER -->
+                            <!-- (IF NO WHATSAPP OR MAIL DATA, TARGET MODAL: #agtPayTrackerPaymentReminderUpdate) -->
+                            <!-- (IF ALL DATA AVAILABLE, TARGET ALERT: #agtPayTrackerPaymentReminderAlert) -->
+                            <button
+                                type="submit"
+                                class="btn btn-block agt-btn-default"
+                                [disabled]="!canSendReminder"
+                            >
+                                <i class="fa fa-send mr-2"></i
+                                ><strong>ENVIAR RECORDATORIO</strong>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    (click)="closeModal()"
+                >
+                    <strong>CANCELAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #todayContainer><strong>hoy</strong>.</ng-template>
