@@ -10,7 +10,7 @@ import {
     SINISTER_STATUS,
     INSURANCE_GROUPS,
 } from '@constants/global';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { Sinister } from '@interfaces/sinister.interface';

@@ -41,6 +41,7 @@ export class PaymentListComponent extends DumbComponent {
         'agt-modal-select-channels-to-send-reminder';
     modalIdSelectPaymentType: string = 'agt-modal-select-payment-type';
     modalIdShowPaymentDetails: string = 'agt-modal-show-payment-details';
+    modalIdUpgradePlan: string = 'agt-modal-upgrade-plan';
 
     constructor() {
         super();
@@ -124,6 +125,10 @@ export class PaymentListComponent extends DumbComponent {
 
     showModalToSelectPaymentType(): void {
         ModalPlugin.show(this.modalIdSelectPaymentType);
+    }
+
+    showModalToUpgradePlan(): void {
+        ModalPlugin.show(this.modalIdUpgradePlan);
     }
 
     markIsPreauthorized(): void {

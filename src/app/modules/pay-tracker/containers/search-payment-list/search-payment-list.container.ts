@@ -38,6 +38,13 @@ export class SearchPaymentListContainer
                 this.query = query;
                 this.initData();
             });
+        this._payTrackerService.canReloadContent
+            .pipe(this.untilComponentDestroy())
+            .subscribe((canReloadContent: boolean) => {
+                if (canReloadContent) {
+                    this.initData();
+                }
+            });
     }
 
     initData(): void {

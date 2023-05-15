@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ERROR_CODES } from '@constants/error-codes';
 import { FILE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { AnalizeInsuredsResponse } from '@interfaces/analize-insureds-response.interface';
 import { HttpError } from '@interfaces/http-error.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';

@@ -16,7 +16,7 @@ import {
     FILE_TYPES,
 } from '@constants/global';
 import { ModalSelectEvidenceComponent } from '@components/modal-select-evidence/modal-select-evidence.component';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
 import { LoadingService } from '@core/services/loading/loading.service';

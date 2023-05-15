@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FILE_ALL_FORMATS, FILE_TYPES } from '@constants/global';
 import { ERROR_CODES } from '@constants/error-codes';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { HttpError } from '@interfaces/http-error.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';

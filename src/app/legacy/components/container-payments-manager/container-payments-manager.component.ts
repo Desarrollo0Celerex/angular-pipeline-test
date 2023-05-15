@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { POLICY_STATUS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ContainerPaymentsManagerService } from './container-payments-manager.service';

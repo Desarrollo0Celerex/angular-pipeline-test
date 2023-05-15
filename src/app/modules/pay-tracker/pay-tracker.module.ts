@@ -24,6 +24,10 @@ import { ModalHandlePaymentComponent } from './components/modal-handle-payment/m
 import { ModalSelectChannelsToSendReminderComponent } from './components/modal-select-channels-to-send-reminder/modal-select-channels-to-send-reminder.component';
 import { ModalRequestReminderDataComponent } from './components/modal-request-reminder-data/modal-request-reminder-data.component';
 
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+
 import { ModalSelectContactActionModule } from '@components/modal-select-contact-action/modal-select-contact-action.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { ModalSearchContactModule } from '@components/modal-search-contact/modal-search-contact.module';
@@ -37,6 +41,8 @@ import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/m
 import { ModalSelectPaymentRegistrationTypeModule } from '@components/modal-select-payment-registration-type/modal-select-payment-registration-type.module';
 import { ModalApplyPaymentModule } from '@components/modal-apply-payment/modal-apply-payment.module';
 import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone-code/dropdown-select-phone-code.module';
+import { ModalUpgradeLicenseModule } from '@components/modal-upgrade-license/modal-upgrade-license.module';
+import { CalendarPage } from './pages/calendar/calendar.page';
 
 @NgModule({
     declarations: [
@@ -56,6 +62,7 @@ import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone
         ModalHandlePaymentComponent,
         ModalSelectChannelsToSendReminderComponent,
         ModalRequestReminderDataComponent,
+        CalendarPage,
     ],
     imports: [
         CommonModule,
@@ -77,7 +84,14 @@ import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone
         ModalSelectPaymentRegistrationTypeModule,
         ModalApplyPaymentModule,
         DropdownSelectPhoneCodeModule,
+        ModalUpgradeLicenseModule,
+        MatDatepickerModule,
+        MatMomentDateModule,
     ],
-    providers: [PayTrackerService, PaymentReminderService],
+    providers: [
+        PayTrackerService,
+        PaymentReminderService,
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+    ],
 })
 export class PayTracketModule {}

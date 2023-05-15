@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Payment } from '@core/interfaces/payment.interface';
 import { LoadingService } from '@core/services/loading/loading.service';

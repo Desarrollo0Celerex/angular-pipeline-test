@@ -82,6 +82,7 @@
     [licenseId]="data.licenseId"
     [receiptNumber]="data.receiptNumber"
     (requestReminderData)="showModalToRequestReminderData($event)"
+    (upgradePlan)="showModalToUpgradePlan()"
 ></agt-modal-select-channels-to-send-reminder>
 <agt-modal-request-reminder-data
     [modalId]="modalIdRequestReminderData"
@@ -125,6 +126,7 @@
     [contactId]="data.contactId"
     [policyId]="data.policyId"
     [paymentId]="data.paymentId"
+    (payReceipt)="showModalToApplyPayment()"
 ></agt-modal-show-payment-details>
 <agt-modal-show-endorsement
     [modalId]="modalIdDownloadEndorsement"
@@ -149,3 +151,6 @@
     (receiptPaid)="reloadContent()"
     (showModalAgain)="showModalToApplyPayment()"
 ></agt-modal-apply-payment>
+<agt-modal-upgrade-license
+    [modalId]="modalIdUpgradePlan"
+></agt-modal-upgrade-license>

@@ -122,6 +122,7 @@
                     class="btn {{
                         payment.insuranceId | insuranceBackground
                     }} mr-3"
+                    (click)="requestDownloadPolicyDirectly()"
                 >
                     <i
                         class="{{ payment.insuranceId | insuranceIcon }} mb-0"

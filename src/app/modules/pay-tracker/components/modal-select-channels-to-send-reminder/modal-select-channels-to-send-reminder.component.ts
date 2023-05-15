@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PAYMENT_REMINDER_TYPES } from '@configs/constants.config';
 import { LICENSES } from '@constants/global';
+import { ROUTES_NAME } from '@constants/routes-name';
 import { SmartComponent } from '@core/classes/smart-component';
 import { Payment } from '@core/interfaces/payment.interface';
 import { LoadingService } from '@core/services/loading/loading.service';
@@ -29,6 +31,7 @@ export class ModalSelectChannelsToSendReminderComponent extends SmartComponent {
     @Input() receiptNumber: number = 0;
     @Output() requestReminderData: EventEmitter<RequestReminderData> =
         new EventEmitter<RequestReminderData>();
+    @Output() upgradePlan: EventEmitter<void> = new EventEmitter<void>();
     canShowAlertUpgradePlan = false;
     form: FormGroup = this._buildForm();
     private _canRequestEmail: boolean = false;
@@ -43,7 +46,8 @@ export class ModalSelectChannelsToSendReminderComponent extends SmartComponent {
         private _formBuilder: FormBuilder,
         private _loadingService: LoadingService,
         private _paymentService: PaymentService,
-        private _paymentReminderService: PaymentReminderService
+        private _paymentReminderService: PaymentReminderService,
+        private _router: Router
     ) {
         super();
     }
@@ -81,6 +85,17 @@ export class ModalSelectChannelsToSendReminderComponent extends SmartComponent {
         ModalPlugin.hide(this.modalId);
     }
 
+    goToPolicyPaymentsRecord(): void {
+        this.closeModal();
+        this._router.navigateByUrl(
+            ROUTES_NAME.paymentHistory(
+                this.contactId,
+                this.policyId,
+                this.paymentId
+            )
+        );
+    }
+
     private _resetData(): void {
         this.canShowAlertUpgradePlan = false;
         this._canRequestEmail = false;
@@ -113,7 +128,10 @@ export class ModalSelectChannelsToSendReminderComponent extends SmartComponent {
         }
     }
 
-    requestUpgradePlan(): void {}
+    requestUpgradePlan(): void {
+        this.closeModal();
+        this.upgradePlan.emit();
+    }
 
     private _buildForm(): FormGroup {
         return this._formBuilder.group({

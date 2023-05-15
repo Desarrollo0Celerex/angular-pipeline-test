@@ -33,6 +33,8 @@ export const PAYMENT_ENDPOINTS: any = {
         `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/payments/${paymentId}/reminders`,
     totalWorkspacePayments: (workspaceId: string) =>
         `${environment.apiUrl}/workspaces/${workspaceId}/payments/count`,
+    totalWorkspacePaymentsAmount: (workspaceId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/payments/total-amount`,
     workspacePayment: (workspaceId: string, paymentId: string) =>
         `${environment.apiUrl}/workspaces/${workspaceId}/payments/${paymentId}`,
     workspacePayments: (workspaceId: string) =>

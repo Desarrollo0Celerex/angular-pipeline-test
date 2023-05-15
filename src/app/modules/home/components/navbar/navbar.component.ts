@@ -12,6 +12,7 @@ declare var ActivePlugin: any;
 })
 export class NavbarComponent implements AfterViewChecked {
     ROUTES_NAME: any = ROUTES_NAME;
+    calendarLink: string = `${PAY_TRACKER_ROUTES.MODULE}/${PAY_TRACKER_ROUTES.CALENDAR}`;
     paymentsLink: string = `${PAY_TRACKER_ROUTES.MODULE}/${PAY_TRACKER_ROUTES.PAYMENTS}`;
 
     ngAfterViewChecked(): void {

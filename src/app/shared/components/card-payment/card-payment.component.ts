@@ -102,6 +102,13 @@ export class CardPaymentComponent extends DumbComponent {
         }
     }
 
+    requestDownloadPolicyDirectly(): void {
+        this.downloadPolicy.emit({
+            contactId: this.payment?.contactId,
+            policyId: this.payment?.policyId,
+        });
+    }
+
     requestCancelPolicy(): void {
         this.cancelPolicy.emit({
             contactId: this.payment?.contactId,

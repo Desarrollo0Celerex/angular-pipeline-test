@@ -3,14 +3,13 @@ declare var SweetAlertPlugin: any;
 import { Alert } from '@interfaces/alert.interface';
 
 export class AlertHelper {
-
     static contactDeleted(): void {
         const alertData: Alert = {
             title: 'Contacto Eliminado',
             text: 'El contacto se eliminó con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -19,8 +18,8 @@ export class AlertHelper {
             title: 'Contacto Actualizado',
             text: 'Los datos han sido actualizados con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -29,8 +28,8 @@ export class AlertHelper {
             title: 'Canal Actualizado',
             text: 'El canal ha sido actualizado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -41,8 +40,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -53,8 +52,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -63,8 +62,8 @@ export class AlertHelper {
             title: 'Error',
             text: 'Error al cargar archivo.',
             type: 'error',
-            confirmButtonText: 'OK'
-        }
+            confirmButtonText: 'OK',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -73,8 +72,8 @@ export class AlertHelper {
             title: 'Error',
             text: 'Acceso Denegado.',
             type: 'error',
-            confirmButtonText: 'OK'
-        }
+            confirmButtonText: 'OK',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -83,8 +82,8 @@ export class AlertHelper {
             title: 'Error',
             text: 'No fue posible realizar la solicitud.',
             type: 'error',
-            confirmButtonText: 'OK'
-        }
+            confirmButtonText: 'OK',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -93,8 +92,8 @@ export class AlertHelper {
             title: 'Grupo Creado',
             text: 'El grupo ha sido creado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -103,8 +102,8 @@ export class AlertHelper {
             title: 'Grupo Eliminado',
             text: 'El grupo ha sido eliminado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -113,8 +112,8 @@ export class AlertHelper {
             title: 'Cliente Agregado',
             text: 'El cliente se agregó al grupo con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -123,8 +122,8 @@ export class AlertHelper {
             title: 'Cliente Eliminado',
             text: 'El cliente se eliminó del grupo con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -133,8 +132,8 @@ export class AlertHelper {
             title: 'Certificados Importadas',
             text: 'Los certificados han sido importados con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -143,8 +142,8 @@ export class AlertHelper {
             title: 'Datos invalidos',
             text: 'El archivo contiene algunos campos invalidos.',
             type: 'warning',
-            confirmButtonText: 'ENTENDIDO'
-        }
+            confirmButtonText: 'ENTENDIDO',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -153,8 +152,8 @@ export class AlertHelper {
             title: 'Grupo Actualizado',
             text: 'El grupo ha sido actualizado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -163,8 +162,8 @@ export class AlertHelper {
             title: 'Error',
             text: 'El código de activación es invalido.',
             type: 'error',
-            confirmButtonText: 'OK'
-        }
+            confirmButtonText: 'OK',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -173,8 +172,8 @@ export class AlertHelper {
             title: 'Error',
             text: 'No fue posible autenticar al usuario.',
             type: 'error',
-            confirmButtonText: 'OK'
-        }
+            confirmButtonText: 'OK',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -183,8 +182,8 @@ export class AlertHelper {
             title: 'Error',
             text: 'Los datos enviados son invalidos.',
             type: 'error',
-            confirmButtonText: 'OK'
-        }
+            confirmButtonText: 'OK',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -193,8 +192,8 @@ export class AlertHelper {
             title: 'Campos incompletos',
             text: 'Falta completar algunos campos obligatorios.',
             type: 'warning',
-            confirmButtonText: 'ENTENDIDO'
-        }
+            confirmButtonText: 'ENTENDIDO',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -203,8 +202,8 @@ export class AlertHelper {
             title: 'Lo sentimos',
             text: 'Tu sesión ha expirado.',
             type: 'error',
-            confirmButtonText: 'OK'
-        }
+            confirmButtonText: 'OK',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -213,8 +212,8 @@ export class AlertHelper {
             title: 'Invitación Eliminada',
             text: 'Tu invitación ha sido eliminada con éxito.',
             type: 'success',
-            confirmButtonText: 'OK'
-        }
+            confirmButtonText: 'OK',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -223,8 +222,8 @@ export class AlertHelper {
             title: 'Invitación Rechazada',
             text: 'Si has rechazado esta invitación por error, por favor solicita una nueva invitación.',
             type: 'success',
-            confirmButtonText: 'OK'
-        }
+            confirmButtonText: 'OK',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -233,8 +232,8 @@ export class AlertHelper {
             title: 'Invitación Enviada',
             text: 'Tu invitación ha sido enviada con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -243,8 +242,8 @@ export class AlertHelper {
             title: 'Límite Alcanzado',
             text: 'Ya no puedes reenviar esta invitación.',
             type: 'error',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -253,8 +252,8 @@ export class AlertHelper {
             title: 'Enlace Copiado',
             text: 'El enlace se copió con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -263,8 +262,8 @@ export class AlertHelper {
             title: 'Socio Creado',
             text: 'El socio ha sido creado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -273,8 +272,8 @@ export class AlertHelper {
             title: 'Socio Eliminado',
             text: 'El socio ha sido eliminado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -283,8 +282,8 @@ export class AlertHelper {
             title: 'Socio Actualizado',
             text: 'El socio ha sido actualizado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -293,8 +292,8 @@ export class AlertHelper {
             title: 'Cobranza Activada',
             text: 'La cobranza se ha reactivado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -303,8 +302,8 @@ export class AlertHelper {
             title: 'Recibo Actualizado',
             text: 'El recibo se ha actualizado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -313,8 +312,18 @@ export class AlertHelper {
             title: 'Pago Preautorizado',
             text: 'El pago está en espera de consolidación.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static paymentReminderSent(): void {
+        const alertData: Alert = {
+            title: 'Recordatorio Enviado',
+            text: 'El recordatorio de pago se envío con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -323,8 +332,8 @@ export class AlertHelper {
             title: 'Cobranza Suspendida',
             text: 'La cobranza se ha suspendido con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -333,8 +342,8 @@ export class AlertHelper {
             title: 'Error al guardar póliza',
             text: 'La póliza ya existe',
             type: 'error',
-            confirmButtonText: 'OK'
-        }
+            confirmButtonText: 'OK',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -345,8 +354,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -355,8 +364,8 @@ export class AlertHelper {
             title: 'Póliza Eliminada',
             text: 'La póliza se ha eliminado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -367,8 +376,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -379,8 +388,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -389,8 +398,8 @@ export class AlertHelper {
             title: 'Endoso Aplicado',
             text: 'El endoso ha sido aplicado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -399,8 +408,8 @@ export class AlertHelper {
             title: 'Certificado Cancelado',
             text: 'El certificado se cancelo con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -409,8 +418,8 @@ export class AlertHelper {
             title: 'Certificado Creado',
             text: 'El certificado fue creado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -419,8 +428,8 @@ export class AlertHelper {
             title: 'Certificado Eliminado',
             text: 'El certificado ha sido eliminado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -429,8 +438,8 @@ export class AlertHelper {
             title: 'Certificado Actualizado',
             text: 'El certificado ha sido actualizado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -441,8 +450,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -453,8 +462,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -465,8 +474,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -478,12 +487,16 @@ export class AlertHelper {
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
             context: context,
-            data: data
-        }
+            data: data,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
-    static requestDeleteInvitation(callBack: any, context: any, data: any): void {
+    static requestDeleteInvitation(
+        callBack: any,
+        context: any,
+        data: any
+    ): void {
         const alertData: Alert = {
             title: 'Eliminar Invitación',
             text: 'Esta invitación será eliminada de tu espacio de trabajo.',
@@ -493,8 +506,8 @@ export class AlertHelper {
             cancelButtonText: 'CANCELAR',
             callBack: callBack,
             context: context,
-            data: data
-        }
+            data: data,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -505,8 +518,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -518,8 +531,8 @@ export class AlertHelper {
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
             context: context,
-            data: data
-        }
+            data: data,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -528,8 +541,8 @@ export class AlertHelper {
             title: 'Pago Actualizado',
             text: 'El pago ha sido actualizado con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -538,8 +551,8 @@ export class AlertHelper {
             title: 'Error',
             text: 'No fue posible enviar tu invitación. Intentalo nuevamente.',
             type: 'error',
-            confirmButtonText: 'OK'
-        }
+            confirmButtonText: 'OK',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -550,8 +563,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -562,8 +575,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -574,8 +587,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -586,8 +599,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -598,8 +611,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -610,8 +623,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -622,8 +635,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -634,8 +647,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -646,8 +659,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -656,8 +669,8 @@ export class AlertHelper {
             title: 'Evidencia Cargada',
             text: 'La evidencia del siniestro se cargo con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -668,8 +681,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -680,8 +693,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -692,8 +705,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -702,8 +715,8 @@ export class AlertHelper {
             title: 'Sitio Actualizado',
             text: 'El sitio se actualizó con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -712,8 +725,8 @@ export class AlertHelper {
             title: 'Red Actualizada',
             text: 'La red social se actualizó con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -724,8 +737,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -734,8 +747,8 @@ export class AlertHelper {
             title: 'Rol Actualizado',
             text: 'El rol del usuario se actualizó con éxito.',
             type: 'success',
-            confirmButtonText: 'OK'
-        }
+            confirmButtonText: 'OK',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -746,8 +759,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -756,8 +769,8 @@ export class AlertHelper {
             title: 'App Actualizada',
             text: 'La App se actualizó con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -766,8 +779,8 @@ export class AlertHelper {
             title: 'Datos Actualizados',
             text: 'Los datos de contacto han sido actualizados con éxito.',
             type: 'success',
-            confirmButtonText: 'OK'
-        }
+            confirmButtonText: 'OK',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -778,8 +791,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -790,8 +803,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -802,8 +815,8 @@ export class AlertHelper {
             type: 'success',
             confirmButtonText: 'CONTINUAR',
             callBack: callBack,
-            context: context
-        }
+            context: context,
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -812,8 +825,8 @@ export class AlertHelper {
             title: 'Datos Actualizados',
             text: 'Los datos de contacto se actualizaron con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -822,8 +835,8 @@ export class AlertHelper {
             title: 'Producto Activado',
             text: 'El generador de prospectos se activó con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -832,8 +845,8 @@ export class AlertHelper {
             title: 'Producto Desactivado',
             text: 'El generador de prospectos se desactivó con éxito.',
             type: 'success',
-            confirmButtonText: 'CONTINUAR'
-        }
+            confirmButtonText: 'CONTINUAR',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
 
@@ -842,9 +855,8 @@ export class AlertHelper {
             title: 'Lo Sentimos',
             text: 'La acción no puede ser realizada, es necesario actualizar tu licencia a un plan superior.',
             type: 'warning',
-            confirmButtonText: 'ENTENDIDO'
-        }
+            confirmButtonText: 'ENTENDIDO',
+        };
         SweetAlertPlugin.showAlert(alertData);
     }
-
 }

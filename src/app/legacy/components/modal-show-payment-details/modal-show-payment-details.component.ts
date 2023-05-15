@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { CalculatePaymentAmount } from '@core/interfaces/calculate-payment-amount.interface';
+declare var ModalPlugin: any;
 
 @Component({
     selector: 'agt-modal-show-payment-details',
@@ -63,6 +64,7 @@ export class ModalShowPaymentDetailsComponent implements OnChanges {
     }
 
     requestPayReceipt(): void {
+        ModalPlugin.hide(this.modalId);
         this.payReceipt.emit(this.paymentId);
     }
 }

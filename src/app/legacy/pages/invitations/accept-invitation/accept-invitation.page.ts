@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { INVITATION_STATUS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { environment } from '@env/environment';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
 import { LoadingService } from '@core/services/loading/loading.service';

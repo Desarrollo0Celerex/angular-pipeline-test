@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 
 import { ContainerWorkspacePoliciesIncompleteService } from './container-workspace-policies-incomplete.service';
@@ -10,11 +10,10 @@ import { ContainerWorkspacePoliciesIncompleteService } from './container-workspa
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-workspace-policies-incomplete',
-  templateUrl: './container-workspace-policies-incomplete.component.html',
-  styles: [
-  ],
-  providers: [ContainerWorkspacePoliciesIncompleteService]
+    selector: 'agt-container-workspace-policies-incomplete',
+    templateUrl: './container-workspace-policies-incomplete.component.html',
+    styles: [],
+    providers: [ContainerWorkspacePoliciesIncompleteService],
 })
 export class ContainerWorkspacePoliciesIncompleteComponent implements OnInit {
     modalIdConfirmDeletePolicy: string = 'agt-confirm-delete-policy';
@@ -28,7 +27,7 @@ export class ContainerWorkspacePoliciesIncompleteComponent implements OnInit {
         public model: ContainerWorkspacePoliciesIncompleteService,
         private _activatedRoute: ActivatedRoute,
         private _router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.model.loadWorkspaceIncompletePolicies();
@@ -43,7 +42,9 @@ export class ContainerWorkspacePoliciesIncompleteComponent implements OnInit {
      * @param policyId The policy ID to complete
      */
     onCompletePolicy(data: ContactPolicyData): void {
-        this._router.navigateByUrl(ROUTES_NAME.uploadPolicy(data.contactId, data.policyId));
+        this._router.navigateByUrl(
+            ROUTES_NAME.uploadPolicy(data.contactId, data.policyId)
+        );
     }
 
     /**
@@ -76,7 +77,7 @@ export class ContainerWorkspacePoliciesIncompleteComponent implements OnInit {
     }
 
     onShowPolicy(data: string | ContactPolicyData): void {
-        if(typeof data === 'string') {
+        if (typeof data === 'string') {
             this.selectedPolicyId = data;
         } else {
             this.selectedContactId = data.contactId;
@@ -94,6 +95,8 @@ export class ContainerWorkspacePoliciesIncompleteComponent implements OnInit {
     private _reloadPage(pageUrl: string): void {
         this._router.routeReuseStrategy.shouldReuseRoute = () => false;
         this._router.onSameUrlNavigation = 'reload';
-        this._router.navigate(['/' + pageUrl], { relativeTo: this._activatedRoute });
+        this._router.navigate(['/' + pageUrl], {
+            relativeTo: this._activatedRoute,
+        });
     }
 }

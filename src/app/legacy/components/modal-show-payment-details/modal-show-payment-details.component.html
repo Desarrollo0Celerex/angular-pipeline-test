@@ -62,7 +62,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    [placeholder]="model.payment.titularName"
+                                    [value]="model.payment.titularName"
                                     readonly=""
                                 />
                             </div>
@@ -73,9 +73,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    [placeholder]="
-                                        model.payment.coveredProperty
-                                    "
+                                    [value]="model.payment.coveredProperty"
                                     readonly=""
                                 />
                             </div>
@@ -86,7 +84,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    placeholder="{{
+                                    value="{{
                                         model.payment.insuranceName | uppercase
                                     }}"
                                     readonly=""
@@ -99,7 +97,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    placeholder="{{
+                                    value="{{
                                         model.payment.insuranceTypeName
                                             | uppercase
                                     }}"
@@ -113,7 +111,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    [placeholder]="model.payment.policyNumber"
+                                    [value]="model.payment.policyNumber"
                                     readonly=""
                                 />
                             </div>
@@ -124,9 +122,9 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    placeholder="{{
-                                        model.payment.tickets + 1
-                                    }} DE {{ model.payment.bills }}"
+                                    value="{{ model.payment.tickets + 1 }} DE {{
+                                        model.payment.bills
+                                    }}"
                                     readonly=""
                                 />
                             </div>
@@ -138,7 +136,7 @@
                                     type="text"
                                     name="agtPolicyValidityIni"
                                     class="form-control"
-                                    placeholder="{{
+                                    value="{{
                                         model.payment.paymentDate
                                             | date : 'dd/MM/yyyy'
                                     }}"
@@ -156,7 +154,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    placeholder="{{
+                                    value="{{
                                         paymentAmount
                                             | currency : '' : '$' : '0.2-2'
                                     }}"

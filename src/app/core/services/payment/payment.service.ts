@@ -7,6 +7,7 @@ import { ApiHttp } from '@core/http/api.http';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
 import { Payment } from '@core/interfaces/payment.interface';
 import { SendReminder } from '@modules/pay-tracker/interfaces/send-reminder.interface';
+import { TotalPaymentsAmountData } from '@interfaces/total-payments-amount-data.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -28,6 +29,22 @@ export class PaymentService {
             .param('rangeStart', rangeStart)
             .param('rangeEnd', rangeEnd)
             .get(PAYMENT_ENDPOINTS.totalWorkspacePayments(this._workspaceId));
+    }
+
+    getTotalWorkspacePaymentsAmount(
+        rangeField: string = '',
+        rangeStart: string = '',
+        rangeEnd: string = ''
+    ): Observable<TotalPaymentsAmountData> {
+        return this._apiHttp
+            .param('rangeField', rangeField)
+            .param('rangeStart', rangeStart)
+            .param('rangeEnd', rangeEnd)
+            .get(
+                PAYMENT_ENDPOINTS.totalWorkspacePaymentsAmount(
+                    this._workspaceId
+                )
+            );
     }
 
     getWorkspacePayment(

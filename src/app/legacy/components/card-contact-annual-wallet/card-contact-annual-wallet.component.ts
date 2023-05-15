@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { CONTACT_PROFILE_PAGE_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { Policy } from '@core/interfaces/policy.interface';
 import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';

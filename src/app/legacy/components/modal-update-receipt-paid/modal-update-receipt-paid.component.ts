@@ -13,7 +13,7 @@ import { AbstractControl } from '@angular/forms';
 import { ModalSelectEvidenceComponent } from '@components/modal-select-evidence/modal-select-evidence.component';
 import { ERROR_CODES } from '@constants/error-codes';
 import { IMAGE_AND_DOCUMENT_FORMATS, FILE_TYPES } from '@constants/global';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { HttpError } from '@interfaces/http-error.interface';
 import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interface';

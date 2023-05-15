@@ -13,7 +13,7 @@ import {
     CONTACT_TYPES,
 } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { PolicyInsuredHelper } from '@helpers/policy-insured-helper';
 import { HttpError } from '@interfaces/http-error.interface';

@@ -5,7 +5,7 @@ import * as moment from 'moment';
 
 import { FILE_TYPES, INSURANCE_GROUPS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { LoadingService } from '@core/services/loading/loading.service';
 

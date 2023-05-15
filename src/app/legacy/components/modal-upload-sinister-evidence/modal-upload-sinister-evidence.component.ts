@@ -4,7 +4,7 @@ import { AbstractControl } from '@angular/forms';
 
 import { FILE_ALL_FORMATS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { LoadingService } from '@core/services/loading/loading.service';

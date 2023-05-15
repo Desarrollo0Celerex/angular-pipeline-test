@@ -1,14 +1,13 @@
 import { Component, Input } from '@angular/core';
 
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-share-link-by-direct-link',
-  templateUrl: './modal-share-link-by-direct-link.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-share-link-by-direct-link',
+    templateUrl: './modal-share-link-by-direct-link.component.html',
+    styles: [],
 })
 export class ModalShareLinkByDirectLinkComponent {
     @Input() modalId: string = '';
@@ -22,5 +21,4 @@ export class ModalShareLinkByDirectLinkComponent {
         ModalPlugin.hide(this.modalId);
         AlertHelper.linkCopied();
     }
-
 }

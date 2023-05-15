@@ -14,7 +14,7 @@ import * as moment from 'moment';
 import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 
 import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.interface';

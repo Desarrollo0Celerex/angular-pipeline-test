@@ -8,7 +8,7 @@ import { LoadingService } from '@core/services/loading/loading.service';
 import { ModalCaptureActivationCodeService } from './modal-capture-activation-code.service';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { HttpError } from '@interfaces/http-error.interface';
 import { ERROR_CODES } from '@constants/error-codes';

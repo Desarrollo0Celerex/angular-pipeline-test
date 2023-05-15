@@ -14,6 +14,7 @@ import { AuthService } from '@core/services/auth/auth.service';
 import { CreatePaymentReminder } from '@modules/pay-tracker/interfaces/create-payment-reminder.interface';
 import { PAYMENT_REMINDER_ENDPOINTS } from '@configs/endpoints.config';
 import { PayTrackerService } from '../pay-tracker/pay-tracker.service';
+import { AlertHelper } from '@core/helpers/alert.helper';
 
 @Injectable()
 export class PaymentReminderService extends SmartComponent {
@@ -118,6 +119,7 @@ export class PaymentReminderService extends SmartComponent {
             .pipe(this.takeOne())
             .subscribe(() => {
                 this._loadingService.hide();
+                AlertHelper.paymentReminderSent();
                 this._payTrackerService.reloadContent();
                 if (whatsappLink) {
                     this._sendReminderByWhatsapp(whatsappLink);

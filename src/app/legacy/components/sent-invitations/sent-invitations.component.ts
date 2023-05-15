@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 
 import { environment } from '@env/environment';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { DeleteInvitationData } from '@interfaces/delete-invitation-data.interface';
 import { Invitation } from '@interfaces/invitation.interface';
 import { Role } from '@interfaces/role.interface';

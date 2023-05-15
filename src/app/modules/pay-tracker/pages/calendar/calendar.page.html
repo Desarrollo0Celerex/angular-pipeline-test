@@ -1,0 +1,90 @@
+<agt-payments-kpis></agt-payments-kpis>
+
+<div class="row mt-5">
+    <div class="col-12">
+        <agt-card-content-title
+            title="Calendario de Cobranza"
+        ></agt-card-content-title>
+    </div>
+
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <!-- AGENTHOS - CALENDAR CARD -->
+        <div class="card">
+            <mat-calendar
+                [selected]="paymentDate"
+                (selectedChange)="loadPayments($event)"
+            ></mat-calendar>
+        </div>
+        <!-- //AGENTHOS - CALENDAR CARD -->
+        <!-- AGENTHOS - CALENDAR RESUME CARD -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Cobranza Pendiente (Día)</h3>
+            </div>
+            <div class="card-body">
+                <div class="card-widget">
+                    <h2 class="text-right">
+                        <i
+                            class="icon-size fa fa-calendar float-left text-success"
+                        ></i>
+                        <span class="number-font"
+                            >$
+                            <span
+                                class="counter-total-payments-amount"
+                                *ngIf="totalPaymentsAmount && totalPaymentsAmount.totalPaymentsAmount; else emptyValue"
+                                >{{totalPaymentsAmount.totalPaymentsAmount |
+                                currency: '': '': '0.2-2'}}</span
+                            >
+                            <ng-template #emptyValue>0.00</ng-template>
+                            <br />
+                            {{totalPaymentsAmount?.currencyName}}
+                        </span>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - CALENDAR RESUME CARD -->
+        <!-- AGENTHOS - CALENDAR RESUME CARD -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Cobranza Pendiente (Mes)</h3>
+            </div>
+            <div class="card-body">
+                <div class="card-widget">
+                    <h2 class="text-right">
+                        <i
+                            class="icon-size fa fa-calendar float-left text-success"
+                        ></i>
+                        <span class="number-font"
+                            >$
+                            <span
+                                class="counter-total-payments-amount-by-month"
+                                *ngIf="totalPaymentsAmountByMonth && totalPaymentsAmountByMonth.totalPaymentsAmount; else emptyValue"
+                                >{{totalPaymentsAmountByMonth.totalPaymentsAmount
+                                | currency: '': '': '0.2-2'}}</span
+                            >
+                            <br />
+                            {{totalPaymentsAmountByMonth?.currencyName}}</span
+                        >
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <!-- //AGENTHOS - CALENDAR RESUME CARD -->
+    </div>
+    <!-- //AGENTHOS - CALENDAR DAY PICKER -->
+    <!-- AGENTHOS - CALENDAR PAYMENTS RESULTS -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <agt-payment-list
+            contentName="{{'Recibo' | plural: payments.length}} {{'Encontrado' | plural: payments.length}}"
+            noResultsMessage="No se encontraron recibos pendientes en el día seleccionado."
+            noResultsDetails="Por favor carga una póliza para detectar sus recibos."
+            [isLoadedContent]="isLoadedContent"
+            [isLoadingContent]="isLoadingContent"
+            [payments]="payments"
+            [totalItems]="totalItems"
+            (loadMoreContents)="loadMoreContents()"
+            (paymentApplied)="reloadContent()"
+        ></agt-payment-list>
+    </div>
+</div>

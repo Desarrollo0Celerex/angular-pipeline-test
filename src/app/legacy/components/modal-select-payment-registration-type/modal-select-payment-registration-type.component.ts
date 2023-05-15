@@ -1,6 +1,6 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.interface';
 import { LoadingService } from '@core/services/loading/loading.service';
 

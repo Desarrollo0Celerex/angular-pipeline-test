@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 
 import { ERROR_CODES } from '@constants/error-codes';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { HttpError } from '@interfaces/http-error.interface';
 
 import { LoadingService } from '@core/services/loading/loading.service';

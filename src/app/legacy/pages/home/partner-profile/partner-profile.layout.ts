@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AlertHelper } from '@helpers/alert.helper';
+import { AlertHelper } from '@core/helpers/alert.helper';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { LoadingService } from '@core/services/loading/loading.service';
 
