@@ -19,6 +19,7 @@ export class PaymentListComponent extends DumbComponent {
     @Input() noResultsMessage: string = '';
     @Input() payments: Payment[] = [];
     @Input() totalItems: number = 0;
+    @Input() isCalendarPage: boolean = false;
     @Output() loadMoreContents: EventEmitter<void> = new EventEmitter<void>();
     @Output() loadPolicy: EventEmitter<void> = new EventEmitter<void>();
     @Output() paymentApplied: EventEmitter<void> = new EventEmitter<void>();
@@ -30,18 +31,25 @@ export class PaymentListComponent extends DumbComponent {
         'agt-modal-confirm-go-to-payment-receipts-paid';
     modalIdConfirmGoToPaymentReceiptsPending: string =
         'agt-modal-confirm-go-to-payment-receipts-pending';
+    modalIdCreatePaymentTracking = 'agt-modal-create-payment-tracking';
     modalIdShowPolicyDetails: string = 'agt-modal-show-policy-details';
     modalIdDownloadPolicy: string = 'agt-modal-download-policy';
     modalIdDownloadEndorsement: string = 'agt-modal-download-endorsement';
     modalIdHandlePayment: string = 'agt-modal-handle-payment';
     modalIdRequestReminderData: string = 'agt-modal-request-reminder-data';
+    modalIdSelectCalendar: string = 'agt-modal-select-calendar';
     modalIdSelectCancellationType: string =
         'agt-modal-select-cancellation-type';
     modalIdSelectChannelsToSendReminder: string =
         'agt-modal-select-channels-to-send-reminder';
     modalIdSelectPaymentType: string = 'agt-modal-select-payment-type';
     modalIdShowPaymentDetails: string = 'agt-modal-show-payment-details';
+    modalIdSyncCalendar: string = 'agt-modal-sync-calendar';
     modalIdUpgradePlan: string = 'agt-modal-upgrade-plan';
+    selectedCalendar = 0;
+    selectedEventDescription = '';
+    selectedEventDate = '';
+    selectedEventTime = '';
 
     constructor() {
         super();
@@ -49,6 +57,10 @@ export class PaymentListComponent extends DumbComponent {
 
     get hasResults(): boolean {
         return this.payments.length > 0;
+    }
+
+    get widthClass(): string {
+        return this.isCalendarPage ? 'col-xl-6' : 'col-xl-4';
     }
 
     reloadContent(): void {
@@ -81,6 +93,10 @@ export class PaymentListComponent extends DumbComponent {
         ModalPlugin.show(this.modalIdConfirmGoToPaymentReceiptsPending);
     }
 
+    showModalToCreatePaymentTrackin(): void {
+        ModalPlugin.show(this.modalIdCreatePaymentTracking);
+    }
+
     showModalToShowPolicyDetails(data: any): void {
         this.data = data;
         ModalPlugin.show(this.modalIdShowPolicyDetails);
@@ -107,6 +123,17 @@ export class PaymentListComponent extends DumbComponent {
         ModalPlugin.show(this.modalIdRequestReminderData);
     }
 
+    showModalToSelectCalendar(data: {
+        eventDate: string;
+        eventTime: string;
+        eventDescription: string;
+    }): void {
+        this.selectedEventDate = data.eventDate;
+        this.selectedEventTime = data.eventTime;
+        this.selectedEventDescription = data.eventDescription;
+        ModalPlugin.show(this.modalIdSelectCalendar);
+    }
+
     showModalToSelectCancellationType(data: any): void {
         this.data = data;
         ModalPlugin.show(this.modalIdSelectCancellationType);
@@ -125,6 +152,11 @@ export class PaymentListComponent extends DumbComponent {
 
     showModalToSelectPaymentType(): void {
         ModalPlugin.show(this.modalIdSelectPaymentType);
+    }
+
+    showModalToSyncCalendar(calendar: number): void {
+        this.selectedCalendar = calendar;
+        ModalPlugin.show(this.modalIdSyncCalendar);
     }
 
     showModalToUpgradePlan(): void {

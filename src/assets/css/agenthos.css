@@ -51,7 +51,15 @@
         height: 48px;
     }
 }
-@media (max-width: 767.98px) and (min-width: 576px){
+@media (max-width: 767.98px) and (min-width: 567px){
+	.header-desktop{
+		background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
+		background-repeat: no-repeat;
+		background-size: contain;
+		width: 148px;
+	}
+}
+@media (max-width: 992px) and (min-width: 667px){
 	.header-desktop{
 		background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
 		background-repeat: no-repeat;
@@ -60,6 +68,22 @@
 	}
 }
 @media (max-width: 992px) and (min-width: 767px){
+    .header-desktop{
+        background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 148px;
+    }
+}
+@media (max-width: 992px) and (min-width: 867px){
+    .header-desktop{
+        background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 148px;
+    }
+}
+@media (min-width: 992px){
 	.header-desktop{
 		background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
 		background-repeat: no-repeat;
@@ -67,22 +91,43 @@
 		width: 148px;
 	}
 }
-@media (min-width: 992px){
-	.header-desktop{
-		background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
-		background-repeat: no-repeat;
-		background-size: contain;
-		width: 188px;
-	}
+@media (min-width: 1024px){
+    .header-desktop{
+        background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 188px;
+    }
 }
 
 
 /* -- AGENTHOS - SEARCH BAR -- */
-@media (max-width: 992px) and (min-width: 768px){
+@media (max-width: 879px) and (min-width: 768px){
+    .header .form-inline .form-control{
+        width: 308px !important;
+        margin-left: 8px;
+    }
+}
+@media (max-width: 942px) and (min-width: 879px){
 	.header .form-inline .form-control{
-    	width: 368px !important;
+    	width: 408px !important;
     	margin-left: 8px;
 	}
+}
+@media (min-width: 1024px){
+    .hor-topheader.header .form-inline .form-control {
+    width: 268px;
+    }
+}
+
+.header .form-inline .form-control {
+    border: 1px solid rgba(258, 258, 258, 0.1);
+    padding-left: 28px;
+    width: 508px;
+    padding-right: 48px;
+    background: #fff;
+    color: #536d98 !important;
+    border-radius: 8px;
 }
 
 
@@ -327,6 +372,41 @@
     border-color: #dde8f2; }
 .agt-btn-default-light:focus, .agt-btn-default-light.focus {
     box-shadow: 0 0 0 2px #f6f9fc; }
+
+
+/* -- AGENTHOS - CALENDAR BUTTON LIBRARY -- */
+.agt-btn-apple-calendar {
+    color: #ffffff;
+    background: #000000 !important;
+    border-color: #000000; }
+.agt-btn-apple-calendar:hover {
+    color: #ffffff;
+    background: #000000 !important;
+    border-color: #000000; }
+.agt-btn-apple-calendar:focus, .agt-btn-apple-calendar.focus {
+    box-shadow: 0 0 0 2px #744f88; }
+
+.agt-btn-google-calendar {
+    color: #ffffff;
+    background: #dc4e41 !important;
+    border-color: #dc4e41; }
+.agt-btn-google-calendar:hover {
+    color: #ffffff;
+    background: #dc4e41 !important;
+    border-color: #dc4e41; }
+.agt-btn-google-calendar:focus, .agt-btn-google-calendar.focus {
+    box-shadow: 0 0 0 2px #744f88; }
+
+.agt-btn-outlook-calendar {
+    color: #ffffff;
+    background: #0067b8 !important;
+    border-color: #0067b8; }
+.agt-btn-outlook-calendar:hover {
+    color: #ffffff;
+    background: #0067b8 !important;
+    border-color: #0067b8; }
+.agt-btn-outlook-calendar:focus, .agt-btn-outlook-calendar.focus {
+    box-shadow: 0 0 0 2px #744f88; }
 
 
 /* -- AGETHOS - SOCIAL BUTTON LIBRARY -- */

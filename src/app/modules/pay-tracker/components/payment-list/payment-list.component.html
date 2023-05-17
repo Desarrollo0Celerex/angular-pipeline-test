@@ -4,7 +4,7 @@
             <ng-container
                 *ngFor="let payment of payments; trackBy: trackByPayments"
             >
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                <div class="{{ widthClass }} col-lg-6 col-md-6 col-sm-12">
                     <agt-card-payment
                         [payment]="payment"
                         (goToPaymentReceiptsPaid)="
@@ -70,6 +70,7 @@
     (selectPaymentType)="showModalToSelectPaymentType()"
     (applyPayment)="showModalToApplyPayment()"
     (sendReminder)="showModalToSelectChannelsToSendReminder()"
+    (createPaymentTracking)="showModalToCreatePaymentTrackin()"
 ></agt-modal-handle-payment>
 <agt-modal-select-channels-to-send-reminder
     [modalId]="modalIdSelectChannelsToSendReminder"
@@ -92,7 +93,24 @@
     [canRequestEmail]="canRequestEmail"
     [canRequestPhoneNumber]="canRequestPhoneNumber"
 ></agt-modal-request-reminder-data>
-
+<agt-modal-create-payment-tracking
+    [modalId]="modalIdCreatePaymentTracking"
+    [contactId]="data.contactId"
+    [policyId]="data.policyId"
+    [paymentId]="data.paymentId"
+    (paymentTrackingCreated)="showModalToSelectCalendar($event)"
+></agt-modal-create-payment-tracking>
+<agt-modal-select-calendar
+    [modalId]="modalIdSelectCalendar"
+    (calendarSelected)="showModalToSyncCalendar($event)"
+></agt-modal-select-calendar>
+<agt-modal-sync-calendar
+    [modalId]="modalIdSyncCalendar"
+    [calendar]="selectedCalendar"
+    [eventDate]="selectedEventDate"
+    [eventTime]="selectedEventTime"
+    [eventDescription]="selectedEventDescription"
+></agt-modal-sync-calendar>
 <!-- REFACTORIZED -->
 <agt-modal-confirm-show-policy-receipts-paid
     [modalId]="modalIdConfirmGoToPaymentReceiptsPaid"

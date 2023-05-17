@@ -64,6 +64,11 @@ export const POLICY_ENDPOINTS: any = {
         `${environment.apiUrl}/workspaces/${workspaceId}/policies`,
 };
 
+export const TASK_ENDPOINTS: any = {
+    workspaceTasks: (workspaceId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/tasks`,
+};
+
 export const WORKSPACE_ENDPOINTS: any = {
     workspaces: `${environment.apiUrl}/workspaces`,
     workspace: (workspaceId: string) =>

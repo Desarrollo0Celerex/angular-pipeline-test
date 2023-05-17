@@ -1,3 +1,9 @@
+export enum CALENDARS {
+    APPLE = 1,
+    GOOGLE = 2,
+    OUTLOOK = 3,
+}
+
 export enum GENDERS {
     MALE = 1,
     FEMALE = 2,

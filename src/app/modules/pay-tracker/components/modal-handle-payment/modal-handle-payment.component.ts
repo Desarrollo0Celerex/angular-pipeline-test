@@ -10,7 +10,8 @@ export class ModalHandlePaymentComponent {
     @Input() modalId: string = '';
     @Input() isPreauthorizedPayment: string = '';
     @Output() applyPayment: EventEmitter<void> = new EventEmitter<void>();
-    @Output() scheduleTracking: EventEmitter<void> = new EventEmitter<void>();
+    @Output() createPaymentTracking: EventEmitter<void> =
+        new EventEmitter<void>();
     @Output() selectPaymentType: EventEmitter<void> = new EventEmitter<void>();
     @Output() sendReminder: EventEmitter<void> = new EventEmitter<void>();
 
@@ -29,9 +30,9 @@ export class ModalHandlePaymentComponent {
         }
     }
 
-    requestScheduleTracking(): void {
+    requestCreatePaymentTracking(): void {
         this._closeModal();
-        this.scheduleTracking.emit();
+        this.createPaymentTracking.emit();
     }
 
     requestSendReminder(): void {

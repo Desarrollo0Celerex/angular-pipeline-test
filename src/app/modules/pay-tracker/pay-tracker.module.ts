@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 import { SharedModule } from '@shared/shared.module';
 
@@ -43,6 +44,10 @@ import { ModalApplyPaymentModule } from '@components/modal-apply-payment/modal-a
 import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone-code/dropdown-select-phone-code.module';
 import { ModalUpgradeLicenseModule } from '@components/modal-upgrade-license/modal-upgrade-license.module';
 import { CalendarPage } from './pages/calendar/calendar.page';
+import { ModalCreatePaymentTrackingComponent } from './components/modal-create-payment-tracking/modal-create-payment-tracking.component';
+import { ModalSyncCalendarsComponent } from './components/modal-sync-calendars/modal-sync-calendars.component';
+import { ModalSyncCalendarComponent } from './components/modal-sync-calendar/modal-sync-calendar.component';
+import { ModalSelectCalendarComponent } from './components/modal-select-calendar/modal-select-calendar.component';
 
 @NgModule({
     declarations: [
@@ -63,6 +68,10 @@ import { CalendarPage } from './pages/calendar/calendar.page';
         ModalSelectChannelsToSendReminderComponent,
         ModalRequestReminderDataComponent,
         CalendarPage,
+        ModalCreatePaymentTrackingComponent,
+        ModalSyncCalendarsComponent,
+        ModalSyncCalendarComponent,
+        ModalSelectCalendarComponent,
     ],
     imports: [
         CommonModule,
@@ -70,6 +79,7 @@ import { CalendarPage } from './pages/calendar/calendar.page';
         PayTracketRoutingModule,
         ReactiveFormsModule,
         SharedModule,
+        NgxQRCodeModule,
         // REFACTORIZED
         ModalSelectContactActionModule,
         ModalSelectContactTypeModule,
