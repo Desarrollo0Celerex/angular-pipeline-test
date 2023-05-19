@@ -57,4 +57,11 @@ export interface Payment {
     lastReminderTypeId: number;
     totalReminders: number;
     licenseId: number;
+    insurerId: number;
+    insurerShortName: string;
+    workspaceCollectionWhatsappCode: string;
+    workspaceCollectionWhatsappNumber: string;
+    workspaceCollectionPhoneCode: string;
+    workspaceCollectionPhoneNumber: string;
+    workspaceCollectionEmail: string;
 }

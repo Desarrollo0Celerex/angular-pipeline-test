@@ -9,4 +9,19 @@ export interface SendReminder extends Reminder {
     paymentAmount: number;
     currencyName: string;
     paymentDate: string;
+    totalReceips: number;
+    titularName: string;
+    insuranceTypeName: string;
+    insurerShortName: string;
+    validityStartDate: string;
+    validityEndDate: string;
+    paymentPlanName: string;
+    workspaceCollectionWhatsappCode: string;
+    workspaceCollectionWhatsappNumber: string;
+    workspaceCollectionPhoneCode: string;
+    workspaceCollectionPhoneNumber: string;
+    workspaceCollectionEmail: string;
+    insurerId: number;
+    insuranceName: string;
+    paymentStatusName: string;
 }

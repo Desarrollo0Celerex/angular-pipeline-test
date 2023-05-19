@@ -56,7 +56,7 @@ export class PaymentReminderService extends SmartComponent {
         this._loadingService.show();
         const data = this.getReminderData();
         const fields: string =
-            'contactShortName,workspaceName,policyNumber,coveredProperty,insurerName,currencyName,paymentDate,paymentPlanReceips,netPay,feePay,coverPay,extraPay,taxPay,discount,paymentSourceTypeId,tickets,paymentPlanId,pendingAmount,pendingReceipts';
+            'contactShortName,workspaceName,policyNumber,coveredProperty,insurerName,currencyName,paymentDate,paymentPlanReceips,netPay,feePay,coverPay,extraPay,taxPay,discount,paymentSourceTypeId,tickets,paymentPlanId,pendingAmount,pendingReceipts,bills,titularName,insuranceTypeName,insurerShortName,validityStartDate,validityEndDate,paymentPlanName,workspaceCollectionWhatsappCode,workspaceCollectionWhatsappNumber,workspaceCollectionPhoneCode,workspaceCollectionPhoneNumber,workspaceCollectionEmail,insurerId,insuranceName,paymentStatusName';
         this._paymentService
             .getWorkspacePayment(paymentId, fields)
             .subscribe((payment) => {
@@ -86,6 +86,25 @@ export class PaymentReminderService extends SmartComponent {
                     ),
                     currencyName: payment.currencyName,
                     paymentDate: payment.paymentDate,
+                    totalReceips: payment.bills,
+                    titularName: payment.titularName,
+                    insuranceTypeName: payment.insuranceTypeName,
+                    insurerShortName: payment.insurerShortName,
+                    validityStartDate: payment.validityStartDate,
+                    validityEndDate: payment.validityEndDate,
+                    paymentPlanName: payment.paymentPlanName,
+                    workspaceCollectionWhatsappCode:
+                        payment.workspaceCollectionWhatsappCode,
+                    workspaceCollectionWhatsappNumber:
+                        payment.workspaceCollectionWhatsappNumber,
+                    workspaceCollectionPhoneCode:
+                        payment.workspaceCollectionPhoneCode,
+                    workspaceCollectionPhoneNumber:
+                        payment.workspaceCollectionPhoneNumber,
+                    workspaceCollectionEmail: payment.workspaceCollectionEmail,
+                    insurerId: payment.insurerId,
+                    insuranceName: payment.insuranceName,
+                    paymentStatusName: payment.paymentStatusName,
                 };
                 this._sendPaymentReminder(
                     constactId,

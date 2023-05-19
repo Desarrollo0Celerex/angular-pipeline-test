@@ -1,5 +1,9 @@
 import { environment } from '@env/environment';
 
+export const AGENTHOS_NOTIFIER_ENDPOINTS: any = {
+    paymentReminders: `${environment.agenthosNotifierApiUrl}/payments/payment-reminders`,
+};
+
 export const AUTH_ENDPOINTS: any = {
     firebaseToken: (workspaceId: string, userId: string) =>
         `${environment.apiUrl}/workspaces/${workspaceId}/users/${userId}/firebase-token`,

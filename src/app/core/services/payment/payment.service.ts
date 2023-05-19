@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { PAYMENT_ENDPOINTS } from '@configs/endpoints.config';
+import {
+    AGENTHOS_NOTIFIER_ENDPOINTS,
+    PAYMENT_ENDPOINTS,
+} from '@configs/endpoints.config';
 import { AuthService } from '@core/services/auth/auth.service';
 import { ApiHttp } from '@core/http/api.http';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
@@ -85,9 +88,14 @@ export class PaymentService {
     }
 
     sendPaymentReminder(requestBody: SendReminder): Observable<string> {
-        const whatsappLink = requestBody.canSendReminderByWhatsapp
+        return this._apiHttp.post(
+            AGENTHOS_NOTIFIER_ENDPOINTS.paymentReminders,
+            requestBody
+        );
+
+        /* const whatsappLink = requestBody.canSendReminderByWhatsapp
             ? `https://api.whatsapp.com/send/?phone=${requestBody.phoneNumber}&text=Hola+${requestBody.contactName}%2C%0D%0A${requestBody.workspaceName}%2C+tu+br%C3%B3ker+de+seguros+agradece+tu+preferencia.`
             : '';
-        return of(whatsappLink);
+        return of(whatsappLink); */
     }
 }
