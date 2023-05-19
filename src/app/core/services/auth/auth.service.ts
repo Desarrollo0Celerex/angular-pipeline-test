@@ -94,9 +94,7 @@ export class AuthService {
 
     goToAtomAccount(): void {
         const atomAccountLoginUrl: string = `${environment.atomAccountUrl}/auth/identifier`;
-        const returnUrl: string = `${environment.appAgenthosUrl}/${
-            AUTH_ROUTES.MODULE
-        }/${AUTH_ROUTES.IDENTIFY_USER('')}`;
+        const returnUrl: string = `${environment.appAgenthosUrl}/auth/identify-user`;
         let loginUrl = `${atomAccountLoginUrl}?serviceName=Agenthos&returnUrl=${returnUrl}`;
         const redirectUrl: string = this._getRedirectUrl();
         if (!!redirectUrl) {
