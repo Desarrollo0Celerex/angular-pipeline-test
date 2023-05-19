@@ -1,0 +1,13 @@
+<agt-payment-list
+    contentName="{{'Recibo' | plural: payments.length}} {{paymentStatusId | paymentStatusName | plural: payments.length}}"
+    noResultsMessage="No se encontraron recibos {{paymentStatusId | paymentStatusName | plural | lowercase}}."
+    noResultsDetails="Por favor carga una póliza para detectar sus recibos."
+    noResultsButtonLabel="Cargar Póliza"
+    [isLoadedContent]="isLoadedContent"
+    [isLoadingContent]="isLoadingContent"
+    [payments]="payments"
+    [totalItems]="totalItems"
+    (loadMoreContents)="loadMoreContents()"
+    (loadPolicy)="requestLoadPolicy()"
+    (paymentApplied)="reloadContent()"
+></agt-payment-list>

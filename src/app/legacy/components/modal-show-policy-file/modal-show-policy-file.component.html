@@ -1,0 +1,82 @@
+<!-- AGENTHOS - POLICY VIEW -->
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- AGENTHOS - DETAILS CARD -->
+                <h5 class="modal-title">Descargar Póliza</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ol class="breadcrumb1">
+                    <li class="breadcrumb-item1">
+                        Escanea el código inteligente para ver la póliza.
+                    </li>
+                </ol>
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="text-justify">
+                            Apunta con la cámara de tu Smartphone al código
+                            inteligente y la póliza será transferida de manera
+                            automática a tu dispositivo.
+                        </p>
+                        <p class="text-justify">
+                            <strong
+                                >Si lo deseas, puedes descargar la póliza para
+                                almacenarla en tu dispositivo de manera
+                                permanante</strong
+                            >.
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <ng-container *ngIf="!!policyUrl">
+                                <ngx-qrcode
+                                    [elementType]="elementType"
+                                    [errorCorrectionLevel]="correctionLevel"
+                                    [value]="policyUrl"
+                                ></ngx-qrcode>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <a [href]="policyUrl" target="_blank">
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-block"
+                                (click)="closeModal()"
+                                [disabled]="!!!policyUrl"
+                            >
+                                <strong>DESCARGAR PÓLIZA</strong>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    name="agtCancelAction"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    data-dismiss="modal"
+                >
+                    <strong>CANCELAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - POLICY VIEW -->

@@ -51,7 +51,15 @@
         height: 48px;
     }
 }
-@media (max-width: 767.98px) and (min-width: 576px){
+@media (max-width: 767.98px) and (min-width: 567px){
+	.header-desktop{
+		background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
+		background-repeat: no-repeat;
+		background-size: contain;
+		width: 148px;
+	}
+}
+@media (max-width: 992px) and (min-width: 667px){
 	.header-desktop{
 		background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
 		background-repeat: no-repeat;
@@ -60,6 +68,22 @@
 	}
 }
 @media (max-width: 992px) and (min-width: 767px){
+    .header-desktop{
+        background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 148px;
+    }
+}
+@media (max-width: 992px) and (min-width: 867px){
+    .header-desktop{
+        background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 148px;
+    }
+}
+@media (min-width: 992px){
 	.header-desktop{
 		background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
 		background-repeat: no-repeat;
@@ -67,22 +91,43 @@
 		width: 148px;
 	}
 }
-@media (min-width: 992px){
-	.header-desktop{
-		background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
-		background-repeat: no-repeat;
-		background-size: contain;
-		width: 188px;
-	}
+@media (min-width: 1024px){
+    .header-desktop{
+        background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_white.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 188px;
+    }
 }
 
 
 /* -- AGENTHOS - SEARCH BAR -- */
-@media (max-width: 992px) and (min-width: 768px){
+@media (max-width: 879px) and (min-width: 768px){
+    .header .form-inline .form-control{
+        width: 308px !important;
+        margin-left: 8px;
+    }
+}
+@media (max-width: 942px) and (min-width: 879px){
 	.header .form-inline .form-control{
-    	width: 368px !important;
+    	width: 408px !important;
     	margin-left: 8px;
 	}
+}
+@media (min-width: 1024px){
+    .hor-topheader.header .form-inline .form-control {
+    width: 268px;
+    }
+}
+
+.header .form-inline .form-control {
+    border: 1px solid rgba(258, 258, 258, 0.1);
+    padding-left: 28px;
+    width: 508px;
+    padding-right: 48px;
+    background: #fff;
+    color: #536d98 !important;
+    border-radius: 8px;
 }
 
 
@@ -152,6 +197,17 @@
     color: #fbfbfb;
 }
 
+.agt-text-success {
+    color: #2eb678 !important;
+}
+
+.agt-text-warning {
+    color: #f5a628 !important;
+}
+
+.agt-text-danger {
+    color: #ff1a18 !important;
+}
 
 /* -- AGENTHOS - CARD LIBRARY -- */
 .card-header:before, .resp-tabs-list li.active:before{
@@ -194,7 +250,7 @@
     color: #E6AA68 !important;
     background: #F8F0E8;
     border-style: solid;
-    border-color: #E6AA68;
+    border-color: #E6AA8;
     box-sizing: border-box;
 }
 
@@ -318,6 +374,41 @@
     box-shadow: 0 0 0 2px #f6f9fc; }
 
 
+/* -- AGENTHOS - CALENDAR BUTTON LIBRARY -- */
+.agt-btn-apple-calendar {
+    color: #ffffff;
+    background: #000000 !important;
+    border-color: #000000; }
+.agt-btn-apple-calendar:hover {
+    color: #ffffff;
+    background: #000000 !important;
+    border-color: #000000; }
+.agt-btn-apple-calendar:focus, .agt-btn-apple-calendar.focus {
+    box-shadow: 0 0 0 2px #744f88; }
+
+.agt-btn-google-calendar {
+    color: #ffffff;
+    background: #dc4e41 !important;
+    border-color: #dc4e41; }
+.agt-btn-google-calendar:hover {
+    color: #ffffff;
+    background: #dc4e41 !important;
+    border-color: #dc4e41; }
+.agt-btn-google-calendar:focus, .agt-btn-google-calendar.focus {
+    box-shadow: 0 0 0 2px #744f88; }
+
+.agt-btn-outlook-calendar {
+    color: #ffffff;
+    background: #0067b8 !important;
+    border-color: #0067b8; }
+.agt-btn-outlook-calendar:hover {
+    color: #ffffff;
+    background: #0067b8 !important;
+    border-color: #0067b8; }
+.agt-btn-outlook-calendar:focus, .agt-btn-outlook-calendar.focus {
+    box-shadow: 0 0 0 2px #744f88; }
+
+
 /* -- AGETHOS - SOCIAL BUTTON LIBRARY -- */
 .agt-btn-whatsapp {
   color: #fbfbfb;
@@ -398,9 +489,36 @@
 }
 
 
+/* -- AGENTHOS - GRADIENT LIBRARY -- */
+.agt-primary-gradient {
+    color: #fbfbfb;
+    background: linear-gradient(to bottom right,#720b98,#c636f8) !important;
+}
+
+.agt-info-gradient {
+    color: #fbfbfb;
+    background: linear-gradient(to bottom right,#4481e8,#04bef8) !important;
+}
+
+.agt-success-gradient {
+    color: #fbfbfb;
+    background: linear-gradient(to bottom right,#1fa808,#3ce208) !important;
+}
+
+.agt-warning-gradient {
+    color: #fbfbfb;
+    background: linear-gradient(to bottom right,#f58028,#f5c848) !important;
+}
+
+.agt-danger-gradient {
+    color: #fbfbfb;
+    background: linear-gradient(to bottom right,#ba1d58,#ff0548) !important;
+}
+
+
 /* -- AGENTHOS - ALERT LIBRARY -- */
 .agt-alert-primary {
-	color: #fbfbfb;
+    color: #fbfbfb;
     background: linear-gradient(to bottom,#564498,#4c3c88) !important;
     border-color: #fbfbfb !important;
 }
@@ -411,22 +529,32 @@
     border-color: rgb(117 127 239 / 18%) !important;
 }
 
+.agt-alert-success {
+    color: #1f7558;
+    background: #d6f3e8 !important;
+    border-color: #c2edd8 !important;
+}
+
+.agt-alert-warning {
+    color: #916c28;
+    background: #fcf0d8 !important;
+    border-color: #fbe9c8 !important;
+}
+
+
 /* -- AGENTHOS - DEVICE LIBRARY -- */
-.agt-device-macbook-pro-container {
-  width: 100% !important;
-  display: flex !important;
-  justify-content: center !important;
-  padding-bottom: 1.5rem !important;
-}
-
-.agt-device-iphone-14-pro-container {
-  display: flex !important;
-  justify-content: center !important;
-  height: 650px !important;
-}
-
 .device-iphone-14-pro {
-    margin-top: -110px !important;
-    transform: scale(0.75) !important;
-    z-index: 0 !important;
+    margin-top: -88px;
+    margin-bottom: -58px;
+    position: relative;
+    transform: scale(0.8);
+    z-index: 0;
+}
+
+.device-macbook-pro {
+    margin-top: -18px;
+    margin-bottom: -18px;
+    margin-left: -48px;
+    transform: scale(0.8);
+    z-index: 0;
 }

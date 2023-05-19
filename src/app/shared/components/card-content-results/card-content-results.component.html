@@ -1,0 +1,39 @@
+<div class="card" [hidden]="isLoadingContent">
+    <div class="card-body">
+        <ng-container
+            *ngIf="totalItemsLoaded < totalItems; else allResultsLoaded"
+        >
+            <ol class="breadcrumb1">
+                <li class="breadcrumb-item1">
+                    Mostrando <strong>{{ totalItemsLoaded }}</strong> de
+                    <strong>{{ totalItems }}</strong> {{ contentName }}
+                </li>
+            </ol>
+            <div class="btn-list text-center">
+                <button
+                    class="btn btn-block btn-primary"
+                    (click)="requestLoadMoreContents()"
+                >
+                    <strong>CARGAR MÁS</strong>
+                </button>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #allResultsLoaded>
+    <ol class="breadcrumb1">
+        <li class="breadcrumb-item1">
+            <strong>Lista Completa:</strong>
+            <ng-container *ngIf="totalItemsLoaded > 1; else singleResult">
+                Se han mostrado {{ allResultsLoadedMessage }}
+                <strong>{{ totalItemsLoaded }}</strong>
+            </ng-container>
+            {{ contentName }}.
+        </li>
+    </ol>
+</ng-template>
+
+<ng-template #singleResult>
+    Se ha mostrado {{ singleResultMessage }}
+</ng-template>

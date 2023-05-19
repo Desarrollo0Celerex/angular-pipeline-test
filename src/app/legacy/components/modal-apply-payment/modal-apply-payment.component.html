@@ -1,0 +1,350 @@
+<!-- AGENTHOS - APPLY PAYMENT -->
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- AGENTHOS - POLICY NUMBER -->
+                <h5 class="modal-title">Confirmar Pago</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <ng-container *ngIf="!!model.payment; else loadingContent">
+                <form [formGroup]="model.paymentForm" (submit)="applyPayment()">
+                    <div class="modal-body">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">
+                                Valida los datos de pago para aplicar el recibo.
+                            </li>
+                        </ol>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - POLICY NO. -->
+                                    <label class="form-label">No. Póliza</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-file-text-o tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            name="agtSmartWalletPolicyNumber"
+                                            class="form-control"
+                                            [value]="model.payment.policyNumber"
+                                            readonly=""
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - POLICY NO. -->
+                                    <label class="form-label">No. Recibo</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-list-ol tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            name="agtPolicyNumber"
+                                            class="form-control"
+                                            value="{{
+                                                model.payment.tickets + 1
+                                            }} DE {{ model.payment.bills }}"
+                                            readonly=""
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - PAY DATE * -->
+                                    <label class="form-label"
+                                        >Fecha de Pago</label
+                                    >
+                                    <div class="row gutters-sm">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <div
+                                                    class="input-group-prepend"
+                                                >
+                                                    <div
+                                                        class="input-group-text"
+                                                    >
+                                                        <i
+                                                            class="fa fa-calendar-check-o tx-16 lh-0 op-6"
+                                                        ></i>
+                                                    </div>
+                                                </div>
+                                                <input
+                                                    [id]="
+                                                        calendarIdApplicationDate
+                                                    "
+                                                    class="form-control fc-datepicker {{
+                                                        getValidationClass(
+                                                            'applicationDate'
+                                                        )
+                                                    }}"
+                                                    type="text"
+                                                    formControlName="applicationDate"
+                                                />
+                                                <div class="invalid-feedback">
+                                                    {{
+                                                        getErrorMessage(
+                                                            "applicationDate"
+                                                        )
+                                                    }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - PAID AMOUNT * -->
+                                    <label class="form-label"
+                                        >Monto Pagado ({{
+                                            model.payment.currencyName
+                                        }})</label
+                                    >
+                                    <div class="row gutters-sm">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <div
+                                                    class="input-group-prepend"
+                                                >
+                                                    <div
+                                                        class="input-group-text"
+                                                    >
+                                                        <i
+                                                            class="fa fa-dollar tx-16 lh-0 op-6"
+                                                        ></i>
+                                                    </div>
+                                                </div>
+                                                <input
+                                                    type="text"
+                                                    class="form-control {{
+                                                        getValidationClass(
+                                                            'amount'
+                                                        )
+                                                    }}"
+                                                    formControlName="amount"
+                                                />
+                                                <div class="invalid-feedback">
+                                                    {{
+                                                        getErrorMessage(
+                                                            "amount"
+                                                        )
+                                                    }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="col-auto align-self-center"
+                                        >
+                                            <span
+                                                class="form-help"
+                                                data-toggle="popover"
+                                                data-placement="top"
+                                                data-content="Monto Total Pagado."
+                                                data-original-title=""
+                                                >?</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - NEXT PAY * -->
+                                    <label class="form-label"
+                                        >Forma de Pago</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-credit-card tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <select
+                                            class="form-control {{
+                                                getValidationClass(
+                                                    'paymentTypeId'
+                                                )
+                                            }}"
+                                            formControlName="paymentTypeId"
+                                        >
+                                            <option
+                                                [value]="
+                                                    paymentType.paymentTypeId
+                                                "
+                                                *ngFor="
+                                                    let paymentType of model.paymentTypes
+                                                "
+                                            >
+                                                {{
+                                                    paymentType.name | uppercase
+                                                }}
+                                            </option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            {{
+                                                getErrorMessage("paymentTypeId")
+                                            }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - PAY REFERENCE * -->
+                                    <label class="form-label"
+                                        >Referencia de Pago</label
+                                    >
+                                    <div class="row gutters-sm">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <div
+                                                    class="input-group-prepend"
+                                                >
+                                                    <div
+                                                        class="input-group-text"
+                                                    >
+                                                        <i
+                                                            class="fa fa-bookmark-o tx-16 lh-0 op-6"
+                                                        ></i>
+                                                    </div>
+                                                </div>
+                                                <input
+                                                    type="text"
+                                                    class="form-control {{
+                                                        getValidationClass(
+                                                            'paymentReference'
+                                                        )
+                                                    }}"
+                                                    formControlName="paymentReference"
+                                                />
+                                                <div class="invalid-feedback">
+                                                    {{
+                                                        getErrorMessage(
+                                                            "paymentReference"
+                                                        )
+                                                    }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="col-auto align-self-center"
+                                        >
+                                            <span
+                                                class="form-help"
+                                                data-toggle="popover"
+                                                data-placement="top"
+                                                data-content="Número de Rastreo."
+                                                data-original-title=""
+                                                >?</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mt-3">
+                                <button
+                                    type="button"
+                                    class="btn btn-block agt-btn-default"
+                                    (click)="selectPaymentEvidence()"
+                                >
+                                    <i class="fa fa-cloud-upload mr-2"></i
+                                    ><strong>CARGAR COMPROBANTE DE PAGO</strong>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-block btn-primary">
+                            <strong>APLICAR PAGO</strong>
+                        </button>
+                    </div>
+                </form>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #loadingContent>
+    <agt-loading-content
+        [isLoadingContent]="true"
+        [height]="459"
+    ></agt-loading-content>
+</ng-template>
+
+<ng-container *ngIf="!!model.payment">
+    <agt-modal-notify-receipts-exceeded
+        [modalId]="modalIdNotifyReceiptsExceeded"
+        [contactId]="contactId"
+        [policyId]="policyId"
+        [paymentId]="paymentId"
+        [receiptsExceeded]="receiptsExceeded"
+        (actionConfirmed)="requestShowModalAgain()"
+    >
+    </agt-modal-notify-receipts-exceeded>
+
+    <agt-modal-notify-missing-receipts
+        [modalId]="modalIdNotifyMissingReceipts"
+        [contactId]="contactId"
+        [policyId]="policyId"
+        [paymentId]="paymentId"
+        [missingReceipts]="missingReceipts"
+        (actionConfirmed)="requestShowModalAgain()"
+    >
+    </agt-modal-notify-missing-receipts>
+
+    <agt-modal-notify-amount-exceeded
+        [modalId]="modalIdNotifyAmountExceeded"
+        [contactId]="contactId"
+        [policyId]="policyId"
+        [paymentId]="paymentId"
+        [amountExceeded]="amountExceeded"
+        [currencyName]="model.payment.currencyName"
+        (actionConfirmed)="ignoreAmountExceeded()"
+    >
+    </agt-modal-notify-amount-exceeded>
+
+    <agt-modal-notify-missing-amount
+        [modalId]="modalIdNotifyMissingAmount"
+        [contactId]="contactId"
+        [policyId]="policyId"
+        [paymentId]="paymentId"
+        [missingAmount]="missingAmount"
+        [currencyName]="model.payment.currencyName"
+        (actionConfirmed)="ignoreMissingAmount()"
+    >
+    </agt-modal-notify-missing-amount>
+
+    <agt-modal-select-evidence
+        #modalSelectEvidence
+        [modalId]="modalIdSelectPaymentEvidence"
+        [data]="modalSelectEvidenceData"
+        (fileSelected)="addPaymentEvidence($event)"
+        (modalClosed)="showModalApplyPayment()"
+    ></agt-modal-select-evidence>
+</ng-container>

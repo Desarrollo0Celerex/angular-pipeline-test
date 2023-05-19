@@ -1,0 +1,65 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Seguimiento de Pago</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ol class="breadcrumb1">
+                    <li class="breadcrumb-item1">
+                        Sincroniza el seguimiento de pago con tu calendario.
+                    </li>
+                </ol>
+                <div class="row">
+                    <!--  <button
+                        type="button"
+                        class="btn btn-block agt-btn-apple-calendar mt-3"
+                        (click)="selectCalendar(CALENDARS.APPLE)"
+                        disabled
+                    >
+                        <i class="fa fa-apple mr-2"></i>Apple Calendar (Muy
+                        Pronto)
+                    </button> -->
+                    <button
+                        type="button"
+                        class="btn btn-block agt-btn-google-calendar mt-3"
+                        (click)="selectCalendar(CALENDARS.GOOGLE)"
+                    >
+                        <i class="fa fa-google mr-2"></i>Google Calendar
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-block agt-btn-outlook-calendar mt-3"
+                        (click)="selectCalendar(CALENDARS.OUTLOOK)"
+                    >
+                        <i class="fa fa-envelope mr-2"></i>Outlook Calendar
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    name="agtCancelAction"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    data-dismiss="modal"
+                >
+                    <strong>CANCELAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
