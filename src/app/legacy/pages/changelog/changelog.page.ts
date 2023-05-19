@@ -1,13 +1,24 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'agt-changelog',
-  templateUrl: './changelog.page.html',
-  styles: [
-  ]
+    selector: 'agt-changelog',
+    templateUrl: './changelog.page.html',
+    styles: [],
 })
 export class ChangelogPage {
     logs: any[] = [
+        {
+            version: '1.46.0',
+            launchDate: '19/05/2023',
+            changes: [
+                {
+                    title: 'Pay Tracker',
+                    items: [
+                        'Se creo un nuevo modulo para pay tracker, integrando pagos, buscador de pagos y calendario de pagos.',
+                    ],
+                },
+            ],
+        },
         {
             version: '1.45.2',
             launchDate: '18/04/2023',
@@ -16,9 +27,9 @@ export class ChangelogPage {
                     title: 'Smart Wallet',
                     items: [
                         'Se actualizo página para completar póliza para que cuando el scanner falle y no se pueda extraer info de una póliza anterior (en caso de renovación) se extraiga los datos cargados en el perfil del contacto.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.45.1',
@@ -29,9 +40,9 @@ export class ChangelogPage {
                     items: [
                         'Se agrego modal para actualizar la licencia de Agenthos para poder activar más productos en el Lead manager.',
                         'Se actualizo página para completar póliza para que cuando el scanner falle y no se pueda extraer info de una póliza anterior se extraiga los datos cargados en el perfil del contacto.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.45.0',
@@ -42,10 +53,10 @@ export class ChangelogPage {
                     items: [
                         'Se agrego funcionalidad para activar un espacio de trabajo con un código de activación.',
                         'Se agregaron modals y alerts al activar o desactivar un producto en el lead generator.',
-                        'Se actualizo modal que se muestra al fallar el escaneo al cargar una póliza, pero por ser una renovación se extrae data de la póliza anterior.'
-                    ]
-                }
-            ]
+                        'Se actualizo modal que se muestra al fallar el escaneo al cargar una póliza, pero por ser una renovación se extrae data de la póliza anterior.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.44.2',
@@ -55,10 +66,10 @@ export class ChangelogPage {
                     title: 'Lead Manager',
                     items: [
                         'Se resolvieron bugs en motor de coincidencias al crear un contacto.',
-                        'Se agrego logica para buscar coincidencias en la razón social y en el nombre comercial al crear un contacto tipo empresa.'
-                    ]
-                }
-            ]
+                        'Se agrego logica para buscar coincidencias en la razón social y en el nombre comercial al crear un contacto tipo empresa.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.44.1',
@@ -67,10 +78,10 @@ export class ChangelogPage {
                 {
                     title: 'Smart Wallet',
                     items: [
-                        'Se resolvio bug al aplicar endosos de actualización de datos o cancelación'
-                    ]
-                }
-            ]
+                        'Se resolvio bug al aplicar endosos de actualización de datos o cancelación',
+                    ],
+                },
+            ],
         },
         {
             version: '1.44.0',
@@ -79,10 +90,10 @@ export class ChangelogPage {
                 {
                     title: 'Lead Generator',
                     items: [
-                        'Se agrego página para gestionar la activación y desactivación del productos en el Lead Generator.'
-                    ]
-                }
-            ]
+                        'Se agrego página para gestionar la activación y desactivación del productos en el Lead Generator.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.43.2',
@@ -92,10 +103,10 @@ export class ChangelogPage {
                     title: 'Welcome',
                     items: [
                         'Se actualizo modulo Welcome para arreglar unos detalles pendientes.',
-                        'Se integro conexión a nueva API que gestionara el analisis, importación y exportación de asegurados de una póliza'
-                    ]
-                }
-            ]
+                        'Se integro conexión a nueva API que gestionara el analisis, importación y exportación de asegurados de una póliza',
+                    ],
+                },
+            ],
         },
         {
             version: '1.43.1',
@@ -105,10 +116,10 @@ export class ChangelogPage {
                     title: 'Smart Wallet',
                     items: [
                         'Se actualizo interfaz de aplicación de endosos para integrar nueva UI, nuevos campos de vigencia y montos del endoso, así como también el calculo automático del recibo fraccionado en los montos de incremento de prima.',
-                        'Se resolvio bug al capturar cantidades grandes con el simbolo "," (coma)'
-                    ]
-                }
-            ]
+                        'Se resolvio bug al capturar cantidades grandes con el simbolo "," (coma)',
+                    ],
+                },
+            ],
         },
         {
             version: '1.43.0',
@@ -117,10 +128,10 @@ export class ChangelogPage {
                 {
                     title: 'Welcome',
                     items: [
-                        'Se agregaron módulos contact center, social conect, site creator y app creator.'
-                    ]
-                }
-            ]
+                        'Se agregaron módulos contact center, social conect, site creator y app creator.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.42.1',
@@ -130,10 +141,10 @@ export class ChangelogPage {
                     title: 'Smart Wallet',
                     items: [
                         'Se agrego carga de archivos pesados al actualizar un archivo en el espediente del cliente, hasta 10 MB.',
-                        'Se soluciono bug al renovar una póliza, la aseguradora de la póliza anterior no aparecia seleccionada por default.'
-                    ]
-                }
-            ]
+                        'Se soluciono bug al renovar una póliza, la aseguradora de la póliza anterior no aparecia seleccionada por default.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.42.0',
@@ -143,10 +154,10 @@ export class ChangelogPage {
                     title: 'Smart Wallet',
                     items: [
                         'Se soluciono bug al eliminar una documento en el espediente de un contacto.',
-                        'Se agrego carga de archivos pesados en el espediente del archivo, hasta 10 MB.'
-                    ]
-                }
-            ]
+                        'Se agrego carga de archivos pesados en el espediente del archivo, hasta 10 MB.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.41.1',
@@ -160,9 +171,9 @@ export class ChangelogPage {
                         'Se resolvio bug al mostrar las coincidencias de contactos encontradas por email y/o teléfono.',
                         'Se corrigio código para mostrar correctamente el nombre de un contacto aun cuando solo sea nombre y apellido paterno.',
                         'Se agrego KPI e interfaz para mostrar las pólizas renovadas.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.41.0',
@@ -172,9 +183,9 @@ export class ChangelogPage {
                     title: 'Dashboard',
                     items: [
                         'Se actualizo dashboard para reorganizar los Kpis del espacio de trabajo.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.40.0',
@@ -185,9 +196,9 @@ export class ChangelogPage {
                     items: [
                         'Se agrego contenedor al dashboard para mostrar las primeras 4 pólizas pendientes del espacio de trabajo.',
                         'Se agrego página para listar todas las pólizas pendientes del espacio de trabajo.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.39.0',
@@ -198,9 +209,9 @@ export class ChangelogPage {
                     items: [
                         'Se actualizo el listado de seguros para filtrarlos por grupos y se agrego búsqueda.',
                         'Se actualizaron historiales de siniestros, endosos y pagos de una póliza.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.38.0',
@@ -210,9 +221,9 @@ export class ChangelogPage {
                     title: 'Smart Wallet',
                     items: [
                         'Se actualizo página de la información de contacto del contacto para agregar nueva gestión de la información de contacto.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.37.2',
@@ -222,9 +233,9 @@ export class ChangelogPage {
                     title: 'Smart Wallet',
                     items: [
                         'Se actualizo etiqueta "Pagos Totales" por "Pagos Aplicados" en el modal del detalle de una póliza.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.37.1',
@@ -234,9 +245,9 @@ export class ChangelogPage {
                     title: 'Smart Wallet',
                     items: [
                         'Se agrego carga manual para seguros grupales y collectivos de personas, propiedades, objetos y por default.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.37.0',
@@ -249,9 +260,9 @@ export class ChangelogPage {
                         'Se agrego descarga de reporte editable para flotillas.',
                         'Se agregaron páginas para mostrar las renovaciones aplicadas y pedientes de un contacto.',
                         'Se agregaron páginas para mostrar los pagos aplicados y pedientes de un contacto.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.36.2',
@@ -260,10 +271,10 @@ export class ChangelogPage {
                 {
                     title: 'Smart Wallet',
                     items: [
-                        'Se agrego logica para descargar una copia del documento usado para importar certificados cuando éste contenga errores.'
-                    ]
-                }
-            ]
+                        'Se agrego logica para descargar una copia del documento usado para importar certificados cuando éste contenga errores.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.36.1',
@@ -272,10 +283,10 @@ export class ChangelogPage {
                 {
                     title: 'Smart Wallet',
                     items: [
-                        'Se agrego página para gestionar certificados de una póliza (cancelar, eliminar, buscar, exportar, importar, etc).'
-                    ]
-                }
-            ]
+                        'Se agrego página para gestionar certificados de una póliza (cancelar, eliminar, buscar, exportar, importar, etc).',
+                    ],
+                },
+            ],
         },
         {
             version: '1.36.0',
@@ -285,10 +296,10 @@ export class ChangelogPage {
                     title: 'Smart Wallet',
                     items: [
                         'Se actualizaron la páginas para completar y actualizar pólizas para remover la carga de unidades de una flotilla.',
-                        'Se agrego página para exportar e importar unidades a una flotilla'
-                    ]
-                }
-            ]
+                        'Se agrego página para exportar e importar unidades a una flotilla',
+                    ],
+                },
+            ],
         },
         {
             version: '1.35.3',
@@ -297,10 +308,10 @@ export class ChangelogPage {
                 {
                     title: 'Smart Wallet',
                     items: [
-                        'Se actualizo página para actualizar una póliza para agregar nuevos campos sobre las comisiones.'
-                    ]
-                }
-            ]
+                        'Se actualizo página para actualizar una póliza para agregar nuevos campos sobre las comisiones.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.35.2',
@@ -309,10 +320,10 @@ export class ChangelogPage {
                 {
                     title: 'Smart Wallet',
                     items: [
-                        'Se actualizo página para completar una póliza para agregar nuevos campos sobre las comisiones.'
-                    ]
-                }
-            ]
+                        'Se actualizo página para completar una póliza para agregar nuevos campos sobre las comisiones.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.35.1',
@@ -321,10 +332,10 @@ export class ChangelogPage {
                 {
                     title: 'Smart Wallet',
                     items: [
-                        'Se resolvio bug al intentar ver la información de un contacto desde su código QR.'
-                    ]
-                }
-            ]
+                        'Se resolvio bug al intentar ver la información de un contacto desde su código QR.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.35.0',
@@ -333,10 +344,10 @@ export class ChangelogPage {
                 {
                     title: 'Care Center',
                     items: [
-                        'Se agrego botón para descargar reporte de siniestros abiertos.'
-                    ]
-                }
-            ]
+                        'Se agrego botón para descargar reporte de siniestros abiertos.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.34.1',
@@ -346,10 +357,10 @@ export class ChangelogPage {
                     title: 'Smart Wallet',
                     items: [
                         'Se agrego vista previa al seleccionar un archivo al cargar una póliza.',
-                        'Se agrego aceptación de "/" al capturar y/o actualizar el nombre de un contacto'
-                    ]
-                }
-            ]
+                        'Se agrego aceptación de "/" al capturar y/o actualizar el nombre de un contacto',
+                    ],
+                },
+            ],
         },
         {
             version: '1.34.0',
@@ -358,10 +369,10 @@ export class ChangelogPage {
                 {
                     title: 'Smart Wallet',
                     items: [
-                        'Se integro carga de archivos pesados hasta 10MB al cargar una póliza.'
-                    ]
-                }
-            ]
+                        'Se integro carga de archivos pesados hasta 10MB al cargar una póliza.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.33.8',
@@ -370,10 +381,10 @@ export class ChangelogPage {
                 {
                     title: 'Care Center',
                     items: [
-                        'Se habilito carga de varias evidencias al reportar un siniestro.'
-                    ]
-                }
-            ]
+                        'Se habilito carga de varias evidencias al reportar un siniestro.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.33.7',
@@ -383,10 +394,10 @@ export class ChangelogPage {
                     title: 'Care Center',
                     items: [
                         'Se agrego nuevo evento "Indemnización" al reportar un siniestro.',
-                        'Se agrego nuevo flujo para capturar el número de certificado'
-                    ]
-                }
-            ]
+                        'Se agrego nuevo flujo para capturar el número de certificado',
+                    ],
+                },
+            ],
         },
         {
             version: '1.33.6',
@@ -398,10 +409,10 @@ export class ChangelogPage {
                         'Se actualizo aplicación de endosos con incremento y decremento para guardar el monto del endoso.',
                         'Se actualizo aplicación de endosos con incremento para guardar el metodo de pago.',
                         'Se habilito menú para actualizar una póliza pendiente.',
-                        'Se agrego conexión con Stripe para capturar los datos de tarjeta y activar un espacio de trabajo.'
-                    ]
-                }
-            ]
+                        'Se agrego conexión con Stripe para capturar los datos de tarjeta y activar un espacio de trabajo.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.33.5',
@@ -411,10 +422,10 @@ export class ChangelogPage {
                     title: 'Smart Wallet',
                     items: [
                         'Se habilito actualización del plan de pago si y solo si la póliza solo es de un pago (pago único o pago anual) y la vigencia de la póliza es de un año o menor.',
-                        'Se agrego validación al aplicar un endoso de incremento o decremento de prima para que el monto del endoso sea diferente a cero.'
-                    ]
-                }
-            ]
+                        'Se agrego validación al aplicar un endoso de incremento o decremento de prima para que el monto del endoso sea diferente a cero.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.33.4',
@@ -424,10 +435,10 @@ export class ChangelogPage {
                     title: 'Smart Wallet',
                     items: [
                         'Se soluciono bug al aplicar un endoso de incremento de prima y en ese proceso intentar carmbiar el plan de pago; los recibos no se calculaban bien.',
-                        'Se soluciono bug al actualizar una póliza de autos individual a autos flotilla'
-                    ]
-                }
-            ]
+                        'Se soluciono bug al actualizar una póliza de autos individual a autos flotilla',
+                    ],
+                },
+            ],
         },
         {
             version: '1.33.3',
@@ -436,10 +447,10 @@ export class ChangelogPage {
                 {
                     title: 'Smart Wallet',
                     items: [
-                        'Se soluciono bug al cargar y actualizar pólizas de la categoría "Hogar & Propiedades Inmobiliarias".'
-                    ]
-                }
-            ]
+                        'Se soluciono bug al cargar y actualizar pólizas de la categoría "Hogar & Propiedades Inmobiliarias".',
+                    ],
+                },
+            ],
         },
         {
             version: '1.33.2',
@@ -450,9 +461,9 @@ export class ChangelogPage {
                     items: [
                         'Se agrego ordenamiento en listado de seguros.',
                         'Se actualizo cabecera del cliente.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.33.1',
@@ -463,9 +474,9 @@ export class ChangelogPage {
                     items: [
                         'Se actualizo listado de seguros.',
                         'Se agrego sección de seguros recomendados.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.33.0',
@@ -475,9 +486,9 @@ export class ChangelogPage {
                     title: 'Policy Search Engine',
                     items: [
                         'Se página para buscar pólizas de un espacio de trabajo.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.32.4',
@@ -489,9 +500,9 @@ export class ChangelogPage {
                         'Se solucionaron bugs al cargar endosos de incremento a las pólizas.',
                         'Se agrego item en el historial de una póliza para saber el origen de una póliza que fue reexpedida.',
                         'Se habilitaron todos los planes de pago al aplicar un endoso.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.32.3',
@@ -503,9 +514,9 @@ export class ChangelogPage {
                         'Se agrego grafica para visualizar los siniestros de autos reportados dentro de un periodo.',
                         'Se agrego página para listar los siniestros de autos reportados dentro de un periodo.',
                         'Se agrego reporte para descargar información sobre los siniestros de autos.',
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             version: '1.32.2',
@@ -513,11 +524,9 @@ export class ChangelogPage {
             changes: [
                 {
                     title: 'Changelog',
-                    items: [
-                        'Se actualizo changelog.',
-                    ]
-                }
-            ]
+                    items: ['Se actualizo changelog.'],
+                },
+            ],
         },
         {
             version: '1.32.1',
@@ -531,10 +540,10 @@ export class ChangelogPage {
                         'Se actualizo buscador de siniestros para buscar por Nombre del cliente, Nombre del titular, Bien Asegurado, No. de póliza, No. de siniestro y No. de folio.',
                         'Se permitio capturar No. de certificado, incluso si el certificado no existe.',
                         'Se agrego select para poder escoger si se desea mostrar el evento al asegurado o si es un seguimiento interno.',
-                        'Se abrio campo “Capturar evidencia del endoso” para poder seleccionar cualquier tipo de archivo.'
-                    ]
-                }
-            ]
+                        'Se abrio campo “Capturar evidencia del endoso” para poder seleccionar cualquier tipo de archivo.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.32.0',
@@ -544,10 +553,10 @@ export class ChangelogPage {
                     title: 'Care Center',
                     items: [
                         'Se agrego actualización al reportar un sinisetro.',
-                        'Se agrego actualización al ver el historial de un siniestro.'
-                    ]
-                }
-            ]
+                        'Se agrego actualización al ver el historial de un siniestro.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.31.0',
@@ -556,10 +565,10 @@ export class ChangelogPage {
                 {
                     title: 'Smart Wallet',
                     items: [
-                        'Se Se agrego descarga de reporte para las pólizas tipo flotilla.'
-                    ]
-                }
-            ]
+                        'Se Se agrego descarga de reporte para las pólizas tipo flotilla.',
+                    ],
+                },
+            ],
         },
         {
             version: '1.30.2',
@@ -568,10 +577,10 @@ export class ChangelogPage {
                 {
                     title: 'Smart Wallet',
                     items: [
-                        'Se actualizo la actualización de pólizas para actualizar, eliminar y agregar unidades a una flotilla'
-                    ]
-                }
-            ]
+                        'Se actualizo la actualización de pólizas para actualizar, eliminar y agregar unidades a una flotilla',
+                    ],
+                },
+            ],
         },
         {
             version: '1.30.1',
@@ -580,10 +589,10 @@ export class ChangelogPage {
                 {
                     title: 'Smart Wallet',
                     items: [
-                        'Se actualizo la carga de pólizas para integrar la captura de flotillas'
-                    ]
-                }
-            ]
+                        'Se actualizo la carga de pólizas para integrar la captura de flotillas',
+                    ],
+                },
+            ],
         },
         {
             version: '1.30.0',
@@ -591,26 +600,23 @@ export class ChangelogPage {
             changes: [
                 {
                     title: 'App Creator',
-                    items: [
-                        'Se agrego nuevo tema "Dark Blue"'
-                    ]
+                    items: ['Se agrego nuevo tema "Dark Blue"'],
                 },
                 {
                     title: 'Smart Wallet',
                     items: [
                         'Se agrego nueva forma de pago "Estado de cuenta"',
                         'Se agregi nuevo plan de pago "Cuatrimestral"',
-                        'Se ocultaron los componentes de control por voz al iniciar la app'
-                    ]
+                        'Se ocultaron los componentes de control por voz al iniciar la app',
+                    ],
                 },
                 {
                     title: 'Angular',
                     items: [
-                        'Se actualizo la aplicación de Angular v12 a Angular v14'
-                    ]
-                }
-            ]
-        }
-    ]
-
+                        'Se actualizo la aplicación de Angular v12 a Angular v14',
+                    ],
+                },
+            ],
+        },
+    ];
 }
