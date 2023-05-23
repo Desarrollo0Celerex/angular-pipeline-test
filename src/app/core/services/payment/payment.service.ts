@@ -11,6 +11,7 @@ import { HttpResponseItems } from '@core/interfaces/http-response-items.interfac
 import { Payment } from '@core/interfaces/payment.interface';
 import { SendReminder } from '@modules/pay-tracker/interfaces/send-reminder.interface';
 import { TotalPaymentsAmountData } from '@interfaces/total-payments-amount-data.interface';
+import { ContainerCharts } from '@core/interfaces/container-charts.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -19,6 +20,23 @@ export class PaymentService {
     private _workspaceId: string = this._authService.workspaceId;
 
     constructor(private _apiHttp: ApiHttp, private _authService: AuthService) {}
+
+    getContactPendingPaymentStats(
+        contactId: string,
+        filters: string = '',
+        rangeField: string = '',
+        rangeStart: string = '',
+        rangeEnd: string = '',
+        specialFilter: string = ''
+    ): Observable<ContainerCharts> {
+        return this._apiHttp
+        .param('filter', filters)
+        .param('rangeField', rangeField)
+        .param('rangeStart', rangeStart)
+        .param('rangeEnd', rangeEnd)
+        .param('specialFilter', specialFilter)
+        .get(PAYMENT_ENDPOINTS.contactPaymentStats(this._workspaceId, contactId))
+    }
 
     getTotalWorkspacePayments(
         filters: string = '',

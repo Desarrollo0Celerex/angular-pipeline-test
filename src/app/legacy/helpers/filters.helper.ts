@@ -1,5 +1,5 @@
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
-import { ContainerCharts } from '@interfaces/container-charts.interface';
+import { ContainerCharts } from '@core/interfaces/container-charts.interface';
 import { ContainerFilters } from '@interfaces/container-filters.interface';
 
 export class FiltersHelper {

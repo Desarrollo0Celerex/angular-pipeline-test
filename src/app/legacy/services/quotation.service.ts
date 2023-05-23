@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { ContainerCharts } from '@interfaces/container-charts.interface';
+import { ContainerCharts } from '@core/interfaces/container-charts.interface';
 import { CreateQuotationDataSend } from '@interfaces/create-quotation-data-send.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { StatRangeData } from '@interfaces/stat-range-data.interface';

@@ -1,28 +1,34 @@
 import { Injectable } from '@angular/core';
 
-import { SINISTER_STATUS } from '@constants/global';
+import { PAYMENT_STATUS } from '@constants/global';
 import { FiltersHelper } from '@helpers/filters.helper';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ContainerCharts } from '@core/interfaces/container-charts.interface';
 import { ContainerFilters } from '@interfaces/container-filters.interface';
-import { SinisterService } from '@services/sinister.service';
+import { PaymentService } from '@core/services/payment/payment.service';
 
 @Injectable()
-export class ContainerChartsWorkspaceSinistersClosedService {
+export class ContainerChartsContactPendingReceiptsService {
     chartsData: ContainerCharts = this._getDefaultChartsData();
     filtersData: ContainerFilters | null = null;
     specialFilter: string = '';
 
-    constructor(private _sinisterService: SinisterService) {}
+    constructor(private _paymentService: PaymentService) {}
 
-    loadData(rangeField: string, rangeStart: string, rangeEnd: string): void {
+    loadData(contactId:string, rangeField: string, rangeStart: string, rangeEnd: string): void {
         this.chartsData = this._getDefaultChartsData();
         const filters: string = UtilitiesHelper.generateHttpFilter(
-            'sinisterStatusId',
-            [SINISTER_STATUS.FINISHED]
+            'paymentStatusId',
+            [
+                PAYMENT_STATUS.INTIME,
+                PAYMENT_STATUS.PENDING,
+                PAYMENT_STATUS.LATE,
+                PAYMENT_STATUS.OVERDUE,
+            ]
         );
-        this._sinisterService
-            .getSinisterStats(
+        this._paymentService
+            .getContactPendingPaymentStats(
+                contactId,
                 filters,
                 rangeField,
                 rangeStart,

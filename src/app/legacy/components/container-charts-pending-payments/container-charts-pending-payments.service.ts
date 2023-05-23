@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { PAYMENT_STATUS } from '@constants/global';
 import { FiltersHelper } from '@helpers/filters.helper';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
-import { ContainerCharts } from '@interfaces/container-charts.interface';
+import { ContainerCharts } from '@core/interfaces/container-charts.interface';
 import { ContainerFilters } from '@interfaces/container-filters.interface';
 import { PaymentService } from '@services/payment.service';
 

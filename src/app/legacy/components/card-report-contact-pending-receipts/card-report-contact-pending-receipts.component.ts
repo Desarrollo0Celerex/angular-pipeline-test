@@ -33,6 +33,7 @@ export class CardReportContactPendingReceiptsComponent {
                 this.rangeField,
                 this.rangeStart,
                 this.rangeEnd,
+                this.specialFilter,
                 formatType
             )
             .then(() => {

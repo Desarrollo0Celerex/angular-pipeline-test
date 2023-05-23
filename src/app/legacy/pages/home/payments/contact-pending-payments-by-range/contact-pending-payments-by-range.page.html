@@ -28,11 +28,21 @@
             [rangeField]="rangeField"
             [rangeStart]="statsPeriodData.startDate"
             [rangeEnd]="statsPeriodData.endDate"
+            [specialFilter]="specialFilter"
         ></agt-card-report-contact-pending-receipts>
     </div>
     <!-- //AGENTHOS - DATA SUITE REPORT -->
 </div>
 <!-- //AGENTHOS - LISTING FILTERS  -->
+
+<agt-container-charts-contact-pending-receipts
+    *ngIf="!!statsPeriodData"
+    [contactId]="contactId"
+    [rangeField]="rangeField"
+    [rangeStart]="statsPeriodData.startDate"
+    [rangeEnd]="statsPeriodData.endDate"
+    (specialFilterChanged)="applySpecialFilter($event)"
+></agt-container-charts-contact-pending-receipts>
 
 <agt-content-list
     *ngIf="!!statsPeriodData"
@@ -43,4 +53,5 @@
     [rangeField]="rangeField"
     [rangeStart]="statsPeriodData.startDate"
     [rangeEnd]="statsPeriodData.endDate"
+    [contentSpecialFilter]="specialFilter"
 ></agt-content-list>

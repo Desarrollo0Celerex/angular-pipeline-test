@@ -19,6 +19,7 @@ export class ContactPendingPaymentsByRangePage implements OnInit {
     rangeStart: string = '';
     rangeEnd: string = '';
     statsPeriodData: StatsPeriodData | null = null;
+    specialFilter: string = '';
 
     constructor(private _activatedRoute: ActivatedRoute) { }
 
@@ -27,7 +28,12 @@ export class ContactPendingPaymentsByRangePage implements OnInit {
         this._buildStatsPeriodData();
     }
 
+    applySpecialFilter(specialFilter: string): void {
+        this.specialFilter = specialFilter;
+    }
+
     loadContent(statsPeriodData: StatsPeriodData): void {
+        this.specialFilter = '';
         this.statsPeriodData = statsPeriodData;
     }
 

@@ -28,6 +28,8 @@ export const CONTACT_ENDPOINTS: any = {
 };
 
 export const PAYMENT_ENDPOINTS: any = {
+    contactPaymentStats: (workspaceId: string, contactId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/payments/stats`,
     paymentReminders: (
         workspaceId: string,
         contactId: string,

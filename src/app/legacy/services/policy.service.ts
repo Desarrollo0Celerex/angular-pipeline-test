@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { DEFAULT_PER_PAGE, POLICY_STATUS } from '@constants/global';
 import { environment } from '@env/environment';
-import { ContainerCharts } from '@interfaces/container-charts.interface';
+import { ContainerCharts } from '@core/interfaces/container-charts.interface';
 import { CreatePolicyData } from '@interfaces/create-policy-data.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Policy } from '@core/interfaces/policy.interface';
