@@ -38,6 +38,7 @@ import { ModalShowPolicyDetailsModule } from '@components/modal-show-policy-deta
 import { ModalShowPolicyFileModule } from '@components/modal-show-policy-file/modal-show-policy-file.module';
 import { ModalSelectCancellationTypeModule } from '@components/modal-select-cancellation-type/modal-select-cancellation-type.module';
 import { ModalShowPaymentDetailsModule } from '@components/modal-show-payment-details/modal-show-payment-details.module';
+import { ModalShowPaymentAppliedDetailsModule } from '@components/modal-show-payment-applied-details/modal-show-payment-applied-details.module';
 import { ModalShowEndorsementModule } from '@components/modal-show-endorsement/modal-show-endorsement.module';
 import { ModalSelectPaymentRegistrationTypeModule } from '@components/modal-select-payment-registration-type/modal-select-payment-registration-type.module';
 import { ModalApplyPaymentModule } from '@components/modal-apply-payment/modal-apply-payment.module';
@@ -48,6 +49,7 @@ import { ModalCreatePaymentTrackingComponent } from './components/modal-create-p
 import { ModalSyncCalendarsComponent } from './components/modal-sync-calendars/modal-sync-calendars.component';
 import { ModalSyncCalendarComponent } from './components/modal-sync-calendar/modal-sync-calendar.component';
 import { ModalSelectCalendarComponent } from './components/modal-select-calendar/modal-select-calendar.component';
+import { PaymentAppliedListComponent } from './components/payment-applied-list/payment-applied-list.component';
 
 @NgModule({
     declarations: [
@@ -72,10 +74,9 @@ import { ModalSelectCalendarComponent } from './components/modal-select-calendar
         ModalSyncCalendarsComponent,
         ModalSyncCalendarComponent,
         ModalSelectCalendarComponent,
+        PaymentAppliedListComponent,
     ],
-    exports: [
-        PaymentListComponent
-    ],
+    exports: [PaymentListComponent, PaymentAppliedListComponent],
     imports: [
         CommonModule,
         FormsModule,
@@ -100,6 +101,7 @@ import { ModalSelectCalendarComponent } from './components/modal-select-calendar
         ModalUpgradeLicenseModule,
         MatDatepickerModule,
         MatMomentDateModule,
+        ModalShowPaymentAppliedDetailsModule,
     ],
     providers: [
         PayTrackerService,

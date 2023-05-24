@@ -23,7 +23,6 @@ export class CardPartnerPaymentReportsComponent implements OnChanges {
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
     modalIdSelectReportFormat: string = 'cppr-modal-select-report-format';
-    selectedReportType: number = REPORT_TYPES.PENDING_PAYMENTS;
 
     constructor(
         public model: CardPartnerPaymentReportsService,
@@ -121,9 +120,9 @@ export class CardPartnerPaymentReportsComponent implements OnChanges {
     selectRoute(): void {
         const formattedRangeStart = this.rangeStart.split('/').join('-');
         const formattedRangeEnd = this.rangeEnd.split('/').join('-');
-        const route: string = (this.selectedReportType === REPORT_TYPES.PENDING_PAYMENTS ) 
+        const route: string = (this.model.selectedReportType === REPORT_TYPES.PENDING_PAYMENTS ) 
         ? PARTNERS_ROUTES.MODULE + '/' + PARTNERS_ROUTES.PAYMENTS_PENDING_BY_RANGE(this.partnerId.toString(), formattedRangeStart, formattedRangeEnd)
-        : '';//ROUTES_NAME.contactReceiptsAppliedByRange(this.partnerId, formattedRangeStart, formattedRangeEnd);
+        : PARTNERS_ROUTES.MODULE + '/' + PARTNERS_ROUTES.PAYMENTS_APPLIED_BY_RANGE(this.partnerId.toString(), formattedRangeStart, formattedRangeEnd);
         this._router.navigateByUrl(route);
     }
 

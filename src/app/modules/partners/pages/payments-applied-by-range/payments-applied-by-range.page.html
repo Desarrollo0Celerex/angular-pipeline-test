@@ -8,33 +8,33 @@
         </agt-container-select-stats-period>
     </div>
     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-        <agt-card-report-partner-payments-pending
+        <agt-card-report-partner-payments-applied
             *ngIf="!!statsPeriodData"
             [partnerId]="partnerId"
             [rangeField]="rangeField"
             [rangeStart]="statsPeriodData.startDate"
             [rangeEnd]="statsPeriodData.endDate"
             [specialFilter]="specialFilter"
-        ></agt-card-report-partner-payments-pending>
+        ></agt-card-report-partner-payments-applied>
     </div>
 </div>
-<agt-container-charts-partner-payments-pending
+<agt-container-charts-partner-payments-applied
     *ngIf="!!statsPeriodData"
     [partnerId]="partnerId"
     [rangeField]="rangeField"
     [rangeStart]="statsPeriodData.startDate"
     [rangeEnd]="statsPeriodData.endDate"
     (specialFilterChanged)="applySpecialFilter($event)"
-></agt-container-charts-partner-payments-pending>
+></agt-container-charts-partner-payments-applied>
 <div class="row">
     <div class="col-12">
         <agt-card-content-title
-            title="Recibos Pendientes"
-            description="Recibos con pago pendiente."
+            title="Recibos Aplicados"
+            description="Recibos con pago aplicado."
         ></agt-card-content-title>
     </div>
 </div>
-<agt-payments-pending-list
+<agt-payments-applied-list
     *ngIf="!!statsPeriodData"
     [partnerId]="partnerId"
     [rangeField]="rangeField"
@@ -42,7 +42,7 @@
     [rangeEnd]="statsPeriodData.endDate"
     [specialFilter]="specialFilter"
     (loadPolicy)="showModalToSelectContactAction()"
-></agt-payments-pending-list>
+></agt-payments-applied-list>
 
 <!-- TODO: REFACTORIZE -->
 <agt-modal-select-contact-action

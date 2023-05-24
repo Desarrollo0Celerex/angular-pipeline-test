@@ -1,0 +1,29 @@
+export interface PaymentApplied {
+    receiptPaidId: string;
+    contactId: string;
+    policyId: string;
+    paymentId: string;
+    insurerImageUrl: string;
+    paymentSourceTypeName: string;
+    insuranceName: string;
+    paymentPlanName: string;
+    insuranceTypeName: string;
+    insuranceBackground: string;
+    insuranceIcon: string;
+    policyNumber: string;
+    receiptsAmount: number;
+    applicationDate: number;
+    paymentAmountPaid: number;
+    coveredProperty: string;
+    paymentSourceTypeId: number;
+    paymentSource: string;
+    isAutoPayment: string;
+    insuranceId: number;
+    endorsementNumber: string;
+    currencyName: string;
+    previouslyAppliedReceipts: number;
+    bills: number;
+    paymentDate: string;
+    paymentReference: string;
+    titularName: string;
+}

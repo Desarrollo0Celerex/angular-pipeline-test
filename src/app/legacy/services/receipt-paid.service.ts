@@ -256,7 +256,8 @@ export class ReceiptPaidService {
         rangeStart: string = '',
         rangeEnd: string = '',
         formatType: number,
-        sortBy: string = '-createdAt'
+        sortBy: string = '-createdAt',
+        specialFilter: string = ''
     ) {
         const route: string = routes.reportPartnerAppliedPayments(
             this._workspaceId,
@@ -268,6 +269,8 @@ export class ReceiptPaidService {
         if (!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         if (!!formatType) params = params.append('formatType', formatType);
         if (!!sortBy) params = params.append('sortBy', sortBy);
+        if (!!specialFilter)
+            params = params.append('specialFilter', specialFilter);
         params.append('observe', 'response');
         params.append('responseType', 'arraybuffer');
         const fileParams: any = {

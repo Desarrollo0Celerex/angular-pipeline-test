@@ -25,6 +25,7 @@ import { CardContentResultsComponent } from './components/card-content-results/c
 import { CardContentNoResultsComponent } from './components/card-content-no-results/card-content-no-results.component';
 import { CardContentSearchEngineComponent } from './components/card-content-search-engine/card-content-search-engine.component';
 import { CardContentMainActionComponent } from './components/card-content-main-action/card-content-main-action.component';
+import { CardPaymentAppliedComponent } from './components/card-payment-applied/card-payment-applied.component';
 
 @NgModule({
     declarations: [
@@ -50,6 +51,7 @@ import { CardContentMainActionComponent } from './components/card-content-main-a
         PaymentSourceTypeNamePipe,
         PaymentTypeLabelPipe,
         PaymentTypeValuePipe,
+        CardPaymentAppliedComponent,
     ],
     exports: [
         CardContentKpiComponent,
@@ -59,6 +61,7 @@ import { CardContentMainActionComponent } from './components/card-content-main-a
         CardContentSearchEngineComponent,
         CardContentTitleComponent,
         CardPaymentComponent,
+        CardPaymentAppliedComponent,
         ContactStatusNamePipe,
         LoadingContentComponent,
         PaymentStatusNamePipe,

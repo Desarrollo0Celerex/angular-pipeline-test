@@ -74,6 +74,13 @@ export const POLICY_ENDPOINTS: any = {
         `${environment.apiUrl}/workspaces/${workspaceId}/policies`,
 };
 
+export const RECEIPT_PAID_ENDPOINTS: any = {
+    partnerReceipsPaid: (workspaceId: string, partnerId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/partners/${partnerId}/receipts-paid`,
+    partnerReceiptsPaidStats: (workspaceId: string, partnerId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/partners/${partnerId}/receipts-paid/stats`,
+};
+
 export const TASK_ENDPOINTS: any = {
     workspaceTasks: (workspaceId: string) =>
         `${environment.apiUrl}/workspaces/${workspaceId}/tasks`,
