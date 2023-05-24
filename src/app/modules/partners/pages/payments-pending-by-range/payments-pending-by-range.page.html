@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-12">
+        <agt-card-content-title
+            title="Recibos Pendientes"
+            description="Recibos con pago aplicado."
+        ></agt-card-content-title>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+        <agt-container-select-stats-period
+            [statsPeriodData]="statsPeriodData"
+            [canShowComparisonPeriod]="false"
+            (statsPeriodSelected)="loadContent($event)">
+        </agt-container-select-stats-period>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+        <agt-card-report-partner-payments-pending
+            *ngIf="!!statsPeriodData"
+            [partnerId]="partnerId"
+            [rangeField]="rangeField"
+            [rangeStart]="statsPeriodData.startDate"
+            [rangeEnd]="statsPeriodData.endDate"
+            [specialFilter]="specialFilter"
+        ></agt-card-report-partner-payments-pending>
+    </div>
+</div>
+<agt-container-charts-partner-payments-pending
+    *ngIf="!!statsPeriodData"
+    [partnerId]="partnerId"
+    [rangeField]="rangeField"
+    [rangeStart]="statsPeriodData.startDate"
+    [rangeEnd]="statsPeriodData.endDate"
+    (specialFilterChanged)="applySpecialFilter($event)"
+></agt-container-charts-partner-payments-pending>
+<div class="row mt-3">
+    <div class="col-12">
+        <agt-card-content-title
+            title="Recibos Pendientes"
+        ></agt-card-content-title>
+    </div>
+</div>
+<agt-payments-pending-list
+    *ngIf="!!statsPeriodData"
+    [partnerId]="partnerId"
+    [rangeField]="rangeField"
+    [rangeStart]="statsPeriodData.startDate"
+    [rangeEnd]="statsPeriodData.endDate"
+    [specialFilter]="specialFilter"
+    (loadPolicy)="showModalToSelectContactAction()"
+></agt-payments-pending-list>
+
+<!-- TODO: REFACTORIZE -->
+<agt-modal-select-contact-action
+    [modalId]="modalIdSelectContactAction"
+    title="Cargar Póliza"
+    description="Selecciona a quién le deseas cargar la póliza."
+    (createContact)="showModalToSelectContactType()"
+    (searchContact)="showModalToSearchContact()"
+></agt-modal-select-contact-action>
+<agt-modal-select-contact-type
+    [modalId]="modalIdSelectContactType"
+    title="Crear Prospecto"
+    description="Selecciona el tipo de prospecto que deseas crear."
+></agt-modal-select-contact-type>
+<agt-modal-search-contact
+    [modalId]="modalIdSearchContact"
+    [actionType]="2"
+></agt-modal-search-contact>

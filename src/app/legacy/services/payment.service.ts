@@ -43,6 +43,13 @@ const routes: any = {
         '/contacts/' +
         contactId +
         '/payments',
+    partnerPayments: (workspaceId: string, partnerId: string) =>
+        environment.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/partners/' +
+        partnerId +
+        '/payments',
     workspacePaymentsReport: (workspaceId: string) =>
         environment.apiUrl + '/workspaces/' + workspaceId + '/payments/report',
     totalContactPayments: (workspaceId: string, contactId: string) =>
@@ -210,14 +217,15 @@ export class PaymentService {
         return this._httpClient.get(route, fileParams).toPromise();
     }
 
-    downloadReportPartnerPendingPayments(
-        partnerId: number,
+    downloadReportPartnerPaymentsPending(
+        partnerId: string,
         filters: string = '',
         rangeField: string = '',
         rangeStart: string = '',
         rangeEnd: string = '',
         formatType: number,
-        sortBy: string = '-createdAt'
+        sortBy: string = '-createdAt',
+        specialFilter: string = '',
     ) {
         const route: string = routes.reportPartnerPendingPayments(
             this._workspaceId,
@@ -230,6 +238,8 @@ export class PaymentService {
         if (!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
         if (!!formatType) params = params.append('formatType', formatType);
         if (!!sortBy) params = params.append('sortBy', sortBy);
+        if (!!specialFilter)
+            params = params.append('specialFilter', specialFilter);
         params.append('observe', 'response');
         params.append('responseType', 'arraybuffer');
         const fileParams: any = {
@@ -295,6 +305,48 @@ export class PaymentService {
         const route: string = routes.contactPayments(
             this._workspaceId,
             contactId
+        );
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        if (!!fields) params = params.append('fields', fields);
+        if (!!filters) params = params.append('filter', filters);
+        if (!!query) params = params.append('search', query);
+        if (!!rangeField) params = params.append('rangeField', rangeField);
+        if (!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if (!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if (!!specialFilter)
+            params = params.append('specialFilter', specialFilter);
+        params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, { params }).pipe(
+            map((res: HttpResponse) => {
+                if (fields.includes('lifeTime')) {
+                    const payments: Payment[] = res.data.items.map(
+                        (payment: Payment) => {
+                            return this._calculatePaymentLifeTime(payment);
+                        }
+                    );
+                    res.data.items = payments;
+                }
+                return res;
+            })
+        );
+    }
+
+    getPartnerPayments(
+        partnerId: string,
+        page: number = 1,
+        fields: string = '',
+        filters: string = '',
+        query: string = '',
+        sortBy: string = '-createdAt',
+        rangeField: string = '',
+        rangeStart: string = '',
+        rangeEnd: string = '',
+        specialFilter: string = ''
+    ): Observable<HttpResponse> {
+        const route: string = routes.partnerPayments(
+            this._workspaceId,
+            partnerId
         );
         let params: HttpParams = new HttpParams();
         params = params.append('page', page.toString());

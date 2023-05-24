@@ -8,6 +8,12 @@ export const HOME_ROUTES: any = {
     MODULE: 'home',
 };
 
+export const PARTNERS_ROUTES: any = {
+    MODULE: 'smart-wallet/partners',
+    PAYMENTS_APPLIED_BY_RANGE: (partnerId: string, rangeStart: string, rangeEnd: string) => `payments-applied-by-range/${partnerId}/${rangeStart}/${rangeEnd}`,
+    PAYMENTS_PENDING_BY_RANGE: (partnerId: string, rangeStart: string, rangeEnd: string) => `payments-pending-by-range/${partnerId}/${rangeStart}/${rangeEnd}`,
+};
+
 export const PAY_TRACKER_ROUTES: any = {
     MODULE: 'pay-tracker',
     PAYMENTS: 'payments',

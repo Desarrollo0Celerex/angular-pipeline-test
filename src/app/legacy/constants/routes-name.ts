@@ -123,6 +123,7 @@ const HOME_PAYMENTS_ROUTES = {
     paymentCalendar: `workspace/payments/calendar`,
     contactPendingPaymentsByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/payments/contact-pending-payments-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
     contactReceiptsAppliedByRange: (contactId: string, rangeStart: string, rangeEnd: string) => `workspace/payments/contact-receipts-applied-by-range/${contactId}/${rangeStart}/${rangeEnd}`,
+    partnerReceiptsPendingByRange: (partnerId: string, rangeStart: string, rangeEnd: string) => `workspace/payments/partner-pending-payments-by-range/${partnerId}/${rangeStart}/${rangeEnd}`,
     workspaceReceiptsPaidByRange: `workspace-receipts-paid-by-range`,
     workspaceReceiptsPendingByRange: `workspace-receipts-pending-by-range`,
 }

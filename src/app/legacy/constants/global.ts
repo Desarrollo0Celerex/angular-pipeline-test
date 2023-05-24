@@ -405,6 +405,10 @@ export const CONTENT_TYPES: any = {
         ID: 55,
         NAME: 'Póliza'
     },
+    PARTNER_PENDING_PAYMENTS_BY_RANGE: {
+        ID: 56,
+        NAME: 'Recibo'
+    },
 }
 export const CONTACT_TYPES: any = {
     PERSON: 1,

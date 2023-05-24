@@ -18,7 +18,7 @@
                 <li class="breadcrumb-item1">Se han detectado <strong>{{description}}</strong> de {{totalPartnerPayments}} {{contentTypeName}} por Pagar.
                 </li>
             </ol>
-            <button type="button" class="btn btn-block btn-primary" (click)="showModalToSelectReportFormat()" [disabled]="!canDownloadReport"><strong>DESCARGAR REPORTE</strong></button>
+            <button type="button" class="btn btn-block btn-primary" (click)="selectRoute()"><strong>VER DETALLES</strong></button>
         </ng-container>
         <ng-template #loadingContent>
             <agt-loading-content

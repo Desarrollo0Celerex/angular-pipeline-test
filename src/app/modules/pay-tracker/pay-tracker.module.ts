@@ -73,6 +73,9 @@ import { ModalSelectCalendarComponent } from './components/modal-select-calendar
         ModalSyncCalendarComponent,
         ModalSelectCalendarComponent,
     ],
+    exports: [
+        PaymentListComponent
+    ],
     imports: [
         CommonModule,
         FormsModule,

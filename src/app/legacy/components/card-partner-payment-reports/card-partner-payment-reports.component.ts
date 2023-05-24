@@ -1,9 +1,15 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
+import { ROUTES_NAME } from '@constants/routes-name';
 import { LoadingService } from '@core/services/loading/loading.service';
 
 import { CardPartnerPaymentReportsService } from './card-partner-payment-reports.service';
-
+import { Router } from '@angular/router';
+import { PARTNERS_ROUTES } from '@configs/routes.config';
+const REPORT_TYPES: any = {
+    APPLIED_PAYMENTS: 1,
+    PENDING_PAYMENTS: 2
+};
 declare var ModalPlugin: any;
 
 @Component({
@@ -17,10 +23,12 @@ export class CardPartnerPaymentReportsComponent implements OnChanges {
     @Input() rangeStart: string = '';
     @Input() rangeEnd: string = '';
     modalIdSelectReportFormat: string = 'cppr-modal-select-report-format';
+    selectedReportType: number = REPORT_TYPES.PENDING_PAYMENTS;
 
     constructor(
         public model: CardPartnerPaymentReportsService,
-        private _loadingService: LoadingService
+        private _loadingService: LoadingService,
+        private _router: Router,
     ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -108,6 +116,15 @@ export class CardPartnerPaymentReportsComponent implements OnChanges {
             .then(() => {
                 this._loadingService.hide();
             });
+    }
+
+    selectRoute(): void {
+        const formattedRangeStart = this.rangeStart.split('/').join('-');
+        const formattedRangeEnd = this.rangeEnd.split('/').join('-');
+        const route: string = (this.selectedReportType === REPORT_TYPES.PENDING_PAYMENTS ) 
+        ? PARTNERS_ROUTES.MODULE + '/' + PARTNERS_ROUTES.PAYMENTS_PENDING_BY_RANGE(this.partnerId.toString(), formattedRangeStart, formattedRangeEnd)
+        : '';//ROUTES_NAME.contactReceiptsAppliedByRange(this.partnerId, formattedRangeStart, formattedRangeEnd);
+        this._router.navigateByUrl(route);
     }
 
     selectReportType(reportType: number): void {

@@ -30,6 +30,10 @@ export const CONTACT_ENDPOINTS: any = {
 export const PAYMENT_ENDPOINTS: any = {
     contactPaymentStats: (workspaceId: string, contactId: string) =>
         `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/payments/stats`,
+    partnerPaymentStats: (workspaceId: string, partnerId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/partners/${partnerId}/payments/stats`,
+    partnerPayments: (workspaceId: string, partnerId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/partners/${partnerId}/payments`,
     paymentReminders: (
         workspaceId: string,
         contactId: string,

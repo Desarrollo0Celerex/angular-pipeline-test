@@ -38,6 +38,23 @@ export class PaymentService {
         .get(PAYMENT_ENDPOINTS.contactPaymentStats(this._workspaceId, contactId))
     }
 
+    getPartnerPendingPaymentStats(
+        partnerId: string,
+        filters: string = '',
+        rangeField: string = '',
+        rangeStart: string = '',
+        rangeEnd: string = '',
+        specialFilter: string = ''
+    ): Observable<ContainerCharts> {
+        return this._apiHttp
+        .param('filter', filters)
+        .param('rangeField', rangeField)
+        .param('rangeStart', rangeStart)
+        .param('rangeEnd', rangeEnd)
+        .param('specialFilter', specialFilter)
+        .get(PAYMENT_ENDPOINTS.partnerPaymentStats(this._workspaceId, partnerId))
+    }
+
     getTotalWorkspacePayments(
         filters: string = '',
         rangeField: string = '',
@@ -77,6 +94,33 @@ export class PaymentService {
             .get(
                 PAYMENT_ENDPOINTS.workspacePayment(this._workspaceId, paymentId)
             );
+    }
+
+    getPartnerPayments(
+        partnerId: string,
+        page: number = 1,
+        perPage: number = 1,
+        fields: string = '',
+        filter: string = '',
+        sortBy: string = '',
+        search: string = '',
+        rangeField: string = '',
+        rangeStart: string = '',
+        rangeEnd: string = '',
+        specialFilter: string = ''
+    ): Observable<HttpResponseItems> {
+        return this._apiHttp
+            .param('page', page.toString())
+            .param('perPage', perPage.toString())
+            .param('fields', fields)
+            .param('filter', filter)
+            .param('sortBy', sortBy)
+            .param('search', search)
+            .param('rangeField', rangeField)
+            .param('rangeStart', rangeStart)
+            .param('rangeEnd', rangeEnd)
+            .param('specialFilter', specialFilter)
+            .get(PAYMENT_ENDPOINTS.partnerPayments(this._workspaceId, partnerId));
     }
 
     getWorkspacePayments(
