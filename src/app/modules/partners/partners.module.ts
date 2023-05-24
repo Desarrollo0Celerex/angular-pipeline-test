@@ -6,6 +6,7 @@ import { CardReportPartnerPaymentsPendingModule } from '@components/card-report-
 import { CardReportPartnerPaymentsAppliedModule } from '@components/card-report-partner-payments-applied/card-report-partner-payments-applied.module';
 import { ContainerChartsPartnerPaymentsAppliedModule } from '@components/container-charts-partner-payments-applied/container-charts-partner-payments-applied.module';
 import { ContainerChartsPartnerPaymentsPendingModule } from '@components/container-charts-partner-payments-pending/container-charts-partner-payments-pending.module';
+import { ContainerPartnerDetailsModule } from '@components/container-partner-details/container-partner-details.module';
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
 import { PayTracketModule } from '@modules/pay-tracker/pay-tracker.module';
 import { ModalSelectContactActionModule } from '@components/modal-select-contact-action/modal-select-contact-action.module';
@@ -31,6 +32,7 @@ import { PaymentsAppliedListComponent } from './components/payments-applied-list
         CommonModule,
         ContainerChartsPartnerPaymentsAppliedModule,
         ContainerChartsPartnerPaymentsPendingModule,
+        ContainerPartnerDetailsModule,
         ContainerSelectStatsPeriodModule,
         ModalSelectContactActionModule,
         ModalSelectContactTypeModule,

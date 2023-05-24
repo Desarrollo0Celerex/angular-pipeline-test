@@ -1,0 +1,53 @@
+<!-- AGENTHOS - PROFILE RESUME -->
+<div class="row" *ngIf="!!model.partner; else loadingContactDetails">
+    <div class="col-sm-12">
+        <div class="card">
+            <!-- AGENTHOS - CARD HEADER -->
+            <div class="card-header border-bottom-0">
+                <!-- AGENTHOS - CONTACT PIC -->
+                <img
+                    class="avatar brround"
+                    src="https://webkit.atombits.xyz/agenthos/app/agenthos_company_userpic.png"
+                    width="38px"
+                />
+                <div class="card-options">
+                    <div class="badge badge-primary-gradient mr-1">SOCIO</div>
+                    <div
+                        class="badge badge-{{
+                            model.partner.partnerStatusBackground
+                        }} mr-1"
+                    >
+                        {{ model.partner.partnerStatusName | uppercase }}
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - CARD HEADER -->
+            <!-- AGENTHOS - CARD BODY -->
+            <div class="card-body pt-0">
+                <!-- AGENTHOS - CONTACT NAME -->
+                <a routerLink="/{{ partnerProfileRoute }}">
+                    <h3 class="h3">{{ model.partner.name }}</h3>
+                </a>
+                <ol class="breadcrumb1">
+                    <li class="breadcrumb-item1">
+                        {{ message }} <strong>{{ model.partner.name }}</strong
+                        >.
+                    </li>
+                </ol>
+            </div>
+            <!-- //AGENTHOS - CARD BODY -->
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - PROFILE RESUME -->
+
+<ng-template #loadingContactDetails>
+    <div class="card">
+        <agt-loading-content
+            [isLoadingContent]="true"
+            [height]="172"
+        ></agt-loading-content>
+    </div>
+</ng-template>
+
+<!-- //AGENTHOS - PROFILE RESUME -->
