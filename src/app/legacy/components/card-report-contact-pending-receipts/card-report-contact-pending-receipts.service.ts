@@ -14,6 +14,7 @@ export class CardReportContactPendingReceiptsService {
         rangeField: string,
         rangeStart: string,
         rangeEnd: string,
+        specialFilter: string,
         formatType: number
     ): Promise<void> {
         return new Promise((resolve) => {
@@ -35,7 +36,8 @@ export class CardReportContactPendingReceiptsService {
                     rangeStart,
                     rangeEnd,
                     formatType,
-                    sortBy
+                    sortBy,
+                    specialFilter,
                 )
                 .then((response: any) => {
                     const filename = response.headers

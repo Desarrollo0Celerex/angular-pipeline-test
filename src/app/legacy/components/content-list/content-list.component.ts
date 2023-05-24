@@ -1719,6 +1719,21 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                     });
                 break;
 
+            case CONTENT_TYPES.PARTNER_PENDING_PAYMENTS_BY_RANGE.ID:
+                this.contentListService
+                    .loadPartnerPendingPaymentsByRange(
+                        this.partnerId,
+                        this.page,
+                        this.rangeField,
+                        this.rangeStart,
+                        this.rangeEnd,
+                        this.contentSpecialFilter
+                    )
+                    .subscribe(() => {
+                        this._contentLoaded();
+                    });
+                break;
+
             case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
                 this.contentListService
                     .loadOpenedSinistersByRange(
@@ -2032,6 +2047,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 case CONTENT_TYPES.CONTACT_PENDING_RENEWALS_BY_RANGE.ID:
                 case CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID:
                 case CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID:
+                case CONTENT_TYPES.PARTNER_PENDING_PAYMENTS_BY_RANGE.ID:
                 case CONTENT_TYPES.OPENED_SINISTERS_BY_RANGE.ID:
                 case CONTENT_TYPES.WORKSPACE_SINISTERS_CLOSED_BY_RANGE.ID:
                 case CONTENT_TYPES.INSURANCE_SINISTERS_BY_RANGE.ID:

@@ -75,4 +75,5 @@ export enum PAYMENT_STATUS {
     IN_TIME = 2,
     LATE = 3,
     OVERDUE = 4,
+    STANDBY = 6,
 }

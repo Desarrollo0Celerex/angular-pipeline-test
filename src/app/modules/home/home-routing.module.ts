@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { PAY_TRACKER_ROUTES } from '@configs/routes.config';
+import { PARTNERS_ROUTES, PAY_TRACKER_ROUTES } from '@configs/routes.config';
 
 import { HomeLayout } from './layout/home.layout';
 
@@ -16,6 +16,13 @@ const routes: Routes = [
         path: '',
         component: HomeLayout,
         children: [
+            {
+                path: PARTNERS_ROUTES.MODULE,
+                loadChildren: () =>
+                    import('@modules/partners/partners.module').then(
+                        (mod) => mod.PartnersModule
+                    ),
+            },
             {
                 path: PAY_TRACKER_ROUTES.MODULE,
                 loadChildren: () =>
@@ -349,6 +356,18 @@ const routes: Routes = [
                     import(
                         '@pages/home/payments/contact-receipts-applied-by-range/contact-receipts-applied-by-range.module'
                     ).then((mod) => mod.ContactReceiptsAppliedByRangeModule),
+                canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard],
+            },
+            {
+                path: ROUTES_NAME.partnerReceiptsPendingByRange(
+                    ':partnerId',
+                    ':rangeStart',
+                    ':rangeEnd'
+                ),
+                loadChildren: () =>
+                    import(
+                        '@pages/home/payments/partner-receipts-pending-by-range/partner-receipts-pending-by-range.module'
+                    ).then((mod) => mod.PartnerReceiptsPendingByRangeModule),
                 canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard],
             },
             {

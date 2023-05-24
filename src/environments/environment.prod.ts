@@ -6,7 +6,7 @@ export const environment = {
     apiUrl: 'https://api.agenthos.com/v1',
     atomScann: 'https://scanner.agenthos.com/api/v1',
     importerApiUrl: 'https://importer.agenthos.com/v1',
-    agenthosNotifierApiUrl: 'https://notifications.agenthos.com/v1',
+    agenthosNotifierApiUrl: 'https://notifications.agenthos.com/v1/public',
     firebaseConfig: {
         apiKey: 'AIzaSyCT6zwYtSCrpr5iXe3x4TcwCGcMUO12GzA',
         authDomain: 'atom-account-30384.firebaseapp.com',

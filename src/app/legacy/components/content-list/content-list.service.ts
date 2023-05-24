@@ -1255,6 +1255,49 @@ export class ContentListService {
             );
     }
 
+    loadPartnerPendingPaymentsByRange(
+        partnerId: string,
+        page: number,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string,
+        specialFilter: string
+    ): Observable<void> {
+        const fields: string =
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
+        const filters: string = UtilitiesHelper.generateHttpFilter(
+            'paymentStatusId',
+            [
+                PAYMENT_STATUS.INTIME,
+                PAYMENT_STATUS.PENDING,
+                PAYMENT_STATUS.LATE,
+                PAYMENT_STATUS.OVERDUE,
+                PAYMENT_STATUS.STANDBY,
+            ]
+        );
+        const sortBy: string = 'paymentDate';
+        return this._paymentService
+            .getPartnerPayments(
+                partnerId,
+                page,
+                fields,
+                filters,
+                '',
+                sortBy,
+                rangeField,
+                rangeStart,
+                rangeEnd,
+                specialFilter
+            )
+            .pipe(
+                tap((res: HttpResponse) => {
+                    this.contents = this.contents.concat(res.data.items);
+                    this._loadContentResultData(res.data.totalItems);
+                }),
+                map(() => {})
+            );
+    }
+
     /**
      * Load the policies
      * @param  page           The page number to get

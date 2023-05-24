@@ -125,8 +125,8 @@ export class CardPartnerPaymentReportsService {
             const rangeField: string = 'paymentDate';
             const sortBy: string = 'paymentDate';
             this._paymentService
-                .downloadReportPartnerPendingPayments(
-                    partnerId,
+                .downloadReportPartnerPaymentsPending(
+                    partnerId.toString(),
                     filters,
                     rangeField,
                     rangeStart,

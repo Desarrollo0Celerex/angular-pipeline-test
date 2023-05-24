@@ -1,0 +1,13 @@
+<agt-payment-applied-list
+    contentName="{{'Recibo' | plural: payments.length}} {{'Aplicado' | plural: payments.length}}"
+    noResultsMessage="El socio comercial no cuenta con Recibos Aplicados en el periodo seleccionado"
+    noResultsDetails="Selecciona otro periodo o carga una nueva póliza para continuar."
+    noResultsButtonLabel="Cargar Póliza"
+    [isLoadedContent]="isLoadedContent"
+    [isLoadingContent]="isLoadingContent"
+    [payments]="payments"
+    [totalItems]="totalItems"
+    (loadMoreContents)="loadMoreContents()"
+    (loadPolicy)="requestLoadPolicy()"
+    (paymentApplied)="reloadContent()"
+></agt-payment-applied-list>
