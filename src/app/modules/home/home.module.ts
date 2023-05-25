@@ -18,6 +18,7 @@ import { ModalVoiceControlProcessingRequestComponent } from './components/modal-
 import { ModalVoiceControlTalkingComponent } from './components/modal-voice-control-talking/modal-voice-control-talking.component';
 import { SpeechRecognitionComponent } from './components/speech-recognition/speech-recognition.component';
 import { VoiceControlService } from './services/voice-control/voice-control.service';
+import { ModalCreateTaskComponent } from './components/modal-create-task/modal-create-task.component';
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import { VoiceControlService } from './services/voice-control/voice-control.serv
         PageHeaderComponent,
         SidebarComponent,
         SpeechRecognitionComponent,
+        ModalCreateTaskComponent,
     ],
     imports: [CommonModule, HomeRoutingModule, SharedModule],
     providers: [VoiceControlService],

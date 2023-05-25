@@ -8,6 +8,16 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.0',
+            launchDate: '25/05/2023',
+            changes: [
+                {
+                    title: 'Task Planner',
+                    items: ['Se agrego página para listar tareas'],
+                },
+            ],
+        },
+        {
             version: '1.46.2',
             launchDate: '24/05/2023',
             changes: [

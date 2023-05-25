@@ -2,8 +2,6 @@ import {
     Component,
     EventEmitter,
     Input,
-    OnChanges,
-    OnInit,
     Output,
     SimpleChanges,
 } from '@angular/core';
@@ -13,48 +11,36 @@ import {
     FormGroup,
     Validators,
 } from '@angular/forms';
-import { environment } from '@env/environment';
 import { SmartComponent } from '@core/classes/smart-component';
 import { ValidatorsHelper } from '@core/helpers/validators.helper';
-import { Payment } from '@core/interfaces/payment.interface';
-import { PaymentService } from '@core/services/payment/payment.service';
-import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import * as moment from 'moment';
 import { LoadingService } from '@core/services/loading/loading.service';
 import { TaskService } from '@core/services/task/task.service';
-import { CreateTask } from '@core/interfaces/create-task.interface';
+import { InputValidatorHelper } from '@helpers/input-validator.helper';
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
 declare var TimePickerPlugin: any;
 
 @Component({
-    selector: 'agt-modal-create-payment-tracking',
-    templateUrl: './modal-create-payment-tracking.component.html',
+    selector: 'agt-modal-create-task',
+    templateUrl: './modal-create-task.component.html',
     styles: [],
 })
-export class ModalCreatePaymentTrackingComponent
-    extends SmartComponent
-    implements OnInit, OnChanges
-{
+export class ModalCreateTaskComponent extends SmartComponent {
     @Input() modalId = '';
-    @Input() contactId = '';
-    @Input() policyId = '';
-    @Input() paymentId = '';
-    @Output() paymentTrackingCreated = new EventEmitter<{
+    @Output() taskCreated = new EventEmitter<{
         eventDate: string;
         eventTime: string;
         eventDescription: string;
     }>();
-    calendarIdDate = 'date';
+    calendarIdTaskDate = 'taskDate';
     comment = '';
     form = this._buildForm();
-    timerIdTime = 'time';
+    timerIdTaskTime = 'taskTime';
     private _isFormSubmitted = false;
 
     constructor(
         private _formBuilder: FormBuilder,
         private _loadingService: LoadingService,
-        private _paymentService: PaymentService,
         private _taskService: TaskService
     ) {
         super();
@@ -63,12 +49,6 @@ export class ModalCreatePaymentTrackingComponent
     ngOnInit(): void {
         this._initCalendars();
         this._initTimers();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.paymentId && changes.paymentId.currentValue) {
-            this._loadPayment();
-        }
     }
 
     closeModal(): void {
@@ -99,9 +79,9 @@ export class ModalCreatePaymentTrackingComponent
 
     private _buildForm(): FormGroup {
         return this._formBuilder.group({
-            date: ['', [Validators.required, ValidatorsHelper.date]],
-            time: ['', [Validators.required, ValidatorsHelper.time]],
-            comment: [
+            taskDate: ['', [Validators.required, ValidatorsHelper.date]],
+            taskTime: ['', [Validators.required, ValidatorsHelper.time]],
+            taskDetails: [
                 '',
                 [
                     Validators.required,
@@ -114,19 +94,14 @@ export class ModalCreatePaymentTrackingComponent
 
     private _createPaymentTracking(): void {
         this._loadingService.show();
-        const requestBody: CreateTask = {
-            taskDate: this.form.controls.date.value,
-            taskTime: this.form.controls.time.value,
-            taskDetails: this.form.controls.comment.value,
-            taskModuleId: 1,
-        };
+        const requestBody = { ...this.form.value, taskModuleId: 2 };
         this.closeModal();
         this._taskService
             .createTask(requestBody)
             .pipe(this.takeOne())
             .subscribe(() => {
                 this._loadingService.hide();
-                this.paymentTrackingCreated.emit({
+                this.taskCreated.emit({
                     eventDate: requestBody.taskDate,
                     eventTime: requestBody.taskTime,
                     eventDescription: requestBody.taskDetails,
@@ -136,7 +111,7 @@ export class ModalCreatePaymentTrackingComponent
 
     private _initCalendars(): void {
         DatePickerPlugin.initElement(
-            this.calendarIdDate,
+            this.calendarIdTaskDate,
             this._onChangeDate,
             this
         );
@@ -145,27 +120,16 @@ export class ModalCreatePaymentTrackingComponent
     private _initTimers(): void {
         TimePickerPlugin.init();
         TimePickerPlugin.initElement(
-            this.timerIdTime,
+            this.timerIdTaskTime,
             this._onChangeTime,
             this
         );
     }
 
-    private _loadPayment(): void {
-        const fields =
-            'tickets,bills,policyNumber,insuranceName,coveredProperty,titularName,insurerName';
-        this._paymentService
-            .getWorkspacePayment(this.paymentId, fields)
-            .pipe(this.takeOne())
-            .subscribe((payment) => {
-                this._updateFormValues(payment);
-            });
-    }
-
     private _onChangeDate(
         selectorId: string,
         changedValue: string,
-        context: ModalCreatePaymentTrackingComponent
+        context: ModalCreateTaskComponent
     ): void {
         context.form.patchValue({ [selectorId]: changedValue });
     }
@@ -173,35 +137,8 @@ export class ModalCreatePaymentTrackingComponent
     private _onChangeTime(
         selectorId: string,
         changedValue: string,
-        context: ModalCreatePaymentTrackingComponent
+        context: ModalCreateTaskComponent
     ): void {
         context.form.patchValue({ [selectorId]: changedValue });
-    }
-
-    private _updateFormValues(payment: Payment): void {
-        this.comment = `🎯 Seguimiento de cobranza para el pago del recibo ${
-            payment.tickets + 1
-        } de ${payment.bills} de la póliza ${payment.policyNumber} (${
-            payment.insuranceName
-        }: ${payment.coveredProperty}) de ${payment.titularName}, emitida con ${
-            payment.insurerName
-        }.
-
-💵 Pagos Pendientes: ${
-            environment.appAgenthosUrl
-        }/workspace/payments/pending-receipts/${this.contactId}/${
-            this.policyId
-        }/${this.paymentId}
-📊 Historial de Póliza: ${
-            environment.appAgenthosUrl
-        }/workspace/policies/history-policy/${this.contactId}/${this.policyId}
-🪪 Perfil de Cliente: ${environment.appAgenthosUrl}/workspace/contact-profile/${
-            this.contactId
-        }/resume
-
-🤖 Tarea gestionada en Agenthos.`;
-        this.form.controls.date.setValue(moment().format('DD/MM/YYYY'));
-        this.form.controls.time.setValue(moment().format('h:mm A'));
-        this.form.controls.comment.setValue(this.comment);
     }
 }

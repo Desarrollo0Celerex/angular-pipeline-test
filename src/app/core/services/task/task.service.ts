@@ -4,6 +4,7 @@ import { ApiHttp } from '@core/http/api.http';
 import { CreateTask } from '@core/interfaces/create-task.interface';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -18,5 +19,45 @@ export class TaskService {
             TASK_ENDPOINTS.workspaceTasks(this._workspaceId),
             requestBody
         );
+    }
+
+    getTotalWorkspaceTasks(
+        filters: string = '',
+        rangeField: string = '',
+        rangeStart: string = '',
+        rangeEnd: string = ''
+    ): Observable<number> {
+        return this._apiHttp
+            .param('filter', filters)
+            .param('rangeField', rangeField)
+            .param('rangeStart', rangeStart)
+            .param('rangeEnd', rangeEnd)
+            .get(TASK_ENDPOINTS.totalWorkspaceTasks(this._workspaceId));
+    }
+
+    getWorkspaceTasks(
+        page: number = 1,
+        perPage: number = 1,
+        fields: string = '',
+        filter: string = '',
+        sortBy: string = '',
+        search: string = '',
+        rangeField: string = '',
+        rangeStart: string = '',
+        rangeEnd: string = '',
+        specialFilter: string = ''
+    ): Observable<HttpResponseItems> {
+        return this._apiHttp
+            .param('page', page.toString())
+            .param('perPage', perPage.toString())
+            .param('fields', fields)
+            .param('filter', filter)
+            .param('sortBy', sortBy)
+            .param('search', search)
+            .param('rangeField', rangeField)
+            .param('rangeStart', rangeStart)
+            .param('rangeEnd', rangeEnd)
+            .param('specialFilter', specialFilter)
+            .get(TASK_ENDPOINTS.workspaceTasks(this._workspaceId));
     }
 }

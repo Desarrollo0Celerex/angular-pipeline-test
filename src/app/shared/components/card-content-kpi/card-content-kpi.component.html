@@ -3,7 +3,7 @@
         <div class="card-header border-bottom-0">
             <h6 class="mb-0">
                 {{ kpi.contentTypeName }}<br />
-                {{ kpi.contentSubtype | paymentStatusName | plural }}
+                {{ kpi.contentSubtypeName | plural }}
             </h6>
             <ng-container *ngIf="canShowActions">
                 <div class="card-options">
@@ -35,12 +35,12 @@
                 <div class="feature">
                     <div
                         class="fa-stack fa-lg fa-2x icon agt-{{
-                            kpi.contentSubtype | paymentStatusBackground
+                            kpi.contentSubtypeBackground
                         }}-gradient icon-service"
                     >
                         <i
                             class="mdi {{
-                                kpi.contentSubtype | paymentStatusIcon
+                                kpi.contentSubtypeIcon
                             }} fa-stack-1x text-white"
                         ></i>
                     </div>

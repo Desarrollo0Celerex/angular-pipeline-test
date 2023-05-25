@@ -30,12 +30,17 @@ export class PaymentService {
         specialFilter: string = ''
     ): Observable<ContainerCharts> {
         return this._apiHttp
-        .param('filter', filters)
-        .param('rangeField', rangeField)
-        .param('rangeStart', rangeStart)
-        .param('rangeEnd', rangeEnd)
-        .param('specialFilter', specialFilter)
-        .get(PAYMENT_ENDPOINTS.contactPaymentStats(this._workspaceId, contactId))
+            .param('filter', filters)
+            .param('rangeField', rangeField)
+            .param('rangeStart', rangeStart)
+            .param('rangeEnd', rangeEnd)
+            .param('specialFilter', specialFilter)
+            .get(
+                PAYMENT_ENDPOINTS.contactPaymentStats(
+                    this._workspaceId,
+                    contactId
+                )
+            );
     }
 
     getPartnerPendingPaymentStats(
@@ -47,12 +52,17 @@ export class PaymentService {
         specialFilter: string = ''
     ): Observable<ContainerCharts> {
         return this._apiHttp
-        .param('filter', filters)
-        .param('rangeField', rangeField)
-        .param('rangeStart', rangeStart)
-        .param('rangeEnd', rangeEnd)
-        .param('specialFilter', specialFilter)
-        .get(PAYMENT_ENDPOINTS.partnerPaymentStats(this._workspaceId, partnerId))
+            .param('filter', filters)
+            .param('rangeField', rangeField)
+            .param('rangeStart', rangeStart)
+            .param('rangeEnd', rangeEnd)
+            .param('specialFilter', specialFilter)
+            .get(
+                PAYMENT_ENDPOINTS.partnerPaymentStats(
+                    this._workspaceId,
+                    partnerId
+                )
+            );
     }
 
     getTotalWorkspacePayments(
@@ -120,7 +130,9 @@ export class PaymentService {
             .param('rangeStart', rangeStart)
             .param('rangeEnd', rangeEnd)
             .param('specialFilter', specialFilter)
-            .get(PAYMENT_ENDPOINTS.partnerPayments(this._workspaceId, partnerId));
+            .get(
+                PAYMENT_ENDPOINTS.partnerPayments(this._workspaceId, partnerId)
+            );
     }
 
     getWorkspacePayments(
@@ -154,10 +166,5 @@ export class PaymentService {
             AGENTHOS_NOTIFIER_ENDPOINTS.paymentReminders,
             requestBody
         );
-
-        /* const whatsappLink = requestBody.canSendReminderByWhatsapp
-            ? `https://api.whatsapp.com/send/?phone=${requestBody.phoneNumber}&text=Hola+${requestBody.contactName}%2C%0D%0A${requestBody.workspaceName}%2C+tu+br%C3%B3ker+de+seguros+agradece+tu+preferencia.`
-            : '';
-        return of(whatsappLink); */
     }
 }

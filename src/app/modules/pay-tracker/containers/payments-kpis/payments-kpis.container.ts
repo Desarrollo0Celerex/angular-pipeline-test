@@ -5,6 +5,9 @@ import { PAYMENT_STATUS } from '@configs/constants.config';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ContentKpi } from '@core/interfaces/content-kpi.interface';
 import { PaymentService } from '@core/services/payment/payment.service';
+import { PaymentStatusBackgroundPipe } from '@shared/pipes/payment-status-background/payment-status-background.pipe';
+import { PaymentStatusIconPipe } from '@shared/pipes/payment-status-icon/payment-status-icon.pipe';
+import { PaymentStatusNamePipe } from '@shared/pipes/payment-status-name/payment-status-name.pipe';
 
 import { PayTrackerService } from '../../services/pay-tracker/pay-tracker.service';
 import { SmartComponent } from '@core/classes/smart-component';
@@ -22,6 +25,9 @@ export class PaymentsKpisContainer extends SmartComponent implements OnInit {
 
     constructor(
         private _paymentService: PaymentService,
+        private _paymentStatusBackgroundPipe: PaymentStatusBackgroundPipe,
+        private _paymentStatusIconPipe: PaymentStatusIconPipe,
+        private _paymentStatusNamePipe: PaymentStatusNamePipe,
         private _payTrackerService: PayTrackerService
     ) {
         super();
@@ -53,24 +59,64 @@ export class PaymentsKpisContainer extends SmartComponent implements OnInit {
             {
                 contentTypeName: 'Recibos',
                 contentSubtype: PAYMENT_STATUS.IN_TRANSIT,
+                contentSubtypeName: this._paymentStatusNamePipe.transform(
+                    PAYMENT_STATUS.IN_TRANSIT
+                ),
+                contentSubtypeBackground:
+                    this._paymentStatusBackgroundPipe.transform(
+                        PAYMENT_STATUS.IN_TRANSIT
+                    ),
+                contentSubtypeIcon: this._paymentStatusIconPipe.transform(
+                    PAYMENT_STATUS.IN_TRANSIT
+                ),
                 value: 0,
                 total: 0,
             },
             {
                 contentTypeName: 'Recibos',
                 contentSubtype: PAYMENT_STATUS.IN_TIME,
+                contentSubtypeName: this._paymentStatusNamePipe.transform(
+                    PAYMENT_STATUS.IN_TIME
+                ),
+                contentSubtypeBackground:
+                    this._paymentStatusBackgroundPipe.transform(
+                        PAYMENT_STATUS.IN_TIME
+                    ),
+                contentSubtypeIcon: this._paymentStatusIconPipe.transform(
+                    PAYMENT_STATUS.IN_TIME
+                ),
                 value: 0,
                 total: 0,
             },
             {
                 contentTypeName: 'Recibos',
                 contentSubtype: PAYMENT_STATUS.LATE,
+                contentSubtypeName: this._paymentStatusNamePipe.transform(
+                    PAYMENT_STATUS.LATE
+                ),
+                contentSubtypeBackground:
+                    this._paymentStatusBackgroundPipe.transform(
+                        PAYMENT_STATUS.LATE
+                    ),
+                contentSubtypeIcon: this._paymentStatusIconPipe.transform(
+                    PAYMENT_STATUS.LATE
+                ),
                 value: 0,
                 total: 0,
             },
             {
                 contentTypeName: 'Recibos',
                 contentSubtype: PAYMENT_STATUS.OVERDUE,
+                contentSubtypeName: this._paymentStatusNamePipe.transform(
+                    PAYMENT_STATUS.OVERDUE
+                ),
+                contentSubtypeBackground:
+                    this._paymentStatusBackgroundPipe.transform(
+                        PAYMENT_STATUS.OVERDUE
+                    ),
+                contentSubtypeIcon: this._paymentStatusIconPipe.transform(
+                    PAYMENT_STATUS.OVERDUE
+                ),
                 value: 0,
                 total: 0,
             },

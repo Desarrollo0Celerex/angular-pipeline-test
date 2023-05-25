@@ -1,0 +1,15 @@
+<agt-card-content-main-action
+    title="Gestionar Tareas"
+    buttonLabel="Acciones Disponibles"
+    (doAction)="showModalToSelectTaskAction()"
+></agt-card-content-main-action>
+
+<agt-modal-select-task-action
+    [modalId]="modalIdSelectTaskAction"
+    (createTask)="showModalToCreateTask()"
+></agt-modal-select-task-action>
+
+<agt-modal-create-task
+    [modalId]="modalIdCreateTaskAction"
+    (taskCreated)="reloadContent()"
+></agt-modal-create-task>

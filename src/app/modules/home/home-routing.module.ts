@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { PARTNERS_ROUTES, PAY_TRACKER_ROUTES } from '@configs/routes.config';
+import {
+    PARTNERS_ROUTES,
+    PAY_TRACKER_ROUTES,
+    TASK_PLANNER_ROUTES,
+} from '@configs/routes.config';
 
 import { HomeLayout } from './layout/home.layout';
 
@@ -28,6 +32,13 @@ const routes: Routes = [
                 loadChildren: () =>
                     import('@modules/pay-tracker/pay-tracker.module').then(
                         (mod) => mod.PayTracketModule
+                    ),
+            },
+            {
+                path: TASK_PLANNER_ROUTES.MODULE,
+                loadChildren: () =>
+                    import('@modules/task-planner/task-planner.module').then(
+                        (mod) => mod.TaskPlannerModule
                     ),
             },
 
