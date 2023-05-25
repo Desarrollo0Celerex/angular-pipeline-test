@@ -50,6 +50,9 @@ import { ModalSyncCalendarsComponent } from './components/modal-sync-calendars/m
 import { ModalSyncCalendarComponent } from './components/modal-sync-calendar/modal-sync-calendar.component';
 import { ModalSelectCalendarComponent } from './components/modal-select-calendar/modal-select-calendar.component';
 import { PaymentAppliedListComponent } from './components/payment-applied-list/payment-applied-list.component';
+import { PaymentStatusBackgroundPipe } from '@shared/pipes/payment-status-background/payment-status-background.pipe';
+import { PaymentStatusIconPipe } from '@shared/pipes/payment-status-icon/payment-status-icon.pipe';
+import { PaymentStatusNamePipe } from '@shared/pipes/payment-status-name/payment-status-name.pipe';
 
 @NgModule({
     declarations: [
@@ -106,6 +109,9 @@ import { PaymentAppliedListComponent } from './components/payment-applied-list/p
     providers: [
         PayTrackerService,
         PaymentReminderService,
+        PaymentStatusBackgroundPipe,
+        PaymentStatusIconPipe,
+        PaymentStatusNamePipe,
         { provide: MAT_DATE_LOCALE, useValue: 'es' },
     ],
 })

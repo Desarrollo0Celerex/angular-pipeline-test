@@ -1,5 +1,6 @@
 export interface CreateTask {
-    date: string;
-    time: string;
-    comment: string;
+    taskDate: string;
+    taskTime: string;
+    taskDetails: string;
+    taskModuleId: number;
 }

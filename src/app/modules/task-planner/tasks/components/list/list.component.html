@@ -1,0 +1,43 @@
+<ng-container *ngIf="isLoadedContent">
+    <ng-container *ngIf="hasResults; else noResultsContainer">
+        <div class="row">
+            <ng-container *ngFor="let task of tasks; trackBy: trackByTasks">
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                    <agt-card-task [task]="task"></agt-card-task>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+</ng-container>
+
+<div class="row">
+    <div class="col-sm-12">
+        <agt-loading-content
+            [isLoadingContent]="isLoadingContent"
+        ></agt-loading-content>
+        <ng-container *ngIf="hasResults">
+            <agt-card-content-results
+                contentName="{{ 'Tarea' | plural : tasks.length }} {{
+                    taskStatusId | taskStatusName | plural : tasks.length
+                }}"
+                [isLoadingContent]="isLoadingContent"
+                [totalItems]="totalItems"
+                [totalItemsLoaded]="tasks.length"
+                (loadMoreContents)="loadMoreContents()"
+            ></agt-card-content-results>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #noResultsContainer>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <agt-card-content-no-results
+                message="No se encontraron tareas pendientes."
+                details="Por favor programa una tarea para darle seguimiento"
+                buttonLabel="Programar Tarea"
+                (doAction)="createTask()"
+            ></agt-card-content-no-results>
+        </div>
+    </div>
+</ng-template>

@@ -77,3 +77,10 @@ export enum PAYMENT_STATUS {
     OVERDUE = 4,
     STANDBY = 6,
 }
+
+export enum TASK_STATUS {
+    PRIORITY = 1,
+    DELAYED = 2,
+    URGENT = 3,
+    EXPIRED = 4,
+}
