@@ -1,0 +1,104 @@
+<div class="card" *ngIf="task">
+    <div class="card-header">
+        <h3 class="card-title">TA-{{ task.taskNumber }}</h3>
+        <!-- <div class="card-options">
+            <a
+                href=""
+                class="mr-2 text-default"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="true"
+            >
+                <span class="fa fa-bars"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                <div class="dropdown-plus-title">Acciones Disponibles</div>
+                <button
+                    type="button"
+                    class="dropdown-item"
+                >
+                    <i class="fa fa-edit mr-2"></i>Editar Tarea
+                </button>
+                <button
+                    type="button"
+                    class="dropdown-item"
+                >
+                    <i class="fa fa-trash mr-2"></i>Eliminar Tarea
+                </button>
+            </div>
+        </div> -->
+    </div>
+    <div class="card-body pt-0">
+        <div class="badge agt-badge-primary-gradient mr-1 mt-3">
+            TAREA PROGRAMADA
+        </div>
+        <div
+            class="badge agt-badge-{{
+                task.taskStatusId | taskStatusBackground
+            }}-gradient mr-1 mt-3"
+        >
+            {{ task.taskStatusId | taskStatusName | uppercase }}
+        </div>
+        <p class="text-muted mt-3">
+            <span class="agt-text-warning fs-13"
+                ><i
+                    data-toggle="popover"
+                    data-placement="right"
+                    class="fe fe-clipboard mr-2"
+                    attr.data-content="Tarea programada de manera {{
+                        task.taskTypeName | lowercase
+                    }}"
+                ></i></span
+            >Tarea {{ task.taskTypeName }}
+        </p>
+        <div class="row mt-5">
+            <div class="col-4 text-center">
+                <h6>
+                    <span class="agt-icon-primary"
+                        ><i class="fe fe-calendar mr-2"></i></span
+                    >{{ task.taskDate | date : "dd/MM/yyyy" }}
+                </h6>
+                <span class="text-muted">Fecha</span>
+            </div>
+            <div class="col-4 text-center">
+                <h6>
+                    <span class="agt-icon-primary"
+                        ><i class="fe fe-clock mr-2"></i></span
+                    >{{ taskTime | date : "h:mm a" }}
+                </h6>
+                <span class="text-muted">Hora</span>
+            </div>
+            <div class="col-4 text-center">
+                <h6>
+                    <span class="agt-icon-primary"
+                        ><i class="fe fe-bookmark mr-2"></i></span
+                    >{{ task.taskModuleName }}
+                </h6>
+                <span class="text-muted">Tipo</span>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-center">
+        <div class="row">
+            <div class="col-6">
+                <button
+                    type="button"
+                    class="btn btn-block agt-btn-primary"
+                    disabled
+                >
+                    <strong>VER DETALLES</strong>
+                </button>
+            </div>
+            <div class="col-6">
+                <button
+                    type="button"
+                    class="btn btn-block agt-btn-secondary"
+                    disabled
+                >
+                    <strong>GESTIONAR TAREA</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

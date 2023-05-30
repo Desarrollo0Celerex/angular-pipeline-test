@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { GENDERS } from '@configs/constants.config';
+import { GENDERS } from '@core/constants/settings';
 import { DumbComponent } from '@core/classes/dumb-component';
 
 @Component({

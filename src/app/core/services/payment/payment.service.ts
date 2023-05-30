@@ -4,12 +4,12 @@ import { Observable, of } from 'rxjs';
 import {
     AGENTHOS_NOTIFIER_ENDPOINTS,
     PAYMENT_ENDPOINTS,
-} from '@configs/endpoints.config';
-import { AuthService } from '@core/services/auth/auth.service';
+} from '@core/constants/endpoints';
+import { AuthService } from '@features/auth/services/auth.service';
 import { ApiHttp } from '@core/http/api.http';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
 import { Payment } from '@core/interfaces/payment.interface';
-import { SendReminder } from '@modules/pay-tracker/interfaces/send-reminder.interface';
+import { SendReminder } from '@features/pay-tracker/interfaces/send-reminder.interface';
 import { TotalPaymentsAmountData } from '@interfaces/total-payments-amount-data.interface';
 import { ContainerCharts } from '@core/interfaces/container-charts.interface';
 

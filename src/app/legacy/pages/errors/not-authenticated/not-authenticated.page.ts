@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AUTH_ROUTES } from '@configs/routes.config';
+import { AUTH_ROUTES } from '@core/constants/routes';
 
 @Component({
     selector: 'agt-not-authenticated',

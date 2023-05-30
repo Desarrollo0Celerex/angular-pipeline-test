@@ -6,7 +6,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { WorkspaceUser } from '@core/interfaces/workspace-user.interface';
 import { ContactService } from '@core/services/contact/contact.service';
 import { ExpressTokenService } from '@services/express-token.service';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 import { JwtService } from '@core/services/jwt/jwt.service';
 import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 

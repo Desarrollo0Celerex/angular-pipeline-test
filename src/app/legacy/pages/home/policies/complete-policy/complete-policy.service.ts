@@ -43,7 +43,7 @@ import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
 import { Policy } from '@core/interfaces/policy.interface';
 
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 import { AtomScannService } from '@services/atom-scann.service';
 import { ContactService } from '@core/services/contact/contact.service';
 import { CurrencyService } from '@services/currency.service';

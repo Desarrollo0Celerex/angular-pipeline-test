@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 import { PolicyService } from '@services/policy.service';
 import { SinisterService } from '@services/sinister.service';
 import { SinisterTypeService } from '@services/sinister-type.service';

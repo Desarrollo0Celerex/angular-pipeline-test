@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { WORKSPACE_USER_ENDPOINTS } from '@configs/endpoints.config';
+import { WORKSPACE_USER_ENDPOINTS } from '@core/constants/endpoints';
 import { WorkspaceUser } from '@core/interfaces/workspace-user.interface';
 import { ApiHttp } from '@core/http/api.http';
 import { UpdateUserRoleDataSend } from '@interfaces/update-user-role-data-send.interface';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 
 @Injectable({
     providedIn: 'root',

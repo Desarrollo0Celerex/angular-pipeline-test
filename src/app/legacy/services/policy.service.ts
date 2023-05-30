@@ -13,7 +13,7 @@ import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { RenewContactPolicyDataSend } from '@interfaces/renew-contact-policy-data-send.interface';
 import { UpdatePolicyStatusDataSend } from '@interfaces/update-policy-status-data-send.interface';
 import { Stat } from '@interfaces/stat.interface';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 
 import * as moment from 'moment';
 

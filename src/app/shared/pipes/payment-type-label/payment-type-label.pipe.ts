@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { PAYMENT_SOURCE_TYPES } from '@configs/constants.config';
+import { PAYMENT_SOURCE_TYPES } from '@core/constants/settings';
 
 @Pipe({
     name: 'paymentTypeLabel',

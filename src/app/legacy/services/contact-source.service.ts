@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { Stat } from '@interfaces/stat.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 
 const ROUTES = {
     contactSources: `${environment.apiUrl}/contact-sources`,

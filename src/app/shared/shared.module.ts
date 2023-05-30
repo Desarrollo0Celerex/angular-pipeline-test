@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { CardContentKpiComponent } from './components/card-content-kpi/card-content-kpi.component';
+import { CardKpiComponent } from './components/card-kpi/card-kpi.component';
 import { CardContentTitleComponent } from './components/card-content-title/card-content-title.component';
 import { ContactStatusNamePipe } from './pipes/contact-status-name/contact-status-name.pipe';
 import { PluralPipe } from './pipes/plural/plural.pipe';
@@ -23,17 +23,18 @@ import { PaymentTypeValuePipe } from './pipes/payment-type-value/payment-type-va
 import { LoadingContentComponent } from './components/loading-content/loading-content.component';
 import { CardContentResultsComponent } from './components/card-content-results/card-content-results.component';
 import { CardContentNoResultsComponent } from './components/card-content-no-results/card-content-no-results.component';
-import { CardContentSearchEngineComponent } from './components/card-content-search-engine/card-content-search-engine.component';
-import { CardContentMainActionComponent } from './components/card-content-main-action/card-content-main-action.component';
+import { CardSearchEngineComponent } from './components/card-search-engine/card-search-engine.component';
+import { CardMainActionComponent } from './components/card-main-action/card-main-action.component';
 import { CardPaymentAppliedComponent } from './components/card-payment-applied/card-payment-applied.component';
+import { ContentListComponent } from './components/content-list/content-list.component';
 
 @NgModule({
     declarations: [
-        CardContentKpiComponent,
-        CardContentMainActionComponent,
+        CardKpiComponent,
+        CardMainActionComponent,
         CardContentNoResultsComponent,
         CardContentResultsComponent,
-        CardContentSearchEngineComponent,
+        CardSearchEngineComponent,
         CardContentTitleComponent,
         CardPaymentComponent,
         ContactStatusNamePipe,
@@ -52,17 +53,19 @@ import { CardPaymentAppliedComponent } from './components/card-payment-applied/c
         PaymentTypeLabelPipe,
         PaymentTypeValuePipe,
         CardPaymentAppliedComponent,
+        ContentListComponent,
     ],
     exports: [
-        CardContentKpiComponent,
-        CardContentMainActionComponent,
+        CardKpiComponent,
+        CardMainActionComponent,
         CardContentNoResultsComponent,
         CardContentResultsComponent,
-        CardContentSearchEngineComponent,
+        CardSearchEngineComponent,
         CardContentTitleComponent,
         CardPaymentComponent,
         CardPaymentAppliedComponent,
         ContactStatusNamePipe,
+        ContentListComponent,
         LoadingContentComponent,
         PaymentStatusNamePipe,
         PluralPipe,

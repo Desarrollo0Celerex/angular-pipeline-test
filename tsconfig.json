@@ -21,7 +21,7 @@
             // NEW
             "@configs/*": ["app/configs/*"],
             "@core/*": ["app/core/*"],
-            "@modules/*": ["app/modules/*"],
+            "@features/*": ["app/features/*"],
             "@shared/*": ["app/shared/*"],
 
             // LEGACY

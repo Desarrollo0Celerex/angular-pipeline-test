@@ -1,0 +1,37 @@
+<ng-container *ngIf="isLoadedContent">
+    <ng-container *ngIf="hasResults; else noResultsContainer">
+        <div class="row">
+            <ng-content></ng-content>
+        </div>
+    </ng-container>
+</ng-container>
+
+<div class="row">
+    <div class="col-sm-12">
+        <agt-loading-content
+            [isLoadingContent]="isLoadingContent"
+        ></agt-loading-content>
+        <ng-container *ngIf="hasResults">
+            <agt-card-content-results
+                [contentName]="contentName"
+                [isLoadingContent]="isLoadingContent"
+                [totalItems]="totalItems"
+                [totalItemsLoaded]="totalItemsLoaded"
+                (loadMoreContents)="requestLoadMoreContents()"
+            ></agt-card-content-results>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #noResultsContainer>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <agt-card-content-no-results
+                [message]="noResultsMessage"
+                [details]="noResultsDetails"
+                [buttonLabel]="noResultsButtonLabel"
+                (doAction)="requestDoNoResultsAction()"
+            ></agt-card-content-no-results>
+        </div>
+    </div>
+</ng-template>

@@ -10,21 +10,9 @@ import { SinisterService } from '@services/sinister.service';
 import { ContainerGlobalKpisComponent } from './container-global-kpis.component';
 
 @NgModule({
-  declarations: [
-    ContainerGlobalKpisComponent
-  ],
-  exports: [
-      ContainerGlobalKpisComponent
-  ],
-  imports: [
-    CommonModule,
-    CardContentKpiModule
-  ],
-  providers: [
-      LeadService,
-      ClientService,
-      SinisterService,
-      PaymentService
-  ]
+    declarations: [ContainerGlobalKpisComponent],
+    exports: [ContainerGlobalKpisComponent],
+    imports: [CommonModule, CardContentKpiModule],
+    providers: [LeadService, ClientService, SinisterService, PaymentService],
 })
-export class ContainerGlobalKpisModule { }
+export class ContainerGlobalKpisModule {}

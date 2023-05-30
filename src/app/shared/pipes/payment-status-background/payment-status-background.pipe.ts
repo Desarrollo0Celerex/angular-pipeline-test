@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { PAYMENT_STATUS } from '@configs/constants.config';
+import { PAYMENT_STATUS } from '@core/constants/settings';
 
 @Pipe({
     name: 'paymentStatusBackground',
