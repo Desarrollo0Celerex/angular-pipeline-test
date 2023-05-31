@@ -301,14 +301,14 @@ const routes: Routes = [
             },
 
             // Payments routes
-            {
+            /* {
                 path: ROUTES_NAME.listPayments,
                 loadChildren: () =>
                     import(
                         '@pages/home/payments/list-payments/list-payments.module'
                     ).then((mod) => mod.ListPaymentsModule),
                 canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard],
-            },
+            }, */
             {
                 path: ROUTES_NAME.paymentHistory(
                     ':contactId',
@@ -345,14 +345,14 @@ const routes: Routes = [
                     ).then((mod) => mod.PolicyReceiptsPaidModule),
                 canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard],
             },
-            {
+            /* {
                 path: ROUTES_NAME.paymentCalendar,
                 loadChildren: () =>
                     import(
                         '@pages/home/payments/calendar/calendar.module'
                     ).then((mod) => mod.CalendarModule),
                 canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard],
-            },
+            }, */
             {
                 path: ROUTES_NAME.contactPendingPaymentsByRange(
                     ':contactId',

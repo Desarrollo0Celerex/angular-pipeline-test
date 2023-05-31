@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ROUTES_NAME } from '@constants/routes-name';
+import { PAY_TRACKER_ROUTES } from '@core/constants/routes';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
@@ -21,7 +22,9 @@ export class StatsCollectionPage {
     }
 
     goToPaymentsCalendar(): void {
-        this._router.navigateByUrl(ROUTES_NAME.paymentCalendar);
+        this._router.navigateByUrl(
+            PAY_TRACKER_ROUTES.MODULE + '/' + PAY_TRACKER_ROUTES.CALENDAR
+        );
     }
 
     goToWorkspaceReceiptsPaidByRange(): void {
