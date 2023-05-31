@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '@features/task-planner/interfaces/task.interface';
+import { Task } from '@features/tasks/interfaces/task.interface';
 import { ModuleService } from '@features/tasks/services/module.service';
 import * as moment from 'moment';
 

@@ -33,8 +33,3 @@ export const TASKS_ROUTES: any = {
     MODULE: 'task-planner',
     TASKS: 'tasks',
 };
-
-export const TASK_PLANNER_ROUTES: any = {
-    MODULE: 'task-planner',
-    TASKS: 'tasks',
-};

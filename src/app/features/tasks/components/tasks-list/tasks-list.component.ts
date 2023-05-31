@@ -4,7 +4,7 @@ import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
 import { TaskService } from '@features/tasks/services/task.service';
 import { ModuleService } from '../../services/module.service';
-import { Task } from '@features/task-planner/interfaces/task.interface';
+import { Task } from '@features/tasks/interfaces/task.interface';
 
 @Component({
     selector: 'agt-tasks-list',
