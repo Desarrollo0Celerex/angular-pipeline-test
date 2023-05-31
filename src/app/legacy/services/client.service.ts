@@ -8,7 +8,7 @@ import { environment } from '@env/environment';
 import { CoverageStat } from '@interfaces/coverage-stat.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { StatRangeData } from '@interfaces/stat-range-data.interface';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 
 const routes: any = {
     clients: (workspaceId: string) =>

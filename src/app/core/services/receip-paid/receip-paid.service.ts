@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { RECEIPT_PAID_ENDPOINTS } from '@configs/endpoints.config';
-import { AuthService } from '@core/services/auth/auth.service';
+import { RECEIPT_PAID_ENDPOINTS } from '@core/constants/endpoints';
+import { AuthService } from '@features/auth/services/auth.service';
 import { ApiHttp } from '@core/http/api.http';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
 import { ContainerCharts } from '@core/interfaces/container-charts.interface';

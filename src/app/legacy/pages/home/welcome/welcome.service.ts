@@ -9,7 +9,7 @@ import { Wallet } from '@interfaces/wallet.interface';
 import { WorkspaceInsuranceService } from '@services/workspace-insurance.service';
 import { SiteService } from '@services/site.service';
 import { WalletService } from '@services/wallet.service';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 import { WorkspaceService } from '@core/services/workspace/workspace.service';
 import { WorkspaceDirectoryService } from '@services/workspace-directory.service';
 import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';

@@ -11,7 +11,7 @@ import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 import { TotalPaymentsAmountData } from '@interfaces/total-payments-amount-data.interface';
 import { UpdatePaymentDateDataSend } from '@interfaces/update-payment-date-data-send.interface';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 
 const routes: any = {
     payment: (workspaceId: string, paymentId: string) =>
@@ -162,7 +162,7 @@ export class PaymentService {
         rangeEnd: string = '',
         formatType: number,
         sortBy: string = '-createdAt',
-        specialFilter: string = '',
+        specialFilter: string = ''
     ) {
         const route: string = routes.reportContactPendingPayments(
             this._workspaceId,
@@ -225,7 +225,7 @@ export class PaymentService {
         rangeEnd: string = '',
         formatType: number,
         sortBy: string = '-createdAt',
-        specialFilter: string = '',
+        specialFilter: string = ''
     ) {
         const route: string = routes.reportPartnerPendingPayments(
             this._workspaceId,

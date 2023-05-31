@@ -8,7 +8,7 @@ import { environment } from '@env/environment';
 import { CreatePartnerDataSend } from '@interfaces/create-partner-data-send.interface';
 import { UpdatePartnerDataSend } from '@interfaces/update-partner-data-send.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 
 const routes: any = {
     partners: (workspaceId: string) =>

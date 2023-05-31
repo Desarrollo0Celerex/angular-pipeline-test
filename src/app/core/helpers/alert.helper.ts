@@ -3,16 +3,6 @@ declare var SweetAlertPlugin: any;
 import { Alert } from '@interfaces/alert.interface';
 
 export class AlertHelper {
-    static taskCreated(): void {
-        const alertData: Alert = {
-            title: 'Tarea Creada',
-            text: 'La tarea se creo con éxito.',
-            type: 'success',
-            confirmButtonText: 'CONTINUAR',
-        };
-        SweetAlertPlugin.showAlert(alertData);
-    }
-
     static contactDeleted(): void {
         const alertData: Alert = {
             title: 'Contacto Eliminado',
@@ -734,6 +724,16 @@ export class AlertHelper {
         const alertData: Alert = {
             title: 'Red Actualizada',
             text: 'La red social se actualizó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+        };
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
+    static taskUpdated(): void {
+        const alertData: Alert = {
+            title: 'Tarea Actualizada',
+            text: 'La tarea se actualizó con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
         };

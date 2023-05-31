@@ -5,10 +5,10 @@ import { LoadingService } from '@core/services/loading/loading.service';
 
 import { CardPartnerPaymentReportsService } from './card-partner-payment-reports.service';
 import { Router } from '@angular/router';
-import { PARTNERS_ROUTES } from '@configs/routes.config';
+import { PARTNERS_ROUTES } from '@core/constants/routes';
 const REPORT_TYPES: any = {
     APPLIED_PAYMENTS: 1,
-    PENDING_PAYMENTS: 2
+    PENDING_PAYMENTS: 2,
 };
 declare var ModalPlugin: any;
 
@@ -27,7 +27,7 @@ export class CardPartnerPaymentReportsComponent implements OnChanges {
     constructor(
         public model: CardPartnerPaymentReportsService,
         private _loadingService: LoadingService,
-        private _router: Router,
+        private _router: Router
     ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -120,9 +120,22 @@ export class CardPartnerPaymentReportsComponent implements OnChanges {
     selectRoute(): void {
         const formattedRangeStart = this.rangeStart.split('/').join('-');
         const formattedRangeEnd = this.rangeEnd.split('/').join('-');
-        const route: string = (this.model.selectedReportType === REPORT_TYPES.PENDING_PAYMENTS ) 
-        ? PARTNERS_ROUTES.MODULE + '/' + PARTNERS_ROUTES.PAYMENTS_PENDING_BY_RANGE(this.partnerId.toString(), formattedRangeStart, formattedRangeEnd)
-        : PARTNERS_ROUTES.MODULE + '/' + PARTNERS_ROUTES.PAYMENTS_APPLIED_BY_RANGE(this.partnerId.toString(), formattedRangeStart, formattedRangeEnd);
+        const route: string =
+            this.model.selectedReportType === REPORT_TYPES.PENDING_PAYMENTS
+                ? PARTNERS_ROUTES.MODULE +
+                  '/' +
+                  PARTNERS_ROUTES.PAYMENTS_PENDING_BY_RANGE(
+                      this.partnerId.toString(),
+                      formattedRangeStart,
+                      formattedRangeEnd
+                  )
+                : PARTNERS_ROUTES.MODULE +
+                  '/' +
+                  PARTNERS_ROUTES.PAYMENTS_APPLIED_BY_RANGE(
+                      this.partnerId.toString(),
+                      formattedRangeStart,
+                      formattedRangeEnd
+                  );
         this._router.navigateByUrl(route);
     }
 

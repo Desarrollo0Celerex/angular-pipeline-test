@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 
 const ROUTES = {
     leadStatus: `${environment.apiUrl}/lead-status`,

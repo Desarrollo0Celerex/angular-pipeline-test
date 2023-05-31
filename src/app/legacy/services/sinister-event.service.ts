@@ -9,7 +9,7 @@ import { FinalizeSinisterEventDataSend } from '@interfaces/finalize-sinister-eve
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { SinisterEvent } from '@interfaces/sinister-event.interface';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 
 const routes: any = {
     sinisterEvents: (

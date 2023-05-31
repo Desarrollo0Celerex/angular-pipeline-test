@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { INSURANCES } from '@configs/constants.config';
+import { INSURANCES } from '@core/constants/settings';
 
 @Pipe({
     name: 'insuranceBackground',

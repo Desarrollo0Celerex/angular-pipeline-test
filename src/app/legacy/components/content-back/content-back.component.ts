@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 
 import { CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
+import { PAY_TRACKER_ROUTES } from '@core/constants/routes';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 
 @Component({
-  selector: 'agt-content-back',
-  templateUrl: './content-back.component.html',
-  styles: [
-  ]
+    selector: 'agt-content-back',
+    templateUrl: './content-back.component.html',
+    styles: [],
 })
 export class ContentBackComponent {
     @Input() contactId: string = '';
@@ -18,20 +18,20 @@ export class ContentBackComponent {
     @Input() partnerId: string = '';
     @Input() contentResultData: ContentResultData = {
         loadedItems: 0,
-        totalItems: 0
+        totalItems: 0,
     };
     @Input() contentType: number = 0;
     @Input() isLoadingContent: boolean = false;
     @Input() query: string = '';
 
-    constructor(private _router: Router) { }
+    constructor(private _router: Router) {}
 
     /**
      * Event to back the main content view
      */
     onClickBack(): void {
         let route: string;
-        switch(this.contentType){
+        switch (this.contentType) {
             case CONTENT_TYPES.CLIENT.ID:
                 route = ROUTES_NAME.listClients;
                 break;
@@ -89,7 +89,10 @@ export class ContentBackComponent {
                 break;
 
             case CONTENT_TYPES.PAYMENT.ID:
-                route = ROUTES_NAME.listPayments;
+                route =
+                    PAY_TRACKER_ROUTES.MODULE +
+                    '/' +
+                    PAY_TRACKER_ROUTES.PAYMENTS;
                 break;
 
             case CONTENT_TYPES.POLICY.ID:
@@ -97,7 +100,10 @@ export class ContentBackComponent {
                 break;
 
             case CONTENT_TYPES.POLICY_INSURED.ID:
-                route = ROUTES_NAME.listPolicyInsureds(this.contactId, this.policyId);
+                route = ROUTES_NAME.listPolicyInsureds(
+                    this.contactId,
+                    this.policyId
+                );
                 break;
 
             case CONTENT_TYPES.SINISTER.ID:
@@ -110,5 +116,4 @@ export class ContentBackComponent {
         }
         this._router.navigateByUrl(route);
     }
-
 }

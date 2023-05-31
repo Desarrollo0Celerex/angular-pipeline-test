@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PAYMENT_SOURCE_TYPES } from '@configs/constants.config';
+import { PAYMENT_SOURCE_TYPES } from '@core/constants/settings';
 import { DumbComponent } from '@core/classes/dumb-component';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { Payment } from '@core/interfaces/payment.interface';

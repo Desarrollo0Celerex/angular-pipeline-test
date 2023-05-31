@@ -1,4 +1,4 @@
-import { PAYMENT_PLANS, PAYMENT_SOURCE_TYPES } from '@configs/constants.config';
+import { PAYMENT_PLANS, PAYMENT_SOURCE_TYPES } from '@core/constants/settings';
 import { CONTENT_TYPES } from '@constants/global';
 import { PERIODS } from '@constants/global';
 import { CalculateFirstPaymentAmount } from '@core/interfaces/calculate-first-payment-amount.interface';

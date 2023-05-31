@@ -8,7 +8,7 @@ import { AlertHelper } from '@core/helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { FileParam } from '@interfaces/file-param.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 import { POLICY_ENDPOINTS } from '@services/policy.service';
 
 import { UploadPolicyService } from './upload-policy.service';

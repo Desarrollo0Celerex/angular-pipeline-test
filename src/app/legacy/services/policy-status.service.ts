@@ -8,7 +8,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicyStatus } from '@interfaces/policy-status.interface';
 import { PolicyStatusStat } from '@interfaces/policy-status-stat.interface';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 
 const ROUTES = {
     policyStatus: `${environment.apiUrl}/policy-status`,

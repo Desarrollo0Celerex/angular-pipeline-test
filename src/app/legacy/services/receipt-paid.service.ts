@@ -7,7 +7,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Payment } from '@core/interfaces/payment.interface';
 import { StatRangeData } from '@interfaces/stat-range-data.interface';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 
 const routes: any = {
     receiptsPaid: (workspaceId: string, paymentId: string) =>

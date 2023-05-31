@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { WORKSPACE_USER_ENDPOINTS } from '@configs/endpoints.config';
+import { WORKSPACE_USER_ENDPOINTS } from '@core/constants/endpoints';
 import { WorkspaceUser } from '@core/interfaces/workspace-user.interface';
 import { ApiHttp } from '@core/http/api.http';
 import { UpdateUserRoleDataSend } from '@interfaces/update-user-role-data-send.interface';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 
 @Injectable({
     providedIn: 'root',
@@ -31,12 +31,14 @@ export class WorkspaceUserService {
     getWorkspaceUsers(
         fields: string = '',
         page: number = 1,
-        perPage: number = 1
+        perPage: number = 1,
+        sortBy: string = ''
     ): Observable<WorkspaceUser[]> {
         return this._apiHttp
             .param('fields', fields)
             .param('page', page.toString())
             .param('perPage', perPage.toString())
+            .param('sortBy', sortBy)
             .get(WORKSPACE_USER_ENDPOINTS.workspaceUsers(this._workspaceId))
             .pipe(map((res: any) => res.items));
     }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AUTH_ROUTES } from '@configs/routes.config';
+import { AUTH_ROUTES } from '@core/constants/routes';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { UserAuthenticatedGuard } from '@guards/user-authenticated.guard';
 
@@ -15,12 +15,12 @@ const routes: Routes = [
     {
         path: AUTH_ROUTES.MODULE,
         loadChildren: () =>
-            import('@modules/auth/auth.module').then((mod) => mod.AuthModule),
+            import('@features/auth/auth.module').then((mod) => mod.AuthModule),
     },
     {
         path: '',
         loadChildren: () =>
-            import('@modules/home/home.module').then((mod) => mod.HomeModule),
+            import('@features/home/home.module').then((mod) => mod.HomeModule),
     },
 
     // LEGACY ROUTES

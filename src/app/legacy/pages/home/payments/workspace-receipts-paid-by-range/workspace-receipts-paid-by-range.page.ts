@@ -8,19 +8,17 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'agt-workspace-receipts-paid-by-range',
-  templateUrl: './workspace-receipts-paid-by-range.page.html',
-  styles: [
-  ]
+    selector: 'agt-workspace-receipts-paid-by-range',
+    templateUrl: './workspace-receipts-paid-by-range.page.html',
+    styles: [],
 })
 export class WorkspaceReceiptsPaidByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
-    pageUrl: string = '/' + ROUTES_NAME.listPayments;
     rangeField: string = 'paymentDate';
     statsPeriodData: StatsPeriodData | null = null;
     specialFilter: string = '';
 
-    constructor(private _activatedRoute: ActivatedRoute) { }
+    constructor(private _activatedRoute: ActivatedRoute) {}
 
     ngOnInit(): void {
         this.statsPeriodData = this._generatePeriodData();
@@ -36,12 +34,16 @@ export class WorkspaceReceiptsPaidByRangePage implements OnInit {
     }
 
     private _generatePeriodData(): StatsPeriodData {
-        const startDate: string = this._activatedRoute.snapshot.queryParamMap.get('rangeStart') || moment().subtract(30, 'days').format('DD/MM/YYYY');
-        const endDate: string = this._activatedRoute.snapshot.queryParamMap.get('rangeEnd') || moment().format('DD/MM/YYYY');
+        const startDate: string =
+            this._activatedRoute.snapshot.queryParamMap.get('rangeStart') ||
+            moment().subtract(30, 'days').format('DD/MM/YYYY');
+        const endDate: string =
+            this._activatedRoute.snapshot.queryParamMap.get('rangeEnd') ||
+            moment().format('DD/MM/YYYY');
         return {
             startDate,
             endDate,
-            periodId: 0
-        }
+            periodId: 0,
+        };
     }
 }

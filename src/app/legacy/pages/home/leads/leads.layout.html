@@ -1,5 +1,8 @@
 <div class="row">
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12" *ngFor="let leadKpi of model.leadKpis">
+    <div
+        class="col-xl-3 col-lg-6 col-md-6 col-sm-12"
+        *ngFor="let leadKpi of model.leadKpis"
+    >
         <agt-card-content-kpi [contentKpi]="leadKpi"></agt-card-content-kpi>
     </div>
 </div>

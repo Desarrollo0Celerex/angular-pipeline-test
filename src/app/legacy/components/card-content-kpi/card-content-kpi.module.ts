@@ -5,15 +5,8 @@ import { RouterModule } from '@angular/router';
 import { CardContentKpiComponent } from './card-content-kpi.component';
 
 @NgModule({
-  declarations: [
-    CardContentKpiComponent
-  ],
-  exports: [
-      CardContentKpiComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule
-  ]
+    declarations: [CardContentKpiComponent],
+    exports: [CardContentKpiComponent],
+    imports: [CommonModule, RouterModule],
 })
-export class CardContentKpiModule { }
+export class CardContentKpiModule {}

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { CONTACT_ENDPOINTS } from '@configs/endpoints.config';
+import { CONTACT_ENDPOINTS } from '@core/constants/endpoints';
 import { CreateContactDataSend } from '@interfaces/create-contact-data-send.interface';
 import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
 import { UpdateContactDataSend } from '@interfaces/update-contact-data-send.interface';
 import { ApiHttp } from '@core/http/api.http';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 import { Contact } from '@core/interfaces/contact.interface';
 import { AnnualWallet } from '@interfaces/annual-wallet.interface';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';

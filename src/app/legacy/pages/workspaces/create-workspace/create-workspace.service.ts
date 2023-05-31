@@ -21,7 +21,7 @@ import { CreateWorkspaceDataSend } from '@interfaces/create-workspace-data-send.
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { State } from '@interfaces/state.interface';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
-import { AuthService } from '@core/services/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 import { CountryService } from '@services/country.service';
 import { StateService } from '@services/state.service';
 import { WorkspaceService } from '@core/services/workspace/workspace.service';

@@ -8,14 +8,8 @@ import { LeadsRoutingModule } from './leads-routing.module';
 import { LeadsLayout } from './leads.layout';
 
 @NgModule({
-  declarations: [
-    LeadsLayout
-  ],
-  imports: [
-    CommonModule,
-    LeadsRoutingModule,
-    CardContentKpiModule
-  ],
-  providers: [LeadService]
+    declarations: [LeadsLayout],
+    imports: [CommonModule, LeadsRoutingModule, CardContentKpiModule],
+    providers: [LeadService],
 })
-export class LeadsModule { }
+export class LeadsModule {}

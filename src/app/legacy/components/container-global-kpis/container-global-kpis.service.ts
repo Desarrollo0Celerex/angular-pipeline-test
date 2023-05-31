@@ -15,6 +15,7 @@ import { PaymentService } from '@services/payment.service';
 import { SinisterService } from '@services/sinister.service';
 
 import * as moment from 'moment';
+import { PAY_TRACKER_ROUTES } from '@core/constants/routes';
 
 @Injectable()
 export class ContainerGlobalKpisService {
@@ -42,7 +43,11 @@ export class ContainerGlobalKpisService {
         {
             contentName: 'Recibos',
             subcontentName: 'Activos',
-            link: '/' + ROUTES_NAME.listPayments,
+            link:
+                '/' +
+                PAY_TRACKER_ROUTES.MODULE +
+                '/' +
+                PAY_TRACKER_ROUTES.PAYMENTS,
             value: '0',
             subValue: '0',
             subValueLabel: 'Este Mes',
