@@ -5,6 +5,7 @@ import { CreateTask } from '@core/interfaces/create-task.interface';
 import { Observable } from 'rxjs';
 import { AuthService } from '@features/auth/services/auth.service';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
+import { UpdateTask } from '../interfaces/update-task.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -59,5 +60,12 @@ export class TaskService {
             .param('rangeEnd', rangeEnd)
             .param('specialFilter', specialFilter)
             .get(TASK_ENDPOINTS.workspaceTasks(this._workspaceId));
+    }
+
+    updateTask(taskId: string, requestBody: UpdateTask): Observable<void> {
+        return this._apiHttp.put(
+            TASK_ENDPOINTS.workspaceTask(this._workspaceId, taskId),
+            requestBody
+        );
     }
 }

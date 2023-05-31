@@ -1,13 +1,9 @@
-export interface Task {
+export interface InitModalEditTask {
     taskId: string;
-    taskNumber: number;
+    taskTitle: string;
     taskDate: string;
     taskTime: string;
     taskDetails: string;
-    taskStatusId: number;
-    taskTypeName: string;
-    taskModuleName: string;
-    taskTitle: string;
     taskProgressStatusId: number;
     responsibleId: string;
 }

@@ -14,12 +14,11 @@ export class MainActionComponent {
     modalIdCreateTaskAction = 'agt-moda-create-task';
 
     constructor(
-        private _tasksService: TasksService
-    ) //private _taskModalService: TaskModalService
-    {}
+        private _tasksService: TasksService //private _taskModalService: TaskModalService
+    ) {}
 
     reloadContent(): void {
-        AlertHelper.taskCreated();
+        //AlertHelper.taskCreated();
         this._tasksService.reloadContent();
     }
 

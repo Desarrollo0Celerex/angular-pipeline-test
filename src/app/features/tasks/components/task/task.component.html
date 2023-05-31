@@ -1,7 +1,7 @@
 <div class="card" *ngIf="task">
     <div class="card-header">
         <h3 class="card-title">TA-{{ task.taskNumber }}</h3>
-        <!-- <div class="card-options">
+        <div class="card-options">
             <a
                 href=""
                 class="mr-2 text-default"
@@ -17,17 +17,15 @@
                 <button
                     type="button"
                     class="dropdown-item"
+                    (click)="showModalEditTask()"
                 >
                     <i class="fa fa-edit mr-2"></i>Editar Tarea
                 </button>
-                <button
-                    type="button"
-                    class="dropdown-item"
-                >
+                <!-- <button type="button" class="dropdown-item">
                     <i class="fa fa-trash mr-2"></i>Eliminar Tarea
-                </button>
+                </button> -->
             </div>
-        </div> -->
+        </div>
     </div>
     <div class="card-body pt-0">
         <div class="badge agt-badge-primary-gradient mr-1 mt-3">
@@ -85,7 +83,7 @@
                 <button
                     type="button"
                     class="btn btn-block agt-btn-primary"
-                    disabled
+                    (click)="showModalEditTask()"
                 >
                     <strong>VER DETALLES</strong>
                 </button>
@@ -94,7 +92,7 @@
                 <button
                     type="button"
                     class="btn btn-block agt-btn-secondary"
-                    disabled
+                    (click)="showModalHandleTask()"
                 >
                     <strong>GESTIONAR TAREA</strong>
                 </button>

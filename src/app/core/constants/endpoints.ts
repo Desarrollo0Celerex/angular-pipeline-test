@@ -84,8 +84,14 @@ export const RECEIPT_PAID_ENDPOINTS: any = {
 export const TASK_ENDPOINTS: any = {
     totalWorkspaceTasks: (workspaceId: string) =>
         `${environment.apiUrl}/workspaces/${workspaceId}/tasks/count`,
+    workspaceTask: (workspaceId: string, taskId: string) =>
+        `${environment.apiUrl}/workspaces/${workspaceId}/tasks/${taskId}`,
     workspaceTasks: (workspaceId: string) =>
         `${environment.apiUrl}/workspaces/${workspaceId}/tasks`,
+};
+
+export const TASK_PROGRESS_STATUS_ENDPOINTS: any = {
+    taskProgressStatus: `${environment.apiUrl}/task-progress-status`,
 };
 
 export const WORKSPACE_ENDPOINTS: any = {

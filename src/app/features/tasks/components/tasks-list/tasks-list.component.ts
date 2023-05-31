@@ -66,7 +66,7 @@ export class TasksListComponent extends SmartComponent implements OnInit {
     private _loadTasks(): void {
         this.isLoadingContent = true;
         const fields: string =
-            'taskId,taskNumber,taskDate,taskTime,taskDetails,taskStatusId,taskTypeName,taskModuleName';
+            'taskId,taskNumber,taskDate,taskTime,taskDetails,taskStatusId,taskTypeName,taskModuleName,taskTitle,taskProgressStatusId,responsibleId';
         const filter: string = UtilitiesHelper.generateHttpFilter(
             'taskStatusId',
             [this.taskStatusId]

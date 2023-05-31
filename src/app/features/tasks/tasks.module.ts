@@ -21,6 +21,8 @@ import { ModalSelectTaskActionComponent } from './components/modal-select-task-a
 import { ModalCreateTaskComponent } from './components/modal-create-task/modal-create-task.component';
 import { ModalSelectCalendarComponent } from './components/modal-select-calendar/modal-select-calendar.component';
 import { ModalSyncCalendarComponent } from './components/modal-sync-calendar/modal-sync-calendar.component';
+import { ModalEditTaskComponent } from './components/modal-edit-task/modal-edit-task.component';
+import { ModalHandleTaskComponent } from './components/modal-handle-task/modal-handle-task.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +39,8 @@ import { ModalSyncCalendarComponent } from './components/modal-sync-calendar/mod
         ModalSelectCalendarComponent,
         ModalSelectTaskActionComponent,
         ModalSyncCalendarComponent,
+        ModalEditTaskComponent,
+        ModalHandleTaskComponent,
     ],
     exports: [
         ModalCreateTaskComponent,

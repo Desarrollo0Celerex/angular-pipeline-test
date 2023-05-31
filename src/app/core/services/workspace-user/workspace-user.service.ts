@@ -31,12 +31,14 @@ export class WorkspaceUserService {
     getWorkspaceUsers(
         fields: string = '',
         page: number = 1,
-        perPage: number = 1
+        perPage: number = 1,
+        sortBy: string = ''
     ): Observable<WorkspaceUser[]> {
         return this._apiHttp
             .param('fields', fields)
             .param('page', page.toString())
             .param('perPage', perPage.toString())
+            .param('sortBy', sortBy)
             .get(WORKSPACE_USER_ENDPOINTS.workspaceUsers(this._workspaceId))
             .pipe(map((res: any) => res.items));
     }
