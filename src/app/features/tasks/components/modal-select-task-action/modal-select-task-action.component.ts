@@ -24,7 +24,7 @@ export class ModalSelectTaskActionComponent
     }
 
     ngOnInit(): void {
-        this._moduleService.modalCreateTask$
+        this._moduleService.modalSelectTaskAction$
             .pipe(this.untilComponentDestroy())
             .subscribe(() => {
                 ModalPlugin.show(this.modalId);

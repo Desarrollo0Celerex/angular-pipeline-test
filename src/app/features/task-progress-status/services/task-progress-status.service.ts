@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TASK_PROGRESS_STATUS_ENDPOINTS } from '@core/constants/endpoints';
 import { ApiHttp } from '@core/http/api.http';
-import { TaskProgressStatus } from '@core/interfaces/task-progress-status.interface';
+import { TaskProgressStatus } from '@features/task-progress-status/interfaces/task-progress-status.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({

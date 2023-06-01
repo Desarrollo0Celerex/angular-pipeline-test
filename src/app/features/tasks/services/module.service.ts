@@ -7,7 +7,7 @@ import { InitModalSelectCalendar } from '../interfaces/init-modal-select-calenda
 @Injectable()
 export class ModuleService {
     currentTaskStatusId$ = new BehaviorSubject<number>(TASK_STATUS.PRIORITY);
-    modalCreateTask$ = new Subject<void>();
+    modalSelectTaskAction$ = new Subject<void>();
     modalEditTask$ = new Subject<InitModalEditTask>();
     modalHandleTask$ = new Subject<InitModalSelectCalendar>();
     reloadContent$ = new Subject<boolean>();
@@ -20,8 +20,8 @@ export class ModuleService {
         this.currentTaskStatusId$.next(taskStatusId);
     }
 
-    showModalCreateTask(): void {
-        this.modalCreateTask$.next();
+    showModalSelectTaskAction(): void {
+        this.modalSelectTaskAction$.next();
     }
 
     showModalEditTask(data: InitModalEditTask): void {

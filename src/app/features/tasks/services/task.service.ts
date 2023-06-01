@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TASK_ENDPOINTS } from '@core/constants/endpoints';
 import { ApiHttp } from '@core/http/api.http';
-import { CreateTask } from '@core/interfaces/create-task.interface';
+import { CreateTask } from '@features/tasks/interfaces/create-task.interface';
 import { Observable } from 'rxjs';
 import { AuthService } from '@features/auth/services/auth.service';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';

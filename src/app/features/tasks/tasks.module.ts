@@ -23,6 +23,7 @@ import { ModalSelectCalendarComponent } from './components/modal-select-calendar
 import { ModalSyncCalendarComponent } from './components/modal-sync-calendar/modal-sync-calendar.component';
 import { ModalEditTaskComponent } from './components/modal-edit-task/modal-edit-task.component';
 import { ModalHandleTaskComponent } from './components/modal-handle-task/modal-handle-task.component';
+import { TaskListComponent } from './components/task-list/task-list.component';
 
 @NgModule({
     declarations: [
@@ -41,6 +42,7 @@ import { ModalHandleTaskComponent } from './components/modal-handle-task/modal-h
         ModalSyncCalendarComponent,
         ModalEditTaskComponent,
         ModalHandleTaskComponent,
+        TaskListComponent,
     ],
     exports: [
         ModalCreateTaskComponent,
