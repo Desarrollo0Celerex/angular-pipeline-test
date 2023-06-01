@@ -193,6 +193,10 @@ export class ModalEditTaskComponent extends SmartComponent implements OnInit {
     private _updateTask(): void {
         this._loadingService.show();
         const requestBody = this.form.value;
+        requestBody.responsibleId =
+            requestBody.responsibleId !== '0'
+                ? requestBody.responsibleId
+                : null;
         this.closeModal();
         this._taskService
             .updateTask(this._data!.taskId, requestBody)

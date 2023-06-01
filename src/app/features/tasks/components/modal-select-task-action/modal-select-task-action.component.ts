@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SmartComponent } from '@core/classes/smart-component';
 import { TASK_MODULES } from '@core/constants/settings';
+import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 import { ModuleService } from '@features/tasks/services/module.service';
 import { TaskModalService } from '@features/tasks/services/task-modal.service';
 declare var ModalPlugin: any;
@@ -18,7 +19,8 @@ export class ModalSelectTaskActionComponent
 
     constructor(
         private _moduleService: ModuleService,
-        private _taskModalService: TaskModalService
+        private _taskModalService: TaskModalService,
+        private _workspaceUserService: WorkspaceUserService
     ) {
         super();
     }
@@ -32,9 +34,13 @@ export class ModalSelectTaskActionComponent
     }
 
     showModalCreateTask(): void {
-        this._taskModalService.showModalCreateTask({
-            taskTitle: '📌 Seguimiento de Tarea',
-            taskModuleId: TASK_MODULES.OTHER,
-        });
+        this._workspaceUserService
+            .getLoggedWorkspaceUser('shortName')
+            .subscribe((user) => {
+                this._taskModalService.showModalCreateTask({
+                    taskTitle: `📌 Seguimiento de Tarea asignado por ${user.shortName}`,
+                    taskModuleId: TASK_MODULES.OTHER,
+                });
+            });
     }
 }

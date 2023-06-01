@@ -7,6 +7,7 @@ import { ModuleService } from '../../services/module.service';
 import { Task } from '@features/tasks/interfaces/task.interface';
 import { TaskModalService } from '@features/tasks/services/task-modal.service';
 import { TASK_MODULES } from '@core/constants/settings';
+import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 
 @Component({
     selector: 'agt-tasks-list',
@@ -25,7 +26,8 @@ export class TasksListComponent extends SmartComponent implements OnInit {
     constructor(
         private _taskService: TaskService,
         private _taskModalService: TaskModalService,
-        private _moduleService: ModuleService
+        private _moduleService: ModuleService,
+        private _workspaceUserService: WorkspaceUserService
     ) {
         super();
     }
@@ -59,10 +61,14 @@ export class TasksListComponent extends SmartComponent implements OnInit {
     }
 
     showModalCreateTask(): void {
-        this._taskModalService.showModalCreateTask({
-            taskTitle: '📌 Seguimiento de Tarea',
-            taskModuleId: TASK_MODULES.OTHER,
-        });
+        this._workspaceUserService
+            .getLoggedWorkspaceUser('shortName')
+            .subscribe((user) => {
+                this._taskModalService.showModalCreateTask({
+                    taskTitle: `📌 Seguimiento de Tarea asignado por ${user.shortName}`,
+                    taskModuleId: TASK_MODULES.OTHER,
+                });
+            });
     }
 
     private _loadTasks(): void {

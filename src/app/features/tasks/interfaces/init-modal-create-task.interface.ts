@@ -4,4 +4,5 @@ export interface InitModalCreateTask {
     taskTime: string;
     taskDetails: string;
     taskModuleId: number;
+    responsibleId: string;
 }

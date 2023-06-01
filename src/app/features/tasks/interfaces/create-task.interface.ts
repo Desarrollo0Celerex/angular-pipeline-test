@@ -4,4 +4,5 @@ export interface CreateTask {
     taskTime: string;
     taskDetails: string;
     taskModuleId: number;
+    responsibleId: string;
 }
