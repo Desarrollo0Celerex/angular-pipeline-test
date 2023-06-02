@@ -17,16 +17,12 @@ export class TaskComponent {
         return this.task ? `${this.task.taskDate} ${this.task.taskTime}` : '';
     }
 
+    showModalConfirmDeleteTask(): void {
+        this._moduleService.showModalConfirmDeleteTask(this.task!.taskId);
+    }
+
     showModalEditTask(): void {
-        this._moduleService.showModalEditTask({
-            taskId: this.task!.taskId,
-            taskTitle: this.task!.taskTitle,
-            taskDate: this.task!.taskDate,
-            taskTime: this.task!.taskTime,
-            taskDetails: this.task!.taskDetails,
-            taskProgressStatusId: this.task!.taskProgressStatusId,
-            responsibleId: this.task!.responsibleId,
-        });
+        this._moduleService.showModalEditTask(this.task!.taskId);
     }
 
     showModalShowTask(): void {

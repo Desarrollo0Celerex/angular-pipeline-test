@@ -23,6 +23,12 @@ export class TaskService {
         );
     }
 
+    deleteTask(taskId: string = ''): Observable<Task> {
+        return this._apiHttp.delete(
+            TASK_ENDPOINTS.workspaceTask(this._workspaceId, taskId)
+        );
+    }
+
     getTotalWorkspaceTasks(
         filters: string = '',
         rangeField: string = '',

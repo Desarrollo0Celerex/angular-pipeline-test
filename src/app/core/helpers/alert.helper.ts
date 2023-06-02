@@ -730,6 +730,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static taskDeleted(): void {
+        const alertData: Alert = {
+            title: 'Tarea Eliminada',
+            text: 'La tarea se eliminó con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+        };
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static taskUpdated(): void {
         const alertData: Alert = {
             title: 'Tarea Actualizada',

@@ -25,6 +25,7 @@ import { ModalEditTaskComponent } from './components/modal-edit-task/modal-edit-
 import { ModalHandleTaskComponent } from './components/modal-handle-task/modal-handle-task.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { ModalShowTaskComponent } from './components/modal-show-task/modal-show-task.component';
+import { ModalConfirmDeleteTaskComponent } from './components/modal-confirm-delete-task/modal-confirm-delete-task.component';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import { ModalShowTaskComponent } from './components/modal-show-task/modal-show-
         ModalHandleTaskComponent,
         TaskListComponent,
         ModalShowTaskComponent,
+        ModalConfirmDeleteTaskComponent,
     ],
     exports: [
         ModalCreateTaskComponent,

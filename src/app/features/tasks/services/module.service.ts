@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { TASK_STATUS } from '@core/constants/settings';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { InitModalEditTask } from '../interfaces/init-modal-edit-task.interface';
 import { InitModalSelectCalendar } from '../interfaces/init-modal-select-calendar.interface';
-import { InitModalShowTask } from '../interfaces/init-modal-show-task.interface';
 
 @Injectable()
 export class ModuleService {
     currentTaskStatusId$ = new BehaviorSubject<number>(TASK_STATUS.PRIORITY);
-    modalSelectTaskAction$ = new Subject<void>();
-    modalEditTask$ = new Subject<InitModalEditTask>();
+    modalConfirmDeleteTask$ = new Subject<string>();
+    modalEditTask$ = new Subject<string>();
     modalHandleTask$ = new Subject<InitModalSelectCalendar>();
+    modalSelectTaskAction$ = new Subject<void>();
     modalShowTask$ = new Subject<string>();
     reloadContent$ = new Subject<boolean>();
 
@@ -22,16 +21,20 @@ export class ModuleService {
         this.currentTaskStatusId$.next(taskStatusId);
     }
 
-    showModalSelectTaskAction(): void {
-        this.modalSelectTaskAction$.next();
+    showModalConfirmDeleteTask(taskId: string): void {
+        this.modalConfirmDeleteTask$.next(taskId);
     }
 
-    showModalEditTask(data: InitModalEditTask): void {
-        this.modalEditTask$.next(data);
+    showModalEditTask(taskId: string): void {
+        this.modalEditTask$.next(taskId);
     }
 
     showModalHandleTask(data: InitModalSelectCalendar): void {
         this.modalHandleTask$.next(data);
+    }
+
+    showModalSelectTaskAction(): void {
+        this.modalSelectTaskAction$.next();
     }
 
     showModalShowTask(taskId: string): void {
