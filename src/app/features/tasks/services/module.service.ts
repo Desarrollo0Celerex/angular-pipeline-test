@@ -3,6 +3,7 @@ import { TASK_STATUS } from '@core/constants/settings';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { InitModalEditTask } from '../interfaces/init-modal-edit-task.interface';
 import { InitModalSelectCalendar } from '../interfaces/init-modal-select-calendar.interface';
+import { InitModalShowTask } from '../interfaces/init-modal-show-task.interface';
 
 @Injectable()
 export class ModuleService {
@@ -10,6 +11,7 @@ export class ModuleService {
     modalSelectTaskAction$ = new Subject<void>();
     modalEditTask$ = new Subject<InitModalEditTask>();
     modalHandleTask$ = new Subject<InitModalSelectCalendar>();
+    modalShowTask$ = new Subject<string>();
     reloadContent$ = new Subject<boolean>();
 
     requestReloadContent(): void {
@@ -30,5 +32,9 @@ export class ModuleService {
 
     showModalHandleTask(data: InitModalSelectCalendar): void {
         this.modalHandleTask$.next(data);
+    }
+
+    showModalShowTask(taskId: string): void {
+        this.modalShowTask$.next(taskId);
     }
 }

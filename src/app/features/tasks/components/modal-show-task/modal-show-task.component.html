@@ -1,0 +1,196 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <ng-container *ngIf="task">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalles de Tarea</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- (JUST IF 3+ DELAY DAYS) -->
+                        <div class="col-md-12 mb-3" *ngIf="canShowAlert">
+                            <!-- <a href="../task-planner/record.php"> -->
+                            <div
+                                class="alert agt-alert-warning alert-dismissible fade show"
+                                role="alert"
+                            >
+                                <span class="alert-inner--icon"
+                                    ><i class="fe fe-alert-triangle mr-2"></i
+                                ></span>
+                                <span class="alert-inner--text"
+                                    >Tarea con
+                                    <strong>{{ taskDaysLate }}</strong> Días de
+                                    Retraso.</span
+                                >
+                            </div>
+                            <!-- </a> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12">
+                            <div class="form-group">
+                                <label class="form-label">Asunto</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [value]="task.taskTitle"
+                                    disabled=""
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Descripción</label>
+                                <textarea
+                                    class="form-control"
+                                    rows="8"
+                                    disabled=""
+                                    >{{ task.taskDetails }}</textarea
+                                >
+                            </div>
+                            <!-- <div class="row">
+                                <div class="col-md-6 mt-3">
+                                    <button
+                                        type="button"
+                                        class="btn btn-block agt-btn-default"
+                                        data-toggle="modal"
+                                        data-target="#agtTaskPlannerTaskComments"
+                                        data-dismiss="modal"
+                                    >
+                                        <i class="fa fa-comments mr-2"></i
+                                        ><span class="mr-3"
+                                            ><strong>COMENTARIOS</strong></span
+                                        ><span class="badge agt-badge-default"
+                                            >88</span
+                                        >
+                                    </button>
+                                </div>
+                                <div class="col-md-6 mt-3">
+                                    <button
+                                        type="button"
+                                        name="agtTaskPlannerTaskFiles"
+                                        class="btn btn-block agt-btn-default"
+                                        data-toggle="modal"
+                                        data-target="#agtTaskPlannerTaskFiles"
+                                        data-dismiss="modal"
+                                    >
+                                        <i class="fa fa-folder-open mr-2"></i
+                                        ><span class="mr-3"
+                                            ><strong>ARCHIVOS</strong></span
+                                        ><span class="badge agt-badge-default"
+                                            >88</span
+                                        >
+                                    </button>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="form-label">Estatus</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-inbox tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        [value]="
+                                            task.taskProgressStatusName
+                                                | uppercase
+                                        "
+                                        disabled=""
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Responsable</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-user-circle-o tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        [value]="responsibleName | uppercase"
+                                        disabled=""
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Fecha</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-calendar-check-o tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        class="form-control"
+                                        [value]="
+                                            task.taskDate | date : 'dd/MM/yyyy'
+                                        "
+                                        type="text"
+                                        disabled=""
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Hora</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-clock-o tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        class="form-control"
+                                        value="{{
+                                            taskDatetime | date : 'h:mm a'
+                                        }}"
+                                        type="text"
+                                        disabled=""
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-12">
+                        <button
+                            type="button"
+                            class="btn btn-block agt-btn-primary"
+                            disabled
+                        >
+                            <strong>VER HISTORIAL</strong>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

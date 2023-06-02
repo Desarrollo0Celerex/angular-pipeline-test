@@ -29,6 +29,10 @@ export class TaskComponent {
         });
     }
 
+    showModalShowTask(): void {
+        this._moduleService.showModalShowTask(this.task!.taskId);
+    }
+
     showModalHandleTask(): void {
         this._moduleService.showModalHandleTask({
             taskTitle: this.task!.taskTitle,

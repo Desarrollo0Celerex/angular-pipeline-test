@@ -65,7 +65,7 @@ export class TasksListComponent extends SmartComponent implements OnInit {
             .getLoggedWorkspaceUser('shortName')
             .subscribe((user) => {
                 this._taskModalService.showModalCreateTask({
-                    taskTitle: `📌 Seguimiento de Tarea asignado por ${user.shortName}`,
+                    taskTitle: `📌 Seguimiento de Tarea asignada por ${user.shortName}`,
                     taskModuleId: TASK_MODULES.OTHER,
                 });
             });

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '@features/auth/services/auth.service';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
 import { UpdateTask } from '../interfaces/update-task.interface';
+import { Task } from '../interfaces/task.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -34,6 +35,12 @@ export class TaskService {
             .param('rangeStart', rangeStart)
             .param('rangeEnd', rangeEnd)
             .get(TASK_ENDPOINTS.totalWorkspaceTasks(this._workspaceId));
+    }
+
+    getTask(taskId: string = '', fields: string = ''): Observable<Task> {
+        return this._apiHttp
+            .param('fields', fields)
+            .get(TASK_ENDPOINTS.workspaceTask(this._workspaceId, taskId));
     }
 
     getWorkspaceTasks(

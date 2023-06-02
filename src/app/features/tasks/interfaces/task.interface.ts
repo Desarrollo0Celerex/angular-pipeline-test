@@ -10,4 +10,6 @@ export interface Task {
     taskTitle: string;
     taskProgressStatusId: number;
     responsibleId: string;
+    taskProgressStatusName: string;
+    responsibleName: string;
 }

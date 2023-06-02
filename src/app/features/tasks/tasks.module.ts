@@ -24,6 +24,7 @@ import { ModalSyncCalendarComponent } from './components/modal-sync-calendar/mod
 import { ModalEditTaskComponent } from './components/modal-edit-task/modal-edit-task.component';
 import { ModalHandleTaskComponent } from './components/modal-handle-task/modal-handle-task.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
+import { ModalShowTaskComponent } from './components/modal-show-task/modal-show-task.component';
 
 @NgModule({
     declarations: [
@@ -43,6 +44,7 @@ import { TaskListComponent } from './components/task-list/task-list.component';
         ModalEditTaskComponent,
         ModalHandleTaskComponent,
         TaskListComponent,
+        ModalShowTaskComponent,
     ],
     exports: [
         ModalCreateTaskComponent,
