@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TasksPage } from './pages/tasks/tasks.page';
+import { TaskRecordPage } from './pages/task-record/task-record.page';
 import { TASKS_ROUTES } from '@core/constants/routes';
 
 const routes: Routes = [
@@ -10,6 +11,7 @@ const routes: Routes = [
         pathMatch: 'full',
     },
     { path: TASKS_ROUTES.TASKS, component: TasksPage },
+    { path: TASKS_ROUTES.TASK_RECORD(':taskId'), component: TasksPage },
 ];
 
 @NgModule({

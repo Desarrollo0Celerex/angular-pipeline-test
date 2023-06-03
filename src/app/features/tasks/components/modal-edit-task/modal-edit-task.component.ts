@@ -19,6 +19,7 @@ import { TaskService } from '@features/tasks/services/task.service';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import * as moment from 'moment';
 import { ModalHelper } from '@core/helpers/modal.helper';
+import { SendTaskNotfication } from '@features/tasks/interfaces/send-task-notification.interface';
 declare var DatePickerPlugin: any;
 declare var TimePickerPlugin: any;
 
@@ -34,6 +35,7 @@ export class ModalEditTaskComponent extends SmartComponent implements OnInit {
     taskProgressStatus: TaskProgressStatus[] = [];
     workspaceUsers: Partial<WorkspaceUser>[] = [];
     timerIdTaskTime = 'taskTime';
+    private _currentResponsibleId: string = '';
     private _taskId: string = '';
     private _isFormSubmitted = false;
 
@@ -134,6 +136,7 @@ export class ModalEditTaskComponent extends SmartComponent implements OnInit {
         const fields =
             'taskTitle,taskDate,taskTime,taskDetails,taskProgressStatusId,responsibleId';
         this._taskService.getTask(this._taskId, fields).subscribe((task) => {
+            this._currentResponsibleId = task.responsibleId;
             this._updateForm(task);
             ModalHelper.showModal(this.modalId);
         });
@@ -203,9 +206,49 @@ export class ModalEditTaskComponent extends SmartComponent implements OnInit {
         this._taskService
             .updateTask(this._taskId, requestBody)
             .subscribe(() => {
-                this._loadingService.hide();
-                AlertHelper.taskUpdated();
-                this._moduleService.requestReloadContent();
+                if (
+                    this._checkIsChangedResponsible(requestBody.responsibleId)
+                ) {
+                    this._reloadTask();
+                } else {
+                    this._handleSuccessfulUpdate();
+                }
             });
+    }
+
+    private _checkIsChangedResponsible(responsibleId: string): boolean {
+        return this._currentResponsibleId !== responsibleId ? true : false;
+    }
+
+    private _handleSuccessfulUpdate(): void {
+        this._loadingService.hide();
+        AlertHelper.taskUpdated();
+        this._moduleService.requestReloadContent();
+    }
+
+    private _reloadTask(): void {
+        const fields =
+            'responsibleEmail,workspaceName,workspaceAvatarUrl,createdByName';
+        this._taskService.getTask(this._taskId, fields).subscribe((task) => {
+            this._sendTaskNotification(task);
+        });
+    }
+
+    private _sendTaskNotification(task: Task): void {
+        const requestBody: SendTaskNotfication = {
+            taskId: this._taskId,
+            canSendByEmail: true,
+            canSendByWhatsapp: false,
+            email: task.responsibleEmail,
+            phoneNumber: '',
+            taskTitle: '',
+            taskDetails: '',
+            workspaceName: task.workspaceName,
+            workspaceAvatarUrl: task.workspaceAvatarUrl,
+            createdByName: task.createdByName,
+        };
+        this._taskService.sendTaskNotification(requestBody).subscribe(() => {
+            this._handleSuccessfulUpdate();
+        });
     }
 }

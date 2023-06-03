@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { SharedModule } from '@shared/shared.module';
+import { CountriesModule } from '@features/countries/countries.module';
 
 import { TaskStatusBackgroundPipe } from './pipes/task-status-background.pipe';
 import { TaskStatusIconPipe } from './pipes/task-status-icon.pipe';
@@ -26,6 +27,9 @@ import { ModalHandleTaskComponent } from './components/modal-handle-task/modal-h
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { ModalShowTaskComponent } from './components/modal-show-task/modal-show-task.component';
 import { ModalConfirmDeleteTaskComponent } from './components/modal-confirm-delete-task/modal-confirm-delete-task.component';
+import { ModalSelectChannelsToShareTaskComponent } from './components/modal-select-channels-to-share-task/modal-select-channels-to-share-task.component';
+import { ModalRequestContactInformationToShareTaskComponent } from './components/modal-request-contact-information-to-share-task/modal-request-contact-information-to-share-task.component';
+import { TaskRecordPage } from './pages/task-record/task-record.page';
 
 @NgModule({
     declarations: [
@@ -47,6 +51,9 @@ import { ModalConfirmDeleteTaskComponent } from './components/modal-confirm-dele
         TaskListComponent,
         ModalShowTaskComponent,
         ModalConfirmDeleteTaskComponent,
+        ModalSelectChannelsToShareTaskComponent,
+        ModalRequestContactInformationToShareTaskComponent,
+        TaskRecordPage,
     ],
     exports: [
         ModalCreateTaskComponent,
@@ -55,6 +62,7 @@ import { ModalConfirmDeleteTaskComponent } from './components/modal-confirm-dele
     ],
     imports: [
         CommonModule,
+        CountriesModule,
         FormsModule,
         NgxQRCodeModule,
         ReactiveFormsModule,

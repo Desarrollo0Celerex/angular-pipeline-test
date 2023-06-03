@@ -12,4 +12,8 @@ export interface Task {
     responsibleId: string;
     taskProgressStatusName: string;
     responsibleName: string;
+    workspaceName: string;
+    workspaceAvatarUrl: string;
+    createdByName: string;
+    responsibleEmail: string;
 }

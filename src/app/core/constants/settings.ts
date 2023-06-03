@@ -83,6 +83,10 @@ export enum TASK_MODULES {
     OTHER = 2,
 }
 
+export enum PHONE_CODES {
+    MEXICO = '52',
+}
+
 export enum TASK_STATUS {
     PRIORITY = 1,
     DELAYED = 2,

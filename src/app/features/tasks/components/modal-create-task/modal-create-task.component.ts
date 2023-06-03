@@ -103,15 +103,10 @@ export class ModalCreateTaskComponent extends SmartComponent implements OnInit {
             responsibleId: this._data?.responsibleId,
         };
         this.closeModal();
-        this._taskService.createTask(requestBody).subscribe(() => {
+        this._taskService.createTask(requestBody).subscribe((task) => {
             this._loadingService.hide();
             this._moduleServie.requestReloadContent();
-            this._taskModalService.showModalSelectCalendar({
-                taskTitle: requestBody.taskTitle,
-                taskDate: requestBody.taskDate,
-                taskTime: requestBody.taskTime,
-                taskDetails: requestBody.taskDetails,
-            });
+            this._taskModalService.showModalSelectCalendar(task.taskId);
         });
     }
 

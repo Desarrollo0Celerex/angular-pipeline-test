@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { TASK_STATUS } from '@core/constants/settings';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { InitModalSelectCalendar } from '../interfaces/init-modal-select-calendar.interface';
+import { InitModalRequestContactInformationToShareTask } from '../interfaces/init-modal-request-contact-information-to-share-task.interface';
 
 @Injectable()
 export class ModuleService {
     currentTaskStatusId$ = new BehaviorSubject<number>(TASK_STATUS.PRIORITY);
     modalConfirmDeleteTask$ = new Subject<string>();
     modalEditTask$ = new Subject<string>();
-    modalHandleTask$ = new Subject<InitModalSelectCalendar>();
+    modalHandleTask$ = new Subject<string>();
+    modalRequestContactInformation$ =
+        new Subject<InitModalRequestContactInformationToShareTask>();
+    modalSelectChannels$ = new Subject<string>();
     modalSelectTaskAction$ = new Subject<void>();
     modalShowTask$ = new Subject<string>();
     reloadContent$ = new Subject<boolean>();
@@ -29,8 +32,18 @@ export class ModuleService {
         this.modalEditTask$.next(taskId);
     }
 
-    showModalHandleTask(data: InitModalSelectCalendar): void {
-        this.modalHandleTask$.next(data);
+    showModalHandleTask(taskId: string): void {
+        this.modalHandleTask$.next(taskId);
+    }
+
+    showModalRequestContactInformationToShareTask(
+        data: InitModalRequestContactInformationToShareTask
+    ): void {
+        this.modalRequestContactInformation$.next(data);
+    }
+
+    showModalSelectChannels(taskId: string): void {
+        this.modalSelectChannels$.next(taskId);
     }
 
     showModalSelectTaskAction(): void {

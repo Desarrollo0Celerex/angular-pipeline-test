@@ -1,7 +1,4 @@
 export interface InitModalSyncCalendar {
-    taskTitle: string;
-    taskDate: string;
-    taskTime: string;
-    taskDetails: string;
+    taskId: string;
     calendarId: number;
 }

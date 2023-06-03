@@ -30,13 +30,6 @@ export class TaskComponent {
     }
 
     showModalHandleTask(): void {
-        this._moduleService.showModalHandleTask({
-            taskTitle: this.task!.taskTitle,
-            taskDate: moment(this.task!.taskDate).format('DD/MM/YYYY'),
-            taskTime: moment(
-                this.task!.taskDate + ' ' + this.task!.taskTime
-            ).format('h:mm A'),
-            taskDetails: this.task!.taskDetails,
-        });
+        this._moduleService.showModalHandleTask(this.task!.taskId);
     }
 }
