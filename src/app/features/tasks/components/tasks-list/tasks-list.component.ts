@@ -41,10 +41,8 @@ export class TasksListComponent extends SmartComponent implements OnInit {
             });
         this._moduleService.reloadContent$
             .pipe(this.untilComponentDestroy())
-            .subscribe((canReloadContent: boolean) => {
-                if (canReloadContent) {
-                    this.initData();
-                }
+            .subscribe(() => {
+                this.initData();
             });
     }
 

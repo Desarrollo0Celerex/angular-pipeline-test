@@ -21,7 +21,9 @@ export class ModuleService {
     modalSelectChannels$ = new Subject<string>();
     modalSelectTaskAction$ = new Subject<void>();
     modalShowTask$ = new Subject<string>();
-    reloadContent$ = new Subject<boolean>();
+    query$ = new BehaviorSubject<string>('');
+    reloadContent$ = new Subject<void>();
+    totalResults$: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
 
     changeCalendarRange(range: CalendarRange): void {
         this.calendarRange$.next(range);
@@ -31,8 +33,16 @@ export class ModuleService {
         this.calendarFilter$.next(filter);
     }
 
+    changeQuery(query: string): void {
+        this.query$.next(query);
+    }
+
+    changeTotalResults(totalResults: number): void {
+        this.totalResults$.next(totalResults);
+    }
+
     requestReloadContent(): void {
-        this.reloadContent$.next(true);
+        this.reloadContent$.next();
     }
 
     setTaskStatusId(taskStatusId: number): void {

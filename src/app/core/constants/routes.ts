@@ -33,5 +33,6 @@ export const TASKS_ROUTES: any = {
     MODULE: 'task-planner',
     TASKS: 'tasks',
     CALENDAR: 'calendar',
+    TASK_RESULTS: 'results',
     TASK_RECORD: (taskId: string) => `record/${taskId}`,
 };

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TasksPage } from './pages/tasks/tasks.page';
 import { CalendarPage } from './pages/calendar/calendar.page';
+import { TaskResultsPage } from './pages/task-results/task-results.page';
 import { TaskRecordPage } from './pages/task-record/task-record.page';
 import { TASKS_ROUTES } from '@core/constants/routes';
 
@@ -13,6 +14,7 @@ const routes: Routes = [
     },
     { path: TASKS_ROUTES.TASKS, component: TasksPage },
     { path: TASKS_ROUTES.CALENDAR, component: CalendarPage },
+    { path: TASKS_ROUTES.TASK_RESULTS, component: TaskResultsPage },
     { path: TASKS_ROUTES.TASK_RECORD(':taskId'), component: TasksPage },
 ];
 

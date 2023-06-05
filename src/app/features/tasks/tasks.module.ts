@@ -33,6 +33,9 @@ import { TaskRecordPage } from './pages/task-record/task-record.page';
 import { CalendarPage } from './pages/calendar/calendar.page';
 import { CalendarListComponent } from './components/calendar-list/calendar-list.component';
 import { CalendarSettingsComponent } from './components/calendar-settings/calendar-settings.component';
+import { TaskResultsPage } from './pages/task-results/task-results.page';
+import { ResultsSearchEngineComponent } from './components/results-search-engine/results-search-engine.component';
+import { ResultsListComponent } from './components/results-list/results-list.component';
 
 @NgModule({
     declarations: [
@@ -60,6 +63,9 @@ import { CalendarSettingsComponent } from './components/calendar-settings/calend
         CalendarPage,
         CalendarListComponent,
         CalendarSettingsComponent,
+        TaskResultsPage,
+        ResultsSearchEngineComponent,
+        ResultsListComponent,
     ],
     exports: [
         ModalCreateTaskComponent,

@@ -11,11 +11,11 @@ import { WorkspaceUserService } from '@core/services/workspace-user/workspace-us
 import * as moment from 'moment';
 
 @Component({
-    selector: 'agt-calendar-list',
-    templateUrl: './calendar-list.component.html',
+    selector: 'agt-results-list',
+    templateUrl: './results-list.component.html',
     styles: [],
 })
-export class CalendarListComponent extends SmartComponent implements OnInit {
+export class ResultsListComponent extends SmartComponent implements OnInit {
     contentGender = GENDERS.FEMALE;
     isLoadedContent: boolean = false;
     isLoadingContent: boolean = false;
@@ -23,10 +23,10 @@ export class CalendarListComponent extends SmartComponent implements OnInit {
     tasks: Task[] = [];
     page: number = 1;
     perPage: number = 12;
+    query: string = '';
     totalItems: number = 0;
     rangeStart = '';
     rangeEnd = '';
-    private _filter = '';
 
     constructor(
         private _taskService: TaskService,
@@ -38,17 +38,10 @@ export class CalendarListComponent extends SmartComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this._moduleService.calendarRange$
+        this._moduleService.query$
             .pipe(this.untilComponentDestroy())
-            .subscribe((range) => {
-                this.rangeStart = moment(range.start).format('DD/MM/YYYY');
-                this.rangeEnd = moment(range.end).format('DD/MM/YYYY');
-                this.initData();
-            });
-        this._moduleService.calendarFilter$
-            .pipe(this.untilComponentDestroy())
-            .subscribe((filter) => {
-                this._filter = filter;
+            .subscribe((query) => {
+                this.query = query;
                 this.initData();
             });
         this._moduleService.reloadContent$
@@ -89,10 +82,10 @@ export class CalendarListComponent extends SmartComponent implements OnInit {
         this.isLoadingContent = true;
         const fields =
             'taskId,taskNumber,taskDate,taskTime,taskDetails,taskStatusId,taskTypeName,taskModuleName,taskTitle,taskProgressStatusId,responsibleId';
-        const filter = this._filter
-            ? UtilitiesHelper.generateHttpFilter('taskStatusId', [this._filter])
-            : '';
-        const rangeField = 'taskDate';
+        const filter = '';
+        const search: string = `taskDetails:${this.query}`;
+        // Send value (-1) to hide the results in the search engine while the new search is loading.
+        this._moduleService.changeTotalResults(-1);
         const sortBy: string = 'taskDate,taskTime,taskNumber';
         this._taskService
             .getWorkspaceTasks(
@@ -101,10 +94,7 @@ export class CalendarListComponent extends SmartComponent implements OnInit {
                 fields,
                 filter,
                 sortBy,
-                undefined,
-                rangeField,
-                this.rangeStart,
-                this.rangeEnd
+                search
             )
             .pipe(this.untilComponentDestroy())
             .subscribe((res: HttpResponseItems) => {
@@ -112,6 +102,7 @@ export class CalendarListComponent extends SmartComponent implements OnInit {
                 this.totalItems = res.totalItems;
                 this.isLoadingContent = false;
                 this.isLoadedContent = true;
+                this._moduleService.changeTotalResults(res.totalItems);
             });
     }
 }
