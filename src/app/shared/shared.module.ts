@@ -2,6 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import {
+    DefaultMatCalendarRangeStrategy,
+    MAT_DATE_RANGE_SELECTION_STRATEGY,
+    MatDatepickerModule,
+} from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 import { CardKpiComponent } from './components/card-kpi/card-kpi.component';
 import { CardContentTitleComponent } from './components/card-content-title/card-content-title.component';
@@ -27,6 +34,7 @@ import { CardSearchEngineComponent } from './components/card-search-engine/card-
 import { CardMainActionComponent } from './components/card-main-action/card-main-action.component';
 import { CardPaymentAppliedComponent } from './components/card-payment-applied/card-payment-applied.component';
 import { ContentListComponent } from './components/content-list/content-list.component';
+import { CardCalendarRangeComponent } from './components/card-calendar-range/card-calendar-range.component';
 
 @NgModule({
     declarations: [
@@ -54,8 +62,10 @@ import { ContentListComponent } from './components/content-list/content-list.com
         PaymentTypeValuePipe,
         CardPaymentAppliedComponent,
         ContentListComponent,
+        CardCalendarRangeComponent,
     ],
     exports: [
+        CardCalendarRangeComponent,
         CardKpiComponent,
         CardMainActionComponent,
         CardContentNoResultsComponent,
@@ -70,6 +80,20 @@ import { ContentListComponent } from './components/content-list/content-list.com
         PaymentStatusNamePipe,
         PluralPipe,
     ],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatDatepickerModule,
+        MatMomentDateModule,
+        ReactiveFormsModule,
+        RouterModule,
+    ],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
+            useClass: DefaultMatCalendarRangeStrategy,
+        },
+    ],
 })
 export class SharedModule {}

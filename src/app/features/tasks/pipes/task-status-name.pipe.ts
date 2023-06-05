@@ -20,6 +20,12 @@ export class TaskStatusNamePipe implements PipeTransform {
             case TASK_STATUS.EXPIRED:
                 name = 'Vencida';
                 break;
+            case TASK_STATUS.STANDBY:
+                name = 'En espera';
+                break;
+            case TASK_STATUS.FINISHED:
+                name = 'Finalizada';
+                break;
             default:
                 name = '';
                 break;

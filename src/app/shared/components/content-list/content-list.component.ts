@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DumbComponent } from '@core/classes/dumb-component';
+import { GENDERS } from '@core/constants/settings';
 
 @Component({
     selector: 'agt-content-list',
@@ -8,6 +9,7 @@ import { DumbComponent } from '@core/classes/dumb-component';
 })
 export class ContentListComponent extends DumbComponent {
     @Input() contentName = '';
+    @Input() contentGender = GENDERS.MALE;
     @Input() isLoadedContent = false;
     @Input() isLoadingContent = false;
     @Input() noResultsButtonLabel = '';

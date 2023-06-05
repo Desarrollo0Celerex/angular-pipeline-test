@@ -30,6 +30,9 @@ import { ModalConfirmDeleteTaskComponent } from './components/modal-confirm-dele
 import { ModalSelectChannelsToShareTaskComponent } from './components/modal-select-channels-to-share-task/modal-select-channels-to-share-task.component';
 import { ModalRequestContactInformationToShareTaskComponent } from './components/modal-request-contact-information-to-share-task/modal-request-contact-information-to-share-task.component';
 import { TaskRecordPage } from './pages/task-record/task-record.page';
+import { CalendarPage } from './pages/calendar/calendar.page';
+import { CalendarListComponent } from './components/calendar-list/calendar-list.component';
+import { CalendarSettingsComponent } from './components/calendar-settings/calendar-settings.component';
 
 @NgModule({
     declarations: [
@@ -54,6 +57,9 @@ import { TaskRecordPage } from './pages/task-record/task-record.page';
         ModalSelectChannelsToShareTaskComponent,
         ModalRequestContactInformationToShareTaskComponent,
         TaskRecordPage,
+        CalendarPage,
+        CalendarListComponent,
+        CalendarSettingsComponent,
     ],
     exports: [
         ModalCreateTaskComponent,

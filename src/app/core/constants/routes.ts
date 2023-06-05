@@ -32,5 +32,6 @@ export const PAY_TRACKER_ROUTES: any = {
 export const TASKS_ROUTES: any = {
     MODULE: 'task-planner',
     TASKS: 'tasks',
+    CALENDAR: 'calendar',
     TASK_RECORD: (taskId: string) => `record/${taskId}`,
 };

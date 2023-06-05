@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { GENDERS } from '@core/constants/settings';
 import { Task } from '@features/tasks/interfaces/task.interface';
 
 @Component({
@@ -17,6 +18,7 @@ export class TaskListComponent {
     @Input() noResultsButtonLabel: string = '';
     @Output() doNoResultsAction = new EventEmitter<void>();
     @Output() loadMoreContents = new EventEmitter<void>();
+    GENDERS = GENDERS;
 
     requestDoNoResultsAction(): void {
         this.doNoResultsAction.emit();

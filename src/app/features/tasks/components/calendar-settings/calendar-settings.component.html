@@ -1,0 +1,60 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Periodo</h3>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-calendar-o tx-16 lh-0 op-6"></i>
+                    </div>
+                </div>
+                <select
+                    class="form-control select2"
+                    [(ngModel)]="rangeSelected"
+                    (change)="generateCalendarRange($event)"
+                >
+                    <option [value]="range.VALUE" *ngFor="let range of ranges">
+                        {{ range.NAME }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-inbox tx-16 lh-0 op-6"></i>
+                    </div>
+                </div>
+                <select
+                    class="form-control"
+                    [(ngModel)]="filterSelected"
+                    (change)="generateCalendarFilter($event)"
+                >
+                    <option value="">TODAS</option>
+                    <option value="1">PRIORITARIAS</option>
+                    <option value="2">RETRASADAS</option>
+                    <option value="3">URGENTES</option>
+                    <option value="4">VENCIDAS</option>
+                    <option value="5">EN ESPERA</option>
+                    <option value="6">TERMINADAS</option>
+                </select>
+            </div>
+        </div>
+        <ol class="breadcrumb1">
+            <li class="breadcrumb-item1">
+                Periodo del
+                <strong>{{ rangeStart | date : "dd/MM/yyyy" }}</strong> al
+                <strong>{{ rangeEnd | date : "dd/MM/yyyy" }}</strong>
+            </li>
+        </ol>
+
+        <agt-card-calendar-range
+            [rangeStart]="rangeStart"
+            [rangeEnd]="rangeEnd"
+            (dateChanged)="changeCalendarDate($event)"
+        ></agt-card-calendar-range>
+    </div>
+</div>
