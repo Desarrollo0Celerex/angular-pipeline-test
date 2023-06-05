@@ -1,0 +1,109 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form [formGroup]="form" (submit)="validForm()">
+                <div class="modal-header">
+                    <h5 class="modal-title">Compartir Tarea</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        aria-label="Close"
+                        (click)="closeModal()"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1">
+                            Selecciona los canales para enviar la tarea.
+                        </li>
+                    </ol>
+                    <div class="row">
+                        <div class="col-md-12 mt-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    WhatsApp
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="right"
+                                            data-content="Se enviará la tarea por WhatsApp."
+                                            >?</span
+                                        >
+                                    </span>
+                                    <div class="material-switch pull-right">
+                                        <input
+                                            id="agtTaskPlannerTaskNotificationWhatsApp"
+                                            type="checkbox"
+                                            formControlName="whatsapp"
+                                        />
+                                        <label
+                                            for="agtTaskPlannerTaskNotificationWhatsApp"
+                                            class="label-success"
+                                        ></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    Correo Electrónico
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="right"
+                                            data-content="Se enviará la tarea por correo eletrónico."
+                                            >?</span
+                                        >
+                                    </span>
+                                    <div class="material-switch pull-right">
+                                        <input
+                                            id="agtTaskPlannerTaskNotificationMail"
+                                            type="checkbox"
+                                            formControlName="email"
+                                        />
+                                        <label
+                                            for="agtTaskPlannerTaskNotificationMail"
+                                            class="label-success"
+                                        ></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mt-3">
+                            <button
+                                type="submit"
+                                class="btn btn-block agt-btn-default"
+                                [disabled]="!canShareTask"
+                            >
+                                <i class="fa fa-share mr-2"></i
+                                ><strong>COMPARTIR TAREA</strong>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-block agt-btn-secondary-outline"
+                        (click)="closeModal()"
+                    >
+                        <strong>CANCELAR</strong>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

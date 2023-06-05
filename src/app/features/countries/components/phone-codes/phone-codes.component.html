@@ -1,0 +1,31 @@
+<div class="input-group-prepend">
+    <div class="dropdown" *ngIf="countries.length > 0">
+        <button
+            type="button"
+            class="btn btn-default-light dropdown-toggle"
+            data-toggle="dropdown"
+            [disabled]="isDisabled"
+        >
+            <i
+                id="flag-02"
+                class="flag mr-1 {{ countries[selectedCountryPosition].flag }}"
+                data-toggle="tooltip"
+                [attr.data-original-title]="
+                    countries[selectedCountryPosition].name
+                "
+            ></i>
+        </button>
+        <div class="dropdown-menu">
+            <ng-container *ngFor="let country of countries; let index = index">
+                <div
+                    class="dropdown-item"
+                    (click)="selectPhoneCode(index)"
+                    *ngIf="index !== selectedCountryPosition"
+                >
+                    <i class="flag mr-1 {{ country.flag }}"></i>
+                    {{ country.abbreviation }} +{{ country.code }}
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

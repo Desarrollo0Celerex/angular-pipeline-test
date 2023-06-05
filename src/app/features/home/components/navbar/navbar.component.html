@@ -6,13 +6,18 @@
                 <ul class="horizontalMenu-list">
                     <!-- AGENTHOS - TASKMANAGER -->
                     <li aria-haspopup="true">
-                        <a href="#" class="sub-icon"
+                        <a href="javascript://" class="sub-icon"
                             ><i class="fe fe-layers"></i> Task Planner
                             <i class="fa fa-angle-down horizontal-icon"></i
                         ></a>
                         <ul class="sub-menu">
                             <li aria-haspopup="true">
                                 <a [routerLink]="tasksLink">Tareas</a>
+                            </li>
+                            <li aria-haspopup="true">
+                                <a [routerLink]="tasksCalendarLink"
+                                    >Calendario de Pendientes</a
+                                >
                             </li>
                         </ul>
                     </li>

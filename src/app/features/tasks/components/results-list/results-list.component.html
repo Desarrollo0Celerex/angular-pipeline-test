@@ -1,0 +1,37 @@
+<agt-content-list
+    contentName="{{ 'Tarea' | plural : tasks.length }} {{
+        'Encontrada' | plural : tasks.length
+    }}"
+    [contentGender]="contentGender"
+    noResultsMessage="No se encontraron tareas pendientes."
+    noResultsDetails="Por favor programa una tarea para darle seguimiento."
+    noResultsButtonLabel="Programar Tarea"
+    [isLoadedContent]="isLoadedContent"
+    [isLoadingContent]="isLoadingContent"
+    [totalItems]="totalItems"
+    [totalItemsLoaded]="tasks.length"
+    (loadMoreContents)="loadMoreContents()"
+    (doNoResultsAction)="showModalCreateTask()"
+>
+    <ng-container *ngFor="let task of tasks; trackBy: trackById">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+            <agt-task [task]="task"></agt-task>
+        </div>
+    </ng-container>
+</agt-content-list>
+
+<!-- Global Modals -->
+<agt-modal-create-task></agt-modal-create-task>
+<agt-modal-select-calendar></agt-modal-select-calendar>
+<agt-modal-sync-calendar></agt-modal-sync-calendar>
+<!-- // Global Modals -->
+
+<!-- Module Modals -->
+<agt-modal-select-task-action></agt-modal-select-task-action>
+<agt-modal-edit-task></agt-modal-edit-task>
+<agt-modal-handle-task></agt-modal-handle-task>
+<agt-modal-show-task></agt-modal-show-task>
+<agt-modal-confirm-delete-task></agt-modal-confirm-delete-task>
+<agt-modal-select-channels-to-share-task></agt-modal-select-channels-to-share-task>
+<agt-modal-request-contact-information-to-share-task></agt-modal-request-contact-information-to-share-task>
+<!-- Module Modals -->

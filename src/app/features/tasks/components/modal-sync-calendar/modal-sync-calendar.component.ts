@@ -1,10 +1,4 @@
-import {
-    Component,
-    Input,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
     NgxQrcodeErrorCorrectionLevels,
     NgxQrcodeElementTypes,
@@ -14,7 +8,9 @@ import * as moment from 'moment';
 import { TaskModalService } from '@features/tasks/services/task-modal.service';
 import { SmartComponent } from '@core/classes/smart-component';
 import { InitModalSyncCalendar } from '@features/tasks/interfaces/init-modal-sync-calendar.interface';
-declare var ModalPlugin: any;
+import { Task } from '@features/tasks/interfaces/task.interface';
+import { TaskService } from '@features/tasks/services/task.service';
+import { ModalHelper } from '@core/helpers/modal.helper';
 
 @Component({
     selector: 'agt-modal-sync-calendar',
@@ -30,8 +26,12 @@ export class ModalSyncCalendarComponent
     correctionLevel: any = NgxQrcodeElementTypes.URL;
     elementType: any = NgxQrcodeErrorCorrectionLevels.HIGH;
     private _data: InitModalSyncCalendar | undefined = undefined;
+    private _task: Task | undefined = undefined;
 
-    constructor(private _taskModalService: TaskModalService) {
+    constructor(
+        private _taskService: TaskService,
+        private _taskModalService: TaskModalService
+    ) {
         super();
     }
 
@@ -40,8 +40,7 @@ export class ModalSyncCalendarComponent
             .pipe(this.untilComponentDestroy())
             .subscribe((data) => {
                 this._data = data;
-                this._generateLink();
-                this._showModal();
+                this._loadTask();
             });
     }
 
@@ -75,8 +74,8 @@ export class ModalSyncCalendarComponent
 
     private _generateGoogleLink(): string {
         const startDatetime = moment(
-            this._data!.taskDate + ' ' + this._data!.taskTime,
-            'DD/MM/YYYY h:mm A'
+            this._task!.taskDate + ' ' + this._task!.taskTime,
+            'YYYY/MM/DD h:mm A'
         );
         const startDatetimeStr = startDatetime.format('YYYYMMDDTHHmmssZ');
         const endDatetimeStr = startDatetime
@@ -87,23 +86,23 @@ export class ModalSyncCalendarComponent
         link += '&';
         link += 'dates=' + startDatetimeStr + '/' + endDatetimeStr;
         link += '&';
-        link += 'details=' + encodeURIComponent(this._data!.taskDetails);
+        link += 'details=' + encodeURIComponent(this._task!.taskDetails);
         link += '&';
-        link += 'text=' + this._data!.taskTitle;
+        link += 'text=' + this._task!.taskTitle;
         return link;
     }
 
     private _generateOutlookLink(): string {
         const startDatetime = moment(
-            this._data!.taskDate + ' ' + this._data!.taskTime,
-            'DD/MM/YYYY h:mm A'
+            this._task!.taskDate + ' ' + this._task!.taskTime,
+            'YYYY/MM/DD h:mm A'
         );
         const startDatetimeStr = startDatetime.format('YYYY-MM-DDTHH:mm:ss');
         const endDatetimeStr = startDatetime
             .add(15, 'minutes')
             .format('YYYY-MM-DDTHH:mm:ss');
         let link = 'https://outlook.live.com/calendar/0/deeplink/compose?';
-        link += 'body=' + encodeURIComponent(this._data!.taskDetails);
+        link += 'body=' + encodeURIComponent(this._task!.taskDetails);
         link += '&';
         link += 'location=' + encodeURIComponent('https://app.agenthos.com');
         link += '&';
@@ -115,11 +114,18 @@ export class ModalSyncCalendarComponent
         link += '&';
         link += 'enddt=' + endDatetimeStr;
         link += '&';
-        link += 'subject=' + this._data!.taskTitle;
+        link += 'subject=' + this._task!.taskTitle;
         return link;
     }
 
-    private _showModal() {
-        ModalPlugin.show(this.modalId);
+    private _loadTask(): void {
+        const fields = 'taskTitle,taskDetails,taskDate,taskTime';
+        this._taskService
+            .getTask(this._data!.taskId, fields)
+            .subscribe((task) => {
+                this._task = task;
+                this._generateLink();
+                ModalHelper.showModal(this.modalId);
+            });
     }
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { SharedModule } from '@shared/shared.module';
+import { CountriesModule } from '@features/countries/countries.module';
 
 import { TaskStatusBackgroundPipe } from './pipes/task-status-background.pipe';
 import { TaskStatusIconPipe } from './pipes/task-status-icon.pipe';
@@ -23,6 +24,18 @@ import { ModalSelectCalendarComponent } from './components/modal-select-calendar
 import { ModalSyncCalendarComponent } from './components/modal-sync-calendar/modal-sync-calendar.component';
 import { ModalEditTaskComponent } from './components/modal-edit-task/modal-edit-task.component';
 import { ModalHandleTaskComponent } from './components/modal-handle-task/modal-handle-task.component';
+import { TaskListComponent } from './components/task-list/task-list.component';
+import { ModalShowTaskComponent } from './components/modal-show-task/modal-show-task.component';
+import { ModalConfirmDeleteTaskComponent } from './components/modal-confirm-delete-task/modal-confirm-delete-task.component';
+import { ModalSelectChannelsToShareTaskComponent } from './components/modal-select-channels-to-share-task/modal-select-channels-to-share-task.component';
+import { ModalRequestContactInformationToShareTaskComponent } from './components/modal-request-contact-information-to-share-task/modal-request-contact-information-to-share-task.component';
+import { TaskRecordPage } from './pages/task-record/task-record.page';
+import { CalendarPage } from './pages/calendar/calendar.page';
+import { CalendarListComponent } from './components/calendar-list/calendar-list.component';
+import { CalendarSettingsComponent } from './components/calendar-settings/calendar-settings.component';
+import { TaskResultsPage } from './pages/task-results/task-results.page';
+import { ResultsSearchEngineComponent } from './components/results-search-engine/results-search-engine.component';
+import { ResultsListComponent } from './components/results-list/results-list.component';
 
 @NgModule({
     declarations: [
@@ -41,6 +54,18 @@ import { ModalHandleTaskComponent } from './components/modal-handle-task/modal-h
         ModalSyncCalendarComponent,
         ModalEditTaskComponent,
         ModalHandleTaskComponent,
+        TaskListComponent,
+        ModalShowTaskComponent,
+        ModalConfirmDeleteTaskComponent,
+        ModalSelectChannelsToShareTaskComponent,
+        ModalRequestContactInformationToShareTaskComponent,
+        TaskRecordPage,
+        CalendarPage,
+        CalendarListComponent,
+        CalendarSettingsComponent,
+        TaskResultsPage,
+        ResultsSearchEngineComponent,
+        ResultsListComponent,
     ],
     exports: [
         ModalCreateTaskComponent,
@@ -49,6 +74,7 @@ import { ModalHandleTaskComponent } from './components/modal-handle-task/modal-h
     ],
     imports: [
         CommonModule,
+        CountriesModule,
         FormsModule,
         NgxQRCodeModule,
         ReactiveFormsModule,

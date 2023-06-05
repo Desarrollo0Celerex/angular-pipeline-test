@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { TasksModule } from '@features/tasks/tasks.module';
 import { SharedModule } from '@shared/shared.module';
 
 import { PayTracketRoutingModule } from './pay-tracker-routing.module';
@@ -77,6 +78,7 @@ import { PaymentStatusNamePipe } from '@shared/pipes/payment-status-name/payment
         PayTracketRoutingModule,
         ReactiveFormsModule,
         SharedModule,
+        TasksModule,
         // REFACTORIZED
         ModalSelectContactActionModule,
         ModalSelectContactTypeModule,

@@ -296,6 +296,17 @@
 .agt-btn-secondary:focus, .agt-btn-secondary.focus {
     box-shadow: 0 0 0 2px #ce0e68; }
 
+.agt-btn-delete {
+  color: #fbfbfb;
+  background: #fd2e68 !important;
+  border-color: #f60248; }
+.agt-btn-delete:hover {
+    color: #ffffff;
+    background-color: #f60248 !important;
+    border-color: #f60248; }
+.agt-btn-delete:focus, .agt-btn-delete.focus {
+    box-shadow: 0 0 0 2px #f60248; }
+
 .agt-btn-primary-outline {
   color: #825898;
   background: #fbfbfb !important;
@@ -463,6 +474,10 @@
 
 
 /* -- AGENTHOS - BADGE LIBRARY -- */
+.agt-badge-default {
+    color: #fbfbfb;
+    background-color: #343a48;
+}
 .agt-badge-primary-gradient {
 	color: #fbfbfb;
     background: linear-gradient(to bottom right,#720b98,#c636f8) !important;

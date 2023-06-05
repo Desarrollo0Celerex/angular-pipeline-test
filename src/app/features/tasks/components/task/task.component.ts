@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '@features/task-planner/interfaces/task.interface';
+import { Task } from '@features/tasks/interfaces/task.interface';
 import { ModuleService } from '@features/tasks/services/module.service';
 import * as moment from 'moment';
 
@@ -17,26 +17,19 @@ export class TaskComponent {
         return this.task ? `${this.task.taskDate} ${this.task.taskTime}` : '';
     }
 
+    showModalConfirmDeleteTask(): void {
+        this._moduleService.showModalConfirmDeleteTask(this.task!.taskId);
+    }
+
     showModalEditTask(): void {
-        this._moduleService.showModalEditTask({
-            taskId: this.task!.taskId,
-            taskTitle: this.task!.taskTitle,
-            taskDate: this.task!.taskDate,
-            taskTime: this.task!.taskTime,
-            taskDetails: this.task!.taskDetails,
-            taskProgressStatusId: this.task!.taskProgressStatusId,
-            responsibleId: this.task!.responsibleId,
-        });
+        this._moduleService.showModalEditTask(this.task!.taskId);
+    }
+
+    showModalShowTask(): void {
+        this._moduleService.showModalShowTask(this.task!.taskId);
     }
 
     showModalHandleTask(): void {
-        this._moduleService.showModalHandleTask({
-            taskTitle: this.task!.taskTitle,
-            taskDate: moment(this.task!.taskDate).format('DD/MM/YYYY'),
-            taskTime: moment(
-                this.task!.taskDate + ' ' + this.task!.taskTime
-            ).format('h:mm A'),
-            taskDetails: this.task!.taskDetails,
-        });
+        this._moduleService.showModalHandleTask(this.task!.taskId);
     }
 }

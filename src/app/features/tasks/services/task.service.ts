@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { TASK_ENDPOINTS } from '@core/constants/endpoints';
 import { ApiHttp } from '@core/http/api.http';
-import { CreateTask } from '@core/interfaces/create-task.interface';
+import { CreateTask } from '@features/tasks/interfaces/create-task.interface';
+import { Task } from '@features/tasks/interfaces/task.interface';
 import { Observable } from 'rxjs';
 import { AuthService } from '@features/auth/services/auth.service';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
 import { UpdateTask } from '../interfaces/update-task.interface';
+import { SendTaskNotfication } from '../interfaces/send-task-notification.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -15,10 +17,16 @@ export class TaskService {
 
     constructor(private _apiHttp: ApiHttp, private _authService: AuthService) {}
 
-    createTask(requestBody: CreateTask): Observable<void> {
+    createTask(requestBody: CreateTask): Observable<Task> {
         return this._apiHttp.post(
             TASK_ENDPOINTS.workspaceTasks(this._workspaceId),
             requestBody
+        );
+    }
+
+    deleteTask(taskId: string = ''): Observable<Task> {
+        return this._apiHttp.delete(
+            TASK_ENDPOINTS.workspaceTask(this._workspaceId, taskId)
         );
     }
 
@@ -34,6 +42,12 @@ export class TaskService {
             .param('rangeStart', rangeStart)
             .param('rangeEnd', rangeEnd)
             .get(TASK_ENDPOINTS.totalWorkspaceTasks(this._workspaceId));
+    }
+
+    getTask(taskId: string = '', fields: string = ''): Observable<Task> {
+        return this._apiHttp
+            .param('fields', fields)
+            .get(TASK_ENDPOINTS.workspaceTask(this._workspaceId, taskId));
     }
 
     getWorkspaceTasks(
@@ -60,6 +74,13 @@ export class TaskService {
             .param('rangeEnd', rangeEnd)
             .param('specialFilter', specialFilter)
             .get(TASK_ENDPOINTS.workspaceTasks(this._workspaceId));
+    }
+
+    sendTaskNotification(requestBody: SendTaskNotfication): Observable<string> {
+        return this._apiHttp.post(
+            TASK_ENDPOINTS.taskNotifications,
+            requestBody
+        );
     }
 
     updateTask(taskId: string, requestBody: UpdateTask): Observable<void> {

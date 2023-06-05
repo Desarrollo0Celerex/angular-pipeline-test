@@ -1,20 +1,12 @@
-<agt-content-list
-    contentName="{{ 'Tarea' | plural : tasks.length }} {{
-        taskStatusId | taskStatusName | plural : tasks.length
-    }}"
-    noResultsMessage="No se encontraron tareas pendientes."
-    noResultsDetails="Por favor programa una tarea para darle seguimiento"
-    noResultsButtonLabel="Programar Tarea"
+<agt-task-list
     [isLoadedContent]="isLoadedContent"
     [isLoadingContent]="isLoadingContent"
+    [taskStatusId]="taskStatusId"
+    [tasks]="tasks"
     [totalItems]="totalItems"
-    [totalItemsLoaded]="tasks.length"
+    noResultsMessage="No se encontraron tareas pendientes."
+    noResultsDetails="Por favor programa una tarea para darle seguimiento."
+    noResultsButtonLabel="Programar Tarea"
     (loadMoreContents)="loadMoreContents()"
-    (doNoResultsAction)="showModalToSelectTaskAction()"
->
-    <ng-container *ngFor="let task of tasks; trackBy: trackById">
-        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-            <agt-task [task]="task"></agt-task>
-        </div>
-    </ng-container>
-</agt-content-list>
+    (doNoResultsAction)="showModalCreateTask()"
+></agt-task-list>

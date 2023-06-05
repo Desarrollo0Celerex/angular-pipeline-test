@@ -1,0 +1,107 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form [formGroup]="form" (submit)="validateForm()">
+                <div class="modal-header">
+                    <h5 class="modal-title">Compartir Tarea</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        aria-label="Close"
+                        (click)="closeModal()"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" *ngIf="isFormBuilt">
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1">
+                            Ingresa los datos para enviar la tarea.
+                        </li>
+                    </ol>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <ng-container *ngIf="canShowInputEmail">
+                                    <label class="form-label">Correo</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-envelope-o tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{
+                                                getValidationClass('email')
+                                            }}"
+                                            placeholder="Ingresa el correo"
+                                            formControlName="email"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{ getErrorMessage("email") }}
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="canShowInputWhatsapp">
+                                    <label class="form-label">WhatsApp</label>
+                                    <div class="input-group">
+                                        <agt-phone-codes
+                                            [phoneCode]="
+                                                form.controls.phoneCode.value
+                                            "
+                                            (phoneCodeSelected)="
+                                                updatePhoneCode($event)
+                                            "
+                                        ></agt-phone-codes>
+                                        <input
+                                            type="text"
+                                            class="form-control {{
+                                                getValidationClass(
+                                                    'phoneNumber'
+                                                )
+                                            }}"
+                                            placeholder="Ingresa el teléfono"
+                                            formControlName="phoneNumber"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{ getErrorMessage("phoneNumber") }}
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mt-3">
+                            <button
+                                type="submit"
+                                class="btn btn-block agt-btn-default"
+                            >
+                                <i class="fa fa-share mr-2"></i
+                                ><strong>COMPARTIR TAREA</strong>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-block agt-btn-secondary-outline"
+                        (click)="closeModal()"
+                    >
+                        <strong>CANCELAR</strong>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

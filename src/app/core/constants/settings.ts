@@ -4,6 +4,53 @@ export enum CALENDARS {
     OUTLOOK = 3,
 }
 
+export const CALENDAR_RANGES = {
+    LAST_90_DAYS: {
+        NAME: 'ÚLTIMOS 90 DÍAS',
+        VALUE: -90,
+    },
+    LAST_60_DAYS: {
+        NAME: 'ÚLTIMOS 60 DÍAS',
+        VALUE: -60,
+    },
+    LAST_30_DAYS: {
+        NAME: 'ÚLTIMOS 30 DÍAS',
+        VALUE: -30,
+    },
+    LAST_15_DAYS: {
+        NAME: 'ÚLTIMOS 15 DÍAS',
+        VALUE: -15,
+    },
+    LAST_7_DAYS: {
+        NAME: 'ÚLTIMOS 7 DÍAS',
+        VALUE: -7,
+    },
+    TODAY: {
+        NAME: 'HOY',
+        VALUE: 0,
+    },
+    NEXT_7_DAYS: {
+        NAME: 'PRÓXIMOS 7 DÍAS',
+        VALUE: 7,
+    },
+    NEXT_15_DAYS: {
+        NAME: 'PRÓXIMOS 15 DÍAS',
+        VALUE: 15,
+    },
+    NEXT_30_DAYS: {
+        NAME: 'PRÓXIMOS 30 DÍAS',
+        VALUE: 30,
+    },
+    NEXT_60_DAYS: {
+        NAME: 'PRÓXIMOS 60 DÍAS',
+        VALUE: 60,
+    },
+    NEXT_90_DAYS: {
+        NAME: 'PRÓXIMOS 90 DÍAS',
+        VALUE: 90,
+    },
+};
+
 export enum GENDERS {
     MALE = 1,
     FEMALE = 2,
@@ -83,9 +130,15 @@ export enum TASK_MODULES {
     OTHER = 2,
 }
 
+export enum PHONE_CODES {
+    MEXICO = '52',
+}
+
 export enum TASK_STATUS {
     PRIORITY = 1,
     DELAYED = 2,
     URGENT = 3,
     EXPIRED = 4,
+    STANDBY = 5,
+    FINISHED = 6,
 }

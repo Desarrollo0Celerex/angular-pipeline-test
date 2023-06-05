@@ -15,6 +15,7 @@ export class NavbarComponent implements AfterViewChecked {
     calendarLink: string = `${PAY_TRACKER_ROUTES.MODULE}/${PAY_TRACKER_ROUTES.CALENDAR}`;
     paymentsLink: string = `${PAY_TRACKER_ROUTES.MODULE}/${PAY_TRACKER_ROUTES.PAYMENTS}`;
     tasksLink: string = `${TASKS_ROUTES.MODULE}/${TASKS_ROUTES.TASKS}`;
+    tasksCalendarLink: string = `${TASKS_ROUTES.MODULE}/${TASKS_ROUTES.CALENDAR}`;
 
     ngAfterViewChecked(): void {
         ActivePlugin.init();

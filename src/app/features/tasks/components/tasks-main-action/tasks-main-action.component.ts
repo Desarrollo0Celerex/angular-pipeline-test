@@ -9,7 +9,7 @@ import { ModuleService } from '@features/tasks/services/module.service';
 export class TasksMainActionComponent {
     constructor(private _moduleService: ModuleService) {}
 
-    showModalToSelectTaskAction(): void {
-        this._moduleService.showModalCreateTask();
+    showModalSelectTaskAction(): void {
+        this._moduleService.showModalSelectTaskAction();
     }
 }

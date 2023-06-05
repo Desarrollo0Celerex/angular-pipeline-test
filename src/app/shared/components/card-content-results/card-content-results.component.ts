@@ -9,7 +9,7 @@ import { DumbComponent } from '@core/classes/dumb-component';
 })
 export class CardContentResultsComponent extends DumbComponent {
     @Input() contentName: string = '';
-    @Input() contentGender: number = GENDERS.MALE;
+    @Input() contentGender: number = 0;
     @Input() isLoadingContent: boolean = false;
     @Input() totalItems: number = 0;
     @Input() totalItemsLoaded: number = 0;

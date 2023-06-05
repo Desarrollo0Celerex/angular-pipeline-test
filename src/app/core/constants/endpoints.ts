@@ -82,6 +82,7 @@ export const RECEIPT_PAID_ENDPOINTS: any = {
 };
 
 export const TASK_ENDPOINTS: any = {
+    taskNotifications: `${environment.agenthosNotifierApiUrl}/tasks`,
     totalWorkspaceTasks: (workspaceId: string) =>
         `${environment.apiUrl}/workspaces/${workspaceId}/tasks/count`,
     workspaceTask: (workspaceId: string, taskId: string) =>

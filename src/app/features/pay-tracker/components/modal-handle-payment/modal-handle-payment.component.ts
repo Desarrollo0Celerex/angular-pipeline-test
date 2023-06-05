@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TASK_MODULES } from '@core/constants/settings';
 import { PaymentService } from '@core/services/payment/payment.service';
 import { environment } from '@env/environment';
+import { AuthService } from '@features/auth/services/auth.service';
 import { InitModalCreateTask } from '@features/tasks/interfaces/init-modal-create-task.interface';
 import { TaskModalService } from '@features/tasks/services/task-modal.service';
 declare var ModalPlugin: any;
@@ -22,6 +23,7 @@ export class ModalHandlePaymentComponent {
     @Output() sendReminder: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(
+        private _authService: AuthService,
         private _paymentService: PaymentService,
         private _taskModalService: TaskModalService
     ) {}
@@ -57,12 +59,12 @@ export class ModalHandlePaymentComponent {
 
     private _loadPayment(): void {
         const fields =
-            'tickets,bills,policyNumber,insuranceName,coveredProperty,titularName,insurerName';
+            'tickets,bills,policyNumber,insuranceName,coveredProperty,titularName,insurerName,contactName';
         this._paymentService
             .getWorkspacePayment(this.paymentId, fields)
             .subscribe((payment) => {
                 const modalData: Partial<InitModalCreateTask> = {
-                    taskTitle: '💰 Seguimiento de Cobranza',
+                    taskTitle: `💰 Seguimiento de Cobranza de ${payment.contactName}`,
                     taskDetails: `🎯 Seguimiento de cobranza para el pago del recibo ${
                         payment.tickets + 1
                     } de ${payment.bills} de la póliza ${
@@ -89,6 +91,7 @@ export class ModalHandlePaymentComponent {
 
 🤖 Tarea gestionada en Agenthos.`,
                     taskModuleId: TASK_MODULES.PAYMENT,
+                    responsibleId: this._authService.userId,
                 };
                 this._taskModalService.showModalCreateTask(modalData);
             });

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '@shared/shared.module';
-import { TasksModule } from '@features/tasks/tasks.module';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeLayout } from './layout/home.layout';
@@ -36,7 +35,7 @@ import { VoiceControlService } from './services/voice-control/voice-control.serv
         SidebarComponent,
         SpeechRecognitionComponent,
     ],
-    imports: [CommonModule, HomeRoutingModule, SharedModule, TasksModule],
+    imports: [CommonModule, HomeRoutingModule, SharedModule],
     providers: [VoiceControlService],
 })
 export class HomeModule {}

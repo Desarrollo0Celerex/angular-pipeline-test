@@ -8,18 +8,19 @@ import {
 import { SmartComponent } from '@core/classes/smart-component';
 import { AlertHelper } from '@core/helpers/alert.helper';
 import { ValidatorsHelper } from '@core/helpers/validators.helper';
-import { TaskProgressStatus } from '@core/interfaces/task-progress-status.interface';
+import { Task } from '@features/tasks/interfaces/task.interface';
+import { TaskProgressStatus } from '@features/task-progress-status/interfaces/task-progress-status.interface';
 import { WorkspaceUser } from '@core/interfaces/workspace-user.interface';
 import { LoadingService } from '@core/services/loading/loading.service';
-import { TaskProgressStatusService } from '@core/services/task-progress-status.service';
+import { TaskProgressStatusService } from '@features/task-progress-status/services/task-progress-status.service';
 import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
-import { InitModalEditTask } from '@features/tasks/interfaces/init-modal-edit-task.interface';
 import { ModuleService } from '@features/tasks/services/module.service';
 import { TaskService } from '@features/tasks/services/task.service';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import * as moment from 'moment';
+import { ModalHelper } from '@core/helpers/modal.helper';
+import { SendTaskNotfication } from '@features/tasks/interfaces/send-task-notification.interface';
 declare var DatePickerPlugin: any;
-declare var ModalPlugin: any;
 declare var TimePickerPlugin: any;
 
 @Component({
@@ -34,7 +35,8 @@ export class ModalEditTaskComponent extends SmartComponent implements OnInit {
     taskProgressStatus: TaskProgressStatus[] = [];
     workspaceUsers: Partial<WorkspaceUser>[] = [];
     timerIdTaskTime = 'taskTime';
-    private _data: InitModalEditTask | undefined = undefined;
+    private _currentResponsibleId: string = '';
+    private _taskId: string = '';
     private _isFormSubmitted = false;
 
     constructor(
@@ -55,15 +57,14 @@ export class ModalEditTaskComponent extends SmartComponent implements OnInit {
         this._loadWorkspaceUsers();
         this._moduleService.modalEditTask$
             .pipe(this.untilComponentDestroy())
-            .subscribe((data) => {
-                this._data = data;
-                this._updateForm();
-                this._showModal();
+            .subscribe((taskId) => {
+                this._taskId = taskId;
+                this._loadTask();
             });
     }
 
     closeModal(): void {
-        ModalPlugin.hide(this.modalId);
+        ModalHelper.hideModal(this.modalId);
         this.form.reset();
         this._isFormSubmitted = false;
     }
@@ -131,6 +132,16 @@ export class ModalEditTaskComponent extends SmartComponent implements OnInit {
         );
     }
 
+    private _loadTask(): void {
+        const fields =
+            'taskTitle,taskDate,taskTime,taskDetails,taskProgressStatusId,responsibleId';
+        this._taskService.getTask(this._taskId, fields).subscribe((task) => {
+            this._currentResponsibleId = task.responsibleId;
+            this._updateForm(task);
+            ModalHelper.showModal(this.modalId);
+        });
+    }
+
     private _loadTaskProgressStatus(): void {
         const fields = 'taskProgressStatusId,name';
         this._taskProgressStatusService
@@ -171,35 +182,73 @@ export class ModalEditTaskComponent extends SmartComponent implements OnInit {
         context.form.patchValue({ [selectorId]: changedValue });
     }
 
-    private _showModal() {
-        ModalPlugin.show(this.modalId);
-    }
-
-    private _updateForm() {
+    private _updateForm(task: Task) {
         this.form.patchValue({
-            taskTitle: this._data!.taskTitle,
-            taskDetails: this._data!.taskDetails,
-            taskProgressStatusId: this._data!.taskProgressStatusId,
-            responsibleId: this._data!.responsibleId
-                ? this._data!.responsibleId
-                : '0',
-            taskDate: moment(this._data!.taskDate).format('DD/MM/YYYY'),
-            taskTime: moment(
-                this._data!.taskDate + ' ' + this._data!.taskTime
-            ).format('h:mm A'),
+            taskTitle: task.taskTitle,
+            taskDetails: task.taskDetails,
+            taskProgressStatusId: task.taskProgressStatusId,
+            responsibleId: task.responsibleId ? task.responsibleId : '0',
+            taskDate: moment(task.taskDate).format('DD/MM/YYYY'),
+            taskTime: moment(task.taskDate + ' ' + task.taskTime).format(
+                'h:mm A'
+            ),
         });
     }
 
     private _updateTask(): void {
         this._loadingService.show();
         const requestBody = this.form.value;
+        requestBody.responsibleId =
+            requestBody.responsibleId !== '0'
+                ? requestBody.responsibleId
+                : null;
         this.closeModal();
         this._taskService
-            .updateTask(this._data!.taskId, requestBody)
+            .updateTask(this._taskId, requestBody)
             .subscribe(() => {
-                this._loadingService.hide();
-                AlertHelper.taskUpdated();
-                this._moduleService.requestReloadContent();
+                if (
+                    this._checkIsChangedResponsible(requestBody.responsibleId)
+                ) {
+                    this._reloadTask();
+                } else {
+                    this._handleSuccessfulUpdate();
+                }
             });
+    }
+
+    private _checkIsChangedResponsible(responsibleId: string): boolean {
+        return this._currentResponsibleId !== responsibleId ? true : false;
+    }
+
+    private _handleSuccessfulUpdate(): void {
+        this._loadingService.hide();
+        AlertHelper.taskUpdated();
+        this._moduleService.requestReloadContent();
+    }
+
+    private _reloadTask(): void {
+        const fields =
+            'responsibleEmail,workspaceName,workspaceAvatarUrl,createdByName';
+        this._taskService.getTask(this._taskId, fields).subscribe((task) => {
+            this._sendTaskNotification(task);
+        });
+    }
+
+    private _sendTaskNotification(task: Task): void {
+        const requestBody: SendTaskNotfication = {
+            taskId: this._taskId,
+            canSendByEmail: true,
+            canSendByWhatsapp: false,
+            email: task.responsibleEmail,
+            phoneNumber: '',
+            taskTitle: '',
+            taskDetails: '',
+            workspaceName: task.workspaceName,
+            workspaceAvatarUrl: task.workspaceAvatarUrl,
+            createdByName: task.createdByName,
+        };
+        this._taskService.sendTaskNotification(requestBody).subscribe(() => {
+            this._handleSuccessfulUpdate();
+        });
     }
 }

@@ -5,7 +5,6 @@ import {
     PARTNERS_ROUTES,
     PAY_TRACKER_ROUTES,
     TASKS_ROUTES,
-    TASK_PLANNER_ROUTES,
 } from '@core/constants/routes';
 
 import { HomeLayout } from './layout/home.layout';
@@ -40,13 +39,6 @@ const routes: Routes = [
                 loadChildren: () =>
                     import('@features/tasks/tasks.module').then(
                         (mod) => mod.TasksModule
-                    ),
-            },
-            {
-                path: TASK_PLANNER_ROUTES.MODULE,
-                loadChildren: () =>
-                    import('@features/task-planner/task-planner.module').then(
-                        (mod) => mod.TaskPlannerModule
                     ),
             },
 

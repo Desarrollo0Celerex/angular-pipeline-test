@@ -11,6 +11,7 @@ import { LoadingService } from '@core/services/loading/loading.service';
 import { InitModalCreateTask } from '@features/tasks/interfaces/init-modal-create-task.interface';
 import { TaskModalService } from '@features/tasks/services/task-modal.service';
 import { TaskService } from '@features/tasks/services/task.service';
+import { ModuleService } from '@features/tasks/services/module.service';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import * as moment from 'moment';
 declare var DatePickerPlugin: any;
@@ -28,11 +29,11 @@ export class ModalCreateTaskComponent extends SmartComponent implements OnInit {
     modalId = 'agt-modal-create-task';
     timerIdTaskTime = 'taskTime';
     private _isFormSubmitted = false;
-    private _taskModuleId = 0;
-    private _taskTitle = '';
+    private _data: InitModalCreateTask | undefined = undefined;
 
     constructor(
         private _formBuilder: FormBuilder,
+        private _moduleServie: ModuleService,
         private _loadingService: LoadingService,
         private _taskService: TaskService,
         private _taskModalService: TaskModalService
@@ -46,9 +47,8 @@ export class ModalCreateTaskComponent extends SmartComponent implements OnInit {
         this._taskModalService.modalCreateTask$
             .pipe(this.untilComponentDestroy())
             .subscribe((res) => {
-                this._taskTitle = res.taskTitle;
-                this._taskModuleId = res.taskModuleId;
-                this._updateFormValues(res);
+                this._data = res;
+                this._updateFormValues();
                 this._showModal();
             });
     }
@@ -98,18 +98,15 @@ export class ModalCreateTaskComponent extends SmartComponent implements OnInit {
         this._loadingService.show();
         const requestBody = {
             ...this.form.value,
-            taskTitle: this._taskTitle,
-            taskModuleId: this._taskModuleId,
+            taskTitle: this._data?.taskTitle,
+            taskModuleId: this._data?.taskModuleId,
+            responsibleId: this._data?.responsibleId,
         };
         this.closeModal();
-        this._taskService.createTask(requestBody).subscribe(() => {
+        this._taskService.createTask(requestBody).subscribe((task) => {
             this._loadingService.hide();
-            this._taskModalService.showModalSelectCalendar({
-                taskTitle: requestBody.taskTitle,
-                taskDate: requestBody.taskDate,
-                taskTime: requestBody.taskTime,
-                taskDetails: requestBody.taskDetails,
-            });
+            this._moduleServie.requestReloadContent();
+            this._taskModalService.showModalSelectCalendar(task.taskId);
         });
     }
 
@@ -151,13 +148,15 @@ export class ModalCreateTaskComponent extends SmartComponent implements OnInit {
         ModalPlugin.show(this.modalId);
     }
 
-    private _updateFormValues(data: InitModalCreateTask): void {
+    private _updateFormValues(): void {
         this.form.patchValue({
-            taskDate: data.taskDate
-                ? data.taskDate
+            taskDate: this._data?.taskDate
+                ? this._data?.taskDate
                 : moment().format('DD/MM/YYYY'),
-            taskTime: data.taskTime ? data.taskTime : moment().format('h:mm A'),
-            taskDetails: data.taskDetails ? data.taskDetails : '',
+            taskTime: this._data?.taskTime
+                ? this._data?.taskTime
+                : moment().format('h:mm A'),
+            taskDetails: this._data?.taskDetails ? this._data?.taskDetails : '',
         });
     }
 }
