@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.3',
+            launchDate: '08/06/2023',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se actualizo aplicación de endosos con incremento y decremento de prima, para permitir cambiar el plan de pago',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.2',
             launchDate: '05/06/2023',
             changes: [

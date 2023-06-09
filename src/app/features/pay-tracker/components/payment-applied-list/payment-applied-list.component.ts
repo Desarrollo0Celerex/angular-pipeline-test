@@ -26,6 +26,7 @@ export class PaymentAppliedListComponent extends SmartComponent {
     @Output() loadMoreContents: EventEmitter<void> = new EventEmitter<void>();
     @Output() loadPolicy: EventEmitter<void> = new EventEmitter<void>();
     @Output() paymentApplied: EventEmitter<void> = new EventEmitter<void>();
+    canReloadApplyPayment = false;
     canRequestEmail: boolean = false;
     canRequestPhoneNumber: boolean = false;
     data: any = { contactId: '', policyId: '', paymentId: '' };
@@ -83,11 +84,16 @@ export class PaymentAppliedListComponent extends SmartComponent {
         this.loadPolicy.emit();
     }
 
+    resetCanReloadApplyPayment(): void {
+        this.canReloadApplyPayment = false;
+    }
+
     trackByPayments(index: number, payment: PaymentApplied): string {
         return payment.paymentId;
     }
 
     showModalToApplyPayment(): void {
+        this.canReloadApplyPayment = true;
         ModalPlugin.show(this.modalIdApplyPayment);
     }
 

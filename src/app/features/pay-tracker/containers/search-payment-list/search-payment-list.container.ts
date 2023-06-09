@@ -67,7 +67,7 @@ export class SearchPaymentListContainer
         this.isLoadingContent = true;
         const fields: string =
             'paymentId,contactId,insurerImageUrl,paymentSourceTypeId,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceId,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment,isAutoPayment,paymentPlanId,pendingReceipts,paymentPlanReceips,netPay,feePay,coverPay,extraPay,taxPay,discount,endorsementNumber,paymentSource,lastReminderDate,lastReminderTypeId,totalReminders,licenseId';
-        const filter: string = UtilitiesHelper.generateHttpFilter(
+        const filter = ''; /* string = UtilitiesHelper.generateHttpFilter(
             'paymentStatusId',
             [
                 PAYMENT_STATUS.IN_TRANSIT,
@@ -75,7 +75,7 @@ export class SearchPaymentListContainer
                 PAYMENT_STATUS.LATE,
                 PAYMENT_STATUS.OVERDUE,
             ]
-        );
+        ); */
         const sortBy: string = 'paymentDate';
         const search: string = `multiple:${this.query}`;
         // Send value (-1) to hide the results in the search engine while the new search is loading.

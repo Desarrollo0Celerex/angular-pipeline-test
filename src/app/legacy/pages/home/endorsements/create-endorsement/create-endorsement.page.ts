@@ -62,7 +62,6 @@ export class CreateEndorsementPage implements OnInit {
     policyId: string = '';
     selectedEndorsementPaymentMethodId: number = 0;
     selectedModalData: ModalSelectFileData | null = null;
-    selectedPaymentPlanName: string = '';
     private _isFormSubmitted: boolean = false;
     private _modalSelectEndorsementData: ModalSelectFileData = {
         title: 'Cargar Endoso',
@@ -148,6 +147,16 @@ export class CreateEndorsementPage implements OnInit {
         return this.model.policy !== null
             ? parseFloat(this.model.policy.policyAmount.toString())
             : 0;
+    }
+
+    get selectedPaymentPlanName(): string {
+        return this.model.f.paymentPlanId
+            ? this.model.getPaymentPlanName(this.model.f.paymentPlanId.value)
+            : '';
+    }
+
+    calculateNewBills(): void {
+        this.model.calculateNewBills();
     }
 
     createEndorsement(): void {
@@ -322,11 +331,13 @@ export class CreateEndorsementPage implements OnInit {
     }
 
     validateValidityEndDate(): void {
-        if (this.model.f.validityEndDate.valid) {
-            //this.model.calculatePaymentPlansAvailable();
-            //this.model.calculateMonthsLeftToPay();
-            //this.model.calculateNewBills();
-        }
+        // Added setTimeout to wait for the onChangeDate event to update the value
+        setTimeout(() => {
+            if (this.model.f.validityEndDate.valid) {
+                this.model.calculatePaymentPlansAvailable();
+                this.model.calculateNewBills();
+            }
+        }, 500);
     }
 
     private _catchParams(): void {
@@ -453,13 +464,7 @@ export class CreateEndorsementPage implements OnInit {
 
     private _loadPaymentPlans(): void {
         this.model.loadPaymentPlans().subscribe(() => {
-            const selectedPaymentPlanId = this.model.policy!.paymentPlanId;
-            this.selectedPaymentPlanName = this.model.getPaymentPlanName(
-                selectedPaymentPlanId
-            );
-            // PENDIENTE
-            /*this.model.calculatePaymentPlansAvailable();
-            this.model.calculateMonthsLeftToPay(); */
+            this.model.calculatePaymentPlansAvailable();
         });
     }
 
