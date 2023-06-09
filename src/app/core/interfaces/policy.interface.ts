@@ -85,4 +85,6 @@ export interface Policy {
     totalBills: number;
     totalTickets: number;
     titularPhoneCode: string;
+    monthsPaid: number;
+    paymentDate: string;
 }

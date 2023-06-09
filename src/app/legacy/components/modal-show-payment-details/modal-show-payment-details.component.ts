@@ -25,14 +25,26 @@ export class ModalShowPaymentDetailsComponent implements OnChanges {
     @Input() contactId: string = '';
     @Input() policyId: string = '';
     @Input() paymentId: string = '';
+    @Input() canReloadPaymentDetails = false;
+    @Output() resetCanReloadPaymentDetails: EventEmitter<void> =
+        new EventEmitter<void>();
     @Output() payReceipt: EventEmitter<string> = new EventEmitter<string>();
     ROUTES_NAME: any = ROUTES_NAME;
 
     constructor(public model: ModalShowPaymentDetailsService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.paymentId && changes.paymentId.currentValue) {
-            this.model.loadPayment(changes.paymentId.currentValue);
+        if (
+            (changes.paymentId && changes.paymentId.currentValue) ||
+            (!!changes.canReloadPaymentDetails &&
+                !!changes.canReloadPaymentDetails &&
+                !!this.paymentId)
+        ) {
+            this.model.loadPayment(this.paymentId);
+
+            setTimeout(() => {
+                this.resetCanReloadPaymentDetails.emit();
+            }, 500);
         }
     }
 

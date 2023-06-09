@@ -156,9 +156,10 @@
     [contactId]="data.contactId"
     [policyId]="data.policyId"
     [paymentId]="data.paymentId"
-    [canReloadApplyPayment]="true"
+    [canReloadApplyPayment]="canReloadApplyPayment"
     (receiptPaid)="reloadContent()"
     (showModalAgain)="showModalToApplyPayment()"
+    (applyPaymentReloaded)="resetCanReloadApplyPayment()"
 ></agt-modal-apply-payment>
 <agt-modal-upgrade-license
     [modalId]="modalIdUpgradePlan"

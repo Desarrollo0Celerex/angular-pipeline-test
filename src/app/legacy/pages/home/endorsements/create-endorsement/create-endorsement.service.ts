@@ -49,7 +49,9 @@ export class CreateEndorsementService {
     isBuiltForm: boolean = false;
     paymentMethods: PaymentMethod[] = [];
     paymentPlans: PaymentPlan[] = [];
+    paymentPlansAvailable: PaymentPlan[] = [];
     policy: Policy | null = null;
+    private _remainingMonthsToPay = 0;
 
     constructor(
         private _endorsementTypeService: EndorsementTypeService,
@@ -396,14 +398,21 @@ export class CreateEndorsementService {
                 endorsementValidityStartDate.format('YYYY-MM-DD'),
                 endorsementValidityEndDate.format('YYYY-MM-DD')
             );
-            // Obtener el número de meses enteros que hay desde que inicia el endoso hasta que finaliza.
-            const monthsDiff: number = endorsementValidityEndDate.diff(
-                endorsementValidityStartDate,
+            // 1.- Obtener la siguiente fecha de pago de la póliza: 01/07/2023
+            const nextPaymentDate = this._calculateNextPaymentDate();
+
+            // 2.- Obtener los meses exactos que hay desde la fecha de pago hasta que venza la póliza: 6 meses
+            const remainingMonths = endorsementValidityEndDate.diff(
+                nextPaymentDate,
                 'months'
             );
-            // calcular los días prorateados (días de vigencia del endoso - (meses enteros * 30) )
-            const fractionalReceiptDays: number =
-                endorsementDays - monthsDiff * 30;
+
+            // 3.- Multiplicar esos meses por 30: 6 * 30 = 180
+            // 4.- Restar a los días del endoso esos días: 232 - 180 = 52
+            // 5.- Los días del recibo fraccionado serán: 52
+            const fractionalReceiptDays =
+                endorsementDays - remainingMonths * 30;
+
             // calcular la prima diaria ((prima neta + cargados extra) / dias de vigencia del endoso)
             const dailyAmount: number =
                 (endorsementNetPay + endorsementExtraPay) / endorsementDays;
@@ -434,33 +443,82 @@ export class CreateEndorsementService {
         return fractionalReceiptAmount;
     }
 
+    calculateNewBills(): void {
+        if (this.policy) {
+            const selectedPaymentPlanId: number = parseInt(
+                this.f.paymentPlanId.value
+            );
+            const selectedPaymentPlanMonths = this._getPaymentPlanMonths(
+                selectedPaymentPlanId
+            );
+            const newBills = !!selectedPaymentPlanMonths
+                ? Math.floor(
+                      this._remainingMonthsToPay / selectedPaymentPlanMonths
+                  )
+                : 1;
+            const newTotalBills: number = this.policy.receiptsPaid + newBills;
+            this.f.bills.setValue(newTotalBills);
+        }
+    }
+
     /* calculatePaymentPlansAvailable(): void {
-        if(this.policy) {
+        this.paymentPlansAvailable = [];
+        if (this.f.endorsementValidityStartDate.valid) {
+            const startDate = moment(
+                this.f.endorsementValidityStartDate.value,
+                'DD/MM/YYYY'
+            );
+            const endDate = moment(this.f.validityEndDate.value, 'DD/MM/YYYY');
+            this._remainingMonthsToPay = endDate.diff(startDate, 'months');
+            for (let paymentPlan of this.paymentPlans) {
+                if (paymentPlan.months <= this._remainingMonthsToPay) {
+                    this.paymentPlansAvailable.push(paymentPlan);
+                }
+            }
+        } else {
+            for (let paymentPlan of this.paymentPlans) {
+                if (paymentPlan.paymentPlanId === this.policy!.paymentPlanId) {
+                    this.paymentPlansAvailable.push(paymentPlan);
+                }
+            }
+        }
+
+        this._checkFieldPaymenPlanId();
+    } */
+
+    calculatePaymentPlansAvailable(): void {
+        if (this.policy) {
             const startDate = moment(this.policy.validityStartDate);
-            const endDate = moment(UtilitiesHelper.getOriginalDateFormat(this.f.validityEndDate.value));
+            const endDate = moment(
+                UtilitiesHelper.getOriginalDateFormat(
+                    this.f.validityEndDate.value
+                )
+            );
             const totalMonths = endDate.diff(startDate, 'months');
-            this.monthsLeftToPay = totalMonths - this.policy.monthsPaid;
+            this._remainingMonthsToPay = totalMonths - this.policy.monthsPaid;
             this.paymentPlansAvailable = [];
             // If the policy has all their receipts paid
-            if(this.monthsLeftToPay === 0) {
+            if (this._remainingMonthsToPay === 0) {
                 // Set the same payment plan
-                const paymentPlanId: number = parseInt(this.f.paymentPlanId.value);
-                for(let paymentPlan of this.paymentPlans) {
-                    if(paymentPlan.paymentPlanId === paymentPlanId) {
+                const paymentPlanId: number = parseInt(
+                    this.f.paymentPlanId.value
+                );
+                for (let paymentPlan of this.paymentPlans) {
+                    if (paymentPlan.paymentPlanId === paymentPlanId) {
                         this.paymentPlansAvailable.push(paymentPlan);
                         break;
                     }
                 }
             } else {
                 // Set the payment plans available
-                for(let paymentPlan of this.paymentPlans) {
-                    if(paymentPlan.months < this.monthsLeftToPay) {
+                for (let paymentPlan of this.paymentPlans) {
+                    if (paymentPlan.months < this._remainingMonthsToPay) {
                         this.paymentPlansAvailable.push(paymentPlan);
                     }
                 }
             }
         }
-    } */
+    }
 
     getPaymentPlanName(paymentPlanId: number): string {
         const selectedPaymentPlan: PaymentPlan | undefined =
@@ -472,7 +530,7 @@ export class CreateEndorsementService {
 
     getPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         const fields: string =
-            'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,policyNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements,paymentAmount,paymentAmountPaid,titularAge,titularGenderId,contactTypeId,insuranceTypeId,insureds,insuranceGroupId';
+            'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,policyNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements,paymentAmount,paymentAmountPaid,titularAge,titularGenderId,contactTypeId,insuranceTypeId,insureds,insuranceGroupId,paymentDate';
         return this._policyService.getContactPolicy(
             contactId,
             policyId,
@@ -508,7 +566,7 @@ export class CreateEndorsementService {
     }
 
     loadPaymentPlans(): Observable<void> {
-        const fields: string = 'paymentPlanId,name,months';
+        const fields: string = 'paymentPlanId,name,months,receipts';
         return this._paymentPlanService.getPaymentPlans(fields).pipe(
             tap((res: HttpResponse) => {
                 this.paymentPlans = res.data;
@@ -533,6 +591,35 @@ export class CreateEndorsementService {
 
     private _addInsured(insured: Insured): void {
         this.insureds.push(this._newInsured(insured));
+    }
+
+    private _calculateNextPaymentDate(): any {
+        const selectedPaymentPlanId: number = parseInt(
+            this.f.paymentPlanId.value
+        );
+        const selectedPaymentPlan = this._getPaymentPlan(selectedPaymentPlanId);
+        let policyValidityStartDate = moment(this.policy!.validityStartDate);
+        let policyPaymentDate = moment(this.policy!.paymentDate);
+        for (let i = 0; i < selectedPaymentPlan!.receipts; i++) {
+            if (policyPaymentDate.isSameOrBefore(policyValidityStartDate)) {
+                return policyValidityStartDate;
+            }
+            policyValidityStartDate.add(selectedPaymentPlan?.months, 'months');
+        }
+        return '';
+    }
+
+    private _checkFieldPaymenPlanId(): void {
+        // Si el plan de pago seleccionado ya no esta en los planes de pago disponibles, remover el pado seleccionado.
+        if (this.f.paymentPlanId) {
+            const paymentPlanFound = this.paymentPlansAvailable.find(
+                (paymentPlan) =>
+                    paymentPlan.paymentPlanId == this.f.paymentPlanId.value
+            );
+            if (typeof paymentPlanFound === 'undefined') {
+                this.f.paymentPlanId.setValue('');
+            }
+        }
     }
 
     private _addEndorsementPaymentFields(): void {
@@ -602,7 +689,6 @@ export class CreateEndorsementService {
             'bills',
             new FormControl(this.policy!.bills || 0, [Validators.required])
         );
-        this.f.paymentPlanId.disable();
         this.f.bills.disable();
     }
 
@@ -645,6 +731,20 @@ export class CreateEndorsementService {
 
     private _enableValidityEndDateField(): void {
         this.f.validityEndDate.enable();
+    }
+
+    private _getPaymentPlan(paymentPlanId: number): PaymentPlan | null {
+        const paymentPlan: PaymentPlan | undefined = this.paymentPlans.find(
+            (element: PaymentPlan) => element.paymentPlanId == paymentPlanId
+        );
+        return typeof paymentPlan !== 'undefined' ? paymentPlan : null;
+    }
+
+    private _getPaymentPlanMonths(paymentPlanId: number): number {
+        const paymentPlan: PaymentPlan | undefined = this.paymentPlans.find(
+            (element: PaymentPlan) => element.paymentPlanId == paymentPlanId
+        );
+        return !!paymentPlan ? paymentPlan.months : 0;
     }
 
     private _getRequestBodyToCreateEndorsementWithCancellation(): FormData {

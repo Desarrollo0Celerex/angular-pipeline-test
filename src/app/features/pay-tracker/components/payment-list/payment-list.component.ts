@@ -23,6 +23,8 @@ export class PaymentListComponent extends DumbComponent {
     @Output() loadMoreContents: EventEmitter<void> = new EventEmitter<void>();
     @Output() loadPolicy: EventEmitter<void> = new EventEmitter<void>();
     @Output() paymentApplied: EventEmitter<void> = new EventEmitter<void>();
+    canReloadPaymentDetails = false;
+    canReloadApplyPayment = false;
     canRequestEmail: boolean = false;
     canRequestPhoneNumber: boolean = false;
     data: any = { contactId: '', policyId: '', paymentId: '' };
@@ -74,11 +76,20 @@ export class PaymentListComponent extends DumbComponent {
         this.loadPolicy.emit();
     }
 
+    resetCanReloadApplyPayment(): void {
+        this.canReloadApplyPayment = false;
+    }
+
+    resetCanReloadPaymentDetails(): void {
+        this.canReloadPaymentDetails = false;
+    }
+
     trackByPayments(index: number, payment: Payment): string {
         return payment.paymentId;
     }
 
     showModalToApplyPayment(): void {
+        this.canReloadApplyPayment = true;
         ModalPlugin.show(this.modalIdApplyPayment);
     }
 
@@ -142,6 +153,7 @@ export class PaymentListComponent extends DumbComponent {
 
     showModalToShowPaymentDetails(data: any): void {
         this.data = data;
+        this.canReloadPaymentDetails = true;
         ModalPlugin.show(this.modalIdShowPaymentDetails);
     }
 

@@ -21,6 +21,12 @@ export class PaymentStatusNamePipe implements PipeTransform {
             case PAYMENT_STATUS.OVERDUE:
                 name = 'Vencido';
                 break;
+            case PAYMENT_STATUS.PAID:
+                name = 'Pagado';
+                break;
+            case PAYMENT_STATUS.STANDBY:
+                name = 'En espera';
+                break;
             default:
                 name = '';
                 break;
