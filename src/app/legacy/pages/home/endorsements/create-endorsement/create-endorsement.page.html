@@ -1557,7 +1557,50 @@
                                 <div class="form-group">
                                     <!-- AGENTHOS - POLICY PAY BILLS * -->
                                     <label class="form-label"
-                                        >Recibos Restantes</label
+                                        >Recibos del Endoso</label
+                                    >
+                                    <div class="row gutters-sm">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <div
+                                                    class="input-group-prepend"
+                                                >
+                                                    <div
+                                                        class="input-group-text"
+                                                    >
+                                                        <i
+                                                            class="fa fa-list-ol tx-16 lh-0 op-6"
+                                                        ></i>
+                                                    </div>
+                                                </div>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    [value]="model.totalEndorsementReceipts"
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="col-auto align-self-center"
+                                        >
+                                            <span
+                                                class="form-help"
+                                                data-toggle="popover"
+                                                data-placement="top"
+                                                data-content="Cuotas o recibos totales del endoso."
+                                                data-original-title=""
+                                                >?</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - POLICY PAY BILLS * -->
+                                    <label class="form-label"
+                                        >Recibos Totales</label
                                     >
                                     <div class="row gutters-sm">
                                         <div class="col">

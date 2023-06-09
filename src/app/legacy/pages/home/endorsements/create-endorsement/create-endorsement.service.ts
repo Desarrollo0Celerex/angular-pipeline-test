@@ -51,6 +51,7 @@ export class CreateEndorsementService {
     paymentPlans: PaymentPlan[] = [];
     paymentPlansAvailable: PaymentPlan[] = [];
     policy: Policy | null = null;
+    totalEndorsementReceipts = 0;
     private _remainingMonthsToPay = 0;
 
     constructor(
@@ -94,7 +95,8 @@ export class CreateEndorsementService {
                     [Validators.required, ValidatorsHelper.date],
                 ],
                 endorsementValidityEndDate: [
-                    '',
+                    moment(this.policy.validityEndDate).format('DD/MM/YYYY') ||
+                        '',
                     [Validators.required, ValidatorsHelper.date],
                 ],
                 endorsementTypeId: ['', [Validators.required]],
@@ -457,6 +459,7 @@ export class CreateEndorsementService {
                   )
                 : 1;
             const newTotalBills: number = this.policy.receiptsPaid + newBills;
+            this.totalEndorsementReceipts = newBills;
             this.f.bills.setValue(newTotalBills);
         }
     }
