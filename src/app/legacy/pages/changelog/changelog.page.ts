@@ -20,6 +20,16 @@ export class ChangelogPage {
             ],
         },
         {
+            version: '1.47.4',
+            launchDate: '09/06/2023',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: ['Se actualizo interfaz para aplicar endosos'],
+                },
+            ],
+        },
+        {
             version: '1.47.2',
             launchDate: '05/06/2023',
             changes: [

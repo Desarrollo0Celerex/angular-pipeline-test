@@ -231,6 +231,7 @@ export class CreateEndorsementPage implements OnInit {
 
     enableAndDesableFormFields(event: any): void {
         const selectedEndorsementTypeId: number = parseInt(event.target.value);
+        this.model.totalEndorsementReceipts = 0;
         this.model.enableAndDesableFormFields(selectedEndorsementTypeId);
     }
 
