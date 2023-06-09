@@ -38,6 +38,7 @@ import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
 import { PolicyInsuredService } from '@services/policy-insured.service';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
+declare var PopoverPlugin: any;
 
 @Injectable()
 export class CreateEndorsementService {
@@ -351,6 +352,7 @@ export class CreateEndorsementService {
                 this._enablePolicyFields();
                 this._enableValidityEndDateField();
                 this._addEndorsementPaymentFields();
+                this._enableEndorsementPaymentFields();
                 break;
 
             case ENDORSEMENT_TYPES.B:
@@ -626,73 +628,87 @@ export class CreateEndorsementService {
     }
 
     private _addEndorsementPaymentFields(): void {
+        if (this.canShowEndorsementPaymentFields) {
+            this.f.endorsementNetPay.setValue('0.00');
+            this.f.endorsementFeePay.setValue('0.00');
+            this.f.endorsementCoverPay.setValue('0.00');
+            this.f.endorsementExtraPay.setValue('0.00');
+            this.f.endorsementDiscount.setValue('0.00');
+            this.f.endorsementTaxPay.setValue('0.00');
+            this.f.endorsementTotalAmount.setValue('0.00');
+            this.f.paymentMethodId.setValue(this.policy?.paymentMethodId || '');
+            this.f.paymentPlanId.setValue(this.policy?.paymentPlanId || '');
+            this.f.bills.setValue(this.policy?.bills || '0');
+        } else {
+            this.form.addControl(
+                'endorsementNetPay',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'endorsementFeePay',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'endorsementCoverPay',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'endorsementExtraPay',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'endorsementDiscount',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'endorsementTaxPay',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'endorsementTotalAmount',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'paymentMethodId',
+                new FormControl(this.policy?.paymentMethodId || '', [
+                    Validators.required,
+                ])
+            );
+            this.form.addControl(
+                'paymentPlanId',
+                new FormControl(this.policy?.paymentPlanId || '', [
+                    Validators.required,
+                ])
+            );
+            this.form.addControl(
+                'bills',
+                new FormControl(this.policy?.bills || 0, [Validators.required])
+            );
+            this.f.bills.disable();
+            PopoverPlugin.init();
+        }
         this.canShowEndorsementPaymentFields = true;
-        this.form.addControl(
-            'endorsementNetPay',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'endorsementFeePay',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'endorsementCoverPay',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'endorsementExtraPay',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'endorsementDiscount',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'endorsementTaxPay',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'endorsementTotalAmount',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'paymentMethodId',
-            new FormControl(this.policy!.paymentMethodId || '', [
-                Validators.required,
-            ])
-        );
-        this.form.addControl(
-            'paymentPlanId',
-            new FormControl(this.policy!.paymentPlanId || '', [
-                Validators.required,
-            ])
-        );
-        this.form.addControl(
-            'bills',
-            new FormControl(this.policy!.bills || 0, [Validators.required])
-        );
-        this.f.bills.disable();
     }
 
     private _disableFormFields(): void {
@@ -712,6 +728,18 @@ export class CreateEndorsementService {
                 controls[name].disable();
             }
         }
+    }
+
+    private _enableEndorsementPaymentFields(): void {
+        this.f.endorsementNetPay.enable();
+        this.f.endorsementFeePay.enable();
+        this.f.endorsementCoverPay.enable();
+        this.f.endorsementExtraPay.enable();
+        this.f.endorsementDiscount.enable();
+        this.f.endorsementTaxPay.enable();
+        this.f.endorsementTotalAmount.enable();
+        this.f.paymentMethodId.enable();
+        this.f.paymentPlanId.enable();
     }
 
     private _enablePolicyFields(): void {
