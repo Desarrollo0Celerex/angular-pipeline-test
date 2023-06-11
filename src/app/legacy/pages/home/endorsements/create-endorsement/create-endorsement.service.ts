@@ -38,6 +38,10 @@ import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
 import { PolicyInsuredService } from '@services/policy-insured.service';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
+import { CalculatePaymentAmount } from '@core/interfaces/calculate-payment-amount.interface';
+import { PAYMENT_SOURCE_TYPES } from '@core/constants/settings';
+
+declare var PopoverPlugin: any;
 
 @Injectable()
 export class CreateEndorsementService {
@@ -45,6 +49,8 @@ export class CreateEndorsementService {
     canShowEndorsementPaymentFields: boolean = false;
     endorsementTypes: EndorsementType[] = [];
     form: FormGroup = this._formBuilder.group({});
+    fractionalReceiptEndDate = '';
+    fractionalReceiptStartDate = '';
     genders: Gender[] = [];
     isBuiltForm: boolean = false;
     paymentMethods: PaymentMethod[] = [];
@@ -314,10 +320,13 @@ export class CreateEndorsementService {
 
     createEndorsementWithDecrement(
         contactId: string,
-        policyId: string
+        policyId: string,
+        fractionalReceiptAmount: number
     ): Observable<void> {
         const requestBody: FormData =
-            this._getRequestBodyToCreateEndorsementWithDecrement();
+            this._getRequestBodyToCreateEndorsementWithDecrement(
+                fractionalReceiptAmount
+            );
         return this._policyService.createEndorsementWithDecrement(
             contactId,
             policyId,
@@ -351,6 +360,7 @@ export class CreateEndorsementService {
                 this._enablePolicyFields();
                 this._enableValidityEndDateField();
                 this._addEndorsementPaymentFields();
+                this._enableEndorsementPaymentFields();
                 break;
 
             case ENDORSEMENT_TYPES.B:
@@ -364,7 +374,46 @@ export class CreateEndorsementService {
         }
     }
 
-    calculateFractionalReceiptAmount(endorsementTotalAmount: number): number {
+    calculateFractionalReceiptAmountToDecrement(): number {
+        if (this.totalEndorsementReceipts === 0) {
+            return 0;
+        }
+        const oldPolicyPaymentPlan = this._getPaymentPlan(
+            this.policy!.paymentPlanId
+        );
+        // Obtener el número de recibos restantes que hay entre los ya pagados y los nuevos recibos del nuevo plan de pago
+        const totalRemainingReceipts = this._calculateTotalRemainingReceipts();
+        // Calcular el monto que representan dichos recibos restantentes
+        let totalRemainingAmount = 0;
+        for (let i = 0; i < totalRemainingReceipts; i++) {
+            const calculatePaymentAmountData: CalculatePaymentAmount = {
+                paymentPlanReceips: oldPolicyPaymentPlan!.receipts,
+                netPay: this.policy!.netPay,
+                feePay: this.policy!.feePay,
+                coverPay: this.policy!.coverPay,
+                extraPay: this.policy!.extraPay,
+                taxPay: this.policy!.taxPay,
+                discount: this.policy!.discount,
+                paymentSourceTypeId: PAYMENT_SOURCE_TYPES.POLICY,
+                tickets: this.policy!.receiptsPaid + i,
+                paymentPlanId: this.policy!.paymentPlanId,
+                pendingAmount:
+                    parseFloat(this.policy!.paymentAmount.toString()) -
+                    (parseFloat(this.policy!.paymentAmountPaid.toString()) +
+                        totalRemainingAmount),
+                pendingReceipts:
+                    this.policy!.bills - (this.policy!.receiptsPaid + i),
+            };
+            totalRemainingAmount += UtilitiesHelper.calculatePaymentAmount(
+                calculatePaymentAmountData
+            );
+        }
+        return totalRemainingAmount;
+    }
+
+    calculateFractionalReceiptAmountToIncrement(
+        endorsementTotalAmount: number
+    ): number {
         let fractionalReceiptAmount: number = 0;
         const endorsementValidityStartDate = moment(
             this.f.endorsementValidityStartDate.value,
@@ -418,6 +467,7 @@ export class CreateEndorsementService {
             // calcular la prima diaria ((prima neta + cargados extra) / dias de vigencia del endoso)
             const dailyAmount: number =
                 (endorsementNetPay + endorsementExtraPay) / endorsementDays;
+
             // calcular la prima neta del pago fraccionado ( dias prorateados * prima diaria)
             const fractionalReceiptNetPay: number =
                 fractionalReceiptDays * dailyAmount;
@@ -432,6 +482,7 @@ export class CreateEndorsementService {
             // Calcular el iva del sub total (sub total * 0.16)
             const fractionalReceiptTaxPay: number =
                 fractionalReceiptSubTotal * 0.16;
+
             // calcular el monto total del recibo fraccionado (prima neta + pago por financiamiento + derechos de póliza del endoso + iva)
             fractionalReceiptAmount = parseFloat(
                 (
@@ -459,7 +510,10 @@ export class CreateEndorsementService {
                   )
                 : 1;
             const newTotalBills: number = this.policy.receiptsPaid + newBills;
-            this.totalEndorsementReceipts = newBills;
+            this.totalEndorsementReceipts =
+                this.policy!.paymentPlanId != this.f.paymentPlanId.value
+                    ? newBills
+                    : 0;
             this.f.bills.setValue(newTotalBills);
         }
     }
@@ -515,7 +569,10 @@ export class CreateEndorsementService {
             } else {
                 // Set the payment plans available
                 for (let paymentPlan of this.paymentPlans) {
-                    if (paymentPlan.months < this._remainingMonthsToPay) {
+                    if (
+                        paymentPlan.months > 0 &&
+                        paymentPlan.months < this._remainingMonthsToPay
+                    ) {
                         this.paymentPlansAvailable.push(paymentPlan);
                     }
                 }
@@ -533,7 +590,7 @@ export class CreateEndorsementService {
 
     getPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         const fields: string =
-            'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,policyNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements,paymentAmount,paymentAmountPaid,titularAge,titularGenderId,contactTypeId,insuranceTypeId,insureds,insuranceGroupId,paymentDate';
+            'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,policyNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements,paymentAmount,paymentAmountPaid,titularAge,titularGenderId,contactTypeId,insuranceTypeId,insureds,insuranceGroupId,paymentDate,netPay,feePay,coverPay,extraPay,taxPay,discount,';
         return this._policyService.getContactPolicy(
             contactId,
             policyId,
@@ -596,6 +653,30 @@ export class CreateEndorsementService {
         this.insureds.push(this._newInsured(insured));
     }
 
+    private _calculateTotalRemainingReceipts(): number {
+        const oldPolicyPaymentPlan = this._getPaymentPlan(
+            this.policy!.paymentPlanId
+        );
+        let policyValidityStartDate = moment(this.policy!.validityStartDate);
+        let coveredReceipts = 0;
+        const newPolicyNextPaymentDate = this._calculateNextPaymentDate();
+        this.fractionalReceiptStartDate = moment(
+            this.policy!.paymentDate
+        ).format('DD/MM/YYYY');
+        this.fractionalReceiptEndDate =
+            newPolicyNextPaymentDate.format('DD/MM/YYYY');
+        for (let i = 0; i < oldPolicyPaymentPlan!.receipts; i++) {
+            if (
+                newPolicyNextPaymentDate.isSameOrBefore(policyValidityStartDate)
+            ) {
+                break;
+            }
+            coveredReceipts++;
+            policyValidityStartDate.add(oldPolicyPaymentPlan?.months, 'months');
+        }
+        return coveredReceipts - this.policy!.receiptsPaid;
+    }
+
     private _calculateNextPaymentDate(): any {
         const selectedPaymentPlanId: number = parseInt(
             this.f.paymentPlanId.value
@@ -626,73 +707,87 @@ export class CreateEndorsementService {
     }
 
     private _addEndorsementPaymentFields(): void {
+        if (this.canShowEndorsementPaymentFields) {
+            this.f.endorsementNetPay.setValue('0.00');
+            this.f.endorsementFeePay.setValue('0.00');
+            this.f.endorsementCoverPay.setValue('0.00');
+            this.f.endorsementExtraPay.setValue('0.00');
+            this.f.endorsementDiscount.setValue('0.00');
+            this.f.endorsementTaxPay.setValue('0.00');
+            this.f.endorsementTotalAmount.setValue('0.00');
+            this.f.paymentMethodId.setValue(this.policy?.paymentMethodId || '');
+            this.f.paymentPlanId.setValue(this.policy?.paymentPlanId || '');
+            this.f.bills.setValue(this.policy?.bills || '0');
+        } else {
+            this.form.addControl(
+                'endorsementNetPay',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'endorsementFeePay',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'endorsementCoverPay',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'endorsementExtraPay',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'endorsementDiscount',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'endorsementTaxPay',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'endorsementTotalAmount',
+                new FormControl('0.00', [
+                    Validators.required,
+                    ValidatorsHelper.amount,
+                ])
+            );
+            this.form.addControl(
+                'paymentMethodId',
+                new FormControl(this.policy?.paymentMethodId || '', [
+                    Validators.required,
+                ])
+            );
+            this.form.addControl(
+                'paymentPlanId',
+                new FormControl(this.policy?.paymentPlanId || '', [
+                    Validators.required,
+                ])
+            );
+            this.form.addControl(
+                'bills',
+                new FormControl(this.policy?.bills || 0, [Validators.required])
+            );
+            this.f.bills.disable();
+            PopoverPlugin.init();
+        }
         this.canShowEndorsementPaymentFields = true;
-        this.form.addControl(
-            'endorsementNetPay',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'endorsementFeePay',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'endorsementCoverPay',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'endorsementExtraPay',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'endorsementDiscount',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'endorsementTaxPay',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'endorsementTotalAmount',
-            new FormControl('0.00', [
-                Validators.required,
-                ValidatorsHelper.amount,
-            ])
-        );
-        this.form.addControl(
-            'paymentMethodId',
-            new FormControl(this.policy!.paymentMethodId || '', [
-                Validators.required,
-            ])
-        );
-        this.form.addControl(
-            'paymentPlanId',
-            new FormControl(this.policy!.paymentPlanId || '', [
-                Validators.required,
-            ])
-        );
-        this.form.addControl(
-            'bills',
-            new FormControl(this.policy!.bills || 0, [Validators.required])
-        );
-        this.f.bills.disable();
     }
 
     private _disableFormFields(): void {
@@ -712,6 +807,18 @@ export class CreateEndorsementService {
                 controls[name].disable();
             }
         }
+    }
+
+    private _enableEndorsementPaymentFields(): void {
+        this.f.endorsementNetPay.enable();
+        this.f.endorsementFeePay.enable();
+        this.f.endorsementCoverPay.enable();
+        this.f.endorsementExtraPay.enable();
+        this.f.endorsementDiscount.enable();
+        this.f.endorsementTaxPay.enable();
+        this.f.endorsementTotalAmount.enable();
+        this.f.paymentMethodId.enable();
+        this.f.paymentPlanId.enable();
     }
 
     private _enablePolicyFields(): void {
@@ -818,7 +925,9 @@ export class CreateEndorsementService {
         return requestBody;
     }
 
-    private _getRequestBodyToCreateEndorsementWithDecrement(): FormData {
+    private _getRequestBodyToCreateEndorsementWithDecrement(
+        fractionalReceiptAmount: number
+    ): FormData {
         let endorsementNetPay: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(
                 this.f.endorsementNetPay.value
@@ -933,6 +1042,10 @@ export class CreateEndorsementService {
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);
+        requestBody.append(
+            'fractionalReceiptAmount',
+            fractionalReceiptAmount.toString()
+        );
 
         if (this.policy!.contactTypeId === CONTACT_TYPES.PERSON) {
             requestBody.append('titularGenderId', this.f.titularGenderId.value);

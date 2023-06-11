@@ -1633,7 +1633,7 @@
                                                 class="form-help"
                                                 data-toggle="popover"
                                                 data-placement="top"
-                                                data-content="Cuotas o recibos totales del endoso."
+                                                data-content="Cuotas o recibos totales de la póliza."
                                                 data-original-title=""
                                                 >?</span
                                             >
@@ -1747,12 +1747,23 @@
 </ng-container>
 
 <agt-modal-confirm-apply-fractional-receipt
-    [modalId]="modalIdConfirmApplyFractionalReceipt"
+    [modalId]="modalIdConfirmApplyFractionalReceiptInIncrement"
     [maxAmount]="endorsementTotalAmount"
     [fractionalReceiptAmount]="fractionalReceiptAmount"
     (actionConfirmed)="createEndorsementWithFractionalReceipt($event)"
     (actionCancelled)="createEndorsementWithoutFractionalReceipt()"
 ></agt-modal-confirm-apply-fractional-receipt>
+
+<agt-modal-confirm-apply-fractional-receipt-in-decrement
+    [modalId]="modalIdConfirmApplyFractionalReceiptInDecrement"
+    [policyAmount]="policyAmount"
+    [endorsementAmount]="endorsementTotalAmount"
+    [fractionalReceiptAmount]="fractionalReceiptAmount"
+    [fractionalReceiptStartDate]="model.fractionalReceiptStartDate"
+    [fractionalReceiptEndDate]="model.fractionalReceiptEndDate"
+    [paymentPlanName]="selectedPaymentPlanName"
+    (actionConfirmed)="createEndorsementWithDecrement()"
+></agt-modal-confirm-apply-fractional-receipt-in-decrement>
 
 <ng-template #loadingContent>
     <agt-loading-content [isLoadingContent]="true"></agt-loading-content>
