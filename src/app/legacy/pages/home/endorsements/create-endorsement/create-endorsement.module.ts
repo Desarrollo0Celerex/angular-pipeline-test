@@ -15,6 +15,7 @@ import { ModalPolicyAmountsDifferentModule } from '@components/modal-policy-amou
 import { ModalSelectEndorsementPaymentMethodModule } from '@components/modal-select-endorsement-payment-method/modal-select-endorsement-payment-method.module';
 import { ModalSelectEvidenceModule } from '@components/modal-select-evidence/modal-select-evidence.module';
 import { ModalSelectFileModule } from '@components/modal-select-file/modal-select-file.module';
+import { ModalConfirmApplyFractionalReceiptInDecrementModule } from '@components/modal-confirm-apply-fractional-receipt-in-decrement/modal-confirm-apply-fractional-receipt-in-decrement.module';
 
 import { EndorsementTypeService } from '@services/endorsement-type.service';
 import { GendersService } from '@services/genders.service';
@@ -27,35 +28,34 @@ import { CreateEndorsementRoutingModule } from './create-endorsement-routing.mod
 import { CreateEndorsementPage } from './create-endorsement.page';
 
 @NgModule({
-  declarations: [
-    CreateEndorsementPage
-  ],
-  imports: [
-    CommonModule,
-    ContainerContactDetailsModule,
-    CreateEndorsementRoutingModule,
-    DropdownSelectPhoneCodeModule,
-    FormsModule,
-    LoadingContentModule,
-    ModalConfirmApplyEndorsementModule,
-    ModalConfirmApplyEndorsementWithDecrementModule,
-    modalConfirmApplyEndorsementWithIncrementModule,
-    ModalConfirmApplyEndorsementWithoutChangesModule,
-    modalConfirmApplyFractionalReceiptModule,
-    ModalNotifyEndorsementCannotBeAppliedModule,
-    ModalPolicyAmountsDifferentModule,
-    ModalSelectEndorsementPaymentMethodModule,
-    ModalSelectEvidenceModule,
-    ModalSelectFileModule,
-    ReactiveFormsModule,
-  ],
-  providers: [
-    EndorsementTypeService,
-    GendersService,
-    PaymentMethodService,
-    PaymentPlanService,
-    PolicyService,
-    PolicyInsuredService
-  ]
+    declarations: [CreateEndorsementPage],
+    imports: [
+        CommonModule,
+        ContainerContactDetailsModule,
+        CreateEndorsementRoutingModule,
+        DropdownSelectPhoneCodeModule,
+        FormsModule,
+        LoadingContentModule,
+        ModalConfirmApplyEndorsementModule,
+        ModalConfirmApplyEndorsementWithDecrementModule,
+        modalConfirmApplyEndorsementWithIncrementModule,
+        ModalConfirmApplyEndorsementWithoutChangesModule,
+        modalConfirmApplyFractionalReceiptModule,
+        ModalConfirmApplyFractionalReceiptInDecrementModule,
+        ModalNotifyEndorsementCannotBeAppliedModule,
+        ModalPolicyAmountsDifferentModule,
+        ModalSelectEndorsementPaymentMethodModule,
+        ModalSelectEvidenceModule,
+        ModalSelectFileModule,
+        ReactiveFormsModule,
+    ],
+    providers: [
+        EndorsementTypeService,
+        GendersService,
+        PaymentMethodService,
+        PaymentPlanService,
+        PolicyService,
+        PolicyInsuredService,
+    ],
 })
-export class CreateEndorsementModule { }
+export class CreateEndorsementModule {}

@@ -49,8 +49,10 @@ export class CreateEndorsementPage implements OnInit {
         'agt-confirm-apply-endorsement-with-increment';
     modalIdConfirmApplyEndorsementWithoutChanges: string =
         'agt-confirm-apply-endorsement-without-changes';
-    modalIdConfirmApplyFractionalReceipt: string =
+    modalIdConfirmApplyFractionalReceiptInIncrement: string =
         'agt-confirm-apply-fractional-receipt';
+    modalIdConfirmApplyFractionalReceiptInDecrement: string =
+        'agt-confirm-apply-fractional-receipt-in-decrement';
     modalIdEndorsementAmountsDifferent: string =
         'agt-endorsement-amounts-different';
     modalIdNotifyEndorsementCannotBeApplied: string =
@@ -201,7 +203,23 @@ export class CreateEndorsementPage implements OnInit {
                     this.model.checkHasPolicyPendingReceipts() &&
                     policyPendingAmount > this.endorsementTotalAmount
                 ) {
-                    this._showModalToConfirmApplyEndorsementWithDecrement();
+                    this.fractionalReceiptAmount =
+                        this.model.calculateFractionalReceiptAmountToDecrement();
+                    console.log(
+                        'this.fractionalReceiptAmount: ',
+                        this.fractionalReceiptAmount
+                    );
+
+                    if (this.fractionalReceiptAmount === 0) {
+                        console.log('Aplicar el endosos normalmente =)');
+                        this._showModalToConfirmApplyEndorsementWithDecrement();
+                    } else {
+                        // TODO: Mostrar modal para notificar al usuario que se generara un recibo fraccionado por el valor de X
+                        console.log(
+                            'Mostrar modal para confirmar recibo fraccionado :)'
+                        );
+                        this._showModalToConfirmApplyFractionalReceiptInDecrement();
+                    }
                 } else {
                     this._showModalToNotifyEndorsementCannotBeApplied();
                 }
@@ -289,10 +307,10 @@ export class CreateEndorsementPage implements OnInit {
     selectEndorsementPaymentMethod(paymentMethodId: number): void {
         this.selectedEndorsementPaymentMethodId = paymentMethodId;
         this.fractionalReceiptAmount =
-            this.model.calculateFractionalReceiptAmount(
+            this.model.calculateFractionalReceiptAmountToIncrement(
                 this.endorsementTotalAmount
             );
-        this._showModalToConfirmApplyFractionalReceipt();
+        this._showModalToConfirmApplyFractionalReceiptInIncrement();
     }
 
     selectTitularPhoneCodeId(titularPhoneCodeId: number): void {
@@ -369,7 +387,11 @@ export class CreateEndorsementPage implements OnInit {
     private _createEndorsementWithDecrement(): void {
         this._loadingService.show();
         this.model
-            .createEndorsementWithDecrement(this.contactId, this.policyId)
+            .createEndorsementWithDecrement(
+                this.contactId,
+                this.policyId,
+                this.fractionalReceiptAmount
+            )
             .subscribe(() => {
                 this._handleSuccessfulEndorsementCreation();
             });
@@ -489,8 +511,12 @@ export class CreateEndorsementPage implements OnInit {
         ModalPlugin.show(this.modalIdConfirmApplyEndorsementWithoutChanges);
     }
 
-    private _showModalToConfirmApplyFractionalReceipt(): void {
-        ModalPlugin.show(this.modalIdConfirmApplyFractionalReceipt);
+    private _showModalToConfirmApplyFractionalReceiptInIncrement(): void {
+        ModalPlugin.show(this.modalIdConfirmApplyFractionalReceiptInIncrement);
+    }
+
+    private _showModalToConfirmApplyFractionalReceiptInDecrement(): void {
+        ModalPlugin.show(this.modalIdConfirmApplyFractionalReceiptInDecrement);
     }
 
     private _showModalToNotifyEndorsementCannotBeApplied(): void {
