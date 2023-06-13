@@ -16,6 +16,8 @@ import { StorageService } from '@core/services/storage/storage.service';
     providedIn: 'root',
 })
 export class AuthService {
+    public activationCode = '';
+
     constructor(
         private _firebaseService: FirebaseService,
         private _apiHttp: ApiHttp,
@@ -92,14 +94,20 @@ export class AuthService {
         return this._apiHttp.get(route);
     }
 
-    goToAtomAccount(): void {
+    goToAtomAccount(activationCode: string = ''): void {
         const atomAccountLoginUrl: string = `${environment.atomAccountUrl}/auth/identifier`;
-        const returnUrl: string = `${environment.appAgenthosUrl}/auth/identify-user`;
+        let returnUrl: string = `${environment.appAgenthosUrl}/auth/identify-user`;
+        if (activationCode) {
+            returnUrl += `?activationCode=${activationCode}`;
+        }
+        console.log('returnUrl: ', returnUrl);
+
         let loginUrl = `${atomAccountLoginUrl}?serviceName=Agenthos&returnUrl=${returnUrl}`;
         const redirectUrl: string = this._getRedirectUrl();
         if (!!redirectUrl) {
             loginUrl += `&redirectUrl=${redirectUrl}`;
         }
+        console.log('loginUrl: ', loginUrl);
         window.location.href = loginUrl;
     }
 

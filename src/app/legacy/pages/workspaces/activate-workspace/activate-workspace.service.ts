@@ -29,6 +29,10 @@ export class ActivateWorkspaceService {
         return this._workspaceService.activateWorkspace(code);
     }
 
+    getActivationCode(): string {
+        return this._authService.activationCode;
+    }
+
     /**
      * Get the firebase token
      * @param  workspaceId Workspace id

@@ -27,16 +27,8 @@ export class ModalShowPolicyFileComponent implements OnChanges {
     constructor(public _model: ModalShowPolicyFileService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (
-            !!changes.contactId &&
-            !!changes.contactId.currentValue &&
-            !!changes.policyId &&
-            !!changes.policyId.currentValue
-        ) {
-            this.loadPolicyUrl(
-                changes.contactId.currentValue,
-                changes.policyId.currentValue
-            );
+        if (this.contactId && this.policyId) {
+            this.loadPolicyUrl(this.contactId, this.policyId);
         }
     }
 

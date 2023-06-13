@@ -13,6 +13,7 @@ import { LoadingService } from '@core/services/loading/loading.service';
     styles: [],
 })
 export class IdentifyUserPage {
+    private _activationCode = '';
     private _authToken: string;
     private _redirectUrl: string;
 
@@ -44,6 +45,12 @@ export class IdentifyUserPage {
         this._redirectUrl =
             this._activatedRoute.snapshot.queryParams['redirectUrl'] ||
             ROUTES_NAME.workspaceWelcome;
+        this._authService.activationCode =
+            this._activatedRoute.snapshot.queryParams['activationCode'] || '';
+        console.log(
+            'this._authService.activationCode: ',
+            this._authService.activationCode
+        );
     }
 
     /**

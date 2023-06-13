@@ -11,6 +11,7 @@ import { InitModalSyncCalendar } from '@features/tasks/interfaces/init-modal-syn
 import { Task } from '@features/tasks/interfaces/task.interface';
 import { TaskService } from '@features/tasks/services/task.service';
 import { ModalHelper } from '@core/helpers/modal.helper';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'agt-modal-sync-calendar',
@@ -104,7 +105,7 @@ export class ModalSyncCalendarComponent
         let link = 'https://outlook.live.com/calendar/0/deeplink/compose?';
         link += 'body=' + encodeURIComponent(this._task!.taskDetails);
         link += '&';
-        link += 'location=' + encodeURIComponent('https://app.agenthos.com');
+        link += 'location=' + encodeURIComponent(environment.appAgenthosUrl);
         link += '&';
         link += 'path=' + encodeURIComponent('/calendar/action/compose');
         link += '&';
