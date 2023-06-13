@@ -118,11 +118,11 @@ export const WORKSPACE_ENDPOINTS: any = {
     workspaceTiktokUrl: (workspaceId: string) =>
         `${environment.apiUrl}/workspaces/${workspaceId}/tiktok-url`,
     workspaceRetentionRate: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/tiktok-url/stats/retention-rate`,
+        `${environment.apiUrl}/workspaces/${workspaceId}/stats/retention-rate`,
     workspaceHigherRetentionRate: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/tiktok-url/stats/retention-rate/higher`,
+        `${environment.apiUrl}/workspaces/${workspaceId}/stats/retention-rate/higher`,
     workspaceLowerRetentionRate: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/tiktok-url/stats/retention-rate/lower`,
+        `${environment.apiUrl}/workspaces/${workspaceId}/stats/retention-rate/lower`,
 };
 
 export const WORKSPACE_USER_ENDPOINTS: any = {

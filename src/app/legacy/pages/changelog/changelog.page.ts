@@ -8,6 +8,22 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.6',
+            launchDate: '13/06/2023',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se agrago proceso para activar un espacio de trabajo de forma automatica.',
+                        'Se resolvio bug en endosos para mostrar el plan de pago exacto.',
+                        'Se resolvio bug en data suite - clientes.',
+                        'Se resolvio bug al descargar póliza desde un pago de un mismo cliente.',
+                        'Se agrego nuevo title al modulo de Pay Tracker y Task Planner.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.5',
             launchDate: '10/06/2023',
             changes: [

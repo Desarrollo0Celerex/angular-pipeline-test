@@ -12,10 +12,26 @@ const routes: Routes = [
         redirectTo: `/${TASKS_ROUTES.MODULE}/${TASKS_ROUTES.TASKS}`,
         pathMatch: 'full',
     },
-    { path: TASKS_ROUTES.TASKS, component: TasksPage },
-    { path: TASKS_ROUTES.CALENDAR, component: CalendarPage },
-    { path: TASKS_ROUTES.TASK_RESULTS, component: TaskResultsPage },
-    { path: TASKS_ROUTES.TASK_RECORD(':taskId'), component: TasksPage },
+    {
+        path: TASKS_ROUTES.TASKS,
+        component: TasksPage,
+        title: 'Agenthos - Task Planner',
+    },
+    {
+        path: TASKS_ROUTES.CALENDAR,
+        component: CalendarPage,
+        title: 'Agenthos - Task Planner',
+    },
+    {
+        path: TASKS_ROUTES.TASK_RESULTS,
+        component: TaskResultsPage,
+        title: 'Agenthos - Task Planner',
+    },
+    {
+        path: TASKS_ROUTES.TASK_RECORD(':taskId'),
+        component: TasksPage,
+        title: 'Agenthos - Task Planner',
+    },
 ];
 
 @NgModule({

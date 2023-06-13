@@ -16,14 +16,17 @@ const routes: Routes = [
     {
         path: PAY_TRACKER_ROUTES.PAYMENTS,
         component: PaymentsPage,
+        title: 'Agenthos - Pay Tracker',
     },
     {
         path: PAY_TRACKER_ROUTES.SEARCH_RESULTS,
         component: SearchResultsPage,
+        title: 'Agenthos - Pay Tracker',
     },
     {
         path: PAY_TRACKER_ROUTES.CALENDAR,
         component: CalendarPage,
+        title: 'Agenthos - Pay Tracker',
     },
 ];
 

@@ -571,7 +571,7 @@ export class CreateEndorsementService {
                 for (let paymentPlan of this.paymentPlans) {
                     if (
                         paymentPlan.months > 0 &&
-                        paymentPlan.months < this._remainingMonthsToPay
+                        paymentPlan.months <= this._remainingMonthsToPay
                     ) {
                         this.paymentPlansAvailable.push(paymentPlan);
                     }

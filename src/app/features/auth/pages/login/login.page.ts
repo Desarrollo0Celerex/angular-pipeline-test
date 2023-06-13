@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ROUTES_NAME } from '@constants/routes-name';
+import { SmartComponent } from '@core/classes/smart-component';
 
 import { AuthService } from '@features/auth/services/auth.service';
 
@@ -9,15 +10,36 @@ import { AuthService } from '@features/auth/services/auth.service';
     template: '',
     styles: [],
 })
-export class LoginPage implements OnInit {
-    constructor(private _authService: AuthService, private _router: Router) {}
+export class LoginPage extends SmartComponent implements OnInit {
+    activationCode = '';
+
+    constructor(
+        private _activatedRoute: ActivatedRoute,
+        private _authService: AuthService,
+        private _router: Router
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
         if (this._authService.checkIsLoggedIn()) {
             this._goToDashboard();
         } else {
-            this._authService.goToAtomAccount();
+            this.catchParams();
+            console.log('this.activationCode: ', this.activationCode);
+
+            this._authService.goToAtomAccount(this.activationCode);
         }
+    }
+
+    private catchParams(): void {
+        this._activatedRoute.queryParams
+            .pipe(this.untilComponentDestroy())
+            .subscribe((params) => {
+                console.log(params);
+
+                this.activationCode = params.activationCode || '';
+            });
     }
 
     private _goToDashboard(): void {
