@@ -9,7 +9,7 @@ import { SinisterEvidence } from '@interfaces/sinister-evidence.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { AuthService } from '@features/auth/services/auth.service';
 
-const routes: any = {
+export const SINISTER_EVIDENCE_ENDPOINTS: any = {
     sinisterEvidences: (
         workspaceId: string,
         contactId: string,
@@ -42,7 +42,7 @@ export class SinisterEvidenceService {
         fields: string = '',
         sortBy: string = '-createdAt'
     ): Observable<SinisterEvidence[]> {
-        const route: string = routes.sinisterEvidences(
+        const route: string = SINISTER_EVIDENCE_ENDPOINTS.sinisterEvidences(
             this._workspaceId,
             sinisterData.contactId,
             sinisterData.policyId,
@@ -60,7 +60,7 @@ export class SinisterEvidenceService {
         sinisterData: SinisterDataSend,
         requestBody: FormData
     ): Observable<void> {
-        const route: string = routes.sinisterEvidences(
+        const route: string = SINISTER_EVIDENCE_ENDPOINTS.sinisterEvidences(
             this._workspaceId,
             sinisterData.contactId,
             sinisterData.policyId,

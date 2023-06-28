@@ -1,23 +1,57 @@
-<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
             <form [formGroup]="model.form" (submit)="uploadSinisterEvidence()">
                 <div class="modal-header">
                     <!-- AGENTHOS - DETAILS CARD -->
                     <h5 class="modal-title">Cargar Evidencia</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                    >
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <!-- AGENTHOS - EVIDENCE INFO -->
-                    <ol class="breadcrumb1"><li class="breadcrumb-item1">Selecciona el archivo que deseas agregar como evidencia.</li></ol>
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1">
+                            Selecciona el archivo que deseas agregar como
+                            evidencia.
+                        </li>
+                    </ol>
                     <!-- //AGENTHOS - EVIDENCE INFO -->
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group {{getValidationClass('evidenceFile')}}">
-                                <input class="form-control dropify" type="file" data-max-file-size="2M" formControlName="evidenceFile" (change)="onChangeFile($event)"/>
-                                <div class="invalid-feedback">{{getErrorMessage('evidenceFile')}}</div>
+                            <div id="agt-file-container">
+                                <div
+                                    class="form-group {{
+                                        getValidationClass('file')
+                                    }}"
+                                >
+                                    <input
+                                        id="dropify"
+                                        type="file"
+                                        class="form-control dropify"
+                                        (click)="$event.preventDefault()"
+                                    />
+                                    <input
+                                        type="hidden"
+                                        name="fileHidden"
+                                        formControlName="file"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{ getErrorMessage("file") }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -25,29 +59,78 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER EVIDENCE NAME * -->
-                                <label class="form-label">Nombre de la Evidencia</label>
-                                <input type="text" class="form-control {{getValidationClass('name')}}" placeholder="Ingresa el nombre de la evidencia" formControlName="name">
-                                <div class="invalid-feedback">{{getErrorMessage('name')}}</div>
+                                <label class="form-label"
+                                    >Nombre de la Evidencia</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control {{
+                                        getValidationClass('fileName')
+                                    }}"
+                                    placeholder="Ingresa el nombre de la evidencia"
+                                    formControlName="fileName"
+                                />
+                                <div class="invalid-feedback">
+                                    {{ getErrorMessage("fileName") }}
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER EVIDENCE CLASS * -->
-                                <label class="form-label">Tipo de Evidencia</label>
-                                <select class="form-control {{getValidationClass('sinisterEvidenceTypeId')}}" formControlName="sinisterEvidenceTypeId">
-                                    <option [value]="sinisterEvidenceType.sinisterEvidenceTypeId" *ngFor="let sinisterEvidenceType of model.sinisterEvidenceTypes">{{sinisterEvidenceType.name | uppercase}}</option>
+                                <label class="form-label"
+                                    >Tipo de Evidencia</label
+                                >
+                                <select
+                                    class="form-control {{
+                                        getValidationClass(
+                                            'sinisterEvidenceTypeId'
+                                        )
+                                    }}"
+                                    formControlName="sinisterEvidenceTypeId"
+                                >
+                                    <option
+                                        [value]="
+                                            sinisterEvidenceType.sinisterEvidenceTypeId
+                                        "
+                                        *ngFor="
+                                            let sinisterEvidenceType of model.sinisterEvidenceTypes
+                                        "
+                                    >
+                                        {{
+                                            sinisterEvidenceType.name
+                                                | uppercase
+                                        }}
+                                    </option>
                                 </select>
-                                <div class="invalid-feedback">{{getErrorMessage('sinisterEvidenceTypeId')}}</div>
+                                <div class="invalid-feedback">
+                                    {{
+                                        getErrorMessage(
+                                            "sinisterEvidenceTypeId"
+                                        )
+                                    }}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer text-center">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary btn-block"><strong>CARGAR EVIDENCIA</strong></button>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <strong>CARGAR EVIDENCIA</strong>
+                        </button>
                     </div>
                 </div>
             </form>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
+
+<agt-file-uploader
+    #fileUploader
+    [endpoint]="fileEndpoint"
+    [maxFileSize]="maxFileSize"
+    [allowedFileExtensions]="allowedFileExtensions"
+    (fileSelected)="patchFileValue($event)"
+    (fileUploaded)="contactFileUploaded()"
+></agt-file-uploader>

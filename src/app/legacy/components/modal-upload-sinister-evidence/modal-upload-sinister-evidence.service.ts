@@ -48,8 +48,8 @@ export class ModalUploadSinisterEvidenceService {
 
     private _buildForm(): FormGroup {
         return this._formBuilder.group({
-            evidenceFile: ['', [Validators.required]],
-            name: [
+            file: ['', [Validators.required]],
+            fileName: [
                 '',
                 [
                     Validators.required,
@@ -64,8 +64,8 @@ export class ModalUploadSinisterEvidenceService {
 
     private _getRequestBody(): FormData {
         const requestBody: FormData = new FormData();
-        requestBody.append('evidenceFile', this.f.evidenceFile.value);
-        requestBody.append('name', this.f.name.value);
+        requestBody.append('file', this.f.file.value);
+        requestBody.append('fileName', this.f.fileName.value);
         requestBody.append(
             'sinisterEvidenceTypeId',
             this.f.sinisterEvidenceTypeId.value
