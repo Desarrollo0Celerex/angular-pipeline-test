@@ -1,54 +1,143 @@
-<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Evidencias del Siniestro</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<ol class="breadcrumb1"><li class="breadcrumb-item1">Este siniestro cuenta con <strong>{{model.sinisterEvidences.length}}</strong> evidencias cargadas. {{(model.sinisterEvidences.length > 0) ? 'Selecciona una evidencia para ver los detalles' : 'Carga una evidencia para continuar'}}.</li></ol>
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Evidencias del Siniestro</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ol class="breadcrumb1">
+                    <li class="breadcrumb-item1">
+                        Este siniestro cuenta con
+                        <strong>{{model.sinisterEvidences.length}}</strong>
+                        evidencias cargadas. {{(model.sinisterEvidences.length >
+                        0) ? 'Selecciona una evidencia para ver los detalles' :
+                        'Carga una evidencia para continuar'}}.
+                    </li>
+                </ol>
                 <div class="row" *ngIf="model.sinisterEvidences.length > 0">
-					<div class="col-md-12 mt-3">
-						<div class="list-group list-lg-group list-group-flush">
-
-							<div class="list-group-item list-group-item-action" *ngFor="let sinisterEvidence of model.sinisterEvidences">
-								<div class="media mt-0">
-									<div class="media-body">
-										<div class="d-flex align-items-center">
-											<div class="mt-0">
-												<ng-container [ngSwitch]="sinisterEvidence.extension">
-													<div class="badge badge-success-gradient mr-1 mb-3" *ngSwitchCase="'pdf'">PDF</div>
-													<div class="badge badge-warning-gradient mr-1 mb-3" *ngSwitchCase="(sinisterEvidence.extension === 'png' || sinisterEvidence.extension === 'jpg' || sinisterEvidence.extension === 'jpeg' || sinisterEvidence.extension === 'gif' || sinisterEvidence.extension === 'bmp') ? sinisterEvidence.extension : ''">IMAGEN</div>
-													<div class="badge badge-info-gradient mr-1 mb-3" *ngSwitchDefault>ARCHIVO</div>
-												</ng-container>
-												<h5 class="mb-3">{{(sinisterEvidence.name) ? (sinisterEvidence.name | uppercase) : ''}}</h5>
-												<h6><span class="text-primary text-left"><i class="fe fe-calendar mr-2"></i></span>{{(!!sinisterEvidence.createdAt) ? (sinisterEvidence.createdAt | date: 'dd/MM/yyyy') : ''}}</h6>
-												<h6><span class="text-primary text-left"><i class="fe fe-folder mr-2"></i></span>{{(sinisterEvidence.sinisterEvidenceTypeName) ? (sinisterEvidence.sinisterEvidenceTypeName | uppercase) : '' }}</h6>
-											</div>
-											<small class="ml-auto fs-16 mt-2">
-												<button type="button" class="btn btn-primary" (click)="showModalToDownloadSinisterEvidence(sinisterEvidence.evidenceUrl)"><i class="fe fe-download-cloud"></i></button>
-											</small>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- //AGENTHOS - EVIDENCE FOUND -->
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-block btn-secondary" (click)="showModalToUploadSinisterEvidence()"><strong>CARGAR EVIDENCIA</strong></button>
-			</div>
-		</div>
-	</div>
+                    <div class="col-md-12 mt-3">
+                        <div class="list-group list-lg-group list-group-flush">
+                            <div
+                                class="list-group-item list-group-item-action"
+                                *ngFor="let sinisterEvidence of model.sinisterEvidences"
+                            >
+                                <div class="media mt-0">
+                                    <img
+                                        *ngIf="sinisterEvidence.extension === 'png' || sinisterEvidence.extension === 'jpg' || sinisterEvidence.extension === 'jpeg' || sinisterEvidence.extension === 'gif' || sinisterEvidence.extension === 'bmp'"
+                                        class="mr-3"
+                                        style="width: 88px !important"
+                                        [src]="sinisterEvidence.evidenceUrl"
+                                        alt="Image description"
+                                    />
+                                    <div class="media-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mt-0">
+                                                <ng-container
+                                                    [ngSwitch]="sinisterEvidence.extension"
+                                                >
+                                                    <div
+                                                        class="badge badge-success-gradient mr-1 mb-3"
+                                                        *ngSwitchCase="'pdf'"
+                                                    >
+                                                        PDF
+                                                    </div>
+                                                    <div
+                                                        class="badge badge-warning-gradient mr-1 mb-3"
+                                                        *ngSwitchCase="(sinisterEvidence.extension === 'png' || sinisterEvidence.extension === 'jpg' || sinisterEvidence.extension === 'jpeg' || sinisterEvidence.extension === 'gif' || sinisterEvidence.extension === 'bmp') ? sinisterEvidence.extension : ''"
+                                                    >
+                                                        IMAGEN
+                                                    </div>
+                                                    <div
+                                                        class="badge badge-danger-gradient mr-1 mb-3"
+                                                        *ngSwitchCase="(sinisterEvidence.extension === 'mp4' || sinisterEvidence.extension === 'mov' || sinisterEvidence.extension === 'wmv' || sinisterEvidence.extension === 'avi' || sinisterEvidence.extension === 'flv' || sinisterEvidence.extension === 'm3u8' || sinisterEvidence.extension === '3gp') ? sinisterEvidence.extension : ''"
+                                                    >
+                                                        VIDEO
+                                                    </div>
+                                                    <div
+                                                        class="badge badge-info-gradient mr-1 mb-3"
+                                                        *ngSwitchDefault
+                                                    >
+                                                        ARCHIVO
+                                                    </div>
+                                                </ng-container>
+                                                <h5 class="mb-3">
+                                                    {{(sinisterEvidence.name) ?
+                                                    (sinisterEvidence.name |
+                                                    uppercase) : ''}}
+                                                </h5>
+                                                <h6>
+                                                    <span
+                                                        class="text-primary text-left"
+                                                        ><i
+                                                            class="fe fe-calendar mr-2"
+                                                        ></i></span
+                                                    >{{(!!sinisterEvidence.createdAt)
+                                                    ?
+                                                    (sinisterEvidence.createdAt
+                                                    | date: 'dd/MM/yyyy') : ''}}
+                                                </h6>
+                                                <h6>
+                                                    <span
+                                                        class="text-primary text-left"
+                                                        ><i
+                                                            class="fe fe-folder mr-2"
+                                                        ></i></span
+                                                    >{{(sinisterEvidence.sinisterEvidenceTypeName)
+                                                    ?
+                                                    (sinisterEvidence.sinisterEvidenceTypeName
+                                                    | uppercase) : '' }}
+                                                </h6>
+                                            </div>
+                                            <small class="ml-auto fs-16 mt-2">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-primary"
+                                                    (click)="showModalToDownloadSinisterEvidence(sinisterEvidence.evidenceUrl)"
+                                                >
+                                                    <i
+                                                        class="fe fe-download-cloud"
+                                                    ></i>
+                                                </button>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //AGENTHOS - EVIDENCE FOUND -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-block btn-secondary"
+                    (click)="showModalToUploadSinisterEvidence()"
+                >
+                    <strong>CARGAR EVIDENCIA</strong>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <agt-modal-upload-sinister-evidence
     [modalId]="modalIdToUploadSinisterEvidence"
-	[sinisterData]="sinisterData"
+    [sinisterData]="sinisterData"
 ></agt-modal-upload-sinister-evidence>
 
 <agt-wrapper-download-sinister-evidence

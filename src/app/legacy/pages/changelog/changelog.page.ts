@@ -8,6 +8,22 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.7',
+            launchDate: '29/06/2023',
+            changes: [
+                {
+                    title: 'Care Center',
+                    items: [
+                        'Se agrego busqueda de siniestros por número de serie.',
+                        'Se agrego carga de video en las evidencias del siniestro.',
+                        'Se agrego inhabilitación de elementos en base a su rol.',
+                        'Se agrego la gestion de ejecutivos de un siniestro.',
+                        'Se agrego vista previa de imagenes al ver las evidencias de un siniestro.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.6',
             launchDate: '13/06/2023',
             changes: [

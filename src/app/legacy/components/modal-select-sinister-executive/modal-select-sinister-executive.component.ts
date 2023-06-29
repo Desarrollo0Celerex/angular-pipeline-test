@@ -51,6 +51,12 @@ export class ModalSelectSinisterExecutiveComponent implements OnInit {
         this._loadExecutives();
     }
 
+    closeModal(): void {
+        this.form.reset();
+        this.form.patchValue({ phoneCodeId: DEFAULT_PHONE_CODE_ID });
+        ModalPlugin.hide(this.modalId);
+    }
+
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null = this.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
@@ -142,7 +148,7 @@ export class ModalSelectSinisterExecutiveComponent implements OnInit {
     }
 
     private _hasExecutiveId(): boolean {
-        return this.form.value.executiveId !== '';
+        return this.form.value.executiveId;
     }
 
     private _loadExecutives(): void {
