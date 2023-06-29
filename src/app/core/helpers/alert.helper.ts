@@ -23,6 +23,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static executiveSelected(): void {
+        const alertData: Alert = {
+            title: 'Ejecutivo Seleccionado',
+            text: 'El ejecutivo se seleciono con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+        };
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static contactSourceUpdated(): void {
         const alertData: Alert = {
             title: 'Canal Actualizado',

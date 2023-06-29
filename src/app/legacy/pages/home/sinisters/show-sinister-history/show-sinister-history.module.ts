@@ -5,8 +5,10 @@ import { ContainerInsuredDetailsModule } from '@components/container-insured-det
 import { ContainerPolicyDetailsModule } from '@components/container-policy-details/container-policy-details.module';
 import { ContainerReportEventModule } from '@components/container-report-event/container-report-event.module';
 import { ContentListModule } from '@components/content-list/content-list.module';
+import { DropdownSelectPhoneCodeModule } from '@components/dropdown-select-phone-code/dropdown-select-phone-code.module';
 import { ModalConfirmFinalizeSinisterModule } from '@components/modal-confirm-finalize-sinister/modal-confirm-finalize-sinister.module';
 import { ModalConfirmReactivateSinisterModule } from '@components/modal-confirm-reactivate-sinister/modal-confirm-reactivate-sinister.module';
+import { ModalSelectSinisterExecutiveModule } from '@components/modal-select-sinister-executive/modal-select-sinister-executive.module';
 import { ModalShowSinisterEvidencesModule } from '@components/modal-show-sinister-evidences/modal-show-sinister-evidences.module';
 import { ModalUpdateSinisterDetailsModule } from '@components/modal-update-sinister-details/modal-update-sinister-details.module';
 import { ModalUpdateSinisterReportModule } from '@components/modal-update-sinister-report/modal-update-sinister-report.module';
@@ -22,27 +24,26 @@ import { ShowSinisterHistoryRoutingModule } from './show-sinister-history-routin
 import { ShowSinisterHistoryPage } from './show-sinister-history.page';
 
 @NgModule({
-  declarations: [ShowSinisterHistoryPage],
-  imports: [
-    CommonModule,
-    ContainerInsuredDetailsModule,
-    ContainerPolicyDetailsModule,
-    ContainerReportEventModule,
-    ContentListModule,
-    ModalConfirmFinalizeSinisterModule,
-    ModalConfirmReactivateSinisterModule,
-    ModalShowSinisterEvidencesModule,
-    ModalUpdateSinisterDetailsModule,
-    ModalUpdateSinisterReportModule,
-    ModalUpdateSinisterTrackingModule,
-    SafeContentModule,
-    ShowSinisterHistoryRoutingModule,
-    WrapperDownloadSinisterEvidenceModule,
-    WrapperUploadSinisterEvidenceModule
-  ],
-  providers: [
-      PolicyInsuredService,
-      SinisterService
-  ]
+    declarations: [ShowSinisterHistoryPage],
+    imports: [
+        CommonModule,
+        ContainerInsuredDetailsModule,
+        ContainerPolicyDetailsModule,
+        ContainerReportEventModule,
+        ContentListModule,
+        DropdownSelectPhoneCodeModule,
+        ModalConfirmFinalizeSinisterModule,
+        ModalConfirmReactivateSinisterModule,
+        ModalSelectSinisterExecutiveModule,
+        ModalShowSinisterEvidencesModule,
+        ModalUpdateSinisterDetailsModule,
+        ModalUpdateSinisterReportModule,
+        ModalUpdateSinisterTrackingModule,
+        SafeContentModule,
+        ShowSinisterHistoryRoutingModule,
+        WrapperDownloadSinisterEvidenceModule,
+        WrapperUploadSinisterEvidenceModule,
+    ],
+    providers: [PolicyInsuredService, SinisterService],
 })
-export class ShowSinisterHistoryModule { }
+export class ShowSinisterHistoryModule {}

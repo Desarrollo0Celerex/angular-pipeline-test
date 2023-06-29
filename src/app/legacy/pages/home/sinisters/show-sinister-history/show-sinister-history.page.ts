@@ -2,33 +2,40 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
-import { CONTENT_TYPES, SINISTER_STATUS, INSURANCE_TYPES } from '@constants/global';
+import {
+    CONTENT_TYPES,
+    SINISTER_STATUS,
+    INSURANCE_TYPES,
+} from '@constants/global';
 import { environment } from '@env/environment';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { WrapperDownloadSinisterEvidenceComponent } from '@components/wrapper-download-sinister-evidence/wrapper-download-sinister-evidence.component';
 /* import { WrapperUploadSinisterEvidenceComponent } from '@components/wrapper-upload-sinister-evidence/wrapper-upload-sinister-evidence.component'; */
 
 import { ShowSinisterHistoryService } from './show-sinister-history.service';
+import { Executive } from '@interfaces/executive.interface';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-show-sinister-history',
-  templateUrl: './show-sinister-history.page.html',
-  styles: [
-  ],
-  providers: [ShowSinisterHistoryService]
+    selector: 'agt-show-sinister-history',
+    templateUrl: './show-sinister-history.page.html',
+    styles: [],
+    providers: [ShowSinisterHistoryService],
 })
 export class ShowSinisterHistoryPage implements OnInit {
-    @ViewChild('modalDownloadSinisterEvidence') modalDownloadSinisterEvidence!: WrapperDownloadSinisterEvidenceComponent;
+    @ViewChild('modalDownloadSinisterEvidence')
+    modalDownloadSinisterEvidence!: WrapperDownloadSinisterEvidenceComponent;
     /* @ViewChild('modalUploadSinisterEvidence') modalUploadSinisterEvidence!: WrapperUploadSinisterEvidenceComponent; */
     CONTENT_TYPES: any = CONTENT_TYPES;
     INSURANCE_TYPES: any = INSURANCE_TYPES;
     SINISTER_STATUS: any = SINISTER_STATUS;
     contactId: string = '';
     modalIdConfirmFinalizeSinister: string = 'agt-confirm-finalize-sinister';
-    modalIdConfirmReactivateSinister: string = 'agt-confirm-reactivate-sinister';
-    modalIdShowSinisterEvidences: string = 'agt-show-sinister-evidences'
+    modalIdConfirmReactivateSinister: string =
+        'agt-confirm-reactivate-sinister';
+    modalIdShowSinisterEvidences: string = 'agt-show-sinister-evidences';
+    modalIdSelectExecutive: string = 'agt-select-sinister-executive';
     modalIdUpdateSinisterDetails: string = 'agt-update-sinister-details';
     modalIdUpdateSinisterReport: string = 'agt-update-sinister-report';
     modalIdUpdateSinisterTracking: string = 'agt-update-sinister-tracking';
@@ -40,23 +47,25 @@ export class ShowSinisterHistoryPage implements OnInit {
     constructor(
         public model: ShowSinisterHistoryService,
         private _activatedRoute: ActivatedRoute
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this._catchParams();
     }
 
     get estimatedDays(): number {
-        if(!!this.model.sinister) {
+        if (!!this.model.sinister) {
             const sinisterDate: any = moment(this.model.sinister.sinisterDate);
-            const estimatedDate: any = moment(this.model.sinister.estimatedResolutionDate);
+            const estimatedDate: any = moment(
+                this.model.sinister.estimatedResolutionDate
+            );
             return estimatedDate.diff(sinisterDate, 'days');
         }
         return 0;
     }
 
     get elapsedDays(): number {
-        if(!!this.model.sinister) {
+        if (!!this.model.sinister) {
             const sinisterDate: any = moment(this.model.sinister.sinisterDate);
             const currentDate: any = moment();
             return currentDate.diff(sinisterDate, 'days');
@@ -65,15 +74,32 @@ export class ShowSinisterHistoryPage implements OnInit {
     }
 
     get srcSinisterLocation(): string {
-        if(!!this.model.sinister) {
-            if(!!this.model.sinister.location || !!this.model.sinister.latLong) {
-                if(!!this.model.sinister.latLong) {
-                    const arrLatLong: string[] = this.model.sinister.latLong.split(',')
+        if (!!this.model.sinister) {
+            if (
+                !!this.model.sinister.location ||
+                !!this.model.sinister.latLong
+            ) {
+                if (!!this.model.sinister.latLong) {
+                    const arrLatLong: string[] =
+                        this.model.sinister.latLong.split(',');
                     const lat: string = arrLatLong[0];
                     const long: string = arrLatLong[1];
-                    return 'https://www.google.com/maps/embed/v1/streetview?key='+environment.googleMapsConfig.apiKey+'&location='+lat+','+long+'&heading=218&pitch=10&fov=38';
+                    return (
+                        'https://www.google.com/maps/embed/v1/streetview?key=' +
+                        environment.googleMapsConfig.apiKey +
+                        '&location=' +
+                        lat +
+                        ',' +
+                        long +
+                        '&heading=218&pitch=10&fov=38'
+                    );
                 } else {
-                    return 'https://www.google.com/maps/embed/v1/place?key='+environment.googleMapsConfig.apiKey+'&q='+this.model.sinister.location;
+                    return (
+                        'https://www.google.com/maps/embed/v1/place?key=' +
+                        environment.googleMapsConfig.apiKey +
+                        '&q=' +
+                        this.model.sinister.location
+                    );
                 }
             }
         }
@@ -97,6 +123,10 @@ export class ShowSinisterHistoryPage implements OnInit {
         ModalPlugin.show(this.modalIdShowSinisterEvidences);
     }
 
+    showModalToSelectExecutive(): void {
+        ModalPlugin.show(this.modalIdSelectExecutive);
+    }
+
     showModalToUpdateSinisterDetails(): void {
         ModalPlugin.show(this.modalIdUpdateSinisterDetails);
     }
@@ -113,6 +143,13 @@ export class ShowSinisterHistoryPage implements OnInit {
         this.model.sinister!.policyInsuredId = policyInsuredId;
     }
 
+    updateSinisterExecutive(executive: Executive): void {
+        this.model.sinister!.executiveName = executive.name;
+        this.model.sinister!.executivePhoneCodeId = executive.phoneCodeId;
+        this.model.sinister!.executivePhoneNumber = executive.phoneNumber;
+        this.model.sinister!.executiveEmail = executive.email;
+    }
+
     /**
      * Catch the params
      */
@@ -123,9 +160,8 @@ export class ShowSinisterHistoryPage implements OnInit {
         this.sinisterData = {
             contactId: this.contactId,
             policyId: this.policyId,
-            sinisterId: this.sinisterId
-        }
+            sinisterId: this.sinisterId,
+        };
         this.model.loadSinister(this.sinisterData);
     }
-
 }
