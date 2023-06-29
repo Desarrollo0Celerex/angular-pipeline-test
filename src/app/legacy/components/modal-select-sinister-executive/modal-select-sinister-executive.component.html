@@ -1,0 +1,151 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form [formGroup]="form" (submit)="validateForm()">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ejecutivo Asignado</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1">
+                            Ingresa los datos del ejecutivo asignado por la
+                            aseguradora.
+                        </li>
+                    </ol>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label"
+                                    >Seleccionar Existente</label
+                                >
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-clock-o tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <select
+                                        class="form-control ui-timepicker-input"
+                                        (change)="loadExecutive($event)"
+                                        formControlName="executiveId"
+                                    >
+                                        <option
+                                            *ngFor="let executive of executives"
+                                            [value]="executive.executiveId"
+                                        >
+                                            {{ executive.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <!-- AGENTHOS - CARECENTER EXECUTIVE NAME * -->
+                                <label class="form-label">Nombre</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-user-o tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control {{
+                                            getValidationClass('name')
+                                        }}"
+                                        placeholder="Ingresa el Nombre"
+                                        formControlName="name"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{ getErrorMessage("name") }}
+                                    </div>
+                                </div>
+                                <!-- AGENTHOS - CARECENTER EXECUTIVE MAIL -->
+                                <label class="form-label">Correo</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-envelope-o tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control {{
+                                            getValidationClass('email')
+                                        }}"
+                                        placeholder="Ingresa el correo"
+                                        formControlName="email"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{ getErrorMessage("email") }}
+                                    </div>
+                                </div>
+                                <!-- AGENTHOS - CARECENTER EXECUTIVE PHONE -->
+                                <label class="form-label">Teléfono</label>
+                                <div class="input-group">
+                                    <agt-dropdown-select-phone-code
+                                        [phoneCodeId]="form.value.phoneCodeId"
+                                        (phoneCodeIdSelected)="
+                                            patchPhoneCodeId($event)
+                                        "
+                                    ></agt-dropdown-select-phone-code>
+                                    <input
+                                        type="text"
+                                        class="form-control {{
+                                            getValidationClass('phoneNumber')
+                                        }}"
+                                        placeholder="Ingresa el teléfono"
+                                        formControlName="phoneNumber"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{ getErrorMessage("phoneNumber") }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mt-3">
+                            <!-- AGENTHOS - CARECENTER EXECUTIVE CONFIRM -->
+                            <button
+                                type="submit"
+                                class="btn btn-block agt-btn-default"
+                            >
+                                <i class="fa fa-share mr-2"></i
+                                ><strong>GUARDAR EJECUTIVO</strong>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-block agt-btn-secondary-outline"
+                        data-dismiss="modal"
+                    >
+                        <strong>CANCELAR</strong>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

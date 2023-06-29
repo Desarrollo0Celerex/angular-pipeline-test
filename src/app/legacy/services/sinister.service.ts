@@ -218,6 +218,22 @@ const routes: any = {
         '/sinisters/' +
         sinisterId +
         '/logs',
+    sinisterExecutives: (
+        workspaceId: string,
+        contactId: string,
+        policyId: string,
+        sinisterId: string
+    ) =>
+        environment.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/contacts/' +
+        contactId +
+        '/policies/' +
+        policyId +
+        '/sinisters/' +
+        sinisterId +
+        '/executives',
     sinistersStats: (workspaceId: string) =>
         environment.apiUrl + '/workspaces/' + workspaceId + '/stats/sinisters',
     workspaceSinisterStats: (workspaceId: string) =>
@@ -892,6 +908,21 @@ export class SinisterService {
         return this._httpClient
             .get<HttpResponse>(route)
             .pipe(map((res: HttpResponse) => res.data));
+    }
+
+    selectExecutive(
+        contactId: string,
+        policyId: string,
+        sinisterId: string,
+        executiveId: string
+    ): Observable<HttpResponse> {
+        const route: string = routes.sinisterExecutives(
+            this._workspaceId,
+            contactId,
+            policyId,
+            sinisterId
+        );
+        return this._httpClient.post<HttpResponse>(route, { executiveId });
     }
 
     /**

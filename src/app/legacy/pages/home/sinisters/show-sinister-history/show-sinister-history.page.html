@@ -1,4 +1,7 @@
-<agt-container-policy-details [contactId]="contactId" [policyId]="policyId"></agt-container-policy-details>
+<agt-container-policy-details
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-container-policy-details>
 <ng-container *ngIf="!!model.sinister">
     <!-- AGENTHOS - SINISTER CONTROL -->
     <div class="row mt-5">
@@ -13,12 +16,31 @@
                 <div class="card-footer">
                     <div class="btn-list">
                         <!-- AGENTHOS - SINISTER REACTIVATE (JUST IF STATUS: INACTIVE) -->
-                        <button type="button" class="btn btn-primary" *ngIf="model.sinister.sinisterStatusId === SINISTER_STATUS.FINISHED; else finalizeSinister" (click)="confirmReactivateSinister()"><strong>REACTIVAR SINIESTRO</strong></button>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            *ngIf="model.sinister.sinisterStatusId === SINISTER_STATUS.FINISHED; else finalizeSinister"
+                            (click)="confirmReactivateSinister()"
+                        >
+                            <strong>REACTIVAR SINIESTRO</strong>
+                        </button>
                         <ng-template #finalizeSinister>
                             <!-- AGENTHOS - SINISTER FINISH (JUST IF STATUS: ACTIVE) -->
-                            <button type="button" class="btn btn-primary" (click)="confirmFinalizeSinister()"><strong>FINALIZAR SINIESTRO</strong></button>
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                (click)="confirmFinalizeSinister()"
+                            >
+                                <strong>FINALIZAR SINIESTRO</strong>
+                            </button>
                         </ng-template>
-                        <button type="button" class="btn btn-primary" (click)="showModalToShowSinisterEvidences()"><strong>EVIDENCIAS</strong></button>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            (click)="showModalToShowSinisterEvidences()"
+                        >
+                            <strong>EVIDENCIAS</strong>
+                        </button>
                         <!-- <button type="button" class="btn btn-primary" (click)="showModalToUploadSinisterEvidence()"><strong>{{(!!model.sinister.evidenceUrl) ? 'ACTUALIZAR' : 'CARGAR'}} EVIDENCIA</strong></button>
                         <button *ngIf="!!model.sinister.evidenceUrl" type="button" class="btn btn-primary" (click)="showModalToDownloadSinisterEvidence()"><strong>DESCARGAR EVIDENCIA</strong></button> -->
                     </div>
@@ -39,6 +61,72 @@
         [certificate]="model.sinister.certificate"
     ></agt-container-insured-details>
 
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Ajustador o Ejecutivo Asignado</h3>
+                </div>
+                <div class="card-body">
+                    <div class="block-content">
+                        <div class="form-group row text-center">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Nombre</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        [value]="model.sinister.executiveName"
+                                        readonly=""
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Teléfono</label>
+                                    <div class="input-group">
+                                        <agt-dropdown-select-phone-code
+                                            [phoneCodeId]="model.sinister.executivePhoneCodeId"
+                                            [isDisabled]="true"
+                                        ></agt-dropdown-select-phone-code>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            [value]="model.sinister.executivePhoneNumber"
+                                            disabled=""
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Correo</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        [value]="model.sinister.executiveEmail"
+                                        readonly=""
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="btn-list">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            (click)="showModalToSelectExecutive()"
+                        >
+                            <strong>ACTUALIZAR</strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row mt-5">
         <div class="col-md-6">
             <div class="card">
@@ -51,27 +139,49 @@
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER REPORT -->
                                 <label class="form-label">No. Interno</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.internalNumber" readonly="">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.internalNumber"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label">Ejecutivo Asignado</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.manager" readonly="">
+                                <label class="form-label"
+                                    >Ejecutivo Asignado</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.manager"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER NUMBER -->
                                 <label class="form-label">No. Siniestro</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.sinisterNumber" readonly="">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.sinisterNumber"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER INVOICE -->
                                 <label class="form-label">No. Folio</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.invoice" readonly="">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.invoice"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                     </div>
@@ -80,7 +190,13 @@
                 <!-- AGENTHOS - SINISTER CONTROL FOOTER -->
                 <div class="card-footer">
                     <div class="btn-list">
-                        <button type="button" class="btn btn-secondary" (click)="showModalToUpdateSinisterReport()"><strong>ACTUALIZAR</strong></button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            (click)="showModalToUpdateSinisterReport()"
+                        >
+                            <strong>ACTUALIZAR</strong>
+                        </button>
                     </div>
                 </div>
                 <!-- //AGENTHOS - SINISTER CONTROL FOOTER -->
@@ -101,21 +217,38 @@
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER ESTIMATED DAYS -->
                                 <label class="form-label">Días Estimados</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.estimatedResolutionDays" readonly="">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.estimatedResolutionDays"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER REAL DAYS -->
-                                <label class="form-label">Días Transcurridos</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.sinisterElapsedDays" readonly="">
+                                <label class="form-label"
+                                    >Días Transcurridos</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.sinisterElapsedDays"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER CLASIFICATION -->
                                 <label class="form-label">Clasificación</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.sinisterStatusName" readonly="">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.sinisterStatusName"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                     </div>
@@ -125,22 +258,43 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER NOTIFICATION DATE * -->
-                                <label class="form-label">Fecha Notificación</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.notificationDate" readonly="">
+                                <label class="form-label"
+                                    >Fecha Notificación</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.notificationDate"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER REPORT DATE * -->
-                                <label class="form-label">Fecha Siniestro</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.sinisterDate" readonly="">
+                                <label class="form-label"
+                                    >Fecha Siniestro</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.sinisterDate"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER APPROXIMATE DATE * -->
-                                <label class="form-label">Resolución Estimada</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.estimatedResolutionDate" readonly="">
+                                <label class="form-label"
+                                    >Resolución Estimada</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.estimatedResolutionDate"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                     </div>
@@ -151,7 +305,13 @@
                 <div class="card-footer">
                     <div class="btn-list">
                         <!-- AGENTHOS - SINISTER UPDATE -->
-                        <button type="button" class="btn btn-secondary" (click)="showModalToUpdateSinisterTracking()"><strong>ACTUALIZAR</strong></button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            (click)="showModalToUpdateSinisterTracking()"
+                        >
+                            <strong>ACTUALIZAR</strong>
+                        </button>
                     </div>
                 </div>
                 <!-- //AGENTHOS - SINISTER CONTROL FOOTER -->
@@ -176,56 +336,106 @@
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER TIME REPORT -->
                                 <label class="form-label">Hora Siniestro</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.timeReport" readonly="">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.timeReport"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER TIME RESPONSE -->
                                 <label class="form-label">Hora Respuesta</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.timeResponse" readonly="">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.timeResponse"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER TIME RESPONSE -->
-                                <label class="form-label">Tiempo Respuesta</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.sinisterElapsedMinutes" readonly="">
+                                <label class="form-label"
+                                    >Tiempo Respuesta</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.sinisterElapsedMinutes"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER TYPE -->
                                 <label class="form-label">Tipo Siniestro</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.sinisterTypeName" readonly="">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.sinisterTypeName"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label">Causa Siniestro</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.sinisterCause" readonly="">
+                                <label class="form-label"
+                                    >Causa Siniestro</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.sinisterCause"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER COVERAGE TYPE -->
-                                <label class="form-label">Cobertura Afectada</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.affectedCoverage" readonly="">
+                                <label class="form-label"
+                                    >Cobertura Afectada</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.affectedCoverage"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER AFFECTED NAME -->
                                 <!-- (CONDUCTOR, ASEGURADO, BIEN ASEGURADO) -->
-                                <label class="form-label">Nombre Conductor</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.affectedName" readonly="">
+                                <label class="form-label"
+                                    >Nombre Conductor</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.affectedName"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <!-- AGENTHOS - SINISTER LOCATION -->
-                                <label class="form-label">Ubicación Siniestro</label>
-                                <input type="text" class="form-control" [placeholder]="model.sinister.location" readonly="">
+                                <label class="form-label"
+                                    >Ubicación Siniestro</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [placeholder]="model.sinister.location"
+                                    readonly=""
+                                />
                             </div>
                         </div>
                     </div>
@@ -235,7 +445,13 @@
                 <div class="card-footer">
                     <div class="btn-list">
                         <!-- AGENTHOS - SINISTER UPDATE -->
-                        <button type="button" class="btn btn-secondary" (click)="showModalToUpdateSinisterDetails()"><strong>ACTUALIZAR</strong></button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            (click)="showModalToUpdateSinisterDetails()"
+                        >
+                            <strong>ACTUALIZAR</strong>
+                        </button>
                     </div>
                 </div>
                 <!-- //AGENTHOS - SINISTER CONTROL FOOTER -->
@@ -257,11 +473,12 @@
                         <iframe
                             width="100%"
                             height="418"
-                            style="border:0"
+                            style="border: 0"
                             loading="lazy"
                             allowfullscreen
                             referrerpolicy="no-referrer-when-downgrade"
-                            [src]="srcSinisterLocation | safeContent: 'resourceUrl'">
+                            [src]="srcSinisterLocation | safeContent: 'resourceUrl'"
+                        >
                         </iframe>
                     </div>
                 </div>
@@ -315,6 +532,14 @@
     [modalId]="modalIdShowSinisterEvidences"
     [sinisterData]="sinisterData"
 ></agt-modal-show-sinister-evidences>
+<agt-modal-select-sinister-executive
+    *ngIf="sinisterData"
+    [modalId]="modalIdSelectExecutive"
+    [contactId]="sinisterData.contactId"
+    [policyId]="sinisterData.policyId"
+    [sinisterId]="sinisterData.sinisterId"
+    (executiveSelected)="updateSinisterExecutive($event)"
+></agt-modal-select-sinister-executive>
 <!-- <agt-wrapper-upload-sinister-evidence
     #modalUploadSinisterEvidence
     [sinisterData]="sinisterData"
