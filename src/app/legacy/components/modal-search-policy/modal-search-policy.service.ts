@@ -35,7 +35,7 @@ export class ModalSearchPolicyService {
     searchPolicy(): Observable<HttpResponse> {
         const page: number = 1;
         const fields: string =
-            'policyId,contactId,policyStatusName,policyStatusBackground,policyNumber,validityStartDate,validityEndDate,totalAmount,currencyName,insuranceId';
+            'policyId,contactId,policyStatusName,policyStatusBackground,policyNumber,validityStartDate,validityEndDate,totalAmount,currencyName,insuranceId,createdAt';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'policyStatusId',
             [
@@ -47,7 +47,7 @@ export class ModalSearchPolicyService {
                 POLICY_STATUS.CANCELLED,
             ]
         );
-        const query: string = this.f.policyNumber.value.trim();
+        const query: string = `multiple:${this.f.policyNumber.value.trim()}`;
         return this._policyService.getPolicies(page, fields, filters, query);
     }
 

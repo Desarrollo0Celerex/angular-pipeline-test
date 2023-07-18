@@ -205,19 +205,9 @@ export class CreateEndorsementPage implements OnInit {
                 ) {
                     this.fractionalReceiptAmount =
                         this.model.calculateFractionalReceiptAmountToDecrement();
-                    console.log(
-                        'this.fractionalReceiptAmount: ',
-                        this.fractionalReceiptAmount
-                    );
-
                     if (this.fractionalReceiptAmount === 0) {
-                        console.log('Aplicar el endosos normalmente =)');
                         this._showModalToConfirmApplyEndorsementWithDecrement();
                     } else {
-                        // TODO: Mostrar modal para notificar al usuario que se generara un recibo fraccionado por el valor de X
-                        console.log(
-                            'Mostrar modal para confirmar recibo fraccionado :)'
-                        );
                         this._showModalToConfirmApplyFractionalReceiptInDecrement();
                     }
                 } else {

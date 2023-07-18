@@ -471,9 +471,7 @@ export class UpdateCompletePolicyPage implements OnInit {
      * Load the payment plans
      */
     private _loadPaymentPlans(): void {
-        this.model.loadPaymentPlans().subscribe(() => {
-            this.model.calculateBills();
-        });
+        this.model.loadPaymentPlans().subscribe(() => {});
     }
 
     private _onItemSelected(

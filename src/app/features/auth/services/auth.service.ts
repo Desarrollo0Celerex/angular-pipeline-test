@@ -100,14 +100,11 @@ export class AuthService {
         if (activationCode) {
             returnUrl += `?activationCode=${activationCode}`;
         }
-        console.log('returnUrl: ', returnUrl);
-
         let loginUrl = `${atomAccountLoginUrl}?serviceName=Agenthos&returnUrl=${returnUrl}`;
         const redirectUrl: string = this._getRedirectUrl();
         if (!!redirectUrl) {
             loginUrl += `&redirectUrl=${redirectUrl}`;
         }
-        console.log('loginUrl: ', loginUrl);
         window.location.href = loginUrl;
     }
 

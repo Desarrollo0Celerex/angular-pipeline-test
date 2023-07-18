@@ -1370,7 +1370,7 @@ export class PolicyService {
         params = params.append('perPage', perPage.toString());
         if (!!fields) params = params.append('fields', fields);
         if (!!filters) params = params.append('filter', filters);
-        if (!!query) params = params.append('search', 'policyNumber:' + query);
+        if (!!query) params = params.append('search', query);
         if (!!rangeField) params = params.append('rangeField', rangeField);
         if (!!rangeStart) params = params.append('rangeStart', rangeStart);
         if (!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
