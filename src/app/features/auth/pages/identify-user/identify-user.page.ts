@@ -47,10 +47,6 @@ export class IdentifyUserPage {
             ROUTES_NAME.workspaceWelcome;
         this._authService.activationCode =
             this._activatedRoute.snapshot.queryParams['activationCode'] || '';
-        console.log(
-            'this._authService.activationCode: ',
-            this._authService.activationCode
-        );
     }
 
     /**

@@ -26,8 +26,6 @@ export class LoginPage extends SmartComponent implements OnInit {
             this._goToDashboard();
         } else {
             this.catchParams();
-            console.log('this.activationCode: ', this.activationCode);
-
             this._authService.goToAtomAccount(this.activationCode);
         }
     }
@@ -36,8 +34,6 @@ export class LoginPage extends SmartComponent implements OnInit {
         this._activatedRoute.queryParams
             .pipe(this.untilComponentDestroy())
             .subscribe((params) => {
-                console.log(params);
-
                 this.activationCode = params.activationCode || '';
             });
     }

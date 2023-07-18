@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.8',
+            launchDate: '18/07/2023',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se soluciono bug al mostrar el número de recibos al actualizar una póliza.',
+                        'Se agrego busqueda de póliza por número de serie del vehículo al reportar un siniestro.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.7',
             launchDate: '29/06/2023',
             changes: [
