@@ -100,7 +100,10 @@ export class AuthService {
         if (activationCode) {
             returnUrl += `?activationCode=${activationCode}`;
         }
-        let loginUrl = `${atomAccountLoginUrl}?serviceName=Agenthos&returnUrl=${returnUrl}`;
+        const serviceLogoUrl =
+            'https://webkit.atombits.xyz/agenthos/logo/agenthos_dark.png';
+        const serviceUrl = 'https://agenthos.com';
+        let loginUrl = `${atomAccountLoginUrl}?serviceName=Agenthos&serviceLogoUrl=${serviceLogoUrl}&serviceUrl=${serviceUrl}&returnUrl=${returnUrl}`;
         const redirectUrl: string = this._getRedirectUrl();
         if (!!redirectUrl) {
             loginUrl += `&redirectUrl=${redirectUrl}`;
