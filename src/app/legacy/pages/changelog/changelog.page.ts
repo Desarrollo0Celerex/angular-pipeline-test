@@ -8,6 +8,22 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.9',
+            launchDate: '02/08/2023',
+            changes: [
+                {
+                    title: 'Smart Wallet',
+                    items: [
+                        'Se agrego botón SALIR en la página de Bienvenida al iniciar sesión.',
+                        'Se agrego calculo automático de los gastos de expedición de la póliza al cargarla.',
+                        'Se agrego calculo automático del iva de la póliza al cargarla.',
+                        'Se agrego calculo automático del monto total de la póliza al cargarla.',
+                        'Se actualizo calculo automático de la comisión de la póliza al cargarla para no usar el monto total y usar el monto neto.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.8',
             launchDate: '18/07/2023',
             changes: [

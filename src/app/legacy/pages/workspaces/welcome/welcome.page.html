@@ -5,18 +5,39 @@
         <!-- AGENTHOS - LOGED ACCOUNT -->
         <div class="container-login100">
             <div class="col-md-6 col-xl-6">
-                <div class="card ">
+                <div class="card">
                     <div class="card-body text-center">
                         <!-- ATOM ACCOUNT - USER PIC -->
-                        <img class="avatar avatar-xxl brround cover-image" [src]="welcomeService.user.avatarUrl">
+                        <img
+                            class="avatar avatar-xxl brround cover-image"
+                            [src]="welcomeService.user.avatarUrl"
+                        />
                         <!-- ATOM ACCOUNT - SHORT NAME -->
-                        <h4 class="h4 mb-0 mt-3">{{welcomeService.user.shortName}}</h4>
+                        <h4 class="h4 mb-0 mt-3">
+                            {{welcomeService.user.shortName}}
+                        </h4>
                         <p class="card-text mt-2">Bienvenido</p>
-                        <p class="card-text mt-3">Crea un espacio de trabajo para comenzar a administrar tu cartera de clientes.</p>
+                        <p class="card-text mt-3">
+                            Crea un espacio de trabajo para comenzar a
+                            administrar tu cartera de clientes.
+                        </p>
                     </div>
                     <div class="card-footer text-center">
                         <!-- AGENTHOS - START ACTIVATION -->
-                        <button type="button" class="btn btn-primary btn-block" (click)="showModalToConfirmCreateWorkspace()"><strong>COMENZAR</strong></button>
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-block"
+                            (click)="showModalToConfirmCreateWorkspace()"
+                        >
+                            <strong>COMENZAR</strong>
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-block btn-secondary mt-3"
+                            (click)="exit()"
+                        >
+                            <strong>SALIR</strong>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -26,4 +47,6 @@
 </div>
 <!-- //AGENTHOS - MAIN VIEW -->
 
-<agt-modal-confirm-create-workspace [modalId]="modalIdConfirmCreateWorkspace"></agt-modal-confirm-create-workspace>
+<agt-modal-confirm-create-workspace
+    [modalId]="modalIdConfirmCreateWorkspace"
+></agt-modal-confirm-create-workspace>

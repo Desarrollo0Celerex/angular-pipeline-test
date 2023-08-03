@@ -30,4 +30,8 @@ export class WelcomeService {
                 });
         }
     }
+
+    logout(): void {
+        this._authService.logout(true);
+    }
 }

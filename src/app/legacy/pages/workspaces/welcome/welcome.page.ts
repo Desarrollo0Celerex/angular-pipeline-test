@@ -8,19 +8,15 @@ import { WelcomeService } from './welcome.service';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-welcome',
-  templateUrl: './welcome.page.html',
-  styles: [
-  ]
+    selector: 'agt-welcome',
+    templateUrl: './welcome.page.html',
+    styles: [],
 })
 export class WelcomePage implements OnInit {
     ROUTES_NAME: any;
     modalIdConfirmCreateWorkspace: string = 'agt-confirm-create-workspace';
 
-    constructor(
-        public welcomeService: WelcomeService,
-        private router: Router
-    ) {
+    constructor(public welcomeService: WelcomeService, private router: Router) {
         this.ROUTES_NAME = ROUTES_NAME;
     }
 
@@ -28,8 +24,11 @@ export class WelcomePage implements OnInit {
         this.welcomeService.loadUser();
     }
 
+    exit(): void {
+        this.welcomeService.logout();
+    }
+
     showModalToConfirmCreateWorkspace(): void {
         ModalPlugin.show(this.modalIdConfirmCreateWorkspace);
     }
-
 }

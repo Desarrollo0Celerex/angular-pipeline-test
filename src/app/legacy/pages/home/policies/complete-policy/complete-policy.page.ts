@@ -167,6 +167,14 @@ export class CompletePolicyPage implements OnInit {
         this.model.addInsured();
     } */
 
+    calculatePolicyAmount(): void {
+        this.model.calculatePolicyAmount();
+    }
+
+    calculateTaxPay(): void {
+        this.model.calculateTaxPay();
+    }
+
     calculatePolicyCommission(event: any): void {
         this.model.calculatePolicyCommission(event.target.value);
     }
@@ -268,6 +276,7 @@ export class CompletePolicyPage implements OnInit {
     onLoadScannedPolicyData(): void {
         this.model.buildPolicyForm(this._scannedPolicyData);
         this._calculateBills();
+        this._checkAmountInputs();
     }
 
     /**
@@ -383,6 +392,33 @@ export class CompletePolicyPage implements OnInit {
         this.policyId = this._activatedRoute.snapshot.params.policyId;
     }
 
+    private _checkAmountInputs(): void {
+        this._checkCoverPay();
+        this._checkTaxPay();
+        this._checkPolicyAmount();
+    }
+
+    private _checkPolicyAmount(): void {
+        const policyAmount = this.model.policyForm.value.policyAmount;
+        if (policyAmount === '0.00') {
+            this.model.calculatePolicyAmount();
+        }
+    }
+
+    private _checkTaxPay(): void {
+        const taxPay = this.model.policyForm.value.taxPay;
+        if (taxPay === '0.00') {
+            this.model.calculateTaxPay();
+        }
+    }
+
+    private _checkCoverPay(): void {
+        const coverPay = this.model.policyForm.value.coverPay;
+        if (coverPay === '0.00') {
+            this.model.calculateCoverPay();
+        }
+    }
+
     private _downloadPolicy(policyUrl: string): void {
         this.model.downloadPolicy(policyUrl).subscribe(
             (res: any) => {
@@ -391,6 +427,7 @@ export class CompletePolicyPage implements OnInit {
             (error: any) => {
                 this._scanningService.hide();
                 ModalPlugin.show(this.modalIdScanningPolicyFailed);
+                this._checkAmountInputs();
             }
         );
     }
@@ -585,6 +622,7 @@ export class CompletePolicyPage implements OnInit {
                 )
                 .subscribe((res: Policy) => {
                     this.model.buildPolicyForm(res);
+                    this._checkAmountInputs();
                     setTimeout(() => {
                         this._scanningService.hide();
                         ModalPlugin.show(this.modalIdBasePoliciDataLoaded);
@@ -595,6 +633,7 @@ export class CompletePolicyPage implements OnInit {
                 .getContact(this.contactId)
                 .subscribe((policy: Policy) => {
                     this.model.buildPolicyForm(policy);
+                    this._checkAmountInputs();
                     setTimeout(() => {
                         this._scanningService.hide();
                         ModalPlugin.show(this.modalIdScanningPolicyFailed);
