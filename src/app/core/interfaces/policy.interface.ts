@@ -71,8 +71,10 @@ export interface Policy {
     titularEmail: string;
     policyCommission: number;
     policyCommissionAmount: number;
+    countryTaxRate: number;
     workspaceCommission: number;
     workspaceAgentNumber: string;
+    workspaceCoverPay: number;
     paymentAmount: number;
     paymentAmountPaid: number;
     contactRfc: string;

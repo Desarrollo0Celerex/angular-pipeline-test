@@ -27,6 +27,7 @@ import {
     CONTACT_TYPES,
     EMAIL_LENGTH,
     AGENT_NUMBER_LENGTH,
+    INSURANCES,
 } from '@constants/global';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ValidatorsHelper } from '@core/helpers/validators.helper';
@@ -356,6 +357,71 @@ export class CompletePolicyService {
         }
     }
 
+    calculateCoverPay(): void {
+        this.policyForm.patchValue({
+            coverPay: this.policy?.workspaceCoverPay || '0.00',
+        });
+    }
+
+    calculatePolicyAmount(): void {
+        const netPay = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value || 0)
+        );
+        const feePay = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.feePay.value || 0)
+        );
+        const coverPay = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value || 0)
+        );
+        const extraPay = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value || 0)
+        );
+        const taxPay = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.taxPay.value || 0)
+        );
+        const discount = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.discount.value || 0)
+        );
+
+        const policyAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
+            netPay + feePay + coverPay + extraPay + taxPay - discount
+        );
+        this.policyForm.patchValue({ policyAmount });
+    }
+
+    calculateTaxPay(): void {
+        if (
+            this.policy!.insuranceId !== INSURANCES.LIVE &&
+            this.policy!.insuranceId !== INSURANCES.RETIRE
+        ) {
+            const netPay = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(
+                    this.f.netPay.value || 0
+                )
+            );
+            const feePay = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(
+                    this.f.feePay.value || 0
+                )
+            );
+            const coverPay = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(
+                    this.f.coverPay.value || 0
+                )
+            );
+            const extraPay = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(
+                    this.f.extraPay.value || 0
+                )
+            );
+            const subTotal = netPay + feePay + coverPay + extraPay;
+            const taxPay = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
+                (subTotal * this.policy!.countryTaxRate) / 100
+            );
+            this.policyForm.patchValue({ taxPay });
+        }
+    }
+
     calculatePolicyCommission(amount: any): void {
         let policyCommission: number = 0;
         const policyCommissionAmount: number = parseFloat(
@@ -381,15 +447,13 @@ export class CompletePolicyService {
         let policyCommissionAmount: number = 0;
         const policyCommission: number = parseFloat(percentage);
         if (policyCommission > 0) {
-            const policyAmount: number = parseFloat(
-                UtilitiesHelper.removeCommasFromQuantity(
-                    this.f.policyAmount.value
-                )
+            const netPay: number = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value)
             );
-            if (policyAmount > 0) {
+            if (netPay > 0) {
                 policyCommissionAmount =
                     UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
-                        (policyCommission * policyAmount) / 100
+                        (policyCommission * netPay) / 100
                     );
             }
         }
@@ -642,7 +706,7 @@ export class CompletePolicyService {
     ): Observable<HttpResponse> {
         this.policy = null;
         const fields: string =
-            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,workspaceCommission,workspaceAgentNumber';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,workspaceCommission,workspaceAgentNumber,countryTaxRate,workspaceCoverPay';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
