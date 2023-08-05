@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.10',
+            launchDate: '05/08/2023',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se agrego lógica para reescribir campos del perfil del contacto al completar una póliza.',
+                        'Se agrego modal para selecionar alguna acción después de que una póliza fue guardada con éxito.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.9',
             launchDate: '02/08/2023',
             changes: [

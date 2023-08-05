@@ -24,6 +24,7 @@ import { LoadingService } from '@core/services/loading/loading.service';
 import { ScanningService } from '@services/scanning.service';
 
 import { CompletePolicyService } from './complete-policy.service';
+import { RewriteField } from '@interfaces/rewrite-field.interface';
 
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
@@ -38,12 +39,12 @@ export class CompletePolicyPage implements OnInit {
     CONTACT_TYPES: any = CONTACT_TYPES;
     INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     INSURANCE_TYPES: any = INSURANCE_TYPES;
+    contactFieldsToRewrite: RewriteField[] = [];
     contactId: string;
     existingContactId: string = '';
     existingPolicyId: string = '';
     isScannerFailed: boolean = false;
     message: string = 'Valida los datos de la nueva póliza de';
-    policyId: string;
     modalIdBasePoliciDataLoaded: string = 'agt-base-policy-data-loaded';
     modalIdInvalidExpiredPolicy: string = 'agt-invalid-expired-policy';
     modalIdInvalidHistoryPolicy: string = 'agt-invalid-history-policy';
@@ -57,6 +58,8 @@ export class CompletePolicyPage implements OnInit {
     modalIdShowPolicy: string;
     modalSelectFileData: ModalSelectFileData;
     emissionDateCalendarId: string;
+    policyId: string;
+    paymentId = '';
     validityEndDateCalendarId: string;
     validityStartDateCalendarId: string;
     private _isFormSubmitted: boolean;
@@ -163,6 +166,11 @@ export class CompletePolicyPage implements OnInit {
         return label;
     }
 
+    addContactFieldsToRewrite(fields: string[]): void {
+        this.model.contactFieldsToRewrite = fields;
+        this._completePolicy();
+    }
+
     /* addNewInsured(): void {
         this.model.addInsured();
     } */
@@ -183,11 +191,6 @@ export class CompletePolicyPage implements OnInit {
         this.model.calculatePolicyCommissionAmount(event.target.value);
     }
 
-    /**
-     * Get the error message
-     * @param  constrolName Control name
-     * @return              Error message
-     */
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null =
             this.model.policyForm.get(constrolName);
@@ -201,11 +204,6 @@ export class CompletePolicyPage implements OnInit {
         return InputValidatorHelper.getErrorMessage(control);
     }
 
-    /**
-     * Get the validation class
-     * @param  constrolName Control name
-     * @return              Validation class
-     */
     getValidationClass(constrolName: string): string {
         const control: AbstractControl | null =
             this.model.policyForm.get(constrolName);
@@ -236,23 +234,14 @@ export class CompletePolicyPage implements OnInit {
         return validationClass;
     }
 
-    /**
-     * Change event to calculate the bills
-     */
     onChangeCalculateBills(): void {
         this._calculateBills();
     }
 
-    /**
-     * Click event to show modal to select policy
-     */
     onClickSelectPolicy(): void {
         ModalPlugin.show(this.modalIdSelectFile);
     }
 
-    /**
-     * Click event to show modal to view the policy
-     */
     onClickShowPolicy(): void {
         ModalPlugin.show(this.modalIdShowPolicy);
     }
@@ -270,9 +259,6 @@ export class CompletePolicyPage implements OnInit {
         });
     }
 
-    /**
-     * Event to load the data of the scanned policy
-     */
     onLoadScannedPolicyData(): void {
         this.model.buildPolicyForm(this._scannedPolicyData);
         this._calculateBills();
@@ -322,33 +308,8 @@ export class CompletePolicyPage implements OnInit {
                 }
             }
         }
-        // Complete the policy
-        this._loadingService.show();
-        this.model
-            .completePolicy(
-                this.contactId,
-                this.policyId,
-                this._scannedPolicyData
-            )
-            .subscribe(
-                () => {
-                    this._loadingService.hide();
-                    if (this.areSeveralInsured) {
-                        AlertHelper.policyCompleted(
-                            this._goToListPolicyInsureds,
-                            this
-                        );
-                    } else {
-                        AlertHelper.policyCompleted(
-                            this._goToListContactPolicies,
-                            this
-                        );
-                    }
-                },
-                (error: HttpError) => {
-                    this._handleCompletePolicyError(error);
-                }
-            );
+
+        this._checkContactProfile();
     }
 
     removeInsured(insuredIndex: number): void {
@@ -417,6 +378,33 @@ export class CompletePolicyPage implements OnInit {
         if (coverPay === '0.00') {
             this.model.calculateCoverPay();
         }
+    }
+
+    private _completePolicy(): void {
+        this._loadingService.show();
+        this.model
+            .completePolicy(
+                this.contactId,
+                this.policyId,
+                this._scannedPolicyData
+            )
+            .subscribe(
+                (policy) => {
+                    this._loadingService.hide();
+                    if (this.areSeveralInsured) {
+                        AlertHelper.policyCompleted(
+                            this._goToListPolicyInsureds,
+                            this
+                        );
+                    } else {
+                        this.paymentId = policy.paymentId;
+                        this._showModalToSelectActionForSavedPolicy();
+                    }
+                },
+                (error: HttpError) => {
+                    this._handleCompletePolicyError(error);
+                }
+            );
     }
 
     private _downloadPolicy(policyUrl: string): void {
@@ -551,10 +539,6 @@ export class CompletePolicyPage implements OnInit {
         }
     }
 
-    /**
-     * Scan the policy file
-     * @param policyFile The policy file to scan
-     */
     private _scannPolicy(policyFile: any, policyUrl: string = ''): void {
         this._scanningService.show();
         this.model.scannPolicy(policyFile).subscribe(
@@ -571,108 +555,6 @@ export class CompletePolicyPage implements OnInit {
         );
     }
 
-    private _getTitularMissingFields(): string[] {
-        let titularMissingFields: string[] = [];
-        const data: any = this._scannedPolicyData;
-        for (const field in data) {
-            if (
-                field === 'titularName' ||
-                field === 'titularRfc' ||
-                field === 'titularAge' ||
-                field === 'titularGenderId' ||
-                field === 'titularPostalCode' ||
-                field === 'titularPhoneNumber'
-            ) {
-                if (data[field] == '') {
-                    titularMissingFields.push(field);
-                }
-            }
-        }
-        return titularMissingFields;
-    }
-
-    private _reviewTitularData(): void {
-        const titularMissingFields: string[] = this._getTitularMissingFields();
-        if (titularMissingFields.length > 0) {
-            this.model
-                .getPolicyTitularInfo(this.contactId, titularMissingFields)
-                .subscribe((res: HttpResponse) => {
-                    this._scannedPolicyData = {
-                        ...this._scannedPolicyData,
-                        ...res.data,
-                    };
-                });
-        }
-    }
-
-    private _handleScanError(error: HttpError, policyUrl: string): void {
-        this.isScannerFailed = true;
-        this._reviewPolicyData(policyUrl);
-        /* switch(error.error) {
-            case ERROR_CODES.scanFileError: */
-        if (
-            !!this.model.policy &&
-            (this.model.policy.policySourceId === POLICY_SOURCES.RENEWAL ||
-                this.model.policy.policySourceId === POLICY_SOURCES.REISSUE)
-        ) {
-            this.model
-                .getContactBasePolicy(
-                    this.model.policy.baseContactId,
-                    this.model.policy.basePolicyId
-                )
-                .subscribe((res: Policy) => {
-                    this.model.buildPolicyForm(res);
-                    this._checkAmountInputs();
-                    setTimeout(() => {
-                        this._scanningService.hide();
-                        ModalPlugin.show(this.modalIdBasePoliciDataLoaded);
-                    }, 1000);
-                });
-        } else {
-            this.model
-                .getContact(this.contactId)
-                .subscribe((policy: Policy) => {
-                    this.model.buildPolicyForm(policy);
-                    this._checkAmountInputs();
-                    setTimeout(() => {
-                        this._scanningService.hide();
-                        ModalPlugin.show(this.modalIdScanningPolicyFailed);
-                    }, 1000);
-                });
-        }
-        /* break;
-
-            default:
-                setTimeout(() => {
-                    this._scanningService.hide();
-                    ModalPlugin.show(this.modalIdScanningPolicyFailed);
-                }, 1000);
-        } */
-    }
-
-    /**
-     * Review the policy data to see if a field is missing
-     */
-    private _reviewPolicyData(policyUrl: string): void {
-        const missingFields: string[] = this._getMissingFields();
-        const totalMissingFields: number = missingFields.length;
-        if (totalMissingFields > 0) {
-            this.model
-                .createScannerLog(
-                    this.contactId,
-                    this.policyId,
-                    policyUrl,
-                    totalMissingFields,
-                    missingFields.join(',')
-                )
-                .subscribe(() => {});
-        }
-    }
-
-    /**
-     * Get the missing fields
-     * @return The missing fields
-     */
     private _getMissingFields(): string[] {
         let missingFields: string[] = [];
         if (!!this._scannedPolicyData) {
@@ -796,6 +678,104 @@ export class CompletePolicyPage implements OnInit {
         return missingFields;
     }
 
+    private _getTitularMissingFields(): string[] {
+        let titularMissingFields: string[] = [];
+        const data: any = this._scannedPolicyData;
+        for (const field in data) {
+            if (
+                field === 'titularName' ||
+                field === 'titularRfc' ||
+                field === 'titularAge' ||
+                field === 'titularGenderId' ||
+                field === 'titularPostalCode' ||
+                field === 'titularPhoneNumber'
+            ) {
+                if (data[field] == '') {
+                    titularMissingFields.push(field);
+                }
+            }
+        }
+        return titularMissingFields;
+    }
+
+    private _reviewTitularData(): void {
+        const titularMissingFields: string[] = this._getTitularMissingFields();
+        if (titularMissingFields.includes('titularPhoneNumber')) {
+            titularMissingFields.push('titularPhoneCode');
+        }
+        if (titularMissingFields.length > 0) {
+            this.model
+                .getPolicyTitularInfo(this.contactId, titularMissingFields)
+                .subscribe((res: HttpResponse) => {
+                    this._scannedPolicyData = {
+                        ...this._scannedPolicyData,
+                        ...res.data,
+                    };
+                });
+        }
+    }
+
+    private _handleScanError(error: HttpError, policyUrl: string): void {
+        this.isScannerFailed = true;
+        this._reviewPolicyData(policyUrl);
+        /* switch(error.error) {
+            case ERROR_CODES.scanFileError: */
+        if (
+            !!this.model.policy &&
+            (this.model.policy.policySourceId === POLICY_SOURCES.RENEWAL ||
+                this.model.policy.policySourceId === POLICY_SOURCES.REISSUE)
+        ) {
+            this.model
+                .getContactBasePolicy(
+                    this.model.policy.baseContactId,
+                    this.model.policy.basePolicyId
+                )
+                .subscribe((res: Policy) => {
+                    this.model.buildPolicyForm(res);
+                    this._checkAmountInputs();
+                    setTimeout(() => {
+                        this._scanningService.hide();
+                        ModalPlugin.show(this.modalIdBasePoliciDataLoaded);
+                    }, 1000);
+                });
+        } else {
+            this.model
+                .getContact(this.contactId)
+                .subscribe((policy: Policy) => {
+                    this.model.buildPolicyForm(policy);
+                    this._checkAmountInputs();
+                    setTimeout(() => {
+                        this._scanningService.hide();
+                        ModalPlugin.show(this.modalIdScanningPolicyFailed);
+                    }, 1000);
+                });
+        }
+        /* break;
+
+            default:
+                setTimeout(() => {
+                    this._scanningService.hide();
+                    ModalPlugin.show(this.modalIdScanningPolicyFailed);
+                }, 1000);
+        } */
+    }
+
+    private _reviewPolicyData(policyUrl: string): void {
+        const missingFields: string[] = this._getMissingFields();
+        const totalMissingFields: number = missingFields.length;
+        if (totalMissingFields > 0) {
+            this.model
+                .createScannerLog(
+                    this.contactId,
+                    this.policyId,
+                    policyUrl,
+                    totalMissingFields,
+                    missingFields.join(',')
+                )
+                .subscribe(() => {});
+        }
+    }
+
     private _handleCompletePolicyError(error: HttpError): void {
         const arrError: string[] = error.error.split(' ');
         switch (arrError[0]) {
@@ -812,5 +792,19 @@ export class CompletePolicyPage implements OnInit {
                 );
                 break;
         }
+    }
+
+    private _checkContactProfile(): void {
+        this.contactFieldsToRewrite =
+            this.model.generateContactFieldsToRewrite();
+        if (this.contactFieldsToRewrite.length > 0) {
+            ModalPlugin.show('agt-policy-select-contact-fields-to-rewrite');
+        } else {
+            this._completePolicy();
+        }
+    }
+
+    private _showModalToSelectActionForSavedPolicy(): void {
+        ModalPlugin.show('agt-modal-select-action-for-saved-policy');
     }
 }

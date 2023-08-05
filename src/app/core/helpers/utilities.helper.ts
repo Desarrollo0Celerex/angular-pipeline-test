@@ -134,6 +134,10 @@ export class UtilitiesHelper {
         return parseFloat(result.toString());
     }
 
+    static toLowerCaseFirst(value: string): string {
+        return (value && value[0].toLowerCase() + value.slice(1)) || value;
+    }
+
     /**
      * Get the current date
      * @return The current date

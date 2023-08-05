@@ -35,6 +35,8 @@ import { CardMainActionComponent } from './components/card-main-action/card-main
 import { CardPaymentAppliedComponent } from './components/card-payment-applied/card-payment-applied.component';
 import { ContentListComponent } from './components/content-list/content-list.component';
 import { CardCalendarRangeComponent } from './components/card-calendar-range/card-calendar-range.component';
+import { GenderNamePipe } from './pipes/gender-name.pipe';
+import { PhoneCodePipe } from './pipes/phone-code.pipe';
 
 @NgModule({
     declarations: [
@@ -63,6 +65,8 @@ import { CardCalendarRangeComponent } from './components/card-calendar-range/car
         CardPaymentAppliedComponent,
         ContentListComponent,
         CardCalendarRangeComponent,
+        GenderNamePipe,
+        PhoneCodePipe,
     ],
     exports: [
         CardCalendarRangeComponent,
@@ -76,9 +80,11 @@ import { CardCalendarRangeComponent } from './components/card-calendar-range/car
         CardPaymentAppliedComponent,
         ContactStatusNamePipe,
         ContentListComponent,
+        GenderNamePipe,
         LoadingContentComponent,
         PaymentStatusNamePipe,
         PluralPipe,
+        PhoneCodePipe,
     ],
     imports: [
         CommonModule,

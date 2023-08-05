@@ -29,6 +29,7 @@ import { ScannerLogService } from '@services/scanner-log.service';
 import { CompletePolicyRoutingModule } from './complete-policy-routing.module';
 import { CompletePolicyPage } from './complete-policy.page';
 import { CompletePolicyService } from './complete-policy.service';
+import { PolicyModule } from '@features/policy/policy.module';
 
 @NgModule({
     declarations: [CompletePolicyPage],
@@ -49,6 +50,7 @@ import { CompletePolicyService } from './complete-policy.service';
         ModalScanningPolicySuccessModule,
         ModalScanningPolicyFailedModule,
         ModalShowPolicyModule,
+        PolicyModule,
         ReactiveFormsModule,
     ],
     providers: [

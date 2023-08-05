@@ -1,0 +1,99 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Actualizar Datos</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div
+                            class="alert agt-alert-warning alert-dismissible fade show"
+                            role="alert"
+                        >
+                            <span class="alert-inner--icon"
+                                ><i class="fe fe-alert-triangle mr-2"></i
+                            ></span>
+                            <span class="alert-inner--text"
+                                >Se encontraron
+                                <strong>{{
+                                    contactFieldsToRewrite.length
+                                }}</strong>
+                                datos actualizables.</span
+                            >
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">
+                                Selecciona los datos que deseas actualizar para
+                                el cliente.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-md-12">
+                        <ul class="list-group">
+                            <li
+                                class="list-group-item"
+                                *ngFor="
+                                    let field of contactFieldsToRewrite;
+                                    let index = index
+                                "
+                            >
+                                Actualizar {{ field.fieldName }}<br />
+                                Actual:
+                                <strong>{{
+                                    formatValue(
+                                        field.fieldKey,
+                                        field.currentValue
+                                    )
+                                }}</strong>
+                                Nuevo:
+                                <strong>{{
+                                    formatValue(field.fieldKey, field.newValue)
+                                }}</strong>
+                                <div class="material-switch pull-right">
+                                    <input
+                                        [id]="field.fieldKey"
+                                        type="checkbox"
+                                        (change)="
+                                            updateFieldStatus($event, index)
+                                        "
+                                    />
+                                    <label
+                                        [for]="field.fieldKey"
+                                        class="label-success"
+                                    ></label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-block agt-btn-primary"
+                    data-dismiss="modal"
+                    (click)="filterFields()"
+                >
+                    <strong>CONTINUAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
