@@ -2,15 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PolicyRoutingModule } from './policy-routing.module';
-import { ModalConfirmContactFieldsToRewriteComponent } from './componets/modal-confirm-contact-fields-to-rewrite/modal-confirm-contact-fields-to-rewrite.component';
+import { ModalSelectContactFieldsToRewriteComponent } from './components/modal-select-contact-fields-to-rewrite/modal-select-contact-fields-to-rewrite.component';
 import { SharedModule } from '@shared/shared.module';
 import { GenderNamePipe } from '@shared/pipes/gender-name.pipe';
 import { PhoneCodePipe } from '@shared/pipes/phone-code.pipe';
+import { ModalSelectActionForSavedPolicyComponent } from './components/modal-select-action-for-saved-policy/modal-select-action-for-saved-policy.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-    declarations: [ModalConfirmContactFieldsToRewriteComponent],
-    exports: [ModalConfirmContactFieldsToRewriteComponent],
-    imports: [CommonModule, PolicyRoutingModule, SharedModule],
+    declarations: [
+        ModalSelectActionForSavedPolicyComponent,
+        ModalSelectContactFieldsToRewriteComponent,
+    ],
+    exports: [
+        ModalSelectActionForSavedPolicyComponent,
+        ModalSelectContactFieldsToRewriteComponent,
+    ],
+    imports: [CommonModule, PolicyRoutingModule, RouterModule, SharedModule],
     providers: [GenderNamePipe, PhoneCodePipe],
 })
 export class PolicyModule {}

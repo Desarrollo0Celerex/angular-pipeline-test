@@ -1712,7 +1712,12 @@
 ></agt-modal-notify-policy-already-exists>
 
 <!-- NEW MODALS -->
-<agt-modal-confirm-contact-fields-to-rewrite
+<agt-modal-select-contact-fields-to-rewrite
     [contactFieldsToRewrite]="contactFieldsToRewrite"
     (fieldsSelected)="addContactFieldsToRewrite($event)"
-></agt-modal-confirm-contact-fields-to-rewrite>
+></agt-modal-select-contact-fields-to-rewrite>
+<agt-modal-select-action-for-saved-policy
+    [contactId]="contactId"
+    [paymentId]="paymentId"
+    [policyId]="policyId"
+></agt-modal-select-action-for-saved-policy>

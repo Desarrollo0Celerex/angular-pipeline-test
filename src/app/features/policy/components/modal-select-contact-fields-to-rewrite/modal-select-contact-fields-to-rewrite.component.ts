@@ -4,14 +4,14 @@ import { GenderNamePipe } from '@shared/pipes/gender-name.pipe';
 import { PhoneCodePipe } from '@shared/pipes/phone-code.pipe';
 
 @Component({
-    selector: 'agt-modal-confirm-contact-fields-to-rewrite',
-    templateUrl: './modal-confirm-contact-fields-to-rewrite.component.html',
+    selector: 'agt-modal-select-contact-fields-to-rewrite',
+    templateUrl: './modal-select-contact-fields-to-rewrite.component.html',
     styles: [],
 })
-export class ModalConfirmContactFieldsToRewriteComponent {
+export class ModalSelectContactFieldsToRewriteComponent {
     @Input() contactFieldsToRewrite: RewriteField[] = [];
     @Output() fieldsSelected = new EventEmitter<string[]>();
-    modalId = 'agt-policy-confirm-contact-fields-to-rewrite';
+    modalId = 'agt-policy-select-contact-fields-to-rewrite';
 
     constructor(
         private _genderNamePipe: GenderNamePipe,

@@ -45,7 +45,6 @@ export class CompletePolicyPage implements OnInit {
     existingPolicyId: string = '';
     isScannerFailed: boolean = false;
     message: string = 'Valida los datos de la nueva póliza de';
-    policyId: string;
     modalIdBasePoliciDataLoaded: string = 'agt-base-policy-data-loaded';
     modalIdInvalidExpiredPolicy: string = 'agt-invalid-expired-policy';
     modalIdInvalidHistoryPolicy: string = 'agt-invalid-history-policy';
@@ -59,6 +58,8 @@ export class CompletePolicyPage implements OnInit {
     modalIdShowPolicy: string;
     modalSelectFileData: ModalSelectFileData;
     emissionDateCalendarId: string;
+    policyId: string;
+    paymentId = '';
     validityEndDateCalendarId: string;
     validityStartDateCalendarId: string;
     private _isFormSubmitted: boolean;
@@ -390,19 +391,15 @@ export class CompletePolicyPage implements OnInit {
             .subscribe(
                 (policy) => {
                     this._loadingService.hide();
-                    console.log('policy: ', policy);
-
-                    /* if (this.areSeveralInsured) {
+                    if (this.areSeveralInsured) {
                         AlertHelper.policyCompleted(
                             this._goToListPolicyInsureds,
                             this
                         );
                     } else {
-                        AlertHelper.policyCompleted(
-                            this._goToListContactPolicies,
-                            this
-                        );
-                    } */
+                        this.paymentId = policy.paymentId;
+                        this._showModalToSelectActionForSavedPolicy();
+                    }
                 },
                 (error: HttpError) => {
                     this._handleCompletePolicyError(error);
@@ -801,9 +798,13 @@ export class CompletePolicyPage implements OnInit {
         this.contactFieldsToRewrite =
             this.model.generateContactFieldsToRewrite();
         if (this.contactFieldsToRewrite.length > 0) {
-            ModalPlugin.show('agt-policy-confirm-contact-fields-to-rewrite');
+            ModalPlugin.show('agt-policy-select-contact-fields-to-rewrite');
         } else {
             this._completePolicy();
         }
+    }
+
+    private _showModalToSelectActionForSavedPolicy(): void {
+        ModalPlugin.show('agt-modal-select-action-for-saved-policy');
     }
 }
