@@ -1710,3 +1710,9 @@
     [modalId]="modalIdNotifyPolicyAlreadyExists"
     (actionConfirmed)="onDeletePolicy()"
 ></agt-modal-notify-policy-already-exists>
+
+<!-- NEW MODALS -->
+<agt-modal-confirm-contact-fields-to-rewrite
+    [contactFieldsToRewrite]="contactFieldsToRewrite"
+    (fieldsSelected)="addContactFieldsToRewrite($event)"
+></agt-modal-confirm-contact-fields-to-rewrite>

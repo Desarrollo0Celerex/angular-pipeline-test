@@ -578,13 +578,13 @@ export class PolicyService {
         contactId: string,
         policyId: string,
         requestBody: FormData
-    ): Observable<void> {
+    ): Observable<Policy> {
         const route: string = routes.completeContactPolicy(
             this._workspaceId,
             contactId,
             policyId
         );
-        return this._httpClient.post<void>(route, requestBody);
+        return this._httpClient.post<Policy>(route, requestBody);
     }
 
     /**

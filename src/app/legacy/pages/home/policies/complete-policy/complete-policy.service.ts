@@ -56,17 +56,19 @@ import { PolicyService } from '@services/policy.service';
 import { PolicyInsuredService } from '@services/policy-insured.service';
 import { ScannerLogService } from '@services/scanner-log.service';
 import { Contact } from '@core/interfaces/contact.interface';
+import { RewriteField } from '@interfaces/rewrite-field.interface';
 
 declare var DropifyPlugin: any;
 
 @Injectable()
 export class CompletePolicyService {
+    contactFieldsToRewrite: string[] = [];
     currencies: Currency[] = [];
     genders: Gender[] = [];
     partners: Partner[] = [];
     paymentMethods: PaymentMethod[] = [];
     paymentPlans: PaymentPlan[] = [];
-    policy: Policy | null = null;
+    policy: any | null | Policy = null;
     policyForm: FormGroup = this._formBuilder.group({});
     private _areFractionatedPaymentAmounts: boolean = false;
     private _allowedFileTypes: string[] = ['pdf'];
@@ -587,13 +589,13 @@ export class CompletePolicyService {
         contactId: string,
         policyId: string,
         scannedPolicyData: Policy | null
-    ): Observable<void> {
+    ): Observable<Policy> {
         const requestBody: FormData = this._getRequestBody(scannedPolicyData);
-        return new Observable((observer) => {
+        return new Observable<Policy>((observer) => {
             this._policyService
                 .completePolicy(contactId, policyId, requestBody)
                 .subscribe(
-                    () => {
+                    (policy) => {
                         const requestBodies: FormData[] =
                             this._generateRequestBodies();
                         if (requestBodies.length > 0) {
@@ -604,11 +606,11 @@ export class CompletePolicyService {
                                     requestBodies
                                 )
                                 .subscribe(() => {
-                                    observer.next();
+                                    observer.next(policy);
                                     observer.complete();
                                 });
                         } else {
-                            observer.next();
+                            observer.next(policy);
                             observer.complete();
                         }
                     },
@@ -663,6 +665,53 @@ export class CompletePolicyService {
         return this._policyService.downloadPolicy(policyUrl);
     }
 
+    generateContactFieldsToRewrite(): RewriteField[] {
+        const values: RewriteField[] = [];
+        const fields = [
+            {
+                key: 'Rfc',
+                name: 'Identificación',
+            },
+            {
+                key: 'GenderId',
+                name: 'Género',
+            },
+            {
+                key: 'PostalCode',
+                name: 'Código Postal',
+            },
+            {
+                key: 'Email',
+                name: 'Correo',
+            },
+            {
+                key: 'PhoneCodeId',
+                name: 'Código del Teléfono',
+            },
+            {
+                key: 'PhoneNumber',
+                name: 'Teléfono',
+            },
+        ];
+        for (let field of fields) {
+            const policyValue =
+                this.policyForm.controls['titular' + field.key].value;
+            const profileValue = this.policy
+                ? this.policy['contact' + field.key]
+                : '';
+            if (policyValue && policyValue != profileValue) {
+                values.push({
+                    fieldKey: UtilitiesHelper.toLowerCaseFirst(field.key),
+                    fieldName: field.name,
+                    currentValue: profileValue,
+                    newValue: policyValue,
+                    canRewrite: false,
+                });
+            }
+        }
+        return values;
+    }
+
     getContact(contactId: string): Observable<Policy> {
         const fields: string =
             'contactName,birthdate,genderId,postalCode,email,phoneCodeId,phoneNumber,rfc';
@@ -706,7 +755,7 @@ export class CompletePolicyService {
     ): Observable<HttpResponse> {
         this.policy = null;
         const fields: string =
-            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,workspaceCommission,workspaceAgentNumber,countryTaxRate,workspaceCoverPay';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,workspaceCommission,workspaceAgentNumber,countryTaxRate,workspaceCoverPay,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -1259,6 +1308,10 @@ export class CompletePolicyService {
             requestBody.append('titularGenderId', this.f.titularGenderId.value);
             requestBody.append('titularAge', this.f.titularAge.value);
         }
+        requestBody.append(
+            'contactFieldsToRewrite',
+            this.contactFieldsToRewrite.join(',')
+        );
         return requestBody;
     }
 
