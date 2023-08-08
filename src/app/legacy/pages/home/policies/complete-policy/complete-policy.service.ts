@@ -666,7 +666,7 @@ export class CompletePolicyService {
     }
 
     generateContactFieldsToRewrite(): RewriteField[] {
-        const values: RewriteField[] = [];
+        let values: RewriteField[] = [];
         const fields = [
             {
                 key: 'Rfc',
@@ -709,7 +709,34 @@ export class CompletePolicyService {
                 });
             }
         }
+
+        const phoneCodeIdIndex = this._getIndexFromArray('phoneCodeId', values);
+
+        if (phoneCodeIdIndex > -1) {
+            const phoneNumberIndex = this._getIndexFromArray(
+                'phoneNumber',
+                values
+            );
+            if (phoneNumberIndex === -1) {
+                values = this._deleteElementFromArray(phoneCodeIdIndex, values);
+            }
+        }
+
         return values;
+    }
+
+    private _deleteElementFromArray(
+        index: number,
+        data: RewriteField[]
+    ): RewriteField[] {
+        data.splice(index, 1);
+        return data;
+    }
+
+    private _getIndexFromArray(key: string, data: RewriteField[]): number {
+        return data.findIndex(
+            (element: RewriteField) => element.fieldKey === key
+        );
     }
 
     getContact(contactId: string): Observable<Policy> {

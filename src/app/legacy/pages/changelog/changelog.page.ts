@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.11',
+            launchDate: '07/08/2023',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se resolvio bug al mostrar el código teléfonico cuando no hay número de teléfono al reescribir los datos del contacto al completar una póliza.',
+                        'Se agrego la etiqueta "Sin Datos" cuando un campo esta vacío al mostrar la lista de campos a reescribir en el perfil del contacto.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.10',
             launchDate: '05/08/2023',
             changes: [
