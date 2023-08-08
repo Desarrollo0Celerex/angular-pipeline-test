@@ -38,6 +38,10 @@ export class ModalSelectContactFieldsToRewriteComponent {
                 value = this._phoneCodePipe.transform(value);
                 break;
         }
+
+        if (value === '') {
+            value = 'Sin Datos';
+        }
         return value;
     }
 
