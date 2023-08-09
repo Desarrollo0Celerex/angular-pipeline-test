@@ -584,7 +584,9 @@ export class PolicyService {
             contactId,
             policyId
         );
-        return this._httpClient.post<Policy>(route, requestBody);
+        return this._httpClient
+            .post<HttpResponse>(route, requestBody)
+            .pipe(map((res: HttpResponse) => res.data));
     }
 
     /**

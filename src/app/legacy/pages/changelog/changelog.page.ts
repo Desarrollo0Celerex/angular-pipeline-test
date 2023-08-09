@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.12',
+            launchDate: '08/08/2023',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se resolvio bug al mostrar el modal de acciones y seleccionar "APLICAR PAGOS".',
+                        'Se actualizo modal de acciones para quitar la "x" (Cerrar modal) y cambiar etiqueta "CANCELAR" por "SALIR".',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.11',
             launchDate: '07/08/2023',
             changes: [

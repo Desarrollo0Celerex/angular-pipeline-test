@@ -33,6 +33,7 @@ export class ModalSelectActionForSavedPolicyComponent implements OnChanges {
                 this.policyId,
                 this.paymentId
             );
+
         this.routePolicyRecord =
             '/' + ROUTES_NAME.showHistoryPolicy(this.contactId, this.policyId);
     }
