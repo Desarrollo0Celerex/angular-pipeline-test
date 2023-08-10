@@ -5,6 +5,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class GenderNamePipe implements PipeTransform {
     transform(genderId: string): string {
-        return genderId == '1' ? 'Hombre' : 'Mujer';
+        switch (parseInt(genderId)) {
+            case 1:
+                return 'Hombre';
+            case 2:
+                return 'Mujer';
+            default:
+                return '';
+        }
     }
 }

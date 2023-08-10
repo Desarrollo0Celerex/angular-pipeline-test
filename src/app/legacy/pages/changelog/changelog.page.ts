@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.13',
+            launchDate: '09/08/2023',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se resolvio bug al completar una póliza, ya que al cargar una póliza para un cliente de tipo empresa, se validaba el campo del gener para ser reescrito en el perfil del cliente, cuando en estos tipos de cliente ese campo no existe.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.12',
             launchDate: '08/08/2023',
             changes: [
