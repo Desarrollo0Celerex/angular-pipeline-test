@@ -667,14 +667,10 @@ export class CompletePolicyService {
 
     generateContactFieldsToRewrite(): RewriteField[] {
         let values: RewriteField[] = [];
-        const fields = [
+        let fields = [
             {
                 key: 'Rfc',
                 name: 'Identificación',
-            },
-            {
-                key: 'GenderId',
-                name: 'Género',
             },
             {
                 key: 'PostalCode',
@@ -693,6 +689,13 @@ export class CompletePolicyService {
                 name: 'Teléfono',
             },
         ];
+
+        if (this.policy.contactTypeId === CONTACT_TYPES.PERSON) {
+            fields.push({
+                key: 'GenderId',
+                name: 'Género',
+            });
+        }
         for (let field of fields) {
             const policyValue =
                 this.policyForm.controls['titular' + field.key].value;
