@@ -82,6 +82,13 @@ const routes: Routes = [
 
     // Invitations routes
     {
+        path: ROUTES_NAME.checkAcceptInvitation(':invitationToken'),
+        loadChildren: () =>
+            import(
+                '@pages/invitations/check-accept-invitation/check-accept-invitation.module'
+            ).then((mod) => mod.CheckAcceptInvitationModule),
+    },
+    {
         path: ROUTES_NAME.acceptInvitation(':invitationToken'),
         loadChildren: () =>
             import(

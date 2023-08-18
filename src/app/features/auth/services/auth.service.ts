@@ -94,7 +94,10 @@ export class AuthService {
         return this._apiHttp.get(route);
     }
 
-    goToAtomAccount(activationCode: string = ''): void {
+    goToAtomAccount(
+        activationCode: string = '',
+        redirectUrl: string = ''
+    ): void {
         const atomAccountLoginUrl: string = `${environment.atomAccountUrl}/auth/identifier`;
         let returnUrl: string = `${environment.appAgenthosUrl}/auth/identify-user`;
         if (activationCode) {
@@ -104,7 +107,9 @@ export class AuthService {
             'https://webkit.atombits.xyz/agenthos/logo/agenthos_dark.png';
         const serviceUrl = 'https://agenthos.com';
         let loginUrl = `${atomAccountLoginUrl}?serviceName=Agenthos&serviceLogoUrl=${serviceLogoUrl}&serviceUrl=${serviceUrl}&returnUrl=${returnUrl}`;
-        const redirectUrl: string = this._getRedirectUrl();
+        if (redirectUrl === '') {
+            redirectUrl = this._getRedirectUrl();
+        }
         if (!!redirectUrl) {
             loginUrl += `&redirectUrl=${redirectUrl}`;
         }
@@ -116,11 +121,11 @@ export class AuthService {
         return this._apiHttp.post(route, { authToken });
     }
 
-    logout(restartSession: boolean = false): void {
+    logout(restartSession: boolean = false, redirectUrl: string = ''): void {
         this._storageService.clearStorage();
         this._firebaseService.exitFirebase();
         if (restartSession) {
-            this.goToAtomAccount();
+            this.goToAtomAccount('', redirectUrl);
         } else {
             this._goToAgenthos();
         }
