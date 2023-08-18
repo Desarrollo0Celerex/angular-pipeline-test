@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
 import * as moment from 'moment';
@@ -25,6 +25,7 @@ import { ScanningService } from '@services/scanning.service';
 
 import { CompletePolicyService } from './complete-policy.service';
 import { RewriteField } from '@interfaces/rewrite-field.interface';
+import { ModalSelectActionForSavedPolicyComponent } from '@features/policy/components/modal-select-action-for-saved-policy/modal-select-action-for-saved-policy.component';
 
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
@@ -36,6 +37,8 @@ declare var PopoverPlugin: any;
     styles: [],
 })
 export class CompletePolicyPage implements OnInit {
+    @ViewChild(ModalSelectActionForSavedPolicyComponent)
+    modalSelectActionForSavedPolicyComponent!: ModalSelectActionForSavedPolicyComponent;
     CONTACT_TYPES: any = CONTACT_TYPES;
     INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     INSURANCE_TYPES: any = INSURANCE_TYPES;
@@ -805,6 +808,29 @@ export class CompletePolicyPage implements OnInit {
     }
 
     private _showModalToSelectActionForSavedPolicy(): void {
-        ModalPlugin.show('agt-modal-select-action-for-saved-policy');
+        const phoneCode = this._generatePhoneCode(
+            this.model.policyForm.value.titularPhoneCodeId
+        );
+        this.modalSelectActionForSavedPolicyComponent.showModal({
+            contactId: this.contactId,
+            policyId: this.policyId,
+            paymentId: this.paymentId,
+            phoneCode: phoneCode,
+            phoneNumber: this.model.policyForm.value.titularPhoneNumber,
+            email: this.model.policyForm.value.titularEmail,
+        });
+    }
+
+    private _generatePhoneCode(phoneCodeId: string): string {
+        switch (parseInt(phoneCodeId)) {
+            case 1:
+                return '52';
+            case 2:
+                return '54';
+            case 3:
+                return '57';
+            default:
+                return '';
+        }
     }
 }

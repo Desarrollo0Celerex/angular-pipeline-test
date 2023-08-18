@@ -3,11 +3,11 @@ import { Country } from '@features/countries/interfaces/country.interface';
 import { CountriesService } from '@features/countries/services/countries.service';
 
 @Component({
-    selector: 'agt-phone-codes',
-    templateUrl: './phone-codes.component.html',
+    selector: 'agt-dropdown-phone-codes',
+    templateUrl: './dropdown-phone-codes.component.html',
     styles: [],
 })
-export class PhoneCodesComponent implements OnInit {
+export class DropdownPhoneCodesComponent implements OnInit {
     @Input() phoneCode = '';
     @Input() isDisabled = false;
     @Output() phoneCodeSelected = new EventEmitter<string>();

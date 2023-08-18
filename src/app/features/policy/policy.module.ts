@@ -3,22 +3,25 @@ import { CommonModule } from '@angular/common';
 
 import { PolicyRoutingModule } from './policy-routing.module';
 import { ModalSelectContactFieldsToRewriteComponent } from './components/modal-select-contact-fields-to-rewrite/modal-select-contact-fields-to-rewrite.component';
+import { PolicySenderComponent } from './components/policy-sender/policy-sender.component';
 import { SharedModule } from '@shared/shared.module';
 import { GenderNamePipe } from '@shared/pipes/gender-name.pipe';
 import { PhoneCodePipe } from '@shared/pipes/phone-code.pipe';
 import { ModalSelectActionForSavedPolicyComponent } from './components/modal-select-action-for-saved-policy/modal-select-action-for-saved-policy.component';
 import { RouterModule } from '@angular/router';
+import { PolicyService } from './services/policy.service';
 
 @NgModule({
     declarations: [
         ModalSelectActionForSavedPolicyComponent,
         ModalSelectContactFieldsToRewriteComponent,
+        PolicySenderComponent,
     ],
     exports: [
         ModalSelectActionForSavedPolicyComponent,
         ModalSelectContactFieldsToRewriteComponent,
     ],
     imports: [CommonModule, PolicyRoutingModule, RouterModule, SharedModule],
-    providers: [GenderNamePipe, PhoneCodePipe],
+    providers: [GenderNamePipe, PhoneCodePipe, PolicyService],
 })
 export class PolicyModule {}

@@ -43,18 +43,18 @@
                             ><strong>APLICAR PAGOS</strong></a
                         >
                     </div>
-                    <!-- <div class="col-md-6 mt-3">
+                    <div class="col-md-6 mt-3">
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
                             data-dismiss="modal"
-                            (click)="showModalToSendPolicy()"
+                            (click)="sendPolicy()"
                         >
                             <i class="fa fa-send mr-2"></i
                             ><strong>ENVIAR PÓLIZA</strong>
                         </button>
-                    </div> -->
-                    <div class="col-md-12 mt-3">
+                    </div>
+                    <div class="col-md-6 mt-3">
                         <!-- AGENTHOS - SMARTWALLET POLICY LAUNCHER -->
                         <a
                             [routerLink]="routePolicyRecord"
@@ -79,3 +79,5 @@
         </div>
     </div>
 </div>
+
+<agt-policy-sender (policySent)="showAlertPolicySent()"></agt-policy-sender>

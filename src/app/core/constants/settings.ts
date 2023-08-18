@@ -4,6 +4,20 @@ export enum CALENDARS {
     OUTLOOK = 3,
 }
 
+export enum SHIPPING_CHANNELS {
+    WHATSAPP = 2,
+    EMAIL = 3,
+}
+
+export enum SHIPPING_CONTACT_TYPES {
+    PHONE = 1,
+    EMAIL = 2,
+}
+
+export enum SHIPPING_CONTENT_TYPES {
+    POLICY = 1,
+}
+
 export const CALENDAR_RANGES = {
     LAST_90_DAYS: {
         NAME: 'ÚLTIMOS 90 DÍAS',

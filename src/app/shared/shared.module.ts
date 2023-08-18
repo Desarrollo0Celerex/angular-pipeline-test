@@ -37,6 +37,10 @@ import { ContentListComponent } from './components/content-list/content-list.com
 import { CardCalendarRangeComponent } from './components/card-calendar-range/card-calendar-range.component';
 import { GenderNamePipe } from './pipes/gender-name.pipe';
 import { PhoneCodePipe } from './pipes/phone-code.pipe';
+import { ModalSelectShippingChannelsComponent } from './components/modal-select-shipping-channels/modal-select-shipping-channels.component';
+import { GenerateShippingInformationComponent } from './components/generate-shipping-information/generate-shipping-information.component';
+import { ModalRequestShippingContactsComponent } from './components/modal-request-shipping-contacts/modal-request-shipping-contacts.component';
+import { CountriesModule } from '@features/countries/countries.module';
 
 @NgModule({
     declarations: [
@@ -67,6 +71,9 @@ import { PhoneCodePipe } from './pipes/phone-code.pipe';
         CardCalendarRangeComponent,
         GenderNamePipe,
         PhoneCodePipe,
+        ModalSelectShippingChannelsComponent,
+        GenerateShippingInformationComponent,
+        ModalRequestShippingContactsComponent,
     ],
     exports: [
         CardCalendarRangeComponent,
@@ -81,6 +88,7 @@ import { PhoneCodePipe } from './pipes/phone-code.pipe';
         ContactStatusNamePipe,
         ContentListComponent,
         GenderNamePipe,
+        GenerateShippingInformationComponent,
         LoadingContentComponent,
         PaymentStatusNamePipe,
         PluralPipe,
@@ -88,6 +96,7 @@ import { PhoneCodePipe } from './pipes/phone-code.pipe';
     ],
     imports: [
         CommonModule,
+        CountriesModule,
         FormsModule,
         MatDatepickerModule,
         MatMomentDateModule,

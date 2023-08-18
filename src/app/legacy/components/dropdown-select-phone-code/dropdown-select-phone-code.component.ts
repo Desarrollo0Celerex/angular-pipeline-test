@@ -1,14 +1,20 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+} from '@angular/core';
 
 import { DropdownSelectPhoneCodeService } from './dropdown-select-phone-code.service';
 
 declare var TooltipPlugin: any;
 
 @Component({
-  selector: 'agt-dropdown-select-phone-code',
-  templateUrl: './dropdown-select-phone-code.component.html',
-  styles: [
-  ]
+    selector: 'agt-dropdown-select-phone-code',
+    templateUrl: './dropdown-select-phone-code.component.html',
+    styles: [],
 })
 export class DropdownSelectPhoneCodeComponent implements OnChanges {
     @Input() phoneCodeId: number;
@@ -16,7 +22,9 @@ export class DropdownSelectPhoneCodeComponent implements OnChanges {
     @Output() phoneCodeIdSelected: EventEmitter<number>;
     selectedPhoneCodePosition: number;
 
-    constructor(public dropdownSelectPhoneCodeService: DropdownSelectPhoneCodeService) {
+    constructor(
+        public dropdownSelectPhoneCodeService: DropdownSelectPhoneCodeService
+    ) {
         this.phoneCodeId = 0;
         this.isDisabled = false;
         this.phoneCodeIdSelected = new EventEmitter<number>();
@@ -24,8 +32,8 @@ export class DropdownSelectPhoneCodeComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.phoneCodeId && !!changes.phoneCodeId.currentValue) {
-            this._loadPhoneCodes();
+        if (!!changes.phoneCodeId && !!changes.phoneCodeId.currentValue) {
+            this._loadDropdownPhoneCodes();
         }
     }
 
@@ -35,18 +43,25 @@ export class DropdownSelectPhoneCodeComponent implements OnChanges {
      */
     onClickSelectPhoneCode(selectedPhoneCodePosition: number): void {
         this.selectedPhoneCodePosition = selectedPhoneCodePosition;
-        const selectedPhoneCodeId: number = this.dropdownSelectPhoneCodeService.phoneCodes[selectedPhoneCodePosition].countryId;
+        const selectedPhoneCodeId: number =
+            this.dropdownSelectPhoneCodeService.phoneCodes[
+                selectedPhoneCodePosition
+            ].countryId;
         this.phoneCodeIdSelected.emit(selectedPhoneCodeId);
     }
 
     /**
      * Request to load the phone codes
      */
-    private _loadPhoneCodes(): void {
-        this.dropdownSelectPhoneCodeService.loadPhoneCodes().subscribe( () => {
-            TooltipPlugin.init();
-            this.selectedPhoneCodePosition = this.dropdownSelectPhoneCodeService.getSelectedPhoneCodePosition(this.phoneCodeId);
-        });
+    private _loadDropdownPhoneCodes(): void {
+        this.dropdownSelectPhoneCodeService
+            .loadDropdownPhoneCodes()
+            .subscribe(() => {
+                TooltipPlugin.init();
+                this.selectedPhoneCodePosition =
+                    this.dropdownSelectPhoneCodeService.getSelectedPhoneCodePosition(
+                        this.phoneCodeId
+                    );
+            });
     }
-
 }
