@@ -8,6 +8,21 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.15',
+            launchDate: '18/08/2023',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se creo un componente para enviar una póliza.',
+                        'Se agrego una página para cerrar la sesión antes de aceptar una invitación.',
+                        'Se actualizo el estatus de los campos a reescribir en el perfil de un cliente a activo.',
+                        'Se elimino la validación personalizada de cada red social y se agrego la validación como un link generico.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.13',
             launchDate: '09/08/2023',
             changes: [

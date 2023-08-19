@@ -26,7 +26,7 @@ export class LinkedinService {
         this.form = this._formBuilder.group({
             linkedinUrl: [
                 linkedinUrl !== null ? linkedinUrl : '',
-                [Validators.required, ValidatorsHelper.webLinkLinkedin],
+                [Validators.required, ValidatorsHelper.webLink],
             ],
         });
         this.isBuiltForm = true;

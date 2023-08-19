@@ -26,7 +26,7 @@ export class TwitterService {
         this.form = this._formBuilder.group({
             twitterUrl: [
                 twitterUrl !== null ? twitterUrl : '',
-                [Validators.required, ValidatorsHelper.webLinkTwitter],
+                [Validators.required, ValidatorsHelper.webLink],
             ],
         });
         this.isBuiltForm = true;
