@@ -26,7 +26,7 @@ export class CardiumService {
         this.form = this._formBuilder.group({
             cardiumUrl: [
                 cardiumUrl !== null ? cardiumUrl : '',
-                [Validators.required, ValidatorsHelper.webLinkCardium],
+                [Validators.required, ValidatorsHelper.webLink],
             ],
         });
         this.isBuiltForm = true;

@@ -1,0 +1,86 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {{ modalData?.modalTitle | titlecase }}
+                </h5>
+            </div>
+            <div class="modal-body">
+                <ol class="breadcrumb1">
+                    <li class="breadcrumb-item1">
+                        Selecciona los canales para
+                        {{ modalData?.modalMessage | lowercase }}.
+                    </li>
+                </ol>
+                <div class="row">
+                    <div
+                        class="col-md-12 mt-3"
+                        *ngFor="let channel of channels; let index = index"
+                    >
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                {{ channel.name }}
+                                <span class="col-auto align-self-center">
+                                    <span
+                                        class="form-help"
+                                        data-toggle="popover"
+                                        data-placement="right"
+                                        [attr.data-content]="
+                                            channel.description
+                                        "
+                                        >?</span
+                                    >
+                                </span>
+                                <div class="material-switch pull-right">
+                                    <input
+                                        id="channel-{{ index }}"
+                                        type="checkbox"
+                                        (change)="toggleChannel($event, index)"
+                                    />
+                                    <label
+                                        for="channel-{{ index }}"
+                                        class="label-success"
+                                    ></label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-3">
+                        <button
+                            type="button"
+                            class="btn btn-block agt-btn-default"
+                            [disabled]="!hasSelectedChannels"
+                            (click)="emmitSelectedChannels()"
+                        >
+                            <i
+                                class="mr-2"
+                                [class]="modalData?.modalIconClass"
+                            ></i
+                            ><strong>{{
+                                modalData?.modalActionName | uppercase
+                            }}</strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a
+                    [routerLink]="modalData?.modalCancelRoute"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    data-dismiss="modal"
+                >
+                    <strong>CANCELAR</strong>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

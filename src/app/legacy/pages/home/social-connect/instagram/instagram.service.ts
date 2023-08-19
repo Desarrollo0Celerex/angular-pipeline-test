@@ -26,7 +26,7 @@ export class InstagramService {
         this.form = this._formBuilder.group({
             instagramUrl: [
                 instagramUrl !== null ? instagramUrl : '',
-                [Validators.required, ValidatorsHelper.webLinkInstagram],
+                [Validators.required, ValidatorsHelper.webLink],
             ],
         });
         this.isBuiltForm = true;

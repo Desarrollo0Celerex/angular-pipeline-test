@@ -337,7 +337,7 @@ export class ValidatorsHelper {
     static webLink(control: AbstractControl): ValidationErrors | null {
         if (ValidatorsHelper._checkCanValidate(control) === true) {
             const regex =
-                /^(https:\/\/)?([\da-zA-ZñÑ\.-]+)\.([a-zA-ZñÑ\.]{2,6})([\/\w \.-]*)*\/?$/;
+                /^(https:\/\/)?([\da-zA-ZñÑ\.-]+)\.([a-zA-ZñÑ\.]{2,6})([\/\w \.-=?]*)*\/?$/;
             let value = control.value;
             return !regex.test(value) ? { webLink: true } : null;
         }

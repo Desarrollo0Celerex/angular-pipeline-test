@@ -26,7 +26,7 @@ export class TiktokService {
         this.form = this._formBuilder.group({
             tiktokUrl: [
                 tiktokUrl !== null ? tiktokUrl : '',
-                [Validators.required, ValidatorsHelper.webLinkTiktok],
+                [Validators.required, ValidatorsHelper.webLink],
             ],
         });
         this.isBuiltForm = true;

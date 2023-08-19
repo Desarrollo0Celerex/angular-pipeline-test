@@ -708,7 +708,7 @@ export class CompletePolicyService {
                     fieldName: field.name,
                     currentValue: profileValue,
                     newValue: policyValue,
-                    canRewrite: false,
+                    canRewrite: true,
                 });
             }
         }

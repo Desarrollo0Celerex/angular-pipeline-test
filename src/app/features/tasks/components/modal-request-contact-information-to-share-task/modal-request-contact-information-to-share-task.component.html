@@ -54,14 +54,14 @@
                                 <ng-container *ngIf="canShowInputWhatsapp">
                                     <label class="form-label">WhatsApp</label>
                                     <div class="input-group">
-                                        <agt-phone-codes
+                                        <agt-dropdown-phone-codes
                                             [phoneCode]="
                                                 form.controls.phoneCode.value
                                             "
                                             (phoneCodeSelected)="
                                                 updatePhoneCode($event)
                                             "
-                                        ></agt-phone-codes>
+                                        ></agt-dropdown-phone-codes>
                                         <input
                                             type="text"
                                             class="form-control {{

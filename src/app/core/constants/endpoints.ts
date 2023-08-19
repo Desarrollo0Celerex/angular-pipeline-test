@@ -1,7 +1,7 @@
 import { environment } from '@env/environment';
 
 export const AGENTHOS_NOTIFIER_ENDPOINTS: any = {
-    paymentReminders: `${environment.agenthosNotifierApiUrl}/payments/payment-reminders`,
+    paymentReminders: `${environment.agenthosNotifier.apiUrl}/payments/payment-reminders`,
 };
 
 export const AUTH_ENDPOINTS: any = {
@@ -82,7 +82,7 @@ export const RECEIPT_PAID_ENDPOINTS: any = {
 };
 
 export const TASK_ENDPOINTS: any = {
-    taskNotifications: `${environment.agenthosNotifierApiUrl}/tasks`,
+    taskNotifications: `${environment.agenthosNotifier.apiUrl}/tasks`,
     totalWorkspaceTasks: (workspaceId: string) =>
         `${environment.apiUrl}/workspaces/${workspaceId}/tasks/count`,
     workspaceTask: (workspaceId: string, taskId: string) =>

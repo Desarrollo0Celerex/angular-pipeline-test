@@ -26,7 +26,7 @@ export class FacebookService {
         this.form = this._formBuilder.group({
             facebookUrl: [
                 facebookUrl !== null ? facebookUrl : '',
-                [Validators.required, ValidatorsHelper.webLinkFacebook],
+                [Validators.required, ValidatorsHelper.webLink],
             ],
         });
         this.isBuiltForm = true;

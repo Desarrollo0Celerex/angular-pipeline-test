@@ -18,7 +18,7 @@ export class DropdownSelectPhoneCodeService {
      * Load the phone codes
      * @return Phone codes
      */
-    loadPhoneCodes(): Observable<HttpResponse> {
+    loadDropdownPhoneCodes(): Observable<HttpResponse> {
         const fields: string = 'countryId,name,abbreviation,flag,code';
         return this._countryService.getCountries(fields).pipe(
             tap((res: HttpResponse) => {
