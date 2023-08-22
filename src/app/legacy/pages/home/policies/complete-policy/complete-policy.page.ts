@@ -25,7 +25,7 @@ import { ScanningService } from '@services/scanning.service';
 
 import { CompletePolicyService } from './complete-policy.service';
 import { RewriteField } from '@interfaces/rewrite-field.interface';
-import { ModalSelectActionForSavedPolicyComponent } from '@features/policy/components/modal-select-action-for-saved-policy/modal-select-action-for-saved-policy.component';
+import { PolicyActionsComponent } from '@features/policy/components/policy-actions/policy-actions.component';
 
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
@@ -37,8 +37,8 @@ declare var PopoverPlugin: any;
     styles: [],
 })
 export class CompletePolicyPage implements OnInit {
-    @ViewChild(ModalSelectActionForSavedPolicyComponent)
-    modalSelectActionForSavedPolicyComponent!: ModalSelectActionForSavedPolicyComponent;
+    @ViewChild(PolicyActionsComponent)
+    modalSelectActionForSavedPolicyComponent!: PolicyActionsComponent;
     CONTACT_TYPES: any = CONTACT_TYPES;
     INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     INSURANCE_TYPES: any = INSURANCE_TYPES;

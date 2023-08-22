@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { PolicySenderComponent } from '../policy-sender/policy-sender.component';
-import { SelectActionForSavedPolicy } from '@features/policy/interfaces/select-action-for-saved-policy.interface';
+import { SelectActionForSavedPolicy } from '@features/policy/interfaces/policy-actions.interface';
 import { AlertHelper } from '@core/helpers/alert.helper';
 import { Router } from '@angular/router';
 import { TaskModalService } from '@features/tasks/services/task-modal.service';
@@ -10,15 +10,15 @@ import { TASK_MODULES } from '@core/constants/settings';
 declare var ModalPlugin: any;
 
 @Component({
-    selector: 'agt-modal-select-action-for-saved-policy',
-    templateUrl: './modal-select-action-for-saved-policy.component.html',
+    selector: 'agt-policy-actions',
+    templateUrl: './policy-actions.component.html',
     styles: [],
 })
-export class ModalSelectActionForSavedPolicyComponent {
+export class PolicyActionsComponent {
     @ViewChild(PolicySenderComponent)
     policySenderComponent!: PolicySenderComponent;
     data: SelectActionForSavedPolicy | undefined = undefined;
-    modalId = 'agt-modal-select-action-for-saved-policy';
+    modalId = 'agt-policy-actions';
     modalIdShowPolicy = 'modal-show-policy';
     routeContactPolicies = '';
     routePolicyPendingReceipts = '';
@@ -81,9 +81,7 @@ export class ModalSelectActionForSavedPolicyComponent {
             );
     }
 
-    private _goToListContactPolicies(
-        context: ModalSelectActionForSavedPolicyComponent
-    ): void {
+    private _goToListContactPolicies(context: PolicyActionsComponent): void {
         context._router.navigateByUrl(
             ROUTES_NAME.listContactPolicies(context.data!.contactId)
         );

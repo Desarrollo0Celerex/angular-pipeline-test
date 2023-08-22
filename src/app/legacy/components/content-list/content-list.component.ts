@@ -42,7 +42,7 @@ import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ContentListService } from './content-list.service';
 import { Policy } from '@core/interfaces/policy.interface';
-import { ModalSelectActionForSavedPolicyComponent } from '@features/policy/components/modal-select-action-for-saved-policy/modal-select-action-for-saved-policy.component';
+import { PolicyActionsComponent } from '@features/policy/components/policy-actions/policy-actions.component';
 
 declare var ModalPlugin: any;
 
@@ -80,8 +80,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @ViewChild('containerIncompletePolicies') containerIncompletePolicies: any;
     @ViewChild('wrapperDownloadSinisterEventEvidence')
     wrapperDownloadSinisterEventEvidence!: WrapperDownloadSinisterEventEvidenceComponent;
-    @ViewChild(ModalSelectActionForSavedPolicyComponent)
-    modalSelectActionForSavedPolicyComponent!: ModalSelectActionForSavedPolicyComponent;
+    @ViewChild(PolicyActionsComponent)
+    modalSelectActionForSavedPolicyComponent!: PolicyActionsComponent;
     CONTENT_TYPES: any;
     canReloadApplyPayment: boolean = false;
     canShowTotalResults: boolean;
