@@ -64,7 +64,7 @@ export class ModalEditTaskComponent extends SmartComponent implements OnInit {
     }
 
     closeModal(): void {
-        ModalHelper.hideModal(this.modalId);
+        ModalHelper.hide(this.modalId);
         this.form.reset();
         this._isFormSubmitted = false;
     }
@@ -138,7 +138,7 @@ export class ModalEditTaskComponent extends SmartComponent implements OnInit {
         this._taskService.getTask(this._taskId, fields).subscribe((task) => {
             this._currentResponsibleId = task.responsibleId;
             this._updateForm(task);
-            ModalHelper.showModal(this.modalId);
+            ModalHelper.show(this.modalId);
         });
     }
 

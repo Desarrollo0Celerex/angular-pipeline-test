@@ -37,7 +37,7 @@
                             type="button"
                             class="btn btn-block agt-btn-default"
                             data-dismiss="modal"
-                            (click)="sendPolicy()"
+                            (click)="showModalSendPolicy()"
                         >
                             📲 <strong>ENVIAR PÓLIZA</strong>
                         </button>
@@ -64,7 +64,7 @@
                             type="button"
                             class="btn btn-block agt-btn-default"
                             data-dismiss="modal"
-                            (click)="showModalToDownloadPolicy()"
+                            (click)="showModalDownloadPolicy()"
                         >
                             📄 <strong>DESCARGAR PÓLIZA</strong>
                         </button>
@@ -75,7 +75,7 @@
                             type="button"
                             class="btn btn-block agt-btn-default"
                             data-dismiss="modal"
-                            (click)="showModalToCreateTask()"
+                            (click)="showModalCreateTask()"
                         >
                             📆 <strong>AGENDAR SEGUIMIENTO</strong>
                         </button>
@@ -95,17 +95,5 @@
     </div>
 </div>
 
-<agt-policy-sender (policySent)="showAlertPolicySent()"></agt-policy-sender>
-<agt-modal-show-policy
-    *ngIf="data"
-    [modalId]="modalIdShowPolicy"
-    [contactId]="data.contactId"
-    [policyId]="data.policyId"
-    [cancelRoute]="routeContactPolicies"
-></agt-modal-show-policy>
-
-<!-- Global Modals -->
-<agt-modal-create-task></agt-modal-create-task>
-<agt-modal-select-calendar></agt-modal-select-calendar>
-<agt-modal-sync-calendar></agt-modal-sync-calendar>
-<!-- // Global Modals -->
+<agt-send-policy (policySent)="showAlertPolicySent()"></agt-send-policy>
+<agt-download-policy></agt-download-policy>

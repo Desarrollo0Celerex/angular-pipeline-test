@@ -1,11 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { PolicySenderComponent } from '../policy-sender/policy-sender.component';
-import { SelectActionForSavedPolicy } from '@features/policy/interfaces/policy-actions.interface';
+import { SendPolicyComponent } from '../send-policy/send-policy.component';
+import { PolicyActions } from '@features/policy/interfaces/policy-actions.interface';
 import { AlertHelper } from '@core/helpers/alert.helper';
 import { Router } from '@angular/router';
-import { TaskModalService } from '@features/tasks/services/task-modal.service';
-import { TASK_MODULES } from '@core/constants/settings';
+import { DownloadPolicyComponent } from '../download-policy/download-policy.component';
 
 declare var ModalPlugin: any;
 
@@ -15,22 +14,26 @@ declare var ModalPlugin: any;
     styles: [],
 })
 export class PolicyActionsComponent {
-    @ViewChild(PolicySenderComponent)
-    policySenderComponent!: PolicySenderComponent;
-    data: SelectActionForSavedPolicy | undefined = undefined;
+    @ViewChild(DownloadPolicyComponent)
+    downloadPolicyComponent!: DownloadPolicyComponent;
+    @ViewChild(SendPolicyComponent)
+    sendPolicyComponent!: SendPolicyComponent;
+    data: PolicyActions | undefined = undefined;
     modalId = 'agt-policy-actions';
-    modalIdShowPolicy = 'modal-show-policy';
     routeContactPolicies = '';
     routePolicyPendingReceipts = '';
     routePolicyRecord = '';
 
-    constructor(
-        private _router: Router,
-        private _taskModalService: TaskModalService
-    ) {}
+    constructor(private _router: Router) {}
 
-    sendPolicy(): void {
-        this.policySenderComponent.sendPolicy({
+    init(data: PolicyActions): void {
+        this.data = data;
+        this._initRoutes();
+        ModalPlugin.show(this.modalId);
+    }
+
+    showModalSendPolicy(): void {
+        this.sendPolicyComponent.init({
             contactId: this.data!.contactId,
             policyId: this.data!.policyId,
             cancelRoute: this.routeContactPolicies,
@@ -44,22 +47,14 @@ export class PolicyActionsComponent {
         AlertHelper.policySent(this._goToListContactPolicies, this);
     }
 
-    showModalToCreateTask(): void {
-        this._taskModalService.showModalCreateTask({
-            taskTitle: `📌 Seguimiento de Póliza`,
-            taskModuleId: TASK_MODULES.OTHER,
-            cancelRoute: this.routeContactPolicies,
+    showModalCreateTask(): void {}
+
+    showModalDownloadPolicy(): void {
+        this.downloadPolicyComponent.init({
+            contactId: this.data!.contactId,
+            policyId: this.data!.policyId,
+            cancelRoute: this.data!.cancelRoute,
         });
-    }
-
-    showModalToDownloadPolicy(): void {
-        ModalPlugin.show(this.modalIdShowPolicy);
-    }
-
-    showModal(data: SelectActionForSavedPolicy): void {
-        this.data = data;
-        this._initRoutes();
-        ModalPlugin.show(this.modalId);
     }
 
     private _initRoutes(): void {

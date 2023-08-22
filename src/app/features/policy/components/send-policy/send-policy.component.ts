@@ -1,22 +1,22 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { LoadingService } from '@core/services/loading/loading.service';
 import { AuthService } from '@features/auth/services/auth.service';
-import { PolicySender } from '@features/policy/interfaces/policy-sender.interface';
+import { SendPolicy } from '@features/policy/interfaces/send-policy.interface';
 import { SendPolicyNotification } from '@features/policy/interfaces/send-policy-notification.interface';
 import { PolicyService } from '@features/policy/services/policy.service';
 import { GenerateShippingInformationComponent } from '@shared/components/generate-shipping-information/generate-shipping-information.component';
 import { ShippingInformation } from '@shared/interfaces/shipping-information.interface';
 
 @Component({
-    selector: 'agt-policy-sender',
-    templateUrl: './policy-sender.component.html',
+    selector: 'agt-send-policy',
+    templateUrl: './send-policy.component.html',
     styles: [],
 })
-export class PolicySenderComponent {
+export class SendPolicyComponent {
     @Output() policySent = new EventEmitter<void>();
     @ViewChild(GenerateShippingInformationComponent)
     generateShippingInformationComponent!: GenerateShippingInformationComponent;
-    private _data: PolicySender | undefined = undefined;
+    private _data: SendPolicy | undefined = undefined;
 
     constructor(
         private _authService: AuthService,
@@ -24,7 +24,7 @@ export class PolicySenderComponent {
         private _policyService: PolicyService
     ) {}
 
-    sendPolicy(data: PolicySender): void {
+    init(data: SendPolicy): void {
         this._data = data;
         this.generateShippingInformationComponent.generateShippingInformation({
             modalTitle: 'Enviar Póliza',

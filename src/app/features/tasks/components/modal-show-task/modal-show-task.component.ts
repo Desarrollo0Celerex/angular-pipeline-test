@@ -55,7 +55,7 @@ export class ModalShowTaskComponent extends SmartComponent implements OnInit {
             'taskTitle,taskDetails,taskProgressStatusName,responsibleName,taskDate,taskTime';
         this._taskService.getTask(this._taskId, fields).subscribe((task) => {
             this.task = task;
-            ModalHelper.showModal(this.modalId);
+            ModalHelper.show(this.modalId);
         });
     }
 }

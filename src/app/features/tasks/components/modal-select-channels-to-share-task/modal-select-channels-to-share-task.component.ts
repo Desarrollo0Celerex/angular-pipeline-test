@@ -29,7 +29,7 @@ export class ModalSelectChannelsToShareTaskComponent
             .pipe(this.untilComponentDestroy())
             .subscribe((taskId) => {
                 this._taskId = taskId;
-                ModalHelper.showModal(this.modalId);
+                ModalHelper.show(this.modalId);
             });
     }
 
@@ -39,7 +39,7 @@ export class ModalSelectChannelsToShareTaskComponent
         );
     }
     closeModal(): void {
-        ModalHelper.hideModal(this.modalId);
+        ModalHelper.hide(this.modalId);
         this.form.reset();
     }
 

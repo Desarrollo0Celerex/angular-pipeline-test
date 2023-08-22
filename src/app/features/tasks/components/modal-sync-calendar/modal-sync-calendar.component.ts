@@ -128,7 +128,7 @@ export class ModalSyncCalendarComponent
             .subscribe((task) => {
                 this._task = task;
                 this._generateLink();
-                ModalHelper.showModal(this.modalId);
+                ModalHelper.show(this.modalId);
             });
     }
 }

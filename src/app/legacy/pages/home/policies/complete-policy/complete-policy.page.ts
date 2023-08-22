@@ -38,7 +38,7 @@ declare var PopoverPlugin: any;
 })
 export class CompletePolicyPage implements OnInit {
     @ViewChild(PolicyActionsComponent)
-    modalSelectActionForSavedPolicyComponent!: PolicyActionsComponent;
+    policyActionsComponent!: PolicyActionsComponent;
     CONTACT_TYPES: any = CONTACT_TYPES;
     INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     INSURANCE_TYPES: any = INSURANCE_TYPES;
@@ -401,7 +401,7 @@ export class CompletePolicyPage implements OnInit {
                         );
                     } else {
                         this.paymentId = policy.paymentId;
-                        this._showModalToSelectActionForSavedPolicy();
+                        this._showModalPolicyActions();
                     }
                 },
                 (error: HttpError) => {
@@ -807,11 +807,11 @@ export class CompletePolicyPage implements OnInit {
         }
     }
 
-    private _showModalToSelectActionForSavedPolicy(): void {
+    private _showModalPolicyActions(): void {
         const phoneCode = this._generatePhoneCode(
             this.model.policyForm.value.titularPhoneCodeId
         );
-        this.modalSelectActionForSavedPolicyComponent.showModal({
+        this.policyActionsComponent.init({
             isSavedPolicy: true,
             contactId: this.contactId,
             policyId: this.policyId,

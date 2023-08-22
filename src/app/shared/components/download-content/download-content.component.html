@@ -1,0 +1,83 @@
+<!-- AGENTHOS - POLICY VIEW -->
+<ng-container *ngIf="data">
+    <div
+        class="modal fade"
+        [id]="modalId"
+        tabindex="-1"
+        role="dialog"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- AGENTHOS - DETAILS CARD -->
+                    <h5 class="modal-title">{{ data.title }}</h5>
+                    <a
+                        [routerLink]="data.cancelRoute"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                        (click)="reset()"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1">
+                            {{ data.message }}
+                        </li>
+                    </ol>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class="text-justify">
+                                {{ data.description }}
+                            </p>
+                            <p class="text-justify">
+                                <strong>{{ data.details }}</strong
+                                >.
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group text-center">
+                                <ng-container *ngIf="contentUrl">
+                                    <ngx-qrcode
+                                        [elementType]="ngxElementType"
+                                        [errorCorrectionLevel]="
+                                            ngxCorrectionLevel
+                                        "
+                                        [value]="contentUrl"
+                                    ></ngx-qrcode>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <a [href]="contentUrl" target="_blank">
+                                <button
+                                    type="button"
+                                    class="btn btn-primary btn-block"
+                                    [disabled]="!contentUrl"
+                                    (click)="closeModal()"
+                                >
+                                    <strong>DESCARGAR PÓLIZA</strong>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a
+                        [routerLink]="data.cancelRoute"
+                        class="btn btn-block agt-btn-secondary-outline"
+                        data-dismiss="modal"
+                        (click)="reset()"
+                    >
+                        <strong>CANCELAR</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<!-- //AGENTHOS - POLICY VIEW -->

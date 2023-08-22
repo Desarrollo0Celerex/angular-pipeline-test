@@ -1,4 +1,4 @@
-export interface PolicySender {
+export interface SendPolicy {
     contactId: string;
     policyId: string;
     phoneCode: string;

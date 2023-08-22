@@ -1,4 +1,4 @@
-export interface SelectActionForSavedPolicy {
+export interface PolicyActions {
     isSavedPolicy: boolean;
     contactId: string;
     policyId: string;

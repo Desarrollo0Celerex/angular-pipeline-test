@@ -25,7 +25,7 @@ export class ModalHandleTaskComponent extends SmartComponent implements OnInit {
             .pipe(this.untilComponentDestroy())
             .subscribe((taskId) => {
                 this._taskId = taskId;
-                ModalHelper.showModal(this.modalId);
+                ModalHelper.show(this.modalId);
             });
     }
 

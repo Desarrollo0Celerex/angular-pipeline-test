@@ -81,7 +81,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @ViewChild('wrapperDownloadSinisterEventEvidence')
     wrapperDownloadSinisterEventEvidence!: WrapperDownloadSinisterEventEvidenceComponent;
     @ViewChild(PolicyActionsComponent)
-    modalSelectActionForSavedPolicyComponent!: PolicyActionsComponent;
+    policyActionsComponent!: PolicyActionsComponent;
     CONTENT_TYPES: any;
     canReloadApplyPayment: boolean = false;
     canShowTotalResults: boolean;
@@ -754,7 +754,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     }
 
     showModalToSelectPolicyActions(policy: Policy): void {
-        this.modalSelectActionForSavedPolicyComponent.showModal({
+        this.policyActionsComponent.init({
             isSavedPolicy: false,
             contactId: policy.contactId,
             policyId: policy.policyId,

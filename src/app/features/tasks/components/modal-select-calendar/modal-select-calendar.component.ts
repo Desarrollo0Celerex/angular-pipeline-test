@@ -28,7 +28,7 @@ export class ModalSelectCalendarComponent
             .subscribe((data) => {
                 this._taskId = data.taskId;
                 this.cancelRoute = data.cancelRoute;
-                ModalHelper.showModal(this.modalId);
+                ModalHelper.show(this.modalId);
             });
     }
 

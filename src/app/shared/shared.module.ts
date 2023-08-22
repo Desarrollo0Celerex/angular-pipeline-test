@@ -9,6 +9,7 @@ import {
     MatDatepickerModule,
 } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 import { CardKpiComponent } from './components/card-kpi/card-kpi.component';
 import { CardContentTitleComponent } from './components/card-content-title/card-content-title.component';
@@ -41,6 +42,7 @@ import { ModalSelectShippingChannelsComponent } from './components/modal-select-
 import { GenerateShippingInformationComponent } from './components/generate-shipping-information/generate-shipping-information.component';
 import { ModalRequestShippingContactsComponent } from './components/modal-request-shipping-contacts/modal-request-shipping-contacts.component';
 import { CountriesModule } from '@features/countries/countries.module';
+import { DownloadContentComponent } from './components/download-content/download-content.component';
 
 @NgModule({
     declarations: [
@@ -74,6 +76,7 @@ import { CountriesModule } from '@features/countries/countries.module';
         ModalSelectShippingChannelsComponent,
         GenerateShippingInformationComponent,
         ModalRequestShippingContactsComponent,
+        DownloadContentComponent,
     ],
     exports: [
         CardCalendarRangeComponent,
@@ -87,6 +90,7 @@ import { CountriesModule } from '@features/countries/countries.module';
         CardPaymentAppliedComponent,
         ContactStatusNamePipe,
         ContentListComponent,
+        DownloadContentComponent,
         GenderNamePipe,
         GenerateShippingInformationComponent,
         LoadingContentComponent,
@@ -100,6 +104,7 @@ import { CountriesModule } from '@features/countries/countries.module';
         FormsModule,
         MatDatepickerModule,
         MatMomentDateModule,
+        NgxQRCodeModule,
         ReactiveFormsModule,
         RouterModule,
     ],

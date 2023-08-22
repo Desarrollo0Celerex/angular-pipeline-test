@@ -52,7 +52,7 @@ export class ModalRequestContactInformationToShareTaskComponent
             .subscribe((data) => {
                 this._data = data;
                 this._buildForm();
-                ModalHelper.showModal(this.modalId);
+                ModalHelper.show(this.modalId);
             });
     }
 
@@ -67,7 +67,7 @@ export class ModalRequestContactInformationToShareTaskComponent
     closeModal(): void {
         this.form.reset();
         this._isFormSubmitted = false;
-        ModalHelper.hideModal(this.modalId);
+        ModalHelper.hide(this.modalId);
     }
 
     getErrorMessage(constrolName: string): string {

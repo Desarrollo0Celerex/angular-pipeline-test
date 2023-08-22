@@ -29,7 +29,7 @@ export class ModalConfirmDeleteTaskComponent
             .pipe(this.untilComponentDestroy())
             .subscribe((taskId) => {
                 this._taskId = taskId;
-                ModalHelper.showModal(this.modalId);
+                ModalHelper.show(this.modalId);
             });
     }
 
