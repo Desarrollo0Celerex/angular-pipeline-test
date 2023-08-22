@@ -26,6 +26,7 @@ export class ModalSyncCalendarComponent
     eventLink = '';
     correctionLevel: any = NgxQrcodeElementTypes.URL;
     elementType: any = NgxQrcodeErrorCorrectionLevels.HIGH;
+    cancelRoute: string | [] = [];
     private _data: InitModalSyncCalendar | undefined = undefined;
     private _task: Task | undefined = undefined;
 
@@ -41,6 +42,7 @@ export class ModalSyncCalendarComponent
             .pipe(this.untilComponentDestroy())
             .subscribe((data) => {
                 this._data = data;
+                this.cancelRoute = data.cancelRoute;
                 this._loadTask();
             });
     }

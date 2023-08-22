@@ -70,6 +70,7 @@
                                     <input
                                         [id]="field.fieldKey"
                                         type="checkbox"
+                                        [checked]="field.canRewrite"
                                         (change)="
                                             updateFieldStatus($event, index)
                                         "

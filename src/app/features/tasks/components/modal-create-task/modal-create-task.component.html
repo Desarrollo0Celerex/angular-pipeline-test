@@ -10,14 +10,14 @@
             <form [formGroup]="form" (submit)="validateForm()">
                 <div class="modal-header">
                     <h5 class="modal-title">Programar Tarea</h5>
-                    <button
-                        type="button"
+                    <a
+                        [routerLink]="cancelRoute"
                         class="close"
                         aria-label="Close"
                         (click)="closeModal()"
                     >
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </a>
                 </div>
                 <div class="modal-body">
                     <ol class="breadcrumb1">
@@ -110,13 +110,13 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button
-                        type="button"
+                    <a
+                        [routerLink]="cancelRoute"
                         class="btn btn-block agt-btn-secondary-outline"
                         (click)="closeModal()"
                     >
                         <strong>CANCELAR</strong>
-                    </button>
+                    </a>
                 </div>
             </form>
         </div>

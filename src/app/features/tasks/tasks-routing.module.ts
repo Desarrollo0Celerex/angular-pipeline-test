@@ -8,11 +8,6 @@ import { TASKS_ROUTES } from '@core/constants/routes';
 
 const routes: Routes = [
     {
-        path: '',
-        redirectTo: `/${TASKS_ROUTES.MODULE}/${TASKS_ROUTES.TASKS}`,
-        pathMatch: 'full',
-    },
-    {
         path: TASKS_ROUTES.TASKS,
         component: TasksPage,
         title: 'Agenthos - Task Planner',

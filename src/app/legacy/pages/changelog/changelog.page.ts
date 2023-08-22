@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.17',
+            launchDate: '22/08/2023',
+            changes: [
+                {
+                    title: 'Task',
+                    items: [
+                        'Se actualizo el flujo de crear una tarea para agregar un callback.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.16',
             launchDate: '21/08/2023',
             changes: [

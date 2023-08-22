@@ -34,7 +34,10 @@ export class ModalHandleTaskComponent extends SmartComponent implements OnInit {
     }
 
     showModalSelectCalendar(): void {
-        this._taskModalService.showModalSelectCalendar(this._taskId);
+        this._taskModalService.showModalSelectCalendar({
+            taskId: this._taskId,
+            cancelRoute: [],
+        });
     }
 
     showModalSelectChannels(): void {
