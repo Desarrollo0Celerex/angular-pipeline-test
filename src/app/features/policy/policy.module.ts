@@ -10,6 +10,8 @@ import { PhoneCodePipe } from '@shared/pipes/phone-code.pipe';
 import { ModalSelectActionForSavedPolicyComponent } from './components/modal-select-action-for-saved-policy/modal-select-action-for-saved-policy.component';
 import { RouterModule } from '@angular/router';
 import { PolicyService } from './services/policy.service';
+import { ModalShowPolicyModule } from '@components/modal-show-policy/modal-show-policy.module';
+import { TasksModule } from '@features/tasks/tasks.module';
 
 @NgModule({
     declarations: [
@@ -21,7 +23,14 @@ import { PolicyService } from './services/policy.service';
         ModalSelectActionForSavedPolicyComponent,
         ModalSelectContactFieldsToRewriteComponent,
     ],
-    imports: [CommonModule, PolicyRoutingModule, RouterModule, SharedModule],
+    imports: [
+        CommonModule,
+        PolicyRoutingModule,
+        RouterModule,
+        SharedModule,
+        ModalShowPolicyModule,
+        TasksModule,
+    ],
     providers: [GenderNamePipe, PhoneCodePipe, PolicyService],
 })
 export class PolicyModule {}

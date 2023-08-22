@@ -812,12 +812,14 @@ export class CompletePolicyPage implements OnInit {
             this.model.policyForm.value.titularPhoneCodeId
         );
         this.modalSelectActionForSavedPolicyComponent.showModal({
+            isSavedPolicy: true,
             contactId: this.contactId,
             policyId: this.policyId,
             paymentId: this.paymentId,
             phoneCode: phoneCode,
             phoneNumber: this.model.policyForm.value.titularPhoneNumber,
             email: this.model.policyForm.value.titularEmail,
+            cancelRoute: ROUTES_NAME.listContactPolicies(this.contactId),
         });
     }
 

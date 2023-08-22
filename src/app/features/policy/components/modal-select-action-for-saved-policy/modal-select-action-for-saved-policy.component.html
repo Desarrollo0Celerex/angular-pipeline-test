@@ -12,7 +12,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-12 mb-3">
+                    <div class="col-12 mb-3" *ngIf="data?.isSavedPolicy">
                         <div
                             class="alert agt-alert-success alert-dismissible fade show"
                             role="alert"
@@ -33,14 +33,30 @@
                         </ol>
                     </div>
                     <div class="col-md-12 mt-3">
-                        <!-- AGENTHOS - SMARTWALLET POLICY PAYMENTS -->
-                        <a
-                            [routerLink]="routePolicyPendingReceipts"
+                        <button
+                            type="button"
                             class="btn btn-block agt-btn-default"
                             data-dismiss="modal"
+                            (click)="sendPolicy()"
                         >
-                            <i class="fa fa-credit-card-alt mr-2"></i
-                            ><strong>APLICAR PAGOS</strong></a
+                            📲 <strong>ENVIAR PÓLIZA</strong>
+                        </button>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <a
+                            class="btn btn-block agt-btn-default"
+                            data-dismiss="modal"
+                            [routerLink]="routePolicyRecord"
+                            ><i class="fa fa-credit-card-alt mr-2"></i>
+                            <strong>VER HISTORIAL</strong></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <a
+                            class="btn btn-block agt-btn-default"
+                            data-dismiss="modal"
+                            [routerLink]="routePolicyPendingReceipts"
+                            >💸 <strong>APLICAR PAGOS</strong></a
                         >
                     </div>
                     <div class="col-md-6 mt-3">
@@ -48,28 +64,27 @@
                             type="button"
                             class="btn btn-block agt-btn-default"
                             data-dismiss="modal"
-                            (click)="sendPolicy()"
+                            (click)="showModalToDownloadPolicy()"
                         >
-                            <i class="fa fa-send mr-2"></i
-                            ><strong>ENVIAR PÓLIZA</strong>
+                            📄 <strong>DESCARGAR PÓLIZA</strong>
                         </button>
                     </div>
                     <div class="col-md-6 mt-3">
-                        <!-- AGENTHOS - SMARTWALLET POLICY LAUNCHER -->
-                        <a
-                            [routerLink]="routePolicyRecord"
+                        <!-- AGENTHOS - PAYTRACKER PAYMENT FOLLOW -->
+                        <button
+                            type="button"
                             class="btn btn-block agt-btn-default"
                             data-dismiss="modal"
+                            (click)="showModalToCreateTask()"
                         >
-                            <i class="fa fa-file-text mr-2"></i
-                            ><strong>VER HISTORIAL</strong>
-                        </a>
+                            📆 <strong>AGENDAR SEGUIMIENTO</strong>
+                        </button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <a
-                    [routerLink]="routeContactPolicies"
+                    [routerLink]="data?.cancelRoute"
                     class="btn btn-block agt-btn-secondary-outline"
                     data-dismiss="modal"
                 >
@@ -81,3 +96,15 @@
 </div>
 
 <agt-policy-sender (policySent)="showAlertPolicySent()"></agt-policy-sender>
+<agt-modal-show-policy
+    *ngIf="data"
+    [modalId]="modalIdShowPolicy"
+    [contactId]="data.contactId"
+    [policyId]="data.policyId"
+></agt-modal-show-policy>
+
+<!-- Global Modals -->
+<agt-modal-create-task></agt-modal-create-task>
+<agt-modal-select-calendar></agt-modal-select-calendar>
+<agt-modal-sync-calendar></agt-modal-sync-calendar>
+<!-- // Global Modals -->
