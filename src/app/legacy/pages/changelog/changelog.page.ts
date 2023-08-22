@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.16',
+            launchDate: '21/08/2023',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se actualizo el componente "seleccionar las acciones de una póliza" para agregar la acción "Crear tarea".',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.15',
             launchDate: '18/08/2023',
             changes: [

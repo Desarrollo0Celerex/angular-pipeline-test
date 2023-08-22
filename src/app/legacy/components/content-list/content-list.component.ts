@@ -41,6 +41,8 @@ import { WrapperDownloadSinisterEventEvidenceComponent } from '@components/wrapp
 import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ContentListService } from './content-list.service';
+import { Policy } from '@core/interfaces/policy.interface';
+import { ModalSelectActionForSavedPolicyComponent } from '@features/policy/components/modal-select-action-for-saved-policy/modal-select-action-for-saved-policy.component';
 
 declare var ModalPlugin: any;
 
@@ -78,6 +80,8 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     @ViewChild('containerIncompletePolicies') containerIncompletePolicies: any;
     @ViewChild('wrapperDownloadSinisterEventEvidence')
     wrapperDownloadSinisterEventEvidence!: WrapperDownloadSinisterEventEvidenceComponent;
+    @ViewChild(ModalSelectActionForSavedPolicyComponent)
+    modalSelectActionForSavedPolicyComponent!: ModalSelectActionForSavedPolicyComponent;
     CONTENT_TYPES: any;
     canReloadApplyPayment: boolean = false;
     canShowTotalResults: boolean;
@@ -747,6 +751,19 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             this.selectedPolicyId = data.policyId;
         }
         ModalPlugin.show(this.modalIdShowPolicy);
+    }
+
+    showModalToSelectPolicyActions(policy: Policy): void {
+        this.modalSelectActionForSavedPolicyComponent.showModal({
+            isSavedPolicy: false,
+            contactId: policy.contactId,
+            policyId: policy.policyId,
+            paymentId: policy.paymentId,
+            phoneCode: policy.titularPhoneCode,
+            phoneNumber: policy.titularPhoneNumber,
+            email: policy.titularEmail,
+            cancelRoute: [],
+        });
     }
 
     /**

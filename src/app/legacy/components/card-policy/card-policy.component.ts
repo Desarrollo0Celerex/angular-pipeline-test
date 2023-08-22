@@ -56,6 +56,7 @@ export class CardPolicyComponent implements OnInit {
         new EventEmitter<PolicyDataSend>();
     @Output() updatePolicy: EventEmitter<ContactPolicyData> =
         new EventEmitter<ContactPolicyData>();
+    @Output() showPolicyActionsRequested = new EventEmitter<Policy>();
     CANCELLATION_REASONS: any = CANCELLATION_REASONS;
     POLICY_STATUS: any = POLICY_STATUS;
     CONTENT_TYPES: any = CONTENT_TYPES;
@@ -183,6 +184,10 @@ export class CardPolicyComponent implements OnInit {
                 contactId: this.policy.contactId,
                 policyId: this.policy.policyId,
             });
+    }
+
+    requestShowPolicyActions(): void {
+        if (!!this.policy) this.showPolicyActionsRequested.emit(this.policy);
     }
 
     /**

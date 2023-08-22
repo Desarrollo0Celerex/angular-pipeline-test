@@ -4,6 +4,8 @@ import { PolicySenderComponent } from '../policy-sender/policy-sender.component'
 import { SelectActionForSavedPolicy } from '@features/policy/interfaces/select-action-for-saved-policy.interface';
 import { AlertHelper } from '@core/helpers/alert.helper';
 import { Router } from '@angular/router';
+import { TaskModalService } from '@features/tasks/services/task-modal.service';
+import { TASK_MODULES } from '@core/constants/settings';
 
 declare var ModalPlugin: any;
 
@@ -17,11 +19,15 @@ export class ModalSelectActionForSavedPolicyComponent {
     policySenderComponent!: PolicySenderComponent;
     data: SelectActionForSavedPolicy | undefined = undefined;
     modalId = 'agt-modal-select-action-for-saved-policy';
+    modalIdShowPolicy = 'modal-show-policy';
     routeContactPolicies = '';
     routePolicyPendingReceipts = '';
     routePolicyRecord = '';
 
-    constructor(private _router: Router) {}
+    constructor(
+        private _router: Router,
+        private _taskModalService: TaskModalService
+    ) {}
 
     sendPolicy(): void {
         this.policySenderComponent.sendPolicy({
@@ -36,6 +42,17 @@ export class ModalSelectActionForSavedPolicyComponent {
 
     showAlertPolicySent(): void {
         AlertHelper.policySent(this._goToListContactPolicies, this);
+    }
+
+    showModalToCreateTask(): void {
+        this._taskModalService.showModalCreateTask({
+            taskTitle: `📌 Seguimiento de Póliza`,
+            taskModuleId: TASK_MODULES.OTHER,
+        });
+    }
+
+    showModalToDownloadPolicy(): void {
+        ModalPlugin.show(this.modalIdShowPolicy);
     }
 
     showModal(data: SelectActionForSavedPolicy): void {

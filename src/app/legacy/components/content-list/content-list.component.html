@@ -539,6 +539,9 @@
                     (showPaymentHistory)="onShowPaymentHistory($event)"
                     (showPolicySinisters)="onShowPolicySinisters($event)"
                     (deletePolicy)="onDeletePolicy($event)"
+                    (showPolicyActionsRequested)="
+                        showModalToSelectPolicyActions($event)
+                    "
                 ></agt-card-policy>
                 <agt-card-policy
                     *ngSwitchCase="CONTENT_TYPES.INCOMPLETE_POLICIES.ID"
@@ -578,7 +581,8 @@
                         contentType ===
                             CONTENT_TYPES.PENDING_PAYMENTS_BY_RANGE.ID ||
                         contentType ===
-                            CONTENT_TYPES.PARTNER_PENDING_PAYMENTS_BY_RANGE.ID ||
+                            CONTENT_TYPES.PARTNER_PENDING_PAYMENTS_BY_RANGE
+                                .ID ||
                         contentType ===
                             CONTENT_TYPES.CONTACT_PENDING_PAYMENTS_BY_RANGE.ID
                             ? contentType
@@ -830,6 +834,7 @@
         [contactId]="selectedContactId"
         [policyId]="selectedPolicyId"
     ></agt-modal-show-policy>
+    <agt-modal-select-action-for-saved-policy></agt-modal-select-action-for-saved-policy>
 </ng-container>
 <ng-container
     *ngIf="

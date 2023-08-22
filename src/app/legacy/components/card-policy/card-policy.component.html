@@ -2,14 +2,28 @@
     <!-- AGENTHOS - POLICY HEADER -->
     <div class="card-header">
         <!-- AGENTHOS - INSURANCE COMPANY -->
-        <img [src]="policy.insurerImageUrl" width="38px">
-        <div class="card-options" *ngIf="contentType === CONTENT_TYPES.POLICY_TRACKER.ID && policyPos === selectedPolicyPos; else policyMenu">
+        <img [src]="policy.insurerImageUrl" width="38px" />
+        <div
+            class="card-options"
+            *ngIf="
+                contentType === CONTENT_TYPES.POLICY_TRACKER.ID &&
+                    policyPos === selectedPolicyPos;
+                else policyMenu
+            "
+        >
             <div class="badge badge-success-gradient">SELECCIONADA</div>
         </div>
         <!-- AGENTHOS - POLICY MENU -->
         <ng-template #policyMenu>
             <div class="card-options">
-                <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                <a
+                    href=""
+                    class="mr-2 text-default"
+                    data-toggle="dropdown"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="true"
+                >
                     <span class="fa fa-bars"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -17,75 +31,238 @@
                     <ng-container [ngSwitch]="policy.policyStatusId">
                         <ng-container *ngSwitchCase="POLICY_STATUS.INCOMPLETE">
                             <!-- AGENTHOS - POLICY COMPLETE -->
-                            <button type="button" class="dropdown-item" (click)="onClickCompletePolicy()"><i class="fa fa-edit mr-2"></i>Completar</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickCompletePolicy()"
+                            >
+                                <i class="fa fa-edit mr-2"></i>Completar
+                            </button>
                             <div class="dropdown-divider"></div>
                             <!-- AGENTHOS - POLICY HISTORY -->
-                            <button type="button" class="dropdown-item" (click)="onClickShowHistoryPolicy()"><i class="fa fa-history mr-2"></i>Historial</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickShowHistoryPolicy()"
+                            >
+                                <i class="fa fa-history mr-2"></i>Historial
+                            </button>
                             <div class="dropdown-divider"></div>
                             <!-- AGENTHOS - POLICY DELETE -->
-                            <button type="button" class="dropdown-item" (click)="onClickDeletePolicy()"><i class="fa fa-trash mr-2"></i>Eliminar</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickDeletePolicy()"
+                            >
+                                <i class="fa fa-trash mr-2"></i>Eliminar
+                            </button>
                         </ng-container>
                         <ng-container *ngSwitchCase="POLICY_STATUS.PENDING">
                             <!-- AGENTHOS - POLICY UPDATE -->
-                            <button type="button" class="dropdown-item" (click)="onClickUpdatePolicy()"><i class="fa fa-edit mr-2"></i>Actualizar</button>
-                             <!--<ng-container *ngIf="isInTime">-->  
-                                <!-- AGENTHOS - POLICY RENEWAL -->
-                                <button type="button" class="dropdown-item" (click)="onClickRenewPolicy()"><i class="fa fa-refresh mr-2"></i>Renovar</button>
-                                <!-- AGENTHOS - POLICY REISSUE -->
-                                <button type="button" class="dropdown-item" (click)="onClickReissuePolicy()"><i class="fa fa-retweet mr-2"></i>Reexpedir</button>
-                                <div class="dropdown-divider"></div>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickUpdatePolicy()"
+                            >
+                                <i class="fa fa-edit mr-2"></i>Actualizar
+                            </button>
+                            <!--<ng-container *ngIf="isInTime">-->
+                            <!-- AGENTHOS - POLICY RENEWAL -->
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickRenewPolicy()"
+                            >
+                                <i class="fa fa-refresh mr-2"></i>Renovar
+                            </button>
+                            <!-- AGENTHOS - POLICY REISSUE -->
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickReissuePolicy()"
+                            >
+                                <i class="fa fa-retweet mr-2"></i>Reexpedir
+                            </button>
+                            <div class="dropdown-divider"></div>
                             <!--</ng-container>-->
                             <!-- AGENTHOS - POLICY HISTORY -->
-                            <button type="button" class="dropdown-item" (click)="onClickShowHistoryPolicy()"><i class="fa fa-history mr-2"></i>Historial</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickShowHistoryPolicy()"
+                            >
+                                <i class="fa fa-history mr-2"></i>Historial
+                            </button>
                             <!-- AGENTHOS - POLICY DELETE -->
-                            <button type="button" class="dropdown-item" (click)="onClickShowPaymentHistory()"><i class="fa fa-credit-card mr-2"></i>Pagos</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickShowPaymentHistory()"
+                            >
+                                <i class="fa fa-credit-card mr-2"></i>Pagos
+                            </button>
                             <!-- AGENTHOS - POLICY SINISTERS -->
-                            <button type="button" class="dropdown-item" (click)="onClickShowPolicySinisters()"><i class="fa fa-support mr-2"></i>Siniestros</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickShowPolicySinisters()"
+                            >
+                                <i class="fa fa-support mr-2"></i>Siniestros
+                            </button>
                         </ng-container>
                         <ng-container *ngSwitchCase="POLICY_STATUS.FINISHED">
                             <!--<ng-container *ngIf="isInTime">-->
-                                <!-- AGENTHOS - POLICY RENEWAL -->
-                                <button type="button" class="dropdown-item" (click)="onClickRenewPolicy()"><i class="fa fa-refresh mr-2"></i>Renovar</button>
-                                <!-- AGENTHOS - POLICY REISSUE -->
-                                <button type="button" class="dropdown-item" (click)="onClickReissuePolicy()"><i class="fa fa-retweet mr-2"></i>Reexpedir</button>
-                                <div class="dropdown-divider"></div>
+                            <!-- AGENTHOS - POLICY RENEWAL -->
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickRenewPolicy()"
+                            >
+                                <i class="fa fa-refresh mr-2"></i>Renovar
+                            </button>
+                            <!-- AGENTHOS - POLICY REISSUE -->
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickReissuePolicy()"
+                            >
+                                <i class="fa fa-retweet mr-2"></i>Reexpedir
+                            </button>
+                            <div class="dropdown-divider"></div>
                             <!--</ng-container>-->
                             <!-- AGENTHOS - POLICY HISTORY -->
-                            <button type="button" class="dropdown-item" (click)="onClickShowHistoryPolicy()"><i class="fa fa-history mr-2"></i>Historial</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickShowHistoryPolicy()"
+                            >
+                                <i class="fa fa-history mr-2"></i>Historial
+                            </button>
                             <!-- AGENTHOS - POLICY DELETE -->
-                            <button type="button" class="dropdown-item" (click)="onClickShowPaymentHistory()"><i class="fa fa-credit-card mr-2"></i>Pagos</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickShowPaymentHistory()"
+                            >
+                                <i class="fa fa-credit-card mr-2"></i>Pagos
+                            </button>
                             <!-- AGENTHOS - POLICY SINISTERS -->
-                            <button type="button" class="dropdown-item" (click)="onClickShowPolicySinisters()"><i class="fa fa-support mr-2"></i>Siniestros</button>
-                            <button type="button" class="dropdown-item" (click)="onClickDeletePolicy()"><i class="fa fa-trash mr-2"></i>Eliminar</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickShowPolicySinisters()"
+                            >
+                                <i class="fa fa-support mr-2"></i>Siniestros
+                            </button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickDeletePolicy()"
+                            >
+                                <i class="fa fa-trash mr-2"></i>Eliminar
+                            </button>
                         </ng-container>
                         <ng-container *ngSwitchCase="POLICY_STATUS.CANCELLED">
                             <!-- AGENTHOS - POLICY HISTORY -->
-                            <button type="button" class="dropdown-item" (click)="onClickShowHistoryPolicy()"><i class="fa fa-history mr-2"></i>Historial</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickShowHistoryPolicy()"
+                            >
+                                <i class="fa fa-history mr-2"></i>Historial
+                            </button>
                             <!-- AGENTHOS - POLICY DELETE -->
-                            <button type="button" class="dropdown-item" (click)="onClickShowPaymentHistory()"><i class="fa fa-credit-card mr-2"></i>Pagos</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickShowPaymentHistory()"
+                            >
+                                <i class="fa fa-credit-card mr-2"></i>Pagos
+                            </button>
                             <!-- AGENTHOS - POLICY SINISTERS -->
-                            <button type="button" class="dropdown-item" (click)="onClickShowPolicySinisters()"><i class="fa fa-support mr-2"></i>Siniestros</button>
-                            <button type="button" class="dropdown-item" (click)="onClickDeletePolicy()"><i class="fa fa-trash mr-2"></i>Eliminar</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickShowPolicySinisters()"
+                            >
+                                <i class="fa fa-support mr-2"></i>Siniestros
+                            </button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickDeletePolicy()"
+                            >
+                                <i class="fa fa-trash mr-2"></i>Eliminar
+                            </button>
                         </ng-container>
                         <ng-container *ngSwitchDefault>
                             <!-- AGENTHOS - POLICY UPDATE -->
-                            <button type="button" class="dropdown-item" (click)="onClickUpdatePolicy()"><i class="fa fa-edit mr-2"></i>Actualizar</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickUpdatePolicy()"
+                            >
+                                <i class="fa fa-edit mr-2"></i>Actualizar
+                            </button>
                             <!-- AGENTHOS - POLICY ENDORSEMENT -->
-                            <button type="button" class="dropdown-item" (click)="onClickEndorsePolicy()"><i class="fa fa-clone mr-2"></i>Endosar</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickEndorsePolicy()"
+                            >
+                                <i class="fa fa-clone mr-2"></i>Endosar
+                            </button>
                             <!-- AGENTHOS - POLICY RENEWAL -->
-                            <button type="button" class="dropdown-item" (click)="onClickRenewPolicy()"><i class="fa fa-refresh mr-2"></i>Renovar</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickRenewPolicy()"
+                            >
+                                <i class="fa fa-refresh mr-2"></i>Renovar
+                            </button>
                             <!-- AGENTHOS - POLICY REISSUE -->
-                            <button type="button" class="dropdown-item" (click)="onClickReissuePolicy()"><i class="fa fa-retweet mr-2"></i>Reexpedir</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickReissuePolicy()"
+                            >
+                                <i class="fa fa-retweet mr-2"></i>Reexpedir
+                            </button>
                             <div class="dropdown-divider"></div>
                             <!-- AGENTHOS - POLICY HISTORY -->
-                            <button type="button" class="dropdown-item" (click)="onClickShowHistoryPolicy()"><i class="fa fa-history mr-2"></i>Historial</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickShowHistoryPolicy()"
+                            >
+                                <i class="fa fa-history mr-2"></i>Historial
+                            </button>
                             <!-- AGENTHOS - POLICY PAYMENTS -->
-                            <button type="button" class="dropdown-item" (click)="onClickShowPaymentHistory()"><i class="fa fa-credit-card mr-2"></i>Pagos</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickShowPaymentHistory()"
+                            >
+                                <i class="fa fa-credit-card mr-2"></i>Pagos
+                            </button>
                             <!-- AGENTHOS - POLICY SINISTERS -->
-                            <button type="button" class="dropdown-item" (click)="onClickShowPolicySinisters()"><i class="fa fa-support mr-2"></i>Siniestros</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickShowPolicySinisters()"
+                            >
+                                <i class="fa fa-support mr-2"></i>Siniestros
+                            </button>
                             <div class="dropdown-divider"></div>
                             <!-- AGENTHOS - POLICY CANCEL -->
-                            <button type="button" class="dropdown-item" (click)="onClickCancelPolicy()"><i class="fa fa-exclamation-circle mr-2"></i>Cancelar</button>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickCancelPolicy()"
+                            >
+                                <i class="fa fa-exclamation-circle mr-2"></i
+                                >Cancelar
+                            </button>
                         </ng-container>
                     </ng-container>
                 </div>
@@ -100,37 +277,98 @@
         <div class="d-flex clearfix">
             <div class="text-left">
                 <!-- AGENTHOS - POLICY STATUS -->
-                <div class="badge badge-{{policy.policyStatusBackground}} mr-1 mb-3">{{policy.policyStatusName | uppercase}}</div>
+                <div
+                    class="badge badge-{{
+                        policy.policyStatusBackground
+                    }} mr-1 mb-3"
+                >
+                    {{ policy.policyStatusName | uppercase }}
+                </div>
                 <span class="col-auto align-self-center">
-                    <span class="form-help" data-toggle="popover" data-placement="top" [attr.data-content]="policy.policyStatusDescription" data-original-title="">?</span>
+                    <span
+                        class="form-help"
+                        data-toggle="popover"
+                        data-placement="top"
+                        [attr.data-content]="policy.policyStatusDescription"
+                        data-original-title=""
+                        >?</span
+                    >
                 </span>
                 <!-- AGENTHOS - POLICY TYPE -->
-                <h6><span class="text-primary"><i class="fe fe-shield mr-2"></i></span>{{policy.insuranceName | uppercase}}</h6>
+                <h6>
+                    <span class="text-primary"
+                        ><i class="fe fe-shield mr-2"></i></span
+                    >{{ policy.insuranceName | uppercase }}
+                </h6>
                 <!-- AGENTHOS - POLICY PLAN -->
-                <h6><span class="text-primary"><i class="fe fe-credit-card mr-2"></i></span>{{policy.paymentPlanName | uppercase}}</h6>
+                <h6>
+                    <span class="text-primary"
+                        ><i class="fe fe-credit-card mr-2"></i></span
+                    >{{ policy.paymentPlanName | uppercase }}
+                </h6>
                 <!-- AGENTHOS - POLICY TYPE -->
-                <ng-container *ngIf="contentType === CONTENT_TYPES.POLICY_TRACKER.ID; else showPaymentPlan">
-                    <h6><span class="text-primary"><i class="fe fe-calendar mr-2"></i></span>{{(policy.validityStartDate | date: 'yyyy') +'-'+ (policy.validityEndDate | date: 'yyyy')}}</h6>
+                <ng-container
+                    *ngIf="
+                        contentType === CONTENT_TYPES.POLICY_TRACKER.ID;
+                        else showPaymentPlan
+                    "
+                >
+                    <h6>
+                        <span class="text-primary"
+                            ><i class="fe fe-calendar mr-2"></i></span
+                        >{{
+                            (policy.validityStartDate | date : "yyyy") +
+                                "-" +
+                                (policy.validityEndDate | date : "yyyy")
+                        }}
+                    </h6>
                 </ng-container>
                 <ng-template #showPaymentPlan>
-                    <h6><span class="text-primary"><i class="fe fe-globe mr-2"></i></span>{{policy.insuranceTypeName | uppercase}}</h6>
+                    <h6>
+                        <span class="text-primary"
+                            ><i class="fe fe-globe mr-2"></i></span
+                        >{{ policy.insuranceTypeName | uppercase }}
+                    </h6>
                 </ng-template>
             </div>
             <div class="ml-auto">
-                <span class="{{policy.insuranceBackground}} icon-service"><i class="{{policy.insuranceIcon}}"></i></span>
+                <span class="{{ policy.insuranceBackground }} icon-service"
+                    ><i class="{{ policy.insuranceIcon }}"></i
+                ></span>
             </div>
         </div>
         <!-- //AGENTHOS - POLICY COVER -->
         <!-- AGENTHOS - TOTAL PAY -->
-        <h6 class="mt-3">Prima Total ({{policy.currencyName | uppercase}})</h6>
-        <h6 class="number-font">$<span class="counter">{{policy.policyAmount | currency: '' : '' : '0.2-2'}}</span></h6>
-        <h6 class="mb-2" (click)="goToListPolicyInsureds()" [class.agt-cursor-pointer]="areSeveralInsured">{{policy.coveredProperty}}</h6>
-        <h6 class="mb-2" *ngIf="!!policy.contactName">{{policy.contactName}}</h6>
+        <h6 class="mt-3">
+            Prima Total ({{ policy.currencyName | uppercase }})
+        </h6>
+        <h6 class="number-font">
+            $<span class="counter">{{
+                policy.policyAmount | currency : "" : "" : "0.2-2"
+            }}</span>
+        </h6>
+        <h6
+            class="mb-2"
+            (click)="goToListPolicyInsureds()"
+            [class.agt-cursor-pointer]="areSeveralInsured"
+        >
+            {{ policy.coveredProperty }}
+        </h6>
+        <h6 class="mb-2" *ngIf="!!policy.contactName">
+            {{ policy.contactName }}
+        </h6>
         <!-- AGENTHOS - POLICY NUMBER -->
-        <h6><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{policy.policyNumber}}</h6>
+        <h6>
+            <span class="text-primary"
+                ><i class="fe fe-file-text mr-2"></i></span
+            >{{ policy.policyNumber }}
+        </h6>
         <!-- AGENTHOS - POLICY LIVE -->
         <div class="progress progress-sm mt-2">
-            <div class="progress-bar {{policy.insuranceBackground}}" [ngStyle]="{'width': policy.lifeTime+'%'}"></div>
+            <div
+                class="progress-bar {{ policy.insuranceBackground }}"
+                [ngStyle]="{ width: policy.lifeTime + '%' }"
+            ></div>
         </div>
         <!-- //AGENTHOS - POLICY LIVE -->
     </div>
@@ -139,16 +377,35 @@
     <div class="card-footer" *ngIf="canShowFooter">
         <div class="row">
             <ng-container *ngIf="isHistoryContent; else containerActions">
-                <button type="button" class="btn btn-block btn-primary" (click)="onClickShowContactProfile()"><strong>VER PERFIL</strong></button>
+                <button
+                    type="button"
+                    class="btn btn-block btn-primary"
+                    (click)="onClickShowContactProfile()"
+                >
+                    <strong>VER PERFIL</strong>
+                </button>
             </ng-container>
             <ng-template #containerActions>
                 <!-- AGENTHOS - POLICY DETAILS -->
                 <div class="col-sm-9 col-9 text-left">
-                    <button type="button" class="btn btn-block btn-primary" (click)="onClickShowPolicyDetails()"><strong>VER DETALLES</strong></button>
+                    <button
+                        type="button"
+                        class="btn btn-block btn-primary"
+                        (click)="onClickShowPolicyDetails()"
+                    >
+                        <strong>VER DETALLES</strong>
+                    </button>
                 </div>
                 <!-- AGENTHOS - POLICY VIEW -->
                 <div class="col-sm-3 col-3 text-right">
-                    <button type="button" class="btn btn-icon btn-secondary" (click)="onClickShowPolicy()" [disabled]="!(!!policy.policyUrl)"><i class="fa fa-file-text-o"></i></button>
+                    <button
+                        type="button"
+                        class="btn btn-icon btn-secondary"
+                        (click)="requestShowPolicyActions()"
+                        [disabled]="!!!policy.policyUrl"
+                    >
+                        <i class="fa fa-file-text-o"></i>
+                    </button>
                 </div>
             </ng-template>
         </div>
