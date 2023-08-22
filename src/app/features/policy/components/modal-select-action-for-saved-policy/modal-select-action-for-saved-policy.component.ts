@@ -48,6 +48,7 @@ export class ModalSelectActionForSavedPolicyComponent {
         this._taskModalService.showModalCreateTask({
             taskTitle: `📌 Seguimiento de Póliza`,
             taskModuleId: TASK_MODULES.OTHER,
+            cancelRoute: this.routeContactPolicies,
         });
     }
 

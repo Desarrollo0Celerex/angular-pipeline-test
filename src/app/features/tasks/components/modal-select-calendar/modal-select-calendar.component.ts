@@ -15,6 +15,7 @@ export class ModalSelectCalendarComponent
 {
     CALENDARS: any = CALENDARS;
     modalId = 'agt-modal-select-calendar';
+    cancelRoute: string | [] = [];
     private _taskId = '';
 
     constructor(private _taskModalService: TaskModalService) {
@@ -24,8 +25,9 @@ export class ModalSelectCalendarComponent
     ngOnInit(): void {
         this._taskModalService.modalSelectCalendar$
             .pipe(this.untilComponentDestroy())
-            .subscribe((taskId) => {
-                this._taskId = taskId;
+            .subscribe((data) => {
+                this._taskId = data.taskId;
+                this.cancelRoute = data.cancelRoute;
                 ModalHelper.showModal(this.modalId);
             });
     }
@@ -34,6 +36,7 @@ export class ModalSelectCalendarComponent
         this._taskModalService.showModalSyncCalendar({
             taskId: this._taskId,
             calendarId: calendarId,
+            cancelRoute: this.cancelRoute,
         });
     }
 }

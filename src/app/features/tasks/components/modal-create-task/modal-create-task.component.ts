@@ -14,6 +14,8 @@ import { TaskService } from '@features/tasks/services/task.service';
 import { ModuleService } from '@features/tasks/services/module.service';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
+import { ROUTES_NAME } from '@constants/routes-name';
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
 declare var TimePickerPlugin: any;
@@ -28,6 +30,7 @@ export class ModalCreateTaskComponent extends SmartComponent implements OnInit {
     form = this._buildForm();
     modalId = 'agt-modal-create-task';
     timerIdTaskTime = 'taskTime';
+    cancelRoute: string | [] = [];
     private _isFormSubmitted = false;
     private _data: InitModalCreateTask | undefined = undefined;
 
@@ -48,6 +51,7 @@ export class ModalCreateTaskComponent extends SmartComponent implements OnInit {
             .pipe(this.untilComponentDestroy())
             .subscribe((res) => {
                 this._data = res;
+                this.cancelRoute = res.cancelRoute;
                 this._updateFormValues();
                 this._showModal();
             });
@@ -106,7 +110,10 @@ export class ModalCreateTaskComponent extends SmartComponent implements OnInit {
         this._taskService.createTask(requestBody).subscribe((task) => {
             this._loadingService.hide();
             this._moduleServie.requestReloadContent();
-            this._taskModalService.showModalSelectCalendar(task.taskId);
+            this._taskModalService.showModalSelectCalendar({
+                taskId: task.taskId,
+                cancelRoute: this.cancelRoute,
+            });
         });
     }
 

@@ -10,14 +10,14 @@
             <div class="modal-header">
                 <!-- AGENTHOS - DETAILS CARD -->
                 <h5 class="modal-title">Sincronizar Calendario</h5>
-                <button
-                    type="button"
+                <a
+                    [routerLink]="cancelRoute"
                     class="close"
                     data-dismiss="modal"
                     aria-label="Close"
                 >
                     <span aria-hidden="true">&times;</span>
-                </button>
+                </a>
             </div>
             <div class="modal-body">
                 <ol class="breadcrumb1">
@@ -67,14 +67,13 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button
-                    type="button"
-                    name="agtCancelAction"
+                <a
+                    [routerLink]="cancelRoute"
                     class="btn btn-block agt-btn-secondary-outline"
                     data-dismiss="modal"
                 >
                     <strong>CANCELAR</strong>
-                </button>
+                </a>
             </div>
         </div>
     </div>

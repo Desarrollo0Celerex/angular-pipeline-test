@@ -5,4 +5,5 @@ export interface InitModalCreateTask {
     taskDetails: string;
     taskModuleId: number;
     responsibleId: string;
+    cancelRoute: string | [];
 }

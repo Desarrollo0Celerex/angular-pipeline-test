@@ -1,20 +1,23 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { NgxQrcodeErrorCorrectionLevels, NgxQrcodeElementTypes } from '@techiediaries/ngx-qrcode';
+import {
+    NgxQrcodeErrorCorrectionLevels,
+    NgxQrcodeElementTypes,
+} from '@techiediaries/ngx-qrcode';
 
 import { ModalShowPolicyService } from './modal-show-policy.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-show-policy',
-  templateUrl: './modal-show-policy.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-show-policy',
+    templateUrl: './modal-show-policy.component.html',
+    styles: [],
 })
 export class ModalShowPolicyComponent implements OnChanges {
     @Input() contactId: string;
     @Input() modalId: string;
     @Input() policyId: string;
+    @Input() cancelRoute: string | [] = [];
     correctionLevel: any;
     elementType: any;
     policyUrl: string;
@@ -29,9 +32,20 @@ export class ModalShowPolicyComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(((!!changes.contactId && changes.contactId.currentValue) && (!!changes.policyId && !!changes.policyId.currentValue) ) || (!!this.contactId && (!!changes.policyId && !!changes.policyId.currentValue) )) {
+        if (
+            (!!changes.contactId &&
+                changes.contactId.currentValue &&
+                !!changes.policyId &&
+                !!changes.policyId.currentValue) ||
+            (!!this.contactId &&
+                !!changes.policyId &&
+                !!changes.policyId.currentValue)
+        ) {
             this.modalShowPolicyService.resetPolicyUrl();
-            this.modalShowPolicyService.loadPolicyUrl(this.contactId, this.policyId);
+            this.modalShowPolicyService.loadPolicyUrl(
+                this.contactId,
+                this.policyId
+            );
         }
     }
 

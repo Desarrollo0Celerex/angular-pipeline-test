@@ -6,14 +6,12 @@ import { PolicyService } from '@services/policy.service';
 
 import { ModalShowPolicyComponent } from './modal-show-policy.component';
 import { ModalShowPolicyService } from './modal-show-policy.service';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [ModalShowPolicyComponent],
-  exports: [ModalShowPolicyComponent],
-  imports: [
-    CommonModule,
-    NgxQRCodeModule
-  ],
-  providers: [ModalShowPolicyService, PolicyService]
+    declarations: [ModalShowPolicyComponent],
+    exports: [ModalShowPolicyComponent],
+    imports: [CommonModule, NgxQRCodeModule, RouterModule],
+    providers: [ModalShowPolicyService, PolicyService],
 })
-export class ModalShowPolicyModule { }
+export class ModalShowPolicyModule {}
