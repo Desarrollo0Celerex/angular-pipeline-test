@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { SendPolicyNotification } from '../interfaces/send-policy-notification.interface';
 import { environment } from '@env/environment';
 import { Policy } from '../interfaces/policy.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ENDPOINTS = {
     contactPolicy: (workspaceId: string, contactId: string, policyId: string) =>

@@ -21,7 +21,7 @@
             // NEW
             "@configs/*": ["app/configs/*"],
             "@core/*": ["app/core/*"],
-            "@features/*": ["app/features/*"],
+            "@features-legacy/*": ["app/features-legacy/*"],
             "@policies/*": ["app/features/policies/*"],
             "@shared/*": ["app/shared/*"],
 

@@ -41,7 +41,7 @@ import { PhoneCodePipe } from './pipes/phone-code.pipe';
 import { ModalSelectShippingChannelsComponent } from './components/modal-select-shipping-channels/modal-select-shipping-channels.component';
 import { GenerateShippingInformationComponent } from './components/generate-shipping-information/generate-shipping-information.component';
 import { ModalRequestShippingContactsComponent } from './components/modal-request-shipping-contacts/modal-request-shipping-contacts.component';
-import { CountriesModule } from '@features/countries/countries.module';
+import { CountriesModule } from '@features-legacy/countries/countries.module';
 import { DownloadContentComponent } from './components/download-content/download-content.component';
 
 @NgModule({

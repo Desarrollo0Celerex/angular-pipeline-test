@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Site } from '@interfaces/site.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { UpdateSiteIdentityDataSend } from '@interfaces/update-site-identity-data-send.interface';
 import { SiteTheme } from '@interfaces/site-theme.interface';
 import { UpdateSiteThemeDataSend } from '@interfaces/update-site-theme-data-send.interface';

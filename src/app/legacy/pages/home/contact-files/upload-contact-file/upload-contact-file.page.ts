@@ -7,7 +7,7 @@ import { FILE_SIZES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@core/helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { CONTACT_FILE_ENDPOINTS } from '@services/contact-file.service';
 import { LoadingService } from '@core/services/loading/loading.service';
 

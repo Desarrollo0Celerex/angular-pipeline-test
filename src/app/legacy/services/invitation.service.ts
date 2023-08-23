@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { CreateInvitationDataSend } from '@interfaces/create-invitation-data-send.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     invitation: (workspaceId: string, invitationId: number) =>

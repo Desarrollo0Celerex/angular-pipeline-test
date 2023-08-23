@@ -7,7 +7,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { SinisterEventType } from '@interfaces/sinister-event-type.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
     sinisterEventTypes: (

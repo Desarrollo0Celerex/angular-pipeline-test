@@ -8,7 +8,7 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@core/helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { LoadingService } from '@core/services/loading/loading.service';
 import { CONTACT_FILE_ENDPOINTS } from '@services/contact-file.service';
 

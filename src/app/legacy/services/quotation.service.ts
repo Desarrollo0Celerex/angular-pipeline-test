@@ -10,7 +10,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 import { PartnerQuotationStat } from '@interfaces/partner-quotation-stat.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     contactQuotation: (

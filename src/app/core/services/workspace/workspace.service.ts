@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { WORKSPACE_ENDPOINTS } from '@core/constants/endpoints';
 import { CreateWorkspaceDataSend } from '@interfaces/create-workspace-data-send.interface';
 import { ApiHttp } from '@core/http/api.http';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { Workspace } from '@core/interfaces/workspace.interface';
 
 @Injectable({

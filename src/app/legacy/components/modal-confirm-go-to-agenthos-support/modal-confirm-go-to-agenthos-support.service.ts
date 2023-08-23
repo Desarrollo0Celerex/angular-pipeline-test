@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { WorkspaceUser } from '@core/interfaces/workspace-user.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { WorkspaceService } from '@core/services/workspace/workspace.service';
 import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 import { Workspace } from '@core/interfaces/workspace.interface';
