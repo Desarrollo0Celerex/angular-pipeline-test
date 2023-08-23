@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.18',
+            launchDate: '23/08/2023',
+            changes: [
+                {
+                    title: 'Poicy',
+                    items: [
+                        'Se resolvio bug al dar click a salir en el modal de acciones de una póliza.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.17',
             launchDate: '22/08/2023',
             changes: [
