@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { DownloadPolicy } from '@features/policy/interfaces/download-policy.interface';
-import { PolicyService } from '@features/policy/services/policy.service';
+import { DownloadPolicy } from '@policies/interfaces/download-policy.interface';
+import { PolicyService } from '@policies/services/policy.service';
 import { DownloadContentComponent } from '@shared/components/download-content/download-content.component';
 
 @Component({

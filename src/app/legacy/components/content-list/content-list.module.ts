@@ -113,7 +113,7 @@ import { SinisterService } from '@services/sinister.service';
 import { ContentListComponent } from './content-list.component';
 import { ContentListService } from './content-list.service';
 import { PluralModule } from '@pipes/plural/plural.module';
-import { PolicyModule } from '@features/policy/policy.module';
+import { PoliciesModule } from '@policies/policies.module';
 
 @NgModule({
     declarations: [ContentListComponent],
@@ -208,7 +208,7 @@ import { PolicyModule } from '@features/policy/policy.module';
         ModalUpdateSinisterEventModule,
         WrapperDownloadSinisterEventEvidenceModule,
         PluralModule,
-        PolicyModule,
+        PoliciesModule,
     ],
     providers: [
         ClientService,

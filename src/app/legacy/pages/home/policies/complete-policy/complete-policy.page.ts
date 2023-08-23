@@ -24,9 +24,9 @@ import { LoadingService } from '@core/services/loading/loading.service';
 import { ScanningService } from '@services/scanning.service';
 
 import { CompletePolicyService } from './complete-policy.service';
-import { PolicyActionsComponent } from '@features/policy/components/policy-actions/policy-actions.component';
-import { RewriteField } from '@features/policy/interfaces/rewrite-field.interface';
-import { SelectContactFieldsToRewriteComponent } from '@features/policy/components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
+import { PolicyActionsComponent } from '@policies/components/policy-actions/policy-actions.component';
+import { RewriteField } from '@policies/interfaces/rewrite-field.interface';
+import { SelectContactFieldsToRewriteComponent } from '@policies/components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
 
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;

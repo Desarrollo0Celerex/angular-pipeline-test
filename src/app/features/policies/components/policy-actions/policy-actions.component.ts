@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { SendPolicyComponent } from '../send-policy/send-policy.component';
-import { PolicyActions } from '@features/policy/interfaces/policy-actions.interface';
+import { PolicyActions } from '@policies/interfaces/policy-actions.interface';
 import { AlertHelper } from '@core/helpers/alert.helper';
 import { Router } from '@angular/router';
 import { DownloadPolicyComponent } from '../download-policy/download-policy.component';

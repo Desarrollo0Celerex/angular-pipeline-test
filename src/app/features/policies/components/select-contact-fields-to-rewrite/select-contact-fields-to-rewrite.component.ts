@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ModalHelper } from '@core/helpers/modal.helper';
-import { RewriteField } from '@features/policy/interfaces/rewrite-field.interface';
-import { SelectContactFieldsToRewrite } from '@features/policy/interfaces/select-contact-files-to-rewrite.interface';
+import { RewriteField } from '@policies/interfaces/rewrite-field.interface';
+import { SelectContactFieldsToRewrite } from '@policies/interfaces/select-contact-files-to-rewrite.interface';
 import { GenderNamePipe } from '@shared/pipes/gender-name.pipe';
 import { PhoneCodePipe } from '@shared/pipes/phone-code.pipe';
 

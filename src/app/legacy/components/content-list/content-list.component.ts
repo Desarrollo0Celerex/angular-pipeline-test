@@ -42,7 +42,7 @@ import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ContentListService } from './content-list.service';
 import { Policy } from '@core/interfaces/policy.interface';
-import { PolicyActionsComponent } from '@features/policy/components/policy-actions/policy-actions.component';
+import { PolicyActionsComponent } from '@policies/components/policy-actions/policy-actions.component';
 
 declare var ModalPlugin: any;
 

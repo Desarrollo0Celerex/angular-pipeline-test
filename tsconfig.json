@@ -22,6 +22,7 @@
             "@configs/*": ["app/configs/*"],
             "@core/*": ["app/core/*"],
             "@features/*": ["app/features/*"],
+            "@policies/*": ["app/features/policies/*"],
             "@shared/*": ["app/shared/*"],
 
             // LEGACY

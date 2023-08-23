@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PolicyRoutingModule } from './policy-routing.module';
+import { PoliciesRoutingModule } from './policies-routing.module';
 import { SelectContactFieldsToRewriteComponent } from './components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
 import { SendPolicyComponent } from './components/send-policy/send-policy.component';
 import { SharedModule } from '@shared/shared.module';
@@ -20,7 +20,7 @@ import { DownloadPolicyComponent } from './components/download-policy/download-p
         DownloadPolicyComponent,
     ],
     exports: [PolicyActionsComponent, SelectContactFieldsToRewriteComponent],
-    imports: [CommonModule, PolicyRoutingModule, RouterModule, SharedModule],
+    imports: [CommonModule, PoliciesRoutingModule, RouterModule, SharedModule],
     providers: [GenderNamePipe, PhoneCodePipe, PolicyService],
 })
-export class PolicyModule {}
+export class PoliciesModule {}

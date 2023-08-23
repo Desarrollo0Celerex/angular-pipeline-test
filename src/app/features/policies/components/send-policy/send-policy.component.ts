@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { LoadingService } from '@core/services/loading/loading.service';
 import { AuthService } from '@features/auth/services/auth.service';
-import { SendPolicy } from '@features/policy/interfaces/send-policy.interface';
-import { SendPolicyNotification } from '@features/policy/interfaces/send-policy-notification.interface';
-import { PolicyService } from '@features/policy/services/policy.service';
+import { SendPolicy } from '@policies/interfaces/send-policy.interface';
+import { SendPolicyNotification } from '@policies/interfaces/send-policy-notification.interface';
+import { PolicyService } from '@policies/services/policy.service';
 import { GenerateShippingInformationComponent } from '@shared/components/generate-shipping-information/generate-shipping-information.component';
 import { ShippingInformation } from '@shared/interfaces/shipping-information.interface';
 
