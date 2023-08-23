@@ -3,5 +3,6 @@ export interface DownloadContent {
     message: string;
     description: string;
     details: string;
+    buttonLabel: string;
     cancelRoute: string | [];
 }

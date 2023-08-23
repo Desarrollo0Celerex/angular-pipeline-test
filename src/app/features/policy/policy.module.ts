@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PolicyRoutingModule } from './policy-routing.module';
-import { ModalSelectContactFieldsToRewriteComponent } from './components/modal-select-contact-fields-to-rewrite/modal-select-contact-fields-to-rewrite.component';
+import { SelectContactFieldsToRewriteComponent } from './components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
 import { SendPolicyComponent } from './components/send-policy/send-policy.component';
 import { SharedModule } from '@shared/shared.module';
 import { GenderNamePipe } from '@shared/pipes/gender-name.pipe';
@@ -15,14 +15,11 @@ import { DownloadPolicyComponent } from './components/download-policy/download-p
 @NgModule({
     declarations: [
         PolicyActionsComponent,
-        ModalSelectContactFieldsToRewriteComponent,
+        SelectContactFieldsToRewriteComponent,
         SendPolicyComponent,
         DownloadPolicyComponent,
     ],
-    exports: [
-        PolicyActionsComponent,
-        ModalSelectContactFieldsToRewriteComponent,
-    ],
+    exports: [PolicyActionsComponent, SelectContactFieldsToRewriteComponent],
     imports: [CommonModule, PolicyRoutingModule, RouterModule, SharedModule],
     providers: [GenderNamePipe, PhoneCodePipe, PolicyService],
 })

@@ -24,8 +24,9 @@ import { LoadingService } from '@core/services/loading/loading.service';
 import { ScanningService } from '@services/scanning.service';
 
 import { CompletePolicyService } from './complete-policy.service';
-import { RewriteField } from '@interfaces/rewrite-field.interface';
 import { PolicyActionsComponent } from '@features/policy/components/policy-actions/policy-actions.component';
+import { RewriteField } from '@features/policy/interfaces/rewrite-field.interface';
+import { SelectContactFieldsToRewriteComponent } from '@features/policy/components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
 
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
@@ -39,6 +40,8 @@ declare var PopoverPlugin: any;
 export class CompletePolicyPage implements OnInit {
     @ViewChild(PolicyActionsComponent)
     policyActionsComponent!: PolicyActionsComponent;
+    @ViewChild(SelectContactFieldsToRewriteComponent)
+    selectContactFieldsToRewriteComponent!: SelectContactFieldsToRewriteComponent;
     CONTACT_TYPES: any = CONTACT_TYPES;
     INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     INSURANCE_TYPES: any = INSURANCE_TYPES;
@@ -801,7 +804,9 @@ export class CompletePolicyPage implements OnInit {
         this.contactFieldsToRewrite =
             this.model.generateContactFieldsToRewrite();
         if (this.contactFieldsToRewrite.length > 0) {
-            ModalPlugin.show('agt-policy-select-contact-fields-to-rewrite');
+            this.selectContactFieldsToRewriteComponent.init({
+                fields: this.contactFieldsToRewrite,
+            });
         } else {
             this._completePolicy();
         }

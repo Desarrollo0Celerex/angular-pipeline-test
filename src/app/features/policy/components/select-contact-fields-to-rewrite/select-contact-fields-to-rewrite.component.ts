@@ -1,31 +1,41 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RewriteField } from '@interfaces/rewrite-field.interface';
+import { ModalHelper } from '@core/helpers/modal.helper';
+import { RewriteField } from '@features/policy/interfaces/rewrite-field.interface';
+import { SelectContactFieldsToRewrite } from '@features/policy/interfaces/select-contact-files-to-rewrite.interface';
 import { GenderNamePipe } from '@shared/pipes/gender-name.pipe';
 import { PhoneCodePipe } from '@shared/pipes/phone-code.pipe';
 
 @Component({
-    selector: 'agt-modal-select-contact-fields-to-rewrite',
-    templateUrl: './modal-select-contact-fields-to-rewrite.component.html',
+    selector: 'agt-select-contact-fields-to-rewrite',
+    templateUrl: './select-contact-fields-to-rewrite.component.html',
     styles: [],
 })
-export class ModalSelectContactFieldsToRewriteComponent {
-    @Input() contactFieldsToRewrite: RewriteField[] = [];
+export class SelectContactFieldsToRewriteComponent {
+    data: SelectContactFieldsToRewrite | undefined = undefined;
     @Output() fieldsSelected = new EventEmitter<string[]>();
-    modalId = 'agt-policy-select-contact-fields-to-rewrite';
+    modalId = 'agt-select-contact-fields-to-rewrite';
 
     constructor(
         private _genderNamePipe: GenderNamePipe,
         private _phoneCodePipe: PhoneCodePipe
     ) {}
 
+    init(data: SelectContactFieldsToRewrite): void {
+        this.data = data;
+        setTimeout(() => {
+            ModalHelper.show(this.modalId);
+        }, 0);
+    }
+
     filterFields(): void {
         const selectedFields: string[] = [];
-        this.contactFieldsToRewrite.forEach((field: RewriteField) => {
+        this.data!.fields.forEach((field: RewriteField) => {
             if (field.canRewrite) {
                 selectedFields.push(field.fieldKey);
             }
         });
         this.fieldsSelected.emit(selectedFields);
+        this.reset();
     }
 
     formatValue(fieldKey: string, value: string): string {
@@ -45,7 +55,11 @@ export class ModalSelectContactFieldsToRewriteComponent {
         return value;
     }
 
+    reset(): void {
+        this.data!.fields = [];
+    }
+
     updateFieldStatus(event: any, index: number) {
-        this.contactFieldsToRewrite[index].canRewrite = event.target.checked;
+        this.data!.fields[index].canRewrite = event.target.checked;
     }
 }

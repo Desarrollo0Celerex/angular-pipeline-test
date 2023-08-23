@@ -5,6 +5,8 @@ import {
     NgxQrcodeElementTypes,
 } from '@techiediaries/ngx-qrcode';
 import { ModalHelper } from '@core/helpers/modal.helper';
+import { Router } from '@angular/router';
+import { ROUTES_NAME } from '@constants/routes-name';
 
 @Component({
     selector: 'agt-download-content',
@@ -18,9 +20,14 @@ export class DownloadContentComponent {
     ngxCorrectionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
     ngxElementType = NgxQrcodeElementTypes.URL;
 
+    constructor(private _router: Router) {}
+
     closeModal(): void {
-        this.reset();
         ModalHelper.hide(this.modalId);
+        if (typeof this.data!.cancelRoute === 'string') {
+            this._router.navigateByUrl(this.data!.cancelRoute);
+        }
+        this.reset();
     }
 
     init(data: DownloadContent): void {

@@ -55,11 +55,11 @@
                             <a [href]="contentUrl" target="_blank">
                                 <button
                                     type="button"
-                                    class="btn btn-primary btn-block"
+                                    class="btn btn-block agt-btn-default"
                                     [disabled]="!contentUrl"
                                     (click)="closeModal()"
                                 >
-                                    <strong>DESCARGAR PÓLIZA</strong>
+                                    <strong>{{ data.buttonLabel }}</strong>
                                 </button>
                             </a>
                         </div>

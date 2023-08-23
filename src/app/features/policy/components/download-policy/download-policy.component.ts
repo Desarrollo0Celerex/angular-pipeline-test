@@ -17,11 +17,12 @@ export class DownloadPolicyComponent {
     init(data: DownloadPolicy): void {
         this.downloadContentComponent.init({
             title: 'Descargar Póliza',
-            message: 'Escanea el código inteligente para ver la póliza.',
+            message: 'Escanea el código inteligente para ver la póliza',
             description:
-                'Apunta con la cámara de tu Smartphone al código inteligente y la póliza será transferida de manera automática a tu dispositivo.',
+                'Apunta con la cámara de tu Smartphone al código inteligente y la póliza será transferida de manera automática a tu dispositivo',
             details:
                 'Si lo deseas, puedes descargar la póliza para almacenarla en tu dispositivo de manera permanante',
+            buttonLabel: '📄 DESCARGAR PÓLIZA',
             cancelRoute: data.cancelRoute,
         });
         this._loadPolicyUrl(data.contactId, data.policyId);
