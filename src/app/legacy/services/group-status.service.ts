@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    groupStatus: `${environment.apiUrl}/group-status`,
+    groupStatus: `${environment.agenthos.apiUrl}/group-status`,
 };
 
 @Injectable()

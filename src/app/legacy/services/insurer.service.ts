@@ -9,13 +9,13 @@ import { InsurerStat } from '@interfaces/insurer-stat.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes = {
-    insurers: environment.apiUrl + '/insurers',
+    insurers: environment.agenthos.apiUrl + '/insurers',
     insurersStats: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/stats/insurers`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/stats/insurers`,
     activeInsurers: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/insurers/active`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/insurers/active`,
     countryInsurers: (countryId: number) =>
-        `${environment.apiUrl}/countries/${countryId}/insurers`,
+        `${environment.agenthos.apiUrl}/countries/${countryId}/insurers`,
 };
 
 @Injectable()

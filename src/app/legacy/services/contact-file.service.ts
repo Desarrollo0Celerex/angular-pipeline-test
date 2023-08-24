@@ -9,7 +9,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     contactFiles: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -20,7 +20,7 @@ const routes: any = {
         contactId: string,
         contactFileId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -32,7 +32,7 @@ const routes: any = {
         contactId: string,
         contactFileId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +

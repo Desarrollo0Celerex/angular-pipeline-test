@@ -99,7 +99,7 @@ export class AuthService {
         redirectUrl: string = ''
     ): void {
         const atomAccountLoginUrl: string = `${environment.atomAccountUrl}/auth/identifier`;
-        let returnUrl: string = `${environment.appAgenthosUrl}/auth/identify-user`;
+        let returnUrl: string = `${environment.agenthos.appUrl}/auth/identify-user`;
         if (activationCode) {
             returnUrl += `?activationCode=${activationCode}`;
         }
@@ -149,7 +149,7 @@ export class AuthService {
     }
 
     private _goToAgenthos(): void {
-        window.location.href = environment.agenthosUrl;
+        window.location.href = environment.agenthos.landingUrl;
     }
 
     private _getRedirectUrl(): string {

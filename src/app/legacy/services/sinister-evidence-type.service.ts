@@ -9,7 +9,7 @@ import { SinisterEvidenceType } from '@interfaces/sinister-evidence-type.interfa
 
 const ROUTES = {
     sinisterEvidenceTypes: () =>
-        `${environment.apiUrl}/sinister-evidence-types`,
+        `${environment.agenthos.apiUrl}/sinister-evidence-types`,
 };
 
 @Injectable()

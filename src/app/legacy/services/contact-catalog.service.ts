@@ -6,12 +6,12 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    contactStudies: `${environment.apiUrl}/contact-studies`,
-    contactJobs: `${environment.apiUrl}/contact-jobs`,
-    contactCars: `${environment.apiUrl}/contact-cars`,
-    contactHomes: `${environment.apiUrl}/contact-homes`,
-    contactSmartphones: `${environment.apiUrl}/contact-smartphones`,
-    mainContactTypes: `${environment.apiUrl}/main-contact-types`,
+    contactStudies: `${environment.agenthos.apiUrl}/contact-studies`,
+    contactJobs: `${environment.agenthos.apiUrl}/contact-jobs`,
+    contactCars: `${environment.agenthos.apiUrl}/contact-cars`,
+    contactHomes: `${environment.agenthos.apiUrl}/contact-homes`,
+    contactSmartphones: `${environment.agenthos.apiUrl}/contact-smartphones`,
+    mainContactTypes: `${environment.agenthos.apiUrl}/main-contact-types`,
 };
 
 @Injectable()

@@ -12,14 +12,23 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     wallets: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/wallets',
+        environment.agenthos.apiUrl + '/workspaces/' + workspaceId + '/wallets',
     walletIdentity: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/identity',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/wallets/identity',
     walletIcon: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/icon',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/wallets/icon',
     walletTheme: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/wallets/theme',
-    walletThemes: environment.apiUrl + '/wallet-themes',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/wallets/theme',
+    walletThemes: environment.agenthos.apiUrl + '/wallet-themes',
 };
 
 @Injectable()

@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    sinisterResolutions: `${environment.apiUrl}/sinister-resolutions`,
+    sinisterResolutions: `${environment.agenthos.apiUrl}/sinister-resolutions`,
 };
 
 @Injectable()

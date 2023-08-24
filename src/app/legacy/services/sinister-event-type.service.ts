@@ -17,7 +17,7 @@ const ROUTES = {
         sinisterId: string,
         insuranceGroupId: number
     ) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/sinisters/${sinisterId}/insurance-groups/${insuranceGroupId}/sinister-event-types`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/sinisters/${sinisterId}/insurance-groups/${insuranceGroupId}/sinister-event-types`,
 };
 
 @Injectable()

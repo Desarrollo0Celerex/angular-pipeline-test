@@ -13,7 +13,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     contactExternalPolicies: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -24,7 +24,7 @@ const routes: any = {
         contactId: string,
         externalPolicyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -32,31 +32,31 @@ const routes: any = {
         '/external-policies/' +
         externalPolicyId,
     groupExternalPolicies: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/external-policies',
     partnerExternalPolicies: (workspaceId: string, partnerId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/external-policies',
     totalWorkspaceExternalPolicies: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/external-policies/count',
     workspaceExternalPolicies: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/external-policies',
     workspaceExternalPolicyStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/external-policies/stats',

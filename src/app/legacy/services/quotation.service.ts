@@ -18,7 +18,7 @@ const routes: any = {
         contactId: string,
         quotationId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -26,7 +26,7 @@ const routes: any = {
         '/quotations/' +
         quotationId,
     contactQuotations: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -37,7 +37,7 @@ const routes: any = {
         contactId: string,
         quotationId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -50,7 +50,7 @@ const routes: any = {
         contactId: string,
         quotationId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -59,40 +59,49 @@ const routes: any = {
         quotationId +
         '/reject',
     totalQuotations: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/quotations/total',
     totalWorkspaceQuotations: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/quotations/count',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/quotations/count',
     quotationsStats: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/stats/quotations',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/stats/quotations',
     totalQuotationsStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/quotations/count',
     contactSourcesQuotationsStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/contact-sources/quotations',
     partnersQuotationsStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/partners/quotations',
     usersQuotationsStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/users/quotations',
     quotations: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/quotations',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/quotations',
     workspaceQuotationsSmartInsights: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/quotations/smart-insights',

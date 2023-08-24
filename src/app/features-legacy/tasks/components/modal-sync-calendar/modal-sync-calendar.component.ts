@@ -107,7 +107,7 @@ export class ModalSyncCalendarComponent
         let link = 'https://outlook.live.com/calendar/0/deeplink/compose?';
         link += 'body=' + encodeURIComponent(this._task!.taskDetails);
         link += '&';
-        link += 'location=' + encodeURIComponent(environment.appAgenthosUrl);
+        link += 'location=' + encodeURIComponent(environment.agenthos.appUrl);
         link += '&';
         link += 'path=' + encodeURIComponent('/calendar/action/compose');
         link += '&';

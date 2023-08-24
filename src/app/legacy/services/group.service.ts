@@ -11,13 +11,13 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     group: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId,
     groupAnnualWallet: (workspaceId: string, groupId: string, year: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
@@ -25,14 +25,17 @@ const routes: any = {
         '/annual-wallet/' +
         year,
     groupCoincidences: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/coincidences',
     groups: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/groups',
+        environment.agenthos.apiUrl + '/workspaces/' + workspaceId + '/groups',
     totalGroups: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/groups/count',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/groups/count',
 };
 
 @Injectable()

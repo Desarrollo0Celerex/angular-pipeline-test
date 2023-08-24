@@ -5,7 +5,7 @@ import { ApiHttp } from '@core/http/api.http';
 import { environment } from '@env/environment';
 
 const ENDPOINTS: any = {
-    countries: `${environment.apiUrl}/countries`,
+    countries: `${environment.agenthos.apiUrl}/countries`,
 };
 
 @Injectable({

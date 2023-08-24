@@ -5,7 +5,7 @@ import { TaskProgressStatus } from '@task-progress-status/interfaces/task-progre
 import { Observable } from 'rxjs';
 
 const ENDPOINTS = {
-    taskProgressStatus: `${environment.apiUrl}/task-progress-status`,
+    taskProgressStatus: `${environment.agenthos.apiUrl}/task-progress-status`,
 };
 
 @Injectable()

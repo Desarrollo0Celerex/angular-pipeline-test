@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    quotationStatus: `${environment.apiUrl}/quotation-status`,
+    quotationStatus: `${environment.agenthos.apiUrl}/quotation-status`,
 };
 
 @Injectable()

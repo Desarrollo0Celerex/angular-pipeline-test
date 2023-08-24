@@ -9,15 +9,18 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     invitation: (workspaceId: string, invitationId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/invitations/' +
         invitationId,
     invitations: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/invitations',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/invitations',
     invitationToken: (invitationToken: string) =>
-        environment.apiUrl + '/invitations/' + invitationToken,
+        environment.agenthos.apiUrl + '/invitations/' + invitationToken,
 };
 
 @Injectable()

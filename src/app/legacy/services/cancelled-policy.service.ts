@@ -8,7 +8,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     cancelledPolicy: (workspaceId: string, cancelledPolicyId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/cancelled-policies/' +

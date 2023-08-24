@@ -8,14 +8,14 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     expressTokens: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/express-tokens',
     expresContact: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/express/workspaces/' +
         workspaceId +
         '/contacts/' +

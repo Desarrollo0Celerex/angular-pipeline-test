@@ -13,7 +13,7 @@ const routes: any = {
         policyId: string,
         endorsementId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -27,7 +27,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +

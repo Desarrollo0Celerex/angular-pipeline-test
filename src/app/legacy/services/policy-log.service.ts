@@ -10,7 +10,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
     policyLogs: (workspaceId: string, contactId: string, policyId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/policy-logs`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/policy-logs`,
 };
 
 @Injectable()

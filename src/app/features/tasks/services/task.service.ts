@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
 
 const ENDPOINTS: any = {
     workspaceTask: (workspaceId: string, taskId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/tasks/${taskId}`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/tasks/${taskId}`,
     workspaceTasks: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/tasks`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/tasks`,
 };
 
 @Injectable()

@@ -4,6 +4,7 @@ import { Workspace } from '@core/interfaces/workspace.interface';
 import { WorkspaceService } from '@core/services/workspace/workspace.service';
 
 import { ROUTES_NAME } from '@constants/routes-name';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'agt-sidebar',
@@ -12,6 +13,9 @@ import { ROUTES_NAME } from '@constants/routes-name';
 })
 export class SidebarComponent implements OnInit {
     ROUTES_NAME: any = ROUTES_NAME;
+    agenthosSupportPhone =
+        environment.agenthos.support.phoneCode +
+        environment.agenthos.support.phoneNumber;
     workspace: Workspace | undefined = undefined;
 
     constructor(private _workspaceService: WorkspaceService) {}

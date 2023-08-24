@@ -10,9 +10,9 @@ import { SinisterStatus } from '@interfaces/sinister-status.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
-    sinisterStatus: `${environment.apiUrl}/sinister-status`,
+    sinisterStatus: `${environment.agenthos.apiUrl}/sinister-status`,
     sinisterStatusStats: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/stats/sinister-status`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/stats/sinister-status`,
 };
 
 @Injectable()

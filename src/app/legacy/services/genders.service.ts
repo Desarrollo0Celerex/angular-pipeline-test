@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    genders: `${environment.apiUrl}/genders`,
+    genders: `${environment.agenthos.apiUrl}/genders`,
 };
 
 @Injectable()

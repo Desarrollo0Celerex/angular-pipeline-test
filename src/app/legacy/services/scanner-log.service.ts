@@ -8,7 +8,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     scannerLogs: (workspaceId: string, contactId: string, policyId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +

@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const routes: any = {
-    insuranceCategories: environment.apiUrl + '/insurance-categories',
+    insuranceCategories: environment.agenthos.apiUrl + '/insurance-categories',
 };
 
 @Injectable()

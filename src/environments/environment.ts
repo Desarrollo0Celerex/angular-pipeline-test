@@ -1,11 +1,17 @@
 export const environment = {
     production: false,
-    agenthosUrl: 'https://agenthos.com',
     atomAccountUrl: 'http://localhost:4201',
-    appAgenthosUrl: 'http://localhost:4200',
-    apiUrl: 'http://localhost:8888/atombits/agenthos/v1',
     atomScann: 'http://localhost:8888/atombits/atom-scanner/api/v1',
     importerApiUrl: 'http://localhost:8888/atombits/agenthos-importer/v1',
+    agenthos: {
+        landingUrl: 'https://agenthos.com',
+        appUrl: 'http://localhost:4200',
+        apiUrl: 'http://localhost:8888/atombits/agenthos/v1',
+        support: {
+            phoneCode: '52',
+            phoneNumber: '2214035971',
+        },
+    },
     agenthosNotifier: {
         apiUrl: 'http://127.0.0.1:8000',
     },

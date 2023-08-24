@@ -8,7 +8,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { License } from '@interfaces/license.interface';
 
 const routes: any = {
-    licenses: environment.apiUrl + '/licenses',
+    licenses: environment.agenthos.apiUrl + '/licenses',
 };
 
 @Injectable()

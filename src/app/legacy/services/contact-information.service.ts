@@ -8,7 +8,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
     contactInformations: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +

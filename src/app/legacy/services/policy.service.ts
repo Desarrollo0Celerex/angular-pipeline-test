@@ -19,21 +19,21 @@ import * as moment from 'moment';
 
 const routes: any = {
     contactPolicies: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/policies',
     policyTitularInfo: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/policies/titular-info',
     contactPolicy: (workspaceId: string, contactId: string, policyId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -45,7 +45,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -58,7 +58,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -71,7 +71,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -84,7 +84,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -97,7 +97,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -110,7 +110,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -123,7 +123,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -136,7 +136,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -149,7 +149,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -162,7 +162,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -171,13 +171,16 @@ const routes: any = {
         policyId +
         '/history',
     workspacePolicies: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/policies',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/policies',
     policySinisters: (
         workspaceId: string,
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -186,63 +189,63 @@ const routes: any = {
         policyId +
         '/sinisters',
     totalContactAppliedRenewals: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/applied-renewals/count',
     totalContactPendingRenewals: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/pending-renewals/count',
     totalContactPolicies: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/policies/count',
     totalGroupAppliedRenewals: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/applied-renewals/count',
     totalGroupPendingRenewals: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/pending-renewals/count',
     totalGroupPolicies: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/policies/count',
     totalPartnerPolicies: (workspaceId: string, partnerId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/policies/count',
     totalPartnerAppliedRenewals: (workspaceId: string, partnerId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/applied-renewals/count',
     totalPartnerPendingRenewals: (workspaceId: string, partnerId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
@@ -253,7 +256,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -262,16 +265,19 @@ const routes: any = {
         policyId +
         '/update-complete',
     updatePolicyStatus: (workspaceId: string, policyId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/' +
         policyId +
         '/policy-status',
     totalWorkspacePolicies: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/policies/count',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/policies/count',
     policyTracker: (workspaceId: string, contactId: string, policyId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -284,7 +290,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -297,7 +303,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -306,89 +312,95 @@ const routes: any = {
         policyId +
         '/tracker/insurers',
     groupPolicies: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/policies',
     partnerPolicies: (workspaceId: string, partnerId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/policies',
     contactPendingRenewals: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/renewals/pending',
     workspacePendingRenewals: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/renewals/pending',
     workspacePendingRenewalsReport: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/renewals/pending/report',
     workspacePendingRenewalStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/renewals/pending/stats',
     contactAppliedRenewals: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/renewals/applied',
     workspaceRenewedPolicies: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/renewals/renewed',
     workspaceRenewedPoliciesReport: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/renewals/renewed/report',
     workspaceRenewedPoliciesStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/policies/renewed',
     workspaceRenewedPoliciesSpecialFilters: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/renewals/renewed/special-filters',
     policiesReport: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/policies/reports',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/policies/reports',
     policiesStats: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/stats/policies',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/stats/policies',
     totalPoliciesStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/policies/count',
     insurancesPoliciesStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/insurances/policies',
     policiesRenewsStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/policies/renews',
     cancelledPoliciesStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/policies/cancelled',
@@ -397,7 +409,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -410,7 +422,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -423,7 +435,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -436,7 +448,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -445,84 +457,90 @@ const routes: any = {
         policyId +
         '/endorsements/with-increment',
     workspaceActivePoliciesReport: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/reports/actives',
     workspacePolicyStats: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/policies/stats',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/policies/stats',
     workspacePolicy: (workspaceId: string, policyId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/policies/' +
         policyId,
     reportContactAppliedRenewals: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/applied-renewals/report',
     reportContactPendingRenewals: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/pending-renewals/report',
     reportGroupAppliedRenewals: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/applied-renewals/report',
     reportGroupPendingRenewals: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/pending-renewals/report',
     reportPartnerAppliedRenewals: (workspaceId: string, partnerId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/applied-renewals/report',
     reportPartnerPendingRenewals: (workspaceId: string, partnerId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/pending-renewals/report',
     totalWorkspacePoliciesRenewed: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/renewed/count',
     totalWorkspaceRenewals: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/renewals/count',
     totalWorkspaceRenewalsApplied: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/renewals/renewed/count',
     totalWorkspaceRenewalsPending: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/renewals/pending/count',
     workspacePoliciesRenewed: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/policies/renewed',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/policies/renewed',
     workspacePoliciesRenewedSmartInsights: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/policies/renewed/smart-insights',

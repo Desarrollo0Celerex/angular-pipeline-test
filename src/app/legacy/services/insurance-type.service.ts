@@ -7,7 +7,10 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const routes: any = {
     insurancesInsuranceType: (insuranceId: number) =>
-        environment.apiUrl + '/insurances/' + insuranceId + '/insuranceTypes',
+        environment.agenthos.apiUrl +
+        '/insurances/' +
+        insuranceId +
+        '/insuranceTypes',
 };
 
 @Injectable()

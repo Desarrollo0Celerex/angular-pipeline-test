@@ -1,11 +1,17 @@
 export const environment = {
     production: true,
-    agenthosUrl: 'https://agenthos.com',
     atomAccountUrl: 'https://account.atombits.xyz',
-    appAgenthosUrl: 'https://app.agenthos.com',
-    apiUrl: 'https://app.agenthos.com/v1',
     atomScann: 'https://scanner.agenthos.com/api/v1',
     importerApiUrl: 'https://importer.agenthos.com/v1',
+    agenthos: {
+        landingUrl: 'https://agenthos.com',
+        appUrl: 'https://app.agenthos.com',
+        apiUrl: 'https://app.agenthos.com/v1',
+        support: {
+            phoneCode: '52',
+            phoneNumber: '2214035971',
+        },
+    },
     agenthosNotifier: {
         apiUrl: 'https://notifications.agenthos.com/v1/public',
     },

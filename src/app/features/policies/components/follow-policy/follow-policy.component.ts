@@ -46,7 +46,7 @@ export class FollowPolicyComponent {
     }
 
     private _generateDetails(policy: Policy): string {
-        const domain = environment.appAgenthosUrl + '/';
+        const domain = environment.agenthos.appUrl + '/';
         const pendingReceipsRoute =
             domain +
             ROUTES_NAME.pendingReceipts(

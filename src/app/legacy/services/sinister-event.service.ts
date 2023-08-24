@@ -18,7 +18,7 @@ const routes: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -35,7 +35,7 @@ const routes: any = {
         sinisterId: string,
         sinisterEventId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +

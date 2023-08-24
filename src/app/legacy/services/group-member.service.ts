@@ -9,14 +9,14 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     groupMembers: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/members',
     groupMember: (workspaceId: string, groupId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +

@@ -16,7 +16,7 @@ export const SINISTER_EVIDENCE_ENDPOINTS: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +

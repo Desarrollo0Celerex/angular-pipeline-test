@@ -10,16 +10,19 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     leads: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/leads',
+        environment.agenthos.apiUrl + '/workspaces/' + workspaceId + '/leads',
     totalLeads: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/leads/count',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/leads/count',
     totalLeadsStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/leads/count',
     leadsGeneratedStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/leads/leads-generated',

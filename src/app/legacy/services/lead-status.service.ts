@@ -9,9 +9,9 @@ import { LeadStatusStat } from '@interfaces/lead-status-stat.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
-    leadStatus: `${environment.apiUrl}/lead-status`,
+    leadStatus: `${environment.agenthos.apiUrl}/lead-status`,
     leadStatusStats: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/stats/lead-status`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/stats/lead-status`,
 };
 
 @Injectable()

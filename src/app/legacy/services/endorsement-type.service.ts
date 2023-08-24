@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    endorsementTypes: `${environment.apiUrl}/endorsement-types`,
+    endorsementTypes: `${environment.agenthos.apiUrl}/endorsement-types`,
 };
 
 @Injectable()

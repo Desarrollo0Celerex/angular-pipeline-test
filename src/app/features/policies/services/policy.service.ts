@@ -8,7 +8,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ENDPOINTS = {
     contactPolicy: (workspaceId: string, contactId: string, policyId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}`,
     policyNotification: `${environment.agenthosNotifier.apiUrl}/policies`,
 };
 

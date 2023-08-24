@@ -11,9 +11,9 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
     contactSourceTypes: (contactSourceId: number) =>
-        `${environment.apiUrl}/contact-sources/${contactSourceId}/contact-source-types`,
+        `${environment.agenthos.apiUrl}/contact-sources/${contactSourceId}/contact-source-types`,
     contactSourceTypesStats: (workspaceId: string, contactSourceId: number) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/stats/contact-sources/${contactSourceId}/contact-source-types`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/stats/contact-sources/${contactSourceId}/contact-source-types`,
 };
 
 @Injectable()

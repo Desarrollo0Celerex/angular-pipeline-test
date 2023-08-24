@@ -13,14 +13,23 @@ import { UpdateSiteThemeDataSend } from '@interfaces/update-site-theme-data-send
 
 const routes: any = {
     sites: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/sites',
+        environment.agenthos.apiUrl + '/workspaces/' + workspaceId + '/sites',
     siteIdentity: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/sites/identity',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/sites/identity',
     siteLogo: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/sites/logo',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/sites/logo',
     siteTheme: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/sites/theme',
-    siteThemes: environment.apiUrl + '/site-themes',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/sites/theme',
+    siteThemes: environment.agenthos.apiUrl + '/site-themes',
 };
 
 @Injectable()

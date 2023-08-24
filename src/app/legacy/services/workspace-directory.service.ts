@@ -11,9 +11,9 @@ import { SaveWorkspaceDirectoriesDataSend } from '@interfaces/save-workspace-dir
 
 const ROUTES = {
     workspaceDirectories: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/directories`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/directories`,
     workspaceDirectoriesIsCompleted: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/directories/is-completed`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/directories/is-completed`,
 };
 
 @Injectable()

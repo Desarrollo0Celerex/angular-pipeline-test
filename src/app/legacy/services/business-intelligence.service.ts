@@ -13,7 +13,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -22,56 +22,56 @@ const routes: any = {
         policyId +
         '/business-intelligences/added-endorsements',
     contactAppliedPayments: (workspaceId: string, contactId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/business-intelligences/applied-payments',
     contactAppliedRenewals: (workspaceId: string, contactId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/business-intelligences/applied-renewals',
     contactCancelledPolicies: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/business-intelligences/cancelled-policies',
     contactWalletDecrease: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/business-intelligences/wallet-decrease',
     groupAppliedPayments: (workspaceId: string, groupId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/business-intelligences/applied-payments',
     groupAppliedRenewals: (workspaceId: string, groupId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/business-intelligences/applied-renewals',
     groupCancelledPolicies: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/business-intelligences/cancelled-policies',
     groupWalletDecrease: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
@@ -82,7 +82,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -91,7 +91,7 @@ const routes: any = {
         policyId +
         '/business-intelligences/last-percentage-increase',
     latePayments: (workspaceId: string, contactId: string, policyId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -100,28 +100,28 @@ const routes: any = {
         policyId +
         '/business-intelligences/late-payments',
     partnerAppliedPayments: (workspaceId: string, partnerId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/business-intelligences/applied-payments',
     partnerAppliedRenewals: (workspaceId: string, partnerId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/business-intelligences/applied-renewals',
     partnerCancelledPolicies: (workspaceId: string, partnerId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/business-intelligences/cancelled-policies',
     partnerWalletDecrease: (workspaceId: string, partnerId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
@@ -132,7 +132,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +

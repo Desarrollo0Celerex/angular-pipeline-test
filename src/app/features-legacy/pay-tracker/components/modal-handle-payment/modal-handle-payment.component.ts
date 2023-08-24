@@ -76,16 +76,16 @@ export class ModalHandlePaymentComponent {
                     }.
 
 💵 Pagos Pendientes: ${
-                        environment.appAgenthosUrl
+                        environment.agenthos.appUrl
                     }/workspace/payments/pending-receipts/${this.contactId}/${
                         this.policyId
                     }/${this.paymentId}
 📊 Historial de Póliza: ${
-                        environment.appAgenthosUrl
+                        environment.agenthos.appUrl
                     }/workspace/policies/history-policy/${this.contactId}/${
                         this.policyId
                     }
-🪪 Perfil de Cliente: ${environment.appAgenthosUrl}/workspace/contact-profile/${
+🪪 Perfil de Cliente: ${environment.agenthos.appUrl}/workspace/contact-profile/${
                         this.contactId
                     }/resume
 

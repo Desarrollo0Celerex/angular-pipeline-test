@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    policyCancellationReasons: `${environment.apiUrl}/policy-cancellation-reasons`,
+    policyCancellationReasons: `${environment.agenthos.apiUrl}/policy-cancellation-reasons`,
 };
 
 @Injectable()

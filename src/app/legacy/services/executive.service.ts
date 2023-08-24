@@ -9,9 +9,9 @@ import { CreateExecutive } from '@interfaces/create-executive.interface';
 
 const ROUTES = {
     executives: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/executives`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/executives`,
     executive: (workspaceId: string, executiveId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/executives/${executiveId}`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/executives/${executiveId}`,
 };
 
 @Injectable()

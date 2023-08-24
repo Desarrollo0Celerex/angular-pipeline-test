@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 
 const ENDPOINTS: any = {
     workspaceUsers: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/users`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/users`,
 };
 
 @Injectable()

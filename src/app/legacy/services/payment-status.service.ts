@@ -11,9 +11,9 @@ import { PaymentStatusStat } from '@interfaces/payment-status-stat.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
-    paymentStatus: `${environment.apiUrl}/payment-status`,
+    paymentStatus: `${environment.agenthos.apiUrl}/payment-status`,
     paymentStatusStats: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/stats/payment-status`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/stats/payment-status`,
 };
 
 @Injectable()

@@ -30,7 +30,7 @@ export class QrcodeTransferContactService {
             .getExpressToken(contactId)
             .subscribe((res: HttpResponse) => {
                 this.contactUrl = `${
-                    environment.appAgenthosUrl
+                    environment.agenthos.appUrl
                 }/${ROUTES_NAME.expressContact(res.data)}`;
             });
     }

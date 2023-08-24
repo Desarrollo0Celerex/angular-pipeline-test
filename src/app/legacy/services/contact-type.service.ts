@@ -10,9 +10,9 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
-    contactTypes: () => `${environment.apiUrl}/contact-types`,
+    contactTypes: () => `${environment.agenthos.apiUrl}/contact-types`,
     contactTypesStats: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/stats/contact-types`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/stats/contact-types`,
 };
 
 @Injectable()
