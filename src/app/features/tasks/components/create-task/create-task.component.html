@@ -1,0 +1,223 @@
+<ng-container *ngIf="data">
+    <div
+        class="modal fade"
+        [id]="modalId"
+        tabindex="-1"
+        role="dialog"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog modal-lg" role="document">
+            <form [formGroup]="form" (submit)="validateForm()">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ data.title }}</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            aria-label="Close"
+                            data-dismiss="modal"
+                            [routerLink]="data.cancelRoute"
+                            (click)="reset()"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">
+                                {{ data.message }}
+                            </li>
+                        </ol>
+                        <div class="row">
+                            <div class="col-md-8 col-sm-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - TASKPLANNER TASK SUBJECT * -->
+                                    <label class="form-label">Asunto</label>
+                                    <input
+                                        type="text"
+                                        class="form-control {{
+                                            getValidationClass('taskTitle')
+                                        }}"
+                                        formControlName="taskTitle"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{ getErrorMessage("taskTitle") }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <!-- AGENTHOS - TASKPLANNER TASK DESCRIPTION * -->
+                                    <label class="form-label"
+                                        >Descripción</label
+                                    >
+                                    <textarea
+                                        class="form-control {{
+                                            getValidationClass('taskDetails')
+                                        }}"
+                                        rows="8"
+                                        placeholder="Ingresa los detalles de la tarea que deseas programar."
+                                        formControlName="taskDetails"
+                                    >
+                                    </textarea>
+                                    <div class="invalid-feedback">
+                                        {{ getErrorMessage("taskDetails") }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - TASKPLANNER TASK ESTATUS * -->
+                                    <label class="form-label">Estatus</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-inbox tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <select
+                                            class="form-control {{
+                                                getValidationClass(
+                                                    'taskProgressStatusId'
+                                                )
+                                            }}"
+                                            formControlName="taskProgressStatusId"
+                                        >
+                                            <option
+                                                [value]="
+                                                    status.taskProgressStatusId
+                                                "
+                                                *ngFor="
+                                                    let status of taskProgressStatus
+                                                "
+                                            >
+                                                {{ status.name | uppercase }}
+                                            </option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            {{
+                                                getErrorMessage(
+                                                    "taskProgressStatusId"
+                                                )
+                                            }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <!-- AGENTHOS - TASKPLANNER TASK USER * -->
+                                    <label class="form-label"
+                                        >Responsable</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-user-circle-o tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <select
+                                            class="form-control {{
+                                                getValidationClass(
+                                                    'responsibleId'
+                                                )
+                                            }}"
+                                            formControlName="responsibleId"
+                                        >
+                                            <option
+                                                *ngFor="
+                                                    let workspaceUser of workspaceUsers
+                                                "
+                                                [value]="workspaceUser.userId"
+                                            >
+                                                {{
+                                                    workspaceUser.shortName
+                                                        | uppercase
+                                                }}
+                                            </option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            {{
+                                                getErrorMessage("responsibleId")
+                                            }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <!-- AGENTHOS - TASKPLANNER TASK DATE * -->
+                                    <label class="form-label">Fecha</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-calendar-check-o tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            [id]="calendarIdTaskDate"
+                                            type="text"
+                                            class="form-control fc-datepicker {{
+                                                getValidationClass('taskDate')
+                                            }}"
+                                            formControlName="taskDate"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{ getErrorMessage("taskDate") }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <!-- AGENTHOS - TASKPLANNER TASK TIME * -->
+                                    <label class="form-label">Hora</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-clock-o tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            [id]="timerIdTaskTime"
+                                            class="form-control fc-timepicker {{
+                                                getValidationClass('taskTime')
+                                            }}"
+                                            type="text"
+                                            formControlName="taskTime"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{ getErrorMessage("taskTime") }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mt-3">
+                                <button
+                                    type="submit"
+                                    class="btn btn-block agt-btn-default"
+                                >
+                                    <strong>{{ data.buttonLabel }}</strong>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a
+                            class="btn btn-block agt-btn-secondary-outline"
+                            data-dismiss="modal"
+                            [routerLink]="data.cancelRoute"
+                            (click)="reset()"
+                        >
+                            <strong>CANCELAR</strong>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-container>
+
+<agt-select-task-calendar></agt-select-task-calendar>

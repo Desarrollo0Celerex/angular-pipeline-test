@@ -5,6 +5,7 @@ import { PolicyActions } from '@policies/interfaces/policy-actions.interface';
 import { AlertHelper } from '@core/helpers/alert.helper';
 import { Router } from '@angular/router';
 import { DownloadPolicyComponent } from '../download-policy/download-policy.component';
+import { FollowPolicyComponent } from '../follow-policy/follow-policy.component';
 
 declare var ModalPlugin: any;
 
@@ -16,6 +17,8 @@ declare var ModalPlugin: any;
 export class PolicyActionsComponent {
     @ViewChild(DownloadPolicyComponent)
     downloadPolicyComponent!: DownloadPolicyComponent;
+    @ViewChild(FollowPolicyComponent)
+    followPolicyComponent!: FollowPolicyComponent;
     @ViewChild(SendPolicyComponent)
     sendPolicyComponent!: SendPolicyComponent;
     data: PolicyActions | undefined = undefined;
@@ -47,7 +50,13 @@ export class PolicyActionsComponent {
         AlertHelper.policySent(this._goToListContactPolicies, this);
     }
 
-    showModalCreateTask(): void {}
+    showModalCreateTask(): void {
+        this.followPolicyComponent.init({
+            contactId: this.data!.contactId,
+            policyId: this.data!.policyId,
+            cancelRoute: this.data!.cancelRoute,
+        });
+    }
 
     showModalDownloadPolicy(): void {
         this.downloadPolicyComponent.init({

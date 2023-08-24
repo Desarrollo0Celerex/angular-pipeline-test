@@ -32,9 +32,7 @@ export class DownloadContentComponent {
 
     init(data: DownloadContent): void {
         this.data = data;
-        setTimeout(() => {
-            ModalHelper.show(this.modalId);
-        }, 0);
+        ModalHelper.show(this.modalId);
     }
 
     reset(): void {

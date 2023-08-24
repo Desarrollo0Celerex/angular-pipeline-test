@@ -165,7 +165,7 @@ export class ModalRequestContactInformationToShareTaskComponent
             .subscribe((whatsappLink) => {
                 this._loadingService.hide();
                 if (this._data?.canShareByWhatsapp) {
-                    UtilitiesHelper.sendMessageByWhatsapp(whatsappLink);
+                    UtilitiesHelper.executeLink(whatsappLink);
                 }
                 AlertHelper.taskSent();
             });

@@ -824,7 +824,7 @@ export class CompletePolicyPage implements OnInit {
             phoneCode: phoneCode,
             phoneNumber: this.model.policyForm.value.titularPhoneNumber,
             email: this.model.policyForm.value.titularEmail,
-            cancelRoute: ROUTES_NAME.listContactPolicies(this.contactId),
+            cancelRoute: '/' + ROUTES_NAME.listContactPolicies(this.contactId),
         });
     }
 

@@ -43,6 +43,7 @@ import { GenerateShippingInformationComponent } from './components/generate-ship
 import { ModalRequestShippingContactsComponent } from './components/modal-request-shipping-contacts/modal-request-shipping-contacts.component';
 import { CountriesModule } from '@features-legacy/countries/countries.module';
 import { DownloadContentComponent } from './components/download-content/download-content.component';
+import { QrCodeComponent } from './components/qr-code/qr-code.component';
 
 @NgModule({
     declarations: [
@@ -77,6 +78,7 @@ import { DownloadContentComponent } from './components/download-content/download
         GenerateShippingInformationComponent,
         ModalRequestShippingContactsComponent,
         DownloadContentComponent,
+        QrCodeComponent,
     ],
     exports: [
         CardCalendarRangeComponent,
@@ -97,6 +99,7 @@ import { DownloadContentComponent } from './components/download-content/download
         PaymentStatusNamePipe,
         PluralPipe,
         PhoneCodePipe,
+        QrCodeComponent,
     ],
     imports: [
         CommonModule,

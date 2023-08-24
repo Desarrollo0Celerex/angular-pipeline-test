@@ -6,6 +6,8 @@ export class ModalHelper {
     }
 
     static show(modalId: string): void {
-        ModalPlugin.show(modalId);
+        setTimeout(() => {
+            ModalPlugin.show(modalId);
+        }, 0);
     }
 }

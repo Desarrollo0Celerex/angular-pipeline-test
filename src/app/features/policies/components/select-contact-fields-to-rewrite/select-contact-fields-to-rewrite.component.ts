@@ -22,9 +22,7 @@ export class SelectContactFieldsToRewriteComponent {
 
     init(data: SelectContactFieldsToRewrite): void {
         this.data = data;
-        setTimeout(() => {
-            ModalHelper.show(this.modalId);
-        }, 0);
+        ModalHelper.show(this.modalId);
     }
 
     filterFields(): void {

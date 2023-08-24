@@ -11,6 +11,8 @@ import { PolicyActionsComponent } from './components/policy-actions/policy-actio
 import { RouterModule } from '@angular/router';
 import { PolicyService } from './services/policy.service';
 import { DownloadPolicyComponent } from './components/download-policy/download-policy.component';
+import { TasksModule } from '@tasks/tasks.module';
+import { FollowPolicyComponent } from './components/follow-policy/follow-policy.component';
 
 @NgModule({
     declarations: [
@@ -18,9 +20,16 @@ import { DownloadPolicyComponent } from './components/download-policy/download-p
         SelectContactFieldsToRewriteComponent,
         SendPolicyComponent,
         DownloadPolicyComponent,
+        FollowPolicyComponent,
     ],
     exports: [PolicyActionsComponent, SelectContactFieldsToRewriteComponent],
-    imports: [CommonModule, PoliciesRoutingModule, RouterModule, SharedModule],
+    imports: [
+        CommonModule,
+        PoliciesRoutingModule,
+        RouterModule,
+        SharedModule,
+        TasksModule,
+    ],
     providers: [GenderNamePipe, PhoneCodePipe, PolicyService],
 })
 export class PoliciesModule {}
