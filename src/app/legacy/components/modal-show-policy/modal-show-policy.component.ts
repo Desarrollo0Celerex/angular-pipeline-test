@@ -17,7 +17,6 @@ export class ModalShowPolicyComponent implements OnChanges {
     @Input() contactId: string;
     @Input() modalId: string;
     @Input() policyId: string;
-    @Input() cancelRoute: string | [] = [];
     correctionLevel: any;
     elementType: any;
     policyUrl: string;

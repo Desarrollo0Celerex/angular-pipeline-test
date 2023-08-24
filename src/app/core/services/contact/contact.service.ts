@@ -7,7 +7,7 @@ import { SearchContactData } from '@interfaces/search-contact-data.interface';
 import { SelectContactSourceData } from '@interfaces/select-contact-source-data.interface';
 import { UpdateContactDataSend } from '@interfaces/update-contact-data-send.interface';
 import { ApiHttp } from '@core/http/api.http';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { Contact } from '@core/interfaces/contact.interface';
 import { AnnualWallet } from '@interfaces/annual-wallet.interface';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';

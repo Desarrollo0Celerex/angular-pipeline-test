@@ -14,7 +14,7 @@ import { AnalizeInsuredsResponse } from '@interfaces/analize-insureds-response.i
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Insured } from '@interfaces/insured.interface';
 import { UpdatePolicyInsuredStatus } from '@interfaces/update-policy-insured-status.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
     policyInsureds: (

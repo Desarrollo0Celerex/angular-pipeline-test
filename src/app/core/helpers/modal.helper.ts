@@ -1,11 +1,13 @@
 declare var ModalPlugin: any;
 
 export class ModalHelper {
-    static hideModal(modalId: string): void {
+    static hide(modalId: string): void {
         ModalPlugin.hide(modalId);
     }
 
-    static showModal(modalId: string): void {
-        ModalPlugin.show(modalId);
+    static show(modalId: string): void {
+        setTimeout(() => {
+            ModalPlugin.show(modalId);
+        }, 0);
     }
 }

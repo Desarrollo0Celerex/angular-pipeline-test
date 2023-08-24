@@ -143,6 +143,7 @@ export enum PAYMENT_STATUS {
 export enum TASK_MODULES {
     PAYMENT = 1,
     OTHER = 2,
+    POLICY = 3,
 }
 
 export enum PHONE_CODES {
@@ -156,4 +157,8 @@ export enum TASK_STATUS {
     EXPIRED = 4,
     STANDBY = 5,
     FINISHED = 6,
+}
+
+export enum TASK_PROGRESS_STATUS {
+    TODO = 1,
 }

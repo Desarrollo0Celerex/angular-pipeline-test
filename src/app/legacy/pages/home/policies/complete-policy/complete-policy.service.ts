@@ -44,7 +44,7 @@ import { PaymentMethod } from '@interfaces/payment-method.interface';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
 import { Policy } from '@core/interfaces/policy.interface';
 
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { AtomScannService } from '@services/atom-scann.service';
 import { ContactService } from '@core/services/contact/contact.service';
 import { CurrencyService } from '@services/currency.service';
@@ -56,7 +56,7 @@ import { PolicyService } from '@services/policy.service';
 import { PolicyInsuredService } from '@services/policy-insured.service';
 import { ScannerLogService } from '@services/scanner-log.service';
 import { Contact } from '@core/interfaces/contact.interface';
-import { RewriteField } from '@interfaces/rewrite-field.interface';
+import { RewriteField } from '@policies/interfaces/rewrite-field.interface';
 
 declare var DropifyPlugin: any;
 

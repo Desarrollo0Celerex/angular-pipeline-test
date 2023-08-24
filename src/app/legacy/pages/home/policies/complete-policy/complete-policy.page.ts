@@ -24,8 +24,9 @@ import { LoadingService } from '@core/services/loading/loading.service';
 import { ScanningService } from '@services/scanning.service';
 
 import { CompletePolicyService } from './complete-policy.service';
-import { RewriteField } from '@interfaces/rewrite-field.interface';
-import { ModalSelectActionForSavedPolicyComponent } from '@features/policy/components/modal-select-action-for-saved-policy/modal-select-action-for-saved-policy.component';
+import { PolicyActionsComponent } from '@policies/components/policy-actions/policy-actions.component';
+import { RewriteField } from '@policies/interfaces/rewrite-field.interface';
+import { SelectContactFieldsToRewriteComponent } from '@policies/components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
 
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
@@ -37,8 +38,10 @@ declare var PopoverPlugin: any;
     styles: [],
 })
 export class CompletePolicyPage implements OnInit {
-    @ViewChild(ModalSelectActionForSavedPolicyComponent)
-    modalSelectActionForSavedPolicyComponent!: ModalSelectActionForSavedPolicyComponent;
+    @ViewChild(PolicyActionsComponent)
+    policyActionsComponent!: PolicyActionsComponent;
+    @ViewChild(SelectContactFieldsToRewriteComponent)
+    selectContactFieldsToRewriteComponent!: SelectContactFieldsToRewriteComponent;
     CONTACT_TYPES: any = CONTACT_TYPES;
     INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     INSURANCE_TYPES: any = INSURANCE_TYPES;
@@ -401,7 +404,7 @@ export class CompletePolicyPage implements OnInit {
                         );
                     } else {
                         this.paymentId = policy.paymentId;
-                        this._showModalToSelectActionForSavedPolicy();
+                        this._showModalPolicyActions();
                     }
                 },
                 (error: HttpError) => {
@@ -801,17 +804,19 @@ export class CompletePolicyPage implements OnInit {
         this.contactFieldsToRewrite =
             this.model.generateContactFieldsToRewrite();
         if (this.contactFieldsToRewrite.length > 0) {
-            ModalPlugin.show('agt-policy-select-contact-fields-to-rewrite');
+            this.selectContactFieldsToRewriteComponent.init({
+                fields: this.contactFieldsToRewrite,
+            });
         } else {
             this._completePolicy();
         }
     }
 
-    private _showModalToSelectActionForSavedPolicy(): void {
+    private _showModalPolicyActions(): void {
         const phoneCode = this._generatePhoneCode(
             this.model.policyForm.value.titularPhoneCodeId
         );
-        this.modalSelectActionForSavedPolicyComponent.showModal({
+        this.policyActionsComponent.init({
             isSavedPolicy: true,
             contactId: this.contactId,
             policyId: this.policyId,

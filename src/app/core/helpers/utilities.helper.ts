@@ -254,12 +254,12 @@ export class UtilitiesHelper {
         return key;
     }
 
-    static sendMessageByWhatsapp(whatsappLink: string): void {
-        const link = document.createElement('a');
-        link.target = '_blank';
-        link.href = whatsappLink;
-        link.click();
-        link.remove();
+    static executeLink(link: string): void {
+        const a = document.createElement('a');
+        a.target = '_blank';
+        a.href = link;
+        a.click();
+        a.remove();
     }
 
     private static _calculateFirstPaymentAmount(

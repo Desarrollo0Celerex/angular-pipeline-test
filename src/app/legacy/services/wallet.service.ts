@@ -8,7 +8,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UpdateWalletIdentityDataSend } from '@interfaces/update-wallet-identity-data-send.interface';
 import { Wallet } from '@interfaces/wallet.interface';
 import { WalletTheme } from '@interfaces/wallet-theme.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     wallets: (workspaceId: string) =>

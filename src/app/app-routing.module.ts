@@ -15,12 +15,16 @@ const routes: Routes = [
     {
         path: AUTH_ROUTES.MODULE,
         loadChildren: () =>
-            import('@features/auth/auth.module').then((mod) => mod.AuthModule),
+            import('@features-legacy/auth/auth.module').then(
+                (mod) => mod.AuthModule
+            ),
     },
     {
         path: '',
         loadChildren: () =>
-            import('@features/home/home.module').then((mod) => mod.HomeModule),
+            import('@features-legacy/home/home.module').then(
+                (mod) => mod.HomeModule
+            ),
     },
 
     // LEGACY ROUTES

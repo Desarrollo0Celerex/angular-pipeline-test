@@ -7,7 +7,7 @@ import { environment } from '@env/environment';
 import { CreateGroupDataSend } from '@interfaces/create-group-data-send.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { UpdateGroupDataSend } from '@interfaces/update-group-data-send.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     group: (workspaceId: string, groupId: string) =>
