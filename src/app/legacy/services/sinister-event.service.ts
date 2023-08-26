@@ -9,7 +9,7 @@ import { FinalizeSinisterEventDataSend } from '@interfaces/finalize-sinister-eve
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { SinisterEvent } from '@interfaces/sinister-event.interface';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     sinisterEvents: (
@@ -18,7 +18,7 @@ const routes: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -35,7 +35,7 @@ const routes: any = {
         sinisterId: string,
         sinisterEventId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +

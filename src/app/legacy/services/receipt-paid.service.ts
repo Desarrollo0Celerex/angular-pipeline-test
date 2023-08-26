@@ -7,11 +7,11 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Payment } from '@core/interfaces/payment.interface';
 import { StatRangeData } from '@interfaces/stat-range-data.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     receiptsPaid: (workspaceId: string, paymentId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/payments/' +
@@ -23,7 +23,7 @@ const routes: any = {
         policyId: string,
         paymentId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -40,7 +40,7 @@ const routes: any = {
         paymentId: string,
         receiptPaidId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -56,7 +56,7 @@ const routes: any = {
         paymentId: string,
         receiptPaidId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/payments/' +
@@ -64,82 +64,85 @@ const routes: any = {
         '/receipts-paid/' +
         receiptPaidId,
     receiptPaidAux: (workspaceId: string, receiptPaidId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/receipts-paid/' +
         receiptPaidId,
     totalContactReceiptsPaid: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/receipts-paid/count',
     totalGroupReceiptsPaid: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/receipts-paid/count',
     totalPartnerReceiptsPaid: (workspaceId: string, partnerId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/receipts-paid/count',
     totalWorkspaceReceiptsPaid: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/receipts-paid/count',
     appliedPaymentsStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/applied-payments',
     receiptsPaidStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/receipts-paid',
     contactReceiptsPaid: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/receipts-paid',
     workspaceReceiptsPaid: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/receipts-paid',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/receipts-paid',
     workspaceReceiptsAppliedStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/receipts-paid/stats',
     workspaceReceiptsPaidReport: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/receipts-paid/report',
     reportContactAppliedPayments: (workspaceId: string, contactId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/receipts-paid/report',
     reportPartnerAppliedPayments: (workspaceId: string, partnerId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/receipts-paid/report',
     reportGroupAppliedPayments: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +

@@ -1,8 +1,7 @@
 export interface CreateTask {
-    taskTitle: string;
-    taskDate: string;
-    taskTime: string;
-    taskDetails: string;
+    title: string;
+    message: string;
+    buttonLabel: string;
     taskModuleId: number;
-    responsibleId: string;
+    cancelRoute: string | [];
 }

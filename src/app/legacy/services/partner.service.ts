@@ -8,13 +8,16 @@ import { environment } from '@env/environment';
 import { CreatePartnerDataSend } from '@interfaces/create-partner-data-send.interface';
 import { UpdatePartnerDataSend } from '@interfaces/update-partner-data-send.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     partners: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/partners',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/partners',
     partner: (workspaceId: string, partnerId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
@@ -24,7 +27,7 @@ const routes: any = {
         partnerId: string,
         year: number
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
@@ -32,19 +35,22 @@ const routes: any = {
         '/annual-wallet/' +
         year,
     partnerClients: (workspaceId: string, partnerId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/clients',
     partnerCoincidences: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/coincidences',
     totalPartners: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/partners/count',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/partners/count',
 };
 
 @Injectable()

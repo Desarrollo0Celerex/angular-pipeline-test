@@ -25,38 +25,38 @@ import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
 import { PolicyInsuredService } from '@services/policy-insured.service';
+import { SellerCommissionSuggestionsModule } from '@seller-commission-suggestions/seller-commission-suggestions.module';
 
 @NgModule({
-  declarations: [
-    UpdateCompletePolicyPage
-  ],
-  imports: [
-    CommonModule,
-    ContainerContactDetailsModule,
-    DropdownSelectPhoneCodeModule,
-    FormsModule,
-    LoadingContentModule,
-    ModalConfirmDeleteInsuredModule,
-    ModalPolicyAmountsDifferentModule,
-    ModalSelectFileModule,
-    ModalShowPolicyModule,
-    ModalShowPolicyFileModule,
-    ReactiveFormsModule,
-    UpdateCompletePolicyRoutingModule
-  ],
-  providers: [
-      CurrencyService,
-      GendersService,
-      InsurerService,
-      InsuranceService,
-      InsuranceGroupService,
-      InsuranceTypeService,
-      DatePipe,
-      PartnerService,
-      PaymentMethodService,
-      PaymentPlanService,
-      PolicyService,
-      PolicyInsuredService
-  ]
+    declarations: [UpdateCompletePolicyPage],
+    imports: [
+        CommonModule,
+        ContainerContactDetailsModule,
+        DropdownSelectPhoneCodeModule,
+        FormsModule,
+        LoadingContentModule,
+        ModalConfirmDeleteInsuredModule,
+        ModalPolicyAmountsDifferentModule,
+        ModalSelectFileModule,
+        ModalShowPolicyModule,
+        ModalShowPolicyFileModule,
+        ReactiveFormsModule,
+        SellerCommissionSuggestionsModule,
+        UpdateCompletePolicyRoutingModule,
+    ],
+    providers: [
+        CurrencyService,
+        GendersService,
+        InsurerService,
+        InsuranceService,
+        InsuranceGroupService,
+        InsuranceTypeService,
+        DatePipe,
+        PartnerService,
+        PaymentMethodService,
+        PaymentPlanService,
+        PolicyService,
+        PolicyInsuredService,
+    ],
 })
-export class UpdateCompletePolicyModule { }
+export class UpdateCompletePolicyModule {}

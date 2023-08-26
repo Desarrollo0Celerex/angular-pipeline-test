@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
-    clientsStatus: `${environment.apiUrl}/client-status`,
+    clientsStatus: `${environment.agenthos.apiUrl}/client-status`,
     clientStatusStats: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/stats/client-status`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/stats/client-status`,
 };
 
 @Injectable()

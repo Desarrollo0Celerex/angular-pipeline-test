@@ -8,22 +8,31 @@ import { environment } from '@env/environment';
 import { CoverageStat } from '@interfaces/coverage-stat.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { StatRangeData } from '@interfaces/stat-range-data.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     clients: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/clients',
+        environment.agenthos.apiUrl + '/workspaces/' + workspaceId + '/clients',
     totalClients: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/clients/count',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/clients/count',
     totalClientsStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/clients/count',
     clientsStats: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/stats/clients',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/stats/clients',
     coveragesStats: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/stats/coverages',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/stats/coverages',
 };
 
 @Injectable()

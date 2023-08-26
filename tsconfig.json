@@ -21,8 +21,16 @@
             // NEW
             "@configs/*": ["app/configs/*"],
             "@core/*": ["app/core/*"],
-            "@features/*": ["app/features/*"],
             "@shared/*": ["app/shared/*"],
+            "@features-legacy/*": ["app/features-legacy/*"],
+            "@policies/*": ["app/features/policies/*"],
+            "@seller-commission-suggestions/*": [
+                "app/features/seller-commission-suggestions/*"
+            ],
+            "@task-progress-status/*": ["app/features/task-progress-status/*"],
+            "@tasks/*": ["app/features/tasks/*"],
+            "@users/*": ["app/features/users/*"],
+            "@workspace-users/*": ["app/features/workspace-users/*"],
 
             // LEGACY
             "@components/*": ["app/legacy/components/*"],

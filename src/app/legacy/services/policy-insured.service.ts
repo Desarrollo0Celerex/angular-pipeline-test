@@ -14,7 +14,7 @@ import { AnalizeInsuredsResponse } from '@interfaces/analize-insureds-response.i
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Insured } from '@interfaces/insured.interface';
 import { UpdatePolicyInsuredStatus } from '@interfaces/update-policy-insured-status.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
     policyInsureds: (
@@ -22,29 +22,29 @@ const ROUTES = {
         contactId: string,
         policyId: string
     ) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds`,
     policyInsured: (
         workspaceId: string,
         contactId: string,
         policyId: string,
         policyInsuredId: string
     ) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds/${policyInsuredId}`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds/${policyInsuredId}`,
     policyInsuredStatus: (
         workspaceId: string,
         contactId: string,
         policyId: string,
         policyInsuredId: string
     ) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds/${policyInsuredId}/status`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/insureds/${policyInsuredId}/status`,
     reportFlotilla: (
         workspaceId: string,
         contactId: string,
         policyId: string
     ) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/reports/flotilla`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/reports/flotilla`,
     reportFlotillas: (workspaceId: string, contactId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/reports/flotillas`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/reports/flotillas`,
 };
 
 const ROUTES_IMPORTER = {

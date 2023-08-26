@@ -38,7 +38,7 @@ export class AcceptInvitationPage implements OnInit {
      * Click event to exit of the app
      */
     onClickExit(): void {
-        window.location.href = environment.agenthosUrl;
+        window.location.href = environment.agenthos.landingUrl;
     }
 
     /**

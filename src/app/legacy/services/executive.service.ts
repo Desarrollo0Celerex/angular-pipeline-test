@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { CreateExecutive } from '@interfaces/create-executive.interface';
 
 const ROUTES = {
     executives: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/executives`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/executives`,
     executive: (workspaceId: string, executiveId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/executives/${executiveId}`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/executives/${executiveId}`,
 };
 
 @Injectable()

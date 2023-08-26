@@ -5,32 +5,32 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { Insurance } from '@interfaces/insurance.interface';
 
 const routes = {
     activeInsurances: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/insurances/active',
     categoryInsurances: (insuranceCategoryId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/insurance-categories/' +
         insuranceCategoryId +
         '/insurances',
     licenseInsurances: (licenseId: number) =>
-        environment.apiUrl + '/licenses/' + licenseId + '/insurances',
-    insurances: environment.apiUrl + '/insurances',
+        environment.agenthos.apiUrl + '/licenses/' + licenseId + '/insurances',
+    insurances: environment.agenthos.apiUrl + '/insurances',
     mostUsedInsurances: (workspaceId: string, contactTypeId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contact-types/' +
         contactTypeId +
         '/insurances',
     subcategoryInsurances: (insuranceSubcategoryId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/insurance-subcategories/' +
         insuranceSubcategoryId +
         '/insurances',

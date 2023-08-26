@@ -14,37 +14,43 @@ import { UpdateSinisterCertificateDataSend } from '@interfaces/update-sinister-c
 import { UpdateSinisterDetailsDataSend } from '@interfaces/update-sinister-details-data-send.interface';
 import { UpdateSinisterReportDataSend } from '@interfaces/update-sinister-report-data-send.interface';
 import { UpdateSinisterTrackingDataSend } from '@interfaces/update-sinister-tracking-data-send.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 import * as moment from 'moment';
 
 const routes: any = {
     sinister: (workspaceId: string, sinisterId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/sinisters/' +
         sinisterId,
     sinisters: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/sinisters',
     totalSinisters: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/count',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/sinisters/count',
     contactSinisters: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/sinisters',
     groupSinisters: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/sinisters',
     partnerSinisters: (workspaceId: string, partnerId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
@@ -55,7 +61,7 @@ const routes: any = {
         contactId: string,
         policyId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -69,7 +75,7 @@ const routes: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -84,7 +90,7 @@ const routes: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -100,7 +106,7 @@ const routes: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -116,7 +122,7 @@ const routes: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -132,7 +138,7 @@ const routes: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -148,7 +154,7 @@ const routes: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -164,7 +170,7 @@ const routes: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -175,14 +181,14 @@ const routes: any = {
         sinisterId +
         '/reactivate',
     reportInsuranceSinisters: (workspaceId: string, insuranceId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/insurances/' +
         insuranceId +
         '/sinisters/reports',
     reportOpenSinisters: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/sinisters/reports/open',
@@ -192,7 +198,7 @@ const routes: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -208,7 +214,7 @@ const routes: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -224,7 +230,7 @@ const routes: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
@@ -235,11 +241,17 @@ const routes: any = {
         sinisterId +
         '/executives',
     sinistersStats: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/stats/sinisters',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/stats/sinisters',
     workspaceSinisterStats: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/sinisters/stats',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/sinisters/stats',
     workspacesInsuranceSinisters: (workspaceId: string, insuranceId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/insurances/' +
@@ -249,7 +261,7 @@ const routes: any = {
         workspaceId: string,
         insuranceId: number
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/insurances/' +
@@ -259,7 +271,7 @@ const routes: any = {
         workspaceId: string,
         insuranceId: number
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/insurances/' +

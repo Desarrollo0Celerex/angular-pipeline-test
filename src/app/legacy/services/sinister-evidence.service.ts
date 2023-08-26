@@ -7,7 +7,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { SinisterEvidence } from '@interfaces/sinister-evidence.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 export const SINISTER_EVIDENCE_ENDPOINTS: any = {
     sinisterEvidences: (
@@ -16,7 +16,7 @@ export const SINISTER_EVIDENCE_ENDPOINTS: any = {
         policyId: string,
         sinisterId: string
     ) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +

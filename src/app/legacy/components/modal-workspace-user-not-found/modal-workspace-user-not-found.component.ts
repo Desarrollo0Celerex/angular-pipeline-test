@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 declare var ModalPlugin: any;
 

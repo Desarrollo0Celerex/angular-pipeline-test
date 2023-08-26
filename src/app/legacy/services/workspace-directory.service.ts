@@ -6,14 +6,14 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { WorkspaceDirectory } from '@interfaces/workspace-directory.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { SaveWorkspaceDirectoriesDataSend } from '@interfaces/save-workspace-directories-data-send.interface';
 
 const ROUTES = {
     workspaceDirectories: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/directories`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/directories`,
     workspaceDirectoriesIsCompleted: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/directories/is-completed`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/directories/is-completed`,
 };
 
 @Injectable()

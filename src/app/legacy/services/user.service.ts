@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    users: (userId: string) => `${environment.apiUrl}/users/${userId}`,
+    users: (userId: string) => `${environment.agenthos.apiUrl}/users/${userId}`,
 };
 
 @Injectable()

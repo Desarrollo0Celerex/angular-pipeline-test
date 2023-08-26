@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { POLICY_ENDPOINTS } from '@core/constants/endpoints';
 import { ApiHttp } from '@core/http/api.http';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { Policy } from '@core/interfaces/policy.interface';
 
 @Injectable({

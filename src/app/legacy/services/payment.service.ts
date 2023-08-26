@@ -11,109 +11,130 @@ import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { Stat } from '@interfaces/stat.interface';
 import { TotalPaymentsAmountData } from '@interfaces/total-payments-amount-data.interface';
 import { UpdatePaymentDateDataSend } from '@interfaces/update-payment-date-data-send.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     payment: (workspaceId: string, paymentId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/payments/' +
         paymentId,
     paymentDate: (workspaceId: string, paymentId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/payments/' +
         paymentId +
         '/payment-date',
     paymentPreauthorizations: (workspaceId: string, paymentId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/payments/' +
         paymentId +
         '/preauthorizations',
     payments: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/payments',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/payments',
     contactPayments: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/payments',
     partnerPayments: (workspaceId: string, partnerId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/payments',
     workspacePaymentsReport: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/payments/report',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/payments/report',
     totalContactPayments: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/payments/count',
     totalGroupPayments: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/payments/count',
     totalPartnerPayments: (workspaceId: string, partnerId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/payments/count',
     reportContactPendingPayments: (workspaceId: string, contactId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +
         contactId +
         '/payments/report',
     reportGroupPendingPayments: (workspaceId: string, groupId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/groups/' +
         groupId +
         '/payments/report',
     reportPartnerPendingPayments: (workspaceId: string, partnerId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/partners/' +
         partnerId +
         '/payments/report',
     totalPayments: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/payments/count',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/payments/count',
     totalPaymentsAmount: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/payments/total-amount',
     totalWorkspaceReceipts: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/receipts/count',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/receipts/count',
     paymentsStats: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/stats/payments',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/stats/payments',
     collectionStats: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/stats/collection',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/stats/collection',
     insurancesPaymentsStats: (workspaceId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/stats/insurances/payments',
     workspacePendingPaymentStats: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/payments/stats',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/payments/stats',
 };
 
 @Injectable()

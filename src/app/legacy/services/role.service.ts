@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const routes: any = {
-    roles: environment.apiUrl + '/roles',
+    roles: environment.agenthos.apiUrl + '/roles',
 };
 
 @Injectable()

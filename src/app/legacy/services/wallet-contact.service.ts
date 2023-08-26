@@ -7,11 +7,11 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { WalletContact } from '@interfaces/wallet-contact.interface';
 import { UpdateWalletContactDataSend } from '@interfaces/update-wallet-contact-data-send.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     walletContacts: (workspaceId: string, walletId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/wallets/' +

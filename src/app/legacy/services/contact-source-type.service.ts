@@ -7,13 +7,13 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContactSourceType } from '@interfaces/contact-source-type.interface';
 import { Stat } from '@interfaces/stat.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
     contactSourceTypes: (contactSourceId: number) =>
-        `${environment.apiUrl}/contact-sources/${contactSourceId}/contact-source-types`,
+        `${environment.agenthos.apiUrl}/contact-sources/${contactSourceId}/contact-source-types`,
     contactSourceTypesStats: (workspaceId: string, contactSourceId: number) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/stats/contact-sources/${contactSourceId}/contact-source-types`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/stats/contact-sources/${contactSourceId}/contact-source-types`,
 };
 
 @Injectable()

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { FirebaseDatabaseService } from '@services/firebase-database.service';
 
 declare var ModalPlugin: any;

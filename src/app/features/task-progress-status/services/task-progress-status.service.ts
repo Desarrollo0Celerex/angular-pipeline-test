@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { TASK_PROGRESS_STATUS_ENDPOINTS } from '@core/constants/endpoints';
 import { ApiHttp } from '@core/http/api.http';
-import { TaskProgressStatus } from '@features/task-progress-status/interfaces/task-progress-status.interface';
+import { environment } from '@env/environment';
+import { TaskProgressStatus } from '@task-progress-status/interfaces/task-progress-status.interface';
 import { Observable } from 'rxjs';
 
-@Injectable({
-    providedIn: 'root',
-})
+const ENDPOINTS = {
+    taskProgressStatus: `${environment.agenthos.apiUrl}/task-progress-status`,
+};
+
+@Injectable()
 export class TaskProgressStatusService {
     constructor(private _apiHttp: ApiHttp) {}
 
@@ -15,6 +17,6 @@ export class TaskProgressStatusService {
     ): Observable<TaskProgressStatus[]> {
         return this._apiHttp
             .param('fields', fields)
-            .get(TASK_PROGRESS_STATUS_ENDPOINTS.taskProgressStatus);
+            .get(ENDPOINTS.taskProgressStatus);
     }
 }

@@ -6,12 +6,12 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { Stat } from '@interfaces/stat.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
-    contactSources: `${environment.apiUrl}/contact-sources`,
+    contactSources: `${environment.agenthos.apiUrl}/contact-sources`,
     contactSourcesStats: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/stats/contact-sources`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/stats/contact-sources`,
 };
 
 @Injectable()

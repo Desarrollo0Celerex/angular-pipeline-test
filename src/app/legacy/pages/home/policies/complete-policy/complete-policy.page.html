@@ -184,6 +184,28 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Producto</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-suitcase tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('policyPlan')}}"
+                                        formControlName="policyPlan"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('policyPlan')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1401,7 +1423,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group row text-center">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <!-- AGENTHOS - POLICY PAYMENT METHOD * -->
                                 <label class="form-label">Forma de Pago</label>
@@ -1430,7 +1452,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <!-- AGENTHOS - POLICY PAY PLAN * -->
                                 <label class="form-label">Plan de Pago</label>
@@ -1460,7 +1482,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <!-- AGENTHOS - POLICY PAY BILLS * -->
                                 <label class="form-label"
@@ -1499,6 +1521,45 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- AGENTHOS - POLICY PAY BILLS * -->
+                                <label class="form-label"
+                                    >Periodo de Gracia</label
+                                >
+                                <div class="row gutters-sm">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i
+                                                        class="fa fa-calendar-plus-o tx-16 lh-0 op-6"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <input
+                                                type="text"
+                                                class="form-control {{getValidationClass('payGracePeriod')}}"
+                                                formControlName="payGracePeriod"
+                                            />
+                                            <div class="invalid-feedback">
+                                                {{getErrorMessage('payGracePeriod')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="top"
+                                            data-content="Días de gracia para realizar los pagos."
+                                            data-original-title=""
+                                            >?</span
+                                        >
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <ol class="breadcrumb1">
@@ -1529,18 +1590,18 @@
             </div>
             <!-- //AGENTHOS - POLICY PAYMENT PLAN -->
 
-            <!-- AGENTHOS - POLICY AGENT OR PARTNER -->
+            <!-- AGENTHOS - SMARTWALLET POLICY AGENT -->
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Datos del Agente</h3>
                 </div>
                 <div class="card-body">
-                    <div class="form-group row text-center">
-                        <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - POLICY AGENT NUMBER * -->
+                                <!-- AGENTHOS - SMARTWALLET POLICY AGENT NAME * -->
                                 <label class="form-label"
-                                    >Clave de Agente</label
+                                    >Nombre del Agente</label
                                 >
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -1552,21 +1613,45 @@
                                     </div>
                                     <input
                                         type="text"
-                                        class="form-control {{getValidationClass('agentNumber')}}"
-                                        formControlName="agentNumber"
-                                        placeholder="Ingresa la clave"
+                                        class="form-control {{getValidationClass('agentName')}}"
+                                        formControlName="agentName"
                                     />
                                     <div class="invalid-feedback">
-                                        {{getErrorMessage('agentNumber')}}
+                                        {{getErrorMessage('agentName')}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - POLICY COMMISSION * -->
+                                <!-- AGENTHOS - SMARTWALLET POLICY AGENT NUMBER * -->
                                 <label class="form-label"
-                                    >Comisión de Póliza</label
+                                    >Clave de Agente</label
+                                >
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-asterisk tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('agentKey')}}"
+                                        formControlName="agentKey"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('agentKey')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY AGENT COMMISSION * -->
+                                <label class="form-label"
+                                    >Porcentaje de Comisión</label
                                 >
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -1578,20 +1663,19 @@
                                     </div>
                                     <input
                                         type="text"
-                                        class="form-control {{getValidationClass('policyCommission')}}"
-                                        formControlName="policyCommission"
-                                        placeholder="Ingresa el porcentaje"
-                                        (change)="calculatePolicyCommissionAmount($event)"
+                                        class="form-control {{getValidationClass('agentCommissionPercentage')}}"
+                                        formControlName="agentCommissionPercentage"
+                                        (keyup)="calculatePolicyCommissionAmount($event)"
                                     />
                                     <div class="invalid-feedback">
-                                        {{getErrorMessage('policyCommission')}}
+                                        {{getErrorMessage('agentCommissionPercentage')}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - POLICY COMMISSION AMOUNT * -->
+                                <!-- AGENTHOS - SMARTWALLET POLICY AGENT COMMISSION * -->
                                 <label class="form-label"
                                     >Monto de Comisión</label
                                 >
@@ -1605,52 +1689,221 @@
                                     </div>
                                     <input
                                         type="text"
-                                        class="form-control {{getValidationClass('policyCommissionAmount')}}"
-                                        formControlName="policyCommissionAmount"
-                                        placeholder="Ingresa el monto"
-                                        (change)="calculatePolicyCommission($event)"
+                                        class="form-control {{getValidationClass('agentCommissionAmount')}}"
+                                        formControlName="agentCommissionAmount"
                                     />
-                                    <span class="input-group-append"
-                                        ><button
-                                            class="btn btn-default-light"
-                                            type="button"
-                                        >
-                                            {{labelPolicyCommissionCurrency}}
-                                        </button></span
-                                    >
                                     <div class="invalid-feedback">
-                                        {{getErrorMessage('policyCommissionAmount')}}
+                                        {{getErrorMessage('agentCommissionAmount')}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12" *ngIf="model.partners.length > 1">
-                        <ol class="breadcrumb1">
-                            <li class="breadcrumb-item1">
-                                Selecciona al subagente o socio comercial al que
-                                deseas atribuir esta póliza.
-                            </li>
-                        </ol>
-                        <!-- AGENTHOS - POLICY AGENT PARTNER * -->
-                        <select
-                            class="form-control custom-select {{getValidationClass('partnerId')}}"
-                            formControlName="partnerId"
-                        >
-                            <option
-                                [value]="partner.partnerId"
-                                *ngFor="let partner of model.partners"
-                            >
-                                {{partner.name | titlecase}}
-                            </option>
-                        </select>
-                        <div class="invalid-feedback">
-                            {{getErrorMessage('partnerId')}}
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY AGENT COMMISSION CURRENCY * -->
+                                <label class="form-label">Moneda</label>
+                                <div class="row gutters-sm">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i
+                                                        class="fa fa-dollar tx-16 lh-0 op-6"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <select
+                                                class="form-control custom-select {{getValidationClass('agentCommissionCurrencyId')}}"
+                                                formControlName="agentCommissionCurrencyId"
+                                            >
+                                                <option
+                                                    [value]="currency.currencyId"
+                                                    *ngFor="let currency of model.currencies"
+                                                >
+                                                    {{currency.name}}
+                                                </option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                {{getErrorMessage('agentCommissionCurrencyId')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="top"
+                                            data-content="Divisa utilizada en la póliza."
+                                            data-original-title=""
+                                            >?</span
+                                        >
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- //AGENTHOS - POLICY AGENT OR PARTNER -->
+            <!-- //AGENTHOS - SMARTWALLET POLICY AGENT -->
+
+            <!-- AGENTHOS - SMARTWALLET POLICY SELLER -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Sub Agente o Socio Comercial</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">
+                                    Indica si deseas atribuir la venta a un sub
+                                    agente o socio comercial.
+                                </li>
+                            </ol>
+                            <ul class="list-group">
+                                <!-- AGENTHOS - POLICY AUTOMATIC PAYMENT * -->
+                                <li class="list-group-item">
+                                    Atribuir Venta
+                                    <div class="material-switch pull-right">
+                                        <input
+                                            id="hasSeller"
+                                            type="checkbox"
+                                            [checked]="hasSeller"
+                                            (change)="toggleHasSeler($event)"
+                                        />
+                                        <label
+                                            for="hasSeller"
+                                            class="label-success"
+                                        ></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <ng-container *ngIf="hasSeller">
+                            <div class="col-12">
+                                <!-- AGENTHOS - SMARTWALLET POLICY SELLER * -->
+                                <!-- (JUST IF ATRIBUIR VENTA IS ON) -->
+                                <select
+                                    class="form-control custom-select {{getValidationClass('partnerId')}}"
+                                    formControlName="partnerId"
+                                    (change)="loadSellerPercentageSuggestion($event)"
+                                >
+                                    <option
+                                        [value]="partner.partnerId"
+                                        *ngFor="let partner of model.partners"
+                                    >
+                                        {{partner.name | titlecase}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    {{getErrorMessage('partnerId')}}
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SMARTWALLET POLICY SELLER COMMISSION * -->
+                                    <label class="form-label"
+                                        >Porcentaje de Comisión</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-percent tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('sellerCommissionPercentage')}}"
+                                            formControlName="sellerCommissionPercentage"
+                                            (keyup)="calculateSellerCommissionAmount($event)"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('sellerCommissionPercentage')}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SMARTWALLET POLICY SELLER COMMISSION * -->
+                                    <label class="form-label"
+                                        >Monto de Comisión</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-line-chart tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('sellerCommissionAmount')}}"
+                                            formControlName="sellerCommissionAmount"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('sellerCommissionAmount')}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SMARTWALLET POLICY SELLER COMMISSION CURRENCY * -->
+                                    <label class="form-label">Moneda</label>
+                                    <div class="row gutters-sm">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <div
+                                                    class="input-group-prepend"
+                                                >
+                                                    <div
+                                                        class="input-group-text"
+                                                    >
+                                                        <i
+                                                            class="fa fa-dollar tx-16 lh-0 op-6"
+                                                        ></i>
+                                                    </div>
+                                                </div>
+                                                <select
+                                                    class="form-control custom-select {{getValidationClass('sellerCommissionCurrencyId')}}"
+                                                    formControlName="sellerCommissionCurrencyId"
+                                                >
+                                                    <option
+                                                        [value]="currency.currencyId"
+                                                        *ngFor="let currency of model.currencies"
+                                                    >
+                                                        {{currency.name}}
+                                                    </option>
+                                                </select>
+                                                <div class="invalid-feedback">
+                                                    {{getErrorMessage('sellerCommissionCurrencyId')}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="col-auto align-self-center"
+                                        >
+                                            <span
+                                                class="form-help"
+                                                data-toggle="popover"
+                                                data-placement="top"
+                                                data-content="Divisa utilizada en la póliza."
+                                                data-original-title=""
+                                                >?</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - SMARTWALLET POLICY SELLER -->
 
             <!-- AGENTHOS - UPDATE INFO -->
             <div class="card">
@@ -1712,9 +1965,8 @@
 ></agt-modal-notify-policy-already-exists>
 
 <!-- NEW MODALS -->
-<agt-modal-select-contact-fields-to-rewrite
-    [contactFieldsToRewrite]="contactFieldsToRewrite"
+<agt-select-contact-fields-to-rewrite
     (fieldsSelected)="addContactFieldsToRewrite($event)"
-></agt-modal-select-contact-fields-to-rewrite>
+></agt-select-contact-fields-to-rewrite>
 
-<agt-modal-select-action-for-saved-policy></agt-modal-select-action-for-saved-policy>
+<agt-policy-actions></agt-policy-actions>

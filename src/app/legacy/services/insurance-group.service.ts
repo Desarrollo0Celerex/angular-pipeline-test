@@ -8,7 +8,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const routes: any = {
     insuranceGroupByInsurance: (insuranceId: number) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/insurances/' +
         insuranceId +
         '/insurance-group-id',

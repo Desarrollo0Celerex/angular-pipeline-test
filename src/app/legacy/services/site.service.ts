@@ -6,21 +6,30 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { Site } from '@interfaces/site.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { UpdateSiteIdentityDataSend } from '@interfaces/update-site-identity-data-send.interface';
 import { SiteTheme } from '@interfaces/site-theme.interface';
 import { UpdateSiteThemeDataSend } from '@interfaces/update-site-theme-data-send.interface';
 
 const routes: any = {
     sites: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/sites',
+        environment.agenthos.apiUrl + '/workspaces/' + workspaceId + '/sites',
     siteIdentity: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/sites/identity',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/sites/identity',
     siteLogo: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/sites/logo',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/sites/logo',
     siteTheme: (workspaceId: string) =>
-        environment.apiUrl + '/workspaces/' + workspaceId + '/sites/theme',
-    siteThemes: environment.apiUrl + '/site-themes',
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/sites/theme',
+    siteThemes: environment.agenthos.apiUrl + '/site-themes',
 };
 
 @Injectable()

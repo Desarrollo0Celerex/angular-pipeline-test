@@ -24,8 +24,9 @@ import { LoadingService } from '@core/services/loading/loading.service';
 import { ScanningService } from '@services/scanning.service';
 
 import { CompletePolicyService } from './complete-policy.service';
-import { RewriteField } from '@interfaces/rewrite-field.interface';
-import { ModalSelectActionForSavedPolicyComponent } from '@features/policy/components/modal-select-action-for-saved-policy/modal-select-action-for-saved-policy.component';
+import { PolicyActionsComponent } from '@policies/components/policy-actions/policy-actions.component';
+import { RewriteField } from '@policies/interfaces/rewrite-field.interface';
+import { SelectContactFieldsToRewriteComponent } from '@policies/components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
 
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
@@ -37,8 +38,10 @@ declare var PopoverPlugin: any;
     styles: [],
 })
 export class CompletePolicyPage implements OnInit {
-    @ViewChild(ModalSelectActionForSavedPolicyComponent)
-    modalSelectActionForSavedPolicyComponent!: ModalSelectActionForSavedPolicyComponent;
+    @ViewChild(PolicyActionsComponent)
+    policyActionsComponent!: PolicyActionsComponent;
+    @ViewChild(SelectContactFieldsToRewriteComponent)
+    selectContactFieldsToRewriteComponent!: SelectContactFieldsToRewriteComponent;
     CONTACT_TYPES: any = CONTACT_TYPES;
     INSURANCE_GROUPS: any = INSURANCE_GROUPS;
     INSURANCE_TYPES: any = INSURANCE_TYPES;
@@ -46,6 +49,7 @@ export class CompletePolicyPage implements OnInit {
     contactId: string;
     existingContactId: string = '';
     existingPolicyId: string = '';
+    hasSeller = false;
     isScannerFailed: boolean = false;
     message: string = 'Valida los datos de la nueva póliza de';
     modalIdBasePoliciDataLoaded: string = 'agt-base-policy-data-loaded';
@@ -194,6 +198,10 @@ export class CompletePolicyPage implements OnInit {
         this.model.calculatePolicyCommissionAmount(event.target.value);
     }
 
+    calculateSellerCommissionAmount(event: any): void {
+        this.model.calculateSellerCommissionAmount(event.target.value);
+    }
+
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null =
             this.model.policyForm.get(constrolName);
@@ -235,6 +243,11 @@ export class CompletePolicyPage implements OnInit {
                 : '';
         }
         return validationClass;
+    }
+
+    loadSellerPercentageSuggestion(event: any): void {
+        const sellerId = event.target.value;
+        this.model.loadSellerPercentageSuggestion(sellerId);
     }
 
     onChangeCalculateBills(): void {
@@ -334,10 +347,23 @@ export class CompletePolicyPage implements OnInit {
         this.model.policyForm.patchValue({ titularPhoneCodeId });
     }
 
+    toggleHasSeler(event: any): void {
+        this.hasSeller = event.target.checked;
+        if (this.hasSeller) {
+            this._clearFieldSellerId();
+            PopoverPlugin.init();
+        } else {
+            this._resetSellerFields();
+        }
+    }
+
     tryCalculatePolicyCommissionAmount(): void {
-        const policyCommission: string = this.model.f.policyCommission.value;
-        if (!!policyCommission) {
-            this.model.calculatePolicyCommissionAmount(policyCommission);
+        const agentCommissionPercentage: string =
+            this.model.f.agentCommissionPercentage.value;
+        if (!!agentCommissionPercentage) {
+            this.model.calculatePolicyCommissionAmount(
+                agentCommissionPercentage
+            );
         }
     }
 
@@ -383,6 +409,12 @@ export class CompletePolicyPage implements OnInit {
         }
     }
 
+    private _clearFieldSellerId(): void {
+        this.model.policyForm.patchValue({
+            partnerId: '',
+        });
+    }
+
     private _completePolicy(): void {
         this._loadingService.show();
         this.model
@@ -401,7 +433,7 @@ export class CompletePolicyPage implements OnInit {
                         );
                     } else {
                         this.paymentId = policy.paymentId;
-                        this._showModalToSelectActionForSavedPolicy();
+                        this._showModalPolicyActions();
                     }
                 },
                 (error: HttpError) => {
@@ -474,7 +506,7 @@ export class CompletePolicyPage implements OnInit {
                 this._initCalendars();
                 this.model.loadCurrencies();
                 this.model.loadGenders();
-                this.model.loadPartners(res.data.workspaceRealName);
+                this.model.loadPartners();
                 this.model.loadPaymentMethods();
                 this._loadPaymentPlans();
                 PopoverPlugin.init();
@@ -526,6 +558,16 @@ export class CompletePolicyPage implements OnInit {
                 validityEndDate
             );
         }
+    }
+
+    private _resetSellerFields(): void {
+        this.model.policyForm.patchValue({
+            partnerId: 0,
+            sellerCommissionPercentage: 0,
+            sellerCommissionAmount: 0,
+            sellerCommissionCurrencyId: this.model.policyForm.value.currencyId,
+            sellerCommissionPeriod: 1,
+        });
     }
 
     private _validValidityEndDate(
@@ -622,7 +664,7 @@ export class CompletePolicyPage implements OnInit {
             }
         } else {
             missingFields = [
-                'agentNumber',
+                'agentKey',
                 'policyNumber',
                 'clientNumber',
                 'titularName',
@@ -801,17 +843,19 @@ export class CompletePolicyPage implements OnInit {
         this.contactFieldsToRewrite =
             this.model.generateContactFieldsToRewrite();
         if (this.contactFieldsToRewrite.length > 0) {
-            ModalPlugin.show('agt-policy-select-contact-fields-to-rewrite');
+            this.selectContactFieldsToRewriteComponent.init({
+                fields: this.contactFieldsToRewrite,
+            });
         } else {
             this._completePolicy();
         }
     }
 
-    private _showModalToSelectActionForSavedPolicy(): void {
+    private _showModalPolicyActions(): void {
         const phoneCode = this._generatePhoneCode(
             this.model.policyForm.value.titularPhoneCodeId
         );
-        this.modalSelectActionForSavedPolicyComponent.showModal({
+        this.policyActionsComponent.init({
             isSavedPolicy: true,
             contactId: this.contactId,
             policyId: this.policyId,

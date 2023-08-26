@@ -8,12 +8,12 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicyStatus } from '@interfaces/policy-status.interface';
 import { PolicyStatusStat } from '@interfaces/policy-status-stat.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
-    policyStatus: `${environment.apiUrl}/policy-status`,
+    policyStatus: `${environment.agenthos.apiUrl}/policy-status`,
     policyStatusStats: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/stats/policy-status`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/stats/policy-status`,
 };
 
 @Injectable()

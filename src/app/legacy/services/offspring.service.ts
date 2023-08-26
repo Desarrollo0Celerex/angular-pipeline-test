@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    offsprings: `${environment.apiUrl}/offsprings`,
+    offsprings: `${environment.agenthos.apiUrl}/offsprings`,
 };
 
 @Injectable()

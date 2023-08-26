@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    contactFileTypes: `${environment.apiUrl}/contact-file-types`,
+    contactFileTypes: `${environment.agenthos.apiUrl}/contact-file-types`,
 };
 
 @Injectable()

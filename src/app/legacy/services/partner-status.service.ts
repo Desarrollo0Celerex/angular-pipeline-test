@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
-    partnerStatus: `${environment.apiUrl}/partner-status`,
+    partnerStatus: `${environment.agenthos.apiUrl}/partner-status`,
 };
 
 @Injectable()

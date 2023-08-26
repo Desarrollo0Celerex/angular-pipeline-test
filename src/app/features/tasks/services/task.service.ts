@@ -1,92 +1,37 @@
 import { Injectable } from '@angular/core';
-import { TASK_ENDPOINTS } from '@core/constants/endpoints';
 import { ApiHttp } from '@core/http/api.http';
-import { CreateTask } from '@features/tasks/interfaces/create-task.interface';
-import { Task } from '@features/tasks/interfaces/task.interface';
+import { environment } from '@env/environment';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
+import { CreateTaskDataSend } from '@tasks/interfaces/create-task-data-send.interface';
+import { Task } from '@tasks/interfaces/task.interface';
 import { Observable } from 'rxjs';
-import { AuthService } from '@features/auth/services/auth.service';
-import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
-import { UpdateTask } from '../interfaces/update-task.interface';
-import { SendTaskNotfication } from '../interfaces/send-task-notification.interface';
 
-@Injectable({
-    providedIn: 'root',
-})
+const ENDPOINTS: any = {
+    workspaceTask: (workspaceId: string, taskId: string) =>
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/tasks/${taskId}`,
+    workspaceTasks: (workspaceId: string) =>
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/tasks`,
+};
+
+@Injectable()
 export class TaskService {
     private _workspaceId: string = this._authService.workspaceId;
 
     constructor(private _apiHttp: ApiHttp, private _authService: AuthService) {}
 
-    createTask(requestBody: CreateTask): Observable<Task> {
+    createTask(requestBody: CreateTaskDataSend): Observable<Task> {
         return this._apiHttp.post(
-            TASK_ENDPOINTS.workspaceTasks(this._workspaceId),
+            ENDPOINTS.workspaceTasks(this._workspaceId),
             requestBody
         );
     }
 
-    deleteTask(taskId: string = ''): Observable<Task> {
-        return this._apiHttp.delete(
-            TASK_ENDPOINTS.workspaceTask(this._workspaceId, taskId)
-        );
-    }
-
-    getTotalWorkspaceTasks(
-        filters: string = '',
-        rangeField: string = '',
-        rangeStart: string = '',
-        rangeEnd: string = ''
-    ): Observable<number> {
-        return this._apiHttp
-            .param('filter', filters)
-            .param('rangeField', rangeField)
-            .param('rangeStart', rangeStart)
-            .param('rangeEnd', rangeEnd)
-            .get(TASK_ENDPOINTS.totalWorkspaceTasks(this._workspaceId));
-    }
-
-    getTask(taskId: string = '', fields: string = ''): Observable<Task> {
+    getWorkspaceTask(
+        taskId: string = '',
+        fields: string = ''
+    ): Observable<Task> {
         return this._apiHttp
             .param('fields', fields)
-            .get(TASK_ENDPOINTS.workspaceTask(this._workspaceId, taskId));
-    }
-
-    getWorkspaceTasks(
-        page: number = 1,
-        perPage: number = 1,
-        fields: string = '',
-        filter: string = '',
-        sortBy: string = '',
-        search: string = '',
-        rangeField: string = '',
-        rangeStart: string = '',
-        rangeEnd: string = '',
-        specialFilter: string = ''
-    ): Observable<HttpResponseItems> {
-        return this._apiHttp
-            .param('page', page.toString())
-            .param('perPage', perPage.toString())
-            .param('fields', fields)
-            .param('filter', filter)
-            .param('sortBy', sortBy)
-            .param('search', search)
-            .param('rangeField', rangeField)
-            .param('rangeStart', rangeStart)
-            .param('rangeEnd', rangeEnd)
-            .param('specialFilter', specialFilter)
-            .get(TASK_ENDPOINTS.workspaceTasks(this._workspaceId));
-    }
-
-    sendTaskNotification(requestBody: SendTaskNotfication): Observable<string> {
-        return this._apiHttp.post(
-            TASK_ENDPOINTS.taskNotifications,
-            requestBody
-        );
-    }
-
-    updateTask(taskId: string, requestBody: UpdateTask): Observable<void> {
-        return this._apiHttp.put(
-            TASK_ENDPOINTS.workspaceTask(this._workspaceId, taskId),
-            requestBody
-        );
+            .get(ENDPOINTS.workspaceTask(this._workspaceId, taskId));
     }
 }

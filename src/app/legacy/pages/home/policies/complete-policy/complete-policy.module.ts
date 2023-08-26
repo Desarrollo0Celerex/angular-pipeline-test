@@ -29,7 +29,8 @@ import { ScannerLogService } from '@services/scanner-log.service';
 import { CompletePolicyRoutingModule } from './complete-policy-routing.module';
 import { CompletePolicyPage } from './complete-policy.page';
 import { CompletePolicyService } from './complete-policy.service';
-import { PolicyModule } from '@features/policy/policy.module';
+import { PoliciesModule } from '@policies/policies.module';
+import { SellerCommissionSuggestionsModule } from '@seller-commission-suggestions/seller-commission-suggestions.module';
 
 @NgModule({
     declarations: [CompletePolicyPage],
@@ -50,8 +51,9 @@ import { PolicyModule } from '@features/policy/policy.module';
         ModalScanningPolicySuccessModule,
         ModalScanningPolicyFailedModule,
         ModalShowPolicyModule,
-        PolicyModule,
+        PoliciesModule,
         ReactiveFormsModule,
+        SellerCommissionSuggestionsModule,
     ],
     providers: [
         AtomScannService,

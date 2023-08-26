@@ -7,7 +7,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 const ROUTES = {
     countryStates: (countryId: number) =>
-        `${environment.apiUrl}/countries/${countryId}/states`,
+        `${environment.agenthos.apiUrl}/countries/${countryId}/states`,
 };
 
 @Injectable()

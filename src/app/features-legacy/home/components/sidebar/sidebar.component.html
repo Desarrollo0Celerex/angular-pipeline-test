@@ -1,0 +1,62 @@
+<!-- AGENTHOS - SIDEBAR -->
+<div class="sidebar sidebar-right sidebar-animate">
+    <div class="row">
+        <!-- AGENTHOS - USER CARD -->
+        <div class="col-md-12">
+            <div class="card-body">
+                <div class="media mt-0">
+                    <div class="d-flex mr-3">
+                        <img
+                            class="avatar avatar-xl brround cover-image cover-image"
+                            [src]="workspace?.avatarUrl"
+                        />
+                    </div>
+                    <div class="media-body">
+                        <h5>{{ workspace?.brandName }}</h5>
+                        <span class="badge badge-primary">Plan Lite</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body text-center">
+                <a [routerLink]="ROUTES_NAME.accessDenied">
+                    <button type="button" class="btn btn-pill btn-default mt-5">
+                        <strong>ADS STUDIO</strong>
+                    </button>
+                </a>
+                <a [routerLink]="ROUTES_NAME.siteCreatorResume">
+                    <button type="button" class="btn btn-pill btn-default mt-5">
+                        <strong>SITE CREATOR</strong>
+                    </button>
+                </a>
+                <a [routerLink]="ROUTES_NAME.appCreatorResume">
+                    <button type="button" class="btn btn-pill btn-default mt-5">
+                        <strong>APP CREATOR</strong>
+                    </button>
+                </a>
+                <a [routerLink]="ROUTES_NAME.listInvitations">
+                    <button type="button" class="btn btn-pill btn-default mt-5">
+                        <strong>COLABORADORES</strong>
+                    </button>
+                </a>
+                <a href="http://hub.agenthos.com" target="_blank">
+                    <button type="button" class="btn btn-pill btn-default mt-5">
+                        <strong>COMUNIDAD</strong>
+                    </button>
+                </a>
+                <a
+                    href="https://wa.me/{{
+                        agenthosSupportPhone
+                    }}?text=Hola, necesito soporte con el uso de Agenthos."
+                    target="_blank"
+                >
+                    <button type="button" class="btn btn-pill btn-default mt-5">
+                        <strong>SOPORTE</strong>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <!-- //AGENTHOS - USER CARD -->
+    </div>
+</div>
+<!-- //AGENTHOS - SIDEBAR -->

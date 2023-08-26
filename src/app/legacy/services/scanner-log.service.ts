@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
 import { CreateScannerLogDataSend } from '@interfaces/create-scanner-log-data-send.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const routes: any = {
     scannerLogs: (workspaceId: string, contactId: string, policyId: string) =>
-        environment.apiUrl +
+        environment.agenthos.apiUrl +
         '/workspaces/' +
         workspaceId +
         '/contacts/' +

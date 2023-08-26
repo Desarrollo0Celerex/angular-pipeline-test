@@ -9,6 +9,7 @@ import {
     MatDatepickerModule,
 } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 import { CardKpiComponent } from './components/card-kpi/card-kpi.component';
 import { CardContentTitleComponent } from './components/card-content-title/card-content-title.component';
@@ -40,7 +41,9 @@ import { PhoneCodePipe } from './pipes/phone-code.pipe';
 import { ModalSelectShippingChannelsComponent } from './components/modal-select-shipping-channels/modal-select-shipping-channels.component';
 import { GenerateShippingInformationComponent } from './components/generate-shipping-information/generate-shipping-information.component';
 import { ModalRequestShippingContactsComponent } from './components/modal-request-shipping-contacts/modal-request-shipping-contacts.component';
-import { CountriesModule } from '@features/countries/countries.module';
+import { CountriesModule } from '@features-legacy/countries/countries.module';
+import { DownloadContentComponent } from './components/download-content/download-content.component';
+import { QrCodeComponent } from './components/qr-code/qr-code.component';
 
 @NgModule({
     declarations: [
@@ -74,6 +77,8 @@ import { CountriesModule } from '@features/countries/countries.module';
         ModalSelectShippingChannelsComponent,
         GenerateShippingInformationComponent,
         ModalRequestShippingContactsComponent,
+        DownloadContentComponent,
+        QrCodeComponent,
     ],
     exports: [
         CardCalendarRangeComponent,
@@ -87,12 +92,14 @@ import { CountriesModule } from '@features/countries/countries.module';
         CardPaymentAppliedComponent,
         ContactStatusNamePipe,
         ContentListComponent,
+        DownloadContentComponent,
         GenderNamePipe,
         GenerateShippingInformationComponent,
         LoadingContentComponent,
         PaymentStatusNamePipe,
         PluralPipe,
         PhoneCodePipe,
+        QrCodeComponent,
     ],
     imports: [
         CommonModule,
@@ -100,6 +107,7 @@ import { CountriesModule } from '@features/countries/countries.module';
         FormsModule,
         MatDatepickerModule,
         MatMomentDateModule,
+        NgxQRCodeModule,
         ReactiveFormsModule,
         RouterModule,
     ],

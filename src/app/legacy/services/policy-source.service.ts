@@ -6,11 +6,11 @@ import { map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { PolicySourceStat } from '@interfaces/policy-source-stat.interface';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 const ROUTES = {
     policySourcesStats: (workspaceId: string) =>
-        `${environment.apiUrl}/workspaces/${workspaceId}/stats/policy-sources`,
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/stats/policy-sources`,
 };
 
 @Injectable()

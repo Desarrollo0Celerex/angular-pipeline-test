@@ -19,7 +19,7 @@ import { LoadingService } from '@core/services/loading/loading.service';
 import { ModalUploadSinisterEvidenceService } from './modal-upload-sinister-evidence.service';
 import { FileParam } from '@interfaces/file-param.interface';
 import { SINISTER_EVIDENCE_ENDPOINTS } from '@services/sinister-evidence.service';
-import { AuthService } from '@features/auth/services/auth.service';
+import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 declare var DropifyPlugin: any;
 declare var ModalPlugin: any;
