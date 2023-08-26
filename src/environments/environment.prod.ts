@@ -6,7 +6,7 @@ export const environment = {
     agenthos: {
         landingUrl: 'https://agenthos.com',
         appUrl: 'https://app.agenthos.com',
-        apiUrl: 'https://app.agenthos.com/v1',
+        apiUrl: 'https://api.agenthos.com/v1',
         support: {
             phoneCode: '52',
             phoneNumber: '2214035971',
