@@ -39,6 +39,7 @@ export class UpdateCompletePolicyPage implements OnInit {
     calendarIdValidityEndDate: string = 'validityEndDate';
     calendarIdValidityStartDate: string = 'validityStartDate';
     contactId: string = '';
+    hasSeller = false;
     message: string = 'Actualiza los datos de la póliza';
     modalIdConfirmRemoveInsured: string = 'agt-confirm-remove-insured';
     modalIdPolicyAmountsDifferent: string = 'agt-policy-amounts-different';
@@ -158,6 +159,10 @@ export class UpdateCompletePolicyPage implements OnInit {
         this.model.calculatePolicyCommissionAmount(event.target.value);
     }
 
+    calculateSellerCommissionAmount(event: any): void {
+        this.model.calculateSellerCommissionAmount(event.target.value);
+    }
+
     confirmRemoveInsured(insuredIndex: number): void {
         const policyInsuredId: any = this.model.insureds
             .at(insuredIndex)
@@ -221,6 +226,11 @@ export class UpdateCompletePolicyPage implements OnInit {
             control,
             this._isFormSubmitted
         );
+    }
+
+    loadSellerPercentageSuggestion(event: any): void {
+        const sellerId = event.target.value;
+        this.model.loadSellerPercentageSuggestion(sellerId);
     }
 
     /**
@@ -339,6 +349,16 @@ export class UpdateCompletePolicyPage implements OnInit {
         this.model.policyForm.patchValue({ titularPhoneCodeId });
     }
 
+    toggleHasSeler(event: any): void {
+        this.hasSeller = event.target.checked;
+        if (this.hasSeller) {
+            this._clearFieldSellerId();
+            PopoverPlugin.init();
+        } else {
+            this._resetSellerFields();
+        }
+    }
+
     tryCalculatePolicyCommissionAmount(): void {
         const agentCommissionPercentage: string =
             this.model.f.agentCommissionPercentage.value;
@@ -370,6 +390,12 @@ export class UpdateCompletePolicyPage implements OnInit {
         if (receiptsPaid > 0 || totalEndorsements > 0) {
             this.model.disableFormFields();
         }
+    }
+
+    private _clearFieldSellerId(): void {
+        this.model.policyForm.patchValue({
+            partnerId: '',
+        });
     }
 
     /**
@@ -488,6 +514,16 @@ export class UpdateCompletePolicyPage implements OnInit {
         }
     }
 
+    private _resetSellerFields(): void {
+        this.model.policyForm.patchValue({
+            partnerId: 0,
+            sellerCommissionPercentage: 0,
+            sellerCommissionAmount: 0,
+            sellerCommissionCurrencyId: this.model.policy!.currencyId,
+            sellerCommissionPeriod: 1,
+        });
+    }
+
     /**
      * Load the policy data
      */
@@ -496,6 +532,7 @@ export class UpdateCompletePolicyPage implements OnInit {
             .loadPolicy(this.contactId, this.policyId)
             .subscribe((res: HttpResponse) => {
                 this.model.buildPolicyForm(res.data);
+                this.hasSeller = res.data.partnerId ? true : false;
                 this._initCalendars();
                 this._loadCurrencies();
                 this._loadGenders();

@@ -27,6 +27,7 @@ export interface Policy {
     policyNumber: string;
     policyUrl: string;
     coveredProperty: string;
+    agentName: string;
     agentKey: string;
     lifeTime: number;
     validityStartDate: string;
@@ -71,6 +72,12 @@ export interface Policy {
     titularEmail: string;
     agentCommissionPercentage: number;
     agentCommissionAmount: number;
+    agentCommissionCurrencyId: number;
+    agentCommissionPeriod: number;
+    sellerCommissionPercentage: number;
+    sellerCommissionAmount: number;
+    sellerCommissionCurrencyId: number;
+    sellerCommissionPeriod: number;
     countryTaxRate: number;
     agentPercentageSuggestion: number;
     agentNameSuggestion: string;

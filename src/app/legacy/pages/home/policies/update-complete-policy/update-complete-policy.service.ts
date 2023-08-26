@@ -51,6 +51,7 @@ import { PaymentMethodService } from '@services/payment-method.service';
 import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
 import { PolicyInsuredService } from '@services/policy-insured.service';
+import { SellerCommissionSuggestionService } from '@seller-commission-suggestions/services/seller-commission-suggestion.service';
 
 declare var DropifyPlugin: any;
 
@@ -85,7 +86,8 @@ export class UpdateCompletePolicyService {
         private _paymentMethodService: PaymentMethodService,
         private _paymentPlanService: PaymentPlanService,
         private _policyService: PolicyService,
-        private _policyInsuredService: PolicyInsuredService
+        private _policyInsuredService: PolicyInsuredService,
+        private _sellerCommissionSuggestionService: SellerCommissionSuggestionService
     ) {}
 
     get f(): { [key: string]: AbstractControl } {
@@ -249,11 +251,17 @@ export class UpdateCompletePolicyService {
                     ? true
                     : false,
             ],
-            partnerId: [
-                !!policy && !!policy.partnerId ? policy.partnerId : '0',
+            agentName: [
+                policy?.agentName || '',
+                [
+                    Validators.required,
+                    Validators.minLength(TITULAR_NAME_LENGTH.MIN),
+                    Validators.maxLength(TITULAR_NAME_LENGTH.MAX),
+                    ValidatorsHelper.ownName,
+                ],
             ],
             agentKey: [
-                !!policy && !!policy.agentKey ? policy.agentKey : '',
+                policy?.agentKey || '',
                 [
                     Validators.required,
                     Validators.minLength(FREE_TEXT_LENGTH.MIN),
@@ -262,17 +270,34 @@ export class UpdateCompletePolicyService {
                 ],
             ],
             agentCommissionPercentage: [
-                !!policy && !!policy.agentCommissionPercentage
-                    ? policy.agentCommissionPercentage
-                    : '',
+                policy?.agentCommissionPercentage || '',
                 [Validators.required, ValidatorsHelper.percentage],
             ],
             agentCommissionAmount: [
-                !!policy && !!policy.agentCommissionAmount
-                    ? policy.agentCommissionAmount
-                    : '',
+                policy?.agentCommissionAmount || '',
                 [Validators.required, ValidatorsHelper.amount],
             ],
+            agentCommissionCurrencyId: [
+                policy?.agentCommissionCurrencyId || '',
+                [Validators.required],
+            ],
+            agentCommissionPeriod: [policy?.agentCommissionPeriod || 1],
+            partnerId: [
+                !!policy && !!policy.partnerId ? policy.partnerId : '0',
+            ],
+            sellerCommissionPercentage: [
+                policy?.sellerCommissionPercentage || 0,
+                [Validators.required, ValidatorsHelper.percentage],
+            ],
+            sellerCommissionAmount: [
+                policy?.sellerCommissionAmount || 0,
+                [Validators.required, ValidatorsHelper.amount],
+            ],
+            sellerCommissionCurrencyId: [
+                policy?.sellerCommissionCurrencyId || policy?.currencyId,
+                [Validators.required],
+            ],
+            sellerCommissionPeriod: [policy?.sellerCommissionPeriod || 1],
             insureds: this._formBuilder.array([]),
         });
 
@@ -390,6 +415,23 @@ export class UpdateCompletePolicyService {
             }
         }
         this.policyForm.patchValue({ agentCommissionAmount });
+    }
+
+    calculateSellerCommissionAmount(percentage: any): void {
+        let sellerCommissionAmount: number = 0;
+        const sellerCommissionPercentage: number = parseFloat(percentage);
+        if (sellerCommissionPercentage > 0) {
+            const netPay: number = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value)
+            );
+            if (netPay > 0) {
+                sellerCommissionAmount =
+                    UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
+                        (sellerCommissionPercentage * netPay) / 100
+                    );
+            }
+        }
+        this.policyForm.patchValue({ sellerCommissionAmount });
     }
 
     /**
@@ -642,7 +684,7 @@ export class UpdateCompletePolicyService {
     loadPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
         const fields: string =
-            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceRealName,partnerId,coveredProperty,insuranceGroupId,workspaceCountryId,contactTypeId,titularGenderId,titularAge,titularEmail,agentKey,agentCommissionPercentage,agentCommissionAmount';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceRealName,partnerId,coveredProperty,insuranceGroupId,workspaceCountryId,contactTypeId,titularGenderId,titularAge,titularEmail,agentName,agentKey,agentCommissionPercentage,agentCommissionAmount,agentCommissionCurrencyId,agentCommissionPeriod,sellerCommissionPercentage,sellerCommissionAmount,sellerCommissionCurrencyId,sellerCommissionPeriod';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -661,6 +703,32 @@ export class UpdateCompletePolicyService {
                     }
                 })
             );
+    }
+
+    loadSellerPercentageSuggestion(sellerId: number): void {
+        const fields = 'percentage';
+        this._sellerCommissionSuggestionService
+            .getSellerCommissionSuggestion(
+                sellerId,
+                this.policy!.insurerId,
+                this.policy!.insuranceId,
+                this.policy!.insuranceTypeId,
+                fields
+            )
+            .subscribe({
+                next: (data) => {
+                    this.policyForm.patchValue({
+                        sellerCommissionPercentage: data.percentage,
+                    });
+                    this.calculateSellerCommissionAmount(data.percentage);
+                },
+                error: () => {
+                    this.policyForm.patchValue({
+                        sellerCommissionPercentage: 0,
+                        sellerCommissionAmount: 0,
+                    });
+                },
+            });
     }
 
     newInsured(insured: Insured | null = null): FormGroup {
@@ -1495,13 +1563,13 @@ export class UpdateCompletePolicyService {
             'isAutoPayment',
             this.f.isAutoPayment.value ? '1' : '0'
         );
-        requestBody.append('partnerId', this.f.partnerId.value);
         requestBody.append(
             'paymentPlanId',
             this._isSinglePayment
                 ? this.f.paymentPlanId.value
                 : this.policy!.paymentPlanId
         );
+        requestBody.append('agentName', this.f.agentName.value);
         requestBody.append('agentKey', this.f.agentKey.value);
         requestBody.append(
             'agentCommissionPercentage',
@@ -1510,6 +1578,31 @@ export class UpdateCompletePolicyService {
         requestBody.append(
             'agentCommissionAmount',
             this.f.agentCommissionAmount.value
+        );
+        requestBody.append(
+            'agentCommissionCurrencyId',
+            this.f.agentCommissionCurrencyId.value
+        );
+        requestBody.append(
+            'agentCommissionPeriod',
+            this.f.agentCommissionPeriod.value
+        );
+        requestBody.append('partnerId', this.f.partnerId.value);
+        requestBody.append(
+            'sellerCommissionPercentage',
+            this.f.sellerCommissionPercentage.value
+        );
+        requestBody.append(
+            'sellerCommissionAmount',
+            this.f.sellerCommissionAmount.value
+        );
+        requestBody.append(
+            'sellerCommissionCurrencyId',
+            this.f.sellerCommissionCurrencyId.value
+        );
+        requestBody.append(
+            'sellerCommissionPeriod',
+            this.f.sellerCommissionPeriod.value
         );
 
         if (this.policy!.contactTypeId === CONTACT_TYPES.PERSON) {
@@ -1567,6 +1660,7 @@ export class UpdateCompletePolicyService {
             this.f.isAutoPayment.value ? '1' : '0'
         );
         requestBody.append('partnerId', this.f.partnerId.value);
+        requestBody.append('agentName', this.f.agentName.value);
         requestBody.append('agentKey', this.f.agentKey.value);
         requestBody.append(
             'agentCommissionPercentage',
@@ -1575,6 +1669,31 @@ export class UpdateCompletePolicyService {
         requestBody.append(
             'agentCommissionAmount',
             this.f.agentCommissionAmount.value
+        );
+        requestBody.append(
+            'agentCommissionCurrencyId',
+            this.f.agentCommissionCurrencyId.value
+        );
+        requestBody.append(
+            'agentCommissionPeriod',
+            this.f.agentCommissionPeriod.value
+        );
+        requestBody.append('partnerId', this.f.partnerId.value);
+        requestBody.append(
+            'sellerCommissionPercentage',
+            this.f.sellerCommissionPercentage.value
+        );
+        requestBody.append(
+            'sellerCommissionAmount',
+            this.f.sellerCommissionAmount.value
+        );
+        requestBody.append(
+            'sellerCommissionCurrencyId',
+            this.f.sellerCommissionCurrencyId.value
+        );
+        requestBody.append(
+            'sellerCommissionPeriod',
+            this.f.sellerCommissionPeriod.value
         );
 
         if (this.policy!.contactTypeId === CONTACT_TYPES.PERSON) {
