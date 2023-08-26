@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.19',
+            launchDate: '26/08/2023',
+            changes: [
+                {
+                    title: 'Poicy',
+                    items: [
+                        'Se agrego gestion de comisiones para el agente y el vendedor.',
+                        'Se agregaron los campos "producto" y "periodo de gracia" a la póliza.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.18',
             launchDate: '23/08/2023',
             changes: [
