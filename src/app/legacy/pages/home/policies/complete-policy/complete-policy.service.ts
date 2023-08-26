@@ -149,6 +149,15 @@ export class CompletePolicyService {
                     ValidatorsHelper.freeText,
                 ],
             ],
+            policyPlan: [
+                !!policy && !!policy.policyPlan ? policy.policyPlan : '',
+                [
+                    Validators.required,
+                    Validators.minLength(FREE_TEXT_LENGTH.MIN),
+                    Validators.maxLength(FREE_TEXT_LENGTH.MAX),
+                    ValidatorsHelper.freeText,
+                ],
+            ],
             titularName: [
                 !!policy && !!policy.titularName ? policy.titularName : '',
                 [
@@ -247,6 +256,10 @@ export class CompletePolicyService {
             bills: [
                 { value: '', disabled: canDisableBills },
                 [Validators.required, ValidatorsHelper.number],
+            ],
+            payGracePeriod: [
+                policy?.payGracePeriod || 0,
+                [Validators.required],
             ],
             isAutoPayment: [false],
             agentName: [
@@ -826,7 +839,7 @@ export class CompletePolicyService {
     ): Observable<HttpResponse> {
         this.policy = null;
         const fields: string =
-            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,payGracePeriod,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -1376,6 +1389,7 @@ export class CompletePolicyService {
         requestBody.append('currencyId', this.f.currencyId.value);
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
+        requestBody.append('payGracePeriod', this.f.payGracePeriod.value);
         requestBody.append('bills', this.f.bills.value);
         requestBody.append(
             'isAutoPayment',
@@ -1416,10 +1430,7 @@ export class CompletePolicyService {
             'sellerCommissionPeriod',
             this.f.sellerCommissionPeriod.value
         );
-
-        if (!!scannedPolicyData) {
-            requestBody.append('policyPlan', scannedPolicyData.policyPlan);
-        }
+        requestBody.append('policyPlan', this.f.policyPlan.value);
         if (this.policy!.contactTypeId === CONTACT_TYPES.PERSON) {
             requestBody.append('titularGenderId', this.f.titularGenderId.value);
             requestBody.append('titularAge', this.f.titularAge.value);

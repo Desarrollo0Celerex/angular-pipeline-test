@@ -184,6 +184,28 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Producto</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-suitcase tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('policyPlan')}}"
+                                        formControlName="policyPlan"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('policyPlan')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1401,7 +1423,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group row text-center">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <!-- AGENTHOS - POLICY PAYMENT METHOD * -->
                                 <label class="form-label">Forma de Pago</label>
@@ -1430,7 +1452,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <!-- AGENTHOS - POLICY PAY PLAN * -->
                                 <label class="form-label">Plan de Pago</label>
@@ -1460,7 +1482,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <!-- AGENTHOS - POLICY PAY BILLS * -->
                                 <label class="form-label"
@@ -1492,6 +1514,45 @@
                                             data-toggle="popover"
                                             data-placement="top"
                                             data-content="Cuotas o recibos totales de la póliza."
+                                            data-original-title=""
+                                            >?</span
+                                        >
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- AGENTHOS - POLICY PAY BILLS * -->
+                                <label class="form-label"
+                                    >Periodo de Gracia</label
+                                >
+                                <div class="row gutters-sm">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i
+                                                        class="fa fa-calendar-plus-o tx-16 lh-0 op-6"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <input
+                                                type="text"
+                                                class="form-control {{getValidationClass('payGracePeriod')}}"
+                                                formControlName="payGracePeriod"
+                                            />
+                                            <div class="invalid-feedback">
+                                                {{getErrorMessage('payGracePeriod')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="top"
+                                            data-content="Días de gracia para realizar los pagos."
                                             data-original-title=""
                                             >?</span
                                         >
