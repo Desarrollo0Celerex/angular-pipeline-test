@@ -112,6 +112,13 @@
                         </ng-container>
                         <ng-container *ngSwitchCase="POLICY_STATUS.FINISHED">
                             <!--<ng-container *ngIf="isInTime">-->
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickUpdatePolicy()"
+                            >
+                                <i class="fa fa-edit mr-2"></i>Actualizar
+                            </button>
                             <!-- AGENTHOS - POLICY RENEWAL -->
                             <button
                                 type="button"
