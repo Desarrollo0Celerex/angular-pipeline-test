@@ -252,8 +252,8 @@ export class UpdateCompletePolicyService {
             partnerId: [
                 !!policy && !!policy.partnerId ? policy.partnerId : '0',
             ],
-            agentNumber: [
-                !!policy && !!policy.agentNumber ? policy.agentNumber : '',
+            agentKey: [
+                !!policy && !!policy.agentKey ? policy.agentKey : '',
                 [
                     Validators.required,
                     Validators.minLength(FREE_TEXT_LENGTH.MIN),
@@ -261,15 +261,15 @@ export class UpdateCompletePolicyService {
                     ValidatorsHelper.freeText,
                 ],
             ],
-            policyCommission: [
-                !!policy && !!policy.policyCommission
-                    ? policy.policyCommission
+            agentCommissionPercentage: [
+                !!policy && !!policy.agentCommissionPercentage
+                    ? policy.agentCommissionPercentage
                     : '',
                 [Validators.required, ValidatorsHelper.percentage],
             ],
-            policyCommissionAmount: [
-                !!policy && !!policy.policyCommissionAmount
-                    ? policy.policyCommissionAmount
+            agentCommissionAmount: [
+                !!policy && !!policy.agentCommissionAmount
+                    ? policy.agentCommissionAmount
                     : '',
                 [Validators.required, ValidatorsHelper.amount],
             ],
@@ -353,43 +353,43 @@ export class UpdateCompletePolicyService {
     }
 
     calculatePolicyCommission(amount: any): void {
-        let policyCommission: number = 0;
-        const policyCommissionAmount: number = parseFloat(
+        let agentCommissionPercentage: number = 0;
+        const agentCommissionAmount: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(amount)
         );
-        if (policyCommissionAmount > 0) {
+        if (agentCommissionAmount > 0) {
             const policyAmount: number = parseFloat(
                 UtilitiesHelper.removeCommasFromQuantity(
                     this.f.policyAmount.value
                 )
             );
             if (policyAmount > 0) {
-                policyCommission =
+                agentCommissionPercentage =
                     UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
-                        (policyCommissionAmount * 100) / policyAmount
+                        (agentCommissionAmount * 100) / policyAmount
                     );
             }
         }
-        this.policyForm.patchValue({ policyCommission });
+        this.policyForm.patchValue({ agentCommissionPercentage });
     }
 
     calculatePolicyCommissionAmount(percentage: any): void {
-        let policyCommissionAmount: number = 0;
-        const policyCommission: number = parseFloat(percentage);
-        if (policyCommission > 0) {
+        let agentCommissionAmount: number = 0;
+        const agentCommissionPercentage: number = parseFloat(percentage);
+        if (agentCommissionPercentage > 0) {
             const policyAmount: number = parseFloat(
                 UtilitiesHelper.removeCommasFromQuantity(
                     this.f.policyAmount.value
                 )
             );
             if (policyAmount > 0) {
-                policyCommissionAmount =
+                agentCommissionAmount =
                     UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
-                        (policyCommission * policyAmount) / 100
+                        (agentCommissionPercentage * policyAmount) / 100
                     );
             }
         }
-        this.policyForm.patchValue({ policyCommissionAmount });
+        this.policyForm.patchValue({ agentCommissionAmount });
     }
 
     /**
@@ -642,7 +642,7 @@ export class UpdateCompletePolicyService {
     loadPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
         const fields: string =
-            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceRealName,partnerId,coveredProperty,insuranceGroupId,workspaceCountryId,contactTypeId,titularGenderId,titularAge,titularEmail,agentNumber,policyCommission,policyCommissionAmount';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceRealName,partnerId,coveredProperty,insuranceGroupId,workspaceCountryId,contactTypeId,titularGenderId,titularAge,titularEmail,agentKey,agentCommissionPercentage,agentCommissionAmount';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -1502,11 +1502,14 @@ export class UpdateCompletePolicyService {
                 ? this.f.paymentPlanId.value
                 : this.policy!.paymentPlanId
         );
-        requestBody.append('agentNumber', this.f.agentNumber.value);
-        requestBody.append('policyCommission', this.f.policyCommission.value);
+        requestBody.append('agentKey', this.f.agentKey.value);
         requestBody.append(
-            'policyCommissionAmount',
-            this.f.policyCommissionAmount.value
+            'agentCommissionPercentage',
+            this.f.agentCommissionPercentage.value
+        );
+        requestBody.append(
+            'agentCommissionAmount',
+            this.f.agentCommissionAmount.value
         );
 
         if (this.policy!.contactTypeId === CONTACT_TYPES.PERSON) {
@@ -1564,11 +1567,14 @@ export class UpdateCompletePolicyService {
             this.f.isAutoPayment.value ? '1' : '0'
         );
         requestBody.append('partnerId', this.f.partnerId.value);
-        requestBody.append('agentNumber', this.f.agentNumber.value);
-        requestBody.append('policyCommission', this.f.policyCommission.value);
+        requestBody.append('agentKey', this.f.agentKey.value);
         requestBody.append(
-            'policyCommissionAmount',
-            this.f.policyCommissionAmount.value
+            'agentCommissionPercentage',
+            this.f.agentCommissionPercentage.value
+        );
+        requestBody.append(
+            'agentCommissionAmount',
+            this.f.agentCommissionAmount.value
         );
 
         if (this.policy!.contactTypeId === CONTACT_TYPES.PERSON) {

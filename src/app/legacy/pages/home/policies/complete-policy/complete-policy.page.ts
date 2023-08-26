@@ -49,6 +49,7 @@ export class CompletePolicyPage implements OnInit {
     contactId: string;
     existingContactId: string = '';
     existingPolicyId: string = '';
+    hasSeller = false;
     isScannerFailed: boolean = false;
     message: string = 'Valida los datos de la nueva póliza de';
     modalIdBasePoliciDataLoaded: string = 'agt-base-policy-data-loaded';
@@ -197,6 +198,10 @@ export class CompletePolicyPage implements OnInit {
         this.model.calculatePolicyCommissionAmount(event.target.value);
     }
 
+    calculateSellerCommissionAmount(event: any): void {
+        this.model.calculateSellerCommissionAmount(event.target.value);
+    }
+
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null =
             this.model.policyForm.get(constrolName);
@@ -238,6 +243,11 @@ export class CompletePolicyPage implements OnInit {
                 : '';
         }
         return validationClass;
+    }
+
+    loadSellerPercentageSuggestion(event: any): void {
+        const sellerId = event.target.value;
+        this.model.loadSellerPercentageSuggestion(sellerId);
     }
 
     onChangeCalculateBills(): void {
@@ -337,10 +347,23 @@ export class CompletePolicyPage implements OnInit {
         this.model.policyForm.patchValue({ titularPhoneCodeId });
     }
 
+    toggleHasSeler(event: any): void {
+        this.hasSeller = event.target.checked;
+        if (this.hasSeller) {
+            this._clearFieldSellerId();
+            PopoverPlugin.init();
+        } else {
+            this._resetSellerFields();
+        }
+    }
+
     tryCalculatePolicyCommissionAmount(): void {
-        const policyCommission: string = this.model.f.policyCommission.value;
-        if (!!policyCommission) {
-            this.model.calculatePolicyCommissionAmount(policyCommission);
+        const agentCommissionPercentage: string =
+            this.model.f.agentCommissionPercentage.value;
+        if (!!agentCommissionPercentage) {
+            this.model.calculatePolicyCommissionAmount(
+                agentCommissionPercentage
+            );
         }
     }
 
@@ -384,6 +407,12 @@ export class CompletePolicyPage implements OnInit {
         if (coverPay === '0.00') {
             this.model.calculateCoverPay();
         }
+    }
+
+    private _clearFieldSellerId(): void {
+        this.model.policyForm.patchValue({
+            partnerId: '',
+        });
     }
 
     private _completePolicy(): void {
@@ -477,7 +506,7 @@ export class CompletePolicyPage implements OnInit {
                 this._initCalendars();
                 this.model.loadCurrencies();
                 this.model.loadGenders();
-                this.model.loadPartners(res.data.workspaceRealName);
+                this.model.loadPartners();
                 this.model.loadPaymentMethods();
                 this._loadPaymentPlans();
                 PopoverPlugin.init();
@@ -529,6 +558,16 @@ export class CompletePolicyPage implements OnInit {
                 validityEndDate
             );
         }
+    }
+
+    private _resetSellerFields(): void {
+        this.model.policyForm.patchValue({
+            partnerId: 0,
+            sellerCommissionPercentage: 0,
+            sellerCommissionAmount: 0,
+            sellerCommissionCurrencyId: this.model.policyForm.value.currencyId,
+            sellerCommissionPeriod: 1,
+        });
     }
 
     private _validValidityEndDate(
@@ -625,7 +664,7 @@ export class CompletePolicyPage implements OnInit {
             }
         } else {
             missingFields = [
-                'agentNumber',
+                'agentKey',
                 'policyNumber',
                 'clientNumber',
                 'titularName',

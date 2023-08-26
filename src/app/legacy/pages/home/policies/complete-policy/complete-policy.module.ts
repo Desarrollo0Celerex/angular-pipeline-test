@@ -30,6 +30,7 @@ import { CompletePolicyRoutingModule } from './complete-policy-routing.module';
 import { CompletePolicyPage } from './complete-policy.page';
 import { CompletePolicyService } from './complete-policy.service';
 import { PoliciesModule } from '@policies/policies.module';
+import { SellerCommissionSuggestionsModule } from '@seller-commission-suggestions/seller-commission-suggestions.module';
 
 @NgModule({
     declarations: [CompletePolicyPage],
@@ -52,6 +53,7 @@ import { PoliciesModule } from '@policies/policies.module';
         ModalShowPolicyModule,
         PoliciesModule,
         ReactiveFormsModule,
+        SellerCommissionSuggestionsModule,
     ],
     providers: [
         AtomScannService,

@@ -340,9 +340,12 @@ export class UpdateCompletePolicyPage implements OnInit {
     }
 
     tryCalculatePolicyCommissionAmount(): void {
-        const policyCommission: string = this.model.f.policyCommission.value;
-        if (!!policyCommission) {
-            this.model.calculatePolicyCommissionAmount(policyCommission);
+        const agentCommissionPercentage: string =
+            this.model.f.agentCommissionPercentage.value;
+        if (!!agentCommissionPercentage) {
+            this.model.calculatePolicyCommissionAmount(
+                agentCommissionPercentage
+            );
         }
     }
 
