@@ -6,6 +6,9 @@ import { SendPolicyNotification } from '@policies/interfaces/send-policy-notific
 import { PolicyService } from '@policies/services/policy.service';
 import { GenerateShippingInformationComponent } from '@shared/components/generate-shipping-information/generate-shipping-information.component';
 import { ShippingInformation } from '@shared/interfaces/shipping-information.interface';
+import { UpdatePolicyContact } from '@policies/interfaces/update-policy-contact.interface';
+import { SHIPPING_CONTACT_TYPES } from '@core/constants/settings';
+import { PhoneCodePipe } from '@shared/pipes/phone-code.pipe';
 
 @Component({
     selector: 'agt-send-policy',
@@ -21,6 +24,7 @@ export class SendPolicyComponent {
     constructor(
         private _authService: AuthService,
         private _loadingService: LoadingService,
+        private _phoneCodePipe: PhoneCodePipe,
         private _policyService: PolicyService
     ) {}
 
@@ -55,7 +59,49 @@ export class SendPolicyComponent {
                         whatsappLink
                     );
                 }
+                this._updatePolicyContact(shippingInformation);
+            });
+    }
+
+    private _updatePolicyContact(
+        shippingChannels: ShippingInformation[]
+    ): void {
+        const requestBody = this._generatePolicyContact(shippingChannels);
+        this._policyService
+            .updatePolicyContact(
+                this._data!.contactId,
+                this._data!.policyId,
+                requestBody
+            )
+            .subscribe(() => {
                 this.policySent.emit();
             });
+    }
+
+    private _generatePolicyContact(
+        shippingChannels: ShippingInformation[]
+    ): UpdatePolicyContact {
+        let titularEmail = '';
+        let titularPhoneCode = '';
+        let titularPhoneNumber = '';
+        for (let channel of shippingChannels) {
+            if (
+                channel.shippingContactTypeId === SHIPPING_CONTACT_TYPES.EMAIL
+            ) {
+                titularEmail = channel.contact;
+            }
+            if (
+                channel.shippingContactTypeId === SHIPPING_CONTACT_TYPES.PHONE
+            ) {
+                const arrPhone = channel.contact.split(',');
+                titularPhoneCode = arrPhone[0];
+                titularPhoneNumber = arrPhone[1];
+            }
+        }
+        return {
+            titularEmail,
+            titularPhoneCodeId: this._phoneCodePipe.transform(titularPhoneCode),
+            titularPhoneNumber,
+        };
     }
 }
