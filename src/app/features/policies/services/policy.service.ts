@@ -5,10 +5,13 @@ import { SendPolicyNotification } from '../interfaces/send-policy-notification.i
 import { environment } from '@env/environment';
 import { Policy } from '../interfaces/policy.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
+import { UpdatePolicyContact } from '@policies/interfaces/update-policy-contact.interface';
 
 const ENDPOINTS = {
     contactPolicy: (workspaceId: string, contactId: string, policyId: string) =>
         `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}`,
+    policyContact: (workspaceId: string, contactId: string, policyId: string) =>
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/titular-contact`,
     policyNotification: `${environment.agenthosNotifier.apiUrl}/policies`,
 };
 
@@ -34,5 +37,16 @@ export class PolicyService {
         requestBody: SendPolicyNotification
     ): Observable<string> {
         return this._apiHttp.post(ENDPOINTS.policyNotification, requestBody);
+    }
+
+    updatePolicyContact(
+        contactId: string,
+        policyId: string,
+        requestBody: UpdatePolicyContact
+    ): Observable<void> {
+        return this._apiHttp.put(
+            ENDPOINTS.policyContact(this._workspaceId, contactId, policyId),
+            requestBody
+        );
     }
 }
