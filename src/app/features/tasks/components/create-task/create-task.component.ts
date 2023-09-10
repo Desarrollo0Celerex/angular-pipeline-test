@@ -35,7 +35,7 @@ export class CreateTaskComponent {
     calendarIdTaskDate = 'taskDate';
     data: CreateTask | undefined = undefined;
     form = this._buildForm();
-    modalId = 'agt-modal-create-task';
+    modalId = 'agt-create-task-modal';
     timerIdTaskTime = 'taskTime';
     taskProgressStatus: TaskProgressStatus[] = [];
     workspaceUsers: User[] = [];

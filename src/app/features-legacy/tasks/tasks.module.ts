@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { SharedModule } from '@shared/shared.module';
 import { CountriesModule } from '@features-legacy/countries/countries.module';
+import { TasksModule as NweTaskModule } from '@tasks/tasks.module';
 
 import { TaskStatusBackgroundPipe } from './pipes/task-status-background.pipe';
 import { TaskStatusIconPipe } from './pipes/task-status-icon.pipe';
@@ -76,6 +77,7 @@ import { ResultsListComponent } from './components/results-list/results-list.com
         CommonModule,
         CountriesModule,
         FormsModule,
+        NweTaskModule,
         NgxQRCodeModule,
         ReactiveFormsModule,
         SharedModule,

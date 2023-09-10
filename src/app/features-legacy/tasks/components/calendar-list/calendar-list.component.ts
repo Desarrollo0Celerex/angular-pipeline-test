@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SmartComponent } from '@core/classes/smart-component';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
@@ -9,6 +9,7 @@ import { TaskModalService } from '@features-legacy/tasks/services/task-modal.ser
 import { GENDERS, TASK_MODULES } from '@core/constants/settings';
 import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 import * as moment from 'moment';
+import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
 
 @Component({
     selector: 'agt-calendar-list',
@@ -16,6 +17,8 @@ import * as moment from 'moment';
     styles: [],
 })
 export class CalendarListComponent extends SmartComponent implements OnInit {
+    @ViewChild(CreateTaskComponent)
+    createTaskComponent!: CreateTaskComponent;
     contentGender = GENDERS.FEMALE;
     isLoadedContent: boolean = false;
     isLoadingContent: boolean = false;
@@ -71,14 +74,16 @@ export class CalendarListComponent extends SmartComponent implements OnInit {
     }
 
     showModalCreateTask(): void {
-        this._workspaceUserService
-            .getLoggedWorkspaceUser('shortName')
-            .subscribe((user) => {
-                this._taskModalService.showModalCreateTask({
-                    taskTitle: `📌 Seguimiento de Tarea asignada por ${user.shortName}`,
-                    taskModuleId: TASK_MODULES.OTHER,
-                });
-            });
+        this.createTaskComponent.init({
+            title: 'Programar Tarea',
+            message: 'Ingresa los detalles para programar la tarea. ',
+            buttonLabel: '📆 PROGRAMAR TAREA',
+            cancelRoute: [],
+            taskModuleId: TASK_MODULES.OTHER,
+        });
+        const subject = '📌 Seguimiento de Tarea';
+        const details = '🎯 Seguimiento de tarea para ...';
+        this.createTaskComponent.patchTaskValues(subject, details);
     }
 
     trackById(index: number, task: Task): string {

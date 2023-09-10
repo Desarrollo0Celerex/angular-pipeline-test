@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.47.21',
+            launchDate: '09/09/2023',
+            changes: [
+                {
+                    title: 'Task',
+                    items: [
+                        'Se agrego modal completo al crear una tarea desde Task Planner y Pay Tracker.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.20',
             launchDate: '28/08/2023',
             changes: [
