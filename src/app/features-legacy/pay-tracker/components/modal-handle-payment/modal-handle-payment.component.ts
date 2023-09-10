@@ -1,10 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    Output,
+    ViewChild,
+} from '@angular/core';
 import { TASK_MODULES } from '@core/constants/settings';
 import { PaymentService } from '@core/services/payment/payment.service';
 import { environment } from '@env/environment';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { InitModalCreateTask } from '@features-legacy/tasks/interfaces/init-modal-create-task.interface';
 import { TaskModalService } from '@features-legacy/tasks/services/task-modal.service';
+import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
 declare var ModalPlugin: any;
 
 @Component({
@@ -21,6 +28,8 @@ export class ModalHandlePaymentComponent {
     @Output() applyPayment: EventEmitter<void> = new EventEmitter<void>();
     @Output() selectPaymentType: EventEmitter<void> = new EventEmitter<void>();
     @Output() sendReminder: EventEmitter<void> = new EventEmitter<void>();
+    @ViewChild(CreateTaskComponent)
+    createTaskComponent!: CreateTaskComponent;
 
     constructor(
         private _authService: AuthService,
@@ -63,37 +72,38 @@ export class ModalHandlePaymentComponent {
         this._paymentService
             .getWorkspacePayment(this.paymentId, fields)
             .subscribe((payment) => {
-                const modalData: Partial<InitModalCreateTask> = {
-                    taskTitle: `💰 Seguimiento de Cobranza de ${payment.contactName}`,
-                    taskDetails: `🎯 Seguimiento de cobranza para el pago del recibo ${
-                        payment.tickets + 1
-                    } de ${payment.bills} de la póliza ${
-                        payment.policyNumber
-                    } (${payment.insuranceName}: ${
-                        payment.coveredProperty
-                    }) de ${payment.titularName}, emitida con ${
-                        payment.insurerName
-                    }.
+                this.createTaskComponent.init({
+                    title: 'Programar Pago',
+                    message: 'Ingresa los detalles para programar el pago. ',
+                    buttonLabel: '📆 PROGRAMAR PAGO',
+                    cancelRoute: [],
+                    taskModuleId: TASK_MODULES.PAYMENT,
+                });
+                const subject = `💰 Seguimiento de Cobranza de ${payment.contactName}`;
+                const details = `🎯 Seguimiento de cobranza para el pago del recibo ${
+                    payment.tickets + 1
+                } de ${payment.bills} de la póliza ${payment.policyNumber} (${
+                    payment.insuranceName
+                }: ${payment.coveredProperty}) de ${
+                    payment.titularName
+                }, emitida con ${payment.insurerName}.
 
 💵 Pagos Pendientes: ${
-                        environment.agenthos.appUrl
-                    }/workspace/payments/pending-receipts/${this.contactId}/${
-                        this.policyId
-                    }/${this.paymentId}
+                    environment.agenthos.appUrl
+                }/workspace/payments/pending-receipts/${this.contactId}/${
+                    this.policyId
+                }/${this.paymentId}
 📊 Historial de Póliza: ${
-                        environment.agenthos.appUrl
-                    }/workspace/policies/history-policy/${this.contactId}/${
-                        this.policyId
-                    }
+                    environment.agenthos.appUrl
+                }/workspace/policies/history-policy/${this.contactId}/${
+                    this.policyId
+                }
 🪪 Perfil de Cliente: ${environment.agenthos.appUrl}/workspace/contact-profile/${
-                        this.contactId
-                    }/resume
+                    this.contactId
+                }/resume
 
-🤖 Tarea gestionada en Agenthos.`,
-                    taskModuleId: TASK_MODULES.PAYMENT,
-                    responsibleId: this._authService.userId,
-                };
-                this._taskModalService.showModalCreateTask(modalData);
+🤖 Tarea gestionada en Agenthos.`;
+                this.createTaskComponent.patchTaskValues(subject, details);
             });
     }
 }

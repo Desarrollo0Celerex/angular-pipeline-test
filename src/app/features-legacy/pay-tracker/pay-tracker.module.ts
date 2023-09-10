@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TasksModule } from '@features-legacy/tasks/tasks.module';
+import { TasksModule as NewTaskModule } from '@tasks/tasks.module';
 import { SharedModule } from '@shared/shared.module';
 
 import { PayTracketRoutingModule } from './pay-tracker-routing.module';
@@ -97,6 +98,7 @@ import { PaymentStatusNamePipe } from '@shared/pipes/payment-status-name/payment
         MatDatepickerModule,
         MatMomentDateModule,
         ModalShowPaymentAppliedDetailsModule,
+        NewTaskModule,
     ],
     providers: [
         PayTrackerService,
