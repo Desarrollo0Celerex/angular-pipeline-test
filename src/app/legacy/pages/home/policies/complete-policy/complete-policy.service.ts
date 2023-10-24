@@ -58,6 +58,7 @@ import { ScannerLogService } from '@services/scanner-log.service';
 import { Contact } from '@core/interfaces/contact.interface';
 import { RewriteField } from '@policies/interfaces/rewrite-field.interface';
 import { SellerCommissionSuggestionService } from '@seller-commission-suggestions/services/seller-commission-suggestion.service';
+import { TuneatorService } from '@services/tuneator.service';
 
 declare var DropifyPlugin: any;
 
@@ -90,7 +91,8 @@ export class CompletePolicyService {
         private _policyService: PolicyService,
         private _policyInsuredService: PolicyInsuredService,
         private _scannerLogService: ScannerLogService,
-        private _sellerCommissionSuggestionService: SellerCommissionSuggestionService
+        private _sellerCommissionSuggestionService: SellerCommissionSuggestionService,
+        private _tuneatorService: TuneatorService
     ) {}
 
     get f(): { [key: string]: AbstractControl } {
@@ -104,6 +106,16 @@ export class CompletePolicyService {
     addInsured(insured: Insured | null = null): void {
         this.insureds.push(this.newInsured(insured));
         this._initDropifyPlugin();
+    }
+
+    addPolicyCover(policyUrl: string): Observable<any> {
+        return this._tuneatorService.addPolicyCover(policyUrl);
+    }
+
+    addPolicyCoverByFile(file: any): Observable<any> {
+        const requestBody: FormData = new FormData();
+        requestBody.append('file', file);
+        return this._tuneatorService.addPolicyCoverByFile(requestBody);
     }
 
     /**

@@ -71,6 +71,8 @@ export class CompletePolicyPage implements OnInit {
     validityStartDateCalendarId: string;
     private _isFormSubmitted: boolean;
     private _scannedPolicyData: Policy | null = null;
+    private _policyUrl = '';
+    private _policyFile: File | null = null;
 
     constructor(
         public model: CompletePolicyService,
@@ -417,35 +419,29 @@ export class CompletePolicyPage implements OnInit {
 
     private _completePolicy(): void {
         this._loadingService.show();
-        this.model
-            .completePolicy(
-                this.contactId,
-                this.policyId,
-                this._scannedPolicyData
-            )
-            .subscribe(
-                (policy) => {
-                    this._loadingService.hide();
-                    if (this.areSeveralInsured) {
-                        AlertHelper.policyCompleted(
-                            this._goToListPolicyInsureds,
-                            this
-                        );
-                    } else {
-                        this.paymentId = policy.paymentId;
-                        this._showModalPolicyActions();
+        this.model.addPolicyCover(this._policyUrl).subscribe((res) => {
+            this.model.policyForm.patchValue({ policyFile: res });
+            this.model
+                .completePolicy(
+                    this.contactId,
+                    this.policyId,
+                    this._scannedPolicyData
+                )
+                .subscribe(
+                    (policy) => {
+                        this._handleCompletePolicySuccess(policy.paymentId);
+                    },
+                    (error: HttpError) => {
+                        this._handleCompletePolicyError(error);
                     }
-                },
-                (error: HttpError) => {
-                    this._handleCompletePolicyError(error);
-                }
-            );
+                );
+        });
     }
 
-    private _downloadPolicy(policyUrl: string): void {
-        this.model.downloadPolicy(policyUrl).subscribe(
+    private _downloadPolicy(): void {
+        this.model.downloadPolicy(this._policyUrl).subscribe(
             (res: any) => {
-                this._scannPolicy(res, policyUrl);
+                this._scannPolicy(res);
             },
             (error: any) => {
                 this._scanningService.hide();
@@ -501,7 +497,8 @@ export class CompletePolicyPage implements OnInit {
         this.model
             .getContactPolicy(this.contactId, this.policyId)
             .subscribe((res: HttpResponse) => {
-                this._downloadPolicy(res.data.policyUrl);
+                this._policyUrl = res.data.policyUrl;
+                this._downloadPolicy();
                 this.model.buildPolicyForm(res.data);
                 this._initCalendars();
                 this.model.loadCurrencies();
@@ -584,18 +581,19 @@ export class CompletePolicyPage implements OnInit {
         }
     }
 
-    private _scannPolicy(policyFile: any, policyUrl: string = ''): void {
+    private _scannPolicy(policyFile: File): void {
+        this._policyFile = policyFile;
         this._scanningService.show();
         this.model.scannPolicy(policyFile).subscribe(
             (res: HttpResponse) => {
                 this._scanningService.hide();
                 ModalPlugin.show(this.modalIdScanningPolicySuccess);
                 this._scannedPolicyData = res.data;
-                this._reviewPolicyData(policyUrl);
+                this._reviewPolicyData();
                 this._reviewTitularData();
             },
             (error: HttpError) => {
-                this._handleScanError(error, policyUrl);
+                this._handleScanError(error);
             }
         );
     }
@@ -760,9 +758,9 @@ export class CompletePolicyPage implements OnInit {
         }
     }
 
-    private _handleScanError(error: HttpError, policyUrl: string): void {
+    private _handleScanError(error: HttpError): void {
         this.isScannerFailed = true;
-        this._reviewPolicyData(policyUrl);
+        this._reviewPolicyData();
         /* switch(error.error) {
             case ERROR_CODES.scanFileError: */
         if (
@@ -805,7 +803,7 @@ export class CompletePolicyPage implements OnInit {
         } */
     }
 
-    private _reviewPolicyData(policyUrl: string): void {
+    private _reviewPolicyData(): void {
         const missingFields: string[] = this._getMissingFields();
         const totalMissingFields: number = missingFields.length;
         if (totalMissingFields > 0) {
@@ -813,11 +811,21 @@ export class CompletePolicyPage implements OnInit {
                 .createScannerLog(
                     this.contactId,
                     this.policyId,
-                    policyUrl,
+                    this._policyUrl,
                     totalMissingFields,
                     missingFields.join(',')
                 )
                 .subscribe(() => {});
+        }
+    }
+
+    private _handleCompletePolicySuccess(paymentId: string): void {
+        this._loadingService.hide();
+        if (this.areSeveralInsured) {
+            AlertHelper.policyCompleted(this._goToListPolicyInsureds, this);
+        } else {
+            this.paymentId = paymentId;
+            this._showModalPolicyActions();
         }
     }
 
