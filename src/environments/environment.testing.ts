@@ -27,4 +27,7 @@ export const environment = {
     googleMapsConfig: {
         apiKey: 'AIzaSyDpclEqcDp6PC8tuaA3acg4z92zJ2wHaFA',
     },
+    tuneator: {
+        apiUrl: 'https://tuneator.agenthos.com/v1/public/add-cover',
+    },
 };

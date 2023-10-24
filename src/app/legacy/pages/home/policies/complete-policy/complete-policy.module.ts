@@ -31,6 +31,7 @@ import { CompletePolicyPage } from './complete-policy.page';
 import { CompletePolicyService } from './complete-policy.service';
 import { PoliciesModule } from '@policies/policies.module';
 import { SellerCommissionSuggestionsModule } from '@seller-commission-suggestions/seller-commission-suggestions.module';
+import { TuneatorService } from '@services/tuneator.service';
 
 @NgModule({
     declarations: [CompletePolicyPage],
@@ -68,6 +69,7 @@ import { SellerCommissionSuggestionsModule } from '@seller-commission-suggestion
         PolicyService,
         PolicyInsuredService,
         ScannerLogService,
+        TuneatorService,
     ],
 })
 export class CompletePolicyModule {}

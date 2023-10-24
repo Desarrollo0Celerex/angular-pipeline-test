@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.48.0',
+            launchDate: '23/10/2023',
+            changes: [
+                {
+                    title: 'Task',
+                    items: [
+                        'Se agrego servicio "policy tuneator" ara agregar un cover a las pólizas cargadas.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.47.21',
             launchDate: '09/09/2023',
             changes: [
