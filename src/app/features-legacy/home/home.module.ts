@@ -18,6 +18,13 @@ import { ModalVoiceControlProcessingRequestComponent } from './components/modal-
 import { ModalVoiceControlTalkingComponent } from './components/modal-voice-control-talking/modal-voice-control-talking.component';
 import { SpeechRecognitionComponent } from './components/speech-recognition/speech-recognition.component';
 import { VoiceControlService } from './services/voice-control/voice-control.service';
+import { WorkspaceQuickActionsModalComponent } from './components/workspace-quick-actions-modal/workspace-quick-actions-modal.component';
+import { WorkspaceReportActionsModalComponent } from './components/workspace-report-actions-modal/workspace-report-actions-modal.component';
+import { ModalSelectContactActionModule } from '@components/modal-select-contact-action/modal-select-contact-action.module';
+import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
+import { ModalSearchContactModule } from '@components/modal-search-contact/modal-search-contact.module';
+import { TasksModule } from '@tasks/tasks.module';
+import { ModalConfirmGoToAgenthosSupportModule } from '@components/modal-confirm-go-to-agenthos-support/modal-confirm-go-to-agenthos-support.module';
 
 @NgModule({
     declarations: [
@@ -34,8 +41,19 @@ import { VoiceControlService } from './services/voice-control/voice-control.serv
         PageHeaderComponent,
         SidebarComponent,
         SpeechRecognitionComponent,
+        WorkspaceQuickActionsModalComponent,
+        WorkspaceReportActionsModalComponent,
     ],
-    imports: [CommonModule, HomeRoutingModule, SharedModule],
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        SharedModule,
+        ModalSelectContactActionModule,
+        ModalSelectContactTypeModule,
+        ModalSearchContactModule,
+        TasksModule,
+        ModalConfirmGoToAgenthosSupportModule,
+    ],
     providers: [VoiceControlService],
 })
 export class HomeModule {}

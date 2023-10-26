@@ -1,0 +1,215 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Acciones Disponibles</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">
+                                Selecciona el reporte que deseas generar.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <!-- AGENTHOS - DATASUITE GLOBAL STATS -->
+                        <a [routerLink]="ROUTES_NAME.statsSnapshot">
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                🪄 <strong>ESTADÍSTICAS GLOBALES</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - DATASUITE QUOTES CLOSED -->
+                        <a
+                            [routerLink]="
+                                ROUTES_NAME.workspaceQuotationsOpenedByRange
+                            "
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                📈 <strong>COTIZACIONES ABIERTAS</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - DATASUITE QUOTES CLOSED -->
+                        <a
+                            [routerLink]="
+                                ROUTES_NAME.workspaceQuotationsClosedByRange
+                            "
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                📈 <strong>COTIZACIONES CERRADAS</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - DATASUITE POLICIES EMISSIONS -->
+                        <a
+                            [routerLink]="
+                                ROUTES_NAME.workspacePoliciesIssuedByRange
+                            "
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                📈 <strong>PÓLIZAS EMITIDAS</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - DATASUITE POLICIES CANCELATIONS -->
+                        <a
+                            [routerLink]="
+                                ROUTES_NAME.workspacePoliciesCanceledByRange
+                            "
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                📈 <strong>PÓLIZAS CANCELADAS</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - DATASUITE RENEWALS APPLIED -->
+                        <a
+                            [routerLink]="
+                                ROUTES_NAME.workspaceRenewalsAppliedByRange
+                            "
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                📈 <strong>RENOV. APLICADAS</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - DATASUITE RENEWALS PENDING -->
+                        <a
+                            [routerLink]="
+                                ROUTES_NAME.workspaceRenewalsPendingByRange
+                            "
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                📈 <strong>RENOV. PENDIENTES</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - DATASUITE PAYMENTS APPLIED -->
+                        <a
+                            [routerLink]="
+                                ROUTES_NAME.workspaceReceiptsPaidByRange
+                            "
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                📈 <strong>RECIBOS APLICADOS</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - DATASUITE PAYMENTS PENDING -->
+                        <a
+                            [routerLink]="
+                                ROUTES_NAME.workspaceReceiptsPendingByRange
+                            "
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                📈 <strong>RECIBOS PENDIENTES</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - DATASUITE SINISTERS OPENED -->
+                        <a
+                            [routerLink]="
+                                ROUTES_NAME.workspaceSinistersOpenedByRange
+                            "
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                📈 <strong>SINIESTROS ABIERTOS</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - DATASUITE SINISTERS CLOSED -->
+                        <a
+                            [routerLink]="
+                                ROUTES_NAME.workspaceSinistersClosedByRange
+                            "
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                📈 <strong>SINIESTROS CERRADOS</strong>
+                            </button></a
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    data-dismiss="modal"
+                >
+                    <strong>CANCELAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -385,6 +385,30 @@
     box-shadow: 0 0 0 2px #f6f9fc; }
 
 
+/* -- AGENTHOS - PULSE LIBRARY -- */
+.agt-pulse-success {
+  transition: background-color 0.4s ease-in-out;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(58, 218, 178, 0.8);
+    }
+    
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 28px rgba(58, 218, 178, 0);
+    }
+    
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(58, 218, 178, 0);
+    }
+}
+
+
 /* -- AGENTHOS - CALENDAR BUTTON LIBRARY -- */
 .agt-btn-apple-calendar {
     color: #ffffff;
@@ -545,9 +569,9 @@
 }
 
 .agt-alert-success {
-    color: #1f7558;
-    background: #d6f3e8 !important;
-    border-color: #c2edd8 !important;
+    color: #149c38;
+    background: #b1f4c3 !important;
+    border-color: #a7f4bc !important; }
 }
 
 .agt-alert-warning {
