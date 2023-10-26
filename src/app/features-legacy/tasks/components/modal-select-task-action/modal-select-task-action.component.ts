@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SmartComponent } from '@core/classes/smart-component';
 import { TASK_MODULES } from '@core/constants/settings';
-import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 import { ModuleService } from '@features-legacy/tasks/services/module.service';
-import { TaskModalService } from '@features-legacy/tasks/services/task-modal.service';
 import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
 declare var ModalPlugin: any;
 
@@ -20,11 +18,7 @@ export class ModalSelectTaskActionComponent
     createTaskComponent!: CreateTaskComponent;
     modalId = 'agt-modal-select-task-action';
 
-    constructor(
-        private _moduleService: ModuleService,
-        private _taskModalService: TaskModalService,
-        private _workspaceUserService: WorkspaceUserService
-    ) {
+    constructor(private _moduleService: ModuleService) {
         super();
     }
 

@@ -9,7 +9,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Agenthos Support</h5>
+                <h5 class="modal-title">Acciones Disponibles</h5>
                 <button
                     type="button"
                     class="close"
@@ -22,27 +22,19 @@
             <div class="modal-body">
                 <ol class="breadcrumb1">
                     <li class="breadcrumb-item1">
-                        Selecciona el tipo de soporte que deseas.
+                        Selecciona la acción que deseas realizar.
                     </li>
                 </ol>
                 <div class="row">
                     <div class="col-md-12 mt-3">
                         <!-- AGENTHOS - SUPPORT TRAINING -->
-                        <a
-                            href="https://wa.me/{{
-                                agenthosSupportPhone
-                            }}?text=Hola soy {{ model.username }} de {{
-                                model.workspaceName
-                            }}, deseo solicitar una capacitación para resolver dudas sobre Agenthos."
-                            target="_blank"
-                        >
+                        <a href="https://agenthos.com/training" target="_blank">
                             <button
                                 type="button"
                                 class="btn btn-block agt-btn-default"
                                 (click)="closeModal()"
                             >
-                                <i class="fa fa-calendar-check-o mr-2"></i
-                                ><strong>SOLICITAR CAPACITACIÓN</strong>
+                                🗓️ <strong>AGENDAR CAPACITACIÓN</strong>
                             </button>
                         </a>
                     </div>
@@ -51,9 +43,11 @@
                         <a
                             href="https://wa.me/{{
                                 agenthosSupportPhone
-                            }}?text=Hola soy {{ model.username }} de {{
+                            }}?text=Hola, mi nombre es {{
+                                model.username
+                            }} de parte de {{
                                 model.workspaceName
-                            }}, deseo reportar un error en Agenthos. El error es:"
+                            }} y quiero reportar un error en mi cuenta de Agenthos."
                             target="_blank"
                         >
                             <button
@@ -61,8 +55,7 @@
                                 class="btn btn-block agt-btn-default"
                                 (click)="closeModal()"
                             >
-                                <i class="fa fa-bug mr-2"></i
-                                ><strong>REPORTAR ERROR</strong>
+                                👾 <strong>REPORTAR BUG</strong>
                             </button></a
                         >
                     </div>
@@ -71,9 +64,11 @@
                         <a
                             href="https://wa.me/{{
                                 agenthosSupportPhone
-                            }}?text=Hola soy {{ model.username }} de {{
+                            }}?text=Hola, mi nombre es {{
+                                model.username
+                            }} de parte de {{
                                 model.workspaceName
-                            }}, deseo solicitar un cambio para mejorar Agenthos. La mejora es:"
+                            }} y quiero solicitar una mejora en mi cuenta de Agenthos."
                             target="_blank"
                         >
                             <button
@@ -81,8 +76,7 @@
                                 class="btn btn-block agt-btn-default"
                                 (click)="closeModal()"
                             >
-                                <i class="fa fa-magic mr-2"></i
-                                ><strong>SOLICITUD DE MEJORA</strong>
+                                💡 <strong>SOLICITAR MEJORA</strong>
                             </button></a
                         >
                     </div>

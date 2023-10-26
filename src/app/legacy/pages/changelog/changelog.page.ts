@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.48.1',
+            launchDate: '25/10/2023',
+            changes: [
+                {
+                    title: 'Home',
+                    items: [
+                        'Se agrego botón "Asistente" para listar acciones rapidas en Agenthos.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.48.0',
             launchDate: '23/10/2023',
             changes: [

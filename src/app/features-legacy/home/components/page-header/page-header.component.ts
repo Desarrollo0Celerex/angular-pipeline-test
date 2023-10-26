@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { WorkspaceUser } from '@core/interfaces/workspace-user.interface';
 import { Workspace } from '@core/interfaces/workspace.interface';
 import { WorkspaceService } from '@core/services/workspace/workspace.service';
 import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
-
-import { ROUTES_NAME } from '@constants/routes-name';
+import { WorkspaceQuickActionsModalComponent } from '../workspace-quick-actions-modal/workspace-quick-actions-modal.component';
 
 @Component({
     selector: 'agt-page-header',
@@ -13,7 +12,8 @@ import { ROUTES_NAME } from '@constants/routes-name';
     styles: [],
 })
 export class PageHeaderComponent implements OnInit {
-    ROUTES_NAME: any = ROUTES_NAME;
+    @ViewChild(WorkspaceQuickActionsModalComponent)
+    workspaceQuickActionsModalComponent!: WorkspaceQuickActionsModalComponent;
     workspace: Workspace | undefined = undefined;
     workspaceUser: WorkspaceUser | undefined = undefined;
 
@@ -25,6 +25,10 @@ export class PageHeaderComponent implements OnInit {
     ngOnInit(): void {
         this._loadWorkspace();
         this._loadWorkspaceUser();
+    }
+
+    showModalWorkspaceQuickActions(): void {
+        this.workspaceQuickActionsModalComponent.showModal();
     }
 
     private _loadWorkspace(): void {

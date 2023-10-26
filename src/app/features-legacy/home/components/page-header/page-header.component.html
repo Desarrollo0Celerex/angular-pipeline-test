@@ -20,11 +20,16 @@
         </div>
     </div>
     <div class="ml-auto">
-        <a [routerLink]="ROUTES_NAME.dashboard"
-            ><button class="btn btn-block agt-btn-success-light">
-                <i class="fe fe-activity mr-2"></i><strong>DASHBOARD</strong>
-            </button>
-        </a>
+        <button
+            type="button"
+            class="btn btn-block agt-btn-success-light agt-pulse-success"
+            (click)="showModalWorkspaceQuickActions()"
+        >
+            <i class="fe fe-activity mr-2"></i>
+            <strong>ASISTENTE</strong>
+        </button>
     </div>
 </div>
 <!-- AGENTHOS TOP VIEW END -->
+
+<agt-workspace-quick-actions-modal></agt-workspace-quick-actions-modal>
