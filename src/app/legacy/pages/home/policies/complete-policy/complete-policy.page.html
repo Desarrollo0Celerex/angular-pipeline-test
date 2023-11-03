@@ -32,105 +32,12 @@
     <!-- AGENTHOS - POLICY DETAILS -->
     <div class="row">
         <!-- AGENTHOS - POLICY UPLOAD -->
-        <div class="col-md-4">
-            <!-- AGENTHOS - POLICY CARD -->
-            <div class="card">
-                <!-- AGENTHOS - POLICY HEADER -->
-                <div class="card-header">
-                    <!-- AGENTHOS - INSURANCE COMPANY -->
-                    <img [src]="model.policy.insurerImageUrl" width="38px" />
-                </div>
-                <!-- //AGENTHOS - POLICY HEADER -->
-                <!-- AGENTHOS - POLICY BODY -->
-                <div class="card-body">
-                    <!-- AGENTHOS - POLICY COVER -->
-                    <div class="d-flex clearfix">
-                        <div class="text-left">
-                            <!-- AGENTHOS - POLICY STATUS -->
-                            <div
-                                class="badge badge-{{model.policy.policyStatusBackground}} mr-1 mb-3"
-                            >
-                                {{model.policy.policyStatusName | uppercase}}
-                            </div>
-                            <span class="col-auto align-self-center">
-                                <span
-                                    class="form-help"
-                                    data-toggle="popover"
-                                    data-placement="top"
-                                    [attr.data-content]="model.policy.policyStatusDescription"
-                                    data-original-title=""
-                                    >?</span
-                                >
-                            </span>
-                            <!-- AGENTHOS - POLICY TYPE -->
-                            <h6>
-                                <span class="text-primary"
-                                    ><i class="fe fe-shield mr-2"></i></span
-                                >{{model.policy.insuranceName | uppercase}}
-                            </h6>
-                            <!-- AGENTHOS - POLICY TYPE -->
-                            <h6>
-                                <span class="text-primary"
-                                    ><i class="fe fe-globe mr-2"></i></span
-                                >{{model.policy.insuranceTypeName | uppercase}}
-                            </h6>
-                            <!-- AGENTHOS - POLICY NUMBER -->
-                            <h6>
-                                <span class="text-primary"
-                                    ><i class="fe fe-file-text mr-2"></i></span
-                                >{{model.policy.policyNumber}}
-                            </h6>
-                        </div>
-                        <div class="ml-auto">
-                            <span
-                                class="{{model.policy.insuranceBackground}} icon-service"
-                                ><i
-                                    class="fa {{model.policy.insuranceIcon}} fs-2"
-                                ></i
-                            ></span>
-                        </div>
-                    </div>
-                    <!-- //AGENTHOS - POLICY COVER -->
-                    <!-- AGENTHOS - POLICY LIFE -->
-                    <div class="progress progress-sm mt-2">
-                        <div
-                            class="progress-bar {{model.policy.insuranceBackground}}"
-                            [ngStyle]="{'width': model.policy.lifeTime+'%'}"
-                        ></div>
-                    </div>
-                    <!-- //AGENTHOS - POLICY LIFE -->
-                </div>
-                <!-- //AGENTHOS - POLICY BODY -->
-            </div>
-            <!-- AGENTHOS - POLICY CARD -->
-            <!-- AGENTHOS - POLICY FILE -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Carátula de Póliza</h3>
-                </div>
-                <div class="card-body">
-                    <div class="col-sm-12">
-                        <!-- AGENTHOS - VIEW POLICY -->
-                        <button
-                            type="button"
-                            class="btn btn-block btn-primary mb-5"
-                            (click)="onClickShowPolicy()"
-                            *ngIf="!(!!model.f.policyFile.value)"
-                        >
-                            <strong>VER PÓLIZA</strong>
-                        </button>
-                        <!-- AGENTHOS - VIEW POLICY -->
-                        <button
-                            type="button"
-                            class="btn btn-block btn-secondary"
-                            (click)="onClickSelectPolicy()"
-                        >
-                            <strong>ACTUALIZAR PÓLIZA</strong>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- //AGENTHOS - POLICY FILE -->
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+            <agt-policy-header [policy]="model.policy"></agt-policy-header>
+            <agt-policy-cover-card
+                [policy]="model.policy"
+                (fileSelected)="replacePolicyFile($event)"
+            ></agt-policy-cover-card>
             <!-- AGENTHOS - POLICY RESUME -->
             <div class="card">
                 <div class="card-header">
@@ -180,6 +87,115 @@
                                     />
                                     <div class="invalid-feedback">
                                         {{getErrorMessage('clientNumber')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - POLICY INSURER * -->
+                                <label class="form-label">Aseguradora</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-institution tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <div
+                                        [ngStyle]="{'width': 'calc(100% - 42px)'}"
+                                    >
+                                        <select
+                                            [id]="searchIdInsurers"
+                                            class="form-control select2-show-search custom-select {{getValidationClass('insurerId')}}"
+                                            data-placeholder="Compañía Aseguradora"
+                                            formControlName="insurerId"
+                                        >
+                                            <optgroup
+                                                label="Seleccionar Aseguradora"
+                                            >
+                                                <option
+                                                    [value]="insurer.insurerId"
+                                                    *ngFor="let insurer of model.insurers"
+                                                >
+                                                    {{insurer.name | uppercase}}
+                                                </option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('insurerId')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - POLICY INSURANCE * -->
+                                <label class="form-label">Seguro</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-suitcase tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <div
+                                        [ngStyle]="{'width': 'calc(100% - 42px)'}"
+                                    >
+                                        <select
+                                            [id]="searchIdInsurances"
+                                            class="form-control select2-show-search custom-select {{getValidationClass('insuranceId')}}"
+                                            data-placeholder="Productos"
+                                            formControlName="insuranceId"
+                                        >
+                                            <optgroup
+                                                label="Seleccionar Producto"
+                                            >
+                                                <option
+                                                    [value]="insurance.insuranceId"
+                                                    *ngFor="let insurance of model.insurances"
+                                                >
+                                                    {{insurance.name |
+                                                    uppercase}}
+                                                </option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('insuranceId')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - POLICY TYPE * -->
+                                <label class="form-label">Tipo</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-tag tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <select
+                                        class="form-control custom-select {{getValidationClass('insuranceTypeId')}}"
+                                        formControlName="insuranceTypeId"
+                                        (change)="onChangeInsuranceTypeId()"
+                                    >
+                                        <option
+                                            [value]="insuranceType.insuranceTypeId"
+                                            *ngFor="let insuranceType of model.insuranceTypes"
+                                        >
+                                            {{insuranceType.name | uppercase}}
+                                        </option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('insuranceTypeId')}}
                                     </div>
                                 </div>
                             </div>
@@ -299,6 +315,30 @@
                 </div>
             </div>
             <!-- //AGENTHOS - POLICY VALIDITY -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Comentarios de Póliza</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label"
+                                    >Agregar Comentarios</label
+                                >
+                                <textarea
+                                    class="form-control {{getValidationClass('comments')}}"
+                                    rows="4"
+                                    formControlName="comments"
+                                ></textarea>
+                                <div class="invalid-feedback">
+                                    {{ getErrorMessage("comments") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- AGENTHOS - POLICY INFO -->
@@ -1938,7 +1978,7 @@
 <agt-modal-select-file
     [modalId]="modalIdSelectFile"
     [data]="modalSelectFileData"
-    (fileSelected)="onPolicySelected($event)"
+    (fileSelected)="replacePolicyFile($event)"
 ></agt-modal-select-file>
 <agt-modal-scanning-policy-success
     [modalId]="modalIdScanningPolicySuccess"

@@ -33,6 +33,8 @@ export class TuneatorService {
 
     addPolicyCoverByFile(requestBody: FormData): Observable<any> {
         const route: string = ROUTES.tuneator(this._workspaceId);
-        return this._httpClient.post<HttpResponse>(route, requestBody);
+        return this._httpClient.post(route, requestBody, {
+            responseType: 'blob',
+        });
     }
 }

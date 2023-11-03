@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Carátula de Póliza</h3>
+    </div>
+    <div class="card-body">
+        <div class="col-sm-12">
+            <button
+                type="button"
+                class="btn btn-block agt-btn-secondary"
+                (click)="showModalPolicyActions()"
+            >
+                <strong>ACCIONES DISPONIBLES</strong>
+            </button>
+        </div>
+    </div>
+</div>
+
+<agt-update-policy-actions-modal
+    (fileSelected)="fileSelected.emit($event)"
+></agt-update-policy-actions-modal>

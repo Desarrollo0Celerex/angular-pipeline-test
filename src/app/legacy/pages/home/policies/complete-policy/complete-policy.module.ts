@@ -32,6 +32,10 @@ import { CompletePolicyService } from './complete-policy.service';
 import { PoliciesModule } from '@policies/policies.module';
 import { SellerCommissionSuggestionsModule } from '@seller-commission-suggestions/seller-commission-suggestions.module';
 import { TuneatorService } from '@services/tuneator.service';
+import { InsurerService } from '@services/insurer.service';
+import { InsuranceGroupService } from '@services/insurance-group.service';
+import { InsuranceTypeService } from '@services/insurance-type.service';
+import { InsuranceService } from '@services/insurance.service';
 
 @NgModule({
     declarations: [CompletePolicyPage],
@@ -70,6 +74,10 @@ import { TuneatorService } from '@services/tuneator.service';
         PolicyInsuredService,
         ScannerLogService,
         TuneatorService,
+        InsurerService,
+        InsuranceGroupService,
+        InsuranceTypeService,
+        InsuranceService,
     ],
 })
 export class CompletePolicyModule {}

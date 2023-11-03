@@ -28,6 +28,7 @@ import {
     EMAIL_LENGTH,
     AGENT_NUMBER_LENGTH,
     INSURANCES,
+    MULTITEXT_LENGTH,
 } from '@constants/global';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ValidatorsHelper } from '@core/helpers/validators.helper';
@@ -59,6 +60,13 @@ import { Contact } from '@core/interfaces/contact.interface';
 import { RewriteField } from '@policies/interfaces/rewrite-field.interface';
 import { SellerCommissionSuggestionService } from '@seller-commission-suggestions/services/seller-commission-suggestion.service';
 import { TuneatorService } from '@services/tuneator.service';
+import { InsurerService } from '@services/insurer.service';
+import { Insurer } from '@interfaces/insurer.interface';
+import { Insurance } from '@interfaces/insurance.interface';
+import { InsuranceType } from '@interfaces/insurance-type.interface';
+import { InsuranceGroupService } from '@services/insurance-group.service';
+import { InsuranceTypeService } from '@services/insurance-type.service';
+import { InsuranceService } from '@services/insurance.service';
 
 declare var DropifyPlugin: any;
 
@@ -67,6 +75,9 @@ export class CompletePolicyService {
     contactFieldsToRewrite: string[] = [];
     currencies: Currency[] = [];
     genders: Gender[] = [];
+    insurers: Insurer[] = [];
+    insurances: Insurance[] = [];
+    insuranceTypes: InsuranceType[] = [];
     partners: Partner[] = [];
     paymentMethods: PaymentMethod[] = [];
     paymentPlans: PaymentPlan[] = [];
@@ -85,6 +96,10 @@ export class CompletePolicyService {
         private _datePipe: DatePipe,
         private _formBuilder: FormBuilder,
         private _gendersService: GendersService,
+        private _insuranceService: InsuranceService,
+        private _insurerService: InsurerService,
+        private _insuranceGroupService: InsuranceGroupService,
+        private _insuranceTypeService: InsuranceTypeService,
         private _partnerService: PartnerService,
         private _paymentMethodService: PaymentMethodService,
         private _paymentPlanService: PaymentPlanService,
@@ -105,7 +120,7 @@ export class CompletePolicyService {
 
     addInsured(insured: Insured | null = null): void {
         this.insureds.push(this.newInsured(insured));
-        this._initDropifyPlugin();
+        this.initDropifyPlugin();
     }
 
     addPolicyCover(policyUrl: string): Observable<any> {
@@ -159,6 +174,32 @@ export class CompletePolicyService {
                     Validators.minLength(FREE_TEXT_LENGTH.MIN),
                     Validators.maxLength(FREE_TEXT_LENGTH.MAX),
                     ValidatorsHelper.freeText,
+                ],
+            ],
+            insurerId: [
+                !!this.policy && !!this.policy.insurerId
+                    ? this.policy.insurerId
+                    : '',
+                [Validators.required],
+            ],
+            insuranceId: [
+                !!this.policy && !!this.policy.insuranceId
+                    ? this.policy.insuranceId
+                    : '',
+                [Validators.required],
+            ],
+            insuranceTypeId: [
+                !!this.policy && !!this.policy.insuranceTypeId
+                    ? this.policy.insuranceTypeId
+                    : '',
+                [Validators.required],
+            ],
+            comments: [
+                '',
+                [
+                    Validators.minLength(MULTITEXT_LENGTH.MIN),
+                    Validators.maxLength(MULTITEXT_LENGTH.MAX),
+                    ValidatorsHelper.multitext,
                 ],
             ],
             policyPlan: [
@@ -374,6 +415,10 @@ export class CompletePolicyService {
                 }
             }
         }
+    }
+
+    resetFormInsureds(): void {
+        this.policyForm.patchValue({ insureds: this._formBuilder.array([]) });
     }
 
     /**
@@ -651,12 +696,8 @@ export class CompletePolicyService {
      * @param  policyId  The policy ID to complete
      * @return           Notice of action done
      */
-    completePolicy(
-        contactId: string,
-        policyId: string,
-        scannedPolicyData: Policy | null
-    ): Observable<Policy> {
-        const requestBody: FormData = this._getRequestBody(scannedPolicyData);
+    completePolicy(contactId: string, policyId: string): Observable<Policy> {
+        const requestBody: FormData = this._getRequestBody();
         return new Observable<Policy>((observer) => {
             this._policyService
                 .completePolicy(contactId, policyId, requestBody)
@@ -851,7 +892,7 @@ export class CompletePolicyService {
     ): Observable<HttpResponse> {
         this.policy = null;
         const fields: string =
-            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,payGracePeriod,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber';
+            'policyId,contactId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,payGracePeriod,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -968,6 +1009,16 @@ export class CompletePolicyService {
             );
     }
 
+    loadCountryInsurers(countryId: number): Observable<void> {
+        const fields: string = 'insurerId,name';
+        return this._insurerService.getCountryInsurers(countryId, fields).pipe(
+            tap((res: HttpResponse) => {
+                this.insurers = res.data;
+            }),
+            map(() => {})
+        );
+    }
+
     /**
      * Load the currencies
      * @return Notice of action done
@@ -988,6 +1039,17 @@ export class CompletePolicyService {
             .subscribe((res: HttpResponse) => {
                 this.genders = res.data;
             });
+    }
+
+    loadInsuranceGroupIdByInsuranceId(insuranceId: number): Observable<void> {
+        return this._insuranceGroupService
+            .getInsuranceGroupIdByInsuranceId(insuranceId)
+            .pipe(
+                tap((res: number) => {
+                    this.policy!.insuranceGroupId = res;
+                }),
+                map(() => {})
+            );
     }
 
     loadPartners(): void {
@@ -1363,7 +1425,7 @@ export class CompletePolicyService {
      * Get the request body
      * @return The request body
      */
-    private _getRequestBody(scannedPolicyData: Policy | null): FormData {
+    private _getRequestBody(): FormData {
         let discount: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.discount.value)
         );
@@ -1372,9 +1434,13 @@ export class CompletePolicyService {
         requestBody.append('policyFile', this.f.policyFile.value);
         requestBody.append('policyNumber', this.f.policyNumber.value);
         requestBody.append('clientNumber', this.f.clientNumber.value);
+        requestBody.append('insurerId', this.f.insurerId.value);
+        requestBody.append('insuranceId', this.f.insuranceId.value);
+        requestBody.append('insuranceTypeId', this.f.insuranceTypeId.value);
         requestBody.append('emissionDate', this.f.emissionDate.value);
         requestBody.append('validityStartDate', this.f.validityStartDate.value);
         requestBody.append('validityEndDate', this.f.validityEndDate.value);
+        requestBody.append('comments', this.f.comments.value);
         requestBody.append('titularName', this.f.titularName.value);
         requestBody.append('titularRfc', this.f.titularRfc.value);
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
@@ -1479,7 +1545,7 @@ export class CompletePolicyService {
         return requestBody;
     }
 
-    private _initDropifyPlugin(): void {
+    initDropifyPlugin(): void {
         setTimeout(() => {
             DropifyPlugin.init(
                 this._allowedFileTypes,
@@ -1487,5 +1553,30 @@ export class CompletePolicyService {
                 this._maxFileSize
             );
         }, 0);
+    }
+
+    replaceInsureds(): void {
+        this.insureds.removeAt(0);
+        this.addInsured();
+    }
+
+    loadInsuranceTypes(insuranceId: number): void {
+        this.insuranceTypes = [];
+        const fields: string = 'insuranceTypeId,name';
+        this._insuranceTypeService
+            .getInsuranceTypes(insuranceId, fields)
+            .subscribe((res: HttpResponse) => {
+                this.insuranceTypes = res.data;
+            });
+    }
+
+    loadInsurances(): Observable<void> {
+        const fields: string = 'insuranceId,name';
+        return this._insuranceService.getInsurances(fields).pipe(
+            tap((res: HttpResponse) => {
+                this.insurances = res.data;
+            }),
+            map(() => {})
+        );
     }
 }
