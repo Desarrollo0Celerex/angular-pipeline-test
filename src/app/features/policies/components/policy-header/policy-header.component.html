@@ -1,0 +1,44 @@
+<div class="card" *ngIf="policy">
+    <!-- AGENTHOS - POLICYCARD HEADER -->
+    <div class="card-header">
+        <!-- AGENTHOS - INSURANCE COMPANY -->
+        <img [src]="policy.insurerImageUrl" width="38px" />
+    </div>
+    <!-- //AGENTHOS - POLICYCARD HEADER -->
+    <div class="card-header border-bottom-0">
+        <div class="text-left">
+            <!-- AGENTHOS - POLICYCARD SOURCE -->
+            <div class="badge agt-badge-primary-gradient mr-1 mt-3">PÓLIZA</div>
+            <!-- AGENTHOS - POLICYCARD STATUS -->
+            <div
+                class="badge agt-badge-{{
+                    policy.policyStatusBackground
+                }} mr-1 mt-3"
+            >
+                {{ policy.policyStatusName | uppercase }}
+            </div>
+            <!-- AGENTHOS - POLICYCARD TYPE-->
+            <p class="text-muted mt-3">
+                <span class="agt-text-warning fs-13"
+                    ><i
+                        data-toggle="popover"
+                        data-placement="left"
+                        class="fe fe-file-plus mr-2"
+                        data-content="Esta póliza se emitió y se cargó manualmente."
+                    ></i></span
+                >Emisión Manual
+            </p>
+        </div>
+        <div class="card-options">
+            <button
+                type="button"
+                class="btn {{ policy.insuranceBackground }} mr-3"
+                (click)="showModalDownloadPolicy()"
+            >
+                <i class="{{ policy.insuranceIcon }} mb-0"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<agt-download-policy></agt-download-policy>

@@ -31,6 +31,7 @@ import { SelectContactFieldsToRewriteComponent } from '@policies/components/sele
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
+declare var Select2Plugin: any;
 
 @Component({
     selector: 'agt-complete-policy',
@@ -67,6 +68,8 @@ export class CompletePolicyPage implements OnInit {
     emissionDateCalendarId: string;
     policyId: string;
     paymentId = '';
+    searchIdInsurances: string = 'insuranceId';
+    searchIdInsurers: string = 'insurerId';
     validityEndDateCalendarId: string;
     validityStartDateCalendarId: string;
     private _isFormSubmitted: boolean;
@@ -283,12 +286,9 @@ export class CompletePolicyPage implements OnInit {
         this._checkAmountInputs();
     }
 
-    /**
-     * Event to update the form policy file
-     */
-    onPolicySelected(policyFile: File): void {
+    replacePolicyFile(policyFile: File): void {
         this.model.policyForm.patchValue({ policyFile: policyFile });
-        this._scannPolicy(policyFile);
+        //this._scannPolicy(policyFile);
     }
 
     /**
@@ -419,23 +419,28 @@ export class CompletePolicyPage implements OnInit {
 
     private _completePolicy(): void {
         this._loadingService.show();
-        this.model.addPolicyCover(this._policyUrl).subscribe((res) => {
-            this.model.policyForm.patchValue({ policyFile: res });
-            this.model
-                .completePolicy(
-                    this.contactId,
-                    this.policyId,
-                    this._scannedPolicyData
-                )
-                .subscribe(
-                    (policy) => {
-                        this._handleCompletePolicySuccess(policy.paymentId);
-                    },
-                    (error: HttpError) => {
-                        this._handleCompletePolicyError(error);
-                    }
-                );
-        });
+        const policyFile = this.model.policyForm.value.policyFile;
+        if (policyFile) {
+            this.model.addPolicyCoverByFile(policyFile).subscribe((res) => {
+                this._handleAddPolicyCoverSuccessful(res);
+            });
+        } else {
+            this.model.addPolicyCover(this._policyUrl).subscribe((res) => {
+                this._handleAddPolicyCoverSuccessful(res);
+            });
+        }
+    }
+
+    private _handleAddPolicyCoverSuccessful(file: File): void {
+        this.model.policyForm.patchValue({ policyFile: file });
+        this.model.completePolicy(this.contactId, this.policyId).subscribe(
+            (policy) => {
+                this._handleCompletePolicySuccess(policy.paymentId);
+            },
+            (error: HttpError) => {
+                this._handleCompletePolicyError(error);
+            }
+        );
     }
 
     private _downloadPolicy(): void {
@@ -506,6 +511,11 @@ export class CompletePolicyPage implements OnInit {
                 this.model.loadPartners();
                 this.model.loadPaymentMethods();
                 this._loadPaymentPlans();
+                this._loadCountryInsurers(
+                    res.data.workspaceCountryId,
+                    res.data.insurerId
+                );
+                this._loadInsurances(res.data.insuranceId);
                 PopoverPlugin.init();
             });
     }
@@ -886,5 +896,81 @@ export class CompletePolicyPage implements OnInit {
             default:
                 return '';
         }
+    }
+
+    private _loadCountryInsurers(countryId: number, insurerId: number): void {
+        this.model.loadCountryInsurers(countryId).subscribe(() => {
+            Select2Plugin.initSearch(
+                this.searchIdInsurers,
+                this._onItemSelected,
+                this
+            );
+            setTimeout(() => {
+                Select2Plugin.setValue(this.searchIdInsurers, insurerId);
+            }, 0);
+        });
+    }
+
+    private _onItemSelected(
+        context: CompletePolicyPage,
+        selectedItem: number,
+        elementId: string
+    ): void {
+        context.model.policyForm.patchValue({ [elementId]: selectedItem });
+        if (elementId === 'insuranceId') {
+            context._loadInsuranceContext();
+        }
+    }
+
+    private _loadInsuranceContext(): void {
+        this.model.f.insuranceTypeId.setValue(null);
+        this._updateInsurance();
+        this._loadInsuranceTypes();
+    }
+
+    private _updateInsurance(): void {
+        const newInsuranceId: number = parseInt(this.model.f.insuranceId.value);
+        this.model.policy!.insuranceId = newInsuranceId;
+        this.model
+            .loadInsuranceGroupIdByInsuranceId(newInsuranceId)
+            .subscribe(() => {
+                this.model.replaceInsureds();
+            });
+    }
+
+    private _loadInsuranceTypes(): void {
+        const insuranceId: number = this.model.f.insuranceId.value;
+        this.model.loadInsuranceTypes(insuranceId);
+    }
+
+    onChangeInsuranceTypeId(): void {
+        const newInsuranceTypeId: number = parseInt(
+            this.model.f.insuranceTypeId.value
+        );
+        this.model.policy!.insuranceTypeId = newInsuranceTypeId;
+        /* this.model.buildPolicyForm(this.model.policyForm.value);
+        this.confirmUpdateInsured(0); */
+
+        this.model.resetFormInsureds();
+        this.model.addInsured();
+    }
+
+    confirmUpdateInsured(insuredIndex: number): void {
+        this.model.insureds.at(insuredIndex).enable();
+        this.model.initDropifyPlugin();
+    }
+
+    private _loadInsurances(insuranceId: number): void {
+        this.model.loadInsurances().subscribe(() => {
+            this._loadInsuranceTypes();
+            Select2Plugin.initSearch(
+                this.searchIdInsurances,
+                this._onItemSelected,
+                this
+            );
+            setTimeout(() => {
+                Select2Plugin.setValue(this.searchIdInsurances, insuranceId);
+            }, 0);
+        });
     }
 }

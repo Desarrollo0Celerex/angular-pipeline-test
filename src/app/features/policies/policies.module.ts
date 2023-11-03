@@ -13,6 +13,12 @@ import { PolicyService } from './services/policy.service';
 import { DownloadPolicyComponent } from './components/download-policy/download-policy.component';
 import { TasksModule } from '@tasks/tasks.module';
 import { FollowPolicyComponent } from './components/follow-policy/follow-policy.component';
+import { PolicyHeaderComponent } from './components/policy-header/policy-header.component';
+import { PolicyCoverCardComponent } from './components/policy-cover-card/policy-cover-card.component';
+import { UpdatePolicyActionsModalComponent } from './components/update-policy-actions-modal/update-policy-actions-modal.component';
+import { UpdatePolicyModalComponent } from './components/update-policy-modal/update-policy-modal.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DeletePolicyModalComponent } from './components/delete-policy-modal/delete-policy-modal.component';
 
 @NgModule({
     declarations: [
@@ -21,14 +27,25 @@ import { FollowPolicyComponent } from './components/follow-policy/follow-policy.
         SendPolicyComponent,
         DownloadPolicyComponent,
         FollowPolicyComponent,
+        PolicyHeaderComponent,
+        PolicyCoverCardComponent,
+        UpdatePolicyActionsModalComponent,
+        UpdatePolicyModalComponent,
+        DeletePolicyModalComponent,
     ],
-    exports: [PolicyActionsComponent, SelectContactFieldsToRewriteComponent],
+    exports: [
+        PolicyActionsComponent,
+        PolicyHeaderComponent,
+        SelectContactFieldsToRewriteComponent,
+        PolicyCoverCardComponent,
+    ],
     imports: [
         CommonModule,
         PoliciesRoutingModule,
         RouterModule,
         SharedModule,
         TasksModule,
+        ReactiveFormsModule,
     ],
     providers: [GenderNamePipe, PhoneCodePipe, PolicyService],
 })
