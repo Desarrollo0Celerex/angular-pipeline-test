@@ -104,6 +104,18 @@ export class ValidatorsHelper {
         return null;
     }
 
+    static datePicker(control: AbstractControl): ValidationErrors | null {
+        if (ValidatorsHelper._checkCanValidate(control) === true) {
+            const regex =
+                /^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])[\/]([12][0-9]{3})$/;
+            const value = control.value
+                ? control.value.format('DD/MM/YYYY')
+                : undefined;
+            return !regex.test(value) ? { date: true } : null;
+        }
+        return null;
+    }
+
     /**
      * Validate a date greater than other
      * @param  minorDate The minor date

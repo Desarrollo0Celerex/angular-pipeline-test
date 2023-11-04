@@ -248,11 +248,15 @@
                                         </div>
                                     </div>
                                     <input
-                                        [id]="emissionDateCalendarId"
-                                        class="form-control fc-datepicker {{getValidationClass('emissionDate')}}"
+                                        class="form-control {{getValidationClass('emissionDate')}}"
                                         formControlName="emissionDate"
                                         type="text"
+                                        [matDatepicker]="emissionDatePicker"
+                                        (click)="emissionDatePicker.open()"
                                     />
+                                    <mat-datepicker
+                                        #emissionDatePicker
+                                    ></mat-datepicker>
                                     <div class="invalid-feedback">
                                         {{getErrorMessage('emissionDate')}}
                                     </div>
@@ -274,11 +278,16 @@
                                         </div>
                                     </div>
                                     <input
-                                        [id]="validityStartDateCalendarId"
-                                        class="form-control fc-datepicker {{getValidationClass('validityStartDate')}}"
+                                        class="form-control {{getValidationClass('validityStartDate')}}"
                                         formControlName="validityStartDate"
                                         type="text"
+                                        [matDatepicker]="validityStarDatePicker"
+                                        (click)="validityStarDatePicker.open()"
+                                        (dateChange)="validitateFields()"
                                     />
+                                    <mat-datepicker
+                                        #validityStarDatePicker
+                                    ></mat-datepicker>
                                     <div class="invalid-feedback">
                                         {{getErrorMessage('validityStartDate')}}
                                     </div>
@@ -300,11 +309,16 @@
                                         </div>
                                     </div>
                                     <input
-                                        [id]="validityEndDateCalendarId"
-                                        class="form-control fc-datepicker {{getValidationClass('validityEndDate')}}"
+                                        class="form-control {{getValidationClass('validityEndDate')}}"
                                         formControlName="validityEndDate"
                                         type="text"
+                                        [matDatepicker]="validityEndDatePicker"
+                                        (click)="validityEndDatePicker.open()"
+                                        (dateChange)="validitateFields()"
                                     />
+                                    <mat-datepicker
+                                        #validityEndDatePicker
+                                    ></mat-datepicker>
                                     <div class="invalid-feedback">
                                         {{getErrorMessage('validityEndDate')}}
                                     </div>
