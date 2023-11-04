@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.48.3',
+            launchDate: '03/11/2023',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se agrego agregaron los calendars de Angular para seleccionar la fecha de emision, inicio y fin de vigencia al completar una póliza.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.48.2',
             launchDate: '02/11/2023',
             changes: [

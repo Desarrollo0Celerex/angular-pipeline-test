@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { AlertScannerFailedModule } from '@components/alert-scanner-failed/alert-scanner-failed.module';
 import { ContainerContactDetailsModule } from '@components/container-contact-details/container-contact-details.module';
@@ -59,6 +60,7 @@ import { InsuranceService } from '@services/insurance.service';
         PoliciesModule,
         ReactiveFormsModule,
         SellerCommissionSuggestionsModule,
+        MatDatepickerModule,
     ],
     providers: [
         AtomScannService,

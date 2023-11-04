@@ -3,6 +3,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CoreModule } from '@core/core.module';
 
@@ -19,6 +20,7 @@ import { RoutingHistoryService } from '@core/services/routing-history/routing-hi
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
     declarations: [AppComponent],
@@ -28,6 +30,7 @@ import { AppComponent } from './app.component';
         AngularFireAuthModule,
         AngularFireDatabaseModule,
         BrowserModule,
+        BrowserAnimationsModule,
         CoreModule,
         LoadingModule,
         ModalUserRoleUpdatedModule,
@@ -39,6 +42,7 @@ import { AppComponent } from './app.component';
         AUTH_INTERCEPTOR_PROVIDER,
         ERROR_INTERCEPTOR_PROVIDER,
         MANAGE_HTTP_INTERCEPTOR_PROVIDER,
+        { provide: MAT_DATE_LOCALE, useValue: 'es-MX' },
     ],
     bootstrap: [AppComponent],
 })

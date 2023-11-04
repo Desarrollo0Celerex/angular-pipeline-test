@@ -28,7 +28,6 @@ import { PolicyActionsComponent } from '@policies/components/policy-actions/poli
 import { RewriteField } from '@policies/interfaces/rewrite-field.interface';
 import { SelectContactFieldsToRewriteComponent } from '@policies/components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
 
-declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
 declare var Select2Plugin: any;
@@ -65,13 +64,10 @@ export class CompletePolicyPage implements OnInit {
     modalIdScanningPolicySuccess: string;
     modalIdShowPolicy: string;
     modalSelectFileData: ModalSelectFileData;
-    emissionDateCalendarId: string;
     policyId: string;
     paymentId = '';
     searchIdInsurances: string = 'insuranceId';
     searchIdInsurers: string = 'insurerId';
-    validityEndDateCalendarId: string;
-    validityStartDateCalendarId: string;
     private _isFormSubmitted: boolean;
     private _scannedPolicyData: Policy | null = null;
     private _policyUrl = '';
@@ -84,7 +80,6 @@ export class CompletePolicyPage implements OnInit {
         private _router: Router,
         private _scanningService: ScanningService
     ) {
-        this.emissionDateCalendarId = 'emissionDate';
         this.contactId = '';
         this.policyId = '';
         this.modalIdSelectFile = 'agt-select-file';
@@ -99,8 +94,6 @@ export class CompletePolicyPage implements OnInit {
             formats: DOCUMENT_FORMATS,
             fileType: FILE_TYPES.DOCUMENT,
         };
-        this.validityEndDateCalendarId = 'validityEndDate';
-        this.validityStartDateCalendarId = 'validityStartDate';
         this._isFormSubmitted = false;
     }
 
@@ -473,28 +466,6 @@ export class CompletePolicyPage implements OnInit {
     }
 
     /**
-     * Initialize the calendars
-     */
-    private _initCalendars(): void {
-        DatePickerPlugin.init();
-        DatePickerPlugin.initElement(
-            this.emissionDateCalendarId,
-            this._onChangeDate,
-            this
-        );
-        DatePickerPlugin.initElement(
-            this.validityStartDateCalendarId,
-            this._onChangeDate,
-            this
-        );
-        DatePickerPlugin.initElement(
-            this.validityEndDateCalendarId,
-            this._onChangeDate,
-            this
-        );
-    }
-
-    /**
      * Load the contact policy
      */
     private _loadContactPolicy(): void {
@@ -505,7 +476,6 @@ export class CompletePolicyPage implements OnInit {
                 this._policyUrl = res.data.policyUrl;
                 this._downloadPolicy();
                 this.model.buildPolicyForm(res.data);
-                this._initCalendars();
                 this.model.loadCurrencies();
                 this.model.loadGenders();
                 this.model.loadPartners();
@@ -529,44 +499,6 @@ export class CompletePolicyPage implements OnInit {
         });
     }
 
-    /**
-     * Event to update a date in the policy form
-     * @param selectorId   The selector ID
-     * @param changedValue The changed value
-     * @param context      The app context
-     */
-    private _onChangeDate(
-        selectorId: string,
-        changedValue: string,
-        context: CompletePolicyPage
-    ): void {
-        context.model.policyForm.patchValue({ [selectorId]: changedValue });
-        context.model.calculateBills();
-        if (
-            selectorId === 'validityStartDate' ||
-            selectorId === 'validityEndDate'
-        ) {
-            let validityStartDate: string = '';
-            let validityEndDate: string = '';
-            switch (selectorId) {
-                case 'validityStartDate':
-                    validityStartDate = changedValue;
-                    validityEndDate = context.model.f.validityEndDate.value;
-                    break;
-
-                case 'validityEndDate':
-                    validityStartDate = context.model.f.validityStartDate.value;
-                    validityEndDate = changedValue;
-                    break;
-            }
-            context._validValidityEndDate(
-                context,
-                validityStartDate,
-                validityEndDate
-            );
-        }
-    }
-
     private _resetSellerFields(): void {
         this.model.policyForm.patchValue({
             partnerId: 0,
@@ -577,15 +509,11 @@ export class CompletePolicyPage implements OnInit {
         });
     }
 
-    private _validValidityEndDate(
-        context: CompletePolicyPage,
-        validityStartDate: string,
-        validityEndDate: string
-    ): void {
-        const validityStartDateAux = moment(validityStartDate, 'DD/MM/YYYY');
-        const validityEndDateAux = moment(validityEndDate, 'DD/MM/YYYY');
-        if (validityEndDateAux.isBefore(validityStartDateAux)) {
-            context.model.f.validityEndDate.setErrors({
+    private _validateValidityEndDate(): void {
+        const validityStartDate = this.model.policyForm.value.validityStartDate;
+        const validityEndDate = this.model.policyForm.value.validityEndDate;
+        if (validityEndDate.isBefore(validityStartDate)) {
+            this.model.f.validityEndDate.setErrors({
                 invalidValidityEndDate: true,
             });
         }
@@ -972,5 +900,10 @@ export class CompletePolicyPage implements OnInit {
                 Select2Plugin.setValue(this.searchIdInsurances, insuranceId);
             }, 0);
         });
+    }
+
+    validitateFields(): void {
+        this.model.calculateBills();
+        this._validateValidityEndDate();
     }
 }

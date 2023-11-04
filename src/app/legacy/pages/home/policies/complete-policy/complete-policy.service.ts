@@ -250,20 +250,22 @@ export class CompletePolicyService {
                 [ValidatorsHelper.phoneNumber],
             ],
             emissionDate: [
-                !!policy && !!policy.emissionDate ? policy.emissionDate : '',
-                [Validators.required, ValidatorsHelper.date],
+                !!policy && !!policy.emissionDate
+                    ? moment(policy.emissionDate, 'DD/MM/YYYY')
+                    : '',
+                [Validators.required, ValidatorsHelper.datePicker],
             ],
             validityStartDate: [
                 !!policy && !!policy.validityStartDate
-                    ? policy.validityStartDate
+                    ? moment(policy.validityStartDate, 'DD/MM/YYYY')
                     : '',
-                [Validators.required, ValidatorsHelper.date],
+                [Validators.required, ValidatorsHelper.datePicker],
             ],
             validityEndDate: [
                 !!policy && !!policy.validityEndDate
-                    ? policy.validityEndDate
+                    ? moment(policy.validityEndDate, 'DD/MM/YYYY')
                     : '',
-                [Validators.required, ValidatorsHelper.date],
+                [Validators.required, ValidatorsHelper.datePicker],
             ],
             netPay: [
                 !!policy && !!policy.netPay ? policy.netPay : '0.00',
@@ -426,8 +428,10 @@ export class CompletePolicyService {
      */
     calculateBills(): void {
         let bills: number = 0;
-        const validityStartDate: string = this.f.validityStartDate.value;
-        const validityEndDate: string = this.f.validityEndDate.value;
+        const validityStartDate: string =
+            this.f.validityStartDate.value.format('DD/MM/YYYY');
+        const validityEndDate: string =
+            this.f.validityEndDate.value.format('DD/MM/YYYY');
         if (!!validityStartDate && !!validityEndDate) {
             const paymentPlanMonths: number = this._getPaymentPlanMonths(
                 this.f.paymentPlanId.value
@@ -591,16 +595,15 @@ export class CompletePolicyService {
 
     checkIsValidHistoryPolicy(): boolean {
         if (!!this.policy && !!this.policy.maxValidityEndDate) {
-            return moment(
-                this.f.validityEndDate.value,
-                'DD/MM/YYYY'
-            ).isSameOrBefore(this.policy.maxValidityEndDate);
+            return this.f.validityEndDate.value.isSameOrBefore(
+                this.policy.maxValidityEndDate
+            );
         }
         return false;
     }
 
     checkIsExpiredPolicy(): boolean {
-        return moment(this.f.validityEndDate.value, 'DD/MM/YYYY').isBefore(
+        return this.f.validityEndDate.value.isBefore(
             moment().format('YYYY/MM/DD')
         );
     }
@@ -617,7 +620,7 @@ export class CompletePolicyService {
             slackDaysToLoadExpiredPolicy,
             'days'
         );
-        return moment(this.f.validityEndDate.value, 'DD/MM/YYYY').isSameOrAfter(
+        return this.f.validityEndDate.value.isSameOrAfter(
             minValidityEndDate.format('YYYY/MM/DD')
         )
             ? true
@@ -1437,9 +1440,18 @@ export class CompletePolicyService {
         requestBody.append('insurerId', this.f.insurerId.value);
         requestBody.append('insuranceId', this.f.insuranceId.value);
         requestBody.append('insuranceTypeId', this.f.insuranceTypeId.value);
-        requestBody.append('emissionDate', this.f.emissionDate.value);
-        requestBody.append('validityStartDate', this.f.validityStartDate.value);
-        requestBody.append('validityEndDate', this.f.validityEndDate.value);
+        requestBody.append(
+            'emissionDate',
+            this.f.emissionDate.value.format('DD/MM/YYYY')
+        );
+        requestBody.append(
+            'validityStartDate',
+            this.f.validityStartDate.value.format('DD/MM/YYYY')
+        );
+        requestBody.append(
+            'validityEndDate',
+            this.f.validityEndDate.value.format('DD/MM/YYYY')
+        );
         requestBody.append('comments', this.f.comments.value);
         requestBody.append('titularName', this.f.titularName.value);
         requestBody.append('titularRfc', this.f.titularRfc.value);
