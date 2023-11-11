@@ -1,0 +1,59 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Código de País</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">
+                                Selecciona el código de país para el teléfono.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-12">
+                        <div class="btn-list">
+                            <button
+                                *ngFor="let country of countries"
+                                type="button"
+                                class="btn agt-btn-default"
+                                data-dismiss="modal"
+                                (click)="selectPhoneCodeId(country.countryId)"
+                            >
+                                <i class="flag {{ country.flag }} mr-3"></i>+{{
+                                    country.code
+                                }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    name="agtCancelAction"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    data-dismiss="modal"
+                >
+                    <strong>CANCELAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

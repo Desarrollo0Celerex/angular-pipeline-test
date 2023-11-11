@@ -1,0 +1,14 @@
+<button
+    type="button"
+    class="btn agt-btn-default"
+    (click)="showModalSelectPhoneCode()"
+>
+    <ng-container *ngIf="phoneCodeInfo">
+        <i class="flag {{ phoneCodeInfo.flag }} mr-3"></i>
+        +{{ phoneCodeInfo.code }}
+    </ng-container>
+</button>
+
+<agt-select-phone-code-modal
+    (phoneCodeIdSelected)="selectPhoneCodeId($event)"
+></agt-select-phone-code-modal>

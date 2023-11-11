@@ -50,6 +50,7 @@ export class CompletePolicyPage implements OnInit {
     existingContactId: string = '';
     existingPolicyId: string = '';
     hasSeller = false;
+    hasConsultingCost = false;
     isScannerFailed: boolean = false;
     message: string = 'Valida los datos de la nueva póliza de';
     modalIdBasePoliciDataLoaded: string = 'agt-base-policy-data-loaded';
@@ -196,6 +197,10 @@ export class CompletePolicyPage implements OnInit {
         this.model.calculatePolicyCommissionAmount(event.target.value);
     }
 
+    calculateConsultingCostAmount(event: any): void {
+        this.model.calculateConsultingCostAmount(event.target.value);
+    }
+
     calculateSellerCommissionAmount(event: any): void {
         this.model.calculateSellerCommissionAmount(event.target.value);
     }
@@ -338,11 +343,20 @@ export class CompletePolicyPage implements OnInit {
         }
     }
 
-    titularPhoneCodeIdSelected(titularPhoneCodeId: number): void {
+    changeTitularPhoneCodeId(titularPhoneCodeId: number): void {
         this.model.policyForm.patchValue({ titularPhoneCodeId });
     }
 
-    toggleHasSeler(event: any): void {
+    toggleConsultingCost(event: any): void {
+        this.hasConsultingCost = event.target.checked;
+        if (this.hasConsultingCost) {
+            PopoverPlugin.init();
+        } else {
+            this._resetConsultingCostFields();
+        }
+    }
+
+    toggleSeller(event: any): void {
         this.hasSeller = event.target.checked;
         if (this.hasSeller) {
             this._clearFieldSellerId();
@@ -496,6 +510,14 @@ export class CompletePolicyPage implements OnInit {
     private _loadPaymentPlans(): void {
         this.model.loadPaymentPlans().subscribe(() => {
             this._calculateBills();
+        });
+    }
+
+    private _resetConsultingCostFields(): void {
+        this.model.policyForm.patchValue({
+            consultingCostPercentage: 0,
+            consultingCostAmount: 0,
+            consultingCostCurrencyId: this.model.policy.workspaceCurrencyId,
         });
     }
 

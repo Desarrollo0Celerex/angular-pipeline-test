@@ -356,28 +356,36 @@
         </div>
 
         <!-- AGENTHOS - POLICY INFO -->
-        <div class="col-md-8">
+        <div class="col-xl-8 col-lg-6 col-md-6 col-sm-12">
             <!-- AGENTHOS - POLICY OWNER -->
             <div
                 class="card"
                 *ngIf="model.policy.contactTypeId === CONTACT_TYPES.PERSON; else titularCompany"
             >
                 <div class="card-header">
-                    <h3 class="card-title">Titular de Póliza</h3>
+                    <h3 class="card-title">Datos del Contratante</h3>
                 </div>
                 <div class="card-body">
-                    <div class="form-group row text-center">
-                        <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">
+                                    Valida los datos principales del contratante
+                                    de la póliza.
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <!-- AGENTHOS - POLICY NAME * -->
                                 <label class="form-label"
-                                    >Nombre del Titular</label
+                                    >Nombre del Contratante</label
                                 >
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i
-                                                class="fe fe-user tx-16 lh-0 op-6"
+                                                class="fa fa-user tx-16 lh-0 op-6"
                                             ></i>
                                         </div>
                                     </div>
@@ -392,17 +400,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - POLICY TITULAR ID -->
+                                <!-- AGENTHOS - SMARTWALLET POLICY TITULAR ID * -->
                                 <label class="form-label"
-                                    >No. Identificación</label
+                                    >Identificación del Contratante</label
                                 >
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i
-                                                class="fe fe-info tx-16 lh-0 op-6"
+                                                class="fa fa-id-card-o tx-16 lh-0 op-6"
                                             ></i>
                                         </div>
                                     </div>
@@ -417,28 +425,32 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - POLICY TITULAR GENDER * -->
-                                <label class="form-label">Género</label>
+                                <!-- AGENTHOS - SMART WALLET POLICY TITULAR GENDER * -->
+                                <label class="form-label"
+                                    >Género del Contratante</label
+                                >
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i
-                                                class="fe fe-check-square tx-16 lh-0 op-6"
+                                                class="fa fa-check-square tx-16 lh-0 op-6"
                                             ></i>
                                         </div>
                                     </div>
                                     <select
-                                        class="form-control custom-select {{getValidationClass('titularGenderId')}}"
+                                        class="form-control {{getValidationClass('titularGenderId')}}"
                                         formControlName="titularGenderId"
                                     >
-                                        <option
-                                            [value]="gender.genderId"
-                                            *ngFor="let gender of model.genders"
-                                        >
-                                            {{gender.name | uppercase}}
-                                        </option>
+                                        <optgroup label="Seleccionar Género">
+                                            <option
+                                                [value]="gender.genderId"
+                                                *ngFor="let gender of model.genders"
+                                            >
+                                                {{gender.name | uppercase}}
+                                            </option>
+                                        </optgroup>
                                     </select>
                                     <div class="invalid-feedback">
                                         {{getErrorMessage('titularGenderId')}}
@@ -446,15 +458,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - POLICY TITULAR AGE -->
-                                <label class="form-label">Edad</label>
+                                <!-- AGENTHOS - SMARTWALLET POLICY TITULAR AGE * -->
+                                <label class="form-label"
+                                    >Edad del Contratante</label
+                                >
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i
-                                                class="fe fe-zap tx-16 lh-0 op-6"
+                                                class="fa fa-birthday-cake tx-16 lh-0 op-6"
                                             ></i>
                                         </div>
                                     </div>
@@ -469,15 +483,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - POLICY TITULAR CP -->
-                                <label class="form-label">Código Postal</label>
+                                <!-- AGENTHOS - SMARTWALLET POLICY TITULAR CP * -->
+                                <label class="form-label"
+                                    >Código Postal del Contratante</label
+                                >
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i
-                                                class="fe fe-map-pin tx-16 lh-0 op-6"
+                                                class="fa fa-map-marker tx-16 lh-0 op-6"
                                             ></i>
                                         </div>
                                     </div>
@@ -498,26 +514,35 @@
             <ng-template #titularCompany>
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Titular de Póliza</h3>
+                        <h3 class="card-title">Datos del Contratante</h3>
                     </div>
                     <div class="card-body">
-                        <div class="form-group row text-center">
+                        <div class="row">
                             <div class="col-md-12">
+                                <ol class="breadcrumb1">
+                                    <li class="breadcrumb-item1">
+                                        Valida los datos principales del
+                                        contratante de la póliza.
+                                    </li>
+                                </ol>
+                            </div>
+                            <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
                                 <div class="form-group">
-                                    <!-- AGENTHOS - POLICY NAME * -->
+                                    <!-- AGENTHOS - SMARTWALLET POLICY NAME * -->
                                     <label class="form-label"
-                                        >Nombre del Titular</label
+                                        >Nombre del Contratante</label
                                     >
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <i
-                                                    class="fe fe-user tx-16 lh-0 op-6"
+                                                    class="fa fa-building tx-16 lh-0 op-6"
                                                 ></i>
                                             </div>
                                         </div>
                                         <input
                                             type="text"
+                                            name="agtSmartWalletPolicyName"
                                             class="form-control {{getValidationClass('titularName')}}"
                                             formControlName="titularName"
                                         />
@@ -527,17 +552,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
                                 <div class="form-group">
-                                    <!-- AGENTHOS - POLICY TITULAR ID -->
+                                    <!-- AGENTHOS - SMARTWALLET POLICY TITULAR ID * -->
                                     <label class="form-label"
-                                        >No. Identificación</label
+                                        >Identificación del Contratante</label
                                     >
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <i
-                                                    class="fe fe-info tx-16 lh-0 op-6"
+                                                    class="fa fa-id-card-o tx-16 lh-0 op-6"
                                                 ></i>
                                             </div>
                                         </div>
@@ -552,17 +577,42 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
                                 <div class="form-group">
-                                    <!-- AGENTHOS - POLICY TITULAR CP -->
+                                    <!-- AGENTHOS - SMARTWALLET POLICY LEGAL REPRESENTATIVE -->
                                     <label class="form-label"
-                                        >Código Postal</label
+                                        >Representante Legal</label
                                     >
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <i
-                                                    class="fe fe-map-pin tx-16 lh-0 op-6"
+                                                    class="fa fa-user tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('titularLegalRepresentative')}}"
+                                            formControlName="titularLegalRepresentative"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('titularLegalRepresentative')}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SMARTWALLET POLICY TITULAR CP * -->
+                                    <label class="form-label"
+                                        >Código Postal del Contratante</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-map-marker tx-16 lh-0 op-6"
                                                 ></i>
                                             </div>
                                         </div>
@@ -586,19 +636,29 @@
             <!-- AGENTHOS - POLICY OWNER CONTACT -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Datos del Titular</h3>
+                    <h3 class="card-title">Contacto del Contratante</h3>
                 </div>
                 <div class="card-body">
-                    <div class="form-group row text-center">
-                        <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">
+                                    Valida los datos de contacto para el
+                                    contratante de la póliza.
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - POLICY MAIL -->
-                                <label class="form-label">Correo</label>
+                                <!-- AGENTHOS - SMARTWALLET POLICY MAIL * -->
+                                <label class="form-label"
+                                    >Correo del Contratante</label
+                                >
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i
-                                                class="fa fa-envelope-o tx-16 lh-0 op-6"
+                                                class="fa fa-envelope tx-16 lh-0 op-6"
                                             ></i>
                                         </div>
                                     </div>
@@ -613,22 +673,29 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <!-- AGENTHOS - POLICY PHONE NUMBER -->
-                            <label class="form-label">Teléfono</label>
-                            <div class="input-group">
-                                <agt-dropdown-select-phone-code
-                                    [phoneCodeId]="model.f.titularPhoneCodeId.value"
-                                    (phoneCodeIdSelected)="titularPhoneCodeIdSelected($event)"
-                                ></agt-dropdown-select-phone-code>
-                                <!-- AGENTHOS - PHONE NUMBER -->
-                                <input
-                                    type="text"
-                                    class="form-control {{getValidationClass('titularPhoneNumber')}}"
-                                    formControlName="titularPhoneNumber"
-                                />
-                                <div class="invalid-feedback">
-                                    {{getErrorMessage('titularPhoneNumber')}}
+                        <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                            <!-- AGENTHOS - SMARTWALLET POLICY PHONE * -->
+                            <label class="form-label"
+                                >Teléfono del Contratante</label
+                            >
+                            <div class="row gutters-xs">
+                                <span class="col-auto">
+                                    <!-- AGENTHOS - SMARTWALLET POLICY PHONE CODE * -->
+                                    <agt-phone-code-button
+                                        [phoneCodeId]="model.f.titularPhoneCodeId.value"
+                                        (phoneCodeIdSelected)="changeTitularPhoneCodeId($event)"
+                                    ></agt-phone-code-button>
+                                </span>
+                                <div class="col">
+                                    <!-- AGENTHOS - SMARTWALLET POLICY NUMBER * -->
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('titularPhoneNumber')}}"
+                                        formControlName="titularPhoneNumber"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('titularPhoneNumber')}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1800,6 +1867,133 @@
             </div>
             <!-- //AGENTHOS - SMARTWALLET POLICY AGENT -->
 
+            <!-- AGENTHOS - SMARTWALLET POLICY ADMINISTATION -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Asesorías y Costos Administrativos
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">
+                                    Indica si deseas cobrar concepto de asesoría
+                                    y administración.
+                                </li>
+                            </ol>
+                            <ul class="list-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY ADMIN CHARGES * -->
+                                <li class="list-group-item">
+                                    Cobrar Concepto
+                                    <div class="material-switch pull-right">
+                                        <input
+                                            id="hasConsultingCost"
+                                            type="checkbox"
+                                            [checked]="hasConsultingCost"
+                                            (change)="toggleConsultingCost($event)"
+                                        />
+                                        <label
+                                            for="hasConsultingCost"
+                                            class="label-success"
+                                        ></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <ng-container *ngIf="hasConsultingCost">
+                            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SMARTWALLET POLICY ADMIN CHARGUES PERCENT * -->
+                                    <label class="form-label"
+                                        >Porcentaje de Cobro</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-percent tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('consultingCostPercentage')}}"
+                                            formControlName="consultingCostPercentage"
+                                            (keyup)="calculateConsultingCostAmount($event)"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('consultingCostPercentage')}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SMARTWALLET POLICY ADMIN CHARGUES AMOUNT * -->
+                                    <label class="form-label"
+                                        >Monto de Cobro</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-line-chart tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('consultingCostAmount')}}"
+                                            formControlName="consultingCostAmount"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('consultingCostAmount')}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SMARTWALLET POLICY ADMIN CHARGUES CURRENCY * -->
+                                    <label class="form-label">Moneda</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-check-square tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <select
+                                            class="form-control custom-select {{getValidationClass('consultingCostCurrencyId')}}"
+                                            formControlName="consultingCostCurrencyId"
+                                        >
+                                            <optgroup
+                                                label="Seleccionar Moneda"
+                                            >
+                                                <option
+                                                    [value]="currency.currencyId"
+                                                    *ngFor="let currency of model.currencies"
+                                                >
+                                                    {{currency.name}}
+                                                </option>
+                                            </optgroup>
+                                        </select>
+
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('consultingCostCurrencyId')}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - SMARTWALLET POLICY ADMINISTATION -->
+
             <!-- AGENTHOS - SMARTWALLET POLICY SELLER -->
             <div class="card">
                 <div class="card-header">
@@ -1823,7 +2017,7 @@
                                             id="hasSeller"
                                             type="checkbox"
                                             [checked]="hasSeller"
-                                            (change)="toggleHasSeler($event)"
+                                            (change)="toggleSeller($event)"
                                         />
                                         <label
                                             for="hasSeller"
@@ -1835,22 +2029,40 @@
                         </div>
                         <ng-container *ngIf="hasSeller">
                             <div class="col-12">
-                                <!-- AGENTHOS - SMARTWALLET POLICY SELLER * -->
-                                <!-- (JUST IF ATRIBUIR VENTA IS ON) -->
-                                <select
-                                    class="form-control custom-select {{getValidationClass('partnerId')}}"
-                                    formControlName="partnerId"
-                                    (change)="loadSellerPercentageSuggestion($event)"
-                                >
-                                    <option
-                                        [value]="partner.partnerId"
-                                        *ngFor="let partner of model.partners"
+                                <div class="form-group">
+                                    <!-- AGENTHOS - SMARTWALLET POLICY SELLER * -->
+                                    <!-- (JUST IF ATRIBUIR VENTA IS ON) -->
+                                    <label class="form-label"
+                                        >Socio Comercial</label
                                     >
-                                        {{partner.name | titlecase}}
-                                    </option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    {{getErrorMessage('partnerId')}}
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-address-book-o tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <select
+                                            class="form-control custom-select {{getValidationClass('partnerId')}}"
+                                            formControlName="partnerId"
+                                            (change)="loadSellerPercentageSuggestion($event)"
+                                        >
+                                            <optgroup
+                                                label="Seleccionar Socio Comercial"
+                                            >
+                                                <option
+                                                    [value]="partner.partnerId"
+                                                    *ngFor="let partner of model.partners"
+                                                >
+                                                    {{partner.name | titlecase}}
+                                                </option>
+                                            </optgroup>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('partnerId')}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
