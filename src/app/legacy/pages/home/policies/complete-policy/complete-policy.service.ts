@@ -223,6 +223,7 @@ export class CompletePolicyService {
             titularRfc: [
                 !!policy && !!policy.titularRfc ? policy.titularRfc : '',
                 [
+                    Validators.required,
                     Validators.minLength(FREE_TEXT_LENGTH.MIN),
                     Validators.maxLength(FREE_TEXT_LENGTH.MAX),
                     ValidatorsHelper.freeText,
@@ -231,6 +232,7 @@ export class CompletePolicyService {
             titularEmail: [
                 !!policy && !!policy.titularEmail ? policy.titularEmail : '',
                 [
+                    Validators.required,
                     Validators.email,
                     Validators.minLength(EMAIL_LENGTH.MIN),
                     Validators.maxLength(EMAIL_LENGTH.MAX),
@@ -240,14 +242,14 @@ export class CompletePolicyService {
                 !!policy && !!policy.titularPostalCode
                     ? policy.titularPostalCode
                     : '',
-                [ValidatorsHelper.postalCode],
+                [Validators.required, ValidatorsHelper.postalCode],
             ],
             titularPhoneCodeId: [titularPhoneCodeId],
             titularPhoneNumber: [
                 !!policy && !!policy.titularPhoneNumber
                     ? policy.titularPhoneNumber
                     : '',
-                [ValidatorsHelper.phoneNumber],
+                [Validators.required, ValidatorsHelper.phoneNumber],
             ],
             emissionDate: [
                 !!policy && !!policy.emissionDate
@@ -353,6 +355,18 @@ export class CompletePolicyService {
             agentCommissionCurrencyId: [currencyId, [Validators.required]],
             agentCommissionPeriod: [1],
             partnerId: [0, [Validators.required]],
+            consultingCostPercentage: [
+                0,
+                [Validators.required, ValidatorsHelper.percentage],
+            ],
+            consultingCostAmount: [
+                0,
+                [Validators.required, ValidatorsHelper.amount],
+            ],
+            consultingCostCurrencyId: [
+                this.policy.workspaceCurrencyId,
+                [Validators.required],
+            ],
             sellerCommissionPercentage: [
                 0,
                 [Validators.required, ValidatorsHelper.percentage],
@@ -367,28 +381,42 @@ export class CompletePolicyService {
         });
 
         if (this.policy !== null) {
-            if (
-                !!this.policy.contactTypeId &&
-                this.policy.contactTypeId === CONTACT_TYPES.PERSON
-            ) {
-                this.policyForm.addControl(
-                    'titularAge',
-                    new FormControl(
-                        !!policy && !!policy.titularAge
-                            ? policy.titularAge
-                            : '',
-                        [ValidatorsHelper.number]
-                    )
-                );
-                this.policyForm.addControl(
-                    'titularGenderId',
-                    new FormControl(
-                        !!policy && !!policy.titularGenderId
-                            ? policy.titularGenderId
-                            : '',
-                        [Validators.required, ValidatorsHelper.number]
-                    )
-                );
+            if (!!this.policy.contactTypeId) {
+                if (this.policy.contactTypeId === CONTACT_TYPES.PERSON) {
+                    this.policyForm.addControl(
+                        'titularAge',
+                        new FormControl(
+                            !!policy && !!policy.titularAge
+                                ? policy.titularAge
+                                : '',
+                            [Validators.required, ValidatorsHelper.number]
+                        )
+                    );
+                    this.policyForm.addControl(
+                        'titularGenderId',
+                        new FormControl(
+                            !!policy && !!policy.titularGenderId
+                                ? policy.titularGenderId
+                                : '',
+                            [Validators.required, ValidatorsHelper.number]
+                        )
+                    );
+                } else {
+                    this.policyForm.addControl(
+                        'titularLegalRepresentative',
+                        new FormControl(
+                            !!policy && !!policy.titularLegalRepresentative
+                                ? policy.titularLegalRepresentative
+                                : '',
+                            [
+                                Validators.required,
+                                Validators.minLength(TITULAR_NAME_LENGTH.MIN),
+                                Validators.maxLength(TITULAR_NAME_LENGTH.MAX),
+                                ValidatorsHelper.ownName,
+                            ]
+                        )
+                    );
+                }
             }
 
             if (!!this.policy.agentPercentageSuggestion) {
@@ -560,17 +588,38 @@ export class CompletePolicyService {
         this.policyForm.patchValue({ agentCommissionAmount });
     }
 
+    calculateConsultingCostAmount(percentage: any): void {
+        let consultingCostAmount: number = 0;
+        const consultingCostPercentage: number = parseFloat(percentage);
+        if (consultingCostPercentage > 0) {
+            const policyAmount: number = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(
+                    this.f.policyAmount.value
+                )
+            );
+            if (policyAmount > 0) {
+                consultingCostAmount =
+                    UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
+                        (consultingCostPercentage * policyAmount) / 100
+                    );
+            }
+        }
+        this.policyForm.patchValue({ consultingCostAmount });
+    }
+
     calculateSellerCommissionAmount(percentage: any): void {
         let sellerCommissionAmount: number = 0;
         const sellerCommissionPercentage: number = parseFloat(percentage);
         if (sellerCommissionPercentage > 0) {
-            const netPay: number = parseFloat(
-                UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value)
+            const policyAmount: number = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(
+                    this.f.policyAmount.value
+                )
             );
-            if (netPay > 0) {
+            if (policyAmount > 0) {
                 sellerCommissionAmount =
                     UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
-                        (sellerCommissionPercentage * netPay) / 100
+                        (sellerCommissionPercentage * policyAmount) / 100
                     );
             }
         }
@@ -895,7 +944,7 @@ export class CompletePolicyService {
     ): Observable<HttpResponse> {
         this.policy = null;
         const fields: string =
-            'policyId,contactId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,payGracePeriod,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,workspaceCountryId,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber';
+            'policyId,contactId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularLegalRepresentative,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,payGracePeriod,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -927,7 +976,7 @@ export class CompletePolicyService {
         policyId: string
     ): Observable<Policy> {
         const fields: string =
-            'policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularGenderId,titularAge,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,insuranceGroupId,insuranceTypeId,insureds,contactName,contactRfc,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber,contactBirthdate,contactGenderId';
+            'policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularLegalRepresentative,titularRfc,titularGenderId,titularAge,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,insuranceGroupId,insuranceTypeId,insureds,contactName,contactRfc,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber,contactBirthdate,contactGenderId';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -1505,6 +1554,18 @@ export class CompletePolicyService {
             this.f.agentCommissionPeriod.value
         );
         requestBody.append(
+            'consultingCostPercentage',
+            this.f.consultingCostPercentage.value
+        );
+        requestBody.append(
+            'consultingCostAmount',
+            this.f.consultingCostAmount.value
+        );
+        requestBody.append(
+            'consultingCostCurrencyId',
+            this.f.consultingCostCurrencyId.value
+        );
+        requestBody.append(
             'sellerCommissionPercentage',
             this.f.sellerCommissionPercentage.value
         );
@@ -1524,6 +1585,11 @@ export class CompletePolicyService {
         if (this.policy!.contactTypeId === CONTACT_TYPES.PERSON) {
             requestBody.append('titularGenderId', this.f.titularGenderId.value);
             requestBody.append('titularAge', this.f.titularAge.value);
+        } else {
+            requestBody.append(
+                'titularLegalRepresentative',
+                this.f.titularLegalRepresentative.value
+            );
         }
         requestBody.append(
             'contactFieldsToRewrite',

@@ -69,6 +69,7 @@ export interface Policy {
     insuranceGroupId: number;
     contactTypeId: number;
     titularGenderId: number;
+    titularLegalRepresentative: string;
     titularAge: number;
     titularEmail: string;
     agentCommissionPercentage: number;
