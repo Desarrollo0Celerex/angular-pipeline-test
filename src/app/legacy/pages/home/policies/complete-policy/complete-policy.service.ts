@@ -223,7 +223,6 @@ export class CompletePolicyService {
             titularRfc: [
                 !!policy && !!policy.titularRfc ? policy.titularRfc : '',
                 [
-                    Validators.required,
                     Validators.minLength(FREE_TEXT_LENGTH.MIN),
                     Validators.maxLength(FREE_TEXT_LENGTH.MAX),
                     ValidatorsHelper.freeText,
@@ -232,7 +231,6 @@ export class CompletePolicyService {
             titularEmail: [
                 !!policy && !!policy.titularEmail ? policy.titularEmail : '',
                 [
-                    Validators.required,
                     Validators.email,
                     Validators.minLength(EMAIL_LENGTH.MIN),
                     Validators.maxLength(EMAIL_LENGTH.MAX),
@@ -242,14 +240,14 @@ export class CompletePolicyService {
                 !!policy && !!policy.titularPostalCode
                     ? policy.titularPostalCode
                     : '',
-                [Validators.required, ValidatorsHelper.postalCode],
+                [ValidatorsHelper.postalCode],
             ],
             titularPhoneCodeId: [titularPhoneCodeId],
             titularPhoneNumber: [
                 !!policy && !!policy.titularPhoneNumber
                     ? policy.titularPhoneNumber
                     : '',
-                [Validators.required, ValidatorsHelper.phoneNumber],
+                [ValidatorsHelper.phoneNumber],
             ],
             emissionDate: [
                 !!policy && !!policy.emissionDate
