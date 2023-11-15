@@ -387,7 +387,7 @@ export class CompletePolicyService {
                             !!policy && !!policy.titularAge
                                 ? policy.titularAge
                                 : '',
-                            [Validators.required, ValidatorsHelper.number]
+                            [ValidatorsHelper.number]
                         )
                     );
                     this.policyForm.addControl(
@@ -396,7 +396,7 @@ export class CompletePolicyService {
                             !!policy && !!policy.titularGenderId
                                 ? policy.titularGenderId
                                 : '',
-                            [Validators.required, ValidatorsHelper.number]
+                            [ValidatorsHelper.number]
                         )
                     );
                 } else {
@@ -407,7 +407,6 @@ export class CompletePolicyService {
                                 ? policy.titularLegalRepresentative
                                 : '',
                             [
-                                Validators.required,
                                 Validators.minLength(TITULAR_NAME_LENGTH.MIN),
                                 Validators.maxLength(TITULAR_NAME_LENGTH.MAX),
                                 ValidatorsHelper.ownName,
@@ -453,31 +452,33 @@ export class CompletePolicyService {
      * Calculate the bills
      */
     calculateBills(): void {
-        let bills: number = 0;
-        const validityStartDate: string =
-            this.f.validityStartDate.value.format('DD/MM/YYYY');
-        const validityEndDate: string =
-            this.f.validityEndDate.value.format('DD/MM/YYYY');
-        if (!!validityStartDate && !!validityEndDate) {
-            const paymentPlanMonths: number = this._getPaymentPlanMonths(
-                this.f.paymentPlanId.value
-            );
-            // If it is an one-time payment
-            if (paymentPlanMonths === 0) {
-                this.policyForm.patchValue({ bills: 1 });
-            } else {
-                const startDate = moment(validityStartDate, 'DD-MM-YYYY');
-                const endDate = moment(validityEndDate, 'DD/MM/YYYY');
-                // If the end date is major than the start date
-                if (endDate.isAfter(startDate)) {
-                    endDate.subtract(3, 'days');
-                    while (startDate.isBefore(endDate)) {
-                        bills++;
-                        startDate.add(paymentPlanMonths, 'month');
-                    }
-                    this.policyForm.patchValue({ bills });
+        if (this.f.validityStartDate.value && this.f.validityEndDate.value) {
+            let bills: number = 0;
+            const validityStartDate: string =
+                this.f.validityStartDate.value.format('DD/MM/YYYY');
+            const validityEndDate: string =
+                this.f.validityEndDate.value.format('DD/MM/YYYY');
+            if (!!validityStartDate && !!validityEndDate) {
+                const paymentPlanMonths: number = this._getPaymentPlanMonths(
+                    this.f.paymentPlanId.value
+                );
+                // If it is an one-time payment
+                if (paymentPlanMonths === 0) {
+                    this.policyForm.patchValue({ bills: 1 });
                 } else {
-                    this.policyForm.patchValue({ bills: '' });
+                    const startDate = moment(validityStartDate, 'DD-MM-YYYY');
+                    const endDate = moment(validityEndDate, 'DD/MM/YYYY');
+                    // If the end date is major than the start date
+                    if (endDate.isAfter(startDate)) {
+                        endDate.subtract(3, 'days');
+                        while (startDate.isBefore(endDate)) {
+                            bills++;
+                            startDate.add(paymentPlanMonths, 'month');
+                        }
+                        this.policyForm.patchValue({ bills });
+                    } else {
+                        this.policyForm.patchValue({ bills: '' });
+                    }
                 }
             }
         }
