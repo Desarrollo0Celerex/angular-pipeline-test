@@ -138,7 +138,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i
-                                                class="fa fa-suitcase tx-16 lh-0 op-6"
+                                                class="fa fa-shield tx-16 lh-0 op-6"
                                             ></i>
                                         </div>
                                     </div>
@@ -1722,7 +1722,15 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-md-12">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">
+                                    Valida los datos del agente y la clave que
+                                    emite la póliza.
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <!-- AGENTHOS - SMARTWALLET POLICY AGENT NAME * -->
                                 <label class="form-label"
@@ -1732,7 +1740,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i
-                                                class="fa fa-address-book-o tx-16 lh-0 op-6"
+                                                class="fa fa-vcard tx-16 lh-0 op-6"
                                             ></i>
                                         </div>
                                     </div>
@@ -1747,11 +1755,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <!-- AGENTHOS - SMARTWALLET POLICY AGENT NUMBER * -->
                                 <label class="form-label"
-                                    >Clave de Agente</label
+                                    >Clave del Agente</label
                                 >
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -1827,42 +1835,31 @@
                             <div class="form-group">
                                 <!-- AGENTHOS - SMARTWALLET POLICY AGENT COMMISSION CURRENCY * -->
                                 <label class="form-label">Moneda</label>
-                                <div class="row gutters-sm">
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i
-                                                        class="fa fa-dollar tx-16 lh-0 op-6"
-                                                    ></i>
-                                                </div>
-                                            </div>
-                                            <select
-                                                class="form-control custom-select {{getValidationClass('agentCommissionCurrencyId')}}"
-                                                formControlName="agentCommissionCurrencyId"
-                                            >
-                                                <option
-                                                    [value]="currency.currencyId"
-                                                    *ngFor="let currency of model.currencies"
-                                                >
-                                                    {{currency.name}}
-                                                </option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                {{getErrorMessage('agentCommissionCurrencyId')}}
-                                            </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-check-square tx-16 lh-0 op-6"
+                                            ></i>
                                         </div>
                                     </div>
-                                    <span class="col-auto align-self-center">
-                                        <span
-                                            class="form-help"
-                                            data-toggle="popover"
-                                            data-placement="top"
-                                            data-content="Divisa utilizada en la póliza."
-                                            data-original-title=""
-                                            >?</span
-                                        >
-                                    </span>
+                                    <select
+                                        class="form-control select2-show-search {{getValidationClass('agentCommissionCurrencyId')}}"
+                                        formControlName="agentCommissionCurrencyId"
+                                        data-placeholder="Moneda de Comisión"
+                                    >
+                                        <optgroup label="Seleccionar Moneda">
+                                            <option
+                                                [value]="currency.currencyId"
+                                                *ngFor="let currency of model.currencies"
+                                            >
+                                                {{currency.name}}
+                                            </option>
+                                        </optgroup>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('agentCommissionCurrencyId')}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
