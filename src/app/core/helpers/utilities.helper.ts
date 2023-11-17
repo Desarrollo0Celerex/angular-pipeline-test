@@ -134,6 +134,14 @@ export class UtilitiesHelper {
         return parseFloat(result.toString());
     }
 
+    static executeWhatsappLink(whatsappLink: string): void {
+        const link = document.createElement('a');
+        link.target = '_blank';
+        link.href = whatsappLink;
+        link.click();
+        link.remove();
+    }
+
     static toLowerCaseFirst(value: string): string {
         return (value && value[0].toLowerCase() + value.slice(1)) || value;
     }

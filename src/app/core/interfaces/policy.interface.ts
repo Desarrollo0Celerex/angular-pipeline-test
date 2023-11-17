@@ -100,4 +100,7 @@ export interface Policy {
     titularPhoneCode: string;
     monthsPaid: number;
     paymentDate: string;
+    workspaceName: string;
+    workspaceAdvisoryWhatsappCode: string;
+    workspaceAdvisoryWhatsappNumber: string;
 }
