@@ -18,6 +18,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 import * as moment from 'moment';
 
 const routes: any = {
+    allPolicies: () => environment.agenthos.apiUrl + '/policies/all',
     contactPolicies: (workspaceId: string, contactId: string) =>
         environment.agenthos.apiUrl +
         '/workspaces/' +
@@ -1642,6 +1643,23 @@ export class PolicyService {
                 return res;
             })
         );
+    }
+
+    getAllPolicies(
+        page: number = 1,
+        perPage: number = 12,
+        fields: string = '',
+        filters: string = '',
+        sortBy: string = '-createdAt'
+    ): Observable<HttpResponse> {
+        const route: string = routes.allPolicies();
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', page.toString());
+        params = params.append('perPage', perPage.toString());
+        if (!!fields) params = params.append('fields', fields);
+        if (!!filters) params = params.append('filter', filters);
+        params = params.append('sortBy', sortBy);
+        return this._httpClient.get<HttpResponse>(route, { params });
     }
 
     getWorkspacePoliciesRenewed(

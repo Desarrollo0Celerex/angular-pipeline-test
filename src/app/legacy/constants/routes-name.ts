@@ -184,6 +184,7 @@ const HOME_POLICIES_ROUTES = {
         `workspace/policies/complete-policy/${contactId}/${policyId}`,
     endorsePolicy: (contactId: string, policyId: string) =>
         `workspace/policies/endorse-policy/${contactId}/${policyId}`,
+    allPolicies: () => `workspace/policies/all`,
     cancelPolicy: (contactId: string, policyId: string) =>
         `workspace/policies/cancel-policy/${contactId}/${policyId}`,
     showHistoryPolicy: (contactId: string, policyId: string) =>

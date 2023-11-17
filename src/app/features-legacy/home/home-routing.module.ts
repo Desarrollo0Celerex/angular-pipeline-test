@@ -432,6 +432,14 @@ const routes: Routes = [
                 canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard],
             },
             {
+                path: ROUTES_NAME.allPolicies(),
+                loadChildren: () =>
+                    import(
+                        '@pages/home/policies/all-policies/all-policies.module'
+                    ).then((mod) => mod.AllPoliciesModule),
+                canActivate: [UserAuthenticatedGuard],
+            },
+            {
                 path: ROUTES_NAME.cancelPolicy(':contactId', ':policyId'),
                 loadChildren: () =>
                     import(
