@@ -19,7 +19,7 @@ export class FormatterHelper {
     }
 
     static formatPhone(phoneCode: string, phoneNumber: string): string {
-        return phoneCode && phoneNumber ? `+${phoneCode}${phoneNumber}` : '';
+        return phoneCode && phoneNumber ? `${phoneCode}${phoneNumber}` : '';
     }
 
     static formatShortDate(date: string): string {
@@ -27,7 +27,7 @@ export class FormatterHelper {
     }
 
     static formatWhatsappLink(phoneNumber: string, message: string): string {
-        return `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURI(
+        return `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
             message
         )}`;
     }
