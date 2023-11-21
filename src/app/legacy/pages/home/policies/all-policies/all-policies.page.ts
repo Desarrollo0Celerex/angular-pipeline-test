@@ -67,7 +67,7 @@ ${policy.policyUrl}`;
 
 Recuerda que si tienes dudas, puedes solicitar ayuda en el número:
 
-☎️ ${helpNumber}`
+☎️ +${helpNumber}`
             : message;
 
         message += `
@@ -82,7 +82,7 @@ Por favor, no respondas este mensaje.`;
             .format('YYYY-MM-DD');
         const policyStatusIncomplete = POLICY_STATUS.INCOMPLETE;
         const page = 1;
-        const perPage = 12;
+        const perPage = 1000;
         const fields =
             'workspaceName,titularName,insurerName,insuranceName,policyNumber,contactTypeId,coveredProperty,validityStartDate,validityEndDate,paymentPlanName,policyAmount,currencyName,policyUrl,workspaceAdvisoryWhatsappCode,workspaceAdvisoryWhatsappNumber,titularPhoneCode,titularPhoneNumber';
         const filters = `createdAt[>=]${filterDate},validityStartDate>=${filterDate},policyStatusId[!=]${policyStatusIncomplete}`;
