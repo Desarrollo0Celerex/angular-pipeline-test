@@ -20,7 +20,7 @@ const ENDPOINTS = {
         `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/incomplete`,
     policyContact: (workspaceId: string, contactId: string, policyId: string) =>
         `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/titular-contact`,
-    policyNotification: `${environment.agenthosNotifier.apiUrl}/policies`,
+    policyNotification: `${environment.agenthosNotifications.apiUrl}/policies`,
 };
 
 @Injectable()
