@@ -22,6 +22,7 @@
             "@configs/*": ["app/configs/*"],
             "@core/*": ["app/core/*"],
             "@countries/*": ["app/features/countries/*"],
+            "@notifier/*": ["app/features/notifier/*"],
             "@shared/*": ["app/shared/*"],
             "@features-legacy/*": ["app/features-legacy/*"],
             "@policies/*": ["app/features/policies/*"],

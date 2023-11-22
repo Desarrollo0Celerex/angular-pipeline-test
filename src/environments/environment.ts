@@ -12,8 +12,11 @@ export const environment = {
             phoneNumber: '2283537328',
         },
     },
-    agenthosNotifier: {
+    agenthosNotifications: {
         apiUrl: 'http://127.0.0.1:8000',
+    },
+    agenthosNotifier: {
+        apiUrl: 'https://notifier.agenthos.com/v1/public/policy-notifications',
     },
     firebaseConfig: {
         apiKey: 'AIzaSyCT6zwYtSCrpr5iXe3x4TcwCGcMUO12GzA',

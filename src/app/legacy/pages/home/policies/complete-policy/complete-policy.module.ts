@@ -38,6 +38,7 @@ import { InsuranceGroupService } from '@services/insurance-group.service';
 import { InsuranceTypeService } from '@services/insurance-type.service';
 import { InsuranceService } from '@services/insurance.service';
 import { CountriesModule } from '@countries/countries.module';
+import { NotifierModule } from 'app/features/notifier/notifier.module';
 
 @NgModule({
     declarations: [CompletePolicyPage],
@@ -63,6 +64,7 @@ import { CountriesModule } from '@countries/countries.module';
         SellerCommissionSuggestionsModule,
         MatDatepickerModule,
         CountriesModule,
+        NotifierModule,
     ],
     providers: [
         AtomScannService,

@@ -80,16 +80,16 @@ Por favor, no respondas este mensaje.`;
         const filterDate: string = moment()
             .subtract(8, 'days')
             .format('YYYY-MM-DD');
+        const currentDate = moment().format('YYYY-MM-DD');
         const policyStatusIncomplete = POLICY_STATUS.INCOMPLETE;
         const page = 1;
         const perPage = 1000;
         const fields =
             'workspaceName,titularName,insurerName,insuranceName,policyNumber,contactTypeId,coveredProperty,validityStartDate,validityEndDate,paymentPlanName,policyAmount,currencyName,policyUrl,workspaceAdvisoryWhatsappCode,workspaceAdvisoryWhatsappNumber,titularPhoneCode,titularPhoneNumber';
-        const filters = `createdAt[>=]${filterDate},validityStartDate>=${filterDate},policyStatusId[!=]${policyStatusIncomplete}`;
+        const filters = `createdAt[>=]${filterDate},createdAt[<=]${currentDate},validityStartDate[>=]${filterDate},validityStartDate[<=]${filterDate},policyStatusId[!=]${policyStatusIncomplete}`;
         this._policyService
             .getAllPolicies(page, perPage, fields, filters)
             .subscribe((res) => {
-                console.log('res: ', res.data);
                 this.policies = res.data.items;
             });
     }

@@ -27,6 +27,10 @@ import { CompletePolicyService } from './complete-policy.service';
 import { PolicyActionsComponent } from '@policies/components/policy-actions/policy-actions.component';
 import { RewriteField } from '@policies/interfaces/rewrite-field.interface';
 import { SelectContactFieldsToRewriteComponent } from '@policies/components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
+import {
+    NOTIFICATION_TYPES,
+    NotifierPolicyService,
+} from 'app/features/notifier/services/notifier-policy.service';
 
 declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
@@ -79,7 +83,8 @@ export class CompletePolicyPage implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router,
-        private _scanningService: ScanningService
+        private _scanningService: ScanningService,
+        private _notifierPolicyService: NotifierPolicyService
     ) {
         this.contactId = '';
         this.policyId = '';
@@ -780,6 +785,53 @@ export class CompletePolicyPage implements OnInit {
     }
 
     private _handleCompletePolicySuccess(paymentId: string): void {
+        this._showSuccessModal(paymentId);
+        /* const validityStartDate = moment(
+            this.model.policyForm.value.validityStartDate,
+            'DD/MM/YYYY'
+        );
+        const email = this.model.policyForm.value.titularEmail;
+        if (
+            validityStartDate.isBetween(
+                moment().subtract(8, 'days'),
+                moment()
+            ) &&
+            email
+        ) {
+            console.log('Enviar notificaciòn');
+
+            this._sendNotification(
+                paymentId,
+                this.contactId,
+                this.policyId,
+                email
+            );
+        } else {
+            console.log('No se envia notificaciòn');
+
+            this._showSuccessModal(paymentId);
+        } */
+    }
+
+    private _sendNotification(
+        paymentId: string,
+        contactId: string,
+        policyId: string,
+        email: string
+    ): void {
+        this._notifierPolicyService
+            .sendNotification(
+                NOTIFICATION_TYPES.POLICY_ISSUED,
+                contactId,
+                policyId,
+                email
+            )
+            .subscribe(() => {
+                this._showSuccessModal(paymentId);
+            });
+    }
+
+    private _showSuccessModal(paymentId: string): void {
         this._loadingService.hide();
         if (this.areSeveralInsured) {
             AlertHelper.policyCompleted(this._goToListPolicyInsureds, this);
