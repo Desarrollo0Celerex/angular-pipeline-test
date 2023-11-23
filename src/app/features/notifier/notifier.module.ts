@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NotifierPolicyService } from './services/notifier-policy.service';
+import { NotifierService } from './services/notifier.service';
 
 @NgModule({
     declarations: [],
     imports: [CommonModule],
-    providers: [NotifierPolicyService],
+    providers: [NotifierService],
 })
 export class NotifierModule {}

@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.49.3',
+            launchDate: '23/11/2023',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se agrego funcionalidad para enviar correo automatico de poliza emitida si cumple la condición de los 8 días.',
+                        'Se resolvio bug al actualizar p´lizas vencidas',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.49.2',
             launchDate: '21/11/2023',
             changes: [

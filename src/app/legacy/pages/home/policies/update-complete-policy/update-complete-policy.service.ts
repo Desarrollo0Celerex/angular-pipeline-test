@@ -307,7 +307,7 @@ export class UpdateCompletePolicyService {
                 [Validators.required, ValidatorsHelper.amount],
             ],
             sellerCommissionCurrencyId: [
-                policy?.sellerCommissionCurrencyId || policy?.currencyId,
+                policy?.sellerCommissionCurrencyId || policy?.currencyId || 1,
                 [Validators.required],
             ],
             sellerCommissionPeriod: [policy?.sellerCommissionPeriod || 1],

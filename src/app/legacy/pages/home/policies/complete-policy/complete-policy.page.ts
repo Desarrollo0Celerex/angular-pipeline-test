@@ -29,8 +29,8 @@ import { RewriteField } from '@policies/interfaces/rewrite-field.interface';
 import { SelectContactFieldsToRewriteComponent } from '@policies/components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
 import {
     NOTIFICATION_TYPES,
-    NotifierPolicyService,
-} from 'app/features/notifier/services/notifier-policy.service';
+    NotifierService,
+} from '@notifier/services/notifier.service';
 
 declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
@@ -84,7 +84,7 @@ export class CompletePolicyPage implements OnInit {
         private _loadingService: LoadingService,
         private _router: Router,
         private _scanningService: ScanningService,
-        private _notifierPolicyService: NotifierPolicyService
+        private _notifierService: NotifierService
     ) {
         this.contactId = '';
         this.policyId = '';
@@ -785,21 +785,9 @@ export class CompletePolicyPage implements OnInit {
     }
 
     private _handleCompletePolicySuccess(paymentId: string): void {
-        this._showSuccessModal(paymentId);
-        /* const validityStartDate = moment(
-            this.model.policyForm.value.validityStartDate,
-            'DD/MM/YYYY'
-        );
+        const isInTime = this._checkIsInTime();
         const email = this.model.policyForm.value.titularEmail;
-        if (
-            validityStartDate.isBetween(
-                moment().subtract(8, 'days'),
-                moment()
-            ) &&
-            email
-        ) {
-            console.log('Enviar notificaciòn');
-
+        if (isInTime && email) {
             this._sendNotification(
                 paymentId,
                 this.contactId,
@@ -807,10 +795,19 @@ export class CompletePolicyPage implements OnInit {
                 email
             );
         } else {
-            console.log('No se envia notificaciòn');
-
             this._showSuccessModal(paymentId);
-        } */
+        }
+    }
+
+    private _checkIsInTime(): boolean {
+        const validityStartDate = moment(
+            this.model.policyForm.value.validityStartDate,
+            'DD/MM/YYYY'
+        );
+        return validityStartDate.isBetween(
+            moment().subtract(8, 'days'),
+            moment()
+        );
     }
 
     private _sendNotification(
@@ -819,16 +816,25 @@ export class CompletePolicyPage implements OnInit {
         policyId: string,
         email: string
     ): void {
-        this._notifierPolicyService
-            .sendNotification(
-                NOTIFICATION_TYPES.POLICY_ISSUED,
-                contactId,
-                policyId,
-                email
-            )
-            .subscribe(() => {
-                this._showSuccessModal(paymentId);
-            });
+        const data = {
+            contactId,
+            policyId,
+            email,
+        };
+        this._notifierService
+            .sendNotification(NOTIFICATION_TYPES.POLICY_ISSUED, data)
+            .subscribe(
+                () => {
+                    this._showSuccessModal(paymentId);
+                },
+                (error) => {
+                    console.error(
+                        'No se puedo enviar notificación de póliza emitida: ',
+                        error
+                    );
+                    this._showSuccessModal(paymentId);
+                }
+            );
     }
 
     private _showSuccessModal(paymentId: string): void {
