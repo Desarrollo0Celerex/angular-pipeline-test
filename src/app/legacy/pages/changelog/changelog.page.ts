@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.49.4',
+            launchDate: '24/11/2023',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se agregaron campos "Número de cuenta, Número de tarjeta y Nombre del banco" al completar la póliza.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.49.3',
             launchDate: '23/11/2023',
             changes: [

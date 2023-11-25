@@ -317,6 +317,30 @@ export class CompletePolicyService {
                 [Validators.required],
             ],
             isAutoPayment: [false],
+            accountNumber: [
+                '',
+                [
+                    Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN),
+                    Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX),
+                    ValidatorsHelper.alphanumeric,
+                ],
+            ],
+            cardNumber: [
+                '',
+                [
+                    Validators.minLength(SHORT_ALPHANUMERIC_LENGTH.MIN),
+                    Validators.maxLength(SHORT_ALPHANUMERIC_LENGTH.MAX),
+                    ValidatorsHelper.alphanumeric,
+                ],
+            ],
+            bankName: [
+                '',
+                [
+                    Validators.minLength(TITULAR_NAME_LENGTH.MIN),
+                    Validators.maxLength(TITULAR_NAME_LENGTH.MAX),
+                    ValidatorsHelper.ownName,
+                ],
+            ],
             agentName: [
                 this.policy.agentNameSuggestion || '',
                 [
@@ -1534,6 +1558,9 @@ export class CompletePolicyService {
             this.f.isAutoPayment.value ? '1' : '0'
         );
         requestBody.append('partnerId', this.f.partnerId.value);
+        requestBody.append('accountNumber', this.f.accountNumber.value);
+        requestBody.append('cardNumber', this.f.cardNumber.value);
+        requestBody.append('bankName', this.f.bankName.value);
         requestBody.append('agentName', this.f.agentName.value);
         requestBody.append('agentKey', this.f.agentKey.value);
         requestBody.append(
