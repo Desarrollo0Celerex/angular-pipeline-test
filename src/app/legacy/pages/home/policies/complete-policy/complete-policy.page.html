@@ -1715,6 +1715,114 @@
             </div>
             <!-- //AGENTHOS - POLICY PAYMENT PLAN -->
 
+            <!-- AGENTHOS - SMARTWALLET POLICY PAYMENT DETAILS -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Pago de Póliza</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">
+                                    Indica si el contratante autorizó el cargo
+                                    automático para pagar la póliza.
+                                </li>
+                            </ol>
+                            <ul class="list-group">
+                                <!-- AGENTHOS - POLICY AUTOMATIC PAYMENT * -->
+                                <li class="list-group-item">
+                                    Cargo Automático
+                                    <div class="material-switch pull-right">
+                                        <input
+                                            id="isAutoPayment"
+                                            type="checkbox"
+                                            formControlName="isAutoPayment"
+                                        />
+                                        <label
+                                            for="isAutoPayment"
+                                            class="label-success"
+                                        ></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY PAY ACCOUNT -->
+                                <label class="form-label">No. Cuenta</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-vcard tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('accountNumber')}}"
+                                        formControlName="accountNumber"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('accountNumber')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY PAY CARD -->
+                                <label class="form-label">No. Tarjeta</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-credit-card tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('cardNumber')}}"
+                                        formControlName="cardNumber"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('cardNumber')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY PAY BANK -->
+                                <label class="form-label"
+                                    >Nombre del Banco</label
+                                >
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-bank tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('bankName')}}"
+                                        formControlName="bankName"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('bankName')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - SMARTWALLET POLICY PAYMENT DETAILS -->
+
             <!-- AGENTHOS - SMARTWALLET POLICY AGENT -->
             <div class="card">
                 <div class="card-header">
