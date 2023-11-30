@@ -1,0 +1,8 @@
+<div class="list-group">
+    <agt-policy-complement-card
+        *ngFor="let policyComplement of policyComplements"
+        [policyComplement]="policyComplement"
+        (download)="requestDownloadPolicyComplement($event)"
+        (delete)="requestDeletePolicyComplement($event)"
+    ></agt-policy-complement-card>
+</div>

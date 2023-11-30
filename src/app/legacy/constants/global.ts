@@ -593,6 +593,7 @@ export const INSURANCE_TYPES: any = {
     FLOTILLA: 5,
 };
 export const FILE_SIZES: any = {
+    SMALL: '2M',
     LARGE: '10M',
     EXTRA_LARGE: '1024M',
 };

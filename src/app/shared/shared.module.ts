@@ -44,6 +44,8 @@ import { ModalRequestShippingContactsComponent } from './components/modal-reques
 import { CountriesModule } from '@features-legacy/countries/countries.module';
 import { DownloadContentComponent } from './components/download-content/download-content.component';
 import { QrCodeComponent } from './components/qr-code/qr-code.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { FileExtensionComponent } from './components/file-extension/file-extension.component';
 
 @NgModule({
     declarations: [
@@ -79,8 +81,11 @@ import { QrCodeComponent } from './components/qr-code/qr-code.component';
         ModalRequestShippingContactsComponent,
         DownloadContentComponent,
         QrCodeComponent,
+        AlertComponent,
+        FileExtensionComponent,
     ],
     exports: [
+        AlertComponent,
         CardCalendarRangeComponent,
         CardKpiComponent,
         CardMainActionComponent,
@@ -93,6 +98,7 @@ import { QrCodeComponent } from './components/qr-code/qr-code.component';
         ContactStatusNamePipe,
         ContentListComponent,
         DownloadContentComponent,
+        FileExtensionComponent,
         GenderNamePipe,
         GenerateShippingInformationComponent,
         LoadingContentComponent,

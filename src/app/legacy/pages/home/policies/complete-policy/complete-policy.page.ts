@@ -31,6 +31,7 @@ import {
     NOTIFICATION_TYPES,
     NotifierService,
 } from '@notifier/services/notifier.service';
+import { PolicyComplementModalComponent } from '@policy-complement/components/policy-complement-modal/policy-complement-modal.component';
 
 declare var ModalPlugin: any;
 declare var PopoverPlugin: any;

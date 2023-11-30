@@ -25,6 +25,7 @@
             "@notifier/*": ["app/features/notifier/*"],
             "@shared/*": ["app/shared/*"],
             "@features-legacy/*": ["app/features-legacy/*"],
+            "@policy-complement/*": ["app/features/policy-complement/*"],
             "@policies/*": ["app/features/policies/*"],
             "@seller-commission-suggestions/*": [
                 "app/features/seller-commission-suggestions/*"

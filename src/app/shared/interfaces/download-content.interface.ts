@@ -5,4 +5,5 @@ export interface DownloadContent {
     details: string;
     buttonLabel: string;
     cancelRoute: string | [];
+    contentUrl?: string;
 }
