@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.49.5',
+            launchDate: '29/11/2023',
+            changes: [
+                {
+                    title: 'Policy Complement',
+                    items: [
+                        'Se agrego gestion para los complementos de la póliza (listado, carga, descarga y eliminación).',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.49.4',
             launchDate: '24/11/2023',
             changes: [

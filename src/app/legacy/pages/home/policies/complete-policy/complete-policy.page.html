@@ -38,6 +38,10 @@
                 [policy]="model.policy"
                 (fileSelected)="replacePolicyFile($event)"
             ></agt-policy-cover-card>
+            <agt-policy-complements
+                [contactId]="contactId"
+                [policyId]="policyId"
+            ></agt-policy-complements>
             <!-- AGENTHOS - POLICY RESUME -->
             <div class="card">
                 <div class="card-header">
@@ -2318,5 +2322,4 @@
 <agt-select-contact-fields-to-rewrite
     (fieldsSelected)="addContactFieldsToRewrite($event)"
 ></agt-select-contact-fields-to-rewrite>
-
 <agt-policy-actions></agt-policy-actions>

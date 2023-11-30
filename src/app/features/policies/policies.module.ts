@@ -19,6 +19,8 @@ import { UpdatePolicyActionsModalComponent } from './components/update-policy-ac
 import { UpdatePolicyModalComponent } from './components/update-policy-modal/update-policy-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DeletePolicyModalComponent } from './components/delete-policy-modal/delete-policy-modal.component';
+import { PolicyComplementsComponent } from './components/policy-complements/policy-complements.component';
+import { PolicyComplementModule } from '@policy-complement/policy-complement.module';
 
 @NgModule({
     declarations: [
@@ -32,12 +34,14 @@ import { DeletePolicyModalComponent } from './components/delete-policy-modal/del
         UpdatePolicyActionsModalComponent,
         UpdatePolicyModalComponent,
         DeletePolicyModalComponent,
+        PolicyComplementsComponent,
     ],
     exports: [
         PolicyActionsComponent,
         PolicyHeaderComponent,
         SelectContactFieldsToRewriteComponent,
         PolicyCoverCardComponent,
+        PolicyComplementsComponent,
     ],
     imports: [
         CommonModule,
@@ -46,6 +50,7 @@ import { DeletePolicyModalComponent } from './components/delete-policy-modal/del
         SharedModule,
         TasksModule,
         ReactiveFormsModule,
+        PolicyComplementModule,
     ],
     providers: [GenderNamePipe, PhoneCodePipe, PolicyService],
 })

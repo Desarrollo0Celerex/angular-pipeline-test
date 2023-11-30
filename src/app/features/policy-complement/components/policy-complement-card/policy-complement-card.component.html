@@ -1,0 +1,35 @@
+<!-- AGETHOS - SMARTWALLET POLICY COMPLEMENT CARD -->
+<div
+    class="list-group-item list-group-item-action flex-column align-items-start"
+    *ngIf="policyComplement"
+>
+    <div class="d-flex align-items-center">
+        <div class="mt-1">
+            <agt-file-extension
+                [fileUrl]="policyComplement.url"
+            ></agt-file-extension>
+            <h5 class="mt-3">{{ policyComplement.name }}</h5>
+        </div>
+        <small class="ml-auto fs-16 mt-3">
+            <!-- AGENTHOS - SMARTWALLET POLICY COMPLEMENT VIEW -->
+            <button
+                type="button"
+                class="btn btn-icon agt-btn-primary-outline mr-3"
+                (click)="downloadPolicyComplement(policyComplement.url)"
+            >
+                <i class="fe fe-download-cloud"></i>
+            </button>
+            <!-- AGENTHOS - SMARTWALLET POLICY COMPLEMENT DELETE -->
+            <button
+                type="button"
+                class="btn btn-icon agt-btn-secondary-outline mr-3"
+                (click)="
+                    deletePolicyComplement(policyComplement.policyComplementId)
+                "
+            >
+                <i class="fe fe-trash-2"></i>
+            </button>
+        </small>
+    </div>
+</div>
+<!-- //AGETHOS - SMARTWALLET POLICY COMPLEMENT CARD -->

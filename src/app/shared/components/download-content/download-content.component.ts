@@ -14,7 +14,6 @@ import { ROUTES_NAME } from '@constants/routes-name';
     styles: [],
 })
 export class DownloadContentComponent {
-    contentUrl: string | undefined = undefined;
     data: DownloadContent | undefined = undefined;
     modalId = 'agt-modal-download-content';
     ngxCorrectionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;

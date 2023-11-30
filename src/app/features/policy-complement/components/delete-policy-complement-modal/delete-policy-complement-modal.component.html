@@ -1,4 +1,3 @@
-<!-- AGENTHOS - QUOTE LAUNCHER -->
 <div
     class="modal fade"
     [id]="modalId"
@@ -7,9 +6,9 @@
     aria-hidden="true"
 >
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" *ngIf="isInitializedComponent">
             <div class="modal-header">
-                <h5 class="modal-title">{{ title }}</h5>
+                <h5 class="modal-title">Eliminar Complemento</h5>
                 <button
                     type="button"
                     class="close"
@@ -20,43 +19,42 @@
                 </button>
             </div>
             <div class="modal-body">
-                <ol class="breadcrumb1">
-                    <li class="breadcrumb-item1">{{ description }}</li>
-                </ol>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-justify">
+                            <strong>¿Deseas eliminar el complemento?</strong>
+                        </p>
+                        <p class="text-justify">
+                            El complemento será eliminado de forma permanente y
+                            no podrá recuperarse.
+                            <strong
+                                >Por favor confirma si deseas continuar</strong
+                            >.
+                        </p>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-12 mt-3">
-                        <!-- AGENTHOS - CONTACT LEAD CREATOR -->
                         <button
                             type="button"
-                            class="btn btn-block agt-btn-default"
-                            (click)="doActionCreateContact()"
+                            class="btn btn-block agt-btn-delete"
+                            data-dismiss="modal"
+                            (click)="deletePolicyComplement()"
                         >
-                            📇 <strong>CLIENTE NUEVO</strong>
-                        </button>
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <!-- AGENTHOS - POLICY NEW CERTIFICATE -->
-                        <button
-                            type="button"
-                            class="btn btn-block agt-btn-default"
-                            (click)="doActionSearchContact()"
-                        >
-                            🗄️ <strong>CLIENTE ACTUAL</strong>
+                            🗑️ <strong>ELIMINAR COMPLEMENTO</strong>
                         </button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <!-- AGENTHOS - CANCEL QUOTE -->
                 <button
                     type="button"
                     class="btn btn-block agt-btn-secondary-outline"
                     data-dismiss="modal"
                 >
-                    CANCELAR
+                    <strong>CANCELAR</strong>
                 </button>
             </div>
         </div>
     </div>
 </div>
-<!-- //AGENTHOS - QUOTE LAUNCHER -->

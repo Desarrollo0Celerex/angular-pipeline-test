@@ -1,0 +1,23 @@
+<!-- AGENTHOS - SMARTWALLET POLICY COMPLEMENT -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Complemento de Póliza</h3>
+    </div>
+    <div class="card-body">
+        <div class="col-sm-12">
+            <button
+                type="button"
+                class="btn btn-block agt-btn-primary"
+                (click)="showModalPolicyComplements()"
+            >
+                <strong>CARGAR COMPLEMENTO</strong>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - SMARTWALLET POLICY COMPLEMENT -->
+
+<agt-policy-complement-modal
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-policy-complement-modal>

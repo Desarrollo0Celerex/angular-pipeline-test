@@ -33,7 +33,8 @@ export class DownloadPolicyComponent {
         this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .subscribe((policy) => {
-                this.downloadContentComponent.contentUrl = policy.policyUrl;
+                this.downloadContentComponent.data!.contentUrl =
+                    policy.policyUrl;
             });
     }
 }
