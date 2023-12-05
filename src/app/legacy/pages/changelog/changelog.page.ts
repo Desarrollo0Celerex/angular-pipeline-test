@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.49.6',
+            launchDate: '04/12/2023',
+            changes: [
+                {
+                    title: 'All Policies',
+                    items: [
+                        'Se corrigio bug en el filtro para listar las pólizas que inician vigencia los últimos 8 días.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.49.5',
             launchDate: '29/11/2023',
             changes: [

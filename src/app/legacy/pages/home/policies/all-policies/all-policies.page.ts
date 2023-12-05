@@ -86,7 +86,7 @@ Por favor, no respondas este mensaje.`;
         const perPage = 1000;
         const fields =
             'workspaceName,titularName,insurerName,insuranceName,policyNumber,contactTypeId,coveredProperty,validityStartDate,validityEndDate,paymentPlanName,policyAmount,currencyName,policyUrl,workspaceAdvisoryWhatsappCode,workspaceAdvisoryWhatsappNumber,titularPhoneCode,titularPhoneNumber';
-        const filters = `createdAt[>=]${filterDate},createdAt[<=]${currentDate},validityStartDate[>=]${filterDate},validityStartDate[<=]${filterDate},policyStatusId[!=]${policyStatusIncomplete}`;
+        const filters = `validityStartDate[>=]${filterDate},validityStartDate[<=]${filterDate},policyStatusId[!=]${policyStatusIncomplete}`;
         this._policyService
             .getAllPolicies(page, perPage, fields, filters)
             .subscribe((res) => {
