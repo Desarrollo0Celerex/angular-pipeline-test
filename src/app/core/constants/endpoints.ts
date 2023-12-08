@@ -49,6 +49,8 @@ export const PAYMENT_ENDPOINTS: any = {
         `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/payments/${paymentId}`,
     workspacePayments: (workspaceId: string) =>
         `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/payments`,
+    workspacePaymentComment: (workspaceId: string, paymentId: string) =>
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/payments/${paymentId}/comment`,
 };
 
 export const PAYMENT_REMINDER_ENDPOINTS: any = {

@@ -50,6 +50,7 @@ import { PaymentAppliedListComponent } from './components/payment-applied-list/p
 import { PaymentStatusBackgroundPipe } from '@shared/pipes/payment-status-background/payment-status-background.pipe';
 import { PaymentStatusIconPipe } from '@shared/pipes/payment-status-icon/payment-status-icon.pipe';
 import { PaymentStatusNamePipe } from '@shared/pipes/payment-status-name/payment-status-name.pipe';
+import { ModalCreatePaymentCommentComponent } from './components/modal-create-payment-comment/modal-create-payment-comment.component';
 
 @NgModule({
     declarations: [
@@ -71,6 +72,7 @@ import { PaymentStatusNamePipe } from '@shared/pipes/payment-status-name/payment
         ModalRequestReminderDataComponent,
         CalendarPage,
         PaymentAppliedListComponent,
+        ModalCreatePaymentCommentComponent,
     ],
     exports: [PaymentListComponent, PaymentAppliedListComponent],
     imports: [

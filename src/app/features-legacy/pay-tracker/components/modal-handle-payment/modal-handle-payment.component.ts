@@ -8,10 +8,8 @@ import {
 import { TASK_MODULES } from '@core/constants/settings';
 import { PaymentService } from '@core/services/payment/payment.service';
 import { environment } from '@env/environment';
-import { AuthService } from '@features-legacy/auth/services/auth.service';
-import { InitModalCreateTask } from '@features-legacy/tasks/interfaces/init-modal-create-task.interface';
-import { TaskModalService } from '@features-legacy/tasks/services/task-modal.service';
 import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
+import { ModalCreatePaymentCommentComponent } from '../modal-create-payment-comment/modal-create-payment-comment.component';
 declare var ModalPlugin: any;
 
 @Component({
@@ -30,12 +28,12 @@ export class ModalHandlePaymentComponent {
     @Output() sendReminder: EventEmitter<void> = new EventEmitter<void>();
     @ViewChild(CreateTaskComponent)
     createTaskComponent!: CreateTaskComponent;
+    @ViewChild(ModalCreatePaymentCommentComponent)
+    modalCreatePaymentCommentComponent!: ModalCreatePaymentCommentComponent;
+    alertMessage = '';
+    canShowAlert = false;
 
-    constructor(
-        private _authService: AuthService,
-        private _paymentService: PaymentService,
-        private _taskModalService: TaskModalService
-    ) {}
+    constructor(private _paymentService: PaymentService) {}
 
     get applyPaymentLabel(): string {
         return this.isPreauthorizedPayment === '1'
@@ -44,7 +42,7 @@ export class ModalHandlePaymentComponent {
     }
 
     requestApplyPayment(): void {
-        this._closeModal();
+        this.closeModal();
         if (this.isPreauthorizedPayment === '1') {
             this.applyPayment.emit();
         } else {
@@ -52,18 +50,31 @@ export class ModalHandlePaymentComponent {
         }
     }
 
+    commentAdded(): void {
+        ModalPlugin.show(this.modalId);
+        this.alertMessage = 'La nota se guardó con éxito.';
+        this.canShowAlert = true;
+    }
+
+    showModalCreateComment(): void {
+        this.closeModal();
+        this.modalCreatePaymentCommentComponent.init(this.paymentId);
+    }
+
     showModalCreateTask(): void {
-        this._closeModal();
+        this.closeModal();
         this._loadPayment();
     }
 
     requestSendReminder(): void {
-        this._closeModal();
+        this.closeModal();
         this.sendReminder.emit();
     }
 
-    private _closeModal(): void {
+    closeModal(): void {
         ModalPlugin.hide(this.modalId);
+        this.alertMessage = '';
+        this.canShowAlert = false;
     }
 
     private _loadPayment(): void {

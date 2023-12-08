@@ -1,0 +1,130 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nota de Recibo</h5>
+                <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="closeModal()"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form" (submit)="validateForm()">
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1">
+                            Ingresa la nota que deseas agregar al recibo.
+                        </li>
+                    </ol>
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - PAYTRACKER PAYMENT COMMENTS * -->
+                                <label class="form-label">Comentarios</label>
+                                <textarea
+                                    class="form-control {{
+                                        getValidationClass('comment')
+                                    }}"
+                                    name="agtPayTrackerPaymentComments"
+                                    rows="11"
+                                    formControlName="comment"
+                                >
+    Ingresa los comentarios para este recibo de pago.</textarea
+                                >
+                                <div class="invalid-feedback">
+                                    {{ getErrorMessage("comment") }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - PAYTRACKER PAYMENT POLICY * -->
+                                <label class="form-label">No. Póliza</label>
+                                <input
+                                    type="text"
+                                    name="agtPayTrackerPaymentPolicy"
+                                    class="form-control"
+                                    [value]="payment?.policyNumber"
+                                    disabled=""
+                                />
+                            </div>
+                            <div class="form-group">
+                                <!-- AGENTHOS - PAYTRACKER PAYMENT NUMBER * -->
+                                <label class="form-label">No. Recibo</label>
+                                <input
+                                    type="text"
+                                    name="agtPayTrackerPaymentNumber"
+                                    class="form-control"
+                                    value="{{
+                                        payment ? payment.tickets + 1 : ''
+                                    }} DE {{ payment?.bills }}"
+                                    disabled=""
+                                />
+                            </div>
+                            <div class="form-group">
+                                <!-- AGENTHOS - PAYTRACKER PAYMENT AMOUNT * -->
+                                <label class="form-label"
+                                    >Monto del Recibo</label
+                                >
+                                <input
+                                    type="text"
+                                    name="agtPayTrackerPaymentAmount"
+                                    class="form-control"
+                                    [value]="
+                                        paymentAmount
+                                            | currency : '' : '$' : '0.2-2'
+                                    "
+                                    disabled=""
+                                />
+                            </div>
+                            <div class="form-group">
+                                <!-- AGENTHOS - PAYTRACKER PAYMENT POLICY * -->
+                                <label class="form-label"
+                                    >Fecha del Recibo</label
+                                >
+                                <input
+                                    type="text"
+                                    name="agtPayTrackerPaymentDate"
+                                    class="form-control"
+                                    [value]="
+                                        payment?.paymentDate
+                                            | date : 'dd/MM/yyyy'
+                                    "
+                                    disabled=""
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mt-3">
+                            <button
+                                type="submit"
+                                class="btn btn-block agt-btn-default"
+                            >
+                                🧾 <strong>AGREGAR NOTA</strong>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    (click)="closeModal()"
+                >
+                    <strong>CANCELAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
