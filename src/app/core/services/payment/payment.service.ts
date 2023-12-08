@@ -167,4 +167,17 @@ export class PaymentService {
             requestBody
         );
     }
+
+    updatePaymentComment(
+        paymentId: string,
+        comment: string = ''
+    ): Observable<void> {
+        return this._apiHttp.put(
+            PAYMENT_ENDPOINTS.workspacePaymentComment(
+                this._workspaceId,
+                paymentId
+            ),
+            { comment }
+        );
+    }
 }

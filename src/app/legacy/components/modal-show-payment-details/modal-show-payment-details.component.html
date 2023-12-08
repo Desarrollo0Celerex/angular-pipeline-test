@@ -8,7 +8,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Detalles de Recibo</h5>
+                <h5 class="modal-title">Detalles de Recibo 01</h5>
                 <button
                     type="button"
                     class="close"
@@ -21,8 +21,11 @@
             <ng-container *ngIf="model.payment; else loadingContent">
                 <div class="modal-body">
                     <!-- AGENTHOS - SMART ALERTS -->
-                    <div class="row" *ngIf="totalExpiredDays > 0">
-                        <div class="col-md-12 mb-3">
+                    <div class="row">
+                        <div
+                            class="col-md-12 mb-3"
+                            *ngIf="totalExpiredDays > 0"
+                        >
                             <a
                                 routerLink="/{{
                                     ROUTES_NAME.pendingReceipts(
@@ -53,9 +56,23 @@
                                 </div></a
                             >
                         </div>
-                    </div>
-                    <!-- //AGENTHOS - SMART ALERTS -->
-                    <div class="row">
+                        <div
+                            class="col-md-12 mb-3"
+                            *ngIf="model.payment.comment"
+                        >
+                            <div
+                                class="alert agt-alert-warning alert-dismissible fade show"
+                                role="alert"
+                            >
+                                <span class="alert-inner--icon"
+                                    ><i class="fe fe-bubble mr-2"></i
+                                ></span>
+                                <span class="alert-inner--text">{{
+                                    model.payment.comment
+                                }}</span>
+                            </div>
+                        </div>
+                        <!-- //AGENTHOS - SMART ALERTS -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Titular</label>

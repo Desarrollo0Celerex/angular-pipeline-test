@@ -65,4 +65,5 @@ export interface Payment {
     workspaceCollectionPhoneNumber: string;
     workspaceCollectionEmail: string;
     contactName: string;
+    comment: string;
 }
