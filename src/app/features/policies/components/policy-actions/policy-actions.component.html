@@ -12,18 +12,8 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-12 mb-3" *ngIf="data?.isSavedPolicy">
-                        <div
-                            class="alert agt-alert-success alert-dismissible fade show"
-                            role="alert"
-                        >
-                            <span class="alert-inner--icon"
-                                ><i class="fe fe-check-circle mr-2"></i
-                            ></span>
-                            <span class="alert-inner--text"
-                                >La póliza se guardó con éxito.</span
-                            >
-                        </div>
+                    <div class="col-12 mb-3" *ngIf="canShowAlert">
+                        <agt-alert [message]="alertMessage"></agt-alert>
                     </div>
                     <div class="col-12">
                         <ol class="breadcrumb1">
@@ -86,7 +76,7 @@
                 <a
                     [routerLink]="data?.cancelRoute"
                     class="btn btn-block agt-btn-secondary-outline"
-                    data-dismiss="modal"
+                    (click)="closeModal()"
                 >
                     <strong>SALIR</strong>
                 </a>
@@ -95,6 +85,8 @@
     </div>
 </div>
 
-<agt-send-policy (policySent)="showAlertPolicySent()"></agt-send-policy>
 <agt-download-policy></agt-download-policy>
 <agt-follow-policy></agt-follow-policy>
+<agt-send-policy-modal
+    (policySent)="showAlertPolicySent()"
+></agt-send-policy-modal>

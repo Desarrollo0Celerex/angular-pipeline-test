@@ -25,10 +25,4 @@ export class FormatterHelper {
     static formatShortDate(date: string): string {
         return moment(date).format('DD/MM/YYYY');
     }
-
-    static formatWhatsappLink(phoneNumber: string, message: string): string {
-        return `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
-            message
-        )}`;
-    }
 }

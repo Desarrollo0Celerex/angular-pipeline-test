@@ -67,7 +67,10 @@ export class ApiHttp {
     }
 
     private _extractData(response: FullHttpResponse): any {
-        return response.body.data;
+        //return response.body.data;
+        return response.body.data
+            ? response.body.data
+            : response.body.notificationResults;
     }
 
     private _resetOptions(): void {

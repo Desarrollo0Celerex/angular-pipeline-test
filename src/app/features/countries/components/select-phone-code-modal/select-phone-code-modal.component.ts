@@ -11,20 +11,32 @@ declare var ModalPlugin: any;
 })
 export class SelectPhoneCodeModalComponent {
     @Output() phoneCodeIdSelected = new EventEmitter<number>();
+    @Output() phoneCodeSelected = new EventEmitter<string>();
     modalId = 'agt-select-phone-code-modal';
     countries: Country[] = [];
+    private _isPhoneCode = false;
 
     constructor(private _countryService: CountryService) {}
 
-    init(): void {
+    closeModal(): void {
+        ModalPlugin.hide(this.modalId);
+    }
+
+    init(isPhoneCode: boolean): void {
+        this._isPhoneCode = isPhoneCode;
         ModalPlugin.show(this.modalId);
         if (this.countries.length === 0) {
             this._loadCountries();
         }
     }
 
-    selectPhoneCodeId(phoneCodeId: number): void {
-        this.phoneCodeIdSelected.emit(phoneCodeId);
+    selectPhoneCode(phoneCodeId: number, phoneCode: string): void {
+        if (this._isPhoneCode) {
+            this.phoneCodeSelected.emit(phoneCode);
+        } else {
+            this.phoneCodeIdSelected.emit(phoneCodeId);
+        }
+        this.closeModal();
     }
 
     private _loadCountries(): void {

@@ -134,6 +134,12 @@ export class UtilitiesHelper {
         return parseFloat(result.toString());
     }
 
+    static generateWhatsappLink(phone: string, message: string): string {
+        return `https://web.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(
+            message
+        )}`;
+    }
+
     static executeWhatsappLink(whatsappLink: string): void {
         const link = document.createElement('a');
         link.target = '_blank';

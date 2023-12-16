@@ -41,11 +41,13 @@ import { PhoneCodePipe } from './pipes/phone-code.pipe';
 import { ModalSelectShippingChannelsComponent } from './components/modal-select-shipping-channels/modal-select-shipping-channels.component';
 import { GenerateShippingInformationComponent } from './components/generate-shipping-information/generate-shipping-information.component';
 import { ModalRequestShippingContactsComponent } from './components/modal-request-shipping-contacts/modal-request-shipping-contacts.component';
+import { CountriesModule as CountriesLegacyModule } from '@countries/countries.module';
 import { CountriesModule } from '@features-legacy/countries/countries.module';
 import { DownloadContentComponent } from './components/download-content/download-content.component';
 import { QrCodeComponent } from './components/qr-code/qr-code.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { FileExtensionComponent } from './components/file-extension/file-extension.component';
+import { ShippingChannelsComponent } from './components/shipping-channels/shipping-channels.component';
 
 @NgModule({
     declarations: [
@@ -83,6 +85,7 @@ import { FileExtensionComponent } from './components/file-extension/file-extensi
         QrCodeComponent,
         AlertComponent,
         FileExtensionComponent,
+        ShippingChannelsComponent,
     ],
     exports: [
         AlertComponent,
@@ -106,16 +109,18 @@ import { FileExtensionComponent } from './components/file-extension/file-extensi
         PluralPipe,
         PhoneCodePipe,
         QrCodeComponent,
+        ShippingChannelsComponent,
     ],
     imports: [
         CommonModule,
-        CountriesModule,
+        CountriesLegacyModule,
         FormsModule,
         MatDatepickerModule,
         MatMomentDateModule,
         NgxQRCodeModule,
         ReactiveFormsModule,
         RouterModule,
+        CountriesModule,
     ],
     providers: [
         { provide: MAT_DATE_LOCALE, useValue: 'es' },

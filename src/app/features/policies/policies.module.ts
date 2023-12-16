@@ -21,6 +21,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DeletePolicyModalComponent } from './components/delete-policy-modal/delete-policy-modal.component';
 import { PolicyComplementsComponent } from './components/policy-complements/policy-complements.component';
 import { PolicyComplementModule } from '@policy-complement/policy-complement.module';
+import { SendPolicyModalComponent } from './components/send-policy-modal/send-policy-modal.component';
+import { NotifierModule } from '@notifier/notifier.module';
+import { SendWhatsappMessageModalComponent } from './components/send-whatsapp-message-modal/send-whatsapp-message-modal.component';
 
 @NgModule({
     declarations: [
@@ -35,6 +38,8 @@ import { PolicyComplementModule } from '@policy-complement/policy-complement.mod
         UpdatePolicyModalComponent,
         DeletePolicyModalComponent,
         PolicyComplementsComponent,
+        SendPolicyModalComponent,
+        SendWhatsappMessageModalComponent,
     ],
     exports: [
         PolicyActionsComponent,
@@ -45,6 +50,7 @@ import { PolicyComplementModule } from '@policy-complement/policy-complement.mod
     ],
     imports: [
         CommonModule,
+        NotifierModule,
         PoliciesRoutingModule,
         RouterModule,
         SharedModule,
