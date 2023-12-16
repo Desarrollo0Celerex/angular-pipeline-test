@@ -3,6 +3,8 @@ import { ApiHttp } from '@core/http/api.http';
 import { Observable, of } from 'rxjs';
 import { environment } from '@env/environment';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
+import { SendNotificationRequestBody } from '@notifier/interfaces/send-notification-request-body';
+import { SendNotificationResponse } from '@notifier/interfaces/send-notification-response';
 
 export enum NOTIFICATION_CHANNELS {
     EMAIL = 1,
@@ -42,6 +44,14 @@ export class NotifierService {
     constructor(private _apiHttp: ApiHttp, private _authService: AuthService) {}
 
     sendNotification(
+        requestBody: SendNotificationRequestBody
+    ): Observable<SendNotificationResponse[]> {
+        const endpoint = environment.agenthosNotifier.apiUrl;
+        requestBody.workspaceId = this._workspaceId;
+        return this._apiHttp.post(endpoint, requestBody);
+    }
+
+    sendNotificationLegacy(
         notificationType: NOTIFICATION_TYPES,
         data: NotificationData
     ): Observable<void | null> {

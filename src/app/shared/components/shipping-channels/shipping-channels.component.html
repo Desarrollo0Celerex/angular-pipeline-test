@@ -1,0 +1,131 @@
+<Form [formGroup]="form" (submit)="validateForm()">
+    <!-- AGENTHOS - SMART ALERTS -->
+    <div class="row">
+        <!-- //AGENTHOS - SMART ALERTS -->
+        <div class="col-md-12">
+            <ol class="breadcrumb1">
+                <li class="breadcrumb-item1">
+                    Selecciona la acción que deseas realizar.
+                </li>
+            </ol>
+        </div>
+        <div class="col-md-12 mt-3">
+            <ul class="list-group">
+                <!-- AGENTHOS - SMARTWALLET POLICY NOTIFICATION CHANNEL * -->
+                <li class="list-group-item">
+                    WhatsApp
+                    <span class="col-auto align-self-center">
+                        <span
+                            class="form-help"
+                            data-toggle="popover"
+                            data-placement="right"
+                            data-content="Se enviará un mensaje personalizado por WhatsApp."
+                            >?</span
+                        >
+                    </span>
+                    <div class="material-switch pull-right">
+                        <input
+                            id="shipping-channel-whatsapp"
+                            type="checkbox"
+                            formControlName="hasPhone"
+                        />
+                        <label
+                            for="shipping-channel-whatsapp"
+                            class="label-success"
+                        ></label>
+                    </div>
+                </li>
+            </ul>
+            <!-- AGENTHOS - SMARTWALLET POLICY NOTIFICATION WHATSAPP NUMBER  -->
+            <!-- (JUST IF WHATSAPP CHANNEL SELECTED) -->
+            <div class="form-group mt-3" *ngIf="form.value.hasPhone">
+                <!-- AGENTHOS - SMARTWALLET POLICY PHONE -->
+                <div class="row gutters-xs">
+                    <span class="col-auto">
+                        <agt-phone-code-button
+                            [phoneCode]="form.value.phoneCode"
+                            (phoneCodeSelected)="
+                                showModalAndUpdatePhoneCode($event)
+                            "
+                        ></agt-phone-code-button>
+                    </span>
+                    <div class="col">
+                        <!-- AGENTHOS - SMARTWALLET POLICY OWNER NUMBER -->
+                        <input
+                            type="text"
+                            class="form-control {{
+                                getValidationClass('phoneNumber')
+                            }}"
+                            formControlName="phoneNumber"
+                        />
+                        <div class="invalid-feedback">
+                            {{ getErrorMessage("phoneNumber") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - SMARTWALLET POLICY NOTIFICATION WHATSAPP NUMBER  -->
+        </div>
+        <div class="col-md-12 mt-3">
+            <ul class="list-group">
+                <!-- AGENTHOS - PAYTRACKER PAYMENT NOTIFICATION CHANNEL * -->
+                <li class="list-group-item">
+                    Correo Electrónico
+                    <span class="col-auto align-self-center">
+                        <span
+                            class="form-help"
+                            data-toggle="popover"
+                            data-placement="right"
+                            data-content="Se enviará un texto personalizado por correo eletrónico."
+                            >?</span
+                        >
+                    </span>
+                    <div class="material-switch pull-right">
+                        <input
+                            id="shipping-channel-email"
+                            type="checkbox"
+                            formControlName="hasEmail"
+                        />
+                        <label
+                            for="shipping-channel-email"
+                            class="label-success"
+                        ></label>
+                    </div>
+                </li>
+            </ul>
+            <!-- AGENTHOS - SMARTWALLET POLICY NOTIFICATION EMAIL -->
+            <!-- (JUST IF EMAIL CHANNEL SELECTED) -->
+            <div class="form-group mt-3" *ngIf="form.value.hasEmail">
+                <!-- AGENTHOS - SMARTWALLET POLICY OWNER EMAIL -->
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="fa fa-envelope tx-16 lh-0 op-6"></i>
+                        </div>
+                    </div>
+                    <input
+                        type="text"
+                        class="form-control {{ getValidationClass('email') }}"
+                        formControlName="email"
+                    />
+                    <div class="invalid-feedback">
+                        {{ getErrorMessage("email") }}
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - SMARTWALLET POLICY NOTIFICATION EMAIL -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mt-3">
+            <!-- AGENTHOS - SMARTWALLET POLICY SENDER -->
+            <button
+                type="submit"
+                class="btn btn-block agt-btn-default"
+                [disabled]="!checkIsValidForm() || !form.valid"
+            >
+                📲 <strong>ENVIAR PÓLIZA</strong>
+            </button>
+        </div>
+    </div>
+</Form>

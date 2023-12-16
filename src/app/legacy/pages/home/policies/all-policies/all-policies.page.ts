@@ -22,9 +22,8 @@ export class AllPoliciesPage implements OnInit {
 
     sendMessage(policy: Policy): void {
         const message = this._generateMessage(policy);
-        const phoneNumber = `${policy.titularPhoneCode}${policy.titularPhoneNumber}`;
-        const whatsappLink = FormatterHelper.formatWhatsappLink(
-            phoneNumber,
+        const whatsappLink = UtilitiesHelper.generateWhatsappLink(
+            policy.titularPhoneCode + policy.titularPhoneNumber,
             message
         );
         UtilitiesHelper.executeWhatsappLink(whatsappLink);

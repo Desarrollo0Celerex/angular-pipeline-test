@@ -12,8 +12,8 @@
                 <button
                     type="button"
                     class="close"
-                    data-dismiss="modal"
                     aria-label="Close"
+                    (click)="closeModal()"
                 >
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -33,8 +33,12 @@
                                 *ngFor="let country of countries"
                                 type="button"
                                 class="btn agt-btn-default"
-                                data-dismiss="modal"
-                                (click)="selectPhoneCodeId(country.countryId)"
+                                (click)="
+                                    selectPhoneCode(
+                                        country.countryId,
+                                        country.code
+                                    )
+                                "
                             >
                                 <i class="flag {{ country.flag }} mr-3"></i>+{{
                                     country.code
@@ -49,7 +53,7 @@
                     type="button"
                     name="agtCancelAction"
                     class="btn btn-block agt-btn-secondary-outline"
-                    data-dismiss="modal"
+                    (click)="closeModal()"
                 >
                     <strong>CANCELAR</strong>
                 </button>

@@ -1,11 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { SendPolicyComponent } from '../send-policy/send-policy.component';
 import { PolicyActions } from '@policies/interfaces/policy-actions.interface';
-import { AlertHelper } from '@core/helpers/alert.helper';
 import { Router } from '@angular/router';
 import { DownloadPolicyComponent } from '../download-policy/download-policy.component';
 import { FollowPolicyComponent } from '../follow-policy/follow-policy.component';
+import { SendPolicyModalComponent } from '../send-policy-modal/send-policy-modal.component';
 
 declare var ModalPlugin: any;
 
@@ -19,8 +18,10 @@ export class PolicyActionsComponent {
     downloadPolicyComponent!: DownloadPolicyComponent;
     @ViewChild(FollowPolicyComponent)
     followPolicyComponent!: FollowPolicyComponent;
-    @ViewChild(SendPolicyComponent)
-    sendPolicyComponent!: SendPolicyComponent;
+    @ViewChild(SendPolicyModalComponent)
+    sendPolicyModalComponent!: SendPolicyModalComponent;
+    alertMessage = '';
+    canShowAlert = false;
     data: PolicyActions | undefined = undefined;
     modalId = 'agt-policy-actions';
     routeContactPolicies = '';
@@ -29,25 +30,33 @@ export class PolicyActionsComponent {
 
     constructor(private _router: Router) {}
 
+    closeModal(): void {
+        this.canShowAlert = false;
+        this.alertMessage = '';
+        ModalPlugin.hide(this.modalId);
+    }
+
     init(data: PolicyActions): void {
         this.data = data;
+        if (this.data.isSavedPolicy) {
+            this.canShowAlert = true;
+            this.alertMessage = 'La póliza se guardó con éxito.';
+        }
         this._initRoutes();
         ModalPlugin.show(this.modalId);
     }
 
     showModalSendPolicy(): void {
-        this.sendPolicyComponent.init({
-            contactId: this.data!.contactId,
-            policyId: this.data!.policyId,
-            cancelRoute: this.routeContactPolicies,
-            phoneCode: this.data!.phoneCode,
-            phoneNumber: this.data!.phoneNumber,
-            email: this.data!.email,
-        });
+        this.sendPolicyModalComponent.show(
+            this.data!.contactId,
+            this.data!.policyId
+        );
     }
 
     showAlertPolicySent(): void {
-        AlertHelper.policySent(this._goToListContactPolicies, this);
+        ModalPlugin.show(this.modalId);
+        this.canShowAlert = true;
+        this.alertMessage = 'La póliza se envió con éxito.';
     }
 
     showModalCreateTask(): void {
@@ -83,11 +92,5 @@ export class PolicyActionsComponent {
                 this.data!.contactId,
                 this.data!.policyId
             );
-    }
-
-    private _goToListContactPolicies(context: PolicyActionsComponent): void {
-        context._router.navigateByUrl(
-            ROUTES_NAME.listContactPolicies(context.data!.contactId)
-        );
     }
 }

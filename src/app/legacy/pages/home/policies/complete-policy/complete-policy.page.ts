@@ -823,7 +823,7 @@ export class CompletePolicyPage implements OnInit {
             email,
         };
         this._notifierService
-            .sendNotification(NOTIFICATION_TYPES.POLICY_ISSUED, data)
+            .sendNotificationLegacy(NOTIFICATION_TYPES.POLICY_ISSUED, data)
             .subscribe(
                 () => {
                     this._showSuccessModal(paymentId);
