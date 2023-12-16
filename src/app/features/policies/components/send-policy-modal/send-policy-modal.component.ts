@@ -96,10 +96,8 @@ export class SendPolicyModalComponent {
         this._loadingService.show();
         ModalPlugin.hide(this.modalId);
         const requestBody = {
-            contactId: 'CON20220429A672O',
-            policyId: 'POL20231107SVQOM',
-            /* contactId: this._contactId,
-            policyId: this._policyId, */
+            contactId: this._contactId,
+            policyId: this._policyId,
             notificationChannels,
         };
         this._notifierService.sendNotification(requestBody).subscribe((res) => {
