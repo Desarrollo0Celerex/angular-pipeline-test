@@ -28,8 +28,6 @@ export class PolicyActionsComponent {
     routePolicyPendingReceipts = '';
     routePolicyRecord = '';
 
-    constructor(private _router: Router) {}
-
     closeModal(): void {
         this.canShowAlert = false;
         this.alertMessage = '';

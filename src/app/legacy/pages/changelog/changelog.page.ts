@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.49.10',
+            launchDate: '15/12/2023',
+            changes: [
+                {
+                    title: 'Policies',
+                    items: [
+                        'Se agrego modal para enviar por correo y whatsapp uns póliza.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.49.9',
             launchDate: '07/12/2023',
             changes: [
