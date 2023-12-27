@@ -6,12 +6,12 @@ import { FILE_SIZES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@core/helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { FileParam } from '@interfaces/file-param.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { POLICY_ENDPOINTS } from '@services/policy.service';
 
 import { UploadPolicyService } from './upload-policy.service';
+import { FileParam } from '@components/file-uploader/file-uploader.component';
 
 declare var DropifyPlugin: any;
 declare var Select2Plugin: any;

@@ -3,6 +3,8 @@ import { WorkspaceReportActionsModalComponent } from '../workspace-report-action
 import { ACTION_TYPES } from '@constants/global';
 import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
 import { TASK_MODULES } from '@core/constants/settings';
+import { ContactCategoryModalComponent } from '@contact/components/contact-category-modal/contact-category-modal.component';
+import { CONTACT_ACTIONS } from '@contact/enums/contact-actions.enum';
 
 declare var ModalPlugin: any;
 
@@ -17,6 +19,8 @@ enum CONTENT_TYPES {
     styles: [],
 })
 export class WorkspaceQuickActionsModalComponent {
+    @ViewChild(ContactCategoryModalComponent)
+    contactCategoryModalComponent!: ContactCategoryModalComponent;
     @ViewChild(WorkspaceReportActionsModalComponent)
     workspaceReportActionsModalComponent!: WorkspaceReportActionsModalComponent;
     @ViewChild(CreateTaskComponent)
@@ -31,6 +35,18 @@ export class WorkspaceQuickActionsModalComponent {
     modalIdSearchContact = 'wqam-modal-search-contact';
     modalIdAgenthosSupport = 'wqam-modal-agenthos-support';
     private _selectedContentType = 0;
+
+    createPolicy(): void {
+        this.contactCategoryModalComponent.openModal(
+            CONTACT_ACTIONS.CREATE_POLICY
+        );
+    }
+
+    createQuotation(): void {
+        this.contactCategoryModalComponent.openModal(
+            CONTACT_ACTIONS.CREATE_QUOTATION
+        );
+    }
 
     showModal(): void {
         ModalPlugin.show(this.modalId);

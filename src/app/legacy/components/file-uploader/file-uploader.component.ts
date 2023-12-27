@@ -1,12 +1,16 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { FileParam } from '@interfaces/file-param.interface';
 import { LoadingService } from '@core/services/loading/loading.service';
 import { StorageService } from '@core/services/storage/storage.service';
 
 declare let plupload: any;
 
 const ERROR_FILE_SIZE = -600;
+
+export interface FileParam {
+    name: string;
+    value: string | number;
+}
 
 @Component({
     selector: 'agt-file-uploader',

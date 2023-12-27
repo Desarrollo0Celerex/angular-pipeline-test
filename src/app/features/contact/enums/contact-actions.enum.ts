@@ -1,0 +1,4 @@
+export enum CONTACT_ACTIONS {
+    CREATE_QUOTATION = 1,
+    CREATE_POLICY = 2,
+}

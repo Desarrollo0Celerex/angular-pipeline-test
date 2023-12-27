@@ -1,0 +1,67 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ title }}</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">{{ description }}</li>
+                        </ol>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET CLIENT SELECTOR -->
+                        <button
+                            type="button"
+                            class="btn btn-block agt-btn-default"
+                            data-dismiss="modal"
+                            (click)="selectContactType()"
+                        >
+                            📇 <strong>CLIENTE NUEVO</strong>
+                        </button>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET CLIENT SEARCH -->
+                        <button
+                            type="button"
+                            name="agtSmartWalletClientSearch"
+                            class="btn btn-block agt-btn-default"
+                            data-toggle="modal"
+                            data-target="#agtSmartWalletClientSearch"
+                            data-dismiss="modal"
+                        >
+                            🗄️ <strong>CLIENTE ACTUAL</strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    data-dismiss="modal"
+                >
+                    <strong>CANCELAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<agt-contact-type-modal></agt-contact-type-modal>

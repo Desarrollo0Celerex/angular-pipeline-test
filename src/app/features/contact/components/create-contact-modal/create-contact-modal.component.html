@@ -1,0 +1,418 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ modalData.title }}</h5>
+                <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="closeModal()"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form
+                    *ngIf="isFormCreated"
+                    [formGroup]="form"
+                    (submit)="validateForm()"
+                >
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">
+                                    {{ modalData.description }}
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY PAYMENT METHOD * -->
+                                <label class="form-label">País</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-globe tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <select
+                                        class="form-control {{
+                                            getValidationClass('countryId')
+                                        }}"
+                                        data-placeholder="País del Cliente"
+                                        formControlName="countryId"
+                                        (change)="loadStates()"
+                                    >
+                                        <optgroup label="Seleccionar País">
+                                            <option
+                                                [value]="country.countryId"
+                                                *ngFor="
+                                                    let country of countries
+                                                "
+                                            >
+                                                {{ country.name | uppercase }}
+                                            </option>
+                                        </optgroup>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        {{ getErrorMessage("countryId") }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY PAYMENT METHOD * -->
+                                <label class="form-label">Ubicación</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-map-marker tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <select
+                                        class="form-control {{
+                                            getValidationClass('stateId')
+                                        }}"
+                                        formControlName="stateId"
+                                        data-placeholder="Ubicación del Cliente"
+                                    >
+                                        <optgroup label="Seleccionar Ubicación">
+                                            <option
+                                                [value]="state.stateId"
+                                                *ngFor="let state of states"
+                                            >
+                                                {{ state.name | uppercase }}
+                                            </option>
+                                        </optgroup>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        {{ getErrorMessage("stateId") }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ng-container
+                            *ngIf="
+                                contactType === CONTACT_TYPES.PERSON;
+                                else companyContact
+                            "
+                        >
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT NAME * -->
+                                    <label class="form-label">Nombre(s)</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-user tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{
+                                                getValidationClass('name')
+                                            }}"
+                                            formControlName="name"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{ getErrorMessage("name") }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT PATERNAL NAME * -->
+                                    <label class="form-label"
+                                        >Apellido Paterno</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-user tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{
+                                                getValidationClass(
+                                                    'namePaternal'
+                                                )
+                                            }}"
+                                            formControlName="namePaternal"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{
+                                                getErrorMessage("namePaternal")
+                                            }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT MATERNAL NAME * -->
+                                    <label class="form-label"
+                                        >Apellido Materno</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-user tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{
+                                                getValidationClass(
+                                                    'nameMaternal'
+                                                )
+                                            }}"
+                                            formControlName="nameMaternal"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{
+                                                getErrorMessage("nameMaternal")
+                                            }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-template #companyContact>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT REAL NAME * -->
+                                    <label class="form-label"
+                                        >Razón Social</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-user tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{
+                                                getValidationClass(
+                                                    'companyName'
+                                                )
+                                            }}"
+                                            formControlName="companyName"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{ getErrorMessage("companyName") }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT BRAND * -->
+                                    <label class="form-label"
+                                        >Nombre Comercial</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-user tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{
+                                                getValidationClass('brandName')
+                                            }}"
+                                            formControlName="brandName"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{ getErrorMessage("brandName") }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT LEGAL REPRESENTATIVE -->
+                                    <label class="form-label"
+                                        >Representante Legal</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-user tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{
+                                                getValidationClass(
+                                                    'legalRepresentative'
+                                                )
+                                            }}"
+                                            formControlName="legalRepresentative"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{
+                                                getErrorMessage(
+                                                    "legalRepresentative"
+                                                )
+                                            }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - CONTACT COMERCIAL ACTIVITY -->
+                                    <label class="form-label"
+                                        >Actividad Comercial</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-user tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{
+                                                getValidationClass(
+                                                    'comercialActivity'
+                                                )
+                                            }}"
+                                            formControlName="comercialActivity"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{
+                                                getErrorMessage(
+                                                    "comercialActivity"
+                                                )
+                                            }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY MAIL * -->
+                                <label class="form-label"
+                                    >Correo Electrónico</label
+                                >
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-envelope tx-16 lh-0 op-6"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control {{
+                                            getValidationClass('email')
+                                        }}"
+                                        formControlName="email"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{ getErrorMessage("email") }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY PHONE * -->
+                                <label class="form-label">WhatsApp</label>
+                                <div class="row gutters-xs">
+                                    <span class="col-auto">
+                                        <agt-phone-code-button
+                                            [phoneCodeId]="
+                                                form.value.phoneCodeId
+                                            "
+                                            (phoneCodeIdSelected)="
+                                                changePhoneCodeId($event)
+                                            "
+                                        ></agt-phone-code-button>
+                                    </span>
+                                    <div class="col">
+                                        <!-- AGENTHOS - SMARTWALLET POLICY NUMBER * -->
+                                        <input
+                                            type="text"
+                                            class="form-control {{
+                                                getValidationClass(
+                                                    'phoneNumber'
+                                                )
+                                            }}"
+                                            formControlName="phoneNumber"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{ getErrorMessage("phoneNumber") }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mt-3">
+                            <button
+                                type="submit"
+                                class="btn btn-block agt-btn-default"
+                            >
+                                {{ modalData.buttonIcon }}
+                                <strong>{{ modalData.buttonLabel }}</strong>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    (click)="closeModal()"
+                >
+                    <strong>CANCELAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<agt-duplicate-contact-modal
+    (viewMatches)="viewMatches()"
+    (createDuplicateContact)="createDuplicateContact()"
+    (cancel)="reopenModal()"
+></agt-duplicate-contact-modal>
+<agt-create-policy-modal></agt-create-policy-modal>

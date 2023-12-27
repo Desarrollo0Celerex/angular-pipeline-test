@@ -6,22 +6,8 @@ import { environment } from '@env/environment';
 import { Policy } from '../interfaces/policy.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { UpdatePolicyContact } from '@policies/interfaces/update-policy-contact.interface';
-
-const ENDPOINTS = {
-    activePolicy: (workspaceId: string, contactId: string, policyId: string) =>
-        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/active`,
-    contactPolicy: (workspaceId: string, contactId: string, policyId: string) =>
-        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}`,
-    incompletePolicy: (
-        workspaceId: string,
-        contactId: string,
-        policyId: string
-    ) =>
-        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/incomplete`,
-    policyContact: (workspaceId: string, contactId: string, policyId: string) =>
-        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/titular-contact`,
-    policyNotification: `${environment.agenthosNotifications.apiUrl}/policies`,
-};
+import { POLICY_ENDPOINTS } from '@policies/constants/endpoints';
+import { CreatePolicyRequestBody } from '@policies/interfaces/create-policy-request-body.interface';
 
 @Injectable()
 export class PolicyService {
@@ -29,18 +15,36 @@ export class PolicyService {
 
     constructor(private _apiHttp: ApiHttp, private _authService: AuthService) {}
 
+    createPolicy(
+        contactId: string,
+        requestBody: CreatePolicyRequestBody
+    ): Observable<string> {
+        return this._apiHttp.post(
+            POLICY_ENDPOINTS.contactPolicies(this._workspaceId, contactId),
+            requestBody
+        );
+    }
+
     deleteIncompletePolicy(
         contactId: string,
         policyId: string
     ): Observable<void> {
         return this._apiHttp.delete(
-            ENDPOINTS.incompletePolicy(this._workspaceId, contactId, policyId)
+            POLICY_ENDPOINTS.incompletePolicy(
+                this._workspaceId,
+                contactId,
+                policyId
+            )
         );
     }
 
     deleteActivePolicy(contactId: string, policyId: string): Observable<void> {
         return this._apiHttp.delete(
-            ENDPOINTS.activePolicy(this._workspaceId, contactId, policyId)
+            POLICY_ENDPOINTS.activePolicy(
+                this._workspaceId,
+                contactId,
+                policyId
+            )
         );
     }
 
@@ -52,14 +56,21 @@ export class PolicyService {
         return this._apiHttp
             .param('fields', fields)
             .get(
-                ENDPOINTS.contactPolicy(this._workspaceId, contactId, policyId)
+                POLICY_ENDPOINTS.contactPolicy(
+                    this._workspaceId,
+                    contactId,
+                    policyId
+                )
             );
     }
 
     sendPolicyNotification(
         requestBody: SendPolicyNotification
     ): Observable<string> {
-        return this._apiHttp.post(ENDPOINTS.policyNotification, requestBody);
+        return this._apiHttp.post(
+            POLICY_ENDPOINTS.policyNotification,
+            requestBody
+        );
     }
 
     updatePolicyContact(
@@ -68,7 +79,11 @@ export class PolicyService {
         requestBody: UpdatePolicyContact
     ): Observable<void> {
         return this._apiHttp.put(
-            ENDPOINTS.policyContact(this._workspaceId, contactId, policyId),
+            POLICY_ENDPOINTS.policyContact(
+                this._workspaceId,
+                contactId,
+                policyId
+            ),
             requestBody
         );
     }

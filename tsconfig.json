@@ -20,19 +20,26 @@
         "paths": {
             // NEW
             "@configs/*": ["app/configs/*"],
+            "@contact/*": ["app/features/contact/*"],
             "@core/*": ["app/core/*"],
             "@countries/*": ["app/features/countries/*"],
+            "@insurance/*": ["app/features/insurance/*"],
+            "@insurer/*": ["app/features/insurer/*"],
+            "@insurance-type/*": ["app/features/insurance-type/*"],
             "@notifier/*": ["app/features/notifier/*"],
             "@shared/*": ["app/shared/*"],
             "@features-legacy/*": ["app/features-legacy/*"],
             "@policy-complement/*": ["app/features/policy-complement/*"],
             "@policies/*": ["app/features/policies/*"],
+            "@quotation/*": ["app/features/quotation/*"],
             "@seller-commission-suggestions/*": [
                 "app/features/seller-commission-suggestions/*"
             ],
+            "@state/*": ["app/features/state/*"],
             "@task-progress-status/*": ["app/features/task-progress-status/*"],
             "@tasks/*": ["app/features/tasks/*"],
             "@users/*": ["app/features/users/*"],
+            "@workspace/*": ["app/features/workspace/*"],
             "@workspace-users/*": ["app/features/workspace-users/*"],
 
             // LEGACY
