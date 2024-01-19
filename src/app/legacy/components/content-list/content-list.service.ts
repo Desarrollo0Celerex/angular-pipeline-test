@@ -2097,7 +2097,7 @@ export class ContentListService {
         specialQuery: SearchContactData | null
     ): Observable<void> {
         const fields: string =
-            'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName';
+            'contactId,contactName,avatarUrl,leadStatusName,leadStatusBackground,clientStatusName,clientStatusBackground,contactSourceName,contactSourceTypeName,contactScoreName,totalGlobalWallet,totalActivePolicies,currencyName,contactTypeId';
         return this._contactService
             .getContacts(page, fields, query, specialQuery)
             .pipe(

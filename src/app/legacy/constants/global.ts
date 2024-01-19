@@ -631,6 +631,7 @@ export const DEFAULT_PHONE_CODE_ID: number = 1;
 export const DEFAULT_COUNTRY_ID: number = 1;
 export const DEFAULT_ROLE_ID: number = 1;
 export const DEFAULT_CONTACT_SOURCE_ID: number = 1;
+export const DEFAULT_CONTACT_SOURCE_TYPE_ID: number = 1;
 export const DEFAULT_CONTENT_FILTER_ID: number = 1;
 export const DEFAULT_CURRENCY_ID: number = 1;
 export const DEFAULT_POLICY_STATUS_ID: number = POLICY_STATUS_ACTIVE;

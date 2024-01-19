@@ -135,7 +135,7 @@ export class UtilitiesHelper {
     }
 
     static generateWhatsappLink(phone: string, message: string): string {
-        return `https://web.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(
+        return `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(
             message
         )}`;
     }

@@ -12,7 +12,7 @@ import { CONTACT_FILE_ENDPOINTS } from '@services/contact-file.service';
 import { LoadingService } from '@core/services/loading/loading.service';
 
 import { UploadContactFileService } from './upload-contact-file.service';
-import { FileParam } from '@interfaces/file-param.interface';
+import { FileParam } from '@components/file-uploader/file-uploader.component';
 
 declare var DropifyPlugin: any;
 

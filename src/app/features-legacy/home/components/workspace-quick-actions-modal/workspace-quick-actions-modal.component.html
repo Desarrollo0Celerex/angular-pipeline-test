@@ -44,11 +44,7 @@
                             type="button"
                             class="btn btn-block agt-btn-default"
                             data-dismiss="modal"
-                            (click)="
-                                showModalSelectContactAction(
-                                    CONTENT_TYPES.QUOTATION
-                                )
-                            "
+                            (click)="createQuotation()"
                         >
                             🛡️ <strong>COTIZAR SEGURO</strong>
                         </button>
@@ -59,11 +55,7 @@
                             type="button"
                             class="btn btn-block agt-btn-default"
                             data-dismiss="modal"
-                            (click)="
-                                showModalSelectContactAction(
-                                    CONTENT_TYPES.POLICY
-                                )
-                            "
+                            (click)="createPolicy()"
                         >
                             🗃️ <strong>CARGAR PÓLIZA</strong>
                         </button>
@@ -127,3 +119,4 @@
 <agt-modal-confirm-go-to-agenthos-support
     [modalId]="modalIdAgenthosSupport"
 ></agt-modal-confirm-go-to-agenthos-support>
+<agt-contact-category-modal></agt-contact-category-modal>

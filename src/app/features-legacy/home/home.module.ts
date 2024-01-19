@@ -25,6 +25,8 @@ import { ModalSelectContactTypeModule } from '@components/modal-select-contact-t
 import { ModalSearchContactModule } from '@components/modal-search-contact/modal-search-contact.module';
 import { TasksModule } from '@tasks/tasks.module';
 import { ModalConfirmGoToAgenthosSupportModule } from '@components/modal-confirm-go-to-agenthos-support/modal-confirm-go-to-agenthos-support.module';
+import { ContactModule } from '@contact/contact.module';
+import { PoliciesModule } from '@policies/policies.module';
 
 @NgModule({
     declarations: [
@@ -46,6 +48,7 @@ import { ModalConfirmGoToAgenthosSupportModule } from '@components/modal-confirm
     ],
     imports: [
         CommonModule,
+        ContactModule,
         HomeRoutingModule,
         SharedModule,
         ModalSelectContactActionModule,
@@ -53,6 +56,7 @@ import { ModalConfirmGoToAgenthosSupportModule } from '@components/modal-confirm
         ModalSearchContactModule,
         TasksModule,
         ModalConfirmGoToAgenthosSupportModule,
+        PoliciesModule,
     ],
     providers: [VoiceControlService],
 })

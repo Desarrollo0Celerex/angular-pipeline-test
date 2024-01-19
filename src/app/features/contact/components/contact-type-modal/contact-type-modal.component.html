@@ -1,0 +1,68 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tipo de Cliente</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">
+                                Selecciona el tipo de cliente que deseas crear.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET CLIENT CREATOR PERSON -->
+                        <button
+                            type="button"
+                            class="btn btn-block agt-btn-default"
+                            data-dismiss="modal"
+                            (click)="createPerson()"
+                        >
+                            👨🏻‍💼 <strong>PERSONA</strong>
+                        </button>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET CLIENT CREATOR COMPANY -->
+                        <button
+                            type="button"
+                            class="btn btn-block agt-btn-default"
+                            data-dismiss="modal"
+                            (click)="createCompany()"
+                        >
+                            🏢 <strong>EMPRESA</strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- AGENTHOS - CANCEL UPLOAD -->
+                <button
+                    type="button"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    data-dismiss="modal"
+                >
+                    <strong>CANCELAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<agt-create-contact-modal></agt-create-contact-modal>

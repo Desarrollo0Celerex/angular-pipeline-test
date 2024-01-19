@@ -5,7 +5,7 @@ export const environment = {
     importerApiUrl: 'https://importer.agenthos.com/v1',
     agenthos: {
         landingUrl: 'https://agenthos.com',
-        appUrl: 'https://app.agenthos.com',
+        appUrl: 'https://workspace.agenthos.com',
         apiUrl: 'https://api.agenthos.com/v1',
         support: {
             phoneCode: '52',

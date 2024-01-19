@@ -43,6 +43,8 @@ import { LoadingService } from '@core/services/loading/loading.service';
 import { ContentListService } from './content-list.service';
 import { Policy } from '@core/interfaces/policy.interface';
 import { PolicyActionsComponent } from '@policies/components/policy-actions/policy-actions.component';
+import { Contact } from '@core/interfaces/contact.interface';
+import { CreatePolicyModalService } from '@policies/components/create-policy-modal/create-policy-modal.service';
 
 declare var ModalPlugin: any;
 
@@ -194,6 +196,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
     constructor(
         public contentListService: ContentListService,
         private _activatedRoute: ActivatedRoute,
+        private _createPolicyModalService: CreatePolicyModalService,
         private _loadingService: LoadingService,
         private _router: Router
     ) {
@@ -432,11 +435,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to catch the selected contact
      * @param contactId The selected contact ID
      */
-    onContactSelected(contactId: string): void {
+    onContactSelected(contact: Contact): void {
         if (!!this.actionType) {
-            this._doActionToSelectedContact(contactId);
+            this._doActionToSelectedContact(contact);
         } else {
-            this._router.navigateByUrl(ROUTES_NAME.contactResume(contactId));
+            this._router.navigateByUrl(
+                ROUTES_NAME.contactResume(contact.contactId)
+            );
         }
     }
 
@@ -1041,20 +1046,23 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Do action to contact selected
      * @param contactId The selected contact ID
      */
-    private _doActionToSelectedContact(contactId: string): void {
+    private _doActionToSelectedContact(contact: Contact): void {
         switch (this.actionType) {
             case ACTION_TYPES.CREATE_QUOTATION:
                 this._router.navigateByUrl(
-                    ROUTES_NAME.createQuotation(contactId)
+                    ROUTES_NAME.createQuotation(contact.contactId)
                 );
                 break;
 
             case ACTION_TYPES.CREATE_POLICY:
-                this._router.navigateByUrl(ROUTES_NAME.createPolicy(contactId));
+                this._createPolicyModalService.openModal({
+                    contactId: contact.contactId,
+                    contactType: contact.contactTypeId,
+                });
                 break;
 
             case ACTION_TYPES.SELECT_CONTACT:
-                this.selectedContactId = contactId;
+                this.selectedContactId = contact.contactId;
                 ModalPlugin.show(this.modalIdSelectContact);
                 break;
 
@@ -1064,12 +1072,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                     .renewPolicy(
                         this.originContactId,
                         this.originPolicyId,
-                        contactId
+                        contact.contactId
                     )
                     .subscribe((res: HttpResponse) => {
                         this._loadingService.hide();
                         this._router.navigateByUrl(
-                            ROUTES_NAME.uploadPolicy(contactId, res.data),
+                            ROUTES_NAME.uploadPolicy(
+                                contact.contactId,
+                                res.data
+                            ),
                             { state: { comesFromRenewalPolicy: true } }
                         );
                     });
@@ -1081,12 +1092,15 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                     .reissuePolicy(
                         this.originContactId,
                         this.originPolicyId,
-                        contactId
+                        contact.contactId
                     )
                     .subscribe((res: HttpResponse) => {
                         this._loadingService.hide();
                         this._router.navigate([
-                            ROUTES_NAME.uploadPolicy(contactId, res.data),
+                            ROUTES_NAME.uploadPolicy(
+                                contact.contactId,
+                                res.data
+                            ),
                         ]);
                     });
                 break;

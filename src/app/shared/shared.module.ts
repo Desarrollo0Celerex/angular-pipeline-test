@@ -48,6 +48,7 @@ import { QrCodeComponent } from './components/qr-code/qr-code.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { FileExtensionComponent } from './components/file-extension/file-extension.component';
 import { ShippingChannelsComponent } from './components/shipping-channels/shipping-channels.component';
+import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 
 @NgModule({
     declarations: [
@@ -86,6 +87,7 @@ import { ShippingChannelsComponent } from './components/shipping-channels/shippi
         AlertComponent,
         FileExtensionComponent,
         ShippingChannelsComponent,
+        FileUploaderComponent,
     ],
     exports: [
         AlertComponent,
@@ -102,6 +104,7 @@ import { ShippingChannelsComponent } from './components/shipping-channels/shippi
         ContentListComponent,
         DownloadContentComponent,
         FileExtensionComponent,
+        FileUploaderComponent,
         GenderNamePipe,
         GenerateShippingInformationComponent,
         LoadingContentComponent,

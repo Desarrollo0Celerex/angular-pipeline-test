@@ -202,6 +202,18 @@ export class ListContactCoincidencesPage implements OnInit, OnDestroy {
      */
     private _doActionToSavedContact(contactId: string): void {
         switch (this.actionType) {
+            case ACTION_TYPES.CREATE_QUOTATION:
+                this._loadingService.hide();
+                this._router.navigateByUrl(
+                    ROUTES_NAME.createQuotation(contactId)
+                );
+                break;
+
+            case ACTION_TYPES.CREATE_POLICY:
+                this._loadingService.hide();
+                this._router.navigateByUrl(ROUTES_NAME.createPolicy(contactId));
+                break;
+
             case ACTION_TYPES.SELECT_CONTACT:
                 this._loadingService.hide();
                 this._router.navigateByUrl(

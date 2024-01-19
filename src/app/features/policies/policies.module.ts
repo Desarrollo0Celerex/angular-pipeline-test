@@ -24,6 +24,10 @@ import { PolicyComplementModule } from '@policy-complement/policy-complement.mod
 import { SendPolicyModalComponent } from './components/send-policy-modal/send-policy-modal.component';
 import { NotifierModule } from '@notifier/notifier.module';
 import { SendWhatsappMessageModalComponent } from './components/send-whatsapp-message-modal/send-whatsapp-message-modal.component';
+import { InsurerModule } from '@insurer/insurer.module';
+import { InsuranceModule } from '@insurance/insurance.module';
+import { InsuranceTypeModule } from '@insurance-type/insurance-type.module';
+import { CreatePolicyModalComponent } from './components/create-policy-modal/create-policy-modal.component';
 
 @NgModule({
     declarations: [
@@ -40,16 +44,21 @@ import { SendWhatsappMessageModalComponent } from './components/send-whatsapp-me
         PolicyComplementsComponent,
         SendPolicyModalComponent,
         SendWhatsappMessageModalComponent,
+        CreatePolicyModalComponent,
     ],
     exports: [
+        CreatePolicyModalComponent,
+        SelectContactFieldsToRewriteComponent,
         PolicyActionsComponent,
         PolicyHeaderComponent,
-        SelectContactFieldsToRewriteComponent,
         PolicyCoverCardComponent,
         PolicyComplementsComponent,
     ],
     imports: [
         CommonModule,
+        InsuranceModule,
+        InsuranceTypeModule,
+        InsurerModule,
         NotifierModule,
         PoliciesRoutingModule,
         RouterModule,

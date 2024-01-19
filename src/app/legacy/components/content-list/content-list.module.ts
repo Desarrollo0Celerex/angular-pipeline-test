@@ -114,6 +114,7 @@ import { ContentListComponent } from './content-list.component';
 import { ContentListService } from './content-list.service';
 import { PluralModule } from '@pipes/plural/plural.module';
 import { PoliciesModule } from '@policies/policies.module';
+import { ContactModule } from '@contact/contact.module';
 
 @NgModule({
     declarations: [ContentListComponent],
