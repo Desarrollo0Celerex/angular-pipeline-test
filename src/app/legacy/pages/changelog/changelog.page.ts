@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.50.0',
+            launchDate: '18/01/2024',
+            changes: [
+                {
+                    title: 'Policies',
+                    items: [
+                        'Se flujo para cargar una cotización o una póliza a un cliente nuevo o existente.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.49.10',
             launchDate: '15/12/2023',
             changes: [
