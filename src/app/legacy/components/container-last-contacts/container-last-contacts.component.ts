@@ -6,6 +6,7 @@ import { AlertHelper } from '@core/helpers/alert.helper';
 import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ContainerLastContactsService } from './container-last-contacts.service';
+import { Contact } from '@core/interfaces/contact.interface';
 
 declare var ModalPlugin: any;
 
@@ -43,8 +44,10 @@ export class ContainerLastContactsComponent implements OnInit {
             });
     }
 
-    goToContactProfile(contactId: string): void {
-        this._router.navigateByUrl(ROUTES_NAME.contactResume(contactId));
+    goToContactProfile(contact: Contact): void {
+        this._router.navigateByUrl(
+            ROUTES_NAME.contactResume(contact.contactId)
+        );
     }
 
     goToListContacts(): void {

@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { CONTACT_ACTIONS } from '@contact/enums/contact-actions.enum';
 import { ContactTypeModalComponent } from '../contact-type-modal/contact-type-modal.component';
+import { SearchContactModalComponent } from '../search-contact-modal/search-contact-modal.component';
 
 declare var ModalPlugin: any;
 
@@ -12,6 +13,8 @@ declare var ModalPlugin: any;
 export class ContactCategoryModalComponent {
     @ViewChild(ContactTypeModalComponent)
     contactTypeModalComponent!: ContactTypeModalComponent;
+    @ViewChild(SearchContactModalComponent)
+    searchContactModalComponent!: SearchContactModalComponent;
     description = '';
     modalId = 'agt-contact-category-modal';
     title = '';
@@ -21,6 +24,10 @@ export class ContactCategoryModalComponent {
         this._contactAction = contactAction;
         this._generateTitleAndDescription();
         ModalPlugin.show(this.modalId);
+    }
+
+    searchContact(): void {
+        this.searchContactModalComponent.openModal(this._contactAction);
     }
 
     selectContactType(): void {

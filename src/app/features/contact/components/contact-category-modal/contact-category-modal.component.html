@@ -40,11 +40,9 @@
                         <!-- AGENTHOS - SMARTWALLET CLIENT SEARCH -->
                         <button
                             type="button"
-                            name="agtSmartWalletClientSearch"
                             class="btn btn-block agt-btn-default"
-                            data-toggle="modal"
-                            data-target="#agtSmartWalletClientSearch"
                             data-dismiss="modal"
+                            (click)="searchContact()"
                         >
                             🗄️ <strong>CLIENTE ACTUAL</strong>
                         </button>
@@ -65,3 +63,4 @@
 </div>
 
 <agt-contact-type-modal></agt-contact-type-modal>
+<agt-search-contact-modal></agt-search-contact-modal>

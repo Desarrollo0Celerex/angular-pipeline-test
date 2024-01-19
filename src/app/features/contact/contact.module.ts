@@ -12,6 +12,7 @@ import { StateModule } from '@state/state.module';
 import { ContactService } from './services/contact.service';
 import { DuplicateContactModalComponent } from './components/duplicate-contact-modal/duplicate-contact-modal.component';
 import { PoliciesModule } from '@policies/policies.module';
+import { SearchContactModalComponent } from './components/search-contact-modal/search-contact-modal.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { PoliciesModule } from '@policies/policies.module';
         ContactTypeModalComponent,
         CreateContactModalComponent,
         DuplicateContactModalComponent,
+        SearchContactModalComponent,
     ],
     exports: [ContactCategoryModalComponent],
     imports: [

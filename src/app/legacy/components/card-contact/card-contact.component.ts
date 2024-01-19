@@ -12,7 +12,7 @@ export class CardContactComponent {
     @Input() contact: Contact | null;
     @Input() buttonLabel: string = 'SELECCIONAR';
     @Input() canDeleteContact: boolean = true;
-    @Output() contactSelected: EventEmitter<string>;
+    @Output() contactSelected: EventEmitter<Contact>;
     @Output() showContactData: EventEmitter<string>;
     @Output() deleteContactRequested: EventEmitter<string> =
         new EventEmitter<string>();
@@ -20,7 +20,7 @@ export class CardContactComponent {
 
     constructor() {
         this.contact = null;
-        this.contactSelected = new EventEmitter<string>();
+        this.contactSelected = new EventEmitter<Contact>();
         this.showContactData = new EventEmitter<string>();
         this.ROUTES_NAME = ROUTES_NAME;
     }
@@ -34,12 +34,8 @@ export class CardContactComponent {
             : false;
     }
 
-    /**
-     * Click event to select the contact
-     * @param contactId The contact ID to select
-     */
-    onClickSelectContact(contactId: string): void {
-        this.contactSelected.emit(contactId);
+    onClickSelectContact(contact: Contact): void {
+        this.contactSelected.emit(contact);
     }
 
     /**

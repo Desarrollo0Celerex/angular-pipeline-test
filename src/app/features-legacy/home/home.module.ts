@@ -56,6 +56,7 @@ import { PoliciesModule } from '@policies/policies.module';
         ModalSearchContactModule,
         TasksModule,
         ModalConfirmGoToAgenthosSupportModule,
+        PoliciesModule,
     ],
     providers: [VoiceControlService],
 })

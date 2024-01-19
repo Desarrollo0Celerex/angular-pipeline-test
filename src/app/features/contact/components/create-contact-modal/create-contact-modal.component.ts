@@ -33,6 +33,7 @@ import { WorkspaceService } from '@workspace/services/workspace.service';
 import { DuplicateContactModalComponent } from '../duplicate-contact-modal/duplicate-contact-modal.component';
 import { CONTACTS_ROUTES } from '@contact/constants/routes';
 import { CreatePolicyModalComponent } from '@policies/components/create-policy-modal/create-policy-modal.component';
+import { CreatePolicyModalService } from '@policies/components/create-policy-modal/create-policy-modal.service';
 
 declare var ModalPlugin: any;
 
@@ -44,8 +45,6 @@ declare var ModalPlugin: any;
 export class CreateContactModalComponent implements OnInit {
     @ViewChild(DuplicateContactModalComponent)
     duplicateContactModalComponent!: DuplicateContactModalComponent;
-    @ViewChild(CreatePolicyModalComponent)
-    createPolicyAuxModalComponent!: CreatePolicyModalComponent;
     CONTACT_TYPES = CONTACT_TYPES;
     contactType = 0;
     countries: Country[] = [];
@@ -65,6 +64,7 @@ export class CreateContactModalComponent implements OnInit {
     constructor(
         private _contactService: ContactService,
         private _countryService: CountryService,
+        private _createPolicyModalService: CreatePolicyModalService,
         private _formBuilder: FormBuilder,
         private _loadingService: LoadingService,
         private _router: Router,
@@ -287,7 +287,7 @@ export class CreateContactModalComponent implements OnInit {
                 break;
 
             case CONTACT_ACTIONS.CREATE_POLICY:
-                this.createPolicyAuxModalComponent.openModal({
+                this._createPolicyModalService.openModal({
                     contactId,
                     contactType: this.contactType,
                 });

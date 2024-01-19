@@ -85,7 +85,6 @@ export class FileUploaderComponent {
         const userToken: string | null = this._storageService.getUserToken();
         const allowedFileExtensions: string =
             this.allowedFileExtensions.join(',');
-        console.log(this.endpoint);
 
         this.uploader = new plupload.Uploader({
             runtimes: 'html5',

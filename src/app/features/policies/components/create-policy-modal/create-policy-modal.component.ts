@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
     AbstractControl,
     FormBuilder,
@@ -27,6 +27,8 @@ import {
 } from '@shared/components/file-uploader/file-uploader.component';
 import { WorkspaceService } from '@workspace/services/workspace.service';
 import { Observable, forkJoin } from 'rxjs';
+import { CreatePolicyModalService } from './create-policy-modal.service';
+import { SmartComponent } from '@core/classes/smart-component';
 
 declare var DropifyPlugin: any;
 declare var ModalPlugin: any;
@@ -36,7 +38,11 @@ declare var ModalPlugin: any;
     templateUrl: './create-policy-modal.component.html',
     styles: [],
 })
-export class CreatePolicyModalComponent {
+export class CreatePolicyModalComponent
+    extends SmartComponent
+    implements OnInit
+{
+    @Input() modalId = 'agt-create-policy-modal';
     @ViewChild(FileUploaderComponent)
     fileUploaderComponent!: FileUploaderComponent;
     allowedFileExtensions: string[] = ['pdf'];
@@ -45,7 +51,6 @@ export class CreatePolicyModalComponent {
     insurers: Insurer[] = [];
     form = this._buildForm();
     maxFileSize: string = FILE_SIZES.LARGE;
-    modalId = 'agt-create-policy-modal';
     uploadPolicyEndpoint = '';
     private _contactId = '';
     private _contactType = 0;
@@ -55,6 +60,7 @@ export class CreatePolicyModalComponent {
 
     constructor(
         private _authService: AuthService,
+        private _createPolicyModalService: CreatePolicyModalService,
         private _formBuilder: FormBuilder,
         private _insuranceService: InsuranceService,
         private _insuranceTypeService: InsuranceTypeService,
@@ -63,7 +69,17 @@ export class CreatePolicyModalComponent {
         private _policyService: PolicyService,
         private _router: Router,
         private _workspaceService: WorkspaceService
-    ) {}
+    ) {
+        super();
+    }
+
+    ngOnInit(): void {
+        this._createPolicyModalService.createPolicyModal$
+            .pipe(this.untilComponentDestroy())
+            .subscribe((data) => {
+                this._openModal(data);
+            });
+    }
 
     closeModal(): void {
         this._closeModal();
@@ -93,16 +109,6 @@ export class CreatePolicyModalComponent {
     loadInsuranceTypes(): void {
         this.form.patchValue({ insuranceTypeId: '' });
         this._loadInsuranceTypes();
-    }
-
-    openModal(modalData: { contactId: string; contactType: number }): void {
-        this._contactId = modalData.contactId;
-        this._contactType = modalData.contactType;
-        this._loadCatalogs();
-        ModalPlugin.show(this.modalId);
-        setTimeout(() => {
-            DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
-        }, 0);
     }
 
     patchFileValue(value: string): void {
@@ -241,6 +247,19 @@ export class CreatePolicyModalComponent {
             this._workpaceCountryId = workspace.countryId;
             this._loadCountryInsurers();
         });
+    }
+
+    private _openModal(modalData: {
+        contactId: string;
+        contactType: number;
+    }): void {
+        this._contactId = modalData.contactId;
+        this._contactType = modalData.contactType;
+        this._loadCatalogs();
+        ModalPlugin.show(this.modalId);
+        setTimeout(() => {
+            DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
+        }, 0);
     }
 
     private _uploadPolicyFile(): void {

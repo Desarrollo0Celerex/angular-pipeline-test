@@ -104,16 +104,13 @@ export class SendPolicyModalComponent {
             this._loadingService.hide();
             // Search whatsapp link
             const whatsappMessage = this._searchWhatsappMessage(res);
-            console.log('paso 1: ', whatsappMessage);
             if (whatsappMessage) {
-                console.log('paso 2');
                 this.sendWhatsappMessageModalComponent.openModal(
                     this._policy,
                     this._phone,
                     whatsappMessage
                 );
             } else {
-                console.log('paso 3');
                 this.notifyPolicySent();
             }
         });
