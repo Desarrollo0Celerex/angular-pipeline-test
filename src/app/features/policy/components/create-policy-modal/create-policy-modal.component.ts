@@ -18,9 +18,9 @@ import { Insurance } from '@insurance/interfaces/insurance.interface';
 import { InsuranceService } from '@insurance/services/insurance.service';
 import { Insurer } from '@insurer/interfaces/insurer.interface';
 import { InsurerService } from '@insurer/services/insurer.service';
-import { POLICY_ENDPOINTS } from '@policies/constants/endpoints';
-import { POLICY_ROUTES } from '@policies/constants/routes';
-import { PolicyService } from '@policies/services/policy.service';
+import { POLICY_ENDPOINTS } from '@policy/constants/endpoints';
+import { POLICY_ROUTES } from '@policy/constants/routes';
+import { PolicyService } from '@policy/services/policy.service';
 import {
     FileParam,
     FileUploaderComponent,

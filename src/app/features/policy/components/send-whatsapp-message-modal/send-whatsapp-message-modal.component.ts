@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { Policy } from '@policies/interfaces/policy.interface';
+import { Policy } from '@policy/interfaces/policy.interface';
 
 declare var ModalPlugin: any;
 

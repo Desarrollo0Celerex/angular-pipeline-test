@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@core/helpers/alert.helper';
 import { LoadingService } from '@core/services/loading/loading.service';
-import { PolicyService } from '@policies/services/policy.service';
+import { PolicyService } from '@policy/services/policy.service';
 
 declare var ModalPlugin: any;
 @Component({

@@ -30,7 +30,7 @@
             "@shared/*": ["app/shared/*"],
             "@features-legacy/*": ["app/features-legacy/*"],
             "@policy-complement/*": ["app/features/policy-complement/*"],
-            "@policies/*": ["app/features/policies/*"],
+            "@policy/*": ["app/features/policy/*"],
             "@quotation/*": ["app/features/quotation/*"],
             "@seller-commission-suggestions/*": [
                 "app/features/seller-commission-suggestions/*"

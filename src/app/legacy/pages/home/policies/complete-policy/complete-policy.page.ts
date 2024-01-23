@@ -24,9 +24,9 @@ import { LoadingService } from '@core/services/loading/loading.service';
 import { ScanningService } from '@services/scanning.service';
 
 import { CompletePolicyService } from './complete-policy.service';
-import { PolicyActionsComponent } from '@policies/components/policy-actions/policy-actions.component';
-import { RewriteField } from '@policies/interfaces/rewrite-field.interface';
-import { SelectContactFieldsToRewriteComponent } from '@policies/components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
+import { PolicyActionsComponent } from '@policy/components/policy-actions/policy-actions.component';
+import { RewriteField } from '@policy/interfaces/rewrite-field.interface';
+import { SelectContactFieldsToRewriteComponent } from '@policy/components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
 import {
     NOTIFICATION_TYPES,
     NotifierService,

@@ -2,9 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { TASK_MODULES } from '@core/constants/settings';
 import { environment } from '@env/environment';
-import { FollowPolicy } from '@policies/interfaces/follow-policy.interface';
-import { Policy } from '@policies/interfaces/policy.interface';
-import { PolicyService } from '@policies/services/policy.service';
+import { FollowPolicy } from '@policy/interfaces/follow-policy.interface';
+import { Policy } from '@policy/interfaces/policy.interface';
+import { PolicyService } from '@policy/services/policy.service';
 import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
 
 @Component({

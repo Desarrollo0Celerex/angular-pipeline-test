@@ -6,8 +6,8 @@ import {
     NOTIFICATION_TYPES,
     NotifierService,
 } from '@notifier/services/notifier.service';
-import { Policy } from '@policies/interfaces/policy.interface';
-import { PolicyService } from '@policies/services/policy.service';
+import { Policy } from '@policy/interfaces/policy.interface';
+import { PolicyService } from '@policy/services/policy.service';
 import { ShippingChannelsComponent } from '@shared/components/shipping-channels/shipping-channels.component';
 import { SendWhatsappMessageModalComponent } from '../send-whatsapp-message-modal/send-whatsapp-message-modal.component';
 import { SHIPPING_CHANNELS } from '@core/constants/settings';

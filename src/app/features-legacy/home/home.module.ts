@@ -26,7 +26,7 @@ import { ModalSearchContactModule } from '@components/modal-search-contact/modal
 import { TasksModule } from '@tasks/tasks.module';
 import { ModalConfirmGoToAgenthosSupportModule } from '@components/modal-confirm-go-to-agenthos-support/modal-confirm-go-to-agenthos-support.module';
 import { ContactModule } from '@contact/contact.module';
-import { PoliciesModule } from '@policies/policies.module';
+import { PoliciesModule } from '@policy/policies.module';
 
 @NgModule({
     declarations: [

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ROUTES_NAME } from '@constants/routes-name';
-import { PolicyActions } from '@policies/interfaces/policy-actions.interface';
+import { PolicyActions } from '@policy/interfaces/policy-actions.interface';
 import { Router } from '@angular/router';
 import { DownloadPolicyComponent } from '../download-policy/download-policy.component';
 import { FollowPolicyComponent } from '../follow-policy/follow-policy.component';

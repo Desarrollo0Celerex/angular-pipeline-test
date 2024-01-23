@@ -32,8 +32,8 @@ import { StateService } from '@state/services/state.service';
 import { WorkspaceService } from '@workspace/services/workspace.service';
 import { DuplicateContactModalComponent } from '../duplicate-contact-modal/duplicate-contact-modal.component';
 import { CONTACTS_ROUTES } from '@contact/constants/routes';
-import { CreatePolicyModalComponent } from '@policies/components/create-policy-modal/create-policy-modal.component';
-import { CreatePolicyModalService } from '@policies/components/create-policy-modal/create-policy-modal.service';
+import { CreatePolicyModalComponent } from '@policy/components/create-policy-modal/create-policy-modal.component';
+import { CreatePolicyModalService } from '@policy/components/create-policy-modal/create-policy-modal.service';
 
 declare var ModalPlugin: any;
 

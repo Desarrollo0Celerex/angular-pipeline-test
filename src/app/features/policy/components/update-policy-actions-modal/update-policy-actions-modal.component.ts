@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { DownloadPolicyComponent } from '../download-policy/download-policy.component';
-import { Policy } from '@policies/interfaces/policy.interface';
+import { Policy } from '@policy/interfaces/policy.interface';
 import { UpdatePolicyModalComponent } from '../update-policy-modal/update-policy-modal.component';
 import { DeletePolicyModalComponent } from '../delete-policy-modal/delete-policy-modal.component';
 

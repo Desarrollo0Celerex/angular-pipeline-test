@@ -5,9 +5,9 @@ import { SendPolicyNotification } from '../interfaces/send-policy-notification.i
 import { environment } from '@env/environment';
 import { Policy } from '../interfaces/policy.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
-import { UpdatePolicyContact } from '@policies/interfaces/update-policy-contact.interface';
-import { POLICY_ENDPOINTS } from '@policies/constants/endpoints';
-import { CreatePolicyRequestBody } from '@policies/interfaces/create-policy-request-body.interface';
+import { UpdatePolicyContact } from '@policy/interfaces/update-policy-contact.interface';
+import { POLICY_ENDPOINTS } from '@policy/constants/endpoints';
+import { CreatePolicyRequestBody } from '@policy/interfaces/create-policy-request-body.interface';
 
 @Injectable()
 export class PolicyService {

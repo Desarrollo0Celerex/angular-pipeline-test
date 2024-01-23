@@ -57,7 +57,7 @@ import { PolicyService } from '@services/policy.service';
 import { PolicyInsuredService } from '@services/policy-insured.service';
 import { ScannerLogService } from '@services/scanner-log.service';
 import { Contact } from '@core/interfaces/contact.interface';
-import { RewriteField } from '@policies/interfaces/rewrite-field.interface';
+import { RewriteField } from '@policy/interfaces/rewrite-field.interface';
 import { SellerCommissionSuggestionService } from '@seller-commission-suggestions/services/seller-commission-suggestion.service';
 import { TuneatorService } from '@services/tuneator.service';
 import { InsurerService } from '@services/insurer.service';

@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { DownloadPolicyComponent } from '../download-policy/download-policy.component';
-import { Policy } from '@policies/interfaces/policy.interface';
+import { Policy } from '@policy/interfaces/policy.interface';
 
 @Component({
     selector: 'agt-policy-header',
