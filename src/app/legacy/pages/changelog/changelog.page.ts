@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.51.0',
+            launchDate: '23/01/2024',
+            changes: [
+                {
+                    title: 'Policies',
+                    items: [
+                        'Se actualizo menu "Cancelar" en las pólizas.',
+                        'Se soluciono error en el comando de voz "Muéstrame recibos vencidos".',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.50.0',
             launchDate: '18/01/2024',
             changes: [
