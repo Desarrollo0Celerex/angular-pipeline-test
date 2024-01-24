@@ -532,7 +532,6 @@
                     (showPolicy)="onShowPolicy($event)"
                     (updatePolicy)="onUpdatePolicy($event)"
                     (endorsePolicy)="onEndorsePolicy($event)"
-                    (cancelPolicy)="onCancelPolicy($event)"
                     (renewPolicy)="onRenewPolicy($event)"
                     (reissuePolicy)="onReissuePolicy($event)"
                     (showHistoryPolicy)="onShowHistoryPolicy($event)"
@@ -936,6 +935,9 @@
         [contactId]="contactId"
         [policyId]="selectedPolicyId"
     ></agt-modal-confirm-cancel-policy>
+    <agt-cancel-policy-modal
+        (policyDeleted)="onReloadContent()"
+    ></agt-cancel-policy-modal>
     <agt-modal-confirm-show-history-policy
         [modalId]="modalIdConfirmShowHistoryPolicy"
         [contactId]="contactId"

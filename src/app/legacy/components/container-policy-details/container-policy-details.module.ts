@@ -17,33 +17,31 @@ import { ModalSelectContactTypeModule } from '@components/modal-select-contact-t
 
 import { PolicyService } from '@services/policy.service';
 import { PolicyLogService } from '@services/policy-log.service';
+import { PoliciesModule } from '@policy/policies.module';
 
 import { ContainerPolicyDetailsComponent } from './container-policy-details.component';
 import { ContainerPolicyDetailsService } from './container-policy-details.service';
 
 @NgModule({
-  declarations: [ContainerPolicyDetailsComponent],
-  exports: [ContainerPolicyDetailsComponent],
-  imports: [
-    CardPolicyModule,
-    CommonModule,
-    LoadingContentModule,
-    ModalConfirmCancelPolicyModule,
-    ModalConfirmDeletePolicyModule,
-    ModalConfirmDeleteRenewedPolicyModule,
-    ModalConfirmEndorsePolicyModule,
-    ModalConfirmReissuePolicyModule,
-    ModalConfirmRenewPolicyModule,
-    ModalConfirmShowHistoryPolicyModule,
-    ModalConfirmShowPaymentHistoryModule,
-    ModalConfirmShowPolicySinistersModule,
-    ModalConfirmUpdatePolicyModule,
-    ModalSelectContactTypeModule
-  ],
-  providers: [
-      ContainerPolicyDetailsService,
-      PolicyService,
-      PolicyLogService
-  ]
+    declarations: [ContainerPolicyDetailsComponent],
+    exports: [ContainerPolicyDetailsComponent],
+    imports: [
+        CardPolicyModule,
+        CommonModule,
+        LoadingContentModule,
+        ModalConfirmCancelPolicyModule,
+        ModalConfirmDeletePolicyModule,
+        ModalConfirmDeleteRenewedPolicyModule,
+        ModalConfirmEndorsePolicyModule,
+        ModalConfirmReissuePolicyModule,
+        ModalConfirmRenewPolicyModule,
+        ModalConfirmShowHistoryPolicyModule,
+        ModalConfirmShowPaymentHistoryModule,
+        ModalConfirmShowPolicySinistersModule,
+        ModalConfirmUpdatePolicyModule,
+        ModalSelectContactTypeModule,
+        PoliciesModule,
+    ],
+    providers: [ContainerPolicyDetailsService, PolicyService, PolicyLogService],
 })
-export class ContainerPolicyDetailsModule { }
+export class ContainerPolicyDetailsModule {}

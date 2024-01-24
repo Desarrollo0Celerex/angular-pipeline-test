@@ -5,6 +5,9 @@ import { CreateTaskComponent } from '@tasks/components/create-task/create-task.c
 import { TASK_MODULES } from '@core/constants/settings';
 import { ContactCategoryModalComponent } from '@contact/components/contact-category-modal/contact-category-modal.component';
 import { CONTACT_ACTIONS } from '@contact/enums/contact-actions.enum';
+import { ContactCategoryModalService } from '@contact/components/contact-category-modal/contact-category-modal.service';
+import { WorkspaceReportActionsModalService } from '../workspace-report-actions-modal/workspace-report-actions-modal.service';
+import { CreateTaskService } from '@tasks/components/create-task/create-task.service';
 
 declare var ModalPlugin: any;
 
@@ -21,8 +24,6 @@ enum CONTENT_TYPES {
 export class WorkspaceQuickActionsModalComponent {
     @ViewChild(ContactCategoryModalComponent)
     contactCategoryModalComponent!: ContactCategoryModalComponent;
-    @ViewChild(WorkspaceReportActionsModalComponent)
-    workspaceReportActionsModalComponent!: WorkspaceReportActionsModalComponent;
     @ViewChild(CreateTaskComponent)
     createTaskComponent!: CreateTaskComponent;
     modalId = 'wqam-workspace-quick-actions-modal';
@@ -36,14 +37,20 @@ export class WorkspaceQuickActionsModalComponent {
     modalIdAgenthosSupport = 'wqam-modal-agenthos-support';
     private _selectedContentType = 0;
 
+    constructor(
+        private _contactCategoryModalService: ContactCategoryModalService,
+        private _createTaskService: CreateTaskService,
+        private _workspaceReportActionsModalService: WorkspaceReportActionsModalService
+    ) {}
+
     createPolicy(): void {
-        this.contactCategoryModalComponent.openModal(
+        this._contactCategoryModalService.openModal(
             CONTACT_ACTIONS.CREATE_POLICY
         );
     }
 
     createQuotation(): void {
-        this.contactCategoryModalComponent.openModal(
+        this._contactCategoryModalService.openModal(
             CONTACT_ACTIONS.CREATE_QUOTATION
         );
     }
@@ -57,7 +64,7 @@ export class WorkspaceQuickActionsModalComponent {
     }
 
     showModalCreateTask(): void {
-        this.createTaskComponent.init({
+        this._createTaskService.openModal({
             title: 'Programar Tarea',
             message: 'Ingresa los detalles para programar la tarea. ',
             buttonLabel: '📆 PROGRAMAR TAREA',
@@ -66,11 +73,11 @@ export class WorkspaceQuickActionsModalComponent {
         });
         const subject = '📌 Seguimiento de Tarea';
         const details = '🎯 Seguimiento de tarea para ...';
-        this.createTaskComponent.patchTaskValues(subject, details);
+        this._createTaskService.patchTask({ subject, details });
     }
 
     showModalWorkspaceReportActions(): void {
-        this.workspaceReportActionsModalComponent.showModal();
+        this._workspaceReportActionsModalService.openModal();
     }
 
     showModalSelectContactAction(contentType: number): void {

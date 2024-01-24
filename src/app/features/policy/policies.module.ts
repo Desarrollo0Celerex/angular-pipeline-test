@@ -28,6 +28,9 @@ import { InsurerModule } from '@insurer/insurer.module';
 import { InsuranceModule } from '@insurance/insurance.module';
 import { InsuranceTypeModule } from '@insurance-type/insurance-type.module';
 import { CreatePolicyModalComponent } from './components/create-policy-modal/create-policy-modal.component';
+import { CancelPolicyModalComponent } from './components/cancel-policy-modal/cancel-policy-modal.component';
+import { CancelPolicyModalService } from './components/cancel-policy-modal/cancel-policy-modal.service';
+import { PolicyActionsDeletedModalComponent } from './components/policy-actions-deleted-modal/policy-actions-deleted-modal.component';
 
 @NgModule({
     declarations: [
@@ -45,11 +48,14 @@ import { CreatePolicyModalComponent } from './components/create-policy-modal/cre
         SendPolicyModalComponent,
         SendWhatsappMessageModalComponent,
         CreatePolicyModalComponent,
+        CancelPolicyModalComponent,
+        PolicyActionsDeletedModalComponent,
     ],
     exports: [
         CreatePolicyModalComponent,
         SelectContactFieldsToRewriteComponent,
         PolicyActionsComponent,
+        CancelPolicyModalComponent,
         PolicyHeaderComponent,
         PolicyCoverCardComponent,
         PolicyComplementsComponent,
@@ -67,6 +73,11 @@ import { CreatePolicyModalComponent } from './components/create-policy-modal/cre
         ReactiveFormsModule,
         PolicyComplementModule,
     ],
-    providers: [GenderNamePipe, PhoneCodePipe, PolicyService],
+    providers: [
+        CancelPolicyModalService,
+        GenderNamePipe,
+        PhoneCodePipe,
+        PolicyService,
+    ],
 })
 export class PoliciesModule {}

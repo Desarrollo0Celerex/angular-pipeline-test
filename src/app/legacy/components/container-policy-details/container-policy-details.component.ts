@@ -22,7 +22,6 @@ declare var ModalPlugin: any;
 export class ContainerPolicyDetailsComponent implements OnChanges {
     @Input() contactId: string = '';
     @Input() policyId: string = '';
-    modalIdConfirmCancelPolicy: string = 'agt-confirm-cancel-policy';
     modalIdConfirmDeletePolicy: string = 'agt-confirm-delete-policy';
     modalIdConfirmDeleteRenewedPolicy: string =
         'agt-confirm-delete-renewed-policy';
@@ -90,16 +89,6 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
         this.contactId = data.contactId;
         this.selectedPolicyId = data.policyId;
         ModalPlugin.show(this.modalIdConfirmDeletePolicy);
-    }
-
-    /**
-     * Event to cancel a policy
-     * @param policyId The policy ID
-     */
-    onCancelPolicy(data: ContactPolicyData): void {
-        this.contactId = data.contactId;
-        this.selectedPolicyId = data.policyId;
-        ModalPlugin.show(this.modalIdConfirmCancelPolicy);
     }
 
     /**

@@ -624,6 +624,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         ModalPlugin.show(this.modalIdRejectQuotation);
     }
 
+    onReloadContent(): void {
+        this._initContent();
+    }
+
     /**
      * Event to renew a policy
      * @param policyId The policy ID

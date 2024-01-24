@@ -15,6 +15,7 @@ import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 import { PaymentDataSend } from '@interfaces/payment-data-send.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
+import { CancelPolicyModalService } from '@policy/components/cancel-policy-modal/cancel-policy-modal.service';
 
 declare var PopoverPlugin: any;
 
@@ -30,8 +31,6 @@ export class CardPolicyComponent implements OnInit {
     @Input() isHistoryContent: boolean;
     @Input() selectedPolicyPos: number = 0;
     @Input() policyPos: number = 0;
-    @Output() cancelPolicy: EventEmitter<ContactPolicyData> =
-        new EventEmitter<ContactPolicyData>();
     @Output() completePolicy: EventEmitter<ContactPolicyData> =
         new EventEmitter<ContactPolicyData>();
     @Output() deletePolicy: EventEmitter<ContactPolicyData> =
@@ -63,7 +62,11 @@ export class CardPolicyComponent implements OnInit {
     INSURANCE_TYPES: any = INSURANCE_TYPES;
     //isInTime: boolean = false;
 
-    constructor(private _authService: AuthService, private _router: Router) {
+    constructor(
+        private _authService: AuthService,
+        private _cancelPolicyModalService: CancelPolicyModalService,
+        private _router: Router
+    ) {
         this.policy = null;
         this.canShowFooter = true;
         this.isHistoryContent = false;
@@ -98,11 +101,15 @@ export class CardPolicyComponent implements OnInit {
      * Click event to cancel the policy
      */
     onClickCancelPolicy(): void {
-        if (!!this.policy)
+        this._cancelPolicyModalService.openModal({
+            contactId: this.policy!.contactId,
+            policyId: this.policy!.policyId,
+        });
+        /* if (!!this.policy)
             this.cancelPolicy.emit({
                 contactId: this.policy.contactId,
                 policyId: this.policy.policyId,
-            });
+            }); */
     }
 
     /**

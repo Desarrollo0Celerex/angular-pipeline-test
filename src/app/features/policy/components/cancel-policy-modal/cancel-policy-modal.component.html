@@ -8,58 +8,54 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Gestionar Pago</h5>
+                <h5 class="modal-title">Cancelar Póliza</h5>
                 <button
                     type="button"
                     class="close"
+                    data-dismiss="modal"
                     aria-label="Close"
-                    (click)="closeModal()"
                 >
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="col-12 mb-3" *ngIf="canShowAlert">
-                    <agt-alert [message]="alertMessage"></agt-alert>
-                </div>
-                <ol class="breadcrumb1">
-                    <li class="breadcrumb-item1">
-                        Selecciona la acción que deseas realizar.
-                    </li>
-                </ol>
                 <div class="row">
+                    <div class="col-md-12">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">
+                                Selecciona la acción que deseas realizar.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET POLICY CANCEL -->
+                        <a [routerLink]="cancelPolicyRoute">
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                            >
+                                🚫 <strong>CANCELAR PÓLIZA</strong>
+                            </button></a
+                        >
+                    </div>
                     <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET POLICY DELETE -->
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
-                            (click)="requestApplyPayment()"
+                            data-dismiss="modal"
+                            (click)="confirmDeletePolicy()"
                         >
-                            💸 <strong>{{ applyPaymentLabel }}</strong>
+                            🗑️ <strong>ELIMINAR PÓLIZA</strong>
                         </button>
                     </div>
                     <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - PAYTRACKER POLICY CANCEL FOLLOW -->
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
-                            (click)="showModalCreateComment()"
-                        >
-                            🧾 <strong>AGREGAR NOTA</strong>
-                        </button>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <button
-                            type="button"
-                            class="btn btn-block agt-btn-default"
-                            (click)="requestSendReminder()"
-                        >
-                            🔔 <strong>ENVIAR RECORDATORIO</strong>
-                        </button>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <button
-                            type="button"
-                            class="btn btn-block agt-btn-default"
-                            (click)="showModalCreateTask()"
+                            data-dismiss="modal"
+                            (click)="scheduleFollowUp()"
                         >
                             📆 <strong>AGENDAR SEGUIMIENTO</strong>
                         </button>
@@ -70,7 +66,7 @@
                 <button
                     type="button"
                     class="btn btn-block agt-btn-secondary-outline"
-                    (click)="closeModal()"
+                    data-dismiss="modal"
                 >
                     <strong>CANCELAR</strong>
                 </button>
@@ -79,6 +75,7 @@
     </div>
 </div>
 
-<agt-modal-create-payment-comment
-    (commentAdded)="commentAdded()"
-></agt-modal-create-payment-comment>
+<agt-delete-policy-modal
+    [canShowPolicyActions]="true"
+    (policyDeleted)="onPolicyDeleted()"
+></agt-delete-policy-modal>

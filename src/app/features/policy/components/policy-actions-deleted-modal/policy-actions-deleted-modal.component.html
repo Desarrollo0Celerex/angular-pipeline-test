@@ -20,7 +20,22 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-12">
+                    <!-- AGENTHOS - SMARTWALLET POLICY NOTIFICATION -->
+                    <!-- (JUST IF POLICY DELETED) -->
+                    <div class="col-12 mb-3">
+                        <div
+                            class="alert agt-alert-success alert-dismissible fade show"
+                            role="alert"
+                        >
+                            <span class="alert-inner--icon"
+                                ><i class="fe fe-check-circle mr-2"></i
+                            ></span>
+                            <span class="alert-inner--text"
+                                >La póliza se eliminó con éxito.</span
+                            >
+                        </div>
+                    </div>
+                    <div class="col-md-12">
                         <ol class="breadcrumb1">
                             <li class="breadcrumb-item1">
                                 Selecciona la acción que deseas realizar.
@@ -28,28 +43,6 @@
                         </ol>
                     </div>
                     <div class="col-md-12 mt-3">
-                        <!-- AGENTHOS - DATASUITE REPORT LAUNCHER -->
-                        <button
-                            type="button"
-                            class="btn btn-block agt-btn-default"
-                            data-dismiss="modal"
-                            (click)="showModalWorkspaceReportActions()"
-                        >
-                            🚀 <strong>GENERAR REPORTE</strong>
-                        </button>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <!-- AGENTHOS - LEADMANAGER QUOTE LAUNCHER -->
-                        <button
-                            type="button"
-                            class="btn btn-block agt-btn-default"
-                            data-dismiss="modal"
-                            (click)="createQuotation()"
-                        >
-                            🛡️ <strong>COTIZAR SEGURO</strong>
-                        </button>
-                    </div>
-                    <div class="col-md-6 mt-3">
                         <!-- AGENTHOS - SMARTWALLET POLICY LAUNCHER -->
                         <button
                             type="button"
@@ -61,25 +54,25 @@
                         </button>
                     </div>
                     <div class="col-md-6 mt-3">
-                        <!-- AGENTHOS - TASKPLANNER TASK LAUNCHER -->
-                        <button
-                            type="button"
-                            class="btn btn-block agt-btn-default"
-                            data-dismiss="modal"
-                            (click)="showModalCreateTask()"
-                        >
-                            📆 <strong>PROGRAMAR TAREA</strong>
-                        </button>
-                    </div>
-                    <div class="col-md-6 mt-3">
                         <!-- AGENTHOS - DATASUITE REPORT LAUNCHER -->
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
                             data-dismiss="modal"
-                            (click)="showModalAgenthosSupport()"
+                            (click)="showReportsModal()"
                         >
-                            ☎️ <strong>SOLICITAR SOPORTE</strong>
+                            🚀 <strong>GENERAR REPORTE</strong>
+                        </button>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - TASKPLANNER TASK LAUNCHER -->
+                        <button
+                            type="button"
+                            class="btn btn-block agt-btn-default"
+                            data-dismiss="modal"
+                            (click)="scheduleTask()"
+                        >
+                            📆 <strong>PROGRAMAR TAREA</strong>
                         </button>
                     </div>
                 </div>
@@ -97,23 +90,3 @@
         </div>
     </div>
 </div>
-
-<agt-modal-select-contact-action
-    [modalId]="modalIdSelectContactAction"
-    [title]="contactActionTitle"
-    [description]="contactActionDescription"
-    (createContact)="showModalToSelectContactType()"
-    (searchContact)="showModalToSearchContact()"
-></agt-modal-select-contact-action>
-<agt-modal-select-contact-type
-    [modalId]="modalIdSelectContactType"
-    title="Crear Prospecto"
-    description="Selecciona el tipo de prospecto que deseas crear. "
-></agt-modal-select-contact-type>
-<agt-modal-search-contact
-    [modalId]="modalIdSearchContact"
-    [actionType]="contactActionType"
-></agt-modal-search-contact>
-<agt-modal-confirm-go-to-agenthos-support
-    [modalId]="modalIdAgenthosSupport"
-></agt-modal-confirm-go-to-agenthos-support>

@@ -6,6 +6,7 @@ import { FollowPolicy } from '@policy/interfaces/follow-policy.interface';
 import { Policy } from '@policy/interfaces/policy.interface';
 import { PolicyService } from '@policy/services/policy.service';
 import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
+import { CreateTaskService } from '@tasks/components/create-task/create-task.service';
 
 @Component({
     selector: 'agt-follow-policy',
@@ -16,10 +17,13 @@ export class FollowPolicyComponent {
     @ViewChild(CreateTaskComponent)
     createTaskComponent!: CreateTaskComponent;
 
-    constructor(private _policyService: PolicyService) {}
+    constructor(
+        private _policyService: PolicyService,
+        private _createTaskService: CreateTaskService
+    ) {}
 
     init(data: FollowPolicy): void {
-        this.createTaskComponent.init({
+        this._createTaskService.openModal({
             title: 'Seguimiento de Póliza',
             message: 'Ingresa los detalles para programar el seguimiento. ',
             buttonLabel: '📆 AGENDAR SEGUIMIENTO',
@@ -42,7 +46,7 @@ export class FollowPolicyComponent {
     private _patchTask(policy: Policy): void {
         const subject = this._generateSubject(policy.policyNumber);
         const details = this._generateDetails(policy);
-        this.createTaskComponent.patchTaskValues(subject, details);
+        this._createTaskService.patchTask({ subject, details });
     }
 
     private _generateDetails(policy: Policy): string {
