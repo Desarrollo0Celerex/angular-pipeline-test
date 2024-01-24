@@ -8,6 +8,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContactService } from '@core/services/contact/contact.service';
 import { VoiceControlService } from '../../services/voice-control/voice-control.service';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
+import { PAY_TRACKER_ROUTES } from '@core/constants/routes';
 
 declare var ArtyomPlugin: any;
 
@@ -200,9 +201,14 @@ export class SpeechRecognitionComponent implements OnInit {
         setTimeout(() => {
             context._voiceControlService.hideModalProcessingRequest();
             context._zone.run(() => {
-                context._router.navigate([ROUTES_NAME.listPayments], {
-                    queryParams: { contentSubtype: 4 },
-                });
+                context._router.navigate(
+                    [
+                        `${PAY_TRACKER_ROUTES.MODULE}/${PAY_TRACKER_ROUTES.PAYMENTS}`,
+                    ],
+                    {
+                        queryParams: { contentSubtype: 4 },
+                    }
+                );
             });
         }, 1500);
     }
