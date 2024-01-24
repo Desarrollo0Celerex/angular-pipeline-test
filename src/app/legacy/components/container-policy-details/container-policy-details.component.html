@@ -10,7 +10,6 @@
             (deletePolicy)="onDeletePolicy($event)"
             (updatePolicy)="onUpdatePolicy($event)"
             (endorsePolicy)="onEndorsePolicy($event)"
-            (cancelPolicy)="onCancelPolicy($event)"
             (renewPolicy)="onRenewPolicy($event)"
             (reissuePolicy)="onReissuePolicy($event)"
             (showPaymentHistory)="onShowPaymentHistory($event)"
@@ -34,17 +33,38 @@
             <div class="card-header">
                 <h3 class="card-title">Detalles de Póliza</h3>
                 <div class="card-options">
-                    <i data-toggle="popover" data-placement="left" class="fe fe-help-circle fs-20 text-primary" data-content="Detalle sobre el estatus actual de la póliza." data-original-title="" title=""></i>
+                    <i
+                        data-toggle="popover"
+                        data-placement="left"
+                        class="fe fe-help-circle fs-20 text-primary"
+                        data-content="Detalle sobre el estatus actual de la póliza."
+                        data-original-title=""
+                        title=""
+                    ></i>
                 </div>
             </div>
             <!-- AGENTHOS - POLICY RESUME -->
-            <div class="card-body pt-0" *ngIf="!!containerPolicyDetailsService.policyComplete; else policyDetailsEmpty">
+            <div
+                class="card-body pt-0"
+                *ngIf="
+                    !!containerPolicyDetailsService.policyComplete;
+                    else policyDetailsEmpty
+                "
+            >
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <!-- AGENTHOS - POLICY NAME -->
                             <label class="form-label">Titular de Póliza</label>
-                            <input type="text" class="form-control" readonly="" [placeholder]="containerPolicyDetailsService.policyComplete.titularName">
+                            <input
+                                type="text"
+                                class="form-control"
+                                readonly=""
+                                [placeholder]="
+                                    containerPolicyDetailsService.policyComplete
+                                        .titularName
+                                "
+                            />
                         </div>
                     </div>
                 </div>
@@ -52,28 +72,82 @@
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <!-- AGENTHOS - POLICY TOTAL AMOUNT -->
-                            <label class="form-label">Prima Total ({{containerPolicyDetailsService.policyComplete.currencyName}})</label>
-                            <input type="text" class="form-control" readonly="" [placeholder]="(!!containerPolicyDetailsService.policyComplete.totalAmount) ? (containerPolicyDetailsService.policyComplete.totalAmount | currency: '': '$': '0.2-2') : ''">
+                            <label class="form-label"
+                                >Prima Total ({{
+                                    containerPolicyDetailsService.policyComplete
+                                        .currencyName
+                                }})</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                readonly=""
+                                [placeholder]="
+                                    !!containerPolicyDetailsService
+                                        .policyComplete.totalAmount
+                                        ? (containerPolicyDetailsService
+                                              .policyComplete.totalAmount
+                                          | currency : '' : '$' : '0.2-2')
+                                        : ''
+                                "
+                            />
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <!-- AGENTHOS - POLICY PAID AMOUNT -->
                             <label class="form-label">Prima Pagada</label>
-                            <input type="text" class="form-control" readonly="" [placeholder]="(!!containerPolicyDetailsService.policyComplete.totalAmountPaid) ? (containerPolicyDetailsService.policyComplete.totalAmountPaid | currency: '': '$': '0.2-2') : ''">
+                            <input
+                                type="text"
+                                class="form-control"
+                                readonly=""
+                                [placeholder]="
+                                    !!containerPolicyDetailsService
+                                        .policyComplete.totalAmountPaid
+                                        ? (containerPolicyDetailsService
+                                              .policyComplete.totalAmountPaid
+                                          | currency : '' : '$' : '0.2-2')
+                                        : ''
+                                "
+                            />
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <!-- AGENTHOS - POLICY PENDING AMOUNT -->
                             <label class="form-label">Prima Pendiente</label>
-                            <input type="text" class="form-control" readonly="" [placeholder]="(!!containerPolicyDetailsService.policyComplete.totalAmount && !!containerPolicyDetailsService.policyComplete.totalAmountPaid) ? (containerPolicyDetailsService.policyComplete.totalAmount - containerPolicyDetailsService.policyComplete.totalAmountPaid | currency: '': '$': '0.2-2') : ''">
+                            <input
+                                type="text"
+                                class="form-control"
+                                readonly=""
+                                [placeholder]="
+                                    !!containerPolicyDetailsService
+                                        .policyComplete.totalAmount &&
+                                    !!containerPolicyDetailsService
+                                        .policyComplete.totalAmountPaid
+                                        ? (containerPolicyDetailsService
+                                              .policyComplete.totalAmount -
+                                              containerPolicyDetailsService
+                                                  .policyComplete
+                                                  .totalAmountPaid
+                                          | currency : '' : '$' : '0.2-2')
+                                        : ''
+                                "
+                            />
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <label class="form-label">Recibos Totales</label>
-                            <input type="text" class="form-control" readonly="" [placeholder]="containerPolicyDetailsService.policyComplete.bills">
+                            <input
+                                type="text"
+                                class="form-control"
+                                readonly=""
+                                [placeholder]="
+                                    containerPolicyDetailsService.policyComplete
+                                        .bills
+                                "
+                            />
                         </div>
                     </div>
                 </div>
@@ -81,25 +155,69 @@
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <label class="form-label">Fecha Emisión</label>
-                            <input type="text" class="form-control" readonly="" [placeholder]="(!!containerPolicyDetailsService.policyComplete.emissionDate) ? (containerPolicyDetailsService.policyComplete.emissionDate | date: 'dd/MM/yyyy') : ''">
+                            <input
+                                type="text"
+                                class="form-control"
+                                readonly=""
+                                [placeholder]="
+                                    !!containerPolicyDetailsService
+                                        .policyComplete.emissionDate
+                                        ? (containerPolicyDetailsService
+                                              .policyComplete.emissionDate
+                                          | date : 'dd/MM/yyyy')
+                                        : ''
+                                "
+                            />
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <label class="form-label">Inicio Vigencia</label>
-                            <input type="text" class="form-control" readonly="" [placeholder]="(!!containerPolicyDetailsService.policyComplete.validityStartDate) ? (containerPolicyDetailsService.policyComplete.validityStartDate | date: 'dd/MM/yyyy') : ''">
+                            <input
+                                type="text"
+                                class="form-control"
+                                readonly=""
+                                [placeholder]="
+                                    !!containerPolicyDetailsService
+                                        .policyComplete.validityStartDate
+                                        ? (containerPolicyDetailsService
+                                              .policyComplete.validityStartDate
+                                          | date : 'dd/MM/yyyy')
+                                        : ''
+                                "
+                            />
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <label class="form-label">Fin Vigencia</label>
-                            <input type="text" class="form-control" readonly="" [placeholder]="(!!containerPolicyDetailsService.policyComplete.validityEndDate) ? (containerPolicyDetailsService.policyComplete.validityEndDate | date: 'dd/MM/yyyy') : ''">
+                            <input
+                                type="text"
+                                class="form-control"
+                                readonly=""
+                                [placeholder]="
+                                    !!containerPolicyDetailsService
+                                        .policyComplete.validityEndDate
+                                        ? (containerPolicyDetailsService
+                                              .policyComplete.validityEndDate
+                                          | date : 'dd/MM/yyyy')
+                                        : ''
+                                "
+                            />
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                         <div class="form-group">
                             <label class="form-label">Días Restantes</label>
-                            <input type="text" class="form-control" readonly="" [placeholder]="containerPolicyDetailsService.policyComplete.daysLeft">
+                            <input
+                                type="text"
+                                class="form-control"
+                                readonly=""
+                                [placeholder]="
+                                    containerPolicyDetailsService.policyComplete
+                                        .daysLeft
+                                "
+                            />
                         </div>
                     </div>
                 </div>
@@ -107,19 +225,43 @@
                     <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                         <div class="form-group">
                             <label class="form-label">Siniestros</label>
-                            <input type="text" class="form-control" readonly="" [placeholder]="containerPolicyDetailsService.policyComplete.totalSinisters">
+                            <input
+                                type="text"
+                                class="form-control"
+                                readonly=""
+                                [placeholder]="
+                                    containerPolicyDetailsService.policyComplete
+                                        .totalSinisters
+                                "
+                            />
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                         <div class="form-group">
                             <label class="form-label">Endosos</label>
-                            <input type="text" class="form-control" readonly="" [placeholder]="containerPolicyDetailsService.policyComplete.totalEndorsements">
+                            <input
+                                type="text"
+                                class="form-control"
+                                readonly=""
+                                [placeholder]="
+                                    containerPolicyDetailsService.policyComplete
+                                        .totalEndorsements
+                                "
+                            />
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                         <div class="form-group">
                             <label class="form-label">Renovaciones</label>
-                            <input type="text" class="form-control" readonly="" [placeholder]="containerPolicyDetailsService.policyComplete.totalRenovations">
+                            <input
+                                type="text"
+                                class="form-control"
+                                readonly=""
+                                [placeholder]="
+                                    containerPolicyDetailsService.policyComplete
+                                        .totalRenovations
+                                "
+                            />
                         </div>
                     </div>
                 </div>
@@ -137,14 +279,57 @@
 </div>
 <!-- //AGENTHOS - POLICY DETAILS -->
 
-<agt-modal-confirm-delete-policy [modalId]="modalIdConfirmDeletePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (policyDeleted)="onPolicyDeleted()"></agt-modal-confirm-delete-policy>
-<agt-modal-confirm-update-policy [modalId]="modalIdConfirmUpdatePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-update-policy>
-<agt-modal-confirm-endorse-policy [modalId]="modalIdConfirmEndorsePolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-endorse-policy>
-<agt-modal-confirm-cancel-policy [modalId]="modalIdConfirmCancelPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-cancel-policy>
-<agt-modal-confirm-renew-policy [modalId]="modalIdConfirmRenewPolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-renew-policy>
-<agt-modal-confirm-reissue-policy [modalId]="modalIdConfirmReissuePolicy" [contactId]="contactId" [policyId]="selectedPolicyId" (actionTypeSelected)="onActionTypeSelected($event)"></agt-modal-confirm-reissue-policy>
-<agt-modal-select-contact-type [modalId]="modalIdSelectContactType" [actionType]="selectedActionType" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-select-contact-type>
-<agt-modal-confirm-show-history-policy [modalId]="modalIdConfirmShowHistoryPolicy" [contactId]="contactId" [policyId]="selectedPolicyId"></agt-modal-confirm-show-history-policy>
-<agt-modal-confirm-delete-renewed-policy [modalId]="modalIdConfirmDeleteRenewedPolicy" (actionConfirmed)="deleteRenewedPolicy()"></agt-modal-confirm-delete-renewed-policy>
-<agt-modal-confirm-show-payment-history [modalId]="modalIdConfirmShowPaymentHistory" [contactId]="selectedContactId" [policyId]="selectedPolicyId" [paymentId]="selectedPaymentId"></agt-modal-confirm-show-payment-history>
-<agt-modal-confirm-show-policy-sinisters [modalId]="modalIdConfirmShowPolicySinisters" [policyData]="selectedPolicyData"></agt-modal-confirm-show-policy-sinisters>
+<agt-modal-confirm-delete-policy
+    [modalId]="modalIdConfirmDeletePolicy"
+    [contactId]="contactId"
+    [policyId]="selectedPolicyId"
+    (policyDeleted)="onPolicyDeleted()"
+></agt-modal-confirm-delete-policy>
+<agt-modal-confirm-update-policy
+    [modalId]="modalIdConfirmUpdatePolicy"
+    [contactId]="contactId"
+    [policyId]="selectedPolicyId"
+></agt-modal-confirm-update-policy>
+<agt-modal-confirm-endorse-policy
+    [modalId]="modalIdConfirmEndorsePolicy"
+    [contactId]="contactId"
+    [policyId]="selectedPolicyId"
+></agt-modal-confirm-endorse-policy>
+<agt-cancel-policy-modal></agt-cancel-policy-modal>
+<agt-modal-confirm-renew-policy
+    [modalId]="modalIdConfirmRenewPolicy"
+    [contactId]="contactId"
+    [policyId]="selectedPolicyId"
+    (actionTypeSelected)="onActionTypeSelected($event)"
+></agt-modal-confirm-renew-policy>
+<agt-modal-confirm-reissue-policy
+    [modalId]="modalIdConfirmReissuePolicy"
+    [contactId]="contactId"
+    [policyId]="selectedPolicyId"
+    (actionTypeSelected)="onActionTypeSelected($event)"
+></agt-modal-confirm-reissue-policy>
+<agt-modal-select-contact-type
+    [modalId]="modalIdSelectContactType"
+    [actionType]="selectedActionType"
+    [contactId]="contactId"
+    [policyId]="selectedPolicyId"
+></agt-modal-select-contact-type>
+<agt-modal-confirm-show-history-policy
+    [modalId]="modalIdConfirmShowHistoryPolicy"
+    [contactId]="contactId"
+    [policyId]="selectedPolicyId"
+></agt-modal-confirm-show-history-policy>
+<agt-modal-confirm-delete-renewed-policy
+    [modalId]="modalIdConfirmDeleteRenewedPolicy"
+    (actionConfirmed)="deleteRenewedPolicy()"
+></agt-modal-confirm-delete-renewed-policy>
+<agt-modal-confirm-show-payment-history
+    [modalId]="modalIdConfirmShowPaymentHistory"
+    [contactId]="selectedContactId"
+    [policyId]="selectedPolicyId"
+    [paymentId]="selectedPaymentId"
+></agt-modal-confirm-show-payment-history>
+<agt-modal-confirm-show-policy-sinisters
+    [modalId]="modalIdConfirmShowPolicySinisters"
+    [policyData]="selectedPolicyData"
+></agt-modal-confirm-show-policy-sinisters>

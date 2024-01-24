@@ -10,6 +10,7 @@ import { GENDERS, TASK_MODULES } from '@core/constants/settings';
 import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 import * as moment from 'moment';
 import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
+import { CreateTaskService } from '@tasks/components/create-task/create-task.service';
 
 @Component({
     selector: 'agt-results-list',
@@ -32,6 +33,7 @@ export class ResultsListComponent extends SmartComponent implements OnInit {
     rangeEnd = '';
 
     constructor(
+        private _createTaskService: CreateTaskService,
         private _taskService: TaskService,
         private _taskModalService: TaskModalService,
         private _moduleService: ModuleService,
@@ -67,7 +69,7 @@ export class ResultsListComponent extends SmartComponent implements OnInit {
     }
 
     showModalCreateTask(): void {
-        this.createTaskComponent.init({
+        this._createTaskService.openModal({
             title: 'Programar Tarea',
             message: 'Ingresa los detalles para programar la tarea. ',
             buttonLabel: '📆 PROGRAMAR TAREA',
@@ -76,7 +78,7 @@ export class ResultsListComponent extends SmartComponent implements OnInit {
         });
         const subject = '📌 Seguimiento de Tarea';
         const details = '🎯 Seguimiento de tarea para ...';
-        this.createTaskComponent.patchTaskValues(subject, details);
+        this._createTaskService.patchTask({ subject, details });
     }
 
     trackById(index: number, task: Task): string {

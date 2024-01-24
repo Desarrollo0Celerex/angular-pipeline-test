@@ -1,7 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CONTACT_ACTIONS } from '@contact/enums/contact-actions.enum';
 import { ContactTypeModalComponent } from '../contact-type-modal/contact-type-modal.component';
 import { SearchContactModalComponent } from '../search-contact-modal/search-contact-modal.component';
+import { ContactCategoryModalService } from './contact-category-modal.service';
+import { SmartComponent } from '@core/classes/smart-component';
 
 declare var ModalPlugin: any;
 
@@ -10,7 +12,10 @@ declare var ModalPlugin: any;
     templateUrl: './contact-category-modal.component.html',
     styles: [],
 })
-export class ContactCategoryModalComponent {
+export class ContactCategoryModalComponent
+    extends SmartComponent
+    implements OnInit
+{
     @ViewChild(ContactTypeModalComponent)
     contactTypeModalComponent!: ContactTypeModalComponent;
     @ViewChild(SearchContactModalComponent)
@@ -20,10 +25,18 @@ export class ContactCategoryModalComponent {
     title = '';
     private _contactAction = 0;
 
-    openModal(contactAction: CONTACT_ACTIONS): void {
-        this._contactAction = contactAction;
-        this._generateTitleAndDescription();
-        ModalPlugin.show(this.modalId);
+    constructor(
+        private _contactCategoryModalService: ContactCategoryModalService
+    ) {
+        super();
+    }
+
+    ngOnInit(): void {
+        this._contactCategoryModalService.contactCategoryModal$
+            .pipe(this.untilComponentDestroy())
+            .subscribe((data) => {
+                this._openModal(data);
+            });
     }
 
     searchContact(): void {
@@ -48,5 +61,11 @@ export class ContactCategoryModalComponent {
                     'Selecciona a quién le deseas cargar la póliza.';
                 break;
         }
+    }
+
+    private _openModal(contactAction: CONTACT_ACTIONS): void {
+        this._contactAction = contactAction;
+        this._generateTitleAndDescription();
+        ModalPlugin.show(this.modalId);
     }
 }

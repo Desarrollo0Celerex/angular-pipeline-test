@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
     AbstractControl,
     FormBuilder,
@@ -20,6 +20,8 @@ import { ModalCreateTaskComponent } from '@features-legacy/tasks/components/moda
 import { TaskService } from '@tasks/services/task.service';
 import { LoadingService } from '@core/services/loading/loading.service';
 import { SelectTaskCalendarComponent } from '../select-task-calendar/select-task-calendar.component';
+import { CreateTaskService } from './create-task.service';
+import { SmartComponent } from '@core/classes/smart-component';
 
 declare var DatePickerPlugin: any;
 declare var TimePickerPlugin: any;
@@ -29,7 +31,7 @@ declare var TimePickerPlugin: any;
     templateUrl: './create-task.component.html',
     styles: [],
 })
-export class CreateTaskComponent {
+export class CreateTaskComponent extends SmartComponent implements OnInit {
     @ViewChild(SelectTaskCalendarComponent)
     selectTaskCalendarComponent!: SelectTaskCalendarComponent;
     calendarIdTaskDate = 'taskDate';
@@ -43,12 +45,28 @@ export class CreateTaskComponent {
 
     constructor(
         private _authService: AuthService,
+        private _createTaskService: CreateTaskService,
         private _formBuilder: FormBuilder,
         private _loadingService: LoadingService,
         private _taskService: TaskService,
         private _taskProgressStatusService: TaskProgressStatusService,
         private _workspaceUserService: WorkspaceUserService
-    ) {}
+    ) {
+        super();
+    }
+
+    ngOnInit(): void {
+        this._createTaskService.createTaskModal$
+            .pipe(this.untilComponentDestroy())
+            .subscribe((data) => {
+                this._openModal(data);
+            });
+        this._createTaskService.patchTask$
+            .pipe(this.untilComponentDestroy())
+            .subscribe((data) => {
+                this._patchTaskValues(data);
+            });
+    }
 
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null = this.form.get(constrolName);
@@ -61,27 +79,6 @@ export class CreateTaskComponent {
             control,
             this._isFormSubmitted
         );
-    }
-
-    init(data: CreateTask): void {
-        this.data = data;
-        this._patchFormValues();
-        ModalHelper.show(this.modalId);
-        this._initCalendars();
-        this._initTimers();
-        if (this.taskProgressStatus.length === 0) {
-            this._loadTaskProgressStatus();
-        }
-        if (this.workspaceUsers.length === 0) {
-            this._loadWorkspaceUsers();
-        }
-    }
-
-    patchTaskValues(subject: string, details: string): void {
-        this.form.patchValue({
-            taskTitle: subject,
-            taskDetails: details,
-        });
     }
 
     reset(): void {
@@ -190,6 +187,20 @@ export class CreateTaskComponent {
         context.form.patchValue({ [selectorId]: changedValue });
     }
 
+    private _openModal(data: CreateTask): void {
+        this.data = data;
+        this._patchFormValues();
+        ModalHelper.show(this.modalId);
+        this._initCalendars();
+        this._initTimers();
+        if (this.taskProgressStatus.length === 0) {
+            this._loadTaskProgressStatus();
+        }
+        if (this.workspaceUsers.length === 0) {
+            this._loadWorkspaceUsers();
+        }
+    }
+
     private _patchFormValues(): void {
         this.form.patchValue({
             taskProgressStatusId: TASK_PROGRESS_STATUS.TODO,
@@ -197,6 +208,13 @@ export class CreateTaskComponent {
             taskDate: DateHelper.getCurrentDate(),
             taskTime: DateHelper.getCurrentTime(),
             taskModuleId: this.data!.taskModuleId,
+        });
+    }
+
+    private _patchTaskValues(data: { subject: string; details: string }): void {
+        this.form.patchValue({
+            taskTitle: data.subject,
+            taskDetails: data.details,
         });
     }
 }

@@ -9,6 +9,7 @@ import { TaskModalService } from '@features-legacy/tasks/services/task-modal.ser
 import { TASK_MODULES } from '@core/constants/settings';
 import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
+import { CreateTaskService } from '@tasks/components/create-task/create-task.service';
 
 @Component({
     selector: 'agt-tasks-list',
@@ -28,6 +29,7 @@ export class TasksListComponent extends SmartComponent implements OnInit {
 
     constructor(
         private _taskService: TaskService,
+        private _createTaskService: CreateTaskService,
         private _taskModalService: TaskModalService,
         private _moduleService: ModuleService,
         private _workspaceUserService: WorkspaceUserService
@@ -62,7 +64,7 @@ export class TasksListComponent extends SmartComponent implements OnInit {
     }
 
     showModalCreateTask(): void {
-        this.createTaskComponent.init({
+        this._createTaskService.openModal({
             title: 'Programar Tarea',
             message: 'Ingresa los detalles para programar la tarea. ',
             buttonLabel: '📆 PROGRAMAR TAREA',
@@ -71,7 +73,7 @@ export class TasksListComponent extends SmartComponent implements OnInit {
         });
         const subject = '📌 Seguimiento de Tarea';
         const details = '🎯 Seguimiento de tarea para ...';
-        this.createTaskComponent.patchTaskValues(subject, details);
+        this._createTaskService.patchTask({ subject, details });
     }
 
     private _loadTasks(): void {

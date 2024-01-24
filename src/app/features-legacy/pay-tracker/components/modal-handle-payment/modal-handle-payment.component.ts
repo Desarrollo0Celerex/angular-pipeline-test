@@ -10,6 +10,7 @@ import { PaymentService } from '@core/services/payment/payment.service';
 import { environment } from '@env/environment';
 import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
 import { ModalCreatePaymentCommentComponent } from '../modal-create-payment-comment/modal-create-payment-comment.component';
+import { CreateTaskService } from '@tasks/components/create-task/create-task.service';
 declare var ModalPlugin: any;
 
 @Component({
@@ -33,7 +34,10 @@ export class ModalHandlePaymentComponent {
     alertMessage = '';
     canShowAlert = false;
 
-    constructor(private _paymentService: PaymentService) {}
+    constructor(
+        private _createTaskService: CreateTaskService,
+        private _paymentService: PaymentService
+    ) {}
 
     get applyPaymentLabel(): string {
         return this.isPreauthorizedPayment === '1'
@@ -83,7 +87,7 @@ export class ModalHandlePaymentComponent {
         this._paymentService
             .getWorkspacePayment(this.paymentId, fields)
             .subscribe((payment) => {
-                this.createTaskComponent.init({
+                this._createTaskService.openModal({
                     title: 'Programar Pago',
                     message: 'Ingresa los detalles para programar el pago. ',
                     buttonLabel: '📆 PROGRAMAR PAGO',
@@ -114,7 +118,7 @@ export class ModalHandlePaymentComponent {
                 }/resume
 
 🤖 Tarea gestionada en Agenthos.`;
-                this.createTaskComponent.patchTaskValues(subject, details);
+                this._createTaskService.patchTask({ subject, details });
             });
     }
 }

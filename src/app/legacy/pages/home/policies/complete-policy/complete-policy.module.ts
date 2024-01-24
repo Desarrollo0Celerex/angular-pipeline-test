@@ -30,7 +30,7 @@ import { ScannerLogService } from '@services/scanner-log.service';
 import { CompletePolicyRoutingModule } from './complete-policy-routing.module';
 import { CompletePolicyPage } from './complete-policy.page';
 import { CompletePolicyService } from './complete-policy.service';
-import { PoliciesModule } from '@policies/policies.module';
+import { PoliciesModule } from '@policy/policies.module';
 import { SellerCommissionSuggestionsModule } from '@seller-commission-suggestions/seller-commission-suggestions.module';
 import { TuneatorService } from '@services/tuneator.service';
 import { InsurerService } from '@services/insurer.service';

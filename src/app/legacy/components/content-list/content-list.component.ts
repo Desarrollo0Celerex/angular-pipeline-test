@@ -42,9 +42,9 @@ import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ContentListService } from './content-list.service';
 import { Policy } from '@core/interfaces/policy.interface';
-import { PolicyActionsComponent } from '@policies/components/policy-actions/policy-actions.component';
+import { PolicyActionsComponent } from '@policy/components/policy-actions/policy-actions.component';
 import { Contact } from '@core/interfaces/contact.interface';
-import { CreatePolicyModalService } from '@policies/components/create-policy-modal/create-policy-modal.service';
+import { CreatePolicyModalService } from '@policy/components/create-policy-modal/create-policy-modal.service';
 
 declare var ModalPlugin: any;
 
@@ -622,6 +622,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this.selectedContactId = data.contactId;
         this.selectedQuotationId = data.quotationId;
         ModalPlugin.show(this.modalIdRejectQuotation);
+    }
+
+    onReloadContent(): void {
+        this._initContent();
     }
 
     /**

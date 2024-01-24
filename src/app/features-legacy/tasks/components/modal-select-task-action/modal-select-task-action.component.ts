@@ -3,6 +3,7 @@ import { SmartComponent } from '@core/classes/smart-component';
 import { TASK_MODULES } from '@core/constants/settings';
 import { ModuleService } from '@features-legacy/tasks/services/module.service';
 import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
+import { CreateTaskService } from '@tasks/components/create-task/create-task.service';
 declare var ModalPlugin: any;
 
 @Component({
@@ -18,7 +19,10 @@ export class ModalSelectTaskActionComponent
     createTaskComponent!: CreateTaskComponent;
     modalId = 'agt-modal-select-task-action';
 
-    constructor(private _moduleService: ModuleService) {
+    constructor(
+        private _createTaskService: CreateTaskService,
+        private _moduleService: ModuleService
+    ) {
         super();
     }
 
@@ -31,7 +35,7 @@ export class ModalSelectTaskActionComponent
     }
 
     showModalCreateTask(): void {
-        this.createTaskComponent.init({
+        this._createTaskService.openModal({
             title: 'Programar Tarea',
             message: 'Ingresa los detalles para programar la tarea. ',
             buttonLabel: '📆 PROGRAMAR TAREA',
@@ -40,6 +44,6 @@ export class ModalSelectTaskActionComponent
         });
         const subject = '📌 Seguimiento de Tarea';
         const details = '🎯 Seguimiento de tarea para ...';
-        this.createTaskComponent.patchTaskValues(subject, details);
+        this._createTaskService.patchTask({ subject, details });
     }
 }
