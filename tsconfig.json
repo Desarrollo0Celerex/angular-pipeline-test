@@ -35,6 +35,7 @@
             "@seller-commission-suggestions/*": [
                 "app/features/seller-commission-suggestions/*"
             ],
+            "@sinister/*": ["app/features/sinister/*"],
             "@state/*": ["app/features/state/*"],
             "@task-progress-status/*": ["app/features/task-progress-status/*"],
             "@tasks/*": ["app/features/tasks/*"],

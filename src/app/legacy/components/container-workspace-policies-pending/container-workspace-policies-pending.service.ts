@@ -17,7 +17,7 @@ export class ContainerWorkspacePoliciesPendingService {
         const page: number = 1;
         const perPage: number = 4;
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'policyStatusId',
             [POLICY_STATUS.PENDING]

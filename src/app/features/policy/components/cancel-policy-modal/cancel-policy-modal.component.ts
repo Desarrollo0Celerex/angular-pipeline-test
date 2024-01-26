@@ -40,7 +40,9 @@ export class CancelPolicyModalComponent extends SmartComponent {
     }
 
     get cancelPolicyRoute(): string {
-        return POLICY_ROUTES.cancelPolicy(this._contactId, this._policyId);
+        return (
+            '/' + POLICY_ROUTES.cancelPolicy(this._contactId, this._policyId)
+        );
     }
 
     confirmDeletePolicy(): void {

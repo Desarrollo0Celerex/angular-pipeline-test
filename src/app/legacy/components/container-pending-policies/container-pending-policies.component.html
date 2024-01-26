@@ -7,18 +7,20 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3" *ngFor="let pendingPolicy of model.pendingPolicies">
-         <agt-card-policy
-             [policy]="pendingPolicy"
-             (showHistoryPolicy)="onShowHistoryPolicy($event)"
-             (showPaymentHistory)="onShowPaymentHistory($event)"
-             (showPolicySinisters)="onShowPolicySinisters($event)"
-             (renewPolicy)="onRenewPolicy($event)"
-             (reissuePolicy)="onReissuePolicy($event)"
-             (showPolicyDetails)="onShowPolicyDetails($event)"
-             (showPolicy)="onShowPolicy($event)"
-             (updatePolicy)="onUpdatePolicy($event)"
-         ></agt-card-policy>
+    <div
+        class="col-sm-12 col-md-6 col-lg-6 col-xl-3"
+        *ngFor="let pendingPolicy of model.pendingPolicies"
+    >
+        <agt-card-policy
+            [policy]="pendingPolicy"
+            (showHistoryPolicy)="onShowHistoryPolicy($event)"
+            (showPaymentHistory)="onShowPaymentHistory($event)"
+            (renewPolicy)="onRenewPolicy($event)"
+            (reissuePolicy)="onReissuePolicy($event)"
+            (showPolicyDetails)="onShowPolicyDetails($event)"
+            (showPolicy)="onShowPolicy($event)"
+            (updatePolicy)="onUpdatePolicy($event)"
+        ></agt-card-policy>
     </div>
 </div>
 <!-- //AGENTHOS - POLICY LISTING (PENDING) -->

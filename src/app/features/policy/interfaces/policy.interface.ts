@@ -90,4 +90,5 @@ export interface Policy {
     titularPhoneCode: string;
     monthsPaid: number;
     paymentDate: string;
+    totalSinisters: number;
 }

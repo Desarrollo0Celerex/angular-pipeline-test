@@ -31,6 +31,9 @@ import { CreatePolicyModalComponent } from './components/create-policy-modal/cre
 import { CancelPolicyModalComponent } from './components/cancel-policy-modal/cancel-policy-modal.component';
 import { CancelPolicyModalService } from './components/cancel-policy-modal/cancel-policy-modal.service';
 import { PolicyActionsDeletedModalComponent } from './components/policy-actions-deleted-modal/policy-actions-deleted-modal.component';
+import { PolicySinisterActionsModalComponent } from './components/policy-sinister-actions-modal/policy-sinister-actions-modal.component';
+import { ModalCreateSinisterModule } from '@components/modal-create-sinister/modal-create-sinister.module';
+import { SinisterModule } from '@sinister/sinister.module';
 
 @NgModule({
     declarations: [
@@ -50,6 +53,7 @@ import { PolicyActionsDeletedModalComponent } from './components/policy-actions-
         CreatePolicyModalComponent,
         CancelPolicyModalComponent,
         PolicyActionsDeletedModalComponent,
+        PolicySinisterActionsModalComponent,
     ],
     exports: [
         CreatePolicyModalComponent,
@@ -59,6 +63,7 @@ import { PolicyActionsDeletedModalComponent } from './components/policy-actions-
         PolicyHeaderComponent,
         PolicyCoverCardComponent,
         PolicyComplementsComponent,
+        PolicySinisterActionsModalComponent,
     ],
     imports: [
         CommonModule,
@@ -71,7 +76,9 @@ import { PolicyActionsDeletedModalComponent } from './components/policy-actions-
         SharedModule,
         TasksModule,
         ReactiveFormsModule,
+        SinisterModule,
         PolicyComplementModule,
+        ModalCreateSinisterModule,
     ],
     providers: [
         CancelPolicyModalService,

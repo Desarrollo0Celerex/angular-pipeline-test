@@ -1,7 +1,6 @@
 <!-- AGENTHOS - INCOMPLETE POLICIES -->
 <!-- (JUST IF INCOMPLETE POLICIES DETECTED) -->
 <div class="row mt-3" *ngIf="model.policies.length > 0">
-
     <div class="col-12">
         <agt-card-content-title
             title="Pólizas Pendientes"
@@ -9,19 +8,25 @@
         ></agt-card-content-title>
     </div>
     <div class="row agt-width-100">
-        <agt-alert-workspace-policies-pending class="agt-width-100"></agt-alert-workspace-policies-pending> 
+        <agt-alert-workspace-policies-pending
+            class="agt-width-100"
+        ></agt-alert-workspace-policies-pending>
     </div>
-    
+
     <!-- AGENTHOS - POLICY CARD -->
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngFor="let policy of model.policies">
+    <div
+        class="col-xl-3 col-lg-4 col-md-6 col-sm-12"
+        *ngFor="let policy of model.policies"
+    >
         <agt-card-policy
             [policy]="policy"
             (updatePolicy)="showModalToConfirmUpdatePolicy($event)"
             (renewPolicy)="showModalToConfirmRenewPolicy($event)"
             (reissuePolicy)="showModalToConfirmReissuePolicy($event)"
             (showHistoryPolicy)="showModalToConfirmShowPolicyHistory($event)"
-            (showPaymentHistory)="showModalToConfirmShowPolicyPaymentHistory($event)"
-            (showPolicySinisters)="showModalToConfirmShowPolicySinisterHistory($event)"
+            (showPaymentHistory)="
+                showModalToConfirmShowPolicyPaymentHistory($event)
+            "
             (showPolicyDetails)="showModalToConfirmShowPolicyDetails($event)"
             (showPolicy)="showModalToConfirmShowPolicy($event)"
         ></agt-card-policy>
@@ -34,7 +39,13 @@
             <div class="card-body">
                 <!-- AGENTHOS - LOAD MORE (ONLY IF PENDING ITEMS) -->
                 <div class="btn-list text-center">
-                    <button type="button" class="btn btn-block btn-primary" (click)="goToWorkspacePoliciesPending()"><strong>MOSTRAR TODAS</strong></button>
+                    <button
+                        type="button"
+                        class="btn btn-block btn-primary"
+                        (click)="goToWorkspacePoliciesPending()"
+                    >
+                        <strong>MOSTRAR TODAS</strong>
+                    </button>
                 </div>
             </div>
         </div>
@@ -46,7 +57,8 @@
 <agt-modal-confirm-show-history-policy
     [modalId]="modalIdConfirmShowPolicyHistory"
     [contactId]="selectedContactId"
-    [policyId]="selectedPolicyId">
+    [policyId]="selectedPolicyId"
+>
 </agt-modal-confirm-show-history-policy>
 <agt-modal-show-policy-details
     [modalId]="modalIdShowPolicyDetails"
@@ -60,37 +72,36 @@
     [contactId]="selectedContactId"
     [policyId]="selectedPolicyId"
 ></agt-modal-show-policy>
-<agt-modal-confirm-update-policy 
-    [modalId]="modalIdConfirmUpdatePolicy" 
-    [contactId]="selectedContactId" 
+<agt-modal-confirm-update-policy
+    [modalId]="modalIdConfirmUpdatePolicy"
+    [contactId]="selectedContactId"
     [policyId]="selectedPolicyId"
 ></agt-modal-confirm-update-policy>
-<agt-modal-confirm-renew-policy 
-    [modalId]="modalIdConfirmRenewPolicy" 
-    [contactId]="selectedContactId" 
-    [policyId]="selectedPolicyId" 
+<agt-modal-confirm-renew-policy
+    [modalId]="modalIdConfirmRenewPolicy"
+    [contactId]="selectedContactId"
+    [policyId]="selectedPolicyId"
     (actionTypeSelected)="showModalToSelectContactType($event)"
 ></agt-modal-confirm-renew-policy>
-<agt-modal-confirm-reissue-policy 
-    [modalId]="modalIdConfirmReissuePolicy" 
-    [contactId]="selectedContactId" 
-    [policyId]="selectedPolicyId" 
+<agt-modal-confirm-reissue-policy
+    [modalId]="modalIdConfirmReissuePolicy"
+    [contactId]="selectedContactId"
+    [policyId]="selectedPolicyId"
     (actionTypeSelected)="showModalToSelectContactType($event)"
 ></agt-modal-confirm-reissue-policy>
-<agt-modal-select-contact-type 
-    [modalId]="modalIdSelectContactType" 
-    [actionType]="selectedActionType" 
-    [contactId]="selectedContactId" 
+<agt-modal-select-contact-type
+    [modalId]="modalIdSelectContactType"
+    [actionType]="selectedActionType"
+    [contactId]="selectedContactId"
     [policyId]="selectedPolicyId"
 ></agt-modal-select-contact-type>
-<agt-modal-confirm-show-payment-history 
-    [modalId]="modalIdConfirmShowPolicyPaymentHistory" 
-    [contactId]="selectedContactId" 
-    [policyId]="selectedPolicyId" 
+<agt-modal-confirm-show-payment-history
+    [modalId]="modalIdConfirmShowPolicyPaymentHistory"
+    [contactId]="selectedContactId"
+    [policyId]="selectedPolicyId"
     [paymentId]="selectedPaymentId"
 ></agt-modal-confirm-show-payment-history>
-<agt-modal-confirm-show-policy-sinisters 
-    [modalId]="modalIdConfirmShowPolicySinisterHistory" 
+<agt-modal-confirm-show-policy-sinisters
+    [modalId]="modalIdConfirmShowPolicySinisterHistory"
     [policyData]="selectedPolicyData"
 ></agt-modal-confirm-show-policy-sinisters>
-    

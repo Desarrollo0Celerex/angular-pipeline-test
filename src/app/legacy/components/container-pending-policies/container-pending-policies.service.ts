@@ -18,7 +18,7 @@ export class ContainerPendingPoliciesService {
         contentSubtype: number
     ): void {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,insurerImageUrl,policyUrl,currencyName,coveredProperty,paymentId';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,insurerImageUrl,policyUrl,currencyName,coveredProperty,paymentId';
         const filters: number[] = [contentSubtype];
         this._policyService
             .getContactPolicies(contactId, page, fields, filters)

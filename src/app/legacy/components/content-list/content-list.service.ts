@@ -206,7 +206,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'policyStatusId',
             [
@@ -247,7 +247,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
+            'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceId,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
         const filters: string = '';
         const sortBy: string = 'applicationDate';
         return this._receiptPaidService
@@ -279,7 +279,7 @@ export class ContentListService {
         page: number
     ): Observable<void> {
         const fields: string =
-            'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
+            'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceId,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
         const filters: string = '';
         const sortBy: string = 'applicationDate';
         return this._receiptPaidService
@@ -310,7 +310,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
+            'receiptPaidId,contactId,policyId,paymentId,insurerImageUrl,paymentSourceTypeName,insuranceId,insuranceName,paymentPlanName,insuranceTypeName,insuranceBackground,insuranceIcon,policyNumber,receiptsAmount,applicationDate,paymentAmountPaid,coveredProperty,lifeTime';
         const filters: string = '';
         const sortBy: string = 'applicationDate';
         return this._receiptPaidService
@@ -342,7 +342,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'policyStatusId',
             [
@@ -384,7 +384,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'policyStatusId',
             [
@@ -426,7 +426,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'policyStatusId',
             [
@@ -471,7 +471,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'externalPolicyId,isChecked,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyAmount,policyNumber,insurerImageUrl,insuranceName,insuranceIcon,insuranceBackground,paymentMethodName,insuranceTypeName,currencyName,externalPolicyStatusId,externalPolicyStatusName,externalPolicyStatusDescription,lifeTime,contactId,contactName,externalPolicyStatusBackground,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'externalPolicyId,isChecked,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyAmount,policyNumber,insurerImageUrl,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentMethodName,insuranceTypeName,currencyName,externalPolicyStatusId,externalPolicyStatusName,externalPolicyStatusDescription,lifeTime,contactId,contactName,externalPolicyStatusBackground,titularPhoneCode,titularPhoneNumber,titularEmail';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'externalPolicyStatusId',
             [EXTERNAL_POLICY_STATUS.INCOMPLETE, EXTERNAL_POLICY_STATUS.CURRENT]
@@ -509,7 +509,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,contactName,insurerImageUrl,policyUrl';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,contactName,insurerImageUrl,policyUrl';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'policyStatusId',
             [POLICY_STATUS.INCOMPLETE]
@@ -618,7 +618,7 @@ export class ContentListService {
         contentSubtype: number
     ): Observable<void> {
         const fields: string =
-            'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+            'quotationId,description,createdAt,insuranceId,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
         return this._quotationService
             .getContactQuotations(contactId, page, fields, contentSubtype)
             .pipe(
@@ -643,7 +643,7 @@ export class ContentListService {
         contentSubtype: number
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
         const filters: number[] =
             contentSubtype === POLICY_STATUS_ACTIVE
                 ? [
@@ -677,7 +677,7 @@ export class ContentListService {
         contentSubtype: number
     ): Observable<void> {
         const fields: string =
-            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         const filters: number[] =
             contentSubtype === SINISTER_STATUS_OPEN
                 ? [
@@ -770,7 +770,7 @@ export class ContentListService {
         contentSubtype: number
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,groupId,paymentId,policyCancellationReasonId,contactId,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,groupId,paymentId,policyCancellationReasonId,contactId,titularPhoneCode,titularPhoneNumber,titularEmail';
         const filters: number[] =
             contentSubtype === POLICY_STATUS_ACTIVE
                 ? [
@@ -804,7 +804,7 @@ export class ContentListService {
         contentSubtype: number
     ): Observable<void> {
         const fields: string =
-            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         const filters: number[] =
             contentSubtype === SINISTER_STATUS_OPEN
                 ? [
@@ -902,7 +902,7 @@ export class ContentListService {
         contentSubtype: number
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,partnerId,paymentId,policyCancellationReasonId,contactId,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,partnerId,paymentId,policyCancellationReasonId,contactId,titularPhoneCode,titularPhoneNumber,titularEmail';
         const filters: number[] =
             contentSubtype === POLICY_STATUS_ACTIVE
                 ? [
@@ -936,7 +936,7 @@ export class ContentListService {
         contentSubtype: number
     ): Observable<void> {
         const fields: string =
-            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         const filters: number[] =
             contentSubtype === SINISTER_STATUS_OPEN
                 ? [
@@ -965,7 +965,7 @@ export class ContentListService {
      */
     loadPayments(page: number, contentSubtype: number): Observable<void> {
         const fields: string =
-            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceId,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'paymentStatusId',
             [contentSubtype]
@@ -996,7 +996,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'policyStatusId',
             [
@@ -1112,7 +1112,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'policyStatusId',
             [
@@ -1152,7 +1152,7 @@ export class ContentListService {
         page: number
     ): Observable<void> {
         const fields: string =
-            'policyInsuredId,insurerImageUrl,insuredStatusBackground,insuredStatusName,insuredStatusId,insuranceName,insuranceTypeName,insuranceBackground,insuranceIcon,currencyName,totalAmount,coveredProperty,certificate,contactId,policyId,validityStartDate,validityEndDate,lifeTime,fatherPolicyUrl,policyUrl';
+            'policyInsuredId,insurerImageUrl,insuredStatusBackground,insuredStatusName,insuredStatusId,insuranceId,insuranceName,insuranceTypeName,insuranceBackground,insuranceIcon,currencyName,totalAmount,coveredProperty,certificate,contactId,policyId,validityStartDate,validityEndDate,lifeTime,fatherPolicyUrl,policyUrl';
         return this._policyInsuredService
             .getPolicyInsureds(contactId, policyId, fields, page)
             .pipe(
@@ -1179,7 +1179,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceId,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'paymentStatusId',
             [
@@ -1221,7 +1221,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceId,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'paymentStatusId',
             [
@@ -1264,7 +1264,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceId,insuranceName,policyNumber,policyId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'paymentStatusId',
             [
@@ -1312,7 +1312,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'policyStatusId',
             [POLICY_STATUS.CANCELLED]
@@ -1348,7 +1348,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
         const filters: string = '';
         const sortBy: string = 'emissionDate';
         return this._policyService
@@ -1384,7 +1384,7 @@ export class ContentListService {
         specialFilter: number | string
     ): Observable<void> {
         const fields: string =
-            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceId,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'paymentDate',
             [specialFilter]
@@ -1430,7 +1430,7 @@ export class ContentListService {
      */
     loadPendingReceipts(paymentId: string, page: number): Observable<void> {
         const fields: string =
-            'pendingReceipts,paymentPlanMonths,paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,validityStartDate';
+            'pendingReceipts,paymentPlanMonths,paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceId,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,validityStartDate';
         const perPage: number = DEFAULT_PER_PAGE;
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap((res: HttpResponse) => {
@@ -1574,7 +1574,7 @@ export class ContentListService {
         page: number
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,groupId,paymentId,policyCancellationReasonId,contactId';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,groupId,paymentId,policyCancellationReasonId,contactId';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'policyStatusId',
             [
@@ -1605,7 +1605,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'policyStatusId',
             [POLICY_STATUS.PENDING]
@@ -1673,7 +1673,7 @@ export class ContentListService {
         page: number
     ): Observable<void> {
         const fields: string =
-            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'sinisterStatusId',
             [SINISTER_STATUS.FINISHED]
@@ -1696,7 +1696,7 @@ export class ContentListService {
         page: number
     ): Observable<void> {
         const fields: string =
-            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'sinisterStatusId',
             [
@@ -1731,7 +1731,7 @@ export class ContentListService {
         rangeEnd: string
     ): Observable<void> {
         const fields: string =
-            'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+            'quotationId,description,createdAt,insuranceId,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
         const sortBy: string = '-createdAt';
         return this._quotationService
             .getQuotations(
@@ -1761,7 +1761,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+            'quotationId,description,createdAt,insuranceId,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
         const sortBy: string = '-createdAt';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'quotationStatusId',
@@ -1796,7 +1796,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+            'quotationId,description,createdAt,insuranceId,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
         const sortBy: string = '-createdAt';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'quotationStatusId',
@@ -1831,7 +1831,7 @@ export class ContentListService {
      */
     loadSinisters(page: number, contentSubtype: number): Observable<void> {
         const fields: string =
-            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'sinisterStatusId',
             [contentSubtype]
@@ -1899,7 +1899,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'sinisterStatusId',
             [
@@ -1941,7 +1941,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'sinisterStatusId',
             [
@@ -1981,7 +1981,7 @@ export class ContentListService {
         specialFilter: string
     ): Observable<void> {
         const fields: string =
-            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'sinisterStatusId',
             [SINISTER_STATUS.FINISHED]
@@ -2147,7 +2147,7 @@ export class ContentListService {
         query: string
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,createdAt,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,createdAt,paymentId,policyCancellationReasonId,titularPhoneCode,titularPhoneNumber,titularEmail';
         query = 'multiple:' + query;
         return this._policyService
             .getContactPolicies(contactId, page, fields, [], query)
@@ -2172,7 +2172,7 @@ export class ContentListService {
         query: string
     ): Observable<void> {
         const fields: string =
-            'quotationId,description,createdAt,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
+            'quotationId,description,createdAt,insuranceId,insuranceName,insuranceIcon,insuranceBackground,quotationStatusId,quotationStatusName,quotationStatusBackground,insuranceTypeName,contactId';
         return this._quotationService
             .getContactQuotations(contactId, page, fields, 0, query)
             .pipe(
@@ -2197,7 +2197,7 @@ export class ContentListService {
         query: string
     ): Observable<void> {
         const fields: string =
-            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         return this._sinisterService
             .getContactSinisters(contactId, page, fields, [], query)
             .pipe(
@@ -2258,7 +2258,7 @@ export class ContentListService {
         query: string
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,contactId,titularPhoneCode,titularPhoneNumber,titularEmail';
         return this._policyService
             .getGroupPolicies(groupId, page, fields, [], query)
             .pipe(
@@ -2283,7 +2283,7 @@ export class ContentListService {
         query: string
     ): Observable<void> {
         const fields: string =
-            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         return this._sinisterService
             .getGroupSinisters(groupId, page, fields, [], query)
             .pipe(
@@ -2382,7 +2382,7 @@ export class ContentListService {
         query: string
     ): Observable<void> {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,partnerId,paymentId,policyCancellationReasonId,contactId,titularPhoneCode,titularPhoneNumber,titularEmail';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusName,policyStatusDescription,policyStatusBackground,insurerImageUrl,policyAmount,currencyName,paymentPlanName,policyNumber,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyStatusId,lifeTime,insuranceTypeId,partnerId,paymentId,policyCancellationReasonId,contactId,titularPhoneCode,titularPhoneNumber,titularEmail';
         return this._policyService
             .getPartnerPolicies(partnerId, page, fields, [], query)
             .pipe(
@@ -2407,7 +2407,7 @@ export class ContentListService {
         query: string
     ): Observable<void> {
         const fields: string =
-            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         return this._sinisterService
             .getPartnerSinisters(partnerId, page, fields, [], query)
             .pipe(
@@ -2427,7 +2427,7 @@ export class ContentListService {
      */
     searchPayments(page: number, query: string): Observable<void> {
         const fields: string =
-            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
+            'paymentId,contactId,insurerImageUrl,paymentSourceTypeName,paymentStatusName,paymentStatusBackground,paymentPlanName,currencyName,pendingAmount,insuranceBackground,insuranceIcon,coveredProperty,paymentAmount,paymentAmountPaid,lifeTime,insuranceId,insuranceName,policyNumber,policyId,contactId,insuranceTypeName,bills,tickets,paymentDate,paymentStatusId,isPreauthorizedPayment';
         query = 'multiple:' + query;
         const sortBy: string = 'paymentDate';
         return this._paymentService
@@ -2448,7 +2448,7 @@ export class ContentListService {
         query: string
     ): Observable<void> {
         const fields: string =
-            'policyInsuredId,insurerImageUrl,insuredStatusBackground,insuredStatusName,insuredStatusId,insuranceName,insuranceTypeName,insuranceBackground,insuranceIcon,currencyName,totalAmount,coveredProperty,certificate,contactId,policyId,validityStartDate,validityEndDate,lifeTime,fatherPolicyUrl,policyUrl';
+            'policyInsuredId,insurerImageUrl,insuredStatusBackground,insuredStatusName,insuredStatusId,insuranceId,insuranceName,insuranceTypeName,insuranceBackground,insuranceIcon,currencyName,totalAmount,coveredProperty,certificate,contactId,policyId,validityStartDate,validityEndDate,lifeTime,fatherPolicyUrl,policyUrl';
         query = 'certificate:' + query;
         const sortBy: string = 'insuredNumber';
         return this._policyInsuredService
@@ -2478,7 +2478,7 @@ export class ContentListService {
      */
     searchSinisters(page: number, query: string): Observable<void> {
         const fields: string =
-            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
+            'sinisterId,sinisterNumber,invoice,certificate,sinisterDate,insurerImageUrl,sinisterStatusName,sinisterStatusBackground,sinisterStatusDescription,insuranceId,insuranceName,insuranceIcon,insuranceBackground,paymentPlanName,insuranceTypeName,coveredProperty,policyNumber,validityStartDate,validityEndDate,lifeTime,sinisterTypeName,totalEvents,dateLastEvent,titularName,contactId,policyId,sinisterStatusId,sinisterResolutionName,sinisterResolutionIndemnificationAmount,sinisterResolutionCurrencyName';
         query = 'multiple:' + query;
         return this._sinisterService.getSinisters(page, fields, '', query).pipe(
             tap((res: HttpResponse) => {
