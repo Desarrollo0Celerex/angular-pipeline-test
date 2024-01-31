@@ -36,6 +36,9 @@ import { ModalCreateSinisterModule } from '@components/modal-create-sinister/mod
 import { SinisterModule } from '@sinister/sinister.module';
 import { PolicyPaymentActionsModalComponent } from './components/policy-payment-actions-modal/policy-payment-actions-modal.component';
 import { PolicyRecordActionsModalComponent } from './components/policy-record-actions-modal/policy-record-actions-modal.component';
+import { PolicyReissueActionsModalComponent } from './components/policy-reissue-actions-modal/policy-reissue-actions-modal.component';
+import { ModalConfirmReissuePolicyModule } from '@components/modal-confirm-reissue-policy/modal-confirm-reissue-policy.module';
+import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 
 @NgModule({
     declarations: [
@@ -58,6 +61,7 @@ import { PolicyRecordActionsModalComponent } from './components/policy-record-ac
         PolicySinisterActionsModalComponent,
         PolicyPaymentActionsModalComponent,
         PolicyRecordActionsModalComponent,
+        PolicyReissueActionsModalComponent,
     ],
     exports: [
         CreatePolicyModalComponent,
@@ -70,6 +74,7 @@ import { PolicyRecordActionsModalComponent } from './components/policy-record-ac
         PolicySinisterActionsModalComponent,
         PolicyPaymentActionsModalComponent,
         PolicyRecordActionsModalComponent,
+        PolicyReissueActionsModalComponent,
     ],
     imports: [
         CommonModule,
@@ -85,6 +90,8 @@ import { PolicyRecordActionsModalComponent } from './components/policy-record-ac
         SinisterModule,
         PolicyComplementModule,
         ModalCreateSinisterModule,
+        ModalConfirmReissuePolicyModule,
+        ModalSelectContactTypeModule,
     ],
     providers: [
         CancelPolicyModalService,
