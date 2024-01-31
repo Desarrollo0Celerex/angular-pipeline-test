@@ -18,6 +18,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { CancelPolicyModalService } from '@policy/components/cancel-policy-modal/cancel-policy-modal.service';
 import { PolicySinisterActionsModalService } from '@policy/components/policy-sinister-actions-modal/policy-sinister-actions-modal.service';
 import { PolicyPaymentActionsModalService } from '@policy/components/policy-payment-actions-modal/policy-payment-actions-modal.service';
+import { PolicyRecordActionsModalService } from '@policy/components/policy-record-actions-modal/policy-record-actions-modal.service';
 
 declare var PopoverPlugin: any;
 
@@ -67,6 +68,7 @@ export class CardPolicyComponent implements OnInit {
         private _cancelPolicyModalService: CancelPolicyModalService,
         private _policySinisterActionsModalService: PolicySinisterActionsModalService,
         private _policyPaymentActionsModalService: PolicyPaymentActionsModalService,
+        private _policyRecordActionsModalService: PolicyRecordActionsModalService,
         private _router: Router
     ) {
         this.policy = null;
@@ -178,9 +180,10 @@ export class CardPolicyComponent implements OnInit {
      */
     onClickShowHistoryPolicy(): void {
         if (!!this.policy)
-            this.showHistoryPolicy.emit({
+            this._policyRecordActionsModalService.openModal({
                 contactId: this.policy.contactId,
                 policyId: this.policy.policyId,
+                paymentId: this.policy.paymentId,
             });
     }
 

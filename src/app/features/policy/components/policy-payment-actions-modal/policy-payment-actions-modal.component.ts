@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PolicyPaymentActionsModalService } from './policy-payment-actions-modal.service';
 import { SmartComponent } from '@core/classes/smart-component';
-import { PAYMENTS_ROUTES } from '@payment/constants/routes';
+import { PAYMENT_ROUTES } from '@payment/constants/routes';
 import { PolicyService } from '@policy/services/policy.service';
 
 declare var ModalPlugin: any;
@@ -55,7 +55,7 @@ export class PolicyPaymentActionsModalComponent
     get pendingPaymentsRoute(): string {
         return (
             '/' +
-            PAYMENTS_ROUTES.policyPendingPayments(
+            PAYMENT_ROUTES.policyPendingPayments(
                 this._contactId,
                 this._policyId,
                 this._paymentId
@@ -66,7 +66,7 @@ export class PolicyPaymentActionsModalComponent
     get appliedPaymentsRoute(): string {
         return (
             '/' +
-            PAYMENTS_ROUTES.policyAppliedPayments(
+            PAYMENT_ROUTES.policyAppliedPayments(
                 this._contactId,
                 this._policyId,
                 this._paymentId

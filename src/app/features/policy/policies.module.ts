@@ -35,6 +35,7 @@ import { PolicySinisterActionsModalComponent } from './components/policy-siniste
 import { ModalCreateSinisterModule } from '@components/modal-create-sinister/modal-create-sinister.module';
 import { SinisterModule } from '@sinister/sinister.module';
 import { PolicyPaymentActionsModalComponent } from './components/policy-payment-actions-modal/policy-payment-actions-modal.component';
+import { PolicyRecordActionsModalComponent } from './components/policy-record-actions-modal/policy-record-actions-modal.component';
 
 @NgModule({
     declarations: [
@@ -56,6 +57,7 @@ import { PolicyPaymentActionsModalComponent } from './components/policy-payment-
         PolicyActionsDeletedModalComponent,
         PolicySinisterActionsModalComponent,
         PolicyPaymentActionsModalComponent,
+        PolicyRecordActionsModalComponent,
     ],
     exports: [
         CreatePolicyModalComponent,
@@ -67,6 +69,7 @@ import { PolicyPaymentActionsModalComponent } from './components/policy-payment-
         PolicyComplementsComponent,
         PolicySinisterActionsModalComponent,
         PolicyPaymentActionsModalComponent,
+        PolicyRecordActionsModalComponent,
     ],
     imports: [
         CommonModule,

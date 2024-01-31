@@ -23,6 +23,7 @@
             "@contact/*": ["app/features/contact/*"],
             "@core/*": ["app/core/*"],
             "@countries/*": ["app/features/countries/*"],
+            "@endorsement/*": ["app/features/endorsement/*"],
             "@insurance/*": ["app/features/insurance/*"],
             "@insurer/*": ["app/features/insurer/*"],
             "@insurance-type/*": ["app/features/insurance-type/*"],
@@ -33,6 +34,7 @@
             "@policy-complement/*": ["app/features/policy-complement/*"],
             "@policy/*": ["app/features/policy/*"],
             "@quotation/*": ["app/features/quotation/*"],
+            "@renewal/*": ["app/features/renewal/*"],
             "@seller-commission-suggestions/*": [
                 "app/features/seller-commission-suggestions/*"
             ],

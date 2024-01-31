@@ -3,4 +3,6 @@ export const POLICY_ROUTES = {
         `workspace/policies/complete-policy/${contactId}/${policyId}`,
     cancelPolicy: (contactId: string, policyId: string) =>
         `workspace/policies/cancel-policy/${contactId}/${policyId}`,
+    policyRecord: (contactId: string, policyId: string) =>
+        `workspace/policies/history-policy/${contactId}/${policyId}`,
 };

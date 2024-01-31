@@ -1,4 +1,4 @@
-export const PAYMENTS_ROUTES = {
+export const PAYMENT_ROUTES = {
     policyPendingPayments: (
         contactId: string,
         policyId: string,
@@ -11,4 +11,10 @@ export const PAYMENTS_ROUTES = {
         paymentId: string
     ) =>
         `workspace/payments/pending-receipts/${contactId}/${policyId}/${paymentId}`,
+    policyPaymentsRecord: (
+        contactId: string,
+        policyId: string,
+        paymentId: string
+    ) =>
+        `workspace/payments/payment-history/${contactId}/${policyId}/${paymentId}`,
 };
