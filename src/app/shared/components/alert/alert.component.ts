@@ -8,15 +8,5 @@ import { Component, Input } from '@angular/core';
 export class AlertComponent {
     @Input() message = '';
     @Input() type = 'success';
-
-    get icon() {
-        switch (this.type) {
-            case 'success':
-                return 'fe-check-circle';
-            case 'failed':
-                return 'fa-exclamation-circle';
-            default:
-                return '';
-        }
-    }
+    @Input() icon = 'fe-check-circle';
 }

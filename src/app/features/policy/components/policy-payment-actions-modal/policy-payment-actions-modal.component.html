@@ -1,0 +1,93 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pagos de Póliza</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- AGENTHOS - SMARTWALLET POLICY NOTIFICATION -->
+                    <!-- (JUST IF POLICY 1 PAYMENTS PENDING) -->
+                    <div class="col-md-12 mb-3" *ngIf="totalLatePayments > 0">
+                        <a
+                            [routerLink]="pendingPaymentsRoute"
+                            data-dismiss="modal"
+                        >
+                            <agt-alert
+                                [message]="alertMessage"
+                                [type]="alertType"
+                                icon="fe-credit-card"
+                            ></agt-alert>
+                        </a>
+                    </div>
+                    <div class="col-md-12">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">
+                                Selecciona la acción que deseas realizar.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET POLICY PAYMENT APPLY -->
+                        <a [routerLink]="pendingPaymentsRoute">
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                💸 <strong>APLICAR PAGOS</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET POLICY PAYMENTS APPLIED -->
+                        <a [routerLink]="appliedPaymentsRoute">
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                💰 <strong>RECIBOS PAGADOS</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - SMARTWALLETPOLICY PAYMENTS PENDING -->
+                        <a [routerLink]="pendingPaymentsRoute">
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                🧾 <strong>RECIBOS PENDIENTES</strong>
+                            </button></a
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    data-dismiss="modal"
+                >
+                    <strong>CANCELAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

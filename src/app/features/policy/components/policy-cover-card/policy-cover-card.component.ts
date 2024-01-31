@@ -6,7 +6,7 @@ import {
     ViewChild,
 } from '@angular/core';
 import { UpdatePolicyActionsModalComponent } from '../update-policy-actions-modal/update-policy-actions-modal.component';
-import { Policy } from '@core/interfaces/policy.interface';
+import { Policy } from '@policy/interfaces/policy.interface';
 
 @Component({
     selector: 'agt-policy-cover-card',

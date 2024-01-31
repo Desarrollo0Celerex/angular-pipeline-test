@@ -3,5 +3,5 @@
     role="alert"
 >
     <span class="alert-inner--icon"><i class="fe {{ icon }} mr-2"></i></span>
-    <span class="alert-inner--text">{{ message }}</span>
+    <span class="alert-inner--text" [innerHTML]="message"></span>
 </div>

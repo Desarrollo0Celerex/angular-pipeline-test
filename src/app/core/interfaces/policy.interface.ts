@@ -103,4 +103,5 @@ export interface Policy {
     workspaceName: string;
     workspaceAdvisoryWhatsappCode: string;
     workspaceAdvisoryWhatsappNumber: string;
+    totalSinisters: number;
 }

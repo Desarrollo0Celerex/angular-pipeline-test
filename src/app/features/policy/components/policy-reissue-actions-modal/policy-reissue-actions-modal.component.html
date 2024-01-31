@@ -1,3 +1,4 @@
+<!-- AGENTHOS - SMARTWALLET POLICY REISSUE -->
 <div
     class="modal fade"
     [id]="modalId"
@@ -8,7 +9,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Cancelar Póliza</h5>
+                <h5 class="modal-title">Reexpedir Póliza</h5>
                 <button
                     type="button"
                     class="close"
@@ -20,6 +21,21 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <!-- AGENTHOS - SMARTWALLET POLICY NOTIFICATION -->
+                    <!-- (JUST IF POLICY REISSUED) -->
+                    <div class="col-md-12 mb-3" *ngIf="alertMessage">
+                        <a
+                            [routerLink]="policyTrackerRoute"
+                            data-dismiss="modal"
+                        >
+                            <agt-alert
+                                [message]="alertMessage"
+                                type="info"
+                                icon="fe-repeat"
+                            ></agt-alert>
+                        </a>
+                    </div>
+                    <!-- //AGENTHOS - SMARTWALLET POLICY NOTIFICATION -->
                     <div class="col-md-12">
                         <ol class="breadcrumb1">
                             <li class="breadcrumb-item1">
@@ -28,30 +44,28 @@
                         </ol>
                     </div>
                     <div class="col-md-12 mt-3">
-                        <!-- AGENTHOS - SMARTWALLET POLICY CANCEL -->
-                        <a [routerLink]="cancelPolicyRoute">
-                            <button
-                                type="button"
-                                class="btn btn-block agt-btn-default"
-                                data-dismiss="modal"
-                            >
-                                🚫 <strong>CANCELAR PÓLIZA</strong>
-                            </button></a
-                        >
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <!-- AGENTHOS - SMARTWALLET POLICY DELETE -->
+                        <!-- AGENTHOS - SMARTWALLET POLICY REISSUE PROCESS -->
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
                             data-dismiss="modal"
-                            (click)="confirmDeletePolicy()"
+                            (click)="onReissuePolicy()"
                         >
-                            🗑️ <strong>ELIMINAR PÓLIZA</strong>
+                            🗂️ <strong>CARGAR REEXPEDICIÓN</strong>
                         </button>
                     </div>
                     <div class="col-md-6 mt-3">
-                        <!-- AGENTHOS - PAYTRACKER POLICY CANCEL FOLLOW -->
+                        <!-- AGENTHOS - SMARTWALLET POLICY REISSUE QUOTE -->
+                        <button
+                            type="button"
+                            class="btn btn-block agt-btn-default"
+                            [disabled]="true"
+                        >
+                            📉 <strong>COTIZAR REEXPEDICIÓN</strong>
+                        </button>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - PAYTRACKER POLICY REISSUE FOLLOW -->
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
@@ -64,6 +78,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <!-- AGENTHOS - CANCEL UPLOAD -->
                 <button
                     type="button"
                     class="btn btn-block agt-btn-secondary-outline"
@@ -75,8 +90,17 @@
         </div>
     </div>
 </div>
+<!-- //AGENTHOS - SMARTWALLET POLICY POLICY REISSUE -->
 
-<agt-delete-policy-modal
-    [canShowPolicyActions]="true"
-    (policyDeleted)="onPolicyDeleted()"
-></agt-delete-policy-modal>
+<agt-modal-confirm-reissue-policy
+    [modalId]="modalIdConfirmReissuePolicy"
+    [contactId]="contactId"
+    [policyId]="policyId"
+    (actionTypeSelected)="onActionTypeSelected($event)"
+></agt-modal-confirm-reissue-policy>
+<agt-modal-select-contact-type
+    [modalId]="modalIdSelectContactType"
+    [actionType]="actionType"
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-modal-select-contact-type>

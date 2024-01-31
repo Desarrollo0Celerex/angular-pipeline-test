@@ -17,7 +17,7 @@ export class ContainerWorkspacePoliciesIncompleteService {
         const page: number = 1;
         const perPage: number = 4;
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,contactName,insurerImageUrl,policyUrl';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,contactName,insurerImageUrl,policyUrl';
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'policyStatusId',
             [POLICY_STATUS.INCOMPLETE]

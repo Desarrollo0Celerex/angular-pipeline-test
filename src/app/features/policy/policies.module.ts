@@ -31,6 +31,14 @@ import { CreatePolicyModalComponent } from './components/create-policy-modal/cre
 import { CancelPolicyModalComponent } from './components/cancel-policy-modal/cancel-policy-modal.component';
 import { CancelPolicyModalService } from './components/cancel-policy-modal/cancel-policy-modal.service';
 import { PolicyActionsDeletedModalComponent } from './components/policy-actions-deleted-modal/policy-actions-deleted-modal.component';
+import { PolicySinisterActionsModalComponent } from './components/policy-sinister-actions-modal/policy-sinister-actions-modal.component';
+import { ModalCreateSinisterModule } from '@components/modal-create-sinister/modal-create-sinister.module';
+import { SinisterModule } from '@sinister/sinister.module';
+import { PolicyPaymentActionsModalComponent } from './components/policy-payment-actions-modal/policy-payment-actions-modal.component';
+import { PolicyRecordActionsModalComponent } from './components/policy-record-actions-modal/policy-record-actions-modal.component';
+import { PolicyReissueActionsModalComponent } from './components/policy-reissue-actions-modal/policy-reissue-actions-modal.component';
+import { ModalConfirmReissuePolicyModule } from '@components/modal-confirm-reissue-policy/modal-confirm-reissue-policy.module';
+import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 
 @NgModule({
     declarations: [
@@ -50,6 +58,10 @@ import { PolicyActionsDeletedModalComponent } from './components/policy-actions-
         CreatePolicyModalComponent,
         CancelPolicyModalComponent,
         PolicyActionsDeletedModalComponent,
+        PolicySinisterActionsModalComponent,
+        PolicyPaymentActionsModalComponent,
+        PolicyRecordActionsModalComponent,
+        PolicyReissueActionsModalComponent,
     ],
     exports: [
         CreatePolicyModalComponent,
@@ -59,6 +71,10 @@ import { PolicyActionsDeletedModalComponent } from './components/policy-actions-
         PolicyHeaderComponent,
         PolicyCoverCardComponent,
         PolicyComplementsComponent,
+        PolicySinisterActionsModalComponent,
+        PolicyPaymentActionsModalComponent,
+        PolicyRecordActionsModalComponent,
+        PolicyReissueActionsModalComponent,
     ],
     imports: [
         CommonModule,
@@ -71,7 +87,11 @@ import { PolicyActionsDeletedModalComponent } from './components/policy-actions-
         SharedModule,
         TasksModule,
         ReactiveFormsModule,
+        SinisterModule,
         PolicyComplementModule,
+        ModalCreateSinisterModule,
+        ModalConfirmReissuePolicyModule,
+        ModalSelectContactTypeModule,
     ],
     providers: [
         CancelPolicyModalService,

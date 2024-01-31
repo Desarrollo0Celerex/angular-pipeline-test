@@ -144,6 +144,7 @@ export enum TASK_MODULES {
     PAYMENT = 1,
     OTHER = 2,
     POLICY = 3,
+    REISSUE = 4,
 }
 
 export enum PHONE_CODES {

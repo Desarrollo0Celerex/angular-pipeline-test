@@ -1,0 +1,104 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Historial de Póliza</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">
+                                Selecciona el tipo de historial que deseas
+                                consultar.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET POLICY RECORD GLOBAL -->
+                        <a [routerLink]="policyRecordRoute">
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                📋 <strong>HISTORIAL GENERAL</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET POLICY RECORD SINISTERS -->
+                        <a [routerLink]="sinistersRecordRoute">
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                🚨 <strong>SINIESTROS</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET POLICY RECORD ENDORSEMENTS -->
+                        <a [routerLink]="endorsementsRecordRoute">
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                📑 <strong>ENDOSOS</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET POLICY RECORD PAYMENTS -->
+                        <a [routerLink]="paymentsRecordRoute">
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                💰 <strong>RECIBOS</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET POLICY RECORD RENEWALS -->
+                        <a [routerLink]="renewalsRecordRoute">
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                🗂️ <strong>RENOVACIONES</strong>
+                            </button></a
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    data-dismiss="modal"
+                >
+                    <strong>CANCELAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

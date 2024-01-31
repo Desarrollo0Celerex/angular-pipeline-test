@@ -668,6 +668,12 @@
     border-color: #fbe9c8 !important;
 }
 
+.agt-alert-danger {
+    color: #912f28 !important;
+    background-color: #fcdcd8 !important;
+    border-color: #fbcac8 !important;
+}
+
 /* -- AGENTHOS - DEVICE LIBRARY -- */
 .device-iphone-14-pro {
     margin-top: -88px;

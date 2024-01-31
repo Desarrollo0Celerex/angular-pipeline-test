@@ -34,7 +34,7 @@ export class ContainerIncompletePoliciesService {
         contentSubtype: number
     ): void {
         const fields: string =
-            'policyId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,insurerImageUrl,policyUrl';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyStatusId,policyStatusName,policyStatusDescription,policyStatusBackground,policyAmount,policyNumber,paymentPlanName,contactId,insurerImageUrl,policyUrl';
         const filters: number[] = [contentSubtype];
         this._policyService
             .getContactPolicies(contactId, page, fields, filters)

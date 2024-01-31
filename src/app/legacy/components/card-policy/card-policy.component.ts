@@ -16,6 +16,10 @@ import { PaymentDataSend } from '@interfaces/payment-data-send.interface';
 import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { CancelPolicyModalService } from '@policy/components/cancel-policy-modal/cancel-policy-modal.service';
+import { PolicySinisterActionsModalService } from '@policy/components/policy-sinister-actions-modal/policy-sinister-actions-modal.service';
+import { PolicyPaymentActionsModalService } from '@policy/components/policy-payment-actions-modal/policy-payment-actions-modal.service';
+import { PolicyRecordActionsModalService } from '@policy/components/policy-record-actions-modal/policy-record-actions-modal.service';
+import { PolicyReissueActionsModalService } from '@policy/components/policy-reissue-actions-modal/policy-reissue-actions-modal.service';
 
 declare var PopoverPlugin: any;
 
@@ -51,8 +55,6 @@ export class CardPolicyComponent implements OnInit {
         new EventEmitter<ContactPolicyData>();
     @Output() showPolicyDetails: EventEmitter<ContactPolicyData> =
         new EventEmitter<ContactPolicyData>();
-    @Output() showPolicySinisters: EventEmitter<PolicyDataSend> =
-        new EventEmitter<PolicyDataSend>();
     @Output() updatePolicy: EventEmitter<ContactPolicyData> =
         new EventEmitter<ContactPolicyData>();
     @Output() showPolicyActionsRequested = new EventEmitter<Policy>();
@@ -65,6 +67,10 @@ export class CardPolicyComponent implements OnInit {
     constructor(
         private _authService: AuthService,
         private _cancelPolicyModalService: CancelPolicyModalService,
+        private _policySinisterActionsModalService: PolicySinisterActionsModalService,
+        private _policyPaymentActionsModalService: PolicyPaymentActionsModalService,
+        private _policyRecordActionsModalService: PolicyRecordActionsModalService,
+        private _policyReissueActionsModalService: PolicyReissueActionsModalService,
         private _router: Router
     ) {
         this.policy = null;
@@ -105,11 +111,6 @@ export class CardPolicyComponent implements OnInit {
             contactId: this.policy!.contactId,
             policyId: this.policy!.policyId,
         });
-        /* if (!!this.policy)
-            this.cancelPolicy.emit({
-                contactId: this.policy.contactId,
-                policyId: this.policy.policyId,
-            }); */
     }
 
     /**
@@ -149,11 +150,12 @@ export class CardPolicyComponent implements OnInit {
      * Click event to reissue the policy
      */
     onClickReissuePolicy(): void {
-        if (!!this.policy)
-            this.reissuePolicy.emit({
+        if (!!this.policy) {
+            this._policyReissueActionsModalService.openModal({
                 contactId: this.policy.contactId,
                 policyId: this.policy.policyId,
             });
+        }
     }
 
     /**
@@ -176,9 +178,10 @@ export class CardPolicyComponent implements OnInit {
      */
     onClickShowHistoryPolicy(): void {
         if (!!this.policy)
-            this.showHistoryPolicy.emit({
+            this._policyRecordActionsModalService.openModal({
                 contactId: this.policy.contactId,
                 policyId: this.policy.policyId,
+                paymentId: this.policy.paymentId,
             });
     }
 
@@ -202,12 +205,11 @@ export class CardPolicyComponent implements OnInit {
      */
     onClickShowPaymentHistory(): void {
         if (!!this.policy) {
-            const paymentData: PaymentDataSend = {
+            this._policyPaymentActionsModalService.openModal({
                 contactId: this.policy.contactId,
                 policyId: this.policy.policyId,
                 paymentId: this.policy.paymentId,
-            };
-            this.showPaymentHistory.emit(paymentData);
+            });
         }
     }
 
@@ -228,11 +230,11 @@ export class CardPolicyComponent implements OnInit {
      */
     onClickShowPolicySinisters(): void {
         if (!!this.policy) {
-            const policyData: PolicyDataSend = {
+            this._policySinisterActionsModalService.openModal({
                 contactId: this.policy.contactId,
                 policyId: this.policy.policyId,
-            };
-            this.showPolicySinisters.emit(policyData);
+                policyInsuranceId: this.policy.insuranceId,
+            });
         }
     }
 
