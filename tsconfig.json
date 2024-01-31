@@ -29,6 +29,7 @@
             "@notifier/*": ["app/features/notifier/*"],
             "@shared/*": ["app/shared/*"],
             "@features-legacy/*": ["app/features-legacy/*"],
+            "@payment/*": ["app/features/payment/*"],
             "@policy-complement/*": ["app/features/policy-complement/*"],
             "@policy/*": ["app/features/policy/*"],
             "@quotation/*": ["app/features/quotation/*"],

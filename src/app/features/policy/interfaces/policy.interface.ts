@@ -91,4 +91,5 @@ export interface Policy {
     monthsPaid: number;
     paymentDate: string;
     totalSinisters: number;
+    totalLatePayments: number;
 }

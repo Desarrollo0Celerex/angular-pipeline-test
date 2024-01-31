@@ -49,6 +49,10 @@ export class PolicySinisterActionsModalComponent
                   '</strong> siniestros reportados.';
     }
 
+    get alertType(): string {
+        return this.totalSinisters === 1 ? 'warning' : 'danger';
+    }
+
     get sinistersRecordRoute(): string {
         return (
             '/' +

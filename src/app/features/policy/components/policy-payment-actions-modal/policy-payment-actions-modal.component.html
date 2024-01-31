@@ -8,7 +8,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Siniestros de Póliza</h5>
+                <h5 class="modal-title">Pagos de Póliza</h5>
                 <button
                     type="button"
                     class="close"
@@ -21,20 +21,19 @@
             <div class="modal-body">
                 <div class="row">
                     <!-- AGENTHOS - SMARTWALLET POLICY NOTIFICATION -->
-                    <!-- (JUST IF POLICY SINISTERS REPORTED) -->
-                    <div class="col-md-12 mb-3" *ngIf="totalSinisters > 0">
+                    <!-- (JUST IF POLICY 1 PAYMENTS PENDING) -->
+                    <div class="col-md-12 mb-3" *ngIf="totalLatePayments > 0">
                         <a
+                            [routerLink]="pendingPaymentsRoute"
                             data-dismiss="modal"
-                            [routerLink]="sinistersRecordRoute"
                         >
                             <agt-alert
                                 [message]="alertMessage"
                                 [type]="alertType"
-                                icon="fe-life-buoy"
+                                icon="fe-credit-card"
                             ></agt-alert>
                         </a>
                     </div>
-                    <!-- AGENTHOS - SMARTWALLET POLICY NOTIFICATION -->
                     <div class="col-md-12">
                         <ol class="breadcrumb1">
                             <li class="breadcrumb-item1">
@@ -43,37 +42,38 @@
                         </ol>
                     </div>
                     <div class="col-md-12 mt-3">
-                        <!-- AGENTHOS - SMARTWALLET POLICY SINISTER REPORT -->
-                        <button
-                            type="button"
-                            class="btn btn-block agt-btn-default"
-                            data-dismiss="modal"
-                            (click)="createSinister()"
-                        >
-                            🚨 <strong>REPORTAR SINIESTRO</strong>
-                        </button>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <!-- AGENTHOS - SMARTWALLET POLICY SINISTERS OPEN -->
-                        <a [routerLink]="sinistersOpenRoute">
+                        <!-- AGENTHOS - SMARTWALLET POLICY PAYMENT APPLY -->
+                        <a [routerLink]="pendingPaymentsRoute">
                             <button
                                 type="button"
                                 class="btn btn-block agt-btn-default"
                                 data-dismiss="modal"
                             >
-                                🔔 <strong>SINIESTROS ABIERTOS</strong>
+                                💸 <strong>APLICAR PAGOS</strong>
                             </button></a
                         >
                     </div>
                     <div class="col-md-6 mt-3">
-                        <!-- AGENTHOS - SMARTWALLET POLICY SINISTERS CLOSED -->
-                        <a [routerLink]="sinistersClosedRoute">
+                        <!-- AGENTHOS - SMARTWALLET POLICY PAYMENTS APPLIED -->
+                        <a [routerLink]="appliedPaymentsRoute">
                             <button
                                 type="button"
                                 class="btn btn-block agt-btn-default"
                                 data-dismiss="modal"
                             >
-                                🔕 <strong>SINIESTROS CERRADOS</strong>
+                                💰 <strong>RECIBOS PAGADOS</strong>
+                            </button></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - SMARTWALLETPOLICY PAYMENTS PENDING -->
+                        <a [routerLink]="pendingPaymentsRoute">
+                            <button
+                                type="button"
+                                class="btn btn-block agt-btn-default"
+                                data-dismiss="modal"
+                            >
+                                🧾 <strong>RECIBOS PENDIENTES</strong>
                             </button></a
                         >
                     </div>
@@ -91,10 +91,3 @@
         </div>
     </div>
 </div>
-
-<agt-modal-create-sinister
-    [modalId]="modalIdCreateSinister"
-    [contactId]="contactId"
-    [policyId]="policyId"
-    [insuranceId]="policyInsuranceId"
-></agt-modal-create-sinister>

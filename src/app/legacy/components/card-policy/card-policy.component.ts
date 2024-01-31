@@ -17,6 +17,7 @@ import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { CancelPolicyModalService } from '@policy/components/cancel-policy-modal/cancel-policy-modal.service';
 import { PolicySinisterActionsModalService } from '@policy/components/policy-sinister-actions-modal/policy-sinister-actions-modal.service';
+import { PolicyPaymentActionsModalService } from '@policy/components/policy-payment-actions-modal/policy-payment-actions-modal.service';
 
 declare var PopoverPlugin: any;
 
@@ -65,6 +66,7 @@ export class CardPolicyComponent implements OnInit {
         private _authService: AuthService,
         private _cancelPolicyModalService: CancelPolicyModalService,
         private _policySinisterActionsModalService: PolicySinisterActionsModalService,
+        private _policyPaymentActionsModalService: PolicyPaymentActionsModalService,
         private _router: Router
     ) {
         this.policy = null;
@@ -202,12 +204,11 @@ export class CardPolicyComponent implements OnInit {
      */
     onClickShowPaymentHistory(): void {
         if (!!this.policy) {
-            const paymentData: PaymentDataSend = {
+            this._policyPaymentActionsModalService.openModal({
                 contactId: this.policy.contactId,
                 policyId: this.policy.policyId,
                 paymentId: this.policy.paymentId,
-            };
-            this.showPaymentHistory.emit(paymentData);
+            });
         }
     }
 
