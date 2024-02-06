@@ -29,6 +29,8 @@ import { WorkspaceService } from '@workspace/services/workspace.service';
 import { Observable, forkJoin } from 'rxjs';
 import { CreatePolicyModalService } from './create-policy-modal.service';
 import { SmartComponent } from '@core/classes/smart-component';
+import { ContactService } from '@contact/services/contact.service';
+import { POLICY_ACTIONS } from '@policy/enums/policy-actions';
 
 declare var DropifyPlugin: any;
 declare var ModalPlugin: any;
@@ -55,11 +57,15 @@ export class CreatePolicyModalComponent
     private _contactId = '';
     private _contactType = 0;
     private _isFormSubmitted = false;
+    private _newContactId = '';
+    private _oldPolicyId = '';
+    private _policyAction = 0;
     private _policyId = '';
     private _workpaceCountryId = 0;
 
     constructor(
         private _authService: AuthService,
+        private _contactService: ContactService,
         private _createPolicyModalService: CreatePolicyModalService,
         private _formBuilder: FormBuilder,
         private _insuranceService: InsuranceService,
@@ -77,7 +83,12 @@ export class CreatePolicyModalComponent
         this._createPolicyModalService.createPolicyModal$
             .pipe(this.untilComponentDestroy())
             .subscribe((data) => {
-                this._openModal(data);
+                this._contactId = data.contactId;
+                this._contactType = data.contactType;
+                this._policyAction = data.policyAction;
+                this._oldPolicyId = data.oldPolicyId;
+                this._newContactId = data.newContactId;
+                this._checkPolicyAction();
             });
     }
 
@@ -126,7 +137,7 @@ export class CreatePolicyModalComponent
     validateForm(): void {
         this._isFormSubmitted = true;
         if (this.form.valid) {
-            this._createPolicy();
+            this._doPolicyAction();
         }
     }
 
@@ -137,6 +148,26 @@ export class CreatePolicyModalComponent
             insuranceId: ['', [Validators.required]],
             insuranceTypeId: ['', [Validators.required]],
         });
+    }
+
+    private _checkHasContactType(): void {
+        if (this._contactType) {
+            this._loadCatalogs();
+            this._openModal();
+        } else {
+            this._loadContactType();
+        }
+    }
+
+    private _checkPolicyAction(): void {
+        switch (this._policyAction) {
+            case POLICY_ACTIONS.RENEW_POLICY:
+            case POLICY_ACTIONS.REISSUE_POLICY:
+                this._loadPolicy();
+                break;
+            default:
+                this._checkHasContactType();
+        }
     }
 
     private _closeModal(): void {
@@ -157,6 +188,26 @@ export class CreatePolicyModalComponent
                 this._policyId = policyId;
                 this._uploadPolicyFile();
             });
+    }
+
+    private _disableInsurenceFields(): void {
+        this.form.controls.insuranceId.disable();
+        this.form.controls.insuranceTypeId.disable();
+    }
+
+    private _doPolicyAction(): void {
+        switch (this._policyAction) {
+            case POLICY_ACTIONS.RENEW_POLICY:
+                console.log('Renovar póliza');
+                break;
+
+            case POLICY_ACTIONS.REISSUE_POLICY:
+                this._reissuePolicy();
+                break;
+
+            default:
+                this._createPolicy();
+        }
     }
 
     private _generateFileParams(): FileParam[] {
@@ -207,6 +258,19 @@ export class CreatePolicyModalComponent
         });
     }
 
+    private _loadContactType(): void {
+        this._loadingService.show();
+        const fields = 'contactTypeId';
+        this._contactService
+            .getContact(this._contactId, fields)
+            .subscribe((contact) => {
+                this._loadingService.hide();
+                this._contactType = contact.contactTypeId;
+                this._loadCatalogs();
+                this._openModal();
+            });
+    }
+
     private _loadCountryInsurers(): void {
         const fields = 'insurerId,name';
         this._insurerService
@@ -241,6 +305,25 @@ export class CreatePolicyModalComponent
             });
     }
 
+    private _loadPolicy(): void {
+        this._loadingService.show();
+        const fields = 'insurerId,insuranceId,insuranceTypeId';
+        this._policyService
+            .getContactPolicy(this._contactId, this._oldPolicyId, fields)
+            .subscribe((policy) => {
+                this._loadingService.hide();
+                this.form.patchValue({
+                    insurerId: policy.insurerId,
+                    insuranceId: policy.insuranceId,
+                    insuranceTypeId: policy.insuranceTypeId,
+                });
+
+                this._loadInsuranceTypes();
+                this._checkHasContactType();
+                this._disableInsurenceFields();
+            });
+    }
+
     private _loadWorkspace(): void {
         const fields = 'countryId';
         this._workspaceService.getWorkspace(fields).subscribe((workspace) => {
@@ -249,17 +332,25 @@ export class CreatePolicyModalComponent
         });
     }
 
-    private _openModal(modalData: {
-        contactId: string;
-        contactType: number;
-    }): void {
-        this._contactId = modalData.contactId;
-        this._contactType = modalData.contactType;
-        this._loadCatalogs();
+    private _openModal(): void {
         ModalPlugin.show(this.modalId);
         setTimeout(() => {
             DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
         }, 0);
+    }
+
+    private _reissuePolicy(): void {
+        this._loadingService.show();
+        const requestBody = {
+            contactId: this._newContactId,
+        };
+        this._policyService
+            .reissuePolicy(this._contactId, this._oldPolicyId, requestBody)
+            .subscribe((newPolicyId) => {
+                this._contactId = this._newContactId;
+                this._policyId = newPolicyId;
+                this._uploadPolicyFile();
+            });
     }
 
     private _uploadPolicyFile(): void {

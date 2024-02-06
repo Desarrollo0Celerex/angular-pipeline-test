@@ -7,6 +7,8 @@ import { PolicyService } from '@policy/services/policy.service';
 import { environment } from '@env/environment';
 import * as moment from 'moment';
 import { POLICY_ROUTES } from '@policy/constants/routes';
+import { SelectClientTypeModalService } from '@client/components/select-client-type-modal/select-client-type-modal.service';
+import { POLICY_ACTIONS } from '@policy/enums/policy-actions';
 
 declare var ModalPlugin: any;
 
@@ -30,7 +32,8 @@ export class PolicyReissueActionsModalComponent
     constructor(
         private _createTaskService: CreateTaskService,
         private _policyService: PolicyService,
-        private _policyReissueActionsModalService: PolicyReissueActionsModalService
+        private _policyReissueActionsModalService: PolicyReissueActionsModalService,
+        private _selectClientTypeModalService: SelectClientTypeModalService
     ) {
         super();
     }
@@ -67,9 +70,22 @@ export class PolicyReissueActionsModalComponent
         return '/' + POLICY_ROUTES.policyTracker(this.contactId, this.policyId);
     }
 
-    onReissuePolicy(): void {
-        ModalPlugin.show(this.modalIdConfirmReissuePolicy);
+    selectClientType(): void {
+        this._selectClientTypeModalService.openModal({
+            contactId: this.contactId,
+            policyId: this.policyId,
+            policyAction: POLICY_ACTIONS.REISSUE_POLICY,
+            modalData: {
+                title: 'Reexpedir Póliza',
+                description:
+                    'Selecciona el tipo de contratante para la reexpedición.',
+            },
+        });
     }
+
+    /* onReissuePolicy(): void {
+        ModalPlugin.show(this.modalIdConfirmReissuePolicy);
+    } */
 
     onActionTypeSelected(data: { policyId: string; actionType: number }): void {
         this.actionType = data.actionType;

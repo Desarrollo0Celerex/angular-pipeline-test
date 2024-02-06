@@ -27,6 +27,7 @@ import { TasksModule } from '@tasks/tasks.module';
 import { ModalConfirmGoToAgenthosSupportModule } from '@components/modal-confirm-go-to-agenthos-support/modal-confirm-go-to-agenthos-support.module';
 import { ContactModule } from '@contact/contact.module';
 import { PoliciesModule } from '@policy/policies.module';
+import { ClientModule } from '@client/client.module';
 
 @NgModule({
     declarations: [
@@ -47,6 +48,7 @@ import { PoliciesModule } from '@policy/policies.module';
         WorkspaceReportActionsModalComponent,
     ],
     imports: [
+        ClientModule,
         CommonModule,
         ContactModule,
         HomeRoutingModule,

@@ -8,6 +8,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { UpdatePolicyContact } from '@policy/interfaces/update-policy-contact.interface';
 import { POLICY_ENDPOINTS } from '@policy/constants/endpoints';
 import { CreatePolicyRequestBody } from '@policy/interfaces/create-policy-request-body.interface';
+import { ReissuePolicyRequestBody } from '@policy/interfaces/reissue-policy-request-body.interface';
 
 @Injectable()
 export class PolicyService {
@@ -62,6 +63,17 @@ export class PolicyService {
                     policyId
                 )
             );
+    }
+
+    reissuePolicy(
+        contactId: string,
+        policyId: string,
+        requestBody: ReissuePolicyRequestBody
+    ): Observable<string> {
+        return this._apiHttp.post(
+            POLICY_ENDPOINTS.reissues(this._workspaceId, contactId, policyId),
+            requestBody
+        );
     }
 
     sendPolicyNotification(

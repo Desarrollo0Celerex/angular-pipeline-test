@@ -4,6 +4,7 @@ import { ApiHttp } from '@core/http/api.http';
 import { CreateContactRequestBody } from '@contact/interfaces/create-contact-request-body.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { CONTACT_ENDPOINTS } from '@contact/constants/endpoints';
+import { Contact } from '@contact/interfaces/contact.interface';
 
 @Injectable()
 export class ContactService {
@@ -18,5 +19,11 @@ export class ContactService {
             CONTACT_ENDPOINTS.contacts(this._workspaceId),
             requestBody
         );
+    }
+
+    getContact(contactId: string, fields: string = ''): Observable<Contact> {
+        return this._apiHttp
+            .param('fields', fields)
+            .get(CONTACT_ENDPOINTS.contact(this._workspaceId, contactId));
     }
 }
