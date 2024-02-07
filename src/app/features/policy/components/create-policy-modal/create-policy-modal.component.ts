@@ -30,7 +30,7 @@ import { Observable, forkJoin } from 'rxjs';
 import { CreatePolicyModalService } from './create-policy-modal.service';
 import { SmartComponent } from '@core/classes/smart-component';
 import { ContactService } from '@contact/services/contact.service';
-import { POLICY_ACTIONS } from '@policy/enums/policy-actions';
+import { CONTACT_ACTIONS } from '@contact/enums/contact-actions.enum';
 
 declare var DropifyPlugin: any;
 declare var ModalPlugin: any;
@@ -59,7 +59,7 @@ export class CreatePolicyModalComponent
     private _isFormSubmitted = false;
     private _newContactId = '';
     private _oldPolicyId = '';
-    private _policyAction = 0;
+    private _contactAction = 0;
     private _policyId = '';
     private _workpaceCountryId = 0;
 
@@ -84,8 +84,8 @@ export class CreatePolicyModalComponent
             .pipe(this.untilComponentDestroy())
             .subscribe((data) => {
                 this._contactId = data.contactId;
+                this._contactAction = data.contactAction;
                 this._contactType = data.contactType;
-                this._policyAction = data.policyAction;
                 this._oldPolicyId = data.oldPolicyId;
                 this._newContactId = data.newContactId;
                 this._checkPolicyAction();
@@ -160,9 +160,9 @@ export class CreatePolicyModalComponent
     }
 
     private _checkPolicyAction(): void {
-        switch (this._policyAction) {
-            case POLICY_ACTIONS.RENEW_POLICY:
-            case POLICY_ACTIONS.REISSUE_POLICY:
+        switch (this._contactAction) {
+            case CONTACT_ACTIONS.RENEW_POLICY:
+            case CONTACT_ACTIONS.REISSUE_POLICY:
                 this._loadPolicy();
                 break;
             default:
@@ -196,12 +196,12 @@ export class CreatePolicyModalComponent
     }
 
     private _doPolicyAction(): void {
-        switch (this._policyAction) {
-            case POLICY_ACTIONS.RENEW_POLICY:
+        switch (this._contactAction) {
+            case CONTACT_ACTIONS.RENEW_POLICY:
                 console.log('Renovar póliza');
                 break;
 
-            case POLICY_ACTIONS.REISSUE_POLICY:
+            case CONTACT_ACTIONS.REISSUE_POLICY:
                 this._reissuePolicy();
                 break;
 

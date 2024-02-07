@@ -13,24 +13,32 @@ export class ContactTypeModalComponent {
     @ViewChild(CreateContactModalComponent)
     createContactModalComponent!: CreateContactModalComponent;
     modalId = 'agt-contact-type-modal';
-    private _contactAction = 0;
+    private data?: {
+        contactAction: CONTACT_ACTIONS;
+        contactId?: string;
+        policyId?: string;
+    };
 
     createCompany(): void {
-        this.createContactModalComponent.openModal(
-            this._contactAction,
-            CONTACT_TYPES.COMPANY
-        );
+        this.createContactModalComponent.openModal({
+            contactType: CONTACT_TYPES.COMPANY,
+            ...this.data!,
+        });
     }
 
     createPerson(): void {
-        this.createContactModalComponent.openModal(
-            this._contactAction,
-            CONTACT_TYPES.PERSON
-        );
+        this.createContactModalComponent.openModal({
+            contactType: CONTACT_TYPES.PERSON,
+            ...this.data!,
+        });
     }
 
-    openModal(contactAction: CONTACT_ACTIONS): void {
-        this._contactAction = contactAction;
+    openModal(data: {
+        contactAction: CONTACT_ACTIONS;
+        contactId?: string;
+        policyId?: string;
+    }): void {
+        this.data = data;
         ModalPlugin.show(this.modalId);
     }
 }

@@ -8,7 +8,7 @@ import { environment } from '@env/environment';
 import * as moment from 'moment';
 import { POLICY_ROUTES } from '@policy/constants/routes';
 import { SelectClientTypeModalService } from '@client/components/select-client-type-modal/select-client-type-modal.service';
-import { POLICY_ACTIONS } from '@policy/enums/policy-actions';
+import { CONTACT_ACTIONS } from '@contact/enums/contact-actions.enum';
 
 declare var ModalPlugin: any;
 
@@ -21,6 +21,7 @@ export class PolicyReissueActionsModalComponent
     extends SmartComponent
     implements OnInit
 {
+    alertMessage = '';
     modalId = 'agt-policy-reissue-actions-modal';
     modalIdConfirmReissuePolicy = 'pram-confirm-reissue-policy';
     modalIdSelectContactType = 'pram-select-contact-type';
@@ -49,23 +50,6 @@ export class PolicyReissueActionsModalComponent
             });
     }
 
-    get alertMessage(): string {
-        if (this.reissueDays !== -1) {
-            if (this.reissueDays === 0) {
-                return 'La póliza se reexpidió <strong>hoy</strong>.';
-            }
-            if (this.reissueDays === 1) {
-                return 'La póliza se reexpidió hace <strong>1</strong> día.';
-            }
-            return (
-                'La póliza se reexpidió hace <strong>' +
-                this.reissueDays +
-                '</strong> días.'
-            );
-        }
-        return '';
-    }
-
     get policyTrackerRoute(): string {
         return '/' + POLICY_ROUTES.policyTracker(this.contactId, this.policyId);
     }
@@ -74,7 +58,7 @@ export class PolicyReissueActionsModalComponent
         this._selectClientTypeModalService.openModal({
             contactId: this.contactId,
             policyId: this.policyId,
-            policyAction: POLICY_ACTIONS.REISSUE_POLICY,
+            contactAction: CONTACT_ACTIONS.REISSUE_POLICY,
             modalData: {
                 title: 'Reexpedir Póliza',
                 description:
@@ -107,10 +91,31 @@ export class PolicyReissueActionsModalComponent
         ModalPlugin.show(this.modalId);
     }
 
-    private _calculateReissueDays(reissueDate: string): void {
-        const currentDate = moment();
-        const reissueDateAux = moment(reissueDate);
-        this.reissueDays = currentDate.diff(reissueDate, 'days');
+    private _calculateReissueDays(reissueDate: string | null): void {
+        if (reissueDate !== null) {
+            const currentDate = moment();
+            this.reissueDays = currentDate.diff(reissueDate, 'days');
+        } else {
+            this.reissueDays = -1;
+        }
+    }
+
+    private _generateAlertMessage(): void {
+        this.alertMessage = '';
+        if (this.reissueDays !== -1) {
+            if (this.reissueDays === 0) {
+                this.alertMessage =
+                    'La póliza se reexpidió <strong>hoy</strong>.';
+            }
+            if (this.reissueDays === 1) {
+                this.alertMessage =
+                    'La póliza se reexpidió hace <strong>1</strong> día.';
+            }
+            this.alertMessage =
+                'La póliza se reexpidió hace <strong>' +
+                this.reissueDays +
+                '</strong> días.';
+        }
     }
 
     private _loadReissueDate(): void {
@@ -118,9 +123,8 @@ export class PolicyReissueActionsModalComponent
         this._policyService
             .getContactPolicy(this.contactId, this.policyId, fields)
             .subscribe((policy) => {
-                if (policy.reissueDate !== null) {
-                    this._calculateReissueDays(policy.reissueDate);
-                }
+                this._calculateReissueDays(policy.reissueDate);
+                this._generateAlertMessage();
             });
     }
 

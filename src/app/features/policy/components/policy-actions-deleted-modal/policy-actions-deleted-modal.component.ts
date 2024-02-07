@@ -26,9 +26,9 @@ export class PolicyActionsDeletedModalComponent {
     }
 
     createPolicy(): void {
-        this._contactCategoryModalService.openModal(
-            CONTACT_ACTIONS.CREATE_POLICY
-        );
+        this._contactCategoryModalService.openModal({
+            contactAction: CONTACT_ACTIONS.CREATE_POLICY,
+        });
     }
 
     scheduleTask(): void {

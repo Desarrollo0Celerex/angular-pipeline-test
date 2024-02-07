@@ -1,4 +1,0 @@
-export enum POLICY_ACTIONS {
-    RENEW_POLICY = 4,
-    REISSUE_POLICY = 5,
-}

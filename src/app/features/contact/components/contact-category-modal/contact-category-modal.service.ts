@@ -6,9 +6,17 @@ import { Subject } from 'rxjs';
     providedIn: 'root',
 })
 export class ContactCategoryModalService {
-    public contactCategoryModal$ = new Subject<CONTACT_ACTIONS>();
+    public contactCategoryModal$ = new Subject<{
+        contactAction: CONTACT_ACTIONS;
+        contactId?: string;
+        policyId?: string;
+    }>();
 
-    public openModal(contactAction: CONTACT_ACTIONS): void {
-        this.contactCategoryModal$.next(contactAction);
+    public openModal(data: {
+        contactAction: CONTACT_ACTIONS;
+        contactId?: string;
+        policyId?: string;
+    }): void {
+        this.contactCategoryModal$.next(data);
     }
 }

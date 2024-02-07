@@ -45,6 +45,7 @@ import { Policy } from '@core/interfaces/policy.interface';
 import { PolicyActionsComponent } from '@policy/components/policy-actions/policy-actions.component';
 import { Contact } from '@core/interfaces/contact.interface';
 import { CreatePolicyModalService } from '@policy/components/create-policy-modal/create-policy-modal.service';
+import { CONTACT_ACTIONS } from '@contact/enums/contact-actions.enum';
 
 declare var ModalPlugin: any;
 
@@ -1061,6 +1062,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case ACTION_TYPES.CREATE_POLICY:
                 this._createPolicyModalService.openModal({
                     contactId: contact.contactId,
+                    contactAction: CONTACT_ACTIONS.CREATE_POLICY,
                     contactType: contact.contactTypeId,
                 });
                 break;
@@ -1091,22 +1093,13 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 break;
 
             case ACTION_TYPES.REISSUE_POLICY:
-                this._loadingService.show();
-                this.contentListService
-                    .reissuePolicy(
-                        this.originContactId,
-                        this.originPolicyId,
-                        contact.contactId
-                    )
-                    .subscribe((res: HttpResponse) => {
-                        this._loadingService.hide();
-                        this._router.navigate([
-                            ROUTES_NAME.uploadPolicy(
-                                contact.contactId,
-                                res.data
-                            ),
-                        ]);
-                    });
+                this._createPolicyModalService.openModal({
+                    contactId: this.originContactId,
+                    contactAction: CONTACT_ACTIONS.REISSUE_POLICY,
+                    contactType: contact.contactTypeId,
+                    oldPolicyId: this.originPolicyId,
+                    newContactId: contact.contactId,
+                });
                 break;
         }
     }

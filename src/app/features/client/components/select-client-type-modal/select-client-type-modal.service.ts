@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { POLICY_ACTIONS } from '@policy/enums/policy-actions';
+import { CONTACT_ACTIONS } from '@contact/enums/contact-actions.enum';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -9,7 +9,7 @@ export class SelectClientTypeModalService {
     public selectClientTypeModal$ = new Subject<{
         contactId: string;
         policyId: string;
-        policyAction: POLICY_ACTIONS;
+        contactAction: CONTACT_ACTIONS;
         modalData: {
             title: string;
             description: string;
@@ -19,7 +19,7 @@ export class SelectClientTypeModalService {
     public openModal(data: {
         contactId: string;
         policyId: string;
-        policyAction: POLICY_ACTIONS;
+        contactAction: CONTACT_ACTIONS;
         modalData: {
             title: string;
             description: string;
