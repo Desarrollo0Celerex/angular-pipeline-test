@@ -8,6 +8,7 @@ export interface Workspace {
     countryAbbreviation: string;
     currencyName: string;
     licenseId: number;
+    licenseShortName: string;
     workspaceStatusId: number;
     payLink: string;
     cardiumUrl: string;

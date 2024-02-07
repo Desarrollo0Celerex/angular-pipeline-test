@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
 
     private _loadWorkspace(): void {
         this._workspaceService
-            .getWorkspace('avatarUrl,brandName')
+            .getWorkspace('avatarUrl,brandName,licenseShortName')
             .subscribe((res: Workspace) => {
                 this.workspace = res;
             });
