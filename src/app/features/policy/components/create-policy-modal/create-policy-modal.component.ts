@@ -198,7 +198,7 @@ export class CreatePolicyModalComponent
     private _doPolicyAction(): void {
         switch (this._contactAction) {
             case CONTACT_ACTIONS.RENEW_POLICY:
-                console.log('Renovar póliza');
+                this._renewPolicy();
                 break;
 
             case CONTACT_ACTIONS.REISSUE_POLICY:
@@ -346,6 +346,20 @@ export class CreatePolicyModalComponent
         };
         this._policyService
             .reissuePolicy(this._contactId, this._oldPolicyId, requestBody)
+            .subscribe((newPolicyId) => {
+                this._contactId = this._newContactId;
+                this._policyId = newPolicyId;
+                this._uploadPolicyFile();
+            });
+    }
+
+    private _renewPolicy(): void {
+        this._loadingService.show();
+        const requestBody = {
+            contactId: this._newContactId,
+        };
+        this._policyService
+            .renewPolicy(this._contactId, this._oldPolicyId, requestBody)
             .subscribe((newPolicyId) => {
                 this._contactId = this._newContactId;
                 this._policyId = newPolicyId;

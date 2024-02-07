@@ -18,6 +18,8 @@ export const POLICY_ENDPOINTS = {
     policyNotification: `${environment.agenthosNotifications.apiUrl}/policies`,
     reissues: (workspaceId: string, contactId: string, policyId: string) =>
         `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/reissue`,
+    renewals: (workspaceId: string, contactId: string, policyId: string) =>
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/renew`,
     uploadContactPolicy: (
         workspaceId: string,
         contactId: string,

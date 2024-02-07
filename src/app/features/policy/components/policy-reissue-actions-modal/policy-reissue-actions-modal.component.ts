@@ -23,8 +23,6 @@ export class PolicyReissueActionsModalComponent
 {
     alertMessage = '';
     modalId = 'agt-policy-reissue-actions-modal';
-    modalIdConfirmReissuePolicy = 'pram-confirm-reissue-policy';
-    modalIdSelectContactType = 'pram-select-contact-type';
     contactId = '';
     policyId = '';
     actionType = 0;
@@ -65,15 +63,6 @@ export class PolicyReissueActionsModalComponent
                     'Selecciona el tipo de contratante para la reexpedición.',
             },
         });
-    }
-
-    /* onReissuePolicy(): void {
-        ModalPlugin.show(this.modalIdConfirmReissuePolicy);
-    } */
-
-    onActionTypeSelected(data: { policyId: string; actionType: number }): void {
-        this.actionType = data.actionType;
-        ModalPlugin.show(this.modalIdSelectContactType);
     }
 
     scheduleFollowUp(): void {
@@ -119,6 +108,7 @@ export class PolicyReissueActionsModalComponent
     }
 
     private _loadReissueDate(): void {
+        this.alertMessage = '';
         const fields = 'reissueDate';
         this._policyService
             .getContactPolicy(this.contactId, this.policyId, fields)

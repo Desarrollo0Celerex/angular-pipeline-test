@@ -32,7 +32,6 @@ import { StateService } from '@state/services/state.service';
 import { WorkspaceService } from '@workspace/services/workspace.service';
 import { DuplicateContactModalComponent } from '../duplicate-contact-modal/duplicate-contact-modal.component';
 import { CONTACTS_ROUTES } from '@contact/constants/routes';
-import { CreatePolicyModalComponent } from '@policy/components/create-policy-modal/create-policy-modal.component';
 import { CreatePolicyModalService } from '@policy/components/create-policy-modal/create-policy-modal.service';
 
 declare var ModalPlugin: any;
@@ -297,15 +296,16 @@ export class CreateContactModalComponent implements OnInit {
             case CONTACT_ACTIONS.CREATE_POLICY:
                 this._createPolicyModalService.openModal({
                     contactId,
-                    contactAction: CONTACT_ACTIONS.CREATE_POLICY,
+                    contactAction: this._contactAction,
                     contactType: this.contactType,
                 });
                 break;
 
+            case CONTACT_ACTIONS.RENEW_POLICY:
             case CONTACT_ACTIONS.REISSUE_POLICY:
                 this._createPolicyModalService.openModal({
                     contactId: this._contactId!,
-                    contactAction: CONTACT_ACTIONS.REISSUE_POLICY,
+                    contactAction: this._contactAction,
                     contactType: this.contactType,
                     oldPolicyId: this._policyId!,
                     newContactId: contactId,
@@ -326,6 +326,7 @@ export class CreateContactModalComponent implements OnInit {
                 break;
 
             case CONTACT_ACTIONS.CREATE_POLICY:
+            case CONTACT_ACTIONS.RENEW_POLICY:
             case CONTACT_ACTIONS.REISSUE_POLICY:
                 this.modalData = {
                     title: 'Crear Cliente',

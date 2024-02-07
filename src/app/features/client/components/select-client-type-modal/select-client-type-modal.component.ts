@@ -59,7 +59,7 @@ export class SelectClientTypeModalComponent
 
     selectContactCategory(): void {
         this._contactCategoryModalService.openModal({
-            contactAction: CONTACT_ACTIONS.REISSUE_POLICY,
+            contactAction: this._contactAction,
             contactId: this._contactId,
             policyId: this._policyId,
         });

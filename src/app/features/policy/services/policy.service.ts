@@ -9,6 +9,7 @@ import { UpdatePolicyContact } from '@policy/interfaces/update-policy-contact.in
 import { POLICY_ENDPOINTS } from '@policy/constants/endpoints';
 import { CreatePolicyRequestBody } from '@policy/interfaces/create-policy-request-body.interface';
 import { ReissuePolicyRequestBody } from '@policy/interfaces/reissue-policy-request-body.interface';
+import { RenewPolicyRequestBody } from '@policy/interfaces/renew-policy-request-body.interface';
 
 @Injectable()
 export class PolicyService {
@@ -72,6 +73,17 @@ export class PolicyService {
     ): Observable<string> {
         return this._apiHttp.post(
             POLICY_ENDPOINTS.reissues(this._workspaceId, contactId, policyId),
+            requestBody
+        );
+    }
+
+    renewPolicy(
+        contactId: string,
+        policyId: string,
+        requestBody: RenewPolicyRequestBody
+    ): Observable<string> {
+        return this._apiHttp.post(
+            POLICY_ENDPOINTS.renewals(this._workspaceId, contactId, policyId),
             requestBody
         );
     }

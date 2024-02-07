@@ -75,6 +75,7 @@ export class ContactCategoryModalComponent
                 break;
 
             case CONTACT_ACTIONS.CREATE_POLICY:
+            case CONTACT_ACTIONS.RENEW_POLICY:
             case CONTACT_ACTIONS.REISSUE_POLICY:
                 this.title = 'Cargar Póliza';
                 this.description =

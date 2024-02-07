@@ -1062,7 +1062,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
             case ACTION_TYPES.CREATE_POLICY:
                 this._createPolicyModalService.openModal({
                     contactId: contact.contactId,
-                    contactAction: CONTACT_ACTIONS.CREATE_POLICY,
+                    contactAction: this.actionType,
                     contactType: contact.contactTypeId,
                 });
                 break;
@@ -1073,29 +1073,10 @@ export class ContentListComponent implements OnChanges, OnDestroy {
                 break;
 
             case ACTION_TYPES.RENEW_POLICY:
-                this._loadingService.show();
-                this.contentListService
-                    .renewPolicy(
-                        this.originContactId,
-                        this.originPolicyId,
-                        contact.contactId
-                    )
-                    .subscribe((res: HttpResponse) => {
-                        this._loadingService.hide();
-                        this._router.navigateByUrl(
-                            ROUTES_NAME.uploadPolicy(
-                                contact.contactId,
-                                res.data
-                            ),
-                            { state: { comesFromRenewalPolicy: true } }
-                        );
-                    });
-                break;
-
             case ACTION_TYPES.REISSUE_POLICY:
                 this._createPolicyModalService.openModal({
                     contactId: this.originContactId,
-                    contactAction: CONTACT_ACTIONS.REISSUE_POLICY,
+                    contactAction: this.actionType,
                     contactType: contact.contactTypeId,
                     oldPolicyId: this.originPolicyId,
                     newContactId: contact.contactId,
