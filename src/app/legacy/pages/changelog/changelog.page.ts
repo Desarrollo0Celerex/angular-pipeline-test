@@ -8,7 +8,21 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
-            version: '1.51.0',
+            version: '1.51.2',
+            launchDate: '06/02/2024',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se agrego flujo para reexpedir una póliza.',
+                        'Se agrego flujo para renovar una póliza.',
+                        'Se agrego el plan que tien un espacio de trabajo',
+                    ],
+                },
+            ],
+        },
+        {
+            version: '1.51.1',
             launchDate: '23/01/2024',
             changes: [
                 {
@@ -27,7 +41,7 @@ export class ChangelogPage {
                 {
                     title: 'Policies',
                     items: [
-                        'Se flujo para cargar una cotización o una póliza a un cliente nuevo o existente.',
+                        'Se flujo para cargar una cotización de una póliza a un cliente nuevo o existente.',
                     ],
                 },
             ],
