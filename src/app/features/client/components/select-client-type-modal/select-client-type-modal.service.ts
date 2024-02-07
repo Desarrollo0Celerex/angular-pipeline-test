@@ -5,22 +5,26 @@ import { Subject } from 'rxjs';
 @Injectable({
     providedIn: 'root',
 })
-export class CreatePolicyModalService {
-    public createPolicyModal$ = new Subject<{
+export class SelectClientTypeModalService {
+    public selectClientTypeModal$ = new Subject<{
         contactId: string;
+        policyId: string;
         contactAction: CONTACT_ACTIONS;
-        contactType?: number;
-        oldPolicyId?: string;
-        newContactId?: string;
+        modalData: {
+            title: string;
+            description: string;
+        };
     }>();
 
     public openModal(data: {
         contactId: string;
+        policyId: string;
         contactAction: CONTACT_ACTIONS;
-        contactType?: number;
-        oldPolicyId?: string;
-        newContactId?: string;
+        modalData: {
+            title: string;
+            description: string;
+        };
     }): void {
-        this.createPolicyModal$.next(data);
+        this.selectClientTypeModal$.next(data);
     }
 }

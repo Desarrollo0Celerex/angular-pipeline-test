@@ -24,6 +24,8 @@ export class SearchContactModalComponent {
     form: FormGroup = this._buildSearchForm();
     private _isFormSubmitted = false;
     private _contactAction = 0;
+    private _contactId?: string = undefined;
+    private _policyId?: string = undefined;
 
     constructor(private _formBuider: FormBuilder, private _router: Router) {}
 
@@ -46,8 +48,14 @@ export class SearchContactModalComponent {
         );
     }
 
-    openModal(contactAction: CONTACT_ACTIONS): void {
-        this._contactAction = contactAction;
+    openModal(data: {
+        contactAction: CONTACT_ACTIONS;
+        contactId?: string;
+        policyId?: string;
+    }): void {
+        this._contactAction = data.contactAction;
+        this._contactId = data.contactId;
+        this._policyId = data.policyId;
         ModalPlugin.show(this.modalId);
     }
 
@@ -63,6 +71,8 @@ export class SearchContactModalComponent {
                     contentTypeName: CONTENT_TYPES.CONTACT.NAME,
                     query,
                     actionType: this._contactAction,
+                    originContactId: this._contactId,
+                    originPolicyId: this._policyId,
                 },
             });
         }

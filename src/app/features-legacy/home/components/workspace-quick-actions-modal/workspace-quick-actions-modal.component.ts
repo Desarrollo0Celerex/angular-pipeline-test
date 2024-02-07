@@ -44,15 +44,15 @@ export class WorkspaceQuickActionsModalComponent {
     ) {}
 
     createPolicy(): void {
-        this._contactCategoryModalService.openModal(
-            CONTACT_ACTIONS.CREATE_POLICY
-        );
+        this._contactCategoryModalService.openModal({
+            contactAction: CONTACT_ACTIONS.CREATE_POLICY,
+        });
     }
 
     createQuotation(): void {
-        this._contactCategoryModalService.openModal(
-            CONTACT_ACTIONS.CREATE_QUOTATION
-        );
+        this._contactCategoryModalService.openModal({
+            contactAction: CONTACT_ACTIONS.CREATE_QUOTATION,
+        });
     }
 
     showModal(): void {

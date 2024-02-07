@@ -24,6 +24,8 @@ export class ContactCategoryModalComponent
     modalId = 'agt-contact-category-modal';
     title = '';
     private _contactAction = 0;
+    private _contactId: string | undefined = undefined;
+    private _policyId: string | undefined = undefined;
 
     constructor(
         private _contactCategoryModalService: ContactCategoryModalService
@@ -34,17 +36,34 @@ export class ContactCategoryModalComponent
     ngOnInit(): void {
         this._contactCategoryModalService.contactCategoryModal$
             .pipe(this.untilComponentDestroy())
-            .subscribe((data) => {
-                this._openModal(data);
-            });
+            .subscribe(
+                (data: {
+                    contactAction: CONTACT_ACTIONS;
+                    contactId?: string;
+                    policyId?: string;
+                }) => {
+                    this._contactAction = data.contactAction;
+                    this._contactId = data.contactId;
+                    this._policyId = data.policyId;
+                    this._openModal();
+                }
+            );
     }
 
     searchContact(): void {
-        this.searchContactModalComponent.openModal(this._contactAction);
+        this.searchContactModalComponent.openModal({
+            contactAction: this._contactAction,
+            contactId: this._contactId,
+            policyId: this._policyId,
+        });
     }
 
     selectContactType(): void {
-        this.contactTypeModalComponent.openModal(this._contactAction);
+        this.contactTypeModalComponent.openModal({
+            contactAction: this._contactAction,
+            contactId: this._contactId,
+            policyId: this._policyId,
+        });
     }
 
     private _generateTitleAndDescription(): void {
@@ -56,6 +75,8 @@ export class ContactCategoryModalComponent
                 break;
 
             case CONTACT_ACTIONS.CREATE_POLICY:
+            case CONTACT_ACTIONS.RENEW_POLICY:
+            case CONTACT_ACTIONS.REISSUE_POLICY:
                 this.title = 'Cargar Póliza';
                 this.description =
                     'Selecciona a quién le deseas cargar la póliza.';
@@ -63,8 +84,7 @@ export class ContactCategoryModalComponent
         }
     }
 
-    private _openModal(contactAction: CONTACT_ACTIONS): void {
-        this._contactAction = contactAction;
+    private _openModal(): void {
         this._generateTitleAndDescription();
         ModalPlugin.show(this.modalId);
     }

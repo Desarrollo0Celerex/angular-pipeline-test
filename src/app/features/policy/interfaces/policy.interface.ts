@@ -93,4 +93,5 @@ export interface Policy {
     totalSinisters: number;
     totalLatePayments: number;
     reissueDate: string;
+    renewalDate: string;
 }

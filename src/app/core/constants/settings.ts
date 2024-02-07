@@ -145,6 +145,7 @@ export enum TASK_MODULES {
     OTHER = 2,
     POLICY = 3,
     REISSUE = 4,
+    RENEWAL = 5,
 }
 
 export enum PHONE_CODES {

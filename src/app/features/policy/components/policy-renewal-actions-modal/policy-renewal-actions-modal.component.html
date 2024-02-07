@@ -1,4 +1,3 @@
-<!-- AGENTHOS - SMARTWALLET POLICY REISSUE -->
 <div
     class="modal fade"
     [id]="modalId"
@@ -9,7 +8,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Reexpedir Póliza</h5>
+                <h5 class="modal-title">Renovar Póliza</h5>
                 <button
                     type="button"
                     class="close"
@@ -22,7 +21,7 @@
             <div class="modal-body">
                 <div class="row">
                     <!-- AGENTHOS - SMARTWALLET POLICY NOTIFICATION -->
-                    <!-- (JUST IF POLICY REISSUED) -->
+                    <!-- (JUST IF POLICY RENEWED) -->
                     <div class="col-md-12 mb-3" *ngIf="alertMessage">
                         <a
                             [routerLink]="policyTrackerRoute"
@@ -44,28 +43,28 @@
                         </ol>
                     </div>
                     <div class="col-md-12 mt-3">
-                        <!-- AGENTHOS - SMARTWALLET POLICY REISSUE PROCESS -->
+                        <!-- AGENTHOS - SMARTWALLET POLICY RENEW PROCESS -->
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
                             data-dismiss="modal"
                             (click)="selectClientType()"
                         >
-                            🗂️ <strong>CARGAR REEXPEDICIÓN</strong>
+                            🗂️ <strong>CARGAR RENOVACIÓN</strong>
                         </button>
                     </div>
                     <div class="col-md-6 mt-3">
-                        <!-- AGENTHOS - SMARTWALLET POLICY REISSUE QUOTE -->
+                        <!-- AGENTHOS - SMARTWALLET POLICY RENEW QUOTE -->
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
                             [disabled]="true"
                         >
-                            📉 <strong>COTIZAR REEXPEDICIÓN</strong>
+                            📉 <strong>COTIZAR RENOVACIÓN</strong>
                         </button>
                     </div>
                     <div class="col-md-6 mt-3">
-                        <!-- AGENTHOS - PAYTRACKER POLICY REISSUE FOLLOW -->
+                        <!-- AGENTHOS - SMARTWALLET POLICY RENEW FOLLOW -->
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
@@ -78,7 +77,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <!-- AGENTHOS - CANCEL UPLOAD -->
                 <button
                     type="button"
                     class="btn btn-block agt-btn-secondary-outline"
@@ -90,4 +88,3 @@
         </div>
     </div>
 </div>
-<!-- //AGENTHOS - SMARTWALLET POLICY POLICY REISSUE -->

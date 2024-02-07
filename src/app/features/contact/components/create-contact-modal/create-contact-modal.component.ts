@@ -32,7 +32,6 @@ import { StateService } from '@state/services/state.service';
 import { WorkspaceService } from '@workspace/services/workspace.service';
 import { DuplicateContactModalComponent } from '../duplicate-contact-modal/duplicate-contact-modal.component';
 import { CONTACTS_ROUTES } from '@contact/constants/routes';
-import { CreatePolicyModalComponent } from '@policy/components/create-policy-modal/create-policy-modal.component';
 import { CreatePolicyModalService } from '@policy/components/create-policy-modal/create-policy-modal.service';
 
 declare var ModalPlugin: any;
@@ -59,6 +58,8 @@ export class CreateContactModalComponent implements OnInit {
     };
     states: State[] = [];
     private _contactAction = 0;
+    private _contactId?: string = undefined;
+    private _policyId?: string = undefined;
     private _isFormSubmitted = false;
 
     constructor(
@@ -114,12 +115,16 @@ export class CreateContactModalComponent implements OnInit {
         });
     }
 
-    openModal(
-        contactAction: CONTACT_ACTIONS,
-        contactType: CONTACT_TYPES
-    ): void {
-        this._contactAction = contactAction;
-        this.contactType = contactType;
+    openModal(data: {
+        contactAction: CONTACT_ACTIONS;
+        contactType: CONTACT_TYPES;
+        contactId?: string;
+        policyId?: string;
+    }): void {
+        this._contactAction = data.contactAction;
+        this.contactType = data.contactType;
+        this._contactId = data.contactId;
+        this._policyId = data.policyId;
         this._generateModalData();
         this._addFormFields();
         ModalPlugin.show(this.modalId);
@@ -144,6 +149,8 @@ export class CreateContactModalComponent implements OnInit {
             queryParams: {
                 contactTypeId: this.contactType,
                 actionType: this._contactAction,
+                originContactId: this._contactId,
+                originPolicyId: this._policyId,
             },
         });
     }
@@ -289,7 +296,19 @@ export class CreateContactModalComponent implements OnInit {
             case CONTACT_ACTIONS.CREATE_POLICY:
                 this._createPolicyModalService.openModal({
                     contactId,
+                    contactAction: this._contactAction,
                     contactType: this.contactType,
+                });
+                break;
+
+            case CONTACT_ACTIONS.RENEW_POLICY:
+            case CONTACT_ACTIONS.REISSUE_POLICY:
+                this._createPolicyModalService.openModal({
+                    contactId: this._contactId!,
+                    contactAction: this._contactAction,
+                    contactType: this.contactType,
+                    oldPolicyId: this._policyId!,
+                    newContactId: contactId,
                 });
                 break;
         }
@@ -307,6 +326,8 @@ export class CreateContactModalComponent implements OnInit {
                 break;
 
             case CONTACT_ACTIONS.CREATE_POLICY:
+            case CONTACT_ACTIONS.RENEW_POLICY:
+            case CONTACT_ACTIONS.REISSUE_POLICY:
                 this.modalData = {
                     title: 'Crear Cliente',
                     description: 'Ingresa los datos para guardar al cliente.',
