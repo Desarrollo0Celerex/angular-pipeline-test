@@ -88,6 +88,7 @@ export class CreatePolicyModalComponent
                 this._contactType = data.contactType;
                 this._oldPolicyId = data.oldPolicyId;
                 this._newContactId = data.newContactId;
+                this._enableInsurenceFields();
                 this._checkPolicyAction();
             });
     }
@@ -119,7 +120,8 @@ export class CreatePolicyModalComponent
 
     loadInsuranceTypes(): void {
         this.form.patchValue({ insuranceTypeId: '' });
-        this._loadInsuranceTypes();
+        const insuranceId = this.form.value.insuranceId;
+        this._loadInsuranceTypes(insuranceId);
     }
 
     patchFileValue(value: string): void {
@@ -152,6 +154,7 @@ export class CreatePolicyModalComponent
 
     private _checkHasContactType(): void {
         if (this._contactType) {
+            this._loadingService.hide();
             this._loadCatalogs();
             this._openModal();
         } else {
@@ -188,6 +191,11 @@ export class CreatePolicyModalComponent
                 this._policyId = policyId;
                 this._uploadPolicyFile();
             });
+    }
+
+    private _enableInsurenceFields(): void {
+        this.form.controls.insuranceId.enable();
+        this.form.controls.insuranceTypeId.enable();
     }
 
     private _disableInsurenceFields(): void {
@@ -294,9 +302,8 @@ export class CreatePolicyModalComponent
             });
     }
 
-    private _loadInsuranceTypes(): void {
+    private _loadInsuranceTypes(insuranceId: number): void {
         this.insuranceTypes = [];
-        const insuranceId = this.form.value.insuranceId;
         const fields = 'insuranceTypeId,name';
         this._insuranceTypeService
             .getInsuranceTypes(insuranceId, fields)
@@ -311,14 +318,12 @@ export class CreatePolicyModalComponent
         this._policyService
             .getContactPolicy(this._contactId, this._oldPolicyId, fields)
             .subscribe((policy) => {
-                this._loadingService.hide();
                 this.form.patchValue({
                     insurerId: policy.insurerId,
                     insuranceId: policy.insuranceId,
                     insuranceTypeId: policy.insuranceTypeId,
                 });
-
-                this._loadInsuranceTypes();
+                this._loadInsuranceTypes(policy.insuranceId);
                 this._checkHasContactType();
                 this._disableInsurenceFields();
             });

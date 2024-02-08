@@ -22,7 +22,7 @@ export class PolicyRenewalActionsModalComponent
     implements OnInit
 {
     alertMessage = '';
-    modalId = 'agt-policy-reissue-actions-modal';
+    modalId = 'agt-policy-renewal-actions-modal';
     contactId = '';
     policyId = '';
     actionType = 0;
