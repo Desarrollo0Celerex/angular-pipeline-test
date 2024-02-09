@@ -94,4 +94,5 @@ export interface Policy {
     totalLatePayments: number;
     reissueDate: string;
     renewalDate: string;
+    lastEndorsementDate: string;
 }

@@ -21,6 +21,7 @@ import { PolicyPaymentActionsModalService } from '@policy/components/policy-paym
 import { PolicyRecordActionsModalService } from '@policy/components/policy-record-actions-modal/policy-record-actions-modal.service';
 import { PolicyReissueActionsModalService } from '@policy/components/policy-reissue-actions-modal/policy-reissue-actions-modal.service';
 import { PolicyRenewalActionsModalService } from '@policy/components/policy-renewal-actions-modal/policy-renewal-actions-modal.service';
+import { PolicyEndorsementActionsModalService } from '@policy/components/policy-endorsement-actions-modal/policy-endorsement-actions-modal.service';
 
 declare var PopoverPlugin: any;
 
@@ -73,6 +74,7 @@ export class CardPolicyComponent implements OnInit {
         private _policyRecordActionsModalService: PolicyRecordActionsModalService,
         private _policyReissueActionsModalService: PolicyReissueActionsModalService,
         private _policyRenewalActionsModalService: PolicyRenewalActionsModalService,
+        private _policyEndorsementActionsModalService: PolicyEndorsementActionsModalService,
         private _router: Router
     ) {
         this.policy = null;
@@ -141,11 +143,12 @@ export class CardPolicyComponent implements OnInit {
      * Click event to endorse the policy
      */
     onClickEndorsePolicy(): void {
-        if (!!this.policy)
-            this.endorsePolicy.emit({
+        if (!!this.policy) {
+            this._policyEndorsementActionsModalService.openModal({
                 contactId: this.policy.contactId,
                 policyId: this.policy.policyId,
             });
+        }
     }
 
     /**

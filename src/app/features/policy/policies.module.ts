@@ -40,6 +40,7 @@ import { PolicyReissueActionsModalComponent } from './components/policy-reissue-
 import { ModalConfirmReissuePolicyModule } from '@components/modal-confirm-reissue-policy/modal-confirm-reissue-policy.module';
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { PolicyRenewalActionsModalComponent } from './components/policy-renewal-actions-modal/policy-renewal-actions-modal.component';
+import { PolicyEndorsementActionsModalComponent } from './components/policy-endorsement-actions-modal/policy-endorsement-actions-modal.component';
 
 @NgModule({
     declarations: [
@@ -64,20 +65,22 @@ import { PolicyRenewalActionsModalComponent } from './components/policy-renewal-
         PolicyRecordActionsModalComponent,
         PolicyReissueActionsModalComponent,
         PolicyRenewalActionsModalComponent,
+        PolicyEndorsementActionsModalComponent,
     ],
     exports: [
-        CreatePolicyModalComponent,
-        SelectContactFieldsToRewriteComponent,
-        PolicyActionsComponent,
         CancelPolicyModalComponent,
-        PolicyHeaderComponent,
-        PolicyCoverCardComponent,
+        CreatePolicyModalComponent,
+        PolicyActionsComponent,
         PolicyComplementsComponent,
-        PolicySinisterActionsModalComponent,
+        PolicyCoverCardComponent,
+        PolicyEndorsementActionsModalComponent,
+        PolicyHeaderComponent,
         PolicyPaymentActionsModalComponent,
         PolicyRecordActionsModalComponent,
         PolicyReissueActionsModalComponent,
         PolicyRenewalActionsModalComponent,
+        PolicySinisterActionsModalComponent,
+        SelectContactFieldsToRewriteComponent,
     ],
     imports: [
         CommonModule,
