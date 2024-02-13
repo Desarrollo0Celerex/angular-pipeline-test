@@ -26,6 +26,12 @@ export const POLICY_ENDPOINTS = {
         policyId: string
     ) =>
         `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/upload-file`,
+    updatePolicyFile: (
+        workspaceId: string,
+        contactId: string,
+        policyId: string
+    ) =>
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/files`,
 };
 
 const ENDPOINTS = {};

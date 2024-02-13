@@ -71,8 +71,8 @@ var DropifyPlugin = (function () {
         $(".dropify").dropify(settings);
     }
 
-    function reset() {
-        let drEvent = $(".dropify").dropify();
+    function reset(inputId) {
+        let drEvent = $("#" + inputId).dropify();
         drEvent = drEvent.data("dropify");
         drEvent.resetPreview();
         drEvent.clearElement();
@@ -93,6 +93,8 @@ var DropifyPlugin = (function () {
         ) {
             initDropifyAux(allowedFileExtensions, maxFileSize, canShowPreview);
         },
-        reset,
+        reset: function (inputId = "dropify") {
+            reset(inputId);
+        },
     };
 })();

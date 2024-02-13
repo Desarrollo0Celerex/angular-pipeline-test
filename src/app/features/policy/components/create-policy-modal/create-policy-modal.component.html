@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                             <div
-                                id="agt-file-container"
+                                [id]="fileContainerId"
                                 class="form-group {{
                                     getValidationClass('file')
                                 }}"
@@ -41,7 +41,7 @@
                                     >Carátula de Póliza</label
                                 >
                                 <input
-                                    id="dropify"
+                                    [id]="fileInputId"
                                     type="file"
                                     class="dropify"
                                     data-height="208"
@@ -238,7 +238,6 @@
 </div>
 
 <agt-file-uploader
-    [endpoint]="uploadPolicyEndpoint"
     [maxFileSize]="maxFileSize"
     [allowedFileExtensions]="allowedFileExtensions"
     (fileSelected)="patchFileValue($event)"

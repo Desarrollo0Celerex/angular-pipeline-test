@@ -413,6 +413,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static policyFileUpdated(): void {
+        const alertData: Alert = {
+            title: 'Póliza Actualizada',
+            text: 'El archivo de la póliza ha sido actualizado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+        };
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static policyInsuredCancelled(): void {
         const alertData: Alert = {
             title: 'Certificado Cancelado',

@@ -90,15 +90,15 @@ export class PolicyRenewalActionsModalComponent
         if (this.renewalDays !== -1) {
             if (this.renewalDays === 0) {
                 this.alertMessage = 'La póliza se renovó <strong>hoy</strong>.';
-            }
-            if (this.renewalDays === 1) {
+            } else if (this.renewalDays === 1) {
                 this.alertMessage =
                     'La póliza se renovó hace <strong>1</strong> día.';
+            } else {
+                this.alertMessage =
+                    'La póliza se renovó hace <strong>' +
+                    this.renewalDays +
+                    '</strong> días.';
             }
-            this.alertMessage =
-                'La póliza se renovó hace <strong>' +
-                this.renewalDays +
-                '</strong> días.';
         }
     }
 

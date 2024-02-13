@@ -1,27 +1,54 @@
 <!-- AGENTHOS - ENDORSEMENT UPLOAD -->
-<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <!-- AGENTHOS - DETAILS CARD -->
-                <h5 class="modal-title">{{(!!data) ? data.title : ''}}</h5>
-                <button type="button" class="close" (click)="onClickCloseModal()">
+                <h5 class="modal-title">{{ !!data ? data.title : "" }}</h5>
+                <button
+                    type="button"
+                    class="close"
+                    (click)="onClickCloseModal()"
+                >
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="text-justify">{{(!!data) ? data.description : ''}}</p>
+                        <p class="text-justify">
+                            {{ !!data ? data.description : "" }}
+                        </p>
                         <div class="form-group">
-                            <input #buttonUploadFile type="file" class="dropify" data-max-file-size="2M" (change)="onChangeFile($event)"/>
+                            <input
+                                #buttonUploadFile
+                                id="dropify"
+                                type="file"
+                                class="dropify"
+                                data-max-file-size="2M"
+                                (change)="onChangeFile($event)"
+                            />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer text-center">
                 <div class="col-12">
-                    <button type="button" class="btn btn-primary btn-block" (click)="onClickUploadEndorsement()"><strong>{{ (!!data) ? (data.buttonLabel | uppercase) : ''}}</strong></button>
+                    <button
+                        type="button"
+                        class="btn btn-primary btn-block"
+                        (click)="onClickUploadEndorsement()"
+                    >
+                        <strong>{{
+                            !!data ? (data.buttonLabel | uppercase) : ""
+                        }}</strong>
+                    </button>
                 </div>
             </div>
         </div>

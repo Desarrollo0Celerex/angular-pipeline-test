@@ -23,6 +23,7 @@ export class FileUploaderComponent {
     @Input() maxFileSize: string = '';
     @Output() fileSelected: EventEmitter<string> = new EventEmitter<string>();
     @Output() fileUploaded: EventEmitter<void> = new EventEmitter<void>();
+    inputId?: string = undefined;
     uploader: any;
     private _pluploadSrc: string =
         'https://cdnjs.cloudflare.com/ajax/libs/plupload/3.1.5/plupload.full.min.js';
@@ -33,9 +34,12 @@ export class FileUploaderComponent {
     ) {}
 
     ngOnInit(): void {
-        this._loadPluploadScript().then(() => {
-            this.initPlupload();
-        });
+        this._loadPluploadScript().then(() => {});
+    }
+
+    init(containerId: string, inputId: string): void {
+        this.inputId = inputId;
+        if (!this.uploader) this.initPlupload(containerId);
     }
 
     uploadFile(params: FileParam[], endpoint?: string): void {
@@ -81,15 +85,15 @@ export class FileUploaderComponent {
         }, 0);
     }
 
-    initPlupload() {
+    initPlupload(containerId: string) {
         const userToken: string | null = this._storageService.getUserToken();
         const allowedFileExtensions: string =
             this.allowedFileExtensions.join(',');
 
         this.uploader = new plupload.Uploader({
             runtimes: 'html5',
-            drop_element: 'agt-file-container',
-            browse_button: 'agt-file-container',
+            drop_element: containerId,
+            browse_button: containerId,
             url: this.endpoint,
             chunk_size: '1mb',
             multi_selection: false,
@@ -144,7 +148,7 @@ export class FileUploaderComponent {
     private _setFilePreview(file: File): void {
         const dataTransfer = new DataTransfer();
         dataTransfer.items.add(file);
-        const fileInput: any = document.getElementById('dropify');
+        const fileInput: any = document.getElementById(this.inputId!);
         fileInput.files = dataTransfer.files;
         fileInput.dispatchEvent(new Event('change'));
         // Help Safari out

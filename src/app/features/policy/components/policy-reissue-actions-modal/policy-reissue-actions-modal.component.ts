@@ -95,15 +95,15 @@ export class PolicyReissueActionsModalComponent
             if (this.reissueDays === 0) {
                 this.alertMessage =
                     'La póliza se reexpidió <strong>hoy</strong>.';
-            }
-            if (this.reissueDays === 1) {
+            } else if (this.reissueDays === 1) {
                 this.alertMessage =
                     'La póliza se reexpidió hace <strong>1</strong> día.';
+            } else {
+                this.alertMessage =
+                    'La póliza se reexpidió hace <strong>' +
+                    this.reissueDays +
+                    '</strong> días.';
             }
-            this.alertMessage =
-                'La póliza se reexpidió hace <strong>' +
-                this.reissueDays +
-                '</strong> días.';
         }
     }
 

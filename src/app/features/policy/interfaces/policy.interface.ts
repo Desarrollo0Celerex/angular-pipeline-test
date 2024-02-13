@@ -95,4 +95,5 @@ export interface Policy {
     reissueDate: string;
     renewalDate: string;
     lastEndorsementDate: string;
+    updatedAt: string;
 }

@@ -1,4 +1,4 @@
-<!-- AGENTHOS - SMARTWALLET POLICY ENDORSE -->
+<!-- AGENTHOS - SMARTWALLET POLICY UPDATE -->
 <div
     class="modal fade"
     [id]="modalId"
@@ -9,7 +9,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Endosar Póliza</h5>
+                <!-- AGENTHOS - DETAILS CARD -->
+                <h5 class="modal-title">Actualizar Póliza</h5>
                 <button
                     type="button"
                     class="close"
@@ -22,7 +23,7 @@
             <div class="modal-body">
                 <div class="row">
                     <!-- AGENTHOS - SMARTWALLET POLICY NOTIFICATION -->
-                    <!-- (JUST IF POLICY ENDORSED) -->
+                    <!-- (JUST IF POLICY UPDATED) -->
                     <div class="col-md-12 mb-3" *ngIf="alertMessage">
                         <a
                             [routerLink]="policyTrackerRoute"
@@ -31,7 +32,7 @@
                             <agt-alert
                                 [message]="alertMessage"
                                 type="info"
-                                icon="fe-copy"
+                                icon="fe-edit"
                             ></agt-alert>
                         </a>
                     </div>
@@ -43,51 +44,47 @@
                             </li>
                         </ol>
                     </div>
-                    <div class="col-md-12">
-                        <!-- AGENTHOS - SMARTWALLET POLICY ENDORSE PROCESS -->
+                    <div class="col-md-12 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET POLICY UPDATE -->
                         <a
                             data-dismiss="modal"
-                            [routerLink]="createEndorsementRoute"
+                            [routerLink]="updatePolicyRoute"
                         >
                             <button
                                 type="button"
                                 class="btn btn-block agt-btn-default"
                             >
-                                🗂️ <strong>CARGAR ENDOSO</strong>
+                                📝 <strong>ACTUALIZAR DATOS</strong>
                             </button></a
                         >
                     </div>
                     <div class="col-md-6 mt-3">
-                        <!-- AGENTHOS - SMARTWALLET POLICY ENDORSE RECORD -->
-                        <a
-                            data-dismiss="modal"
-                            [routerLink]="endorsementRecordRoute"
-                        >
-                            <button
-                                type="button"
-                                class="btn btn-block agt-btn-default"
-                            >
-                                📑 <strong>REVISAR ENDOSOS</strong>
-                            </button></a
-                        >
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <!-- AGENTHOS - SMARTWALLET POLICY ENDORSE FOLLOW -->
+                        <!-- AGENTHOS - SMARTWALLET POLICY CHANGE -->
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
                             data-dismiss="modal"
-                            (click)="scheduleFollowUp()"
+                            (click)="updatePolicyFile()"
                         >
-                            📆 <strong>AGENDAR SEGUIMIENTO</strong>
+                            📃 <strong>CAMBIAR PÓLIZA</strong>
+                        </button>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- AGENTHOS - SMARTWALLET POLICY OWNER CHANGE -->
+                        <button
+                            type="button"
+                            class="btn btn-block agt-btn-default"
+                            [disabled]="true"
+                        >
+                            🪪 <strong>CAMBIAR CONTRATANTE</strong>
                         </button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <!-- AGENTHOS - CANCEL UPLOAD -->
                 <button
                     type="button"
+                    name="agtCancelAction"
                     class="btn btn-block agt-btn-secondary-outline"
                     data-dismiss="modal"
                 >
@@ -97,4 +94,6 @@
         </div>
     </div>
 </div>
-<!-- //AGENTHOS - SMARTWALLET POLICY ENDORSE -->
+<!-- //AGENTHOS - SMARTWALLET POLICY UPDATE -->
+
+<agt-update-policy-file-modal></agt-update-policy-file-modal>

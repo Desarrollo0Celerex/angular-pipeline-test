@@ -51,9 +51,10 @@ export class CreatePolicyModalComponent
     insuranceCategories: InsuranceCategory[] = [];
     insuranceTypes: InsuranceType[] = [];
     insurers: Insurer[] = [];
+    fileContainerId = 'agt-file-container-create-policy';
+    fileInputId = 'agt-file-input-create-policy';
     form = this._buildForm();
     maxFileSize: string = FILE_SIZES.LARGE;
-    uploadPolicyEndpoint = '';
     private _contactId = '';
     private _contactType = 0;
     private _isFormSubmitted = false;
@@ -177,6 +178,7 @@ export class CreatePolicyModalComponent
         this.form.reset();
         this._isFormSubmitted = false;
         ModalPlugin.hide(this.modalId);
+        DropifyPlugin.reset(this.fileInputId);
     }
 
     private _createPolicy(): void {
@@ -244,6 +246,13 @@ export class CreatePolicyModalComponent
             requests.push(request);
         }
         return forkJoin(requests);
+    }
+
+    private _initDropify(): void {
+        setTimeout(() => {
+            DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
+        }, 0);
+        this.fileUploaderComponent.init(this.fileContainerId, this.fileInputId);
     }
 
     private _loadCatalogs(): void {
@@ -339,9 +348,7 @@ export class CreatePolicyModalComponent
 
     private _openModal(): void {
         ModalPlugin.show(this.modalId);
-        setTimeout(() => {
-            DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
-        }, 0);
+        this._initDropify();
     }
 
     private _reissuePolicy(): void {

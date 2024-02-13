@@ -41,6 +41,8 @@ import { ModalConfirmReissuePolicyModule } from '@components/modal-confirm-reiss
 import { ModalSelectContactTypeModule } from '@components/modal-select-contact-type/modal-select-contact-type.module';
 import { PolicyRenewalActionsModalComponent } from './components/policy-renewal-actions-modal/policy-renewal-actions-modal.component';
 import { PolicyEndorsementActionsModalComponent } from './components/policy-endorsement-actions-modal/policy-endorsement-actions-modal.component';
+import { PolicyUpdateActionsModalComponent } from './components/policy-update-actions-modal/policy-update-actions-modal.component';
+import { UpdatePolicyFileModalComponent } from './components/update-policy-file-modal/update-policy-file-modal.component';
 
 @NgModule({
     declarations: [
@@ -66,6 +68,8 @@ import { PolicyEndorsementActionsModalComponent } from './components/policy-endo
         PolicyReissueActionsModalComponent,
         PolicyRenewalActionsModalComponent,
         PolicyEndorsementActionsModalComponent,
+        PolicyUpdateActionsModalComponent,
+        UpdatePolicyFileModalComponent,
     ],
     exports: [
         CancelPolicyModalComponent,
@@ -80,6 +84,7 @@ import { PolicyEndorsementActionsModalComponent } from './components/policy-endo
         PolicyReissueActionsModalComponent,
         PolicyRenewalActionsModalComponent,
         PolicySinisterActionsModalComponent,
+        PolicyUpdateActionsModalComponent,
         SelectContactFieldsToRewriteComponent,
     ],
     imports: [
