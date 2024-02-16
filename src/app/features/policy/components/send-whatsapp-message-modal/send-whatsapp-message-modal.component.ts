@@ -8,6 +8,7 @@ import {
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { Policy } from '@policy/interfaces/policy.interface';
+import { PolicyService } from '@policy/services/policy.service';
 
 declare var ModalPlugin: any;
 
@@ -17,14 +18,17 @@ declare var ModalPlugin: any;
     styles: [],
 })
 export class SendWhatsappMessageModalComponent {
-    @Output() policySent = new EventEmitter<void>();
+    @Output() whatsappNotificationSent = new EventEmitter<void>();
     modalId = 'agt-send-whatsapp-message-modal';
     policy: Policy | undefined = undefined;
     form = this._buildForm();
     private _isFormSubmitted = false;
     private _phone = '';
 
-    constructor(private _formBuilder: FormBuilder) {}
+    constructor(
+        private _formBuilder: FormBuilder,
+        private _policyService: PolicyService
+    ) {}
 
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null = this.form.get(constrolName);
@@ -40,18 +44,19 @@ export class SendWhatsappMessageModalComponent {
     }
 
     notifyPolicySent(): void {
-        this.policySent.emit();
+        this.whatsappNotificationSent.emit();
     }
 
     openModal(
-        policy: Policy | undefined,
         phone: string,
-        message: string
+        message: string,
+        contactId: string,
+        policyId: string
     ): void {
         this._phone = phone;
-        this.policy = policy;
         this._populateForm(message);
         ModalPlugin.show(this.modalId);
+        this._loadPolicy(contactId, policyId);
     }
 
     validateForm(): void {
@@ -78,6 +83,15 @@ export class SendWhatsappMessageModalComponent {
                 ],
             ],
         });
+    }
+
+    private _loadPolicy(contactId: string, policyId: string): void {
+        const fields = 'policyNumber,insurerName,insuranceName,policyAmount';
+        this._policyService
+            .getContactPolicy(contactId, policyId, fields)
+            .subscribe((policy) => {
+                this.policy = policy;
+            });
     }
 
     private _populateForm(message: string): void {

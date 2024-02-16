@@ -45,7 +45,7 @@ export class PolicyActionsComponent {
     }
 
     showModalSendPolicy(): void {
-        this.sendPolicyModalComponent.show(
+        this.sendPolicyModalComponent.openModal(
             this.data!.contactId,
             this.data!.policyId
         );

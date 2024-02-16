@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
     AbstractControl,
     FormBuilder,
@@ -15,7 +15,16 @@ import { InputValidatorHelper } from '@helpers/input-validator.helper';
     styles: [],
 })
 export class ShippingChannelsComponent {
-    @Output() selectedShippingChannels = new EventEmitter();
+    @Input() description? = '';
+    @Input() buttonLabel? = '';
+    @Output()
+    selectedShippingChannels = new EventEmitter<{
+        hasPhone: boolean;
+        phoneCode: string;
+        phoneNumber: string;
+        hasEmail: boolean;
+        email: string;
+    }>();
     form = this._buildForm();
     private _isFormSubmitted = false;
 
