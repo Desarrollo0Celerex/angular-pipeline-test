@@ -33,5 +33,3 @@ export const POLICY_ENDPOINTS = {
     ) =>
         `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/contacts/${contactId}/policies/${policyId}/files`,
 };
-
-const ENDPOINTS = {};

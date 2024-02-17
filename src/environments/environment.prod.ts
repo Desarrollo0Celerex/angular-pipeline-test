@@ -16,7 +16,7 @@ export const environment = {
         apiUrl: 'https://notifications.agenthos.com/v1/public',
     },
     agenthosNotifier: {
-        apiUrl: 'https://notifier.agenthos.com/v1/public/policy-notifications',
+        apiUrl: 'https://notifier.agenthos.com/v1/public/workspace-notifications',
     },
     firebaseConfig: {
         apiKey: 'AIzaSyCT6zwYtSCrpr5iXe3x4TcwCGcMUO12GzA',

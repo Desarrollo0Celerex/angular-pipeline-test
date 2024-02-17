@@ -13,6 +13,7 @@ export enum NOTIFICATION_CHANNELS {
 
 export enum NOTIFICATION_TYPES {
     POLICY_ISSUED = 1,
+    PAYMENT_REMINDER = 2,
     OTHER = 100,
 }
 

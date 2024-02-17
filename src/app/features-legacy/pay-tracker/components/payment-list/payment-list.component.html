@@ -77,10 +77,8 @@
     [policyId]="data.policyId"
     [paymentId]="data.paymentId"
     (selectPaymentType)="showModalToSelectPaymentType()"
-    (applyPayment)="showModalToApplyPayment()"
-    (sendReminder)="showModalToSelectChannelsToSendReminder()"
 ></agt-modal-handle-payment>
-<agt-modal-select-channels-to-send-reminder
+<!-- <agt-modal-select-channels-to-send-reminder
     [modalId]="modalIdSelectChannelsToSendReminder"
     [contactId]="data.contactId"
     [policyId]="data.policyId"
@@ -100,7 +98,7 @@
     [paymentId]="data.paymentId"
     [canRequestEmail]="canRequestEmail"
     [canRequestPhoneNumber]="canRequestPhoneNumber"
-></agt-modal-request-reminder-data>
+></agt-modal-request-reminder-data> -->
 <!-- <agt-modal-select-calendar
     [modalId]="modalIdSelectCalendar"
     (calendarSelected)="showModalToSyncCalendar($event)"

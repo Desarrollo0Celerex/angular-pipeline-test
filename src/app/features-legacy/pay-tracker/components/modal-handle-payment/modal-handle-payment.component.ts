@@ -11,6 +11,7 @@ import { environment } from '@env/environment';
 import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
 import { ModalCreatePaymentCommentComponent } from '../modal-create-payment-comment/modal-create-payment-comment.component';
 import { CreateTaskService } from '@tasks/components/create-task/create-task.service';
+import { SendPaymentReminderComponent } from '@payment/components/send-payment-reminder/send-payment-reminder.component';
 declare var ModalPlugin: any;
 
 @Component({
@@ -26,11 +27,12 @@ export class ModalHandlePaymentComponent {
     @Input() paymentId: string = '';
     @Output() applyPayment: EventEmitter<void> = new EventEmitter<void>();
     @Output() selectPaymentType: EventEmitter<void> = new EventEmitter<void>();
-    @Output() sendReminder: EventEmitter<void> = new EventEmitter<void>();
     @ViewChild(CreateTaskComponent)
     createTaskComponent!: CreateTaskComponent;
     @ViewChild(ModalCreatePaymentCommentComponent)
     modalCreatePaymentCommentComponent!: ModalCreatePaymentCommentComponent;
+    @ViewChild(SendPaymentReminderComponent)
+    sendPaymentReminderComponent!: SendPaymentReminderComponent;
     alertMessage = '';
     canShowAlert = false;
 
@@ -70,9 +72,19 @@ export class ModalHandlePaymentComponent {
         this._loadPayment();
     }
 
+    showAlertReminderSent(): void {
+        ModalPlugin.show(this.modalId);
+        this.canShowAlert = true;
+        this.alertMessage = 'El recordatorio se envió con éxito.';
+    }
+
     requestSendReminder(): void {
         this.closeModal();
-        this.sendReminder.emit();
+        this.sendPaymentReminderComponent.openModal(
+            this.contactId,
+            this.policyId,
+            this.paymentId
+        );
     }
 
     closeModal(): void {

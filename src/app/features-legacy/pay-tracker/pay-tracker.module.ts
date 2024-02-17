@@ -51,6 +51,7 @@ import { PaymentStatusBackgroundPipe } from '@shared/pipes/payment-status-backgr
 import { PaymentStatusIconPipe } from '@shared/pipes/payment-status-icon/payment-status-icon.pipe';
 import { PaymentStatusNamePipe } from '@shared/pipes/payment-status-name/payment-status-name.pipe';
 import { ModalCreatePaymentCommentComponent } from './components/modal-create-payment-comment/modal-create-payment-comment.component';
+import { PaymentModule } from '@payment/payment.module';
 
 @NgModule({
     declarations: [
@@ -101,6 +102,7 @@ import { ModalCreatePaymentCommentComponent } from './components/modal-create-pa
         MatMomentDateModule,
         ModalShowPaymentAppliedDetailsModule,
         NewTaskModule,
+        PaymentModule
     ],
     providers: [
         PayTrackerService,
