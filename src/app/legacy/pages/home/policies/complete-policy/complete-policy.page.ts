@@ -195,10 +195,6 @@ export class CompletePolicyPage implements OnInit {
         this.model.calculateTaxPay();
     }
 
-    calculatePolicyCommission(event: any): void {
-        this.model.calculatePolicyCommission(event.target.value);
-    }
-
     calculatePolicyCommissionAmount(event: any): void {
         this.model.calculatePolicyCommissionAmount(event.target.value);
     }

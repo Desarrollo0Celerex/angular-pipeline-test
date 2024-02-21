@@ -573,27 +573,6 @@ export class CompletePolicyService {
         }
     }
 
-    calculatePolicyCommission(amount: any): void {
-        let agentCommissionPercentage: number = 0;
-        const agentCommissionAmount: number = parseFloat(
-            UtilitiesHelper.removeCommasFromQuantity(amount)
-        );
-        if (agentCommissionAmount > 0) {
-            const policyAmount: number = parseFloat(
-                UtilitiesHelper.removeCommasFromQuantity(
-                    this.f.policyAmount.value
-                )
-            );
-            if (policyAmount > 0) {
-                agentCommissionPercentage =
-                    UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
-                        (agentCommissionAmount * 100) / policyAmount
-                    );
-            }
-        }
-        this.policyForm.patchValue({ agentCommissionPercentage });
-    }
-
     calculatePolicyCommissionAmount(percentage: any): void {
         let agentCommissionAmount: number = 0;
         const agentCommissionPercentage: number = parseFloat(percentage);
@@ -634,15 +613,13 @@ export class CompletePolicyService {
         let sellerCommissionAmount: number = 0;
         const sellerCommissionPercentage: number = parseFloat(percentage);
         if (sellerCommissionPercentage > 0) {
-            const policyAmount: number = parseFloat(
-                UtilitiesHelper.removeCommasFromQuantity(
-                    this.f.policyAmount.value
-                )
+            const netPay: number = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value)
             );
-            if (policyAmount > 0) {
+            if (netPay > 0) {
                 sellerCommissionAmount =
                     UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
-                        (sellerCommissionPercentage * policyAmount) / 100
+                        (sellerCommissionPercentage * netPay) / 100
                     );
             }
         }

@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.52.1',
+            launchDate: '20/02/2024',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se actualizo monto base para calcular comisión de un sub agente al cargar una póliza (monto de póliza por prima neta).',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.52.0',
             launchDate: '16/02/2024',
             changes: [
