@@ -32,6 +32,7 @@ import {
     NotifierService,
 } from '@notifier/services/notifier.service';
 import { PolicyComplementModalComponent } from '@policy-complement/components/policy-complement-modal/policy-complement-modal.component';
+import { PolicyTitular } from '@interfaces/policy-titular.interface';
 
 declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
@@ -700,24 +701,47 @@ export class CompletePolicyPage implements OnInit {
                 }
             }
         }
+
+        // set default fields
+        titularMissingFields.push('titularEmail');
+
         return titularMissingFields;
     }
 
     private _reviewTitularData(): void {
-        const titularMissingFields: string[] = this._getTitularMissingFields();
-        if (titularMissingFields.includes('titularPhoneNumber')) {
-            titularMissingFields.push('titularPhoneCode');
-        }
-        if (titularMissingFields.length > 0) {
-            this.model
-                .getPolicyTitularInfo(this.contactId, titularMissingFields)
-                .subscribe((res: HttpResponse) => {
-                    this._scannedPolicyData = {
-                        ...this._scannedPolicyData,
-                        ...res.data,
-                    };
-                });
-        }
+        this.model.getContact(this.contactId).subscribe((policy) => {
+            const policyTitularData: any = {};
+            if (!this._scannedPolicyData?.titularName) {
+                policyTitularData.titularName = policy.titularName;
+            }
+            if (!this._scannedPolicyData?.titularRfc) {
+                policyTitularData.titularRfc = policy.titularRfc;
+            }
+            if (!this._scannedPolicyData?.titularPostalCode) {
+                policyTitularData.titularPostalCode = policy.titularPostalCode;
+            }
+            if (!this._scannedPolicyData?.titularEmail) {
+                policyTitularData.titularEmail = policy.titularEmail;
+            }
+            if (!this._scannedPolicyData?.titularPhoneCodeId) {
+                policyTitularData.titularPhoneCodeId =
+                    policy.titularPhoneCodeId;
+            }
+            if (!this._scannedPolicyData?.titularPhoneNumber) {
+                policyTitularData.titularPhoneNumber =
+                    policy.titularPhoneNumber;
+            }
+            if (!this._scannedPolicyData?.titularAge) {
+                policyTitularData.titularAge = policy.titularAge;
+            }
+            if (!this._scannedPolicyData?.titularGenderId) {
+                policyTitularData.titularGenderId = policy.titularGenderId;
+            }
+            this._scannedPolicyData = {
+                ...this._scannedPolicyData,
+                ...policyTitularData,
+            };
+        });
     }
 
     private _handleScanError(error: HttpError): void {
