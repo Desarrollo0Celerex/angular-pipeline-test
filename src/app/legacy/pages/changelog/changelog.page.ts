@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.52.2',
+            launchDate: '24/02/2024',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se agrego logica para sobreescribir fecha de nacimiento del contacto calculada en base RFC al cargar una póliza.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.52.1',
             launchDate: '20/02/2024',
             changes: [

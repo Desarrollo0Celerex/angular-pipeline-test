@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormatterHelper } from '@core/helpers/formatter.helper';
 import { ModalHelper } from '@core/helpers/modal.helper';
 import { RewriteField } from '@policy/interfaces/rewrite-field.interface';
 import { SelectContactFieldsToRewrite } from '@policy/interfaces/select-contact-files-to-rewrite.interface';
@@ -44,6 +45,10 @@ export class SelectContactFieldsToRewriteComponent {
 
             case 'phoneCodeId':
                 value = this._phoneCodePipe.transform(value);
+                break;
+
+            case 'birthdate':
+                value = FormatterHelper.formatShortDate(value);
                 break;
         }
 

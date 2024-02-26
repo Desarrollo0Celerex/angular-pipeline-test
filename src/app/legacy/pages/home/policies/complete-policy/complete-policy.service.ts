@@ -87,6 +87,7 @@ export class CompletePolicyService {
     private _allowedFileTypes: string[] = ['pdf'];
     private _canShowPreview: boolean = true;
     private _maxFileSize: string = '2M';
+    private _titularBirthdate: string = '';
 
     constructor(
         private _authService: AuthService,
@@ -824,7 +825,9 @@ export class CompletePolicyService {
         return this._policyService.downloadPolicy(policyUrl);
     }
 
-    generateContactFieldsToRewrite(): RewriteField[] {
+    generateContactFieldsToRewrite(
+        titularBirthdate: string | null
+    ): RewriteField[] {
         let values: RewriteField[] = [];
         let fields = [
             {
@@ -884,6 +887,18 @@ export class CompletePolicyService {
             }
         }
 
+        if (titularBirthdate !== null) {
+            if (this.policy['contactBirthdate'] !== titularBirthdate) {
+                values.push({
+                    fieldKey: 'birthdate',
+                    fieldName: 'Fecha de nacimiento',
+                    currentValue: this.policy['contactBirthdate'],
+                    newValue: titularBirthdate,
+                    canRewrite: true,
+                });
+                this._titularBirthdate = titularBirthdate;
+            }
+        }
         return values;
     }
 
@@ -944,7 +959,7 @@ export class CompletePolicyService {
     ): Observable<HttpResponse> {
         this.policy = null;
         const fields: string =
-            'policyId,contactId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularLegalRepresentative,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,payGracePeriod,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber';
+            'policyId,contactId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularLegalRepresentative,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,payGracePeriod,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber,contactBirthdate';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -1504,6 +1519,7 @@ export class CompletePolicyService {
         requestBody.append('comments', this.f.comments.value);
         requestBody.append('titularName', this.f.titularName.value);
         requestBody.append('titularRfc', this.f.titularRfc.value);
+        requestBody.append('titularBirthdate', this._titularBirthdate);
         requestBody.append('titularPostalCode', this.f.titularPostalCode.value);
         requestBody.append('titularEmail', this.f.titularEmail.value);
         requestBody.append(

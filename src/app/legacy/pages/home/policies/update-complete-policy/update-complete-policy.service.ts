@@ -396,15 +396,13 @@ export class UpdateCompletePolicyService {
             UtilitiesHelper.removeCommasFromQuantity(amount)
         );
         if (agentCommissionAmount > 0) {
-            const policyAmount: number = parseFloat(
-                UtilitiesHelper.removeCommasFromQuantity(
-                    this.f.policyAmount.value
-                )
+            const netPay: number = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value)
             );
-            if (policyAmount > 0) {
+            if (netPay > 0) {
                 agentCommissionPercentage =
                     UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
-                        (agentCommissionAmount * 100) / policyAmount
+                        (agentCommissionAmount * 100) / netPay
                     );
             }
         }
@@ -415,15 +413,13 @@ export class UpdateCompletePolicyService {
         let agentCommissionAmount: number = 0;
         const agentCommissionPercentage: number = parseFloat(percentage);
         if (agentCommissionPercentage > 0) {
-            const policyAmount: number = parseFloat(
-                UtilitiesHelper.removeCommasFromQuantity(
-                    this.f.policyAmount.value
-                )
+            const netPay: number = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value)
             );
-            if (policyAmount > 0) {
+            if (netPay > 0) {
                 agentCommissionAmount =
                     UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
-                        (agentCommissionPercentage * policyAmount) / 100
+                        (agentCommissionPercentage * netPay) / 100
                     );
             }
         }

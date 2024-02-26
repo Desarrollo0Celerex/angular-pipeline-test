@@ -100,6 +100,11 @@ export class UtilitiesHelper {
         return isHistoryContent;
     }
 
+    static checkIsValidNumber(value: string, length: number): boolean {
+        const regex = new RegExp(`^[0-9]{${length}}$`);
+        return regex.test(value) ? true : false;
+    }
+
     static days360(startDate: string, endDate: string) {
         let d1 = new Date(startDate);
         let d2 = new Date(endDate);

@@ -33,6 +33,7 @@ import {
 } from '@notifier/services/notifier.service';
 import { PolicyComplementModalComponent } from '@policy-complement/components/policy-complement-modal/policy-complement-modal.component';
 import { PolicyTitular } from '@interfaces/policy-titular.interface';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 
 declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
@@ -79,6 +80,7 @@ export class CompletePolicyPage implements OnInit {
     private _scannedPolicyData: Policy | null = null;
     private _policyUrl = '';
     private _policyFile: File | null = null;
+    private _titularBirthdate: string | null = null;
 
     constructor(
         public model: CompletePolicyService,
@@ -553,6 +555,7 @@ export class CompletePolicyPage implements OnInit {
                 ModalPlugin.show(this.modalIdScanningPolicySuccess);
                 this._scannedPolicyData = res.data;
                 this._reviewPolicyData();
+                this._reviewTitularRfc();
                 this._reviewTitularData();
             },
             (error: HttpError) => {
@@ -684,30 +687,6 @@ export class CompletePolicyPage implements OnInit {
         return missingFields;
     }
 
-    private _getTitularMissingFields(): string[] {
-        let titularMissingFields: string[] = [];
-        const data: any = this._scannedPolicyData;
-        for (const field in data) {
-            if (
-                field === 'titularName' ||
-                field === 'titularRfc' ||
-                field === 'titularAge' ||
-                field === 'titularGenderId' ||
-                field === 'titularPostalCode' ||
-                field === 'titularPhoneNumber'
-            ) {
-                if (data[field] == '') {
-                    titularMissingFields.push(field);
-                }
-            }
-        }
-
-        // set default fields
-        titularMissingFields.push('titularEmail');
-
-        return titularMissingFields;
-    }
-
     private _reviewTitularData(): void {
         this.model.getContact(this.contactId).subscribe((policy) => {
             const policyTitularData: any = {};
@@ -732,7 +711,13 @@ export class CompletePolicyPage implements OnInit {
                     policy.titularPhoneNumber;
             }
             if (!this._scannedPolicyData?.titularAge) {
-                policyTitularData.titularAge = policy.titularAge;
+                if (policy.titularAge) {
+                    policyTitularData.titularAge = policy.titularAge;
+                } else if (this._titularBirthdate) {
+                    policyTitularData.titularAge = UtilitiesHelper.calculateAge(
+                        this._titularBirthdate
+                    );
+                }
             }
             if (!this._scannedPolicyData?.titularGenderId) {
                 policyTitularData.titularGenderId = policy.titularGenderId;
@@ -742,6 +727,27 @@ export class CompletePolicyPage implements OnInit {
                 ...policyTitularData,
             };
         });
+    }
+
+    private _reviewTitularRfc(): void {
+        if (this._scannedPolicyData?.titularRfc) {
+            const birthdate = this._generateBirthdateBasedOnRfc(
+                this._scannedPolicyData?.titularRfc
+            );
+            this._titularBirthdate = birthdate;
+        }
+    }
+
+    private _generateBirthdateBasedOnRfc(rfc: string): string | null {
+        const birthdateAux = rfc.substring(4, 10);
+        const isValidNumber = UtilitiesHelper.checkIsValidNumber(
+            birthdateAux,
+            6
+        );
+        if (!isValidNumber) {
+            return null;
+        }
+        return moment(birthdateAux, 'YYMMDD').format('YYYY-MM-DD');
     }
 
     private _handleScanError(error: HttpError): void {
@@ -887,8 +893,9 @@ export class CompletePolicyPage implements OnInit {
     }
 
     private _checkContactProfile(): void {
-        this.contactFieldsToRewrite =
-            this.model.generateContactFieldsToRewrite();
+        this.contactFieldsToRewrite = this.model.generateContactFieldsToRewrite(
+            this._titularBirthdate
+        );
         if (this.contactFieldsToRewrite.length > 0) {
             this.selectContactFieldsToRewriteComponent.init({
                 fields: this.contactFieldsToRewrite,
