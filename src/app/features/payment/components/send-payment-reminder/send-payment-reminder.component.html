@@ -1,6 +1,8 @@
 <agt-send-notification-modal
     (notificationSent)="checkHasWhatsappNotification($event)"
-></agt-send-notification-modal>
+>
+    <agt-last-reminder-alert></agt-last-reminder-alert>
+</agt-send-notification-modal>
 <agt-send-payment-message-modal
     (whatsappNotificationSent)="notifyReminderSent()"
 ></agt-send-payment-message-modal>

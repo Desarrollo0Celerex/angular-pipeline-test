@@ -5,14 +5,24 @@ import { NotifierModule } from '@notifier/notifier.module';
 import { SendPaymentMessageModalComponent } from './components/send-payment-message-modal/send-payment-message-modal.component';
 import { PaymentService } from './services/payment.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { LastReminderAlertComponent } from './components/last-reminder-alert/last-reminder-alert.component';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
     declarations: [
         SendPaymentReminderComponent,
         SendPaymentMessageModalComponent,
+        LastReminderAlertComponent,
     ],
     exports: [SendPaymentReminderComponent],
-    imports: [CommonModule, NotifierModule, ReactiveFormsModule],
+    imports: [
+        CommonModule,
+        NotifierModule,
+        ReactiveFormsModule,
+        RouterModule,
+        SharedModule,
+    ],
     providers: [PaymentService],
 })
 export class PaymentModule {}

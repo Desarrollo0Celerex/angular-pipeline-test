@@ -1,0 +1,30 @@
+<ng-container *ngIf="canShowAlert">
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <a data-dismiss="modal" [routerLink]="paymentRecordUrl">
+                <div
+                    class="alert agt-alert-warning alert-dismissible fade show"
+                    role="alert"
+                >
+                    <span class="alert-inner--icon"
+                        ><i class="fe {{ alertIcon }} mr-2"></i
+                    ></span>
+                    <span class="alert-inner--text"
+                        >{{ alertMessage }}
+                        <ng-container
+                            *ngIf="alertElapsedDays > 0; else todayContainer"
+                        >
+                            hace
+                            <strong>{{ alertElapsedDays }}</strong>
+                            {{
+                                "día" | plural : alertElapsedDays
+                            }}.</ng-container
+                        ></span
+                    >
+                </div>
+            </a>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #todayContainer><strong>hoy</strong>.</ng-template>

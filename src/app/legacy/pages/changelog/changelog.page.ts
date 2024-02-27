@@ -8,6 +8,16 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.52.3',
+            launchDate: '26/02/2024',
+            changes: [
+                {
+                    title: 'Payment',
+                    items: ['Se agrego alerta de último recordatorio de pago.'],
+                },
+            ],
+        },
+        {
             version: '1.52.2',
             launchDate: '24/02/2024',
             changes: [

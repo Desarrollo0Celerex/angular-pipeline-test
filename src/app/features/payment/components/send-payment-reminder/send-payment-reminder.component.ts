@@ -3,6 +3,7 @@ import { SendNotificationModalComponent } from '@notifier/components/send-notifi
 import { WhatsappNotifictionData } from '@notifier/interfaces/whatsapp-notification-data.interface';
 import { NOTIFICATION_TYPES } from '@notifier/services/notifier.service';
 import { SendPaymentMessageModalComponent } from '../send-payment-message-modal/send-payment-message-modal.component';
+import { LastReminderAlertComponent } from '../last-reminder-alert/last-reminder-alert.component';
 
 @Component({
     selector: 'agt-send-payment-reminder',
@@ -11,6 +12,8 @@ import { SendPaymentMessageModalComponent } from '../send-payment-message-modal/
 })
 export class SendPaymentReminderComponent {
     @Output() reminderSent = new EventEmitter<void>();
+    @ViewChild(LastReminderAlertComponent)
+    lastReminderAlertComponent!: LastReminderAlertComponent;
     @ViewChild(SendNotificationModalComponent)
     sendNotificationModalComponent!: SendNotificationModalComponent;
     @ViewChild(SendPaymentMessageModalComponent)
@@ -24,6 +27,11 @@ export class SendPaymentReminderComponent {
         this._policyId = policyId;
         this._paymentId = paymentId;
         this._openModalSendNotification();
+        this.lastReminderAlertComponent.initAlert({
+            contactId,
+            policyId,
+            paymentId,
+        });
     }
 
     checkHasWhatsappNotification(data: WhatsappNotifictionData | null): void {

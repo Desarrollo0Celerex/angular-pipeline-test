@@ -19,6 +19,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <ng-content></ng-content>
                 <agt-shipping-channels
                     [description]="data?.modalData?.description"
                     [buttonLabel]="data?.modalData?.buttonLabel"
