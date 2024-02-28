@@ -48,7 +48,7 @@ export class SelectContactFieldsToRewriteComponent {
                 break;
 
             case 'birthdate':
-                value = FormatterHelper.formatShortDate(value);
+                value = value ? FormatterHelper.formatShortDate(value) : '';
                 break;
         }
 

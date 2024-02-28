@@ -105,6 +105,11 @@ export class UtilitiesHelper {
         return regex.test(value) ? true : false;
     }
 
+    static checkIsValidString(value: string, length: number): boolean {
+        const regex = new RegExp(`^[a-zA-Z]{${length}}$`);
+        return regex.test(value) ? true : false;
+    }
+
     static days360(startDate: string, endDate: string) {
         let d1 = new Date(startDate);
         let d2 = new Date(endDate);

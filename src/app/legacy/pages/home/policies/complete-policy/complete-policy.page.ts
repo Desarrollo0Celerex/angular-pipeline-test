@@ -719,6 +719,7 @@ export class CompletePolicyPage implements OnInit {
                     );
                 }
             }
+
             if (!this._scannedPolicyData?.titularGenderId) {
                 policyTitularData.titularGenderId = policy.titularGenderId;
             }
@@ -731,23 +732,24 @@ export class CompletePolicyPage implements OnInit {
 
     private _reviewTitularRfc(): void {
         if (this._scannedPolicyData?.titularRfc) {
-            const birthdate = this._generateBirthdateBasedOnRfc(
+            this._titularBirthdate = this._generateBirthdateBasedOnRfc(
                 this._scannedPolicyData?.titularRfc
             );
-            this._titularBirthdate = birthdate;
         }
     }
 
     private _generateBirthdateBasedOnRfc(rfc: string): string | null {
-        const birthdateAux = rfc.substring(4, 10);
-        const isValidNumber = UtilitiesHelper.checkIsValidNumber(
-            birthdateAux,
-            6
-        );
-        if (!isValidNumber) {
+        const name = rfc.substring(0, 4);
+        const birthdate = rfc.substring(4, 10);
+        const isValidString = UtilitiesHelper.checkIsValidString(name, 4);
+        const isValidNumber = UtilitiesHelper.checkIsValidNumber(birthdate, 6);
+
+        if (!isValidString || !isValidNumber) {
             return null;
         }
-        return moment(birthdateAux, 'YYMMDD').format('YYYY-MM-DD');
+        const shortYear = parseInt(birthdate.substring(0, 2));
+        const yearAux = shortYear <= 20 ? '20' : '19';
+        return moment(yearAux + birthdate, 'YYYYMMDD').format('YYYY-MM-DD');
     }
 
     private _handleScanError(error: HttpError): void {

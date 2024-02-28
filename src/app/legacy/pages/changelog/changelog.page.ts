@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.52.4',
+            launchDate: '27/02/2024',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se soluciono bug al calcular la edad en base al RFC escaneado.',
+                        'Se soluciono bug generar la fecha de nacimiento en base al RFC escaneado.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.52.3',
             launchDate: '26/02/2024',
             changes: [
