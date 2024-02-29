@@ -145,7 +145,7 @@ export class ContainerPolicyDetailsComponent implements OnChanges {
     }
 
     onShowContactProfile(contactId: string): void {
-        this._router.navigateByUrl(ROUTES_NAME.contactResume(contactId));
+        this._router.navigateByUrl(ROUTES_NAME.listContactPolicies(contactId));
     }
 
     /**

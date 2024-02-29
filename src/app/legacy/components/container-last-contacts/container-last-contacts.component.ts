@@ -46,7 +46,7 @@ export class ContainerLastContactsComponent implements OnInit {
 
     goToContactProfile(contact: Contact): void {
         this._router.navigateByUrl(
-            ROUTES_NAME.contactResume(contact.contactId)
+            ROUTES_NAME.listContactPolicies(contact.contactId)
         );
     }
 
