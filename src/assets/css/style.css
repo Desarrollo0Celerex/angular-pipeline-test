@@ -21583,3 +21583,20 @@ a.text-dark:hover, a.text-dark:focus {
 /* ###### Width ###### */
 
 /*# sourceMappingURL=style.css.map */
+
+/* -- AGENTHOS - DEVICE LIBRARY -- */
+.device-iphone-14-pro {
+    margin-top: -88px !important;
+    margin-bottom: -58px !important;
+    position: relative !important;
+    transform: scale(0.8) !important;
+    z-index: 0 !important;
+}
+
+.device-macbook-pro {
+    margin-top: -18px !important;
+    margin-bottom: -18px !important;
+    margin-left: -48px !important;
+    transform: scale(0.8) !important;
+    z-index: 0 !important;
+}
