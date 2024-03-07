@@ -32,7 +32,7 @@ export class SidebarComponent implements OnInit {
     }
 
     selectTheme(theme: Theme): void {
-        this._themeService.setTheme(theme, this._renderer2);
+        this._themeService.setTheme(this._renderer2, theme);
     }
 
     private _loadWorkspace(): void {

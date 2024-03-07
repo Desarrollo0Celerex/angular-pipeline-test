@@ -36,6 +36,6 @@ export class AppComponent {
     }
 
     private _initializeTheme(): void {
-        this._themeService.setTheme(Theme.AGENTHOS, this._renderer2);
+        this._themeService.setTheme(this._renderer2);
     }
 }

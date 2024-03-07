@@ -7,12 +7,28 @@ import { Theme } from '@core/enums/theme.enum';
 })
 export class ThemeService {
     private _themeId = 'theme-css';
+    private _selectedTheme = Theme.AGENTHOS;
 
     constructor(@Inject(DOCUMENT) private _document: Document) {}
 
-    setTheme(theme: Theme, renderer2: Renderer2) {
+    addSelectedTheme(themeId?: number): void {
+        if (themeId) {
+            switch (themeId) {
+                case 2:
+                    this._selectedTheme = Theme.ORANGE;
+                    break;
+
+                default:
+                    this._selectedTheme = Theme.AGENTHOS;
+                    break;
+            }
+        }
+    }
+
+    setTheme(renderer2: Renderer2, theme?: Theme) {
         this._removeExistingTheme(renderer2);
-        this._addTheme(theme, renderer2);
+        const themeAux = theme ? theme : this._selectedTheme;
+        this._addTheme(themeAux, renderer2);
     }
 
     private _addTheme(theme: Theme, renderer2: Renderer2): void {

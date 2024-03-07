@@ -21,6 +21,7 @@ import { RoutingHistoryService } from '@core/services/routing-history/routing-hi
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { THEME_INITIALIZER } from '@core/initializers/theme.initializer';
 
 @NgModule({
     declarations: [AppComponent],
@@ -39,6 +40,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
         ScanningModule,
     ],
     providers: [
+        THEME_INITIALIZER,
         AUTH_INTERCEPTOR_PROVIDER,
         ERROR_INTERCEPTOR_PROVIDER,
         MANAGE_HTTP_INTERCEPTOR_PROVIDER,
