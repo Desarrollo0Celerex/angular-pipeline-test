@@ -287,6 +287,7 @@ export class CompletePolicyPage implements OnInit {
         this.model.buildPolicyForm(this._scannedPolicyData);
         this._calculateBills();
         this._checkAmountInputs();
+        this._checkIsRenewal();
     }
 
     replacePolicyFile(policyFile: File): void {
@@ -762,8 +763,11 @@ export class CompletePolicyPage implements OnInit {
             (this.model.policy.policySourceId === POLICY_SOURCES.RENEWAL ||
                 this.model.policy.policySourceId === POLICY_SOURCES.REISSUE)
         ) {
+            const fields: string =
+                'policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularLegalRepresentative,titularRfc,titularGenderId,titularAge,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,insuranceGroupId,insuranceTypeId,insureds,contactName,contactRfc,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber,contactBirthdate,contactGenderId';
             this.model
                 .getContactBasePolicy(
+                    fields,
                     this.model.policy.baseContactId,
                     this.model.policy.basePolicyId
                 )
@@ -774,6 +778,7 @@ export class CompletePolicyPage implements OnInit {
                         this._scanningService.hide();
                         ModalPlugin.show(this.modalIdBasePoliciDataLoaded);
                     }, 1000);
+                    this._checkIsRenewal();
                 });
         } else {
             this.model
@@ -1015,5 +1020,46 @@ export class CompletePolicyPage implements OnInit {
     validitateFields(): void {
         this.model.calculateBills();
         this._validateValidityEndDate();
+    }
+
+    private _checkIsRenewal(): void {
+        if (
+            !!this.model.policy &&
+            this.model.policy.policySourceId === POLICY_SOURCES.RENEWAL
+        ) {
+            this._loadRenewalData();
+        }
+    }
+
+    private _loadRenewalData(): void {
+        const fields: string =
+            'isAutoPayment,partnerId,sellerCommissionPercentage,sellerCommissionCurrencyId';
+        this.model
+            .getPolicyRenewed(
+                fields,
+                this.model.policy.baseContactId,
+                this.model.policy.basePolicyId
+            )
+            .subscribe((policy: Policy) => {
+                this.model.patchForm({
+                    isAutoPayment: policy.isAutoPayment ? true : false,
+                });
+                this._checkHasPartner(policy);
+            });
+    }
+
+    private _checkHasPartner(policy: Policy): void {
+        if (policy.partnerId) {
+            this.toggleSeller({ target: { checked: true } });
+            this.model.calculateSellerCommissionAmount(
+                policy.sellerCommissionPercentage
+            );
+            this.model.patchForm({
+                partnerId: policy.partnerId,
+                sellerCommissionPercentage: policy.sellerCommissionPercentage,
+                sellerCommissionCurrencyId: policy.sellerCommissionCurrencyId,
+                sellerCommissionPeriod: 1,
+            });
+        }
     }
 }

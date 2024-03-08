@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.52.6',
+            launchDate: '07/03/2024',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se agrego lógica para extraer los datos del vendedor y pago automático de la póliza renovada, al cargar una póliza.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.52.4',
             launchDate: '27/02/2024',
             changes: [

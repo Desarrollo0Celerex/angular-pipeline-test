@@ -987,11 +987,10 @@ export class CompletePolicyService {
      * @return          The policy data
      */
     getContactBasePolicy(
+        fields: string,
         contactId: string,
         policyId: string
     ): Observable<Policy> {
-        const fields: string =
-            'policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularLegalRepresentative,titularRfc,titularGenderId,titularAge,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,insuranceGroupId,insuranceTypeId,insureds,contactName,contactRfc,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber,contactBirthdate,contactGenderId';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -1076,6 +1075,20 @@ export class CompletePolicyService {
             );
     }
 
+    getPolicyRenewed(
+        fields: string,
+        contactId: string,
+        policyId: string
+    ): Observable<Policy> {
+        return this._policyService
+            .getContactPolicy(contactId, policyId, fields)
+            .pipe(
+                map((res: HttpResponse) => {
+                    return res.data;
+                })
+            );
+    }
+
     loadCountryInsurers(countryId: number): Observable<void> {
         const fields: string = 'insurerId,name';
         return this._insurerService.getCountryInsurers(countryId, fields).pipe(
@@ -1155,6 +1168,10 @@ export class CompletePolicyService {
             }),
             map(() => {})
         );
+    }
+
+    patchForm(formData: Object): void {
+        this.policyForm.patchValue(formData);
     }
 
     loadSellerPercentageSuggestion(sellerId: number): void {
