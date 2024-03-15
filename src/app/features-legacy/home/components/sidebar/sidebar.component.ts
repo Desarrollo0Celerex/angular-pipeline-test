@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 
 import { Workspace } from '@core/interfaces/workspace.interface';
 import { WorkspaceService } from '@core/services/workspace/workspace.service';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { environment } from '@env/environment';
+import { Theme } from '@core/enums/theme.enum';
+import { ThemeService } from '@core/services/theme/theme.service';
 
 @Component({
     selector: 'agt-sidebar',
@@ -17,11 +19,20 @@ export class SidebarComponent implements OnInit {
         environment.agenthos.support.phoneCode +
         environment.agenthos.support.phoneNumber;
     workspace: Workspace | undefined = undefined;
+    theme = Theme;
 
-    constructor(private _workspaceService: WorkspaceService) {}
+    constructor(
+        private _themeService: ThemeService,
+        private _workspaceService: WorkspaceService,
+        private _renderer2: Renderer2
+    ) {}
 
     ngOnInit(): void {
         this._loadWorkspace();
+    }
+
+    selectTheme(theme: Theme): void {
+        this._themeService.setTheme(this._renderer2, theme);
     }
 
     private _loadWorkspace(): void {

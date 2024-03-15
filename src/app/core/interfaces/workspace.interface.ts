@@ -17,4 +17,5 @@ export interface Workspace {
     twitterUrl: string;
     linkedinUrl: string;
     tiktokUrl: string;
+    workspaceThemeId: number;
 }
