@@ -165,3 +165,42 @@ export enum TASK_STATUS {
 export enum TASK_PROGRESS_STATUS {
     TODO = 1,
 }
+
+export const WORKSPACE_THEMES = {
+    AGENTHOS: {
+        ID: 1,
+        FILE: 'agenthos',
+    },
+    BERRY: {
+        ID: 2,
+        FILE: 'berry',
+    },
+    PEACH: {
+        ID: 3,
+        FILE: 'peach',
+    },
+    MANGO: {
+        ID: 4,
+        FILE: 'mango',
+    },
+    PUMPKIN: {
+        ID: 5,
+        FILE: 'pumpkin',
+    },
+    GRAPE: {
+        ID: 6,
+        FILE: 'grape',
+    },
+    MAMEY: {
+        ID: 7,
+        FILE: 'mamey',
+    },
+    LIME: {
+        ID: 8,
+        FILE: 'lime',
+    },
+    APPLE: {
+        ID: 9,
+        FILE: 'apple',
+    },
+};

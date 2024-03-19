@@ -125,6 +125,9 @@ export const WORKSPACE_ENDPOINTS: any = {
         `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/stats/retention-rate/higher`,
     workspaceLowerRetentionRate: (workspaceId: string) =>
         `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/stats/retention-rate/lower`,
+    workspaceThemeId: (workspaceId: string) =>
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/theme-id`,
+    workspaceThemes: `${environment.agenthos.apiUrl}/workspace-themes`,
 };
 
 export const WORKSPACE_USER_ENDPOINTS: any = {

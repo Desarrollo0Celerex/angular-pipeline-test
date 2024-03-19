@@ -1,143 +1,145 @@
 <!-- AGENTHOS - SIDEBAR -->
 <div class="sidebar sidebar-right sidebar-animate">
-    <div class="row">
-        <!-- AGENTHOS - USER CARD -->
-        <div class="col-md-12">
-            <div class="card-body">
-                <div class="media mt-0">
-                    <div class="d-flex mr-3">
-                        <img
-                            class="avatar avatar-xl brround cover-image cover-image"
-                            [src]="workspace?.avatarUrl"
-                        />
-                    </div>
-                    <div class="media-body">
-                        <h5>{{ workspace?.brandName }}</h5>
-                        <span class="badge agt-badge-primary-gradient"
-                            >Plan {{ workspace?.licenseShortName }}</span
-                        >
-                    </div>
-                </div>
+    <!-- AGENTHOS - WORKSPACE CARD -->
+    <div class="card-body">
+        <div class="media mt-0 mb-5">
+            <div class="d-flex mr-3">
+                <img
+                    class="avatar avatar-xl brround cover-image cover-image"
+                    [src]="workspace?.avatarUrl"
+                />
             </div>
-            <!-- AGENTHOS - WORSKPACE COLOR -->
-            <div class="card-body">
-                <ol class="breadcrumb1">
-                    <li class="breadcrumb-item1">
-                        Selecciona el tema que deseas para tu espacio de
-                        trabajo.
-                    </li>
-                </ol>
-                <div class="form-group">
-                    <div class="row gutters-xs">
-                        <!-- AGENTHOS - APP CREATOR AZURE COLOR -->
-                        <div class="col-auto">
-                            <label class="colorinput">
-                                <input
-                                    name="color"
-                                    type="checkbox"
-                                    value="agtWorkspaceColorLime"
-                                    class="colorinput-input"
-                                    checked
-                                />
-                                <span class="colorinput-color bg-azure"></span>
-                            </label>
-                        </div>
-                        <!-- //AGENTHOS - APP CREATOR AZURE COLOR -->
-                        <!-- AGENTHOS - APP CREATOR ORANGE COLOR -->
-                        <div class="col-auto">
-                            <label class="colorinput">
-                                <input
-                                    name="color"
-                                    type="checkbox"
-                                    value="agtWorkspaceColorOrange"
-                                    class="colorinput-input"
-                                />
-                                <span class="colorinput-color bg-orange"></span>
-                            </label>
-                        </div>
-                        <!-- //AGENTHOS - APP CREATOR ORANGE COLOR -->
-                    </div>
-                </div>
-                <button
-                    type="button"
-                    name="agtWorkspaceColorMaster"
-                    class="btn btn-block agt-btn-default"
-                >
-                    ✨ <strong>TEMA ORIGINAL</strong>
-                </button>
-            </div>
-            <!-- //AGENTHOS - WORSKPACE COLOR -->
-            <!-- AGENTHOS - WORKSPACE SETTINGS -->
-            <div class="card-body">
-                <ol class="breadcrumb1">
-                    <li class="breadcrumb-item1">
-                        Configura los canales digitales de tu espacio de
-                        trabajo.
-                    </li>
-                </ol>
-                <a [routerLink]="ROUTES_NAME.contactCenterResume">
-                    <button
-                        type="button"
-                        name="agtWorkspaceContactCenter"
-                        class="btn btn-block agt-btn-default mt-3"
-                    >
-                        📠 <strong>CONTACT CENTER</strong>
-                    </button></a
-                >
-                <a [routerLink]="ROUTES_NAME.socialConnectResume">
-                    <button
-                        type="button"
-                        name="agtWorkspaceSocialConnect"
-                        class="btn btn-block agt-btn-default mt-3"
-                    >
-                        🔗 <strong>SOCIAL CONNECT</strong>
-                    </button></a
-                >
-                <a [routerLink]="ROUTES_NAME.siteCreatorResume">
-                    <button
-                        type="button"
-                        name="agtWorkspaceSiteCreator"
-                        class="btn btn-block agt-btn-default mt-3"
-                    >
-                        💻 <strong>SITE CREATOR</strong>
-                    </button></a
-                >
-                <a [routerLink]="ROUTES_NAME.appCreatorResume">
-                    <button
-                        type="button"
-                        name="agtWorkspaceAppCreator"
-                        class="btn btn-block agt-btn-default mt-3"
-                    >
-                        📱 <strong>APP CREATOR</strong>
-                    </button></a
+            <div class="media-body">
+                <h5>{{ workspace?.brandName }}</h5>
+                <span class="badge agt-badge-primary-gradient"
+                    >Plan {{ workspace?.licenseShortName }}</span
                 >
             </div>
-            <!-- AGENTHOS - WORKSPACE SETTINGS -->
-            <!-- AGENTHOS - WORKSPACE SETTINGS -->
-            <div class="card-body">
-                <ol class="breadcrumb1">
-                    <li class="breadcrumb-item1">
-                        Invita a tus colaboradores a tu espacio de trabajo.
-                    </li>
-                </ol>
-                <a [routerLink]="ROUTES_NAME.listInvitations">
-                    <button
-                        type="button"
-                        name="agtWorkspaceInvites"
-                        class="btn btn-block agt-btn-default"
-                    >
-                        💌 <strong>ENVIAR INVITACIONES</strong>
-                    </button></a
-                >
-            </div>
-            <!-- AGENTHOS - WORKSPACE SETTINGS -->
-            <!-- AGENTHOS - WORKSPACE SETTINGS -->
-            <div class="card-body">
-                <p class="text-center">Agenthos v1.2.8</p>
-            </div>
-            <!-- AGENTHOS - WORKSPACE SETTINGS -->
         </div>
-        <!-- //AGENTHOS - USER CARD -->
+        <!-- AGENTHOS - DARK MODE -->
+        <ul class="list-group">
+            <!-- AGENTHOS - POLICY AUTOMATIC PAYMENT * -->
+            <li class="list-group-item">
+                Modo Oscuro
+                <div class="material-switch pull-right">
+                    <input
+                        id="agtWorskspaceDarkMode"
+                        type="checkbox"
+                        (change)="toggleDarkMode($event)"
+                    />
+                    <label
+                        for="agtWorskspaceDarkMode"
+                        class="label-success"
+                    ></label>
+                </div>
+            </li>
+        </ul>
+        <!-- //AGENTHOS - DARK MODE -->
     </div>
+    <!-- AGENTHOS - WORKSPACE CARD -->
+    <!-- AGENTHOS - WORSKPACE THEME -->
+    <div class="card-body">
+        <ol class="breadcrumb1">
+            <li class="breadcrumb-item1">
+                Selecciona el tema que deseas para tu espacio de trabajo.
+            </li>
+        </ol>
+        <div class="row text-center">
+            <!-- AGENTHOS - WORKSPACE THEME COLOR -->
+            <div class="col-3" *ngFor="let theme of workspaceThemes">
+                <label class="colorinput">
+                    <input
+                        id="workspaceTheme{{ theme.workspaceThemeId }}"
+                        type="checkbox"
+                        class="colorinput-input"
+                        (click)="selectTheme(theme.workspaceThemeId)"
+                    />
+                    <span
+                        class="colorinput-color {{
+                            theme.workspaceThemeId | workspaceThemeColor
+                        }}"
+                    ></span>
+                </label>
+            </div>
+            <!-- //AGENTHOS - WORKSPACE THEME COLOR -->
+        </div>
+
+        <button
+            type="button"
+            class="btn btn-block agt-btn-default mt-3"
+            (click)="selectTheme(WORKSPACE_THEMES.AGENTHOS.ID)"
+        >
+            ✨ <strong>TEMA ORIGINAL</strong>
+        </button>
+    </div>
+    <!-- //AGENTHOS - WORSKPACE THEME -->
+    <!-- AGENTHOS - WORKSPACE SETTINGS -->
+    <div class="card-body">
+        <ol class="breadcrumb1">
+            <li class="breadcrumb-item1">
+                Configura los canales digitales de tu espacio de trabajo.
+            </li>
+        </ol>
+        <a [routerLink]="ROUTES_NAME.contactCenterResume">
+            <button
+                type="button"
+                name="agtWorkspaceContactCenter"
+                class="btn btn-block agt-btn-default mt-3"
+            >
+                📠 <strong>CONTACT CENTER</strong>
+            </button></a
+        >
+        <a [routerLink]="ROUTES_NAME.socialConnectResume">
+            <button
+                type="button"
+                name="agtWorkspaceSocialConnect"
+                class="btn btn-block agt-btn-default mt-3"
+            >
+                🔗 <strong>SOCIAL CONNECT</strong>
+            </button></a
+        >
+        <a [routerLink]="ROUTES_NAME.siteCreatorResume">
+            <button
+                type="button"
+                name="agtWorkspaceSiteCreator"
+                class="btn btn-block agt-btn-default mt-3"
+            >
+                💻 <strong>SITE CREATOR</strong>
+            </button></a
+        >
+        <a [routerLink]="ROUTES_NAME.appCreatorResume">
+            <button
+                type="button"
+                name="agtWorkspaceAppCreator"
+                class="btn btn-block agt-btn-default mt-3"
+            >
+                📱 <strong>APP CREATOR</strong>
+            </button></a
+        >
+    </div>
+    <!-- AGENTHOS - WORKSPACE SETTINGS -->
+    <!-- AGENTHOS - WORKSPACE SETTINGS -->
+    <div class="card-body">
+        <ol class="breadcrumb1">
+            <li class="breadcrumb-item1">
+                Invita a tus colaboradores a tu espacio de trabajo.
+            </li>
+        </ol>
+        <a [routerLink]="ROUTES_NAME.listInvitations">
+            <button
+                type="button"
+                name="agtWorkspaceInvites"
+                class="btn btn-block agt-btn-default"
+            >
+                💌 <strong>ENVIAR INVITACIONES</strong>
+            </button></a
+        >
+    </div>
+    <!-- AGENTHOS - WORKSPACE SETTINGS -->
+    <!-- AGENTHOS - WORKSPACE SETTINGS -->
+    <div class="card-body">
+        <p class="text-center">Agenthos v1.52.8</p>
+    </div>
+    <!-- AGENTHOS - WORKSPACE SETTINGS -->
 </div>
 <!-- //AGENTHOS - SIDEBAR -->

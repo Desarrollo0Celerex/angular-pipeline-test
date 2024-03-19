@@ -6,6 +6,7 @@ import { CreateWorkspaceDataSend } from '@interfaces/create-workspace-data-send.
 import { ApiHttp } from '@core/http/api.http';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { Workspace } from '@core/interfaces/workspace.interface';
+import { WorkspaceTheme } from '@core/interfaces/workspace-theme.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -83,6 +84,12 @@ export class WorkspaceService {
             );
     }
 
+    getWorkspaceThemes(fields: string): Observable<WorkspaceTheme[]> {
+        return this._apiHttp
+            .param('fields', fields)
+            .get(WORKSPACE_ENDPOINTS.workspaceThemes);
+    }
+
     uploadWorkspaceAvatar(image: string | null): Observable<void> {
         const route: string = WORKSPACE_ENDPOINTS.workspaceAvatar(
             this._workspaceId
@@ -130,6 +137,15 @@ export class WorkspaceService {
             WORKSPACE_ENDPOINTS.workspaceTiktokUrl(this._workspaceId),
             {
                 tiktokUrl,
+            }
+        );
+    }
+
+    updateWorkspaceThemeId(workspaceThemeId: number): Observable<void> {
+        return this._apiHttp.put(
+            WORKSPACE_ENDPOINTS.workspaceThemeId(this._workspaceId),
+            {
+                workspaceThemeId,
             }
         );
     }

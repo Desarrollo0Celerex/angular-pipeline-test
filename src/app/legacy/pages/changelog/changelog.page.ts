@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.52.8',
+            launchDate: '18/03/2024',
+            changes: [
+                {
+                    title: 'Sidebar',
+                    items: [
+                        'Se nuevo sidebar que contempla accesos rapidos y gestion de los temas.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.52.6',
             launchDate: '07/03/2024',
             changes: [

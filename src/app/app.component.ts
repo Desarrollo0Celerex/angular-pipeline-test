@@ -1,6 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Theme } from '@core/enums/theme.enum';
 import { ThemeService } from '@core/services/theme/theme.service';
 
 import { FirebaseObservablesService } from '@services/firebase-observables.service';

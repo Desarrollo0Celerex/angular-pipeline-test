@@ -49,6 +49,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { FileExtensionComponent } from './components/file-extension/file-extension.component';
 import { ShippingChannelsComponent } from './components/shipping-channels/shipping-channels.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
+import { WorkspaceThemeColorPipe } from './pipes/workspace-theme-color/workspace-theme-color.pipe';
 
 @NgModule({
     declarations: [
@@ -88,6 +89,7 @@ import { FileUploaderComponent } from './components/file-uploader/file-uploader.
         FileExtensionComponent,
         ShippingChannelsComponent,
         FileUploaderComponent,
+        WorkspaceThemeColorPipe,
     ],
     exports: [
         AlertComponent,
@@ -113,6 +115,7 @@ import { FileUploaderComponent } from './components/file-uploader/file-uploader.
         PhoneCodePipe,
         QrCodeComponent,
         ShippingChannelsComponent,
+        WorkspaceThemeColorPipe,
     ],
     imports: [
         CommonModule,

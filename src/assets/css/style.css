@@ -21599,3 +21599,30 @@ a.text-dark:hover, a.text-dark:focus {
     transform: scale(0.8) !important;
     z-index: 0 !important;
 }
+
+/* AGENTHOS - WORKSPACE THEMES */
+.agtWorkspaceThemeBerry {
+    background: #1F75F8;
+}
+.agtWorkspaceThemePeach {
+    background: #F653A8;
+}
+.agtWorkspaceThemeMango {
+    background: #FFC408;
+}
+.agtWorkspaceThemePumpkin {
+    background: #FF7538;
+}
+.agtWorkspaceThemeGrape {
+    background: #6A5AC8;
+}
+.agtWorkspaceThemeMamey {
+    background: #FA8078;
+}
+.agtWorkspaceThemeLime {
+    background: #8DB608;
+}
+.agtWorkspaceThemeApple {
+    background: #EE2048;
+}
+/* AGENTHOS - WORKSPACE THEMES */
