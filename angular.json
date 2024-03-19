@@ -49,17 +49,7 @@
                         "assets": ["src/favicon.ico", "src/assets"],
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-                            "src/styles.scss",
-                            {
-                                "input": "src/assets/css/themes/agenthos.css",
-                                "bundleName": "agenthos",
-                                "inject": false
-                            },
-                            {
-                                "input": "src/assets/css/themes/orange.css",
-                                "bundleName": "orange",
-                                "inject": false
-                            }
+                            "src/styles.scss"
                         ],
                         "scripts": [],
                         "vendorChunk": true,
