@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.52.9',
+            launchDate: '26/03/2024',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se resolvio bug al renovar una póliza y marcar por default estatus del pago automático.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.52.8',
             launchDate: '18/03/2024',
             changes: [
