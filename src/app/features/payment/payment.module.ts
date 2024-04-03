@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LastReminderAlertComponent } from './components/last-reminder-alert/last-reminder-alert.component';
 import { SharedModule } from '@shared/shared.module';
-import { ApplyPaymentModalComponent } from './components/apply-payment-modal/apply-payment-modal.component';
 import { PaymentTypeModule } from '@payment-type/payment-type.module';
 
 @NgModule({
@@ -16,9 +15,8 @@ import { PaymentTypeModule } from '@payment-type/payment-type.module';
         SendPaymentReminderComponent,
         SendPaymentMessageModalComponent,
         LastReminderAlertComponent,
-        ApplyPaymentModalComponent,
     ],
-    exports: [ApplyPaymentModalComponent, SendPaymentReminderComponent],
+    exports: [SendPaymentReminderComponent],
     imports: [
         CommonModule,
         NotifierModule,

@@ -20,196 +20,192 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="form" (submit)="validateForm()">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <ol class="breadcrumb1">
-                                <li class="breadcrumb-item1">
-                                    Selecciona el comprobante y los detalles del
-                                    pago.
-                                </li>
-                            </ol>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                            <div
-                                class="form-group {{
-                                    getValidationClass('file')
-                                }}"
+                <!-- <form [formGroup]="form" (submit)="validateForm()"> -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">
+                                Selecciona el comprobante y los detalles del
+                                pago.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                        <div
+                            class="form-group {{ getValidationClass('file') }}"
+                        >
+                            <!-- AGENTHOS - PAYTRACKER PAYMENT FILE -->
+                            <label class="form-label"
+                                >Comprobante de Pago</label
                             >
-                                <!-- AGENTHOS - PAYTRACKER PAYMENT FILE -->
-                                <label class="form-label"
-                                    >Comprobante de Pago</label
-                                >
-                                <input
-                                    id="dropify"
-                                    type="file"
-                                    class="dropify"
-                                    data-max-file-size="2M"
-                                    (change)="onChangeFile($event)"
-                                    data-height="208"
-                                />
-                                <div class="invalid-feedback">
-                                    {{ getErrorMessage("file") }}
-                                </div>
+                            <input
+                                id="dropify"
+                                type="file"
+                                class="dropify"
+                                data-max-file-size="2M"
+                                (change)="onChangeFile($event)"
+                                data-height="208"
+                            />
+                            <div class="invalid-feedback">
+                                {{ getErrorMessage("file") }}
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <!-- AGENTHOS - PAYTRACKER PAYMENT DATE * -->
-                                        <label class="form-label"
-                                            >Fecha de Pago</label
-                                        >
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i
-                                                        class="fa fa-calendar-check-o tx-16 lh-0 op-6"
-                                                    ></i>
-                                                </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - PAYTRACKER PAYMENT DATE * -->
+                                    <label class="form-label"
+                                        >Fecha de Pago</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-calendar-check-o tx-16 lh-0 op-6"
+                                                ></i>
                                             </div>
-                                            <input
-                                                type="text"
-                                                [id]="calendarIdApplicationDate"
-                                                class="form-control fc-datepicker {{
-                                                    getValidationClass(
-                                                        'applicationDate'
-                                                    )
-                                                }}"
-                                                formControlName="applicationDate"
-                                            />
-                                            <div class="invalid-feedback">
-                                                {{
-                                                    getErrorMessage(
-                                                        "applicationDate"
-                                                    )
-                                                }}
-                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            [id]="calendarIdApplicationDate"
+                                            class="form-control fc-datepicker {{
+                                                getValidationClass(
+                                                    'applicationDate'
+                                                )
+                                            }}"
+                                            formControlName="applicationDate"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{
+                                                getErrorMessage(
+                                                    "applicationDate"
+                                                )
+                                            }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <!-- AGENTHOS - PAYTRACKER PAYMENT AMOUNT * -->
-                                        <label class="form-label"
-                                            >Monto de Pago</label
-                                        >
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i
-                                                        class="fa fa-dollar tx-16 lh-0 op-6"
-                                                    ></i>
-                                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - PAYTRACKER PAYMENT AMOUNT * -->
+                                    <label class="form-label"
+                                        >Monto de Pago</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-dollar tx-16 lh-0 op-6"
+                                                ></i>
                                             </div>
-                                            <input
-                                                type="text"
-                                                class="form-control {{
-                                                    getValidationClass('amount')
-                                                }}"
-                                                formControlName="amount"
-                                            />
-                                            <div class="invalid-feedback">
-                                                {{ getErrorMessage("amount") }}
-                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{
+                                                getValidationClass('amount')
+                                            }}"
+                                            formControlName="amount"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{ getErrorMessage("amount") }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <!-- AGENTHOS - PAYTRACKER PAYMENT TYPE * -->
-                                        <label class="form-label"
-                                            >Forma de Pago</label
-                                        >
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i
-                                                        class="fa fa-tag tx-16 lh-0 op-6"
-                                                    ></i>
-                                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - PAYTRACKER PAYMENT TYPE * -->
+                                    <label class="form-label"
+                                        >Forma de Pago</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-tag tx-16 lh-0 op-6"
+                                                ></i>
                                             </div>
-                                            <select
-                                                class="form-control {{
-                                                    getValidationClass(
-                                                        'paymentTypeId'
-                                                    )
-                                                }}"
-                                                formControlName="paymentTypeId"
+                                        </div>
+                                        <select
+                                            class="form-control {{
+                                                getValidationClass(
+                                                    'paymentTypeId'
+                                                )
+                                            }}"
+                                            formControlName="paymentTypeId"
+                                        >
+                                            <optgroup
+                                                label="Seleccionar Forma de Pago"
                                             >
-                                                <optgroup
-                                                    label="Seleccionar Forma de Pago"
+                                                <option
+                                                    *ngFor="
+                                                        let paymentType of paymentTypes
+                                                    "
+                                                    [value]="
+                                                        paymentType.paymentTypeId
+                                                    "
                                                 >
-                                                    <option
-                                                        *ngFor="
-                                                            let paymentType of paymentTypes
-                                                        "
-                                                        [value]="
-                                                            paymentType.paymentTypeId
-                                                        "
-                                                    >
-                                                        {{ paymentType.name }}
-                                                    </option>
-                                                </optgroup>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                {{
-                                                    getErrorMessage(
-                                                        "paymentTypeId"
-                                                    )
-                                                }}
-                                            </div>
+                                                    {{ paymentType.name }}
+                                                </option>
+                                            </optgroup>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            {{
+                                                getErrorMessage("paymentTypeId")
+                                            }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <!-- AGENTHOS - PAYTRACKER PAYMENT REFERENCE * -->
-                                        <label class="form-label"
-                                            >Referencia de Pago</label
-                                        >
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i
-                                                        class="fa fa-dollar tx-16 lh-0 op-6"
-                                                    ></i>
-                                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- AGENTHOS - PAYTRACKER PAYMENT REFERENCE * -->
+                                    <label class="form-label"
+                                        >Referencia de Pago</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-dollar tx-16 lh-0 op-6"
+                                                ></i>
                                             </div>
-                                            <input
-                                                type="text"
-                                                class="form-control {{
-                                                    getValidationClass(
-                                                        'paymentReference'
-                                                    )
-                                                }}"
-                                                formControlName="paymentReference"
-                                            />
-                                            <div class="invalid-feedback">
-                                                {{
-                                                    getErrorMessage(
-                                                        "paymentReference"
-                                                    )
-                                                }}
-                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{
+                                                getValidationClass(
+                                                    'paymentReference'
+                                                )
+                                            }}"
+                                            formControlName="paymentReference"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{
+                                                getErrorMessage(
+                                                    "paymentReference"
+                                                )
+                                            }}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 mt-3">
-                            <button
-                                type="submit"
-                                class="btn btn-block agt-btn-default"
-                            >
-                                🛰️ <strong>APLICAR PAGO</strong>
-                            </button>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-3">
+                        <button
+                            type="submit"
+                            class="btn btn-block agt-btn-default"
+                        >
+                            🛰️ <strong>APLICAR PAGO</strong>
+                        </button>
                     </div>
-                </form>
+                </div>
+                <!-- </form> -->
             </div>
             <div class="modal-footer">
                 <button
