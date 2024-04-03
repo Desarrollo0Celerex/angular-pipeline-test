@@ -21,4 +21,21 @@ export class PaymentService {
                 PAYMENT_ENDPOINTS.workspacePayment(this._workspaceId, paymentId)
             );
     }
+
+    applyPayment(
+        contactId: string,
+        policyId: string,
+        paymentId: string,
+        requestBody: FormData
+    ): Observable<void> {
+        return this._apiHttp.post(
+            PAYMENT_ENDPOINTS.applyPayment(
+                this._workspaceId,
+                contactId,
+                policyId,
+                paymentId
+            ),
+            requestBody
+        );
+    }
 }

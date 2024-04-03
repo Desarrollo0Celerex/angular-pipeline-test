@@ -219,6 +219,20 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
         ModalPlugin.show(this.modalId);
     }
 
+    onChangeFile(event: any): void {
+        if (event.target.files.length > 0) {
+            const file: File = event.target.files[0];
+            if (
+                this._checkIfValidFile(
+                    file.name,
+                    this.modalSelectEvidenceData.formats
+                )
+            ) {
+                this.model.paymentForm.patchValue({ paymentEvidence: file });
+            }
+        }
+    }
+
     /**
      * Create a payment
      */
@@ -285,5 +299,19 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
      */
     private _notifyReceiptPaid(context: ModalApplyPaymentComponent): void {
         context.receiptPaid.emit();
+    }
+
+    private _checkIfValidFile(
+        fileName: string,
+        fileFormats: string[]
+    ): boolean {
+        const fileExtension: string = this._getFileExtension(fileName);
+        const isValid: boolean = fileFormats.includes(fileExtension);
+        return isValid;
+    }
+
+    private _getFileExtension(fileName: string): string {
+        const index: number = fileName.lastIndexOf('.');
+        return index !== -1 ? fileName.substring(index + 1) : '';
     }
 }
