@@ -49,11 +49,12 @@ export class ModalHandlePaymentComponent {
 
     requestApplyPayment(): void {
         this.closeModal();
-        if (this.isPreauthorizedPayment === '1') {
+        this.applyPayment.emit();
+        /* if (this.isPreauthorizedPayment === '1') {
             this.applyPayment.emit();
         } else {
             this.selectPaymentType.emit();
-        }
+        } */
     }
 
     commentAdded(): void {

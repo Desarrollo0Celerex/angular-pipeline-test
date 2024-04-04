@@ -14,22 +14,16 @@ function initThemeFactory(
             if (workspaceId) {
                 workspaceService.getWorkspace('workspaceThemeId').subscribe({
                     next: (workspace) => {
-                        console.log(
-                            'poner el tema : ',
-                            workspace.workspaceThemeId
-                        );
                         themeService.addSelectedTheme(
                             workspace.workspaceThemeId
                         );
                         resolve();
                     },
                     error: () => {
-                        console.log('Poner tema por default');
                         resolve();
                     },
                 });
             } else {
-                console.log('Poner tema por default');
                 resolve();
             }
         });

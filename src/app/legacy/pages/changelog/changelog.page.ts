@@ -8,6 +8,16 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.52.11',
+            launchDate: '03/04/2024',
+            changes: [
+                {
+                    title: 'Payment',
+                    items: ['Se soluciono bug en modal para aplicar un pago.'],
+                },
+            ],
+        },
+        {
             version: '1.52.10',
             launchDate: '02/04/2024',
             changes: [

@@ -1032,8 +1032,6 @@ export class CompletePolicyPage implements OnInit {
     }
 
     private _loadRenewalData(): void {
-        console.log('paso 1');
-
         const fields: string =
             'isAutoPayment,partnerId,sellerCommissionPercentage,sellerCommissionCurrencyId';
         this.model
@@ -1043,7 +1041,6 @@ export class CompletePolicyPage implements OnInit {
                 this.model.policy.basePolicyId
             )
             .subscribe((policy: Policy) => {
-                console.log('paso 2: ', policy.isAutoPayment);
                 this.model.patchForm({
                     isAutoPayment:
                         policy.isAutoPayment && policy.isAutoPayment != '0'
