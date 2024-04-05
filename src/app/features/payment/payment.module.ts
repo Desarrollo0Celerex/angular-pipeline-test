@@ -9,14 +9,19 @@ import { RouterModule } from '@angular/router';
 import { LastReminderAlertComponent } from './components/last-reminder-alert/last-reminder-alert.component';
 import { SharedModule } from '@shared/shared.module';
 import { PaymentTypeModule } from '@payment-type/payment-type.module';
+import { PaymentAppliedActionsModalComponent } from './components/payment-applied-actions-modal/payment-applied-actions-modal.component';
 
 @NgModule({
     declarations: [
         SendPaymentReminderComponent,
         SendPaymentMessageModalComponent,
         LastReminderAlertComponent,
+        PaymentAppliedActionsModalComponent,
     ],
-    exports: [SendPaymentReminderComponent],
+    exports: [
+        PaymentAppliedActionsModalComponent,
+        SendPaymentReminderComponent,
+    ],
     imports: [
         CommonModule,
         NotifierModule,

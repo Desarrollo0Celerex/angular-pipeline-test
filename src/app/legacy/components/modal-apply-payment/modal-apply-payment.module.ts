@@ -13,26 +13,28 @@ import { PaymentTypeService } from '@services/payment-type.service';
 import { ReceiptPaidService } from '@services/receipt-paid.service';
 
 import { ModalApplyPaymentComponent } from './modal-apply-payment.component';
+import { PaymentModule } from '@payment/payment.module';
 
 @NgModule({
-  declarations: [ModalApplyPaymentComponent],
-  exports: [ModalApplyPaymentComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    LoadingContentModule,
-    ReactiveFormsModule,
-    ModalNotifyAmountExceededModule,
-    ModalNotifyReceiptsExceededModule,
-    ModalNotifyMissingReceiptsModule,
-    ModalNotifyMissingAmountModule,
-    ModalSelectEvidenceModule
-  ],
-  providers: [
-      CurrencyPipe,
-      PaymentService,
-      PaymentTypeService,
-      ReceiptPaidService
-  ]
+    declarations: [ModalApplyPaymentComponent],
+    exports: [ModalApplyPaymentComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        LoadingContentModule,
+        ReactiveFormsModule,
+        ModalNotifyAmountExceededModule,
+        ModalNotifyReceiptsExceededModule,
+        ModalNotifyMissingReceiptsModule,
+        ModalNotifyMissingAmountModule,
+        ModalSelectEvidenceModule,
+        PaymentModule,
+    ],
+    providers: [
+        CurrencyPipe,
+        PaymentService,
+        PaymentTypeService,
+        ReceiptPaidService,
+    ],
 })
-export class ModalApplyPaymentModule { }
+export class ModalApplyPaymentModule {}

@@ -23,6 +23,7 @@ import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interfac
 import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalApplyPaymentService } from './modal-apply-payment.service';
+import { PaymentAppliedActionsModalComponent } from '@payment/components/payment-applied-actions-modal/payment-applied-actions-modal.component';
 
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
@@ -46,6 +47,8 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
         new EventEmitter<void>();
     @ViewChild('modalSelectEvidence')
     private _modalSelectEvidence!: ModalSelectEvidenceComponent;
+    @ViewChild(PaymentAppliedActionsModalComponent)
+    private _paymentAppliedActionsModalComponent!: PaymentAppliedActionsModalComponent;
     amountExceeded: number = 0;
     calendarIdApplicationDate: string = 'applicationDate';
     calendarIdNextPaymentDate: string = 'nextPaymentDate';
@@ -243,8 +246,12 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
             .createReceiptPaid(this.contactId, this.policyId, this.paymentId)
             .subscribe(() => {
                 this._loadingService.hide();
-                AlertHelper.receiptPaid(this._notifyReceiptPaid, this);
                 this.model.payment = null;
+                this._paymentAppliedActionsModalComponent.openModal({
+                    contactId: this.contactId,
+                    policyId: this.policyId,
+                    paymentId: this.paymentId,
+                });
             });
     }
 

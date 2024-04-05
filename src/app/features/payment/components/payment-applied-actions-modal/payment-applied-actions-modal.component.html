@@ -1,0 +1,62 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Aplicar Pago</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <agt-alert [message]="alertMessage"></agt-alert>
+                    </div>
+                    <div class="col-12">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">
+                                Selecciona la acción que deseas realizar.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <a
+                            class="btn btn-block agt-btn-default"
+                            data-dismiss="modal"
+                            [routerLink]="policyPaymentsRecord"
+                            >💸 <strong>HISTORIAL DE PAGOS</strong></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <a
+                            class="btn btn-block agt-btn-default"
+                            data-dismiss="modal"
+                            [routerLink]="policyAppliedPayments"
+                            >💰 <strong>RECIBOS PAGADOS</strong></a
+                        >
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <a
+                            class="btn btn-block agt-btn-default"
+                            data-dismiss="modal"
+                            [routerLink]="policyPendingPayments"
+                            >📄 <strong>RECIBOS PENDIENTES</strong></a
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-block agt-btn-secondary-outline"
+                    data-dismiss="modal"
+                >
+                    <strong>CANCELAR</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
