@@ -7,7 +7,7 @@ import { WORKSPACE_THEMES } from '@core/constants/settings';
 })
 export class ThemeService {
     private _workspaceThemeId = 'theme-css';
-    private _selectedThemeFile: string = WORKSPACE_THEMES.AGENTHOS.FILE;
+    private _selectedThemeFile: string = WORKSPACE_THEMES.ORIGINAL.FILE;
 
     constructor(@Inject(DOCUMENT) private _document: Document) {}
 
@@ -77,7 +77,7 @@ export class ThemeService {
                 break;
 
             default:
-                themeFile = WORKSPACE_THEMES.AGENTHOS.FILE;
+                themeFile = WORKSPACE_THEMES.ORIGINAL.FILE;
                 break;
         }
         return themeFile;

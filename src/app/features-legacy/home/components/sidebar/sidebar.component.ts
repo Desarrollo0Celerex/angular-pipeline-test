@@ -67,7 +67,7 @@ export class SidebarComponent implements OnInit {
         this._workspaceService.getWorkspaceThemes(fields).subscribe((res) => {
             this.workspaceThemes = res.filter(
                 (theme) =>
-                    theme.workspaceThemeId !== WORKSPACE_THEMES.AGENTHOS.ID
+                    theme.workspaceThemeId !== WORKSPACE_THEMES.ORIGINAL.ID
             );
         });
     }

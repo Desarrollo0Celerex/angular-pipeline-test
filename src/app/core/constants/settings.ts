@@ -167,9 +167,9 @@ export enum TASK_PROGRESS_STATUS {
 }
 
 export const WORKSPACE_THEMES = {
-    AGENTHOS: {
+    ORIGINAL: {
         ID: 1,
-        FILE: 'agenthos',
+        FILE: 'original',
     },
     BERRY: {
         ID: 2,
