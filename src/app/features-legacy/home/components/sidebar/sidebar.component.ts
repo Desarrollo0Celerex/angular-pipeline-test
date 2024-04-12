@@ -75,7 +75,7 @@ export class SidebarComponent implements OnInit {
     private _setThemeCheked(selectedThemeId: number): void {
         for (let i = 0; i < this.workspaceThemes.length; i++) {
             const selectedCheckbox: any = document.getElementById(
-                'workspaceTheme' + (i + 1)
+                'workspaceTheme' + this.workspaceThemes[i].workspaceThemeId
             );
             if (selectedCheckbox) {
                 selectedCheckbox.checked = false;
