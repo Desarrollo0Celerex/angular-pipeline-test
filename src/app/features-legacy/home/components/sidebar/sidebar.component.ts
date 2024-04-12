@@ -19,7 +19,7 @@ declare var jQuery: any;
 export class SidebarComponent implements OnInit {
     ROUTES_NAME: any = ROUTES_NAME;
     WORKSPACE_THEMES = WORKSPACE_THEMES;
-    appVersion = '1.52.12';
+    appVersion = '1.52.14';
     agenthosSupportPhone =
         environment.agenthos.support.phoneCode +
         environment.agenthos.support.phoneNumber;
