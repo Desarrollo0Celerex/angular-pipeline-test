@@ -581,10 +581,14 @@ export class CompletePolicyService {
             const netPay: number = parseFloat(
                 UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value)
             );
+            let feePay: number = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(this.f.feePay.value)
+            );
+            feePay = feePay ? feePay : 0;
             if (netPay > 0) {
                 agentCommissionAmount =
                     UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
-                        (agentCommissionPercentage * netPay) / 100
+                        (agentCommissionPercentage * (netPay + feePay)) / 100
                     );
             }
         }
@@ -617,10 +621,14 @@ export class CompletePolicyService {
             const netPay: number = parseFloat(
                 UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value)
             );
+            let feePay: number = parseFloat(
+                UtilitiesHelper.removeCommasFromQuantity(this.f.feePay.value)
+            );
+            feePay = feePay ? feePay : 0;
             if (netPay > 0) {
                 sellerCommissionAmount =
                     UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
-                        (sellerCommissionPercentage * netPay) / 100
+                        (sellerCommissionPercentage * (netPay + feePay)) / 100
                     );
             }
         }
