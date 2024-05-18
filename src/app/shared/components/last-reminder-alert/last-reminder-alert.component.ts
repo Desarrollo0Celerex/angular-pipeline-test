@@ -8,6 +8,7 @@ import * as moment from 'moment';
     selector: 'agt-last-reminder-alert',
     templateUrl: './last-reminder-alert.component.html',
     styles: [],
+    providers: [PaymentService],
 })
 export class LastReminderAlertComponent {
     lastReminderDate = '';
@@ -42,7 +43,7 @@ export class LastReminderAlertComponent {
         return this.totalReminders > 0;
     }
 
-    initAlert(data: {
+    showAlert(data: {
         contactId: string;
         policyId: string;
         paymentId: string;
@@ -52,6 +53,10 @@ export class LastReminderAlertComponent {
         this._paymentId = data.paymentId;
         this._initVariables();
         this._loadPayment();
+    }
+
+    hideAlert(): void {
+        this._initVariables();
     }
 
     private _generatePaymentRecordUrl(): string {

@@ -24,6 +24,7 @@ import { LoadingService } from '@core/services/loading/loading.service';
 
 import { ModalApplyPaymentService } from './modal-apply-payment.service';
 import { PaymentAppliedActionsModalComponent } from '@payment/components/payment-applied-actions-modal/payment-applied-actions-modal.component';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
@@ -244,13 +245,14 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
         ModalPlugin.hide(this.modalId);
         this.model
             .createReceiptPaid(this.contactId, this.policyId, this.paymentId)
-            .subscribe(() => {
+            .subscribe((res: HttpResponse) => {
                 this._loadingService.hide();
                 this.model.payment = null;
                 this._paymentAppliedActionsModalComponent.openModal({
                     contactId: this.contactId,
                     policyId: this.policyId,
                     paymentId: this.paymentId,
+                    receiptPaidId: res.data,
                 });
             });
     }

@@ -4,6 +4,7 @@ import { NotifierService } from './services/notifier.service';
 import { SendNotificationModalComponent } from './components/send-notification-modal/send-notification-modal.component';
 import { SharedModule } from '@shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PaymentModule } from '@payment/payment.module';
 
 @NgModule({
     declarations: [SendNotificationModalComponent],

@@ -19,22 +19,25 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="col-12 mb-3" *ngIf="canShowAlert">
-                    <agt-alert [message]="alertMessage"></agt-alert>
-                </div>
-                <ol class="breadcrumb1">
-                    <li class="breadcrumb-item1">
-                        Selecciona la acción que deseas realizar.
-                    </li>
-                </ol>
                 <div class="row">
-                    <div class="col-md-6 mt-3">
+                    <div class="col-12 mb-3" *ngIf="canShowAlert">
+                        <agt-alert [message]="alertMessage"></agt-alert>
+                    </div>
+                    <div class="col-md-12">
+                        <ol class="breadcrumb1">
+                            <li class="breadcrumb-item1">
+                                Selecciona la acción que deseas realizar.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <!-- AGENTHOS - PAYTRACKER PAYMENT APPLY -->
                         <button
                             type="button"
                             class="btn btn-block agt-btn-default"
                             (click)="requestApplyPayment()"
                         >
-                            💸 <strong>{{ applyPaymentLabel }}</strong>
+                            💸 <strong>APLICAR PAGO</strong>
                         </button>
                     </div>
                     <div class="col-md-6 mt-3">
@@ -44,6 +47,15 @@
                             (click)="showModalCreateComment()"
                         >
                             🧾 <strong>AGREGAR NOTA</strong>
+                        </button>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <button
+                            type="button"
+                            class="btn btn-block agt-btn-default"
+                            (click)="showModalDownloadPolicy()"
+                        >
+                            📄 <strong>DESCARGAR PÓLIZA</strong>
                         </button>
                     </div>
                     <div class="col-md-6 mt-3">
@@ -86,3 +98,8 @@
 <agt-send-payment-reminder
     (reminderSent)="showAlertReminderSent()"
 ></agt-send-payment-reminder>
+<agt-modal-show-policy-file
+    [modalId]="modalIdDownloadPolicy"
+    [contactId]="contactId"
+    [policyId]="policyId"
+></agt-modal-show-policy-file>

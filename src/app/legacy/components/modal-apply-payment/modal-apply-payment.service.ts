@@ -71,7 +71,7 @@ export class ModalApplyPaymentService {
         contactId: string,
         policyId: string,
         paymentId: string
-    ): Observable<void> {
+    ): Observable<HttpResponse> {
         const requestBody: FormData = this._getRequestBody();
         return this._receiptPaidService.createReceiptPaid(
             contactId,

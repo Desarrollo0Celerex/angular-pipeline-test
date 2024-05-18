@@ -50,6 +50,7 @@ import { FileExtensionComponent } from './components/file-extension/file-extensi
 import { ShippingChannelsComponent } from './components/shipping-channels/shipping-channels.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { WorkspaceThemeColorPipe } from './pipes/workspace-theme-color/workspace-theme-color.pipe';
+import { LastReminderAlertComponent } from './components/last-reminder-alert/last-reminder-alert.component';
 
 @NgModule({
     declarations: [
@@ -63,6 +64,7 @@ import { WorkspaceThemeColorPipe } from './pipes/workspace-theme-color/workspace
         ContactStatusNamePipe,
         InsuranceIconPipe,
         InsuranceBackgroundPipe,
+        LastReminderAlertComponent,
         LoadingContentComponent,
         PaymentStatusBackgroundPipe,
         PaymentStatusIconPipe,
@@ -109,6 +111,7 @@ import { WorkspaceThemeColorPipe } from './pipes/workspace-theme-color/workspace
         FileUploaderComponent,
         GenderNamePipe,
         GenerateShippingInformationComponent,
+        LastReminderAlertComponent,
         LoadingContentComponent,
         PaymentStatusNamePipe,
         PluralPipe,

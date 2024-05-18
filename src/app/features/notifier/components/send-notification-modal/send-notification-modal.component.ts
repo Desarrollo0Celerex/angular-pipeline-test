@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SHIPPING_CHANNELS } from '@core/constants/settings';
 import { LoadingService } from '@core/services/loading/loading.service';
 import { NotificationChannel } from '@notifier/interfaces/notification-channel';
@@ -10,7 +10,9 @@ import {
 import { PolicyService } from '@policy/services/policy.service';
 import { ShippingChannelsComponent } from '@shared/components/shipping-channels/shipping-channels.component';
 import { SendNotificationModalData } from '@notifier/interfaces/send-notification-modal-data.interface';
-import { WhatsappNotifictionData } from '@notifier/interfaces/whatsapp-notification-data.interface';
+import { SendNotificationModalService } from './send-notification-modal.service';
+import { SmartComponent } from '@core/classes/smart-component';
+import { LastReminderAlertComponent } from '@shared/components/last-reminder-alert/last-reminder-alert.component';
 
 declare var ModalPlugin: any;
 
@@ -19,9 +21,12 @@ declare var ModalPlugin: any;
     templateUrl: './send-notification-modal.component.html',
     styles: [],
 })
-export class SendNotificationModalComponent {
-    @Output() notificationSent =
-        new EventEmitter<WhatsappNotifictionData | null>();
+export class SendNotificationModalComponent
+    extends SmartComponent
+    implements OnInit
+{
+    @ViewChild(LastReminderAlertComponent)
+    lastReminderAlertComponent!: LastReminderAlertComponent;
     @ViewChild(ShippingChannelsComponent)
     shippingChannelsComponent!: ShippingChannelsComponent;
     data?: SendNotificationModalData;
@@ -31,8 +36,30 @@ export class SendNotificationModalComponent {
     constructor(
         private _loadingService: LoadingService,
         private _notifierService: NotifierService,
-        private _policyService: PolicyService
-    ) {}
+        private _policyService: PolicyService,
+        private _sendNotificationModalService: SendNotificationModalService
+    ) {
+        super();
+    }
+
+    ngOnInit(): void {
+        this._sendNotificationModalService.sendNotificationModal$
+            .pipe(this.untilComponentDestroy())
+            .subscribe((data) => {
+                this.data = data;
+                this._openModal();
+            });
+
+        this._sendNotificationModalService.showAlertLastReminder$
+            .pipe(this.untilComponentDestroy())
+            .subscribe((data) => {
+                this.lastReminderAlertComponent.showAlert({
+                    contactId: data.contactId,
+                    policyId: data.policyId,
+                    paymentId: data.paymentId,
+                });
+            });
+    }
 
     generateNotificationChannels(data: {
         hasPhone: boolean;
@@ -61,8 +88,12 @@ export class SendNotificationModalComponent {
         this._sendNotification(notificationChannels);
     }
 
-    openModal(modalData: SendNotificationModalData): void {
-        this.data = modalData;
+    closeModal(): void {
+        this.lastReminderAlertComponent.hideAlert();
+        ModalPlugin.hide(this.modalId);
+    }
+
+    private _openModal(): void {
         ModalPlugin.show(this.modalId);
         this._loadPolicy();
     }
@@ -72,12 +103,15 @@ export class SendNotificationModalComponent {
     ): void {
         const whatsappMessage = this._searchWhatsappMessage(res);
         if (whatsappMessage) {
-            this.notificationSent.emit({
+            this._sendNotificationModalService.notificationSent$.emit({
                 phone: this._phone!,
                 message: whatsappMessage,
+                notificationTypeId: this.data!.notificationTypeId,
             });
         } else {
-            this.notificationSent.emit(null);
+            this._sendNotificationModalService.notificationSent$.emit({
+                notificationTypeId: this.data!.notificationTypeId,
+            });
         }
     }
 
@@ -102,7 +136,7 @@ export class SendNotificationModalComponent {
         notificationChannels: NotificationChannel[]
     ): void {
         this._loadingService.show();
-        ModalPlugin.hide(this.modalId);
+        this.closeModal();
         const requestBody = {
             ...this.data?.notificationData,
             notificationChannels,

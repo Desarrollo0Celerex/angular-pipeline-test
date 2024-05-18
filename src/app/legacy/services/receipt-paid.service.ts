@@ -169,14 +169,14 @@ export class ReceiptPaidService {
         policyId: string,
         paymentId: string,
         requestBody: FormData
-    ): Observable<void> {
+    ): Observable<HttpResponse> {
         const route: string = routes.paymentReceiptsPaid(
             this._workspaceId,
             contactId,
             policyId,
             paymentId
         );
-        return this._httpClient.post<void>(route, requestBody);
+        return this._httpClient.post<HttpResponse>(route, requestBody);
     }
 
     /**

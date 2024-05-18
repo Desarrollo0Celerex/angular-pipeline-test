@@ -1,4 +1,5 @@
 export interface WhatsappNotifictionData {
-    phone: string;
-    message: string;
+    phone?: string;
+    message?: string;
+    notificationTypeId: number;
 }

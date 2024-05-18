@@ -28,6 +28,7 @@ import { ModalConfirmGoToAgenthosSupportModule } from '@components/modal-confirm
 import { ContactModule } from '@contact/contact.module';
 import { PoliciesModule } from '@policy/policies.module';
 import { ClientModule } from '@client/client.module';
+import { NotifierModule } from '@notifier/notifier.module';
 
 @NgModule({
     declarations: [
@@ -58,6 +59,7 @@ import { ClientModule } from '@client/client.module';
         ModalSearchContactModule,
         TasksModule,
         ModalConfirmGoToAgenthosSupportModule,
+        NotifierModule,
         PoliciesModule,
     ],
     providers: [VoiceControlService],

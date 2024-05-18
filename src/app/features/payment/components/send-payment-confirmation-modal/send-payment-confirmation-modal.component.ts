@@ -5,26 +5,28 @@ import {
     Output,
     ViewChild,
 } from '@angular/core';
-import { NOTIFICATION_TYPES } from '@notifier/services/notifier.service';
 import { SendNotificationModalComponent } from '@notifier/components/send-notification-modal/send-notification-modal.component';
 import { WhatsappNotifictionData } from '@notifier/interfaces/whatsapp-notification-data.interface';
-import { SendWhatsappMessageModalComponent } from '../send-whatsapp-message-modal/send-whatsapp-message-modal.component';
-import { SmartComponent } from '@core/classes/smart-component';
+import { NOTIFICATION_TYPES } from '@notifier/services/notifier.service';
+import { SendPaymentConfirmationWhatsappMessageModalComponent } from '../send-payment-confirmation-whatsapp-message-modal/send-payment-confirmation-whatsapp-message-modal.component';
 import { SendNotificationModalService } from '@notifier/components/send-notification-modal/send-notification-modal.service';
+import { SmartComponent } from '@core/classes/smart-component';
 
 @Component({
-    selector: 'agt-send-policy-modal',
-    templateUrl: './send-policy-modal.component.html',
+    selector: 'agt-send-payment-confirmation-modal',
+    templateUrl: './send-payment-confirmation-modal.component.html',
     styles: [],
 })
-export class SendPolicyModalComponent extends SmartComponent implements OnInit {
-    @Output() policySent = new EventEmitter<void>();
-    @ViewChild(SendNotificationModalComponent)
-    sendNotificationModalComponent!: SendNotificationModalComponent;
-    @ViewChild(SendWhatsappMessageModalComponent)
-    sendWhatsappMessageModalComponent!: SendWhatsappMessageModalComponent;
+export class SendPaymentConfirmationModalComponent
+    extends SmartComponent
+    implements OnInit
+{
+    @Output() confirmationSent = new EventEmitter<void>();
+    @ViewChild(SendPaymentConfirmationWhatsappMessageModalComponent)
+    sendPaymentConfirmationWhatsappMessageModalComponent!: SendPaymentConfirmationWhatsappMessageModalComponent;
     private _contactId?: string = undefined;
     private _policyId?: string = undefined;
+    private _receiptPaidId?: string = undefined;
 
     constructor(
         private _sendNotificationModalService: SendNotificationModalService
@@ -37,16 +39,22 @@ export class SendPolicyModalComponent extends SmartComponent implements OnInit {
             .pipe(this.untilComponentDestroy())
             .subscribe((data: WhatsappNotifictionData) => {
                 if (
-                    data.notificationTypeId === NOTIFICATION_TYPES.POLICY_ISSUED
+                    data.notificationTypeId ===
+                    NOTIFICATION_TYPES.PAYMENT_CONFIRMATION
                 ) {
                     this._checkHasWhatsappNotification(data);
                 }
             });
     }
 
-    openModal(contactId: string, policyId: string): void {
+    openModal(
+        contactId: string,
+        policyId: string,
+        receiptPaidId: string
+    ): void {
         this._contactId = contactId;
         this._policyId = policyId;
+        this._receiptPaidId = receiptPaidId;
         this._openModalSendNotification();
     }
 
@@ -54,32 +62,33 @@ export class SendPolicyModalComponent extends SmartComponent implements OnInit {
         data: WhatsappNotifictionData | null
     ): void {
         if (data?.phone && data.message) {
-            this.sendWhatsappMessageModalComponent.openModal(
+            this.sendPaymentConfirmationWhatsappMessageModalComponent.openModal(
                 data.phone,
                 data.message,
-                this._contactId!,
-                this._policyId!
+                this._receiptPaidId!
             );
         } else {
-            this.notifyPolicySent();
+            this.notifyConfirmationSent();
         }
     }
 
-    notifyPolicySent(): void {
-        this.policySent.emit();
+    notifyConfirmationSent(): void {
+        this.confirmationSent.emit();
     }
 
     private _openModalSendNotification(): void {
         this._sendNotificationModalService.openModal({
             modalData: {
-                title: 'Enviar Póliza',
-                description: 'Selecciona la acción que deseas realizar.',
-                buttonLabel: '📲 ENVIAR PÓLIZA',
+                title: 'Enviar Confirmación',
+                description:
+                    'Ingresa los detalles para enviar la confirmación de pago.',
+                buttonLabel: '📲 ENVIAR CONFIRMACIÓN',
             },
-            notificationTypeId: NOTIFICATION_TYPES.POLICY_ISSUED,
+            notificationTypeId: NOTIFICATION_TYPES.PAYMENT_CONFIRMATION,
             notificationData: {
                 contactId: this._contactId,
                 policyId: this._policyId,
+                receiptPaidId: this._receiptPaidId,
             },
         });
     }

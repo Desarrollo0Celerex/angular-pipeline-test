@@ -35,6 +35,7 @@ export class ModalHandlePaymentComponent {
     sendPaymentReminderComponent!: SendPaymentReminderComponent;
     alertMessage = '';
     canShowAlert = false;
+    modalIdDownloadPolicy = 'agt-download-policy-modal';
 
     constructor(
         private _createTaskService: CreateTaskService,
@@ -71,6 +72,11 @@ export class ModalHandlePaymentComponent {
     showModalCreateTask(): void {
         this.closeModal();
         this._loadPayment();
+    }
+
+    showModalDownloadPolicy(): void {
+        this.closeModal();
+        ModalPlugin.show(this.modalIdDownloadPolicy);
     }
 
     showAlertReminderSent(): void {

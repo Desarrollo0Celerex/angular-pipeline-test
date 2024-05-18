@@ -6,51 +6,31 @@ import {
     Validators,
 } from '@angular/forms';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
-import { CalculatePaymentAmount } from '@core/interfaces/calculate-payment-amount.interface';
+import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { Payment } from '@payment/interfaces/payment.interface';
-import { PaymentService } from '@payment/services/payment.service';
+import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
+import { ReceiptPaidService } from '@services/receipt-paid.service';
 
 declare var ModalPlugin: any;
 
 @Component({
-    selector: 'agt-send-payment-message-modal',
-    templateUrl: './send-payment-message-modal.component.html',
+    selector: 'agt-send-payment-confirmation-whatsapp-message-modal',
+    templateUrl:
+        './send-payment-confirmation-whatsapp-message-modal.component.html',
     styles: [],
 })
-export class SendPaymentMessageModalComponent {
+export class SendPaymentConfirmationWhatsappMessageModalComponent {
     @Output() whatsappNotificationSent = new EventEmitter<void>();
-    modalId = 'agt-send-payment-message-modal';
-    payment: Payment | undefined = undefined;
+    modalId = 'send-payment-confirmation-whatsapp-message-modal';
+    receiptPaid: ReceiptPaid | undefined = undefined;
     form = this._buildForm();
     private _isFormSubmitted = false;
     private _phone = '';
 
     constructor(
         private _formBuilder: FormBuilder,
-        private _paymentService: PaymentService
+        private _receiptPaidService: ReceiptPaidService
     ) {}
-
-    get paymentAmount(): number {
-        if (this.payment) {
-            const data: CalculatePaymentAmount = {
-                paymentPlanReceips: this.payment.paymentPlanReceips,
-                netPay: this.payment.netPay,
-                feePay: this.payment.feePay,
-                coverPay: this.payment.coverPay,
-                extraPay: this.payment.extraPay,
-                taxPay: this.payment.taxPay,
-                discount: this.payment.discount,
-                paymentSourceTypeId: this.payment.paymentSourceTypeId,
-                tickets: this.payment.tickets,
-                paymentPlanId: this.payment.paymentPlanId,
-                pendingAmount: this.payment.pendingAmount,
-                pendingReceipts: this.payment.pendingReceipts,
-            };
-            return UtilitiesHelper.calculatePaymentAmount(data);
-        }
-        return 0;
-    }
 
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null = this.form.get(constrolName);
@@ -73,7 +53,7 @@ export class SendPaymentMessageModalComponent {
         this._phone = phone;
         this._populateForm(message);
         ModalPlugin.show(this.modalId);
-        this._loadPayment(paymentId);
+        this._loadReceiptPaid(paymentId);
     }
 
     validateForm(): void {
@@ -102,14 +82,14 @@ export class SendPaymentMessageModalComponent {
         });
     }
 
-    private _loadPayment(paymentId: string): void {
+    private _loadReceiptPaid(receiptPaidId: string): void {
         const fields =
-            'policyNumber,bills,paymentPlanReceips,netPay,feePay,coverPay,extraPay,taxPay,discount,paymentSourceTypeId,tickets,paymentPlanId,pendingAmount,pendingReceipts,paymentDate,comment';
+            'policyNumber,applicationDate,receiptsAmount,paymentReference';
 
-        this._paymentService
-            .getWorkspacePayment(paymentId, fields)
-            .subscribe((payment) => {
-                this.payment = payment;
+        this._receiptPaidService
+            .getReceiptPaid(receiptPaidId, fields)
+            .subscribe((res: HttpResponse) => {
+                this.receiptPaid = res.data;
             });
     }
 

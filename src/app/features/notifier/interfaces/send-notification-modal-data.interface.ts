@@ -11,5 +11,6 @@ export interface SendNotificationModalData {
         contactId?: string;
         policyId?: string;
         paymentId?: string;
+        receiptPaidId?: string;
     };
 }
