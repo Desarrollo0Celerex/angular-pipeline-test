@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.53.1',
+            launchDate: '20/05/2024',
+            changes: [
+                {
+                    title: 'Dashboard | Policy',
+                    items: [
+                        'Se atualizo rango de fechas en los KPIs del dashboard a 30 días antes hasta 40 días después.',
+                        'Se agrego logica para calcular la edad del titular cada vez que se cambie la identificación del titular.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.53.0',
             launchDate: '17/05/2024',
             changes: [
