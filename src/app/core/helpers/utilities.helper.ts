@@ -144,6 +144,20 @@ export class UtilitiesHelper {
         return parseFloat(result.toString());
     }
 
+    static generateBirthdateBasedOnRfc(rfc: string): string | null {
+        const name = rfc.substring(0, 4);
+        const birthdate = rfc.substring(4, 10);
+        const isValidString = UtilitiesHelper.checkIsValidString(name, 4);
+        const isValidNumber = UtilitiesHelper.checkIsValidNumber(birthdate, 6);
+
+        if (!isValidString || !isValidNumber) {
+            return null;
+        }
+        const shortYear = parseInt(birthdate.substring(0, 2));
+        const yearAux = shortYear <= 20 ? '20' : '19';
+        return moment(yearAux + birthdate, 'YYYYMMDD').format('YYYY-MM-DD');
+    }
+
     static generateWhatsappLink(phone: string, message: string): string {
         return `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(
             message

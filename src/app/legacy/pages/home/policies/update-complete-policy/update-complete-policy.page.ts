@@ -19,6 +19,7 @@ import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interfac
 import { LoadingService } from '@core/services/loading/loading.service';
 
 import { UpdateCompletePolicyService } from './update-complete-policy.service';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;
@@ -181,6 +182,15 @@ export class UpdateCompletePolicyPage implements OnInit {
     confirmUpdateInsured(insuredIndex: number): void {
         this.model.insureds.at(insuredIndex).enable();
         this.model.initDropifyPlugin();
+    }
+
+    generateTitularAge(event: any): void {
+        const rfc = event.target.value;
+        const birthdate = UtilitiesHelper.generateBirthdateBasedOnRfc(rfc);
+        if (birthdate) {
+            const age = moment().diff(birthdate, 'years');
+            this.model.policyForm.patchValue({ titularAge: age });
+        }
     }
 
     /**

@@ -223,6 +223,15 @@ export class CompletePolicyPage implements OnInit {
         return InputValidatorHelper.getErrorMessage(control);
     }
 
+    generateTitularAge(event: any): void {
+        const rfc = event.target.value;
+        const birthdate = UtilitiesHelper.generateBirthdateBasedOnRfc(rfc);
+        if (birthdate) {
+            const age = moment().diff(birthdate, 'years');
+            this.model.policyForm.patchValue({ titularAge: age });
+        }
+    }
+
     getValidationClass(constrolName: string): string {
         const control: AbstractControl | null =
             this.model.policyForm.get(constrolName);
@@ -733,24 +742,11 @@ export class CompletePolicyPage implements OnInit {
 
     private _reviewTitularRfc(): void {
         if (this._scannedPolicyData?.titularRfc) {
-            this._titularBirthdate = this._generateBirthdateBasedOnRfc(
-                this._scannedPolicyData?.titularRfc
-            );
+            this._titularBirthdate =
+                UtilitiesHelper.generateBirthdateBasedOnRfc(
+                    this._scannedPolicyData?.titularRfc
+                );
         }
-    }
-
-    private _generateBirthdateBasedOnRfc(rfc: string): string | null {
-        const name = rfc.substring(0, 4);
-        const birthdate = rfc.substring(4, 10);
-        const isValidString = UtilitiesHelper.checkIsValidString(name, 4);
-        const isValidNumber = UtilitiesHelper.checkIsValidNumber(birthdate, 6);
-
-        if (!isValidString || !isValidNumber) {
-            return null;
-        }
-        const shortYear = parseInt(birthdate.substring(0, 2));
-        const yearAux = shortYear <= 20 ? '20' : '19';
-        return moment(yearAux + birthdate, 'YYYYMMDD').format('YYYY-MM-DD');
     }
 
     private _handleScanError(error: HttpError): void {

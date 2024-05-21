@@ -455,6 +455,7 @@
                                         type="text"
                                         class="form-control {{getValidationClass('titularRfc')}}"
                                         formControlName="titularRfc"
+                                        (keyup)="generateTitularAge($event)"
                                     />
                                     <div class="invalid-feedback">
                                         {{getErrorMessage('titularRfc')}}
