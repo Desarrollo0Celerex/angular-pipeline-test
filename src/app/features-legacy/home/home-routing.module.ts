@@ -55,6 +55,7 @@ const routes: Routes = [
             // Clients routes
             {
                 path: ROUTES_NAME.listClients,
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/clients/list-clients/list-clients.module'
@@ -169,6 +170,7 @@ const routes: Routes = [
             // Groups routes
             {
                 path: ROUTES_NAME.listGroups,
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/groups/list-groups/list-groups.module'
@@ -245,6 +247,7 @@ const routes: Routes = [
             // Leads routes
             {
                 path: ROUTES_NAME.listLeads,
+                title: 'Agenthos - Lead Manager',
                 loadChildren: () =>
                     import(
                         '@pages/home/leads/list-leads/list-leads.module'
@@ -270,6 +273,7 @@ const routes: Routes = [
             // Partners routes
             {
                 path: ROUTES_NAME.listPartners,
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/partners/list-partners/list-partners.module'
@@ -690,6 +694,7 @@ const routes: Routes = [
             // Sinisters routes
             {
                 path: ROUTES_NAME.listSinisters,
+                title: 'Agenthos - Care Center',
                 loadChildren: () =>
                     import(
                         '@pages/home/sinisters/list-sinisters/list-sinisters.module'
