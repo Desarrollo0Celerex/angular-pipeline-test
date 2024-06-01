@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.0',
+            launchDate: '31/05/2024',
+            changes: [
+                {
+                    title: 'Workspace',
+                    items: [
+                        'Se agrego modal para permitir al usuario cambiar de espacio de trabajo.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.53.1',
             launchDate: '20/05/2024',
             changes: [
