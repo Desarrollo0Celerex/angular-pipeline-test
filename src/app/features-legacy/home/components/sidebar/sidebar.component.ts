@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 import { Workspace } from '@core/interfaces/workspace.interface';
 import { WorkspaceService } from '@core/services/workspace/workspace.service';
@@ -8,6 +8,8 @@ import { environment } from '@env/environment';
 import { ThemeService } from '@core/services/theme/theme.service';
 import { WorkspaceTheme } from '@core/interfaces/workspace-theme.interface';
 import { WORKSPACE_THEMES } from '@core/constants/settings';
+import { UserWorkspacesModalComponent } from '@workspace-users/components/user-workspaces-modal/user-workspaces-modal.component';
+import { WorkspaceUserService } from '@workspace-users/services/workspace-user.service';
 
 declare var jQuery: any;
 
@@ -17,24 +19,29 @@ declare var jQuery: any;
     styles: [],
 })
 export class SidebarComponent implements OnInit {
+    @ViewChild(UserWorkspacesModalComponent)
+    userWorkspacesModalComponent!: UserWorkspacesModalComponent;
     ROUTES_NAME: any = ROUTES_NAME;
     WORKSPACE_THEMES = WORKSPACE_THEMES;
     appVersion = '1.52.14';
     agenthosSupportPhone =
         environment.agenthos.support.phoneCode +
         environment.agenthos.support.phoneNumber;
+    totalUserWorkspaces = 0;
     workspace: Workspace | undefined = undefined;
     workspaceThemes: WorkspaceTheme[] = [];
 
     constructor(
         private _themeService: ThemeService,
         private _workspaceService: WorkspaceService,
+        private _workspaceUserService: WorkspaceUserService,
         private _renderer2: Renderer2
     ) {}
 
     ngOnInit(): void {
         this._loadWorkspace();
         this._loadWorkspaceThemes();
+        this._loadTotalUserWorkspaces();
     }
 
     selectTheme(themeId: number): void {
@@ -49,6 +56,18 @@ export class SidebarComponent implements OnInit {
         } else {
             jQuery('body').removeClass('dark-mode');
         }
+    }
+
+    onShowModalChangeWorkspace(): void {
+        this.userWorkspacesModalComponent.openModal();
+    }
+
+    private _loadTotalUserWorkspaces(): void {
+        this._workspaceUserService
+            .getTotalUserWorkspaces()
+            .subscribe((total) => {
+                this.totalUserWorkspaces = total;
+            });
     }
 
     private _loadWorkspace(): void {

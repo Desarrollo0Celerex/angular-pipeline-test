@@ -1,0 +1,114 @@
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Espacios de Trabajo</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <ng-container *ngIf="userWorkspaces.length > 0; else loadingData">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">
+                                    Selecciona el espacio de trabajo al que
+                                    deseas cambiarte.
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <!-- AGENTHOS - WORKSPACE SWITCH LIST -->
+                            <div
+                                class="list-group list-lg-group list-group-flush"
+                            >
+                                <!-- AGENTHOS - WORKSPACE SWITCH OPTION -->
+                                <div
+                                    class="list-group-item list-group-item-action"
+                                    *ngFor="let workspace of userWorkspaces"
+                                >
+                                    <div class="media mt-0">
+                                        <!-- AGENTHOS - WORKSPACE LOGO -->
+                                        <img
+                                            class="avatar-lg rounded-circle mr-3"
+                                            [src]="workspace.avatarUrl"
+                                            alt="Agenthos Workspace Image"
+                                        />
+                                        <div class="media-body">
+                                            <div
+                                                class="d-flex align-items-center"
+                                            >
+                                                <div class="mt-1">
+                                                    <!-- AGENTHOS - WORKSPACE BRAND NAME -->
+                                                    <h5 class="mb-1">
+                                                        {{
+                                                            workspace.brandName
+                                                        }}
+                                                    </h5>
+                                                    <!-- AGENTHOS - WORKSPACE REAL NAME -->
+                                                    <p class="fs-13 text-muted">
+                                                        {{ workspace.realName }}
+                                                    </p>
+                                                </div>
+                                                <small
+                                                    class="ml-auto fs-16 mt-2"
+                                                >
+                                                    <button
+                                                        type="button"
+                                                        data-dismiss="modal"
+                                                        class="btn agt-btn-default"
+                                                        (click)="
+                                                            onSelectWorkspace(
+                                                                workspace.workspaceId
+                                                            )
+                                                        "
+                                                    >
+                                                        🔀
+                                                        <strong
+                                                            >SELECCIONAR</strong
+                                                        >
+                                                    </button>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- AGENTHOS - WORKSPACE SWITCH OPTION -->
+                            </div>
+                            <!-- //AGENTHOS - WORKSPACE SWITCH LIST -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-block agt-btn-secondary-outline"
+                        data-dismiss="modal"
+                    >
+                        <strong>CANCELAR</strong>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #loadingData>
+    <div class="row">
+        <div class="col-sm-12">
+            <agt-loading-content [isLoadingContent]="true" />
+        </div>
+    </div>
+</ng-template>

@@ -13,7 +13,6 @@ import { LoadingService } from '@core/services/loading/loading.service';
     styles: [],
 })
 export class IdentifyUserPage {
-    private _activationCode = '';
     private _authToken: string;
     private _redirectUrl: string;
 

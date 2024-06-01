@@ -16,4 +16,5 @@ export interface Workspace {
     twitterUrl: string;
     linkedinUrl: string;
     tiktokUrl: string;
+    isActive: string;
 }

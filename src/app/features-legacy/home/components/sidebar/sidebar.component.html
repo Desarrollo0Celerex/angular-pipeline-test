@@ -14,6 +14,13 @@
                 <span class="badge agt-badge-primary-gradient"
                     >Plan {{ workspace?.licenseShortName }}</span
                 >
+                <span
+                    *ngIf="totalUserWorkspaces > 1"
+                    class="badge agt-badge-default"
+                    [ngStyle]="{ cursor: 'pointer', marginLeft: '8px' }"
+                    (click)="onShowModalChangeWorkspace()"
+                    ><i class="fe fe-repeat mr-2"></i>Cambiar</span
+                >
             </div>
         </div>
         <!-- AGENTHOS - DARK MODE -->
@@ -143,3 +150,5 @@
     <!-- AGENTHOS - WORKSPACE SETTINGS -->
 </div>
 <!-- //AGENTHOS - SIDEBAR -->
+
+<agt-user-workspaces-modal />
