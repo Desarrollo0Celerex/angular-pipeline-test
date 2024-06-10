@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.1',
+            launchDate: '07/06/2024',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se agrego funcionalidad para restaurar una póliza cancelada.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.0',
             launchDate: '31/05/2024',
             changes: [
