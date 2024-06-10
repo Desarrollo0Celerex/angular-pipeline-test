@@ -629,6 +629,21 @@ export class ContentListComponent implements OnChanges, OnDestroy {
         this._initContent();
     }
 
+    onRestorePolicy(data: ContactPolicyData): void {
+        this.contactId = data.contactId;
+        this.selectedPolicyId = data.policyId;
+        this._loadingService.show();
+        this.contentListService
+            .restorePolicy(this.contactId, this.selectedPolicyId)
+            .subscribe(() => {
+                this._loadingService.hide();
+                AlertHelper.policyRestored();
+                this._router.navigateByUrl(
+                    ROUTES_NAME.listContactPolicies(this.contactId)
+                );
+            });
+    }
+
     /**
      * Event to renew a policy
      * @param policyId The policy ID

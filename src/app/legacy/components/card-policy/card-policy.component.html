@@ -179,7 +179,14 @@
                             </button>
                         </ng-container>
                         <ng-container *ngSwitchCase="POLICY_STATUS.CANCELLED">
-                            <!-- AGENTHOS - POLICY HISTORY -->
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                (click)="onClickRestorePolicy()"
+                            >
+                                <i class="fa fa-refresh mr-2"></i>Restaurar
+                                Póliza
+                            </button>
                             <button
                                 type="button"
                                 class="dropdown-item"
@@ -188,7 +195,6 @@
                                 <i class="fa fa-history mr-2"></i>Historial de
                                 Póliza
                             </button>
-                            <!-- AGENTHOS - POLICY DELETE -->
                             <button
                                 type="button"
                                 class="dropdown-item"

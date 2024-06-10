@@ -119,6 +119,15 @@ const routes: any = {
         '/policies/' +
         policyId +
         '/renew',
+    restorePolicy: (workspaceId: string, contactId: string, policyId: string) =>
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/contacts/' +
+        contactId +
+        '/policies/' +
+        policyId +
+        '/restore',
     deleteIncompletePolicy: (
         workspaceId: string,
         contactId: string,
@@ -2090,6 +2099,18 @@ export class PolicyService {
             policyId
         );
         return this._httpClient.post<HttpResponse>(route, requestBody);
+    }
+
+    restorePolicy(
+        contactId: string,
+        policyId: string
+    ): Observable<HttpResponse> {
+        const route: string = routes.restorePolicy(
+            this._workspaceId,
+            contactId,
+            policyId
+        );
+        return this._httpClient.post<HttpResponse>(route, {});
     }
 
     searchWorkspacePolicy(

@@ -539,6 +539,7 @@
                     (showPolicyActionsRequested)="
                         showModalToSelectPolicyActions($event)
                     "
+                    (restorePolicy)="onRestorePolicy($event)"
                 ></agt-card-policy>
                 <agt-card-policy
                     *ngSwitchCase="CONTENT_TYPES.INCOMPLETE_POLICIES.ID"

@@ -379,6 +379,16 @@ export class AlertHelper {
         SweetAlertPlugin.showAlert(alertData);
     }
 
+    static policyRestored(): void {
+        const alertData: Alert = {
+            title: 'Póliza Restaurada',
+            text: 'La póliza se ha restaurado con éxito.',
+            type: 'success',
+            confirmButtonText: 'CONTINUAR',
+        };
+        SweetAlertPlugin.showAlert(alertData);
+    }
+
     static policyDeletedByCaptureError(callBack: any, context: any): void {
         const alertData: Alert = {
             title: 'Póliza Eliminada',

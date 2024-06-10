@@ -48,6 +48,8 @@ export class CardPolicyComponent implements OnInit {
         new EventEmitter<ContactPolicyData>();
     @Output() renewPolicy: EventEmitter<ContactPolicyData> =
         new EventEmitter<ContactPolicyData>();
+    @Output() restorePolicy: EventEmitter<ContactPolicyData> =
+        new EventEmitter<ContactPolicyData>();
     @Output() showContactProfile: EventEmitter<string> =
         new EventEmitter<string>();
     @Output() showHistoryPolicy: EventEmitter<ContactPolicyData> =
@@ -171,6 +173,15 @@ export class CardPolicyComponent implements OnInit {
     onClickRenewPolicy(): void {
         if (!!this.policy) {
             this._policyRenewalActionsModalService.openModal({
+                contactId: this.policy.contactId,
+                policyId: this.policy.policyId,
+            });
+        }
+    }
+
+    onClickRestorePolicy(): void {
+        if (!!this.policy) {
+            this.restorePolicy.emit({
                 contactId: this.policy.contactId,
                 policyId: this.policy.policyId,
             });

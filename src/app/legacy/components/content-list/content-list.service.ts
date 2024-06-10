@@ -2056,6 +2056,13 @@ export class ContentListService {
         );
     }
 
+    restorePolicy(
+        contactId: string,
+        policyId: string
+    ): Observable<HttpResponse> {
+        return this._policyService.restorePolicy(contactId, policyId);
+    }
+
     /**
      * Search the clients
      * @param  page  The page number to get
