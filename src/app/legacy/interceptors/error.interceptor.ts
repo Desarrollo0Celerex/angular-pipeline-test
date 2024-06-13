@@ -23,8 +23,6 @@ declare var ModalPlugin: any;
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    private _isModalShown: boolean = false;
-
     constructor(
         private _loadingService: LoadingService,
         private _router: Router,
@@ -72,10 +70,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 break;
 
             case ERROR_CODES.invalidUserToken:
-                if (!this._isModalShown) {
-                    this._isModalShown = true;
-                    ModalPlugin.show('modal-session-expired');
-                }
+                ModalPlugin.show('modal-session-expired');
                 break;
 
             case ERROR_CODES.invalidFields:
