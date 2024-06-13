@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.2',
+            launchDate: '12/06/2024',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se resolvio bug al mostrar modal cuando la sesión de un usuario ha expirado.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.1',
             launchDate: '07/06/2024',
             changes: [
