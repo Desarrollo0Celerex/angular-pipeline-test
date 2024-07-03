@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.3',
+            launchDate: '02/07/2024',
+            changes: [
+                {
+                    title: 'Task',
+                    items: [
+                        'Se agrego titulo de la tarea en la card de tarea.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.2',
             launchDate: '12/06/2024',
             changes: [
