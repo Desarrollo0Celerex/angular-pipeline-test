@@ -26,6 +26,7 @@ import { PaymentPlanService } from '@services/payment-plan.service';
 import { PolicyService } from '@services/policy.service';
 import { PolicyInsuredService } from '@services/policy-insured.service';
 import { SellerCommissionSuggestionsModule } from '@seller-commission-suggestions/seller-commission-suggestions.module';
+import { PoliciesModule } from '@policy/policies.module';
 
 @NgModule({
     declarations: [UpdateCompletePolicyPage],
@@ -43,6 +44,7 @@ import { SellerCommissionSuggestionsModule } from '@seller-commission-suggestion
         ReactiveFormsModule,
         SellerCommissionSuggestionsModule,
         UpdateCompletePolicyRoutingModule,
+        PoliciesModule,
     ],
     providers: [
         CurrencyService,
