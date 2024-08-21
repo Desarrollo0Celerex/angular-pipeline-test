@@ -42,6 +42,7 @@ export class ModalCreatePaymentCommentComponent {
                 netPay: this.payment.netPay,
                 feePay: this.payment.feePay,
                 coverPay: this.payment.coverPay,
+                noTaxPay: this.payment.noTaxPay,
                 extraPay: this.payment.extraPay,
                 taxPay: this.payment.taxPay,
                 discount: this.payment.discount,
@@ -104,7 +105,7 @@ export class ModalCreatePaymentCommentComponent {
 
     private _loadPayment(): void {
         const fields =
-            'policyNumber,bills,paymentPlanReceips,netPay,feePay,coverPay,extraPay,taxPay,discount,paymentSourceTypeId,tickets,paymentPlanId,pendingAmount,pendingReceipts,paymentDate,comment';
+            'policyNumber,bills,paymentPlanReceips,netPay,feePay,coverPay,noTaxPay,extraPay,taxPay,discount,paymentSourceTypeId,tickets,paymentPlanId,pendingAmount,pendingReceipts,paymentDate,comment';
         this._paymentService
             .getWorkspacePayment(this._paymentId, fields)
             .subscribe((payment) => {

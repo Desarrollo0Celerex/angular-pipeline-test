@@ -49,6 +49,7 @@ export class CardPaymentComponent extends DumbComponent {
                   netPay: this.payment.netPay,
                   feePay: this.payment.feePay,
                   coverPay: this.payment.coverPay,
+                  noTaxPay: this.payment.noTaxPay,
                   extraPay: this.payment.extraPay,
                   taxPay: this.payment.taxPay,
                   discount: this.payment.discount,

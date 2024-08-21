@@ -1,48 +1,106 @@
-<agt-container-contact-details [contactId]="contactId" message="Verfica los datos para la nueva póliza de"></agt-container-contact-details>
+<agt-container-contact-details
+    [contactId]="contactId"
+    message="Verfica los datos para la nueva póliza de"
+></agt-container-contact-details>
 <form [formGroup]="model.form" (submit)="updateExternalPolicy()">
     <div class="row" *ngIf="!!model.externalPolicy">
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <img [src]="model.externalPolicy.insurerImageUrl" width="38px">
+                    <img
+                        [src]="model.externalPolicy.insurerImageUrl"
+                        width="38px"
+                    />
                 </div>
                 <div class="card-body">
                     <div class="d-flex clearfix">
                         <div class="text-left">
-                            <ng-container *ngIf="!!model.externalPolicy.isChecked; else policyLoaded">
-                                <div class="badge badge-success-gradient mr-1 mb-3">{{model.externalPolicy.externalPolicyStatusName  | uppercase}}</div>
+                            <ng-container
+                                *ngIf="!!model.externalPolicy.isChecked; else policyLoaded"
+                            >
+                                <div
+                                    class="badge badge-success-gradient mr-1 mb-3"
+                                >
+                                    {{model.externalPolicy.externalPolicyStatusName
+                                    | uppercase}}
+                                </div>
                                 <span class="col-auto align-self-center">
-                                    <span class="form-help" data-toggle="popover" data-placement="top" [attr.data-content]="model.externalPolicy.externalPolicyStatusDescription" data-original-title="">?</span>
+                                    <span
+                                        class="form-help"
+                                        data-toggle="popover"
+                                        data-placement="top"
+                                        [attr.data-content]="model.externalPolicy.externalPolicyStatusDescription"
+                                        data-original-title=""
+                                        >?</span
+                                    >
                                 </span>
                             </ng-container>
                             <ng-template #policyLoaded>
-                                <div class="badge badge-primary-gradient mr-1 mb-3">CARGADA</div>
+                                <div
+                                    class="badge badge-primary-gradient mr-1 mb-3"
+                                >
+                                    CARGADA
+                                </div>
                                 <span class="col-auto align-self-center">
-                                    <span class="form-help" data-toggle="popover" data-placement="top" data-content="Póliza externa cargada por el asegurado." data-original-title="">?</span>
+                                    <span
+                                        class="form-help"
+                                        data-toggle="popover"
+                                        data-placement="top"
+                                        data-content="Póliza externa cargada por el asegurado."
+                                        data-original-title=""
+                                        >?</span
+                                    >
                                 </span>
                             </ng-template>
-                            <h6><span class="text-primary"><i class="fe fe-shield mr-2"></i></span>{{model.externalPolicy.insuranceName  | uppercase}}</h6>
-                            <h6><span class="text-primary"><i class="fe fe-globe mr-2"></i></span>{{model.externalPolicy.insuranceTypeName  | uppercase}}</h6>
-                            <h6><span class="text-primary"><i class="fe fe-file-text mr-2"></i></span>{{model.externalPolicy.policyNumber}}</h6>
+                            <h6>
+                                <span class="text-primary"
+                                    ><i class="fe fe-shield mr-2"></i></span
+                                >{{model.externalPolicy.insuranceName |
+                                uppercase}}
+                            </h6>
+                            <h6>
+                                <span class="text-primary"
+                                    ><i class="fe fe-globe mr-2"></i></span
+                                >{{model.externalPolicy.insuranceTypeName |
+                                uppercase}}
+                            </h6>
+                            <h6>
+                                <span class="text-primary"
+                                    ><i class="fe fe-file-text mr-2"></i></span
+                                >{{model.externalPolicy.policyNumber}}
+                            </h6>
                         </div>
                         <div class="ml-auto">
-                            <span class="{{model.externalPolicy.insuranceBackground}} icon-service"><i class="fa {{model.externalPolicy.insuranceIcon}} fs-2"></i></span>
+                            <span
+                                class="{{model.externalPolicy.insuranceBackground}} icon-service"
+                                ><i
+                                    class="fa {{model.externalPolicy.insuranceIcon}} fs-2"
+                                ></i
+                            ></span>
                         </div>
                     </div>
                     <div class="progress progress-sm mt-2">
-                        <div class="progress-bar {{model.externalPolicy.insuranceBackground}}" [ngStyle]="{'width': model.externalPolicy.lifeTime+'%'}"></div>
+                        <div
+                            class="progress-bar {{model.externalPolicy.insuranceBackground}}"
+                            [ngStyle]="{'width': model.externalPolicy.lifeTime+'%'}"
+                        ></div>
                     </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header">
                     <h6 class="mb-0">Carátula de Póliza</h6>
-                    <div class="card-options">
-                    </div>
+                    <div class="card-options"></div>
                 </div>
                 <div class="card-body">
                     <div class="col-sm-12">
-                        <button type="button" class="btn btn-block btn-primary" (click)="showPolicyFile()"><strong>VER PÓLIZA</strong></button>
+                        <button
+                            type="button"
+                            class="btn btn-block btn-primary"
+                            (click)="showPolicyFile()"
+                        >
+                            <strong>VER PÓLIZA</strong>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -55,50 +113,109 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">Bien Asegurado</label>
-                                    <input type="text" class="form-control {{getValidationClass('coveredProperty')}}" formControlName="coveredProperty">
-                                    <div class="invalid-feedback">{{getErrorMessage('coveredProperty')}}</div>
+                                    <label class="form-label"
+                                        >Bien Asegurado</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('coveredProperty')}}"
+                                        formControlName="coveredProperty"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('coveredProperty')}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">No. Póliza</label>
-                                    <input type="text" class="form-control {{getValidationClass('policyNumber')}}" formControlName="policyNumber">
-                                    <div class="invalid-feedback">{{getErrorMessage('policyNumber')}}</div>
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('policyNumber')}}"
+                                        formControlName="policyNumber"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('policyNumber')}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">No. Cliente</label>
-                                    <input type="text" class="form-control {{getValidationClass('clientNumber')}}" formControlName="clientNumber">
-                                    <div class="invalid-feedback">{{getErrorMessage('clientNumber')}}</div>
+                                    <label class="form-label"
+                                        >No. Cliente</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('clientNumber')}}"
+                                        formControlName="clientNumber"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('clientNumber')}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">Aseguradora</label>
-                                    <select class="form-control custom-select {{getValidationClass('insurerId')}}" formControlName="insurerId">
-                                        <option [value]="insurer.insurerId" *ngFor="let insurer of model.insurers">{{insurer.name}}</option>
+                                    <label class="form-label"
+                                        >Aseguradora</label
+                                    >
+                                    <select
+                                        class="form-control custom-select {{getValidationClass('insurerId')}}"
+                                        formControlName="insurerId"
+                                    >
+                                        <option
+                                            [value]="insurer.insurerId"
+                                            *ngFor="let insurer of model.insurers"
+                                        >
+                                            {{insurer.name}}
+                                        </option>
                                     </select>
-                                    <div class="invalid-feedback">{{getErrorMessage('insurerId')}}</div>
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('insurerId')}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">Ramo de Póliza</label>
-                                    <select class="form-control custom-select {{getValidationClass('insuranceId')}}" formControlName="insuranceId" (change)="reloadInsuranceTypes()">
-                                        <option [value]="insurance.insuranceId" *ngFor="let insurance of model.insurances">{{insurance.name}}</option>
+                                    <label class="form-label"
+                                        >Ramo de Póliza</label
+                                    >
+                                    <select
+                                        class="form-control custom-select {{getValidationClass('insuranceId')}}"
+                                        formControlName="insuranceId"
+                                        (change)="reloadInsuranceTypes()"
+                                    >
+                                        <option
+                                            [value]="insurance.insuranceId"
+                                            *ngFor="let insurance of model.insurances"
+                                        >
+                                            {{insurance.name}}
+                                        </option>
                                     </select>
-                                    <div class="invalid-feedback">{{getErrorMessage('insuranceId')}}</div>
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('insuranceId')}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">Tipo de Póliza</label>
-                                    <select class="form-control custom-select {{getValidationClass('insuranceTypeId')}}" formControlName="insuranceTypeId">
-                                        <option [value]="insuranceType.insuranceTypeId" *ngFor="let insuranceType of model.insuranceTypes">{{insuranceType.name}}</option>
+                                    <label class="form-label"
+                                        >Tipo de Póliza</label
+                                    >
+                                    <select
+                                        class="form-control custom-select {{getValidationClass('insuranceTypeId')}}"
+                                        formControlName="insuranceTypeId"
+                                    >
+                                        <option
+                                            [value]="insuranceType.insuranceTypeId"
+                                            *ngFor="let insuranceType of model.insuranceTypes"
+                                        >
+                                            {{insuranceType.name}}
+                                        </option>
                                     </select>
-                                    <div class="invalid-feedback">{{getErrorMessage('insuranceTypeId')}}</div>
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('insuranceTypeId')}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -116,30 +233,58 @@
                         <div class="form-group row text-center">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">Nombre del Titular</label>
-                                    <input type="text" class="form-control {{getValidationClass('titularName')}}" formControlName="titularName">
-                                    <div class="invalid-feedback">{{getErrorMessage('titularName')}}</div>
+                                    <label class="form-label"
+                                        >Nombre del Titular</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('titularName')}}"
+                                        formControlName="titularName"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('titularName')}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">RFC / DNI</label>
-                                    <input type="text" class="form-control {{getValidationClass('titularRfc')}}" formControlName="titularRfc">
-                                    <div class="invalid-feedback">{{getErrorMessage('titularRfc')}}</div>
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('titularRfc')}}"
+                                        formControlName="titularRfc"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('titularRfc')}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Código Postal</label>
-                                    <input type="text" class="form-control {{getValidationClass('titularPostalCode')}}" formControlName="titularPostalCode">
-                                    <div class="invalid-feedback">{{getErrorMessage('titularPostalCode')}}</div>
+                                    <label class="form-label"
+                                        >Código Postal</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('titularPostalCode')}}"
+                                        formControlName="titularPostalCode"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('titularPostalCode')}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Teléfono</label>
-                                    <input type="text" class="form-control {{getValidationClass('titularPhoneNumber')}}" formControlName="titularPhoneNumber">
-                                    <div class="invalid-feedback">{{getErrorMessage('titularPhoneNumber')}}</div>
+                                    <input
+                                        type="text"
+                                        class="form-control {{getValidationClass('titularPhoneNumber')}}"
+                                        formControlName="titularPhoneNumber"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('titularPhoneNumber')}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -154,39 +299,72 @@
                     <div class="block-content">
                         <div class="form-group row text-center">
                             <div class="col-md-4">
-                                <label class="form-label">Fecha de Emisión</label>
+                                <label class="form-label"
+                                    >Fecha de Emisión</label
+                                >
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                            <i
+                                                class="fe fe-calendar tx-16 lh-0 op-6"
+                                            ></i>
                                         </div>
                                     </div>
-                                    <input [id]="calendarIdEmissionDate" class="form-control fc-datepicker {{getValidationClass('emissionDate')}}" formControlName="emissionDate" type="text">
-                                    <div class="invalid-feedback">{{getErrorMessage('emissionDate')}}</div>
+                                    <input
+                                        [id]="calendarIdEmissionDate"
+                                        class="form-control fc-datepicker {{getValidationClass('emissionDate')}}"
+                                        formControlName="emissionDate"
+                                        type="text"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('emissionDate')}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">Inicio de Vigencia</label>
+                                <label class="form-label"
+                                    >Inicio de Vigencia</label
+                                >
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                            <i
+                                                class="fe fe-calendar tx-16 lh-0 op-6"
+                                            ></i>
                                         </div>
                                     </div>
-                                    <input [id]="calendarIdValidityStartDate" class="form-control fc-datepicker {{getValidationClass('validityStartDate')}}" formControlName="validityStartDate" type="text">
-                                    <div class="invalid-feedback">{{getErrorMessage('validityStartDate')}}</div>
+                                    <input
+                                        [id]="calendarIdValidityStartDate"
+                                        class="form-control fc-datepicker {{getValidationClass('validityStartDate')}}"
+                                        formControlName="validityStartDate"
+                                        type="text"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('validityStartDate')}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">Fin de Vigencia</label>
+                                <label class="form-label"
+                                    >Fin de Vigencia</label
+                                >
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <i class="fe fe-calendar tx-16 lh-0 op-6"></i>
+                                            <i
+                                                class="fe fe-calendar tx-16 lh-0 op-6"
+                                            ></i>
                                         </div>
                                     </div>
-                                    <input [id]="calendarIdValidityEndDate" class="form-control fc-datepicker {{getValidationClass('validityEndDate')}}" formControlName="validityEndDate" type="text">
-                                    <div class="invalid-feedback">{{getErrorMessage('validityEndDate')}}</div>
+                                    <input
+                                        [id]="calendarIdValidityEndDate"
+                                        class="form-control fc-datepicker {{getValidationClass('validityEndDate')}}"
+                                        formControlName="validityEndDate"
+                                        type="text"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('validityEndDate')}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -206,53 +384,115 @@
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
-                                                <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                                <i
+                                                    class="fe fe-dollar-sign tx-16 lh-0 op-6"
+                                                ></i>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control {{getValidationClass('netPay')}}" formControlName="netPay">
-                                        <div class="invalid-feedback">{{getErrorMessage('netPay')}}</div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('netPay')}}"
+                                            formControlName="netPay"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('netPay')}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Financiamiento</label>
+                                    <label class="form-label"
+                                        >Financiamiento</label
+                                    >
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
-                                                <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                                <i
+                                                    class="fe fe-dollar-sign tx-16 lh-0 op-6"
+                                                ></i>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control {{getValidationClass('feePay')}}" formControlName="feePay">
-                                        <div class="invalid-feedback">{{getErrorMessage('feePay')}}</div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('feePay')}}"
+                                            formControlName="feePay"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('feePay')}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Gastos Expedición</label>
+                                    <label class="form-label"
+                                        >Gastos Expedición</label
+                                    >
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
-                                                <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                                <i
+                                                    class="fe fe-dollar-sign tx-16 lh-0 op-6"
+                                                ></i>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control {{getValidationClass('coverPay')}}" formControlName="coverPay">
-                                        <div class="invalid-feedback">{{getErrorMessage('coverPay')}}</div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('coverPay')}}"
+                                            formControlName="coverPay"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('coverPay')}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Otros Cargos</label>
+                                    <label class="form-label"
+                                        >Excentos de Impuestos</label
+                                    >
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
-                                                <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                                <i
+                                                    class="fe fe-dollar-sign tx-16 lh-0 op-6"
+                                                ></i>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control {{getValidationClass('extraPay')}}" formControlName="extraPay">
-                                        <div class="invalid-feedback">{{getErrorMessage('extraPay')}}</div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('noTaxPay')}}"
+                                            formControlName="noTaxPay"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('noTaxPay')}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label"
+                                        >Otros Cargos</label
+                                    >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fe fe-dollar-sign tx-16 lh-0 op-6"
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('extraPay')}}"
+                                            formControlName="extraPay"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('extraPay')}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -262,53 +502,105 @@
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
-                                                <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                                <i
+                                                    class="fe fe-dollar-sign tx-16 lh-0 op-6"
+                                                ></i>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control {{getValidationClass('taxPay')}}" formControlName="taxPay">
-                                        <div class="invalid-feedback">{{getErrorMessage('taxPay')}}</div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('taxPay')}}"
+                                            formControlName="taxPay"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('taxPay')}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Prima Total</label>
+                                    <label class="form-label"
+                                        >Prima Total</label
+                                    >
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
-                                                <i class="fe fe-dollar-sign tx-16 lh-0 op-6"></i>
+                                                <i
+                                                    class="fe fe-dollar-sign tx-16 lh-0 op-6"
+                                                ></i>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control {{getValidationClass('policyAmount')}}" formControlName="policyAmount">
-                                        <div class="invalid-feedback">{{getErrorMessage('policyAmount')}}</div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('policyAmount')}}"
+                                            formControlName="policyAmount"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('policyAmount')}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Moneda</label>
-                                    <select class="form-control custom-select {{getValidationClass('currencyId')}}" formControlName="currencyId">
-                                        <option [value]="currency.currencyId" *ngFor="let currency of model.currencies">{{currency.name}}</option>
+                                    <select
+                                        class="form-control custom-select {{getValidationClass('currencyId')}}"
+                                        formControlName="currencyId"
+                                    >
+                                        <option
+                                            [value]="currency.currencyId"
+                                            *ngFor="let currency of model.currencies"
+                                        >
+                                            {{currency.name}}
+                                        </option>
                                     </select>
-                                    <div class="invalid-feedback">{{getErrorMessage('currencyId')}}</div>
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('currencyId')}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Forma de Pago</label>
-                                    <select class="form-control custom-select {{getValidationClass('paymentMethodId')}}" formControlName="paymentMethodId">
-                                        <option [value]="paymentMethod.paymentMethodId" *ngFor="let paymentMethod of model.paymentMethods">{{paymentMethod.name | uppercase}}</option>
+                                    <label class="form-label"
+                                        >Forma de Pago</label
+                                    >
+                                    <select
+                                        class="form-control custom-select {{getValidationClass('paymentMethodId')}}"
+                                        formControlName="paymentMethodId"
+                                    >
+                                        <option
+                                            [value]="paymentMethod.paymentMethodId"
+                                            *ngFor="let paymentMethod of model.paymentMethods"
+                                        >
+                                            {{paymentMethod.name | uppercase}}
+                                        </option>
                                     </select>
-                                    <div class="invalid-feedback">{{getErrorMessage('paymentMethodId')}}</div>
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('paymentMethodId')}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Tipo de Plan</label>
-                                    <select class="form-control custom-select {{getValidationClass('paymentPlanId')}}" formControlName="paymentPlanId">
-                                        <option [value]="paymentPlan.paymentPlanId" *ngFor="let paymentPlan of model.paymentPlans">{{paymentPlan.name | uppercase}}</option>
+                                    <label class="form-label"
+                                        >Tipo de Plan</label
+                                    >
+                                    <select
+                                        class="form-control custom-select {{getValidationClass('paymentPlanId')}}"
+                                        formControlName="paymentPlanId"
+                                    >
+                                        <option
+                                            [value]="paymentPlan.paymentPlanId"
+                                            *ngFor="let paymentPlan of model.paymentPlans"
+                                        >
+                                            {{paymentPlan.name | uppercase}}
+                                        </option>
                                     </select>
-                                    <div class="invalid-feedback">{{getErrorMessage('paymentPlanId')}}</div>
+                                    <div class="invalid-feedback">
+                                        {{getErrorMessage('paymentPlanId')}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -319,7 +611,12 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-icon btn-block btn-primary"><strong>GUARDAR PÓLIZA</strong></button>
+                            <button
+                                type="submit"
+                                class="btn btn-icon btn-block btn-primary"
+                            >
+                                <strong>GUARDAR PÓLIZA</strong>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -328,4 +625,8 @@
     </div>
 </form>
 
-<agt-modal-show-policy-file *ngIf="model.externalPolicy" [modalId]="modalIdShowPolicyFile" [policyUrl]="model.externalPolicy.policyUrl"></agt-modal-show-policy-file>
+<agt-modal-show-policy-file
+    *ngIf="model.externalPolicy"
+    [modalId]="modalIdShowPolicyFile"
+    [policyUrl]="model.externalPolicy.policyUrl"
+></agt-modal-show-policy-file>

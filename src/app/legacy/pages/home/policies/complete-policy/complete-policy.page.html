@@ -1229,7 +1229,15 @@
                     <h3 class="card-title">Prima de Póliza</h3>
                 </div>
                 <div class="card-body">
-                    <div class="form-group row text-center">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">
+                                    Valida los montos sobre la prima de la
+                                    póliza.
+                                </li>
+                            </ol>
+                        </div>
                         <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <!-- AGENTHOS - NET PAYMENT * -->
@@ -1271,7 +1279,9 @@
                         <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <!-- AGENTHOS - FEE PAYMENT * -->
-                                <label class="form-label">Financiamiento</label>
+                                <label class="form-label"
+                                    >Costo de Financiamiento</label
+                                >
                                 <div class="row gutters-sm">
                                     <div class="col">
                                         <div class="input-group">
@@ -1310,7 +1320,7 @@
                             <div class="form-group">
                                 <!-- AGENTHOS - COVER PAYMENT * -->
                                 <label class="form-label"
-                                    >Cargos Expedición</label
+                                    >Gastos de Expedición</label
                                 >
                                 <div class="row gutters-sm">
                                     <div class="col">
@@ -1348,8 +1358,50 @@
                         </div>
                         <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
                             <div class="form-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY NO TAX PAYMENT * -->
+                                <label class="form-label"
+                                    >Excentos de Impuestos</label
+                                >
+                                <div class="row gutters-sm">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i
+                                                        class="fa fa-dollar tx-16 lh-0 op-6"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <input
+                                                type="text"
+                                                class="form-control {{getValidationClass('noTaxPay')}}"
+                                                formControlName="noTaxPay"
+                                                (keyup)="calculatePolicyAmount();"
+                                            />
+                                            <div class="invalid-feedback">
+                                                {{getErrorMessage('noTaxPay')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="top"
+                                            data-content="Cargos excentos de impuestos."
+                                            data-original-title=""
+                                            >?</span
+                                        >
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
                                 <!-- AGENTHOS - EXTRA PAYMENT * -->
-                                <label class="form-label">Otros Cargos</label>
+                                <label class="form-label"
+                                    >Extras o Adicionales</label
+                                >
                                 <div class="row gutters-sm">
                                     <div class="col">
                                         <div class="input-group">
@@ -1386,46 +1438,10 @@
                         </div>
                         <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - TAX PAYMENT * -->
-                                <label class="form-label">Impuestos</label>
-                                <div class="row gutters-sm">
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i
-                                                        class="fa fa-dollar tx-16 lh-0 op-6"
-                                                    ></i>
-                                                </div>
-                                            </div>
-                                            <input
-                                                type="text"
-                                                class="form-control {{getValidationClass('taxPay')}}"
-                                                formControlName="taxPay"
-                                                (keyup)="calculatePolicyAmount()"
-                                            />
-                                            <div class="invalid-feedback">
-                                                {{getErrorMessage('taxPay')}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="col-auto align-self-center">
-                                        <span
-                                            class="form-help"
-                                            data-toggle="popover"
-                                            data-placement="top"
-                                            data-content="Cargos por impuestos de póliza."
-                                            data-original-title=""
-                                            >?</span
-                                        >
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
-                            <div class="form-group">
                                 <!-- AGENTHOS - DISCOUNTS * -->
-                                <label class="form-label">Descuentos</label>
+                                <label class="form-label"
+                                    >Descuentos de Prima</label
+                                >
                                 <div class="row gutters-sm">
                                     <div class="col">
                                         <div class="input-group">
@@ -1453,6 +1469,46 @@
                                             data-toggle="popover"
                                             data-placement="top"
                                             data-content="Descuentos aplicados a la póliza."
+                                            data-original-title=""
+                                            >?</span
+                                        >
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - TAX PAYMENT * -->
+                                <label class="form-label"
+                                    >Tarifa de Impuestos</label
+                                >
+                                <div class="row gutters-sm">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i
+                                                        class="fa fa-dollar tx-16 lh-0 op-6"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <input
+                                                type="text"
+                                                class="form-control {{getValidationClass('taxPay')}}"
+                                                formControlName="taxPay"
+                                                (keyup)="calculatePolicyAmount()"
+                                            />
+                                            <div class="invalid-feedback">
+                                                {{getErrorMessage('taxPay')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="top"
+                                            data-content="Cargos por impuestos de póliza."
                                             data-original-title=""
                                             >?</span
                                         >

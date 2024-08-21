@@ -55,6 +55,7 @@ export class ModalShowPaymentDetailsComponent implements OnChanges {
                 netPay: this.model.payment.netPay,
                 feePay: this.model.payment.feePay,
                 coverPay: this.model.payment.coverPay,
+                noTaxPay: this.model.payment.noTaxPay,
                 extraPay: this.model.payment.extraPay,
                 taxPay: this.model.payment.taxPay,
                 discount: this.model.payment.discount,

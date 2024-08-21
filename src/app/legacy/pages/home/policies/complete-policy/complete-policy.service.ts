@@ -284,6 +284,10 @@ export class CompletePolicyService {
                 !!policy && !!policy.coverPay ? policy.coverPay : '0.00',
                 [Validators.required, ValidatorsHelper.amount],
             ],
+            noTaxPay: [
+                !!policy && !!policy.noTaxPay ? policy.noTaxPay : '0.00',
+                [Validators.required, ValidatorsHelper.amount],
+            ],
             extraPay: [
                 !!policy && !!policy.extraPay ? policy.extraPay : '0.00',
                 [Validators.required, ValidatorsHelper.amount],
@@ -525,6 +529,9 @@ export class CompletePolicyService {
         const coverPay = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value || 0)
         );
+        const noTaxPay = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.noTaxPay.value || 0)
+        );
         const extraPay = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value || 0)
         );
@@ -536,7 +543,7 @@ export class CompletePolicyService {
         );
 
         const policyAmount = UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
-            netPay + feePay + coverPay + extraPay + taxPay - discount
+            netPay + feePay + coverPay + noTaxPay + extraPay + taxPay - discount
         );
         this.policyForm.patchValue({ policyAmount });
     }
@@ -703,6 +710,9 @@ export class CompletePolicyService {
         let coverPay: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value)
         );
+        let noTaxPay: number = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.noTaxPay.value)
+        );
         let extraPay: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value)
         );
@@ -711,9 +721,15 @@ export class CompletePolicyService {
         );
         discount = discount < 0 ? discount * -1 : discount;
         let totalPolicy: number =
-            netPay + taxPay + feePay + coverPay + extraPay - discount;
+            netPay +
+            taxPay +
+            feePay +
+            coverPay +
+            noTaxPay +
+            extraPay -
+            discount;
         let totalPolicyWithoutDiscount: number =
-            netPay + taxPay + feePay + coverPay + extraPay;
+            netPay + taxPay + feePay + coverPay + noTaxPay + extraPay;
         const policyAmount: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value)
         );
@@ -732,11 +748,18 @@ export class CompletePolicyService {
             taxPay *= paymentPlanMonths;
             feePay *= paymentPlanMonths;
             coverPay *= paymentPlanMonths;
+            noTaxPay *= paymentPlanMonths;
             extraPay *= paymentPlanMonths;
             totalPolicy =
-                netPay + taxPay + feePay + coverPay + extraPay - discount;
+                netPay +
+                taxPay +
+                feePay +
+                coverPay +
+                noTaxPay +
+                extraPay -
+                discount;
             totalPolicyWithoutDiscount =
-                netPay + taxPay + feePay + coverPay + extraPay;
+                netPay + taxPay + feePay + coverPay + noTaxPay + extraPay;
 
             if (
                 (totalPolicy >= policyAmount - 1 &&
@@ -967,7 +990,7 @@ export class CompletePolicyService {
     ): Observable<HttpResponse> {
         this.policy = null;
         const fields: string =
-            'policyId,contactId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularLegalRepresentative,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,payGracePeriod,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber,contactBirthdate';
+            'policyId,contactId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularLegalRepresentative,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,noTaxPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,payGracePeriod,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber,contactBirthdate';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -1559,6 +1582,7 @@ export class CompletePolicyService {
         requestBody.append('taxPay', this.f.taxPay.value);
         requestBody.append('feePay', this.f.feePay.value);
         requestBody.append('coverPay', this.f.coverPay.value);
+        requestBody.append('noTaxPay', this.f.noTaxPay.value);
         requestBody.append('extraPay', this.f.extraPay.value);
         requestBody.append('discount', discount.toString());
         requestBody.append(

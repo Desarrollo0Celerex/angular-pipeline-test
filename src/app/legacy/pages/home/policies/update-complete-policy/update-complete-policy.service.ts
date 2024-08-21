@@ -223,6 +223,10 @@ export class UpdateCompletePolicyService {
                 !!policy && !!policy.coverPay ? policy.coverPay : '',
                 [Validators.required, ValidatorsHelper.amount],
             ],
+            noTaxPay: [
+                !!policy && !!policy.noTaxPay ? policy.noTaxPay : '',
+                [Validators.required, ValidatorsHelper.amount],
+            ],
             extraPay: [
                 !!policy && !!policy.extraPay ? policy.extraPay : '',
                 [Validators.required, ValidatorsHelper.amount],
@@ -469,6 +473,9 @@ export class UpdateCompletePolicyService {
         let coverPay: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value)
         );
+        let noTaxPay: number = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.noTaxPay.value)
+        );
         let extraPay: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value)
         );
@@ -477,7 +484,13 @@ export class UpdateCompletePolicyService {
         );
         discount = discount < 0 ? discount * -1 : discount;
         let totalPolicy: number =
-            netPay + taxPay + feePay + coverPay + extraPay - discount;
+            netPay +
+            taxPay +
+            feePay +
+            coverPay +
+            noTaxPay +
+            extraPay -
+            discount;
         const policyAmount: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.policyAmount.value)
         );
@@ -497,9 +510,16 @@ export class UpdateCompletePolicyService {
             taxPay *= paymentPlanMonths;
             feePay *= paymentPlanMonths;
             coverPay *= paymentPlanMonths;
+            noTaxPay *= paymentPlanMonths;
             extraPay *= paymentPlanMonths;
             totalPolicy =
-                netPay + taxPay + feePay + coverPay + extraPay - discount;
+                netPay +
+                taxPay +
+                feePay +
+                coverPay +
+                noTaxPay +
+                extraPay -
+                discount;
 
             if (
                 totalPolicy >= policyAmount - 1 &&
@@ -534,6 +554,7 @@ export class UpdateCompletePolicyService {
         this.f.netPay.disable();
         this.f.feePay.disable();
         this.f.coverPay.disable();
+        this.f.noTaxPay.disable();
         this.f.extraPay.disable();
         this.f.taxPay.disable();
         this.f.discount.disable();
@@ -701,7 +722,7 @@ export class UpdateCompletePolicyService {
     loadPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
         const fields: string =
-            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,policyPlan,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,payGracePeriod,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceRealName,partnerId,coveredProperty,insuranceGroupId,workspaceCountryId,contactTypeId,titularGenderId,titularAge,titularEmail,agentName,agentKey,agentCommissionPercentage,agentCommissionAmount,agentCommissionCurrencyId,agentCommissionPeriod,sellerCommissionPercentage,sellerCommissionAmount,sellerCommissionCurrencyId,sellerCommissionPeriod';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,policyPlan,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,noTaxPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,payGracePeriod,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceRealName,partnerId,coveredProperty,insuranceGroupId,workspaceCountryId,contactTypeId,titularGenderId,titularAge,titularEmail,agentName,agentKey,agentCommissionPercentage,agentCommissionAmount,agentCommissionCurrencyId,agentCommissionPeriod,sellerCommissionPercentage,sellerCommissionAmount,sellerCommissionCurrencyId,sellerCommissionPeriod';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -920,6 +941,12 @@ export class UpdateCompletePolicyService {
                             taxPay: [
                                 !!insured && !!insured.taxPay
                                     ? insured.taxPay
+                                    : '0.00',
+                                [Validators.required, ValidatorsHelper.amount],
+                            ],
+                            noTaxPay: [
+                                !!insured && !!insured.noTaxPay
+                                    ? insured.noTaxPay
                                     : '0.00',
                                 [Validators.required, ValidatorsHelper.amount],
                             ],
@@ -1463,6 +1490,7 @@ export class UpdateCompletePolicyService {
                         requestBody.append('feePay', insured.feePay);
                         requestBody.append('coverPay', insured.coverPay);
                         requestBody.append('taxPay', insured.taxPay);
+                        requestBody.append('noTaxPay', insured.noTaxPay);
                         requestBody.append('extraPay', insured.extraPay);
                         requestBody.append('discount', insured.discount);
                         requestBody.append('totalAmount', insured.totalAmount);
@@ -1664,6 +1692,7 @@ export class UpdateCompletePolicyService {
         requestBody.append('taxPay', this.f.taxPay.value);
         requestBody.append('feePay', this.f.feePay.value);
         requestBody.append('coverPay', this.f.coverPay.value);
+        requestBody.append('noTaxPay', this.f.noTaxPay.value);
         requestBody.append('extraPay', this.f.extraPay.value);
         requestBody.append('discount', discount.toString());
         requestBody.append(
