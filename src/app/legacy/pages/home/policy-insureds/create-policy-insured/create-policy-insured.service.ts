@@ -68,6 +68,9 @@ export class CreatePolicyInsuredService {
         let coverPay: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value)
         );
+        let noTaxPay: number = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.noTaxPay.value)
+        );
         let extraPay: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value)
         );
@@ -76,9 +79,15 @@ export class CreatePolicyInsuredService {
         );
         discount = discount < 0 ? discount * -1 : discount;
         let totalPolicy: number =
-            netPay + taxPay + feePay + coverPay + extraPay - discount;
+            netPay +
+            taxPay +
+            feePay +
+            coverPay +
+            noTaxPay +
+            extraPay -
+            discount;
         let totalPolicyWithoutDiscount: number =
-            netPay + taxPay + feePay + coverPay + extraPay;
+            netPay + taxPay + feePay + coverPay + noTaxPay + extraPay;
         const policyAmount: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.totalAmount.value)
         );
@@ -172,6 +181,7 @@ export class CreatePolicyInsuredService {
             netPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
             feePay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
             coverPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
+            noTaxPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
             extraPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
             taxPay: ['0.00', [Validators.required, ValidatorsHelper.amount]],
             discount: ['0.00', [Validators.required, ValidatorsHelper.amount]],
@@ -339,6 +349,7 @@ export class CreatePolicyInsuredService {
         requestBody.append('netPay', this.f.netPay.value);
         requestBody.append('feePay', this.f.feePay.value);
         requestBody.append('coverPay', this.f.coverPay.value);
+        requestBody.append('noTaxPay', this.f.noTaxPay.value);
         requestBody.append('extraPay', this.f.extraPay.value);
         requestBody.append('taxPay', this.f.taxPay.value);
         requestBody.append('discount', this.f.discount.value);

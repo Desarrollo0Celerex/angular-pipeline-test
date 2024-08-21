@@ -655,6 +655,7 @@ export class CompletePolicyPage implements OnInit {
                 'taxPay',
                 'feePay',
                 'coverPay',
+                'noTaxPay',
                 'extraPay',
                 'firstPay',
                 'discount',

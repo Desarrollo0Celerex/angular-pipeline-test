@@ -70,6 +70,7 @@ export class UtilitiesHelper {
                       netPay: data.netPay,
                       feePay: data.feePay,
                       coverPay: data.coverPay,
+                      noTaxPay: data.noTaxPay,
                       extraPay: data.extraPay,
                       taxPay: data.taxPay,
                       discount: data.discount,
@@ -308,6 +309,7 @@ export class UtilitiesHelper {
                 parseFloat(data.discount.toString())) /
                 data.paymentPlanReceips +
             parseFloat(data.feePay.toString()) / data.paymentPlanReceips +
+            parseFloat(data.noTaxPay.toString()) / data.paymentPlanReceips +
             parseFloat(data.extraPay.toString()) / data.paymentPlanReceips +
             parseFloat(data.coverPay.toString());
         const taxes: number = data.taxPay != 0 ? sumPayments * 0.16 : 0;

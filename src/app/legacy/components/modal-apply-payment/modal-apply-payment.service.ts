@@ -88,7 +88,7 @@ export class ModalApplyPaymentService {
      */
     loadPayment(paymentId: string): Observable<void> {
         const fields: string =
-            'policyNumber,bills,tickets,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay,discount,paymentPlanReceips,paymentPlanId,paymentSourceTypeId';
+            'policyNumber,bills,tickets,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,bills,tickets,netPay,taxPay,feePay,coverPay,noTaxPay,extraPay,discount,paymentPlanReceips,paymentPlanId,paymentSourceTypeId';
         return this._paymentService.getPayment(paymentId, fields).pipe(
             tap((res: HttpResponse) => {
                 this.payment = res.data;
@@ -111,6 +111,7 @@ export class ModalApplyPaymentService {
         netPay: number,
         feePay: number,
         coverPay: number,
+        noTaxPay: number,
         extraPay: number,
         taxPay: number,
         discount: number
@@ -119,6 +120,7 @@ export class ModalApplyPaymentService {
             (parseFloat(netPay.toString()) - parseFloat(discount.toString())) /
                 paymentPlanReceips +
             parseFloat(feePay.toString()) / paymentPlanReceips +
+            parseFloat(noTaxPay.toString()) / paymentPlanReceips +
             parseFloat(extraPay.toString()) / paymentPlanReceips +
             parseFloat(coverPay.toString());
         const taxes: number = taxPay != 0 ? sumPayments * 0.16 : 0;
@@ -145,6 +147,7 @@ export class ModalApplyPaymentService {
                           this.payment.netPay,
                           this.payment.feePay,
                           this.payment.coverPay,
+                          this.payment.noTaxPay,
                           this.payment.extraPay,
                           this.payment.taxPay,
                           this.payment.discount

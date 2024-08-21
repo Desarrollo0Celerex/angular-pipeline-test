@@ -171,7 +171,7 @@ export class ApplyPaymentModalComponent implements OnInit {
 
     private _loadPayment(): void {
         const fields =
-            'bills,tickets,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,bills,tickets,netPay,taxPay,feePay,coverPay,extraPay,discount,paymentPlanReceips,paymentPlanId,paymentSourceTypeId';
+            'bills,tickets,paymentPlanMonths,validityStartDate,validityEndDate,pendingAmount,pendingReceipts,paymentDate,currencyName,isMultiyear,bills,tickets,netPay,taxPay,feePay,coverPay,noTaxPay,extraPay,discount,paymentPlanReceips,paymentPlanId,paymentSourceTypeId';
         this._paymentService
             .getWorkspacePayment(this._paymentId, fields)
             .subscribe((payment) => {
@@ -232,6 +232,7 @@ export class ApplyPaymentModalComponent implements OnInit {
                           payment.netPay,
                           payment.feePay,
                           payment.coverPay,
+                          payment.noTaxPay,
                           payment.extraPay,
                           payment.taxPay,
                           payment.discount
@@ -254,6 +255,7 @@ export class ApplyPaymentModalComponent implements OnInit {
         netPay: number,
         feePay: number,
         coverPay: number,
+        noTaxPay: number,
         extraPay: number,
         taxPay: number,
         discount: number
@@ -262,6 +264,7 @@ export class ApplyPaymentModalComponent implements OnInit {
             (parseFloat(netPay.toString()) - parseFloat(discount.toString())) /
                 paymentPlanReceips +
             parseFloat(feePay.toString()) / paymentPlanReceips +
+            parseFloat(noTaxPay.toString()) / paymentPlanReceips +
             parseFloat(extraPay.toString()) / paymentPlanReceips +
             parseFloat(coverPay.toString());
         const taxes: number = taxPay != 0 ? sumPayments * 0.16 : 0;

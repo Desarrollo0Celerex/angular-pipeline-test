@@ -19,6 +19,7 @@ export interface Policy {
     taxPay: number;
     feePay: number;
     coverPay: number;
+    noTaxPay: number;
     extraPay: number;
     discount: number;
     policyAmount: number;

@@ -187,6 +187,12 @@ export class UpdateExternalPolicyService {
                     : '',
                 [Validators.required, ValidatorsHelper.amount],
             ],
+            noTaxPay: [
+                !!externalPolicy && !!externalPolicy.noTaxPay
+                    ? externalPolicy.noTaxPay
+                    : '',
+                [Validators.required, ValidatorsHelper.amount],
+            ],
             extraPay: [
                 !!externalPolicy && !!externalPolicy.extraPay
                     ? externalPolicy.extraPay
@@ -225,7 +231,7 @@ export class UpdateExternalPolicyService {
         externalPolicyId: string
     ): Observable<ExternalPolicy> {
         const fields: string =
-            'externalPolicyId,isChecked,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyAmount,policyNumber,insurerImageUrl,insuranceName,insuranceIcon,insuranceBackground,paymentMethodName,insuranceTypeName,currencyName,externalPolicyStatusName,externalPolicyStatusDescription,lifeTime,clientNumber,insurerId,insuranceId,insuranceTypeId,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,netPay,taxPay,feePay,coverPay,extraPay,currencyId,paymentPlanId,paymentMethodId';
+            'externalPolicyId,isChecked,policyUrl,coveredProperty,validityStartDate,validityEndDate,policyAmount,policyNumber,insurerImageUrl,insuranceName,insuranceIcon,insuranceBackground,paymentMethodName,insuranceTypeName,currencyName,externalPolicyStatusName,externalPolicyStatusDescription,lifeTime,clientNumber,insurerId,insuranceId,insuranceTypeId,titularName,titularRfc,titularPostalCode,titularPhoneNumber,emissionDate,netPay,taxPay,feePay,coverPay,noTaxPay,extraPay,currencyId,paymentPlanId,paymentMethodId';
         return this._externalPolicyService
             .getContactExternalPolicy(contactId, externalPolicyId, fields)
             .pipe(
@@ -344,6 +350,7 @@ export class UpdateExternalPolicyService {
             netPay: this.f.netPay.value,
             feePay: this.f.feePay.value,
             coverPay: this.f.coverPay.value,
+            noTaxPay: this.f.noTaxPay.value,
             extraPay: this.f.extraPay.value,
             taxPay: this.f.taxPay.value,
             policyAmount: this.f.policyAmount.value,

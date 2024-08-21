@@ -391,6 +391,7 @@ export class CreateEndorsementService {
                 netPay: this.policy!.netPay,
                 feePay: this.policy!.feePay,
                 coverPay: this.policy!.coverPay,
+                noTaxPay: this.policy!.noTaxPay,
                 extraPay: this.policy!.extraPay,
                 taxPay: this.policy!.taxPay,
                 discount: this.policy!.discount,
@@ -590,7 +591,7 @@ export class CreateEndorsementService {
 
     getPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         const fields: string =
-            'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,policyNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements,paymentAmount,paymentAmountPaid,titularAge,titularGenderId,contactTypeId,insuranceTypeId,insureds,insuranceGroupId,paymentDate,netPay,feePay,coverPay,extraPay,taxPay,discount,';
+            'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,policyNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements,paymentAmount,paymentAmountPaid,titularAge,titularGenderId,contactTypeId,insuranceTypeId,insureds,insuranceGroupId,paymentDate,netPay,feePay,coverPay,noTaxPay,extraPay,taxPay,discount,';
         return this._policyService.getContactPolicy(
             contactId,
             policyId,

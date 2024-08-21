@@ -71,6 +71,9 @@ export class UpdatePolicyInsuredService {
         let coverPay: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value)
         );
+        let noTaxPay: number = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.noTaxPay.value)
+        );
         let extraPay: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value)
         );
@@ -79,9 +82,15 @@ export class UpdatePolicyInsuredService {
         );
         discount = discount < 0 ? discount * -1 : discount;
         let totalPolicy: number =
-            netPay + taxPay + feePay + coverPay + extraPay - discount;
+            netPay +
+            taxPay +
+            feePay +
+            coverPay +
+            noTaxPay +
+            extraPay -
+            discount;
         let totalPolicyWithoutDiscount: number =
-            netPay + taxPay + feePay + coverPay + extraPay;
+            netPay + taxPay + feePay + coverPay + noTaxPay + extraPay;
         const policyAmount: number = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.totalAmount.value)
         );
@@ -167,7 +176,7 @@ export class UpdatePolicyInsuredService {
     ): Observable<void> {
         const insuredFields: string = this._getInsuredFields();
         const fields: string =
-            'policyUrl,certificate,validityStartDate,validityEndDate,netPay,feePay,coverPay,extraPay,taxPay,discount,totalAmount,currencyId,paymentMethodId,paymentPlanId,' +
+            'policyUrl,certificate,validityStartDate,validityEndDate,netPay,feePay,coverPay,noTaxPay,extraPay,taxPay,discount,totalAmount,currencyId,paymentMethodId,paymentPlanId,' +
             insuredFields;
         return this._policyInsuredService
             .getPolicyInsured(contactId, policyId, policyInsuredId, fields)
@@ -220,6 +229,12 @@ export class UpdatePolicyInsuredService {
             coverPay: [
                 !!this.policyInsured!.coverPay
                     ? this.policyInsured!.coverPay
+                    : '0.00',
+                [Validators.required, ValidatorsHelper.amount],
+            ],
+            noTaxPay: [
+                !!this.policyInsured!.noTaxPay
+                    ? this.policyInsured!.noTaxPay
                     : '0.00',
                 [Validators.required, ValidatorsHelper.amount],
             ],
@@ -530,6 +545,7 @@ export class UpdatePolicyInsuredService {
         requestBody.append('netPay', this.f.netPay.value);
         requestBody.append('feePay', this.f.feePay.value);
         requestBody.append('coverPay', this.f.coverPay.value);
+        requestBody.append('noTaxPay', this.f.noTaxPay.value);
         requestBody.append('extraPay', this.f.extraPay.value);
         requestBody.append('taxPay', this.f.taxPay.value);
         requestBody.append('discount', this.f.discount.value);
