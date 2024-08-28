@@ -67,6 +67,7 @@ import { InsuranceType } from '@interfaces/insurance-type.interface';
 import { InsuranceGroupService } from '@services/insurance-group.service';
 import { InsuranceTypeService } from '@services/insurance-type.service';
 import { InsuranceService } from '@services/insurance.service';
+import { CalculateFirstPaymentAmount } from '@core/interfaces/calculate-first-payment-amount.interface';
 
 declare var DropifyPlugin: any;
 
@@ -303,6 +304,13 @@ export class CompletePolicyService {
                 [Validators.required, ValidatorsHelper.amount],
             ],
             currencyId: [currencyId, [Validators.required]],
+            hasTaxReceipt: [
+                !!policy &&
+                !!policy.hasTaxReceipt &&
+                policy.hasTaxReceipt === '1'
+                    ? true
+                    : false,
+            ],
             paymentMethodId: [
                 !!policy && !!policy.paymentMethodId
                     ? policy.paymentMethodId
@@ -317,11 +325,33 @@ export class CompletePolicyService {
                 { value: '', disabled: canDisableBills },
                 [Validators.required, ValidatorsHelper.number],
             ],
-            payGracePeriod: [
-                policy?.payGracePeriod || 0,
+            firstReceiptAmount: [
+                !!policy && !!policy.firstReceiptAmount
+                    ? policy.firstReceiptAmount
+                    : '0.00',
+                [Validators.required, ValidatorsHelper.amount],
+            ],
+            subsequentReceiptsAmount: [
+                !!policy && !!policy.subsequentReceiptsAmount
+                    ? policy.subsequentReceiptsAmount
+                    : '0.00',
+                [Validators.required, ValidatorsHelper.amount],
+            ],
+            firstReceiptGracePeriod: [
+                policy?.firstReceiptGracePeriod || 0,
                 [Validators.required],
             ],
-            isAutoPayment: [false],
+            subsequentReceiptsGracePeriod: [
+                policy?.subsequentReceiptsGracePeriod || 0,
+                [Validators.required],
+            ],
+            isAutoPayment: [
+                !!policy &&
+                !!policy.isAutoPayment &&
+                policy.isAutoPayment === '1'
+                    ? true
+                    : false,
+            ],
             accountNumber: [
                 '',
                 [
@@ -516,6 +546,37 @@ export class CompletePolicyService {
     calculateCoverPay(): void {
         this.policyForm.patchValue({
             coverPay: this.policy?.coverPaySuggestion || '0.00',
+        });
+    }
+
+    calculateFirstPaymentAmount(): void {
+        // TODO: Will be used in the feature
+        //let firstReceiptAmount = this.f.firstReceiptAmount.value;
+        //if (firstReceiptAmount == 0) {
+        const paymentPlanReceipts = UtilitiesHelper.getPaymentPlanReceipts(
+            this.f.paymentPlanId.value,
+            this.paymentPlans
+        );
+        const data: CalculateFirstPaymentAmount = {
+            paymentPlanReceips: paymentPlanReceipts,
+            netPay: this.f.netPay.value,
+            feePay: this.f.feePay.value,
+            coverPay: this.f.coverPay.value,
+            noTaxPay: this.f.noTaxPay.value,
+            extraPay: this.f.extraPay.value,
+            taxPay: this.f.taxPay.value,
+            discount: this.f.discount.value,
+        };
+        const firstReceiptAmount =
+            UtilitiesHelper.calculateFirstPaymentAmount(data);
+        //}
+
+        this.policyForm.patchValue({
+            firstReceiptAmount: firstReceiptAmount
+                ? UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
+                      firstReceiptAmount
+                  )
+                : '0.00',
         });
     }
 
@@ -990,7 +1051,7 @@ export class CompletePolicyService {
     ): Observable<HttpResponse> {
         this.policy = null;
         const fields: string =
-            'policyId,contactId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularLegalRepresentative,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,noTaxPay,extraPay,policyAmount,currencyId,paymentMethodId,paymentPlanId,bills,payGracePeriod,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber,contactBirthdate';
+            'policyId,contactId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularLegalRepresentative,titularRfc,titularPostalCode,titularPhoneNumber,netPay,taxPay,feePay,coverPay,noTaxPay,extraPay,policyAmount,currencyId,hasTaxReceipt,paymentMethodId,paymentPlanId,bills,firstReceiptAmount,subsequentReceiptsAmount,firstReceiptGracePeriod,subsequentReceiptsGracePeriod,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCountryId,insurerImageUrl,policyStatusDescription,lifeTime,discount,workspaceCurrencyId,workspaceRealName,insuranceGroupId,contactName,contactTypeId,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber,contactBirthdate';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -1192,7 +1253,7 @@ export class CompletePolicyService {
      * @return Notice of action done
      */
     loadPaymentPlans(): Observable<void> {
-        const fields: string = 'paymentPlanId,name,months';
+        const fields: string = 'paymentPlanId,name,months,receipts';
         return this._paymentPlanService.getPaymentPlans(fields).pipe(
             tap((res: HttpResponse) => {
                 this.paymentPlans = res.data;
@@ -1591,9 +1652,28 @@ export class CompletePolicyService {
         );
         requestBody.append('policyAmount', this.f.policyAmount.value);
         requestBody.append('currencyId', this.f.currencyId.value);
+        requestBody.append(
+            'hasTaxReceipt',
+            this.f.hasTaxReceipt.value ? '1' : '0'
+        );
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
-        requestBody.append('payGracePeriod', this.f.payGracePeriod.value);
+        requestBody.append(
+            'firstReceiptAmount',
+            this.f.firstReceiptAmount.value
+        );
+        requestBody.append(
+            'subsequentReceiptsAmount',
+            this.f.subsequentReceiptsAmount.value
+        );
+        requestBody.append(
+            'firstReceiptGracePeriod',
+            this.f.firstReceiptGracePeriod.value
+        );
+        requestBody.append(
+            'subsequentReceiptsGracePeriod',
+            this.f.subsequentReceiptsGracePeriod.value
+        );
         requestBody.append('bills', this.f.bills.value);
         requestBody.append(
             'isAutoPayment',

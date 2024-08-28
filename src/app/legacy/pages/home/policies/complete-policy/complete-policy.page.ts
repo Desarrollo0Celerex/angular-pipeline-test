@@ -190,6 +190,10 @@ export class CompletePolicyPage implements OnInit {
         this.model.addInsured();
     } */
 
+    calculateFirstPaymentAmount(): void {
+        this.model.calculateFirstPaymentAmount();
+    }
+
     calculatePolicyAmount(): void {
         this.model.calculatePolicyAmount();
     }
@@ -271,6 +275,16 @@ export class CompletePolicyPage implements OnInit {
         this._calculateBills();
     }
 
+    onChangeReviewPolicyReceiptInputs(): void {
+        if (this.model.f.bills.value == 1) {
+            this.model.f.subsequentReceiptsAmount.disable();
+            this.model.f.subsequentReceiptsGracePeriod.disable();
+        } else {
+            this.model.f.subsequentReceiptsAmount.enable();
+            this.model.f.subsequentReceiptsGracePeriod.enable();
+        }
+    }
+
     onClickSelectPolicy(): void {
         ModalPlugin.show(this.modalIdSelectFile);
     }
@@ -297,6 +311,8 @@ export class CompletePolicyPage implements OnInit {
         this._calculateBills();
         this._checkAmountInputs();
         this._checkIsRenewal();
+        this.model.calculateFirstPaymentAmount();
+        this.onChangeReviewPolicyReceiptInputs();
     }
 
     replacePolicyFile(policyFile: File): void {
@@ -657,7 +673,6 @@ export class CompletePolicyPage implements OnInit {
                 'coverPay',
                 'noTaxPay',
                 'extraPay',
-                'firstPay',
                 'discount',
                 'policyAmount',
                 'currencyId',

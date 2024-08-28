@@ -732,12 +732,7 @@
                             </li>
                         </ol>
                         <!-- AGENTHOS - CERTIFICATE MANAGER -->
-                        <button
-                            type="button"
-                            class="btn btn-block btn-primary"
-                            name="agtPolicyCertificates"
-                            disabled=""
-                        >
+                        <button type="button" class="btn btn-block btn-primary">
                             <strong>ACTUALIZAR CERTIFICADOS</strong>
                         </button>
                     </div>
@@ -1256,7 +1251,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('netPay')}}"
                                                 formControlName="netPay"
-                                                (keyup)="calculateTaxPay(); calculatePolicyAmount();"
+                                                (keyup)="calculateTaxPay(); calculatePolicyAmount(); calculateFirstPaymentAmount();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('netPay')}}
@@ -1296,7 +1291,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('feePay')}}"
                                                 formControlName="feePay"
-                                                (keyup)="calculateTaxPay(); calculatePolicyAmount();"
+                                                (keyup)="calculateTaxPay(); calculatePolicyAmount(); calculateFirstPaymentAmount();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('feePay')}}
@@ -1336,7 +1331,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('coverPay')}}"
                                                 formControlName="coverPay"
-                                                (keyup)="calculateTaxPay(); calculatePolicyAmount();"
+                                                (keyup)="calculateTaxPay(); calculatePolicyAmount(); calculateFirstPaymentAmount();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('coverPay')}}
@@ -1376,7 +1371,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('noTaxPay')}}"
                                                 formControlName="noTaxPay"
-                                                (keyup)="calculatePolicyAmount();"
+                                                (keyup)="calculatePolicyAmount(); calculateFirstPaymentAmount();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('noTaxPay')}}
@@ -1416,7 +1411,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('extraPay')}}"
                                                 formControlName="extraPay"
-                                                (keyup)="calculateTaxPay(); calculatePolicyAmount();"
+                                                (keyup)="calculateTaxPay(); calculatePolicyAmount(); calculateFirstPaymentAmount();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('extraPay')}}
@@ -1456,7 +1451,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('discount')}}"
                                                 formControlName="discount"
-                                                (keyup)="calculatePolicyAmount()"
+                                                (keyup)="calculatePolicyAmount(); calculateFirstPaymentAmount();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('discount')}}
@@ -1496,7 +1491,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('taxPay')}}"
                                                 formControlName="taxPay"
-                                                (keyup)="calculatePolicyAmount()"
+                                                (keyup)="calculatePolicyAmount(); calculateFirstPaymentAmount();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('taxPay')}}
@@ -1602,75 +1597,140 @@
             </div>
             <!-- //AGENTHOS - POLICY PAYMENT -->
 
-            <!-- AGENTHOS - POLICY PAYMENT PLAN -->
+            <!-- AGENTHOS - SMARTWALLET POLICY PAYMENT PLAN -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Pago de Póliza</h3>
+                    <h3 class="card-title">Recibos de Póliza</h3>
                 </div>
                 <div class="card-body">
-                    <div class="form-group row text-center">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <ol class="breadcrumb1">
+                                <li class="breadcrumb-item1">
+                                    Indica si el contratante solicitó
+                                    comprobante fiscal para la póliza.
+                                </li>
+                            </ol>
+                            <ul class="list-group">
+                                <!-- AGENTHOS - POLICY TAX RECEIPT * -->
+                                <li class="list-group-item">
+                                    Comprobante Fiscal
+                                    <div class="material-switch pull-right">
+                                        <input
+                                            id="hasTaxReceipt"
+                                            type="checkbox"
+                                            formControlName="hasTaxReceipt"
+                                        />
+                                        <label
+                                            for="hasTaxReceipt"
+                                            class="label-success"
+                                        ></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - POLICY PAYMENT METHOD * -->
+                                <!-- AGENTHOS - SMARTWALLET POLICY PAYMENT METHOD * -->
                                 <label class="form-label">Forma de Pago</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i
-                                                class="fa fa-credit-card tx-16 lh-0 op-6"
-                                            ></i>
+                                <div class="row gutters-sm">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i
+                                                        class="fa fa-credit-card tx-16 lh-0 op-6"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <select
+                                                class="form-control select2-show-search {{getValidationClass('paymentMethodId')}}"
+                                                formControlName="paymentMethodId"
+                                                data-placeholder="Forma de Pago"
+                                            >
+                                                <optgroup
+                                                    label="Seleccionar Forma de Pago"
+                                                >
+                                                    <option
+                                                        [value]="paymentMethod.paymentMethodId"
+                                                        *ngFor="let paymentMethod of model.paymentMethods"
+                                                    >
+                                                        {{paymentMethod.name |
+                                                        uppercase}}
+                                                    </option>
+                                                </optgroup>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                {{getErrorMessage('paymentMethodId')}}
+                                            </div>
                                         </div>
                                     </div>
-                                    <select
-                                        class="form-control custom-select {{getValidationClass('paymentMethodId')}}"
-                                        formControlName="paymentMethodId"
-                                    >
-                                        <option
-                                            [value]="paymentMethod.paymentMethodId"
-                                            *ngFor="let paymentMethod of model.paymentMethods"
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="top"
+                                            data-content="Forma de pago de la póliza."
+                                            data-original-title=""
+                                            >?</span
                                         >
-                                            {{paymentMethod.name | uppercase}}
-                                        </option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        {{getErrorMessage('paymentMethodId')}}
-                                    </div>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - POLICY PAY PLAN * -->
+                                <!-- AGENTHOS - SMARTWALLET POLICY PAY PLAN * -->
                                 <label class="form-label">Plan de Pago</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i
-                                                class="fa fa-money tx-16 lh-0 op-6"
-                                            ></i>
+                                <div class="row gutters-sm">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i
+                                                        class="fa fa-money tx-16 lh-0 op-6"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <select
+                                                class="form-control custom-select {{getValidationClass('paymentPlanId')}}"
+                                                formControlName="paymentPlanId"
+                                                (change)="onChangeCalculateBills(); calculateFirstPaymentAmount(); onChangeReviewPolicyReceiptInputs();"
+                                                data-placeholder="Plan de Pago"
+                                            >
+                                                <optgroup
+                                                    label="Seleccionar Plan de Pago"
+                                                >
+                                                    <option
+                                                        [value]="paymentPlan.paymentPlanId"
+                                                        *ngFor="let paymentPlan of model.paymentPlans"
+                                                    >
+                                                        {{paymentPlan.name |
+                                                        uppercase}}
+                                                    </option>
+                                                </optgroup>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                {{getErrorMessage('paymentPlanId')}}
+                                            </div>
                                         </div>
                                     </div>
-                                    <select
-                                        class="form-control custom-select {{getValidationClass('paymentPlanId')}}"
-                                        formControlName="paymentPlanId"
-                                        (change)="onChangeCalculateBills()"
-                                    >
-                                        <option
-                                            [value]="paymentPlan.paymentPlanId"
-                                            *ngFor="let paymentPlan of model.paymentPlans"
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="top"
+                                            data-content="Plan de financiamiento otorgado."
+                                            data-original-title=""
+                                            >?</span
                                         >
-                                            {{paymentPlan.name | uppercase}}
-                                        </option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        {{getErrorMessage('paymentPlanId')}}
-                                    </div>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - POLICY PAY BILLS * -->
+                                <!-- AGENTHOS - SMARTWALLET POLICY PAY BILLS * -->
                                 <label class="form-label"
                                     >Recibos de Pago</label
                                 >
@@ -1688,6 +1748,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('bills')}}"
                                                 formControlName="bills"
+                                                (keyup)="onChangeReviewPolicyReceiptInputs()"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('bills')}}
@@ -1699,7 +1760,7 @@
                                             class="form-help"
                                             data-toggle="popover"
                                             data-placement="top"
-                                            data-content="Cuotas o recibos totales de la póliza."
+                                            data-content="Cuotas o pagos totales de la póliza."
                                             data-original-title=""
                                             >?</span
                                         >
@@ -1709,9 +1770,85 @@
                         </div>
                         <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
-                                <!-- AGENTHOS - POLICY PAY BILLS * -->
+                                <!-- AGENTHOS - SMARTWALLET POLICY PAY INITIAL * -->
+                                <label class="form-label">Primer Recibo</label>
+                                <div class="row gutters-sm">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i
+                                                        class="fa fa-file-o tx-16 lh-0 op-6"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <input
+                                                type="text"
+                                                class="form-control {{getValidationClass('firstReceiptAmount')}}"
+                                                formControlName="firstReceiptAmount"
+                                            />
+                                            <div class="invalid-feedback">
+                                                {{getErrorMessage('firstReceiptAmount')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="top"
+                                            data-content="Monto del primer pago de la póliza."
+                                            data-original-title=""
+                                            >?</span
+                                        >
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY PAY SUBSEQUENT * -->
                                 <label class="form-label"
-                                    >Periodo de Gracia</label
+                                    >Recibos Subsecuentes</label
+                                >
+                                <div class="row gutters-sm">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i
+                                                        class="fa fa-refresh tx-16 lh-0 op-6"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <input
+                                                type="text"
+                                                class="form-control {{getValidationClass('subsequentReceiptsAmount')}}"
+                                                formControlName="subsequentReceiptsAmount"
+                                            />
+                                            <div class="invalid-feedback">
+                                                {{getErrorMessage('subsequentReceiptsAmount')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="top"
+                                            data-content="Monto de los pagos subsecuentes."
+                                            data-original-title=""
+                                            >?</span
+                                        >
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY PAY GRACE PERIOD * -->
+                                <label class="form-label"
+                                    >Periodo de Gracia Primer Recibo</label
                                 >
                                 <div class="row gutters-sm">
                                     <div class="col">
@@ -1725,11 +1862,11 @@
                                             </div>
                                             <input
                                                 type="text"
-                                                class="form-control {{getValidationClass('payGracePeriod')}}"
-                                                formControlName="payGracePeriod"
+                                                class="form-control {{getValidationClass('firstReceiptGracePeriod')}}"
+                                                formControlName="firstReceiptGracePeriod"
                                             />
                                             <div class="invalid-feedback">
-                                                {{getErrorMessage('payGracePeriod')}}
+                                                {{getErrorMessage('firstReceiptGracePeriod')}}
                                             </div>
                                         </div>
                                     </div>
@@ -1746,10 +1883,50 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <!-- AGENTHOS - SMARTWALLET POLICY PAY GRACE PERIOD -->
+                                <label class="form-label"
+                                    >Periodo de Gracia Recibos
+                                    Subsecuentes</label
+                                >
+                                <div class="row gutters-sm">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i
+                                                        class="fa fa-calendar-plus-o tx-16 lh-0 op-6"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <input
+                                                type="text"
+                                                class="form-control {{getValidationClass('subsequentReceiptsGracePeriod')}}"
+                                                formControlName="subsequentReceiptsGracePeriod"
+                                            />
+                                            <div class="invalid-feedback">
+                                                {{getErrorMessage('subsequentReceiptsGracePeriod')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="col-auto align-self-center">
+                                        <span
+                                            class="form-help"
+                                            data-toggle="popover"
+                                            data-placement="top"
+                                            data-content="Días de gracia para recibos subsecuentes."
+                                            data-original-title=""
+                                            >?</span
+                                        >
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- //AGENTHOS - POLICY PAYMENT PLAN -->
+            <!-- //AGENTHOS - SMARTWALLET POLICY PAYMENT PLAN -->
 
             <!-- AGENTHOS - SMARTWALLET POLICY PAYMENT DETAILS -->
             <div class="card">
