@@ -1417,7 +1417,7 @@ export class UpdateCompletePolicyService {
 
     private _getInsuredRequestBody(
         insured: any,
-        isUpdated: boolean = false
+        isCompleted: boolean = false
     ): FormData {
         const requestBody: FormData = new FormData();
         switch (this.policy!.insuranceGroupId) {
@@ -1500,7 +1500,7 @@ export class UpdateCompletePolicyService {
                             'insuredPolicyFile',
                             insured.insuredPolicyFile
                         );
-                        if (isUpdated) {
+                        if (isCompleted) {
                             requestBody.append(
                                 'insuredStatusId',
                                 insured.insuredStatusId
@@ -1562,7 +1562,7 @@ export class UpdateCompletePolicyService {
                 break;
         }
 
-        if (isUpdated) {
+        if (isCompleted) {
             requestBody.append('policyInsuredId', insured.policyInsuredId);
         }
         return requestBody;

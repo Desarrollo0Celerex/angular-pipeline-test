@@ -118,7 +118,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
     }
 
     policyUploaded(): void {
-        AlertHelper.policyUploaded(this._goToCompletePolicy, this);
+        AlertHelper.policyUploaded(this._goToUpdatePolicy, this);
     }
 
     private _catchParams(): void {
@@ -144,10 +144,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
                 // If you have already uploaded the file
                 if (!!this.policy.policyUrl) {
                     this._router.navigateByUrl(
-                        ROUTES_NAME.completePolicy(
-                            this.contactId,
-                            this.policyId
-                        )
+                        ROUTES_NAME.updatePolicy(this.contactId, this.policyId)
                     );
                 } else {
                     // If the policy comes from a renewal
@@ -164,9 +161,9 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
             });
     }
 
-    private _goToCompletePolicy(context: UploadPolicyPage): void {
+    private _goToUpdatePolicy(context: UploadPolicyPage): void {
         context._router.navigateByUrl(
-            ROUTES_NAME.completePolicy(context.contactId, context.policyId)
+            ROUTES_NAME.updatePolicy(context.contactId, context.policyId)
         );
     }
 

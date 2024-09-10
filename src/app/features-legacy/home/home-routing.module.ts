@@ -471,6 +471,14 @@ const routes: Routes = [
                 canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard],
             },
             {
+                path: ROUTES_NAME.updatePolicy(':contactId', ':policyId'),
+                loadChildren: () =>
+                    import(
+                        '@pages/home/policies/update-policy/update-policy.module'
+                    ).then((mod) => mod.UpdatePolicyModule),
+                canActivate: [UserAuthenticatedGuard, WorkspaceActivatedGuard],
+            },
+            {
                 path: ROUTES_NAME.updateCompletePolicy(
                     ':contactId',
                     ':policyId'

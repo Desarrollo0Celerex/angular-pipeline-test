@@ -9,4 +9,6 @@ export const POLICY_ROUTES = {
         `workspace/renewals/policy-renewals-applied/${contactId}/${policyId}`,
     updatePolicy: (contactId: string, policyId: string) =>
         `workspace/policies/update-policy/${contactId}/${policyId}`,
+    updateCompletePolicy: (contactId: string, policyId: string) =>
+        `workspace/policies/update-complete-policy/${contactId}/${policyId}`,
 };

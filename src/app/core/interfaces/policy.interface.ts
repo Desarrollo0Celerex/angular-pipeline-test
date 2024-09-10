@@ -109,4 +109,11 @@ export interface Policy {
     firstReceiptAmount: number;
     subsequentReceiptsAmount: number;
     subsequentReceiptsGracePeriod: number;
+    isCompleted: string | null;
+    accountNumber: string;
+    cardNumber: string;
+    bankName: string;
+    consultingCostPercentage: number;
+    consultingCostAmount: number;
+    consultingCostCurrencyId: number;
 }

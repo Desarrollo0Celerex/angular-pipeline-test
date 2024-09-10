@@ -28,7 +28,7 @@ export class ModalConfirmUpdatePolicyComponent {
      */
     onClickCloseModal(): void {
         this._router.navigateByUrl(
-            ROUTES_NAME.updateCompletePolicy(this.contactId, this.policyId)
+            ROUTES_NAME.updatePolicy(this.contactId, this.policyId)
         );
         ModalPlugin.hide(this.modalId);
     }
