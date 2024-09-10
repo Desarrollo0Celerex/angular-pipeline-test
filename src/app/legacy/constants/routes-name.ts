@@ -191,8 +191,10 @@ const HOME_POLICIES_ROUTES = {
         `workspace/policies/history-policy/${contactId}/${policyId}`,
     showPolicySinisters: (contactId: string, policyId: string) =>
         `workspace/policies/policy-sinisters/${contactId}/${policyId}`,
-    updateCompletePolicy: (contactId: string, policyId: string) =>
+    updatePolicy: (contactId: string, policyId: string) =>
         `workspace/policies/update-policy/${contactId}/${policyId}`,
+    updateCompletePolicy: (contactId: string, policyId: string) =>
+        `workspace/policies/update-complete-policy/${contactId}/${policyId}`,
     policyTracker: (contactId: string, policyId: string) =>
         `workspace/policies/policy-tracker/${contactId}/${policyId}`,
     listActivePoliciesByRange: `workspace/policies/list-active-policies-by-range`,

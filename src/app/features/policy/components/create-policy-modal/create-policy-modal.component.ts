@@ -133,7 +133,7 @@ export class CreatePolicyModalComponent
         this._loadingService.hide();
         this._closeModal();
         this._router.navigateByUrl(
-            POLICY_ROUTES.completePolicy(this._contactId, this._policyId)
+            POLICY_ROUTES.updatePolicy(this._contactId, this._policyId)
         );
     }
 

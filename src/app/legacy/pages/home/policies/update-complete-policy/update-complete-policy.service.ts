@@ -253,8 +253,10 @@ export class UpdateCompletePolicyService {
                 !!policy && !!policy.paymentPlanId ? policy.paymentPlanId : '',
                 [Validators.required],
             ],
-            payGracePeriod: [
-                !!policy && !!policy.payGracePeriod ? policy.payGracePeriod : 0,
+            firstReceiptGracePeriod: [
+                !!policy && !!policy.firstReceiptGracePeriod
+                    ? policy.firstReceiptGracePeriod
+                    : 0,
                 [Validators.required],
             ],
             bills: [
@@ -722,7 +724,7 @@ export class UpdateCompletePolicyService {
     loadPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         this.policy = null;
         const fields: string =
-            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,policyPlan,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,noTaxPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,payGracePeriod,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceRealName,partnerId,coveredProperty,insuranceGroupId,workspaceCountryId,contactTypeId,titularGenderId,titularAge,titularEmail,agentName,agentKey,agentCommissionPercentage,agentCommissionAmount,agentCommissionCurrencyId,agentCommissionPeriod,sellerCommissionPercentage,sellerCommissionAmount,sellerCommissionCurrencyId,sellerCommissionPeriod';
+            'policyId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,policyPlan,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,noTaxPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,firstReceiptGracePeriod,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceRealName,partnerId,coveredProperty,insuranceGroupId,workspaceCountryId,contactTypeId,titularGenderId,titularAge,titularEmail,agentName,agentKey,agentCommissionPercentage,agentCommissionAmount,agentCommissionCurrencyId,agentCommissionPeriod,sellerCommissionPercentage,sellerCommissionAmount,sellerCommissionCurrencyId,sellerCommissionPeriod';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -1415,7 +1417,7 @@ export class UpdateCompletePolicyService {
 
     private _getInsuredRequestBody(
         insured: any,
-        isUpdated: boolean = false
+        isCompleted: boolean = false
     ): FormData {
         const requestBody: FormData = new FormData();
         switch (this.policy!.insuranceGroupId) {
@@ -1498,7 +1500,7 @@ export class UpdateCompletePolicyService {
                             'insuredPolicyFile',
                             insured.insuredPolicyFile
                         );
-                        if (isUpdated) {
+                        if (isCompleted) {
                             requestBody.append(
                                 'insuredStatusId',
                                 insured.insuredStatusId
@@ -1560,7 +1562,7 @@ export class UpdateCompletePolicyService {
                 break;
         }
 
-        if (isUpdated) {
+        if (isCompleted) {
             requestBody.append('policyInsuredId', insured.policyInsuredId);
         }
         return requestBody;
@@ -1615,7 +1617,10 @@ export class UpdateCompletePolicyService {
                 ? this.f.paymentPlanId.value
                 : this.policy!.paymentPlanId
         );
-        requestBody.append('payGracePeriod', this.f.payGracePeriod.value);
+        requestBody.append(
+            'firstReceiptGracePeriod',
+            this.f.firstReceiptGracePeriod.value
+        );
         requestBody.append('agentName', this.f.agentName.value);
         requestBody.append('agentKey', this.f.agentKey.value);
         requestBody.append(
@@ -1703,7 +1708,10 @@ export class UpdateCompletePolicyService {
         requestBody.append('currencyId', this.f.currencyId.value);
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
-        requestBody.append('payGracePeriod', this.f.payGracePeriod.value);
+        requestBody.append(
+            'firstReceiptGracePeriod',
+            this.f.firstReceiptGracePeriod.value
+        );
         requestBody.append('bills', this.f.bills.value);
         requestBody.append(
             'isAutoPayment',

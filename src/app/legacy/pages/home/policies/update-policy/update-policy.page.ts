@@ -22,8 +22,6 @@ import { ModalSelectFileData } from '@interfaces/modal-select-file-data.interfac
 import { Policy } from '@core/interfaces/policy.interface';
 import { LoadingService } from '@core/services/loading/loading.service';
 import { ScanningService } from '@services/scanning.service';
-
-import { CompletePolicyService } from './complete-policy.service';
 import { PolicyActionsComponent } from '@policy/components/policy-actions/policy-actions.component';
 import { RewriteField } from '@policy/interfaces/rewrite-field.interface';
 import { SelectContactFieldsToRewriteComponent } from '@policy/components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
@@ -31,20 +29,19 @@ import {
     NOTIFICATION_TYPES,
     NotifierService,
 } from '@notifier/services/notifier.service';
-import { PolicyComplementModalComponent } from '@policy-complement/components/policy-complement-modal/policy-complement-modal.component';
-import { PolicyTitular } from '@interfaces/policy-titular.interface';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
+import { UpdatePolicyService } from './update-policy.service';
 
 declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
 declare var Select2Plugin: any;
 
 @Component({
-    selector: 'agt-complete-policy',
-    templateUrl: './complete-policy.page.html',
+    selector: 'agt-update-policy',
+    templateUrl: './update-policy.page.html',
     styles: [],
 })
-export class CompletePolicyPage implements OnInit {
+export class UpdatePolicyPage implements OnInit {
     @ViewChild(PolicyActionsComponent)
     policyActionsComponent!: PolicyActionsComponent;
     @ViewChild(SelectContactFieldsToRewriteComponent)
@@ -76,6 +73,7 @@ export class CompletePolicyPage implements OnInit {
     paymentId = '';
     searchIdInsurances: string = 'insuranceId';
     searchIdInsurers: string = 'insurerId';
+    private _isCompletePolicyAction: boolean = false;
     private _isFormSubmitted: boolean;
     private _scannedPolicyData: Policy | null = null;
     private _policyUrl = '';
@@ -83,7 +81,7 @@ export class CompletePolicyPage implements OnInit {
     private _titularBirthdate: string | null = null;
 
     constructor(
-        public model: CompletePolicyService,
+        public model: UpdatePolicyService,
         private _activatedRoute: ActivatedRoute,
         private _loadingService: LoadingService,
         private _router: Router,
@@ -329,34 +327,70 @@ export class CompletePolicyPage implements OnInit {
             AlertHelper.invalidForm();
             return;
         }
-        // Check the policy amounts
-        if (!this.model.checkPolicyAmounts()) {
-            ModalPlugin.show(this.modalIdPolicyAmountsDifferent);
-            return;
-        }
-        // Check if it is a new policy
-        /*if(this.model.checkIsNewPolicy()) {
-            // Check if it is a expired policy
-            if(this.model.checkIsExpiredPolicy()) {
-                // Check if it is a valid expired policy
-                if(!this.model.checkIsValidExpiredPolicy()) {
-                    ModalPlugin.show(this.modalIdInvalidExpiredPolicy);
-                    return;
-                }
-            }
-        }*/
-        else {
-            // Check if the policy is a history policy
-            if (this.model.checkIsHistoryPolicy()) {
-                // Check if it is a valid history policy
-                if (!this.model.checkIsValidHistoryPolicy()) {
-                    ModalPlugin.show(this.modalIdInvalidHistoryPolicy);
-                    return;
-                }
-            }
-        }
 
-        this._checkContactProfile();
+        // If the action is 'Complete policy', then complete the process to complete a policy
+        if (this._isCompletePolicyAction) {
+            // Check the policy amounts
+            if (!this.model.checkPolicyAmounts()) {
+                ModalPlugin.show(this.modalIdPolicyAmountsDifferent);
+                return;
+            }
+            // Check if it is a new policy
+            /*if(this.model.checkIsNewPolicy()) {
+                // Check if it is a expired policy
+                if(this.model.checkIsExpiredPolicy()) {
+                    // Check if it is a valid expired policy
+                    if(!this.model.checkIsValidExpiredPolicy()) {
+                        ModalPlugin.show(this.modalIdInvalidExpiredPolicy);
+                        return;
+                    }
+                }
+            }*/
+            else {
+                // Check if the policy is a history policy
+                if (this.model.checkIsHistoryPolicy()) {
+                    // Check if it is a valid history policy
+                    if (!this.model.checkIsValidHistoryPolicy()) {
+                        ModalPlugin.show(this.modalIdInvalidHistoryPolicy);
+                        return;
+                    }
+                }
+            }
+            this._checkContactProfile();
+        }
+        // Else, complete the process to update a policy
+        else {
+            if (
+                this.model.policy!.receiptsPaid > 0 ||
+                this.model.policy!.totalEndorsements > 0
+            ) {
+                this._loadingService.show();
+                this.model
+                    .updatePolicy(this.contactId, this.policyId)
+                    .subscribe(() => {
+                        this._loadingService.hide();
+                        AlertHelper.policyUpdated(
+                            this._goToListContactPolicies,
+                            this
+                        );
+                    });
+            } else {
+                if (!this.model.checkPolicyAmounts()) {
+                    ModalPlugin.show(this.modalIdPolicyAmountsDifferent);
+                    return;
+                }
+                this._loadingService.show();
+                this.model
+                    .updateCompletePolicy(this.contactId, this.policyId)
+                    .subscribe(() => {
+                        this._loadingService.hide();
+                        AlertHelper.policyUpdated(
+                            this._goToListContactPolicies,
+                            this
+                        );
+                    });
+            }
+        }
     }
 
     removeInsured(insuredIndex: number): void {
@@ -407,16 +441,10 @@ export class CompletePolicyPage implements OnInit {
         }
     }
 
-    /**
-     * Calculate the bills
-     */
     private _calculateBills(): void {
         this.model.calculateBills();
     }
 
-    /**
-     * Catch the params
-     */
     private _catchParams(): void {
         this.contactId = this._activatedRoute.snapshot.params.contactId;
         this.policyId = this._activatedRoute.snapshot.params.policyId;
@@ -446,6 +474,15 @@ export class CompletePolicyPage implements OnInit {
         const coverPay = this.model.policyForm.value.coverPay;
         if (coverPay === '0.00') {
             this.model.calculateCoverPay();
+        }
+    }
+
+    private _checkPolicyPayments(
+        receiptsPaid: number,
+        totalEndorsements: number
+    ): void {
+        if (receiptsPaid > 0 || totalEndorsements > 0) {
+            this.model.disableFormPaymentFields();
         }
     }
 
@@ -494,50 +531,53 @@ export class CompletePolicyPage implements OnInit {
         );
     }
 
-    /**
-     * Navigates to list contact policies
-     * @param context The app context
-     */
-    private _goToListContactPolicies(context: CompletePolicyPage): void {
+    private _goToListContactPolicies(context: UpdatePolicyPage): void {
         context._router.navigateByUrl(
             ROUTES_NAME.listContactPolicies(context.contactId)
         );
     }
 
-    private _goToListPolicyInsureds(context: CompletePolicyPage): void {
+    private _goToListPolicyInsureds(context: UpdatePolicyPage): void {
         context._router.navigateByUrl(
             ROUTES_NAME.listPolicyInsureds(context.contactId, context.policyId)
         );
     }
 
-    /**
-     * Load the contact policy
-     */
     private _loadContactPolicy(): void {
-        this._scanningService.show();
+        this._loadingService.show();
         this.model
             .getContactPolicy(this.contactId, this.policyId)
             .subscribe((res: HttpResponse) => {
-                this._policyUrl = res.data.policyUrl;
-                this._downloadPolicy();
+                this._loadingService.hide();
+                if (!res.data.isCompleted) {
+                    this._scanningService.show();
+                    this._isCompletePolicyAction = true;
+                    this._policyUrl = res.data.policyUrl;
+                    this._downloadPolicy();
+                }
                 this.model.buildPolicyForm(res.data);
+                this.hasSeller = res.data.partnerId ? true : false;
+                this.hasConsultingCost = res.data.consultingCostAmount
+                    ? true
+                    : false;
                 this.model.loadCurrencies();
                 this.model.loadGenders();
-                this.model.loadPartners();
-                this.model.loadPaymentMethods();
-                this._loadPaymentPlans();
                 this._loadCountryInsurers(
                     res.data.workspaceCountryId,
                     res.data.insurerId
                 );
                 this._loadInsurances(res.data.insuranceId);
+                this.model.loadPaymentMethods();
+                this._loadPaymentPlans();
+                this.model.loadPartners(res.data.workspaceRealName);
+                this._checkPolicyPayments(
+                    res.data.receiptsPaid,
+                    res.data.totalEndorsements
+                );
                 PopoverPlugin.init();
             });
     }
 
-    /**
-     * Load the payment plans
-     */
     private _loadPaymentPlans(): void {
         this.model.loadPaymentPlans().subscribe(() => {
             this._calculateBills();
@@ -841,7 +881,7 @@ export class CompletePolicyPage implements OnInit {
                 email
             );
         } else {
-            this._showSuccessModal(paymentId);
+            this._showCompletePolicySuccessModal(paymentId);
         }
     }
 
@@ -871,19 +911,19 @@ export class CompletePolicyPage implements OnInit {
             .sendNotificationLegacy(NOTIFICATION_TYPES.POLICY_ISSUED, data)
             .subscribe(
                 () => {
-                    this._showSuccessModal(paymentId);
+                    this._showCompletePolicySuccessModal(paymentId);
                 },
                 (error) => {
                     console.error(
                         'No se puedo enviar notificación de póliza emitida: ',
                         error
                     );
-                    this._showSuccessModal(paymentId);
+                    this._showCompletePolicySuccessModal(paymentId);
                 }
             );
     }
 
-    private _showSuccessModal(paymentId: string): void {
+    private _showCompletePolicySuccessModal(paymentId: string): void {
         this._loadingService.hide();
         if (this.areSeveralInsured) {
             AlertHelper.policyCompleted(this._goToListPolicyInsureds, this);
@@ -967,7 +1007,7 @@ export class CompletePolicyPage implements OnInit {
     }
 
     private _onItemSelected(
-        context: CompletePolicyPage,
+        context: UpdatePolicyPage,
         selectedItem: number,
         elementId: string
     ): void {

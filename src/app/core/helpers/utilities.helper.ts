@@ -7,6 +7,7 @@ import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 import * as moment from 'moment';
+import { PaymentPlan } from '@interfaces/payment-plan.interface';
 
 export class UtilitiesHelper {
     static specialSimbols: string[] = [
@@ -65,7 +66,7 @@ export class UtilitiesHelper {
             data.tickets === 0 &&
             data.paymentPlanId != PAYMENT_PLANS.SINGLE_PAYMENT &&
             data.paymentPlanId != PAYMENT_PLANS.ANNUAL
-                ? this._calculateFirstPaymentAmount({
+                ? this.calculateFirstPaymentAmount({
                       paymentPlanReceips: data.paymentPlanReceips,
                       netPay: data.netPay,
                       feePay: data.feePay,
@@ -77,6 +78,16 @@ export class UtilitiesHelper {
                   })
                 : data.pendingAmount / data.pendingReceipts;
         return receiptsAmount;
+    }
+
+    static getPaymentPlanReceipts(
+        paymentPlanId: number,
+        paymentPlans: PaymentPlan[]
+    ): number {
+        const foundPaymentPlan = paymentPlans.find(
+            (paymentPlan) => paymentPlan.paymentPlanId == paymentPlanId
+        );
+        return foundPaymentPlan ? foundPaymentPlan.receipts : 0;
     }
 
     /**
@@ -301,7 +312,7 @@ export class UtilitiesHelper {
         a.remove();
     }
 
-    private static _calculateFirstPaymentAmount(
+    static calculateFirstPaymentAmount(
         data: CalculateFirstPaymentAmount
     ): number {
         let sumPayments: number =

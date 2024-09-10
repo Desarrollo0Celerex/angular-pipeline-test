@@ -49,7 +49,7 @@ export interface Policy {
     contactId: string;
     paymentId: string;
     bills: number;
-    payGracePeriod: number;
+    firstReceiptGracePeriod: number;
     policyCancellationReasonId: string;
     maxValidityEndDate: string;
     tracker: string;
@@ -105,4 +105,15 @@ export interface Policy {
     workspaceAdvisoryWhatsappCode: string;
     workspaceAdvisoryWhatsappNumber: string;
     totalSinisters: number;
+    hasTaxReceipt: string;
+    firstReceiptAmount: number;
+    subsequentReceiptsAmount: number;
+    subsequentReceiptsGracePeriod: number;
+    isCompleted: string | null;
+    accountNumber: string;
+    cardNumber: string;
+    bankName: string;
+    consultingCostPercentage: number;
+    consultingCostAmount: number;
+    consultingCostCurrencyId: number;
 }
