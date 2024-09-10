@@ -18,10 +18,14 @@ export class PaymentPlanService {
      * @param  fields The fields to get
      * @return        The payment plans
      */
-    getPaymentPlans(fields: string = ''): Observable<HttpResponse> {
+    getPaymentPlans(
+        fields: string = '',
+        sortBy: string = 'sort'
+    ): Observable<HttpResponse> {
         const route: string = ROUTES.paymentPlans;
         let params: HttpParams = new HttpParams();
         if (!!fields) params = params.append('fields', fields);
+        params = params.append('sortBy', sortBy);
         return this._httpClient.get<HttpResponse>(route, { params });
     }
 }
