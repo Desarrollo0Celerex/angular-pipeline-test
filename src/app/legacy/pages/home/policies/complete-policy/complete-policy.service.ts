@@ -125,8 +125,8 @@ export class CompletePolicyService {
         this.initDropifyPlugin();
     }
 
-    addPolicyCover(policyUrl: string): Observable<any> {
-        return this._tuneatorService.addPolicyCover(policyUrl);
+    addPolicyCoverByUrl(policyUrl: string): Observable<any> {
+        return this._tuneatorService.addPolicyCoverByUrl(policyUrl);
     }
 
     addPolicyCoverByFile(file: any): Observable<any> {

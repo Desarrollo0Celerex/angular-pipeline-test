@@ -27,11 +27,9 @@ export class AuthInterceptor implements HttpInterceptor {
         next: HttpHandler
     ): Observable<HttpEvent<unknown>> {
         const userToken: string | null = this._storageService.getUserToken();
-        const isRequestDownloadFile: boolean =
-            !!request.responseType && request.responseType === 'blob'
-                ? true
-                : false;
-        if (userToken !== null && !isRequestDownloadFile) {
+        const isRequestDownloadFileFromAWS: boolean =
+            this._checkIsRequestDownloadFileFromAWS(request.url) ? true : false;
+        if (userToken !== null && !isRequestDownloadFileFromAWS) {
             request = request.clone({
                 headers: request.headers.set(
                     TOKEN_HEADER_KEY,
@@ -40,6 +38,10 @@ export class AuthInterceptor implements HttpInterceptor {
             });
         }
         return next.handle(request);
+    }
+
+    private _checkIsRequestDownloadFileFromAWS(url: string): boolean {
+        return url.includes('s3.amazonaws.com');
     }
 }
 

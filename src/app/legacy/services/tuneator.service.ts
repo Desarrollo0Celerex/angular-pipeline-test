@@ -20,7 +20,7 @@ export class TuneatorService {
         private _httpClient: HttpClient
     ) {}
 
-    addPolicyCover(policyUrl: string): Observable<any> {
+    addPolicyCoverByUrl(policyUrl: string): Observable<any> {
         const route: string = ROUTES.tuneator(this._workspaceId);
         return this._httpClient.post(
             route,

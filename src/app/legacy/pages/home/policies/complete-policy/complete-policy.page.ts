@@ -463,7 +463,7 @@ export class CompletePolicyPage implements OnInit {
                 this._handleAddPolicyCoverSuccessful(res);
             });
         } else {
-            this.model.addPolicyCover(this._policyUrl).subscribe((res) => {
+            this.model.addPolicyCoverByUrl(this._policyUrl).subscribe((res) => {
                 this._handleAddPolicyCoverSuccessful(res);
             });
         }
