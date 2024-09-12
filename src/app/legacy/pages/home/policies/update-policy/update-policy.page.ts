@@ -368,11 +368,7 @@ export class UpdatePolicyPage implements OnInit {
                 this.model
                     .updatePolicy(this.contactId, this.policyId)
                     .subscribe(() => {
-                        this._loadingService.hide();
-                        AlertHelper.policyUpdated(
-                            this._goToListContactPolicies,
-                            this
-                        );
+                        this._handleUpdatePolicySuccess();
                     });
             } else {
                 if (!this.model.checkPolicyAmounts()) {
@@ -383,11 +379,7 @@ export class UpdatePolicyPage implements OnInit {
                 this.model
                     .updateCompletePolicy(this.contactId, this.policyId)
                     .subscribe(() => {
-                        this._loadingService.hide();
-                        AlertHelper.policyUpdated(
-                            this._goToListContactPolicies,
-                            this
-                        );
+                        this._handleUpdatePolicySuccess();
                     });
             }
         }
@@ -510,7 +502,8 @@ export class UpdatePolicyPage implements OnInit {
         this.model.policyForm.patchValue({ policyFile: file });
         this.model.completePolicy(this.contactId, this.policyId).subscribe(
             (policy) => {
-                this._handleCompletePolicySuccess(policy.paymentId);
+                this.policyId = policy.policyId;
+                this._handleCompletePolicySuccess();
             },
             (error: HttpError) => {
                 this._handleCompletePolicyError(error);
@@ -554,6 +547,8 @@ export class UpdatePolicyPage implements OnInit {
                     this._isCompletePolicyAction = true;
                     this._policyUrl = res.data.policyUrl;
                     this._downloadPolicy();
+                } else {
+                    this.paymentId = res.data.paymentId;
                 }
                 this.model.buildPolicyForm(res.data);
                 this.hasSeller = res.data.partnerId ? true : false;
@@ -870,19 +865,24 @@ export class UpdatePolicyPage implements OnInit {
         }
     }
 
-    private _handleCompletePolicySuccess(paymentId: string): void {
+    private _handleCompletePolicySuccess(): void {
         const isInTime = this._checkIsInTime();
         const email = this.model.policyForm.value.titularEmail;
         if (isInTime && email) {
             this._sendNotification(
-                paymentId,
+                this.paymentId,
                 this.contactId,
                 this.policyId,
                 email
             );
         } else {
-            this._showCompletePolicySuccessModal(paymentId);
+            this._showCompletePolicySuccessModal();
         }
+    }
+
+    private _handleUpdatePolicySuccess(): void {
+        this._loadingService.hide();
+        this._showModalPolicyActions();
     }
 
     private _checkIsInTime(): boolean {
@@ -911,24 +911,23 @@ export class UpdatePolicyPage implements OnInit {
             .sendNotificationLegacy(NOTIFICATION_TYPES.POLICY_ISSUED, data)
             .subscribe(
                 () => {
-                    this._showCompletePolicySuccessModal(paymentId);
+                    this._showCompletePolicySuccessModal();
                 },
                 (error) => {
                     console.error(
                         'No se puedo enviar notificación de póliza emitida: ',
                         error
                     );
-                    this._showCompletePolicySuccessModal(paymentId);
+                    this._showCompletePolicySuccessModal();
                 }
             );
     }
 
-    private _showCompletePolicySuccessModal(paymentId: string): void {
+    private _showCompletePolicySuccessModal(): void {
         this._loadingService.hide();
         if (this.areSeveralInsured) {
             AlertHelper.policyCompleted(this._goToListPolicyInsureds, this);
         } else {
-            this.paymentId = paymentId;
             this._showModalPolicyActions();
         }
     }
