@@ -41,7 +41,10 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     private _checkIsRequestDownloadFileFromAWS(url: string): boolean {
-        return url.includes('s3.amazonaws.com');
+        return (
+            url.includes('s3.amazonaws.com') ||
+            url.includes('storage.agenthos.com')
+        );
     }
 }
 
