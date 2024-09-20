@@ -291,7 +291,7 @@
                                         type="text"
                                         [matDatepicker]="validityStarDatePicker"
                                         (click)="validityStarDatePicker.open()"
-                                        (dateChange)="validitateFields(); calculatePaymentAmounts();"
+                                        (dateChange)="validitateFields();"
                                     />
                                     <mat-datepicker
                                         #validityStarDatePicker
@@ -322,7 +322,7 @@
                                         type="text"
                                         [matDatepicker]="validityEndDatePicker"
                                         (click)="validityEndDatePicker.open()"
-                                        (dateChange)="validitateFields(); calculatePaymentAmounts();"
+                                        (dateChange)="validitateFields();"
                                     />
                                     <mat-datepicker
                                         #validityEndDatePicker

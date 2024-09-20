@@ -67,4 +67,6 @@ export interface Payment {
     workspaceCollectionEmail: string;
     contactName: string;
     comment: string;
+    firstReceiptAmount: number;
+    subsequentReceiptsAmount: number;
 }
