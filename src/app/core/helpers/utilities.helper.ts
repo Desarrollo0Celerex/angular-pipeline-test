@@ -1,4 +1,8 @@
-import { PAYMENT_PLANS, PAYMENT_SOURCE_TYPES } from '@core/constants/settings';
+import {
+    MULTIYEAR_INSURANCES,
+    PAYMENT_PLANS,
+    PAYMENT_SOURCE_TYPES,
+} from '@core/constants/settings';
 import { CONTENT_TYPES } from '@constants/global';
 import { PERIODS } from '@constants/global';
 import { CalculateFirstPaymentAmount } from '@core/interfaces/calculate-first-payment-amount.interface';
@@ -80,6 +84,16 @@ export class UtilitiesHelper {
         return receiptsAmount;
     }
 
+    static getPaymentPlanMonths(
+        paymentPlanId: number,
+        paymentPlans: PaymentPlan[]
+    ): number {
+        const foundPaymentPlan = paymentPlans.find(
+            (paymentPlan) => paymentPlan.paymentPlanId == paymentPlanId
+        );
+        return foundPaymentPlan ? foundPaymentPlan.months : 0;
+    }
+
     static getPaymentPlanReceipts(
         paymentPlanId: number,
         paymentPlans: PaymentPlan[]
@@ -110,6 +124,15 @@ export class UtilitiesHelper {
                 isHistoryContent = false;
         }
         return isHistoryContent;
+    }
+
+    static checkIsMultiyear(
+        insuranceId: number,
+        validityYears: number
+    ): boolean {
+        return MULTIYEAR_INSURANCES.includes(insuranceId) && validityYears > 1
+            ? true
+            : false;
     }
 
     static checkIsValidNumber(value: string, length: number): boolean {

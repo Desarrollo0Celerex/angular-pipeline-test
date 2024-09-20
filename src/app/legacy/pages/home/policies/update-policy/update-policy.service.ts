@@ -69,6 +69,7 @@ import { InsuranceTypeService } from '@services/insurance-type.service';
 import { InsuranceService } from '@services/insurance.service';
 import { CalculateFirstPaymentAmount } from '@core/interfaces/calculate-first-payment-amount.interface';
 import { PAYMENT_PLANS } from '@core/constants/settings';
+import { DateHelper } from '@core/helpers/date.helper';
 
 declare var DropifyPlugin: any;
 
@@ -621,6 +622,61 @@ export class UpdatePolicyService {
                   )
                 : '0.00',
         });
+    }
+
+    calculateSubsequentReceiptsAmount(): void {
+        const firstReceiptAmount = parseFloat(
+            this.f.firstReceiptAmount.value.toString()
+        );
+        const policyAmount = parseFloat(this.f.policyAmount.value.toString());
+        const bills = parseInt(this.f.bills.value.toString());
+        const totalPaymentAmount = this.calculatePaymentAmount();
+        const subsequentReceiptsAmount = '';
+        /* console.log('-------------');
+
+        console.log('firstReceiptAmount: ', firstReceiptAmount);
+        console.log('policyAmount: ', policyAmount);
+        console.log('bills: ', bills);
+        console.log('totalPaymentAmount: ', totalPaymentAmount);
+        console.log('subsequentReceiptsAmount: ', subsequentReceiptsAmount); */
+    }
+
+    calculatePaymentAmount(): number {
+        const policyAmount = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(
+                this.f.policyAmount.value || 0
+            )
+        );
+        if (this.f.paymentPlanId.value == PAYMENT_PLANS.SINGLE_PAYMENT) {
+            return policyAmount;
+        }
+
+        const validityYears = DateHelper.getDifferenceBetweenTwoDates(
+            this.f.validityStartDate.value.format('DD/MM/YYYY'),
+            this.f.validityEndDate.value.format('DD/MM/YYYY'),
+            'years'
+        );
+        const isMultiyear = UtilitiesHelper.checkIsMultiyear(
+            this.f.insuranceId.value,
+            validityYears
+        );
+
+        if (!isMultiyear) {
+            return policyAmount;
+        }
+
+        /* console.log('validityYears: ', validityYears);
+        console.log('isMultiyear: ', isMultiyear); */
+        const coverPay = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value || 0)
+        );
+        const policyAmountAux = policyAmount - coverPay;
+        const bills = parseInt(this.f.bills.value.toString());
+        const paymentPlanMonths = UtilitiesHelper.getPaymentPlanMonths(
+            this.f.paymentPlanId.value,
+            this.paymentPlans
+        );
+        return (bills / (12 / paymentPlanMonths)) * policyAmountAux + coverPay;
     }
 
     calculatePolicyAmount(): void {

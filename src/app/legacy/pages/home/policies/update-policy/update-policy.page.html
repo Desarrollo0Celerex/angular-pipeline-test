@@ -1251,7 +1251,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('netPay')}}"
                                                 formControlName="netPay"
-                                                (keyup)="calculateTaxPay(); calculatePolicyAmount(); calculateFirstPaymentAmount();"
+                                                (keyup)="calculateTaxPay(); calculatePolicyAmount(); calculatePaymentAmounts();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('netPay')}}
@@ -1291,7 +1291,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('feePay')}}"
                                                 formControlName="feePay"
-                                                (keyup)="calculateTaxPay(); calculatePolicyAmount(); calculateFirstPaymentAmount();"
+                                                (keyup)="calculateTaxPay(); calculatePolicyAmount(); calculatePaymentAmounts();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('feePay')}}
@@ -1331,7 +1331,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('coverPay')}}"
                                                 formControlName="coverPay"
-                                                (keyup)="calculateTaxPay(); calculatePolicyAmount(); calculateFirstPaymentAmount();"
+                                                (keyup)="calculateTaxPay(); calculatePolicyAmount(); calculatePaymentAmounts();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('coverPay')}}
@@ -1371,7 +1371,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('noTaxPay')}}"
                                                 formControlName="noTaxPay"
-                                                (keyup)="calculatePolicyAmount(); calculateFirstPaymentAmount();"
+                                                (keyup)="calculatePolicyAmount(); calculatePaymentAmounts();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('noTaxPay')}}
@@ -1411,7 +1411,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('extraPay')}}"
                                                 formControlName="extraPay"
-                                                (keyup)="calculateTaxPay(); calculatePolicyAmount(); calculateFirstPaymentAmount();"
+                                                (keyup)="calculateTaxPay(); calculatePolicyAmount(); calculatePaymentAmounts();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('extraPay')}}
@@ -1451,7 +1451,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('discount')}}"
                                                 formControlName="discount"
-                                                (keyup)="calculatePolicyAmount(); calculateFirstPaymentAmount();"
+                                                (keyup)="calculatePolicyAmount(); calculatePaymentAmounts();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('discount')}}
@@ -1491,7 +1491,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('taxPay')}}"
                                                 formControlName="taxPay"
-                                                (keyup)="calculatePolicyAmount(); calculateFirstPaymentAmount();"
+                                                (keyup)="calculatePolicyAmount(); calculatePaymentAmounts();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('taxPay')}}
@@ -1695,7 +1695,7 @@
                                             <select
                                                 class="form-control custom-select {{getValidationClass('paymentPlanId')}}"
                                                 formControlName="paymentPlanId"
-                                                (change)="onChangeCalculateBills(); calculateFirstPaymentAmount(); onChangeReviewPolicyReceiptInputs();"
+                                                (change)="onChangeCalculateBills(); calculatePaymentAmounts(); onChangeReviewPolicyReceiptInputs();"
                                                 data-placeholder="Plan de Pago"
                                             >
                                                 <optgroup

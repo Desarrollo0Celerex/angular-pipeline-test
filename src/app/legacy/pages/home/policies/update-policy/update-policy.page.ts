@@ -188,8 +188,9 @@ export class UpdatePolicyPage implements OnInit {
         this.model.addInsured();
     } */
 
-    calculateFirstPaymentAmount(): void {
+    calculatePaymentAmounts(): void {
         this.model.calculateFirstPaymentAmount();
+        this.model.calculateSubsequentReceiptsAmount();
     }
 
     calculatePolicyAmount(): void {
@@ -309,7 +310,7 @@ export class UpdatePolicyPage implements OnInit {
         this._calculateBills();
         this._checkAmountInputs();
         this._checkIsRenewal();
-        this.model.calculateFirstPaymentAmount();
+        this.calculatePaymentAmounts();
         this.onChangeReviewPolicyReceiptInputs();
     }
 
@@ -502,7 +503,7 @@ export class UpdatePolicyPage implements OnInit {
         this.model.policyForm.patchValue({ policyFile: file });
         this.model.completePolicy(this.contactId, this.policyId).subscribe(
             (policy) => {
-                this.policyId = policy.policyId;
+                this.paymentId = policy.paymentId;
                 this._handleCompletePolicySuccess();
             },
             (error: HttpError) => {
@@ -869,12 +870,7 @@ export class UpdatePolicyPage implements OnInit {
         const isInTime = this._checkIsInTime();
         const email = this.model.policyForm.value.titularEmail;
         if (isInTime && email) {
-            this._sendNotification(
-                this.paymentId,
-                this.contactId,
-                this.policyId,
-                email
-            );
+            this._sendNotification(this.contactId, this.policyId, email);
         } else {
             this._showCompletePolicySuccessModal();
         }
@@ -890,14 +886,10 @@ export class UpdatePolicyPage implements OnInit {
             this.model.policyForm.value.validityStartDate,
             'DD/MM/YYYY'
         );
-        return validityStartDate.isBetween(
-            moment().subtract(8, 'days'),
-            moment()
-        );
+        return validityStartDate.isSameOrAfter(moment().subtract(8, 'days'));
     }
 
     private _sendNotification(
-        paymentId: string,
         contactId: string,
         policyId: string,
         email: string

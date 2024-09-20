@@ -204,3 +204,5 @@ export const WORKSPACE_THEMES = {
         FILE: 'apple',
     },
 };
+
+export const MULTIYEAR_INSURANCES = [INSURANCES.LIFE];

@@ -8,4 +8,15 @@ export class DateHelper {
     static getCurrentTime(): string {
         return moment().format('h:mm A');
     }
+
+    static getDifferenceBetweenTwoDates(
+        date1: string,
+        date2: string,
+        format: string
+    ): number {
+        const momentDate1: any = moment(date1, 'DD/MM/YYYY');
+        const momentDate2: any = moment(date2, 'DD/MM/YYYY');
+        const days: number = momentDate2.diff(momentDate1, format) + 1;
+        return days;
+    }
 }
