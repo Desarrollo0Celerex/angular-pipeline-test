@@ -190,11 +190,15 @@ export class UpdatePolicyPage implements OnInit {
 
     calculatePaymentAmounts(): void {
         this.model.calculateFirstPaymentAmount();
-        this.model.calculateSubsequentReceiptsAmount();
+        this.calculateSubsequentReceiptsAmount();
     }
 
     calculatePolicyAmount(): void {
         this.model.calculatePolicyAmount();
+    }
+
+    calculateSubsequentReceiptsAmount(): void {
+        this.model.calculateSubsequentReceiptsAmount();
     }
 
     calculateTaxPay(): void {

@@ -291,7 +291,7 @@
                                         type="text"
                                         [matDatepicker]="validityStarDatePicker"
                                         (click)="validityStarDatePicker.open()"
-                                        (dateChange)="validitateFields()"
+                                        (dateChange)="validitateFields(); calculatePaymentAmounts();"
                                     />
                                     <mat-datepicker
                                         #validityStarDatePicker
@@ -322,7 +322,7 @@
                                         type="text"
                                         [matDatepicker]="validityEndDatePicker"
                                         (click)="validityEndDatePicker.open()"
-                                        (dateChange)="validitateFields()"
+                                        (dateChange)="validitateFields(); calculatePaymentAmounts();"
                                     />
                                     <mat-datepicker
                                         #validityEndDatePicker
@@ -1786,6 +1786,7 @@
                                                 type="text"
                                                 class="form-control {{getValidationClass('firstReceiptAmount')}}"
                                                 formControlName="firstReceiptAmount"
+                                                (keyup)="calculateSubsequentReceiptsAmount();"
                                             />
                                             <div class="invalid-feedback">
                                                 {{getErrorMessage('firstReceiptAmount')}}

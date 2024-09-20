@@ -603,15 +603,36 @@ export class UpdatePolicyService {
             this.f.paymentPlanId.value,
             this.paymentPlans
         );
+        const netPay = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.netPay.value || 0)
+        );
+        const feePay = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.feePay.value || 0)
+        );
+        const coverPay = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value || 0)
+        );
+        const noTaxPay = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.noTaxPay.value || 0)
+        );
+        const extraPay = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.extraPay.value || 0)
+        );
+        const taxPay = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.taxPay.value || 0)
+        );
+        const discount = parseFloat(
+            UtilitiesHelper.removeCommasFromQuantity(this.f.discount.value || 0)
+        );
         const data: CalculateFirstPaymentAmount = {
             paymentPlanReceips: paymentPlanReceipts,
-            netPay: this.f.netPay.value,
-            feePay: this.f.feePay.value,
-            coverPay: this.f.coverPay.value,
-            noTaxPay: this.f.noTaxPay.value,
-            extraPay: this.f.extraPay.value,
-            taxPay: this.f.taxPay.value,
-            discount: this.f.discount.value,
+            netPay,
+            feePay,
+            coverPay,
+            noTaxPay,
+            extraPay,
+            taxPay,
+            discount,
         };
         const firstReceiptAmount =
             UtilitiesHelper.calculateFirstPaymentAmount(data);
@@ -626,19 +647,21 @@ export class UpdatePolicyService {
 
     calculateSubsequentReceiptsAmount(): void {
         const firstReceiptAmount = parseFloat(
-            this.f.firstReceiptAmount.value.toString()
+            UtilitiesHelper.removeCommasFromQuantity(
+                this.f.firstReceiptAmount.value || 0
+            )
         );
-        const policyAmount = parseFloat(this.f.policyAmount.value.toString());
         const bills = parseInt(this.f.bills.value.toString());
         const totalPaymentAmount = this.calculatePaymentAmount();
-        const subsequentReceiptsAmount = '';
-        /* console.log('-------------');
-
-        console.log('firstReceiptAmount: ', firstReceiptAmount);
-        console.log('policyAmount: ', policyAmount);
-        console.log('bills: ', bills);
-        console.log('totalPaymentAmount: ', totalPaymentAmount);
-        console.log('subsequentReceiptsAmount: ', subsequentReceiptsAmount); */
+        const subsequentReceiptsAmount =
+            (totalPaymentAmount - firstReceiptAmount) / (bills - 1);
+        this.policyForm.patchValue({
+            subsequentReceiptsAmount: subsequentReceiptsAmount
+                ? UtilitiesHelper.getQuantityWithOnlyTwoDecimals(
+                      subsequentReceiptsAmount
+                  )
+                : '0.00',
+        });
     }
 
     calculatePaymentAmount(): number {
@@ -665,8 +688,6 @@ export class UpdatePolicyService {
             return policyAmount;
         }
 
-        /* console.log('validityYears: ', validityYears);
-        console.log('isMultiyear: ', isMultiyear); */
         const coverPay = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(this.f.coverPay.value || 0)
         );
