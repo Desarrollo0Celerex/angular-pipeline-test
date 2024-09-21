@@ -86,7 +86,7 @@ export class UpdatePolicyService {
     paymentMethods: PaymentMethod[] = [];
     paymentPlans: PaymentPlan[] = [];
     policy: any | null | Policy = null;
-    policyForm: FormGroup = this._formBuilder.group({});
+    policyForm!: FormGroup; //= this._formBuilder.group({});
     private _areFractionatedPaymentAmounts: boolean = false;
     private _allowedFileTypes: string[] = ['pdf'];
     private _canShowPreview: boolean = true;

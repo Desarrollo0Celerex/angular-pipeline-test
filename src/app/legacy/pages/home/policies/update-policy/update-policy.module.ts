@@ -68,7 +68,6 @@ import { NotifierModule } from 'app/features/notifier/notifier.module';
     ],
     providers: [
         AtomScannService,
-        UpdatePolicyService,
         ContactService,
         CurrencyService,
         DatePipe,

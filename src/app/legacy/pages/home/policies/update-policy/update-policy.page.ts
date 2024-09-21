@@ -40,6 +40,7 @@ declare var Select2Plugin: any;
     selector: 'agt-update-policy',
     templateUrl: './update-policy.page.html',
     styles: [],
+    providers: [UpdatePolicyService],
 })
 export class UpdatePolicyPage implements OnInit {
     @ViewChild(PolicyActionsComponent)
