@@ -599,6 +599,12 @@ export class UpdatePolicyService {
     }
 
     calculateFirstPaymentAmount(): void {
+        if (this.f.bills.value == 1) {
+            this.policyForm.patchValue({
+                firstReceiptAmount: this.f.policyAmount.value,
+            });
+            return;
+        }
         const paymentPlanReceipts = UtilitiesHelper.getPaymentPlanReceipts(
             this.f.paymentPlanId.value,
             this.paymentPlans
@@ -646,6 +652,12 @@ export class UpdatePolicyService {
     }
 
     calculateSubsequentReceiptsAmount(): void {
+        if (this.f.bills.value == 1) {
+            this.policyForm.patchValue({
+                subsequentReceiptsAmount: '0.00',
+            });
+            return;
+        }
         const firstReceiptAmount = parseFloat(
             UtilitiesHelper.removeCommasFromQuantity(
                 this.f.firstReceiptAmount.value || 0
