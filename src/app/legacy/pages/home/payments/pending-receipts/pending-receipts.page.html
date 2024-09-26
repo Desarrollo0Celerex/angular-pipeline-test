@@ -1,6 +1,6 @@
-<agt-container-contact-details 
-    [contactId]="contactId" 
-    [policyId]="policyId" 
+<agt-container-contact-details
+    [contactId]="contactId"
+    [policyId]="policyId"
     [message]="message"
 ></agt-container-contact-details>
 
@@ -24,6 +24,7 @@
         <agt-chart-policy-payments
             [contactId]="contactId"
             [policyId]="policyId"
+            [canReloadContent]="canReloadContent"
         ></agt-chart-policy-payments>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-8 col-xl-9">
@@ -31,6 +32,7 @@
             [contactId]="contactId"
             [policyId]="policyId"
             [paymentId]="paymentId"
+            [canReloadContent]="canReloadContent"
         ></agt-chart-policy-payments-behavior>
     </div>
 </div>
@@ -39,7 +41,8 @@
     [contactId]="contactId"
     [policyId]="policyId"
     [paymentId]="paymentId"
-    [canShowPendingReceipts]="false">
+    [canShowPendingReceipts]="false"
+>
 </agt-container-payments-manager>
 
 <agt-content-list
@@ -49,5 +52,9 @@
     [policyId]="policyId"
     [paymentId]="paymentId"
     [contentSubtype]="DEFAULT_CONTENT_FILTER_ID"
-    contentSubtypeName="Pendiente">
+    contentSubtypeName="Pendiente"
+    (receiptPaid)="onReloadContent()"
+    [canReloadContent]="canReloadContent"
+    (contentReloaded)="onContentReloaded()"
+>
 </agt-content-list>

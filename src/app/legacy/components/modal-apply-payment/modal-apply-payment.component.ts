@@ -248,6 +248,7 @@ export class ModalApplyPaymentComponent implements OnChanges, OnInit {
             .subscribe((res: HttpResponse) => {
                 this._loadingService.hide();
                 this.model.payment = null;
+                this.receiptPaid.emit();
                 this._paymentAppliedActionsModalComponent.openModal({
                     contactId: this.contactId,
                     policyId: this.policyId,

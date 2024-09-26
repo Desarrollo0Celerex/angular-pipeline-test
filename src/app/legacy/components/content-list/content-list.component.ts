@@ -567,19 +567,7 @@ export class ContentListComponent implements OnChanges, OnDestroy {
      * Event to notify that the receipt has been paid
      */
     onReceiptPaid(): void {
-        switch (this.contentType) {
-            case CONTENT_TYPES.PENDING_RECEIP.ID:
-                const pageUrl: string = ROUTES_NAME.pendingReceipts(
-                    this.selectedContactId,
-                    this.selectedPolicyId,
-                    this.selectedPaymentId
-                );
-                this._reloadPage(pageUrl);
-                break;
-
-            default:
-                this.receiptPaid.emit();
-        }
+        this.receiptPaid.emit();
     }
 
     /**
