@@ -359,9 +359,7 @@ export class CreateEndorsementPage implements OnInit {
         this.model
             .createEndorsementWithCancellation(this.contactId, this.policyId)
             .subscribe(() => {
-                this._loadingService.hide();
-                AlertHelper.policyEndorsed();
-                this._goToCancelPolicy();
+                this._finishEndorsementCreation();
             });
     }
 
@@ -405,14 +403,6 @@ export class CreateEndorsementPage implements OnInit {
         this._loadingService.hide();
         AlertHelper.policyEndorsed();
         this._goToPolicyHistory();
-    }
-
-    private _goToCancelPolicy(): void {
-        const url: string = ROUTES_NAME.cancelPolicy(
-            this.contactId,
-            this.policyId
-        );
-        this._router.navigateByUrl(url);
     }
 
     private _goToPolicyHistory(): void {
