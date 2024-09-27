@@ -65,23 +65,40 @@ export class UtilitiesHelper {
     }
 
     static calculatePaymentAmount(data: CalculatePaymentAmount): number {
-        const receiptsAmount =
+        console.log('paso 1');
+
+        if (
             data.paymentSourceTypeId === PAYMENT_SOURCE_TYPES.POLICY &&
             data.tickets === 0 &&
             data.paymentPlanId != PAYMENT_PLANS.SINGLE_PAYMENT &&
             data.paymentPlanId != PAYMENT_PLANS.ANNUAL
-                ? this.calculateFirstPaymentAmount({
-                      paymentPlanReceips: data.paymentPlanReceips,
-                      netPay: data.netPay,
-                      feePay: data.feePay,
-                      coverPay: data.coverPay,
-                      noTaxPay: data.noTaxPay,
-                      extraPay: data.extraPay,
-                      taxPay: data.taxPay,
-                      discount: data.discount,
-                  })
-                : data.pendingAmount / data.pendingReceipts;
-        return receiptsAmount;
+        ) {
+            if (!!data.firstReceiptAmount) {
+                console.log('paso 2');
+                return data.firstReceiptAmount;
+            } else {
+                console.log('paso 3');
+                return this.calculateFirstPaymentAmount({
+                    paymentPlanReceips: data.paymentPlanReceips,
+                    netPay: data.netPay,
+                    feePay: data.feePay,
+                    coverPay: data.coverPay,
+                    noTaxPay: data.noTaxPay,
+                    extraPay: data.extraPay,
+                    taxPay: data.taxPay,
+                    discount: data.discount,
+                });
+            }
+        } else {
+            console.log('paso 4');
+            if (!!data.subsequentReceiptsAmount) {
+                console.log('paso 5');
+                return data.subsequentReceiptsAmount;
+            } else {
+                console.log('paso 6');
+                return data.pendingAmount / data.pendingReceipts;
+            }
+        }
     }
 
     static getPaymentPlanMonths(

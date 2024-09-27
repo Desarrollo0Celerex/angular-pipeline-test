@@ -48,6 +48,8 @@ export class SendPaymentReminderWhatsappMessageModalComponent {
                 paymentPlanId: this.payment.paymentPlanId,
                 pendingAmount: this.payment.pendingAmount,
                 pendingReceipts: this.payment.pendingReceipts,
+                firstReceiptAmount: this.payment.firstReceiptAmount,
+                subsequentReceiptsAmount: this.payment.subsequentReceiptsAmount,
             };
             return UtilitiesHelper.calculatePaymentAmount(data);
         }
@@ -106,7 +108,7 @@ export class SendPaymentReminderWhatsappMessageModalComponent {
 
     private _loadPayment(paymentId: string): void {
         const fields =
-            'policyNumber,bills,paymentPlanReceips,netPay,feePay,coverPay,noTaxPay,extraPay,taxPay,discount,paymentSourceTypeId,tickets,paymentPlanId,pendingAmount,pendingReceipts,paymentDate,comment';
+            'policyNumber,bills,paymentPlanReceips,netPay,feePay,coverPay,noTaxPay,extraPay,taxPay,discount,paymentSourceTypeId,tickets,paymentPlanId,pendingAmount,pendingReceipts,paymentDate,comment,firstReceiptAmount,subsequentReceiptsAmount';
 
         this._paymentService
             .getWorkspacePayment(paymentId, fields)

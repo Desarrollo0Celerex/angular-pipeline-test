@@ -64,6 +64,9 @@ export class ModalShowPaymentDetailsComponent implements OnChanges {
                 paymentPlanId: this.model.payment.paymentPlanId,
                 pendingAmount: this.model.payment.pendingAmount,
                 pendingReceipts: this.model.payment.pendingReceipts,
+                firstReceiptAmount: this.model.payment.firstReceiptAmount,
+                subsequentReceiptsAmount:
+                    this.model.payment.subsequentReceiptsAmount,
             };
             return UtilitiesHelper.calculatePaymentAmount(data);
         }

@@ -56,7 +56,7 @@ export class PaymentReminderService extends SmartComponent {
         this._loadingService.show();
         const data = this.getReminderData();
         const fields: string =
-            'contactShortName,workspaceName,policyNumber,coveredProperty,insurerName,currencyName,paymentDate,paymentPlanReceips,netPay,feePay,coverPay,noTaxPay,extraPay,taxPay,discount,paymentSourceTypeId,tickets,paymentPlanId,pendingAmount,pendingReceipts,bills,titularName,insuranceTypeName,insurerShortName,validityStartDate,validityEndDate,paymentPlanName,workspaceCollectionWhatsappCode,workspaceCollectionWhatsappNumber,workspaceCollectionPhoneCode,workspaceCollectionPhoneNumber,workspaceCollectionEmail,insurerId,insuranceName,paymentStatusName';
+            'contactShortName,workspaceName,policyNumber,coveredProperty,insurerName,currencyName,paymentDate,paymentPlanReceips,netPay,feePay,coverPay,noTaxPay,extraPay,taxPay,discount,paymentSourceTypeId,tickets,paymentPlanId,pendingAmount,pendingReceipts,bills,titularName,insuranceTypeName,insurerShortName,validityStartDate,validityEndDate,paymentPlanName,workspaceCollectionWhatsappCode,workspaceCollectionWhatsappNumber,workspaceCollectionPhoneCode,workspaceCollectionPhoneNumber,workspaceCollectionEmail,insurerId,insuranceName,paymentStatusName,firstReceiptAmount,subsequentReceiptsAmount';
         this._paymentService
             .getWorkspacePayment(paymentId, fields)
             .subscribe((payment) => {
@@ -74,6 +74,8 @@ export class PaymentReminderService extends SmartComponent {
                     paymentPlanId: payment.paymentPlanId,
                     pendingAmount: payment.pendingAmount,
                     pendingReceipts: payment.pendingReceipts,
+                    firstReceiptAmount: payment.firstReceiptAmount,
+                    subsequentReceiptsAmount: payment.subsequentReceiptsAmount,
                 };
                 const requestBody: SendReminder = {
                     ...data,

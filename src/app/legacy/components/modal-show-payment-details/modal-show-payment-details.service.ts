@@ -10,7 +10,7 @@ export class ModalShowPaymentDetailsService {
 
     loadPayment(paymentId: string): void {
         const fields: string =
-            'paymentDate,titularName,coveredProperty,insuranceName,insuranceTypeName,policyNumber,bills,tickets,currencyName,paymentPlanReceips,netPay,feePay,coverPay,noTaxPay,extraPay,taxPay,discount,paymentSourceTypeId,paymentPlanId,pendingAmount,pendingReceipts,comment';
+            'paymentDate,titularName,coveredProperty,insuranceName,insuranceTypeName,policyNumber,bills,tickets,currencyName,paymentPlanReceips,netPay,feePay,coverPay,noTaxPay,extraPay,taxPay,discount,paymentSourceTypeId,paymentPlanId,pendingAmount,pendingReceipts,comment,firstReceiptAmount,subsequentReceiptsAmount';
         this._paymentService
             .getPayment(paymentId, fields)
             .subscribe((res: HttpResponse) => {

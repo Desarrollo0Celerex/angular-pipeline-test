@@ -38,6 +38,8 @@ export class CardPaymentComponent extends DumbComponent {
     }
 
     get paymentAmount(): number {
+        console.log('this.payment: ', this.payment);
+
         return this.payment
             ? UtilitiesHelper.calculatePaymentAmount({
                   paymentSourceTypeId: this.payment.paymentSourceTypeId,
@@ -53,6 +55,9 @@ export class CardPaymentComponent extends DumbComponent {
                   extraPay: this.payment.extraPay,
                   taxPay: this.payment.taxPay,
                   discount: this.payment.discount,
+                  firstReceiptAmount: this.payment.firstReceiptAmount,
+                  subsequentReceiptsAmount:
+                      this.payment.subsequentReceiptsAmount,
               })
             : 0;
     }

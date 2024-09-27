@@ -404,6 +404,8 @@ export class CreateEndorsementService {
                         totalRemainingAmount),
                 pendingReceipts:
                     this.policy!.bills - (this.policy!.receiptsPaid + i),
+                firstReceiptAmount: this.policy!.firstReceiptAmount,
+                subsequentReceiptsAmount: this.policy!.subsequentReceiptsAmount,
             };
             totalRemainingAmount += UtilitiesHelper.calculatePaymentAmount(
                 calculatePaymentAmountData
@@ -591,7 +593,7 @@ export class CreateEndorsementService {
 
     getPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         const fields: string =
-            'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,policyNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements,paymentAmount,paymentAmountPaid,titularAge,titularGenderId,contactTypeId,insuranceTypeId,insureds,insuranceGroupId,paymentDate,netPay,feePay,coverPay,noTaxPay,extraPay,taxPay,discount,';
+            'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,policyNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements,paymentAmount,paymentAmountPaid,titularAge,titularGenderId,contactTypeId,insuranceTypeId,insureds,insuranceGroupId,paymentDate,netPay,feePay,coverPay,noTaxPay,extraPay,taxPay,discount,firstReceiptAmount,subsequentReceiptsAmount';
         return this._policyService.getContactPolicy(
             contactId,
             policyId,
