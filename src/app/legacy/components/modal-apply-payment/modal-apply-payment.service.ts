@@ -143,26 +143,27 @@ export class ModalApplyPaymentService {
                 this.payment.paymentPlanId != PAYMENT_PLANS.SINGLE_PAYMENT &&
                 this.payment.paymentPlanId != PAYMENT_PLANS.ANNUAL
             ) {
-                receiptsAmount = parseFloat(
-                    this.payment.firstReceiptAmount.toString()
-                )
-                    ? this.payment.firstReceiptAmount
-                    : this._calculateFirstPaymentAmount(
-                          this.payment.paymentPlanReceips,
-                          this.payment.netPay,
-                          this.payment.feePay,
-                          this.payment.coverPay,
-                          this.payment.noTaxPay,
-                          this.payment.extraPay,
-                          this.payment.taxPay,
-                          this.payment.discount
-                      );
+                receiptsAmount =
+                    this.payment.firstReceiptAmount &&
+                    parseFloat(this.payment.firstReceiptAmount.toString())
+                        ? this.payment.firstReceiptAmount
+                        : this._calculateFirstPaymentAmount(
+                              this.payment.paymentPlanReceips,
+                              this.payment.netPay,
+                              this.payment.feePay,
+                              this.payment.coverPay,
+                              this.payment.noTaxPay,
+                              this.payment.extraPay,
+                              this.payment.taxPay,
+                              this.payment.discount
+                          );
             } else {
-                receiptsAmount = parseFloat(
-                    this.payment.subsequentReceiptsAmount.toString()
-                )
-                    ? this.payment.subsequentReceiptsAmount
-                    : this.payment.pendingAmount / this.payment.pendingReceipts;
+                receiptsAmount =
+                    this.payment.subsequentReceiptsAmount &&
+                    parseFloat(this.payment.subsequentReceiptsAmount.toString())
+                        ? this.payment.subsequentReceiptsAmount
+                        : this.payment.pendingAmount /
+                          this.payment.pendingReceipts;
             }
             formattedPaymentAmount =
                 this._currencyPipe.transform(receiptsAmount, '', '', '0.2-2') ||

@@ -28,7 +28,7 @@ export class ChartPolicyPaymentsComponent implements OnInit, OnChanges {
     constructor(public model: ChartPolicyPaymentsService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.canReloadContent.currentValue) {
+        if (changes.canReloadContent && changes.canReloadContent.currentValue) {
             this._loadChart();
         }
     }

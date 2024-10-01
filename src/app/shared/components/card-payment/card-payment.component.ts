@@ -38,9 +38,7 @@ export class CardPaymentComponent extends DumbComponent {
     }
 
     get paymentAmount(): number {
-        console.log('this.payment: ', this.payment);
-
-        return this.payment
+        const paymentAmount = this.payment
             ? UtilitiesHelper.calculatePaymentAmount({
                   paymentSourceTypeId: this.payment.paymentSourceTypeId,
                   tickets: this.payment.tickets,
@@ -60,6 +58,7 @@ export class CardPaymentComponent extends DumbComponent {
                       this.payment.subsequentReceiptsAmount,
               })
             : 0;
+        return paymentAmount;
     }
 
     get remainingDays(): number {

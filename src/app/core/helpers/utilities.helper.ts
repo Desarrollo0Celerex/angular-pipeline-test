@@ -65,19 +65,18 @@ export class UtilitiesHelper {
     }
 
     static calculatePaymentAmount(data: CalculatePaymentAmount): number {
-        console.log('paso 1');
-
         if (
             data.paymentSourceTypeId === PAYMENT_SOURCE_TYPES.POLICY &&
             data.tickets === 0 &&
             data.paymentPlanId != PAYMENT_PLANS.SINGLE_PAYMENT &&
             data.paymentPlanId != PAYMENT_PLANS.ANNUAL
         ) {
-            if (!!data.firstReceiptAmount) {
-                console.log('paso 2');
+            if (
+                data.firstReceiptAmount &&
+                !!parseFloat(data.firstReceiptAmount.toString())
+            ) {
                 return data.firstReceiptAmount;
             } else {
-                console.log('paso 3');
                 return this.calculateFirstPaymentAmount({
                     paymentPlanReceips: data.paymentPlanReceips,
                     netPay: data.netPay,
@@ -90,12 +89,12 @@ export class UtilitiesHelper {
                 });
             }
         } else {
-            console.log('paso 4');
-            if (!!data.subsequentReceiptsAmount) {
-                console.log('paso 5');
+            if (
+                data.subsequentReceiptsAmount &&
+                !!parseFloat(data.subsequentReceiptsAmount.toString())
+            ) {
                 return data.subsequentReceiptsAmount;
             } else {
-                console.log('paso 6');
                 return data.pendingAmount / data.pendingReceipts;
             }
         }
