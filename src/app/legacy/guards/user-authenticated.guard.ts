@@ -26,6 +26,8 @@ export class UserAuthenticatedGuard implements CanActivate {
         | boolean
         | UrlTree {
         if (this._authService.checkIsLoggedIn()) {
+            //TODO: Checar si es un usuario activo
+
             return true;
         }
         this._router.navigateByUrl(ROUTES_NAME.notAuthenticated);

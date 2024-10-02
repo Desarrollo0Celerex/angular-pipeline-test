@@ -58,27 +58,34 @@ export class IdentifyUserPage {
             .subscribe((res: string) => {
                 const userTokenData: UserTokenData =
                     this._authService.startSessionInAgenthos(res);
-                // If the user has active workspace then login to firebase
+                // If the user has active workspace
                 if (this._authService.checkHasActiveWorkspace()) {
-                    this._authService
-                        .getFirebaseToken(
-                            userTokenData.workspaceId,
-                            userTokenData.userId
-                        )
-                        .subscribe((res: string) => {
-                            this._firebaseService
-                                .startSessionInFirebase(res)
-                                .then(() => {
-                                    this._loadingService.hide();
-                                    this._router.navigateByUrl(
-                                        this._redirectUrl
-                                    );
-                                })
-                                .catch(() => {
-                                    this._loadingService.hide();
-                                    this._authService.logout();
-                                });
-                        });
+                    // If the user is active user, then login to firebase
+                    if (this._authService.checkIsActiveUser()) {
+                        this._authService
+                            .getFirebaseToken(
+                                userTokenData.workspaceId,
+                                userTokenData.userId
+                            )
+                            .subscribe((res: string) => {
+                                this._firebaseService
+                                    .startSessionInFirebase(res)
+                                    .then(() => {
+                                        this._loadingService.hide();
+                                        this._router.navigateByUrl(
+                                            this._redirectUrl
+                                        );
+                                    })
+                                    .catch(() => {
+                                        this._loadingService.hide();
+                                        this._authService.logout();
+                                    });
+                            });
+                    } else {
+                        this._loadingService.hide();
+                        this._authService.closeSessionInAgenthos();
+                        this._router.navigateByUrl(ROUTES_NAME.inactiveUser);
+                    }
                 } else {
                     this._loadingService.hide();
                     this._router.navigateByUrl(this._redirectUrl);

@@ -9,6 +9,7 @@ const CHANGELOG_ROUTES = {
 
 const ERRORS_ROUTES = {
     notFound: 'errors/not-found',
+    inactiveUser: 'errors/inactive-user',
     notAuthenticated: 'errors/not-authenticated',
     workspaceNotActivated: 'errors/workspace-not-activated',
     invalidExpressToken: 'errors/invalid-express-token',

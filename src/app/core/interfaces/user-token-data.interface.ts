@@ -1,8 +1,9 @@
 export interface UserTokenData {
-    exp: number,
-    iat: number,
-    userId: string,
-    workspaceId: string,
-    roleId: number,
-    isActiveWorkspace: boolean
+    exp: number;
+    iat: number;
+    userId: string;
+    workspaceId: string;
+    roleId: number;
+    isActiveWorkspace: boolean;
+    isActiveUser: boolean;
 }

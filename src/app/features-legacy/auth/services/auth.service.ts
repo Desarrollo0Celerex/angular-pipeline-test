@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AUTH_ROUTES } from '@core/constants/routes';
 import { AUTH_ENDPOINTS } from '@core/constants/endpoints';
 import { environment } from '@env/environment';
 import { UserTokenData } from '@core/interfaces/user-token-data.interface';
@@ -79,6 +78,18 @@ export class AuthService {
             !!this._storageService.getUserTokenData()
             ? true
             : false;
+    }
+
+    checkIsActiveUser(): boolean {
+        const userTokenData: UserTokenData | null =
+            this._storageService.getUserTokenData();
+        return userTokenData !== null && userTokenData.isActiveUser
+            ? true
+            : false;
+    }
+
+    closeSessionInAgenthos(): void {
+        this._storageService.clearStorage();
     }
 
     getFirebaseToken(workspaceId: string, userId: string): Observable<string> {

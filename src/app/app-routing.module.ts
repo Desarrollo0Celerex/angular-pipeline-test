@@ -47,6 +47,13 @@ const routes: Routes = [
             ),
     },
     {
+        path: ROUTES_NAME.inactiveUser,
+        loadChildren: () =>
+            import('@pages/errors/inactive-user/inactive-user.module').then(
+                (mod) => mod.InactiveUserModule
+            ),
+    },
+    {
         path: ROUTES_NAME.notAuthenticated,
         loadChildren: () =>
             import(
