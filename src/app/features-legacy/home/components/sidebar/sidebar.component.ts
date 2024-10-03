@@ -9,7 +9,7 @@ import { ThemeService } from '@core/services/theme/theme.service';
 import { WorkspaceTheme } from '@core/interfaces/workspace-theme.interface';
 import { WORKSPACE_THEMES } from '@core/constants/settings';
 import { UserWorkspacesModalComponent } from '@workspace-users/components/user-workspaces-modal/user-workspaces-modal.component';
-import { WorkspaceUserService } from '@workspace-users/services/workspace-user.service';
+import { UserWorkspaceService } from '@userWorkspace/services/user-workspace.service';
 
 declare var jQuery: any;
 
@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
     userWorkspacesModalComponent!: UserWorkspacesModalComponent;
     ROUTES_NAME: any = ROUTES_NAME;
     WORKSPACE_THEMES = WORKSPACE_THEMES;
-    appVersion = '1.54.14';
+    appVersion = '1.54.16';
     agenthosSupportPhone =
         environment.agenthos.support.phoneCode +
         environment.agenthos.support.phoneNumber;
@@ -32,10 +32,10 @@ export class SidebarComponent implements OnInit {
     workspaceThemes: WorkspaceTheme[] = [];
 
     constructor(
+        private _renderer2: Renderer2,
         private _themeService: ThemeService,
-        private _workspaceService: WorkspaceService,
-        private _workspaceUserService: WorkspaceUserService,
-        private _renderer2: Renderer2
+        private _userWorkspace: UserWorkspaceService,
+        private _workspaceService: WorkspaceService
     ) {}
 
     ngOnInit(): void {
@@ -63,11 +63,9 @@ export class SidebarComponent implements OnInit {
     }
 
     private _loadTotalUserWorkspaces(): void {
-        this._workspaceUserService
-            .getTotalUserWorkspaces()
-            .subscribe((total) => {
-                this.totalUserWorkspaces = total;
-            });
+        this._userWorkspace.getTotalUserWorkspaces().subscribe((total) => {
+            this.totalUserWorkspaces = total;
+        });
     }
 
     private _loadWorkspace(): void {

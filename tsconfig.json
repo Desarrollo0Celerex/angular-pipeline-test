@@ -45,6 +45,7 @@
             "@task-progress-status/*": ["app/features/task-progress-status/*"],
             "@tasks/*": ["app/features/tasks/*"],
             "@users/*": ["app/features/users/*"],
+            "@userWorkspace/*": ["app/features/user-workspace/*"],
             "@workspace/*": ["app/features/workspace/*"],
             "@workspace-users/*": ["app/features/workspace-users/*"],
 

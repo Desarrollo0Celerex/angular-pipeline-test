@@ -30,6 +30,7 @@ import { PoliciesModule } from '@policy/policies.module';
 import { ClientModule } from '@client/client.module';
 import { NotifierModule } from '@notifier/notifier.module';
 import { WorkspaceUsersModule } from '@workspace-users/workspace-users.module';
+import { UserWorkspaceModule } from '@userWorkspace/user-workspace.module';
 
 @NgModule({
     declarations: [
@@ -62,6 +63,7 @@ import { WorkspaceUsersModule } from '@workspace-users/workspace-users.module';
         ModalConfirmGoToAgenthosSupportModule,
         NotifierModule,
         PoliciesModule,
+        UserWorkspaceModule,
         WorkspaceUsersModule,
     ],
     providers: [VoiceControlService],
