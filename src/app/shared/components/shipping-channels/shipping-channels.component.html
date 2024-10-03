@@ -97,6 +97,49 @@
             <!-- (JUST IF EMAIL CHANNEL SELECTED) -->
             <div class="form-group mt-3" *ngIf="form.value.hasEmail">
                 <!-- AGENTHOS - SMARTWALLET POLICY OWNER EMAIL -->
+                <div class="form-group">
+                    <div class="row gutters-xs">
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i
+                                            class="fa fa-envelope tx-16 lh-0 op-6"
+                                        ></i>
+                                    </div>
+                                </div>
+                                <input
+                                    type="text"
+                                    class="form-control {{
+                                        getValidationClass('email')
+                                    }}"
+                                    formControlName="email"
+                                />
+                                <div class="invalid-feedback">
+                                    {{ getErrorMessage("email") }}
+                                </div>
+                            </div>
+                        </div>
+                        <span class="col-auto">
+                            <button
+                                class="btn agt-btn-primary"
+                                type="button"
+                                (click)="addEmailCopies()"
+                            >
+                                <strong>Enviar Copia</strong>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- //AGENTHOS - SMARTWALLET POLICY NOTIFICATION EMAIL -->
+            <!-- AGENTHOS - SMARTWALLET POLICY NOTIFICATION EMAIL COPY -->
+            <!-- (JUST IF SEND EMAIL COPY SELECTED) -->
+            <div class="form-group mt-3" *ngIf="hasEmailCopies">
+                <!-- AGENTHOS - SMARTWALLET POLICY OWNER EMAIL -->
+                <label class="form-label"
+                    >Agrega los correos separados por coma.</label
+                >
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -105,15 +148,16 @@
                     </div>
                     <input
                         type="text"
-                        class="form-control {{ getValidationClass('email') }}"
-                        formControlName="email"
+                        class="form-control {{ getValidationClass('bcc') }}"
+                        formControlName="bcc"
+                        placeholder="usuario@correo.com,usuario@correo.com"
                     />
                     <div class="invalid-feedback">
-                        {{ getErrorMessage("email") }}
+                        {{ getErrorMessage("bcc") }}
                     </div>
                 </div>
             </div>
-            <!-- //AGENTHOS - SMARTWALLET POLICY NOTIFICATION EMAIL -->
+            <!-- AGENTHOS - SMARTWALLET POLICY NOTIFICATION EMAIL COPY -->
         </div>
     </div>
     <div class="row">

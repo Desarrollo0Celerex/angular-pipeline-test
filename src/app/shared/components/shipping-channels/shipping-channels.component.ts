@@ -24,11 +24,17 @@ export class ShippingChannelsComponent {
         phoneNumber: string;
         hasEmail: boolean;
         email: string;
+        bcc?: string;
     }>();
     form = this._buildForm();
+    hasEmailCopies = false;
     private _isFormSubmitted = false;
 
     constructor(private _formBuilder: FormBuilder) {}
+
+    addEmailCopies(): void {
+        this.hasEmailCopies = true;
+    }
 
     fillForm(formData: {
         phoneCode: string;
@@ -95,6 +101,7 @@ export class ShippingChannelsComponent {
                     Validators.maxLength(EMAIL_LENGTH.MAX),
                 ],
             ],
+            bcc: [''],
         });
     }
 }

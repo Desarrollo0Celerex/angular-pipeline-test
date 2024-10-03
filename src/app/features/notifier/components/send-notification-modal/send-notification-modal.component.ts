@@ -67,6 +67,7 @@ export class SendNotificationModalComponent
         phoneCode: string;
         phoneNumber: string;
         email: string;
+        bcc?: string;
     }): void {
         this._phone = data.phoneCode + data.phoneNumber;
         const notificationChannels: NotificationChannel[] = [];
@@ -75,6 +76,7 @@ export class SendNotificationModalComponent
                 channelId: NOTIFICATION_CHANNELS.EMAIL,
                 notificationTypeId: this.data!.notificationTypeId,
                 contact: data.email,
+                bcc: data.bcc ? data.bcc : null,
             });
         }
         if (data.hasPhone) {
