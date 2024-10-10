@@ -478,6 +478,14 @@ export class UpdatePolicyService {
                     : 1,
             ],
             insureds: this._formBuilder.array([]),
+            insuredHolder: {
+                isTitularTheInsuredHolder: false,
+                name: '',
+                file: '',
+                birthdate: '',
+                genderId: '',
+                relationId: 3,
+            },
         });
 
         if (this.policy !== null) {
@@ -993,6 +1001,19 @@ export class UpdatePolicyService {
                         observer.complete();
                     }
                 );
+        });
+    }
+
+    copyTitularIntoInsuredHolder(): void {
+        this.policyForm.patchValue({
+            insuredHolder: {
+                ...this.f.insuredHolder.value,
+                name: this.f.titularName.value,
+                birthdate:
+                    this._titularBirthdate ||
+                    this.f.insuredHolder.value.birthdate,
+                genderId: this.f.titularGenderId.value,
+            },
         });
     }
 

@@ -21626,3 +21626,10 @@ a.text-dark:hover, a.text-dark:focus {
     background: #EE2048;
 }
 /* AGENTHOS - WORKSPACE THEMES */
+
+/* -- AGENTHOS - INPUTS -- */
+
+.input-group > .form-control:not(:last-child), .input-group > .custom-select:not(:last-child) {
+  border-top-right-radius: .25rem !important;
+  border-bottom-right-radius: .25rem !important;
+}

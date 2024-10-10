@@ -132,7 +132,7 @@ export class UploadPolicyComplementModalComponent {
     }
 
     private _initDropify(): void {
-        DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
+        DropifyPlugin.initV2(this.allowedFileExtensions, this.maxFileSize);
     }
 
     private _uploadComplement(): void {

@@ -1,0 +1,170 @@
+<!-- AGENTHOS - SMARTWALLET POLICY HOLDER -->
+<!-- (JUST FOR Salud & Cuidado Personal + Vida & Planes de Ahorro INSURANCE) -->
+<div class="card" [formGroup]="form">
+    <div class="card-header">
+        <h3 class="card-title">Asegurado Titular</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <ol class="breadcrumb1">
+                    <li class="breadcrumb-item1">
+                        Indica si el contratante es el asegurado titular de la
+                        póliza.
+                    </li>
+                </ol>
+                <ul class="list-group">
+                    <!-- AGENTHOS - POLICY AUTOMATIC PAYMENT * -->
+                    <li class="list-group-item">
+                        Contratante Asegurado
+                        <div class="material-switch pull-right">
+                            <input
+                                id="isTitularTheInsuredHolder"
+                                type="checkbox"
+                                formControlName="isTitularTheInsuredHolder"
+                                (change)="toggleInsuredHolderData($event)"
+                            />
+                            <label
+                                for="isTitularTheInsuredHolder"
+                                class="label-success"
+                            ></label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <!-- AGENTHOS - SMARTWALLET POLICY HOLDER NAME * -->
+                    <label class="form-label"
+                        >Nombre del Asegurado Titular</label
+                    >
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-user tx-16 lh-0 op-6"></i>
+                            </div>
+                        </div>
+                        <input
+                            type="text"
+                            class="form-control {{
+                                getValidationClass('name')
+                            }}"
+                            formControlName="name"
+                        />
+                        <div class="invalid-feedback">
+                            {{ getErrorMessage("name") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <!-- AGENTHOS - SMARTWALLET POLICY HOLDER CERTIFICATE -->
+                    <label class="form-label">Tarjeta del Asegurado</label>
+                    <button
+                        type="button"
+                        class="btn btn-block agt-btn-secondary"
+                        (click)="onShowModalToSelectInsuredHolderFile()"
+                    >
+                        <strong>CARGAR CERTIFICADO</strong>
+                    </button>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <!-- AGENTHOS - SMARTWALLET POLICY TITULAR AGE -->
+                    <label class="form-label">Nacimiento del Asegurado</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i
+                                    class="fa fa-birthday-cake tx-16 lh-0 op-6"
+                                ></i>
+                            </div>
+                        </div>
+                        <input
+                            class="form-control {{
+                                getValidationClass('birthdate')
+                            }}"
+                            formControlName="birthdate"
+                            type="text"
+                            [matDatepicker]="birthdatePicker"
+                            (click)="birthdatePicker.open()"
+                        />
+                        <mat-datepicker #birthdatePicker />
+                        <div class="invalid-feedback">
+                            {{ getErrorMessage("birthdate") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <!-- AGENTHOS - SMART WALLET POLICY TITULAR GENDER -->
+                    <label class="form-label">Género del Asegurado</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i
+                                    class="fa fa-check-square tx-16 lh-0 op-6"
+                                ></i>
+                            </div>
+                        </div>
+                        <select
+                            class="form-control {{
+                                getValidationClass('genderId')
+                            }}"
+                            formControlName="genderId"
+                        >
+                            <optgroup label="Seleccionar Género">
+                                <option
+                                    [value]="gender.genderId"
+                                    *ngFor="let gender of genders"
+                                >
+                                    {{ gender.name | uppercase }}
+                                </option>
+                            </optgroup>
+                        </select>
+                        <div class="invalid-feedback">
+                            {{ getErrorMessage("genderId") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <!-- AGENTHOS - SMART WALLET POLICY HOLDER RELATION -->
+                    <label class="form-label">Relación del Asegurado</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-users tx-16 lh-0 op-6"></i>
+                            </div>
+                        </div>
+                        <select
+                            class="form-control {{
+                                getValidationClass('relationId')
+                            }}"
+                            formControlName="relationId"
+                        >
+                            <optgroup label="Seleccionar Género">
+                                <option
+                                    [value]="insuredRelation.insuredRelationId"
+                                    *ngFor="
+                                        let insuredRelation of insuredRelations
+                                    "
+                                >
+                                    {{ insuredRelation.name | uppercase }}
+                                </option>
+                            </optgroup>
+                        </select>
+                        <div class="invalid-feedback">
+                            {{ getErrorMessage("relationId") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - SMARTWALLET POLICY HOLDER -->

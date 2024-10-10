@@ -23,8 +23,8 @@ import { POLICY_ROUTES } from '@policy/constants/routes';
 import { PolicyService } from '@policy/services/policy.service';
 import {
     FileParam,
-    FileUploaderComponent,
-} from '@shared/components/file-uploader/file-uploader.component';
+    LargeFileUploaderComponent,
+} from '@shared/components/large-file-uploader/large-file-uploader.component';
 import { WorkspaceService } from '@workspace/services/workspace.service';
 import { Observable, forkJoin } from 'rxjs';
 import { CreatePolicyModalService } from './create-policy-modal.service';
@@ -45,8 +45,8 @@ export class CreatePolicyModalComponent
     implements OnInit
 {
     @Input() modalId = 'agt-create-policy-modal';
-    @ViewChild(FileUploaderComponent)
-    fileUploaderComponent!: FileUploaderComponent;
+    @ViewChild(LargeFileUploaderComponent)
+    largeFileUploaderComponent!: LargeFileUploaderComponent;
     allowedFileExtensions: string[] = ['pdf'];
     insuranceCategories: InsuranceCategory[] = [];
     insuranceTypes: InsuranceType[] = [];
@@ -250,9 +250,12 @@ export class CreatePolicyModalComponent
 
     private _initDropify(): void {
         setTimeout(() => {
-            DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
+            DropifyPlugin.initV2(this.allowedFileExtensions, this.maxFileSize);
         }, 0);
-        this.fileUploaderComponent.init(this.fileContainerId, this.fileInputId);
+        this.largeFileUploaderComponent.init(
+            this.fileContainerId,
+            this.fileInputId
+        );
     }
 
     private _loadCatalogs(): void {
@@ -386,6 +389,9 @@ export class CreatePolicyModalComponent
             this._policyId
         );
         const fileParams: FileParam[] = this._generateFileParams();
-        this.fileUploaderComponent.uploadFile(fileParams, uploadPolicyEndpoint);
+        this.largeFileUploaderComponent.uploadFile(
+            fileParams,
+            uploadPolicyEndpoint
+        );
     }
 }

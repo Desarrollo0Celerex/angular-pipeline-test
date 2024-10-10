@@ -49,7 +49,7 @@ export class ModalUploadSinisterEvidenceComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         this.model.loadSinisterEvidenceTypes();
-        DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
+        DropifyPlugin.initV2(this.allowedFileExtensions, this.maxFileSize);
     }
 
     ngOnChanges(changes: SimpleChanges): void {

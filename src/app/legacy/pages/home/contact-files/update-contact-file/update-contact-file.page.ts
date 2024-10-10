@@ -65,7 +65,7 @@ export class UpdateContactFilePage implements OnInit {
             this.contactFileData!.contactId,
             this.contactFileData!.contactFileId
         );
-        DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
+        DropifyPlugin.initV2(this.allowedFileExtensions, this.maxFileSize);
         this.updateContactFileService.buildForm();
         this.updateContactFileService.loadContactFileTypes();
         if (!!this.contactFileData) {

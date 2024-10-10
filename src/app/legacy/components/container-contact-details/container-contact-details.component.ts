@@ -5,10 +5,9 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { ContainerContactDetailsService } from './container-contact-details.service';
 
 @Component({
-  selector: 'agt-container-contact-details',
-  templateUrl: './container-contact-details.component.html',
-  styles: [
-  ]
+    selector: 'agt-container-contact-details',
+    templateUrl: './container-contact-details.component.html',
+    styles: [],
 })
 export class ContainerContactDetailsComponent implements OnChanges {
     @Input() contactId: string = '';
@@ -16,16 +15,22 @@ export class ContainerContactDetailsComponent implements OnChanges {
     @Input() policyId: string = '';
     contactProfileRoute: string = '';
 
-    constructor(public model: ContainerContactDetailsService) { }
+    constructor(public model: ContainerContactDetailsService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.contactId && !!changes.contactId.currentValue) {
-            this.contactProfileRoute = ROUTES_NAME.contactResume(this.contactId);
+        if (!!changes.contactId && !!changes.contactId.currentValue) {
+            this.contactProfileRoute = ROUTES_NAME.listContactPolicies(
+                this.contactId
+            );
             this.model.loadContact(this.contactId);
         }
-        if(!!changes.contactId && !!changes.contactId.currentValue && !!changes.policyId && !!changes.policyId.currentValue) {
+        if (
+            !!changes.contactId &&
+            !!changes.contactId.currentValue &&
+            !!changes.policyId &&
+            !!changes.policyId.currentValue
+        ) {
             this.model.loadPolicyNumber(this.contactId, this.policyId);
         }
     }
-
 }

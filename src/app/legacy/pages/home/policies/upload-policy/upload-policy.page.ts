@@ -56,7 +56,7 @@ export class UploadPolicyPage implements OnInit, OnDestroy {
             this.contactId,
             this.policyId
         );
-        DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
+        DropifyPlugin.initV2(this.allowedFileExtensions, this.maxFileSize);
         this.uploadPolicyService.buildPolicyForm();
         this._getContactPolicy();
         this._comesFromRenewalPolicy =

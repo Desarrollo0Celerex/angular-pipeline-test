@@ -48,9 +48,10 @@ import { QrCodeComponent } from './components/qr-code/qr-code.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { FileExtensionComponent } from './components/file-extension/file-extension.component';
 import { ShippingChannelsComponent } from './components/shipping-channels/shipping-channels.component';
-import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
+import { LargeFileUploaderComponent } from './components/large-file-uploader/large-file-uploader.component';
 import { WorkspaceThemeColorPipe } from './pipes/workspace-theme-color/workspace-theme-color.pipe';
 import { LastReminderAlertComponent } from './components/last-reminder-alert/last-reminder-alert.component';
+import { SelectSmallFileModalComponent } from './components/select-small-file-modal/select-small-file-modal.component';
 
 @NgModule({
     declarations: [
@@ -90,8 +91,9 @@ import { LastReminderAlertComponent } from './components/last-reminder-alert/las
         AlertComponent,
         FileExtensionComponent,
         ShippingChannelsComponent,
-        FileUploaderComponent,
+        LargeFileUploaderComponent,
         WorkspaceThemeColorPipe,
+        SelectSmallFileModalComponent,
     ],
     exports: [
         AlertComponent,
@@ -108,7 +110,7 @@ import { LastReminderAlertComponent } from './components/last-reminder-alert/las
         ContentListComponent,
         DownloadContentComponent,
         FileExtensionComponent,
-        FileUploaderComponent,
+        LargeFileUploaderComponent,
         GenderNamePipe,
         GenerateShippingInformationComponent,
         LastReminderAlertComponent,
@@ -117,6 +119,7 @@ import { LastReminderAlertComponent } from './components/last-reminder-alert/las
         PluralPipe,
         PhoneCodePipe,
         QrCodeComponent,
+        SelectSmallFileModalComponent,
         ShippingChannelsComponent,
         WorkspaceThemeColorPipe,
     ],

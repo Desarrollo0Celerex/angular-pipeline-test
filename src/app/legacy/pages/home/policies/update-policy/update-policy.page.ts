@@ -31,6 +31,7 @@ import {
 } from '@notifier/services/notifier.service';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { UpdatePolicyService } from './update-policy.service';
+import { INSURANCES } from '@core/constants/settings';
 
 declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
@@ -56,6 +57,7 @@ export class UpdatePolicyPage implements OnInit {
     existingPolicyId: string = '';
     hasSeller = false;
     hasConsultingCost = false;
+    isFormSubmitted: boolean;
     isScannerFailed: boolean = false;
     message: string = 'Valida los datos de la nueva póliza de';
     modalIdBasePoliciDataLoaded: string = 'agt-base-policy-data-loaded';
@@ -75,7 +77,6 @@ export class UpdatePolicyPage implements OnInit {
     searchIdInsurances: string = 'insuranceId';
     searchIdInsurers: string = 'insurerId';
     private _isCompletePolicyAction: boolean = false;
-    private _isFormSubmitted: boolean;
     private _scannedPolicyData: Policy | null = null;
     private _policyUrl = '';
     private _policyFile: File | null = null;
@@ -103,12 +104,19 @@ export class UpdatePolicyPage implements OnInit {
             formats: DOCUMENT_FORMATS,
             fileType: FILE_TYPES.DOCUMENT,
         };
-        this._isFormSubmitted = false;
+        this.isFormSubmitted = false;
     }
 
     ngOnInit(): void {
         this._catchParams();
         this._loadContactPolicy();
+    }
+
+    get hasInsuredHolder(): boolean {
+        return (
+            this.model.f.insuranceId.value === INSURANCES.HEALTH ||
+            this.model.f.insuranceId.value === INSURANCES.LIFE
+        );
     }
 
     get areSeveralInsured(): boolean {
@@ -218,6 +226,10 @@ export class UpdatePolicyPage implements OnInit {
         this.model.calculateSellerCommissionAmount(event.target.value);
     }
 
+    copyTitularIntoInsuredHolder(): void {
+        this.model.copyTitularIntoInsuredHolder();
+    }
+
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null =
             this.model.policyForm.get(constrolName);
@@ -245,7 +257,7 @@ export class UpdatePolicyPage implements OnInit {
             this.model.policyForm.get(constrolName);
         return InputValidatorHelper.getValidationClass(
             control,
-            this._isFormSubmitted
+            this.isFormSubmitted
         );
     }
 
@@ -258,7 +270,7 @@ export class UpdatePolicyPage implements OnInit {
             .get(constrolName);
         const validationClass: string = InputValidatorHelper.getValidationClass(
             control,
-            this._isFormSubmitted
+            this.isFormSubmitted
         );
         if (constrolName === 'insuredPolicyFile') {
             return validationClass === 'is-valid'
@@ -324,11 +336,20 @@ export class UpdatePolicyPage implements OnInit {
         //this._scannPolicy(policyFile);
     }
 
-    /**
-     * Submit event to save policy
-     */
     onSubmitSavePolicy(): void {
-        this._isFormSubmitted = true;
+        this.isFormSubmitted = true;
+
+        console.log(
+            'this.model.policyForm.value: ',
+            this.model.policyForm.value
+        );
+        console.log(
+            'this.model.policyForm.valid: ',
+            this.model.policyForm.valid
+        );
+
+        return;
+
         if (!this.model.policyForm.valid) {
             AlertHelper.invalidForm();
             return;

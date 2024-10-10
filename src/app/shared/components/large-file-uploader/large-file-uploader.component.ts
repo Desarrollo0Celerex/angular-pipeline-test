@@ -13,11 +13,11 @@ export interface FileParam {
 }
 
 @Component({
-    selector: 'agt-file-uploader',
+    selector: 'agt-large-file-uploader',
     template: '',
     styles: [],
 })
-export class FileUploaderComponent {
+export class LargeFileUploaderComponent {
     @Input() endpoint: string = '';
     @Input() allowedFileExtensions: string[] = [];
     @Input() maxFileSize: string = '';

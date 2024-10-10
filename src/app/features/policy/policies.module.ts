@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { PoliciesRoutingModule } from './policies-routing.module';
 import { SelectContactFieldsToRewriteComponent } from './components/select-contact-fields-to-rewrite/select-contact-fields-to-rewrite.component';
@@ -43,6 +44,9 @@ import { PolicyRenewalActionsModalComponent } from './components/policy-renewal-
 import { PolicyEndorsementActionsModalComponent } from './components/policy-endorsement-actions-modal/policy-endorsement-actions-modal.component';
 import { PolicyUpdateActionsModalComponent } from './components/policy-update-actions-modal/policy-update-actions-modal.component';
 import { UpdatePolicyFileModalComponent } from './components/update-policy-file-modal/update-policy-file-modal.component';
+import { PolicyInsuredHolderFormComponent } from './components/policy-insured-holder-form/policy-insured-holder-form.component';
+import { GenderModule } from '@gender/gender.module';
+import { InsuredRelationModule } from '@insured-relation/insured-relation.module';
 
 @NgModule({
     declarations: [
@@ -70,6 +74,7 @@ import { UpdatePolicyFileModalComponent } from './components/update-policy-file-
         PolicyEndorsementActionsModalComponent,
         PolicyUpdateActionsModalComponent,
         UpdatePolicyFileModalComponent,
+        PolicyInsuredHolderFormComponent,
     ],
     exports: [
         CancelPolicyModalComponent,
@@ -79,6 +84,7 @@ import { UpdatePolicyFileModalComponent } from './components/update-policy-file-
         PolicyCoverCardComponent,
         PolicyEndorsementActionsModalComponent,
         PolicyHeaderComponent,
+        PolicyInsuredHolderFormComponent,
         PolicyPaymentActionsModalComponent,
         PolicyRecordActionsModalComponent,
         PolicyReissueActionsModalComponent,
@@ -89,8 +95,10 @@ import { UpdatePolicyFileModalComponent } from './components/update-policy-file-
     ],
     imports: [
         CommonModule,
+        GenderModule,
         InsuranceModule,
         InsuranceTypeModule,
+        InsuredRelationModule,
         InsurerModule,
         NotifierModule,
         PoliciesRoutingModule,
@@ -100,6 +108,7 @@ import { UpdatePolicyFileModalComponent } from './components/update-policy-file-
         ReactiveFormsModule,
         SinisterModule,
         PolicyComplementModule,
+        MatDatepickerModule,
         ModalCreateSinisterModule,
         ModalConfirmReissuePolicyModule,
         ModalSelectContactTypeModule,

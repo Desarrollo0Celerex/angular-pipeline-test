@@ -11,7 +11,7 @@ import { LoadingService } from '@core/services/loading/loading.service';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { POLICY_ENDPOINTS } from '@policy/constants/endpoints';
-import { FileUploaderComponent } from '@shared/components/file-uploader/file-uploader.component';
+import { LargeFileUploaderComponent } from '@shared/components/large-file-uploader/large-file-uploader.component';
 
 declare var DropifyPlugin: any;
 declare var ModalPlugin: any;
@@ -22,8 +22,8 @@ declare var ModalPlugin: any;
     styles: [],
 })
 export class UpdatePolicyFileModalComponent {
-    @ViewChild(FileUploaderComponent)
-    fileUploaderComponent!: FileUploaderComponent;
+    @ViewChild(LargeFileUploaderComponent)
+    largeFileUploaderComponent!: LargeFileUploaderComponent;
     allowedFileExtensions: string[] = ['pdf'];
     fileContainerId = 'agt-file-container-update-policy';
     fileInputId = 'agt-file-input-update-policy';
@@ -100,9 +100,12 @@ export class UpdatePolicyFileModalComponent {
 
     private _initDropify(): void {
         setTimeout(() => {
-            DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
+            DropifyPlugin.initV2(this.allowedFileExtensions, this.maxFileSize);
         }, 0);
-        this.fileUploaderComponent.init(this.fileContainerId, this.fileInputId);
+        this.largeFileUploaderComponent.init(
+            this.fileContainerId,
+            this.fileInputId
+        );
     }
 
     private _uploadPolicyFile(): void {
@@ -111,6 +114,6 @@ export class UpdatePolicyFileModalComponent {
             this._contactId,
             this._policyId
         );
-        this.fileUploaderComponent.uploadFile([], uploadPolicyEndpoint);
+        this.largeFileUploaderComponent.uploadFile([], uploadPolicyEndpoint);
     }
 }

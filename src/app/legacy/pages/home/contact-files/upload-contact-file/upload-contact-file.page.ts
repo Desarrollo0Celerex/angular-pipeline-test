@@ -63,7 +63,7 @@ export class UploadContactFilePage implements OnInit {
             this._workspaceId,
             this.contactId
         );
-        DropifyPlugin.initAux(this.allowedFileExtensions, this.maxFileSize);
+        DropifyPlugin.initV2(this.allowedFileExtensions, this.maxFileSize);
         this.uploadFileService.loadContactFileTypes();
         this.uploadFileService.buildForm();
     }
