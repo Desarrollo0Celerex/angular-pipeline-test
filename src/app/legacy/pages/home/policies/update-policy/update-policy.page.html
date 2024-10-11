@@ -719,6 +719,7 @@
                 <agt-policy-insured-holder-form
                     formControlName="insuredHolder"
                     [isFormSubmitted]="isFormSubmitted"
+                    [previewUrl]="model.policy.insuredHolderFileUrl"
                     (copyTitularIntoInsuredHolder)="copyTitularIntoInsuredHolder()"
                 />
                 <!-- AGENTHOS - SMARTWALLET POLICY DEPENDENTS -->

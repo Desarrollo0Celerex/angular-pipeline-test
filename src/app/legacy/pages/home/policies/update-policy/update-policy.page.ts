@@ -227,7 +227,7 @@ export class UpdatePolicyPage implements OnInit {
     }
 
     copyTitularIntoInsuredHolder(): void {
-        this.model.copyTitularIntoInsuredHolder();
+        this.model.copyTitularIntoInsuredHolder(this._titularBirthdate);
     }
 
     getErrorMessage(constrolName: string): string {
@@ -245,9 +245,10 @@ export class UpdatePolicyPage implements OnInit {
 
     generateTitularAge(event: any): void {
         const rfc = event.target.value;
-        const birthdate = UtilitiesHelper.generateBirthdateBasedOnRfc(rfc);
-        if (birthdate) {
-            const age = moment().diff(birthdate, 'years');
+        this._titularBirthdate =
+            UtilitiesHelper.generateBirthdateBasedOnRfc(rfc);
+        if (this._titularBirthdate) {
+            const age = moment().diff(this._titularBirthdate, 'years');
             this.model.policyForm.patchValue({ titularAge: age });
         }
     }
@@ -338,18 +339,6 @@ export class UpdatePolicyPage implements OnInit {
 
     onSubmitSavePolicy(): void {
         this.isFormSubmitted = true;
-
-        console.log(
-            'this.model.policyForm.value: ',
-            this.model.policyForm.value
-        );
-        console.log(
-            'this.model.policyForm.valid: ',
-            this.model.policyForm.valid
-        );
-
-        return;
-
         if (!this.model.policyForm.valid) {
             AlertHelper.invalidForm();
             return;
@@ -576,6 +565,12 @@ export class UpdatePolicyPage implements OnInit {
                     this._downloadPolicy();
                 } else {
                     this.paymentId = res.data.paymentId;
+                    if (res.data.titularRfc) {
+                        this._titularBirthdate =
+                            UtilitiesHelper.generateBirthdateBasedOnRfc(
+                                res.data.titularRfc
+                            );
+                    }
                 }
                 this.model.buildPolicyForm(res.data);
                 this.hasSeller = res.data.partnerId ? true : false;

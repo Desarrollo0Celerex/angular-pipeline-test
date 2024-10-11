@@ -54,6 +54,7 @@ export class PolicyInsuredHolderFormComponent
     implements OnInit, OnDestroy, ControlValueAccessor, Validator
 {
     @Input() isFormSubmitted = false;
+    @Input() previewUrl = '';
     @Output() copyTitularIntoInsuredHolder = new EventEmitter<void>();
     form = this._formBuilder.group({
         isTitularTheInsuredHolder: [false],
@@ -123,8 +124,7 @@ export class PolicyInsuredHolderFormComponent
                 defaultFile: this.form.controls.file.value
                     ? this.form.controls.file.value
                     : undefined,
-                filePreviewUrl:
-                    'https://imagenes.eltiempo.com/files/image_1200_600/uploads/2023/08/14/64da2c54530a1.jpeg',
+                filePreviewUrl: this.previewUrl ? this.previewUrl : undefined,
             },
         });
     }

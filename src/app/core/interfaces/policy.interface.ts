@@ -116,4 +116,9 @@ export interface Policy {
     consultingCostPercentage: number;
     consultingCostAmount: number;
     consultingCostCurrencyId: number;
+    insuredHolderName: string;
+    insuredHolderBirthdate: string;
+    insuredHolderGenderId: number;
+    insuredHolderRelationId: number;
+    insuredHolderFileUrl: string;
 }

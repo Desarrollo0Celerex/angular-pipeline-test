@@ -480,11 +480,13 @@ export class UpdatePolicyService {
             insureds: this._formBuilder.array([]),
             insuredHolder: {
                 isTitularTheInsuredHolder: false,
-                name: '',
+                name: policy?.insuredHolderName || '',
                 file: '',
-                birthdate: '',
-                genderId: '',
-                relationId: 3,
+                birthdate: policy?.insuredHolderBirthdate
+                    ? moment(policy.insuredHolderBirthdate)
+                    : '',
+                genderId: policy?.insuredHolderGenderId || '',
+                relationId: policy?.insuredHolderRelationId || '',
             },
         });
 
@@ -1004,14 +1006,15 @@ export class UpdatePolicyService {
         });
     }
 
-    copyTitularIntoInsuredHolder(): void {
+    copyTitularIntoInsuredHolder(titularBirthdate: string | null): void {
+        const birthdate = titularBirthdate ? moment(titularBirthdate) : null;
         this.policyForm.patchValue({
             insuredHolder: {
                 ...this.f.insuredHolder.value,
                 name: this.f.titularName.value,
-                birthdate:
-                    this._titularBirthdate ||
-                    this.f.insuredHolder.value.birthdate,
+                birthdate: birthdate
+                    ? birthdate
+                    : this.f.insuredHolder.value.birthdate,
                 genderId: this.f.titularGenderId.value,
             },
         });
@@ -1212,7 +1215,7 @@ export class UpdatePolicyService {
     ): Observable<HttpResponse> {
         this.policy = null;
         const fields: string =
-            'policyId,paymentId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,policyPlan,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,noTaxPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,firstReceiptGracePeriod,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceRealName,partnerId,coveredProperty,insuranceGroupId,workspaceCountryId,contactTypeId,titularGenderId,titularAge,titularEmail,agentName,agentKey,agentCommissionPercentage,agentCommissionAmount,agentCommissionCurrencyId,agentCommissionPeriod,sellerCommissionPercentage,sellerCommissionAmount,sellerCommissionCurrencyId,sellerCommissionPeriod,contactId,titularLegalRepresentative,hasTaxReceipt,firstReceiptAmount,subsequentReceiptsAmount,subsequentReceiptsGracePeriod,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCurrencyId,contactName,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber,contactBirthdate,isCompleted,accountNumber,cardNumber,bankName,comments,consultingCostPercentage,consultingCostAmount,consultingCostCurrencyId';
+            'policyId,paymentId,insuranceId,insuranceName,insuranceIcon,insuranceBackground,policyStatusName,policyStatusBackground,insuranceTypeId,insuranceTypeName,policyPlan,insurerId,insurerName,policyUrl,policyNumber,clientNumber,emissionDate,validityStartDate,validityEndDate,titularName,titularRfc,titularPostalCode,titularPhoneCodeId,titularPhoneNumber,netPay,taxPay,feePay,coverPay,noTaxPay,extraPay,discount,policyAmount,currencyId,paymentMethodId,paymentPlanId,firstReceiptGracePeriod,bills,receiptsPaid,totalEndorsements,isAutoPayment,insurerImageUrl,policyStatusDescription,lifeTime,insureds,workspaceRealName,partnerId,coveredProperty,insuranceGroupId,workspaceCountryId,contactTypeId,titularGenderId,titularAge,titularEmail,agentName,agentKey,agentCommissionPercentage,agentCommissionAmount,agentCommissionCurrencyId,agentCommissionPeriod,sellerCommissionPercentage,sellerCommissionAmount,sellerCommissionCurrencyId,sellerCommissionPeriod,contactId,titularLegalRepresentative,hasTaxReceipt,firstReceiptAmount,subsequentReceiptsAmount,subsequentReceiptsGracePeriod,policySourceId,maxValidityEndDate,basePolicyId,baseContactId,workspaceCurrencyId,contactName,agentPercentageSuggestion,agentNameSuggestion,agentKeySuggestion,countryTaxRate,coverPaySuggestion,contactRfc,contactGenderId,contactPostalCode,contactEmail,contactPhoneCodeId,contactPhoneNumber,contactBirthdate,isCompleted,accountNumber,cardNumber,bankName,comments,consultingCostPercentage,consultingCostAmount,consultingCostCurrencyId,insuredHolderName,insuredHolderBirthdate,insuredHolderGenderId,insuredHolderRelationId,insuredHolderFileUrl';
         return this._policyService
             .getContactPolicy(contactId, policyId, fields)
             .pipe(
@@ -2228,6 +2231,19 @@ export class UpdatePolicyService {
                 this.f.titularLegalRepresentative.value
             );
         }
+
+        // Insured holder data
+        const insuredHolder = this.f.insuredHolder.value;
+        requestBody.append('insuredHolderName', insuredHolder.name);
+        requestBody.append('insuredHolderFile', insuredHolder.file);
+        requestBody.append(
+            'insuredHolderBirthdate',
+            insuredHolder.birthdate
+                ? insuredHolder.birthdate.format('DD/MM/YYYY')
+                : ''
+        );
+        requestBody.append('insuredHolderGenderId', insuredHolder.genderId);
+        requestBody.append('insuredHolderRelationId', insuredHolder.relationId);
 
         return requestBody;
     }
