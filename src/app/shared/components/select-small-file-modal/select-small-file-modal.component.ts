@@ -45,7 +45,8 @@ export class SelectSmallFileModalComponent
     closeModal(): void {
         this.selectedFile = null;
         ModalPlugin.hide(this.modalId);
-        DropifyPlugin.resetV2();
+        this._filePreviewUrl = '';
+        DropifyPlugin.resetV3();
     }
 
     onChangeFile(event: any): void {
@@ -88,7 +89,7 @@ export class SelectSmallFileModalComponent
 
     private _openModal(): void {
         ModalPlugin.show(this.modalId);
-        DropifyPlugin.initV2(
+        DropifyPlugin.initV3(
             this._allowedFileExtensions,
             this.maxFileSize,
             true,

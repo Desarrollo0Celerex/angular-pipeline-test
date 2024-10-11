@@ -1,6 +1,6 @@
 var DropifyPlugin = (function () {
     function addFilePreview(src, fileName, isPreviewable) {
-        let input = $(".dropify-v2");
+        let input = $(".dropify-v3");
         let wrapper = input.closest(".dropify-wrapper");
         let preview = wrapper.find(".dropify-preview");
         let filename = wrapper.find(".dropify-filename-inner");
@@ -90,7 +90,39 @@ var DropifyPlugin = (function () {
         $(".dropify").dropify(settings);
     }
 
-    function initDropifyV2(
+    function initDropifyV2(allowedFileExtensions, maxFileSize, canShowPreview) {
+        const messages = {
+            default: "Selecciona una archivo de tu dispositivo.",
+            replace: "Selecciona otro archivo de tu dispositivo.",
+            remove: "Eliminar archivo",
+            error: "",
+        };
+        const error = {
+            fileSize:
+                "El tamaño del archivo es demasiado grande. (" +
+                maxFileSize +
+                " máximo).",
+            fileExtension:
+                "El tipo de archivo seleccionado no está permitido, solo se aceptan: " +
+                allowedFileExtensions.join(","),
+        };
+
+        let settings = {
+            messages,
+            error,
+            errorTimeout: 6000,
+            allowedFileExtensions,
+            maxFileSize,
+        };
+
+        if (!canShowPreview) {
+            settings = { ...settings, tpl: { preview: "" } };
+        }
+
+        $(".dropify").dropify(settings);
+    }
+
+    function initDropifyV3(
         allowedFileExtensions,
         maxFileSize,
         canShowPreview,
@@ -126,7 +158,7 @@ var DropifyPlugin = (function () {
             settings = { ...settings, tpl: { preview: "" } };
         }
 
-        $(".dropify-v2").dropify(settings);
+        $(".dropify-v3").dropify(settings);
 
         // If has default file, then add preview
         if (defaultFile) {
@@ -149,8 +181,8 @@ var DropifyPlugin = (function () {
         resetDropify(element);
     }
 
-    function resetV2() {
-        let element = $(".dropify-v2").dropify();
+    function resetV3() {
+        let element = $(".dropify-v3").dropify();
         resetDropify(element);
     }
 
@@ -172,11 +204,18 @@ var DropifyPlugin = (function () {
         initV2: function (
             allowedFileExtensions,
             maxFileSize = "2M",
+            canShowPreview = true
+        ) {
+            initDropifyV2(allowedFileExtensions, maxFileSize, canShowPreview);
+        },
+        initV3: function (
+            allowedFileExtensions,
+            maxFileSize = "2M",
             canShowPreview = true,
             defaultFile = null,
             filePreviewUrl = ""
         ) {
-            initDropifyV2(
+            initDropifyV3(
                 allowedFileExtensions,
                 maxFileSize,
                 canShowPreview,
@@ -187,8 +226,8 @@ var DropifyPlugin = (function () {
         reset: function (inputId = "dropify") {
             reset(inputId);
         },
-        resetV2: function () {
-            resetV2();
+        resetV3: function () {
+            resetV3();
         },
     };
 })();

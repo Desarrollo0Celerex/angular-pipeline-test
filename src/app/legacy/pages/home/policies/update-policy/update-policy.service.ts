@@ -1906,6 +1906,19 @@ export class UpdatePolicyService {
             'contactFieldsToRewrite',
             this.contactFieldsToRewrite.join(',')
         );
+
+        // Insured holder data
+        const insuredHolder = this.f.insuredHolder.value;
+        requestBody.append('insuredHolderName', insuredHolder.name);
+        requestBody.append('insuredHolderFile', insuredHolder.file);
+        requestBody.append(
+            'insuredHolderBirthdate',
+            insuredHolder.birthdate
+                ? insuredHolder.birthdate.format('DD/MM/YYYY')
+                : ''
+        );
+        requestBody.append('insuredHolderGenderId', insuredHolder.genderId);
+        requestBody.append('insuredHolderRelationId', insuredHolder.relationId);
         return requestBody;
     }
 
@@ -2387,6 +2400,19 @@ export class UpdatePolicyService {
                 this.f.titularLegalRepresentative.value
             );
         }
+
+        // Insured holder data
+        const insuredHolder = this.f.insuredHolder.value;
+        requestBody.append('insuredHolderName', insuredHolder.name);
+        requestBody.append('insuredHolderFile', insuredHolder.file);
+        requestBody.append(
+            'insuredHolderBirthdate',
+            insuredHolder.birthdate
+                ? insuredHolder.birthdate.format('DD/MM/YYYY')
+                : ''
+        );
+        requestBody.append('insuredHolderGenderId', insuredHolder.genderId);
+        requestBody.append('insuredHolderRelationId', insuredHolder.relationId);
 
         return requestBody;
     }
