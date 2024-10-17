@@ -4,6 +4,9 @@ export interface Insured {
     personGenderId: number;
     personGenderName: string;
     personAge: string;
+    personBirthdate: string;
+    personRelationId: number;
+    personRelationName: string;
     certificate: string;
     vehicleSubgroup: string;
     vehicleType: string;

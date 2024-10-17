@@ -1,0 +1,160 @@
+<!-- AGENTHOS - SMARTWALLET POLICY DEPENDENTS ITEM -->
+<div class="panel panel-default mt-3">
+    <div class="panel-heading" role="tab" [id]="panelId">
+        <h4 class="panel-title">
+            <a
+                role="button"
+                data-toggle="collapse"
+                data-parent="#accordion"
+                href="#{{ panelCloseId }}"
+                aria-expanded="true"
+                [attr.aria-controls]="panelCloseId"
+            >
+                Asegurado Dependiente No. {{ insuredNumber }}
+            </a>
+        </h4>
+    </div>
+    <div
+        [id]="panelCloseId"
+        class="panel-collapse collapse"
+        [class.show]="insuredNumber === 1"
+        role="tabpanel"
+        aria-labelledby="agtSmartWalletPolicyDependents1"
+    >
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button
+                        type="button"
+                        name="agtSmartWalletPolicyDependentsNew"
+                        class="btn btn-sm agt-btn-secondary"
+                    >
+                        🚮
+                        <strong>ELIMINAR</strong>
+                    </button>
+                </div>
+                <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <!-- AGENTHOS - SMARTWALLET POLICY HOLDER NAME * -->
+                        <label class="form-label">Nombre del Asegurado</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-user tx-16 lh-0 op-6"></i>
+                                </div>
+                            </div>
+                            <input
+                                type="text"
+                                name="agtSmartWalletPolicyHolderName"
+                                class="form-control"
+                                placeholder="Fernando Pèrez"
+                                disabled=""
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <!-- AGENTHOS - SMARTWALLET POLICY HOLDER CERTIFICATE -->
+                        <label class="form-label">Tarjeta del Asegurado</label>
+                        <button
+                            type="button"
+                            name="agtSmartWalletPolicyCertificateUpdate"
+                            class="btn btn-block agt-btn-secondary"
+                            data-toggle="modal"
+                            data-target="#agtSmartWalletPolicyCertificateUpdate"
+                        >
+                            <strong>CARGAR CERTIFICADO</strong>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <!-- AGENTHOS - SMARTWALLET POLICY TITULAR AGE -->
+                        <label class="form-label"
+                            >Nacimiento del Asegurado</label
+                        >
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i
+                                        class="fa fa-birthday-cake tx-16 lh-0 op-6"
+                                    ></i>
+                                </div>
+                            </div>
+                            <input
+                                type="text"
+                                name="agtSmartWalletPolicyTitularBirth"
+                                class="form-control fc-datepicker"
+                                value="08/08/2021"
+                                disabled=""
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <!-- AGENTHOS - SMART WALLET POLICY TITULAR GENDER -->
+                        <label class="form-label">Género del Asegurado</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i
+                                        class="fa fa-check-square tx-16 lh-0 op-6"
+                                    ></i>
+                                </div>
+                            </div>
+                            <select
+                                name="agtSmartWalletPolicyTitularGender"
+                                class="form-control select2-show-search"
+                                data-placeholder="Género del Asegurado"
+                                disabled=""
+                            >
+                                <option value="1"></option>
+                                <option value="2">HOMBRE</option>
+                                <option value="3">MUJER</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <!-- AGENTHOS - SMART WALLET POLICY HOLDER RELATION -->
+                        <label class="form-label">Relación del Asegurado</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-users tx-16 lh-0 op-6"></i>
+                                </div>
+                            </div>
+                            <select
+                                name="agtSmartWalletPolicyHolderRelation"
+                                class="form-control select2-show-search"
+                                data-placeholder="Relación del Asegurado"
+                                disabled=""
+                            >
+                                <option value="1"></option>
+                                <option value="2">CONYUJE</option>
+                                <option value="2">PADRE</option>
+                                <option value="3">MADRE</option>
+                                <option value="3">HIJO</option>
+                                <option value="3">OTRO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <button
+                        type="button"
+                        name="agtSmartWalletPolicyDependentsNew"
+                        class="btn btn-block agt-btn-default"
+                    >
+                        📝
+                        <strong>EDITAR ASEGURADO</strong>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- AGENTHOS - SMARTWALLET POLICY DEPENDENTS ITEM -->

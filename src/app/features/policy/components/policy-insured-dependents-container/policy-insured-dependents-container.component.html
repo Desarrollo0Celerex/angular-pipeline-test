@@ -1,0 +1,65 @@
+<!-- AGENTHOS - SMARTWALLET POLICY DEPENDENTS -->
+<!-- (JUST FOR Salud & Cuidado Personal + Vida & Planes de Ahorro INSURANCE) -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Asegurados Dependientes</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <ol class="breadcrumb1">
+                    <li class="breadcrumb-item1">
+                        Indica si hay asegurados dependientes en la póliza.
+                    </li>
+                </ol>
+                <ul class="list-group">
+                    <!-- AGENTHOS - POLICY AUTOMATIC PAYMENT * -->
+                    <li class="list-group-item">
+                        Asegurados Dependientes
+                        <div class="material-switch pull-right">
+                            <input
+                                id="hasInsureds"
+                                type="checkbox"
+                                [checked]="hasInsureds"
+                                (change)="toggleHasInsureds($event)"
+                            />
+                            <label
+                                for="hasInsureds"
+                                class="label-success"
+                            ></label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <ng-container *ngIf="hasInsureds">
+                <!-- AGENTHOS - SMARTWALLET POLICY DEPENDENTS GROUP -->
+                <div class="col-md-12">
+                    <div
+                        class="panel-group"
+                        id="accordion"
+                        role="tablist"
+                        aria-multiselectable="true"
+                    >
+                        <agt-policy-insured-dependent-form
+                            *ngFor="let insured of insureds; let index = index"
+                            [insuredNumber]="index + 1"
+                            [insured]="insured"
+                        />
+                    </div>
+                </div>
+                <!-- //AGENTHOS - SMARTWALLET POLICY DEPENDENTS GROUP -->
+                <div class="col-md-12 mt-5">
+                    <button
+                        type="button"
+                        class="btn btn-block agt-btn-primary"
+                        (click)="onAddInsured()"
+                    >
+                        <strong>AGREGAR ASEGURADO</strong>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+<!-- //AGENTHOS - SMARTWALLET POLICY DEPENDENTS -->

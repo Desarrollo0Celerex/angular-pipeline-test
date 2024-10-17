@@ -47,6 +47,8 @@ import { UpdatePolicyFileModalComponent } from './components/update-policy-file-
 import { PolicyInsuredHolderFormComponent } from './components/policy-insured-holder-form/policy-insured-holder-form.component';
 import { GenderModule } from '@gender/gender.module';
 import { InsuredRelationModule } from '@insured-relation/insured-relation.module';
+import { PolicyInsuredDependentsContainerComponent } from './components/policy-insured-dependents-container/policy-insured-dependents-container.component';
+import { PolicyInsuredDependentFormComponent } from './components/policy-insured-dependent-form/policy-insured-dependent-form.component';
 
 @NgModule({
     declarations: [
@@ -75,6 +77,8 @@ import { InsuredRelationModule } from '@insured-relation/insured-relation.module
         PolicyUpdateActionsModalComponent,
         UpdatePolicyFileModalComponent,
         PolicyInsuredHolderFormComponent,
+        PolicyInsuredDependentsContainerComponent,
+        PolicyInsuredDependentFormComponent,
     ],
     exports: [
         CancelPolicyModalComponent,
@@ -84,6 +88,7 @@ import { InsuredRelationModule } from '@insured-relation/insured-relation.module
         PolicyCoverCardComponent,
         PolicyEndorsementActionsModalComponent,
         PolicyHeaderComponent,
+        PolicyInsuredDependentsContainerComponent,
         PolicyInsuredHolderFormComponent,
         PolicyPaymentActionsModalComponent,
         PolicyRecordActionsModalComponent,
