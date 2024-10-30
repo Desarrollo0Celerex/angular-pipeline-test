@@ -116,6 +116,10 @@ export enum INSURANCES {
     MACHIN = 45,
 }
 
+export enum INSURED_RELATIONS {
+    TITULAR = 1,
+}
+
 export enum PAYMENT_PLANS {
     SINGLE_PAYMENT = 1,
     ANNUAL = 5,

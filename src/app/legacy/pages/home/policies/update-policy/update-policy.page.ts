@@ -32,6 +32,10 @@ import {
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { UpdatePolicyService } from './update-policy.service';
 import { INSURANCES } from '@core/constants/settings';
+import { Gender } from '@gender/interfaces/gender.interface';
+import { InsuredRelation } from '@insured-relation/interfaces/insured-relation.interface';
+import { GenderService } from '@gender/services/gender.service';
+import { InsuredRelationService } from '@insured-relation/services/insured-relation.service';
 
 declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
@@ -76,6 +80,8 @@ export class UpdatePolicyPage implements OnInit {
     paymentId = '';
     searchIdInsurances: string = 'insuranceId';
     searchIdInsurers: string = 'insurerId';
+    genders: Gender[] = [];
+    insuredRelations: InsuredRelation[] = [];
     private _isCompletePolicyAction: boolean = false;
     private _scannedPolicyData: Policy | null = null;
     private _policyUrl = '';
@@ -88,7 +94,9 @@ export class UpdatePolicyPage implements OnInit {
         private _loadingService: LoadingService,
         private _router: Router,
         private _scanningService: ScanningService,
-        private _notifierService: NotifierService
+        private _notifierService: NotifierService,
+        private _genderService: GenderService,
+        private _insuredRelationService: InsuredRelationService
     ) {
         this.contactId = '';
         this.policyId = '';
@@ -110,13 +118,12 @@ export class UpdatePolicyPage implements OnInit {
     ngOnInit(): void {
         this._catchParams();
         this._loadContactPolicy();
+        this._loadGenders();
+        this._loadInsuredRelations();
     }
 
     get hasInsuredHolder(): boolean {
-        return (
-            this.model.f.insuranceId.value === INSURANCES.HEALTH ||
-            this.model.f.insuranceId.value === INSURANCES.LIFE
-        );
+        return this.model.policy.insuranceGroupId === INSURANCE_GROUPS.PEOPLE;
     }
 
     get areSeveralInsured(): boolean {
@@ -1128,5 +1135,19 @@ export class UpdatePolicyPage implements OnInit {
                 sellerCommissionPeriod: 1,
             });
         }
+    }
+
+    private _loadGenders(): void {
+        this._genderService.getGenders().subscribe((genders) => {
+            this.genders = genders;
+        });
+    }
+
+    private _loadInsuredRelations(): void {
+        this._insuredRelationService
+            .getInsuredRelations()
+            .subscribe((insuredRelations) => {
+                this.insuredRelations = insuredRelations;
+            });
     }
 }

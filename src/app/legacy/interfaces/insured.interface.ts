@@ -65,4 +65,5 @@ export interface Insured {
     currencyId: number;
     paymentMethodId: number;
     paymentPlanId: number;
+    policy: File;
 }

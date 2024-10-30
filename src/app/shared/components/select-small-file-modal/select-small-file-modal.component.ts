@@ -26,9 +26,9 @@ export class SelectSmallFileModalComponent
     maxFileSize = FILE_SIZES.SMALL;
     modalId = 'agt-select-small-file-modal';
     selectedFile: File | null = null;
-    private _allowedFileExtensions: string[] = FILE_ALL_FORMATS;
-    private _defaultFile: File | null = null;
-    private _filePreviewUrl = '';
+    private _allowedFileExtensions?: string[] = FILE_ALL_FORMATS;
+    private _defaultFile?: File | null = null;
+    private _filePreviewUrl? = '';
 
     constructor(private _model: SelectSmallFileModalService) {
         super();
@@ -50,7 +50,7 @@ export class SelectSmallFileModalComponent
     }
 
     onChangeFile(event: any): void {
-        if (event.target.files.length > 0) {
+        if (event.target.files.length > 0 && this._allowedFileExtensions) {
             const file: File = event.target.files[0];
             if (
                 FileHelper.checkIfValidFile(
@@ -72,18 +72,9 @@ export class SelectSmallFileModalComponent
         this.title = data.title;
         this.description = data.description;
         this.buttonLabel = data.buttonLabel;
-        if (data.settings) {
-            if (data.settings.allowedFileExtensions) {
-                this._allowedFileExtensions =
-                    data.settings.allowedFileExtensions;
-            }
-            if (data.settings.defaultFile) {
-                this._defaultFile = data.settings.defaultFile;
-            }
-            if (data.settings.filePreviewUrl) {
-                this._filePreviewUrl = data.settings.filePreviewUrl;
-            }
-        }
+        this._allowedFileExtensions = data.settings?.allowedFileExtensions;
+        this._defaultFile = data.settings?.defaultFile;
+        this._filePreviewUrl = data.settings?.filePreviewUrl;
         this._openModal();
     }
 

@@ -435,7 +435,7 @@ export class AlertHelper {
 
     static policyInsuredCancelled(): void {
         const alertData: Alert = {
-            title: 'Certificado Cancelado',
+            title: 'Asegurado Cancelado',
             text: 'El certificado se cancelo con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
@@ -445,7 +445,7 @@ export class AlertHelper {
 
     static policyInsuredCreated(): void {
         const alertData: Alert = {
-            title: 'Certificado Creado',
+            title: 'Asegurado Creado',
             text: 'El certificado fue creado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
@@ -455,7 +455,7 @@ export class AlertHelper {
 
     static policyInsuredDeleted(): void {
         const alertData: Alert = {
-            title: 'Certificado Eliminado',
+            title: 'Asegurado Eliminado',
             text: 'El certificado ha sido eliminado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',
@@ -465,7 +465,7 @@ export class AlertHelper {
 
     static policyInsuredUpdated(): void {
         const alertData: Alert = {
-            title: 'Certificado Actualizado',
+            title: 'Asegurado Actualizado',
             text: 'El certificado ha sido actualizado con éxito.',
             type: 'success',
             confirmButtonText: 'CONTINUAR',

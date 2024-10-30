@@ -25,10 +25,8 @@ import {
 import { SmartComponent } from '@core/classes/smart-component';
 import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { Gender } from '@gender/interfaces/gender.interface';
-import { GenderService } from '@gender/services/gender.service';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { InsuredRelation } from '@insured-relation/interfaces/insured-relation.interface';
-import { InsuredRelationService } from '@insured-relation/services/insured-relation.service';
 import { SelectSmallFileModalService } from '@shared/components/select-small-file-modal/select-small-file-modal.service';
 import { Subscription } from 'rxjs';
 
@@ -55,6 +53,8 @@ export class PolicyInsuredHolderFormComponent
 {
     @Input() isFormSubmitted = false;
     @Input() previewUrl = '';
+    @Input() genders: Gender[] = [];
+    @Input() insuredRelations: InsuredRelation[] = [];
     @Output() copyTitularIntoInsuredHolder = new EventEmitter<void>();
     form = this._formBuilder.group({
         isTitularTheInsuredHolder: [false],
@@ -72,23 +72,17 @@ export class PolicyInsuredHolderFormComponent
         genderId: ['', [ValidatorsHelper.number]],
         relationId: ['', [ValidatorsHelper.number]],
     });
-    genders: Gender[] = [];
-    insuredRelations: InsuredRelation[] = [];
     onTouchedCallback?: () => void;
     private _valueChangesSubscription?: Subscription;
 
     constructor(
         private _formBuilder: FormBuilder,
-        private _genderService: GenderService,
-        private _insuredRelationService: InsuredRelationService,
         private _selectSmallFile: SelectSmallFileModalService
     ) {
         super();
     }
 
     ngOnInit(): void {
-        this._loadGenders();
-        this._loadInsuredRelations();
         this._selectSmallFile.fileSelected$
             .pipe(this.untilComponentDestroy())
             .subscribe((file) => {
@@ -135,26 +129,11 @@ export class PolicyInsuredHolderFormComponent
         }
     }
 
-    private _loadGenders(): void {
-        this._genderService.getGenders().subscribe((genders) => {
-            this.genders = genders;
-        });
-    }
-
-    private _loadInsuredRelations(): void {
-        this._insuredRelationService
-            .getInsuredRelations()
-            .subscribe((insuredRelations) => {
-                this.insuredRelations = insuredRelations;
-            });
-    }
-
     private _selectInsuredHolderFile(file: any): void {
         this.form.patchValue({ file });
     }
 
     /* Validator interface methods */
-
     validate(control: AbstractControl): ValidationErrors | null {
         return this.form.valid ? null : { invalidHolder: true };
     }

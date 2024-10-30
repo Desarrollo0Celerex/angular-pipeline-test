@@ -49,6 +49,7 @@ import { GenderModule } from '@gender/gender.module';
 import { InsuredRelationModule } from '@insured-relation/insured-relation.module';
 import { PolicyInsuredDependentsContainerComponent } from './components/policy-insured-dependents-container/policy-insured-dependents-container.component';
 import { PolicyInsuredDependentFormComponent } from './components/policy-insured-dependent-form/policy-insured-dependent-form.component';
+import { PolicyInsuredModule } from '@policy-insured/policy-insured.module';
 
 @NgModule({
     declarations: [
@@ -117,6 +118,7 @@ import { PolicyInsuredDependentFormComponent } from './components/policy-insured
         ModalCreateSinisterModule,
         ModalConfirmReissuePolicyModule,
         ModalSelectContactTypeModule,
+        PolicyInsuredModule,
     ],
     providers: [
         CancelPolicyModalService,

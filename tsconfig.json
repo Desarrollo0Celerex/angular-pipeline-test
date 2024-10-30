@@ -35,8 +35,9 @@
             "@features-legacy/*": ["app/features-legacy/*"],
             "@payment/*": ["app/features/payment/*"],
             "@payment-type/*": ["app/features/payment-type/*"],
-            "@policy-complement/*": ["app/features/policy-complement/*"],
             "@policy/*": ["app/features/policy/*"],
+            "@policy-complement/*": ["app/features/policy-complement/*"],
+            "@policy-insured/*": ["app/features/policy-insured/*"],
             "@quotation/*": ["app/features/quotation/*"],
             "@renewal/*": ["app/features/renewal/*"],
             "@seller-commission-suggestions/*": [

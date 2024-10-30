@@ -43,8 +43,18 @@
                     >
                         <agt-policy-insured-dependent-form
                             *ngFor="let insured of insureds; let index = index"
-                            [insuredNumber]="index + 1"
+                            [contactId]="contactId"
+                            [policyId]="policyId"
+                            [insuredIndex]="index"
                             [insured]="insured"
+                            [genders]="genders"
+                            [isActivePanel]="activePanels[index]"
+                            [insuredFile]="insuredFiles[index]"
+                            [insuredRelations]="insuredDependetRelations"
+                            (insuredDeleted)="onRemoveInsured($event)"
+                            (createInsured)="onCreateInsured($event)"
+                            (updateInsured)="onUpdateInsured($event)"
+                            (selectFile)="onShowModalToSelectFile($event)"
                         />
                     </div>
                 </div>

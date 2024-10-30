@@ -10,24 +10,24 @@
                 aria-expanded="true"
                 [attr.aria-controls]="panelCloseId"
             >
-                Asegurado Dependiente No. {{ insuredNumber }}
+                Asegurado Dependiente No. {{ insuredIndex + 1 }}
             </a>
         </h4>
     </div>
     <div
         [id]="panelCloseId"
         class="panel-collapse collapse"
-        [class.show]="insuredNumber === 1"
+        [class.show]="isActivePanel"
         role="tabpanel"
         aria-labelledby="agtSmartWalletPolicyDependents1"
     >
         <div class="panel-body">
-            <div class="row">
+            <form class="row" [formGroup]="form" (submit)="onValidateForm()">
                 <div class="col-md-12 text-right">
                     <button
                         type="button"
-                        name="agtSmartWalletPolicyDependentsNew"
                         class="btn btn-sm agt-btn-secondary"
+                        (click)="onDeleteInsured()"
                     >
                         🚮
                         <strong>ELIMINAR</strong>
@@ -45,11 +45,14 @@
                             </div>
                             <input
                                 type="text"
-                                name="agtSmartWalletPolicyHolderName"
-                                class="form-control"
-                                placeholder="Fernando Pèrez"
-                                disabled=""
+                                class="form-control {{
+                                    getValidationClass('name')
+                                }}"
+                                formControlName="name"
                             />
+                            <div class="invalid-feedback">
+                                {{ getErrorMessage("name") }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -59,10 +62,8 @@
                         <label class="form-label">Tarjeta del Asegurado</label>
                         <button
                             type="button"
-                            name="agtSmartWalletPolicyCertificateUpdate"
                             class="btn btn-block agt-btn-secondary"
-                            data-toggle="modal"
-                            data-target="#agtSmartWalletPolicyCertificateUpdate"
+                            (click)="onSelectFile()"
                         >
                             <strong>CARGAR CERTIFICADO</strong>
                         </button>
@@ -84,11 +85,17 @@
                             </div>
                             <input
                                 type="text"
-                                name="agtSmartWalletPolicyTitularBirth"
-                                class="form-control fc-datepicker"
-                                value="08/08/2021"
-                                disabled=""
+                                class="form-control {{
+                                    getValidationClass('birthdate')
+                                }}"
+                                formControlName="birthdate"
+                                [matDatepicker]="birthdatePicker"
+                                (click)="birthdatePicker.open()"
                             />
+                            <mat-datepicker #birthdatePicker />
+                            <div class="invalid-feedback">
+                                {{ getErrorMessage("birthdate") }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -105,15 +112,21 @@
                                 </div>
                             </div>
                             <select
-                                name="agtSmartWalletPolicyTitularGender"
-                                class="form-control select2-show-search"
-                                data-placeholder="Género del Asegurado"
-                                disabled=""
+                                class="form-control {{
+                                    getValidationClass('genderId')
+                                }}"
+                                formControlName="genderId"
                             >
-                                <option value="1"></option>
-                                <option value="2">HOMBRE</option>
-                                <option value="3">MUJER</option>
+                                <option
+                                    *ngFor="let gender of genders"
+                                    [value]="gender.genderId"
+                                >
+                                    {{ gender.name }}
+                                </option>
                             </select>
+                            <div class="invalid-feedback">
+                                {{ getErrorMessage("genderId") }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -128,32 +141,30 @@
                                 </div>
                             </div>
                             <select
-                                name="agtSmartWalletPolicyHolderRelation"
-                                class="form-control select2-show-search"
-                                data-placeholder="Relación del Asegurado"
-                                disabled=""
+                                class="form-control s{{
+                                    getValidationClass('relationId')
+                                }}"
+                                formControlName="relationId"
                             >
-                                <option value="1"></option>
-                                <option value="2">CONYUJE</option>
-                                <option value="2">PADRE</option>
-                                <option value="3">MADRE</option>
-                                <option value="3">HIJO</option>
-                                <option value="3">OTRO</option>
+                                <option
+                                    *ngFor="let relation of insuredRelations"
+                                    [value]="relation.insuredRelationId"
+                                >
+                                    {{ relation.name }}
+                                </option>
                             </select>
+                            <div class="invalid-feedback">
+                                {{ getErrorMessage("relationId") }}
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <button
-                        type="button"
-                        name="agtSmartWalletPolicyDependentsNew"
-                        class="btn btn-block agt-btn-default"
-                    >
-                        📝
-                        <strong>EDITAR ASEGURADO</strong>
+                    <button type="submit" class="btn btn-block agt-btn-default">
+                        <strong>{{ buttonActionLabel }}</strong>
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

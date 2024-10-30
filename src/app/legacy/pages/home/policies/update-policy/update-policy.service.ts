@@ -547,7 +547,10 @@ export class UpdatePolicyService {
                     PolicyInsuredHelper.checkAreSeveralInsured(
                         this.policy.insuranceTypeId
                     );
-                if (!areSeveralInsured) {
+                if (
+                    !areSeveralInsured &&
+                    this.policy.insuranceGroupId !== INSURANCE_GROUPS.PEOPLE
+                ) {
                     if (
                         policy !== null &&
                         !!policy.insureds &&
@@ -1458,7 +1461,7 @@ export class UpdatePolicyService {
     newInsured(insured: Insured | null): FormGroup {
         let insuredForm: FormGroup;
         switch (this.policy!.insuranceGroupId) {
-            case INSURANCE_GROUPS.PEOPLE:
+            /* case INSURANCE_GROUPS.PEOPLE:
                 insuredForm = this._formBuilder.group({
                     personName: [
                         !!insured && !!insured.personName
@@ -1484,7 +1487,7 @@ export class UpdatePolicyService {
                     ],
                 });
                 break;
-
+            */
             case INSURANCE_GROUPS.VEHICLES:
                 insuredForm = this._formBuilder.group({
                     vehicleMaker: [
@@ -1681,6 +1684,9 @@ export class UpdatePolicyService {
     }
 
     private _generateRequestBodies(): FormData[] {
+        if (this.policy.insuranceGroupId === INSURANCE_GROUPS.PEOPLE) {
+            return [];
+        }
         let requests: FormData[] = [];
         const insureds: any[] = this.insureds.controls;
         for (let insured of insureds) {
@@ -1710,11 +1716,11 @@ export class UpdatePolicyService {
     ): FormData {
         const requestBody: FormData = new FormData();
         switch (this.policy!.insuranceGroupId) {
-            case INSURANCE_GROUPS.PEOPLE:
+            /* case INSURANCE_GROUPS.PEOPLE:
                 requestBody.append('personName', insured.personName);
                 requestBody.append('personGenderId', insured.personGenderId);
                 requestBody.append('personAge', insured.personAge);
-                break;
+                break; */
 
             case INSURANCE_GROUPS.VEHICLES:
                 requestBody.append('vehicleMaker', insured.vehicleMaker);
@@ -2418,6 +2424,9 @@ export class UpdatePolicyService {
     }
 
     private _getTotalInsuredsToCreate(): number {
+        if (this.policy.insuranceGroupId === INSURANCE_GROUPS.PEOPLE) {
+            return 0;
+        }
         let count: number = 0;
         const insureds: any[] = this.insureds.controls;
         for (let insured of insureds) {
@@ -2429,6 +2438,9 @@ export class UpdatePolicyService {
     }
 
     private _getTotalInsuredsToUpdate(): number {
+        if (this.policy.insuranceGroupId === INSURANCE_GROUPS.PEOPLE) {
+            return 0;
+        }
         let count: number = 0;
         const insureds: any[] = this.insureds.controls;
         for (let insured of insureds) {
