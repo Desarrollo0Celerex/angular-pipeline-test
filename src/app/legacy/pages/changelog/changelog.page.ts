@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.17',
+            launchDate: '29/10/2024',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se agregaron asegurados dependientes para las pólizas que se encuentren en el grupo personas.',
+                        'Se agrego titulo "Smart Wallet" a todas las páginas de una póliza.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.3',
             launchDate: '02/07/2024',
             changes: [
