@@ -724,13 +724,13 @@
                     [insuredRelations]="insuredRelations"
                     (copyTitularIntoInsuredHolder)="copyTitularIntoInsuredHolder()"
                 />
+                <agt-policy-insured-dependents-container
+                    [contactId]="contactId"
+                    [policyId]="policyId"
+                    [genders]="genders"
+                    [insuredRelations]="insuredRelations"
+                />
             </ng-container>
-            <agt-policy-insured-dependents-container
-                [contactId]="contactId"
-                [policyId]="policyId"
-                [genders]="genders"
-                [insuredRelations]="insuredRelations"
-            />
             <!-- (JUST FOR: MULTIPLE INSUREDS) -->
             <div class="card" *ngIf="areSeveralInsured">
                 <div class="card-header">

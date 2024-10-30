@@ -405,6 +405,7 @@ const routes: Routes = [
             // Policies routes
             {
                 path: ROUTES_NAME.createPolicy(':contactId'),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/create-policy/create-policy.module'
@@ -413,6 +414,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.uploadPolicy(':contactId', ':policyId'),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/upload-policy/upload-policy.module'
@@ -421,6 +423,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.completePolicy(':contactId', ':policyId'),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/complete-policy/complete-policy.module'
@@ -429,6 +432,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.endorsePolicy(':contactId', ':policyId'),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/endorse-policy/endorse-policy.module'
@@ -437,6 +441,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.allPolicies(),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/all-policies/all-policies.module'
@@ -445,6 +450,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.cancelPolicy(':contactId', ':policyId'),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/cancel-policy/cancel-policy.module'
@@ -453,6 +459,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.showHistoryPolicy(':contactId', ':policyId'),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/show-history-policy/show-history-policy.module'
@@ -472,6 +479,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.updatePolicy(':contactId', ':policyId'),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/update-policy/update-policy.module'
@@ -483,6 +491,7 @@ const routes: Routes = [
                     ':contactId',
                     ':policyId'
                 ),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/update-complete-policy/update-complete-policy.module'
@@ -495,6 +504,7 @@ const routes: Routes = [
                     ':rangeStart',
                     ':rangeEnd'
                 ),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/contact-pending-renewals-by-range/contact-pending-renewals-by-range.module'
@@ -507,6 +517,7 @@ const routes: Routes = [
                     ':rangeStart',
                     ':rangeEnd'
                 ),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/contact-applied-renewals-by-range/contact-applied-renewals-by-range.module'
@@ -515,6 +526,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.listActivePoliciesByRange,
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/list-active-policies-by-range/list-active-policies-by-range.module'
@@ -523,6 +535,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.listIncompletePolicies,
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/list-incomplete-policies/list-incomplete-policies.module'
@@ -531,6 +544,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.listPolicyInsureds(':contactId', ':policyId'),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policy-insureds/list-policy-insureds/list-policy-insureds.module'
@@ -543,6 +557,7 @@ const routes: Routes = [
                     ':policyId',
                     ':policyInsuredId'
                 ),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policy-insureds/update-policy-insured/update-policy-insured.module'
@@ -554,6 +569,7 @@ const routes: Routes = [
                     ':contactId',
                     ':policyId'
                 ),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policy-insureds/create-policy-insured/create-policy-insured.module'
@@ -565,6 +581,7 @@ const routes: Routes = [
                     ':contactId',
                     ':policyId'
                 ),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policy-insureds/import-policy-insureds/import-policy-insureds.module'
@@ -573,6 +590,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.workspacePoliciesPending,
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/workspace-policies-pending/workspace-policies-pending.module'
@@ -581,6 +599,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.workspacePoliciesCanceledByRange,
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/workspace-policies-canceled-by-range/workspace-policies-canceled-by-range.module'
@@ -589,6 +608,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.workspacePoliciesIssuedByRange,
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/workspace-policies-issued-by-range/workspace-policies-issued-by-range.module'
@@ -597,6 +617,7 @@ const routes: Routes = [
             },
             {
                 path: ROUTES_NAME.workspacePoliciesRenewedByRange,
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/policies/workspace-policies-renewed-by-range/workspace-policies-renewed-by-range.module'
@@ -607,6 +628,7 @@ const routes: Routes = [
             // Policy endorsements routes
             {
                 path: ROUTES_NAME.createEndorsement(':contactId', ':policyId'),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/endorsements/create-endorsement/create-endorsement.module'
@@ -618,6 +640,7 @@ const routes: Routes = [
                     ':contactId',
                     ':policyId'
                 ),
+                title: 'Agenthos - Smart Wallet',
                 loadChildren: () =>
                     import(
                         '@pages/home/endorsements/policy-endorsements-history/policy-endorsements-history.module'
