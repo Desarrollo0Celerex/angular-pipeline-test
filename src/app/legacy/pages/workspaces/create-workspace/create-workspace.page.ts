@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { AlertHelper } from '@core/helpers/alert.helper';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { LoadingService } from '@core/services/loading/loading.service';
 
 import { CreateWorkspaceService } from './create-workspace.service';
+import { UserTokenData } from '@core/interfaces/user-token-data.interface';
 
 declare var $: any;
 declare var Select2Plugin: any;
@@ -24,7 +24,7 @@ export class CreateWorkspacePage implements OnInit {
     private _isFormSubmitted: boolean;
 
     constructor(
-        public createWorkspaceService: CreateWorkspaceService,
+        public model: CreateWorkspaceService,
         private _loadingService: LoadingService,
         private _router: Router
     ) {
@@ -44,7 +44,7 @@ export class CreateWorkspacePage implements OnInit {
      */
     getErrorMessage(constrolName: string): string {
         const control: AbstractControl | null =
-            this.createWorkspaceService.workspaceForm.get(constrolName);
+            this.model.workspaceForm.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -55,7 +55,7 @@ export class CreateWorkspacePage implements OnInit {
      */
     getValidationClass(constrolName: string): string {
         const control: AbstractControl | null =
-            this.createWorkspaceService.workspaceForm.get(constrolName);
+            this.model.workspaceForm.get(constrolName);
         return InputValidatorHelper.getValidationClass(
             control,
             this._isFormSubmitted
@@ -63,10 +63,8 @@ export class CreateWorkspacePage implements OnInit {
     }
 
     loadCountryStates(): void {
-        this.createWorkspaceService.f.stateId.setValue(null);
-        this.createWorkspaceService.loadCountryStates(
-            this.createWorkspaceService.f.countryId.value
-        );
+        this.model.f.stateId.setValue(null);
+        this.model.loadCountryStates(this.model.f.countryId.value);
     }
 
     /**
@@ -74,7 +72,7 @@ export class CreateWorkspacePage implements OnInit {
      * @param phoneCodeId Phone code id
      */
     onPhoneCodeIdSelected(phoneCodeId: number): void {
-        this.createWorkspaceService.workspaceForm.patchValue({ phoneCodeId });
+        this.model.workspaceForm.patchValue({ phoneCodeId });
     }
 
     /**
@@ -82,34 +80,51 @@ export class CreateWorkspacePage implements OnInit {
      */
     onSubmitCreateWorkspace(): void {
         this._isFormSubmitted = true;
-        if (this.createWorkspaceService.workspaceForm.valid) {
+        if (this.model.workspaceForm.valid) {
             this._loadingService.show();
-            this.createWorkspaceService
-                .createWorkspace()
-                .subscribe((res: string) => {
-                    this._loadingService.hide();
-                    this.createWorkspaceService.startSessionInAgenthos(res);
+            this.model.createWorkspace().subscribe((res: string) => {
+                const userTokenData: UserTokenData =
+                    this.model.startSessionInAgenthos(res);
+                // Login to firebase
+                this.model
+                    .getFirebaseToken(
+                        userTokenData.workspaceId,
+                        userTokenData.userId
+                    )
+                    .subscribe((res: string) => {
+                        this.model
+                            .startSessionInFirebase(res)
+                            .then(() => {
+                                this._loadingService.hide();
+                                AlertHelper.workspaceCreated(
+                                    this._goToDashboard,
+                                    this
+                                );
+                            })
+                            .catch(() => {
+                                this._loadingService.hide();
+                                this.model.logout();
+                            });
+                    });
+                /* this._loadingService.hide();
+                    this.model.startSessionInAgenthos(res);
                     AlertHelper.workspaceCreated(
                         this._goToActivateWorkspace,
                         this
-                    );
-                });
+                    ); */
+            });
         }
     }
 
-    /**
-     * Navigates to upload workspace avatar
-     * @param context Context
-     */
-    private _goToActivateWorkspace(context: any): void {
-        context._router.navigateByUrl(ROUTES_NAME.activateWorkspace);
+    private _goToDashboard(context: any): void {
+        context._router.navigateByUrl(ROUTES_NAME.workspaceWelcome);
     }
 
     /**
      * Load catalogs data
      */
     private _loadCatalogs(): void {
-        this.createWorkspaceService.loadCatalogs().subscribe(() => {
+        this.model.loadCatalogs().subscribe(() => {
             Select2Plugin.init();
             this._onChange(this.selectCountriesId);
             this._onChange(this.selectCountryStatesId);
@@ -138,11 +153,11 @@ export class CreateWorkspacePage implements OnInit {
      * @param value Country id
      */
     private _onChangeCountryId(value: number): void {
-        this.createWorkspaceService.workspaceForm.patchValue({
+        this.model.workspaceForm.patchValue({
             countryId: value,
         });
-        this.createWorkspaceService.workspaceForm.patchValue({ stateId: '' });
-        this.createWorkspaceService.loadCountryStates(value);
+        this.model.workspaceForm.patchValue({ stateId: '' });
+        this.model.loadCountryStates(value);
     }
 
     /**
@@ -150,7 +165,7 @@ export class CreateWorkspacePage implements OnInit {
      * @param  value State id
      */
     private _onChangeStateId(value: number): void {
-        this.createWorkspaceService.workspaceForm.patchValue({
+        this.model.workspaceForm.patchValue({
             stateId: value,
         });
     }

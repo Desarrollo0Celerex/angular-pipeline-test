@@ -5,7 +5,10 @@
         <div class="container-login100">
             <div class="col-md-8 col-xl-8">
                 <div class="card">
-                    <form [formGroup]="createWorkspaceService.workspaceForm" (submit)="onSubmitCreateWorkspace()">
+                    <form
+                        [formGroup]="model.workspaceForm"
+                        (submit)="onSubmitCreateWorkspace()"
+                    >
                         <div class="card-header">
                             <h3 class="card-title">Datos del Agente</h3>
                         </div>
@@ -15,54 +18,118 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <!-- AGENTHOS - AGENT REAL NAME * -->
-                                        <label class="form-label">Nombre del Agente</label>
-                                        <input type="text" class="form-control {{getValidationClass('realName')}}" placeholder="Ingresa el nombre del agente" formControlName="realName">
-                                        <div class="invalid-feedback">{{getErrorMessage('realName')}}</div>
+                                        <label class="form-label"
+                                            >Nombre del Agente</label
+                                        >
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('realName')}}"
+                                            placeholder="Ingresa el nombre del agente"
+                                            formControlName="realName"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('realName')}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <!-- AGENTHOS - AGENT BRAND NAME * -->
-                                        <label class="form-label">Nombre Comercial</label>
-                                        <input type="text" class="form-control {{getValidationClass('brandName')}}" placeholder="Ingresa el nombre comercial" formControlName="brandName">
-                                        <div class="invalid-feedback">{{getErrorMessage('brandName')}}</div>
+                                        <label class="form-label"
+                                            >Nombre Comercial</label
+                                        >
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('brandName')}}"
+                                            placeholder="Ingresa el nombre comercial"
+                                            formControlName="brandName"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('brandName')}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <!-- AGENTHOS - AGENT PHONE -->
-                                    <label class="form-label">Teléfono Comercial</label>
+                                    <label class="form-label"
+                                        >Teléfono Comercial</label
+                                    >
                                     <div class="input-group">
-                                        <agt-dropdown-select-phone-code [phoneCodeId]="createWorkspaceService.f.phoneCodeId.value" (phoneCodeIdSelected)="onPhoneCodeIdSelected($event)"></agt-dropdown-select-phone-code>
+                                        <agt-dropdown-select-phone-code
+                                            [phoneCodeId]="model.f.phoneCodeId.value"
+                                            (phoneCodeIdSelected)="onPhoneCodeIdSelected($event)"
+                                        ></agt-dropdown-select-phone-code>
                                         <!-- AGENTHOS - AGENT PHONE NUMER * -->
-                                        <input type="text" class="form-control {{getValidationClass('phoneNumber')}}" placeholder="Ingresa el teléfono principal" formControlName="phoneNumber">
-                                        <div class="invalid-feedback">{{getErrorMessage('phoneNumber')}}</div>
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('phoneNumber')}}"
+                                            placeholder="Ingresa el teléfono principal"
+                                            formControlName="phoneNumber"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('phoneNumber')}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <!-- AGENTHOS - AGENT WEBSITE -->
-                                        <label class="form-label">Correo Comercial</label>
-                                        <input type="text" class="form-control {{getValidationClass('email')}}" placeholder="Ingresa un correo electrónico" formControlName="email">
-                                        <div class="invalid-feedback">{{getErrorMessage('email')}}</div>
+                                        <label class="form-label"
+                                            >Correo Comercial</label
+                                        >
+                                        <input
+                                            type="text"
+                                            class="form-control {{getValidationClass('email')}}"
+                                            placeholder="Ingresa un correo electrónico"
+                                            formControlName="email"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('email')}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <!-- AGENTHOS - AGENT COUNTRY * -->
-                                        <label class="form-label">País Operaciones</label>
-                                        <select [id]="selectCountriesId" class="form-control select2 custom-select" formControlName="countryId" (change)="loadCountryStates()">
-                                            <option [value]="country.countryId" *ngFor="let country of createWorkspaceService.countries">{{country.name}}</option>
+                                        <label class="form-label"
+                                            >País Operaciones</label
+                                        >
+                                        <select
+                                            [id]="selectCountriesId"
+                                            class="form-control select2 custom-select"
+                                            formControlName="countryId"
+                                            (change)="loadCountryStates()"
+                                        >
+                                            <option
+                                                [value]="country.countryId"
+                                                *ngFor="let country of model.countries"
+                                            >
+                                                {{country.name}}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <!-- AGENTHOS - AGENT STATE * -->
-                                        <label class="form-label">Ubicación Actual</label>
-                                        <select [id]="selectCountryStatesId" class="form-control select2 custom-select {{getValidationClass('stateId')}}" formControlName="stateId">
-                                            <option [value]="state.stateId" *ngFor="let state of createWorkspaceService.countryStates">{{state.name}}</option>
+                                        <label class="form-label"
+                                            >Ubicación Actual</label
+                                        >
+                                        <select
+                                            [id]="selectCountryStatesId"
+                                            class="form-control select2 custom-select {{getValidationClass('stateId')}}"
+                                            formControlName="stateId"
+                                        >
+                                            <option
+                                                [value]="state.stateId"
+                                                *ngFor="let state of model.countryStates"
+                                            >
+                                                {{state.name}}
+                                            </option>
                                         </select>
-                                        <div class="invalid-feedback">{{getErrorMessage('stateId')}}</div>
+                                        <div class="invalid-feedback">
+                                            {{getErrorMessage('stateId')}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +138,12 @@
                         <div class="card-footer text-center">
                             <!-- AGENTHOS - START ACTIVATION -->
                             <!-- AGENTHOS - TARGET (AGTVIEW0003) -->
-                            <button type="submit" class="btn btn-primary btn-block"><strong>CONTINUAR</strong></button>
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-block"
+                            >
+                                <strong>CONTINUAR</strong>
+                            </button>
                         </div>
                     </form>
                 </div>

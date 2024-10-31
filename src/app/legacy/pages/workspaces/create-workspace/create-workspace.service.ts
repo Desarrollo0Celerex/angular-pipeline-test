@@ -25,6 +25,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 import { CountryService } from '@services/country.service';
 import { StateService } from '@services/state.service';
 import { WorkspaceService } from '@core/services/workspace/workspace.service';
+import { FirebaseService } from '@core/services/firebase/firebase.service';
 
 @Injectable()
 export class CreateWorkspaceService {
@@ -35,6 +36,7 @@ export class CreateWorkspaceService {
     constructor(
         private _authService: AuthService,
         private _countryService: CountryService,
+        private _firebaseService: FirebaseService,
         private _formBuilder: UntypedFormBuilder,
         private _stateService: StateService,
         private _workspaceService: WorkspaceService
@@ -60,8 +62,13 @@ export class CreateWorkspaceService {
         const requestBody: CreateWorkspaceDataSend = {
             ...this.workspaceForm.value,
             countryId: this.f.countryId.value, // Remove if the field is not disabled
+            activationCode: this._getActivationCode(),
         };
         return this._workspaceService.createWorkspace(requestBody);
+    }
+
+    getFirebaseToken(workspaceId: string, userId: string): Observable<string> {
+        return this._authService.getFirebaseToken(workspaceId, userId);
     }
 
     /**
@@ -95,6 +102,10 @@ export class CreateWorkspaceService {
             });
     }
 
+    logout(): void {
+        this._authService.logout();
+    }
+
     /**
      * Login to Agenthos
      * @param  userToken User token
@@ -102,6 +113,10 @@ export class CreateWorkspaceService {
      */
     startSessionInAgenthos(userToken: string): UserTokenData {
         return this._authService.startSessionInAgenthos(userToken);
+    }
+
+    startSessionInFirebase(firebaseToken: string): Promise<any> {
+        return this._firebaseService.startSessionInFirebase(firebaseToken);
     }
 
     /**
@@ -145,5 +160,9 @@ export class CreateWorkspaceService {
             countryId: [DEFAULT_COUNTRY_ID, [Validators.required]],
             stateId: ['', [Validators.required]],
         });
+    }
+
+    private _getActivationCode(): string {
+        return this._authService.activationCode;
     }
 }

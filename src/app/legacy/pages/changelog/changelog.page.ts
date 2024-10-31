@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.18',
+            launchDate: '30/10/2024',
+            changes: [
+                {
+                    title: 'Workspace',
+                    items: [
+                        'Se actualizo página "Crear un espacio de trabajo" para que el espacio de trabajo se active también de forma automática después de ser creada asignandole una licencia LITE por default ',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.17',
             launchDate: '29/10/2024',
             changes: [
