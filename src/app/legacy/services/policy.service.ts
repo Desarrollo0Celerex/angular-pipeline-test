@@ -471,6 +471,11 @@ const routes: any = {
         '/workspaces/' +
         workspaceId +
         '/policies/reports/actives',
+    workspaceIssuedPoliciesReport: (workspaceId: string) =>
+        environment.agenthos.apiUrl +
+        '/workspaces/' +
+        workspaceId +
+        '/policies/reports/issued',
     workspacePolicyStats: (workspaceId: string) =>
         environment.agenthos.apiUrl +
         '/workspaces/' +
@@ -709,6 +714,31 @@ export class PolicyService {
         formatType: number
     ) {
         const route: string = routes.workspaceActivePoliciesReport(
+            this._workspaceId
+        );
+        let params: HttpParams = new HttpParams();
+        if (!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if (!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if (!!specialFilter)
+            params = params.append('specialFilter', specialFilter);
+        if (!!formatType) params = params.append('formatType', formatType);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params,
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
+    }
+
+    downloadReportIssuedPolicies(
+        rangeStart: string = '',
+        rangeEnd: string = '',
+        specialFilter: string = '',
+        formatType: number
+    ) {
+        const route: string = routes.workspaceIssuedPoliciesReport(
             this._workspaceId
         );
         let params: HttpParams = new HttpParams();

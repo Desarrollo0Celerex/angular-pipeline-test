@@ -8,19 +8,18 @@ import { ContentListModule } from '@components/content-list/content-list.module'
 
 import { WorkspacePoliciesIssuedByRangeRoutingModule } from './workspace-policies-issued-by-range-routing.module';
 import { WorkspacePoliciesIssuedByRangePage } from './workspace-policies-issued-by-range.page';
-
+import { CardReportIssuedPoliciesModule } from '@components/card-report-issued-policies/card-report-issued-policies.module';
 
 @NgModule({
-  declarations: [
-    WorkspacePoliciesIssuedByRangePage
-  ],
-  imports: [
-    CardContentTitleModule,
-    CommonModule,
-    ContainerChartsWorkspacePoliciesIssuedModule,
-    ContainerSelectStatsPeriodModule,
-    ContentListModule,
-    WorkspacePoliciesIssuedByRangeRoutingModule
-  ]
+    declarations: [WorkspacePoliciesIssuedByRangePage],
+    imports: [
+        CardContentTitleModule,
+        CardReportIssuedPoliciesModule,
+        CommonModule,
+        ContainerChartsWorkspacePoliciesIssuedModule,
+        ContainerSelectStatsPeriodModule,
+        ContentListModule,
+        WorkspacePoliciesIssuedByRangeRoutingModule,
+    ],
 })
-export class WorkspacePoliciesIssuedByRangeModule { }
+export class WorkspacePoliciesIssuedByRangeModule {}
