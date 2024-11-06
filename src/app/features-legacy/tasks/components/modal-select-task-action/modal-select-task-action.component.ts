@@ -20,6 +20,7 @@ export class ModalSelectTaskActionComponent
     createTaskComponent!: CreateTaskComponent;
     modalId = 'agt-modal-select-task-action';
     tasksFinishedByRangeRoute = `/${TASKS_ROUTES.MODULE}/${TASKS_ROUTES.TASK_FINISHED_BY_RANGE}`;
+    tasksInProgressByRangeRoute = `/${TASKS_ROUTES.MODULE}/${TASKS_ROUTES.TASK_IN_PROGRESS_BY_RANGE}`;
 
     constructor(
         private _createTaskService: CreateTaskService,

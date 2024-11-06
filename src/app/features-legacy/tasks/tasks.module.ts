@@ -39,9 +39,10 @@ import { ResultsSearchEngineComponent } from './components/results-search-engine
 import { ResultsListComponent } from './components/results-list/results-list.component';
 import { TasksFinishedByRangePage } from './pages/tasks-finished-by-range/tasks-finished-by-range.page';
 import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
-import { ContentListModule } from '@components/content-list/content-list.module';
 import { CardReportFinishedTasksComponent } from './components/card-report-finished-tasks/card-report-finished-tasks.component';
 import { ModalSelectReportFormatModule } from '@components/modal-select-report-format/modal-select-report-format.module';
+import { TasksInProgressByRangePage } from './pages/tasks-in-progress-by-range/tasks-in-progress-by-range.page';
+import { CardReportInProgressTasksComponent } from './components/card-report-in-progress-tasks/card-report-in-progress-tasks.component';
 
 @NgModule({
     declarations: [
@@ -74,6 +75,8 @@ import { ModalSelectReportFormatModule } from '@components/modal-select-report-f
         ResultsListComponent,
         TasksFinishedByRangePage,
         CardReportFinishedTasksComponent,
+        TasksInProgressByRangePage,
+        CardReportInProgressTasksComponent,
     ],
     exports: [
         ModalCreateTaskComponent,

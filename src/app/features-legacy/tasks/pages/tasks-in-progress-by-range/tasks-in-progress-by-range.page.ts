@@ -1,21 +1,22 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TASK_STATUS } from '@core/constants/settings';
+import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ModuleService } from '@features-legacy/tasks/services/module.service';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'agt-tasks-finished-by-range',
-    templateUrl: './tasks-finished-by-range.page.html',
+    selector: 'agt-tasks-in-progress-by-range',
+    templateUrl: './tasks-in-progress-by-range.page.html',
     styles: [],
 })
-export class TasksFinishedByRangePage {
-    rangeField: string = 'taskFinishedDate';
-    sortBy = 'taskFinishedDate';
+export class TasksInProgressByRangePage {
+    rangeField: string = 'taskInProgressDate';
+    sortBy = 'taskInProgressDate';
     statsPeriodData: StatsPeriodData | null = null;
+    filters = [TASK_STATUS.IN_PROGRESS];
     specialFilter: string = '';
-    filters = [TASK_STATUS.FINISHED];
 
     constructor(
         private _activatedRoute: ActivatedRoute,

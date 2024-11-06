@@ -43,6 +43,9 @@ export class PluralPipe implements PipeTransform {
             case 'Cancelación':
                 pluralName = 'Cancelaciones';
                 break;
+            case 'En Progreso':
+                pluralName = 'En Progreso';
+                break;
             default:
                 pluralName = name + 's';
         }

@@ -164,6 +164,7 @@ export enum TASK_STATUS {
     EXPIRED = 4,
     STANDBY = 5,
     FINISHED = 6,
+    IN_PROGRESS = 7,
 }
 
 export enum TASK_PROGRESS_STATUS {

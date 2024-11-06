@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
         <agt-card-content-title
-            title="Tareas Terminadas"
+            title="Tareas En Progreso"
             description="Tareas que ya fueron realizadas."
         ></agt-card-content-title>
     </div>
@@ -23,7 +23,7 @@
     <!-- //AGENTHOS - DATA SUITE STATS -->
     <!-- AGENTHOS - DATA SUITE REPORT -->
     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-        <agt-card-report-finished-tasks
+        <agt-card-report-in-progress-tasks
             *ngIf="!!statsPeriodData"
             [rangeField]="rangeField"
             [rangeStart]="statsPeriodData.startDate"
@@ -43,8 +43,8 @@
 
 <agt-tasks-list
     *ngIf="!!statsPeriodData"
-    subcontentName="Terminada"
-    noResultsMessage="No se encontraron tareas finalizadas."
+    subcontentName="En progreso"
+    noResultsMessage="No se encontraron tareas en progreso."
     noResultsMessage="Por favor programa una tarea para darle seguimiento."
     noResultsButtonLabel="Programar Tarea"
     [filters]="filters"

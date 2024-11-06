@@ -28,6 +28,7 @@ export class TasksListComponent
     @ViewChild(CreateTaskComponent)
     createTaskComponent!: CreateTaskComponent;
     @Input() subcontentName = '';
+    @Input() filters: number[] = [];
     @Input() rangeField = '';
     @Input() rangeStart = '';
     @Input() rangeEnd = '';
@@ -101,12 +102,17 @@ export class TasksListComponent
         this.isLoadingContent = true;
         const fields: string =
             'taskId,taskNumber,taskDate,taskTime,taskDetails,taskStatusId,taskTypeName,taskModuleName,taskTitle,taskProgressStatusId,responsibleId';
-        const filter: string =
-            this.taskStatusId !== 0
-                ? UtilitiesHelper.generateHttpFilter('taskStatusId', [
-                      this.taskStatusId,
-                  ])
-                : '';
+        let filter = '';
+        if (this.taskStatusId !== 0) {
+            filter = UtilitiesHelper.generateHttpFilter('taskStatusId', [
+                this.taskStatusId,
+            ]);
+        } else if (this.filters.length > 0) {
+            filter = UtilitiesHelper.generateHttpFilter(
+                'taskStatusId',
+                this.filters
+            );
+        }
         this._taskService
             .getWorkspaceTasks(
                 this.page,

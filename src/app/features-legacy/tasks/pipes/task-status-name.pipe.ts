@@ -26,6 +26,9 @@ export class TaskStatusNamePipe implements PipeTransform {
             case TASK_STATUS.FINISHED:
                 name = 'Finalizada';
                 break;
+            case TASK_STATUS.IN_PROGRESS:
+                name = 'En Progreso';
+                break;
             default:
                 name = '';
                 break;
