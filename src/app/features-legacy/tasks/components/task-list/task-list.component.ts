@@ -8,6 +8,7 @@ import { Task } from '@features-legacy/tasks/interfaces/task.interface';
     styles: [],
 })
 export class TaskListComponent {
+    @Input() subcontentName = '';
     @Input() isLoadedContent: boolean = false;
     @Input() isLoadingContent: boolean = false;
     @Input() taskStatusId: number = 0;

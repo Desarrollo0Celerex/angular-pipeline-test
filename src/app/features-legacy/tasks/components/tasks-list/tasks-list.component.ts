@@ -1,13 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+    Component,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+    ViewChild,
+} from '@angular/core';
 import { SmartComponent } from '@core/classes/smart-component';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { HttpResponseItems } from '@core/interfaces/http-response-items.interface';
 import { TaskService } from '@features-legacy/tasks/services/task.service';
 import { ModuleService } from '../../services/module.service';
 import { Task } from '@features-legacy/tasks/interfaces/task.interface';
-import { TaskModalService } from '@features-legacy/tasks/services/task-modal.service';
 import { TASK_MODULES } from '@core/constants/settings';
-import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
 import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
 import { CreateTaskService } from '@tasks/components/create-task/create-task.service';
 
@@ -16,9 +21,21 @@ import { CreateTaskService } from '@tasks/components/create-task/create-task.ser
     templateUrl: './tasks-list.component.html',
     styles: [],
 })
-export class TasksListComponent extends SmartComponent implements OnInit {
+export class TasksListComponent
+    extends SmartComponent
+    implements OnInit, OnChanges
+{
     @ViewChild(CreateTaskComponent)
     createTaskComponent!: CreateTaskComponent;
+    @Input() subcontentName = '';
+    @Input() rangeField = '';
+    @Input() rangeStart = '';
+    @Input() rangeEnd = '';
+    @Input() specialFilter = '';
+    @Input() sortBy = 'taskDate,taskTime,taskNumber';
+    @Input() noResultsMessage = '';
+    @Input() noResultsDetails = '';
+    @Input() noResultsButtonLabel = '';
     isLoadedContent: boolean = false;
     isLoadingContent: boolean = false;
     taskStatusId: number = 0;
@@ -30,19 +47,23 @@ export class TasksListComponent extends SmartComponent implements OnInit {
     constructor(
         private _taskService: TaskService,
         private _createTaskService: CreateTaskService,
-        private _taskModalService: TaskModalService,
-        private _moduleService: ModuleService,
-        private _workspaceUserService: WorkspaceUserService
+        private _moduleService: ModuleService
     ) {
         super();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.initData();
     }
 
     ngOnInit(): void {
         this._moduleService.currentTaskStatusId$
             .pipe(this.untilComponentDestroy())
             .subscribe((taskStatusId: number) => {
-                this.taskStatusId = taskStatusId;
-                this.initData();
+                if (taskStatusId !== 0) {
+                    this.taskStatusId = taskStatusId;
+                    this.initData();
+                }
             });
         this._moduleService.reloadContent$
             .pipe(this.untilComponentDestroy())
@@ -80,13 +101,25 @@ export class TasksListComponent extends SmartComponent implements OnInit {
         this.isLoadingContent = true;
         const fields: string =
             'taskId,taskNumber,taskDate,taskTime,taskDetails,taskStatusId,taskTypeName,taskModuleName,taskTitle,taskProgressStatusId,responsibleId';
-        const filter: string = UtilitiesHelper.generateHttpFilter(
-            'taskStatusId',
-            [this.taskStatusId]
-        );
-        const sortBy: string = 'taskDate,taskTime,taskNumber';
+        const filter: string =
+            this.taskStatusId !== 0
+                ? UtilitiesHelper.generateHttpFilter('taskStatusId', [
+                      this.taskStatusId,
+                  ])
+                : '';
         this._taskService
-            .getWorkspaceTasks(this.page, this.perPage, fields, filter, sortBy)
+            .getWorkspaceTasks(
+                this.page,
+                this.perPage,
+                fields,
+                filter,
+                this.sortBy,
+                '',
+                this.rangeField,
+                this.rangeStart,
+                this.rangeEnd,
+                this.specialFilter
+            )
             .pipe(this.untilComponentDestroy())
             .subscribe((res: HttpResponseItems) => {
                 this.tasks = this.tasks.concat(res.items);

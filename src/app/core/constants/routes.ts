@@ -34,5 +34,6 @@ export const TASKS_ROUTES: any = {
     TASKS: 'tasks',
     CALENDAR: 'calendar',
     TASK_RESULTS: 'results',
+    TASK_FINISHED_BY_RANGE: 'tasks/finished/by-range',
     TASK_RECORD: (taskId: string) => `record/${taskId}`,
 };

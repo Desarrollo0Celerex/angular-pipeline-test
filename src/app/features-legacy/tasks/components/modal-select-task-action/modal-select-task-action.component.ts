@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SmartComponent } from '@core/classes/smart-component';
+import { TASKS_ROUTES } from '@core/constants/routes';
 import { TASK_MODULES } from '@core/constants/settings';
 import { ModuleService } from '@features-legacy/tasks/services/module.service';
 import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
@@ -18,6 +19,7 @@ export class ModalSelectTaskActionComponent
     @ViewChild(CreateTaskComponent)
     createTaskComponent!: CreateTaskComponent;
     modalId = 'agt-modal-select-task-action';
+    tasksFinishedByRangeRoute = `/${TASKS_ROUTES.MODULE}/${TASKS_ROUTES.TASK_FINISHED_BY_RANGE}`;
 
     constructor(
         private _createTaskService: CreateTaskService,

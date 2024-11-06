@@ -1,12 +1,13 @@
 <agt-task-list
+    [subcontentName]="subcontentName"
     [isLoadedContent]="isLoadedContent"
     [isLoadingContent]="isLoadingContent"
     [taskStatusId]="taskStatusId"
     [tasks]="tasks"
     [totalItems]="totalItems"
-    noResultsMessage="No se encontraron tareas pendientes."
-    noResultsDetails="Por favor programa una tarea para darle seguimiento."
-    noResultsButtonLabel="Programar Tarea"
+    [noResultsMessage]="noResultsMessage"
+    [noResultsMessage]="noResultsMessage"
+    [noResultsButtonLabel]="noResultsButtonLabel"
     (loadMoreContents)="loadMoreContents()"
     (doNoResultsAction)="showModalCreateTask()"
 ></agt-task-list>

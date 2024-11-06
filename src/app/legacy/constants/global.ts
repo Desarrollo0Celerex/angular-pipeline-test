@@ -440,6 +440,10 @@ export const CONTENT_TYPES: any = {
         ID: 56,
         NAME: 'Recibo',
     },
+    TASKS_FINISHED_BY_RANGE: {
+        ID: 57,
+        NAME: 'Tarea',
+    },
 };
 export const CONTACT_TYPES: any = {
     PERSON: 1,

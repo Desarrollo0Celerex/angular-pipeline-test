@@ -1,6 +1,8 @@
 <agt-content-list
     contentName="{{ 'Tarea' | plural : tasks.length }} {{
-        taskStatusId | taskStatusName | plural : tasks.length
+        subcontentName
+            ? (subcontentName | plural : tasks.length)
+            : (taskStatusId | taskStatusName | plural : tasks.length)
     }}"
     [contentGender]="GENDERS.FEMALE"
     [noResultsMessage]="noResultsMessage"

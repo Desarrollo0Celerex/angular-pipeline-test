@@ -37,6 +37,11 @@ import { CalendarSettingsComponent } from './components/calendar-settings/calend
 import { TaskResultsPage } from './pages/task-results/task-results.page';
 import { ResultsSearchEngineComponent } from './components/results-search-engine/results-search-engine.component';
 import { ResultsListComponent } from './components/results-list/results-list.component';
+import { TasksFinishedByRangePage } from './pages/tasks-finished-by-range/tasks-finished-by-range.page';
+import { ContainerSelectStatsPeriodModule } from '@components/container-select-stats-period/container-select-stats-period.module';
+import { ContentListModule } from '@components/content-list/content-list.module';
+import { CardReportFinishedTasksComponent } from './components/card-report-finished-tasks/card-report-finished-tasks.component';
+import { ModalSelectReportFormatModule } from '@components/modal-select-report-format/modal-select-report-format.module';
 
 @NgModule({
     declarations: [
@@ -67,6 +72,8 @@ import { ResultsListComponent } from './components/results-list/results-list.com
         TaskResultsPage,
         ResultsSearchEngineComponent,
         ResultsListComponent,
+        TasksFinishedByRangePage,
+        CardReportFinishedTasksComponent,
     ],
     exports: [
         ModalCreateTaskComponent,
@@ -82,6 +89,8 @@ import { ResultsListComponent } from './components/results-list/results-list.com
         ReactiveFormsModule,
         SharedModule,
         TasksRoutingModule,
+        ContainerSelectStatsPeriodModule,
+        ModalSelectReportFormatModule,
     ],
     providers: [
         ModuleService,
