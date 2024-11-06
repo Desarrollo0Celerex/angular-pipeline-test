@@ -6,6 +6,7 @@ import { TaskResultsPage } from './pages/task-results/task-results.page';
 import { TASKS_ROUTES } from '@core/constants/routes';
 import { TasksFinishedByRangePage } from './pages/tasks-finished-by-range/tasks-finished-by-range.page';
 import { TasksInProgressByRangePage } from './pages/tasks-in-progress-by-range/tasks-in-progress-by-range.page';
+import { TasksPendingByRangePage } from './pages/tasks-pending-by-range/tasks-pending-by-range.page';
 
 const routes: Routes = [
     {
@@ -36,6 +37,11 @@ const routes: Routes = [
     {
         path: TASKS_ROUTES.TASK_IN_PROGRESS_BY_RANGE,
         component: TasksInProgressByRangePage,
+        title: 'Agenthos - Task Planner',
+    },
+    {
+        path: TASKS_ROUTES.TASK_PENDING_BY_RANGE,
+        component: TasksPendingByRangePage,
         title: 'Agenthos - Task Planner',
     },
 ];

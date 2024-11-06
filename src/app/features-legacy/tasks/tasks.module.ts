@@ -43,6 +43,8 @@ import { CardReportFinishedTasksComponent } from './components/card-report-finis
 import { ModalSelectReportFormatModule } from '@components/modal-select-report-format/modal-select-report-format.module';
 import { TasksInProgressByRangePage } from './pages/tasks-in-progress-by-range/tasks-in-progress-by-range.page';
 import { CardReportInProgressTasksComponent } from './components/card-report-in-progress-tasks/card-report-in-progress-tasks.component';
+import { TasksPendingByRangePage } from './pages/tasks-pending-by-range/tasks-pending-by-range.page';
+import { CardReportPendingTasksComponent } from './components/card-report-pending-tasks/card-report-pending-tasks.component';
 
 @NgModule({
     declarations: [
@@ -77,6 +79,8 @@ import { CardReportInProgressTasksComponent } from './components/card-report-in-
         CardReportFinishedTasksComponent,
         TasksInProgressByRangePage,
         CardReportInProgressTasksComponent,
+        TasksPendingByRangePage,
+        CardReportPendingTasksComponent,
     ],
     exports: [
         ModalCreateTaskComponent,

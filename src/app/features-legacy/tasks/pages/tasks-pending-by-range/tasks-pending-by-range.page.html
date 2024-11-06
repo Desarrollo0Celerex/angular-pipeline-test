@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-12">
         <agt-card-content-title
-            title="Tareas En Progreso"
-            description="Tareas que se estan realizando."
+            title="Tareas Pendientes"
+            description="Tareas que aún no se han iniciado."
         ></agt-card-content-title>
     </div>
 </div>
@@ -23,7 +23,7 @@
     <!-- //AGENTHOS - DATA SUITE STATS -->
     <!-- AGENTHOS - DATA SUITE REPORT -->
     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-        <agt-card-report-in-progress-tasks
+        <agt-card-report-pending-tasks
             *ngIf="!!statsPeriodData"
             [rangeField]="rangeField"
             [rangeStart]="statsPeriodData.startDate"
@@ -37,14 +37,14 @@
 
 <div class="row mt-3">
     <div class="col-12">
-        <agt-card-content-title title="Tareas Encontradas" />
+        <agt-card-content-title title="Tareas Pendientes" />
     </div>
 </div>
 
 <agt-tasks-list
     *ngIf="!!statsPeriodData"
-    subcontentName="En progreso"
-    noResultsMessage="No se encontraron tareas en progreso."
+    subcontentName="Pendiente"
+    noResultsMessage="No se encontraron tareas pendientes."
     noResultsMessage="Por favor programa una tarea para darle seguimiento."
     noResultsButtonLabel="Programar Tarea"
     [filters]="filters"
