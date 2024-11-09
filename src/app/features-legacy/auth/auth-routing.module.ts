@@ -5,6 +5,7 @@ import { AUTH_ROUTES } from '@core/constants/routes';
 
 import { LoginPage } from './pages/login/login.page';
 import { IdentifyUserPage } from './pages/identify-user/identify-user.page';
+import { AuthenticateUserPage } from './pages/authenticate-user/authenticate-user.page';
 
 const routes: Routes = [
     {
@@ -14,6 +15,10 @@ const routes: Routes = [
     {
         path: AUTH_ROUTES.IDENTIFY_USER(':authToken'),
         component: IdentifyUserPage,
+    },
+    {
+        path: AUTH_ROUTES.AUTHENTICATE_USER(':userToken'),
+        component: AuthenticateUserPage,
     },
 ];
 

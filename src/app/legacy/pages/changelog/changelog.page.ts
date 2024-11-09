@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.20',
+            launchDate: '08/11/2024',
+            changes: [
+                {
+                    title: 'Auth',
+                    items: [
+                        'Se agrego conexión con el servicio Assitant para la creación de los espacios de trabajo',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.19',
             launchDate: '01/11/2024',
             changes: [

@@ -3,6 +3,7 @@ export const environment = {
     atomAccountUrl: 'http://localhost:4201',
     atomScann: 'http://localhost:8888/atombits/atom-scanner/api/v1',
     importerApiUrl: 'http://localhost:8888/atombits/agenthos-importer/v1',
+    assistantUrl: 'https://assistant.agenthos.com',
     agenthos: {
         landingUrl: 'https://agenthos.com',
         appUrl: 'http://localhost:4200',

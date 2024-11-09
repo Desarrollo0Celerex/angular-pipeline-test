@@ -2,6 +2,7 @@ export const AUTH_ROUTES: any = {
     MODULE: 'auth',
     LOGIN: 'login',
     IDENTIFY_USER: (authToken: string) => `identify-user/${authToken}`,
+    AUTHENTICATE_USER: (userToken: string) => `authenticate-user/${userToken}`,
 };
 
 export const HOME_ROUTES: any = {

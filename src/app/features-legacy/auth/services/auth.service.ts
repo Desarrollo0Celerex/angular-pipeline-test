@@ -48,6 +48,11 @@ export class AuthService {
             : 0;
     }
 
+    authenticateUser(userToken: string): Observable<string> {
+        const route: string = AUTH_ENDPOINTS.users;
+        return this._apiHttp.put(route, { userToken });
+    }
+
     checkHasActiveWorkspace(): boolean {
         const userTokenData: UserTokenData | null =
             this._storageService.getUserTokenData();
