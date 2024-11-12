@@ -23,12 +23,8 @@ export class AuthenticateUserPage {
     ) {}
 
     ngOnInit(): void {
-        if (this._authService.checkIsLoggedIn()) {
-            this._router.navigateByUrl(ROUTES_NAME.workspaceWelcome);
-        } else {
-            this._catchParams();
-            this._authenticateUser();
-        }
+        this._catchParams();
+        this._authenticateUser();
     }
 
     private _catchParams(): void {

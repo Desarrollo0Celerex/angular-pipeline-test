@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.21',
+            launchDate: '12/11/2024',
+            changes: [
+                {
+                    title: 'Auth',
+                    items: [
+                        'Se resolvio bug al autenticar a un usuario proveniente del assitant.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.20',
             launchDate: '08/11/2024',
             changes: [
