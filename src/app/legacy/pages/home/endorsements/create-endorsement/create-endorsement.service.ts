@@ -593,7 +593,7 @@ export class CreateEndorsementService {
 
     getPolicy(contactId: string, policyId: string): Observable<HttpResponse> {
         const fields: string =
-            'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,policyNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements,paymentAmount,paymentAmountPaid,titularAge,titularGenderId,contactTypeId,insuranceTypeId,insureds,insuranceGroupId,paymentDate,netPay,feePay,coverPay,noTaxPay,extraPay,taxPay,discount,firstReceiptAmount,subsequentReceiptsAmount';
+            'policyId,policyStatusName,policyStatusBackground,policyStatusDescription,insuranceName,insuranceIcon,insuranceBackground,insuranceTypeName,policyUrl,policyNumber,insurerName,insurerImageUrl,titularName,titularRfc,titularPostalCode,titularEmail,titularPhoneCodeId,titularPhoneNumber,emissionDate,validityStartDate,validityEndDate,policyAmount,currencyName,paymentMethodId,paymentPlanId,bills,monthsPaid,receiptsPaid,lifeTime,totalEndorsements,paymentAmount,paymentAmountPaid,titularAge,titularGenderId,contactTypeId,insuranceTypeId,insureds,insuranceGroupId,paymentDate,netPay,feePay,coverPay,noTaxPay,extraPay,taxPay,discount,firstReceiptAmount,subsequentReceiptsAmount,firstReceiptAmount,subsequentReceiptsAmount';
         return this._policyService.getContactPolicy(
             contactId,
             policyId,
@@ -721,6 +721,12 @@ export class CreateEndorsementService {
             this.f.paymentMethodId.setValue(this.policy?.paymentMethodId || '');
             this.f.paymentPlanId.setValue(this.policy?.paymentPlanId || '');
             this.f.bills.setValue(this.policy?.bills || '0');
+            this.f.firstReceiptAmount.setValue(
+                this.policy?.firstReceiptAmount || ''
+            );
+            this.f.subsequentReceiptsAmount.setValue(
+                this.policy?.subsequentReceiptsAmount || ''
+            );
         } else {
             this.form.addControl(
                 'endorsementNetPay',
@@ -787,7 +793,16 @@ export class CreateEndorsementService {
                 'bills',
                 new FormControl(this.policy?.bills || 0, [Validators.required])
             );
+            this.form.addControl(
+                'firstReceiptAmount',
+                new FormControl(this.policy?.firstReceiptAmount || '')
+            );
+            this.form.addControl(
+                'subsequentReceiptsAmount',
+                new FormControl(this.policy?.subsequentReceiptsAmount || '')
+            );
             this.f.bills.disable();
+            this.f.firstReceiptAmount.disable();
             PopoverPlugin.init();
         }
         this.canShowEndorsementPaymentFields = true;
@@ -822,6 +837,12 @@ export class CreateEndorsementService {
         this.f.endorsementTotalAmount.enable();
         this.f.paymentMethodId.enable();
         this.f.paymentPlanId.enable();
+        this.f.subsequentReceiptsAmount.enable();
+        // If the policy has no payment applied
+        console.log('this.policy!.receiptsPaid: ', this.policy!.receiptsPaid);
+        if (this.policy!.receiptsPaid == 0) {
+            this.f.firstReceiptAmount.enable();
+        }
     }
 
     private _enablePolicyFields(): void {
@@ -1046,6 +1067,14 @@ export class CreateEndorsementService {
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);
         requestBody.append(
+            'firstReceiptAmount',
+            this.f.firstReceiptAmount.value
+        );
+        requestBody.append(
+            'subsequentReceiptsAmount',
+            this.f.subsequentReceiptsAmount.value
+        );
+        requestBody.append(
             'fractionalReceiptAmount',
             fractionalReceiptAmount.toString()
         );
@@ -1176,6 +1205,14 @@ export class CreateEndorsementService {
         requestBody.append('paymentMethodId', this.f.paymentMethodId.value);
         requestBody.append('paymentPlanId', this.f.paymentPlanId.value);
         requestBody.append('bills', this.f.bills.value);
+        requestBody.append(
+            'firstReceiptAmount',
+            this.f.firstReceiptAmount.value
+        );
+        requestBody.append(
+            'subsequentReceiptsAmount',
+            this.f.subsequentReceiptsAmount.value
+        );
         requestBody.append(
             'fractionalReceiptAmount',
             fractionalReceiptAmount.toString()
@@ -1433,5 +1470,7 @@ export class CreateEndorsementService {
         this.form.removeControl('paymentMethodId');
         this.form.removeControl('paymentPlanId');
         this.form.removeControl('bills');
+        this.form.removeControl('firstReceiptAmount');
+        this.form.removeControl('subsequentReceiptsAmount');
     }
 }
