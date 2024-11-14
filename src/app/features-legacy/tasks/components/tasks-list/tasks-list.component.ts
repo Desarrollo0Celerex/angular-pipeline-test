@@ -21,10 +21,7 @@ import { CreateTaskService } from '@tasks/components/create-task/create-task.ser
     templateUrl: './tasks-list.component.html',
     styles: [],
 })
-export class TasksListComponent
-    extends SmartComponent
-    implements OnInit, OnChanges
-{
+export class TasksListComponent extends SmartComponent implements OnInit {
     @ViewChild(CreateTaskComponent)
     createTaskComponent!: CreateTaskComponent;
     @Input() subcontentName = '';
@@ -54,7 +51,9 @@ export class TasksListComponent
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.initData();
+        if (changes.rangeStart || changes.rangeEnd) {
+            this.initData();
+        }
     }
 
     ngOnInit(): void {

@@ -839,7 +839,6 @@ export class CreateEndorsementService {
         this.f.paymentPlanId.enable();
         this.f.subsequentReceiptsAmount.enable();
         // If the policy has no payment applied
-        console.log('this.policy!.receiptsPaid: ', this.policy!.receiptsPaid);
         if (this.policy!.receiptsPaid == 0) {
             this.f.firstReceiptAmount.enable();
         }

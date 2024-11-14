@@ -24,7 +24,6 @@ export class ModalConfirmCreateWorkspaceComponent {
         let redirectUrl = `${environment.assistantUrl}/auth`;
         const userToken = this._storageService.getUserToken();
         if (userToken === null) {
-            console.log('No hay token de usuario!');
             return;
         }
         redirectUrl += `?userToken=${userToken}`;
