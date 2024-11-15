@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.22',
+            launchDate: '15/11/2024',
+            changes: [
+                {
+                    title: 'Task',
+                    items: [
+                        'Se agregaron reportes para tareas pendintes, en progreso y terminadas.',
+                        'Se resolvio bug al listar las tareas por primera vez',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.21',
             launchDate: '12/11/2024',
             changes: [

@@ -35,6 +35,37 @@ export class TaskService {
         );
     }
 
+    downloadFinishedTasksReport(
+        filter: string = '',
+        rangeField: string = '',
+        rangeStart: string = '',
+        rangeEnd: string = '',
+        sortBy: string = '-createdAt',
+        specialFilter: string = '',
+        formatType: number
+    ) {
+        const route: string = TASK_ENDPOINTS.reportFinishedTasks(
+            this._workspaceId
+        );
+        let params: HttpParams = new HttpParams();
+        if (!!filter) params = params.append('filter', filter);
+        if (!!rangeField) params = params.append('rangeField', rangeField);
+        if (!!rangeStart) params = params.append('rangeStart', rangeStart);
+        if (!!rangeEnd) params = params.append('rangeEnd', rangeEnd);
+        if (!!formatType) params = params.append('formatType', formatType);
+        if (!!sortBy) params = params.append('sortBy', sortBy);
+        if (!!specialFilter)
+            params = params.append('specialFilter', specialFilter);
+        params.append('observe', 'response');
+        params.append('responseType', 'arraybuffer');
+        const fileParams: any = {
+            observe: 'response',
+            responseType: 'arraybuffer',
+            params,
+        };
+        return this._httpClient.get(route, fileParams).toPromise();
+    }
+
     downloadInProgressTasksReport(
         filter: string = '',
         rangeField: string = '',
