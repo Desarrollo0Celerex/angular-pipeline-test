@@ -93,6 +93,8 @@ export const TASK_ENDPOINTS: any = {
         `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/tasks`,
     reportPendingTasks: (workspaceId: string) =>
         `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/tasks/reports/pending`,
+    reportInProgressTasks: (workspaceId: string) =>
+        `${environment.agenthos.apiUrl}/workspaces/${workspaceId}/tasks/reports/in-progress`,
 };
 
 export const TASK_PROGRESS_STATUS_ENDPOINTS: any = {
