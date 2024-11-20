@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.23',
+            launchDate: '19/11/2024',
+            changes: [
+                {
+                    title: 'Policy',
+                    items: [
+                        'Se resolvio bug al actualizar el bien asegurado de una póliza de vida, gastos medicos, etc.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.22',
             launchDate: '15/11/2024',
             changes: [

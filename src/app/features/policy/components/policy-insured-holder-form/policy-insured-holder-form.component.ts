@@ -2,7 +2,6 @@ import {
     Component,
     EventEmitter,
     forwardRef,
-    inject,
     Input,
     OnDestroy,
     OnInit,

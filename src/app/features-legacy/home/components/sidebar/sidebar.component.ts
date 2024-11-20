@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
     userWorkspacesModalComponent!: UserWorkspacesModalComponent;
     ROUTES_NAME: any = ROUTES_NAME;
     WORKSPACE_THEMES = WORKSPACE_THEMES;
-    appVersion = '1.54.16';
+    appVersion = '1.54.23';
     agenthosSupportPhone =
         environment.agenthos.support.phoneCode +
         environment.agenthos.support.phoneNumber;

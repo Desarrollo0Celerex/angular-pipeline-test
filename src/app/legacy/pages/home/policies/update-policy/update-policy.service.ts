@@ -68,7 +68,7 @@ import { InsuranceGroupService } from '@services/insurance-group.service';
 import { InsuranceTypeService } from '@services/insurance-type.service';
 import { InsuranceService } from '@services/insurance.service';
 import { CalculateFirstPaymentAmount } from '@core/interfaces/calculate-first-payment-amount.interface';
-import { PAYMENT_PLANS } from '@core/constants/settings';
+import { INSURED_RELATIONS, PAYMENT_PLANS } from '@core/constants/settings';
 import { DateHelper } from '@core/helpers/date.helper';
 
 declare var DropifyPlugin: any;
@@ -1019,6 +1019,7 @@ export class UpdatePolicyService {
                     ? birthdate
                     : this.f.insuredHolder.value.birthdate,
                 genderId: this.f.titularGenderId.value,
+                relationId: INSURED_RELATIONS.TITULAR,
             },
         });
     }
