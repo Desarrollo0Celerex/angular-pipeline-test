@@ -49,6 +49,12 @@
                                 </select>
                                 <div class="invalid-feedback">{{getErrorMessage('contactFileTypeId')}}</div>
                             </div>
+                            <!-- AGENTHOS - FILE EXPIRATION DATE * -->
+                            <div class="form-group">
+                                <label class="form-label">Fecha de Expiración</label>
+                                <input [id]="calendarIdExpiredAt" type="text" class="form-control fc-datepicker {{getValidationClass('expiredAt')}}" formControlName="expiredAt" />
+                                <div class="invalid-feedback">{{getErrorMessage('expiredAt')}}</div>
+                            </div>
                         </div>
                         <!-- AGENTHOS - CONFIRM FILE -->
                         <div class="col-md-12 mt-5">

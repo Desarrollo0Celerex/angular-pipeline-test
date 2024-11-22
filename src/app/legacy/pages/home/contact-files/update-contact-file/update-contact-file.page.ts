@@ -16,6 +16,7 @@ import { UpdateContactFileService } from './update-contact-file.service';
 import { FileParam } from '@components/file-uploader/file-uploader.component';
 
 declare var DropifyPlugin: any;
+declare var DatePickerPlugin: any;
 
 @Component({
     selector: 'agt-update-contact-file',
@@ -46,6 +47,7 @@ export class UpdateContactFilePage implements OnInit {
         'Selecciona el archivo que deseas cargar en el expediente de';
     fileEndpoint: string = '';
     maxFileSize: string = FILE_SIZES.LARGE;
+    calendarIdExpiredAt: string = 'expiredAt';
     private _isFormSubmitted: boolean = false;
     private _workspaceId: string = this._authService.workspaceId;
 
@@ -59,6 +61,12 @@ export class UpdateContactFilePage implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        DatePickerPlugin.init();
+        DatePickerPlugin.initElement(
+            this.calendarIdExpiredAt,
+            this._onChangeDate,
+            this
+        );
         this._catchParams();
         this.fileEndpoint = CONTACT_FILE_ENDPOINTS.contactFile(
             this._workspaceId,
@@ -71,6 +79,7 @@ export class UpdateContactFilePage implements OnInit {
         if (!!this.contactFileData) {
             this.updateContactFileService.loadContactFile(this.contactFileData);
         }
+        
     }
 
     getErrorMessage(constrolName: string): string {
@@ -144,6 +153,10 @@ export class UpdateContactFilePage implements OnInit {
                 name: 'contactFileTypeId',
                 value: this.updateContactFileService.f.contactFileTypeId.value,
             },
+            {
+                name: 'expiredAt',
+                value: this.updateContactFileService.f.expiredAt.value
+            }
         ];
     }
 
@@ -166,4 +179,15 @@ export class UpdateContactFilePage implements OnInit {
                 });
         }
     }
+
+    private _onChangeDate(
+        selectorId: string,
+        changedValue: string,
+        context: UpdateContactFilePage
+    ): void {
+        context.updateContactFileService.fileForm.patchValue({
+            [selectorId]: changedValue,
+        });
+    }
+
 }
