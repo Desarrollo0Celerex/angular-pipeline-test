@@ -42,6 +42,7 @@ export class UploadContactFileService {
                 ],
             ],
             contactFileTypeId: ['', [Validators.required]],
+            expiredAt: ['', [ValidatorsHelper.date]]
         });
     }
 

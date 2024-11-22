@@ -15,6 +15,7 @@ import { UploadContactFileService } from './upload-contact-file.service';
 import { FileParam } from '@components/file-uploader/file-uploader.component';
 
 declare var DropifyPlugin: any;
+declare var DatePickerPlugin: any;
 
 @Component({
     selector: 'agt-upload-contact-file',
@@ -45,6 +46,7 @@ export class UploadContactFilePage implements OnInit {
         'Selecciona el archivo que deseas cargar en el expediente de';
     fileEndpoint: string = '';
     maxFileSize: string = FILE_SIZES.LARGE;
+    calendarIdExpiredAt: string = 'expiredAt';
     private _isFormSubmitted: boolean = false;
     private _workspaceId: string = this._authService.workspaceId;
 
@@ -58,6 +60,12 @@ export class UploadContactFilePage implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        DatePickerPlugin.init();
+        DatePickerPlugin.initElement(
+            this.calendarIdExpiredAt,
+            this._onChangeDate,
+            this
+        );
         this._catchParams();
         this.fileEndpoint = CONTACT_FILE_ENDPOINTS.contactFiles(
             this._workspaceId,
@@ -155,6 +163,10 @@ export class UploadContactFilePage implements OnInit {
                 name: 'contactFileTypeId',
                 value: this.uploadFileService.f.contactFileTypeId.value,
             },
+            {
+                name: 'expiredAt',
+                value: this.uploadFileService.f.expiredAt.value
+            }
         ];
     }
 
@@ -167,4 +179,15 @@ export class UploadContactFilePage implements OnInit {
             ROUTES_NAME.listContactFiles(context.contactId)
         );
     }
+
+    private _onChangeDate(
+        selectorId: string,
+        changedValue: string,
+        context: UploadContactFilePage
+    ): void {
+        context.uploadFileService.fileForm.patchValue({
+            [selectorId]: changedValue,
+        });
+    }
+
 }
