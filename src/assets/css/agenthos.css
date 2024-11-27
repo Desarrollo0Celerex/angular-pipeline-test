@@ -617,6 +617,32 @@
     background: linear-gradient(to bottom right, #ba1d58, #ff0548) !important;
 }
 
+/* -- AGENTHOS - FILES LIBRARY -- */
+.agt-file-pdf {
+    color: #fbfbfb !important;
+    background-color: #ff0008 !important;
+    border-color: #ff0008 !important;
+}
+
+.agt-file-img {
+    color: #fbfbfb !important;
+    background-color: #ffb0e7 !important;
+    border-color: #ffb0e7 !important;
+}
+
+.agt-file-excel {
+    color: #fbfbfb !important;
+    background-color: #008008 !important;
+    border-color: #008008 !important;
+}
+
+.agt-file-doc {
+    color: #fbfbfb !important;
+    background-color: #0080f8 !important;
+    border-color: #0080f8 !important;
+}
+/* -- //AGENTHOS - FILES LIBRARY -- */
+
 /* -- AGENTHOS - GRADIENT LIBRARY -- */
 .agt-primary-gradient {
     color: #fbfbfb;
