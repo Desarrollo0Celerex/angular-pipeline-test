@@ -12,5 +12,6 @@ export interface ContactFile {
     contactFileStatusId: number,
     contactFileStatusName: string,
     background: string,
-    expiredAt: string
+    expiredAt: string | null,
+    fileLoadName: string
 }
