@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 
 import { ContactFile } from '@interfaces/contact-file.interface';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
+import * as moment from 'moment';
 
 @Component({
   selector: 'agt-card-contact-file',
@@ -9,16 +10,25 @@ import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interfac
   styles: [
   ]
 })
-export class CardContactFileComponent implements OnInit {
+export class CardContactFileComponent implements OnInit, OnChanges  {
     @Input() contactFile: ContactFile | null = null;
     @Output() deleteContactFile: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
     @Output() onShowContactFileDetails: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
     @Output() transferContactFile: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
     @Output() updateContactFile: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
 
+    daysRemaining: number | null = null;
+    spanText: string = '';
+
     constructor() { }
 
     ngOnInit(): void {
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['contactFile'] && this.contactFile) {
+            this._processContactFile();
+        }
     }
 
     get fileIcon(): string {
@@ -40,6 +50,28 @@ export class CardContactFileComponent implements OnInit {
             }
         }
         return fileIcon;
+    }
+
+    getFileClass(fileExtension: string): string {
+        switch (fileExtension?.toLowerCase()) {
+            case 'pdf':
+                return 'agt-file-pdf';
+            case 'png':
+            case 'jpg':
+            case 'jpeg':
+            case 'gif':
+            case 'bmp':
+                return 'agt-file-img';
+            case 'xls':
+            case 'xlsx':
+            case 'csv':
+                return 'agt-file-excel';
+            case 'doc':
+            case 'docx':
+                return 'agt-file-doc';
+            default:
+                return 'agt-file-pdf';
+        }
     }
 
     /**
@@ -87,6 +119,32 @@ export class CardContactFileComponent implements OnInit {
                 contactId: this.contactFile.contactId,
                 contactFileId: this.contactFile.contactFileId
             });
+        }
+    }
+
+    /**
+     * Process the contact file to get the days remaining and the span text
+     * @returns
+     */
+    private _processContactFile(): void {
+        if (!this.contactFile?.expiredAt) {
+            this.daysRemaining = null;
+            this.spanText = '';
+            return;
+        }
+
+        const today = moment().startOf('day');
+        const expirationDate = moment(this.contactFile.expiredAt).startOf('day');
+        const diffDays = expirationDate.diff(today, 'days'); // Diferencia en días
+
+        if (diffDays < 0) {
+            // Expirado
+            this.daysRemaining = Math.abs(diffDays); // Días desde que expiró
+            this.spanText = 'Expiró';
+        } else {
+            // Aún vigente
+            this.daysRemaining = diffDays; // Días restantes
+            this.spanText = 'Restante';
         }
     }
 
