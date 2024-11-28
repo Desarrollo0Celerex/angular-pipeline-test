@@ -1,35 +1,97 @@
 <div class="card" *ngIf="!!contactFile">
-    <!-- AGENTHOS - FILE HEADER -->
+    <!-- AGENTHOS - FILECARD HEADER -->
     <div class="card-header">
-        <!-- AGENTHOS - FILE TYPE -->
-        <ng-container [ngSwitch]="contactFile.fileExtension">
-            <div class="badge badge-success-gradient mr-1" *ngSwitchCase="'pdf'">PDF</div>
-            <div class="badge badge-warning-gradient mr-1" *ngSwitchCase="(contactFile.fileExtension === 'png' || contactFile.fileExtension === 'jpg' || contactFile.fileExtension === 'jpeg' || contactFile.fileExtension === 'gif' || contactFile.fileExtension === 'bmp') ? contactFile.fileExtension : ''">IMAGEN</div>
-            <div class="badge badge-info-gradient mr-1" *ngSwitchDefault>ARCHIVO</div>
-        </ng-container>
-
-        <!-- AGENTHOS - FILE MENU -->
+        <!-- AGENTHOS - FILE IMAGE -->
+        <img class="avatar brround" src="https://webkit.agenthos.com/workspace/agenthos_file_icon.png" width="38px">
+        <!-- AGENTHOS - FILECARD MENU -->
         <div class="card-options">
             <a href="" class="mr-2 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                 <span class="fa fa-bars"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" role="menu">
                 <div class="dropdown-plus-title">Acciones Disponibles</div>
-                <button type="button" class="dropdown-item" (click)="onClickUpdateFile()"><i class="fa fa-cloud-upload mr-2"></i>Actualizar</button>
-                <button type="button" class="dropdown-item" (click)="onClickDeleteFile()"><i class="fa fa-trash mr-2"></i>Eliminar</button>
+                <!-- AGENTHOS - FILE EDIT -->
+                <button type="button" class="dropdown-item" (click)="onClickUpdateFile()"><i class="fa fa-edit mr-2"></i>Actualizar Documento</button>
+                <div class="dropdown-divider"></div>
+                <!-- AGENTHOS - FILE DELETE -->
+                <button type="button" class="dropdown-item" (click)="onClickDeleteFile()"><i class="fa fa-trash mr-2"></i>Eliminar Documento</button>
             </div>
         </div>
-        <!-- //AGENTHOS - FILE MENU -->
+        <!-- //AGENTHOS - FILECARD MENU -->
     </div>
     <!-- //AGENTHOS - FILECARD HEADER -->
+    <div class="card-header border-bottom-0">
+        <div class="text-left">
+            <!-- AGENTHOS - FILECARD SOURCE -->
+            <div class="badge agt-badge-primary-gradient mr-1 mt-3">
+                Documento
+            </div>
+            <!-- AGENTHOS - FILECARD STATUS -->
+            <div class="badge agt-badge-{{contactFile.background}} mr-1 mt-3">
+                {{ contactFile.contactFileStatusName }}
+            </div>
+            <!-- AGENTHOS - FILECARD LOAD TYPE -->
+            <p class="text-muted mt-3">
+                <span class="agt-text-warning fs-13">
+                    <i data-toggle="popover" data-placement="left" class="fe fe-upload mr-2" data-content="El documento se cargó de forma manual."></i>
+                </span>
+                {{ contactFile.contactFileLoadTypeName }}
+            </p>
+        </div>
+        <div class="card-options">
+            <button 
+                type="button" 
+                class="btn" 
+                [ngClass]="[getFileClass(contactFile.fileExtension), 'mr-3']">
+                <i class="fa {{ fileIcon }} mb-0"></i>
+            </button>
+        </div>
+    </div>
     <!-- AGENTHOS - FILECARD BODY -->
-    <div class="card-body text-center">
-        <!-- AGENTHOS - FILE ICON -->
-        <i class="fa {{fileIcon}} fa-3x"></i>
-        <!-- AGENTHOS - FILE NAME -->
-        <h6 class="mt-5 mb-3">{{contactFile.fileName}}</h6>
-        <!-- AGENTHOS - FILE TYPE -->
-        <h6><span class="text-primary text-left"><i class="fe fe-folder mr-2"></i></span>{{contactFile.contactFileTypeName | uppercase}}</h6>
+    <div class="card-body pt-0">
+        <div class="row">
+            <div class="col-8">
+                <span class="text-muted">Fecha Carga</span>
+                <h6>
+                    <span class="agt-icon-primary"><i class="fe fe-calendar mr-2"></i></span>
+                    {{ contactFile.createdAt | date: 'dd/MM/yyyy' }}
+                </h6>
+            </div>
+            <div class="col-4">
+                <span class="text-muted">Tipo</span>
+                <h6 class="text-justify">
+                    <span class="agt-icon-primary"><i class="fe fe-file mr-2"></i></span>
+                    {{ contactFile.fileExtension | uppercase }}
+                </h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <span class="text-muted">Fecha Vigencia</span>
+                <h6 class="text-justify">
+                    <span class="agt-icon-primary"><i class="fe fe-calendar mr-2"></i></span>
+                    {{ contactFile.expiredDate | date: 'dd/MM/yyyy' }}
+                </h6>
+            </div>
+            <div class="col-4" *ngIf="contactFile.expiredDate !== null">
+                <span class="text-muted">{{ spanText }}</span>
+                <h6 class="text-justify">
+                    <span class="agt-icon-primary"><i class="fe fe-clock mr-2"></i></span>
+                    <span *ngIf="spanText === 'Restante'">
+                        {{ daysRemaining }} {{ daysRemaining === 1 ? 'día' : 'días' }}
+                    </span>
+                    <span *ngIf="spanText === 'Expiró'">
+                        Hace {{ daysRemaining }} {{ daysRemaining === 1 ? 'día' : 'días' }}
+                    </span>
+                </h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <span class="text-muted">Nombre</span>
+                <h6>{{ contactFile.fileName }}</h6>
+            </div>
+        </div>
     </div>
     <!-- //AGENTHOS - FILECARD BODY -->
     <!-- AGENTHOS - FILECARD FOOTER -->

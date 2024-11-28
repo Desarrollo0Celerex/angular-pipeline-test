@@ -8,5 +8,10 @@ export interface ContactFile {
     updatedAt: string,
     contactFileTypeName: string,
     createdByName: string,
-    contactId: string
+    contactId: string,
+    contactFileStatusId: number,
+    contactFileStatusName: string,
+    background: string,
+    expiredDate: string | null,
+    contactFileLoadTypeName: string
 }

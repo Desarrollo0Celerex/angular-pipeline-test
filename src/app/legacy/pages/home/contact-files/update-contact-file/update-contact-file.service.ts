@@ -15,6 +15,8 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContactFileService } from '@services/contact-file.service';
 import { ContactFileTypeService } from '@services/contact-file-type.service';
 
+import * as moment from 'moment';
+
 @Injectable()
 export class UpdateContactFileService {
     contactFileTypes: ContactFileType[] = [];
@@ -46,6 +48,7 @@ export class UpdateContactFileService {
                 ],
             ],
             contactFileTypeId: ['', [Validators.required]],
+            expiredDate: ['', [ValidatorsHelper.date]]
         });
     }
 
@@ -54,13 +57,14 @@ export class UpdateContactFileService {
      * @param contactFileData [description]
      */
     loadContactFile(contactFileData: ContactFileDataSend): void {
-        const fields: string = 'fileName,contactFileTypeId';
+        const fields: string = 'fileName,contactFileTypeId,expiredDate';
         this._contactFileService
             .getContactFile(contactFileData, fields)
             .subscribe((res: HttpResponse) => {
                 this._updateFileForm(
                     res.data.fileName,
-                    res.data.contactFileTypeId
+                    res.data.contactFileTypeId,
+                    res.data.expiredDate
                 );
             });
     }
@@ -99,14 +103,16 @@ export class UpdateContactFileService {
         const requestBody: FormData = new FormData();
         requestBody.append('fileName', this.f.fileName.value);
         requestBody.append('contactFileTypeId', this.f.contactFileTypeId.value);
+        requestBody.append('expiredDate', this.f.expiredDate.value ? this.f.expiredDate.value : '');
         return requestBody;
     }
 
-    private _updateFileForm(fileName: string, contactFileTypeId: number): void {
+    private _updateFileForm(fileName: string, contactFileTypeId: number, expiredDate: string): void {
         fileName = fileName.replace(/_/g, ' ');
         this.fileForm.patchValue({
             fileName,
             contactFileTypeId,
+            expiredDate: expiredDate ? moment(expiredDate).format('DD/MM/YYYY') : ''
         });
     }
 }
