@@ -127,14 +127,14 @@ export class CardContactFileComponent implements OnInit, OnChanges  {
      * @returns
      */
     private _processContactFile(): void {
-        if (!this.contactFile?.expiredAt) {
+        if (!this.contactFile?.expiredDate) {
             this.daysRemaining = null;
             this.spanText = '';
             return;
         }
 
         const today = moment().startOf('day');
-        const expirationDate = moment(this.contactFile.expiredAt).startOf('day');
+        const expirationDate = moment(this.contactFile.expiredDate).startOf('day');
         const diffDays = expirationDate.diff(today, 'days'); // Diferencia en días
 
         if (diffDays < 0) {

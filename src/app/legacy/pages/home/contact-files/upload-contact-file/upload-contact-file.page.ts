@@ -46,7 +46,7 @@ export class UploadContactFilePage implements OnInit {
         'Selecciona el archivo que deseas cargar en el expediente de';
     fileEndpoint: string = '';
     maxFileSize: string = FILE_SIZES.LARGE;
-    calendarIdExpiredAt: string = 'expiredAt';
+    calendarIdExpiredDate: string = 'expiredDate';
     private _isFormSubmitted: boolean = false;
     private _workspaceId: string = this._authService.workspaceId;
 
@@ -62,7 +62,7 @@ export class UploadContactFilePage implements OnInit {
     ngOnInit(): void {
         DatePickerPlugin.init();
         DatePickerPlugin.initElement(
-            this.calendarIdExpiredAt,
+            this.calendarIdExpiredDate,
             this._onChangeDate,
             this
         );
@@ -164,8 +164,8 @@ export class UploadContactFilePage implements OnInit {
                 value: this.uploadFileService.f.contactFileTypeId.value,
             },
             {
-                name: 'expiredAt',
-                value: this.uploadFileService.f.expiredAt.value
+                name: 'expiredDate',
+                value: this.uploadFileService.f.expiredDate.value
             }
         ];
     }

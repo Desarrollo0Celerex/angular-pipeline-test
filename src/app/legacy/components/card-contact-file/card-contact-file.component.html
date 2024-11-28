@@ -35,7 +35,7 @@
                 <span class="agt-text-warning fs-13">
                     <i data-toggle="popover" data-placement="left" class="fe fe-upload mr-2" data-content="El documento se cargó de forma manual."></i>
                 </span>
-                {{ contactFile.fileLoadName }}
+                {{ contactFile.contactFileLoadTypeName }}
             </p>
         </div>
         <div class="card-options">
@@ -70,10 +70,10 @@
                 <span class="text-muted">Fecha Vigencia</span>
                 <h6 class="text-justify">
                     <span class="agt-icon-primary"><i class="fe fe-calendar mr-2"></i></span>
-                    {{ contactFile.expiredAt | date: 'dd/MM/yyyy' }}
+                    {{ contactFile.expiredDate | date: 'dd/MM/yyyy' }}
                 </h6>
             </div>
-            <div class="col-4" *ngIf="contactFile.expiredAt !== null">
+            <div class="col-4" *ngIf="contactFile.expiredDate !== null">
                 <span class="text-muted">{{ spanText }}</span>
                 <h6 class="text-justify">
                     <span class="agt-icon-primary"><i class="fe fe-clock mr-2"></i></span>

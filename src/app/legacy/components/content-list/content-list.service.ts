@@ -567,7 +567,7 @@ export class ContentListService {
      */
     loadContactFiles(contactId: string, page: number): Observable<void> {
         const fields: string =
-            'contactFileId,fileName,fileExtension,fileSize,fileUrl,createdAt,updatedAt,contactFileTypeName,createdByName,contactId,expiredAt,contactFileStatusId,contactFileStatusName,background,fileLoadName';
+            'contactFileId,fileName,fileExtension,fileSize,fileUrl,createdAt,updatedAt,contactFileTypeName,createdByName,contactId,expiredDate,contactFileStatusId,contactFileStatusName,background,contactFileLoadTypeName';
         return this._contactFileService
             .getContactFiles(contactId, page, fields)
             .pipe(
@@ -2129,7 +2129,7 @@ export class ContentListService {
         query: string
     ): Observable<void> {
         const fields: string =
-            'contactFileId,fileName,fileExtension,fileSize,fileUrl,createdAt,updatedAt,contactFileTypeName,createdByName,contactId,expiredAt,contactFileStatusId,contactFileStatusName,background,fileLoadName';
+            'contactFileId,fileName,fileExtension,fileSize,fileUrl,createdAt,updatedAt,contactFileTypeName,createdByName,contactId,expiredDate,contactFileStatusId,contactFileStatusName,background,contactFileLoadTypeName';
         return this._contactFileService
             .getContactFiles(contactId, page, fields, query)
             .pipe(
