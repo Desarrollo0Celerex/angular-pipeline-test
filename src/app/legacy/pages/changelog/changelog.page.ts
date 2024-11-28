@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.23',
+            launchDate: '28/11/2024',
+            changes: [
+                {
+                    title: 'Contact',
+                    items: [
+                        'Se agregó un nuevo campo para agregar la fecha de expiración en los documentos del expediente de un contacto.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.22',
             launchDate: '15/11/2024',
             changes: [
