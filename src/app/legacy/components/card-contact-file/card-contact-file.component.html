@@ -34,8 +34,7 @@
             <p class="text-muted mt-3">
                 <span class="agt-text-warning fs-13">
                     <i data-toggle="popover" data-placement="left" class="fe fe-upload mr-2" data-content="El documento se cargó de forma manual."></i>
-                </span>
-                {{ contactFile.contactFileLoadTypeName }}
+                </span>{{ contactFile.contactFileLoadTypeName }}
             </p>
         </div>
         <div class="card-options">
@@ -50,39 +49,25 @@
     <!-- AGENTHOS - FILECARD BODY -->
     <div class="card-body pt-0">
         <div class="row">
-            <div class="col-8">
+            <div class="col-7">
                 <span class="text-muted">Fecha Carga</span>
-                <h6>
-                    <span class="agt-icon-primary"><i class="fe fe-calendar mr-2"></i></span>
-                    {{ contactFile.createdAt | date: 'dd/MM/yyyy' }}
-                </h6>
+                <h6 class="text-justify"><span class="agt-icon-primary"><i class="fe fe-calendar mr-2"></i></span>{{ contactFile.createdAt | date: 'dd/MM/yyyy' }}</h6>
             </div>
-            <div class="col-4">
+            <div class="col-5">
                 <span class="text-muted">Tipo</span>
-                <h6 class="text-justify">
-                    <span class="agt-icon-primary"><i class="fe fe-file mr-2"></i></span>
-                    {{ contactFile.fileExtension | uppercase }}
-                </h6>
+                <h6 class="text-justify"><span class="agt-icon-primary"><i class="fe fe-file mr-2"></i></span>{{ contactFile.fileExtension | uppercase }}</h6>
             </div>
         </div>
         <div class="row">
-            <div class="col-8">
+            <div class="col-7">
                 <span class="text-muted">Fecha Vigencia</span>
-                <h6 class="text-justify">
-                    <span class="agt-icon-primary"><i class="fe fe-calendar mr-2"></i></span>
-                    {{ contactFile.expiredDate | date: 'dd/MM/yyyy' }}
-                </h6>
+                <h6 class="text-justify"><span class="agt-icon-primary"><i class="fe fe-calendar mr-2"></i></span>{{ contactFile.expiredDate | date: 'dd/MM/yyyy' }}</h6>
             </div>
-            <div class="col-4" *ngIf="contactFile.expiredDate !== null">
+            <div class="col-5" *ngIf="contactFile.expiredDate !== null">
                 <span class="text-muted">{{ spanText }}</span>
                 <h6 class="text-justify">
                     <span class="agt-icon-primary"><i class="fe fe-clock mr-2"></i></span>
-                    <span *ngIf="spanText === 'Restante'">
-                        {{ daysRemaining }} {{ daysRemaining === 1 ? 'día' : 'días' }}
-                    </span>
-                    <span *ngIf="spanText === 'Expiró'">
-                        Hace {{ daysRemaining }} {{ daysRemaining === 1 ? 'día' : 'días' }}
-                    </span>
+                    <span>{{ daysRemaining }} {{ daysRemaining === 1 ? 'día' : 'días' }}</span>
                 </h6>
             </div>
         </div>
