@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.24',
+            launchDate: '02/12/2024',
+            changes: [
+                {
+                    title: 'Contact',
+                    items: [
+                        'Se corrigió el margen de los días de expiración de un documento de contacto y se eliminaron espacios inecesarios en las fechas',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.23',
             launchDate: '28/11/2024',
             changes: [
