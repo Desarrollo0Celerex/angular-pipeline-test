@@ -12,6 +12,8 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 })
 export class LoginPage extends SmartComponent implements OnInit {
     activationCode = '';
+    private _redirectUrl =
+        this._activatedRoute.snapshot.queryParams['redirectUrl'] || '';
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -26,7 +28,10 @@ export class LoginPage extends SmartComponent implements OnInit {
             this._goToDashboard();
         } else {
             this.catchParams();
-            this._authService.goToAtomAccount(this.activationCode);
+            this._authService.goToAtomAccount(
+                this.activationCode,
+                this._redirectUrl
+            );
         }
     }
 
