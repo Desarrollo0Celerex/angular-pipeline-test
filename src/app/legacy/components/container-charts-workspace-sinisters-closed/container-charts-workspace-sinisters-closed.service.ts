@@ -6,17 +6,18 @@ import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ContainerCharts } from '@core/interfaces/container-charts.interface';
 import { ContainerFilters } from '@interfaces/container-filters.interface';
 import { SinisterService } from '@services/sinister.service';
+import { ChartHelper } from '@helpers/chart.helper';
 
 @Injectable()
 export class ContainerChartsWorkspaceSinistersClosedService {
-    chartsData: ContainerCharts = this._getDefaultChartsData();
+    chartsData: ContainerCharts = ChartHelper.getDefaultChartsData();
     filtersData: ContainerFilters | null = null;
     specialFilter: string = '';
 
     constructor(private _sinisterService: SinisterService) {}
 
     loadData(rangeField: string, rangeStart: string, rangeEnd: string): void {
-        this.chartsData = this._getDefaultChartsData();
+        this.chartsData = ChartHelper.getDefaultChartsData();
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'sinisterStatusId',
             [SINISTER_STATUS.FINISHED]
@@ -39,13 +40,5 @@ export class ContainerChartsWorkspaceSinistersClosedService {
                     ';' +
                     this.filtersData!.contactTypes.specialFilter;
             });
-    }
-
-    private _getDefaultChartsData(): ContainerCharts {
-        return {
-            insurers: [],
-            insurances: [],
-            contactTypes: [],
-        };
     }
 }

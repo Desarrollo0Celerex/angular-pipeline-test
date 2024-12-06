@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.26',
+            launchDate: '06/12/2024',
+            changes: [
+                {
+                    title: 'Workspace',
+                    items: [
+                        'Se resolvio bug al ingresar a una url de agenthos directamente sin tener una sesión, para que al iniciar sesión redireccione al usuario a la url que intento ingresar.',
+                        'Se resolvio bug al mostrar graficas que no tengan datos, para que la animación de "cargando..." desaparesca y se ponca una legenda de "Sin datos".',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.25',
             launchDate: '02/12/2024',
             changes: [
