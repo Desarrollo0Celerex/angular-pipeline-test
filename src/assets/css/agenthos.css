@@ -294,6 +294,22 @@
     box-sizing: border-box;
 }
 
+/* -- AGENTHOS - NAVBAR BUTTON LIBRARY -- */
+.agt-btn-nav {
+    color: #fbfbfb;
+    background: #825898 !important;
+    border-color: #744f88; }
+.agt-btn-nav:hover {
+    color: #ffffff;
+    background-color: #744f88 !important;
+    border-color: #744f88; }
+.agt-btn-nav.active {
+    color: #825898 !important;
+    border: 1px solid #744f88 !important;
+    background-color: #fbfbfb !important;
+}
+/* -- AGENTHOS - NAVBAR BUTTON LIBRARY -- */
+
 /* -- AGENTHOS - BUTTON LIBRARY -- */
 .agt-btn-default {
     color: #282828;
