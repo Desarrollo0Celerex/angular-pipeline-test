@@ -26,57 +26,50 @@
             </div>
             <!-- AGENTHOS - PROFILE RESUME -->
             <div class="card-body pt-0">
-                <div class="wideget-user">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="wideget-user-desc d-flex pt-2">
-                                <div class="wideget-user-img">
-                                    <img [src]="contactProfileService.contact.avatarUrl" width="88" alt="Agenthos Contact Pic">
-                                </div>
-                                <div class="user-wrap">
-                                    <!-- AGENTHOS - CONTACT NAME -->
-                                    <h3>{{contactProfileService.contact.contactName}}</h3>
-                                    <!-- AGENTHOS - CONTACT SOURCE --->
-                                    <h4 class="text-muted font-weight-normal mb-3">Origen: {{contactProfileService.contact.contactSourceTypeName}}</h4>
-                                    <!-- AGENTHOS - CONTACT PHONE -->
-                                    <h4 class="text-muted font-weight-normal">Teléfono: {{contactProfileService.contact.phoneNumber | phoneNumberFormat: contactProfileService.contact.phoneCode}}</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="media">
+					<img class="avatar avatar-xl bradius mr-3" [src]="contactProfileService.contact.avatarUrl" alt="Agenthos Contact Pic">
+					<div class="media-body">
+						<div class="d-md-flex align-items-center">
+							<div>
+								<h3 class="mb-0">{{contactProfileService.contact.contactName}}</h3>
+								<p class="mb-0 fs-13 text-muted">Origen: {{contactProfileService.contact.contactSourceTypeName}}</p>
+								<p class="mb-0 fs-13 text-muted">Teléfono: {{contactProfileService.contact.phoneNumber | phoneNumberFormat: contactProfileService.contact.phoneCode}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
             </div>
             <!-- //AGENTHOS - PROFILE RESUME -->
             <!-- AGENTHOS - PROFILE MENU -->
             <div class="card-footer pt-1 pb-1">
                 <ul class="nav nav-pills nav-pills-circle" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.contactResume(contactId)" routerLinkActive="active">
+                        <a class="nav-link border agt-btn-nav p-3 m-2" [routerLink]="ROUTES_NAME.contactResume(contactId)" routerLinkActive="active">
                             <span class="nav-link-icon d-block"><i class="fe fe-activity"></i> Resumen</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.listContactQuotations(contactId)" routerLinkActive="active">
+                        <a class="nav-link border agt-btn-nav p-3 m-2" [routerLink]="ROUTES_NAME.listContactQuotations(contactId)" routerLinkActive="active">
                             <span class="nav-link-icon d-block"><i class="fe fe-bookmark"></i> Cotizaciones</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.listContactPolicies(contactId)" routerLinkActive="active">
+                        <a class="nav-link border agt-btn-nav p-3 m-2" [routerLink]="ROUTES_NAME.listContactPolicies(contactId)" routerLinkActive="active">
                             <span class="nav-link-icon d-block"><i class="fe fe-shield"></i> Pólizas</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.listContactSinisters(contactId)" routerLinkActive="active">
+                        <a class="nav-link border agt-btn-nav p-3 m-2" [routerLink]="ROUTES_NAME.listContactSinisters(contactId)" routerLinkActive="active">
                             <span class="nav-link-icon d-block"><i class="fe fe-life-buoy"></i> Siniestros</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.showContactData(contactId)" routerLinkActive="active">
+                        <a class="nav-link border agt-btn-nav p-3 m-2" [routerLink]="ROUTES_NAME.showContactData(contactId)" routerLinkActive="active">
                             <span class="nav-link-icon d-block"><i class="fe fe-smartphone"></i> Contacto</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border p-3 m-2" [routerLink]="ROUTES_NAME.listContactFiles(contactId)" routerLinkActive="active">
+                        <a class="nav-link border agt-btn-nav p-3 m-2" [routerLink]="ROUTES_NAME.listContactFiles(contactId)" routerLinkActive="active">
                             <span class="nav-link-icon d-block"><i class="fe fe-download-cloud"></i> Expediente</span>
                         </a>
                     </li>

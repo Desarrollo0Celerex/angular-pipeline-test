@@ -63,8 +63,9 @@
     .color-headerlogo .header-mobile {
         background: url(https://webkit.atombits.xyz/agenthos/logo/agenthos_app_light.png);
         background-repeat: no-repeat;
-        background-position: center;
         background-size: contain;
+        width: 48px;
+        height: 48px;
     }
 }
 @media (max-width: 767.98px) and (min-width: 576px) {

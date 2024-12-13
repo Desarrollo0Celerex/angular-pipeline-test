@@ -5,18 +5,16 @@
                 {{ kpi.contentTypeName }}<br />
                 {{ kpi.contentSubtypeName | plural }}
             </h6>
-            <ng-container *ngIf="canShowActions">
-                <div class="card-options">
-                    <a
-                        [routerLink]="kpi.route"
-                        (click)="selectContentSubtype(kpi.contentSubtype)"
-                    >
-                        <button class="btn btn-sm agt-btn-secondary">
-                            <i class="fe fe-eye mr-2"></i>VER
-                        </button>
-                    </a>
-                </div>
-            </ng-container>
+            <div class="card-options">
+                <a
+                    [routerLink]="kpi.route"
+                    (click)="selectContentSubtype(kpi.contentSubtype)"
+                >
+                    <button class="btn btn-sm" [ngClass]="!canShowActions ? 'agt-btn-secondary-outline no-focus' : 'agt-btn-secondary'">
+                        <i class="fe fe-check-circle mr-2"></i>VER
+                    </button>
+                </a>
+            </div>
         </div>
         <div class="card-body d-flex pt-3 pb-3">
             <div class="text-left">

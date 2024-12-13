@@ -8,6 +8,20 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.27',
+            launchDate: '13/12/2024',
+            changes: [
+                {
+                    title: 'Workspace',
+                    items: [
+                        'Se actualizó la referencia de Atombits por Agenthos',
+                        'Se actualizó el botón de navegación de las tarjetas de kpis, así como sus márgenes para reducir espacios en blanco.',
+                        'Se actualizaron estilos en el header logo, side-bar logo y la tarjeta del perfil de contacto',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.26',
             launchDate: '06/12/2024',
             changes: [

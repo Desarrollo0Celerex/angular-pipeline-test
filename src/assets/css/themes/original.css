@@ -70,6 +70,10 @@
 .agt-btn-secondary-outline:focus, .agt-btn-secondary-outline.focus {
     box-shadow: 0 0 0 2px #ce0e68; }
 
+.no-focus:focus {
+    box-shadow: none !important;
+}
+
 .agt-btn-success-light {
   color: #149c38;
   background: #b1f4c3 !important;
