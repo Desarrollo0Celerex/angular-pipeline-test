@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
+    ActivatedRoute,
     ActivatedRouteSnapshot,
     CanActivate,
     Router,
@@ -15,7 +16,13 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
     providedIn: 'root',
 })
 export class UserAuthenticatedGuard implements CanActivate {
-    constructor(private _authService: AuthService, private _router: Router) {}
+    private _redirectUrl = '';
+
+    constructor(
+        private _authService: AuthService,
+        private _router: Router,
+        private _activatedRoute: ActivatedRoute
+    ) {}
 
     canActivate(
         route: ActivatedRouteSnapshot,
@@ -26,11 +33,16 @@ export class UserAuthenticatedGuard implements CanActivate {
         | boolean
         | UrlTree {
         if (this._authService.checkIsLoggedIn()) {
-            //TODO: Checar si es un usuario activo
-
+            //TODO: Check if the user is an active user.
             return true;
         }
-        this._router.navigateByUrl(ROUTES_NAME.notAuthenticated);
+        const redirectUrl = state.url || '';
+        if (!this._redirectUrl) {
+            this._redirectUrl = redirectUrl;
+        }
+        this._router.navigate([ROUTES_NAME.notAuthenticated], {
+            queryParams: { redirectUrl: this._redirectUrl },
+        });
         return false;
     }
 }

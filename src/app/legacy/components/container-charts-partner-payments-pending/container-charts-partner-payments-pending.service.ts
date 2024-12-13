@@ -6,17 +6,23 @@ import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ContainerCharts } from '@core/interfaces/container-charts.interface';
 import { ContainerFilters } from '@interfaces/container-filters.interface';
 import { PaymentService } from '@core/services/payment/payment.service';
+import { ChartHelper } from '@helpers/chart.helper';
 
 @Injectable()
 export class ContainerChartsPartnerPaymentsPendingService {
-    chartsData: ContainerCharts = this._getDefaultChartsData();
+    chartsData: ContainerCharts = ChartHelper.getDefaultChartsData();
     filtersData: ContainerFilters | null = null;
     specialFilter: string = '';
 
     constructor(private _paymentService: PaymentService) {}
 
-    loadData(partnerId:string, rangeField: string, rangeStart: string, rangeEnd: string): void {
-        this.chartsData = this._getDefaultChartsData();
+    loadData(
+        partnerId: string,
+        rangeField: string,
+        rangeStart: string,
+        rangeEnd: string
+    ): void {
+        this.chartsData = ChartHelper.getDefaultChartsData();
         const filters: string = UtilitiesHelper.generateHttpFilter(
             'paymentStatusId',
             [
@@ -45,13 +51,5 @@ export class ContainerChartsPartnerPaymentsPendingService {
                     ';' +
                     this.filtersData!.contactTypes.specialFilter;
             });
-    }
-
-    private _getDefaultChartsData(): ContainerCharts {
-        return {
-            insurers: [],
-            insurances: [],
-            contactTypes: [],
-        };
     }
 }
