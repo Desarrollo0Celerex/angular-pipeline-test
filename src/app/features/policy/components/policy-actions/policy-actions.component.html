@@ -13,7 +13,10 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12 mb-3" *ngIf="canShowAlert">
-                        <agt-alert [message]="alertMessage"></agt-alert>
+                        <agt-alert
+                            [message]="alertMessage"
+                            [type]="alertType"
+                        ></agt-alert>
                     </div>
                     <div class="col-12">
                         <ol class="breadcrumb1">
@@ -88,5 +91,5 @@
 <agt-download-policy></agt-download-policy>
 <agt-follow-policy></agt-follow-policy>
 <agt-send-policy-modal
-    (policySent)="showAlertPolicySent()"
+    (policySent)="showAlertPolicySent($event)"
 ></agt-send-policy-modal>

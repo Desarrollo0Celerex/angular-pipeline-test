@@ -10,7 +10,7 @@ export const environment = {
         apiUrl: 'http://localhost:8888/atombits/agenthos/v1',
         support: {
             phoneCode: '52',
-            phoneNumber: '2283537328',
+            phoneNumber: '5522842515',
         },
     },
     agenthosNotifications: {

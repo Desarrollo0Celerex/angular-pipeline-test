@@ -21,6 +21,7 @@ export class PolicyActionsComponent {
     @ViewChild(SendPolicyModalComponent)
     sendPolicyModalComponent!: SendPolicyModalComponent;
     alertMessage = '';
+    alertType = '';
     canShowAlert = false;
     data: PolicyActions | undefined = undefined;
     modalId = 'agt-policy-actions';
@@ -51,10 +52,16 @@ export class PolicyActionsComponent {
         );
     }
 
-    showAlertPolicySent(): void {
+    showAlertPolicySent(notificationWasSent: boolean): void {
         ModalPlugin.show(this.modalId);
         this.canShowAlert = true;
-        this.alertMessage = 'La póliza se envió con éxito.';
+        if (notificationWasSent) {
+            this.alertMessage = 'La póliza se envió con éxito.';
+            this.alertType = 'success';
+        } else {
+            this.alertMessage = 'La póliza no pudo ser enviada.';
+            this.alertType = 'danger';
+        }
     }
 
     showModalCreateTask(): void {

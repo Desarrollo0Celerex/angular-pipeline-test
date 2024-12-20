@@ -18,7 +18,7 @@ import { SendNotificationModalService } from '@notifier/components/send-notifica
     styles: [],
 })
 export class SendPolicyModalComponent extends SmartComponent implements OnInit {
-    @Output() policySent = new EventEmitter<void>();
+    @Output() policySent = new EventEmitter<boolean>();
     @ViewChild(SendNotificationModalComponent)
     sendNotificationModalComponent!: SendNotificationModalComponent;
     @ViewChild(SendWhatsappMessageModalComponent)
@@ -61,12 +61,12 @@ export class SendPolicyModalComponent extends SmartComponent implements OnInit {
                 this._policyId!
             );
         } else {
-            this.notifyPolicySent();
+            this.notifyPolicySent(data?.notificationWasSent || false);
         }
     }
 
-    notifyPolicySent(): void {
-        this.policySent.emit();
+    notifyPolicySent(notificationWasSent: boolean): void {
+        this.policySent.emit(notificationWasSent);
     }
 
     private _openModalSendNotification(): void {

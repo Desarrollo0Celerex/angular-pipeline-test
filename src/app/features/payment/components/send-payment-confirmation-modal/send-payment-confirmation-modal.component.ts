@@ -21,7 +21,7 @@ export class SendPaymentConfirmationModalComponent
     extends SmartComponent
     implements OnInit
 {
-    @Output() confirmationSent = new EventEmitter<void>();
+    @Output() confirmationSent = new EventEmitter<boolean>();
     @ViewChild(SendPaymentConfirmationWhatsappMessageModalComponent)
     sendPaymentConfirmationWhatsappMessageModalComponent!: SendPaymentConfirmationWhatsappMessageModalComponent;
     private _contactId?: string = undefined;
@@ -68,12 +68,12 @@ export class SendPaymentConfirmationModalComponent
                 this._receiptPaidId!
             );
         } else {
-            this.notifyConfirmationSent();
+            this.notifyConfirmationSent(data?.notificationWasSent || false);
         }
     }
 
-    notifyConfirmationSent(): void {
-        this.confirmationSent.emit();
+    notifyConfirmationSent(notificationWasSent: boolean): void {
+        this.confirmationSent.emit(notificationWasSent);
     }
 
     private _openModalSendNotification(): void {

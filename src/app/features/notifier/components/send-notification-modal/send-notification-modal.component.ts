@@ -109,10 +109,12 @@ export class SendNotificationModalComponent
                 phone: this._phone!,
                 message: whatsappMessage,
                 notificationTypeId: this.data!.notificationTypeId,
+                notificationWasSent: true,
             });
         } else {
             this._sendNotificationModalService.notificationSent$.emit({
                 notificationTypeId: this.data!.notificationTypeId,
+                notificationWasSent: true,
             });
         }
     }
@@ -145,8 +147,27 @@ export class SendNotificationModalComponent
         };
         this._notifierService.sendNotification(requestBody).subscribe((res) => {
             this._loadingService.hide();
-            this._checkHasWhatsappNotification(res);
+            const hasResponseError = this.checkHasResponseError(res);
+            if (hasResponseError) {
+                this._sendNotificationModalService.notificationSent$.emit({
+                    notificationTypeId: this.data!.notificationTypeId,
+                    notificationWasSent: false,
+                });
+            } else {
+                this._checkHasWhatsappNotification(res);
+            }
         });
+    }
+
+    private checkHasResponseError(
+        response: SendNotificationResponse[]
+    ): boolean {
+        for (let data of response) {
+            if (data['success'] === false) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private _searchWhatsappMessage(
