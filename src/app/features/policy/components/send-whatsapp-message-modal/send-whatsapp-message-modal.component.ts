@@ -18,7 +18,7 @@ declare var ModalPlugin: any;
     styles: [],
 })
 export class SendWhatsappMessageModalComponent {
-    @Output() whatsappNotificationSent = new EventEmitter<void>();
+    @Output() whatsappNotificationSent = new EventEmitter<boolean>();
     modalId = 'agt-send-whatsapp-message-modal';
     policy: Policy | undefined = undefined;
     form = this._buildForm();
@@ -44,7 +44,7 @@ export class SendWhatsappMessageModalComponent {
     }
 
     notifyPolicySent(): void {
-        this.whatsappNotificationSent.emit();
+        this.whatsappNotificationSent.emit(true);
     }
 
     openModal(

@@ -12,7 +12,8 @@ declare var ModalPlugin: any;
 export class PaymentAppliedActionsModalComponent {
     @ViewChild(SendPaymentConfirmationModalComponent)
     sendPaymentConfirmationModalComponent!: SendPaymentConfirmationModalComponent;
-    alertMessage = 'El pago del recibo se aplicó con éxito.';
+    alertMessage = '';
+    alertType = '';
     modalId = 'agt-payment-applied-actions-modal';
     policyPaymentsRecord = '';
     policyAppliedPayments = '';
@@ -36,9 +37,15 @@ export class PaymentAppliedActionsModalComponent {
         this._generateRoutes();
     }
 
-    onShowPaymentConfirmationAlert(): void {
-        this.alertMessage = 'La confirmación de pago se envió con éxito.';
+    onShowPaymentConfirmationAlert(notificationWasSent: boolean): void {
         ModalPlugin.show(this.modalId);
+        if (notificationWasSent) {
+            this.alertMessage = 'La confirmación de pago se envió con éxito.';
+            this.alertType = 'success';
+        } else {
+            this.alertMessage = 'La confirmación de pago no pudo ser enviada.';
+            this.alertType = 'danger';
+        }
     }
 
     onSendPaymentConfirmation(): void {

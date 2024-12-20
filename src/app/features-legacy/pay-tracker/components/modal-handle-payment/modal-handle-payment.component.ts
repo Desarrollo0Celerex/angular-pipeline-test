@@ -34,6 +34,7 @@ export class ModalHandlePaymentComponent {
     @ViewChild(SendPaymentReminderComponent)
     sendPaymentReminderComponent!: SendPaymentReminderComponent;
     alertMessage = '';
+    alertType = '';
     canShowAlert = false;
     modalIdDownloadPolicy = 'agt-download-policy-modal';
 
@@ -79,10 +80,16 @@ export class ModalHandlePaymentComponent {
         ModalPlugin.show(this.modalIdDownloadPolicy);
     }
 
-    showAlertReminderSent(): void {
+    showAlertReminderSent(notificationWasSent: boolean): void {
         ModalPlugin.show(this.modalId);
         this.canShowAlert = true;
-        this.alertMessage = 'El recordatorio se envió con éxito.';
+        if (notificationWasSent) {
+            this.alertMessage = 'El recordatorio se envió con éxito.';
+            this.alertType = 'success';
+        } else {
+            this.alertMessage = 'El recordatorio no pudo ser enviado.';
+            this.alertType = 'danger';
+        }
     }
 
     requestSendReminder(): void {

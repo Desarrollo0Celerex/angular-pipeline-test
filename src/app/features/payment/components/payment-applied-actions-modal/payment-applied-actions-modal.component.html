@@ -21,7 +21,10 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12 mb-3">
-                        <agt-alert [message]="alertMessage"></agt-alert>
+                        <agt-alert
+                            [message]="alertMessage"
+                            [type]="alertType"
+                        ></agt-alert>
                     </div>
                     <div class="col-12">
                         <ol class="breadcrumb1">
@@ -72,5 +75,5 @@
 </div>
 
 <agt-send-payment-confirmation-modal
-    (confirmationSent)="onShowPaymentConfirmationAlert()"
+    (confirmationSent)="onShowPaymentConfirmationAlert($event)"
 />

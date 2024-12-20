@@ -21,7 +21,10 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12 mb-3" *ngIf="canShowAlert">
-                        <agt-alert [message]="alertMessage"></agt-alert>
+                        <agt-alert
+                            [message]="alertMessage"
+                            [type]="alertType"
+                        ></agt-alert>
                     </div>
                     <div class="col-md-12">
                         <ol class="breadcrumb1">
@@ -96,7 +99,7 @@
 ></agt-modal-create-payment-comment>
 
 <agt-send-payment-reminder
-    (reminderSent)="showAlertReminderSent()"
+    (reminderSent)="showAlertReminderSent($event)"
 ></agt-send-payment-reminder>
 <agt-modal-show-policy-file
     [modalId]="modalIdDownloadPolicy"

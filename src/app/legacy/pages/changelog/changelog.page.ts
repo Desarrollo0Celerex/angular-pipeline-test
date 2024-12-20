@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.28',
+            launchDate: '19/12/2024',
+            changes: [
+                {
+                    title: 'Nofier',
+                    items: [
+                        'Se actualizo lógica para mostrar erro cuando una notificación no ha sido enviada con éxito.',
+                        'Se actualizó número de soporte de Agenthos.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.27',
             launchDate: '13/12/2024',
             changes: [
