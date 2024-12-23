@@ -10,7 +10,7 @@ export const environment = {
         apiUrl: 'https://dev.agenthos.com/v1',
         support: {
             phoneCode: '52',
-            phoneNumber: '2283537328',
+            phoneNumber: '5522842515',
         },
     },
     agenthosNotifications: {
