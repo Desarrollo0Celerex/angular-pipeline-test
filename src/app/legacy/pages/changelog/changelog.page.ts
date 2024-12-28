@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.29',
+            launchDate: '27/12/2024',
+            changes: [
+                {
+                    title: 'Payment',
+                    items: [
+                        'Se resolvio bug al aplicar un pago y se mostraba el mensaje de alerta vacio.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.28',
             launchDate: '19/12/2024',
             changes: [
