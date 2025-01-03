@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-    CanActivate,
-    ActivatedRouteSnapshot,
-    Router,
-    RouterStateSnapshot,
-    UrlTree,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -14,7 +8,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 @Injectable({
     providedIn: 'root',
 })
-export class WorkspaceActivatedGuard implements CanActivate {
+export class WorkspaceActivatedGuard  {
     constructor(private _authService: AuthService, private _router: Router) {}
 
     canActivate(
