@@ -43,11 +43,9 @@
                             <ng-container
                                 *ngIf="!!modalShowPolicyService.policyUrl"
                             >
-                                <ngx-qrcode
-                                    [elementType]="elementType"
-                                    [errorCorrectionLevel]="correctionLevel"
-                                    [value]="modalShowPolicyService.policyUrl"
-                                ></ngx-qrcode>
+                                <agt-qrcode
+                                    [link]="modalShowPolicyService.policyUrl"
+                                />
                             </ng-container>
                         </div>
                     </div>

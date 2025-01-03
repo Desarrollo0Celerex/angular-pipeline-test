@@ -1,8 +1,4 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import {
-    NgxQrcodeErrorCorrectionLevels,
-    NgxQrcodeElementTypes,
-} from '@techiediaries/ngx-qrcode';
 
 import { ModalShowPolicyService } from './modal-show-policy.service';
 
@@ -17,16 +13,12 @@ export class ModalShowPolicyComponent implements OnChanges {
     @Input() contactId: string;
     @Input() modalId: string;
     @Input() policyId: string;
-    correctionLevel: any;
-    elementType: any;
     policyUrl: string;
 
     constructor(public modalShowPolicyService: ModalShowPolicyService) {
         this.contactId = '';
         this.modalId = '';
         this.policyId = '';
-        this.elementType = NgxQrcodeElementTypes.URL;
-        this.correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
         this.policyUrl = '';
     }
 

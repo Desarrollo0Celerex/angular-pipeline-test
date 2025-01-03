@@ -1,0 +1,15 @@
+<ng-container *ngIf="link; else loading">
+    <qrcode
+        [qrdata]="link"
+        [errorCorrectionLevel]="errorCorrectionLevel"
+        [elementType]="elementType"
+        [width]="QRWidth"
+    />
+</ng-container>
+
+<ng-template #loading>
+    <agt-loading-content
+        [isLoadingContent]="true"
+        [height]="loadingHeight"
+    ></agt-loading-content>
+</ng-template>

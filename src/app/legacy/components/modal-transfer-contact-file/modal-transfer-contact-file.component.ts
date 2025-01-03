@@ -1,5 +1,10 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { NgxQrcodeErrorCorrectionLevels, NgxQrcodeElementTypes } from '@techiediaries/ngx-qrcode';
+import {
+    Component,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+} from '@angular/core';
 
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
 
@@ -8,28 +13,31 @@ import { ModalTransferContactFileService } from './modal-transfer-contact-file.s
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-transfer-contact-file',
-  templateUrl: './modal-transfer-contact-file.component.html',
-  styles: [
-  ],
-  providers: [ModalTransferContactFileService]
+    selector: 'agt-modal-transfer-contact-file',
+    templateUrl: './modal-transfer-contact-file.component.html',
+    styles: [],
+    providers: [ModalTransferContactFileService],
 })
 export class ModalTransferContactFileComponent implements OnChanges, OnInit {
     @Input() modalId: string = '';
     @Input() contactFileData: ContactFileDataSend | null = null;
-    elementType: any = NgxQrcodeElementTypes.URL;
-    correctionLevel: any = NgxQrcodeErrorCorrectionLevels.HIGH;
 
-    constructor(public modalTransferContactFileService: ModalTransferContactFileService) { }
+    constructor(
+        public modalTransferContactFileService: ModalTransferContactFileService
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!!changes.contactFileData && !!changes.contactFileData.currentValue) {
-            this.modalTransferContactFileService.loadContactFile(changes.contactFileData.currentValue);
+        if (
+            !!changes.contactFileData &&
+            !!changes.contactFileData.currentValue
+        ) {
+            this.modalTransferContactFileService.loadContactFile(
+                changes.contactFileData.currentValue
+            );
         }
     }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     /**
      * Click event to close modal
@@ -37,5 +45,4 @@ export class ModalTransferContactFileComponent implements OnChanges, OnInit {
     onClickCloseModal(): void {
         ModalPlugin.hide(this.modalId);
     }
-
 }

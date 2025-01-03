@@ -1,8 +1,4 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import {
-    NgxQrcodeErrorCorrectionLevels,
-    NgxQrcodeElementTypes,
-} from '@techiediaries/ngx-qrcode';
 
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
@@ -21,8 +17,6 @@ export class ModalShowPolicyFileComponent implements OnChanges {
     @Input() policyUrl: string = '';
     @Input() contactId: string = '';
     @Input() policyId: string = '';
-    correctionLevel: any = NgxQrcodeErrorCorrectionLevels.HIGH;
-    elementType: any = NgxQrcodeElementTypes.URL;
 
     constructor(public _model: ModalShowPolicyFileService) {}
 

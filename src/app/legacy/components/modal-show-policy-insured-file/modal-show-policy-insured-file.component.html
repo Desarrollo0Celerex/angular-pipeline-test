@@ -1,26 +1,48 @@
 <!-- AGENTHOS - POLICY VIEW -->
-<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <!-- AGENTHOS - DETAILS CARD -->
                 <h5 class="modal-title">Ver Certificado</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <p class="text-justify"><strong>¿Deseas ver el certificado seleccionado?</strong></p>
                         <p class="text-justify">
-                        Apunta con la cámara de tu Smartphone al código inteligente y el certificado será transferido automáticamente a tu dispositivo.</p>
-                        <p class="text-justify">También puedes ver y guardar el certificado de manera directa.</p>
+                            <strong
+                                >¿Deseas ver el certificado
+                                seleccionado?</strong
+                            >
+                        </p>
+                        <p class="text-justify">
+                            Apunta con la cámara de tu Smartphone al código
+                            inteligente y el certificado será transferido
+                            automáticamente a tu dispositivo.
+                        </p>
+                        <p class="text-justify">
+                            También puedes ver y guardar el certificado de
+                            manera directa.
+                        </p>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group text-center">
                             <ng-container *ngIf="!!policyInsuredUrl">
-                                <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="policyInsuredUrl"></ngx-qrcode>
+                                <agt-qrcode [link]="policyInsuredUrl" />
                             </ng-container>
                         </div>
                     </div>
@@ -29,7 +51,14 @@
             <div class="modal-footer text-center">
                 <div class="col-12">
                     <a [href]="policyInsuredUrl" target="_blank">
-                        <button type="button" class="btn btn-primary btn-block" (click)="closeModal()" [disabled]="!(!!policyInsuredUrl)"><strong>DESCARGAR PÓLIZA</strong></button>
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-block"
+                            (click)="closeModal()"
+                            [disabled]="!!!policyInsuredUrl"
+                        >
+                            <strong>DESCARGAR PÓLIZA</strong>
+                        </button>
                     </a>
                 </div>
             </div>

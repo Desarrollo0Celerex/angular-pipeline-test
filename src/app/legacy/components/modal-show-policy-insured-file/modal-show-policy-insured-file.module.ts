@@ -1,19 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 import { ModalShowPolicyInsuredFileComponent } from './modal-show-policy-insured-file.component';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
-  declarations: [
-    ModalShowPolicyInsuredFileComponent
-  ],
-  exports: [
-    ModalShowPolicyInsuredFileComponent
-  ],
-  imports: [
-    CommonModule,
-    NgxQRCodeModule
-  ]
+    declarations: [ModalShowPolicyInsuredFileComponent],
+    exports: [ModalShowPolicyInsuredFileComponent],
+    imports: [CommonModule, SharedModule],
 })
-export class ModalShowPolicyInsuredFileModule { }
+export class ModalShowPolicyInsuredFileModule {}

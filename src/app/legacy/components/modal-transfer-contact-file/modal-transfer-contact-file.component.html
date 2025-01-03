@@ -1,38 +1,77 @@
 <!-- AGENTHOS - PROFILE FILE TRANSFER -->
-<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Transferir Archivo</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-8">
-						<p class="text-justify"><strong>¿Quieres transferir el archivo?</strong></p>
-						<p class="text-justify">
-						Apunta con la cámara de tu Smartphone al código inteligente y el archivo será transferido automáticamente.</p>
-						<p class="text-justify">También puedes descargar y guardar el archivo de manera directa.</p>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group text-center">
-							<ng-container *ngIf="!!modalTransferContactFileService.fileUrl">
-                                <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="modalTransferContactFileService.fileUrl"></ngx-qrcode>
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Transferir Archivo</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="text-justify">
+                            <strong>¿Quieres transferir el archivo?</strong>
+                        </p>
+                        <p class="text-justify">
+                            Apunta con la cámara de tu Smartphone al código
+                            inteligente y el archivo será transferido
+                            automáticamente.
+                        </p>
+                        <p class="text-justify">
+                            También puedes descargar y guardar el archivo de
+                            manera directa.
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <ng-container
+                                *ngIf="
+                                    !!modalTransferContactFileService.fileUrl
+                                "
+                            >
+                                <agt-qrcode
+                                    [link]="
+                                        modalTransferContactFileService.fileUrl
+                                    "
+                                />
                             </ng-container>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer text-center">
-				<div class="col-12">
-					<a [href]="modalTransferContactFileService.fileUrl" target="_blank">
-						<button type="button" class="btn btn-primary btn-block" (click)="onClickCloseModal()" [disabled]="!(!!modalTransferContactFileService.fileUrl)"><strong>DESCARGAR ARCHIVO</strong></button>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="col-12">
+                    <a
+                        [href]="modalTransferContactFileService.fileUrl"
+                        target="_blank"
+                    >
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-block"
+                            (click)="onClickCloseModal()"
+                            [disabled]="
+                                !!!modalTransferContactFileService.fileUrl
+                            "
+                        >
+                            <strong>DESCARGAR ARCHIVO</strong>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- //AGENTHOS - PROFILE FILE TRANSFER -->

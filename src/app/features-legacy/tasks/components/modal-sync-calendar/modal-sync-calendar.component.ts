@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {
-    NgxQrcodeErrorCorrectionLevels,
-    NgxQrcodeElementTypes,
-} from '@techiediaries/ngx-qrcode';
 import { CALENDARS } from '@core/constants/settings';
 import * as moment from 'moment';
 import { TaskModalService } from '@features-legacy/tasks/services/task-modal.service';
@@ -24,8 +20,6 @@ export class ModalSyncCalendarComponent
 {
     modalId = 'agt-modal-sync-calendar';
     eventLink = '';
-    correctionLevel: any = NgxQrcodeElementTypes.URL;
-    elementType: any = NgxQrcodeErrorCorrectionLevels.HIGH;
     cancelRoute: string | [] = [];
     private _data: InitModalSyncCalendar | undefined = undefined;
     private _task: Task | undefined = undefined;
