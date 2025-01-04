@@ -1,8 +1,8 @@
 <ng-container *ngIf="link; else loading">
     <qrcode
         [qrdata]="link"
-        [errorCorrectionLevel]="errorCorrectionLevel"
-        [elementType]="elementType"
+        [errorCorrectionLevel]="'H'"
+        [elementType]="'url'"
         [width]="QRWidth"
     />
 </ng-container>
