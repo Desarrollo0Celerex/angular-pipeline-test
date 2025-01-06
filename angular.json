@@ -120,18 +120,18 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "agenthos:build"
+                      "buildTarget": "agenthos:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "agenthos:build:production"
+                          "buildTarget": "agenthos:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "agenthos:build"
+                      "buildTarget": "agenthos:build"
                     }
                 },
                 "test": {
