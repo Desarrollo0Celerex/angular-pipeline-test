@@ -52,15 +52,23 @@ export class PolicyActionsComponent {
         );
     }
 
-    showAlertPolicySent(notificationWasSent: boolean): void {
+    showAlertPolicySent(data: {
+        notificationWasSent: boolean;
+        notificationIsRepeated: boolean;
+    }): void {
         ModalPlugin.show(this.modalId);
         this.canShowAlert = true;
-        if (notificationWasSent) {
+        if (data.notificationWasSent) {
             this.alertMessage = 'La póliza se envió con éxito.';
             this.alertType = 'success';
         } else {
-            this.alertMessage = 'La póliza no pudo ser enviada.';
-            this.alertType = 'danger';
+            if (data.notificationIsRepeated) {
+                this.alertMessage = 'La póliza ya ha sido enviada.';
+                this.alertType = 'warning';
+            } else {
+                this.alertMessage = 'La póliza no pudo ser enviada.';
+                this.alertType = 'danger';
+            }
         }
     }
 

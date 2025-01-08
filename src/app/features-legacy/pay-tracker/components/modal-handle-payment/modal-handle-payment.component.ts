@@ -80,15 +80,23 @@ export class ModalHandlePaymentComponent {
         ModalPlugin.show(this.modalIdDownloadPolicy);
     }
 
-    showAlertReminderSent(notificationWasSent: boolean): void {
+    showAlertReminderSent(data: {
+        notificationWasSent: boolean;
+        notificationIsRepeated: boolean;
+    }): void {
         ModalPlugin.show(this.modalId);
         this.canShowAlert = true;
-        if (notificationWasSent) {
+        if (data.notificationWasSent) {
             this.alertMessage = 'El recordatorio se envió con éxito.';
             this.alertType = 'success';
         } else {
-            this.alertMessage = 'El recordatorio no pudo ser enviado.';
-            this.alertType = 'danger';
+            if (data.notificationIsRepeated) {
+                this.alertMessage = 'El recordatorio ya ha sido enviado.';
+                this.alertType = 'warning';
+            } else {
+                this.alertMessage = 'El recordatorio no pudo ser enviado.';
+                this.alertType = 'danger';
+            }
         }
     }
 

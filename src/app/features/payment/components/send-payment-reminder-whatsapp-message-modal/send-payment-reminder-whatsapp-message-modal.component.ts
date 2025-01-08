@@ -20,7 +20,10 @@ declare var ModalPlugin: any;
     styles: [],
 })
 export class SendPaymentReminderWhatsappMessageModalComponent {
-    @Output() whatsappNotificationSent = new EventEmitter<boolean>();
+    @Output() whatsappNotificationSent = new EventEmitter<{
+        notificationWasSent: boolean;
+        notificationIsRepeated: boolean;
+    }>();
     modalId = 'agt-send-payment-reminder-whatsapp-message-modal';
     payment: Payment | undefined = undefined;
     form = this._buildForm();
@@ -70,7 +73,10 @@ export class SendPaymentReminderWhatsappMessageModalComponent {
     }
 
     notifyReminderSent(): void {
-        this.whatsappNotificationSent.emit(true);
+        this.whatsappNotificationSent.emit({
+            notificationWasSent: true,
+            notificationIsRepeated: false,
+        });
     }
 
     openModal(phone: string, message: string, paymentId: string): void {

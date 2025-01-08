@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class ChangelogPage {
     logs: any[] = [
         {
+            version: '1.54.30',
+            launchDate: '07/01/2025',
+            changes: [
+                {
+                    title: 'Notifier',
+                    items: [
+                        'Se resolvio bug al enviar una misma notificación más de una vez el mismo día.',
+                    ],
+                },
+            ],
+        },
+        {
             version: '1.54.29',
             launchDate: '27/12/2024',
             changes: [

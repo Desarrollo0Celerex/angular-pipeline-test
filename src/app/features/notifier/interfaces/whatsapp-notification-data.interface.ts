@@ -3,4 +3,5 @@ export interface WhatsappNotifictionData {
     message?: string;
     notificationTypeId: number;
     notificationWasSent: boolean;
+    notificationIsRepeated: boolean;
 }

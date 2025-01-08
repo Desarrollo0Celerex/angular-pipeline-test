@@ -22,7 +22,10 @@ export class SendPaymentReminderComponent
     extends SmartComponent
     implements OnInit
 {
-    @Output() reminderSent = new EventEmitter<boolean>();
+    @Output() reminderSent = new EventEmitter<{
+        notificationWasSent: boolean;
+        notificationIsRepeated: boolean;
+    }>();
     @ViewChild(LastReminderAlertComponent)
     lastReminderAlertComponent!: LastReminderAlertComponent;
     @ViewChild(SendNotificationModalComponent)
@@ -74,12 +77,18 @@ export class SendPaymentReminderComponent
                 this._paymentId!
             );
         } else {
-            this.notifyReminderSent(data?.notificationWasSent || false);
+            this.notifyReminderSent({
+                notificationWasSent: data?.notificationWasSent || false,
+                notificationIsRepeated: data?.notificationIsRepeated || false,
+            });
         }
     }
 
-    notifyReminderSent(notificationWasSent: boolean): void {
-        this.reminderSent.emit(notificationWasSent);
+    notifyReminderSent(data: {
+        notificationWasSent: boolean;
+        notificationIsRepeated: boolean;
+    }): void {
+        this.reminderSent.emit(data);
     }
 
     private _openModalSendNotification(): void {

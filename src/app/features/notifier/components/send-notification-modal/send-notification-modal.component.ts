@@ -110,11 +110,13 @@ export class SendNotificationModalComponent
                 message: whatsappMessage,
                 notificationTypeId: this.data!.notificationTypeId,
                 notificationWasSent: true,
+                notificationIsRepeated: false,
             });
         } else {
             this._sendNotificationModalService.notificationSent$.emit({
                 notificationTypeId: this.data!.notificationTypeId,
                 notificationWasSent: true,
+                notificationIsRepeated: false,
             });
         }
     }
@@ -147,11 +149,13 @@ export class SendNotificationModalComponent
         };
         this._notifierService.sendNotification(requestBody).subscribe((res) => {
             this._loadingService.hide();
-            const hasResponseError = this.checkHasResponseError(res);
+            const hasResponseError = this._checkHasResponseError(res);
             if (hasResponseError) {
+                const notificationIsRepeated = this._checkIsRepeated(res);
                 this._sendNotificationModalService.notificationSent$.emit({
                     notificationTypeId: this.data!.notificationTypeId,
                     notificationWasSent: false,
+                    notificationIsRepeated,
                 });
             } else {
                 this._checkHasWhatsappNotification(res);
@@ -159,7 +163,16 @@ export class SendNotificationModalComponent
         });
     }
 
-    private checkHasResponseError(
+    private _checkIsRepeated(response: SendNotificationResponse[]): boolean {
+        for (let data of response) {
+            if (data['isRepeated'] === true) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private _checkHasResponseError(
         response: SendNotificationResponse[]
     ): boolean {
         for (let data of response) {

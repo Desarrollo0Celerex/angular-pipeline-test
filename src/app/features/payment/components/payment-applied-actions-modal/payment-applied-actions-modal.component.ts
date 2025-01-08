@@ -37,14 +37,23 @@ export class PaymentAppliedActionsModalComponent {
         this._generateRoutes();
     }
 
-    onShowPaymentConfirmationAlert(notificationWasSent: boolean): void {
+    onShowPaymentConfirmationAlert(data: {
+        notificationWasSent: boolean;
+        notificationIsRepeated: boolean;
+    }): void {
         ModalPlugin.show(this.modalId);
-        if (notificationWasSent) {
+        if (data.notificationWasSent) {
             this.alertMessage = 'La confirmación de pago se envió con éxito.';
             this.alertType = 'success';
         } else {
-            this.alertMessage = 'La confirmación de pago no pudo ser enviada.';
-            this.alertType = 'danger';
+            if (data.notificationIsRepeated) {
+                this.alertMessage = 'La confirmación ya ha sido enviada.';
+                this.alertType = 'warning';
+            } else {
+                this.alertMessage =
+                    'La confirmación de pago no pudo ser enviada.';
+                this.alertType = 'danger';
+            }
         }
     }
 

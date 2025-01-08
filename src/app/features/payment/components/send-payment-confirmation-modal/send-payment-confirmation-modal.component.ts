@@ -5,7 +5,6 @@ import {
     Output,
     ViewChild,
 } from '@angular/core';
-import { SendNotificationModalComponent } from '@notifier/components/send-notification-modal/send-notification-modal.component';
 import { WhatsappNotifictionData } from '@notifier/interfaces/whatsapp-notification-data.interface';
 import { NOTIFICATION_TYPES } from '@notifier/services/notifier.service';
 import { SendPaymentConfirmationWhatsappMessageModalComponent } from '../send-payment-confirmation-whatsapp-message-modal/send-payment-confirmation-whatsapp-message-modal.component';
@@ -21,7 +20,10 @@ export class SendPaymentConfirmationModalComponent
     extends SmartComponent
     implements OnInit
 {
-    @Output() confirmationSent = new EventEmitter<boolean>();
+    @Output() confirmationSent = new EventEmitter<{
+        notificationWasSent: boolean;
+        notificationIsRepeated: boolean;
+    }>();
     @ViewChild(SendPaymentConfirmationWhatsappMessageModalComponent)
     sendPaymentConfirmationWhatsappMessageModalComponent!: SendPaymentConfirmationWhatsappMessageModalComponent;
     private _contactId?: string = undefined;
@@ -68,12 +70,18 @@ export class SendPaymentConfirmationModalComponent
                 this._receiptPaidId!
             );
         } else {
-            this.notifyConfirmationSent(data?.notificationWasSent || false);
+            this.notifyConfirmationSent({
+                notificationWasSent: data?.notificationWasSent || false,
+                notificationIsRepeated: data?.notificationIsRepeated || false,
+            });
         }
     }
 
-    notifyConfirmationSent(notificationWasSent: boolean): void {
-        this.confirmationSent.emit(notificationWasSent);
+    notifyConfirmationSent(data: {
+        notificationWasSent: boolean;
+        notificationIsRepeated: boolean;
+    }): void {
+        this.confirmationSent.emit(data);
     }
 
     private _openModalSendNotification(): void {
