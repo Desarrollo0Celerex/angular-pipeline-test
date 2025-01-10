@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import {
     CONTACT_TYPES,

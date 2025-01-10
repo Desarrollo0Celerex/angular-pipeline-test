@@ -6,7 +6,7 @@ import { Payment } from '@core/interfaces/payment.interface';
 import { PaymentService } from '@core/services/payment/payment.service';
 import { TotalPaymentsAmountData } from '@interfaces/total-payments-amount-data.interface';
 import { PayTrackerService } from '@features-legacy/pay-tracker/services/pay-tracker/pay-tracker.service';
-import * as moment from 'moment';
+import moment from 'moment';
 declare var CounterPlugin: any;
 
 @Component({

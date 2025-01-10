@@ -4,7 +4,7 @@ import { ModalHelper } from '@core/helpers/modal.helper';
 import { ModuleService } from '@features-legacy/tasks/services/module.service';
 import { TaskService } from '@features-legacy/tasks/services/task.service';
 import { Task } from '@features-legacy/tasks/interfaces/task.interface';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
     selector: 'agt-modal-show-task',

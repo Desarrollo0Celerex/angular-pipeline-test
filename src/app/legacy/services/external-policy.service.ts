@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { DEFAULT_PER_PAGE, EXTERNAL_POLICY_STATUS } from '@constants/global';
 import { environment } from '@env/environment';

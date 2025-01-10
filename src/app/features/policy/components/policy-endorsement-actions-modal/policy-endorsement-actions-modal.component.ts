@@ -7,7 +7,7 @@ import { TASK_MODULES } from '@core/constants/settings';
 import { PolicyService } from '@policy/services/policy.service';
 import { environment } from '@env/environment';
 import { POLICY_ROUTES } from '@policy/constants/routes';
-import * as moment from 'moment';
+import moment from 'moment';
 
 declare var ModalPlugin: any;
 

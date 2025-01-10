@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
@@ -10,33 +10,38 @@ import { ContainerSelectStatsPeriodService } from './container-select-stats-peri
 declare var DatePickerPlugin: any;
 
 @Component({
-  selector: 'agt-container-select-stats-period',
-  templateUrl: './container-select-stats-period.component.html',
-  styles: [
-  ],
-  providers: [ContainerSelectStatsPeriodService]
+    selector: 'agt-container-select-stats-period',
+    templateUrl: './container-select-stats-period.component.html',
+    styles: [],
+    providers: [ContainerSelectStatsPeriodService],
 })
 export class ContainerSelectStatsPeriodComponent implements OnInit {
     @Input() statsPeriodData: StatsPeriodData | null = null;
     @Input() canShowComparisonPeriod: boolean = true;
-    @Output() statsPeriodSelected: EventEmitter<StatsPeriodData> = new EventEmitter<StatsPeriodData>();
+    @Output() statsPeriodSelected: EventEmitter<StatsPeriodData> =
+        new EventEmitter<StatsPeriodData>();
     calendarIdStartDate: string = 'startDate';
     calendarIdEndDate: string = 'endDate';
     private _isFormSubmitted: boolean = false;
 
-    constructor(private _containerSelectStatsPeriodService: ContainerSelectStatsPeriodService) { }
+    constructor(
+        private _containerSelectStatsPeriodService: ContainerSelectStatsPeriodService
+    ) {}
 
     ngOnInit(): void {
         // If there is no period data
-        if(this.statsPeriodData === null) {
+        if (this.statsPeriodData === null) {
             // Set default data
             this.statsPeriodData = {
-                startDate: (moment().subtract(1, 'months')).add(1, 'days').format('DD/MM/YYYY'),
+                startDate: moment()
+                    .subtract(1, 'months')
+                    .add(1, 'days')
+                    .format('DD/MM/YYYY'),
                 endDate: moment().format('DD/MM/YYYY'),
-                periodId: 1
+                periodId: 1,
             };
         }
-        if(this.statsPeriodData) {
+        if (this.statsPeriodData) {
             this.model.buildForm(this.statsPeriodData);
         }
         this._initCalendars();
@@ -53,7 +58,8 @@ export class ContainerSelectStatsPeriodComponent implements OnInit {
      * @return              Error message
      */
     getErrorMessage(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
         return InputValidatorHelper.getErrorMessage(control);
     }
 
@@ -63,15 +69,19 @@ export class ContainerSelectStatsPeriodComponent implements OnInit {
      * @return              Validation class
      */
     getValidationClass(constrolName: string): string {
-        const control: AbstractControl | null = this.model.form.get(constrolName);
-        return InputValidatorHelper.getValidationClass(control, this._isFormSubmitted);
+        const control: AbstractControl | null =
+            this.model.form.get(constrolName);
+        return InputValidatorHelper.getValidationClass(
+            control,
+            this._isFormSubmitted
+        );
     }
 
     /**
      * Valid the form and emit the selected period
      */
     selectPeriod(): void {
-        if(this.model.form.valid) {
+        if (this.model.form.valid) {
             const data: StatsPeriodData = this.model.form.value;
             this.statsPeriodSelected.emit(data);
         }
@@ -82,8 +92,16 @@ export class ContainerSelectStatsPeriodComponent implements OnInit {
      */
     private _initCalendars(): void {
         DatePickerPlugin.init();
-        DatePickerPlugin.initElement(this.calendarIdStartDate, this._onChangeDate, this);
-        DatePickerPlugin.initElement(this.calendarIdEndDate, this._onChangeDate, this);
+        DatePickerPlugin.initElement(
+            this.calendarIdStartDate,
+            this._onChangeDate,
+            this
+        );
+        DatePickerPlugin.initElement(
+            this.calendarIdEndDate,
+            this._onChangeDate,
+            this
+        );
     }
 
     /**
@@ -92,8 +110,11 @@ export class ContainerSelectStatsPeriodComponent implements OnInit {
      * @param changedValue The changed value
      * @param context      The app context
      */
-    private _onChangeDate(selectorId: string, changedValue: string, context: ContainerSelectStatsPeriodComponent): void {
-        context.model.form.patchValue({[selectorId]: changedValue});
+    private _onChangeDate(
+        selectorId: string,
+        changedValue: string,
+        context: ContainerSelectStatsPeriodComponent
+    ): void {
+        context.model.form.patchValue({ [selectorId]: changedValue });
     }
-
 }

@@ -8,7 +8,7 @@ import { Task } from '@features-legacy/tasks/interfaces/task.interface';
 import { TaskModalService } from '@features-legacy/tasks/services/task-modal.service';
 import { GENDERS, TASK_MODULES } from '@core/constants/settings';
 import { WorkspaceUserService } from '@core/services/workspace-user/workspace-user.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { CreateTaskComponent } from '@tasks/components/create-task/create-task.component';
 import { CreateTaskService } from '@tasks/components/create-task/create-task.service';
 

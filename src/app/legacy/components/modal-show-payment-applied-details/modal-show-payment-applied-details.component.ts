@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ModalShowPaymentAppliedDetailsService } from './modal-show-payment-applied-details.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 

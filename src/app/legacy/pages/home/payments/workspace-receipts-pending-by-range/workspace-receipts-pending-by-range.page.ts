@@ -5,7 +5,7 @@ import { CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
     selector: 'agt-workspace-receipts-pending-by-range',

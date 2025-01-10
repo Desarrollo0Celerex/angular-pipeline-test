@@ -4,14 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { CONTENT_TYPES } from '@constants/global';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
-import * as moment from 'moment';
+import moment from 'moment';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-payments-pending-by-range',
-  templateUrl: './payments-pending-by-range.page.html',
-  styles: [
-  ]
+    selector: 'agt-payments-pending-by-range',
+    templateUrl: './payments-pending-by-range.page.html',
+    styles: [],
 })
 export class PaymentsPendingByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
@@ -25,7 +24,7 @@ export class PaymentsPendingByRangePage implements OnInit {
     modalIdSelectContactType: string = 'agt-modal-select-contact-type';
     modalIdSearchContact: string = 'agt-modal-search-contact';
 
-    constructor(private _activatedRoute: ActivatedRoute) { }
+    constructor(private _activatedRoute: ActivatedRoute) {}
 
     ngOnInit(): void {
         this.catchParams();
@@ -54,19 +53,23 @@ export class PaymentsPendingByRangePage implements OnInit {
     }
 
     private _buildStatsPeriodData(): void {
-        if(!!this.rangeStart && !!this.rangeEnd) {
+        if (!!this.rangeStart && !!this.rangeEnd) {
             this.statsPeriodData = {
-                startDate: moment(this.rangeStart, 'DD-MM-YYYY').format('DD/MM/YYYY'),
-                endDate: moment(this.rangeEnd, 'DD-MM-YYYY').format('DD/MM/YYYY'),
-                periodId: 0
-            }
+                startDate: moment(this.rangeStart, 'DD-MM-YYYY').format(
+                    'DD/MM/YYYY'
+                ),
+                endDate: moment(this.rangeEnd, 'DD-MM-YYYY').format(
+                    'DD/MM/YYYY'
+                ),
+                periodId: 0,
+            };
         } else {
             // Else, set default data.
             this.statsPeriodData = {
                 startDate: moment().subtract(1, 'month').format('DD/MM/YYYY'),
                 endDate: moment().add(1, 'month').format('DD/MM/YYYY'),
-                periodId: 0
-            }
+                periodId: 0,
+            };
         }
     }
 

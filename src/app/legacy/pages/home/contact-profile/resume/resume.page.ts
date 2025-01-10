@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 
@@ -10,10 +10,9 @@ declare var ModalPlugin: any;
 declare var PopoverPlugin: any;
 
 @Component({
-  selector: 'agt-resume',
-  templateUrl: './resume.page.html',
-  styles: [
-  ]
+    selector: 'agt-resume',
+    templateUrl: './resume.page.html',
+    styles: [],
 })
 export class ResumePage implements OnInit, OnDestroy {
     ROUTES_NAME: any = ROUTES_NAME;
@@ -34,20 +33,18 @@ export class ResumePage implements OnInit, OnDestroy {
     ngOnInit(): void {
         PopoverPlugin.init();
         this._catchParams();
-        if(this._checkIsContactSaved()) {
+        if (this._checkIsContactSaved()) {
             setTimeout(() => {
                 ModalPlugin.show(this.modalIdContactSaved);
-            },0);
+            }, 0);
         }
     }
 
     ngOnDestroy(): void {
-        if(this.paramsSub) this.paramsSub.unsubscribe();
+        if (this.paramsSub) this.paramsSub.unsubscribe();
     }
 
-    getConversionRate(): void {
-
-    }
+    getConversionRate(): void {}
 
     /**
      * Catch the params
@@ -64,7 +61,7 @@ export class ResumePage implements OnInit, OnDestroy {
      * @return True if it was, otherwise false
      */
     private _checkIsContactSaved(): boolean {
-        return (!!history.state.contactSaved) ? true : false;
+        return !!history.state.contactSaved ? true : false;
     }
 
     private _init(): void {
@@ -72,13 +69,18 @@ export class ResumePage implements OnInit, OnDestroy {
     }
 
     private _loadTotalQuotations(): void {
-        this.resumeService.loadTotalPendingQuotations(this.contactId).subscribe( () => {
-            this.resumeService.loadTotalQuotationsAccepted(this.contactId).subscribe( () => {
-                this.resumeService.loadTotalQuotationsRejected(this.contactId).subscribe( () => {
-                    this.resumeService.calculateConversionRate();
-                })
+        this.resumeService
+            .loadTotalPendingQuotations(this.contactId)
+            .subscribe(() => {
+                this.resumeService
+                    .loadTotalQuotationsAccepted(this.contactId)
+                    .subscribe(() => {
+                        this.resumeService
+                            .loadTotalQuotationsRejected(this.contactId)
+                            .subscribe(() => {
+                                this.resumeService.calculateConversionRate();
+                            });
+                    });
             });
-        });
     }
-
 }

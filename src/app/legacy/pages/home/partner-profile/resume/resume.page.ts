@@ -1,14 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 
 declare var TooltipPlugin: any;
 
 @Component({
-  selector: 'agt-resume',
-  templateUrl: './resume.page.html',
-  styles: [
-  ]
+    selector: 'agt-resume',
+    templateUrl: './resume.page.html',
+    styles: [],
 })
 export class ResumePage implements OnInit, OnDestroy {
     partnerId: number = 0;
@@ -16,7 +15,7 @@ export class ResumePage implements OnInit, OnDestroy {
     rangeEnd: string = moment().add(30, 'day').format('DD/MM/YYYY');
     private _subParams: any | null = null;
 
-    constructor(private _activatedRoute: ActivatedRoute) { }
+    constructor(private _activatedRoute: ActivatedRoute) {}
 
     ngOnInit(): void {
         this._catchParams();
@@ -24,15 +23,17 @@ export class ResumePage implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        if(!!this._subParams) this._subParams.unsubscribe();
+        if (!!this._subParams) this._subParams.unsubscribe();
     }
 
     /**
      * Catch the params
      */
     private _catchParams(): void {
-        this._subParams = this._activatedRoute.paramMap.subscribe((res: any) => {
-            this.partnerId = res.get('partnerId');
-        });
+        this._subParams = this._activatedRoute.paramMap.subscribe(
+            (res: any) => {
+                this.partnerId = res.get('partnerId');
+            }
+        );
     }
 }

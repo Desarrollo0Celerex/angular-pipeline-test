@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import {
     DEFAULT_PAGE,

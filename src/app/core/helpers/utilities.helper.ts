@@ -10,7 +10,7 @@ import { CalculatePaymentAmount } from '@core/interfaces/calculate-payment-amoun
 import { ValidatorsHelper } from '@core/helpers/validators.helper';
 import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
-import * as moment from 'moment';
+import moment from 'moment';
 import { PaymentPlan } from '@interfaces/payment-plan.interface';
 
 export class UtilitiesHelper {

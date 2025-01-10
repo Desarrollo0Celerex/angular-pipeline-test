@@ -16,7 +16,7 @@ import { UpdateSinisterReportDataSend } from '@interfaces/update-sinister-report
 import { UpdateSinisterTrackingDataSend } from '@interfaces/update-sinister-tracking-data-send.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 
-import * as moment from 'moment';
+import moment from 'moment';
 
 const routes: any = {
     sinister: (workspaceId: string, sinisterId: string) =>

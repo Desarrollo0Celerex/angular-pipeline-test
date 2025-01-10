@@ -4,7 +4,7 @@ import { PolicyUpdateActionsModalService } from './policy-update-actions-modal.s
 import { SmartComponent } from '@core/classes/smart-component';
 import { POLICY_ROUTES } from '@policy/constants/routes';
 import { UpdatePolicyFileModalComponent } from '../update-policy-file-modal/update-policy-file-modal.component';
-import * as moment from 'moment';
+import moment from 'moment';
 
 declare var ModalPlugin: any;
 

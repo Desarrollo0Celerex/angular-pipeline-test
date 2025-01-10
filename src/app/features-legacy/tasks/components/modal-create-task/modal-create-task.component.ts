@@ -13,7 +13,7 @@ import { TaskModalService } from '@features-legacy/tasks/services/task-modal.ser
 import { TaskService } from '@features-legacy/tasks/services/task.service';
 import { ModuleService } from '@features-legacy/tasks/services/module.service';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Router } from '@angular/router';
 import { ROUTES_NAME } from '@constants/routes-name';
 declare var DatePickerPlugin: any;

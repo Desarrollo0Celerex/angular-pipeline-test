@@ -5,13 +5,12 @@ import { CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
-  selector: 'agt-insurance-sinisters-by-range',
-  templateUrl: './insurance-sinisters-by-range.page.html',
-  styles: [
-  ]
+    selector: 'agt-insurance-sinisters-by-range',
+    templateUrl: './insurance-sinisters-by-range.page.html',
+    styles: [],
 })
 export class InsuranceSinistersByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
@@ -20,7 +19,7 @@ export class InsuranceSinistersByRangePage implements OnInit {
     statsPeriodData: StatsPeriodData | null = null;
     specialFilter: string = '';
 
-    constructor(private _router: Router) { }
+    constructor(private _router: Router) {}
 
     ngOnInit(): void {
         this._catchPeriodData();
@@ -37,20 +36,20 @@ export class InsuranceSinistersByRangePage implements OnInit {
 
     private _catchPeriodData(): void {
         // If there is saved data
-        if(!!history.state.periodData && !!history.state.insuranceId) {
+        if (!!history.state.periodData && !!history.state.insuranceId) {
             this.statsPeriodData = {
                 startDate: history.state.periodData.startDate,
                 endDate: history.state.periodData.endDate,
-                periodId: 0
-            }
+                periodId: 0,
+            };
             this.insuranceId = history.state.insuranceId;
         } else {
             // TEMP
             this.statsPeriodData = {
                 startDate: moment().subtract(3, 'month').format('DD/MM/YYYY'),
                 endDate: moment().format('DD/MM/YYYY'),
-                periodId: 0
-            }
+                periodId: 0,
+            };
             this.insuranceId = 6;
             // END TEMP
 
@@ -58,5 +57,4 @@ export class InsuranceSinistersByRangePage implements OnInit {
             //this._router.navigateByUrl(ROUTES_NAME.listSinisters);
         }
     }
-
 }

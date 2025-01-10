@@ -4,13 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { CONTENT_TYPES } from '@constants/global';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
-  selector: 'agt-contact-pending-payments-by-range',
-  templateUrl: './contact-pending-payments-by-range.page.html',
-  styles: [
-  ]
+    selector: 'agt-contact-pending-payments-by-range',
+    templateUrl: './contact-pending-payments-by-range.page.html',
+    styles: [],
 })
 export class ContactPendingPaymentsByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
@@ -21,7 +20,7 @@ export class ContactPendingPaymentsByRangePage implements OnInit {
     statsPeriodData: StatsPeriodData | null = null;
     specialFilter: string = '';
 
-    constructor(private _activatedRoute: ActivatedRoute) { }
+    constructor(private _activatedRoute: ActivatedRoute) {}
 
     ngOnInit(): void {
         this.catchParams();
@@ -38,19 +37,23 @@ export class ContactPendingPaymentsByRangePage implements OnInit {
     }
 
     private _buildStatsPeriodData(): void {
-        if(!!this.rangeStart && !!this.rangeEnd) {
+        if (!!this.rangeStart && !!this.rangeEnd) {
             this.statsPeriodData = {
-                startDate: moment(this.rangeStart, 'DD-MM-YYYY').format('DD/MM/YYYY'),
-                endDate: moment(this.rangeEnd, 'DD-MM-YYYY').format('DD/MM/YYYY'),
-                periodId: 0
-            }
+                startDate: moment(this.rangeStart, 'DD-MM-YYYY').format(
+                    'DD/MM/YYYY'
+                ),
+                endDate: moment(this.rangeEnd, 'DD-MM-YYYY').format(
+                    'DD/MM/YYYY'
+                ),
+                periodId: 0,
+            };
         } else {
             // Else, set default data.
             this.statsPeriodData = {
                 startDate: moment().subtract(1, 'month').format('DD/MM/YYYY'),
                 endDate: moment().add(1, 'month').format('DD/MM/YYYY'),
-                periodId: 0
-            }
+                periodId: 0,
+            };
         }
     }
 
@@ -59,5 +62,4 @@ export class ContactPendingPaymentsByRangePage implements OnInit {
         this.rangeStart = this._activatedRoute.snapshot.params.rangeStart || '';
         this.rangeEnd = this._activatedRoute.snapshot.params.rangeEnd || '';
     }
-
 }

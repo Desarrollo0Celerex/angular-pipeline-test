@@ -5,7 +5,7 @@ import { ChartHelper } from '@helpers/chart.helper';
 import { StatRangeData } from '@interfaces/stat-range-data.interface';
 import { PolicyService } from '@services/policy.service';
 
-import * as moment from 'moment';
+import moment from 'moment';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { POLICY_STATUS } from '@constants/global';
 

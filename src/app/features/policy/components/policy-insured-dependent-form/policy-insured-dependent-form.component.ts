@@ -19,7 +19,7 @@ import { Gender } from '@gender/interfaces/gender.interface';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
 import { InsuredRelation } from '@insured-relation/interfaces/insured-relation.interface';
 import { Insured } from '@interfaces/insured.interface';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
     selector: 'agt-policy-insured-dependent-form',

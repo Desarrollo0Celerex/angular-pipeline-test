@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { DateRange } from '@angular/material/datepicker';
 import { CalendarRange } from '@core/interfaces/calendar-range.interface';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
     selector: 'agt-card-calendar-range',

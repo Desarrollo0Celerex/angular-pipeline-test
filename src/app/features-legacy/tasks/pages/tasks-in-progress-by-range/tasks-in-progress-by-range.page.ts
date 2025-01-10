@@ -4,7 +4,7 @@ import { TASK_STATUS } from '@core/constants/settings';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { ModuleService } from '@features-legacy/tasks/services/module.service';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
     selector: 'agt-tasks-in-progress-by-range',

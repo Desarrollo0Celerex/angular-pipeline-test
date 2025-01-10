@@ -14,7 +14,7 @@ import { ClientService } from '@services/client.service';
 import { PaymentService } from '@services/payment.service';
 import { SinisterService } from '@services/sinister.service';
 
-import * as moment from 'moment';
+import moment from 'moment';
 import { PAY_TRACKER_ROUTES } from '@core/constants/routes';
 
 @Injectable()

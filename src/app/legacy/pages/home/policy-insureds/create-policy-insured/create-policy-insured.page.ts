@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { FILE_TYPES, INSURANCE_GROUPS } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';

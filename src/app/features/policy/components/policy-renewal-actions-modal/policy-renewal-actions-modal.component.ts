@@ -8,7 +8,7 @@ import { TASK_MODULES } from '@core/constants/settings';
 import { environment } from '@env/environment';
 import { CONTACT_ACTIONS } from '@contact/enums/contact-actions.enum';
 import { POLICY_ROUTES } from '@policy/constants/routes';
-import * as moment from 'moment';
+import moment from 'moment';
 
 declare var ModalPlugin: any;
 

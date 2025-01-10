@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TASK_STATUS } from '@core/constants/settings';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { InitModalRequestContactInformationToShareTask } from '../interfaces/init-modal-request-contact-information-to-share-task.interface';
-import * as moment from 'moment';
+import moment from 'moment';
 import { CalendarRange } from '@core/interfaces/calendar-range.interface';
 
 @Injectable()
