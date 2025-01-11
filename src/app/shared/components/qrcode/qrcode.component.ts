@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
     selector: 'agt-qrcode',
     templateUrl: './qrcode.component.html',
     styles: [],
-    standalone: false
+    standalone: false,
 })
 export class QrCodeComponent {
     @Input() link = '';

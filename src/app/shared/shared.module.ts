@@ -51,7 +51,7 @@ import { LargeFileUploaderComponent } from './components/large-file-uploader/lar
 import { WorkspaceThemeColorPipe } from './pipes/workspace-theme-color/workspace-theme-color.pipe';
 import { LastReminderAlertComponent } from './components/last-reminder-alert/last-reminder-alert.component';
 import { SelectSmallFileModalComponent } from './components/select-small-file-modal/select-small-file-modal.component';
-import { QRCodeModule } from 'angularx-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @NgModule({
     declarations: [
@@ -132,7 +132,7 @@ import { QRCodeModule } from 'angularx-qrcode';
         ReactiveFormsModule,
         RouterModule,
         CountriesModule,
-        QRCodeModule,
+        QRCodeComponent,
     ],
     providers: [
         { provide: MAT_DATE_LOCALE, useValue: 'es' },

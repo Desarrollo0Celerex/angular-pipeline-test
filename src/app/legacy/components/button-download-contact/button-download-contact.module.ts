@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxVcardModule } from 'ngx-vcard';
+/* import { NgxVcardModule } from 'ngx-vcard'; */
 
 import { ContactService } from '@core/services/contact/contact.service';
 import { ExpressTokenService } from '@services/express-token.service';
@@ -11,7 +11,7 @@ import { ButtonDownloadContactService } from './button-download-contact.service'
 @NgModule({
     declarations: [ButtonDownloadContactComponent],
     exports: [ButtonDownloadContactComponent],
-    imports: [CommonModule, NgxVcardModule],
+    imports: [CommonModule /* NgxVcardModule */],
     providers: [
         ButtonDownloadContactService,
         ContactService,
