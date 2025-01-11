@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { VCard } from 'ngx-vcard';
+/* import { VCard } from 'ngx-vcard'; */
 
 import { Contact } from '@core/interfaces/contact.interface';
 import { ExpressTokenData } from '@interfaces/express-token-data.interface';
@@ -10,15 +10,13 @@ import { JwtService } from '@core/services/jwt/jwt.service';
 
 @Injectable()
 export class ButtonDownloadContactService {
-    vCard: VCard;
+    /* vCard: VCard = {} */
 
     constructor(
         private _contactService: ContactService,
         private _expressTokenService: ExpressTokenService,
         private _jwtService: JwtService
-    ) {
-        this.vCard = {};
-    }
+    ) {}
 
     /**
      * Load the contact data
@@ -26,7 +24,7 @@ export class ButtonDownloadContactService {
      * @param expressToken The express token
      */
     loadContact(contactId: string): void {
-        this.vCard = {};
+        /* this.vCard = {}; */
         const fields: string = 'contactName,phoneNumber,email';
         this._contactService
             .getContact(contactId, fields)
@@ -40,7 +38,7 @@ export class ButtonDownloadContactService {
      * @param expressToken The express token
      */
     loadExpressContact(expressToken: string): void {
-        this.vCard = {};
+        /* this.vCard = {}; */
         const fields: string = 'contactName,phoneNumber,email';
         const expressTokenData: ExpressTokenData =
             this._decodeExpressToken(expressToken);
@@ -61,7 +59,7 @@ export class ButtonDownloadContactService {
      * @param contact The contact data
      */
     private _generateVcard(contact: Contact): void {
-        this.vCard = {
+        /* this.vCard = {
             name: {
                 firstNames: contact.contactName,
                 lastNames: '',
@@ -73,7 +71,7 @@ export class ButtonDownloadContactService {
                 work: 'https://agenthos.com',
                 home: '',
             },
-        };
+        }; */
     }
 
     /**

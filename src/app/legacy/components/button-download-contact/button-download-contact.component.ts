@@ -2,15 +2,16 @@ import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
 
 import { BUTTON_TYPES } from '@constants/global';
 
-import { ButtonDownloadContactService } from './button-download-contact.service'
+import { ButtonDownloadContactService } from './button-download-contact.service';
 
 declare var ModalPlugin: any;
 
+/* DEPRECATED COMPONENT */
 @Component({
     selector: 'agt-button-download-contact',
     templateUrl: './button-download-contact.component.html',
     styles: [],
-    standalone: false
+    standalone: false,
 })
 export class ButtonDownloadContactComponent implements OnChanges {
     @Input() buttonType: number;
@@ -20,7 +21,9 @@ export class ButtonDownloadContactComponent implements OnChanges {
     BUTTON_TYPES: any;
     dataLoaded: boolean;
 
-    constructor(public buttonDownloadContactService: ButtonDownloadContactService) {
+    constructor(
+        public buttonDownloadContactService: ButtonDownloadContactService
+    ) {
         this.buttonType = 0;
         this.contactId = '';
         this.expressToken = '';
@@ -30,11 +33,21 @@ export class ButtonDownloadContactComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(typeof changes.contactId !== 'undefined' && !!changes.contactId.currentValue) {
-            this.buttonDownloadContactService.loadContact(changes.contactId.currentValue);
+        if (
+            typeof changes.contactId !== 'undefined' &&
+            !!changes.contactId.currentValue
+        ) {
+            this.buttonDownloadContactService.loadContact(
+                changes.contactId.currentValue
+            );
         }
-        if(typeof changes.expressToken !== 'undefined' && !!changes.expressToken.currentValue) {
-            this.buttonDownloadContactService.loadExpressContact(changes.expressToken.currentValue);
+        if (
+            typeof changes.expressToken !== 'undefined' &&
+            !!changes.expressToken.currentValue
+        ) {
+            this.buttonDownloadContactService.loadExpressContact(
+                changes.expressToken.currentValue
+            );
         }
     }
 
@@ -43,14 +56,15 @@ export class ButtonDownloadContactComponent implements OnChanges {
      * @return True if it is, otherwise false
      */
     checkIfDataIsLoaded(): boolean {
-        return (Object.keys(this.buttonDownloadContactService.vCard).length === 0) ? false : true;
+        return false;
+        /* return (Object.keys(this.buttonDownloadContactService.vCard).length === 0) ? false : true; */
     }
 
     /**
      * Click event to hide the modal
      */
     onClickHideModal(): void {
-        if(!!this.modalId) {
+        if (!!this.modalId) {
             ModalPlugin.hide(this.modalId);
         }
     }
