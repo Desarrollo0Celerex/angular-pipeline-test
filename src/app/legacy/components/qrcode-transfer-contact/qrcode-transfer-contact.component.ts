@@ -3,10 +3,10 @@ import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/
 import { QrcodeTransferContactService } from './qrcode-transfer-contact.service';
 
 @Component({
-  selector: 'agt-qrcode-transfer-contact',
-  templateUrl: './qrcode-transfer-contact.component.html',
-  styles: [
-  ]
+    selector: 'agt-qrcode-transfer-contact',
+    templateUrl: './qrcode-transfer-contact.component.html',
+    styles: [],
+    standalone: false
 })
 export class QrcodeTransferContactComponent implements OnChanges, OnDestroy {
     @Input() contactId: string;

@@ -13,6 +13,7 @@ import { InputValidatorHelper } from '@helpers/input-validator.helper';
     selector: 'agt-shipping-channels',
     templateUrl: './shipping-channels.component.html',
     styles: [],
+    standalone: false
 })
 export class ShippingChannelsComponent {
     @Input() description? = '';

@@ -14,6 +14,7 @@ import { SelectSmallFileModalService } from '@shared/components/select-small-fil
     selector: 'agt-policy-insured-dependents-container',
     templateUrl: './policy-insured-dependents-container.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyInsuredDependentsContainerComponent
     extends SmartComponent

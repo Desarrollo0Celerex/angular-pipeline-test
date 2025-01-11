@@ -6,6 +6,7 @@ import { PayTrackerService } from '@features-legacy/pay-tracker/services/pay-tra
     selector: 'agt-payments-title',
     templateUrl: './payments-title.container.html',
     styles: [],
+    standalone: false
 })
 export class PaymentsTitleContainer extends SmartComponent implements OnInit {
     paymentStatusId: number = 0;

@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './cardium.page.html',
     styles: [],
     providers: [CardiumService],
+    standalone: false
 })
 export class CardiumPage implements OnInit {
     modalIdConfirmCreateCardiumAccount: string =

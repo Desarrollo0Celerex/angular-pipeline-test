@@ -22,6 +22,7 @@ declare var ModalPlugin: any;
     templateUrl: './show-sinister-history.page.html',
     styles: [],
     providers: [ShowSinisterHistoryService],
+    standalone: false
 })
 export class ShowSinisterHistoryPage implements OnInit {
     @ViewChild('modalDownloadSinisterEvidence')

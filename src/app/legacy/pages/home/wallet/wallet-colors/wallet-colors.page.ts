@@ -19,6 +19,7 @@ import { WalletColorsService } from './wallet-colors.service';
     templateUrl: './wallet-colors.page.html',
     styles: [],
     providers: [WalletColorsService],
+    standalone: false
 })
 export class WalletColorsPage implements OnInit {
     walletId: string = '';

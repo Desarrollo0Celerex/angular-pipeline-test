@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'paymentTypeIcon',
+    standalone: false
 })
 export class PaymentTypeIconPipe implements PipeTransform {
     transform(isAutoPayment: string): string {

@@ -7,6 +7,7 @@ import moment from 'moment';
     selector: 'agt-task',
     templateUrl: './task.component.html',
     styles: [],
+    standalone: false
 })
 export class TaskComponent {
     @Input() task: Task | undefined = undefined;

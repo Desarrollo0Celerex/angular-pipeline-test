@@ -15,10 +15,10 @@ declare var ModalPlugin: any;
 
 @Component({
     selector: 'agt-container-charts-workspace-quotations-closed',
-    templateUrl:
-        './container-charts-workspace-quotations-closed.component.html',
+    templateUrl: './container-charts-workspace-quotations-closed.component.html',
     styles: [],
     providers: [ContainerChartsWorkspaceQuotationsClosedService],
+    standalone: false
 })
 export class ContainerChartsWorkspaceQuotationsClosedComponent {
     @Input() rangeField: string = '';

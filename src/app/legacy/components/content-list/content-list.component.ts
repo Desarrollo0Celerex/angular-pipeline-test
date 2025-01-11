@@ -53,6 +53,7 @@ declare var ModalPlugin: any;
     selector: 'agt-content-list',
     templateUrl: './content-list.component.html',
     styles: [],
+    standalone: false
 })
 export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() actionType: number;

@@ -5,10 +5,10 @@ import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 import { ExternalPolicy } from '@interfaces/external-policy.interface';
 
 @Component({
-  selector: 'agt-card-external-policy',
-  templateUrl: './card-external-policy.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-external-policy',
+    templateUrl: './card-external-policy.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardExternalPolicyComponent {
     @Input() externalPolicy: ExternalPolicy | null = null;

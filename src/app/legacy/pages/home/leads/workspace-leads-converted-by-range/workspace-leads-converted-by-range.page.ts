@@ -10,6 +10,7 @@ import moment from 'moment';
     selector: 'agt-workspace-leads-converted-by-range',
     templateUrl: './workspace-leads-converted-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class WorkspaceLeadsConvertedByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

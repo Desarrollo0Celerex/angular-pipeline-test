@@ -5,10 +5,10 @@ import { BUTTON_TYPES } from '@constants/global';
 import { ButtonSendTelegramService } from './button-send-telegram.service';
 
 @Component({
-  selector: 'agt-button-send-telegram',
-  templateUrl: './button-send-telegram.component.html',
-  styles: [
-  ]
+    selector: 'agt-button-send-telegram',
+    templateUrl: './button-send-telegram.component.html',
+    styles: [],
+    standalone: false
 })
 export class ButtonSendTelegramComponent {
     @Input() buttonType: number;

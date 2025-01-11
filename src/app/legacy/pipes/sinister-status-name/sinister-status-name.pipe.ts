@@ -3,7 +3,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { SINISTER_STATUS } from '@constants/global';
 
 @Pipe({
-  name: 'sinisterStatusName'
+    name: 'sinisterStatusName',
+    standalone: false
 })
 export class SinisterStatusNamePipe implements PipeTransform {
 

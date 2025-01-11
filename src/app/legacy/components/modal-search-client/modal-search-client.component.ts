@@ -17,6 +17,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-search-client.component.html',
     styles: [],
     providers: [ModalSearchClientService],
+    standalone: false
 })
 export class ModalSearchClientComponent implements OnChanges {
     @Input() modalId: string = '';

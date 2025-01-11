@@ -6,11 +6,11 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { CardPartnerWalletGlobalService } from './card-partner-wallet-global.service';
 
 @Component({
-  selector: 'agt-card-partner-wallet-global',
-  templateUrl: './card-partner-wallet-global.component.html',
-  styles: [
-  ],
-  providers: [CardPartnerWalletGlobalService]
+    selector: 'agt-card-partner-wallet-global',
+    templateUrl: './card-partner-wallet-global.component.html',
+    styles: [],
+    providers: [CardPartnerWalletGlobalService],
+    standalone: false
 })
 export class CardPartnerWalletGlobalComponent implements OnChanges {
     @Input() partnerId: number = 0;

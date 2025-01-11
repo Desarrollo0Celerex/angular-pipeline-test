@@ -5,10 +5,10 @@ import { KpiOne } from '@interfaces/kpi-one.interface';
 declare var PopoverPlugin: any;
 
 @Component({
-  selector: 'agt-card-kpi-one',
-  templateUrl: './card-kpi-one.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-kpi-one',
+    templateUrl: './card-kpi-one.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardKpiOneComponent implements OnInit {
     @Input() kpi: KpiOne | null = null;

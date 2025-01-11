@@ -5,10 +5,10 @@ import { BUTTON_TYPES } from '@constants/global';
 import { ButtonDoCallService } from './button-do-call.service';
 
 @Component({
-  selector: 'agt-button-do-call',
-  templateUrl: './button-do-call.component.html',
-  styles: [
-  ]
+    selector: 'agt-button-do-call',
+    templateUrl: './button-do-call.component.html',
+    styles: [],
+    standalone: false
 })
 export class ButtonDoCallComponent {
     @Input() buttonType: number;

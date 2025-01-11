@@ -10,6 +10,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-upgrade-license.component.html',
     styles: [],
     providers: [ModalUpgradeLicenseService],
+    standalone: false
 })
 export class ModalUpgradeLicenseComponent implements OnInit {
     @Input() modalId: string = '';

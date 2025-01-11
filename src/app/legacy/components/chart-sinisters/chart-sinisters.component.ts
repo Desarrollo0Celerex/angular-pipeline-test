@@ -8,11 +8,11 @@ import { ChartSinistersService } from './chart-sinisters.service';
 declare var StatsSinistersPlugin: any;
 
 @Component({
-  selector: 'agt-chart-sinisters',
-  templateUrl: './chart-sinisters.component.html',
-  styles: [
-  ],
-  providers: [ChartSinistersService]
+    selector: 'agt-chart-sinisters',
+    templateUrl: './chart-sinisters.component.html',
+    styles: [],
+    providers: [ChartSinistersService],
+    standalone: false
 })
 export class ChartSinistersComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

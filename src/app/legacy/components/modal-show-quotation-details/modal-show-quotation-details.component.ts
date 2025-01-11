@@ -3,10 +3,10 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ModalShowQuotationDetailsService } from './modal-show-quotation-details.service';
 
 @Component({
-  selector: 'agt-modal-show-quotation-details',
-  templateUrl: './modal-show-quotation-details.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-show-quotation-details',
+    templateUrl: './modal-show-quotation-details.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalShowQuotationDetailsComponent implements OnChanges {
     @Input() modalId: string;

@@ -30,6 +30,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-update-receipt-paid.component.html',
     styles: [],
     providers: [ModalUpdateReceiptPaidService],
+    standalone: false
 })
 export class ModalUpdateReceiptPaidComponent implements OnChanges, OnInit {
     @Input() modalId: string = '';

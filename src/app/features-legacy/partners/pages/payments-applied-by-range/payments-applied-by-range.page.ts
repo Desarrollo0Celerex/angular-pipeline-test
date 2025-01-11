@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     selector: 'agt-payments-applied-by-range',
     templateUrl: './payments-applied-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class PaymentsAppliedByRangePage {
     CONTENT_TYPES: any = CONTENT_TYPES;

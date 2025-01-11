@@ -23,6 +23,7 @@ declare var ModalPlugin: any;
     selector: 'agt-finalize-sinister',
     templateUrl: './finalize-sinister.page.html',
     styles: [],
+    standalone: false
 })
 export class FinalizeSinisterPage implements OnInit {
     calendarIdResolutionDate: string = 'resolutionDate';

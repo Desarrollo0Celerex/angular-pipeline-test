@@ -6,6 +6,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-show-policy-insured-file',
     templateUrl: './modal-show-policy-insured-file.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalShowPolicyInsuredFileComponent {
     @Input() modalId: string = '';

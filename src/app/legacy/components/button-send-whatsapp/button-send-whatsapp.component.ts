@@ -5,10 +5,10 @@ import { BUTTON_TYPES } from '@constants/global';
 import { ButtonSendWhatsappService } from './button-send-whatsapp.service';
 
 @Component({
-  selector: 'agt-button-send-whatsapp',
-  templateUrl: './button-send-whatsapp.component.html',
-  styles: [
-  ]
+    selector: 'agt-button-send-whatsapp',
+    templateUrl: './button-send-whatsapp.component.html',
+    styles: [],
+    standalone: false
 })
 export class ButtonSendWhatsappComponent implements OnChanges, OnInit {
     @Input() buttonType: number;

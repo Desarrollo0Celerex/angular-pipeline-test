@@ -10,6 +10,7 @@ import { Contact } from '@core/interfaces/contact.interface';
     templateUrl: './container-insurances-by-category.component.html',
     styles: [],
     providers: [ContainerInsurancesByCategoryService],
+    standalone: false
 })
 export class ContainerInsurancesByCategoryComponent implements OnInit {
     @Input() contactId: string = '';

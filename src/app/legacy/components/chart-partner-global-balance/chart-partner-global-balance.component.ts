@@ -5,11 +5,11 @@ import { ChartPartnerGlobalBalanceService } from './chart-partner-global-balance
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-chart-partner-global-balance',
-  templateUrl: './chart-partner-global-balance.component.html',
-  styles: [
-  ],
-  providers: [ChartPartnerGlobalBalanceService]
+    selector: 'agt-chart-partner-global-balance',
+    templateUrl: './chart-partner-global-balance.component.html',
+    styles: [],
+    providers: [ChartPartnerGlobalBalanceService],
+    standalone: false
 })
 export class ChartPartnerGlobalBalanceComponent implements OnChanges {
     @Input() partnerId: number = 0;

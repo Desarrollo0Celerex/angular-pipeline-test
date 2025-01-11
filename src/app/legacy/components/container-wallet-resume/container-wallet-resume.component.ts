@@ -7,6 +7,7 @@ import { RangeData } from '@interfaces/range-data.interface';
     selector: 'agt-container-wallet-resume',
     templateUrl: './container-wallet-resume.component.html',
     styles: [],
+    standalone: false
 })
 export class ContainerWalletResumeComponent {
     rangeData: RangeData = {

@@ -4,10 +4,10 @@ import { CONTENT_TYPES } from '@constants/global';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 
 @Component({
-  selector: 'agt-content-suggestions',
-  templateUrl: './content-suggestions.component.html',
-  styles: [
-  ]
+    selector: 'agt-content-suggestions',
+    templateUrl: './content-suggestions.component.html',
+    styles: [],
+    standalone: false
 })
 export class ContentSuggestionsComponent {
     @Input() contentResultData: ContentResultData;

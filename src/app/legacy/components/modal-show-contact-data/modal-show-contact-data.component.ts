@@ -5,10 +5,10 @@ import { BUTTON_TYPES } from '@constants/global';
 import { ModalShowContactDataService } from './modal-show-contact-data.service';
 
 @Component({
-  selector: 'agt-modal-show-contact-data',
-  templateUrl: './modal-show-contact-data.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-show-contact-data',
+    templateUrl: './modal-show-contact-data.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalShowContactDataComponent implements OnChanges {
     @Input() contactId: string = '';

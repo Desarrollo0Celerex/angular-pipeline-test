@@ -16,6 +16,7 @@ declare var ModalPlugin: any;
     selector: 'agt-list-contact-coincidences',
     templateUrl: './list-contact-coincidences.page.html',
     styles: [],
+    standalone: false
 })
 export class ListContactCoincidencesPage implements OnInit, OnDestroy {
     actionType: number;

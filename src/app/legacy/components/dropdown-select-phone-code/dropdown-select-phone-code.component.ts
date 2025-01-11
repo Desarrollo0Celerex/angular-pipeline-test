@@ -15,6 +15,7 @@ declare var TooltipPlugin: any;
     selector: 'agt-dropdown-select-phone-code',
     templateUrl: './dropdown-select-phone-code.component.html',
     styles: [],
+    standalone: false
 })
 export class DropdownSelectPhoneCodeComponent implements OnChanges {
     @Input() phoneCodeId: number;

@@ -3,10 +3,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-upgrade-license',
-  templateUrl: './modal-confirm-upgrade-license.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-upgrade-license',
+    templateUrl: './modal-confirm-upgrade-license.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmUpgradeLicenseComponent {
     @Input() modalId: string = '';

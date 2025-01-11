@@ -14,6 +14,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-search-contact-policy',
     templateUrl: './modal-search-contact-policy.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSearchContactPolicyComponent {
     @Input() contactId: string = '';

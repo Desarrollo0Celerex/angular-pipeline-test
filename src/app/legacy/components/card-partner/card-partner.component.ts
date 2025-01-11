@@ -5,10 +5,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { Partner } from '@interfaces/partner.interface';
 
 @Component({
-  selector: 'agt-card-partner',
-  templateUrl: './card-partner.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-partner',
+    templateUrl: './card-partner.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardPartnerComponent {
     @Input() partner: Partner | null = null;

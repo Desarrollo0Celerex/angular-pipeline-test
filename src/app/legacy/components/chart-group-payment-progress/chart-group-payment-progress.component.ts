@@ -5,11 +5,11 @@ import { ChartGroupPaymentProgressService } from './chart-group-payment-progress
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-chart-group-payment-progress',
-  templateUrl: './chart-group-payment-progress.component.html',
-  styles: [
-  ],
-  providers: [ChartGroupPaymentProgressService]
+    selector: 'agt-chart-group-payment-progress',
+    templateUrl: './chart-group-payment-progress.component.html',
+    styles: [],
+    providers: [ChartGroupPaymentProgressService],
+    standalone: false
 })
 export class ChartGroupPaymentProgressComponent implements OnChanges {
     @Input() groupId: string = '';

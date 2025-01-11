@@ -14,6 +14,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-confirm-link-policy.component.html',
     styles: [],
     providers: [ModalConfirmLinkPolicyService],
+    standalone: false
 })
 export class ModalConfirmLinkPolicyComponent {
     @Input() modalId: string = '';

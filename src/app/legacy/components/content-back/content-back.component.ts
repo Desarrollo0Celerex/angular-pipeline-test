@@ -10,6 +10,7 @@ import { ContentResultData } from '@interfaces/content-result-data.interface';
     selector: 'agt-content-back',
     templateUrl: './content-back.component.html',
     styles: [],
+    standalone: false
 })
 export class ContentBackComponent {
     @Input() contactId: string = '';

@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'plural',
+    standalone: false
 })
 export class PluralPipe implements PipeTransform {
     transform(name: string, quantity?: number): string {

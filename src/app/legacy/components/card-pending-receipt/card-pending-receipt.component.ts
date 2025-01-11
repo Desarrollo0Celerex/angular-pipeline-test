@@ -7,6 +7,7 @@ import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.in
     selector: 'agt-card-pending-receipt',
     templateUrl: './card-pending-receipt.component.html',
     styles: [],
+    standalone: false
 })
 export class CardPendingReceiptComponent {
     @Input() pendingReceipt: Payment | null = null;

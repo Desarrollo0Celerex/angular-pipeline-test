@@ -16,6 +16,7 @@ declare var ModalPlugin: any;
     templateUrl: './advisory.page.html',
     styles: [],
     providers: [AdvisoryService],
+    standalone: false
 })
 export class AdvisoryPage implements OnInit {
     modalIdConfirmSaveWorkspaceDirectories: string =

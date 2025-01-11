@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     selector: 'agt-payments-pending-by-range',
     templateUrl: './payments-pending-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class PaymentsPendingByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

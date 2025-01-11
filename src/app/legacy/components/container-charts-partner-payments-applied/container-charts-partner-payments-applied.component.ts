@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-charts-partner-payments-applied.component.html',
     styles: [],
     providers: [ContainerChartsPartnerPaymentsAppliedService],
+    standalone: false
 })
 export class ContainerChartsPartnerPaymentsAppliedComponent {
     @Input() partnerId: string = '';

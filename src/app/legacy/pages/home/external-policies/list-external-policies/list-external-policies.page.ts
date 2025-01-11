@@ -4,10 +4,10 @@ import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
 @Component({
-  selector: 'agt-list-external-policies',
-  templateUrl: './list-external-policies.page.html',
-  styles: [
-  ]
+    selector: 'agt-list-external-policies',
+    templateUrl: './list-external-policies.page.html',
+    styles: [],
+    standalone: false
 })
 export class ListExternalPoliciesPage {
     CONTENT_TYPES: any = CONTENT_TYPES;

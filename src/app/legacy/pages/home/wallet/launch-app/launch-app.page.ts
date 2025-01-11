@@ -8,11 +8,11 @@ import { LaunchAppService } from './launch-app.service';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-launch-app',
-  templateUrl: './launch-app.page.html',
-  styles: [
-  ],
-  providers: [LaunchAppService]
+    selector: 'agt-launch-app',
+    templateUrl: './launch-app.page.html',
+    styles: [],
+    providers: [LaunchAppService],
+    standalone: false
 })
 export class LaunchAppPage implements OnInit {
     ROUTES_NAME: any = ROUTES_NAME;

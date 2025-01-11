@@ -3,10 +3,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { KpiTwo } from '@interfaces/kpi-two.interface';
 
 @Component({
-  selector: 'agt-card-kpi-two',
-  templateUrl: './card-kpi-two.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-kpi-two',
+    templateUrl: './card-kpi-two.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardKpiTwoComponent implements OnInit {
     @Input() kpi: KpiTwo | null = null;

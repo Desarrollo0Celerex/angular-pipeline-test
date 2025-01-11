@@ -8,11 +8,11 @@ import { ChartLeadChannelsWithHigherConversionService } from './chart-lead-chann
 declare var StatsLeadsPlugin: any;
 
 @Component({
-  selector: 'agt-chart-lead-channels-with-higher-conversion',
-  templateUrl: './chart-lead-channels-with-higher-conversion.component.html',
-  styles: [
-  ],
-  providers: [ChartLeadChannelsWithHigherConversionService]
+    selector: 'agt-chart-lead-channels-with-higher-conversion',
+    templateUrl: './chart-lead-channels-with-higher-conversion.component.html',
+    styles: [],
+    providers: [ChartLeadChannelsWithHigherConversionService],
+    standalone: false
 })
 export class ChartLeadChannelsWithHigherConversionComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

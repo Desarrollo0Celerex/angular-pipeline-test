@@ -9,6 +9,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-voice-control-processing-request',
     templateUrl: './modal-voice-control-processing-request.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalVoiceControlProcessingRequestComponent {
     modalId: string = 'agt-voice-control-processing-request';

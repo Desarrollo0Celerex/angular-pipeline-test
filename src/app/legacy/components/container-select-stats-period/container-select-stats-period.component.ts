@@ -14,6 +14,7 @@ declare var DatePickerPlugin: any;
     templateUrl: './container-select-stats-period.component.html',
     styles: [],
     providers: [ContainerSelectStatsPeriodService],
+    standalone: false
 })
 export class ContainerSelectStatsPeriodComponent implements OnInit {
     @Input() statsPeriodData: StatsPeriodData | null = null;

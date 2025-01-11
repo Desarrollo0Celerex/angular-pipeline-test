@@ -7,6 +7,7 @@ import { DownloadContentComponent } from '@shared/components/download-content/do
     selector: 'agt-download-policy',
     templateUrl: './download-policy.component.html',
     styles: [],
+    standalone: false
 })
 export class DownloadPolicyComponent {
     @ViewChild(DownloadContentComponent)

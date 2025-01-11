@@ -20,6 +20,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-capture-activation-code.component.html',
     styles: [],
     providers: [ModalCaptureActivationCodeService],
+    standalone: false
 })
 export class ModalCaptureActivationCodeComponent {
     @Input() modalId: string;

@@ -4,10 +4,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { Client } from '@interfaces/client.interface';
 
 @Component({
-  selector: 'agt-card-group-member',
-  templateUrl: './card-group-member.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-group-member',
+    templateUrl: './card-group-member.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardGroupMemberComponent {
     @Input() client: Client | null = null;

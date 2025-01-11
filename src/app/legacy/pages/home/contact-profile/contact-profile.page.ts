@@ -14,6 +14,7 @@ declare var ModalPlugin: any;
     templateUrl: './contact-profile.page.html',
     styles: [],
     providers: [ContactProfileService],
+    standalone: false
 })
 export class ContactProfilePage implements OnInit {
     ROUTES_NAME: any = ROUTES_NAME;

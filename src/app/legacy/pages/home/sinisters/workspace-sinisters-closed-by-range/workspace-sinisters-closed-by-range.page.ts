@@ -10,6 +10,7 @@ import moment from 'moment';
     selector: 'agt-workspace-sinisters-closed-by-range',
     templateUrl: './workspace-sinisters-closed-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class WorkspaceSinistersClosedByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

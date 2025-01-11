@@ -8,6 +8,7 @@ import { TaskModalService } from '@features-legacy/tasks/services/task-modal.ser
     selector: 'agt-modal-handle-task',
     templateUrl: './modal-handle-task.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalHandleTaskComponent extends SmartComponent implements OnInit {
     modalId = 'agt-modal-handle-task';

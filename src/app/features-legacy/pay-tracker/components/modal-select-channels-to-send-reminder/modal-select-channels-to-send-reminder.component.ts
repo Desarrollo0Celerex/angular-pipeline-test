@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-select-channels-to-send-reminder',
     templateUrl: './modal-select-channels-to-send-reminder.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSelectChannelsToSendReminderComponent extends SmartComponent {
     @Input() modalId: string = '';

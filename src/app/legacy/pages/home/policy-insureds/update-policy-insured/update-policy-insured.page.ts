@@ -21,6 +21,7 @@ declare var PopoverPlugin: any;
     templateUrl: './update-policy-insured.page.html',
     styles: [],
     providers: [UpdatePolicyInsuredService],
+    standalone: false
 })
 export class UpdatePolicyInsuredPage implements OnInit {
     INSURANCE_GROUPS: any = INSURANCE_GROUPS;

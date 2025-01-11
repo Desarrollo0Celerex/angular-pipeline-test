@@ -8,11 +8,11 @@ import { ModalConfirmShowPaymentHistoryService } from './modal-confirm-show-paym
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-show-payment-history',
-  templateUrl: './modal-confirm-show-payment-history.component.html',
-  styles: [
-  ],
-  providers: [ModalConfirmShowPaymentHistoryService]
+    selector: 'agt-modal-confirm-show-payment-history',
+    templateUrl: './modal-confirm-show-payment-history.component.html',
+    styles: [],
+    providers: [ModalConfirmShowPaymentHistoryService],
+    standalone: false
 })
 export class ModalConfirmShowPaymentHistoryComponent implements OnChanges {
     @Input() contactId: string = '';

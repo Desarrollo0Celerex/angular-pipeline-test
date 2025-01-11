@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-select-policy',
     templateUrl: './modal-select-policy.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSelectPolicyComponent {
     @Input() modalId: string = '';

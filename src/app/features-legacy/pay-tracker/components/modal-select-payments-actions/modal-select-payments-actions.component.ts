@@ -7,6 +7,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-select-payments-actions',
     templateUrl: './modal-select-payments-actions.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSelectPaymentsActionsComponent extends DumbComponent {
     @Input() modalId: string = '';

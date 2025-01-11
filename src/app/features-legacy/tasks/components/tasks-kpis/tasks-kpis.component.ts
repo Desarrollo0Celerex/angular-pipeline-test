@@ -20,6 +20,7 @@ declare var CounterPlugin: any;
     selector: 'agt-tasks-kpis',
     templateUrl: './tasks-kpis.component.html',
     styles: [],
+    standalone: false
 })
 export class TasksKpisComponent extends SmartComponent implements OnInit {
     private _taskStatusIds = [

@@ -7,6 +7,7 @@ import { AUTH_ROUTES } from '@core/constants/routes';
     selector: 'agt-not-authenticated',
     templateUrl: './not-authenticated.page.html',
     styles: [],
+    standalone: false
 })
 export class NotAuthenticatedPage {
     loginLink: string = `/${AUTH_ROUTES.MODULE}/${AUTH_ROUTES.LOGIN}`;

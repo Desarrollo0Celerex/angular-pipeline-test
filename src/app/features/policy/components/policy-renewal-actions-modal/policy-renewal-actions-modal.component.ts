@@ -16,6 +16,7 @@ declare var ModalPlugin: any;
     selector: 'agt-policy-renewal-actions-modal',
     templateUrl: './policy-renewal-actions-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyRenewalActionsModalComponent
     extends SmartComponent

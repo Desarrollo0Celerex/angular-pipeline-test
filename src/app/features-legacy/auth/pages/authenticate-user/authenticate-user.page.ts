@@ -10,6 +10,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
     selector: 'agt-authenticate-user',
     template: '',
     styles: [],
+    standalone: false
 })
 export class AuthenticateUserPage {
     private _userToken = '';

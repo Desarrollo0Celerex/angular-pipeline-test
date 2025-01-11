@@ -17,6 +17,7 @@ declare var StatsRecordPlugin: any;
     templateUrl: './chart-policy-payments.component.html',
     styles: [],
     providers: [ChartPolicyPaymentsService],
+    standalone: false
 })
 export class ChartPolicyPaymentsComponent implements OnInit, OnChanges {
     @Input() contactId: string = '';

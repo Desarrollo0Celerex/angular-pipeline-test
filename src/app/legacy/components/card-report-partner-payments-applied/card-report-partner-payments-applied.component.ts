@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     templateUrl: './card-report-partner-payments-applied.component.html',
     styles: [],
     providers: [CardReportPartnerPaymentsAppliedService],
+    standalone: false
 })
 export class CardReportPartnerPaymentsAppliedComponent {
     @Input() partnerId: string = '';

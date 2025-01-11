@@ -8,11 +8,11 @@ import { ContainerInsuredDetailsService } from './container-insured-details.serv
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-insured-details',
-  templateUrl: './container-insured-details.component.html',
-  styles: [
-  ],
-  providers: [ContainerInsuredDetailsService]
+    selector: 'agt-container-insured-details',
+    templateUrl: './container-insured-details.component.html',
+    styles: [],
+    providers: [ContainerInsuredDetailsService],
+    standalone: false
 })
 export class ContainerInsuredDetailsComponent implements OnChanges {
     @Input() certificate: string = '';

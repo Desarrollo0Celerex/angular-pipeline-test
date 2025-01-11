@@ -30,6 +30,7 @@ declare var PopoverPlugin: any;
     selector: 'agt-card-policy',
     templateUrl: './card-policy.component.html',
     styles: [],
+    standalone: false
 })
 export class CardPolicyComponent implements OnInit {
     @Input() policy: Policy | null;

@@ -6,10 +6,10 @@ import { ROUTES_NAME } from '@constants/routes-name'
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-policy-insured-upload-type',
-  templateUrl: './modal-select-policy-insured-upload-type.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-policy-insured-upload-type',
+    templateUrl: './modal-select-policy-insured-upload-type.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalSelectPolicyInsuredUploadTypeComponent {
     @Input() modalId: string = '';

@@ -6,11 +6,11 @@ import { PartnerQuotationStat } from '@interfaces/partner-quotation-stat.interfa
 import { ContainerLeadPartnerKpisService } from './container-lead-partner-kpis.service';
 
 @Component({
-  selector: 'agt-container-lead-partner-kpis',
-  templateUrl: './container-lead-partner-kpis.component.html',
-  styles: [
-  ],
-  providers: [ContainerLeadPartnerKpisService]
+    selector: 'agt-container-lead-partner-kpis',
+    templateUrl: './container-lead-partner-kpis.component.html',
+    styles: [],
+    providers: [ContainerLeadPartnerKpisService],
+    standalone: false
 })
 export class ContainerLeadPartnerKpisComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

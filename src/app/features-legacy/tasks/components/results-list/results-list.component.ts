@@ -16,6 +16,7 @@ import { CreateTaskService } from '@tasks/components/create-task/create-task.ser
     selector: 'agt-results-list',
     templateUrl: './results-list.component.html',
     styles: [],
+    standalone: false
 })
 export class ResultsListComponent extends SmartComponent implements OnInit {
     @ViewChild(CreateTaskComponent)

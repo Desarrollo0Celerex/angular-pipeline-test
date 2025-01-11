@@ -25,6 +25,7 @@ enum ACTIONS {
     selector: 'agt-modal-search-policy',
     templateUrl: './modal-search-policy.container.html',
     styles: [],
+    standalone: false
 })
 export class ModalSearchPolicyContainer extends SmartComponent {
     @Input() modalId: string = '';

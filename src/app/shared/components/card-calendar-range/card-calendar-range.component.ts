@@ -16,6 +16,7 @@ import moment from 'moment';
     selector: 'agt-card-calendar-range',
     templateUrl: './card-calendar-range.component.html',
     styles: [],
+    standalone: false
 })
 export class CardCalendarRangeComponent implements OnChanges {
     @Input() rangeStart = '';

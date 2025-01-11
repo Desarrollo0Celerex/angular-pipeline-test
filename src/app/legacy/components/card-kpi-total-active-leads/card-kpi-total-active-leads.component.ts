@@ -6,13 +6,13 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { CardKpiTotalActiveLeadsService } from './card-kpi-total-active-leads.service';
 
 @Component({
-  selector: 'agt-card-kpi-total-active-leads',
-  templateUrl: './card-kpi-total-active-leads.component.html',
-  styles: [
-  ],
-  providers: [
-      CardKpiTotalActiveLeadsService
-  ]
+    selector: 'agt-card-kpi-total-active-leads',
+    templateUrl: './card-kpi-total-active-leads.component.html',
+    styles: [],
+    providers: [
+        CardKpiTotalActiveLeadsService
+    ],
+    standalone: false
 })
 export class CardKpiTotalActiveLeadsComponent implements OnInit {
 

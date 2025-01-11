@@ -6,6 +6,7 @@ import { Task } from '@features-legacy/tasks/interfaces/task.interface';
     selector: 'agt-task-list',
     templateUrl: './task-list.component.html',
     styles: [],
+    standalone: false
 })
 export class TaskListComponent {
     @Input() subcontentName = '';

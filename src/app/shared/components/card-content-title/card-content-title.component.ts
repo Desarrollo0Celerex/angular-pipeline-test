@@ -14,6 +14,7 @@ declare var PopoverPlugin: any;
     templateUrl: './card-content-title.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CardContentTitleComponent
     extends DumbComponent

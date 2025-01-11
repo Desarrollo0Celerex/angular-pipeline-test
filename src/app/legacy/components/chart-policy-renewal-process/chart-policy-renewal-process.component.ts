@@ -7,11 +7,11 @@ import { ChartPolicyRenewalProcessService } from './chart-policy-renewal-process
 declare var StatsPoliciesPlugin: any;
 
 @Component({
-  selector: 'agt-chart-policy-renewal-process',
-  templateUrl: './chart-policy-renewal-process.component.html',
-  styles: [
-  ],
-  providers: [ChartPolicyRenewalProcessService]
+    selector: 'agt-chart-policy-renewal-process',
+    templateUrl: './chart-policy-renewal-process.component.html',
+    styles: [],
+    providers: [ChartPolicyRenewalProcessService],
+    standalone: false
 })
 export class ChartPolicyRenewalProcessComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

@@ -3,10 +3,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-validate-external-policy',
-  templateUrl: './modal-confirm-validate-external-policy.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-validate-external-policy',
+    templateUrl: './modal-confirm-validate-external-policy.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmValidateExternalPolicyComponent {
     @Input() modalId: string = '';

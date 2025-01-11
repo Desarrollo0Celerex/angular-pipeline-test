@@ -7,10 +7,10 @@ import { CardKpiWorkspaceSinistersOpenedService } from './card-kpi-workspace-sin
 
 
 @Component({
-  selector: 'agt-card-kpi-workspace-sinisters-opened',
-  templateUrl: './card-kpi-workspace-sinisters-opened.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-kpi-workspace-sinisters-opened',
+    templateUrl: './card-kpi-workspace-sinisters-opened.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardKpiWorkspaceSinistersOpenedComponent implements OnChanges {
     @Input() rangeData: RangeData | null = null;

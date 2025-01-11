@@ -23,6 +23,7 @@ declare var ModalPlugin: any;
     selector: 'agt-reactivate-sinister',
     templateUrl: './reactivate-sinister.page.html',
     styles: [],
+    standalone: false
 })
 export class ReactivateSinisterPage implements OnInit {
     calendarIdReactivationDate: string = 'reactivationDate';

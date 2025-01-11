@@ -5,10 +5,10 @@ import { ModalDownloadFileData } from '@interfaces/modal-download-file-data.inte
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-wrapper-download-sinister-evidence',
-  templateUrl: './wrapper-download-sinister-evidence.component.html',
-  styles: [
-  ]
+    selector: 'agt-wrapper-download-sinister-evidence',
+    templateUrl: './wrapper-download-sinister-evidence.component.html',
+    styles: [],
+    standalone: false
 })
 export class WrapperDownloadSinisterEvidenceComponent {
     @Input() fileUrl: string = '';

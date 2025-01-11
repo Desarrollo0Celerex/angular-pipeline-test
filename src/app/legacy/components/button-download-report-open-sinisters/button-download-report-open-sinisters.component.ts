@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     templateUrl: './button-download-report-open-sinisters.component.html',
     styles: [],
     providers: [ButtonDownloadReportOpenSinistersService],
+    standalone: false
 })
 export class ButtonDownloadReportOpenSinistersComponent {
     @Input() rangeField: string = '';

@@ -29,6 +29,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-upload-sinister-evidence.component.html',
     styles: [],
     providers: [ModalUploadSinisterEvidenceService],
+    standalone: false
 })
 export class ModalUploadSinisterEvidenceComponent implements OnInit, OnChanges {
     @Input() modalId: string = '';

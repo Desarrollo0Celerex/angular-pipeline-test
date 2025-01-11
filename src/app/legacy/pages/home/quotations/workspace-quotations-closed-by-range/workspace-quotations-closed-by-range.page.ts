@@ -9,6 +9,7 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
     selector: 'agt-workspace-quotations-closed-by-range',
     templateUrl: './workspace-quotations-closed-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class WorkspaceQuotationsClosedByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

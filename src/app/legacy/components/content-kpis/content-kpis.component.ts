@@ -8,10 +8,10 @@ import { ContentKpisService } from './content-kpis.service';
 declare var CounterPlugin: any;
 
 @Component({
-  selector: 'agt-content-kpis',
-  templateUrl: './content-kpis.component.html',
-  styles: [
-  ]
+    selector: 'agt-content-kpis',
+    templateUrl: './content-kpis.component.html',
+    styles: [],
+    standalone: false
 })
 export class ContentKpisComponent implements OnInit, OnChanges {
     @Input() contentType: number;

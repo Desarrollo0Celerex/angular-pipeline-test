@@ -19,6 +19,7 @@ declare var CounterPlugin: any;
     selector: 'agt-payments-kpis',
     templateUrl: './payments-kpis.container.html',
     styles: [],
+    standalone: false
 })
 export class PaymentsKpisContainer extends SmartComponent implements OnInit {
     kpis: Kpi[] = this._initKpis();

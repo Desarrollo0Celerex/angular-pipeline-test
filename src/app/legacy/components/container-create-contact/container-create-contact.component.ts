@@ -20,6 +20,7 @@ declare var ModalPlugin: any;
     selector: 'agt-container-create-contact',
     templateUrl: './container-create-contact.component.html',
     styles: [],
+    standalone: false
 })
 export class ContainerCreateContactComponent implements OnInit {
     @Input() contactTypeId: number;

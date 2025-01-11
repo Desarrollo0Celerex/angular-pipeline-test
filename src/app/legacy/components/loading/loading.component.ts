@@ -6,6 +6,7 @@ import { LoadingService } from '@core/services/loading/loading.service';
     selector: 'agt-loading',
     templateUrl: './loading.component.html',
     styles: [],
+    standalone: false
 })
 export class LoadingComponent {
     public isLoading: boolean;

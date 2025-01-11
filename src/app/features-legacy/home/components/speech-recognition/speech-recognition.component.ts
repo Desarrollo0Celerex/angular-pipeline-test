@@ -16,6 +16,7 @@ declare var ArtyomPlugin: any;
     selector: 'agt-speech-recognition',
     templateUrl: './speech-recognition.component.html',
     styles: [],
+    standalone: false
 })
 export class SpeechRecognitionComponent implements OnInit {
     private _artyomConfig: any = {

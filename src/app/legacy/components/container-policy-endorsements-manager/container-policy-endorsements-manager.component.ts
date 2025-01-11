@@ -6,10 +6,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-policy-endorsements-manager',
-  templateUrl: './container-policy-endorsements-manager.component.html',
-  styles: [
-  ]
+    selector: 'agt-container-policy-endorsements-manager',
+    templateUrl: './container-policy-endorsements-manager.component.html',
+    styles: [],
+    standalone: false
 })
 export class ContainerPolicyEndorsementsManagerComponent {
     @Input() contactId: string = '';

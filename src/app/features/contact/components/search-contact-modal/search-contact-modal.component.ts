@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     selector: 'agt-search-contact-modal',
     templateUrl: './search-contact-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class SearchContactModalComponent {
     modalId = 'agt-search-contact-modal';

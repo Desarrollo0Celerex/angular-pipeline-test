@@ -16,6 +16,7 @@ declare var ModalPlugin: any;
     selector: 'agt-policy-reissue-actions-modal',
     templateUrl: './policy-reissue-actions-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyReissueActionsModalComponent
     extends SmartComponent

@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-confirm-create-workspace',
     templateUrl: './modal-confirm-create-workspace.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalConfirmCreateWorkspaceComponent {
     @Input() modalId: string = '';

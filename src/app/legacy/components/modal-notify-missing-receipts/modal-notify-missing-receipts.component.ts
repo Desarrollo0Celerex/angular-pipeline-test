@@ -6,10 +6,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-notify-missing-receipts',
-  templateUrl: './modal-notify-missing-receipts.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-notify-missing-receipts',
+    templateUrl: './modal-notify-missing-receipts.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalNotifyMissingReceiptsComponent {
     @Input() modalId: string = '';

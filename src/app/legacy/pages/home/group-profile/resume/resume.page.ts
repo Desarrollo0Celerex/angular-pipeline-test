@@ -8,6 +8,7 @@ declare var TooltipPlugin: any;
     selector: 'agt-resume',
     templateUrl: './resume.page.html',
     styles: [],
+    standalone: false
 })
 export class ResumePage implements OnInit, OnDestroy {
     groupId: string = '';

@@ -10,6 +10,7 @@ import moment from 'moment';
     selector: 'agt-contact-receipts-applied-by-range',
     templateUrl: './contact-receipts-applied-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class ContactReceiptsAppliedByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

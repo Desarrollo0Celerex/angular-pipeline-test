@@ -20,6 +20,7 @@ import { CreateTaskService } from '@tasks/components/create-task/create-task.ser
     selector: 'agt-tasks-list',
     templateUrl: './tasks-list.component.html',
     styles: [],
+    standalone: false
 })
 export class TasksListComponent extends SmartComponent implements OnInit {
     @ViewChild(CreateTaskComponent)

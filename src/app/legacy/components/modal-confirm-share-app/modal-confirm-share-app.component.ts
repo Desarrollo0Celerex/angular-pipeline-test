@@ -3,10 +3,10 @@ import { Component, Input, OnInit } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-share-app',
-  templateUrl: './modal-confirm-share-app.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-share-app',
+    templateUrl: './modal-confirm-share-app.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmShareAppComponent implements OnInit {
     @Input() url: string = '';

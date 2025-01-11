@@ -9,6 +9,7 @@ declare var ModalPlugin: any;
     templateUrl: './card-report-issued-policies.component.html',
     styles: [],
     providers: [CardReportIssuedPoliciesService],
+    standalone: false
 })
 export class CardReportIssuedPoliciesComponent {
     @Input() rangeStart: string = '';

@@ -13,6 +13,7 @@ declare var ModalPlugin: any;
     templateUrl: './list-policy-insureds.page.html',
     styles: [],
     providers: [ListPolicyInsuredsService],
+    standalone: false
 })
 export class ListPolicyInsuredsPage implements OnInit, OnDestroy {
     CONTENT_TYPES: any = CONTENT_TYPES;

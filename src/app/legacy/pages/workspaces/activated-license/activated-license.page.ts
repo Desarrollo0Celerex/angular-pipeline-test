@@ -14,6 +14,7 @@ import { ActivatedLicenseService } from './activated-license.service';
     templateUrl: './activated-license.page.html',
     styles: [],
     providers: [ActivatedLicenseService],
+    standalone: false
 })
 export class ActivatedLicensePage implements OnInit {
     constructor(

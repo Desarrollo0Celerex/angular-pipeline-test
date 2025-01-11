@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './icon.page.html',
     styles: [],
     providers: [IconService],
+    standalone: false
 })
 export class IconPage implements OnInit {
     iconsUrl: string = '';

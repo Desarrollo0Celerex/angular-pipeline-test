@@ -14,11 +14,11 @@ import { ContainerChartsPartnerPaymentsPendingService } from './container-charts
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-charts-partner-payments-pending',
-  templateUrl: './container-charts-partner-payments-pending.component.html',
-  styles: [
-  ],
-  providers: [ContainerChartsPartnerPaymentsPendingService]
+    selector: 'agt-container-charts-partner-payments-pending',
+    templateUrl: './container-charts-partner-payments-pending.component.html',
+    styles: [],
+    providers: [ContainerChartsPartnerPaymentsPendingService],
+    standalone: false
 })
 export class ContainerChartsPartnerPaymentsPendingComponent {
     @Input() partnerId: string = '';

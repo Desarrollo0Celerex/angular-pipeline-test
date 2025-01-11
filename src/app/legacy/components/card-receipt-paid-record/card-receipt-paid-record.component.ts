@@ -4,10 +4,10 @@ import { DeleteReceiptPaidData } from '@interfaces/delete-receipt-paid-data.inte
 import { ReceiptPaid } from '@interfaces/receipt-paid.interface';
 
 @Component({
-  selector: 'agt-card-receipt-paid-record',
-  templateUrl: './card-receipt-paid-record.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-receipt-paid-record',
+    templateUrl: './card-receipt-paid-record.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardReceiptPaidRecordComponent {
     @Input() receiptPaid: ReceiptPaid | null = null;

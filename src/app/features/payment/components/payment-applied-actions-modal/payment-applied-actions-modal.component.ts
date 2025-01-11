@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-payment-applied-actions-modal',
     templateUrl: './payment-applied-actions-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class PaymentAppliedActionsModalComponent {
     @ViewChild(SendPaymentConfirmationModalComponent)

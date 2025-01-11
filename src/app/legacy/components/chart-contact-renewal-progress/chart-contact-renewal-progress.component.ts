@@ -5,11 +5,11 @@ import { ChartContactRenewalProgressService } from './chart-contact-renewal-prog
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-chart-contact-renewal-progress',
-  templateUrl: './chart-contact-renewal-progress.component.html',
-  styles: [
-  ],
-  providers: [ChartContactRenewalProgressService]
+    selector: 'agt-chart-contact-renewal-progress',
+    templateUrl: './chart-contact-renewal-progress.component.html',
+    styles: [],
+    providers: [ChartContactRenewalProgressService],
+    standalone: false
 })
 export class ChartContactRenewalProgressComponent implements OnChanges {
     @Input() contactId: string = '';

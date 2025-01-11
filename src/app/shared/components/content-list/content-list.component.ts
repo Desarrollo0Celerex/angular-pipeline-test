@@ -6,6 +6,7 @@ import { GENDERS } from '@core/constants/settings';
     selector: 'agt-content-list',
     templateUrl: './content-list.component.html',
     styles: [],
+    standalone: false
 })
 export class ContentListComponent extends DumbComponent {
     @Input() contentName = '';

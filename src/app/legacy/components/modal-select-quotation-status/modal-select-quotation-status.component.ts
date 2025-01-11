@@ -5,10 +5,10 @@ import { ModalSelectQuotationStatusService } from './modal-select-quotation-stat
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-quotation-status',
-  templateUrl: './modal-select-quotation-status.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-quotation-status',
+    templateUrl: './modal-select-quotation-status.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalSelectQuotationStatusComponent implements OnInit, OnChanges {
     @Input() modalId: string;

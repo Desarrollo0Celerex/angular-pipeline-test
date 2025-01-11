@@ -6,10 +6,10 @@ import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.in
 
 
 @Component({
-  selector: 'agt-card-receipt-applied',
-  templateUrl: './card-receipt-applied.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-receipt-applied',
+    templateUrl: './card-receipt-applied.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardReceiptAppliedComponent {
     @Input() receiptApplied: ReceiptApplied | null = null;

@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     templateUrl: './card-report-contact-pending-renewals.component.html',
     styles: [],
     providers: [CardReportContactPendingRenewalsService],
+    standalone: false
 })
 export class CardReportContactPendingRenewalsComponent {
     @Input() contactId: string = '';

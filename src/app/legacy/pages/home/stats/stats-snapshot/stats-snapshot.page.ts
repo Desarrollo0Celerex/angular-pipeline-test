@@ -22,6 +22,7 @@ declare var StatsPlugin: any;
     templateUrl: './stats-snapshot.page.html',
     styles: [],
     providers: [StatsSnapshotService],
+    standalone: false
 })
 export class StatsSnapshotPage implements OnInit {
     ROUTES_NAME: any = ROUTES_NAME;

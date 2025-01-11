@@ -12,10 +12,10 @@ declare var ModalPlugin: any;
 declare var Select2Plugin: any;
 
 @Component({
-  selector: 'agt-modal-get-policy-details',
-  templateUrl: './modal-get-policy-details.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-get-policy-details',
+    templateUrl: './modal-get-policy-details.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalGetPolicyDetailsComponent implements OnChanges {
     @Input() actionType: number = 0;

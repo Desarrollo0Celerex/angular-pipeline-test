@@ -8,6 +8,7 @@ import { ShowPaymentHistoryData } from '@interfaces/show-payment-history-data.in
     selector: 'agt-card-payment',
     templateUrl: './card-payment.component.html',
     styles: [],
+    standalone: false
 })
 export class CardPaymentComponent {
     @Input() payment: Payment | null = null;

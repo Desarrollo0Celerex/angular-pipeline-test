@@ -11,6 +11,7 @@ import { LoadingService } from '@core/services/loading/loading.service';
     selector: 'agt-identify-user',
     template: '',
     styles: [],
+    standalone: false
 })
 export class IdentifyUserPage {
     private _authToken: string;

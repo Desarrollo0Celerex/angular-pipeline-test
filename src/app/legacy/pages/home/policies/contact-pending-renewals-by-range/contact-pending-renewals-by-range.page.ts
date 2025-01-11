@@ -10,6 +10,7 @@ import moment from 'moment';
     selector: 'agt-contact-pending-renewals-by-range',
     templateUrl: './contact-pending-renewals-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class ContactPendingRenewalsByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

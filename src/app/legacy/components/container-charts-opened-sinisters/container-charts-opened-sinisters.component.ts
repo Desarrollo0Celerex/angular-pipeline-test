@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-charts-opened-sinisters.component.html',
     styles: [],
     providers: [ContainerChartsOpenedSinistersService],
+    standalone: false
 })
 export class ContainerChartsOpenedSinistersComponent implements OnChanges {
     @Input() rangeField: string = '';

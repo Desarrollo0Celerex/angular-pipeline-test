@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     templateUrl: './button-download-report-insurance-sinisters.component.html',
     styles: [],
     providers: [ButtonDownloadReportInsuranceSinistersService],
+    standalone: false
 })
 export class ButtonDownloadReportInsuranceSinistersComponent {
     @Input() insuranceId: number = 0;

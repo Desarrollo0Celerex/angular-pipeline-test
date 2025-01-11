@@ -4,10 +4,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 
 @Component({
-  selector: 'agt-policy-renewal-history',
-  templateUrl: './policy-renewal-history.page.html',
-  styles: [
-  ]
+    selector: 'agt-policy-renewal-history',
+    templateUrl: './policy-renewal-history.page.html',
+    styles: [],
+    standalone: false
 })
 export class PolicyRenewalHistoryPage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

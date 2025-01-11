@@ -6,11 +6,11 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { CardKpiTotalActiveClientsService } from './card-kpi-total-active-clients.service';
 
 @Component({
-  selector: 'agt-card-kpi-total-active-clients',
-  templateUrl: './card-kpi-total-active-clients.component.html',
-  styles: [
-  ],
-  providers: [CardKpiTotalActiveClientsService]
+    selector: 'agt-card-kpi-total-active-clients',
+    templateUrl: './card-kpi-total-active-clients.component.html',
+    styles: [],
+    providers: [CardKpiTotalActiveClientsService],
+    standalone: false
 })
 export class CardKpiTotalActiveClientsComponent implements OnInit {
 

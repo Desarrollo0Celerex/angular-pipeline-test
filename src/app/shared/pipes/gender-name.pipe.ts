@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'genderName',
+    standalone: false
 })
 export class GenderNamePipe implements PipeTransform {
     transform(genderId: string): string {

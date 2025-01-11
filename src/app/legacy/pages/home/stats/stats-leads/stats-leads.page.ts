@@ -9,6 +9,7 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
     selector: 'agt-stats-leads',
     templateUrl: './stats-leads.page.html',
     styles: [],
+    standalone: false
 })
 export class StatsLeadsPage {
     ROUTES_NAME: any = ROUTES_NAME;

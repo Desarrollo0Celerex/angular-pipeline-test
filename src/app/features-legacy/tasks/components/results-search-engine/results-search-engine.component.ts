@@ -6,6 +6,7 @@ import { ModuleService } from '@features-legacy/tasks/services/module.service';
     selector: 'agt-results-search-engine',
     templateUrl: './results-search-engine.component.html',
     styles: [],
+    standalone: false
 })
 export class ResultsSearchEngineComponent
     extends SmartComponent

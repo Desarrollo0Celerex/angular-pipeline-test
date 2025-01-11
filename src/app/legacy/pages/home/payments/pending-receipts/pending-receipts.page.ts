@@ -7,6 +7,7 @@ import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
     selector: 'agt-pending-receipts',
     templateUrl: './pending-receipts.page.html',
     styles: [],
+    standalone: false
 })
 export class PendingReceiptsPage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

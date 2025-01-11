@@ -8,10 +8,10 @@ import { ModalShowPolicyDetailsService } from './modal-show-policy-details.servi
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-show-policy-details',
-  templateUrl: './modal-show-policy-details.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-show-policy-details',
+    templateUrl: './modal-show-policy-details.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalShowPolicyDetailsComponent implements OnChanges {
     @Input() contactId: string = '';

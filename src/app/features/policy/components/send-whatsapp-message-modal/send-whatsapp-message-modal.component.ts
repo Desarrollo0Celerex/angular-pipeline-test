@@ -16,6 +16,7 @@ declare var ModalPlugin: any;
     selector: 'agt-send-whatsapp-message-modal',
     templateUrl: './send-whatsapp-message-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class SendWhatsappMessageModalComponent {
     @Output() whatsappNotificationSent = new EventEmitter<boolean>();

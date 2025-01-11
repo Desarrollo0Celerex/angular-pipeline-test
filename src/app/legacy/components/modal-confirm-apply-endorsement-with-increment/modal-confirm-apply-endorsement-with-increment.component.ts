@@ -4,10 +4,10 @@ import { ENDORSEMENT_PAYMENT_METHODS } from '@constants/global';
 
 declare var ModalPlugin: any;
 @Component({
-  selector: 'agt-modal-confirm-apply-endorsement-with-increment',
-  templateUrl: './modal-confirm-apply-endorsement-with-increment.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-apply-endorsement-with-increment',
+    templateUrl: './modal-confirm-apply-endorsement-with-increment.component.html',
+    styles: [],
+    standalone: false
 })
 export class modalConfirmApplyEndorsementWithIncrementComponent {
     @Input() currencyName: string = "";

@@ -5,11 +5,11 @@ import { ChartPartnerPreferredInsurersService } from './chart-partner-preferred-
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-chart-partner-preferred-insurers',
-  templateUrl: './chart-partner-preferred-insurers.component.html',
-  styles: [
-  ],
-  providers: [ChartPartnerPreferredInsurersService]
+    selector: 'agt-chart-partner-preferred-insurers',
+    templateUrl: './chart-partner-preferred-insurers.component.html',
+    styles: [],
+    providers: [ChartPartnerPreferredInsurersService],
+    standalone: false
 })
 export class ChartPartnerPreferredInsurersComponent implements OnChanges {
     @Input() partnerId: number = 0;

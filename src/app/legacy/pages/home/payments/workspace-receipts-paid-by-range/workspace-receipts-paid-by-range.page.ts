@@ -11,6 +11,7 @@ import moment from 'moment';
     selector: 'agt-workspace-receipts-paid-by-range',
     templateUrl: './workspace-receipts-paid-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class WorkspaceReceiptsPaidByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

@@ -7,11 +7,11 @@ import { ModalShowContactFileDetailsService } from './modal-show-contact-file-de
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-show-contact-file-details',
-  templateUrl: './modal-show-contact-file-details.component.html',
-  styles: [
-  ],
-  providers: [ModalShowContactFileDetailsService]
+    selector: 'agt-modal-show-contact-file-details',
+    templateUrl: './modal-show-contact-file-details.component.html',
+    styles: [],
+    providers: [ModalShowContactFileDetailsService],
+    standalone: false
 })
 export class ModalShowContactFileDetailsComponent implements OnInit, OnChanges {
     @Input() modalId: string = '';

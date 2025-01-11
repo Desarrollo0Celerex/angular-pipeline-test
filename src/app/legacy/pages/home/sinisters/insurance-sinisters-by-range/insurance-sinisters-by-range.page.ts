@@ -11,6 +11,7 @@ import moment from 'moment';
     selector: 'agt-insurance-sinisters-by-range',
     templateUrl: './insurance-sinisters-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class InsuranceSinistersByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

@@ -5,11 +5,11 @@ import { ChartContactActiveCoveragesService } from './chart-contact-active-cover
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-chart-contact-active-coverages',
-  templateUrl: './chart-contact-active-coverages.component.html',
-  styles: [
-  ],
-  providers: [ChartContactActiveCoveragesService]
+    selector: 'agt-chart-contact-active-coverages',
+    templateUrl: './chart-contact-active-coverages.component.html',
+    styles: [],
+    providers: [ChartContactActiveCoveragesService],
+    standalone: false
 })
 export class ChartContactActiveCoveragesComponent implements OnChanges {
     @Input() contactId: string = '';

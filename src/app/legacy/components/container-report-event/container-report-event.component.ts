@@ -27,6 +27,7 @@ declare var ModalPlugin: any;
     selector: 'agt-container-report-event',
     templateUrl: './container-report-event.component.html',
     styles: [],
+    standalone: false
 })
 export class ContainerReportEventComponent implements OnInit {
     @Input() sinisterData: SinisterDataSend | null = null;

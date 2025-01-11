@@ -12,6 +12,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-confirm-create-group.component.html',
     styles: [],
     providers: [ModalConfirmCreateGroupService],
+    standalone: false
 })
 export class ModalConfirmCreateGroupComponent {
     @Input() modalId: string = '';

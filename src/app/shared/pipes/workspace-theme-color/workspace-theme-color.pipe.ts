@@ -3,6 +3,7 @@ import { WORKSPACE_THEMES } from '@core/constants/settings';
 
 @Pipe({
     name: 'workspaceThemeColor',
+    standalone: false
 })
 export class WorkspaceThemeColorPipe implements PipeTransform {
     transform(workspaceThemeId: number): string {

@@ -5,11 +5,11 @@ import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface
 import { ContainerClientRetentionKpisService } from './container-client-retention-kpis.service';
 
 @Component({
-  selector: 'agt-container-client-retention-kpis',
-  templateUrl: './container-client-retention-kpis.component.html',
-  styles: [
-  ],
-  providers: [ContainerClientRetentionKpisService]
+    selector: 'agt-container-client-retention-kpis',
+    templateUrl: './container-client-retention-kpis.component.html',
+    styles: [],
+    providers: [ContainerClientRetentionKpisService],
+    standalone: false
 })
 export class ContainerClientRetentionKpisComponent implements OnChanges, OnInit {
     @Input() range: ComparisonRangeData | null = null;

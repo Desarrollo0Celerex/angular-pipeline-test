@@ -3,6 +3,7 @@ import { INSURANCES } from '@core/constants/settings';
 
 @Pipe({
     name: 'insuranceIcon',
+    standalone: false
 })
 export class InsuranceIconPipe implements PipeTransform {
     transform(insuranceId: number): string {

@@ -8,11 +8,11 @@ import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 import { ContainerPendingPoliciesService } from './container-pending-policies.service';
 
 @Component({
-  selector: 'agt-container-pending-policies',
-  templateUrl: './container-pending-policies.component.html',
-  styles: [
-  ],
-  providers: [ContainerPendingPoliciesService]
+    selector: 'agt-container-pending-policies',
+    templateUrl: './container-pending-policies.component.html',
+    styles: [],
+    providers: [ContainerPendingPoliciesService],
+    standalone: false
 })
 export class ContainerPendingPoliciesComponent implements OnInit {
     @Input() contentType: number = 0;

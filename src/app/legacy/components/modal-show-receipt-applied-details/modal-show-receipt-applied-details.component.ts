@@ -7,13 +7,13 @@ import { ModalShowReceiptAppliedDetailsService } from './modal-show-receipt-appl
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-show-receipt-applied-details',
-  templateUrl: './modal-show-receipt-applied-details.component.html',
-  styles: [
-  ],
-  providers: [
-      ModalShowReceiptAppliedDetailsService
-  ]
+    selector: 'agt-modal-show-receipt-applied-details',
+    templateUrl: './modal-show-receipt-applied-details.component.html',
+    styles: [],
+    providers: [
+        ModalShowReceiptAppliedDetailsService
+    ],
+    standalone: false
 })
 export class ModalShowReceiptAppliedDetailsComponent implements OnChanges {
     @Input() modalId: string = '';

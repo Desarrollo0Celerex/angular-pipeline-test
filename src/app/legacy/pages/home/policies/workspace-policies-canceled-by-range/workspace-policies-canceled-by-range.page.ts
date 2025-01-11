@@ -10,6 +10,7 @@ import moment from 'moment';
     selector: 'agt-workspace-policies-canceled-by-range',
     templateUrl: './workspace-policies-canceled-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class WorkspacePoliciesCanceledByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

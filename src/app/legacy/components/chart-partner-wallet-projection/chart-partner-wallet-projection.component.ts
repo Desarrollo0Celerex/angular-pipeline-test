@@ -6,11 +6,11 @@ declare var ChartPlugin: any;
 declare var PopoverPlugin: any;
 
 @Component({
-  selector: 'agt-chart-partner-wallet-projection',
-  templateUrl: './chart-partner-wallet-projection.component.html',
-  styles: [
-  ],
-  providers: [ChartPartnerWalletProjectionService]
+    selector: 'agt-chart-partner-wallet-projection',
+    templateUrl: './chart-partner-wallet-projection.component.html',
+    styles: [],
+    providers: [ChartPartnerWalletProjectionService],
+    standalone: false
 })
 export class ChartPartnerWalletProjectionComponent implements OnChanges, OnInit {
     @Input() partnerId: number = 0;

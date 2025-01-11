@@ -29,6 +29,7 @@ declare var PopoverPlugin: any;
     templateUrl: './create-endorsement.page.html',
     styles: [],
     providers: [CreateEndorsementService],
+    standalone: false
 })
 export class CreateEndorsementPage implements OnInit {
     CONTACT_TYPES: any = CONTACT_TYPES;

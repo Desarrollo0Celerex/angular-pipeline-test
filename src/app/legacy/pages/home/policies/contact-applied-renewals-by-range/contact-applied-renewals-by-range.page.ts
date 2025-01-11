@@ -10,6 +10,7 @@ import moment from 'moment';
     selector: 'agt-contact-applied-renewals-by-range',
     templateUrl: './contact-applied-renewals-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class ContactAppliedRenewalsByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

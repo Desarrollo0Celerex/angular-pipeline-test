@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-charts-workspace-policies-pending.component.html',
     styles: [],
     providers: [ContainerChartsWorkspacePoliciesPendingService],
+    standalone: false
 })
 export class ContainerChartsWorkspacePoliciesPendingComponent
     implements OnInit

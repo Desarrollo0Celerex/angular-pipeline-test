@@ -10,6 +10,7 @@ import { WorkspaceQuickActionsModalComponent } from '../workspace-quick-actions-
     selector: 'agt-page-header',
     templateUrl: './page-header.component.html',
     styles: [],
+    standalone: false
 })
 export class PageHeaderComponent implements OnInit {
     @ViewChild(WorkspaceQuickActionsModalComponent)

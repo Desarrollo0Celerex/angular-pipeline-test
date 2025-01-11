@@ -4,6 +4,7 @@ import { Component, Input } from '@angular/core';
     selector: 'agt-alert',
     templateUrl: './alert.component.html',
     styles: [],
+    standalone: false
 })
 export class AlertComponent {
     @Input() message = '';

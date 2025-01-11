@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-charts-workspace-sinisters-closed.component.html',
     styles: [],
     providers: [ContainerChartsWorkspaceSinistersClosedService],
+    standalone: false
 })
 export class ContainerChartsWorkspaceSinistersClosedComponent
     implements OnChanges

@@ -14,6 +14,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-confirm-reject-quotation',
     templateUrl: './modal-confirm-reject-quotation.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalConfirmRejectQuotationComponent {
     @Input() contactId: string;

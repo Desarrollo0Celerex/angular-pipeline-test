@@ -5,6 +5,7 @@ import { PolicyComplementModalComponent } from '@policy-complement/components/po
     selector: 'agt-policy-complements',
     templateUrl: './policy-complements.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyComplementsComponent {
     @Input() contactId = '';

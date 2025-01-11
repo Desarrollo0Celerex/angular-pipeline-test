@@ -5,10 +5,10 @@ import { ContactQuotation } from '@interfaces/contact-quotation.interface';
 import { Quotation } from '@interfaces/quotation.interface';
 
 @Component({
-  selector: 'agt-card-quotation',
-  templateUrl: './card-quotation.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-quotation',
+    templateUrl: './card-quotation.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardQuotationComponent {
     @Input() quotation: Quotation | null;

@@ -12,6 +12,7 @@ import { ChangeContactService } from './change-contact.service';
     selector: 'agt-change-contact',
     templateUrl: './change-contact.page.html',
     styles: [],
+    standalone: false
 })
 export class ChangeContactPage implements OnInit {
     actionType: number;

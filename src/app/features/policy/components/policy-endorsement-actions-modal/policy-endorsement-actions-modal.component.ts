@@ -15,6 +15,7 @@ declare var ModalPlugin: any;
     selector: 'agt-policy-endorsement-actions-modal',
     templateUrl: './policy-endorsement-actions-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyEndorsementActionsModalComponent
     extends SmartComponent

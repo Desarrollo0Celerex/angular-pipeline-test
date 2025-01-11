@@ -6,6 +6,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-show-reactivation-evidence',
     templateUrl: './modal-show-reactivation-evidence.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalShowReactivationEvidenceComponent {
     @Input() modalId: string = '';

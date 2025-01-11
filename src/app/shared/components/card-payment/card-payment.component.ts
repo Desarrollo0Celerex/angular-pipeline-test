@@ -9,6 +9,7 @@ import moment from 'moment';
     selector: 'agt-card-payment',
     templateUrl: './card-payment.component.html',
     styles: [],
+    standalone: false
 })
 export class CardPaymentComponent extends DumbComponent {
     @Input() payment: Payment | undefined = undefined;

@@ -9,6 +9,7 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
     selector: 'agt-workspace-quotations-opened-by-range',
     templateUrl: './workspace-quotations-opened-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class WorkspaceQuotationsOpenedByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

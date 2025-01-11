@@ -5,10 +5,10 @@ import { Client } from '@interfaces/client.interface';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-client',
-  templateUrl: './modal-select-client.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-client',
+    templateUrl: './modal-select-client.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalSelectClientComponent {
     @Input() modalId: string = '';

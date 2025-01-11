@@ -10,6 +10,7 @@ import moment from 'moment';
     selector: 'agt-tasks-in-progress-by-range',
     templateUrl: './tasks-in-progress-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class TasksInProgressByRangePage {
     rangeField: string = 'taskInProgressDate';

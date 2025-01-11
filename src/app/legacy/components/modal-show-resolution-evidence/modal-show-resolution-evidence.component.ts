@@ -6,6 +6,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-show-resolution-evidence',
     templateUrl: './modal-show-resolution-evidence.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalShowResolutionEvidenceComponent {
     @Input() modalId: string = '';

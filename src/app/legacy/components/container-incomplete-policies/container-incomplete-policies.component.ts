@@ -10,10 +10,10 @@ import { ContainerIncompletePoliciesService } from './container-incomplete-polic
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-incomplete-policies',
-  templateUrl: './container-incomplete-policies.component.html',
-  styles: [
-  ]
+    selector: 'agt-container-incomplete-policies',
+    templateUrl: './container-incomplete-policies.component.html',
+    styles: [],
+    standalone: false
 })
 export class ContainerIncompletePoliciesComponent implements OnInit {
     @Input() contentType: number = 0;

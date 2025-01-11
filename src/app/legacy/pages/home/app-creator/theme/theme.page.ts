@@ -17,6 +17,7 @@ import { ThemeService } from './theme.service';
     templateUrl: './theme.page.html',
     styles: [],
     providers: [ThemeService],
+    standalone: false
 })
 export class ThemePage implements OnInit {
     modalIdConfirmUpdateWallet: string = 'agt-confirm-update-wallet';

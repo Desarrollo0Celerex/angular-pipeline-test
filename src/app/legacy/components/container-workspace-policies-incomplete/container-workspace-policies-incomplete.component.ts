@@ -14,6 +14,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-workspace-policies-incomplete.component.html',
     styles: [],
     providers: [ContainerWorkspacePoliciesIncompleteService],
+    standalone: false
 })
 export class ContainerWorkspacePoliciesIncompleteComponent implements OnInit {
     modalIdConfirmDeletePolicy: string = 'agt-confirm-delete-policy';

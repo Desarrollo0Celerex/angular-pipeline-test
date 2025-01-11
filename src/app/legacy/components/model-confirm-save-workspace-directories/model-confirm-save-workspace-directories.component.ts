@@ -3,10 +3,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-model-confirm-save-workspace-directories',
-  templateUrl: './model-confirm-save-workspace-directories.component.html',
-  styles: [
-  ]
+    selector: 'agt-model-confirm-save-workspace-directories',
+    templateUrl: './model-confirm-save-workspace-directories.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModelConfirmSaveWorkspaceDirectoriesComponent {
     @Input() modalId: string = '';

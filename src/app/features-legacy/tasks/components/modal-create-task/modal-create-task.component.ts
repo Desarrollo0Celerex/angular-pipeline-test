@@ -24,6 +24,7 @@ declare var TimePickerPlugin: any;
     selector: 'agt-modal-create-task',
     templateUrl: './modal-create-task.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalCreateTaskComponent extends SmartComponent implements OnInit {
     calendarIdTaskDate = 'taskDate';

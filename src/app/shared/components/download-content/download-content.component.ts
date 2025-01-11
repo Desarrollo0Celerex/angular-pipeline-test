@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
     selector: 'agt-download-content',
     templateUrl: './download-content.component.html',
     styles: [],
+    standalone: false
 })
 export class DownloadContentComponent {
     data: DownloadContent | undefined = undefined;

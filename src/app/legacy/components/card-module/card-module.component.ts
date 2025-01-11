@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'agt-card-module',
-  templateUrl: './card-module.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-module',
+    templateUrl: './card-module.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardModuleComponent {
     @Input() title: string = '';

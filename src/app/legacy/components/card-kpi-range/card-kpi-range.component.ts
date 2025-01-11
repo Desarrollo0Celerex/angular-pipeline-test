@@ -3,10 +3,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { RangeData } from '@interfaces/range-data.interface';
 
 @Component({
-  selector: 'agt-card-kpi-range',
-  templateUrl: './card-kpi-range.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-kpi-range',
+    templateUrl: './card-kpi-range.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardKpiRangeComponent implements OnInit {
     @Input() title: string = '';

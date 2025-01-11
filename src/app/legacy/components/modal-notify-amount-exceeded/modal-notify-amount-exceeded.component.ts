@@ -6,10 +6,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-notify-amount-exceeded',
-  templateUrl: './modal-notify-amount-exceeded.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-notify-amount-exceeded',
+    templateUrl: './modal-notify-amount-exceeded.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalNotifyAmountExceededComponent {
     @Input() modalId: string = '';

@@ -6,6 +6,7 @@ import { PayTrackerService } from '@features-legacy/pay-tracker/services/pay-tra
     selector: 'agt-payments-search-engine',
     templateUrl: './payments-search-engine.container.html',
     styles: [],
+    standalone: false
 })
 export class PaymentsSearchEngineContainer
     extends SmartComponent

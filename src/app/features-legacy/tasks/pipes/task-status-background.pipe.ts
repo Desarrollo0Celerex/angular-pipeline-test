@@ -3,6 +3,7 @@ import { TASK_STATUS } from '@core/constants/settings';
 
 @Pipe({
     name: 'taskStatusBackground',
+    standalone: false
 })
 export class TaskStatusBackgroundPipe implements PipeTransform {
     transform(taskStatusId?: number): string {

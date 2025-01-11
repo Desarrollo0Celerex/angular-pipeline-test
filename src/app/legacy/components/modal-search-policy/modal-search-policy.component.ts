@@ -14,6 +14,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-search-policy',
     templateUrl: './modal-search-policy.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSearchPolicyComponent {
     @Input() message: string = '';

@@ -5,10 +5,10 @@ import { INSURANCE_LIST_TYPES } from '@constants/global';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-insurance-list-type',
-  templateUrl: './modal-select-insurance-list-type.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-insurance-list-type',
+    templateUrl: './modal-select-insurance-list-type.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalSelectInsuranceListTypeComponent implements OnInit {
     @Input() modalId: string = '';

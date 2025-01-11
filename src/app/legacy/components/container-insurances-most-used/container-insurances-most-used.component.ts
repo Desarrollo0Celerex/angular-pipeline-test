@@ -5,11 +5,11 @@ import { ACTION_TYPES } from '@constants/global';
 import { ContainerInsurancesMostUsedService } from './container-insurances-most-used.service';
 
 @Component({
-  selector: 'agt-container-insurances-most-used',
-  templateUrl: './container-insurances-most-used.component.html',
-  styles: [
-  ],
-  providers: [ContainerInsurancesMostUsedService]
+    selector: 'agt-container-insurances-most-used',
+    templateUrl: './container-insurances-most-used.component.html',
+    styles: [],
+    providers: [ContainerInsurancesMostUsedService],
+    standalone: false
 })
 export class ContainerInsurancesMostUsedComponent implements OnInit {
     @Input() actionType: number = 0;

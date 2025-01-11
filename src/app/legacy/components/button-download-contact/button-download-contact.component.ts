@@ -7,10 +7,10 @@ import { ButtonDownloadContactService } from './button-download-contact.service'
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-button-download-contact',
-  templateUrl: './button-download-contact.component.html',
-  styles: [
-  ]
+    selector: 'agt-button-download-contact',
+    templateUrl: './button-download-contact.component.html',
+    styles: [],
+    standalone: false
 })
 export class ButtonDownloadContactComponent implements OnChanges {
     @Input() buttonType: number;

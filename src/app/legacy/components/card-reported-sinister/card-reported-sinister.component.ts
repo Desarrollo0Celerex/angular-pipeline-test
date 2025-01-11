@@ -4,10 +4,10 @@ import { Sinister } from '@interfaces/sinister.interface';
 import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 
 @Component({
-  selector: 'agt-card-reported-sinister',
-  templateUrl: './card-reported-sinister.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-reported-sinister',
+    templateUrl: './card-reported-sinister.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardReportedSinisterComponent implements OnInit {
     @Input() sinister: Sinister | null = null;

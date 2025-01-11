@@ -3,10 +3,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-duplicate-contact',
-  templateUrl: './modal-duplicate-contact.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-duplicate-contact',
+    templateUrl: './modal-duplicate-contact.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalDuplicateContactComponent {
     @Input() modalId: string;

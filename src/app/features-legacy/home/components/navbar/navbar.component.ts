@@ -9,6 +9,7 @@ declare var ActivePlugin: any;
     selector: 'agt-navbar',
     templateUrl: './navbar.component.html',
     styles: [],
+    standalone: false
 })
 export class NavbarComponent implements AfterViewChecked {
     ROUTES_NAME: any = ROUTES_NAME;

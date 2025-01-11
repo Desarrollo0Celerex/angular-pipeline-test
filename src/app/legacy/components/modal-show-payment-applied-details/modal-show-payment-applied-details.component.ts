@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-show-payment-applied-details.component.html',
     styles: [],
     providers: [ModalShowPaymentAppliedDetailsService],
+    standalone: false
 })
 export class ModalShowPaymentAppliedDetailsComponent implements OnChanges {
     @Input() modalId: string = '';

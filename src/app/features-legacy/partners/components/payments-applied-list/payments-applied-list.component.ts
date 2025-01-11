@@ -16,6 +16,7 @@ import { PayTrackerService } from '@features-legacy/pay-tracker/services/pay-tra
     selector: 'agt-payments-applied-list',
     templateUrl: './payments-applied-list.component.html',
     styles: [],
+    standalone: false
 })
 export class PaymentsAppliedListComponent
     extends SmartComponent

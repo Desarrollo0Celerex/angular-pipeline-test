@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './facebook.page.html',
     styles: [],
     providers: [FacebookService],
+    standalone: false
 })
 export class FacebookPage implements OnInit {
     modalIdConfirmCreateFacebookAccount: string =

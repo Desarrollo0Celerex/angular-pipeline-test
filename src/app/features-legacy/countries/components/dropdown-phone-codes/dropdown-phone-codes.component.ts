@@ -6,6 +6,7 @@ import { CountriesService } from '@features-legacy/countries/services/countries.
     selector: 'agt-dropdown-phone-codes',
     templateUrl: './dropdown-phone-codes.component.html',
     styles: [],
+    standalone: false
 })
 export class DropdownPhoneCodesComponent implements OnInit {
     @Input() phoneCode = '';

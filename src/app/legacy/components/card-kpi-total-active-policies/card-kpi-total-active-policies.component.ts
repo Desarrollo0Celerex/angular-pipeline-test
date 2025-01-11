@@ -6,11 +6,11 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { CardKpiTotalActivePoliciesService } from './card-kpi-total-active-policies.service';
 
 @Component({
-  selector: 'agt-card-kpi-total-active-policies',
-  templateUrl: './card-kpi-total-active-policies.component.html',
-  styles: [
-  ],
-  providers: [CardKpiTotalActivePoliciesService]
+    selector: 'agt-card-kpi-total-active-policies',
+    templateUrl: './card-kpi-total-active-policies.component.html',
+    styles: [],
+    providers: [CardKpiTotalActivePoliciesService],
+    standalone: false
 })
 export class CardKpiTotalActivePoliciesComponent implements OnInit {
     @Output() uploadPolicyRequested: EventEmitter<void> = new EventEmitter<void>();

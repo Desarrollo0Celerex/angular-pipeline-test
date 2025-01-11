@@ -6,6 +6,7 @@ declare var ModalPlugin: any;
     selector: 'agt-duplicate-contact-modal',
     templateUrl: './duplicate-contact-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class DuplicateContactModalComponent {
     @Output() viewMatches = new EventEmitter<void>();

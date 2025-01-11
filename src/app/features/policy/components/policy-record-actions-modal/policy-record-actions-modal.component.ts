@@ -13,6 +13,7 @@ declare var ModalPlugin: any;
     selector: 'agt-policy-record-actions-modal',
     templateUrl: './policy-record-actions-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyRecordActionsModalComponent
     extends SmartComponent

@@ -17,6 +17,7 @@ declare var ModalPlugin: any;
     templateUrl: './wallet-contact.page.html',
     styles: [],
     providers: [WalletContactSService],
+    standalone: false
 })
 export class WalletContactPage implements OnInit {
     modalIdConfirmUpdateWallet: string = 'modal-confirm-update-wallet';

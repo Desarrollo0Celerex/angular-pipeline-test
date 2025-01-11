@@ -17,6 +17,7 @@ declare var jQuery: any;
     selector: 'agt-sidebar',
     templateUrl: './sidebar.component.html',
     styles: [],
+    standalone: false
 })
 export class SidebarComponent implements OnInit {
     @ViewChild(UserWorkspacesModalComponent)

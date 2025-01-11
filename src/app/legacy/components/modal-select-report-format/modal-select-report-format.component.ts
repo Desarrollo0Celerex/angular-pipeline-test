@@ -5,10 +5,10 @@ import { FORMAT_TYPES } from '@constants/global';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-report-format',
-  templateUrl: './modal-select-report-format.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-report-format',
+    templateUrl: './modal-select-report-format.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalSelectReportFormatComponent {
     @Input() modalId: string = '';

@@ -13,6 +13,7 @@ declare var CounterPlugin: any;
     selector: 'agt-calendar',
     templateUrl: './calendar.page.html',
     styles: [],
+    standalone: false
 })
 export class CalendarPage extends SmartComponent {
     paymentDate: string = moment().format('YYYY-MM-DD');

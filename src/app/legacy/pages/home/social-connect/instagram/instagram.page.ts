@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './instagram.page.html',
     styles: [],
     providers: [InstagramService],
+    standalone: false
 })
 export class InstagramPage implements OnInit {
     modalIdConfirmCreateInstagramAccount: string =

@@ -15,6 +15,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-confirm-reissue-policy',
     templateUrl: './modal-confirm-reissue-policy.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalConfirmReissuePolicyComponent {
     @Input() contactId: string;

@@ -7,6 +7,7 @@ import { User } from '@core/interfaces/user.interface';
     selector: 'agt-card-user',
     templateUrl: './card-user.component.html',
     styles: [],
+    standalone: false
 })
 export class CardUserComponent {
     @Input() user: User | null = null;

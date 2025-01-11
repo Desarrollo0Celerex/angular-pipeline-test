@@ -16,6 +16,7 @@ declare var ModalPlugin: any;
     templateUrl: './support.page.html',
     styles: [],
     providers: [SupportService],
+    standalone: false
 })
 export class SupportPage implements OnInit {
     modalIdConfirmSaveWorkspaceDirectories: string =

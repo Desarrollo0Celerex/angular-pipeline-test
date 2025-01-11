@@ -13,6 +13,7 @@ import { environment } from '@env/environment';
     selector: 'agt-modal-sync-calendar',
     templateUrl: './modal-sync-calendar.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSyncCalendarComponent
     extends SmartComponent

@@ -7,6 +7,7 @@ import { Contact } from '@core/interfaces/contact.interface';
     selector: 'agt-card-contact',
     templateUrl: './card-contact.component.html',
     styles: [],
+    standalone: false
 })
 export class CardContactComponent {
     @Input() contact: Contact | null;

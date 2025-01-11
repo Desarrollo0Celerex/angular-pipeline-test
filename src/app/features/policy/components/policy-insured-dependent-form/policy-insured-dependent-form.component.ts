@@ -25,6 +25,7 @@ import moment from 'moment';
     selector: 'agt-policy-insured-dependent-form',
     templateUrl: './policy-insured-dependent-form.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyInsuredDependentFormComponent
     extends SmartComponent

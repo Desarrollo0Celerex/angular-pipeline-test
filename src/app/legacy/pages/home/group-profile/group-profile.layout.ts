@@ -14,6 +14,7 @@ declare var ModalPlugin: any;
     templateUrl: './group-profile.layout.html',
     styles: [],
     providers: [GroupProfileService],
+    standalone: false
 })
 export class GroupProfileLayout implements OnInit, OnDestroy {
     ROUTES_NAME: any = ROUTES_NAME;

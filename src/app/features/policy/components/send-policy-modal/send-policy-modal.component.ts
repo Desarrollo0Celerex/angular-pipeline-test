@@ -16,6 +16,7 @@ import { SendNotificationModalService } from '@notifier/components/send-notifica
     selector: 'agt-send-policy-modal',
     templateUrl: './send-policy-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class SendPolicyModalComponent extends SmartComponent implements OnInit {
     @Output() policySent = new EventEmitter<boolean>();

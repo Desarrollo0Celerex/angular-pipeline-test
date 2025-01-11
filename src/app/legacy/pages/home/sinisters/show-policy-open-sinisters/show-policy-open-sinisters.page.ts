@@ -4,10 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 
 @Component({
-  selector: 'agt-show-policy-open-sinisters',
-  templateUrl: './show-policy-open-sinisters.page.html',
-  styles: [
-  ]
+    selector: 'agt-show-policy-open-sinisters',
+    templateUrl: './show-policy-open-sinisters.page.html',
+    styles: [],
+    standalone: false
 })
 export class ShowPolicyOpenSinistersPage implements OnInit {
     contactId: string = '';

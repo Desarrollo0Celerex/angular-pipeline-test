@@ -9,6 +9,7 @@ import moment from 'moment';
     selector: 'agt-tasks-pending-by-range',
     templateUrl: './tasks-pending-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class TasksPendingByRangePage {
     rangeField: string = 'taskDate';

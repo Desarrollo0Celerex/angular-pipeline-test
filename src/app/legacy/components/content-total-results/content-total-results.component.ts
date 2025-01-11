@@ -5,10 +5,10 @@ import { CONTENT_TYPES } from '@constants/global';
 import { ContentTotalResultsService } from './content-total-results.service';
 
 @Component({
-  selector: 'agt-content-total-results',
-  templateUrl: './content-total-results.component.html',
-  styles: [
-  ]
+    selector: 'agt-content-total-results',
+    templateUrl: './content-total-results.component.html',
+    styles: [],
+    standalone: false
 })
 export class ContentTotalResultsComponent implements OnChanges {
     @Input() contactId: string;

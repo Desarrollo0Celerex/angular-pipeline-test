@@ -10,11 +10,11 @@ import { ContainerExternalPoliciesService } from './container-external-policies.
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-external-policies',
-  templateUrl: './container-external-policies.component.html',
-  styles: [
-  ],
-  providers: [ContainerExternalPoliciesService]
+    selector: 'agt-container-external-policies',
+    templateUrl: './container-external-policies.component.html',
+    styles: [],
+    providers: [ContainerExternalPoliciesService],
+    standalone: false
 })
 export class ContainerExternalPoliciesComponent implements OnChanges, OnInit {
     @Input() contentType: number = 0;

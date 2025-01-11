@@ -9,6 +9,7 @@ import moment from 'moment';
     selector: 'agt-tasks-finished-by-range',
     templateUrl: './tasks-finished-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class TasksFinishedByRangePage {
     rangeField: string = 'taskFinishedDate';

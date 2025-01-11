@@ -16,6 +16,7 @@ import moment from 'moment';
     selector: 'agt-card-contact-file',
     templateUrl: './card-contact-file.component.html',
     styles: [],
+    standalone: false
 })
 export class CardContactFileComponent implements OnInit, OnChanges {
     @Input() contactFile: ContactFile | null = null;

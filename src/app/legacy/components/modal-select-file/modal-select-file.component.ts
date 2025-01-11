@@ -21,6 +21,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-select-file.component.html',
     styles: [],
     providers: [ModalSelectFileService],
+    standalone: false
 })
 export class ModalSelectFileComponent implements OnChanges {
     @Input() modalId: string = '';

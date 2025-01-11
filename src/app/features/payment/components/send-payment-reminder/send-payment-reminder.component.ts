@@ -17,6 +17,7 @@ import { LastReminderAlertComponent } from '@shared/components/last-reminder-ale
     selector: 'agt-send-payment-reminder',
     templateUrl: './send-payment-reminder.component.html',
     styles: [],
+    standalone: false
 })
 export class SendPaymentReminderComponent
     extends SmartComponent

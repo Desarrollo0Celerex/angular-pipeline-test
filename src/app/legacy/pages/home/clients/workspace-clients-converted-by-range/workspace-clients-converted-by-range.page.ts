@@ -10,6 +10,7 @@ import moment from 'moment';
     selector: 'agt-workspace-clients-converted-by-range',
     templateUrl: './workspace-clients-converted-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class WorkspaceClientsConvertedByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

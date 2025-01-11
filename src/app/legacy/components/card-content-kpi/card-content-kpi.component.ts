@@ -6,6 +6,7 @@ import { ContentKpi } from '@interfaces/content-kpi.interface';
     selector: 'agt-card-content-kpi',
     templateUrl: './card-content-kpi.component.html',
     styles: [],
+    standalone: false
 })
 export class CardContentKpiComponent {
     @Input() contentKpi: ContentKpi | null = null;

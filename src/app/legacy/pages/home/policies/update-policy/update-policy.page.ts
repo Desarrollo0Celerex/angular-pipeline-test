@@ -46,6 +46,7 @@ declare var Select2Plugin: any;
     templateUrl: './update-policy.page.html',
     styles: [],
     providers: [UpdatePolicyService],
+    standalone: false
 })
 export class UpdatePolicyPage implements OnInit {
     @ViewChild(PolicyActionsComponent)

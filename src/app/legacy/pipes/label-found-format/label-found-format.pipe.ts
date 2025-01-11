@@ -3,7 +3,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { CONTENT_TYPES } from '@constants/global';
 
 @Pipe({
-  name: 'labelFoundFormat'
+    name: 'labelFoundFormat',
+    standalone: false
 })
 export class LabelFoundFormatPipe implements PipeTransform {
 

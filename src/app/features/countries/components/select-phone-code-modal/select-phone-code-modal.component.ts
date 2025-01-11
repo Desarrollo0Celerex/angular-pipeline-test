@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-select-phone-code-modal',
     templateUrl: './select-phone-code-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class SelectPhoneCodeModalComponent {
     @Output() phoneCodeIdSelected = new EventEmitter<number>();

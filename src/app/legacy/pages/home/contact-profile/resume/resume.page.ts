@@ -13,6 +13,7 @@ declare var PopoverPlugin: any;
     selector: 'agt-resume',
     templateUrl: './resume.page.html',
     styles: [],
+    standalone: false
 })
 export class ResumePage implements OnInit, OnDestroy {
     ROUTES_NAME: any = ROUTES_NAME;

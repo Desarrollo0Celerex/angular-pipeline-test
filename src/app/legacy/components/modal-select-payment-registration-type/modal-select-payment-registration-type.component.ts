@@ -13,6 +13,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-select-payment-registration-type.component.html',
     styles: [],
     providers: [ModalSelectPaymentRegistrationTypeService],
+    standalone: false
 })
 export class ModalSelectPaymentRegistrationTypeComponent {
     @Input() modalId: string = '';

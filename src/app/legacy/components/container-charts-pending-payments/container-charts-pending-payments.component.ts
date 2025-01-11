@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-charts-pending-payments.component.html',
     styles: [],
     providers: [ContainerChartsPendingPaymentsService],
+    standalone: false
 })
 export class ContainerChartsPendingPaymentsComponent implements OnChanges {
     @Input() rangeField: string = '';

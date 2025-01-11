@@ -5,11 +5,11 @@ import { ModalShowExternalPolicyDetailsService } from './modal-show-external-pol
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-show-external-policy-details',
-  templateUrl: './modal-show-external-policy-details.component.html',
-  styles: [
-  ],
-  providers: [ModalShowExternalPolicyDetailsService]
+    selector: 'agt-modal-show-external-policy-details',
+    templateUrl: './modal-show-external-policy-details.component.html',
+    styles: [],
+    providers: [ModalShowExternalPolicyDetailsService],
+    standalone: false
 })
 export class ModalShowExternalPolicyDetailsComponent implements OnChanges {
     @Input() contactId: string = '';

@@ -19,6 +19,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-update-sinister-tracking.component.html',
     styles: [],
     providers: [ModalUpdateSinisterTrackingService],
+    standalone: false
 })
 export class ModalUpdateSinisterTrackingComponent implements OnInit {
     @Input() modalId: string = '';

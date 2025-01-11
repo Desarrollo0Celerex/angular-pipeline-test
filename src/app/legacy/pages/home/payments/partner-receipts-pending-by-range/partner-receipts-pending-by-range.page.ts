@@ -10,6 +10,7 @@ import moment from 'moment';
     selector: 'agt-partner-receipts-pending-by-range',
     templateUrl: './partner-receipts-pending-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class PartnerReceiptsPendingByRangePage {
     CONTENT_TYPES: any = CONTENT_TYPES;

@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './logo.page.html',
     styles: [],
     providers: [LogoService],
+    standalone: false
 })
 export class LogoPage implements OnInit {
     logoUrl: string = '';

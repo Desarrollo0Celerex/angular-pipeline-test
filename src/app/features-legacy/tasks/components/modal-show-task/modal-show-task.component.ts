@@ -10,6 +10,7 @@ import moment from 'moment';
     selector: 'agt-modal-show-task',
     templateUrl: './modal-show-task.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalShowTaskComponent extends SmartComponent implements OnInit {
     modalId = 'agt-modal-show-task';

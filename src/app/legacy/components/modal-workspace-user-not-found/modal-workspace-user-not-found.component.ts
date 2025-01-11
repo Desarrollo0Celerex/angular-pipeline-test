@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-workspace-user-not-found',
     templateUrl: './modal-workspace-user-not-found.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalWorkspaceUserNotFoundComponent {
     @Input() modalId: string = '';

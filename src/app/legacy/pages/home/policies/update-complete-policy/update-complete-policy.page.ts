@@ -31,6 +31,7 @@ declare var Select2Plugin: any;
     templateUrl: './update-complete-policy.page.html',
     styles: [],
     providers: [UpdateCompletePolicyService],
+    standalone: false
 })
 export class UpdateCompletePolicyPage implements OnInit {
     CONTACT_TYPES: any = CONTACT_TYPES;

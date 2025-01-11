@@ -5,6 +5,7 @@ import { DownloadContentComponent } from '@shared/components/download-content/do
     selector: 'agt-download-policy-complement-modal',
     templateUrl: './download-policy-complement-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class DownloadPolicyComplementModalComponent {
     @ViewChild(DownloadContentComponent)

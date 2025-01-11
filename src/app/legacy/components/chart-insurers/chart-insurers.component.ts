@@ -15,6 +15,7 @@ declare var StatsGlobalPlugin: any;
     selector: 'agt-chart-insurers',
     templateUrl: './chart-insurers.component.html',
     styles: [],
+    standalone: false
 })
 export class ChartInsurersComponent implements OnChanges {
     @Input() data: ChartPieData[] | null = null;

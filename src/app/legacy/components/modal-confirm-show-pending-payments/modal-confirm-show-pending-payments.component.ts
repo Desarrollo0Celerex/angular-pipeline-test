@@ -6,10 +6,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-show-pending-payments',
-  templateUrl: './modal-confirm-show-pending-payments.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-show-pending-payments',
+    templateUrl: './modal-confirm-show-pending-payments.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmShowPendingPaymentsComponent {
     @Input() contactId: string = '';

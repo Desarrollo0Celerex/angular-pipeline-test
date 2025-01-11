@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-show-policy-file.component.html',
     styles: [],
     providers: [ModalShowPolicyFileService],
+    standalone: false
 })
 export class ModalShowPolicyFileComponent implements OnChanges {
     @Input() modalId: string = '';

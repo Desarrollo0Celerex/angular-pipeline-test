@@ -8,6 +8,7 @@ import { TaskModalService } from '@features-legacy/tasks/services/task-modal.ser
     selector: 'agt-modal-select-calendar',
     templateUrl: './modal-select-calendar.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSelectCalendarComponent
     extends SmartComponent

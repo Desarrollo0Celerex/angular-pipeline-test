@@ -4,10 +4,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 
 @Component({
-  selector: 'agt-payment-history',
-  templateUrl: './payment-history.page.html',
-  styles: [
-  ]
+    selector: 'agt-payment-history',
+    templateUrl: './payment-history.page.html',
+    styles: [],
+    standalone: false
 })
 export class PaymentHistoryPage implements OnInit {
     contactId: string = '';

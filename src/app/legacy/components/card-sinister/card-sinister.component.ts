@@ -9,10 +9,10 @@ declare var PopoverPlugin: any;
 declare var TooltipPlugin: any;
 
 @Component({
-  selector: 'agt-card-sinister',
-  templateUrl: './card-sinister.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-sinister',
+    templateUrl: './card-sinister.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardSinisterComponent implements OnInit {
     @Input() sinister: Sinister | null = null;

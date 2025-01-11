@@ -3,10 +3,10 @@ import { Component, Input } from '@angular/core';
 import { BUTTON_TYPES } from '@constants/global';
 
 @Component({
-  selector: 'agt-modal-contact-saved',
-  templateUrl: './modal-contact-saved.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-contact-saved',
+    templateUrl: './modal-contact-saved.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalContactSavedComponent {
     @Input() contactId: string;

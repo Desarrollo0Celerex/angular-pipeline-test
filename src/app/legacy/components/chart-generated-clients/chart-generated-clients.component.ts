@@ -8,11 +8,11 @@ declare var StatsClientsPlugin: any;
 import { ChartGeneratedClientsService } from './chart-generated-clients.service';
 
 @Component({
-  selector: 'agt-chart-generated-clients',
-  templateUrl: './chart-generated-clients.component.html',
-  styles: [
-  ],
-  providers: [ChartGeneratedClientsService]
+    selector: 'agt-chart-generated-clients',
+    templateUrl: './chart-generated-clients.component.html',
+    styles: [],
+    providers: [ChartGeneratedClientsService],
+    standalone: false
 })
 export class ChartGeneratedClientsComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

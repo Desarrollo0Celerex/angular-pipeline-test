@@ -15,6 +15,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-show-cancellation-evidence.component.html',
     styles: [],
     providers: [ModalShowCancellationEvidenceService],
+    standalone: false
 })
 export class ModalShowCancellationEvidenceComponent {
     @Input() modalId: string = '';

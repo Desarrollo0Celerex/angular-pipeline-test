@@ -9,6 +9,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
     selector: 'agt-login',
     template: '',
     styles: [],
+    standalone: false
 })
 export class LoginPage extends SmartComponent implements OnInit {
     activationCode = '';

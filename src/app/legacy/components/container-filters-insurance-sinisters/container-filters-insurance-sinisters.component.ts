@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-filters-insurance-sinisters.component.html',
     styles: [],
     providers: [ContainerFiltersInsuranceSinistersService],
+    standalone: false
 })
 export class ContainerFiltersInsuranceSinistersComponent implements OnChanges {
     @Input() insuranceId: number = 0;

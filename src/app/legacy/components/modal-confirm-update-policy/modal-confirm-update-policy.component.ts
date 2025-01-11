@@ -10,6 +10,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-confirm-update-policy',
     templateUrl: './modal-confirm-update-policy.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalConfirmUpdatePolicyComponent {
     @Input() contactId: string;

@@ -12,6 +12,7 @@ import moment from 'moment';
     selector: 'agt-synchronize-task',
     templateUrl: './synchronize-task.component.html',
     styles: [],
+    standalone: false
 })
 export class SynchronizeTaskComponent {
     data: SynchronizeTask | undefined = undefined;

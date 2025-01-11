@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-download-file',
     templateUrl: './modal-download-file.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalDownloadFileComponent {
     @Input() fileUrl: string = '';

@@ -5,6 +5,7 @@ import { PolicyComplement } from '@policy-complement/interfaces/policy-complemen
     selector: 'agt-policy-complement-card',
     templateUrl: './policy-complement-card.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyComplementCardComponent {
     @Input() policyComplement: PolicyComplement | undefined = undefined;

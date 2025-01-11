@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './card-contact-annual-wallet.component.html',
     styles: [],
     providers: [CardContactAnnualWalletService],
+    standalone: false
 })
 export class CardContactAnnualWalletComponent implements OnChanges {
     @Input() contactId: string = '';

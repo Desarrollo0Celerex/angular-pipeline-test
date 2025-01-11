@@ -9,6 +9,7 @@ import moment from 'moment';
     selector: 'agt-calendar-settings',
     templateUrl: './calendar-settings.component.html',
     styles: [],
+    standalone: false
 })
 export class CalendarSettingsComponent
     extends SmartComponent

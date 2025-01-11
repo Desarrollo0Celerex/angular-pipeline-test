@@ -8,11 +8,11 @@ import { ChartPoliciesInsurancesService } from './chart-policies-insurances.serv
 declare var StatsPoliciesPlugin: any;
 
 @Component({
-  selector: 'agt-chart-policies-insurances',
-  templateUrl: './chart-policies-insurances.component.html',
-  styles: [
-  ],
-  providers: [ChartPoliciesInsurancesService]
+    selector: 'agt-chart-policies-insurances',
+    templateUrl: './chart-policies-insurances.component.html',
+    styles: [],
+    providers: [ChartPoliciesInsurancesService],
+    standalone: false
 })
 export class ChartPoliciesInsurancesComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

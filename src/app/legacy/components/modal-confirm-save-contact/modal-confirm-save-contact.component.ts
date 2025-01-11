@@ -3,10 +3,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-save-contact',
-  templateUrl: './modal-confirm-save-contact.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-save-contact',
+    templateUrl: './modal-confirm-save-contact.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmSaveContactComponent implements OnInit {
     @Input() modalId: string;

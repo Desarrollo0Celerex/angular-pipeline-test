@@ -10,6 +10,7 @@ import moment from 'moment';
     selector: 'agt-all-policies',
     templateUrl: './all-policies.page.html',
     styles: [],
+    standalone: false
 })
 export class AllPoliciesPage implements OnInit {
     policies: Policy[] = [];

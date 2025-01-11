@@ -19,6 +19,7 @@ declare var TimePickerPlugin: any;
     templateUrl: './modal-update-sinister-details.component.html',
     styles: [],
     providers: [ModalUpdateSinisterDetailsService],
+    standalone: false
 })
 export class ModalUpdateSinisterDetailsComponent implements OnInit {
     @Input() modalId: string = '';

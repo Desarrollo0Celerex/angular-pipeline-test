@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-charts-incomplete-policies.component.html',
     styles: [],
     providers: [ContainerChartsIncompletePoliciesService],
+    standalone: false
 })
 export class ContainerChartsIncompletePoliciesComponent implements OnInit {
     @Output() specialFilterChanged: EventEmitter<string> =

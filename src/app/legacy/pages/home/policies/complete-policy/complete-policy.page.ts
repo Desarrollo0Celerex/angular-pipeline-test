@@ -43,6 +43,7 @@ declare var Select2Plugin: any;
     selector: 'agt-complete-policy',
     templateUrl: './complete-policy.page.html',
     styles: [],
+    standalone: false
 })
 export class CompletePolicyPage implements OnInit {
     @ViewChild(PolicyActionsComponent)

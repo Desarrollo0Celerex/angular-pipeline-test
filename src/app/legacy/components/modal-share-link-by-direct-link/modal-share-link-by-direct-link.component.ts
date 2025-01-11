@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-share-link-by-direct-link',
     templateUrl: './modal-share-link-by-direct-link.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalShareLinkByDirectLinkComponent {
     @Input() modalId: string = '';

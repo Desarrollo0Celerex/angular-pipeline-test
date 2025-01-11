@@ -9,6 +9,7 @@ import moment from 'moment';
     templateUrl: './last-reminder-alert.component.html',
     styles: [],
     providers: [PaymentService],
+    standalone: false
 })
 export class LastReminderAlertComponent {
     lastReminderDate = '';

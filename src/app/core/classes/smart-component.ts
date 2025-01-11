@@ -4,6 +4,7 @@ import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
     template: '',
+    standalone: false
 })
 export abstract class SmartComponent implements OnDestroy {
     private readonly unsubscribe$ = new Subject<void>();

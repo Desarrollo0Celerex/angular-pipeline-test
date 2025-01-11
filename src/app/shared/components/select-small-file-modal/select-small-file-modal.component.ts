@@ -14,6 +14,7 @@ declare var ModalPlugin: any;
     selector: 'agt-select-small-file-modal',
     templateUrl: './select-small-file-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class SelectSmallFileModalComponent
     extends SmartComponent

@@ -26,6 +26,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-create-sinister.component.html',
     styles: [],
     providers: [ModalCreateSinisterService],
+    standalone: false
 })
 export class ModalCreateSinisterComponent implements OnChanges, OnInit {
     @Input() modalId: string = '';

@@ -4,11 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { WalletResumeService } from './wallet-resume.service';
 
 @Component({
-  selector: 'agt-wallet-resume',
-  templateUrl: './wallet-resume.page.html',
-  styles: [
-  ],
-  providers: [WalletResumeService]
+    selector: 'agt-wallet-resume',
+    templateUrl: './wallet-resume.page.html',
+    styles: [],
+    providers: [WalletResumeService],
+    standalone: false
 })
 export class WalletResumePage implements OnInit {
     walletId: string = '';

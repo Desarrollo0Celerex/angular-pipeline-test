@@ -8,11 +8,11 @@ import { ChartReceiptsPaidService } from './chart-receipts-paid.service';
 declare var StatsCollectionPlugin: any;
 
 @Component({
-  selector: 'agt-chart-receipts-paid',
-  templateUrl: './chart-receipts-paid.component.html',
-  styles: [
-  ],
-  providers: [ChartReceiptsPaidService]
+    selector: 'agt-chart-receipts-paid',
+    templateUrl: './chart-receipts-paid.component.html',
+    styles: [],
+    providers: [ChartReceiptsPaidService],
+    standalone: false
 })
 export class ChartReceiptsPaidComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

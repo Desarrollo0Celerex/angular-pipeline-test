@@ -12,6 +12,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-confirm-create-partner.component.html',
     styles: [],
     providers: [ModalConfirmCreatePartnerService],
+    standalone: false
 })
 export class ModalConfirmCreatePartnerComponent {
     @Input() modalId: string = '';

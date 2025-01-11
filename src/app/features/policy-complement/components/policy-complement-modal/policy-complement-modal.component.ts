@@ -12,6 +12,7 @@ declare var ModalPlugin: any;
     selector: 'agt-policy-complement-modal',
     templateUrl: './policy-complement-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyComplementModalComponent {
     @Input() contactId = '';

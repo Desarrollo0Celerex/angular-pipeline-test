@@ -10,10 +10,10 @@ import { ExpressContactService } from './express-contact.service';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-express-contact',
-  templateUrl: './express-contact.page.html',
-  styles: [
-  ]
+    selector: 'agt-express-contact',
+    templateUrl: './express-contact.page.html',
+    styles: [],
+    standalone: false
 })
 export class ExpressContactPage implements OnInit {
     BUTTON_TYPES: any;

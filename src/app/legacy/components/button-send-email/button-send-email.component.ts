@@ -5,10 +5,10 @@ import { BUTTON_TYPES } from '@constants/global';
 import { ButtonSendEmailService } from './button-send-email.service';
 
 @Component({
-  selector: 'agt-button-send-email',
-  templateUrl: './button-send-email.component.html',
-  styles: [
-  ]
+    selector: 'agt-button-send-email',
+    templateUrl: './button-send-email.component.html',
+    styles: [],
+    standalone: false
 })
 export class ButtonSendEmailComponent implements OnChanges {
     @Input() buttonType: number;

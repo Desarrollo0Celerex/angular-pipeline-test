@@ -15,6 +15,7 @@ import { AcceptInvitationService } from './accept-invitation.service';
     selector: 'agt-accept-invitation',
     templateUrl: './accept-invitation.page.html',
     styles: [],
+    standalone: false
 })
 export class AcceptInvitationPage implements OnInit {
     invitationToken: string;

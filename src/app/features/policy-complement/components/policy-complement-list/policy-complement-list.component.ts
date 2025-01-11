@@ -5,6 +5,7 @@ import { PolicyComplement } from '@policy-complement/interfaces/policy-complemen
     selector: 'agt-policy-complement-list',
     templateUrl: './policy-complement-list.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyComplementListComponent {
     @Input() policyComplements: PolicyComplement[] = [];

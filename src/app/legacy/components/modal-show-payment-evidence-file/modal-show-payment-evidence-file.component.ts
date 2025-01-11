@@ -6,6 +6,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-show-payment-evidence-file',
     templateUrl: './modal-show-payment-evidence-file.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalShowPaymentEvidenceFileComponent {
     @Input() modalId: string = '';

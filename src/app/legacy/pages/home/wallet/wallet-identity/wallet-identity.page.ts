@@ -17,6 +17,7 @@ declare var ModalPlugin: any;
     templateUrl: './wallet-identity.page.html',
     styles: [],
     providers: [WalletIdentityService],
+    standalone: false
 })
 export class WalletIdentityPage implements OnInit {
     walletId: string = '';

@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-show-policy',
     templateUrl: './modal-show-policy.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalShowPolicyComponent implements OnChanges {
     @Input() contactId: string;

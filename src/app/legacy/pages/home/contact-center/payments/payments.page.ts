@@ -16,6 +16,7 @@ declare var ModalPlugin: any;
     templateUrl: './payments.page.html',
     styles: [],
     providers: [PaymentsService],
+    standalone: false
 })
 export class PaymentsPage implements OnInit {
     modalIdConfirmSaveWorkspaceDirectories: string =

@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './linkedin.page.html',
     styles: [],
     providers: [LinkedinService],
+    standalone: false
 })
 export class LinkedinPage implements OnInit {
     modalIdConfirmCreateLinkedinAccount: string =

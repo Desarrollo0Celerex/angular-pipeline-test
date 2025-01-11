@@ -7,6 +7,7 @@ import { RangeData } from '@interfaces/range-data.interface';
     selector: 'agt-container-workspace-kpis',
     templateUrl: './container-workspace-kpis.component.html',
     styles: [],
+    standalone: false
 })
 export class ContainerWorkspaceKpisComponent {
     rangeData: RangeData = {

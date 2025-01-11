@@ -9,11 +9,11 @@ import { ContainerWorkspaceExternalPoliciesService } from './container-workspace
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-workspace-external-policies',
-  templateUrl: './container-workspace-external-policies.component.html',
-  styles: [
-  ],
-  providers: [ContainerWorkspaceExternalPoliciesService]
+    selector: 'agt-container-workspace-external-policies',
+    templateUrl: './container-workspace-external-policies.component.html',
+    styles: [],
+    providers: [ContainerWorkspaceExternalPoliciesService],
+    standalone: false
 })
 export class ContainerWorkspaceExternalPoliciesComponent implements OnInit {
     modalIdShowPolicyFile: string = 'modal-show-policy-file';

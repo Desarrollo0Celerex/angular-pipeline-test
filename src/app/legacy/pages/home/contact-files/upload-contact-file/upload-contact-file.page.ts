@@ -22,6 +22,7 @@ declare var DatePickerPlugin: any;
     templateUrl: './upload-contact-file.page.html',
     styles: [],
     providers: [UploadContactFileService],
+    standalone: false
 })
 export class UploadContactFilePage implements OnInit {
     @ViewChild('fileUploader') fileUploader: any;

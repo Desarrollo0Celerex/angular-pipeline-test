@@ -5,11 +5,11 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { ContainerGlobalKpisService } from './container-global-kpis.service';
 
 @Component({
-  selector: 'agt-container-global-kpis',
-  templateUrl: './container-global-kpis.component.html',
-  styles: [
-  ],
-  providers: [ContainerGlobalKpisService]
+    selector: 'agt-container-global-kpis',
+    templateUrl: './container-global-kpis.component.html',
+    styles: [],
+    providers: [ContainerGlobalKpisService],
+    standalone: false
 })
 export class ContainerGlobalKpisComponent implements OnInit {
     ROUTES_NAME: any = ROUTES_NAME;

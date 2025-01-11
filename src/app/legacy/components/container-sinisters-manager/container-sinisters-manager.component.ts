@@ -13,10 +13,10 @@ const SINISTER_ACTIONS: any = {
 }
 
 @Component({
-  selector: 'agt-container-sinisters-manager',
-  templateUrl: './container-sinisters-manager.component.html',
-  styles: [
-  ]
+    selector: 'agt-container-sinisters-manager',
+    templateUrl: './container-sinisters-manager.component.html',
+    styles: [],
+    standalone: false
 })
 export class ContainerSinistersManagerComponent implements OnInit {
     @Input() contactId: string = '';

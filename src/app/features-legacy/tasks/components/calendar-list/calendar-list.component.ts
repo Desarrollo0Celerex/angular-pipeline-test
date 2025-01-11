@@ -16,6 +16,7 @@ import { CreateTaskService } from '@tasks/components/create-task/create-task.ser
     selector: 'agt-calendar-list',
     templateUrl: './calendar-list.component.html',
     styles: [],
+    standalone: false
 })
 export class CalendarListComponent extends SmartComponent implements OnInit {
     @ViewChild(CreateTaskComponent)

@@ -15,6 +15,7 @@ import { ValidatorsHelper } from '@core/helpers/validators.helper';
     templateUrl: './card-search-engine.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CardSearchEngineComponent implements OnChanges {
     @Input() title: string = '';

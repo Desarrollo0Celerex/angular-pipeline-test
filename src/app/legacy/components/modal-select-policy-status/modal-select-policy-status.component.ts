@@ -5,10 +5,10 @@ import { ModalSelectPolicyStatusService } from './modal-select-policy-status.ser
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-policy-status',
-  templateUrl: './modal-select-policy-status.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-policy-status',
+    templateUrl: './modal-select-policy-status.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalSelectPolicyStatusComponent implements OnChanges, OnInit {
     @Input() modalId: string;

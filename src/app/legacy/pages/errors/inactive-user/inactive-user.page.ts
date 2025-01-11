@@ -5,6 +5,7 @@ import { environment } from '@env/environment';
     selector: 'agt-inactive-user',
     templateUrl: './inactive-user.page.html',
     styles: [],
+    standalone: false
 })
 export class InactiveUserPage {
     onClickExit(): void {

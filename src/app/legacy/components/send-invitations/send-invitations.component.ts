@@ -25,6 +25,7 @@ declare var TooltipPlugin: any;
     selector: 'agt-send-invitations',
     templateUrl: './send-invitations.component.html',
     styles: [],
+    standalone: false
 })
 export class SendInvitationsComponent implements OnInit, OnChanges {
     @Input() canAddInvitationForm: boolean;

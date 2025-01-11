@@ -11,6 +11,7 @@ import moment from 'moment';
     selector: 'agt-workspace-renewals-pending-by-range',
     templateUrl: './workspace-renewals-pending-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class WorkspaceRenewalsPendingByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

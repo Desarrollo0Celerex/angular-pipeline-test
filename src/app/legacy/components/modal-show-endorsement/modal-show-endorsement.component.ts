@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-show-endorsement',
     templateUrl: './modal-show-endorsement.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalShowEndorsementComponent implements OnChanges {
     @Input() contactId: string = '';

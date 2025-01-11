@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     selector: 'agt-select-client-type-modal',
     templateUrl: './select-client-type-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class SelectClientTypeModalComponent
     extends SmartComponent

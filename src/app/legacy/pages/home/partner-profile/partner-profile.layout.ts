@@ -15,6 +15,7 @@ declare var ModalPlugin: any;
     templateUrl: './partner-profile.layout.html',
     styles: [],
     providers: [PartnerProfileService],
+    standalone: false
 })
 export class PartnerProfileLayout implements OnInit, OnDestroy {
     ROUTES_NAME: any = ROUTES_NAME;

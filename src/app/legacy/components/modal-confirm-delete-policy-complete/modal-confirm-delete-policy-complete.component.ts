@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-confirm-delete-policy-complete.component.html',
     styles: [],
     providers: [ModalConfirmDeletePolicyCompleteService],
+    standalone: false
 })
 export class ModalConfirmDeletePolicyCompleteComponent {
     @Input() contactId: string;

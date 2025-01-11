@@ -10,6 +10,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-confirm-go-to-agenthos-support.component.html',
     styles: [],
     providers: [ModalConfirmGoToAgenthosSupportService],
+    standalone: false
 })
 export class ModalConfirmGoToAgenthosSupportComponent implements OnInit {
     @Input() modalId: string = '';

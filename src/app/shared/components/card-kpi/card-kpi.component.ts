@@ -6,6 +6,7 @@ import { DumbComponent } from '@core/classes/dumb-component';
     selector: 'agt-card-kpi',
     templateUrl: './card-kpi.component.html',
     styles: [],
+    standalone: false
 })
 export class CardKpiComponent extends DumbComponent {
     @Input() kpi: Kpi | undefined = undefined;

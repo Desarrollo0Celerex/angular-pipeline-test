@@ -10,6 +10,7 @@ import { PayTrackerService } from '@features-legacy/pay-tracker/services/pay-tra
     selector: 'agt-workspace-payment-list',
     templateUrl: './workspace-payment-list.container.html',
     styles: [],
+    standalone: false
 })
 export class WorkspacePaymentListContainer
     extends SmartComponent

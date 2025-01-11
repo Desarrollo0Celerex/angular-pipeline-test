@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { LeadsService } from './leads.service';
 
 @Component({
-  selector: 'agt-leads',
-  templateUrl: './leads.layout.html',
-  styles: [
-  ],
-  providers: [LeadsService]
+    selector: 'agt-leads',
+    templateUrl: './leads.layout.html',
+    styles: [],
+    providers: [LeadsService],
+    standalone: false
 })
 export class LeadsLayout implements OnInit {
 

@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-charts-external-policies.component.html',
     styles: [],
     providers: [ContainerChartsExternalPoliciesService],
+    standalone: false
 })
 export class ContainerChartsExternalPoliciesComponent implements OnInit {
     @Output() specialFilterChanged: EventEmitter<string> =

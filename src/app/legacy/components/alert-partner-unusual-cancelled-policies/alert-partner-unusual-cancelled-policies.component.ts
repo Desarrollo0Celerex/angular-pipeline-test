@@ -3,11 +3,11 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AlertPartnerUnusualCancelledPoliciesService } from './alert-partner-unusual-cancelled-policies.service';
 
 @Component({
-  selector: 'agt-alert-partner-unusual-cancelled-policies',
-  templateUrl: './alert-partner-unusual-cancelled-policies.component.html',
-  styles: [
-  ],
-  providers: [AlertPartnerUnusualCancelledPoliciesService]
+    selector: 'agt-alert-partner-unusual-cancelled-policies',
+    templateUrl: './alert-partner-unusual-cancelled-policies.component.html',
+    styles: [],
+    providers: [AlertPartnerUnusualCancelledPoliciesService],
+    standalone: false
 })
 export class AlertPartnerUnusualCancelledPoliciesComponent implements OnChanges {
     @Input() partnerId: number = 0;

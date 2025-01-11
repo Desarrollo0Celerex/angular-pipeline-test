@@ -17,6 +17,7 @@ declare var PopoverPlugin: any;
     selector: 'agt-chart-contact-types',
     templateUrl: './chart-contact-types.component.html',
     styles: [],
+    standalone: false
 })
 export class ChartContactTypesComponent implements OnChanges, OnInit {
     @Input() description: string = '';

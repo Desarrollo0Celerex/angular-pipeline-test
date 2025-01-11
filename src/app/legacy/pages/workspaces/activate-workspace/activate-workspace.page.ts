@@ -14,6 +14,7 @@ declare var ModalPlugin: any;
     selector: 'agt-activate-workspace',
     templateUrl: './activate-workspace.page.html',
     styles: [],
+    standalone: false
 })
 export class ActivateWorkspacePage implements OnInit {
     modalIdCaptureActivationCode: string = 'agt-modal-capture-activation-code';

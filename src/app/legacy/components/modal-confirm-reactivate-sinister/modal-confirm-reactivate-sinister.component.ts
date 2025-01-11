@@ -7,10 +7,10 @@ import { SinisterDataSend} from '@interfaces/sinister-data-send.interface';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-reactivate-sinister',
-  templateUrl: './modal-confirm-reactivate-sinister.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-reactivate-sinister',
+    templateUrl: './modal-confirm-reactivate-sinister.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmReactivateSinisterComponent {
     @Input() modalId: string = '';

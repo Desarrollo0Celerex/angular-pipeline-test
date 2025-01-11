@@ -21,6 +21,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-update-partner.component.html',
     styles: [],
     providers: [ModalUpdatePartnerService],
+    standalone: false
 })
 export class ModalUpdatePartnerComponent implements OnChanges {
     @Input() modalId: string = '';

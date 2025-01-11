@@ -15,6 +15,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-last-contacts.component.html',
     styles: [],
     providers: [ContainerLastContactsService],
+    standalone: false
 })
 export class ContainerLastContactsComponent implements OnInit {
     modalIdConfirmDeleteContact: string = 'agt-confirm-delete-contact';

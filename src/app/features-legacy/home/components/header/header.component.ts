@@ -12,6 +12,7 @@ declare var ScreenPlugin: any;
     selector: 'agt-header',
     templateUrl: './header.component.html',
     styles: [],
+    standalone: false
 })
 export class HeaderComponent implements OnInit {
     ROUTES_NAME: any = ROUTES_NAME;

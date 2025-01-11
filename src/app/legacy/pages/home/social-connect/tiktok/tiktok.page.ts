@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './tiktok.page.html',
     styles: [],
     providers: [TiktokService],
+    standalone: false
 })
 export class TiktokPage implements OnInit {
     modalIdConfirmCreateTwitterAccount: string =

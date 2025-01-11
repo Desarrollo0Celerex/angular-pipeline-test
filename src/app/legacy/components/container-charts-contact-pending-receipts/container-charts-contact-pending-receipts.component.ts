@@ -14,13 +14,13 @@ import { ContainerChartsContactPendingReceiptsService } from './container-charts
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-charts-contact-pending-receipts',
-  templateUrl: './container-charts-contact-pending-receipts.component.html',
-  styles: [
-  ],
-  providers: [
-    ContainerChartsContactPendingReceiptsService
-  ]
+    selector: 'agt-container-charts-contact-pending-receipts',
+    templateUrl: './container-charts-contact-pending-receipts.component.html',
+    styles: [],
+    providers: [
+        ContainerChartsContactPendingReceiptsService
+    ],
+    standalone: false
 })
 export class ContainerChartsContactPendingReceiptsComponent implements OnChanges {
     @Input() contactId: string = '';

@@ -5,10 +5,10 @@ import { ENDORSEMENT_PAYMENT_METHODS } from '@constants/global';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-endorsement-payment-method',
-  templateUrl: './modal-select-endorsement-payment-method.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-endorsement-payment-method',
+    templateUrl: './modal-select-endorsement-payment-method.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalSelectEndorsementPaymentMethodComponent {
     @Input() currencyName: string = '';

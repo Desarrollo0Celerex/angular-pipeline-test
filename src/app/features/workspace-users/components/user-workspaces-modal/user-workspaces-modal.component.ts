@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     selector: 'agt-user-workspaces-modal',
     templateUrl: './user-workspaces-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class UserWorkspacesModalComponent {
     modalId = 'agt-user-workspaces-modal';

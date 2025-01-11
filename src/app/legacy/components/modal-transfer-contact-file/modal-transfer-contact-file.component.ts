@@ -17,6 +17,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-transfer-contact-file.component.html',
     styles: [],
     providers: [ModalTransferContactFileService],
+    standalone: false
 })
 export class ModalTransferContactFileComponent implements OnChanges, OnInit {
     @Input() modalId: string = '';

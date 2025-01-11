@@ -10,6 +10,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-show-contact-details',
     templateUrl: './modal-show-contact-details.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalShowContactDetailsComponent {
     @Input() modalId: string = '';

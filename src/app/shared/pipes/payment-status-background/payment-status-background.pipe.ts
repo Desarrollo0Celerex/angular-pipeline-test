@@ -4,6 +4,7 @@ import { PAYMENT_STATUS } from '@core/constants/settings';
 
 @Pipe({
     name: 'paymentStatusBackground',
+    standalone: false
 })
 export class PaymentStatusBackgroundPipe implements PipeTransform {
     transform(paymentStatusId?: number): string {

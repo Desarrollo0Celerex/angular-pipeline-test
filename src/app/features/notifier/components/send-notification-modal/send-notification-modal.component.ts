@@ -20,6 +20,7 @@ declare var ModalPlugin: any;
     selector: 'agt-send-notification-modal',
     templateUrl: './send-notification-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class SendNotificationModalComponent
     extends SmartComponent
