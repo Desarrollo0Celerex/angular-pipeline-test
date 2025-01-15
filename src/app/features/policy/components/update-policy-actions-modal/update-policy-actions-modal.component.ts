@@ -10,6 +10,7 @@ declare var ModalPlugin: any;
     selector: 'agt-update-policy-actions-modal',
     templateUrl: './update-policy-actions-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class UpdatePolicyActionsModalComponent {
     @Output() fileSelected: EventEmitter<File> = new EventEmitter<File>();

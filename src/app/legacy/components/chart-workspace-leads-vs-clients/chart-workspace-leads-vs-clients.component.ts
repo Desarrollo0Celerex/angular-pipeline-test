@@ -8,11 +8,11 @@ import { ChartWorkspaceLeadsVsClientsService } from './chart-workspace-leads-vs-
 declare var StatsDashboardPlugin: any;
 
 @Component({
-  selector: 'agt-chart-workspace-leads-vs-clients',
-  templateUrl: './chart-workspace-leads-vs-clients.component.html',
-  styles: [
-  ],
-  providers: [ChartWorkspaceLeadsVsClientsService]
+    selector: 'agt-chart-workspace-leads-vs-clients',
+    templateUrl: './chart-workspace-leads-vs-clients.component.html',
+    styles: [],
+    providers: [ChartWorkspaceLeadsVsClientsService],
+    standalone: false
 })
 export class ChartWorkspaceLeadsVsClientsComponent implements OnChanges {
     @Input() rangeData: RangeData | null = null;

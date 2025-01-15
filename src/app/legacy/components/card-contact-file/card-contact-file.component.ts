@@ -1,29 +1,40 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    OnChanges,
+    SimpleChanges,
+} from '@angular/core';
 
 import { ContactFile } from '@interfaces/contact-file.interface';
 import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interface';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
-  selector: 'agt-card-contact-file',
-  templateUrl: './card-contact-file.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-contact-file',
+    templateUrl: './card-contact-file.component.html',
+    styles: [],
+    standalone: false
 })
-export class CardContactFileComponent implements OnInit, OnChanges  {
+export class CardContactFileComponent implements OnInit, OnChanges {
     @Input() contactFile: ContactFile | null = null;
-    @Output() deleteContactFile: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
-    @Output() onShowContactFileDetails: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
-    @Output() transferContactFile: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
-    @Output() updateContactFile: EventEmitter<ContactFileDataSend> = new EventEmitter<ContactFileDataSend>();
+    @Output() deleteContactFile: EventEmitter<ContactFileDataSend> =
+        new EventEmitter<ContactFileDataSend>();
+    @Output() onShowContactFileDetails: EventEmitter<ContactFileDataSend> =
+        new EventEmitter<ContactFileDataSend>();
+    @Output() transferContactFile: EventEmitter<ContactFileDataSend> =
+        new EventEmitter<ContactFileDataSend>();
+    @Output() updateContactFile: EventEmitter<ContactFileDataSend> =
+        new EventEmitter<ContactFileDataSend>();
 
     daysRemaining: number | null = null;
     spanText: string = '';
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['contactFile'] && this.contactFile) {
@@ -33,7 +44,7 @@ export class CardContactFileComponent implements OnInit, OnChanges  {
 
     get fileIcon(): string {
         let fileIcon: string = '';
-        if(!!this.contactFile) {
+        if (!!this.contactFile) {
             switch (this.contactFile.fileExtension) {
                 case 'pdf':
                     fileIcon = 'fa-file-text';
@@ -78,10 +89,10 @@ export class CardContactFileComponent implements OnInit, OnChanges  {
      * Click event to delete contact file
      */
     onClickDeleteFile(): void {
-        if(!!this.contactFile){
+        if (!!this.contactFile) {
             this.deleteContactFile.emit({
                 contactId: this.contactFile.contactId,
-                contactFileId: this.contactFile.contactFileId
+                contactFileId: this.contactFile.contactFileId,
             });
         }
     }
@@ -90,10 +101,10 @@ export class CardContactFileComponent implements OnInit, OnChanges  {
      * Click event to show the details
      */
     onClickShowDetails(): void {
-        if(!!this.contactFile){
+        if (!!this.contactFile) {
             this.onShowContactFileDetails.emit({
                 contactId: this.contactFile.contactId,
-                contactFileId: this.contactFile.contactFileId
+                contactFileId: this.contactFile.contactFileId,
             });
         }
     }
@@ -102,10 +113,10 @@ export class CardContactFileComponent implements OnInit, OnChanges  {
      * Click event to transfer the contact file
      */
     onClickTransferFile(): void {
-        if(!!this.contactFile){
+        if (!!this.contactFile) {
             this.transferContactFile.emit({
                 contactId: this.contactFile.contactId,
-                contactFileId: this.contactFile.contactFileId
+                contactFileId: this.contactFile.contactFileId,
             });
         }
     }
@@ -114,10 +125,10 @@ export class CardContactFileComponent implements OnInit, OnChanges  {
      * Click event to transfer the contact file
      */
     onClickUpdateFile(): void {
-        if(!!this.contactFile){
+        if (!!this.contactFile) {
             this.updateContactFile.emit({
                 contactId: this.contactFile.contactId,
-                contactFileId: this.contactFile.contactFileId
+                contactFileId: this.contactFile.contactFileId,
             });
         }
     }
@@ -134,7 +145,9 @@ export class CardContactFileComponent implements OnInit, OnChanges  {
         }
 
         const today = moment().startOf('day');
-        const expirationDate = moment(this.contactFile.expiredDate).startOf('day');
+        const expirationDate = moment(this.contactFile.expiredDate).startOf(
+            'day'
+        );
         const diffDays = expirationDate.diff(today, 'days'); // Diferencia en días
 
         if (diffDays < 0) {
@@ -147,5 +160,4 @@ export class CardContactFileComponent implements OnInit, OnChanges  {
             this.spanText = 'Restante';
         }
     }
-
 }

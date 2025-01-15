@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { ERROR_CODES } from '@constants/error-codes';
 import {
@@ -43,6 +43,7 @@ declare var Select2Plugin: any;
     selector: 'agt-complete-policy',
     templateUrl: './complete-policy.page.html',
     styles: [],
+    standalone: false
 })
 export class CompletePolicyPage implements OnInit {
     @ViewChild(PolicyActionsComponent)

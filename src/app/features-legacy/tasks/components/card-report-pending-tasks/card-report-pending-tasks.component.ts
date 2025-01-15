@@ -10,6 +10,7 @@ declare var ModalPlugin: any;
     selector: 'agt-card-report-pending-tasks',
     templateUrl: './card-report-pending-tasks.component.html',
     styles: [],
+    standalone: false
 })
 export class CardReportPendingTasksComponent {
     @Input() filters: number[] = [];

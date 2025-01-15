@@ -8,6 +8,7 @@ import { ContainerInsurancesBySubcategoryService } from './container-insurances-
     templateUrl: './container-insurances-by-subcategory.component.html',
     styles: [],
     providers: [ContainerInsurancesBySubcategoryService],
+    standalone: false
 })
 export class ContainerInsurancesBySubcategoryComponent implements OnInit {
     @Output() insuranceIdSelected: EventEmitter<number> =

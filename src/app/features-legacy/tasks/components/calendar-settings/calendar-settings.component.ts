@@ -3,12 +3,13 @@ import { SmartComponent } from '@core/classes/smart-component';
 import { CALENDAR_RANGES } from '@core/constants/settings';
 import { CalendarRange } from '@core/interfaces/calendar-range.interface';
 import { ModuleService } from '@features-legacy/tasks/services/module.service';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
     selector: 'agt-calendar-settings',
     templateUrl: './calendar-settings.component.html',
     styles: [],
+    standalone: false
 })
 export class CalendarSettingsComponent
     extends SmartComponent

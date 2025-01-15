@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-charts-renewed-policies.component.html',
     styles: [],
     providers: [ContainerChartsRenewedPoliciesService],
+    standalone: false
 })
 export class ContainerChartsRenewedPoliciesComponent {
     @Input() rangeField: string = '';

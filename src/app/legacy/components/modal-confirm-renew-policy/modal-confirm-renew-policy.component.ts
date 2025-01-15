@@ -15,6 +15,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-confirm-renew-policy',
     templateUrl: './modal-confirm-renew-policy.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalConfirmRenewPolicyComponent {
     @Input() contactId: string;

@@ -1,19 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 import { ModalShowPaymentEvidenceFileComponent } from './modal-show-payment-evidence-file.component';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
-  declarations: [
-    ModalShowPaymentEvidenceFileComponent
-  ],
-  exports: [
-      ModalShowPaymentEvidenceFileComponent
-  ],
-  imports: [
-    CommonModule,
-    NgxQRCodeModule
-  ]
+    declarations: [ModalShowPaymentEvidenceFileComponent],
+    exports: [ModalShowPaymentEvidenceFileComponent],
+    imports: [CommonModule, SharedModule],
 })
-export class ModalShowPaymentEvidenceFileModule { }
+export class ModalShowPaymentEvidenceFileModule {}

@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     selector: 'agt-contact-category-modal',
     templateUrl: './contact-category-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class ContactCategoryModalComponent
     extends SmartComponent

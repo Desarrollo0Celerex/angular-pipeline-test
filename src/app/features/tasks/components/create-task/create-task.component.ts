@@ -30,6 +30,7 @@ declare var TimePickerPlugin: any;
     selector: 'agt-create-task',
     templateUrl: './create-task.component.html',
     styles: [],
+    standalone: false
 })
 export class CreateTaskComponent extends SmartComponent implements OnInit {
     @ViewChild(SelectTaskCalendarComponent)

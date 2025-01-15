@@ -5,10 +5,10 @@ import { AnalizeInsuredsResponse } from '@interfaces/analize-insureds-response.i
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-policy-insureds',
-  templateUrl: './modal-confirm-policy-insureds.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-policy-insureds',
+    templateUrl: './modal-confirm-policy-insureds.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmPolicyInsuredsComponent {
     @Input() modalId: string = '';

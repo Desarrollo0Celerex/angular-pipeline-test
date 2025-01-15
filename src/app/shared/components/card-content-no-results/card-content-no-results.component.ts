@@ -12,6 +12,7 @@ import { DumbComponent } from '@core/classes/dumb-component';
     templateUrl: './card-content-no-results.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CardContentNoResultsComponent extends DumbComponent {
     @Input() buttonLabel: string = '';

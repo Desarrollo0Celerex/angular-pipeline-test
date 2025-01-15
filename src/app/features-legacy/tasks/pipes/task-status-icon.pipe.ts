@@ -3,6 +3,7 @@ import { TASK_STATUS } from '@core/constants/settings';
 
 @Pipe({
     name: 'taskStatusIcon',
+    standalone: false
 })
 export class TaskStatusIconPipe implements PipeTransform {
     transform(taskStatusId?: number): string {

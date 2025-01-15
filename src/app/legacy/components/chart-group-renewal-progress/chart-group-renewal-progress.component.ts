@@ -5,11 +5,11 @@ import { ChartGroupRenewalProgressService } from './chart-group-renewal-progress
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-chart-group-renewal-progress',
-  templateUrl: './chart-group-renewal-progress.component.html',
-  styles: [
-  ],
-  providers: [ChartGroupRenewalProgressService]
+    selector: 'agt-chart-group-renewal-progress',
+    templateUrl: './chart-group-renewal-progress.component.html',
+    styles: [],
+    providers: [ChartGroupRenewalProgressService],
+    standalone: false
 })
 export class ChartGroupRenewalProgressComponent implements OnChanges {
     @Input() groupId: string = '';

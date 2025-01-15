@@ -9,6 +9,7 @@ declare var ArtyomPlugin: any;
     selector: 'agt-modal-voice-control-talking',
     templateUrl: './modal-voice-control-talking.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalVoiceControlTalkingComponent {
     modalId: string = 'agt-voice-control-talking';

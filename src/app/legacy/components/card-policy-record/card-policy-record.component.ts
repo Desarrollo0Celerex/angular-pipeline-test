@@ -8,10 +8,10 @@ import { SinisterDataSend } from '@interfaces/sinister-data-send.interface';
 import { Sinister } from '@interfaces/sinister.interface';
 
 @Component({
-  selector: 'agt-card-policy-record',
-  templateUrl: './card-policy-record.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-policy-record',
+    templateUrl: './card-policy-record.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardPolicyRecordComponent implements OnInit {
     @Input() policyRecord: PolicyRecord | null = null;

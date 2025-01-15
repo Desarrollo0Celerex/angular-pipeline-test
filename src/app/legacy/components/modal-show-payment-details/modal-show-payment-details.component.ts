@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 import { ModalShowPaymentDetailsService } from './modal-show-payment-details.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { ROUTES_NAME } from '@constants/routes-name';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { CalculatePaymentAmount } from '@core/interfaces/calculate-payment-amount.interface';
@@ -19,6 +19,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-show-payment-details.component.html',
     styles: [],
     providers: [ModalShowPaymentDetailsService],
+    standalone: false
 })
 export class ModalShowPaymentDetailsComponent implements OnChanges {
     @Input() modalId: string = '';

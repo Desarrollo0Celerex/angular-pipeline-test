@@ -27,6 +27,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-select-sinister-executive',
     templateUrl: './modal-select-sinister-executive.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSelectSinisterExecutiveComponent implements OnInit {
     @Input() modalId = '';

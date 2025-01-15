@@ -19,6 +19,7 @@ import { PayTrackerService } from '@features-legacy/pay-tracker/services/pay-tra
     selector: 'agt-payments-pending-list',
     templateUrl: './payments-pending-list.component.html',
     styles: [],
+    standalone: false
 })
 export class PaymentsPendingListComponent
     extends SmartComponent

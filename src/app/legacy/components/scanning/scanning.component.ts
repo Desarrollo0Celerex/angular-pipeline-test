@@ -5,10 +5,10 @@ import { ScanningService } from '@services/scanning.service';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-scanning',
-  templateUrl: './scanning.component.html',
-  styles: [
-  ]
+    selector: 'agt-scanning',
+    templateUrl: './scanning.component.html',
+    styles: [],
+    standalone: false
 })
 export class ScanningComponent {
     modalId: string = 'agt-scanning';

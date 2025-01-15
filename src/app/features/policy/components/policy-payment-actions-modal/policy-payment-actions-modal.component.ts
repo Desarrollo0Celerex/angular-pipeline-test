@@ -10,6 +10,7 @@ declare var ModalPlugin: any;
     selector: 'agt-policy-payment-actions-modal',
     templateUrl: './policy-payment-actions-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyPaymentActionsModalComponent
     extends SmartComponent

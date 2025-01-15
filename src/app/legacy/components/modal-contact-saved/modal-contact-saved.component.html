@@ -1,34 +1,70 @@
 <!-- AGENTHOS - CONTACT DONWLOAD VCARD -->
-<div class="modal fade" [id]="modalId" tabindex="-1" role="dialog"  aria-hidden="true">
+<div
+    class="modal fade"
+    [id]="modalId"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{isContactSaved ? 'Contacto Guardado' : 'Transferir Contacto'}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title">
+                    {{
+                        isContactSaved
+                            ? "Contacto Guardado"
+                            : "Transferir Contacto"
+                    }}
+                </h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <p class="text-justify" *ngIf="isContactSaved"><strong>El contacto ha sido guardado con éxito en Agenthos.</strong> Ahora puedes interactuar con este contacto para cotizar y emitir pólizas.</p>
-                        <p class="text-jutify"><strong>¿Quieres transferir el contacto?</strong></p>
-                        <p class="text-justify">Apunta con la cámara de tu Smartphone al código inteligente y los datos de contacto serán transferidos automáticamente.</p>
-                        <p class="text-justify">También puedes descargar y guardar el contacto de manera directa.</p>
+                        <p class="text-justify" *ngIf="isContactSaved">
+                            <strong
+                                >El contacto ha sido guardado con éxito en
+                                Agenthos.</strong
+                            >
+                            Ahora puedes interactuar con este contacto para
+                            cotizar y emitir pólizas.
+                        </p>
+                        <p class="text-jutify">
+                            <strong>¿Quieres transferir el contacto?</strong>
+                        </p>
+                        <p class="text-justify">
+                            Apunta con la cámara de tu Smartphone al código
+                            inteligente y los datos de contacto serán
+                            transferidos automáticamente.
+                        </p>
+                        <p class="text-justify">
+                            También puedes descargar y guardar el contacto de
+                            manera directa.
+                        </p>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <agt-qrcode-transfer-contact [contactId]="contactId"></agt-qrcode-transfer-contact>
+                            <agt-qrcode-transfer-contact
+                                [contactId]="contactId"
+                            ></agt-qrcode-transfer-contact>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <!-- VCARD: Will be used in the feature -->
+            <!-- <div class="modal-footer">
                 <div class="col-12">
                     <agt-button-download-contact [buttonType]="BUTTON_TYPES.TEXT" [contactId]="contactId" [modalId]="modalId"></agt-button-download-contact>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

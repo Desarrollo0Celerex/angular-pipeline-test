@@ -9,7 +9,7 @@ import {
     ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { ACTION_TYPES, CONTENT_TYPES } from '@constants/global';
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -53,6 +53,7 @@ declare var ModalPlugin: any;
     selector: 'agt-content-list',
     templateUrl: './content-list.component.html',
     styles: [],
+    standalone: false
 })
 export class ContentListComponent implements OnChanges, OnDestroy {
     @Input() actionType: number;

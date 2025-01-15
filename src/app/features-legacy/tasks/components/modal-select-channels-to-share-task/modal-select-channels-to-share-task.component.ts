@@ -8,6 +8,7 @@ import { ModuleService } from '@features-legacy/tasks/services/module.service';
     selector: 'agt-modal-select-channels-to-share-task',
     templateUrl: './modal-select-channels-to-share-task.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSelectChannelsToShareTaskComponent
     extends SmartComponent

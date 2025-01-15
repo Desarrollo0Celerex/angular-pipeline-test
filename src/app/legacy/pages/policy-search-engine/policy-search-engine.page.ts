@@ -14,6 +14,7 @@ import { PolicySearchEngineService } from './policy-search-engine.service';
     templateUrl: './policy-search-engine.page.html',
     styles: [],
     providers: [PolicySearchEngineService],
+    standalone: false
 })
 export class PolicySearchEnginePage implements OnInit {
     policy: Policy | null = null;

@@ -7,6 +7,7 @@ import { Payment } from '@core/interfaces/payment.interface';
     selector: 'agt-card-payment-short',
     templateUrl: './card-payment-short.component.html',
     styles: [],
+    standalone: false
 })
 export class CardPaymentShortComponent {
     @Input() payment: Payment | null = null;

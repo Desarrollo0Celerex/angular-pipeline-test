@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { CreateSinister } from '@interfaces/create-sinister.interface';
 import { HttpResponse } from '@core/interfaces/http-response.interface';

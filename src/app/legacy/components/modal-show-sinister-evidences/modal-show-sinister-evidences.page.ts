@@ -8,11 +8,11 @@ import { ModalShowSinisterEvidencesService } from './modal-show-sinister-evidenc
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-show-sinister-evidences',
-  templateUrl: './modal-show-sinister-evidences.page.html',
-  styles: [
-  ],
-  providers: [ModalShowSinisterEvidencesService]
+    selector: 'agt-modal-show-sinister-evidences',
+    templateUrl: './modal-show-sinister-evidences.page.html',
+    styles: [],
+    providers: [ModalShowSinisterEvidencesService],
+    standalone: false
 })
 export class ModalShowSinisterEvidencesPage implements OnChanges {
     @Input() modalId: string = '';

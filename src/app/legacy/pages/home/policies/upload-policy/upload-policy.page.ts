@@ -20,6 +20,7 @@ declare var Select2Plugin: any;
     selector: 'agt-upload-policy',
     templateUrl: './upload-policy.page.html',
     styles: [],
+    standalone: false
 })
 export class UploadPolicyPage implements OnInit, OnDestroy {
     @ViewChild('fileUploader') fileUploader: any;

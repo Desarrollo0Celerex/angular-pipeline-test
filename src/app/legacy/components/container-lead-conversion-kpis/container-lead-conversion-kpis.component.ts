@@ -6,11 +6,11 @@ import { Stat } from '@interfaces/stat.interface';
 import { ContainerLeadConversionKpisService } from './container-lead-conversion-kpis.service';
 
 @Component({
-  selector: 'agt-container-lead-conversion-kpis',
-  templateUrl: './container-lead-conversion-kpis.component.html',
-  styles: [
-  ],
-  providers: [ContainerLeadConversionKpisService]
+    selector: 'agt-container-lead-conversion-kpis',
+    templateUrl: './container-lead-conversion-kpis.component.html',
+    styles: [],
+    providers: [ContainerLeadConversionKpisService],
+    standalone: false
 })
 export class ContainerLeadConversionKpisComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

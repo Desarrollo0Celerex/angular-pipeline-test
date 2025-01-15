@@ -9,6 +9,7 @@ import { CardPartnerAnnualWalletService } from './card-partner-annual-wallet.ser
     templateUrl: './card-partner-annual-wallet.component.html',
     styles: [],
     providers: [CardPartnerAnnualWalletService],
+    standalone: false
 })
 export class CardPartnerAnnualWalletComponent implements OnChanges {
     @Input() partnerId: number = 0;

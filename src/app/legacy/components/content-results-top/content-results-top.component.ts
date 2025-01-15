@@ -3,10 +3,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ContentResultData } from '@interfaces/content-result-data.interface';
 
 @Component({
-  selector: 'agt-content-results-top',
-  templateUrl: './content-results-top.component.html',
-  styles: [
-  ]
+    selector: 'agt-content-results-top',
+    templateUrl: './content-results-top.component.html',
+    styles: [],
+    standalone: false
 })
 export class ContentResultsTopComponent implements OnInit {
     @Input() contentResultData: ContentResultData = {

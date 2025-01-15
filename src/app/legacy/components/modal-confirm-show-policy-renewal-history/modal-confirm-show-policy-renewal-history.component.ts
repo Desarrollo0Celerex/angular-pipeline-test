@@ -6,10 +6,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-show-policy-renewal-history',
-  templateUrl: './modal-confirm-show-policy-renewal-history.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-show-policy-renewal-history',
+    templateUrl: './modal-confirm-show-policy-renewal-history.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmShowPolicyRenewalHistoryComponent {
     @Input() modalId: string = '';

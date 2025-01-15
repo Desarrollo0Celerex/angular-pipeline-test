@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { PAYMENT_PLANS, PAYMENT_SOURCE_TYPES } from '@constants/global';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';

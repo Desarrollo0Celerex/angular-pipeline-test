@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-user-role-updated',
     templateUrl: './modal-user-role-updated.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalUserRoleUpdatedComponent {
     @Input() modalId: string = '';

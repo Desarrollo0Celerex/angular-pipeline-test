@@ -5,10 +5,10 @@ import { SinisterLog } from '@interfaces/sinister-log.interface';
 import { SinisterEventDataSend } from '@interfaces/sinister-event-data-send.interface';
 
 @Component({
-  selector: 'agt-card-sinister-log',
-  templateUrl: './card-sinister-log.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-sinister-log',
+    templateUrl: './card-sinister-log.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardSinisterLogComponent implements OnInit {
     @Input() sinisterLog: SinisterLog | null = null;

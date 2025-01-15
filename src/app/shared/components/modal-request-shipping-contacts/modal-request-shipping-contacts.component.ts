@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-request-shipping-contacts',
     templateUrl: './modal-request-shipping-contacts.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalRequestShippingContactsComponent {
     @Output() contactsRequested = new EventEmitter<ShippingContact>();

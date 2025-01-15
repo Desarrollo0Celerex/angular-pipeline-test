@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     selector: 'agt-policy-actions-deleted-modal',
     templateUrl: './policy-actions-deleted-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyActionsDeletedModalComponent {
     modalId = 'agt-policy-actions-deleted';

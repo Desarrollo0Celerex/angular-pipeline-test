@@ -8,13 +8,13 @@ import { ChartCancelledPoliciesService } from './chart-cancelled-policies.servic
 declare var StatsPoliciesPlugin: any;
 
 @Component({
-  selector: 'agt-chart-cancelled-policies',
-  templateUrl: './chart-cancelled-policies.component.html',
-  styles: [
-  ],
-  providers: [
-      ChartCancelledPoliciesService
-  ]
+    selector: 'agt-chart-cancelled-policies',
+    templateUrl: './chart-cancelled-policies.component.html',
+    styles: [],
+    providers: [
+        ChartCancelledPoliciesService
+    ],
+    standalone: false
 })
 export class ChartCancelledPoliciesComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

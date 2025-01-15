@@ -8,11 +8,11 @@ import { ChartGeneratedQuotesService } from './chart-generated-quotes.service';
 declare var StatsLeadsPlugin: any;
 
 @Component({
-  selector: 'agt-chart-generated-quotes',
-  templateUrl: './chart-generated-quotes.component.html',
-  styles: [
-  ],
-  providers: [ChartGeneratedQuotesService]
+    selector: 'agt-chart-generated-quotes',
+    templateUrl: './chart-generated-quotes.component.html',
+    styles: [],
+    providers: [ChartGeneratedQuotesService],
+    standalone: false
 })
 export class ChartGeneratedQuotesComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

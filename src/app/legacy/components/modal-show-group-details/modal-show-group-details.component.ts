@@ -7,10 +7,10 @@ import { Group } from '@interfaces/group.interface';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-show-group-details',
-  templateUrl: './modal-show-group-details.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-show-group-details',
+    templateUrl: './modal-show-group-details.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalShowGroupDetailsComponent {
     @Input() modalId: string = '';

@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './twitter.page.html',
     styles: [],
     providers: [TwitterService],
+    standalone: false
 })
 export class TwitterPage implements OnInit {
     modalIdConfirmCreateTwitterAccount: string =

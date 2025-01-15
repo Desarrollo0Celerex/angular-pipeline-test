@@ -3,12 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import { TASK_STATUS } from '@core/constants/settings';
 import { ModuleService } from '@features-legacy/tasks/services/module.service';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
     selector: 'agt-tasks-pending-by-range',
     templateUrl: './tasks-pending-by-range.page.html',
     styles: [],
+    standalone: false
 })
 export class TasksPendingByRangePage {
     rangeField: string = 'taskDate';

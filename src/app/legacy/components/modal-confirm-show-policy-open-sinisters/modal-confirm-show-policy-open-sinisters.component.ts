@@ -7,10 +7,10 @@ import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-show-policy-open-sinisters',
-  templateUrl: './modal-confirm-show-policy-open-sinisters.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-show-policy-open-sinisters',
+    templateUrl: './modal-confirm-show-policy-open-sinisters.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmShowPolicyOpenSinistersComponent {
     @Input() modalId: string = '';

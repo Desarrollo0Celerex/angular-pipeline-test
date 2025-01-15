@@ -6,6 +6,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
     selector: 'agt-check-accept-invitation',
     template: '',
     styles: [],
+    standalone: false
 })
 export class CheckAcceptInvitationPage implements OnInit {
     constructor(

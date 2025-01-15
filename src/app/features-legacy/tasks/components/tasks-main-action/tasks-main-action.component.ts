@@ -5,6 +5,7 @@ import { ModuleService } from '@features-legacy/tasks/services/module.service';
     selector: 'agt-tasks-main-action',
     templateUrl: './tasks-main-action.component.html',
     styles: [],
+    standalone: false
 })
 export class TasksMainActionComponent {
     constructor(private _moduleService: ModuleService) {}

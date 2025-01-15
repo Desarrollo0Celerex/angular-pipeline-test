@@ -14,6 +14,7 @@ declare var ModalPlugin: any;
     templateUrl: './create-wallet.page.html',
     styles: [],
     providers: [CreateWalletService],
+    standalone: false
 })
 export class CreateWalletPage {
     isWalletIdLoaded: boolean = false;

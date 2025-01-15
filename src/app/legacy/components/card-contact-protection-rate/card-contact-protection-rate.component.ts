@@ -3,11 +3,11 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CardContactProtectionRateService } from './card-contact-protection-rate.service';
 
 @Component({
-  selector: 'agt-card-contact-protection-rate',
-  templateUrl: './card-contact-protection-rate.component.html',
-  styles: [
-  ],
-  providers: [CardContactProtectionRateService]
+    selector: 'agt-card-contact-protection-rate',
+    templateUrl: './card-contact-protection-rate.component.html',
+    styles: [],
+    providers: [CardContactProtectionRateService],
+    standalone: false
 })
 export class CardContactProtectionRateComponent implements OnChanges {
     @Input() contactId: string = '';

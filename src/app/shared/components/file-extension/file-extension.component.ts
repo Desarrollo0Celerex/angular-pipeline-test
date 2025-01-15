@@ -5,6 +5,7 @@ import { FileHelper } from '@core/helpers/file.helper';
     selector: 'agt-file-extension',
     templateUrl: './file-extension.component.html',
     styles: [],
+    standalone: false
 })
 export class FileExtensionComponent implements OnChanges {
     @Input() fileUrl = '';

@@ -7,6 +7,7 @@ import { ModuleService } from '@features-legacy/tasks/services/module.service';
     selector: 'agt-tasks-search-engine',
     templateUrl: './tasks-search-engine.component.html',
     styles: [],
+    standalone: false
 })
 export class TasksSearchEngineComponent {
     constructor(

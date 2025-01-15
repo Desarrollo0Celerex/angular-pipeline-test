@@ -4,10 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ROUTES_NAME } from '@constants/routes-name';
 
 @Component({
-  selector: 'agt-create-contact',
-  templateUrl: './create-contact.page.html',
-  styles: [
-  ]
+    selector: 'agt-create-contact',
+    templateUrl: './create-contact.page.html',
+    styles: [],
+    standalone: false
 })
 export class CreateContactPage implements OnInit {
     contactTypeId: number;

@@ -4,10 +4,10 @@ import { ContactPolicyData } from '@interfaces/contact-policy-data.interface';
 import { Renewal } from '@interfaces/renewal.interface';
 
 @Component({
-  selector: 'agt-card-renewal-applied',
-  templateUrl: './card-renewal-applied.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-renewal-applied',
+    templateUrl: './card-renewal-applied.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardRenewalAppliedComponent {
     @Input() renewal: Renewal | null = null;

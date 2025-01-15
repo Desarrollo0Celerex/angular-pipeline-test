@@ -20,6 +20,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-request-reminder-data',
     templateUrl: './modal-request-reminder-data.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalRequestReminderDataComponent
     extends SmartComponent

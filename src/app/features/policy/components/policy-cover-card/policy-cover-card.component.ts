@@ -12,6 +12,7 @@ import { Policy } from '@policy/interfaces/policy.interface';
     selector: 'agt-policy-cover-card',
     templateUrl: './policy-cover-card.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyCoverCardComponent {
     @Input() policy: Policy | undefined = undefined;

@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
     selector: 'agt-changelog',
     templateUrl: './changelog.page.html',
     styles: [],
+    standalone: false
 })
 export class ChangelogPage {
     logs: any[] = [

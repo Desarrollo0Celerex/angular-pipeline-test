@@ -15,7 +15,7 @@ import { HttpResponse } from '@core/interfaces/http-response.interface';
 import { ContactFileService } from '@services/contact-file.service';
 import { ContactFileTypeService } from '@services/contact-file-type.service';
 
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Injectable()
 export class UpdateContactFileService {
@@ -48,7 +48,7 @@ export class UpdateContactFileService {
                 ],
             ],
             contactFileTypeId: ['', [Validators.required]],
-            expiredDate: ['', [ValidatorsHelper.date]]
+            expiredDate: ['', [ValidatorsHelper.date]],
         });
     }
 
@@ -103,16 +103,25 @@ export class UpdateContactFileService {
         const requestBody: FormData = new FormData();
         requestBody.append('fileName', this.f.fileName.value);
         requestBody.append('contactFileTypeId', this.f.contactFileTypeId.value);
-        requestBody.append('expiredDate', this.f.expiredDate.value ? this.f.expiredDate.value : '');
+        requestBody.append(
+            'expiredDate',
+            this.f.expiredDate.value ? this.f.expiredDate.value : ''
+        );
         return requestBody;
     }
 
-    private _updateFileForm(fileName: string, contactFileTypeId: number, expiredDate: string): void {
+    private _updateFileForm(
+        fileName: string,
+        contactFileTypeId: number,
+        expiredDate: string
+    ): void {
         fileName = fileName.replace(/_/g, ' ');
         this.fileForm.patchValue({
             fileName,
             contactFileTypeId,
-            expiredDate: expiredDate ? moment(expiredDate).format('DD/MM/YYYY') : ''
+            expiredDate: expiredDate
+                ? moment(expiredDate).format('DD/MM/YYYY')
+                : '',
         });
     }
 }

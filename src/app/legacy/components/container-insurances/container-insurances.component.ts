@@ -19,6 +19,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-insurances.component.html',
     styles: [],
     providers: [ContainerInsurancesService],
+    standalone: false
 })
 export class ContainerInsurancesComponent implements OnInit {
     @Input() actionType: number = 0;

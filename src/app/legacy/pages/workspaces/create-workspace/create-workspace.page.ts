@@ -17,6 +17,7 @@ declare var Select2Plugin: any;
     selector: 'agt-create-workspace',
     templateUrl: './create-workspace.page.html',
     styles: [],
+    standalone: false
 })
 export class CreateWorkspacePage implements OnInit {
     selectCountriesId: string;

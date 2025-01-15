@@ -10,6 +10,7 @@ import { PhoneCodePipe } from '@shared/pipes/phone-code.pipe';
     selector: 'agt-select-contact-fields-to-rewrite',
     templateUrl: './select-contact-fields-to-rewrite.component.html',
     styles: [],
+    standalone: false
 })
 export class SelectContactFieldsToRewriteComponent {
     data: SelectContactFieldsToRewrite | undefined = undefined;

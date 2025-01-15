@@ -10,6 +10,7 @@ declare var ModalPlugin: any;
     selector: 'agt-content-results',
     templateUrl: './content-results.component.html',
     styles: [],
+    standalone: false
 })
 export class ContentResultsComponent {
     @Input() contentResultData: ContentResultData;

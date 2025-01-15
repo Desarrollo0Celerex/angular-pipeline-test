@@ -1,8 +1,4 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import {
-    NgxQrcodeErrorCorrectionLevels,
-    NgxQrcodeElementTypes,
-} from '@techiediaries/ngx-qrcode';
 
 import { ModalShowEndorsementService } from './modal-show-endorsement.service';
 
@@ -12,14 +8,13 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-show-endorsement',
     templateUrl: './modal-show-endorsement.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalShowEndorsementComponent implements OnChanges {
     @Input() contactId: string = '';
     @Input() endorsementId: string = '';
     @Input() modalId: string = '';
     @Input() policyId: string = '';
-    correctionLevel: any = NgxQrcodeElementTypes.URL;
-    elementType: any = NgxQrcodeErrorCorrectionLevels.HIGH;
 
     constructor(
         public modalShowEndorsementService: ModalShowEndorsementService

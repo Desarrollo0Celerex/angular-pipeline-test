@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-charts-active-policies.component.html',
     styles: [],
     providers: [ContainerChartsActivePoliciesService],
+    standalone: false
 })
 export class ContainerChartsActivePoliciesComponent implements OnChanges {
     @Input() rangeField: string = '';

@@ -3,11 +3,11 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AlertPartnerUnusualAppliedRenewalsService } from './alert-partner-unusual-applied-renewals.service';
 
 @Component({
-  selector: 'agt-alert-partner-unusual-applied-renewals',
-  templateUrl: './alert-partner-unusual-applied-renewals.component.html',
-  styles: [
-  ],
-  providers: [AlertPartnerUnusualAppliedRenewalsService]
+    selector: 'agt-alert-partner-unusual-applied-renewals',
+    templateUrl: './alert-partner-unusual-applied-renewals.component.html',
+    styles: [],
+    providers: [AlertPartnerUnusualAppliedRenewalsService],
+    standalone: false
 })
 export class AlertPartnerUnusualAppliedRenewalsComponent implements OnChanges {
     @Input() partnerId: number = 0;

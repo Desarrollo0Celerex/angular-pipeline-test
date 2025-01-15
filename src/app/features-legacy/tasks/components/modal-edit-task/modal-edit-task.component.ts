@@ -17,7 +17,7 @@ import { WorkspaceUserService } from '@core/services/workspace-user/workspace-us
 import { ModuleService } from '@features-legacy/tasks/services/module.service';
 import { TaskService } from '@features-legacy/tasks/services/task.service';
 import { InputValidatorHelper } from '@helpers/input-validator.helper';
-import * as moment from 'moment';
+import moment from 'moment';
 import { ModalHelper } from '@core/helpers/modal.helper';
 import { SendTaskNotfication } from '@features-legacy/tasks/interfaces/send-task-notification.interface';
 declare var DatePickerPlugin: any;
@@ -27,6 +27,7 @@ declare var TimePickerPlugin: any;
     selector: 'agt-modal-edit-task',
     templateUrl: './modal-edit-task.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalEditTaskComponent extends SmartComponent implements OnInit {
     calendarIdTaskDate = 'taskDate';

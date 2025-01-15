@@ -11,6 +11,7 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
     selector: 'agt-stats-sinisters',
     templateUrl: './stats-sinisters.page.html',
     styles: [],
+    standalone: false
 })
 export class StatsSinistersPage {
     INSURANCES: any = INSURANCES;

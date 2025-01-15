@@ -10,11 +10,11 @@ import { ModalShowSinisterDetailsService } from './modal-show-sinister-details.s
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-show-sinister-details',
-  templateUrl: './modal-show-sinister-details.component.html',
-  styles: [
-  ],
-  providers: [ModalShowSinisterDetailsService]
+    selector: 'agt-modal-show-sinister-details',
+    templateUrl: './modal-show-sinister-details.component.html',
+    styles: [],
+    providers: [ModalShowSinisterDetailsService],
+    standalone: false
 })
 export class ModalShowSinisterDetailsComponent implements OnChanges {
     @Input() modalId: string = '';

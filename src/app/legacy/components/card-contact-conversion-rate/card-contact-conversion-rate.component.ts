@@ -3,11 +3,11 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CardContactConversionRateService } from './card-contact-conversion-rate.service';
 
 @Component({
-  selector: 'agt-card-contact-conversion-rate',
-  templateUrl: './card-contact-conversion-rate.component.html',
-  styles: [
-  ],
-  providers: [CardContactConversionRateService]
+    selector: 'agt-card-contact-conversion-rate',
+    templateUrl: './card-contact-conversion-rate.component.html',
+    styles: [],
+    providers: [CardContactConversionRateService],
+    standalone: false
 })
 export class CardContactConversionRateComponent implements OnChanges {
     @Input() contactId: string = '';

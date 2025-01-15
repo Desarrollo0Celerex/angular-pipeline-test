@@ -20,6 +20,7 @@ enum CONTENT_TYPES {
     selector: 'agt-workspace-quick-actions-modal',
     templateUrl: './workspace-quick-actions-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class WorkspaceQuickActionsModalComponent {
     @ViewChild(ContactCategoryModalComponent)

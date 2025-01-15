@@ -5,11 +5,11 @@ import { ChartPartnerPaymentProgressService } from './chart-partner-payment-prog
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-chart-partner-payment-progress',
-  templateUrl: './chart-partner-payment-progress.component.html',
-  styles: [
-  ],
-  providers: [ChartPartnerPaymentProgressService]
+    selector: 'agt-chart-partner-payment-progress',
+    templateUrl: './chart-partner-payment-progress.component.html',
+    styles: [],
+    providers: [ChartPartnerPaymentProgressService],
+    standalone: false
 })
 export class ChartPartnerPaymentProgressComponent implements OnChanges {
     @Input() partnerId: number = 0;

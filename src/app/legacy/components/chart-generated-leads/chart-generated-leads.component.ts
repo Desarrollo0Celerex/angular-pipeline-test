@@ -8,11 +8,11 @@ import { ChartGeneratedLeadsService } from './chart-generated-leads.service';
 declare var StatsLeadsPlugin: any;
 
 @Component({
-  selector: 'agt-chart-generated-leads',
-  templateUrl: './chart-generated-leads.component.html',
-  styles: [
-  ],
-  providers: [ChartGeneratedLeadsService]
+    selector: 'agt-chart-generated-leads',
+    templateUrl: './chart-generated-leads.component.html',
+    styles: [],
+    providers: [ChartGeneratedLeadsService],
+    standalone: false
 })
 export class ChartGeneratedLeadsComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

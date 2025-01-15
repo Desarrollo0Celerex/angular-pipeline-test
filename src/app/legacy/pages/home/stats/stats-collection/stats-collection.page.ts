@@ -11,6 +11,7 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
     selector: 'agt-stats-collection',
     templateUrl: './stats-collection.page.html',
     styles: [],
+    standalone: false
 })
 export class StatsCollectionPage {
     range: ComparisonRangeData | null = null;

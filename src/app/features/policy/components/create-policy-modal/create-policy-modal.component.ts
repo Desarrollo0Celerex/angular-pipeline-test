@@ -39,6 +39,7 @@ declare var ModalPlugin: any;
     selector: 'agt-create-policy-modal',
     templateUrl: './create-policy-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class CreatePolicyModalComponent
     extends SmartComponent

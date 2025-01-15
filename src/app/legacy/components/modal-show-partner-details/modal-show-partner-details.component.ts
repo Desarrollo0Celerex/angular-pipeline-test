@@ -7,10 +7,10 @@ import { Partner } from '@interfaces/partner.interface';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-show-partner-details',
-  templateUrl: './modal-show-partner-details.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-show-partner-details',
+    templateUrl: './modal-show-partner-details.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalShowPartnerDetailsComponent {
     @Input() modalId: string = '';

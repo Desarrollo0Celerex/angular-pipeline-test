@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import {
     FREE_TEXT_LENGTH,

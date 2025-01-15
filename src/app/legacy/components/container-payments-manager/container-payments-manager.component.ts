@@ -21,6 +21,7 @@ const PAYMENT_ACTIONS: any = {
     templateUrl: './container-payments-manager.component.html',
     styles: [],
     providers: [ContainerPaymentsManagerService],
+    standalone: false
 })
 export class ContainerPaymentsManagerComponent implements OnInit {
     @Input() contactId: string = '';

@@ -3,11 +3,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AlertUnusualReportedSinistersService } from './alert-unusual-reported-sinisters.service';
 
 @Component({
-  selector: 'agt-alert-unusual-reported-sinisters',
-  templateUrl: './alert-unusual-reported-sinisters.component.html',
-  styles: [
-  ],
-  providers: [AlertUnusualReportedSinistersService]
+    selector: 'agt-alert-unusual-reported-sinisters',
+    templateUrl: './alert-unusual-reported-sinisters.component.html',
+    styles: [],
+    providers: [AlertUnusualReportedSinistersService],
+    standalone: false
 })
 export class AlertUnusualReportedSinistersComponent implements OnInit {
     @Input() contactId: string = '';

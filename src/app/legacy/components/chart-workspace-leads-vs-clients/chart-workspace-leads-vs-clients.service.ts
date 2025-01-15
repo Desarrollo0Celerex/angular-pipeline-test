@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { ChartHelper } from '@helpers/chart.helper';
 import { StatRangeData } from '@interfaces/stat-range-data.interface';
@@ -14,9 +14,12 @@ export class ChartWorkspaceLeadsVsClientsService {
     constructor(
         private _clientService: ClientService,
         private _leadService: LeadService
-    ) { }
+    ) {}
 
-    getStats(rangeStart: string, rangeEnd: string): Observable<StatRangeData[][]> {
+    getStats(
+        rangeStart: string,
+        rangeEnd: string
+    ): Observable<StatRangeData[][]> {
         this.statsData = [];
         let requests: Observable<StatRangeData[]>[] = [];
         requests.push(this._getTotalGeneratedLeads(rangeStart, rangeEnd));
@@ -26,16 +29,34 @@ export class ChartWorkspaceLeadsVsClientsService {
 
     loadStatsData(stats: StatRangeData[][]): void {
         const headerData: any[] = [['', 'Prospectos', 'Clientes']];
-        this.statsData = ChartHelper.generateChartDataByRanges(stats, headerData, false);
+        this.statsData = ChartHelper.generateChartDataByRanges(
+            stats,
+            headerData,
+            false
+        );
     }
 
-    private _getTotalGeneratedClients(rangeStart: string, rangeEnd: string): Observable<StatRangeData[]> {
+    private _getTotalGeneratedClients(
+        rangeStart: string,
+        rangeEnd: string
+    ): Observable<StatRangeData[]> {
         const rangeField: string = 'clientConversionDate';
-        return this._clientService.getClientsStats(rangeField, rangeStart, rangeEnd);
+        return this._clientService.getClientsStats(
+            rangeField,
+            rangeStart,
+            rangeEnd
+        );
     }
 
-    private _getTotalGeneratedLeads(rangeStart: string, rangeEnd: string): Observable<StatRangeData[]> {
+    private _getTotalGeneratedLeads(
+        rangeStart: string,
+        rangeEnd: string
+    ): Observable<StatRangeData[]> {
         const rangeField: string = 'leadConversionDate';
-        return this._leadService.getLeadsGeneratedStats(rangeField, rangeStart, rangeEnd);
+        return this._leadService.getLeadsGeneratedStats(
+            rangeField,
+            rangeStart,
+            rangeEnd
+        );
     }
 }

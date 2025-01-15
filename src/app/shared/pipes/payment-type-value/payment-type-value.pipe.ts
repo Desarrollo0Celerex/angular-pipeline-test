@@ -3,6 +3,7 @@ import { PAYMENT_SOURCE_TYPES } from '@core/constants/settings';
 
 @Pipe({
     name: 'paymentTypeValue',
+    standalone: false
 })
 export class PaymentTypeValuePipe implements PipeTransform {
     transform(

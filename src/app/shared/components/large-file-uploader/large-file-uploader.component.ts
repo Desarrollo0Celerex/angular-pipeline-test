@@ -16,6 +16,7 @@ export interface FileParam {
     selector: 'agt-large-file-uploader',
     template: '',
     styles: [],
+    standalone: false
 })
 export class LargeFileUploaderComponent {
     @Input() endpoint: string = '';

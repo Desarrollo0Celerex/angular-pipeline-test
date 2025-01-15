@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-select-payments-report-type',
     templateUrl: './modal-select-payments-report-type.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSelectPaymentsReportTypeComponent extends DumbComponent {
     @Input() modalId: string = '';

@@ -15,9 +15,9 @@ declare var ModalPlugin: any;
 
 @Component({
     selector: 'agt-send-payment-confirmation-whatsapp-message-modal',
-    templateUrl:
-        './send-payment-confirmation-whatsapp-message-modal.component.html',
+    templateUrl: './send-payment-confirmation-whatsapp-message-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class SendPaymentConfirmationWhatsappMessageModalComponent {
     @Output() whatsappNotificationSent = new EventEmitter<{

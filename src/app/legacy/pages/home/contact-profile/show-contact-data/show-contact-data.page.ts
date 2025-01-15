@@ -22,6 +22,7 @@ declare var ModalPlugin: any;
     templateUrl: './show-contact-data.page.html',
     styles: [],
     providers: [ShowContactDataService],
+    standalone: false
 })
 export class ShowContactDataPage implements OnInit {
     BUTTON_TYPES: any = BUTTON_TYPES;

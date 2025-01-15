@@ -8,10 +8,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-contact-type',
-  templateUrl: './modal-select-contact-type.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-contact-type',
+    templateUrl: './modal-select-contact-type.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalSelectContactTypeComponent implements OnInit {
     @Input() actionType: number;

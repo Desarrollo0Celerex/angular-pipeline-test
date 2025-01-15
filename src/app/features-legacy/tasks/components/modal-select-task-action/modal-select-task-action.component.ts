@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-select-task-action',
     templateUrl: './modal-select-task-action.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSelectTaskActionComponent
     extends SmartComponent

@@ -5,11 +5,11 @@ import { ChartContactGlobalBalanceService } from './chart-contact-global-balance
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-chart-contact-global-balance',
-  templateUrl: './chart-contact-global-balance.component.html',
-  styles: [
-  ],
-  providers: [ChartContactGlobalBalanceService]
+    selector: 'agt-chart-contact-global-balance',
+    templateUrl: './chart-contact-global-balance.component.html',
+    styles: [],
+    providers: [ChartContactGlobalBalanceService],
+    standalone: false
 })
 export class ChartContactGlobalBalanceComponent implements OnChanges {
     @Input() contactId: string = '';

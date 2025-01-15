@@ -7,11 +7,11 @@ import { CardReportPartnerPaymentsPendingService } from './card-report-partner-p
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-card-report-partner-payments-pending',
-  templateUrl: './card-report-partner-payments-pending.component.html',
-  styles: [
-  ],
-  providers: [CardReportPartnerPaymentsPendingService]
+    selector: 'agt-card-report-partner-payments-pending',
+    templateUrl: './card-report-partner-payments-pending.component.html',
+    styles: [],
+    providers: [CardReportPartnerPaymentsPendingService],
+    standalone: false
 })
 export class CardReportPartnerPaymentsPendingComponent {
     @Input() partnerId: string = '';

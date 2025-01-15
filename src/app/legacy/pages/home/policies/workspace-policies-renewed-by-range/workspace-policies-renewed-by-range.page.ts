@@ -4,13 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { CONTENT_TYPES } from '@constants/global';
 import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
 
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
-  selector: 'agt-workspace-policies-renewed-by-range',
-  templateUrl: './workspace-policies-renewed-by-range.page.html',
-  styles: [
-  ]
+    selector: 'agt-workspace-policies-renewed-by-range',
+    templateUrl: './workspace-policies-renewed-by-range.page.html',
+    styles: [],
+    standalone: false
 })
 export class WorkspacePoliciesRenewedByRangePage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;
@@ -18,7 +18,7 @@ export class WorkspacePoliciesRenewedByRangePage implements OnInit {
     statsPeriodData: StatsPeriodData | null = null;
     specialFilter: string = '';
 
-    constructor(private _activatedRoute: ActivatedRoute) { }
+    constructor(private _activatedRoute: ActivatedRoute) {}
 
     ngOnInit(): void {
         this.statsPeriodData = this._generatePeriodData();
@@ -34,13 +34,16 @@ export class WorkspacePoliciesRenewedByRangePage implements OnInit {
     }
 
     private _generatePeriodData(): StatsPeriodData {
-        const startDate: string = this._activatedRoute.snapshot.queryParamMap.get('rangeStart') || moment().subtract(30, 'days').format('DD/MM/YYYY');
-        const endDate: string = this._activatedRoute.snapshot.queryParamMap.get('rangeEnd') || moment().format('DD/MM/YYYY');
+        const startDate: string =
+            this._activatedRoute.snapshot.queryParamMap.get('rangeStart') ||
+            moment().subtract(30, 'days').format('DD/MM/YYYY');
+        const endDate: string =
+            this._activatedRoute.snapshot.queryParamMap.get('rangeEnd') ||
+            moment().format('DD/MM/YYYY');
         return {
             startDate,
             endDate,
-            periodId: 0
-        }
+            periodId: 0,
+        };
     }
-
 }

@@ -6,11 +6,11 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { WalletLayoutService } from './wallet-layout.service';
 
 @Component({
-  selector: 'agt-wallet',
-  templateUrl: './wallet.layout.html',
-  styles: [
-  ],
-  providers: [WalletLayoutService]
+    selector: 'agt-wallet',
+    templateUrl: './wallet.layout.html',
+    styles: [],
+    providers: [WalletLayoutService],
+    standalone: false
 })
 export class WalletLayout implements OnInit {
     ROUTES_NAME: any = ROUTES_NAME;

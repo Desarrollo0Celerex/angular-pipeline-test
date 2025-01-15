@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     templateUrl: './card-group-payment-reports.component.html',
     styles: [],
     providers: [CardGroupPaymentReportsService],
+    standalone: false
 })
 export class CardGroupPaymentReportsComponent implements OnChanges {
     @Input() groupId: string = '';

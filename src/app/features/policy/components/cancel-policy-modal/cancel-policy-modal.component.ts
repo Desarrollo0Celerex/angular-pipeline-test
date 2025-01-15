@@ -14,6 +14,7 @@ declare var ModalPlugin: any;
     selector: 'agt-cancel-policy-modal',
     templateUrl: './cancel-policy-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class CancelPolicyModalComponent extends SmartComponent {
     @Output() policyDeleted = new EventEmitter<void>();

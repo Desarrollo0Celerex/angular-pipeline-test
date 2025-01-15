@@ -19,6 +19,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-update-sinister-certificate.component.html',
     styles: [],
     providers: [ModalUpdateSinisterCertificateService],
+    standalone: false
 })
 export class ModalUpdateSinisterCertificateComponent implements OnChanges {
     @Input() certificate: string = '';

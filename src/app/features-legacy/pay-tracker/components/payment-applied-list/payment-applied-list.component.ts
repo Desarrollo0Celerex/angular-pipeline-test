@@ -12,6 +12,7 @@ declare var ModalPlugin: any;
     selector: 'agt-payment-applied-list',
     templateUrl: './payment-applied-list.component.html',
     styles: [],
+    standalone: false
 })
 export class PaymentAppliedListComponent extends SmartComponent {
     @Input() contentName: string = '';

@@ -41,13 +41,7 @@
                         <div class="col-md-4">
                             <div class="form-group text-center">
                                 <ng-container *ngIf="data.contentUrl">
-                                    <ngx-qrcode
-                                        [elementType]="ngxElementType"
-                                        [errorCorrectionLevel]="
-                                            ngxCorrectionLevel
-                                        "
-                                        [value]="data.contentUrl"
-                                    ></ngx-qrcode>
+                                    <agt-qrcode [link]="data.contentUrl" />
                                 </ng-container>
                             </div>
                         </div>

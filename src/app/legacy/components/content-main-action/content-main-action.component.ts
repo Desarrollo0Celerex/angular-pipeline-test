@@ -13,6 +13,7 @@ declare var ModalPlugin: any;
     selector: 'agt-content-main-action',
     templateUrl: './content-main-action.component.html',
     styles: [],
+    standalone: false
 })
 export class ContentMainActionComponent implements OnInit {
     @Input() contactId: string = '';

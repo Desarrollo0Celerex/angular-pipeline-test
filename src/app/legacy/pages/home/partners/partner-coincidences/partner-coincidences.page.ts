@@ -7,10 +7,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-partner-coincidences',
-  templateUrl: './partner-coincidences.page.html',
-  styles: [
-  ]
+    selector: 'agt-partner-coincidences',
+    templateUrl: './partner-coincidences.page.html',
+    styles: [],
+    standalone: false
 })
 export class PartnerCoincidencesPage implements OnInit, OnDestroy {
     contentType: number = CONTENT_TYPES.PARTNER.ID;

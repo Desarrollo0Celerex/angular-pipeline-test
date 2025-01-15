@@ -3,7 +3,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ALPHANUMERICS, PUNCTUATION_MARKS } from '@constants/global';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 
-import * as moment from 'moment';
+import moment from 'moment';
 
 export class ValidatorsHelper {
     /**

@@ -9,6 +9,7 @@ declare var ModalPlugin: any;
     selector: 'agt-payment-list',
     templateUrl: './payment-list.component.html',
     styles: [],
+    standalone: false
 })
 export class PaymentListComponent extends DumbComponent {
     @Input() contentName: string = '';

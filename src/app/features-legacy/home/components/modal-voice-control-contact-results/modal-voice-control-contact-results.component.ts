@@ -12,6 +12,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-voice-control-contact-results',
     templateUrl: './modal-voice-control-contact-results.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalVoiceControlContactResultsComponent {
     modalId: string = 'agt-voice-control-contact-results';

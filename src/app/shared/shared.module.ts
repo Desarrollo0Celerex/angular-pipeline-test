@@ -9,7 +9,6 @@ import {
     MatDatepickerModule,
 } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 import { CardKpiComponent } from './components/card-kpi/card-kpi.component';
 import { CardContentTitleComponent } from './components/card-content-title/card-content-title.component';
@@ -44,7 +43,7 @@ import { ModalRequestShippingContactsComponent } from './components/modal-reques
 import { CountriesModule as CountriesLegacyModule } from '@countries/countries.module';
 import { CountriesModule } from '@features-legacy/countries/countries.module';
 import { DownloadContentComponent } from './components/download-content/download-content.component';
-import { QrCodeComponent } from './components/qr-code/qr-code.component';
+import { QrCodeComponent } from './components/qrcode/qrcode.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { FileExtensionComponent } from './components/file-extension/file-extension.component';
 import { ShippingChannelsComponent } from './components/shipping-channels/shipping-channels.component';
@@ -52,6 +51,7 @@ import { LargeFileUploaderComponent } from './components/large-file-uploader/lar
 import { WorkspaceThemeColorPipe } from './pipes/workspace-theme-color/workspace-theme-color.pipe';
 import { LastReminderAlertComponent } from './components/last-reminder-alert/last-reminder-alert.component';
 import { SelectSmallFileModalComponent } from './components/select-small-file-modal/select-small-file-modal.component';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @NgModule({
     declarations: [
@@ -129,10 +129,10 @@ import { SelectSmallFileModalComponent } from './components/select-small-file-mo
         FormsModule,
         MatDatepickerModule,
         MatMomentDateModule,
-        NgxQRCodeModule,
         ReactiveFormsModule,
         RouterModule,
         CountriesModule,
+        QRCodeComponent,
     ],
     providers: [
         { provide: MAT_DATE_LOCALE, useValue: 'es' },

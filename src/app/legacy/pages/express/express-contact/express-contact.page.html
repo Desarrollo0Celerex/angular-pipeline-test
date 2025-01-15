@@ -1,31 +1,55 @@
 <div class="page h-100" *ngIf="!!expressContactService.contact">
-	<div class="">
-		<agt-logo-agenthos-dark></agt-logo-agenthos-dark>
-	    <!-- AGENTHOS - EXPRESS CONTACT -->
-		<div class="container-login100">
-			<div class="col-md-4">
-				<div class="card">
-					<div class="card-body text-center">
-						<!-- AGENTHOS - CONTACT PIC -->
-						<img class="avatar avatar-xxl brround cover-image" [src]="expressContactService.contact.avatarUrl">
-						<!-- AGENTHOS - CONTACT NAME -->
-						<h4 class="h4 mb-0 mt-3 mb-3">{{expressContactService.contact.contactName}}</h4>
+    <div class="">
+        <agt-logo-agenthos-dark></agt-logo-agenthos-dark>
+        <!-- AGENTHOS - EXPRESS CONTACT -->
+        <div class="container-login100">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <!-- AGENTHOS - CONTACT PIC -->
+                        <img
+                            class="avatar avatar-xxl brround cover-image"
+                            [src]="expressContactService.contact.avatarUrl"
+                        />
+                        <!-- AGENTHOS - CONTACT NAME -->
+                        <h4 class="h4 mb-0 mt-3 mb-3">
+                            {{expressContactService.contact.contactName}}
+                        </h4>
 
-						<!-- AGENTHOS - ATOM PASS -->
-						<div class="col-md-12">
-							<agt-button-do-call [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken" (contactActionFailed)="onContactActionFailed()"></agt-button-do-call>
-							<agt-button-send-whatsapp [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken" (contactActionFailed)="onContactActionFailed()"></agt-button-send-whatsapp>
-							<agt-button-send-telegram [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken" (contactActionFailed)="onContactActionFailed()"></agt-button-send-telegram>
-							<agt-button-send-email [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken" (contactActionFailed)="onContactActionFailed()"></agt-button-send-email>
-							<div class="mt-5"></div>
-							<agt-button-download-contact [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken"></agt-button-download-contact>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- AGENTHOS - EXPRESS CONTACT -->
-	</div>
+                        <!-- AGENTHOS - ATOM PASS -->
+                        <div class="col-md-12">
+                            <agt-button-do-call
+                                [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON"
+                                [expressToken]="expressToken"
+                                (contactActionFailed)="onContactActionFailed()"
+                            ></agt-button-do-call>
+                            <agt-button-send-whatsapp
+                                [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON"
+                                [expressToken]="expressToken"
+                                (contactActionFailed)="onContactActionFailed()"
+                            ></agt-button-send-whatsapp>
+                            <agt-button-send-telegram
+                                [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON"
+                                [expressToken]="expressToken"
+                                (contactActionFailed)="onContactActionFailed()"
+                            ></agt-button-send-telegram>
+                            <agt-button-send-email
+                                [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON"
+                                [expressToken]="expressToken"
+                                (contactActionFailed)="onContactActionFailed()"
+                            ></agt-button-send-email>
+                            <!-- VCARD: Will be used in the feature -->
+                            <!-- <div class="mt-5"></div>
+							<agt-button-download-contact [buttonType]="BUTTON_TYPES.TEXT_WITH_ICON" [expressToken]="expressToken"></agt-button-download-contact> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- AGENTHOS - EXPRESS CONTACT -->
+    </div>
 </div>
 
-<agt-modal-incomplete-contact-data [modalId]="incompleteContactDataModalId"></agt-modal-incomplete-contact-data>
+<agt-modal-incomplete-contact-data
+    [modalId]="incompleteContactDataModalId"
+></agt-modal-incomplete-contact-data>

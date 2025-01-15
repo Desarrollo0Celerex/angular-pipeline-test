@@ -9,6 +9,7 @@ declare var ModalPlugin: any;
     selector: 'agt-workspace-report-actions-modal',
     templateUrl: './workspace-report-actions-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class WorkspaceReportActionsModalComponent
     extends SmartComponent

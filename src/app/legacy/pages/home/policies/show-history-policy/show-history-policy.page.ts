@@ -7,10 +7,10 @@ import { PolicyDataSend } from '@interfaces/policy-data-send.interface';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-show-history-policy',
-  templateUrl: './show-history-policy.page.html',
-  styles: [
-  ]
+    selector: 'agt-show-history-policy',
+    templateUrl: './show-history-policy.page.html',
+    styles: [],
+    standalone: false
 })
 export class ShowHistoryPolicyPage implements OnInit, OnDestroy {
     contactId: string = '';

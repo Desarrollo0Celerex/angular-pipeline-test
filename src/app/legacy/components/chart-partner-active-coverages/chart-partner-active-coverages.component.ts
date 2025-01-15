@@ -5,11 +5,11 @@ import { ChartPartnerActiveCoveragesService } from './chart-partner-active-cover
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-chart-partner-active-coverages',
-  templateUrl: './chart-partner-active-coverages.component.html',
-  styles: [
-  ],
-  providers: [ChartPartnerActiveCoveragesService]
+    selector: 'agt-chart-partner-active-coverages',
+    templateUrl: './chart-partner-active-coverages.component.html',
+    styles: [],
+    providers: [ChartPartnerActiveCoveragesService],
+    standalone: false
 })
 export class ChartPartnerActiveCoveragesComponent implements OnChanges {
     @Input() partnerId: number = 0;

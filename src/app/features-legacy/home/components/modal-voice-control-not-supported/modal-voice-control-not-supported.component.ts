@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-voice-control-not-supported',
     templateUrl: './modal-voice-control-not-supported.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalVoiceControlNotSupportedComponent {
     modalId: string = 'agt-voice-control-not-supported';

@@ -19,6 +19,7 @@ declare var ModalPlugin: any;
     templateUrl: './wrapper-upload-sinister-evidence.component.html',
     styles: [],
     providers: [WrapperUploadSinisterEvidenceService],
+    standalone: false
 })
 export class WrapperUploadSinisterEvidenceComponent {
     @Input() sinisterData: SinisterDataSend | null = null;

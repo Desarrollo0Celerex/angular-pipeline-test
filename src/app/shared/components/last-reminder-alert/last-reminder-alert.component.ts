@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { PAYMENT_REMINDER_TYPES } from '@core/constants/settings';
 import { PAYMENT_ROUTES } from '@payment/constants/routes';
 import { PaymentService } from '@payment/services/payment.service';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
     selector: 'agt-last-reminder-alert',
     templateUrl: './last-reminder-alert.component.html',
     styles: [],
     providers: [PaymentService],
+    standalone: false
 })
 export class LastReminderAlertComponent {
     lastReminderDate = '';

@@ -6,10 +6,10 @@ declare var DropifyPlugin: any;
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-evidence',
-  templateUrl: './modal-select-evidence.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-evidence',
+    templateUrl: './modal-select-evidence.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalSelectEvidenceComponent implements OnChanges {
     @Input() modalId: string;

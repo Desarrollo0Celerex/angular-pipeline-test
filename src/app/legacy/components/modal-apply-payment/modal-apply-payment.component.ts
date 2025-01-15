@@ -35,6 +35,7 @@ declare var PopoverPlugin: any;
     templateUrl: './modal-apply-payment.component.html',
     styles: [],
     providers: [ModalApplyPaymentService],
+    standalone: false
 })
 export class ModalApplyPaymentComponent implements OnChanges, OnInit {
     @Input() modalId: string = '';

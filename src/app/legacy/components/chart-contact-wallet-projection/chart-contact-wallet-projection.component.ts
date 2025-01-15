@@ -6,11 +6,11 @@ declare var ChartPlugin: any;
 declare var PopoverPlugin: any;
 
 @Component({
-  selector: 'agt-chart-contact-wallet-projection',
-  templateUrl: './chart-contact-wallet-projection.component.html',
-  styles: [
-  ],
-  providers: [ChartContactWalletProjectionService]
+    selector: 'agt-chart-contact-wallet-projection',
+    templateUrl: './chart-contact-wallet-projection.component.html',
+    styles: [],
+    providers: [ChartContactWalletProjectionService],
+    standalone: false
 })
 export class ChartContactWalletProjectionComponent implements OnChanges, OnInit {
     @Input() contactId: string = '';

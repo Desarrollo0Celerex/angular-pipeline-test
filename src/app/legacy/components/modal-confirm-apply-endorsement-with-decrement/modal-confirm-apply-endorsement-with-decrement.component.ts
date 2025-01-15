@@ -3,10 +3,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-apply-endorsement-with-decrement',
-  templateUrl: './modal-confirm-apply-endorsement-with-decrement.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-apply-endorsement-with-decrement',
+    templateUrl: './modal-confirm-apply-endorsement-with-decrement.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmApplyEndorsementWithDecrementComponent {
     @Input() modalId: string = '';

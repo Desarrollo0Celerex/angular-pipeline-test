@@ -3,10 +3,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-delete-contact',
-  templateUrl: './modal-confirm-delete-contact.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-delete-contact',
+    templateUrl: './modal-confirm-delete-contact.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmDeleteContactComponent {
     @Input() modalId: string = '';

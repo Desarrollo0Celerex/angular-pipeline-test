@@ -9,11 +9,11 @@ import { ModalSelectContactSourceService } from './modal-select-contact-source.s
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-contact-source',
-  templateUrl: './modal-select-contact-source.component.html',
-  styles: [
-  ],
-  providers: [ModalSelectContactSourceService]
+    selector: 'agt-modal-select-contact-source',
+    templateUrl: './modal-select-contact-source.component.html',
+    styles: [],
+    providers: [ModalSelectContactSourceService],
+    standalone: false
 })
 export class ModalSelectContactSourceComponent implements OnInit {
     @Input() contactSourceId: number;

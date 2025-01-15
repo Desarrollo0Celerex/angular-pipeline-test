@@ -15,10 +15,10 @@ declare var ModalPlugin: any;
 
 @Component({
     selector: 'agt-container-charts-workspace-quotations-opened',
-    templateUrl:
-        './container-charts-workspace-quotations-opened.component.html',
+    templateUrl: './container-charts-workspace-quotations-opened.component.html',
     styles: [],
     providers: [ContainerChartsWorkspaceQuotationsOpenedService],
+    standalone: false
 })
 export class ContainerChartsWorkspaceQuotationsOpenedComponent
     implements OnChanges

@@ -12,6 +12,7 @@ import { Workspace } from '@core/interfaces/workspace.interface';
     selector: 'agt-check-workspace-status',
     template: '',
     styles: [],
+    standalone: false
 })
 export class CheckWorkspaceStatusPage implements OnInit {
     constructor(

@@ -13,11 +13,11 @@ const RENEWAL_ACTIONS: any = {
 }
 
 @Component({
-  selector: 'agt-container-policy-renewal-manager',
-  templateUrl: './container-policy-renewal-manager.component.html',
-  styles: [
-  ],
-  providers: [ContainerPolicyRenewalManagerService]
+    selector: 'agt-container-policy-renewal-manager',
+    templateUrl: './container-policy-renewal-manager.component.html',
+    styles: [],
+    providers: [ContainerPolicyRenewalManagerService],
+    standalone: false
 })
 export class ContainerPolicyRenewalManagerComponent implements OnChanges {
     @Input() contactId: string = '';

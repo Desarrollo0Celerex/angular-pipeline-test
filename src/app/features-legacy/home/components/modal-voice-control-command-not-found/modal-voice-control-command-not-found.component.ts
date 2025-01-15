@@ -10,6 +10,7 @@ declare var ArtyomPlugin: any;
     selector: 'agt-modal-voice-control-command-not-found',
     templateUrl: './modal-voice-control-command-not-found.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalVoiceControlCommandNotFoundComponent {
     modalId: string = 'agt-voice-control-command-not-found';

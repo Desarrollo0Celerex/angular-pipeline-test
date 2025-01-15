@@ -5,10 +5,10 @@ import { LicenseInsurance } from '@interfaces/license-insurance.interface';
 declare var PopoverPlugin: any;
 
 @Component({
-  selector: 'agt-card-license-insurance',
-  templateUrl: './card-license-insurance.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-license-insurance',
+    templateUrl: './card-license-insurance.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardLicenseInsuranceComponent implements OnInit {
     @Input() licenseInsurance: LicenseInsurance | null = null;

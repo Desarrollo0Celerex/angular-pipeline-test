@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-charts-receipts-applied.component.html',
     styles: [],
     providers: [ContainerChartsReceiptsAppliedService],
+    standalone: false
 })
 export class ContainerChartsReceiptsAppliedComponent implements OnChanges {
     @Input() rangeField: string = '';

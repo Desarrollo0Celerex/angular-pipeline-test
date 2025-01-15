@@ -12,11 +12,11 @@ import { ContainerWorkspacePoliciesPendingService } from './container-workspace-
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-workspace-policies-pending',
-  templateUrl: './container-workspace-policies-pending.component.html',
-  styles: [
-  ],
-  providers: [ContainerWorkspacePoliciesPendingService]
+    selector: 'agt-container-workspace-policies-pending',
+    templateUrl: './container-workspace-policies-pending.component.html',
+    styles: [],
+    providers: [ContainerWorkspacePoliciesPendingService],
+    standalone: false
 })
 export class ContainerWorkspacePoliciesPendingComponent implements OnInit {
     modalIdConfirmDeletePolicy: string = 'cwpp-confirm-delete-policy';

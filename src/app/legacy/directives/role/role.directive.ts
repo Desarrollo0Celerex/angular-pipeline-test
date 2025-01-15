@@ -3,6 +3,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 
 @Directive({
     selector: '[agtRole]',
+    standalone: false
 })
 export class RoleDirective {
     @Input() set agtRole(role: number) {

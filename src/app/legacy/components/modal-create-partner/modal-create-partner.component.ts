@@ -13,6 +13,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-create-partner.component.html',
     styles: [],
     providers: [ModalCreatePartnerService],
+    standalone: false
 })
 export class ModalCreatePartnerComponent {
     @Input() modalId: string = '';

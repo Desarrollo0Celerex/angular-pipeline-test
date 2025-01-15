@@ -6,11 +6,11 @@ import { ComparisonRangeData } from '@interfaces/comparison-range-data.interface
 import { ContainerLeadUsersKpisService } from './container-lead-users-kpis.service';
 
 @Component({
-  selector: 'agt-container-lead-users-kpis',
-  templateUrl: './container-lead-users-kpis.component.html',
-  styles: [
-  ],
-  providers: [ContainerLeadUsersKpisService]
+    selector: 'agt-container-lead-users-kpis',
+    templateUrl: './container-lead-users-kpis.component.html',
+    styles: [],
+    providers: [ContainerLeadUsersKpisService],
+    standalone: false
 })
 export class ContainerLeadUsersKpisComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

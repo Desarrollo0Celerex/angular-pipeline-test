@@ -21,6 +21,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-update-group.component.html',
     styles: [],
     providers: [ModalUpdateGroupService],
+    standalone: false
 })
 export class ModalUpdateGroupComponent implements OnChanges {
     @Input() modalId: string = '';

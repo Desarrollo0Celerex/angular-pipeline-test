@@ -13,6 +13,7 @@ declare var ModalPlugin: any;
     templateUrl: './select-workspace-insurances.page.html',
     styles: [],
     providers: [SelectWorkspaceInsurancesService],
+    standalone: false
 })
 export class SelectWorkspaceInsurancesPage implements OnInit {
     modalIdConfirmAddWorkspaceInsurance: string =

@@ -7,13 +7,13 @@ import { ChartTicketPaymentProcessService } from './chart-ticket-payment-process
 declare var StatsCollectionPlugin: any;
 
 @Component({
-  selector: 'agt-chart-ticket-payment-process',
-  templateUrl: './chart-ticket-payment-process.component.html',
-  styles: [
-  ],
-  providers: [
-      ChartTicketPaymentProcessService
-  ]
+    selector: 'agt-chart-ticket-payment-process',
+    templateUrl: './chart-ticket-payment-process.component.html',
+    styles: [],
+    providers: [
+        ChartTicketPaymentProcessService
+    ],
+    standalone: false
 })
 export class ChartTicketPaymentProcessComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

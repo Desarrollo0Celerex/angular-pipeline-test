@@ -25,6 +25,7 @@ declare var ModalPlugin: any;
     selector: 'agt-upload-policy-complement-modal',
     templateUrl: './upload-policy-complement-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class UploadPolicyComplementModalComponent {
     @Input() contactId = '';

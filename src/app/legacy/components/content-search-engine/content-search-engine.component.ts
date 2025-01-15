@@ -7,10 +7,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { ContentSearchEngineService } from './content-search-engine.service';
 
 @Component({
-  selector: 'agt-content-search-engine',
-  templateUrl: './content-search-engine.component.html',
-  styles: [
-  ]
+    selector: 'agt-content-search-engine',
+    templateUrl: './content-search-engine.component.html',
+    styles: [],
+    standalone: false
 })
 export class ContentSearchEngineComponent implements OnChanges {
     @Input() actionType: number;

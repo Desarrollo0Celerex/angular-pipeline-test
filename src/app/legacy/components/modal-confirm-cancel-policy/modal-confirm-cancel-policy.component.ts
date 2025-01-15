@@ -5,10 +5,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-cancel-policy',
-  templateUrl: './modal-confirm-cancel-policy.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-cancel-policy',
+    templateUrl: './modal-confirm-cancel-policy.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmCancelPolicyComponent {
     @Input() contactId: string;

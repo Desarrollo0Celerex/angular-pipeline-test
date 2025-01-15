@@ -17,6 +17,7 @@ declare var ModalPlugin: any;
     selector: 'agt-delete-policy-modal',
     templateUrl: './delete-policy-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class DeletePolicyModalComponent {
     @Input() canShowPolicyActions = false;

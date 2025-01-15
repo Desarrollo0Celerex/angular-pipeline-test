@@ -7,7 +7,7 @@ import {
     UntypedFormGroup,
     Validators,
 } from '@angular/forms';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { FREE_TEXT_LENGTH, TITULAR_NAME_LENGTH } from '@constants/global';
 import { ValidatorsHelper } from '@core/helpers/validators.helper';

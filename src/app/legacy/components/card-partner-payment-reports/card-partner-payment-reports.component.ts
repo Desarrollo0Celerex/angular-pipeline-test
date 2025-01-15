@@ -17,6 +17,7 @@ declare var ModalPlugin: any;
     templateUrl: './card-partner-payment-reports.component.html',
     styles: [],
     providers: [CardPartnerPaymentReportsService],
+    standalone: false
 })
 export class CardPartnerPaymentReportsComponent implements OnChanges {
     @Input() partnerId: number = 0;

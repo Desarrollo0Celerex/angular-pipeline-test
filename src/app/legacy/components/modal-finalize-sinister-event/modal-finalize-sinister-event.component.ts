@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-finalize-sinister-event.component.html',
     styles: [],
     providers: [ModalFinalizeSinisterEventService],
+    standalone: false
 })
 export class ModalFinalizeSinisterEventComponent implements OnInit {
     @Input() modalId: string = '';

@@ -5,11 +5,11 @@ import { ChartPolicySinistersService } from './chart-policy-sinisters.service';
 declare var StatsRecordPlugin: any;
 
 @Component({
-  selector: 'agt-chart-policy-sinisters',
-  templateUrl: './chart-policy-sinisters.component.html',
-  styles: [
-  ],
-  providers: [ChartPolicySinistersService]
+    selector: 'agt-chart-policy-sinisters',
+    templateUrl: './chart-policy-sinisters.component.html',
+    styles: [],
+    providers: [ChartPolicySinistersService],
+    standalone: false
 })
 export class ChartPolicySinistersComponent implements OnInit {
     @Input() contactId: string = '';

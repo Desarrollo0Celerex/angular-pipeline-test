@@ -14,6 +14,7 @@ import { PhoneCodePipe } from '@shared/pipes/phone-code.pipe';
     selector: 'agt-send-policy',
     templateUrl: './send-policy.component.html',
     styles: [],
+    standalone: false
 })
 export class SendPolicyComponent {
     @Output() policySent = new EventEmitter<void>();

@@ -3,10 +3,10 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-delete-insured',
-  templateUrl: './modal-confirm-delete-insured.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-delete-insured',
+    templateUrl: './modal-confirm-delete-insured.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmDeleteInsuredComponent {
     @Input() modalId: string = '';

@@ -3,11 +3,11 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitte
 import { ContainerInsurancesBySearchService } from './container-insurances-by-search.service';
 
 @Component({
-  selector: 'agt-container-insurances-by-search',
-  templateUrl: './container-insurances-by-search.component.html',
-  styles: [
-  ],
-  providers: [ContainerInsurancesBySearchService]
+    selector: 'agt-container-insurances-by-search',
+    templateUrl: './container-insurances-by-search.component.html',
+    styles: [],
+    providers: [ContainerInsurancesBySearchService],
+    standalone: false
 })
 export class ContainerInsurancesBySearchComponent implements OnInit, OnChanges {
     @Input() query: string = '';

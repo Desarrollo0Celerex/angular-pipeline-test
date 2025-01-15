@@ -1,8 +1,4 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import {
-    NgxQrcodeErrorCorrectionLevels,
-    NgxQrcodeElementTypes,
-} from '@techiediaries/ngx-qrcode';
 
 import { HttpResponse } from '@core/interfaces/http-response.interface';
 
@@ -15,14 +11,13 @@ declare var ModalPlugin: any;
     templateUrl: './modal-show-policy-file.component.html',
     styles: [],
     providers: [ModalShowPolicyFileService],
+    standalone: false
 })
 export class ModalShowPolicyFileComponent implements OnChanges {
     @Input() modalId: string = '';
     @Input() policyUrl: string = '';
     @Input() contactId: string = '';
     @Input() policyId: string = '';
-    correctionLevel: any = NgxQrcodeErrorCorrectionLevels.HIGH;
-    elementType: any = NgxQrcodeElementTypes.URL;
 
     constructor(public _model: ModalShowPolicyFileService) {}
 

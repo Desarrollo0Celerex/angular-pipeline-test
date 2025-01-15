@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-dashboard',
-  templateUrl: './dashboard.page.html',
-  styles: [
-  ]
+    selector: 'agt-dashboard',
+    templateUrl: './dashboard.page.html',
+    styles: [],
+    standalone: false
 })
 export class DashboardPage {
     modalIdSelectContactType: string = 'agt-select-contact-type';

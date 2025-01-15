@@ -26,6 +26,7 @@ declare var PopoverPlugin: any;
     templateUrl: './endorse-policy.page.html',
     styles: [],
     providers: [EndorsePolicyService],
+    standalone: false
 })
 export class EndorsePolicyPage implements OnInit {
     calendarIdEndorsementEmissionDate: string = 'endorsementEmissionDate';

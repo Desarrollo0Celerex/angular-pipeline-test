@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { SharedModule } from '@shared/shared.module';
 import { CountriesModule } from '@features-legacy/countries/countries.module';
 import { TasksModule as NweTaskModule } from '@tasks/tasks.module';
@@ -92,7 +91,6 @@ import { CardReportPendingTasksComponent } from './components/card-report-pendin
         CountriesModule,
         FormsModule,
         NweTaskModule,
-        NgxQRCodeModule,
         ReactiveFormsModule,
         SharedModule,
         TasksRoutingModule,

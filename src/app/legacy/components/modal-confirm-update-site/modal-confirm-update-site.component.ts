@@ -3,10 +3,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-update-site',
-  templateUrl: './modal-confirm-update-site.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-update-site',
+    templateUrl: './modal-confirm-update-site.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmUpdateSiteComponent {
     @Input() modalId: string = '';

@@ -4,10 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { ACTION_TYPES } from '@constants/global';
 
 @Component({
-  selector: 'agt-create-policy',
-  templateUrl: './create-policy.page.html',
-  styles: [
-  ]
+    selector: 'agt-create-policy',
+    templateUrl: './create-policy.page.html',
+    styles: [],
+    standalone: false
 })
 export class CreatePolicyPage implements OnInit {
     actionType: number = ACTION_TYPES.CREATE_POLICY;

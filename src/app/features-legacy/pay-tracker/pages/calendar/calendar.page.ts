@@ -6,13 +6,14 @@ import { Payment } from '@core/interfaces/payment.interface';
 import { PaymentService } from '@core/services/payment/payment.service';
 import { TotalPaymentsAmountData } from '@interfaces/total-payments-amount-data.interface';
 import { PayTrackerService } from '@features-legacy/pay-tracker/services/pay-tracker/pay-tracker.service';
-import * as moment from 'moment';
+import moment from 'moment';
 declare var CounterPlugin: any;
 
 @Component({
     selector: 'agt-calendar',
     templateUrl: './calendar.page.html',
     styles: [],
+    standalone: false
 })
 export class CalendarPage extends SmartComponent {
     paymentDate: string = moment().format('YYYY-MM-DD');

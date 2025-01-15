@@ -10,6 +10,7 @@ declare var ModalPlugin: any;
     selector: 'agt-policy-sinister-actions-modal',
     templateUrl: './policy-sinister-actions-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicySinisterActionsModalComponent
     extends SmartComponent

@@ -3,11 +3,11 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AlertPartnerUnusualAppliedPaymentsService } from './alert-partner-unusual-applied-payments.service';
 
 @Component({
-  selector: 'agt-alert-partner-unusual-applied-payments',
-  templateUrl: './alert-partner-unusual-applied-payments.component.html',
-  styles: [
-  ],
-  providers: [AlertPartnerUnusualAppliedPaymentsService]
+    selector: 'agt-alert-partner-unusual-applied-payments',
+    templateUrl: './alert-partner-unusual-applied-payments.component.html',
+    styles: [],
+    providers: [AlertPartnerUnusualAppliedPaymentsService],
+    standalone: false
 })
 export class AlertPartnerUnusualAppliedPaymentsComponent implements OnChanges {
     @Input() partnerId: number = 0;

@@ -7,10 +7,10 @@ import { ModalSelectRoleService } from './modal-select-role.service';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-role',
-  templateUrl: './modal-select-role.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-role',
+    templateUrl: './modal-select-role.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalSelectRoleComponent implements OnInit, OnChanges {
     @Input() modalId: string;

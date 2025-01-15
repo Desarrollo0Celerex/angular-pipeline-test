@@ -6,10 +6,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-show-policy-insured-actions',
-  templateUrl: './modal-show-policy-insured-actions.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-show-policy-insured-actions',
+    templateUrl: './modal-show-policy-insured-actions.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalShowPolicyInsuredActionsComponent {
     @Input() modalId: string = '';

@@ -1,8 +1,4 @@
 import { Injectable } from '@angular/core';
-import {
-    NgxQrcodeErrorCorrectionLevels,
-    NgxQrcodeElementTypes,
-} from '@techiediaries/ngx-qrcode';
 
 import { ROUTES_NAME } from '@constants/routes-name';
 import { environment } from '@env/environment';
@@ -16,8 +12,6 @@ export class QrcodeTransferContactService {
     elementType: any;
 
     constructor(private _expressTokenService: ExpressTokenService) {
-        this.elementType = NgxQrcodeElementTypes.URL;
-        this.correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
         this.contactUrl = '';
     }
 

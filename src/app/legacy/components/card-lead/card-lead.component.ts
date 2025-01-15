@@ -4,10 +4,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { Lead } from '@interfaces/lead.interface';
 
 @Component({
-  selector: 'agt-card-lead',
-  templateUrl: './card-lead.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-lead',
+    templateUrl: './card-lead.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardLeadComponent implements OnInit {
     @Input() lead: Lead | null;

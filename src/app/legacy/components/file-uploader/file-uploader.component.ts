@@ -16,6 +16,7 @@ export interface FileParam {
     selector: 'agt-file-uploader',
     template: '',
     styles: [],
+    standalone: false
 })
 export class FileUploaderComponent implements OnInit {
     @Input() endpoint: string = '';

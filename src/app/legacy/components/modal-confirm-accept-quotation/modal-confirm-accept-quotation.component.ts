@@ -13,6 +13,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-confirm-accept-quotation',
     templateUrl: './modal-confirm-accept-quotation.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalConfirmAcceptQuotationComponent {
     @Input() contactId: string;

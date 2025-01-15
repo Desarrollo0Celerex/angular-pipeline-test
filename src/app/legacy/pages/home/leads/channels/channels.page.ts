@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { ChannelsService } from './channels.service';
 
 @Component({
-  selector: 'agt-channels',
-  templateUrl: './channels.page.html',
-  styles: [
-  ],
-  providers: [ChannelsService]
+    selector: 'agt-channels',
+    templateUrl: './channels.page.html',
+    styles: [],
+    providers: [ChannelsService],
+    standalone: false
 })
 export class ChannelsPage implements OnInit {
 

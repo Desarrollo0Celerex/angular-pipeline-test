@@ -6,10 +6,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-show-history-policy',
-  templateUrl: './modal-confirm-show-history-policy.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-show-history-policy',
+    templateUrl: './modal-confirm-show-history-policy.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmShowHistoryPolicyComponent implements OnChanges {
     @Input() contactId: string;

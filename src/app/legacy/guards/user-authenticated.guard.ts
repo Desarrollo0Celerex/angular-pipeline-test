@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-    ActivatedRoute,
-    ActivatedRouteSnapshot,
-    CanActivate,
-    Router,
-    RouterStateSnapshot,
-    UrlTree,
-} from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ROUTES_NAME } from '@constants/routes-name';
@@ -15,7 +8,7 @@ import { AuthService } from '@features-legacy/auth/services/auth.service';
 @Injectable({
     providedIn: 'root',
 })
-export class UserAuthenticatedGuard implements CanActivate {
+export class UserAuthenticatedGuard  {
     private _redirectUrl = '';
 
     constructor(

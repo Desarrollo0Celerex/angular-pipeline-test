@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './identity.page.html',
     styles: [],
     providers: [IdentityService],
+    standalone: false
 })
 export class IdentityPage implements OnInit {
     modalIdConfirmUpdateSite: string = 'modal-confirm-update-site';

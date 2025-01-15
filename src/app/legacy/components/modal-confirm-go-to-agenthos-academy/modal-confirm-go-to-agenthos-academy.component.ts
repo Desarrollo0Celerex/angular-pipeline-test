@@ -3,10 +3,10 @@ import { Component, Input } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-go-to-agenthos-academy',
-  templateUrl: './modal-confirm-go-to-agenthos-academy.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-go-to-agenthos-academy',
+    templateUrl: './modal-confirm-go-to-agenthos-academy.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmGoToAgenthosAcademyComponent {
     @Input() modalId: string = '';

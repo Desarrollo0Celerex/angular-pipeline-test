@@ -20,6 +20,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-create-payment-comment',
     templateUrl: './modal-create-payment-comment.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalCreatePaymentCommentComponent {
     @Output() commentAdded = new EventEmitter<void>();

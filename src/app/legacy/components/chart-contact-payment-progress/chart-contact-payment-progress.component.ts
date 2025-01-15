@@ -5,11 +5,11 @@ import { ChartContactPaymentProgressService } from './chart-contact-payment-prog
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-chart-contact-payment-progress',
-  templateUrl: './chart-contact-payment-progress.component.html',
-  styles: [
-  ],
-  providers: [ChartContactPaymentProgressService]
+    selector: 'agt-chart-contact-payment-progress',
+    templateUrl: './chart-contact-payment-progress.component.html',
+    styles: [],
+    providers: [ChartContactPaymentProgressService],
+    standalone: false
 })
 export class ChartContactPaymentProgressComponent implements OnChanges {
     @Input() contactId: string = '';

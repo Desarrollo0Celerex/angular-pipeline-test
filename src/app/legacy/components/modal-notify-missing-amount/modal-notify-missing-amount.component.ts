@@ -6,10 +6,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-notify-missing-amount',
-  templateUrl: './modal-notify-missing-amount.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-notify-missing-amount',
+    templateUrl: './modal-notify-missing-amount.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalNotifyMissingAmountComponent {
     @Input() modalId: string = '';

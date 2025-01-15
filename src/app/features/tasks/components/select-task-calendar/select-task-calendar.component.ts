@@ -8,6 +8,7 @@ import { SynchronizeTaskComponent } from '../synchronize-task/synchronize-task.c
     selector: 'agt-select-task-calendar',
     templateUrl: './select-task-calendar.component.html',
     styles: [],
+    standalone: false
 })
 export class SelectTaskCalendarComponent {
     @ViewChild(SynchronizeTaskComponent)

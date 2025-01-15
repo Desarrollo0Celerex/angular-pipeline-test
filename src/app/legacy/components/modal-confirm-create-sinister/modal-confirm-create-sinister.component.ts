@@ -3,10 +3,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-create-sinister',
-  templateUrl: './modal-confirm-create-sinister.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-create-sinister',
+    templateUrl: './modal-confirm-create-sinister.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmCreateSinisterComponent {
     @Input() modalId: string = '';

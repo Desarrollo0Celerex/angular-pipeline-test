@@ -6,10 +6,10 @@ import { Insured } from '@interfaces/insured.interface';
 import { PolicyInsuredData } from '@interfaces/policy-insured-data.interface';
 
 @Component({
-  selector: 'agt-card-policy-insured',
-  templateUrl: './card-policy-insured.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-policy-insured',
+    templateUrl: './card-policy-insured.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardPolicyInsuredComponent {
     @Input() insured: Insured | null = null;

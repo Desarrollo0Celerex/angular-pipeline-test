@@ -16,6 +16,7 @@ import { Country } from '@countries/interfaces/country.interface';
     selector: 'agt-phone-code-button',
     templateUrl: './phone-code-button.component.html',
     styles: [],
+    standalone: false
 })
 export class PhoneCodeButtonComponent implements OnChanges, OnInit {
     @Input() phoneCodeId = 0;

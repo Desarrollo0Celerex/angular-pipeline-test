@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-session-expired',
     templateUrl: './modal-session-expired.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSessionExpiredComponent {
     @Input() modalId: string = '';

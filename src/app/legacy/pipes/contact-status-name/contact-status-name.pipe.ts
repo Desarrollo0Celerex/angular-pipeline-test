@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'contactStatusName',
+    standalone: false
 })
 export class ContactStatusNamePipe implements PipeTransform {
     transform(clientStatusName: string, leadStatusName: string): string {

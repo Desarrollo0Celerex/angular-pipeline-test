@@ -6,11 +6,11 @@ declare var ChartPlugin: any;
 declare var PopoverPlugin: any;
 
 @Component({
-  selector: 'agt-chart-group-wallet-projection',
-  templateUrl: './chart-group-wallet-projection.component.html',
-  styles: [
-  ],
-  providers: [ChartGroupWalletProjectionService]
+    selector: 'agt-chart-group-wallet-projection',
+    templateUrl: './chart-group-wallet-projection.component.html',
+    styles: [],
+    providers: [ChartGroupWalletProjectionService],
+    standalone: false
 })
 export class ChartGroupWalletProjectionComponent implements OnChanges, OnInit {
     @Input() groupId: string = '';

@@ -5,7 +5,7 @@ import { CreateTaskService } from '@tasks/components/create-task/create-task.ser
 import { TASK_MODULES } from '@core/constants/settings';
 import { PolicyService } from '@policy/services/policy.service';
 import { environment } from '@env/environment';
-import * as moment from 'moment';
+import moment from 'moment';
 import { POLICY_ROUTES } from '@policy/constants/routes';
 import { SelectClientTypeModalService } from '@client/components/select-client-type-modal/select-client-type-modal.service';
 import { CONTACT_ACTIONS } from '@contact/enums/contact-actions.enum';
@@ -16,6 +16,7 @@ declare var ModalPlugin: any;
     selector: 'agt-policy-reissue-actions-modal',
     templateUrl: './policy-reissue-actions-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyReissueActionsModalComponent
     extends SmartComponent

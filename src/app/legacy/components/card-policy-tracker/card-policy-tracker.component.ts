@@ -6,6 +6,7 @@ import { Policy } from '@core/interfaces/policy.interface';
     selector: 'agt-card-policy-tracker',
     templateUrl: './card-policy-tracker.component.html',
     styles: [],
+    standalone: false
 })
 export class CardPolicyTrackerComponent {
     @Input() policy: Policy | null = null;

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import {
     CONTENT_TYPES,
@@ -22,6 +22,7 @@ declare var ModalPlugin: any;
     templateUrl: './show-sinister-history.page.html',
     styles: [],
     providers: [ShowSinisterHistoryService],
+    standalone: false
 })
 export class ShowSinisterHistoryPage implements OnInit {
     @ViewChild('modalDownloadSinisterEvidence')

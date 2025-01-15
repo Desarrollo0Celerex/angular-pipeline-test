@@ -5,10 +5,10 @@ import { Insurance } from '@interfaces/insurance.interface';
 declare var PopoverPlugin: any;
 
 @Component({
-  selector: 'agt-card-insurance',
-  templateUrl: './card-insurance.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-insurance',
+    templateUrl: './card-insurance.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardInsuranceComponent implements OnInit {
     @Input() insurance: Insurance | null = null;

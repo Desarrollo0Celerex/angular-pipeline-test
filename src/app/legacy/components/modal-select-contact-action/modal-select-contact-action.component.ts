@@ -3,10 +3,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-contact-action',
-  templateUrl: './modal-select-contact-action.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-contact-action',
+    templateUrl: './modal-select-contact-action.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalSelectContactActionComponent {
     @Input() modalId: string = '';

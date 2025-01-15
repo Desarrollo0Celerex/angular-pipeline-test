@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-delete-policy-complement-modal',
     templateUrl: './delete-policy-complement-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class DeletePolicyComplementModalComponent {
     @Input() contactId = '';

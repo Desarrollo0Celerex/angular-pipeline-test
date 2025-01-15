@@ -8,11 +8,11 @@ import { ChartLostClientsService } from './chart-lost-clients.service';
 declare var StatsClientsPlugin: any;
 
 @Component({
-  selector: 'agt-chart-lost-clients',
-  templateUrl: './chart-lost-clients.component.html',
-  styles: [
-  ],
-  providers: [ChartLostClientsService]
+    selector: 'agt-chart-lost-clients',
+    templateUrl: './chart-lost-clients.component.html',
+    styles: [],
+    providers: [ChartLostClientsService],
+    standalone: false
 })
 export class ChartLostClientsComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

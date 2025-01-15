@@ -10,6 +10,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-confirm-delete-policy',
     templateUrl: './modal-confirm-delete-policy.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalConfirmDeletePolicyComponent {
     @Input() contactId: string;

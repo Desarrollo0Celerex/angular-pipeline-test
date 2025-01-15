@@ -8,6 +8,7 @@ import { ContainerContactDetailsService } from './container-contact-details.serv
     selector: 'agt-container-contact-details',
     templateUrl: './container-contact-details.component.html',
     styles: [],
+    standalone: false
 })
 export class ContainerContactDetailsComponent implements OnChanges {
     @Input() contactId: string = '';

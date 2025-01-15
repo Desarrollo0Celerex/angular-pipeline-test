@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-charts-workspace-policies-issued.component.html',
     styles: [],
     providers: [ContainerChartsWorkspacePoliciesIssuedService],
+    standalone: false
 })
 export class ContainerChartsWorkspacePoliciesIssuedComponent
     implements OnChanges

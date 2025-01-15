@@ -16,6 +16,7 @@ declare var ModalPlugin: any;
     templateUrl: './sinisters.page.html',
     styles: [],
     providers: [SinistersService],
+    standalone: false
 })
 export class SinistersPage implements OnInit {
     modalIdConfirmSaveWorkspaceDirectories: string =

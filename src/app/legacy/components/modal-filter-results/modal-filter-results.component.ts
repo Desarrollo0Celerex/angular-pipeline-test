@@ -5,10 +5,10 @@ import { ChartFilterData } from '@interfaces/chart-filter-data.interface';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-filter-results',
-  templateUrl: './modal-filter-results.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-filter-results',
+    templateUrl: './modal-filter-results.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalFilterResultsComponent {
     @Input() modalId: string = '';

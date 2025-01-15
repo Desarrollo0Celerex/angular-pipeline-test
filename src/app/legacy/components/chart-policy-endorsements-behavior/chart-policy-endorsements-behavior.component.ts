@@ -5,11 +5,11 @@ import { ChartPolicyEndorsementsBehaviorService } from './chart-policy-endorseme
 declare var StatsRecordPlugin: any;
 
 @Component({
-  selector: 'agt-chart-policy-endorsements-behavior',
-  templateUrl: './chart-policy-endorsements-behavior.component.html',
-  styles: [
-  ],
-  providers: [ChartPolicyEndorsementsBehaviorService]
+    selector: 'agt-chart-policy-endorsements-behavior',
+    templateUrl: './chart-policy-endorsements-behavior.component.html',
+    styles: [],
+    providers: [ChartPolicyEndorsementsBehaviorService],
+    standalone: false
 })
 export class ChartPolicyEndorsementsBehaviorComponent implements OnInit {
     @Input() contactId: string = '';

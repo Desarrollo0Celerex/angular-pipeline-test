@@ -10,6 +10,7 @@ declare var ArtyomPlugin: any;
     selector: 'agt-modal-voice-control-no-results',
     templateUrl: './modal-voice-control-no-results.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalVoiceControlNoResultsComponent {
     modalId: string = 'agt-voice-control-no-results';

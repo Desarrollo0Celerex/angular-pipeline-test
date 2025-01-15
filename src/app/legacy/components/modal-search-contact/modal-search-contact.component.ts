@@ -11,11 +11,11 @@ import { ModalSearchContactService } from './modal-search-contact.service';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-search-contact',
-  templateUrl: './modal-search-contact.component.html',
-  styles: [
-  ],
-  providers: [ModalSearchContactService]
+    selector: 'agt-modal-search-contact',
+    templateUrl: './modal-search-contact.component.html',
+    styles: [],
+    providers: [ModalSearchContactService],
+    standalone: false
 })
 export class ModalSearchContactComponent {
     @Input() modalId: string = '';

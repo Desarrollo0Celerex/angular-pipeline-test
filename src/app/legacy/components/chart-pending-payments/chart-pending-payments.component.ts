@@ -8,11 +8,11 @@ import { ChartPendingPaymentsService } from './chart-pending-payments.service';
 declare var StatsCollectionPlugin: any;
 
 @Component({
-  selector: 'agt-chart-pending-payments',
-  templateUrl: './chart-pending-payments.component.html',
-  styles: [
-  ],
-  providers: [ChartPendingPaymentsService]
+    selector: 'agt-chart-pending-payments',
+    templateUrl: './chart-pending-payments.component.html',
+    styles: [],
+    providers: [ChartPendingPaymentsService],
+    standalone: false
 })
 export class ChartPendingPaymentsComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

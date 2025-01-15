@@ -9,11 +9,11 @@ import { ContainerPolicyManagerService } from './container-policy-manager.servic
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-container-policy-manager',
-  templateUrl: './container-policy-manager.component.html',
-  styles: [
-  ],
-  providers: [ContainerPolicyManagerService]
+    selector: 'agt-container-policy-manager',
+    templateUrl: './container-policy-manager.component.html',
+    styles: [],
+    providers: [ContainerPolicyManagerService],
+    standalone: false
 })
 export class ContainerPolicyManagerComponent implements OnChanges {
     @Input() contactId: string = '';

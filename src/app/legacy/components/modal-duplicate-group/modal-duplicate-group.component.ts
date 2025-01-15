@@ -6,10 +6,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-duplicate-group',
-  templateUrl: './modal-duplicate-group.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-duplicate-group',
+    templateUrl: './modal-duplicate-group.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalDuplicateGroupComponent {
     @Input() modalId: string = '';

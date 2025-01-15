@@ -6,6 +6,7 @@ declare var ModalPlugin: any;
     selector: 'agt-payments-main-action',
     templateUrl: './payments-main-action.container.html',
     styles: [],
+    standalone: false
 })
 export class PaymentsMainActionContainer {
     @Output() loadPolicy: EventEmitter<void> = new EventEmitter<void>();

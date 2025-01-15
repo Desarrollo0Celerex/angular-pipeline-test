@@ -10,6 +10,7 @@ declare var PopoverPlugin: any;
     selector: 'agt-modal-select-shipping-channels',
     templateUrl: './modal-select-shipping-channels.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSelectShippingChannelsComponent {
     @Output() channelsSelected = new EventEmitter<number[]>();

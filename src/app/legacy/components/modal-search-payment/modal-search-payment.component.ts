@@ -15,6 +15,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-search-payment.component.html',
     styles: [],
     providers: [ModalSearchPaymentService],
+    standalone: false
 })
 export class ModalSearchPaymentComponent {
     @Input() modalId: string = '';

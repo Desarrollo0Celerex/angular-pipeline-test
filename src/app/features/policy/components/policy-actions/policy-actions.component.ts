@@ -12,6 +12,7 @@ declare var ModalPlugin: any;
     selector: 'agt-policy-actions',
     templateUrl: './policy-actions.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyActionsComponent {
     @ViewChild(DownloadPolicyComponent)

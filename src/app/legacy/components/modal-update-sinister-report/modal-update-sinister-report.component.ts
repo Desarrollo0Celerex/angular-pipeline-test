@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-update-sinister-report.component.html',
     styles: [],
     providers: [ModalUpdateSinisterReportService],
+    standalone: false
 })
 export class ModalUpdateSinisterReportComponent implements OnInit {
     @Input() modalId: string = '';

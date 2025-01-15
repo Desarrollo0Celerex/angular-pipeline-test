@@ -15,6 +15,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-confirm-delete-contact-file.component.html',
     styles: [],
     providers: [ModalConfirmDeleteContactFileService],
+    standalone: false
 })
 export class ModalConfirmDeleteContactFileComponent implements OnInit {
     @Input() modalId: string = '';

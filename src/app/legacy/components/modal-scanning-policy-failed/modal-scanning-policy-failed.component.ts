@@ -3,10 +3,10 @@ import { Component,Input } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-scanning-policy-failed',
-  templateUrl: './modal-scanning-policy-failed.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-scanning-policy-failed',
+    templateUrl: './modal-scanning-policy-failed.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalScanningPolicyFailedComponent {
     @Input() modalId: string = '';

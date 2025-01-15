@@ -6,10 +6,10 @@ import { RangeData } from '@interfaces/range-data.interface';
 import { CardKpiWorkspaceLeadsConvertedService } from './card-kpi-workspace-leads-converted.service';
 
 @Component({
-  selector: 'agt-card-kpi-workspace-leads-converted',
-  templateUrl: './card-kpi-workspace-leads-converted.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-kpi-workspace-leads-converted',
+    templateUrl: './card-kpi-workspace-leads-converted.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardKpiWorkspaceLeadsConvertedComponent implements OnChanges {
     @Input() rangeData: RangeData | null = null;

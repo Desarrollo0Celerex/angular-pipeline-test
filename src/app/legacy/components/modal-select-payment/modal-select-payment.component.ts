@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-select-payment',
     templateUrl: './modal-select-payment.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSelectPaymentComponent {
     @Input() modalId: string = '';

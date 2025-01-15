@@ -7,6 +7,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-select-cancellation-type',
     templateUrl: './modal-select-cancellation-type.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSelectCancellationTypeComponent {
     @Input() modalId: string = '';

@@ -5,10 +5,10 @@ import { CONTENT_TYPES } from '@constants/global';
 import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-format.pipe';
 
 @Component({
-  selector: 'agt-list-search-results',
-  templateUrl: './list-search-results.page.html',
-  styles: [
-  ]
+    selector: 'agt-list-search-results',
+    templateUrl: './list-search-results.page.html',
+    styles: [],
+    standalone: false
 })
 export class ListSearchResultsPage implements OnInit, OnDestroy {
     CONTENT_TYPES: any = CONTENT_TYPES;

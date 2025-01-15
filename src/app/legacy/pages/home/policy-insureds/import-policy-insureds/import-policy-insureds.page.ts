@@ -20,6 +20,7 @@ declare var ModalPlugin: any;
     templateUrl: './import-policy-insureds.page.html',
     styles: [],
     providers: [ImportPolicyInsuredsService],
+    standalone: false
 })
 export class ImportPolicyInsuredsPage implements OnInit {
     contactId: string = '';

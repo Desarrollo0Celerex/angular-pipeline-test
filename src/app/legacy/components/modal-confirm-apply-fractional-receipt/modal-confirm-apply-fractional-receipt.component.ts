@@ -20,6 +20,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-confirm-apply-fractional-receipt.component.html',
     styles: [],
     providers: [modalConfirmApplyFractionalReceiptService],
+    standalone: false
 })
 export class modalConfirmApplyFractionalReceiptComponent implements OnChanges {
     @Input() modalId: string = '';

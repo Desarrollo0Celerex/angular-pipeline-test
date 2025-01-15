@@ -1,4 +1,4 @@
-import { APP_INITIALIZER } from '@angular/core';
+import { provideAppInitializer } from '@angular/core';
 import { ThemeService } from '@core/services/theme/theme.service';
 import { WorkspaceService } from '@core/services/workspace/workspace.service';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
@@ -32,7 +32,7 @@ function initThemeFactory(
 
 export const THEME_INITIALIZER = [
     {
-        provide: APP_INITIALIZER,
+        provide: provideAppInitializer,
         useFactory: initThemeFactory,
         multi: true,
         deps: [AuthService, ThemeService, WorkspaceService],

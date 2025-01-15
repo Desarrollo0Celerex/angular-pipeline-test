@@ -6,12 +6,13 @@ import { environment } from '@env/environment';
 import { SynchronizeTask } from '@tasks/interfaces/synchronize-task.interface';
 import { Task } from '@tasks/interfaces/task.interface';
 import { TaskService } from '@tasks/services/task.service';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
     selector: 'agt-synchronize-task',
     templateUrl: './synchronize-task.component.html',
     styles: [],
+    standalone: false
 })
 export class SynchronizeTaskComponent {
     data: SynchronizeTask | undefined = undefined;

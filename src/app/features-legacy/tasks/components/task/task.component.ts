@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { Task } from '@features-legacy/tasks/interfaces/task.interface';
 import { ModuleService } from '@features-legacy/tasks/services/module.service';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
     selector: 'agt-task',
     templateUrl: './task.component.html',
     styles: [],
+    standalone: false
 })
 export class TaskComponent {
     @Input() task: Task | undefined = undefined;

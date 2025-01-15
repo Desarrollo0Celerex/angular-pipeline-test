@@ -18,6 +18,7 @@ declare var ModalPlugin: any;
     selector: 'agt-container-policy-details',
     templateUrl: './container-policy-details.component.html',
     styles: [],
+    standalone: false
 })
 export class ContainerPolicyDetailsComponent implements OnChanges {
     @Input() contactId: string = '';

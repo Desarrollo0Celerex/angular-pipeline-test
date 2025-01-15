@@ -3,12 +3,13 @@ import { PAYMENT_SOURCE_TYPES } from '@core/constants/settings';
 import { DumbComponent } from '@core/classes/dumb-component';
 import { UtilitiesHelper } from '@core/helpers/utilities.helper';
 import { Payment } from '@core/interfaces/payment.interface';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
     selector: 'agt-card-payment',
     templateUrl: './card-payment.component.html',
     styles: [],
+    standalone: false
 })
 export class CardPaymentComponent extends DumbComponent {
     @Input() payment: Payment | undefined = undefined;

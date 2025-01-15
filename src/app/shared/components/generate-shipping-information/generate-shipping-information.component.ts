@@ -13,6 +13,7 @@ import { ShippingContact } from '@shared/interfaces/shipping-contact.interface';
     selector: 'agt-generate-shipping-information',
     templateUrl: './generate-shipping-information.component.html',
     styles: [],
+    standalone: false
 })
 export class GenerateShippingInformationComponent {
     @Output() shippingInformationGenerated = new EventEmitter<

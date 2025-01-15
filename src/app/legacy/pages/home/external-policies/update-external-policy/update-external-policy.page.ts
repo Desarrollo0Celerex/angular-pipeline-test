@@ -19,6 +19,7 @@ import { UpdateExternalPolicyService } from './update-external-policy.service';
     templateUrl: './update-external-policy.page.html',
     styles: [],
     providers: [UpdateExternalPolicyService],
+    standalone: false
 })
 export class UpdateExternalPolicyPage implements OnInit {
     calendarIdEmissionDate: string = 'emissionDate';

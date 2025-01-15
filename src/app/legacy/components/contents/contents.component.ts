@@ -24,6 +24,7 @@ import { LabelFoundFormatPipe } from '@pipes/label-found-format/label-found-form
     selector: 'agt-contents',
     templateUrl: './contents.component.html',
     styles: [],
+    standalone: false
 })
 export class ContentsComponent implements OnInit, OnDestroy {
     @Input() contentType: number;

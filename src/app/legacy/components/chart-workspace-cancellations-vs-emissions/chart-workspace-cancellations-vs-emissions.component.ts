@@ -10,11 +10,11 @@ import { ChartWorkspaceCancellationsVsEmissionsService } from './chart-workspace
 declare var StatsDashboardPlugin: any;
 
 @Component({
-  selector: 'agt-chart-workspace-cancellations-vs-emissions',
-  templateUrl: './chart-workspace-cancellations-vs-emissions.component.html',
-  styles: [
-  ],
-  providers: [ChartWorkspaceCancellationsVsEmissionsService]
+    selector: 'agt-chart-workspace-cancellations-vs-emissions',
+    templateUrl: './chart-workspace-cancellations-vs-emissions.component.html',
+    styles: [],
+    providers: [ChartWorkspaceCancellationsVsEmissionsService],
+    standalone: false
 })
 export class ChartWorkspaceCancellationsVsEmissionsComponent implements OnChanges {
     @Input() rangeData: RangeData | null = null;

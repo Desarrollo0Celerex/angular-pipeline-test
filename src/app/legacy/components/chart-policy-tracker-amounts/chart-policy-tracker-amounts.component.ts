@@ -5,11 +5,11 @@ import { ChartPolicyTrackerAmountsService } from './chart-policy-tracker-amounts
 declare var StatsTrackerPlugin: any;
 
 @Component({
-  selector: 'agt-chart-policy-tracker-amounts',
-  templateUrl: './chart-policy-tracker-amounts.component.html',
-  styles: [
-  ],
-  providers: [ChartPolicyTrackerAmountsService]
+    selector: 'agt-chart-policy-tracker-amounts',
+    templateUrl: './chart-policy-tracker-amounts.component.html',
+    styles: [],
+    providers: [ChartPolicyTrackerAmountsService],
+    standalone: false
 })
 export class ChartPolicyTrackerAmountsComponent implements OnInit {
     @Input() contactId: string = '';

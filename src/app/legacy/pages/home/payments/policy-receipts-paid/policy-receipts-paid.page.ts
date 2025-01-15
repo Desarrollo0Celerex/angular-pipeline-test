@@ -4,10 +4,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 
 @Component({
-  selector: 'agt-policy-receipts-paid',
-  templateUrl: './policy-receipts-paid.page.html',
-  styles: [
-  ]
+    selector: 'agt-policy-receipts-paid',
+    templateUrl: './policy-receipts-paid.page.html',
+    styles: [],
+    standalone: false
 })
 export class PolicyReceiptsPaidPage implements OnInit {
     CONTENT_TYPES: any = CONTENT_TYPES;

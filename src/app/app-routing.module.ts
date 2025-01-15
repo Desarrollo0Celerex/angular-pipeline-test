@@ -143,14 +143,6 @@ const routes: Routes = [
         canActivate: [UserAuthenticatedGuard],
     },
     {
-        path: ROUTES_NAME.uploadWorkspaceAvatar,
-        loadChildren: () =>
-            import(
-                '@pages/workspaces/upload-workspace-avatar/upload-workspace-avatar.module'
-            ).then((mod) => mod.UploadWorkspaceAvatarModule),
-        canActivate: [UserAuthenticatedGuard],
-    },
-    {
         path: ROUTES_NAME.activateWorkspace,
         loadChildren: () =>
             import(

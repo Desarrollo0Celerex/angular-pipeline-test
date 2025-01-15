@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     templateUrl: './card-report-renewed-policies.component.html',
     styles: [],
     providers: [CardReportRenewedPoliciesService],
+    standalone: false
 })
 export class CardReportRenewedPoliciesComponent {
     @Input() rangeField: string = '';

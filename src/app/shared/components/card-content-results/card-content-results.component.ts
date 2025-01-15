@@ -6,6 +6,7 @@ import { DumbComponent } from '@core/classes/dumb-component';
     selector: 'agt-card-content-results',
     templateUrl: './card-content-results.component.html',
     styles: [],
+    standalone: false
 })
 export class CardContentResultsComponent extends DumbComponent {
     @Input() contentName: string = '';

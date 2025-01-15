@@ -3,11 +3,11 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AlertGroupUnusualCancelledPoliciesService } from './alert-group-unusual-cancelled-policies.service';
 
 @Component({
-  selector: 'agt-alert-group-unusual-cancelled-policies',
-  templateUrl: './alert-group-unusual-cancelled-policies.component.html',
-  styles: [
-  ],
-  providers: [AlertGroupUnusualCancelledPoliciesService]
+    selector: 'agt-alert-group-unusual-cancelled-policies',
+    templateUrl: './alert-group-unusual-cancelled-policies.component.html',
+    styles: [],
+    providers: [AlertGroupUnusualCancelledPoliciesService],
+    standalone: false
 })
 export class AlertGroupUnusualCancelledPoliciesComponent implements OnChanges {
     @Input() groupId: string = '';

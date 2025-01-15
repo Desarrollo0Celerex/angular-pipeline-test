@@ -3,10 +3,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-apply-cancellation',
-  templateUrl: './modal-confirm-apply-cancellation.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-apply-cancellation',
+    templateUrl: './modal-confirm-apply-cancellation.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmApplyCancellationComponent {
     @Input() modalId: string;

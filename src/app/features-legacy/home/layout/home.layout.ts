@@ -6,6 +6,7 @@ declare var HorizontalMenuPlugin: any;
     selector: 'agt-home',
     templateUrl: './home.layout.html',
     styles: [],
+    standalone: false
 })
 export class HomeLayout implements OnInit {
     ngOnInit(): void {

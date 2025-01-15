@@ -25,6 +25,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-update-sinister-event',
     templateUrl: './modal-update-sinister-event.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalUpdateSinisterEventComponent implements OnChanges {
     @Input() modalId: string = '';

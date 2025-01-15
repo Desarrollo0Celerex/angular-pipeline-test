@@ -2,9 +2,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'agt-modal-confirm-apply-fractional-receipt-in-decrement',
-    templateUrl:
-        './modal-confirm-apply-fractional-receipt-in-decrement.component.html',
+    templateUrl: './modal-confirm-apply-fractional-receipt-in-decrement.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalConfirmApplyFractionalReceiptInDecrementComponent {
     @Input() modalId = '';

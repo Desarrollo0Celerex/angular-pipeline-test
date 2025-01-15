@@ -6,6 +6,7 @@ import { ModuleService } from '@features-legacy/tasks/services/module.service';
     selector: 'agt-tasks-title',
     templateUrl: './tasks-title.component.html',
     styles: [],
+    standalone: false
 })
 export class TasksTitleComponent extends SmartComponent implements OnInit {
     taskStatusId: number = 0;

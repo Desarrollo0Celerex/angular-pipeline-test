@@ -12,6 +12,7 @@ import { CreateTaskService } from '@tasks/components/create-task/create-task.ser
     selector: 'agt-follow-policy',
     templateUrl: './follow-policy.component.html',
     styles: [],
+    standalone: false
 })
 export class FollowPolicyComponent {
     @ViewChild(CreateTaskComponent)

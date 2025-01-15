@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { RangeData } from '@interfaces/range-data.interface';
 
 @Component({
-  selector: 'agt-container-wallet-resume',
-  templateUrl: './container-wallet-resume.component.html',
-  styles: [
-  ]
+    selector: 'agt-container-wallet-resume',
+    templateUrl: './container-wallet-resume.component.html',
+    styles: [],
+    standalone: false
 })
 export class ContainerWalletResumeComponent {
     rangeData: RangeData = {
         rangeStart: moment().subtract(7, 'days').format('DD/MM/YYYY'),
         rangeEnd: moment().format('DD/MM/YYYY'),
-        rangeField: ''
-    }
+        rangeField: '',
+    };
 }

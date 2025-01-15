@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl } from '@angular/forms';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { ERROR_CODES } from '@constants/error-codes';
 import {
@@ -46,6 +46,7 @@ declare var Select2Plugin: any;
     templateUrl: './update-policy.page.html',
     styles: [],
     providers: [UpdatePolicyService],
+    standalone: false
 })
 export class UpdatePolicyPage implements OnInit {
     @ViewChild(PolicyActionsComponent)

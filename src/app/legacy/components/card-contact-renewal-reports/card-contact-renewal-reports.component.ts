@@ -11,11 +11,11 @@ const REPORT_TYPES: any = {
 };
 
 @Component({
-  selector: 'agt-card-contact-renewal-reports',
-  templateUrl: './card-contact-renewal-reports.component.html',
-  styles: [
-  ],
-  providers: [CardContactRenewalReportsService]
+    selector: 'agt-card-contact-renewal-reports',
+    templateUrl: './card-contact-renewal-reports.component.html',
+    styles: [],
+    providers: [CardContactRenewalReportsService],
+    standalone: false
 })
 export class CardContactRenewalReportsComponent implements OnChanges {
     @Input() contactId: string = '';

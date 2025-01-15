@@ -40,6 +40,7 @@ declare var ModalPlugin: any;
     selector: 'agt-create-contact-modal',
     templateUrl: './create-contact-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class CreateContactModalComponent implements OnInit {
     @ViewChild(DuplicateContactModalComponent)

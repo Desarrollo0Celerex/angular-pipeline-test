@@ -5,6 +5,7 @@ import { DumbComponent } from '@core/classes/dumb-component';
     selector: 'agt-card-main-action',
     templateUrl: './card-main-action.component.html',
     styles: [],
+    standalone: false
 })
 export class CardMainActionComponent extends DumbComponent {
     @Input() buttonLabel: string = '';

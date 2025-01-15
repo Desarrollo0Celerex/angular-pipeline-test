@@ -7,6 +7,7 @@ import { PayTrackerService } from '@features-legacy/pay-tracker/services/pay-tra
     selector: 'agt-search-engine',
     templateUrl: './search-engine.container.html',
     styles: [],
+    standalone: false
 })
 export class SearchEngineContainer {
     constructor(

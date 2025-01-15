@@ -9,6 +9,7 @@ import { TaskService } from '@features-legacy/tasks/services/task.service';
     selector: 'agt-modal-confirm-delete-task',
     templateUrl: './modal-confirm-delete-task.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalConfirmDeleteTaskComponent
     extends SmartComponent

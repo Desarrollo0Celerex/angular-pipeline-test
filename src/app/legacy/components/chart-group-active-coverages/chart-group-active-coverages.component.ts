@@ -5,11 +5,11 @@ import { ChartGroupActiveCoveragesService } from './chart-group-active-coverages
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-chart-group-active-coverages',
-  templateUrl: './chart-group-active-coverages.component.html',
-  styles: [
-  ],
-  providers: [ChartGroupActiveCoveragesService]
+    selector: 'agt-chart-group-active-coverages',
+    templateUrl: './chart-group-active-coverages.component.html',
+    styles: [],
+    providers: [ChartGroupActiveCoveragesService],
+    standalone: false
 })
 export class ChartGroupActiveCoveragesComponent implements OnChanges {
     @Input() groupId: string = '';

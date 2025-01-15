@@ -6,10 +6,10 @@ import { RangeData } from '@interfaces/range-data.interface';
 import { CardKpiWorkspaceRenewalsPendingService } from './card-kpi-workspace-renewals-pending.service';
 
 @Component({
-  selector: 'agt-card-kpi-workspace-renewals-pending',
-  templateUrl: './card-kpi-workspace-renewals-pending.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-kpi-workspace-renewals-pending',
+    templateUrl: './card-kpi-workspace-renewals-pending.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardKpiWorkspaceRenewalsPendingComponent implements OnChanges {
     @Input() rangeData: RangeData | null = null;

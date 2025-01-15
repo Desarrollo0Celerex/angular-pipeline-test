@@ -5,11 +5,11 @@ import { ChartGroupPreferredInsurersService } from './chart-group-preferred-insu
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-chart-group-preferred-insurers',
-  templateUrl: './chart-group-preferred-insurers.component.html',
-  styles: [
-  ],
-  providers: [ChartGroupPreferredInsurersService]
+    selector: 'agt-chart-group-preferred-insurers',
+    templateUrl: './chart-group-preferred-insurers.component.html',
+    styles: [],
+    providers: [ChartGroupPreferredInsurersService],
+    standalone: false
 })
 export class ChartGroupPreferredInsurersComponent implements OnChanges {
     @Input() groupId: string = '';

@@ -4,7 +4,7 @@ import { PolicyUpdateActionsModalService } from './policy-update-actions-modal.s
 import { SmartComponent } from '@core/classes/smart-component';
 import { POLICY_ROUTES } from '@policy/constants/routes';
 import { UpdatePolicyFileModalComponent } from '../update-policy-file-modal/update-policy-file-modal.component';
-import * as moment from 'moment';
+import moment from 'moment';
 
 declare var ModalPlugin: any;
 
@@ -12,6 +12,7 @@ declare var ModalPlugin: any;
     selector: 'agt-policy-update-actions-modal',
     templateUrl: './policy-update-actions-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyUpdateActionsModalComponent
     extends SmartComponent

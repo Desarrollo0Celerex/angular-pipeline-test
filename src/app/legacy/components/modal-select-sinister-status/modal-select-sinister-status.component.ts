@@ -5,10 +5,10 @@ import { ModalSelectSinisterStatusService } from './modal-select-sinister-status
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-sinister-status',
-  templateUrl: './modal-select-sinister-status.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-sinister-status',
+    templateUrl: './modal-select-sinister-status.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalSelectSinisterStatusComponent implements OnInit {
     @Input() modalId: string = '';

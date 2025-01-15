@@ -6,6 +6,7 @@ import { Policy } from '@policy/interfaces/policy.interface';
     selector: 'agt-policy-header',
     templateUrl: './policy-header.component.html',
     styles: [],
+    standalone: false
 })
 export class PolicyHeaderComponent {
     @Input() policy: Policy | undefined = undefined;

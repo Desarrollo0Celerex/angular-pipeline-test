@@ -15,6 +15,7 @@ declare var ModalPlugin: any;
     selector: 'agt-update-policy-modal',
     templateUrl: './update-policy-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class UpdatePolicyModalComponent implements OnInit {
     @Output() fileSelected: EventEmitter<File> = new EventEmitter<File>();

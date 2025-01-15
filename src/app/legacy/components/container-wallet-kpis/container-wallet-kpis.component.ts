@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { RangeData } from '@interfaces/range-data.interface';
 
@@ -7,6 +7,7 @@ import { RangeData } from '@interfaces/range-data.interface';
     selector: 'agt-container-wallet-kpis',
     templateUrl: './container-wallet-kpis.component.html',
     styles: [],
+    standalone: false
 })
 export class ContainerWalletKpisComponent {
     rangeData: RangeData = {

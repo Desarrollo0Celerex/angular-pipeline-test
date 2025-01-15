@@ -6,6 +6,7 @@ import { ModuleService } from '@features-legacy/tasks/services/module.service';
     selector: 'agt-tasks',
     templateUrl: './tasks.page.html',
     styles: [],
+    standalone: false
 })
 export class TasksPage implements OnInit {
     constructor(private _moduleService: ModuleService) {}

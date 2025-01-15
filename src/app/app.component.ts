@@ -8,6 +8,7 @@ import { FirebaseObservablesService } from '@services/firebase-observables.servi
     selector: 'agt-root',
     templateUrl: './app.component.html',
     styles: [],
+    standalone: false
 })
 export class AppComponent {
     constructor(

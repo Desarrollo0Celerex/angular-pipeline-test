@@ -5,10 +5,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { ResumeService } from './resume.service';
 
 @Component({
-  selector: 'agt-resume',
-  templateUrl: './resume.page.html',
-  styles: [
-  ]
+    selector: 'agt-resume',
+    templateUrl: './resume.page.html',
+    styles: [],
+    standalone: false
 })
 export class ResumePage implements OnInit {
     ROUTES_NAME: any = ROUTES_NAME;

@@ -13,6 +13,7 @@ declare var ModalPlugin: any;
     templateUrl: './container-workspace-users.component.html',
     styles: [],
     providers: [ContainerWorkspaceUsersService],
+    standalone: false
 })
 export class ContainerWorkspaceUsersComponent implements OnInit {
     modalIdChangeRole: string = 'modal-change-role';

@@ -8,11 +8,11 @@ import { ChartLeadAcquisitionChannelsService } from './chart-lead-acquisition-ch
 declare var StatsLeadsPlugin: any;
 
 @Component({
-  selector: 'agt-chart-lead-acquisition-channels',
-  templateUrl: './chart-lead-acquisition-channels.component.html',
-  styles: [
-  ],
-  providers: [ChartLeadAcquisitionChannelsService]
+    selector: 'agt-chart-lead-acquisition-channels',
+    templateUrl: './chart-lead-acquisition-channels.component.html',
+    styles: [],
+    providers: [ChartLeadAcquisitionChannelsService],
+    standalone: false
 })
 export class ChartLeadAcquisitionChannelsComponent implements OnChanges {
     @Input() range: ComparisonRangeData | null = null;

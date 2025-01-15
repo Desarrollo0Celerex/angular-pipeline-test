@@ -4,10 +4,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 import { Client } from '@interfaces/client.interface';
 
 @Component({
-  selector: 'agt-card-client',
-  templateUrl: './card-client.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-client',
+    templateUrl: './card-client.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardClientComponent {
     @Input() client: Client | null;

@@ -16,7 +16,7 @@ import { PaymentType } from '@payment-type/interfaces/payment-type.interface';
 import { PaymentTypeService } from '@payment-type/services/payment-type.service';
 import { Payment } from '@payment/interfaces/payment.interface';
 import { PaymentService } from '@payment/services/payment.service';
-import * as moment from 'moment';
+import moment from 'moment';
 
 declare var DatePickerPlugin: any;
 declare var ModalPlugin: any;

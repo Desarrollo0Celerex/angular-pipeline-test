@@ -14,6 +14,7 @@ declare var ModalPlugin: any;
     selector: 'agt-modal-confirm-delete-sinister-event',
     templateUrl: './modal-confirm-delete-sinister-event.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalConfirmDeleteSinisterEventComponent implements OnInit {
     @Input() modalId: string = '';

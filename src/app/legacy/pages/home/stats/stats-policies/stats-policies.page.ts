@@ -10,6 +10,7 @@ import { StatsPeriodData } from '@interfaces/stats-period-data.interface';
     selector: 'agt-stats-policies',
     templateUrl: './stats-policies.page.html',
     styles: [],
+    standalone: false
 })
 export class StatsPoliciesPage {
     range: ComparisonRangeData | null = null;

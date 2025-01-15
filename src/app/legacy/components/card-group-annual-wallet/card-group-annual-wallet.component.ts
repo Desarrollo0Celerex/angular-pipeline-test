@@ -9,6 +9,7 @@ import { CardGroupAnnualWalletService } from './card-group-annual-wallet.service
     templateUrl: './card-group-annual-wallet.component.html',
     styles: [],
     providers: [CardGroupAnnualWalletService],
+    standalone: false
 })
 export class CardGroupAnnualWalletComponent implements OnChanges {
     @Input() groupId: string = '';

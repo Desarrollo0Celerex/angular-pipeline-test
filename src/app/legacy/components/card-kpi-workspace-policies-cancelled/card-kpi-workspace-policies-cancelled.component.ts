@@ -6,10 +6,10 @@ import { RangeData } from '@interfaces/range-data.interface';
 import { CardKpiWorkspacePoliciesCancelledService } from './card-kpi-workspace-policies-cancelled.service';
 
 @Component({
-  selector: 'agt-card-kpi-workspace-policies-cancelled',
-  templateUrl: './card-kpi-workspace-policies-cancelled.component.html',
-  styles: [
-  ]
+    selector: 'agt-card-kpi-workspace-policies-cancelled',
+    templateUrl: './card-kpi-workspace-policies-cancelled.component.html',
+    styles: [],
+    standalone: false
 })
 export class CardKpiWorkspacePoliciesCancelledComponent implements OnChanges {
     @Input() rangeData: RangeData | null = null;

@@ -4,6 +4,7 @@ declare var ModalPlugin: any;
     selector: 'agt-payments',
     templateUrl: './payments.page.html',
     styles: [],
+    standalone: false
 })
 export class PaymentsPage {
     modalIdSelectContactAction: string = 'agt-modal-select-contact-action';

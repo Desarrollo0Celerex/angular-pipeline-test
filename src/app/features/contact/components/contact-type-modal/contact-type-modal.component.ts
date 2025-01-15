@@ -8,6 +8,7 @@ declare var ModalPlugin: any;
     selector: 'agt-contact-type-modal',
     templateUrl: './contact-type-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class ContactTypeModalComponent {
     @ViewChild(CreateContactModalComponent)

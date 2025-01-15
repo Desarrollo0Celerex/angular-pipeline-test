@@ -6,10 +6,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-select-contact',
-  templateUrl: './modal-select-contact.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-select-contact',
+    templateUrl: './modal-select-contact.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalSelectContactComponent {
     @Input() modalId: string;

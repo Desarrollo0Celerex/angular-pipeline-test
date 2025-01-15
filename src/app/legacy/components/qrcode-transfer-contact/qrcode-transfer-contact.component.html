@@ -1,3 +1,3 @@
 <ng-container *ngIf="!!qrcodeTransferContactService.contactUrl">
-    <ngx-qrcode [elementType]="qrcodeTransferContactService.elementType" [errorCorrectionLevel]="qrcodeTransferContactService.correctionLevel" [value]="qrcodeTransferContactService.contactUrl"></ngx-qrcode>
+    <agt-qrcode [link]="qrcodeTransferContactService.contactUrl" />
 </ng-container>

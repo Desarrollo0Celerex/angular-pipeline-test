@@ -15,6 +15,7 @@ import { SmartComponent } from '@core/classes/smart-component';
     selector: 'agt-send-payment-confirmation-modal',
     templateUrl: './send-payment-confirmation-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class SendPaymentConfirmationModalComponent
     extends SmartComponent

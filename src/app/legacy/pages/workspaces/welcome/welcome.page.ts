@@ -11,6 +11,7 @@ declare var ModalPlugin: any;
     selector: 'agt-welcome',
     templateUrl: './welcome.page.html',
     styles: [],
+    standalone: false
 })
 export class WelcomePage implements OnInit {
     ROUTES_NAME: any;

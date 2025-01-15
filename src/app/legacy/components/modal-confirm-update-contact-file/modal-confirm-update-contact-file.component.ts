@@ -7,10 +7,10 @@ import { ContactFileDataSend } from '@interfaces/contact-file-data-send.interfac
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-modal-confirm-update-contact-file',
-  templateUrl: './modal-confirm-update-contact-file.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-update-contact-file',
+    templateUrl: './modal-confirm-update-contact-file.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmUpdateContactFileComponent implements OnInit {
     @Input() modalId: string = '';

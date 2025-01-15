@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'agt-not-found',
-  templateUrl: './not-found.page.html',
-  styles: [
-  ]
+    selector: 'agt-not-found',
+    templateUrl: './not-found.page.html',
+    styles: [],
+    standalone: false
 })
 export class NotFoundPage implements OnInit {
 

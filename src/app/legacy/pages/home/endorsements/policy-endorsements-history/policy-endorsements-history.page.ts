@@ -4,10 +4,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { CONTENT_TYPES, DEFAULT_CONTENT_FILTER_ID } from '@constants/global';
 
 @Component({
-  selector: 'agt-policy-endorsements-history',
-  templateUrl: './policy-endorsements-history.page.html',
-  styles: [
-  ]
+    selector: 'agt-policy-endorsements-history',
+    templateUrl: './policy-endorsements-history.page.html',
+    styles: [],
+    standalone: false
 })
 export class PolicyEndorsementsHistoryPage implements OnInit, OnDestroy {
     contactId: string = '';

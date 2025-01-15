@@ -13,6 +13,7 @@ declare var ModalPlugin: any;
     templateUrl: './modal-create-group.component.html',
     styles: [],
     providers: [ModalCreateGroupService],
+    standalone: false
 })
 export class ModalCreateGroupComponent implements OnInit {
     @Input() modalId: string = '';

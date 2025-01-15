@@ -9,6 +9,7 @@ import { ContainerPartnerDetailsService } from './container-partner-details.serv
     templateUrl: './container-partner-details.component.html',
     styles: [],
     providers: [ContainerPartnerDetailsService],
+    standalone: false
 })
 export class ContainerPartnerDetailsComponent {
     @Input() partnerId: string = '';

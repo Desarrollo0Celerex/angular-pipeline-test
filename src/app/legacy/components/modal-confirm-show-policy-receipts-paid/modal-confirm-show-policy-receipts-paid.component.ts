@@ -5,10 +5,10 @@ import { ROUTES_NAME } from '@constants/routes-name';
 
 declare var ModalPlugin: any;
 @Component({
-  selector: 'agt-modal-confirm-show-policy-receipts-paid',
-  templateUrl: './modal-confirm-show-policy-receipts-paid.component.html',
-  styles: [
-  ]
+    selector: 'agt-modal-confirm-show-policy-receipts-paid',
+    templateUrl: './modal-confirm-show-policy-receipts-paid.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalConfirmShowPolicyReceiptsPaidComponent {
     @Input() modalId: string = '';

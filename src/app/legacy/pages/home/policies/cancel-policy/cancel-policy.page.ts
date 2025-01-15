@@ -23,6 +23,7 @@ declare var Select2Plugin: any;
     selector: 'agt-cancel-policy',
     templateUrl: './cancel-policy.page.html',
     styles: [],
+    standalone: false
 })
 export class CancelPolicyPage implements OnInit {
     contactId: string;

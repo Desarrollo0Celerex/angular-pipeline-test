@@ -7,10 +7,10 @@ import { WelcomeService } from './welcome.service';
 declare var ModalPlugin: any;
 
 @Component({
-  selector: 'agt-welcome',
-  templateUrl: './welcome.page.html',
-  styles: [
-  ]
+    selector: 'agt-welcome',
+    templateUrl: './welcome.page.html',
+    styles: [],
+    standalone: false
 })
 export class WelcomePage implements OnInit {
     ROUTES_NAME: any = ROUTES_NAME;

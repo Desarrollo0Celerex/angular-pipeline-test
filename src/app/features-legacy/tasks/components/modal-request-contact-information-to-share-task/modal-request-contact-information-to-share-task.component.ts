@@ -22,9 +22,9 @@ import { InputValidatorHelper } from '@helpers/input-validator.helper';
 
 @Component({
     selector: 'agt-modal-request-contact-information-to-share-task',
-    templateUrl:
-        './modal-request-contact-information-to-share-task.component.html',
+    templateUrl: './modal-request-contact-information-to-share-task.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalRequestContactInformationToShareTaskComponent
     extends SmartComponent

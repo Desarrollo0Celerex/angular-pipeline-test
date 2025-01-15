@@ -15,7 +15,7 @@ import { UpdatePolicyStatusDataSend } from '@interfaces/update-policy-status-dat
 import { Stat } from '@interfaces/stat.interface';
 import { AuthService } from '@features-legacy/auth/services/auth.service';
 
-import * as moment from 'moment';
+import moment from 'moment';
 
 const routes: any = {
     allPolicies: () => environment.agenthos.apiUrl + '/policies/all',

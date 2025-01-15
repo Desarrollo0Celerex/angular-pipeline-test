@@ -5,11 +5,11 @@ import { ChartGroupGlobalBalanceService } from './chart-group-global-balance.ser
 declare var ChartPlugin: any;
 
 @Component({
-  selector: 'agt-chart-group-global-balance',
-  templateUrl: './chart-group-global-balance.component.html',
-  styles: [
-  ],
-  providers: [ChartGroupGlobalBalanceService]
+    selector: 'agt-chart-group-global-balance',
+    templateUrl: './chart-group-global-balance.component.html',
+    styles: [],
+    providers: [ChartGroupGlobalBalanceService],
+    standalone: false
 })
 export class ChartGroupGlobalBalanceComponent implements OnChanges {
     @Input() groupId: string = '';

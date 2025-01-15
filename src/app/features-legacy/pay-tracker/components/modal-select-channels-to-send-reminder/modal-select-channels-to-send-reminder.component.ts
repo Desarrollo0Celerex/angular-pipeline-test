@@ -11,13 +11,14 @@ import { PaymentService } from '@core/services/payment/payment.service';
 import { Reminder } from '@features-legacy/pay-tracker/interfaces/reminder.interface';
 import { RequestReminderData } from '@features-legacy/pay-tracker/interfaces/request-reminder-data.interface';
 import { PaymentReminderService } from '@features-legacy/pay-tracker/services/payment-reminder/payment-reminder.service';
-import * as moment from 'moment';
+import moment from 'moment';
 declare var ModalPlugin: any;
 
 @Component({
     selector: 'agt-modal-select-channels-to-send-reminder',
     templateUrl: './modal-select-channels-to-send-reminder.component.html',
     styles: [],
+    standalone: false
 })
 export class ModalSelectChannelsToSendReminderComponent extends SmartComponent {
     @Input() modalId: string = '';

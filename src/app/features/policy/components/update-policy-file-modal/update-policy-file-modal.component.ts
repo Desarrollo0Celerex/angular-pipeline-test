@@ -20,6 +20,7 @@ declare var ModalPlugin: any;
     selector: 'agt-update-policy-file-modal',
     templateUrl: './update-policy-file-modal.component.html',
     styles: [],
+    standalone: false
 })
 export class UpdatePolicyFileModalComponent {
     @ViewChild(LargeFileUploaderComponent)
